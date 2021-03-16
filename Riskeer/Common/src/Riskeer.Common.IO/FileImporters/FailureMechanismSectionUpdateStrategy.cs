@@ -30,35 +30,23 @@ namespace Riskeer.Common.IO.FileImporters
     /// An <see cref="IFailureMechanismSectionUpdateStrategy"/> that can be used to update failure mechanism sections with
     /// imported failure mechanism sections.
     /// </summary>
-    /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResult"/> that will be updated.</typeparam>
-    public class FailureMechanismSectionUpdateStrategy<T> : IFailureMechanismSectionUpdateStrategy
-        where T : FailureMechanismSectionResult
+    public class FailureMechanismSectionUpdateStrategy : IFailureMechanismSectionUpdateStrategy
     {
         private readonly IFailureMechanism failureMechanism;
-        private readonly IFailureMechanismSectionResultUpdateStrategy<T> sectionResultUpdateStrategy;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionUpdateStrategy{T}"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionUpdateStrategy"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to update the sections for.</param>
-        /// <param name="sectionResultUpdateStrategy">The <see cref="IFailureMechanismSectionResultUpdateStrategy{T}"/> to use when updating
-        /// the section results.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismSectionUpdateStrategy(IFailureMechanism failureMechanism,
-                                                     IFailureMechanismSectionResultUpdateStrategy<T> sectionResultUpdateStrategy)
+        public FailureMechanismSectionUpdateStrategy(IFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (sectionResultUpdateStrategy == null)
-            {
-                throw new ArgumentNullException(nameof(sectionResultUpdateStrategy));
-            }
-
             this.failureMechanism = failureMechanism;
-            this.sectionResultUpdateStrategy = sectionResultUpdateStrategy;
         }
 
         public void UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections,

@@ -68,8 +68,7 @@ namespace Riskeer.Piping.Plugin.UpdateInfos
                     context.WrappedData,
                     context.AssessmentSection.ReferenceLine,
                     filePath,
-                    new PipingFailureMechanismSectionUpdateStrategy((PipingFailureMechanism) context.WrappedData,
-                                                                    new PipingFailureMechanismSectionResultUpdateStrategy()),
+                    new PipingFailureMechanismSectionUpdateStrategy((PipingFailureMechanism) context.WrappedData),
                     new UpdateMessageProvider()),
                 VerifyUpdates = context =>
                 {
