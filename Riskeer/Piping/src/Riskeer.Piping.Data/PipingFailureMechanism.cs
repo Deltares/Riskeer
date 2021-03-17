@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Piping.Data.SoilProfile;
@@ -34,8 +33,6 @@ namespace Riskeer.Piping.Data
     /// </summary>
     public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism
     {
-        private readonly ObservableList<PipingFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
         /// </summary>
@@ -50,8 +47,6 @@ namespace Riskeer.Piping.Data
             {
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
-
-            sectionResults = new ObservableList<PipingFailureMechanismSectionResult>();
         }
 
         /// <summary>
@@ -83,12 +78,6 @@ namespace Riskeer.Piping.Data
             {
                 return CalculationsGroup.GetCalculations();
             }
-        }
-
-        protected override void AddSectionResult(FailureMechanismSection section)
-        {
-            base.AddSectionResult(section);
-            sectionResults.Add(new PipingFailureMechanismSectionResult(section));
         }
     }
 }

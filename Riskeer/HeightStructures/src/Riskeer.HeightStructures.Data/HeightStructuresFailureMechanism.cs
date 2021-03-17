@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -38,15 +37,12 @@ namespace Riskeer.HeightStructures.Data
     public class HeightStructuresFailureMechanism : FailureMechanismBase,
                                                     ICalculatableFailureMechanism
     {
-        private readonly ObservableList<HeightStructuresFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
         /// </summary>
         public HeightStructuresFailureMechanism()
             : base(Resources.HeightStructuresFailureMechanism_DisplayName, Resources.HeightStructuresFailureMechanism_Code, 1)
         {
-            sectionResults = new ObservableList<HeightStructuresFailureMechanismSectionResult>();
             CalculationsGroup = new CalculationGroup
             {
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
@@ -82,12 +78,6 @@ namespace Riskeer.HeightStructures.Data
             {
                 return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
             }
-        }
-
-        protected override void AddSectionResult(FailureMechanismSection section)
-        {
-            base.AddSectionResult(section);
-            sectionResults.Add(new HeightStructuresFailureMechanismSectionResult(section));
         }
     }
 }

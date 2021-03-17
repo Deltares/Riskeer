@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -39,8 +38,6 @@ namespace Riskeer.StabilityPointStructures.Data
     public class StabilityPointStructuresFailureMechanism : FailureMechanismBase,
                                                             ICalculatableFailureMechanism
     {
-        private readonly ObservableList<StabilityPointStructuresFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityPointStructuresFailureMechanism"/> class.
         /// </summary>
@@ -53,7 +50,6 @@ namespace Riskeer.StabilityPointStructures.Data
             };
             GeneralInput = new GeneralStabilityPointStructuresInput();
             StabilityPointStructures = new StructureCollection<StabilityPointStructure>();
-            sectionResults = new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
@@ -80,12 +76,6 @@ namespace Riskeer.StabilityPointStructures.Data
             {
                 return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<StabilityPointStructuresInput>>();
             }
-        }
-
-        protected override void AddSectionResult(FailureMechanismSection section)
-        {
-            base.AddSectionResult(section);
-            sectionResults.Add(new StabilityPointStructuresFailureMechanismSectionResult(section));
         }
     }
 }

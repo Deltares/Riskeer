@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.MacroStabilityInwards.Data.Properties;
@@ -35,8 +34,6 @@ namespace Riskeer.MacroStabilityInwards.Data
     public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase,
                                                          ICalculatableFailureMechanism
     {
-        private readonly ObservableList<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsFailureMechanism"/> class.
         /// </summary>
@@ -51,8 +48,6 @@ namespace Riskeer.MacroStabilityInwards.Data
             {
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
-
-            sectionResults = new ObservableList<MacroStabilityInwardsFailureMechanismSectionResult>();
         }
 
         /// <summary>
@@ -84,12 +79,6 @@ namespace Riskeer.MacroStabilityInwards.Data
             {
                 return CalculationsGroup.GetCalculations();
             }
-        }
-
-        protected override void AddSectionResult(FailureMechanismSection section)
-        {
-            base.AddSectionResult(section);
-            sectionResults.Add(new MacroStabilityInwardsFailureMechanismSectionResult(section));
         }
     }
 }

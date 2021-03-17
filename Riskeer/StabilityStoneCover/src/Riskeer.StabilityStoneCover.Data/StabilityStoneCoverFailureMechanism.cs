@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -36,15 +35,12 @@ namespace Riskeer.StabilityStoneCover.Data
     /// </summary>
     public class StabilityStoneCoverFailureMechanism : FailureMechanismBase
     {
-        private readonly ObservableList<StabilityStoneCoverFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityStoneCoverFailureMechanism"/> class.
         /// </summary>
         public StabilityStoneCoverFailureMechanism()
             : base(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code, 3)
         {
-            sectionResults = new ObservableList<StabilityStoneCoverFailureMechanismSectionResult>();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
@@ -74,12 +70,6 @@ namespace Riskeer.StabilityStoneCover.Data
             {
                 return WaveConditionsCalculationGroup.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>();
             }
-        }
-
-        protected override void AddSectionResult(FailureMechanismSection section)
-        {
-            base.AddSectionResult(section);
-            sectionResults.Add(new StabilityStoneCoverFailureMechanismSectionResult(section));
         }
     }
 }

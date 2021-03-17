@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -37,15 +36,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
     /// </summary>
     public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase
     {
-        private readonly ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WaveImpactAsphaltCoverFailureMechanism"/> class.
         /// </summary>
         public WaveImpactAsphaltCoverFailureMechanism()
             : base(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code, 3)
         {
-            sectionResults = new ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResult>();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
@@ -81,12 +77,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
             {
                 return WaveConditionsCalculationGroup.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
             }
-        }
-
-        protected override void AddSectionResult(FailureMechanismSection section)
-        {
-            base.AddSectionResult(section);
-            sectionResults.Add(new WaveImpactAsphaltCoverFailureMechanismSectionResult(section));
         }
     }
 }
