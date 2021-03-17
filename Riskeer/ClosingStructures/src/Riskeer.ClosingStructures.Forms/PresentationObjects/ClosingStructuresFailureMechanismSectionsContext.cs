@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Data;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -27,7 +28,7 @@ using Riskeer.Common.Forms.PresentationObjects;
 namespace Riskeer.ClosingStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for <see cref="ClosingStructuresFailureMechanism.Sections"/>.
+    /// This class is a presentation object for <see cref="Riskeer.Piping.Data.PipingFailureMechanism.Sections"/>.
     /// </summary>
     public class ClosingStructuresFailureMechanismSectionsContext : FailureMechanismSectionsContext
     {

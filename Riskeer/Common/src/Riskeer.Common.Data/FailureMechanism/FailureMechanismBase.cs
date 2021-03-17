@@ -37,7 +37,6 @@ namespace Riskeer.Common.Data.FailureMechanism
     public abstract class FailureMechanismBase : Observable, IFailureMechanism
     {
         private static readonly Range<double> contributionValidityRange = new Range<double>(0, 100);
-        private readonly FailureMechanismSectionCollection sectionCollection;
         private double contribution;
 
         /// <summary>
@@ -59,7 +58,6 @@ namespace Riskeer.Common.Data.FailureMechanism
             Name = name;
             Code = failureMechanismCode;
             Group = group;
-            sectionCollection = new FailureMechanismSectionCollection();
             IsRelevant = true;
             InputComments = new Comment();
             NotRelevantComments = new Comment();
@@ -92,43 +90,12 @@ namespace Riskeer.Common.Data.FailureMechanism
 
         public abstract IEnumerable<ICalculation> Calculations { get; }
 
-        public IEnumerable<FailureMechanismSection> Sections
-        {
-            get
-            {
-                return sectionCollection;
-            }
-        }
-
-        public string FailureMechanismSectionSourcePath
-        {
-            get
-            {
-                return sectionCollection.SourcePath;
-            }
-        }
-
         public Comment InputComments { get; }
 
         public Comment NotRelevantComments { get; }
 
         public bool IsRelevant { get; set; }
 
-        public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
-        {
-            if (sections == null)
-            {
-                throw new ArgumentNullException(nameof(sections));
-            }
-
-            if (sourcePath == null)
-            {
-                throw new ArgumentNullException(nameof(sourcePath));
-            }
-
-            sectionCollection.SetSections(sections, sourcePath);
-        }
-        
         private static void ValidateParameters(string failureMechanismName, string failureMechanismCode)
         {
             const string parameterIsRequired = "Parameter is required.";

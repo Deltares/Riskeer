@@ -27,7 +27,7 @@ using Riskeer.MacroStabilityInwards.Data;
 namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for <see cref="MacroStabilityInwardsFailureMechanism.Sections"/>.
+    /// This class is a presentation object for <see cref="Riskeer.Piping.Data.PipingFailureMechanism.Sections"/>.
     /// </summary>
     public class MacroStabilityInwardsFailureMechanismSectionsContext : FailureMechanismSectionsContext
     {

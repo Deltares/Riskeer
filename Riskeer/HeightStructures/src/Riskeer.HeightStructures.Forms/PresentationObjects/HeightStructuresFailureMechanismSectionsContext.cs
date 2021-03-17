@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Data;
@@ -27,7 +28,7 @@ using Riskeer.HeightStructures.Data;
 namespace Riskeer.HeightStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for <see cref="HeightStructuresFailureMechanism.Sections"/>.
+    /// This class is a presentation object for <see cref="Riskeer.Piping.Data.PipingFailureMechanism.Sections"/>.
     /// </summary>
     public class HeightStructuresFailureMechanismSectionsContext : FailureMechanismSectionsContext
     {

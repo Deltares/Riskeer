@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Data;
@@ -27,7 +28,7 @@ using Riskeer.DuneErosion.Data;
 namespace Riskeer.DuneErosion.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for <see cref="DuneErosionFailureMechanism.Sections"/>.
+    /// This class is a presentation object for <see cref="Riskeer.Piping.Data.PipingFailureMechanism.Sections"/>.
     /// </summary>
     public class DuneErosionFailureMechanismSectionsContext : FailureMechanismSectionsContext
     {

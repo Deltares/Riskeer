@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Data;
@@ -27,7 +28,7 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for <see cref="WaveImpactAsphaltCoverFailureMechanism.Sections"/>.
+    /// This class is a presentation object for <see cref="Riskeer.Piping.Data.PipingFailureMechanism.Sections"/>.
     /// </summary>
     public class WaveImpactAsphaltCoverFailureMechanismSectionsContext : FailureMechanismSectionsContext
     {

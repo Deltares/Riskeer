@@ -27,7 +27,7 @@ using Riskeer.StabilityPointStructures.Data;
 namespace Riskeer.StabilityPointStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for <see cref="StabilityPointStructuresFailureMechanism.Sections"/>.
+    /// This class is a presentation object for <see cref="Riskeer.Piping.Data.PipingFailureMechanism.Sections"/>.
     /// </summary>
     public class StabilityPointStructuresFailureMechanismSectionsContext : FailureMechanismSectionsContext
     {

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -34,6 +35,8 @@ namespace Riskeer.MacroStabilityInwards.Data
     public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase,
                                                          ICalculatableFailureMechanism
     {
+        private FailureMechanismSectionCollection sectionCollection;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsFailureMechanism"/> class.
         /// </summary>
@@ -48,6 +51,7 @@ namespace Riskeer.MacroStabilityInwards.Data
             {
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
+            sectionCollection = new FailureMechanismSectionCollection();
         }
 
         /// <summary>
@@ -79,6 +83,37 @@ namespace Riskeer.MacroStabilityInwards.Data
             {
                 return CalculationsGroup.GetCalculations();
             }
+        }
+
+        public IEnumerable<FailureMechanismSection> Sections
+        {
+            get
+            {
+                return sectionCollection;
+            }
+        }
+
+        public string FailureMechanismSectionSourcePath
+        {
+            get
+            {
+                return sectionCollection.SourcePath;
+            }
+        }
+
+        public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
+        {
+            if (sections == null)
+            {
+                throw new ArgumentNullException(nameof(sections));
+            }
+
+            if (sourcePath == null)
+            {
+                throw new ArgumentNullException(nameof(sourcePath));
+            }
+
+            sectionCollection.SetSections(sections, sourcePath);
         }
     }
 }
