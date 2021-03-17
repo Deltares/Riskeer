@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Riskeer.ClosingStructures.Data.Properties;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
@@ -39,8 +38,6 @@ namespace Riskeer.ClosingStructures.Data
     public class ClosingStructuresFailureMechanism : FailureMechanismBase,
                                                      ICalculatableFailureMechanism
     {
-        private readonly ObservableList<ClosingStructuresFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ClosingStructuresFailureMechanism"/> class.
         /// </summary>
@@ -53,7 +50,6 @@ namespace Riskeer.ClosingStructures.Data
             };
             GeneralInput = new GeneralClosingStructuresInput();
             ClosingStructures = new StructureCollection<ClosingStructure>();
-            sectionResults = new ObservableList<ClosingStructuresFailureMechanismSectionResult>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
@@ -80,12 +76,6 @@ namespace Riskeer.ClosingStructures.Data
             {
                 return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
             }
-        }
-        
-        protected override void AddSectionResult(FailureMechanismSection section)
-        {
-            base.AddSectionResult(section);
-            sectionResults.Add(new ClosingStructuresFailureMechanismSectionResult(section));
         }
     }
 }
