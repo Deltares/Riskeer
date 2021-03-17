@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.Factories;
@@ -42,12 +40,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         private MapDataCollection mapDataCollection;
         private MapLineData referenceLineMapData;
         private MapPointData duneLocationsMapData;
-
-        private MapLineData sectionsMapData;
-        private MapPointData sectionsStartPointMapData;
-        private MapPointData sectionsEndPointMapData;
-
-        private Observer failureMechanismObserver;
+        
         private Observer assessmentSectionObserver;
         private Observer referenceLineObserver;
         private Observer duneLocationsObserver;
@@ -112,7 +105,6 @@ namespace Riskeer.DuneErosion.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
             referenceLineObserver.Dispose();
             duneLocationsObserver.Dispose();
@@ -133,10 +125,6 @@ namespace Riskeer.DuneErosion.Forms.Views
 
         private void CreateObservers()
         {
-            failureMechanismObserver = new Observer(UpdateFailureMechanismMapData)
-            {
-                Observable = FailureMechanism
-            };
             assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
             {
                 Observable = AssessmentSection
@@ -163,25 +151,13 @@ namespace Riskeer.DuneErosion.Forms.Views
             referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
             duneLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
 
-            MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
-            sectionsMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
-            sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
-            sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
-
             mapDataCollection.Add(referenceLineMapData);
-
-            sectionsMapDataCollection.Add(sectionsMapData);
-            sectionsMapDataCollection.Add(sectionsStartPointMapData);
-            sectionsMapDataCollection.Add(sectionsEndPointMapData);
-            mapDataCollection.Add(sectionsMapDataCollection);
-
             mapDataCollection.Add(duneLocationsMapData);
         }
 
         private void SetMapDataFeatures()
         {
             SetReferenceLineMapData();
-            SetFailureMechanismMapData();
             SetDuneLocationMapData();
         }
 
@@ -207,26 +183,6 @@ namespace Riskeer.DuneErosion.Forms.Views
             referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(AssessmentSection.ReferenceLine,
                                                                                                       AssessmentSection.Id,
                                                                                                       AssessmentSection.Name);
-        }
-
-        #endregion
-
-        #region FailureMechanism MapData
-
-        private void UpdateFailureMechanismMapData()
-        {
-            SetFailureMechanismMapData();
-            sectionsMapData.NotifyObservers();
-            sectionsStartPointMapData.NotifyObservers();
-            sectionsEndPointMapData.NotifyObservers();
-        }
-
-        private void SetFailureMechanismMapData()
-        {
-            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
-            sectionsMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
-            sectionsStartPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
-            sectionsEndPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
         }
 
         #endregion

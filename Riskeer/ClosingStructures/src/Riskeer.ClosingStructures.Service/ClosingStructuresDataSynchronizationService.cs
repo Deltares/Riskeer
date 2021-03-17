@@ -167,8 +167,7 @@ namespace Riskeer.ClosingStructures.Service
             }
 
             var changedObjects = new Collection<IObservable>();
-            object[] removedObjects = failureMechanism.Sections.OfType<object>()
-                                                      .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+            object[] removedObjects = failureMechanism.CalculationsGroup.GetAllChildrenRecursive().OfType<object>()
                                                       .Concat(failureMechanism.ForeshoreProfiles)
                                                       .Concat(failureMechanism.ClosingStructures)
                                                       .ToArray();

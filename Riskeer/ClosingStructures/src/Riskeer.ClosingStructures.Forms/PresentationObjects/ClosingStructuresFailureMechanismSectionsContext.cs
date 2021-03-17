@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Data;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;

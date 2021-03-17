@@ -127,8 +127,7 @@ namespace Riskeer.StabilityStoneCover.Service
             }
 
             var changedObjects = new List<IObservable>();
-            object[] removedObjects = failureMechanism.Sections.OfType<object>()
-                                                      .Concat(failureMechanism.WaveConditionsCalculationGroup.GetAllChildrenRecursive())
+            object[] removedObjects = failureMechanism.WaveConditionsCalculationGroup.GetAllChildrenRecursive().OfType<object>()
                                                       .Concat(failureMechanism.ForeshoreProfiles)
                                                       .ToArray();
 
