@@ -27,16 +27,13 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Forms.Observers
 {
     /// <summary>
-    /// Class that observes all objects in an <typeparamref name="TFailureMechanism"/>
-    /// related to its section results.
+    /// Class that observes all objects in an <typeparamref name="TFailureMechanism"/>.
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism to listen to.</typeparam>
-    /// <typeparam name="TSectionResult">The type of the failure mechanism section results in the <typeparamref name="TFailureMechanism"/>.</typeparam>
     /// <typeparam name="TCalculation">The type of the calculations in the <typeparamref name="TFailureMechanism"/>.</typeparam>
-    public class CalculatableFailureMechanismResultObserver<TFailureMechanism, TSectionResult, TCalculation>
-        : FailureMechanismResultObserver<TFailureMechanism, TSectionResult>
+    public class CalculatableFailureMechanismResultObserver<TFailureMechanism, TCalculation>
+        : FailureMechanismResultObserver<TFailureMechanism>
         where TFailureMechanism : IFailureMechanism, ICalculatableFailureMechanism
-        where TSectionResult : FailureMechanismSectionResult
         where TCalculation : ICalculation<ICalculationInput>
     {
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationObserver;
@@ -44,7 +41,7 @@ namespace Riskeer.Common.Forms.Observers
 
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="CalculatableFailureMechanismResultObserver{TFailureMechanism,TSectionResult,TCalculation}"/>.
+        /// Creates a new instance of <see cref="CalculatableFailureMechanismResultObserver{TFailureMechanism,TCalculation}"/>.
         /// </summary>
         public CalculatableFailureMechanismResultObserver(TFailureMechanism failureMechanism)
             : base(failureMechanism)

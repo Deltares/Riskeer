@@ -164,8 +164,7 @@ namespace Riskeer.Integration.Forms.Observers
         {
             return new Observer(NotifyObservers)
             {
-                Observable = new CalculatableFailureMechanismResultObserver<TFailureMechanism,
-                    TSectionResult, TCalculation>(failureMechanism)
+                Observable = new CalculatableFailureMechanismResultObserver<TFailureMechanism, TCalculation>(failureMechanism)
             };
         }
 
@@ -175,8 +174,7 @@ namespace Riskeer.Integration.Forms.Observers
         {
             return new Observer(NotifyObservers)
             {
-                Observable = new FailureMechanismResultObserver<TFailureMechanism,
-                    TSectionResult>(failureMechanism)
+                Observable = new FailureMechanismResultObserver<TFailureMechanism>(failureMechanism)
             };
         }
     }

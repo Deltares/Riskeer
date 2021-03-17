@@ -26,19 +26,16 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Forms.Observers
 {
     /// <summary>
-    /// Class that observes all objects in an <typeparamref name="TFailureMechanism"/> related to
-    /// its section results.
+    /// Class that observes all objects in an <typeparamref name="TFailureMechanism"/>.
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism to observe.</typeparam>
-    /// <typeparam name="TSectionResult">The type of the section results in the failure mechanism.</typeparam>
-    public class FailureMechanismResultObserver<TFailureMechanism, TSectionResult> : Observable, IDisposable
+    public class FailureMechanismResultObserver<TFailureMechanism> : Observable, IDisposable
         where TFailureMechanism : IFailureMechanism
-        where TSectionResult : FailureMechanismSectionResult
     {
         private readonly Observer failureMechanismObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismResultObserver{TFailureMechanism,TSectionResult}"/>.
+        /// Creates a new instance of <see cref="FailureMechanismResultObserver{TFailureMechanism}"/>.
         /// </summary>
         /// <param name="failureMechanism">The <typeparamref name="TFailureMechanism"/> to observe.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
