@@ -127,14 +127,7 @@ namespace Riskeer.Common.Data.FailureMechanism
             }
 
             sectionCollection.SetSections(sections, sourcePath);
-
-            foreach (FailureMechanismSection failureMechanismSection in Sections)
-            {
-                AddSectionResult(failureMechanismSection);
-            }
         }
-        
-        protected virtual void AddSectionResult(FailureMechanismSection section) {}
         
         private static void ValidateParameters(string failureMechanismName, string failureMechanismCode)
         {
