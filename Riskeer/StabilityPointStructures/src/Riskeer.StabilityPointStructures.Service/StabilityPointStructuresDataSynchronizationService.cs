@@ -166,8 +166,7 @@ namespace Riskeer.StabilityPointStructures.Service
             }
 
             var changedObjects = new List<IObservable>();
-            object[] removedObjects = failureMechanism.Sections.OfType<object>()
-                                                      .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
+            object[] removedObjects = failureMechanism.CalculationsGroup.GetAllChildrenRecursive().OfType<object>()
                                                       .Concat(failureMechanism.ForeshoreProfiles)
                                                       .Concat(failureMechanism.StabilityPointStructures)
                                                       .ToArray();
