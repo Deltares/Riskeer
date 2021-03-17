@@ -34,7 +34,6 @@ namespace Riskeer.DuneErosion.Data
     /// </summary>
     public class DuneErosionFailureMechanism : FailureMechanismBase
     {
-        private readonly ObservableList<DuneErosionFailureMechanismSectionResult> sectionResults;
         private readonly ObservableList<DuneLocationCalculation> calculationsForMechanismSpecificFactorizedSignalingNorm = new ObservableList<DuneLocationCalculation>();
         private readonly ObservableList<DuneLocationCalculation> calculationsForMechanismSpecificSignalingNorm = new ObservableList<DuneLocationCalculation>();
         private readonly ObservableList<DuneLocationCalculation> calculationsForMechanismSpecificLowerLimitNorm = new ObservableList<DuneLocationCalculation>();
@@ -48,8 +47,15 @@ namespace Riskeer.DuneErosion.Data
         public DuneErosionFailureMechanism()
             : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code, 3)
         {
-            sectionResults = new ObservableList<DuneErosionFailureMechanismSectionResult>();
             GeneralInput = new GeneralDuneErosionInput();
+        }
+
+        public override IEnumerable<ICalculation> Calculations
+        {
+            get
+            {
+                yield break;
+            }
         }
 
         /// <summary>
@@ -123,14 +129,6 @@ namespace Riskeer.DuneErosion.Data
             }
         }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                yield break;
-            }
-        }
-
         /// <summary>
         /// Sets dune locations and calculations for the failure mechanism.
         /// </summary>
@@ -150,13 +148,6 @@ namespace Riskeer.DuneErosion.Data
             {
                 AddCalculationsForDuneLocation(duneLocation);
             }
-        }
-
-        protected override void AddSectionResult(FailureMechanismSection section)
-        {
-            base.AddSectionResult(section);
-
-            sectionResults.Add(new DuneErosionFailureMechanismSectionResult(section));
         }
 
         private void ClearDuneLocationData()

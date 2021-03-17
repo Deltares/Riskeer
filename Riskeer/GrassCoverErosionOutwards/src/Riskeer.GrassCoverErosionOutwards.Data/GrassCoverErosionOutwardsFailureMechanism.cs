@@ -38,7 +38,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
     /// </summary>
     public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase
     {
-        private readonly ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults;
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
@@ -52,7 +51,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         public GrassCoverErosionOutwardsFailureMechanism()
             : base(Resources.GrassCoverErosionOutwardsFailureMechanism_DisplayName, Resources.GrassCoverErosionOutwardsFailureMechanism_Code, 3)
         {
-            sectionResults = new ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult>();
             GeneralInput = new GeneralGrassCoverErosionOutwardsInput();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
@@ -168,12 +166,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
             {
                 AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocation);
             }
-        }
-
-        protected override void AddSectionResult(FailureMechanismSection section)
-        {
-            base.AddSectionResult(section);
-            sectionResults.Add(new GrassCoverErosionOutwardsFailureMechanismSectionResult(section));
         }
 
         private void ClearHydraulicBoundaryLocationCalculations()

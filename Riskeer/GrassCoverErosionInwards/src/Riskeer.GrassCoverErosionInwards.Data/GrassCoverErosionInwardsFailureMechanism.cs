@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -36,8 +35,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data
     public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase,
                                                             ICalculatableFailureMechanism
     {
-        private readonly ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsFailureMechanism"/> class.
         /// </summary>
@@ -49,7 +46,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
             GeneralInput = new GeneralGrassCoverErosionInwardsInput();
-            sectionResults = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>();
             DikeProfiles = new DikeProfileCollection();
         }
 
@@ -71,13 +67,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             {
                 return CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
             }
-        }
-
-        protected override void AddSectionResult(FailureMechanismSection section)
-        {
-            base.AddSectionResult(section);
-
-            sectionResults.Add(new GrassCoverErosionInwardsFailureMechanismSectionResult(section));
         }
     }
 }
