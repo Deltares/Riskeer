@@ -231,16 +231,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 CreateInstance = context => new MacroStabilityInwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<MacroStabilityInwardsCalculationGroupContext, CalculationGroup, MacroStabilityInwardsCalculationsView>
-            {
-                GetViewData = context => context.WrappedData,
-                GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.GeneralFolderIcon,
-                AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
-                CreateInstance = context => new MacroStabilityInwardsCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
-                CloseForData = CloseCalculationsViewForData
-            };
-
             yield return new ViewInfo<MacroStabilityInwardsInputContext, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInputView>
             {
                 GetViewData = context => context.MacroStabilityInwardsCalculation,
@@ -384,26 +374,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             return assessmentSection != null
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
-        }
-
-        private static bool CloseCalculationsViewForData(MacroStabilityInwardsCalculationsView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as MacroStabilityInwardsFailureMechanism;
-
-            if (o is MacroStabilityInwardsFailureMechanismContext failureMechanismContext)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (assessmentSection != null)
-            {
-                failureMechanism = assessmentSection.GetFailureMechanisms()
-                                                    .OfType<MacroStabilityInwardsFailureMechanism>()
-                                                    .FirstOrDefault();
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
 
         private static bool CloseInputViewForData(MacroStabilityInwardsInputView view, object o)

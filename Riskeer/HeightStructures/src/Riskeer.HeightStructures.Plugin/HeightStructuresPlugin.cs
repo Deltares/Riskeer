@@ -162,16 +162,6 @@ namespace Riskeer.HeightStructures.Plugin
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new HeightStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
-
-            yield return new ViewInfo<HeightStructuresCalculationGroupContext, CalculationGroup, HeightStructuresCalculationsView>
-            {
-                CreateInstance = context => new HeightStructuresCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
-                GetViewData = context => context.WrappedData,
-                GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.GeneralFolderIcon,
-                AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
-                CloseForData = CloseCalculationsViewForData
-            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -241,25 +231,6 @@ namespace Riskeer.HeightStructures.Plugin
             return assessmentSection != null
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
-        }
-
-        private static bool CloseCalculationsViewForData(HeightStructuresCalculationsView view, object o)
-        {
-            var failureMechanism = o as HeightStructuresFailureMechanism;
-
-            if (o is HeightStructuresFailureMechanismContext failureMechanismContext)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (o is IAssessmentSection assessmentSection)
-            {
-                failureMechanism = assessmentSection.GetFailureMechanisms()
-                                                    .OfType<HeightStructuresFailureMechanism>()
-                                                    .FirstOrDefault();
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
 
         #endregion

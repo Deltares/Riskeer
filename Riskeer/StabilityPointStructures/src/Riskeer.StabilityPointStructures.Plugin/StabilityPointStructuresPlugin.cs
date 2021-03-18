@@ -99,16 +99,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new StabilityPointStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
-
-            yield return new ViewInfo<StabilityPointStructuresCalculationGroupContext, CalculationGroup, StabilityPointStructuresCalculationsView>
-            {
-                CreateInstance = context => new StabilityPointStructuresCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
-                GetViewData = context => context.WrappedData,
-                GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.GeneralFolderIcon,
-                AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
-                CloseForData = CloseCalculationsViewForData
-            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -240,25 +230,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
             return assessmentSection != null
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
-        }
-        
-        private static bool CloseCalculationsViewForData(StabilityPointStructuresCalculationsView view, object o)
-        {
-            var failureMechanism = o as StabilityPointStructuresFailureMechanism;
-
-            if (o is StabilityPointStructuresFailureMechanismContext failureMechanismContext)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (o is IAssessmentSection assessmentSection)
-            {
-                failureMechanism = assessmentSection.GetFailureMechanisms()
-                                                    .OfType<StabilityPointStructuresFailureMechanism>()
-                                                    .FirstOrDefault();
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
 
         #endregion
