@@ -256,7 +256,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         {
             return new object[]
             {
-                new WaveImpactAsphaltCoverFailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };
