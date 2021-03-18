@@ -815,15 +815,11 @@
 					</param>
 					<param
 					name="pathProjectA"
-					value="X:\script28\currentRelease\Project_samenvoegen_A.risk">
+					value="Project_samenvoegen_A.risk">
 					</param>
 					<param
 					name="pathProjectB"
-					value="X:\script28\currentRelease\Project_samenvoegen_B.risk">
-					</param>
-					<param
-					name="pathProjectAandB"
-					value="X:\script28\currentRelease\Project_samenvoegen_AandB.risk">
+					value="Project_samenvoegen_B.risk">
 					</param>
 					<param
 					name="pathProjectOld"
@@ -832,6 +828,10 @@
 					<param
 					name="indecesAddedFMs"
 					value="">
+					</param>
+					<param
+					name="filterRiskProjects"
+					value="*.risk">
 					</param>
 				</parameters>
 			</testcase>
@@ -1350,6 +1350,43 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="8e62aa47-25bd-4ecd-b1e3-a1deada73a54"
+			name="MigrateAllFilesInFolderUsingCommandLineTool"
+			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
+			type="UserCode">
+				<description>
+					<![CDATA[migrate *.risk from previousRelease to currentRelease folder]]>
+				</description>
+				<databinding>
+					<var
+					dataname="folderProjectPreviousRelease"
+					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="migrationSourceFolder"
+					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="8ee78eb4-3385-4698-ac08-7096d13151d9"
 			name="EvaluateIfSubstringIsPartOfString"
@@ -2184,44 +2221,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			enabled="False"
-			id="db4db05f-327a-4bbb-bbad-5256af6b24b6"
-			name="MigrateAllFilesInFolderUsingCommandLineTool"
-			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
-			type="UserCode">
-				<description>
-					<![CDATA[Cannot migrate from previous versions (results would be deleted) and cannot migrate from current version (not supported)]]>
-				</description>
-				<databinding>
-					<var
-					dataname="folderProjectPreviousRelease"
-					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
-					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
-					variablename="sourceFolder">
-					</var>
-					<var
-					dataname="folderProjectsCurrentRelease"
-					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
-					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
-					variablename="targetFolder">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="folderProjectPreviousRelease"
-					datasourceid="5c91fa07-4245-4a57-869a-3a440d68775a"
-					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
-					variablename="sourceFolder">
-					</var>
-					<var
-					dataname="folderProjectsCurrentRelease"
-					datasourceid="5c91fa07-4245-4a57-869a-3a440d68775a"
-					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
-					variablename="targetFolder">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			datasource="script28_2_2_ValidateCSVEqualToReference"
 			errorbehavior="ContinueNextIteration"
@@ -2245,6 +2244,43 @@
 					variablename="logMessage">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="e33ffca7-2440-4db9-9be2-d19887a32c6b"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<description>
+					<![CDATA[Delete all previous *.risk files in currentVersion]]>
+				</description>
+				<databinding>
+					<var
+					dataname="folderProjectsCurrentRelease"
+					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="filterRiskProjects"
+					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="migrationTargetFolder"
+					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="filterRiskeerProjects"
+					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="e37aba9d-3b71-4f24-84e6-9f8666bade9d"
@@ -2509,7 +2545,11 @@
 							name="CreateOutputFolder">
 							</testmodule>
 							<testmodule
-							id="db4db05f-327a-4bbb-bbad-5256af6b24b6"
+							id="e33ffca7-2440-4db9-9be2-d19887a32c6b"
+							name="DeleteAllSearchFilteredFiles">
+							</testmodule>
+							<testmodule
+							id="8e62aa47-25bd-4ecd-b1e3-a1deada73a54"
 							name="MigrateAllFilesInFolderUsingCommandLineTool">
 							</testmodule>
 						</setup>
