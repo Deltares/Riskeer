@@ -73,29 +73,5 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// the failure mechanism.
         /// </summary>
         IEnumerable<ICalculation> Calculations { get; }
-
-        /// <summary>
-        /// Gets the source path of the imported <see cref="Sections"/>.
-        /// </summary>
-        string FailureMechanismSectionSourcePath { get; }
-
-        /// <summary>
-        /// Gets the collection of sections that define areas for which a calculation could determine
-        /// a representative result.
-        /// </summary>
-        IEnumerable<FailureMechanismSection> Sections { get; }
-
-        /// <summary>
-        /// Sets a collection of <see cref="FailureMechanismSection"/> to <see cref="Sections"/>.
-        /// </summary>
-        /// <param name="sections">The sections to set.</param>
-        /// <param name="sourcePath">The path of the file the sections originate from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="sourcePath"/> is not a valid file path.</item>
-        /// <item><paramref name="sections"/> contains sections that are not properly chained.</item>
-        /// </list></exception>
-        void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath);
     }
 }
