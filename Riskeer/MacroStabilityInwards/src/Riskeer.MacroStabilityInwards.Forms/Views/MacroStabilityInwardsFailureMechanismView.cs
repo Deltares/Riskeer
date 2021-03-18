@@ -28,7 +28,6 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.Helpers;
@@ -52,11 +51,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private MapPointData hydraulicBoundaryLocationsMapData;
         private MapLineData calculationsMapData;
 
-        private MapLineData sectionsMapData;
-        private MapPointData sectionsStartPointMapData;
-        private MapPointData sectionsEndPointMapData;
-
-        private Observer failureMechanismObserver;
         private Observer hydraulicBoundaryLocationsObserver;
         private Observer assessmentSectionObserver;
         private Observer referenceLineObserver;
@@ -128,7 +122,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
             referenceLineObserver.Dispose();
             waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
@@ -164,19 +157,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             surfaceLinesMapData = RiskeerMapDataFactory.CreateSurfaceLinesMapData();
             calculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData();
 
-            MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
-            sectionsMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
-            sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
-            sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
-
             mapDataCollection.Add(referenceLineMapData);
             mapDataCollection.Add(stochasticSoilModelsMapData);
             mapDataCollection.Add(surfaceLinesMapData);
-
-            sectionsMapDataCollection.Add(sectionsMapData);
-            sectionsMapDataCollection.Add(sectionsStartPointMapData);
-            sectionsMapDataCollection.Add(sectionsEndPointMapData);
-            mapDataCollection.Add(sectionsMapDataCollection);
 
             mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
             mapDataCollection.Add(calculationsMapData);
@@ -184,10 +167,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private void CreateObservers()
         {
-            failureMechanismObserver = new Observer(UpdateFailureMechanismMapData)
-            {
-                Observable = FailureMechanism
-            };
             assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
             {
                 Observable = AssessmentSection
@@ -252,7 +231,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             SetHydraulicBoundaryLocationsMapData();
             SetReferenceLineMapData();
 
-            SetSectionsMapData();
             SetSurfaceLinesMapData();
             SetStochasticSoilModelsMapData();
         }
@@ -301,27 +279,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
             referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
-        }
-
-        #endregion
-
-        #region FailureMechanism MapData
-
-        private void UpdateFailureMechanismMapData()
-        {
-            SetSectionsMapData();
-            sectionsMapData.NotifyObservers();
-            sectionsStartPointMapData.NotifyObservers();
-            sectionsEndPointMapData.NotifyObservers();
-        }
-
-        private void SetSectionsMapData()
-        {
-            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
-
-            sectionsMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
-            sectionsStartPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
-            sectionsEndPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
         }
 
         #endregion
