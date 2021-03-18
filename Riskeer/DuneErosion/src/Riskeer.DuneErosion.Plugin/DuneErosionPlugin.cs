@@ -216,16 +216,15 @@ namespace Riskeer.DuneErosion.Plugin
 
             return new object[]
             {
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData), TreeFolderCategory.Input),
                 new DuneLocationCalculationsGroupContext(failureMechanismContext.WrappedData.DuneLocations, failureMechanismContext.WrappedData, assessmentSection)
             };
         }
 
-        private static IEnumerable<object> GetInputs(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetInputs(DuneErosionFailureMechanism failureMechanism)
         {
             return new object[]
             {
-                new DuneErosionFailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };
         }
