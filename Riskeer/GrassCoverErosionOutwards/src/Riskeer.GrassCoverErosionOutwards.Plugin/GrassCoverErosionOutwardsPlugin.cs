@@ -444,7 +444,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         {
             return new object[]
             {
-                new GrassCoverErosionOutwardsFailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };
