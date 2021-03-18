@@ -34,8 +34,10 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.Forms.Views;
+using Riskeer.Piping.Data;
 
-namespace Riskeer.Common.Forms.Views
+namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
     /// Base view for configuring calculations.
@@ -48,7 +50,7 @@ namespace Riskeer.Common.Forms.Views
         where TCalculation : class, ICalculation<TCalculationInput>
         where TCalculationRow : CalculationRow<TCalculation>
         where TCalculationInput : class, ICalculationInput
-        where TFailureMechanism : IFailureMechanism
+        where TFailureMechanism : PipingFailureMechanism
     {
         private int nameColumnIndex = -1;
         private int selectableHydraulicBoundaryLocationColumnIndex = -1;

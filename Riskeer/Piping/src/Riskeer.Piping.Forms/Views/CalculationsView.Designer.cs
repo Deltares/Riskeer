@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.Common.Forms.Views
+namespace Riskeer.Piping.Forms.Views
 {
     partial class CalculationsView<TCalculation, TCalculationInput, TCalculationRow, TFailureMechanism>
     {

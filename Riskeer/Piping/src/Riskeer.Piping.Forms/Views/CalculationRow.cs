@@ -28,10 +28,10 @@ using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 
-namespace Riskeer.Common.Forms.Views
+namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="TCalculation"/> in the <see cref="CalculationsView{TCalculation, TCalculationInput, TCalculationRow, TFailureMechanism}"/>.
+    /// This class represents a row of <see cref="TCalculation"/> in the <see cref="Riskeer.Piping.Forms.Views.CalculationsView{TCalculation,TCalculationInput,TCalculationRow,TFailureMechanism}"/>.
     /// </summary>
     /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
     public abstract class CalculationRow<TCalculation>
