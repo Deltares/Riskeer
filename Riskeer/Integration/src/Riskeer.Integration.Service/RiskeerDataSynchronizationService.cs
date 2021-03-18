@@ -754,13 +754,12 @@ namespace Riskeer.Integration.Service
 
         private static ClearResults ClearReferenceLineDependentDataForFailureMechanism(IFailureMechanism failureMechanism)
         {
-            var removedObjects = new List<object>();
-            var changedObjects = new List<IObservable>();
+            var changedObjects = new List<IObservable>
+            {
+                failureMechanism
+            };
 
-            removedObjects.AddRange(failureMechanism.Sections);
-            changedObjects.Add(failureMechanism);
-
-            return new ClearResults(changedObjects, removedObjects);
+            return new ClearResults(changedObjects, new List<object>());
         }
 
         private static IEnumerable<IObservable> OnWaveConditionsInputForeshoreProfileRemoved(ForeshoreProfile profile, Tuple<ICalculation, WaveConditionsInput>[] calculationInputs)
