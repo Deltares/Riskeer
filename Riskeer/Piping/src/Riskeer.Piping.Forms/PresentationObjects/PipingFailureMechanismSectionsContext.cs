@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Piping.Data;
 
 namespace Riskeer.Piping.Forms.PresentationObjects
@@ -29,7 +29,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for <see cref="PipingFailureMechanism.Sections"/>.
     /// </summary>
-    public class PipingFailureMechanismSectionsContext : FailureMechanismSectionsContext
+    public class PipingFailureMechanismSectionsContext : ObservableWrappedObjectContextBase<PipingFailureMechanism>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingFailureMechanismSectionsContext"/> class.
@@ -38,6 +38,19 @@ namespace Riskeer.Piping.Forms.PresentationObjects
         /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public PipingFailureMechanismSectionsContext(PipingFailureMechanism wrappedData, IAssessmentSection assessmentSection)
-            : base(wrappedData, assessmentSection) {}
+            : base(wrappedData) {
+            
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            AssessmentSection = assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets the assessment section which the context belongs to.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
     }
 }

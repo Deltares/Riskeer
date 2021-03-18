@@ -304,10 +304,6 @@ namespace Riskeer.Integration.Plugin
                                                                                         context.WindDirectionName,
                                                                                         context.ClosingSituation)
             };
-            yield return new PropertyInfo<FailureMechanismSectionsContext, FailureMechanismSectionsProperties>
-            {
-                CreateInstance = context => new FailureMechanismSectionsProperties(context.WrappedData)
-            };
             yield return new PropertyInfo<ReferenceLineContext, ReferenceLineProperties>
             {
                 CreateInstance = context => new ReferenceLineProperties(context.WrappedData)
@@ -403,15 +399,6 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = CloseCommentViewForData
             };
 
-            yield return new ViewInfo<FailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsView>
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
-                Image = RiskeerCommonFormsResources.SectionsIcon,
-                CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
-                CreateInstance = context => new FailureMechanismSectionsView(context.WrappedData.Sections, context.WrappedData),
-                GetViewData = context => context.WrappedData.Sections
-            };
-
             yield return new ViewInfo<StructuresOutputContext, IStructuresCalculation, GeneralResultFaultTreeIllustrationPointView>
             {
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
@@ -435,21 +422,6 @@ namespace Riskeer.Integration.Plugin
                 CreateFileImporter = (context, filePath) => new ReferenceLineImporter(context.WrappedData,
                                                                                       new ReferenceLineUpdateHandler(context.AssessmentSection, Gui.ViewCommands),
                                                                                       filePath)
-            };
-
-            yield return new ImportInfo<FailureMechanismSectionsContext>
-            {
-                Name = RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
-                Category = RiskeerCommonFormsResources.Riskeer_Category,
-                Image = RiskeerCommonFormsResources.SectionsIcon,
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                                              RiskeerCommonIOResources.Shape_file_filter_Description),
-                IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
-                CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(context.WrappedData,
-                                                                                                 context.AssessmentSection.ReferenceLine,
-                                                                                                 filePath,
-                                                                                                 new FailureMechanismSectionReplaceStrategy(context.WrappedData),
-                                                                                                 new ImportMessageProvider())
             };
 
             yield return new ImportInfo<ForeshoreProfilesContext>
@@ -602,16 +574,6 @@ namespace Riskeer.Integration.Plugin
                 Text = context => RiskeerCommonFormsResources.Norms_DisplayName,
                 Image = context => RiskeerCommonFormsResources.NormsIcon,
                 ContextMenuStrip = NormContextMenuStrip
-            };
-
-            yield return new TreeNodeInfo<FailureMechanismSectionsContext>
-            {
-                Text = context => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
-                Image = context => RiskeerCommonFormsResources.SectionsIcon,
-                ForeColor = context => context.WrappedData.Sections.Any()
-                                           ? Color.FromKnownColor(KnownColor.ControlText)
-                                           : Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = FailureMechanismSectionsContextMenuStrip
             };
 
             yield return new TreeNodeInfo<CategoryTreeFolder>
@@ -938,22 +900,6 @@ namespace Riskeer.Integration.Plugin
         #endregion
 
         #region TreeNodeInfos
-
-        #region FailureMechanismSectionsContext TreeNodeInfo
-
-        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(FailureMechanismSectionsContext nodeData, object parentData, TreeViewControl treeViewControl)
-        {
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddOpenItem()
-                      .AddSeparator()
-                      .AddImportItem()
-                      .AddUpdateItem()
-                      .AddSeparator()
-                      .AddPropertiesItem()
-                      .Build();
-        }
-
-        #endregion
 
         #region ReferenceLineContext TreeNodeInfo
 

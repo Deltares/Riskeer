@@ -43,6 +43,7 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.Views;
+using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SurfaceLines;
@@ -73,6 +74,7 @@ using Riskeer.Piping.Service.SemiProbabilistic;
 using Riskeer.Piping.Util;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 using PipingFormsResources = Riskeer.Piping.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin
@@ -123,7 +125,7 @@ namespace Riskeer.Piping.Plugin
             yield return new PropertyInfo<PipingFailureMechanismSectionsContext, FailureMechanismSectionsProbabilityAssessmentProperties>
             {
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentProperties(
-                    context.WrappedData, ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
+                    context.WrappedData, context.WrappedData.PipingProbabilityAssessmentInput)
             };
             yield return new PropertyInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingProfileSpecificOutputProperties>
             {
@@ -175,6 +177,21 @@ namespace Riskeer.Piping.Plugin
                         context.WrappedData,
                         context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
                         context.FailureMechanism));
+            
+            yield return new ImportInfo<PipingFailureMechanismSectionsContext>
+            {
+                Name = RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
+                Image = RiskeerCommonFormsResources.SectionsIcon,
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                              RiskeerCommonIOResources.Shape_file_filter_Description),
+                IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
+                CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(context.WrappedData,
+                                                                                                 context.AssessmentSection.ReferenceLine,
+                                                                                                 filePath,
+                                                                                                 new FailureMechanismSectionReplaceStrategy(context.WrappedData),
+                                                                                                 new ImportMessageProvider())
+            };
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
@@ -282,7 +299,7 @@ namespace Riskeer.Piping.Plugin
                 CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(context.WrappedData.Sections,
                                                                                                   context.WrappedData,
-                                                                                                  ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
+                                                                                                  context.WrappedData.PipingProbabilityAssessmentInput)
             };
 
             yield return new ViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticFaultTreePipingProfileSpecificOutputView>
