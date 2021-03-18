@@ -27,10 +27,12 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.IO;
+using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Properties;
 
-namespace Riskeer.Common.IO.FileImporters
+namespace Riskeer.Piping.IO.FailureMechanismSections
 {
     /// <summary>
     /// Imports <see cref="FailureMechanismSection"/> instances from a shapefile that contains
@@ -49,7 +51,7 @@ namespace Riskeer.Common.IO.FileImporters
         private const double lengthDifferenceTolerance = 1;
 
         private readonly ReferenceLine referenceLine;
-        private readonly IFailureMechanismSectionUpdateStrategy failureMechanismSectionUpdateStrategy;
+        private readonly IPipingFailureMechanismSectionUpdateStrategy pipingFailureMechanismSectionUpdateStrategy;
         private readonly IImporterMessageProvider messageProvider;
 
         /// <summary>
@@ -58,7 +60,7 @@ namespace Riskeer.Common.IO.FileImporters
         /// <param name="importTarget">The failure mechanism to update.</param>
         /// <param name="referenceLine">The reference line used to check correspondence with.</param>
         /// <param name="filePath">The path to the file to import from.</param>
-        /// <param name="failureMechanismSectionUpdateStrategy">The strategy to update the failure mechanism sections
+        /// <param name="pipingFailureMechanismSectionUpdateStrategy">The strategy to update the failure mechanism sections
         /// with the imported data.</param>
         /// <param name="messageProvider">The message provider to provide the messages during the importer action.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.
@@ -66,7 +68,7 @@ namespace Riskeer.Common.IO.FileImporters
         public FailureMechanismSectionsImporter(IFailureMechanism importTarget,
                                                 ReferenceLine referenceLine,
                                                 string filePath,
-                                                IFailureMechanismSectionUpdateStrategy failureMechanismSectionUpdateStrategy,
+                                                IPipingFailureMechanismSectionUpdateStrategy pipingFailureMechanismSectionUpdateStrategy,
                                                 IImporterMessageProvider messageProvider)
             : base(filePath, importTarget)
         {
@@ -75,9 +77,9 @@ namespace Riskeer.Common.IO.FileImporters
                 throw new ArgumentNullException(nameof(referenceLine));
             }
 
-            if (failureMechanismSectionUpdateStrategy == null)
+            if (pipingFailureMechanismSectionUpdateStrategy == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanismSectionUpdateStrategy));
+                throw new ArgumentNullException(nameof(pipingFailureMechanismSectionUpdateStrategy));
             }
 
             if (messageProvider == null)
@@ -86,7 +88,7 @@ namespace Riskeer.Common.IO.FileImporters
             }
 
             this.referenceLine = referenceLine;
-            this.failureMechanismSectionUpdateStrategy = failureMechanismSectionUpdateStrategy;
+            this.pipingFailureMechanismSectionUpdateStrategy = pipingFailureMechanismSectionUpdateStrategy;
             this.messageProvider = messageProvider;
         }
 
@@ -133,7 +135,7 @@ namespace Riskeer.Common.IO.FileImporters
 
         protected override void DoPostImportUpdates()
         {
-            failureMechanismSectionUpdateStrategy.DoPostUpdateActions();
+            pipingFailureMechanismSectionUpdateStrategy.DoPostUpdateActions();
 
             base.DoPostImportUpdates();
         }
@@ -240,7 +242,7 @@ namespace Riskeer.Common.IO.FileImporters
         {
             IEnumerable<FailureMechanismSection> snappedSections = SnapReadSectionsToReferenceLine(failureMechanismSections, referenceLine);
 
-            failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(snappedSections, FilePath);
+            pipingFailureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(snappedSections, FilePath);
         }
 
         private static IEnumerable<FailureMechanismSection> SnapReadSectionsToReferenceLine(IEnumerable<FailureMechanismSection> failureMechanismSections,

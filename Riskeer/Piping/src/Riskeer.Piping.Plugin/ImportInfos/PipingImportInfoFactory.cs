@@ -29,6 +29,7 @@ using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.ChangeHandlers;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.IO.FailureMechanismSections;
 using Riskeer.Piping.Plugin.FileImporter;
 using Riskeer.Piping.Plugin.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;

@@ -22,17 +22,19 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Riskeer.Common.IO.FileImporters;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.IO.FailureMechanismSections;
 using Riskeer.Piping.Service;
 
 namespace Riskeer.Piping.Plugin.FileImporter
 {
     /// <summary>
-    /// An <see cref="IFailureMechanismSectionUpdateStrategy"/> that can be used to update
+    /// An <see cref="IPipingFailureMechanismSectionUpdateStrategy"/> that can be used to update
     /// piping failure mechanism sections with imported failure mechanism sections.
     /// </summary>
-    public class PipingFailureMechanismSectionUpdateStrategy : FailureMechanismSectionUpdateStrategy
+    public class PipingFailureMechanismSectionUpdateStrategy : IPipingFailureMechanismSectionUpdateStrategy
     {
         private readonly PipingFailureMechanism failureMechanism;
 
@@ -43,12 +45,38 @@ namespace Riskeer.Piping.Plugin.FileImporter
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingFailureMechanismSectionUpdateStrategy(
             PipingFailureMechanism failureMechanism)
-            : base(failureMechanism)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
             this.failureMechanism = failureMechanism;
         }
+        
+        public void UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections,
+                                                   string sourcePath)
+        {
+            if (importedFailureMechanismSections == null)
+            {
+                throw new ArgumentNullException(nameof(importedFailureMechanismSections));
+            }
 
-        public override void DoPostUpdateActions()
+            if (sourcePath == null)
+            {
+                throw new ArgumentNullException(nameof(sourcePath));
+            }
+
+            try
+            {
+                failureMechanism.SetSections(importedFailureMechanismSections, sourcePath);
+            }
+            catch (ArgumentException e)
+            {
+                throw new UpdateDataException(e.Message, e);
+            }
+        }
+
+        public void DoPostUpdateActions()
         {
             IEnumerable<IObservable> affectedObjects = PipingDataSynchronizationService.ClearAllProbabilisticCalculationOutput(failureMechanism);
 

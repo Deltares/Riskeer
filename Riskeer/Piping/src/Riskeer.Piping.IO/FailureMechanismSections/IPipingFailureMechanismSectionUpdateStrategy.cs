@@ -24,13 +24,13 @@ using System.Collections.Generic;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 
-namespace Riskeer.Common.IO.FileImporters
+namespace Riskeer.Piping.IO.FailureMechanismSections
 {
     /// <summary>
     /// Interface describing the method of updating the data model after new 
     /// failure mechanism sections have been imported.
     /// </summary>
-    public interface IFailureMechanismSectionUpdateStrategy
+    public interface IPipingFailureMechanismSectionUpdateStrategy
     {
         /// <summary>
         /// Updates the data model with data from <paramref name="importedFailureMechanismSections"/>.

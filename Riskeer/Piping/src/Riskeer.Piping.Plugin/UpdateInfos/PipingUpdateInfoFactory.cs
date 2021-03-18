@@ -28,8 +28,10 @@ using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.ChangeHandlers;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.IO.FailureMechanismSections;
 using Riskeer.Piping.Plugin.FileImporter;
 using Riskeer.Piping.Plugin.Properties;
+using PipingFailureMechanismSectionUpdateStrategy = Riskeer.Piping.Plugin.FileImporter.PipingFailureMechanismSectionUpdateStrategy;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
@@ -68,12 +70,12 @@ namespace Riskeer.Piping.Plugin.UpdateInfos
                     context.WrappedData,
                     context.AssessmentSection.ReferenceLine,
                     filePath,
-                    new PipingFailureMechanismSectionUpdateStrategy((PipingFailureMechanism) context.WrappedData),
+                    new PipingFailureMechanismSectionUpdateStrategy(context.WrappedData),
                     new UpdateMessageProvider()),
                 VerifyUpdates = context =>
                 {
                     var changeHandler = new PipingFailureMechanismCalculationChangeHandler(
-                        (PipingFailureMechanism) context.WrappedData,
+                        context.WrappedData,
                         Resources.PipingUpdateInfoFactory_CreateFailureMechanismSectionsUpdateInfo_When_updating_sections_probabilistic_calculation_output_will_be_cleared_confirm,
                         inquiryHelper);
                     return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();

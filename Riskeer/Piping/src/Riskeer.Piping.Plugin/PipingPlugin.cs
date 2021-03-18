@@ -43,7 +43,6 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.Views;
-using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SurfaceLines;
@@ -63,6 +62,7 @@ using Riskeer.Piping.Forms.PropertyClasses.Probabilistic;
 using Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.IO.Configurations;
+using Riskeer.Piping.IO.FailureMechanismSections;
 using Riskeer.Piping.Plugin.FileImporter;
 using Riskeer.Piping.Plugin.ImportInfos;
 using Riskeer.Piping.Plugin.Properties;
@@ -189,7 +189,7 @@ namespace Riskeer.Piping.Plugin
                 CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(context.WrappedData,
                                                                                                  context.AssessmentSection.ReferenceLine,
                                                                                                  filePath,
-                                                                                                 new FailureMechanismSectionReplaceStrategy(context.WrappedData),
+                                                                                                 new PipingFailureMechanismSectionReplaceStrategy(context.WrappedData),
                                                                                                  new ImportMessageProvider())
             };
         }
