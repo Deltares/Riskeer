@@ -26,8 +26,9 @@ using Core.Common.Util.Attributes;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.Forms.PropertyClasses;
 
-namespace Riskeer.Common.Forms.PropertyClasses
+namespace Riskeer.Piping.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="FailureMechanismSection"/> with a section
