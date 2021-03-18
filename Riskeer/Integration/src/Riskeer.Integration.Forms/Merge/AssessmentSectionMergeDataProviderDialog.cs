@@ -122,9 +122,6 @@ namespace Riskeer.Integration.Forms.Merge
             dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.IsRelevant),
                                                   Resources.FailureMechanism_IsRelevant_DisplayName,
                                                   true);
-            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.HasSections),
-                                                  Resources.FailureMechanismMergeDataRow_HasSections_DisplayName,
-                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismMergeDataRow.NumberOfCalculations),
                                                  Resources.FailureMechanismMergeDataRow_NumberOfCalculations_DisplayName,
                                                  true);

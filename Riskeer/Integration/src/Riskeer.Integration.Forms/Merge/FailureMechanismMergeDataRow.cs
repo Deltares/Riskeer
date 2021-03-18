@@ -80,17 +80,6 @@ namespace Riskeer.Integration.Forms.Merge
         }
 
         /// <summary>
-        /// Gets indicator whether the failure mechanism has sections.
-        /// </summary>
-        public bool HasSections
-        {
-            get
-            {
-                return FailureMechanism.Sections.Any();
-            }
-        }
-
-        /// <summary>
         /// Gets the amount of calculations that are contained by the failure mechanism.
         /// </summary>
         public int NumberOfCalculations
