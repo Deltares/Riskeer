@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Util;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
 using Riskeer.HeightStructures.Data;
@@ -46,9 +45,6 @@ namespace Riskeer.Storage.Core.Create
     /// </summary>
     internal class PersistenceRegistry
     {
-        private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections =
-            CreateDictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
-
         private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles =
             CreateDictionary<DikeProfileEntity, DikeProfile>();
 
@@ -138,18 +134,6 @@ namespace Riskeer.Storage.Core.Create
         }
 
         #region Register Methods
-
-        /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
-        /// that was constructed with the information.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> to be registered.</param>
-        /// <param name="model">The <see cref="FailureMechanismSection"/> to be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        internal void Register(FailureMechanismSectionEntity entity, FailureMechanismSection model)
-        {
-            Register(failureMechanismSections, entity, model);
-        }
 
         /// <summary>
         /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
@@ -471,17 +455,6 @@ namespace Riskeer.Storage.Core.Create
         /// <summary>
         /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
         /// </summary>
-        /// <param name="model">The <see cref="FailureMechanismSection"/> to check for.</param>
-        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        internal bool Contains(FailureMechanismSection model)
-        {
-            return ContainsValue(failureMechanismSections, model);
-        }
-
-        /// <summary>
-        /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
-        /// </summary>
         /// <param name="model">The <see cref="DikeProfile"/> to check for.</param>
         /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
@@ -740,23 +713,6 @@ namespace Riskeer.Storage.Core.Create
         internal DuneLocationEntity Get(DuneLocation model)
         {
             return Get(duneLocations, model);
-        }
-
-        /// <summary>
-        /// Obtains the <see cref="FailureMechanismSection"/> which was registered for the
-        /// given <paramref name="model"/>.
-        /// </summary>
-        /// <param name="model">The <see cref="FailureMechanismSection"/> for which a
-        /// read operation has been registered.</param>
-        /// <returns>The constructed <see cref="FailureMechanismSectionEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no create operation 
-        /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains(FailureMechanismSection)"/> to find out
-        /// whether a create operation has been registered for <paramref name="model"/>.</remarks>
-        internal FailureMechanismSectionEntity Get(FailureMechanismSection model)
-        {
-            return Get(failureMechanismSections, model);
         }
 
         /// <summary>

@@ -76,9 +76,6 @@ namespace Riskeer.Storage.Core.Read
         private readonly Dictionary<DuneLocationEntity, DuneLocation> duneLocations =
             CreateDictionary<DuneLocationEntity, DuneLocation>();
 
-        private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections =
-            CreateDictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
-
         private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles =
             CreateDictionary<DikeProfileEntity, DikeProfile>();
 
@@ -861,77 +858,6 @@ namespace Riskeer.Storage.Core.Read
             try
             {
                 return duneLocations[entity];
-            }
-            catch (KeyNotFoundException e)
-            {
-                throw new InvalidOperationException(e.Message, e);
-            }
-        }
-
-        #endregion
-
-        #region FailureMechanismSectionEntity: Read, Contains, Get
-
-        /// <summary>
-        /// Registers a read operation for <see cref="FailureMechanismSectionEntity"/> and the
-        /// <see cref="FailureMechanismSection"/> that was constructed with the information.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> that was read.</param>
-        /// <param name="model">The <see cref="FailureMechanismSection"/> that was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        internal void Read(FailureMechanismSectionEntity entity, FailureMechanismSection model)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            if (model == null)
-            {
-                throw new ArgumentNullException(nameof(model));
-            }
-
-            failureMechanismSections[entity] = model;
-        }
-
-        /// <summary>
-        /// Checks whether a read operation has been registered for a given <see cref="FailureMechanismSectionEntity"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> to check for.</param>
-        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal bool Contains(FailureMechanismSectionEntity entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            return failureMechanismSections.ContainsKey(entity);
-        }
-
-        /// <summary>
-        /// Obtains the <see cref="FailureMechanismSection"/> which was read for the
-        /// given <see cref="FailureMechanismSectionEntity"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismSectionEntity"/> for which a read
-        /// operation has been registered.</param>
-        /// <returns>The constructed <see cref="FailureMechanismSection"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no read operation has
-        /// been registered for <paramref name="entity"/>.</exception>
-        /// <remarks>Use <see cref="Contains(FailureMechanismSectionEntity)"/> to find out whether a
-        /// read operation has been registered for <paramref name="entity"/>.</remarks>
-        internal FailureMechanismSection Get(FailureMechanismSectionEntity entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            try
-            {
-                return failureMechanismSections[entity];
             }
             catch (KeyNotFoundException e)
             {

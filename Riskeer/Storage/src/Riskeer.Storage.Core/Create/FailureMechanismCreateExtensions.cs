@@ -46,48 +46,13 @@ namespace Riskeer.Storage.Core.Create
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            var entity = new FailureMechanismEntity
+            return new FailureMechanismEntity
             {
                 FailureMechanismType = (short) type,
                 IsRelevant = Convert.ToByte(mechanism.IsRelevant),
                 InputComments = mechanism.InputComments.Body.DeepClone(),
-                NotRelevantComments = mechanism.NotRelevantComments.Body.DeepClone(),
-                FailureMechanismSectionCollectionSourcePath = mechanism.FailureMechanismSectionSourcePath.DeepClone()
+                NotRelevantComments = mechanism.NotRelevantComments.Body.DeepClone()
             };
-
-            mechanism.AddEntitiesForFailureMechanismSections(registry, entity);
-
-            return entity;
-        }
-
-        /// <summary>
-        /// Creates <see cref="FailureMechanismSectionEntity"/> instances based on the information of the <see cref="FailureMechanismBase"/>.
-        /// </summary>
-        /// <param name="mechanism">The failure mechanism to create a database failure mechanism section entities for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to which to add the created entities.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="registry"/> is <c>null</c></item>
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// </list>
-        /// </exception>
-        internal static void AddEntitiesForFailureMechanismSections(this IFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)
-        {
-            if (registry == null)
-            {
-                throw new ArgumentNullException(nameof(registry));
-            }
-
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            foreach (FailureMechanismSection failureMechanismSection in mechanism.Sections)
-            {
-                entity.FailureMechanismSectionEntities.Add(failureMechanismSection.Create(registry));
-            }
         }
     }
 }

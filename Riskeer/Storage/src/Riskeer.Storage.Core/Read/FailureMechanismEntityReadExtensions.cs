@@ -60,30 +60,12 @@ namespace Riskeer.Storage.Core.Read
         /// </summary>
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="IFailureMechanism"/>.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
-        internal static void ReadCommonFailureMechanismProperties(this FailureMechanismEntity entity,
-                                                                  IFailureMechanism failureMechanism,
-                                                                  ReadConversionCollector collector)
+        private static void ReadCommonFailureMechanismProperties(this FailureMechanismEntity entity,
+                                                                 IFailureMechanism failureMechanism)
         {
             failureMechanism.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
             failureMechanism.InputComments.Body = entity.InputComments;
             failureMechanism.NotRelevantComments.Body = entity.NotRelevantComments;
-
-            entity.ReadFailureMechanismSections(failureMechanism, collector);
-        }
-
-        private static void ReadFailureMechanismSections(this FailureMechanismEntity entity,
-                                                         IFailureMechanism failureMechanism,
-                                                         ReadConversionCollector collector)
-        {
-            FailureMechanismSection[] readFailureMechanismSections = entity.FailureMechanismSectionEntities
-                                                                           .Select(failureMechanismSectionEntity =>
-                                                                                       failureMechanismSectionEntity.Read(collector))
-                                                                           .ToArray();
-            if (readFailureMechanismSections.Any())
-            {
-                failureMechanism.SetSections(readFailureMechanismSections, entity.FailureMechanismSectionCollectionSourcePath);
-            }
         }
 
         private static void ReadForeshoreProfiles(this FailureMechanismEntity entity,
@@ -130,7 +112,7 @@ namespace Riskeer.Storage.Core.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism);
 
             PipingFailureMechanismMetaEntity metaEntity = entity.PipingFailureMechanismMetaEntities.Single();
             metaEntity.ReadProbabilityAssessmentInput(failureMechanism.PipingProbabilityAssessmentInput);
@@ -184,7 +166,7 @@ namespace Riskeer.Storage.Core.Read
                                                                             GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                             ReadConversionCollector collector)
         {
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism);
             entity.ReadGeneralGrassCoverErosionInwardsCalculationInput(failureMechanism.GeneralInput);
             entity.ReadDikeProfiles(failureMechanism.DikeProfiles, collector);
             ReadGrassCoverErosionInwardsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
@@ -239,7 +221,7 @@ namespace Riskeer.Storage.Core.Read
                                                                     ReadConversionCollector collector)
         {
             HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.Single();
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism);
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, metaEntity.ForeshoreProfileCollectionSourcePath, collector);
             entity.ReadHeightStructures(failureMechanism.HeightStructures, metaEntity.HeightStructureCollectionSourcePath, collector);
             entity.ReadHeightStructuresGeneralInput(failureMechanism.GeneralInput);
@@ -293,7 +275,7 @@ namespace Riskeer.Storage.Core.Read
                                                                      ClosingStructuresFailureMechanism failureMechanism,
                                                                      ReadConversionCollector collector)
         {
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism);
 
             ClosingStructuresFailureMechanismMetaEntity metaEntity = entity.ClosingStructuresFailureMechanismMetaEntities.Single();
 
@@ -370,7 +352,7 @@ namespace Riskeer.Storage.Core.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism);
 
             MacroStabilityInwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityInwardsFailureMechanismMetaEntities.Single();
             metaEntity.ReadProbabilityAssessmentInput(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput);
@@ -424,7 +406,7 @@ namespace Riskeer.Storage.Core.Read
                                                                           WaveImpactAsphaltCoverFailureMechanism failureMechanism,
                                                                           ReadConversionCollector collector)
         {
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism);
 
             WaveImpactAsphaltCoverFailureMechanismMetaEntity metaEntity = entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single();
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, metaEntity.ForeshoreProfileCollectionSourcePath, collector);
@@ -465,7 +447,7 @@ namespace Riskeer.Storage.Core.Read
                                                                              GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                              ReadConversionCollector collector)
         {
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism);
             entity.ReadGeneralGrassCoverErosionOutwardsCalculationInput(failureMechanism.GeneralInput);
 
             GrassCoverErosionOutwardsFailureMechanismMetaEntity metaEntity =
@@ -536,7 +518,7 @@ namespace Riskeer.Storage.Core.Read
                                                                DuneErosionFailureMechanism failureMechanism,
                                                                ReadConversionCollector collector)
         {
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism);
             entity.ReadGeneralDuneErosionInput(failureMechanism.GeneralInput);
             entity.ReadDuneLocations(failureMechanism, collector);
             entity.ReadDuneLocationCalculations(failureMechanism, collector);
@@ -590,7 +572,7 @@ namespace Riskeer.Storage.Core.Read
                                                                        StabilityStoneCoverFailureMechanism failureMechanism,
                                                                        ReadConversionCollector collector)
         {
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism);
 
             StabilityStoneCoverFailureMechanismMetaEntity metaEntity =
                 entity.StabilityStoneCoverFailureMechanismMetaEntities.Single();
@@ -637,7 +619,7 @@ namespace Riskeer.Storage.Core.Read
                                                                             StabilityPointStructuresFailureMechanism failureMechanism,
                                                                             ReadConversionCollector collector)
         {
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism);
 
             StabilityPointStructuresFailureMechanismMetaEntity metaEntity =
                 entity.StabilityPointStructuresFailureMechanismMetaEntities.Single();
