@@ -116,8 +116,14 @@
 					<var
 					dataname="pathProjectOld"
 					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
-					variableid="68237560-fe38-4b7b-90b6-bdaca4eb9e6f"
-					variablename="nameProjectFile">
+					variableid="28d37ace-d02d-48e5-bb3c-18c756645759"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
+					variableid="5de67da8-b3f9-49f7-b419-6a8f9c36ca5f"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -786,10 +792,16 @@
 			type="Recording">
 				<databinding>
 					<var
+					dataname="scriptOutputFolder"
+					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
+					variableid="5de67da8-b3f9-49f7-b419-6a8f9c36ca5f"
+					variablename="scriptOutputPath">
+					</var>
+					<var
 					dataname="pathProjectB"
 					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
-					variableid="68237560-fe38-4b7b-90b6-bdaca4eb9e6f"
-					variablename="nameProjectFile">
+					variableid="28d37ace-d02d-48e5-bb3c-18c756645759"
+					variablename="fileName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1994,8 +2006,14 @@
 					<var
 					dataname="pathProjectB"
 					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
-					variableid="68237560-fe38-4b7b-90b6-bdaca4eb9e6f"
-					variablename="nameProjectFile">
+					variableid="28d37ace-d02d-48e5-bb3c-18c756645759"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
+					variableid="5de67da8-b3f9-49f7-b419-6a8f9c36ca5f"
+					variablename="scriptOutputPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2333,10 +2351,16 @@
 			type="Recording">
 				<databinding>
 					<var
+					dataname="scriptOutputFolder"
+					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
+					variableid="5de67da8-b3f9-49f7-b419-6a8f9c36ca5f"
+					variablename="scriptOutputPath">
+					</var>
+					<var
 					dataname="pathProjectB"
 					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
-					variableid="68237560-fe38-4b7b-90b6-bdaca4eb9e6f"
-					variablename="nameProjectFile">
+					variableid="28d37ace-d02d-48e5-bb3c-18c756645759"
+					variablename="fileName">
 					</var>
 				</databinding>
 			</testmodule>

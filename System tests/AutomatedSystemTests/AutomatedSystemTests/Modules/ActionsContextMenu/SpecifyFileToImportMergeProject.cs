@@ -41,7 +41,8 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
         /// </summary>
         public SpecifyFileToImportMergeProject()
         {
-            nameProjectFile = "";
+            fileName = "";
+            scriptOutputPath = "";
         }
 
         /// <summary>
@@ -54,16 +55,28 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
 
 #region Variables
 
-        string _nameProjectFile;
+        string _fileName;
 
         /// <summary>
-        /// Gets or sets the value of variable nameProjectFile.
+        /// Gets or sets the value of variable fileName.
         /// </summary>
-        [TestVariable("68237560-fe38-4b7b-90b6-bdaca4eb9e6f")]
-        public string nameProjectFile
+        [TestVariable("28d37ace-d02d-48e5-bb3c-18c756645759")]
+        public string fileName
         {
-            get { return _nameProjectFile; }
-            set { _nameProjectFile = value; }
+            get { return _fileName; }
+            set { _fileName = value; }
+        }
+
+        string _scriptOutputPath;
+
+        /// <summary>
+        /// Gets or sets the value of variable scriptOutputPath.
+        /// </summary>
+        [TestVariable("5de67da8-b3f9-49f7-b419-6a8f9c36ca5f")]
+        public string scriptOutputPath
+        {
+            get { return _scriptOutputPath; }
+            set { _scriptOutputPath = value; }
         }
 
 #endregion
@@ -101,16 +114,18 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Importeren' at Center.", repo.ContextMenu.ImporterenInfo, new RecordItemIndex(2));
             repo.ContextMenu.Importeren.Click();
             
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$nameProjectFile' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(3));
-            repo.OpenDialog.FileNameField.Element.SetAttributeValue("Text", nameProjectFile);
+            AddWorkingDirectoryToFileNameIfRelativeFileName();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(4));
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$fileName' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(4));
+            repo.OpenDialog.FileNameField.Element.SetAttributeValue("Text", fileName);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(5));
             repo.OpenDialog.ButtonOpen.Click();
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(5));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(6));
             Delay.Duration(100, false);
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(6));
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(7));
             repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(5000);
             
         }

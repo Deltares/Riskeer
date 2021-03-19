@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -31,6 +32,21 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
         private void Init()
         {
             // Your recording specific initialization code goes here.
+        }
+
+        public void AddWorkingDirectoryToFileNameIfRelativeFileName()
+        {
+            if (fileName.Substring(1,2) == @":\") {
+                // fileName has been declared using absolute path
+                return;
+            }
+            string prefixPath = "";
+            if (scriptOutputPath!="") {
+                prefixPath = scriptOutputPath;
+            } else {
+                prefixPath = Directory.GetCurrentDirectory() + @"\" ;
+            }
+            fileName = prefixPath + fileName;
         }
 
     }

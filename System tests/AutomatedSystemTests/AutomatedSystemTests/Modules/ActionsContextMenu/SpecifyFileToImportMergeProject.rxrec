@@ -24,8 +24,12 @@ mode="Global">
 	</codegen>
 	<variables>
 		<var
-		id="68237560-fe38-4b7b-90b6-bdaca4eb9e6f"
-		name="nameProjectFile">
+		id="28d37ace-d02d-48e5-bb3c-18c756645759"
+		name="fileName">
+		</var>
+		<var
+		id="5de67da8-b3f9-49f7-b419-6a8f9c36ca5f"
+		name="scriptOutputPath">
 		</var>
 	</variables>
 	<recorditems>
@@ -438,6 +442,22 @@ hCCRIS3zcg5OBj/aB61sUUAZcRlt5Vdkm8syTZCoxyS2VOB+PNV5VuHsQs63Zc2uEChjl+c7sd+n
 WtyigCCH74+sn/oVT1BD98fWT/0Kp6ACiiigD//Z
 			</helperscreenshot>
 		</mouseitem>
+		<userrecorditem
+		autogenmethod="True"
+		classname="SpecifyFileToImportMergeProject"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="AddWorkingDirectoryToFileNameIfRelativeFileName"
+		namespace="AutomatedSystemTests.Modules.IO"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="ac9b2af7-84ad-4b14-ab49-e62c23002b9f">
+			</arguments>
+		</userrecorditem>
 		<setvaluerecorditem
 		attrname="Text"
 		enabled="True"
@@ -448,7 +468,7 @@ WtyigCCH74+sn/oVT1BD98fWT/0Kp6ACiiigD//Z
 			<bindings>
 				<binding
 				target="AttributeValue"
-				variable="nameProjectFile">
+				variable="fileName">
 				</binding>
 			</bindings>
 			<info
@@ -459,7 +479,7 @@ WtyigCCH74+sn/oVT1BD98fWT/0Kp6ACiiigD//Z
 				</path>
 			</info>
 			<AttributeValue>
-				yourValue
+				$fileName
 			</AttributeValue>
 		</setvaluerecorditem>
 		<mouseitem
