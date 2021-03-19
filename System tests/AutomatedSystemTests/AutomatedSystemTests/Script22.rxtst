@@ -718,6 +718,14 @@
 					name="categoryBoundariesTraject"
 					value="">
 					</param>
+					<param
+					name="extensionRiskProjects"
+					value="*.risk">
+					</param>
+					<param
+					name="previousReleaseFolder"
+					value="X:\script22\previousRelease">
+					</param>
 				</parameters>
 			</testcase>
 			<testmodule
@@ -1094,6 +1102,43 @@
 			name="ReadDataCategoryBoundariesTraject">
 			</smartfoldernode>
 			<testmodule
+			id="d0fa2ab9-84a2-4c37-87a3-cd1406436246"
+			name="MigrateAllFilesInFolderUsingCommandLineTool"
+			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
+			type="UserCode">
+				<description>
+					<![CDATA[migrate *.risk from previousRelease to currentRelease folder]]>
+				</description>
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+					<var
+					dataname="previousReleaseFolder"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="folderProjectPreviousRelease"
+					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="d1459fc7-bfff-47b4-9c46-ba01f4cbd944"
 			name="ValidateSummaryValuesAssemblyTrajectView"
 			ref="18ea53f5-f6f7-4204-952e-dfe48e0f31ac"
@@ -1129,6 +1174,43 @@
 			id="d28c5d6f-c8ab-4c7a-b262-f3ae3e32fc47"
 			name="CloseAssemblyMap">
 			</smartfoldernode>
+			<testmodule
+			id="d440a6b3-9361-43a7-8f6b-12dacee40aac"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<description>
+					<![CDATA[Delete all previous *.risk files in currentVersion]]>
+				</description>
+				<databinding>
+					<var
+					dataname="extensionRiskProjects"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="folderProjectsCurrentRelease"
+					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="filterRiskProjects"
+					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="d601846d-0fa3-4dbc-833d-8685dbcea7f2"
 			name="OpenResultsView">
@@ -1261,7 +1343,7 @@
 				<parameters>
 					<param
 					name="fileToOpen"
-					value="X:\script22\currentRelease\Project_assemblage_22.risk">
+					value="Project_assemblage_22.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1404,6 +1486,14 @@
 							<testmodule
 							id="59093ff3-0dda-4e58-9cf5-4b090322a67a"
 							name="CreateOutputFolder">
+							</testmodule>
+							<testmodule
+							id="d440a6b3-9361-43a7-8f6b-12dacee40aac"
+							name="DeleteAllSearchFilteredFiles">
+							</testmodule>
+							<testmodule
+							id="d0fa2ab9-84a2-4c37-87a3-cd1406436246"
+							name="MigrateAllFilesInFolderUsingCommandLineTool">
 							</testmodule>
 						</setup>
 						<smartfoldernode
