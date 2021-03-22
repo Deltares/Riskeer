@@ -257,7 +257,7 @@
 				<parameters>
 					<param
 					name="fielNameToOpen"
-					value="X:\script15\currentRelease\Project_15a_15b_15c_zonder_resultaten.risk">
+					value="Project_15a_15b_15c_zonder_resultaten.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -612,7 +612,7 @@
 				<parameters>
 					<param
 					name="fielNameToOpen"
-					value="X:\script15\currentRelease\Project_15d_zonder_resultaten.risk">
+					value="Project_15d_zonder_resultaten.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1974,7 +1974,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="migrationTargetFolder"
+					dataname="scriptOutputFolder"
 					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
 					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
 					variablename="folderToDeleteFiles">
@@ -2854,7 +2854,7 @@
 					variablename="sourceFolder">
 					</var>
 					<var
-					dataname="migrationTargetFolder"
+					dataname="scriptOutputFolder"
 					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
 					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
 					variablename="targetFolder">
