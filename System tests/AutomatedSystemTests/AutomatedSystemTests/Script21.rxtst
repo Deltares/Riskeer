@@ -1270,6 +1270,14 @@
 					name="scriptOutputFolder"
 					value="">
 					</param>
+					<param
+					name="extensionRiskeerProjects"
+					value="*.risk">
+					</param>
+					<param
+					name="folderPreviousReleaseProjects"
+					value="X:\script21\previousRelease">
+					</param>
 				</parameters>
 			</testcase>
 			<testmodule
@@ -1554,6 +1562,43 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="6573837a-ee93-4824-8321-1fb57ec31325"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<description>
+					<![CDATA[Delete all previous *.risk files in currentVersion]]>
+				</description>
+				<databinding>
+					<var
+					dataname="extensionRiskeerProjects"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="extensionRiskeerProjects"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="6663f6fd-e33c-4b5b-b120-71038046d533"
 			name="ValidateFMRelevanceInFMCView"
 			ref="3c9b70f2-d794-41d3-b0ce-6da8c1e00475"
@@ -1736,6 +1781,43 @@
 					datasourceid="46c508a5-1be3-442b-9c89-585925f8f6a7"
 					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
 					variablename="textItemDropDownMenu">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="6c2b4a46-04d9-4f16-b958-ab046a7a1457"
+			name="MigrateAllFilesInFolderUsingCommandLineTool"
+			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
+			type="UserCode">
+				<description>
+					<![CDATA[migrate *.risk from previousRelease to currentRelease folder]]>
+				</description>
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+					<var
+					dataname="folderPreviousReleaseProjects"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToPreviousVersionFile"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -3165,6 +3247,14 @@
 							<testmodule
 							id="535fef35-83cf-416c-8205-5298795cd89d"
 							name="CreateOutputFolder">
+							</testmodule>
+							<testmodule
+							id="6573837a-ee93-4824-8321-1fb57ec31325"
+							name="DeleteAllSearchFilteredFiles">
+							</testmodule>
+							<testmodule
+							id="6c2b4a46-04d9-4f16-b958-ab046a7a1457"
+							name="MigrateAllFilesInFolderUsingCommandLineTool">
 							</testmodule>
 						</setup>
 						<smartfoldernode
