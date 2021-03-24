@@ -397,6 +397,10 @@
 					name="folderProjectsCurrentRelease"
 					value="X:\script29\currentRelease">
 					</param>
+					<param
+					name="extensionRiskeerProjects"
+					value="*.risk">
+					</param>
 				</parameters>
 			</testcase>
 			<testmodule
@@ -631,7 +635,7 @@
 				<parameters>
 					<param
 					name="projectToOpen"
-					value="X:\script29\currentRelease\Project_andere.risk">
+					value="Project_andere.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -718,27 +722,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			enabled="False"
-			id="3f93ded0-a750-4746-8de6-42b69b09d673"
-			name="MigrateAllFilesInFolderUsingCommandLineTool"
-			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="folderProjectPreviousRelease"
-					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
-					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
-					variablename="sourceFolder">
-					</var>
-					<var
-					dataname="folderProjectsCurrentRelease"
-					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
-					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
-					variablename="targetFolder">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="42b856f8-5560-4454-b777-c33c04dd3775"
 			name="OpenProject"
@@ -952,7 +935,7 @@
 				<parameters>
 					<param
 					name="projectToOpen"
-					value="X:\script29\currentRelease\Project_andere.risk">
+					value="Project_andere.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1257,6 +1240,43 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="7a7b8023-c82f-4113-b8c0-ba8670a90063"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<description>
+					<![CDATA[Delete all previous *.risk files in currentVersion]]>
+				</description>
+				<databinding>
+					<var
+					dataname="extensionRiskeerProjects"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="extensionRiskeerProjects"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="7a92df26-5b69-488b-9ab3-023b5e42ded5"
@@ -1879,10 +1899,47 @@
 				<parameters>
 					<param
 					name="projectToOpen"
-					value="X:\script29\currentRelease\ProjectAllFMsRelevant.risk">
+					value="ProjectAllFMsRelevant.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="a3a355a0-1210-4183-a85d-128381b151fe"
+			name="MigrateAllFilesInFolderUsingCommandLineTool"
+			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
+			type="UserCode">
+				<description>
+					<![CDATA[migrate *.risk from previousRelease to currentRelease folder]]>
+				</description>
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+					<var
+					dataname="folderProjectPreviousRelease"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="folderPreviousReleaseProjects"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="a50723e0-93c3-4d3d-9609-5e88801cec41"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
@@ -2668,7 +2725,11 @@
 							name="CreateOutputFolder">
 							</testmodule>
 							<testmodule
-							id="3f93ded0-a750-4746-8de6-42b69b09d673"
+							id="7a7b8023-c82f-4113-b8c0-ba8670a90063"
+							name="DeleteAllSearchFilteredFiles">
+							</testmodule>
+							<testmodule
+							id="a3a355a0-1210-4183-a85d-128381b151fe"
 							name="MigrateAllFilesInFolderUsingCommandLineTool">
 							</testmodule>
 						</setup>
@@ -4647,7 +4708,7 @@
 						STPH
 					</td>
 					<td>
-						X:\script29\currentRelease\script20cd.risk
+						script20cd.risk
 					</td>
 					<td>
 						3,4,6-16
@@ -4664,7 +4725,7 @@
 						STBI
 					</td>
 					<td>
-						X:\script29\currentRelease\script20cd.risk
+						script20cd.risk
 					</td>
 					<td>
 						5-16
@@ -4681,7 +4742,7 @@
 						GEKB
 					</td>
 					<td>
-						X:\script29\currentRelease\script20cd.risk
+						script20cd.risk
 					</td>
 					<td>
 						17-28
@@ -4698,7 +4759,7 @@
 						BSKW
 					</td>
 					<td>
-						X:\script29\currentRelease\script20cd.risk
+						script20cd.risk
 					</td>
 					<td>
 						29-40
@@ -4715,7 +4776,7 @@
 						HTKW
 					</td>
 					<td>
-						X:\script29\currentRelease\script20cd.risk
+						script20cd.risk
 					</td>
 					<td>
 						29-40
@@ -4732,7 +4793,7 @@
 						STKWp
 					</td>
 					<td>
-						X:\script29\currentRelease\script20cd.risk
+						script20cd.risk
 					</td>
 					<td>
 						29-40
@@ -4749,7 +4810,7 @@
 						ZST
 					</td>
 					<td>
-						X:\script29\currentRelease\script15abc.risk
+						script15abc.risk
 					</td>
 					<td>
 						41-51
@@ -4766,7 +4827,7 @@
 						AGK
 					</td>
 					<td>
-						X:\script29\currentRelease\script15abc.risk
+						script15abc.risk
 					</td>
 					<td>
 						41-51
@@ -4783,7 +4844,7 @@
 						GEBU
 					</td>
 					<td>
-						X:\script29\currentRelease\script15abc.risk
+						script15abc.risk
 					</td>
 					<td>
 						41-51
@@ -4800,7 +4861,7 @@
 						DA
 					</td>
 					<td>
-						X:\script29\currentRelease\script15abc.risk
+						script15abc.risk
 					</td>
 					<td>
 						52-60
@@ -4817,7 +4878,7 @@
 						STBU
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_andere.risk
+						Project_andere.risk
 					</td>
 					<td>
 						52-60
@@ -4834,7 +4895,7 @@
 						STMI
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_andere.risk
+						Project_andere.risk
 					</td>
 					<td>
 						52-60
@@ -4851,7 +4912,7 @@
 						AWO
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_andere.risk
+						Project_andere.risk
 					</td>
 					<td>
 						52-54,56-60
@@ -4868,7 +4929,7 @@
 						GABU
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_andere.risk
+						Project_andere.risk
 					</td>
 					<td>
 						52-60
@@ -4885,7 +4946,7 @@
 						GABI
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_andere.risk
+						Project_andere.risk
 					</td>
 					<td>
 						52-60
@@ -4902,7 +4963,7 @@
 						PKW
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_andere.risk
+						Project_andere.risk
 					</td>
 					<td>
 						52-60
@@ -4919,7 +4980,7 @@
 						STKWl
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_andere.risk
+						Project_andere.risk
 					</td>
 					<td>
 						52-54,56-60
@@ -4936,7 +4997,7 @@
 						INN
 					</td>
 					<td>
-						X:\script29\currentRelease\Project_andere.risk
+						Project_andere.risk
 					</td>
 					<td>
 						52-54,56-60

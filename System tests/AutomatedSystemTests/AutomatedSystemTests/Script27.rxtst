@@ -175,6 +175,43 @@
 			name="SingleCalculation">
 			</smartfoldernode>
 			<testmodule
+			id="06a83a15-2865-431b-aa45-236f255c4178"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<description>
+					<![CDATA[Delete all previous *.risk files in currentVersion]]>
+				</description>
+				<databinding>
+					<var
+					dataname="extensionRiskeerProjects"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="extensionRiskeerProjects"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="0acd555b-e8b4-4eb8-a7d2-654ccd300094"
 			name="WaitForXMiliseconds"
 			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
@@ -281,6 +318,43 @@
 			id="1244dfc9-050d-4cb1-a125-34bffe468269"
 			name="ValidateNotAllParametersInInputAreEqual">
 			</smartfoldernode>
+			<testmodule
+			id="1290b766-00d2-4dc4-8525-8e9178c11295"
+			name="MigrateAllFilesInFolderUsingCommandLineTool"
+			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
+			type="UserCode">
+				<description>
+					<![CDATA[migrate *.risk from previousRelease to currentRelease folder]]>
+				</description>
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+					<var
+					dataname="folderProjectPreviousRelease"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="folderPreviousReleaseProjects"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="131b2f31-5756-461d-b187-1637e4b17d41"
 			name="HideRanorexProgressDialog"
@@ -1606,6 +1680,14 @@
 					name="scriptOutputFolder"
 					value="">
 					</param>
+					<param
+					name="extensionRiskeerProjects"
+					value="*.risk">
+					</param>
+					<param
+					name="folderProjectPreviousRelease"
+					value="X:\script27\previousRelease">
+					</param>
 				</parameters>
 			</testcase>
 			<testmodule
@@ -2677,7 +2759,7 @@
 				<parameters>
 					<param
 					name="fileNameToOpen"
-					value="X:\script27\input27_B.risk">
+					value="input27_B.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -4719,6 +4801,14 @@
 							id="b6e8f36e-7e7d-423d-83f0-5c0df81ced4c"
 							name="CreateOutputFolder">
 							</testmodule>
+							<testmodule
+							id="06a83a15-2865-431b-aa45-236f255c4178"
+							name="DeleteAllSearchFilteredFiles">
+							</testmodule>
+							<testmodule
+							id="1290b766-00d2-4dc4-8525-8e9178c11295"
+							name="MigrateAllFilesInFolderUsingCommandLineTool">
+							</testmodule>
 						</setup>
 						<smartfoldernode
 						id="b1217f91-ed1a-4e65-a57a-3f853884ce57"
@@ -6053,7 +6143,7 @@
 						1-2
 					</td>
 					<td>
-						X:\script27\script20cd.risk
+						script20cd.risk
 					</td>
 				</tr>
 				<tr>
@@ -6070,7 +6160,7 @@
 						3-6
 					</td>
 					<td>
-						X:\script27\script20cd.risk
+						script20cd.risk
 					</td>
 				</tr>
 				<tr>
@@ -6087,7 +6177,7 @@
 						13-14
 					</td>
 					<td>
-						X:\script27\script20cd.risk
+						script20cd.risk
 					</td>
 				</tr>
 				<tr>
@@ -6104,7 +6194,7 @@
 						9-10
 					</td>
 					<td>
-						X:\script27\script20cd.risk
+						script20cd.risk
 					</td>
 				</tr>
 				<tr>
@@ -6121,7 +6211,7 @@
 						8
 					</td>
 					<td>
-						X:\script27\script20cd.risk
+						script20cd.risk
 					</td>
 				</tr>
 				<tr>
@@ -6138,7 +6228,7 @@
 						11-12
 					</td>
 					<td>
-						X:\script27\script20cd.risk
+						script20cd.risk
 					</td>
 				</tr>
 				<tr>
@@ -6155,7 +6245,7 @@
 						15-16
 					</td>
 					<td>
-						X:\script27\script15abc.risk
+						script15abc.risk
 					</td>
 				</tr>
 				<tr>
@@ -6172,7 +6262,7 @@
 						17-18
 					</td>
 					<td>
-						X:\script27\script15abc.risk
+						script15abc.risk
 					</td>
 				</tr>
 				<tr>
@@ -6189,7 +6279,7 @@
 						19-20
 					</td>
 					<td>
-						X:\script27\script15abc.risk
+						script15abc.risk
 					</td>
 				</tr>
 			</table>
