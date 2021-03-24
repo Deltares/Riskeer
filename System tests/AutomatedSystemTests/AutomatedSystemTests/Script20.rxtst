@@ -307,6 +307,43 @@
 			name="CloseView">
 			</smartfoldernode>
 			<testmodule
+			id="2c0a0f74-1b0e-4681-8f8a-de3bea4dd5e3"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<description>
+					<![CDATA[Delete all previous *.risk files in currentVersion]]>
+				</description>
+				<databinding>
+					<var
+					dataname="extensionRiskeerProjects"
+					datasourceid="ffd7722e-fb6a-4059-a901-6b57196a5a93"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="ffd7722e-fb6a-4059-a901-6b57196a5a93"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="extensionRiskeerProjects"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="2d33db74-1ec9-42f4-bc92-4fa517d782fc"
 			name="CreateScreenshotMessagesPanel"
 			ref="061e4f7d-17ae-44b5-8bfe-3d8ea937802d"
@@ -1202,6 +1239,43 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="a6b013e9-dadf-43b5-8bd3-3a3c5edef9ce"
+			name="MigrateAllFilesInFolderUsingCommandLineTool"
+			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
+			type="UserCode">
+				<description>
+					<![CDATA[migrate *.risk from previousRelease to currentRelease folder]]>
+				</description>
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="ffd7722e-fb6a-4059-a901-6b57196a5a93"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+					<var
+					dataname="folderRiskeerProjectsPreviousRelease"
+					datasourceid="ffd7722e-fb6a-4059-a901-6b57196a5a93"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="folderPreviousReleaseProjects"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="a795e298-d855-4933-aa46-f34b8767b21f"
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
@@ -1932,7 +2006,15 @@
 					</param>
 					<param
 					name="projectToOpenFileName"
-					value="X:\script20\input\script19a.risk">
+					value="script19a.risk">
+					</param>
+					<param
+					name="extensionRiskeerProjects"
+					value="*.risk">
+					</param>
+					<param
+					name="folderRiskeerProjectsPreviousRelease"
+					value="X:\script20\previousRelease">
 					</param>
 				</parameters>
 			</testcase>
@@ -1957,6 +2039,14 @@
 							<testmodule
 							id="0bef2f43-c86c-41e6-bc9a-e801fde6a053"
 							name="CreateOutputFolder">
+							</testmodule>
+							<testmodule
+							id="2c0a0f74-1b0e-4681-8f8a-de3bea4dd5e3"
+							name="DeleteAllSearchFilteredFiles">
+							</testmodule>
+							<testmodule
+							id="a6b013e9-dadf-43b5-8bd3-3a3c5edef9ce"
+							name="MigrateAllFilesInFolderUsingCommandLineTool">
 							</testmodule>
 						</setup>
 						<smartfoldernode
