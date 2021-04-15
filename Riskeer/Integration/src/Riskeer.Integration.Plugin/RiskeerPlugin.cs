@@ -30,7 +30,6 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Helpers;
@@ -242,13 +241,9 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        private RiskeerRibbon ribbonCommandHandler;
-
         private IAssessmentSectionFromFileCommandHandler assessmentSectionFromFileCommandHandler;
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
         private AssessmentSectionMerger assessmentSectionMerger;
-
-        public override IRibbonCommandHandler RibbonCommandHandler => ribbonCommandHandler;
 
         public override IGui Gui
         {
@@ -277,11 +272,6 @@ namespace Riskeer.Integration.Plugin
                                                                   new AssessmentSectionMergeComparer(),
                                                                   new AssessmentSectionMergeDataProviderDialog(Gui.MainWindow),
                                                                   new AssessmentSectionMergeHandler(Gui.ViewCommands));
-
-            ribbonCommandHandler = new RiskeerRibbon
-            {
-                AddAssessmentSectionButtonCommand = new AddAssessmentSectionCommand(assessmentSectionFromFileCommandHandler)
-            };
         }
 
         /// <summary>

@@ -30,9 +30,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
-using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.Gui.TestUtil;
@@ -745,39 +743,6 @@ namespace Riskeer.Integration.Plugin.Test
                 // Assert
                 Assert.Throws<InvalidOperationException>(test);
             }
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Activate_WithGui_ExpectedProperties()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.StrictMock<IMainWindow>();
-            var documentViewController = mockRepository.StrictMock<IDocumentViewController>();
-            var viewCommands = mockRepository.StrictMock<IViewCommands>();
-            var gui = mockRepository.StrictMock<IGui>();
-            var storeProject = mockRepository.Stub<IStoreProject>();
-            gui.Expect(g => g.MainWindow).Return(mainWindow).Repeat.AtLeastOnce();
-            gui.Expect(g => g.DocumentViewController).Return(documentViewController);
-            gui.Expect(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
-            gui.Expect(g => g.ViewCommands).Return(viewCommands);
-            gui.Expect(g => g.ProjectStore).Return(storeProject);
-            mockRepository.ReplayAll();
-
-            using (var plugin = new RiskeerPlugin())
-            {
-                plugin.Gui = gui;
-
-                // Call
-                plugin.Activate();
-
-                // Assert
-                Assert.IsInstanceOf<RiskeerRibbon>(plugin.RibbonCommandHandler);
-            }
-
-            mockRepository.VerifyAll();
         }
     }
 }

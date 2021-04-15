@@ -57,12 +57,6 @@
     <ProjectReference Include="..\Riskeer.Integration.Service\Riskeer.Integration.Service.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="RiskeerRibbon.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
