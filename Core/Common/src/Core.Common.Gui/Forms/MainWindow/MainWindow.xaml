@@ -63,6 +63,7 @@ All rights reserved.
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
         <fluent:Ribbon Focusable="True" x:Name="Ribbon" AutomaticStateManagement="False" x:FieldModifier="protected">
@@ -149,16 +150,18 @@ All rights reserved.
 
             </fluent:Ribbon.QuickAccessItems>
 
-            <!--View-->
-            <fluent:RibbonTabItem Header="{x:Static properties:Resources.Ribbon_TabItem_View}" fluent:KeyTip.Keys="V" >
-                <fluent:RibbonGroupBox Header="{x:Static properties:Resources.Ribbon_GroupBox_Show_Hide}" fluent:KeyTip.Keys="ZS">
-                    <fluent:ToggleButton x:Name="ButtonShowProperties" Header="{x:Static properties:Resources.Ribbon_Properties}" Icon="/Core.Common.Gui;component\Resources\PropertiesHS.png" Click="ButtonShowProperties_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="P" />
-                    <fluent:ToggleButton x:Name="ButtonShowMessages" Header="{x:Static properties:Resources.Ribbon_Messages}" Icon="/Core.Common.Gui;component\Resources\application_view_list.png" Click="ButtonShowMessages_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="M" />
-                </fluent:RibbonGroupBox>
-            </fluent:RibbonTabItem>
         </fluent:Ribbon>
 
         <viewHost:AvalonDockViewHost Grid.Row="1" x:Name="AvalonDockViewHost" />
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <ToggleButton Name="ButtonShowProperties" Width="30" ToolTip="{x:Static properties:Resources.Ribbon_Properties}" Click="ButtonShowProperties_Click">
+                <Image Source="/Core.Common.Gui;component\Resources\PropertiesHS.png"></Image>
+            </ToggleButton>
+            <ToggleButton Name="ButtonShowMessages" Width="30" ToolTip="{x:Static properties:Resources.Ribbon_Messages}" Click="ButtonShowMessages_Click">
+                <Image Source="/Core.Common.Gui;component\Resources\application_view_list.png"></Image>
+            </ToggleButton>
+        </StackPanel>
 
     </Grid>
 </fluent:RibbonWindow>
