@@ -266,18 +266,15 @@ namespace Core.Plugins.Map.Test
                 var view = new TestMapView();
                 IViewHost guiViewHost = gui.ViewHost;
                 MapLegendView mapLegendView = guiViewHost.ToolViews.OfType<MapLegendView>().First();
-                var mapRibbon = (MapRibbon) plugin.RibbonCommandHandler;
 
                 // Precondition
                 Assert.IsNull(GetMapControl(mapLegendView));
-                Assert.IsNull(GetMapControl(mapRibbon));
 
                 // When
                 guiViewHost.AddDocumentView(view);
 
                 // Then
                 Assert.AreSame(view.Map, GetMapControl(mapLegendView));
-                Assert.AreSame(view.Map, GetMapControl(mapRibbon));
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
@@ -310,21 +307,18 @@ namespace Core.Plugins.Map.Test
                 var view2 = new TestMapView();
                 IViewHost guiViewHost = gui.ViewHost;
                 MapLegendView mapLegendView = guiViewHost.ToolViews.OfType<MapLegendView>().First();
-                var mapRibbon = (MapRibbon) plugin.RibbonCommandHandler;
 
                 guiViewHost.AddDocumentView(view1);
                 guiViewHost.AddDocumentView(view2);
 
                 // Precondition
                 Assert.AreSame(view2.Map, GetMapControl(mapLegendView));
-                Assert.AreSame(view2.Map, GetMapControl(mapRibbon));
 
                 // When
                 guiViewHost.BringToFront(view1);
 
                 // Then
                 Assert.AreSame(view1.Map, GetMapControl(mapLegendView));
-                Assert.AreSame(view1.Map, GetMapControl(mapRibbon));
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
@@ -356,20 +350,17 @@ namespace Core.Plugins.Map.Test
                 var view = new TestMapView();
                 IViewHost guiViewHost = gui.ViewHost;
                 MapLegendView mapLegendView = guiViewHost.ToolViews.OfType<MapLegendView>().First();
-                var mapRibbon = (MapRibbon) plugin.RibbonCommandHandler;
 
                 guiViewHost.AddDocumentView(view);
 
                 // Precondition
                 Assert.AreSame(view.Map, GetMapControl(mapLegendView));
-                Assert.AreSame(view.Map, GetMapControl(mapRibbon));
 
                 // When
                 guiViewHost.Remove(view);
 
                 // Then
                 Assert.IsNull(GetMapControl(mapLegendView));
-                Assert.IsNull(GetMapControl(mapRibbon));
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
@@ -402,30 +393,22 @@ namespace Core.Plugins.Map.Test
                 var view2 = new TestMapView();
                 IViewHost guiViewHost = gui.ViewHost;
                 MapLegendView mapLegendView = guiViewHost.ToolViews.OfType<MapLegendView>().First();
-                var mapRibbon = (MapRibbon) plugin.RibbonCommandHandler;
 
                 guiViewHost.AddDocumentView(view1);
                 guiViewHost.AddDocumentView(view2);
 
                 // Precondition
                 Assert.AreSame(view2.Map, GetMapControl(mapLegendView));
-                Assert.AreSame(view2.Map, GetMapControl(mapRibbon));
 
                 // When
                 guiViewHost.Remove(view1);
 
                 // Then
                 Assert.AreSame(view2.Map, GetMapControl(mapLegendView));
-                Assert.AreSame(view2.Map, GetMapControl(mapRibbon));
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
             mocks.VerifyAll();
-        }
-
-        private static IMapControl GetMapControl(MapRibbon mapRibbon)
-        {
-            return TypeUtils.GetProperty<IMapControl>(mapRibbon, "Map");
         }
 
         private static IMapControl GetMapControl(MapLegendView mapLegendView)

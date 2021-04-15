@@ -124,9 +124,6 @@
   <data name="MapIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\map.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Ribbon_ContextualGroup_Map" xml:space="preserve">
-    <value>Kaarten</value>
-  </data>
   <data name="Ribbon_Toggle_Legend" xml:space="preserve">
     <value>Kaart</value>
   </data>
@@ -154,9 +151,6 @@
   <data name="RectangleZoomIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\zoomrectangle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Ribbon_GroupBox_Navigation" xml:space="preserve">
-    <value>Navigatie</value>
-  </data>
   <data name="Ribbon_Toggle_RectangleZooming" xml:space="preserve">
     <value>Zoom door rechthoek</value>
   </data>
@@ -175,9 +169,6 @@
   <data name="MapPointIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\map-pin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Ribbon_GroupBox_Tools" xml:space="preserve">
-    <value>Hulpmiddelen</value>
-  </data>
   <data name="Ribbon_Toggle_Coordinates" xml:space="preserve">
     <value>Toon coördinaten</value>
   </data>
@@ -192,9 +183,6 @@
   </data>
   <data name="MapPlusIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\map--plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Categories_General" xml:space="preserve">
-    <value>Algemeen</value>
   </data>
   <data name="MapData_Name_Description" xml:space="preserve">
     <value>De naam van deze kaartlaag.</value>

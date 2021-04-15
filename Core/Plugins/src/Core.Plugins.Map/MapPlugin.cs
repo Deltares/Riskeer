@@ -22,14 +22,12 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Gui;
-using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.IO.Importers;
-using Core.Plugins.Map.Commands;
 using Core.Plugins.Map.Helpers;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.PresentationObjects;
@@ -45,27 +43,18 @@ namespace Core.Plugins.Map
     {
         private bool activated;
         private IMapView currentMapView;
-        private MapRibbon mapRibbon;
         private MapLegendController mapLegendController;
-
-        public override IRibbonCommandHandler RibbonCommandHandler
-        {
-            get
-            {
-                return mapRibbon;
-            }
-        }
 
         public override void Activate()
         {
             mapLegendController = CreateLegendController(Gui);
-            mapRibbon = CreateMapRibbon();
-
             mapLegendController.ToggleView();
+
             Gui.ViewHost.ViewOpened += OnViewOpened;
             Gui.ViewHost.ViewBroughtToFront += OnViewBroughtToFront;
             Gui.ViewHost.ViewClosed += OnViewClosed;
             Gui.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
+
             activated = true;
         }
 
@@ -135,14 +124,6 @@ namespace Core.Plugins.Map
             return controller;
         }
 
-        private MapRibbon CreateMapRibbon()
-        {
-            return new MapRibbon
-            {
-                ToggleLegendViewCommand = new ToggleMapLegendViewCommand(mapLegendController)
-            };
-        }
-
         private void OnViewOpened(object sender, ViewChangeEventArgs e)
         {
             var view = e.View as IMapView;
@@ -183,9 +164,7 @@ namespace Core.Plugins.Map
 
             currentMapView = mapView;
 
-            IMapControl mapControl = mapView?.Map;
-            mapLegendController.Update(mapControl);
-            mapRibbon.Map = mapControl;
+            mapLegendController.Update(mapView?.Map);
         }
     }
 }

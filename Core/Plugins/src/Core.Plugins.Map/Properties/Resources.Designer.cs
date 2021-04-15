@@ -40,7 +40,7 @@ namespace Core.Plugins.Map.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -88,15 +88,6 @@ namespace Core.Plugins.Map.Properties {
             get {
                 object obj = ResourceManager.GetObject("AreaIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Algemeen.
-        /// </summary>
-        public static string Categories_General {
-            get {
-                return ResourceManager.GetString("Categories_General", resourceCulture);
             }
         }
         
@@ -783,33 +774,6 @@ namespace Core.Plugins.Map.Properties {
             get {
                 object obj = ResourceManager.GetObject("RectangleZoomIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kaarten.
-        /// </summary>
-        public static string Ribbon_ContextualGroup_Map {
-            get {
-                return ResourceManager.GetString("Ribbon_ContextualGroup_Map", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Navigatie.
-        /// </summary>
-        public static string Ribbon_GroupBox_Navigation {
-            get {
-                return ResourceManager.GetString("Ribbon_GroupBox_Navigation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hulpmiddelen.
-        /// </summary>
-        public static string Ribbon_GroupBox_Tools {
-            get {
-                return ResourceManager.GetString("Ribbon_GroupBox_Tools", resourceCulture);
             }
         }
         

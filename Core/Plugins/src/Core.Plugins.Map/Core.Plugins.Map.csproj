@@ -27,12 +27,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MapRibbon.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\map.png" />
   </ItemGroup>
   <ItemGroup>
