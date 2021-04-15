@@ -459,9 +459,6 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             FileManualButton.IsEnabled = File.Exists(settings.FixedSettings.ManualFilePath);
 
-            ButtonQuickAccessOpenProject.IsEnabled = ButtonMenuFileOpenProject.IsEnabled;
-            ButtonQuickAccessSaveProject.IsEnabled = ButtonMenuFileSaveProject.IsEnabled;
-
             UpdateRibbonExtensions(gui);
 
             ValidateItems();

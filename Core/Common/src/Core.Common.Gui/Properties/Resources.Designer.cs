@@ -227,16 +227,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ClosePreviewHH {
-            get {
-                object obj = ResourceManager.GetObject("ClosePreviewHH", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Alles i&amp;nklappen.
         /// </summary>
         public static string Collapse_all {
@@ -390,16 +380,6 @@ namespace Core.Common.Gui.Properties {
         public static System.Drawing.Bitmap DeleteIcon {
             get {
                 object obj = ResourceManager.GetObject("DeleteIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap DocumentHS {
-            get {
-                object obj = ResourceManager.GetObject("DocumentHS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1095,16 +1075,6 @@ namespace Core.Common.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap openfolderHS {
-            get {
-                object obj = ResourceManager.GetObject("openfolderHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap OpenIcon {
             get {
                 object obj = ResourceManager.GetObject("OpenIcon", resourceCulture);
@@ -1325,15 +1295,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weergeven/Verbergen.
-        /// </summary>
-        public static string Ribbon_GroupBox_Show_Hide {
-            get {
-                return ResourceManager.GetString("Ribbon_GroupBox_Show_Hide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Berichten.
         /// </summary>
         public static string Ribbon_Messages {
@@ -1379,24 +1340,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start.
-        /// </summary>
-        public static string Ribbon_TabItem_Start {
-            get {
-                return ResourceManager.GetString("Ribbon_TabItem_Start", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Beeld.
-        /// </summary>
-        public static string Ribbon_TabItem_View {
-            get {
-                return ResourceManager.GetString("Ribbon_TabItem_View", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon Riskeer {
@@ -1407,31 +1350,11 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap SaveAsHH {
-            get {
-                object obj = ResourceManager.GetObject("SaveAsHH", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Opslaan als.
         /// </summary>
         public static string SaveFileDialog_Title {
             get {
                 return ResourceManager.GetString("SaveFileDialog_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap saveHS {
-            get {
-                object obj = ResourceManager.GetObject("saveHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1540,16 +1463,6 @@ namespace Core.Common.Gui.Properties {
         public static string SplashScreen_Version {
             get {
                 return ResourceManager.GetString("SplashScreen_Version", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap SplashScreenBackground {
-            get {
-                object obj = ResourceManager.GetObject("SplashScreenBackground", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

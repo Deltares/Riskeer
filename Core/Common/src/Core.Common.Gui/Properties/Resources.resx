@@ -121,29 +121,17 @@
     <value>Eigenschappen</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="SplashScreenBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SplashScreenBackground.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Ribbon_Command_New" xml:space="preserve">
     <value>Nieuw</value>
   </data>
   <data name="App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first" xml:space="preserve">
     <value>Kan niet meerdere instanties van Riskeer starten. Sluit eerst de andere instantie.</value>
   </data>
-  <data name="ClosePreviewHH" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ClosePreviewHH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="App_Unhandled_exception" xml:space="preserve">
     <value>Onbekende kritieke fout opgetreden.</value>
-  </data>
-  <data name="Ribbon_GroupBox_Show_Hide" xml:space="preserve">
-    <value>Weergeven/Verbergen</value>
-  </data>
-  <data name="openfolderHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\openfolderHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Ribbon_Command_Save" xml:space="preserve">
     <value>Opslaan</value>
@@ -160,17 +148,11 @@
   <data name="application_view_list" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\application_view_list.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DocumentHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DocumentHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ApplicationFeatureiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file_Opening_log_file_directory_instead" xml:space="preserve">
     <value>Het is niet mogelijk het logbestand te openen. In plaats hiervan wordt de folder waarin het logbestand staat geopend.</value>
   </data>
   <data name="DeleteIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/DeleteHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="saveHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\saveHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GuiImportHandler_SelectImportInfo_No_importer_available_for_this_item_0_" xml:space="preserve">
     <value>Geen enkele 'Importer' is beschikbaar voor dit element ({0}).</value>
@@ -202,17 +184,11 @@
   <data name="Creating_new_project_successful" xml:space="preserve">
     <value>Nieuw project aanmaken is gelukt.</value>
   </data>
-  <data name="Ribbon_TabItem_View" xml:space="preserve">
-    <value>Beeld</value>
-  </data>
   <data name="Ribbon_Open_Manual" xml:space="preserve">
     <value>Gebruikershandleiding Openen</value>
   </data>
   <data name="folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SaveAsHH" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SaveAsHH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GuiCore_Run_Started_in_0_f2_sec" xml:space="preserve">
     <value>Gestart in {0:f2} seconden.</value>
@@ -501,9 +477,6 @@
   </data>
   <data name="ProjectIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\project-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Ribbon_TabItem_Start" xml:space="preserve">
-    <value>Start</value>
   </data>
   <data name="GuiExportHandler_GetSupportedExportInfoUsingDialog_Select_exporter" xml:space="preserve">
     <value>Kies wat u wilt exporteren</value>

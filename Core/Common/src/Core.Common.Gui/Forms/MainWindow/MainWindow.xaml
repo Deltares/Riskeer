@@ -67,101 +67,77 @@ All rights reserved.
         </Grid.RowDefinitions>
 
         <fluent:Ribbon Focusable="True" x:Name="Ribbon" AutomaticStateManagement="False" x:FieldModifier="protected">
-            <!--Backstage-->
-            <fluent:Ribbon.Menu>
-                <fluent:Backstage Background="#008fc5" x:Name="Menu" x:FieldModifier="private">
-
-                    <fluent:BackstageTabControl>
-                        <fluent:Button Header="{x:Static properties:Resources.Ribbon_Command_New}"
-                                       x:Name="ButtonMenuFileNewProject"
-                                       AutomationProperties.AutomationId="ButtonMenuFileNewProject"
-                                       AutomationProperties.Name="ButtonMenuFileNewProject"
-                                       Icon="/Core.Common.Gui;component\Resources\DocumentHS.png"
-                                       fluent:KeyTip.Keys="N"
-                                       Click="OnFileNewClicked" x:FieldModifier="private" />
-
-                        <fluent:Button Header="{x:Static properties:Resources.Ribbon_Command_Save}" 
-                                       x:Name="ButtonMenuFileSaveProject"
-                                       Icon="/Core.Common.Gui;component\Resources\saveHS.png"
-                                       fluent:KeyTip.Keys="S"
-                                       Click="OnFileSaveClicked" x:FieldModifier="private" />
-
-                        <fluent:Button Header="{x:Static properties:Resources.Ribbon_Command_Save_As}"
-                                       x:Name="ButtonMenuFileSaveProjectAs"
-                                       AutomationProperties.AutomationId="ButtonMenuFileSaveProjectAs"
-                                       Icon="/Core.Common.Gui;component\Resources\SaveAsHH.png"
-                                       fluent:KeyTip.Keys="A" 
-                                       Click="OnFileSaveAsClicked" x:FieldModifier="private" />
-
-                        <fluent:Button Header="{x:Static properties:Resources.Ribbon_Command_Open}"
-                                       x:Name="ButtonMenuFileOpenProject"
-                                       AutomationProperties.AutomationId= "ButtonMenuFileOpenProject"
-                                       Icon="/Core.Common.Gui;component\Resources\openfolderHS.png"
-                                       fluent:KeyTip.Keys="O"
-                                       Click="OnFileOpenClicked" x:FieldModifier="private" />
-
-                        <fluent:SeparatorTabItem />
-
-                        <fluent:BackstageTabItem Header="{x:Static properties:Resources.Ribbon_TabItem_Help}" fluent:KeyTip.Keys="H">
-                            <fluent:BackstageTabControl>
-                                <fluent:Button Header="{x:Static properties:Resources.Ribbon_Show_Log}" Icon="/Core.Common.Gui;component\Resources\application_view_list.png" fluent:KeyTip.Keys="O" Click="OnFileHelpShowLog_Clicked" />
-                                <fluent:Button x:Name="FileManualButton" Header="{x:Static properties:Resources.Ribbon_Open_Manual}" Icon="/Core.Common.Gui;component\Resources\manual.png" fluent:KeyTip.Keys="M" Click="OnFileManual_Clicked" />
-                                <fluent:Button x:Name ="AboutButton" Header="{x:Static properties:Resources.Ribbon_About}" Icon="/Core.Common.Gui;component\Resources\information.png" fluent:KeyTip.Keys="A" Click="OnAboutDialog_Clicked"/>
-                            </fluent:BackstageTabControl>
-                        </fluent:BackstageTabItem>
-                        
-                        <fluent:Button Header="{x:Static properties:Resources.Ribbon_Exit}"
-                                       Icon="/Core.Common.Gui;component\Resources\ClosePreviewHH.png"
-                                       fluent:KeyTip.Keys="X"
-                                       Click="OnFileExitClicked" />
-
-                    </fluent:BackstageTabControl>
-                </fluent:Backstage>
-            </fluent:Ribbon.Menu>
-
-            <fluent:Ribbon.QuickAccessItems>
-
-                <fluent:QuickAccessMenuItem IsChecked="True">
-                    <fluent:Button Header="{x:Static properties:Resources.Ribbon_Command_New}"
-                                    x:Name="ButtonQuickAccessNewProject"
-                                    AutomationProperties.AutomationId="ButtonQuickAccessNewProject"
-                                    AutomationProperties.Name="ButtonQuickAccessNewProject"
-                                    Icon="/Core.Common.Gui;component\Resources\DocumentHS.png"
-                                    Click="OnFileNewClicked"/>
-                </fluent:QuickAccessMenuItem>
-
-                <fluent:QuickAccessMenuItem IsChecked="True">
-                    <fluent:Button Header="{x:Static properties:Resources.Ribbon_Command_Open}"
-                                   x:Name="ButtonQuickAccessOpenProject"
-                                   AutomationProperties.AutomationId="ButtonQuickAccessOpenProject"
-                                   AutomationProperties.Name="ButtonQuickAccessOpenProject"
-                                   Icon="/Core.Common.Gui;component\Resources\openfolderHS.png"
-                                   Click="OnFileOpenClicked" />
-                </fluent:QuickAccessMenuItem>
-
-                <fluent:QuickAccessMenuItem IsChecked="True">
-                    <fluent:Button Header="{x:Static properties:Resources.Ribbon_Command_Save}" 
-                                   x:Name="ButtonQuickAccessSaveProject"
-                                   AutomationProperties.AutomationId="ButtonQuickAccessSaveProject"
-                                   AutomationProperties.Name="ButtonQuickAccessSaveProject"
-                                   Icon="/Core.Common.Gui;component\Resources\saveHS.png"
-                                   Click="OnFileSaveClicked" />
-                </fluent:QuickAccessMenuItem>
-
-            </fluent:Ribbon.QuickAccessItems>
 
         </fluent:Ribbon>
 
         <viewHost:AvalonDockViewHost Grid.Row="1" x:Name="AvalonDockViewHost" />
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal">
-            <ToggleButton Name="ButtonShowProperties" Width="30" ToolTip="{x:Static properties:Resources.Ribbon_Properties}" Click="ButtonShowProperties_Click">
-                <Image Source="/Core.Common.Gui;component\Resources\PropertiesHS.png"></Image>
-            </ToggleButton>
-            <ToggleButton Name="ButtonShowMessages" Width="30" ToolTip="{x:Static properties:Resources.Ribbon_Messages}" Click="ButtonShowMessages_Click">
-                <Image Source="/Core.Common.Gui;component\Resources\application_view_list.png"></Image>
-            </ToggleButton>
-        </StackPanel>
-
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <ToggleButton Name="ButtonShowProperties" Width="30" ToolTip="{x:Static properties:Resources.Ribbon_Properties}" Click="ButtonShowProperties_Click">
+                    <Image Source="/Core.Common.Gui;component\Resources\PropertiesHS.png" />
+                </ToggleButton>
+                <ToggleButton Name="ButtonShowMessages" Width="30" ToolTip="{x:Static properties:Resources.Ribbon_Messages}" Click="ButtonShowMessages_Click">
+                    <Image Source="/Core.Common.Gui;component\Resources\application_view_list.png" />
+                </ToggleButton>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button Name="ButtonMenuFileNewProject"
+                        ToolTip="{x:Static properties:Resources.Ribbon_Command_New}"
+                        AutomationProperties.AutomationId="ButtonMenuFileNewProject"
+                        AutomationProperties.Name="ButtonMenuFileNewProject"
+                        Click="OnFileNewClicked"
+                        x:FieldModifier="private">
+                    <Image Source="/Core.Common.Gui;component\Resources\DocumentHS.png"/>
+                </Button>
+                <Button Name="ButtonMenuFileSaveProject"
+                        ToolTip="{x:Static properties:Resources.Ribbon_Command_Save}"
+                        Click="OnFileSaveClicked"
+                        x:FieldModifier="private">
+                    <Image Source="/Core.Common.Gui;component\Resources\saveHS.png"/>
+                </Button>
+                <Button Name="ButtonMenuFileSaveProjectAs"
+                        ToolTip="{x:Static properties:Resources.Ribbon_Command_Save_As}"
+                        AutomationProperties.AutomationId="ButtonMenuFileSaveProjectAs"
+                        Click="OnFileSaveAsClicked"
+                        x:FieldModifier="private">
+                    <Image Source="/Core.Common.Gui;component\Resources\SaveAsHH.png"/>
+                </Button>
+                <Button Name="ButtonMenuFileOpenProject"
+                        ToolTip="{x:Static properties:Resources.Ribbon_Command_Open}"
+                        AutomationProperties.AutomationId= "ButtonMenuFileOpenProject"
+                        Click="OnFileOpenClicked"
+                        x:FieldModifier="private">
+                    <Image Source="/Core.Common.Gui;component\Resources\openfolderHS.png"/>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button ToolTip="{x:Static properties:Resources.Ribbon_Show_Log}"
+                        Click="OnFileHelpShowLog_Clicked">
+                    <Image Source="/Core.Common.Gui;component\Resources\application_view_list.png"/>
+                </Button>
+                <Button Name="FileManualButton"
+                        ToolTip="{x:Static properties:Resources.Ribbon_Open_Manual}"
+                        Click="OnFileManual_Clicked"
+                        x:FieldModifier="private">
+                    <Image Source="/Core.Common.Gui;component\Resources\manual.png"/>
+                </Button>
+                <Button Name="AboutButton"
+                        ToolTip="{x:Static properties:Resources.Ribbon_About}"
+                        Click="OnAboutDialog_Clicked"
+                        x:FieldModifier="private">
+                    <Image Source="/Core.Common.Gui;component\Resources\information.png"/>
+                </Button>
+                <Button ToolTip="{x:Static properties:Resources.Ribbon_Exit}"
+                        Click="OnFileExitClicked">
+                    <Image Source="/Core.Common.Gui;component\Resources\ClosePreviewHH.png"/>
+                </Button>
+            </StackPanel>
+        </Grid>
     </Grid>
 </fluent:RibbonWindow>
