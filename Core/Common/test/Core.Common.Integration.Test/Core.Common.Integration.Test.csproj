@@ -22,6 +22,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MahApps.Metro">
+      <Version>2.4.4</Version>
+    </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.8.1</Version>
     </PackageReference>
