@@ -139,12 +139,6 @@
   <data name="RectangleZoomIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\zoomrectangle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Ribbon_ContextualGroup_Charting" xml:space="preserve">
-    <value>Grafieken</value>
-  </data>
-  <data name="Ribbon_GroupBox_Navigation" xml:space="preserve">
-    <value>Navigatie</value>
-  </data>
   <data name="Ribbon_Toggle_Legend" xml:space="preserve">
     <value>Grafiek</value>
   </data>

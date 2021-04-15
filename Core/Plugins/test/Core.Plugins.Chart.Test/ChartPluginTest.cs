@@ -224,18 +224,15 @@ namespace Core.Plugins.Chart.Test
                 var view = new TestChartView();
                 IViewHost guiViewHost = gui.ViewHost;
                 ChartLegendView chartLegendView = guiViewHost.ToolViews.OfType<ChartLegendView>().First();
-                var chartingRibbon = (ChartingRibbon) plugin.RibbonCommandHandler;
 
                 // Precondition
                 Assert.IsNull(GetChartControl(chartLegendView));
-                Assert.IsNull(GetChartControl(chartingRibbon));
 
                 // When
                 guiViewHost.AddDocumentView(view);
 
                 // Then
                 Assert.AreSame(view.Chart, GetChartControl(chartLegendView));
-                Assert.AreSame(view.Chart, GetChartControl(chartingRibbon));
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
@@ -268,21 +265,18 @@ namespace Core.Plugins.Chart.Test
                 var view2 = new TestChartView();
                 IViewHost guiViewHost = gui.ViewHost;
                 ChartLegendView chartLegendView = guiViewHost.ToolViews.OfType<ChartLegendView>().First();
-                var chartingRibbon = (ChartingRibbon) plugin.RibbonCommandHandler;
 
                 guiViewHost.AddDocumentView(view1);
                 guiViewHost.AddDocumentView(view2);
 
                 // Precondition
                 Assert.AreSame(view2.Chart, GetChartControl(chartLegendView));
-                Assert.AreSame(view2.Chart, GetChartControl(chartingRibbon));
 
                 // When
                 guiViewHost.BringToFront(view1);
 
                 // Then
                 Assert.AreSame(view1.Chart, GetChartControl(chartLegendView));
-                Assert.AreSame(view1.Chart, GetChartControl(chartingRibbon));
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
@@ -314,20 +308,17 @@ namespace Core.Plugins.Chart.Test
                 var view = new TestChartView();
                 IViewHost guiViewHost = gui.ViewHost;
                 ChartLegendView chartLegendView = guiViewHost.ToolViews.OfType<ChartLegendView>().First();
-                var chartingRibbon = (ChartingRibbon) plugin.RibbonCommandHandler;
 
                 guiViewHost.AddDocumentView(view);
 
                 // Precondition
                 Assert.AreSame(view.Chart, GetChartControl(chartLegendView));
-                Assert.AreSame(view.Chart, GetChartControl(chartingRibbon));
 
                 // When
                 guiViewHost.Remove(view);
 
                 // Then
                 Assert.IsNull(GetChartControl(chartLegendView));
-                Assert.IsNull(GetChartControl(chartingRibbon));
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
@@ -360,30 +351,22 @@ namespace Core.Plugins.Chart.Test
                 var view2 = new TestChartView();
                 IViewHost guiViewHost = gui.ViewHost;
                 ChartLegendView chartLegendView = guiViewHost.ToolViews.OfType<ChartLegendView>().First();
-                var chartingRibbon = (ChartingRibbon) plugin.RibbonCommandHandler;
 
                 guiViewHost.AddDocumentView(view1);
                 guiViewHost.AddDocumentView(view2);
 
                 // Precondition
                 Assert.AreSame(view2.Chart, GetChartControl(chartLegendView));
-                Assert.AreSame(view2.Chart, GetChartControl(chartingRibbon));
 
                 // When
                 guiViewHost.Remove(view1);
 
                 // Then
                 Assert.AreSame(view2.Chart, GetChartControl(chartLegendView));
-                Assert.AreSame(view2.Chart, GetChartControl(chartingRibbon));
             }
 
             Dispatcher.CurrentDispatcher.InvokeShutdown();
             mocks.VerifyAll();
-        }
-
-        private static IChartControl GetChartControl(ChartingRibbon chartRibbon)
-        {
-            return TypeUtils.GetProperty<IChartControl>(chartRibbon, "Chart");
         }
 
         private static IChartControl GetChartControl(ChartLegendView chartLegendView)

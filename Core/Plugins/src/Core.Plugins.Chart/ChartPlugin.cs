@@ -22,12 +22,10 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Gui;
-using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
-using Core.Plugins.Chart.Commands;
 using Core.Plugins.Chart.Legend;
 using Core.Plugins.Chart.PropertyClasses;
 
@@ -40,27 +38,18 @@ namespace Core.Plugins.Chart
     {
         private bool activated;
         private IChartView currentChartView;
-        private ChartingRibbon chartingRibbon;
         private ChartLegendController chartLegendController;
-
-        public override IRibbonCommandHandler RibbonCommandHandler
-        {
-            get
-            {
-                return chartingRibbon;
-            }
-        }
 
         public override void Activate()
         {
             chartLegendController = CreateLegendController(Gui);
-            chartingRibbon = CreateRibbon(chartLegendController);
-
             chartLegendController.ToggleView();
+
             Gui.ViewHost.ViewOpened += OnViewOpened;
             Gui.ViewHost.ViewBroughtToFront += OnViewBroughtToFront;
             Gui.ViewHost.ViewClosed += OnViewClosed;
             Gui.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
+
             activated = true;
         }
 
@@ -100,20 +89,6 @@ namespace Core.Plugins.Chart
             return controller;
         }
 
-        /// <summary>
-        /// Creates the <see cref="ChartingRibbon"/> and the commands that will be used when clicking on the buttons.
-        /// </summary>
-        /// <param name="chartLegendController">The <see cref="ChartLegendController"/> to use for the 
-        /// <see cref="ChartingRibbon"/>.</param>
-        /// <returns>A new <see cref="ChartingRibbon"/> instance.</returns>
-        private static ChartingRibbon CreateRibbon(ChartLegendController chartLegendController)
-        {
-            return new ChartingRibbon
-            {
-                ToggleLegendViewCommand = new ToggleLegendViewCommand(chartLegendController)
-            };
-        }
-
         private void OnViewOpened(object sender, ViewChangeEventArgs e)
         {
             UpdateComponentsForView(e.View as IChartView);
@@ -150,10 +125,7 @@ namespace Core.Plugins.Chart
             }
 
             currentChartView = chartView;
-
-            IChartControl chartControl = chartView?.Chart;
-            chartLegendController.Update(chartControl);
-            chartingRibbon.Chart = chartControl;
+            chartLegendController.Update(chartView?.Chart);
         }
     }
 }

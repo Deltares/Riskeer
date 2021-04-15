@@ -20,12 +20,6 @@
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Chart\Core.Components.Chart.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ChartingRibbon.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\chart.png" />
     <None Include="Resources\area.png" />
     <None Include="Resources\document.png" />
