@@ -51,10 +51,6 @@ All rights reserved.
         <KeyBinding Command="Close" Key="F4" Modifiers="Alt"/>
         <KeyBinding Command="{x:Static commands:MainWindowCommands.CloseViewTabCommand}" Key="F4" Modifiers="Ctrl"/>
     </Window.InputBindings>
-
-    <Window.Resources>
-        <ResourceDictionary Source="/Fluent;Component/Themes/generic.xaml"/>
-    </Window.Resources>
     
     <Grid>
         <Grid.RowDefinitions>

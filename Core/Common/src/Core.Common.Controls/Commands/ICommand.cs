@@ -22,7 +22,7 @@
 namespace Core.Common.Controls.Commands
 {
     /// <summary>
-    /// Interface for defining the behavior of (Ribbon) buttons and/or menu items.
+    /// Interface for defining the behavior of buttons and/or menu items.
     /// </summary>
     public interface ICommand
     {
@@ -32,7 +32,7 @@ namespace Core.Common.Controls.Commands
         bool Checked { get; }
 
         /// <summary>
-        /// This method implements the logic that should be performed after clicking the (Ribbon) button and/or menu item.
+        /// This method implements the logic that should be performed after clicking the button and/or menu item.
         /// </summary>
         void Execute();
     }

@@ -47,7 +47,7 @@ namespace Core.Plugins.Map.Test
     public class MapPluginTest
     {
         [Test]
-        public void DefaultConstructor_Always_NoRibbonCommandHandlerSet()
+        public void Constructor_ExpectedValues()
         {
             // Call
             using (var plugin = new MapPlugin())
