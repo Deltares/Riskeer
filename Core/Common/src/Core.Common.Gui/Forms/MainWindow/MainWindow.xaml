@@ -33,6 +33,8 @@ All rights reserved.
                    Title="MainWindow" Height="768" Width="1024" 
                    x:Name="Window"
                    Icon="/Core.Common.Gui;component\Resources/Riskeer.ico"
+                   ResizeMode="CanResizeWithGrip"
+                   FlowDirection="LeftToRight"
                    Loaded="MainWindow_OnLoaded">
 
     <metro:MetroWindow.CommandBindings>
