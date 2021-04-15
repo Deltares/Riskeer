@@ -5,12 +5,12 @@
     <Platforms>x86</Platforms>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFramework>net47</TargetFramework>
     <LangVersion>7.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <Company>Deltares</Company>
     <Copyright>Copyright © Deltares 2021</Copyright>
-    <Version>21.1.1</Version>
+    <Version>21.2.1</Version>
     <Configurations>Debug;Release;ReleaseForCodeCoverage</Configurations>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
