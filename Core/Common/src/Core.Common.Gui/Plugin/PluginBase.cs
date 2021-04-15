@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui.Forms;
 using Core.Common.Gui.Helpers;
 
 namespace Core.Common.Gui.Plugin
@@ -39,17 +38,6 @@ namespace Core.Common.Gui.Plugin
         /// Gets or sets the gui.
         /// </summary>
         public virtual IGui Gui { get; set; }
-
-        /// <summary>
-        /// Ribbon command handler (adding tabs, groups, buttons, etc.) which can be provided by the plug-in.
-        /// </summary>
-        public virtual IRibbonCommandHandler RibbonCommandHandler
-        {
-            get
-            {
-                return null;
-            }
-        }
 
         /// <summary>
         /// Activates the plug-in.

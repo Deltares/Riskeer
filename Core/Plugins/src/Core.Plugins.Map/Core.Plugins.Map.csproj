@@ -54,13 +54,6 @@
     <None Include="Resources\map--plus.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fluent.Ribbon">
-      <Version>3.4.0</Version>
-      <GeneratePathProperty>true</GeneratePathProperty>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
