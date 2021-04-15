@@ -277,22 +277,6 @@ namespace Core.Common.Gui.Forms.MainWindow
 
             Close();
 
-            if (Ribbon != null)
-            {
-                foreach (RibbonTabItem tab in Ribbon.Tabs)
-                {
-                    foreach (RibbonGroupBox group in tab.Groups)
-                    {
-                        group.Items.Clear();
-                    }
-
-                    tab.Groups.Clear();
-                }
-
-                Ribbon.Tabs.Clear();
-                Ribbon = null;
-            }
-
             ribbonCommandHandlers = null;
 
             SetGui(null);
