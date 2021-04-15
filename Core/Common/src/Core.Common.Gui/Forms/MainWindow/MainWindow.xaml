@@ -20,8 +20,7 @@ All names, logos, and references to "Deltares" are registered trademarks of
 Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
-<fluent:RibbonWindow
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
@@ -60,19 +59,13 @@ All rights reserved.
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
-        <fluent:Ribbon Focusable="True" x:Name="Ribbon" AutomaticStateManagement="False" x:FieldModifier="protected">
+        <viewHost:AvalonDockViewHost Grid.Row="0" x:Name="AvalonDockViewHost" />
 
-        </fluent:Ribbon>
-
-        <viewHost:AvalonDockViewHost Grid.Row="1" x:Name="AvalonDockViewHost" />
-
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="160"/>
@@ -140,4 +133,4 @@ All rights reserved.
             </StackPanel>
         </Grid>
     </Grid>
-</fluent:RibbonWindow>
+</Window>
