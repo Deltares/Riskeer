@@ -46,11 +46,6 @@ namespace Core.Common.Gui.Forms.MainWindow
     public partial class MainWindow : IMainWindow, IDisposable, ISynchronizeInvoke
     {
         /// <summary>
-        /// Remember last active contextual tab per view.
-        /// </summary>
-        private readonly IDictionary<Type, string> lastActiveContextTabNamePerViewType = new Dictionary<Type, string>();
-
-        /// <summary>
         /// Class to help with hybrid winforms - WPF applications. Provides UI handle to
         /// ensure common UI functionality such as maximizing works as expected.
         /// </summary>
@@ -65,18 +60,6 @@ namespace Core.Common.Gui.Forms.MainWindow
         private PropertyGridView.PropertyGridView propertyGrid;
 
         private IEnumerable<IRibbonCommandHandler> ribbonCommandHandlers;
-
-        /// <summary>
-        /// This is used when user selects non-contextual tab explicitly. Then we won't 
-        /// activate contextual tab on the next view activation.
-        /// </summary>
-        private bool activateContextualTab;
-
-        /// <summary>
-        /// Used when contextual tab was activated and we switch back to view which does 
-        /// not support contextual tabs.
-        /// </summary>
-        private string lastNonContextualTab;
 
         private IGui gui;
 
@@ -201,8 +184,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             if (viewController?.ViewHost != null)
             {
                 viewController.ViewHost.ViewClosed += OnViewClosed;
-                viewController.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
-                viewController.ViewHost.ActiveDocumentViewChanging += OnActiveDocumentViewChanging;
             }
         }
 
@@ -214,8 +195,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             if (viewController?.ViewHost != null)
             {
                 viewController.ViewHost.ViewClosed -= OnViewClosed;
-                viewController.ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
-                viewController.ViewHost.ActiveDocumentViewChanging -= OnActiveDocumentViewChanging;
             }
         }
 
@@ -319,37 +298,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             SetGui(null);
         }
 
-        private void OnActiveDocumentViewChanging(object sender, EventArgs e)
-        {
-            if (Ribbon.SelectedTabItem != null && !Ribbon.SelectedTabItem.IsContextual)
-            {
-                lastNonContextualTab = Ribbon.SelectedTabItem.Header.ToString();
-            }
-
-            // remember active contextual tab per view type, when view is activated back - activate contextual item
-            IView activeDocumentView = viewController.ViewHost.ActiveDocumentView;
-            if (Ribbon.SelectedTabItem != null && activeDocumentView != null)
-            {
-                if (Ribbon.SelectedTabItem.IsContextual)
-                {
-                    lastActiveContextTabNamePerViewType[activeDocumentView.GetType()] = Ribbon.SelectedTabItem.Header.ToString();
-                    activateContextualTab = true;
-                }
-                else
-                {
-                    // user has clicked on non-contextual tab before switching active view
-                    if (lastActiveContextTabNamePerViewType.ContainsKey(activeDocumentView.GetType()))
-                    {
-                        activateContextualTab = false;
-                    }
-                }
-            }
-            else
-            {
-                activateContextualTab = true;
-            }
-        }
-
         private void OnViewClosed(object sender, ViewChangeEventArgs e)
         {
             if (ReferenceEquals(e.View, propertyGrid))
@@ -360,35 +308,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             if (ReferenceEquals(e.View, messageWindow))
             {
                 messageWindow = null;
-            }
-        }
-
-        private void OnActiveDocumentViewChanged(object sender, EventArgs e)
-        {
-            // activate contextual tab which was active for this view type
-            IView activeDocumentView = viewController.ViewHost.ActiveDocumentView;
-            if (activateContextualTab && Ribbon.SelectedTabItem != null && activeDocumentView != null
-                && Ribbon.Tabs.Any(t => t.IsContextual && t.Visibility == Visibility.Visible))
-            {
-                string lastActiveTabForActiveDocumentView;
-                if (lastActiveContextTabNamePerViewType.TryGetValue(activeDocumentView.GetType(), out lastActiveTabForActiveDocumentView))
-                {
-                    RibbonTabItem tab = Ribbon.Tabs.First(t => t.Header.ToString() == lastActiveTabForActiveDocumentView);
-                    if (tab.IsVisible)
-                    {
-                        Ribbon.SelectedTabItem = tab;
-                    }
-                }
-                else // activate first contextual group tab
-                {
-                    RibbonTabItem tab = Ribbon.Tabs.FirstOrDefault(t => t.IsContextual && t.Visibility == Visibility.Visible);
-                    Ribbon.SelectedTabItem = tab;
-                }
-            }
-            else if (!string.IsNullOrEmpty(lastNonContextualTab)) // reactivate last non-contextual tab
-            {
-                RibbonTabItem tab = Ribbon.Tabs.First(t => t.Header.ToString() == lastNonContextualTab);
-                Ribbon.SelectedTabItem = tab;
             }
         }
 
