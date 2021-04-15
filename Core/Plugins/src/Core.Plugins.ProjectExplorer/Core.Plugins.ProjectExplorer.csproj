@@ -26,12 +26,6 @@
     <Resource Include="Resources\folder_wrench.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Ribbon.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

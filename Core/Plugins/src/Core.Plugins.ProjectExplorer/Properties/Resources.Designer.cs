@@ -40,7 +40,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -115,24 +115,6 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         public static string ProjectExplorerPlugin_Cannot_activate_0_twice {
             get {
                 return ResourceManager.GetString("ProjectExplorerPlugin_Cannot_activate_0_twice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Weergeven/Verbergen.
-        /// </summary>
-        public static string Ribbon_GroupBox_ShowHide {
-            get {
-                return ResourceManager.GetString("Ribbon_GroupBox_ShowHide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Beeld.
-        /// </summary>
-        public static string Ribbon_TabItem_View {
-            get {
-                return ResourceManager.GetString("Ribbon_TabItem_View", resourceCulture);
             }
         }
     }

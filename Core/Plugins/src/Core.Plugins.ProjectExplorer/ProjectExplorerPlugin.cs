@@ -26,9 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
-using Core.Common.Gui.Forms;
 using Core.Common.Gui.Plugin;
-using Core.Plugins.ProjectExplorer.Commands;
 using Core.Plugins.ProjectExplorer.Exceptions;
 using ProjectExplorerResources = Core.Plugins.ProjectExplorer.Properties.Resources;
 
@@ -43,17 +41,8 @@ namespace Core.Plugins.ProjectExplorer
         private ProjectExplorerViewController projectExplorerViewController;
         private IViewCommands viewCommands;
         private IProjectOwner projectOwner;
-        private Ribbon ribbonCommandHandler;
         private IEnumerable<TreeNodeInfo> treeNodeInfos;
         private bool active;
-
-        public override IRibbonCommandHandler RibbonCommandHandler
-        {
-            get
-            {
-                return ribbonCommandHandler;
-            }
-        }
 
         public override IGui Gui
         {
@@ -108,11 +97,6 @@ namespace Core.Plugins.ProjectExplorer
                                                ProjectExplorerResources.General_ProjectExplorer);
                 throw new PluginActivationException(message, e);
             }
-
-            ribbonCommandHandler = new Ribbon
-            {
-                ToggleExplorerCommand = new ToggleProjectExplorerCommand(projectExplorerViewController)
-            };
 
             projectExplorerViewController.OnOpenView += (s, e) => UpdateProject();
             projectExplorerViewController.ToggleView();
