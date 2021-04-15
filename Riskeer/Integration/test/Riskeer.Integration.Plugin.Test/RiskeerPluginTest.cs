@@ -76,7 +76,6 @@ namespace Riskeer.Integration.Plugin.Test
             {
                 // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
-                Assert.IsNull(plugin.RibbonCommandHandler);
             }
         }
 

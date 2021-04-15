@@ -22,11 +22,9 @@
 using System;
 using System.Linq;
 using System.Threading;
-using System.Windows;
 using System.Windows.Threading;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
-using Core.Common.Controls.Views;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewHost;
@@ -56,7 +54,6 @@ namespace Core.Plugins.Map.Test
             {
                 // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
-                Assert.IsNull(plugin.RibbonCommandHandler);
             }
         }
 
@@ -111,7 +108,6 @@ namespace Core.Plugins.Map.Test
 
                 // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
-                Assert.NotNull(plugin.RibbonCommandHandler);
             }
 
             mocks.VerifyAll();
@@ -164,43 +160,6 @@ namespace Core.Plugins.Map.Test
                 Assert.AreEqual(1, importInfos.Length);
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(MapDataCollectionContext)));
             }
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GivenConfiguredGui_WhenActiveDocumentViewChangesToViewWithMap_ThenRibbonSetVisibility(bool visible)
-        {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
-            mocks.ReplayAll();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                var plugin = new MapPlugin
-                {
-                    Gui = gui
-                };
-
-                gui.Plugins.Add(plugin);
-                gui.Run();
-
-                IView view = visible ? (IView) new TestMapView() : new TestView();
-
-                // When
-                gui.ViewHost.AddDocumentView(view);
-
-                // Then
-                Assert.AreEqual(visible ? Visibility.Visible : Visibility.Collapsed, plugin.RibbonCommandHandler.GetRibbonControl().ContextualGroups[0].Visibility);
-            }
-
-            Dispatcher.CurrentDispatcher.InvokeShutdown();
-            mocks.VerifyAll();
         }
 
         [Test]

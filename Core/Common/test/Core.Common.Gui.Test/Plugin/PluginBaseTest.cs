@@ -41,7 +41,6 @@ namespace Core.Common.Gui.Test.Plugin
             {
                 // Assert
                 Assert.IsNull(plugin.Gui);
-                Assert.IsNull(plugin.RibbonCommandHandler);
             }
         }
 

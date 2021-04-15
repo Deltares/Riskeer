@@ -47,7 +47,6 @@ namespace Core.Plugins.ProjectExplorer.Test
                 // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
                 Assert.IsNull(plugin.Gui);
-                Assert.IsNull(plugin.RibbonCommandHandler);
             }
         }
 

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -57,8 +56,6 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private MessageWindow.MessageWindow messageWindow;
         private PropertyGridView.PropertyGridView propertyGrid;
-
-        private IEnumerable<IRibbonCommandHandler> ribbonCommandHandlers;
 
         private IGui gui;
 
@@ -217,16 +214,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
 
             UpdateToolWindowButtonState();
-
-            if (ribbonCommandHandlers == null)
-            {
-                return;
-            }
-
-            foreach (IRibbonCommandHandler ribbonCommandHandler in ribbonCommandHandlers)
-            {
-                ribbonCommandHandler.ValidateItems();
-            }
         }
 
         public void Dispose()
@@ -275,8 +262,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             IsWindowDisposed = true;
 
             Close();
-
-            ribbonCommandHandlers = null;
 
             SetGui(null);
         }
