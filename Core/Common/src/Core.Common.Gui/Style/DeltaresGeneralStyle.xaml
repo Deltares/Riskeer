@@ -132,6 +132,7 @@ All rights reserved.
     <Style TargetType="main:MainWindow">
         <Setter Property="GlowBrush" Value="{DynamicResource WindowGlowBrush}" />
         <Setter Property="OverlayBrush" Value="{DynamicResource WindowOverlayBrush}" />
+        <Setter Property="WindowTitleBrush" Value="{DynamicResource WindowTitleColorBrush}" />
         <Setter Property="Title" Value="Riskeer" />
         <Setter Property="Icon" Value="../Resources/Riskeer.ico" />
         <Setter Property="TitleAlignment" Value="Center"/>
