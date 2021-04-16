@@ -133,22 +133,6 @@ namespace Riskeer.Common.IO.Test.HydraRing
         }
 
         [Test]
-        public void ValidateFilesForCalculation_InvalidFilePath_ReturnsMessageWithError()
-        {
-            // Setup
-            const string invalidFilePath = "C:\\Thisissomeverylongpath\\toadirectorywhich\\doesntevenexist\\Nowlets\\finishwithsomelongname\\" +
-                                           "loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong" +
-                                           "naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaame" +
-                                           "\\followedbythefile";
-
-            // Call
-            string result = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(invalidFilePath, hlcdFilePath, testDataPath, false);
-
-            // Assert
-            Assert.AreEqual($"Het opgegeven bestandspad ({invalidFilePath}) is niet geldig.", result);
-        }
-
-        [Test]
         public void ValidateFileForCalculation_UsePreprocessorClosureTrueWithoutPreprocessorClosureFile_ReturnsMessageWithError()
         {
             // Setup

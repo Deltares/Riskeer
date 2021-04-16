@@ -75,21 +75,6 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         }
 
         [Test]
-        public void WriteWaveConditions_FilePathTooLong_ThrowCriticalFileWriteException()
-        {
-            // Setup
-            var filePath = new string('a', 249);
-
-            // Call
-            TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), filePath);
-
-            // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
-            Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
-            Assert.IsInstanceOf<PathTooLongException>(exception.InnerException);
-        }
-
-        [Test]
         public void WriteWaveConditions_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
             // Setup

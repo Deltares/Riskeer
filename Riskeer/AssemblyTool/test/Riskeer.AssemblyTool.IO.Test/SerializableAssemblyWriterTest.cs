@@ -119,21 +119,6 @@ namespace Riskeer.AssemblyTool.IO.Test
         }
 
         [Test]
-        public void WriteAssembly_FilePathTooLong_ThrowsCriticalFileWriteException()
-        {
-            // Setup
-            var filePath = new string('a', 249);
-
-            // Call
-            TestDelegate call = () => SerializableAssemblyWriter.WriteAssembly(new SerializableAssembly(), filePath);
-
-            // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
-            Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
-            Assert.IsInstanceOf<PathTooLongException>(exception.InnerException);
-        }
-
-        [Test]
         public void WriteAssembly_InvalidDirectoryRights_ThrowsCriticalFileWriteException()
         {
             // Setup
