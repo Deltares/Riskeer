@@ -48,49 +48,6 @@ All rights reserved.
                      options:Freeze="True" />
     <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource DeltaresBlue}"
                      options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.AccentBaseColorBrush" Color="{StaticResource DeltaresBlue}" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Background"
-                     Color="{StaticResource Transparent}" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background"
-                     Color="{StaticResource RibbonActiveBackgroundColor}" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Foreground" Color="{StaticResource White}" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground"
-                     Color="{StaticResource DeltaresBlue}" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background"
-                     Color="{StaticResource RibbonActiveBackgroundColor}" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Active.Foreground"
-                     Color="{StaticResource DeltaresBlue}" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background" Color="{StaticResource White}"
-                     Opacity="0.2" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground" Color="{StaticResource White}" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Ribbon.Background" Color="Transparent" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.LabelTextBrush" Color="{StaticResource Black}" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush" Color="Transparent" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ToggleButton.Checked.Background" Color="#e4e4df" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush" Color="#d2d2ca" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ToggleButton.Checked.ForegroundBrush"
-                     Color="{StaticResource DeltaresBlue}" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ToggleButton.CheckedMouseOver.Background" Color="#e4e4df" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ToggleButton.CheckedMouseOver.BorderBrush" Color="#d2d2ca" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ToggleButton.CheckedMouseOver.ForegroundBrush"
-                     Color="{StaticResource DeltaresBlue}" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Button.MouseOver.Background" Color="#e4e4df" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush" Color="#d2d2ca" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Button.Pressed.Background" Color="#e4e4df" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush" Color="#d2d2ca" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Button.Pressed.Foreground" Color="{StaticResource DeltaresBlue}" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Button.Background" Color="Transparent" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Button.BorderBrush" Color="Transparent" />
-    <SolidColorBrush x:Key="RibbonBottomBorderBrush" Color="{StaticResource DeltaresSand}" />
-
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GalleryItem.Selected" Color="{StaticResource DeltaresSand}"
-                     Opacity="0.25" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GalleryItem.MouseOver"
-                     Color="{StaticResource RibbonActiveBackgroundColor}" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GalleryItem.Pressed" Color="{StaticResource DeltaresSand}"
-                     Opacity="0.25" />
-
-    <Thickness x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness">0</Thickness>
 
     <SolidColorBrush x:Key="DrawingDistanceSwitchActiveItemBackground" Color="{StaticResource Black}" Opacity="0.2" />
     <SolidColorBrush x:Key="DrawingDistanceSwitchHoverItemBackground" Color="{StaticResource White}" Opacity="0.2" />
@@ -108,37 +65,7 @@ All rights reserved.
     <SolidColorBrush x:Key="DisabledInputBackgroundBrush" Color="{StaticResource Black}" Opacity="0.15" />
     <SolidColorBrush x:Key="DisabledInputForegroundBrush" Color="{StaticResource Black}" />
 
-    <SolidColorBrush x:Key="BackstageInputBorderBrush" Color="#7A7B7B" />
-    <SolidColorBrush x:Key="BackstageUneditableForeground" Color="#7A7B7B" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Backstage.Background" Color="Transparent" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.BackstageTabControl.Background" Color="#E7E7E3" />
     <SolidColorBrush x:Key="HighTransparentWhiteBrush" Color="{StaticResource White}" Opacity="0.2" />
-
-    <SolidColorBrush x:Key="BackstageTabItemHoverBackground"
-                     Color="{StaticResource DeltaresBlue}" Opacity="0.1" />
-    <SolidColorBrush x:Key="BackstageTabItemActiveBackground"
-                     Color="{StaticResource DeltaresBlue}" Opacity="0.2" />
-    <SolidColorBrush x:Key="BackstageTabItemForeground" Color="{StaticResource Black}" />
-    <SolidColorBrush x:Key="BackstageTabColumnBorder" Color="{StaticResource DeltaresSand}" />
-
-    <SolidColorBrush x:Key="RecentFileGroupForeground" Color="{StaticResource DeltaresBlue}" />
-    <SolidColorBrush x:Key="RecentFileItemMouseOverBackground"
-                     Color="{StaticResource DeltaresBlue}" Opacity="0.1" />
-    <SolidColorBrush x:Key="RecentFileItemMouseDownBackground"
-                     Color="{StaticResource DeltaresBlue}" Opacity="0.2" />
-    <SolidColorBrush x:Key="RecentFileItemForeground" Color="{StaticResource Black}" />
-
-    <SolidColorBrush x:Key="StartScreenForeground" Color="{StaticResource White}" />
-    <SolidColorBrush x:Key="StartScreenBigButtonMouseOverBrush" Color="{StaticResource White}" Opacity="0.2" />
-    <SolidColorBrush x:Key="StartScreenBigButtonMouseDownBrush" Color="{StaticResource White}" Opacity="0.1" />
-    <SolidColorBrush x:Key="BackstageBigButtonMouseDownBrush" Color="{StaticResource DeltaresBlue}" Opacity="0.1" />
-    <SolidColorBrush x:Key="BackstageBigButtonMouseOverBrush" Color="{StaticResource DeltaresBlue}" Opacity="0.1" />
-
-    <SolidColorBrush x:Key="PropertyPanelBackgroundBrush"
-                     Color="{StaticResource Black}"
-                     Opacity="0.05" />
-    <SolidColorBrush x:Key="ExplanatoryPanelForegroundBrush"
-                     Color="{StaticResource Black}" Opacity="0.33" />
 
     <SolidColorBrush x:Key="RowColor" Color="{StaticResource DeltaresSand}"
                      Opacity="0.15" />
