@@ -86,7 +86,7 @@ All rights reserved.
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
     
-    <Grid>
+    <Grid Background="{StaticResource BackgroundColorBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
