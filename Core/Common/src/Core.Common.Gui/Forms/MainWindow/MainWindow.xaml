@@ -55,6 +55,37 @@ All rights reserved.
         <KeyBinding Command="{x:Static commands:MainWindowCommands.CloseViewTabCommand}" Key="F4" Modifiers="Ctrl"/>
     </metro:MetroWindow.InputBindings>
     
+    <metro:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Style/DeltaresStyle.xaml" /> 
+            </ResourceDictionary.MergedDictionaries>
+            
+            <Style x:Key="ControlBackgroundWindowTitleStyle" TargetType="{x:Type Control}">
+                <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
+                <Style.Triggers>
+                    <DataTrigger
+                        Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
+                        Value="False">
+                        <Setter Property="Background"
+                                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=NonActiveBorderBrush}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="PanelBackgroundWindowTitleStyle" TargetType="{x:Type Panel}">
+                <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
+                <Style.Triggers>
+                    <DataTrigger
+                        Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
+                        Value="False">
+                        <Setter Property="Background"
+                                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=NonActiveBorderBrush}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </metro:MetroWindow.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

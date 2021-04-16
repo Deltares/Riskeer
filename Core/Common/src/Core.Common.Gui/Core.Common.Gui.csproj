@@ -46,6 +46,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <None Remove="Style\DeltaresStyle.xaml" />
+    <Page Include="Style\DeltaresStyle.xaml" />
+    <None Remove="Style\DeltaresRadioButtonStyle.xaml" />
+    <Page Include="Style\DeltaresRadioButtonStyle.xaml" />
+    <None Remove="Style\DeltaresGeneralStyle.xaml" />
+    <Page Include="Style\DeltaresGeneralStyle.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\application_import_blue.ico" />
