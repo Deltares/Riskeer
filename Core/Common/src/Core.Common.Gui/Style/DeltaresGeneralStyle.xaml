@@ -134,6 +134,7 @@ All rights reserved.
         <Setter Property="OverlayBrush" Value="{DynamicResource WindowOverlayBrush}" />
         <Setter Property="Title" Value="Riskeer" />
         <Setter Property="Icon" Value="../Resources/Riskeer.ico" />
+        <Setter Property="TitleAlignment" Value="Center"/>
         <Setter Property="ShowIconOnTitleBar" Value="False" />
         <Setter Property="Height" Value="350" />
         <Setter Property="Width" Value="525" />
