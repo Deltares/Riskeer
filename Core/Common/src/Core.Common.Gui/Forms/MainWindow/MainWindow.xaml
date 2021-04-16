@@ -1,4 +1,4 @@
-<!--
+﻿<!--
 Copyright (C) Stichting Deltares 2021. All rights reserved.
 
 This file is part of Riskeer.
@@ -74,6 +74,8 @@ All rights reserved.
             </Style>
             
             <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource Transparent}" />
+            <SolidColorBrush x:Key="MainButtonBarBottomBorderBrush" Color="{StaticResource DeltaresSand}" />
+            <SolidColorBrush x:Key="MainButtonBarActiveBackgroundColor" Color="#F1F1EE" />
             
             <Style x:Key="TopAndBottomBarButtonStyle" TargetType="{x:Type ButtonBase}">
                 <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
@@ -135,6 +137,12 @@ All rights reserved.
     
     <Grid Background="{StaticResource BackgroundColorBrush}">
         <DockPanel>
+            
+            <StackPanel DockPanel.Dock="Top" Height="100" Background="{StaticResource MainButtonBarActiveBackgroundColor}"/>
+            
+            <Border DockPanel.Dock="Top"
+                    BorderThickness="0,1,0,0"
+                    BorderBrush="{StaticResource MainButtonBarBottomBorderBrush}" />
             
             <DockPanel Height="25" DockPanel.Dock="Bottom" Style="{StaticResource PanelBackgroundWindowTitleStyle}">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
