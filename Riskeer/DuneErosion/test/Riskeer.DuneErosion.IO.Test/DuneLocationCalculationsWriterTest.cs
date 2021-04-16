@@ -92,6 +92,23 @@ namespace Riskeer.DuneErosion.IO.Test
         }
 
         [Test]
+        public void WriteDuneLocationCalculations_FilePathTooLong_ThrowCriticalFileWriteException()
+        {
+            // Setup
+            var filePath = new string('a', 249);
+
+            // Call
+            TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(),
+                                                                                                   filePath,
+                                                                                                   new TestTypeConverter());
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
+            Assert.IsInstanceOf<PathTooLongException>(exception.InnerException);
+        }
+
+        [Test]
         public void WriteDuneLocationCalculations_InvalidDirectoryRights_ThrowCriticalFileWriteException()
         {
             // Setup

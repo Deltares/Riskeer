@@ -63,6 +63,16 @@ namespace Riskeer.Common.IO.HydraRing
                 return e.Message;
             }
 
+            try
+            {
+                Path.GetDirectoryName(filePath);
+            }
+            catch (PathTooLongException)
+            {
+                return string.Format(CultureInfo.CurrentCulture, HydraRingResources.HydraulicBoundaryDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_,
+                                     filePath);
+            }
+
             string settingsDatabaseFileName = GetHydraulicBoundarySettingsDatabase(filePath);
             try
             {

@@ -93,6 +93,21 @@ namespace Riskeer.Common.IO.TestUtil
         }
 
         [Test]
+        public void Write_FilePathTooLong_ThrowCriticalFileWriteException()
+        {
+            // Setup
+            var filePath = new string('a', 249);
+            TWriter writerInstance = CreateWriterInstance(filePath);
+
+            // Call
+            TestDelegate call = () => writerInstance.Write(Enumerable.Empty<IConfigurationItem>());
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            AssertTooLongPath(exception, filePath);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
@@ -172,6 +187,13 @@ namespace Riskeer.Common.IO.TestUtil
         protected virtual void AssertNullFilePath(ArgumentException exception)
         {
             Assert.IsNotNull(exception);
+        }
+
+        protected virtual void AssertTooLongPath(CriticalFileWriteException exception, string filePath)
+        {
+            Assert.IsNotNull(exception);
+            Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
+            Assert.IsInstanceOf<PathTooLongException>(exception.InnerException);
         }
 
         protected virtual void AssertInvalidDirectoryRights(CriticalFileWriteException exception, string filePath)
