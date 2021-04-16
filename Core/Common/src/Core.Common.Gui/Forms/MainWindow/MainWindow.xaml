@@ -61,17 +61,6 @@ All rights reserved.
                 <ResourceDictionary Source="../../Style/DeltaresStyle.xaml" /> 
             </ResourceDictionary.MergedDictionaries>
             
-            <Style x:Key="ControlBackgroundWindowTitleStyle" TargetType="{x:Type Control}">
-                <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
-                <Style.Triggers>
-                    <DataTrigger
-                        Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
-                        Value="False">
-                        <Setter Property="Background"
-                                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=NonActiveBorderBrush}" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
             <Style x:Key="PanelBackgroundWindowTitleStyle" TargetType="{x:Type Panel}">
                 <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
                 <Style.Triggers>
@@ -86,7 +75,7 @@ All rights reserved.
             
             <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource Transparent}" />
             
-            <Style x:Key="StatusBarButtonStyle" TargetType="{x:Type ButtonBase}">
+            <Style x:Key="TopAndBottomBarButtonStyle" TargetType="{x:Type ButtonBase}">
                 <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
@@ -105,6 +94,43 @@ All rights reserved.
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
     
+    <metro:MetroWindow.LeftWindowCommands>
+        <metro:WindowCommands>
+            <Button Name="ButtonMenuFileNewProject"
+                        ToolTip="{x:Static properties:Resources.Ribbon_Command_New}"
+                        AutomationProperties.AutomationId="ButtonMenuFileNewProject"
+                        AutomationProperties.Name="ButtonMenuFileNewProject"
+                        Click="OnFileNewClicked"
+                        x:FieldModifier="private"
+                        Style="{StaticResource TopAndBottomBarButtonStyle}">
+                    <Image Source="/Core.Common.Gui;component\Resources\DocumentHS.png"/>
+                </Button>
+                <Button Name="ButtonMenuFileSaveProject"
+                        ToolTip="{x:Static properties:Resources.Ribbon_Command_Save}"
+                        Click="OnFileSaveClicked"
+                        x:FieldModifier="private"
+                        Style="{StaticResource TopAndBottomBarButtonStyle}">
+                    <Image Source="/Core.Common.Gui;component\Resources\saveHS.png"/>
+                </Button>
+                <Button Name="ButtonMenuFileSaveProjectAs"
+                        ToolTip="{x:Static properties:Resources.Ribbon_Command_Save_As}"
+                        AutomationProperties.AutomationId="ButtonMenuFileSaveProjectAs"
+                        Click="OnFileSaveAsClicked"
+                        x:FieldModifier="private"
+                        Style="{StaticResource TopAndBottomBarButtonStyle}">
+                    <Image Source="/Core.Common.Gui;component\Resources\SaveAsHH.png"/>
+                </Button>
+                <Button Name="ButtonMenuFileOpenProject"
+                        ToolTip="{x:Static properties:Resources.Ribbon_Command_Open}"
+                        AutomationProperties.AutomationId= "ButtonMenuFileOpenProject"
+                        Click="OnFileOpenClicked"
+                        x:FieldModifier="private"
+                        Style="{StaticResource TopAndBottomBarButtonStyle}">
+                    <Image Source="/Core.Common.Gui;component\Resources\openfolderHS.png"/>
+                </Button>
+        </metro:WindowCommands>
+    </metro:MetroWindow.LeftWindowCommands>
+    
     <Grid Background="{StaticResource BackgroundColorBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -116,7 +142,6 @@ All rights reserved.
         <Grid Grid.Row="1" Style="{StaticResource PanelBackgroundWindowTitleStyle}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="160"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal">
@@ -124,74 +149,40 @@ All rights reserved.
                               Width="30"
                               ToolTip="{x:Static properties:Resources.Ribbon_Properties}"
                               Click="ButtonShowProperties_Click"
-                              Style="{StaticResource StatusBarButtonStyle}">
+                              Style="{StaticResource TopAndBottomBarButtonStyle}">
                     <Image Source="/Core.Common.Gui;component\Resources\PropertiesHS.png" />
                 </ToggleButton>
                 <ToggleButton Name="ButtonShowMessages"
                               Width="30"
                               ToolTip="{x:Static properties:Resources.Ribbon_Messages}"
                               Click="ButtonShowMessages_Click"
-                              Style="{StaticResource StatusBarButtonStyle}">
+                              Style="{StaticResource TopAndBottomBarButtonStyle}">
                     <Image Source="/Core.Common.Gui;component\Resources\application_view_list.png" />
                 </ToggleButton>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal">
-                <Button Name="ButtonMenuFileNewProject"
-                        ToolTip="{x:Static properties:Resources.Ribbon_Command_New}"
-                        AutomationProperties.AutomationId="ButtonMenuFileNewProject"
-                        AutomationProperties.Name="ButtonMenuFileNewProject"
-                        Click="OnFileNewClicked"
-                        x:FieldModifier="private"
-                        Style="{StaticResource StatusBarButtonStyle}">
-                    <Image Source="/Core.Common.Gui;component\Resources\DocumentHS.png"/>
-                </Button>
-                <Button Name="ButtonMenuFileSaveProject"
-                        ToolTip="{x:Static properties:Resources.Ribbon_Command_Save}"
-                        Click="OnFileSaveClicked"
-                        x:FieldModifier="private"
-                        Style="{StaticResource StatusBarButtonStyle}">
-                    <Image Source="/Core.Common.Gui;component\Resources\saveHS.png"/>
-                </Button>
-                <Button Name="ButtonMenuFileSaveProjectAs"
-                        ToolTip="{x:Static properties:Resources.Ribbon_Command_Save_As}"
-                        AutomationProperties.AutomationId="ButtonMenuFileSaveProjectAs"
-                        Click="OnFileSaveAsClicked"
-                        x:FieldModifier="private"
-                        Style="{StaticResource StatusBarButtonStyle}">
-                    <Image Source="/Core.Common.Gui;component\Resources\SaveAsHH.png"/>
-                </Button>
-                <Button Name="ButtonMenuFileOpenProject"
-                        ToolTip="{x:Static properties:Resources.Ribbon_Command_Open}"
-                        AutomationProperties.AutomationId= "ButtonMenuFileOpenProject"
-                        Click="OnFileOpenClicked"
-                        x:FieldModifier="private"
-                        Style="{StaticResource StatusBarButtonStyle}">
-                    <Image Source="/Core.Common.Gui;component\Resources\openfolderHS.png"/>
-                </Button>
-            </StackPanel>
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
                 <Button ToolTip="{x:Static properties:Resources.Ribbon_Show_Log}"
                         Click="OnFileHelpShowLog_Clicked"
-                        Style="{StaticResource StatusBarButtonStyle}">
+                        Style="{StaticResource TopAndBottomBarButtonStyle}">
                     <Image Source="/Core.Common.Gui;component\Resources\application_view_list.png"/>
                 </Button>
                 <Button Name="FileManualButton"
                         ToolTip="{x:Static properties:Resources.Ribbon_Open_Manual}"
                         Click="OnFileManual_Clicked"
                         x:FieldModifier="private"
-                        Style="{StaticResource StatusBarButtonStyle}">
+                        Style="{StaticResource TopAndBottomBarButtonStyle}">
                     <Image Source="/Core.Common.Gui;component\Resources\manual.png"/>
                 </Button>
                 <Button Name="AboutButton"
                         ToolTip="{x:Static properties:Resources.Ribbon_About}"
                         Click="OnAboutDialog_Clicked"
                         x:FieldModifier="private"
-                        Style="{StaticResource StatusBarButtonStyle}">
+                        Style="{StaticResource TopAndBottomBarButtonStyle}">
                     <Image Source="/Core.Common.Gui;component\Resources\information.png"/>
                 </Button>
                 <Button ToolTip="{x:Static properties:Resources.Ribbon_Exit}"
                         Click="OnFileExitClicked"
-                        Style="{StaticResource StatusBarButtonStyle}">
+                        Style="{StaticResource TopAndBottomBarButtonStyle}">
                     <Image Source="/Core.Common.Gui;component\Resources\ClosePreviewHH.png"/>
                 </Button>
             </StackPanel>
