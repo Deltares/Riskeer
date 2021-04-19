@@ -78,16 +78,57 @@ All rights reserved.
             <SolidColorBrush x:Key="MainButtonBarBottomBorderBrush" Color="{StaticResource DeltaresSand}" />
             <SolidColorBrush x:Key="MainButtonBarActiveBackgroundColor" Color="#F1F1EE" />
             
-            <Style x:Key="TopAndBottomBarButtonStyle" TargetType="{x:Type ButtonBase}">
+            <Style x:Key="WindowCommandsButtonStyle" TargetType="{x:Type Button}"
+                   BasedOn="{StaticResource {x:Static metro:WindowCommands.ButtonStyleKey}}">
                 <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
-                <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
-                <Setter Property="Padding" Value="3 3" />
+                <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Margin" Value="0" />
-                <Setter Property="Width" Value="25"/>
-                <Setter Property="Height" Value="25"/>
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Width" Value="30"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Foreground" Value="{StaticResource WhiteBrush}" />
                 
                 <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource ZoomControlHoverItemBackground}"/>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}"/>
+                    </Trigger>
+                    
+                    <DataTrigger
+                        Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
+                        Value="False">
+                        <Setter Property="Background"
+                                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=NonActiveBorderBrush}" />
+                    </DataTrigger>
+                    
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition
+                                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
+                                Value="False" />
+                            <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Background" Value="{StaticResource ZoomControlHoverItemBackground}" />
+                    </MultiDataTrigger>
+                </Style.Triggers>
+            </Style>
+            
+            <Style x:Key="BottomButtonStyle" TargetType="{x:Type ButtonBase}">
+                <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Foreground" Value="{StaticResource WhiteBrush}" />
+                
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}"/>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}"/>
+                    </Trigger>
+                    
                     <DataTrigger
                         Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
                         Value="False">
@@ -98,9 +139,14 @@ All rights reserved.
             </Style>
             
             <Style x:Key="ButtonIconStyle" TargetType="{x:Type TextBlock}">
-                <Setter Property="FontSize" Value="32" />
                 <Setter Property="TextAlignment" Value="Center" />
                 <Setter Property="FontFamily" Value="{StaticResource RiskeerFont}" />
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+            
+            <Style x:Key="ButtonLargeIconStyle" TargetType="{x:Type TextBlock}"
+                   BasedOn="{StaticResource ButtonIconStyle}">
+                <Setter Property="FontSize" Value="32" />
             </Style>
             
             <Style x:Key="MainButtonBarButtonStyle" TargetType="ButtonBase">
@@ -168,31 +214,31 @@ All rights reserved.
                         AutomationProperties.Name="ButtonMenuFileNewProject"
                         Click="OnFileNewClicked"
                         x:FieldModifier="private"
-                        Style="{StaticResource TopAndBottomBarButtonStyle}">
-                    <Image Source="/Core.Common.Gui;component\Resources\DocumentHS.png"/>
+                        Style="{StaticResource WindowCommandsButtonStyle}">
+                    <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE93C;"/>
                 </Button>
                 <Button Name="ButtonMenuFileSaveProject"
                         ToolTip="{x:Static properties:Resources.Ribbon_Command_Save}"
                         Click="OnFileSaveClicked"
                         x:FieldModifier="private"
-                        Style="{StaticResource TopAndBottomBarButtonStyle}">
-                    <Image Source="/Core.Common.Gui;component\Resources\saveHS.png"/>
+                        Style="{StaticResource WindowCommandsButtonStyle}">
+                    <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE93E;"/>
                 </Button>
                 <Button Name="ButtonMenuFileSaveProjectAs"
                         ToolTip="{x:Static properties:Resources.Ribbon_Command_Save_As}"
                         AutomationProperties.AutomationId="ButtonMenuFileSaveProjectAs"
                         Click="OnFileSaveAsClicked"
                         x:FieldModifier="private"
-                        Style="{StaticResource TopAndBottomBarButtonStyle}">
-                    <Image Source="/Core.Common.Gui;component\Resources\SaveAsHH.png"/>
+                        Style="{StaticResource WindowCommandsButtonStyle}">
+                    <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE940;"/>
                 </Button>
                 <Button Name="ButtonMenuFileOpenProject"
                         ToolTip="{x:Static properties:Resources.Ribbon_Command_Open}"
                         AutomationProperties.AutomationId= "ButtonMenuFileOpenProject"
                         Click="OnFileOpenClicked"
                         x:FieldModifier="private"
-                        Style="{StaticResource TopAndBottomBarButtonStyle}">
-                    <Image Source="/Core.Common.Gui;component\Resources\openfolderHS.png"/>
+                        Style="{StaticResource WindowCommandsButtonStyle}">
+                    <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE93D;"/>
                 </Button>
         </metro:WindowCommands>
     </metro:MetroWindow.LeftWindowCommands>
@@ -203,28 +249,28 @@ All rights reserved.
             <StackPanel DockPanel.Dock="Top" Height="100" Background="{StaticResource MainButtonBarActiveBackgroundColor}" Orientation="Horizontal">
                 <Button Style="{StaticResource MainButtonBarButtonStyle}"
                         Tag="Project">
-                    <TextBlock Style="{StaticResource ButtonIconStyle}"
+                    <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
                                Text="&#xE949;"/>
                 </Button>
                 <Separator Style="{StaticResource SeparatorStyle}" />
                 <ToggleButton Style="{StaticResource ToggleButtonStyle}"
                               Tag="Traject">
-                    <TextBlock Style="{StaticResource ButtonIconStyle}"
+                    <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
                                Text="&#xE94E;"/>
                 </ToggleButton>
                 <ToggleButton Style="{StaticResource ToggleButtonStyle}"
                               Tag="Faalpaden">
-                    <TextBlock Style="{StaticResource ButtonIconStyle}"
+                    <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
                                Text="&#xE945;"/>
                 </ToggleButton>
                 <ToggleButton Style="{StaticResource ToggleButtonStyle}"
                               Tag="Berekeningen">
-                    <TextBlock Style="{StaticResource ButtonIconStyle}"
+                    <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
                                Text="&#xE91D;"/>
                 </ToggleButton>
                 <ToggleButton Style="{StaticResource ToggleButtonStyle}"
                               Tag="Assembleren">
-                    <TextBlock Style="{StaticResource ButtonIconStyle}"
+                    <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
                                Text="&#xE94B;"/>
                 </ToggleButton>
                 <Separator Style="{StaticResource SeparatorStyle}" />
@@ -239,13 +285,13 @@ All rights reserved.
                     <ToggleButton Name="ButtonShowProperties"
                                   ToolTip="{x:Static properties:Resources.Ribbon_Properties}"
                                   Click="ButtonShowProperties_Click"
-                                  Style="{StaticResource TopAndBottomBarButtonStyle}">
+                                  Style="{StaticResource BottomButtonStyle}">
                         <Image Source="/Core.Common.Gui;component\Resources\PropertiesHS.png" />
                     </ToggleButton>
                     <ToggleButton Name="ButtonShowMessages"
                                   ToolTip="{x:Static properties:Resources.Ribbon_Messages}"
                                   Click="ButtonShowMessages_Click"
-                                  Style="{StaticResource TopAndBottomBarButtonStyle}">
+                                  Style="{StaticResource BottomButtonStyle}">
                         <Image Source="/Core.Common.Gui;component\Resources\application_view_list.png" />
                     </ToggleButton>
                 </StackPanel>
@@ -254,7 +300,7 @@ All rights reserved.
                     <Button ToolTip="{x:Static properties:Resources.Ribbon_Show_Log}"
                             DockPanel.Dock="Left"
                             Click="OnFileHelpShowLog_Clicked"
-                            Style="{StaticResource TopAndBottomBarButtonStyle}">
+                            Style="{StaticResource BottomButtonStyle}">
                         <Image Source="/Core.Common.Gui;component\Resources\application_view_list.png"/>
                     </Button>
                     <Button Name="FileManualButton"
@@ -262,7 +308,7 @@ All rights reserved.
                             ToolTip="{x:Static properties:Resources.Ribbon_Open_Manual}"
                             Click="OnFileManual_Clicked"
                             x:FieldModifier="private"
-                            Style="{StaticResource TopAndBottomBarButtonStyle}">
+                            Style="{StaticResource BottomButtonStyle}">
                         <Image Source="/Core.Common.Gui;component\Resources\manual.png"/>
                     </Button>
                     <Button Name="AboutButton"
@@ -270,13 +316,13 @@ All rights reserved.
                             ToolTip="{x:Static properties:Resources.Ribbon_About}"
                             Click="OnAboutDialog_Clicked"
                             x:FieldModifier="private"
-                            Style="{StaticResource TopAndBottomBarButtonStyle}">
+                            Style="{StaticResource BottomButtonStyle}">
                         <Image Source="/Core.Common.Gui;component\Resources\information.png"/>
                     </Button>
                     <Button ToolTip="{x:Static properties:Resources.Ribbon_Exit}"
                             DockPanel.Dock="Left"
                             Click="OnFileExitClicked"
-                            Style="{StaticResource TopAndBottomBarButtonStyle}">
+                            Style="{StaticResource BottomButtonStyle}">
                         <Image Source="/Core.Common.Gui;component\Resources\ClosePreviewHH.png"/>
                     </Button>
                 </StackPanel>
