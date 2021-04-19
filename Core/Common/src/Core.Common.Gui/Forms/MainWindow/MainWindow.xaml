@@ -58,7 +58,7 @@ All rights reserved.
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../../Style/DeltaresStyle.xaml" /> 
+                <ResourceDictionary Source="pack://application:,,,/Core.Common.Gui;component/Style/DeltaresStyle.xaml" /> 
             </ResourceDictionary.MergedDictionaries>
             
             <Style x:Key="PanelBackgroundWindowTitleStyle" TargetType="{x:Type Panel}">
