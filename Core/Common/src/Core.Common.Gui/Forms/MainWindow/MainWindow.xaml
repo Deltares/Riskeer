@@ -220,7 +220,7 @@ All rights reserved.
                 <ToggleButton Style="{StaticResource ToggleButtonStyle}"
                               Tag="Berekeningen">
                     <TextBlock Style="{StaticResource ButtonIconStyle}"
-                               Text="&#xE919;"/>
+                               Text="&#xE91D;"/>
                 </ToggleButton>
                 <ToggleButton Style="{StaticResource ToggleButtonStyle}"
                               Tag="Assembleren">
