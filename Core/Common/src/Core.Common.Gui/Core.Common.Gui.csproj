@@ -52,6 +52,8 @@
     <Page Include="Style\DeltaresRadioButtonStyle.xaml" />
     <None Remove="Style\DeltaresGeneralStyle.xaml" />
     <Page Include="Style\DeltaresGeneralStyle.xaml" />
+    <None Remove="Style\Symbols\RiskeerSymbols.xaml" />
+    <Page Include="Style\Symbols\RiskeerSymbols.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\application_import_blue.ico" />
@@ -77,6 +79,8 @@
     <Resource Include="Resources\SaveAsHH.png" />
     <Resource Include="Resources\saveHS.png" />
     <Resource Include="Resources\SplashScreenBackground.png" />
+    <None Remove="Style\Symbols\Deltares-Riskeer-Symbols.ttf" />
+    <Resource Include="Style\Symbols\Deltares-Riskeer-Symbols.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\arrow-000-medium-question-mark.ico" />

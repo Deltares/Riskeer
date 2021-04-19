@@ -100,7 +100,7 @@ All rights reserved.
             <Style x:Key="ButtonIconStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="FontSize" Value="32" />
                 <Setter Property="TextAlignment" Value="Center" />
-                <!-- <Setter Property="FontFamily" Value="{StaticResource Deltares}" /> -->
+                <Setter Property="FontFamily" Value="{StaticResource RiskeerFont}" />
             </Style>
             
             <Style x:Key="MainButtonBarButtonStyle" TargetType="ButtonBase">
@@ -204,28 +204,28 @@ All rights reserved.
                 <Button Style="{StaticResource MainButtonBarButtonStyle}"
                         Tag="Project">
                     <TextBlock Style="{StaticResource ButtonIconStyle}"
-                               Text="1"/>
+                               Text="&#xE949;"/>
                 </Button>
                 <Separator Style="{StaticResource SeparatorStyle}" />
                 <ToggleButton Style="{StaticResource ToggleButtonStyle}"
                               Tag="Traject">
                     <TextBlock Style="{StaticResource ButtonIconStyle}"
-                               Text="2"/>
+                               Text="&#xE94E;"/>
                 </ToggleButton>
                 <ToggleButton Style="{StaticResource ToggleButtonStyle}"
                               Tag="Faalpaden">
                     <TextBlock Style="{StaticResource ButtonIconStyle}"
-                               Text="3"/>
+                               Text="&#xE945;"/>
                 </ToggleButton>
                 <ToggleButton Style="{StaticResource ToggleButtonStyle}"
                               Tag="Berekeningen">
                     <TextBlock Style="{StaticResource ButtonIconStyle}"
-                               Text="4"/>
+                               Text="&#xE919;"/>
                 </ToggleButton>
                 <ToggleButton Style="{StaticResource ToggleButtonStyle}"
                               Tag="Assembleren">
                     <TextBlock Style="{StaticResource ButtonIconStyle}"
-                               Text="5"/>
+                               Text="&#xE94B;"/>
                 </ToggleButton>
             </StackPanel>
             
