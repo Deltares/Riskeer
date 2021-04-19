@@ -26,7 +26,6 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
-using System.Windows.Threading;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
@@ -70,7 +69,6 @@ namespace Core.Common.Gui.Test
         {
             MessageWindowLogAppender.Instance = originalMessageWindowLogAppender;
             ViewPropertyEditor.ViewCommands = originalViewPropertyEditor;
-            Dispatcher.CurrentDispatcher.InvokeShutdown();
         }
 
         [Test]
