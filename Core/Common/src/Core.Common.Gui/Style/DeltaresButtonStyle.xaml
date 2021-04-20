@@ -147,20 +147,21 @@
                                    HorizontalAlignment="Center" Foreground="{TemplateBinding Foreground}"/>
                         </Grid>
                     </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource MainButtonBarPressedButtonBackgroundBrush}" />
-                            <Setter Property="BorderBrush" Value="{StaticResource MainButtonBarPressedButtonBorderBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="{StaticResource MainButtonBarPressedButtonBackgroundBrush}" />
-                            <Setter Property="BorderBrush" Value="{StaticResource MainButtonBarPressedButtonBorderBrush}" />
-                            <Setter Property="Foreground" Value="{StaticResource WindowTitleColorBrush}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource MainButtonBarPressedButtonBackgroundBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource MainButtonBarPressedButtonBorderBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource MainButtonBarPressedButtonBackgroundBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource MainButtonBarPressedButtonBorderBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource WindowTitleColorBrush}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="MainButtonBarToggleButtonStyle" TargetType="{x:Type ToggleButton}"
