@@ -78,25 +78,25 @@ All rights reserved.
     <metro:MetroWindow.LeftWindowCommands>
         <metro:WindowCommands>
             <Button Style="{StaticResource WindowCommandsButtonStyle}"
-                    ToolTip="{x:Static properties:Resources.Ribbon_Command_New}"
+                    ToolTip="{x:Static properties:Resources.WindowCommands_New_ToolTip}"
                     AutomationProperties.AutomationId="WindowCommandsNewProject"
                     Click="OnFileNewClicked">
                 <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE93C;"/>
             </Button>
             <Button Style="{StaticResource WindowCommandsButtonStyle}"
-                    ToolTip="{x:Static properties:Resources.Ribbon_Command_Save}"
+                    ToolTip="{x:Static properties:Resources.WindowCommands_Save_ToolTip}"
                     AutomationProperties.AutomationId="WindowCommandsSaveProject"
                     Click="OnFileSaveClicked">
                 <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE93E;"/>
             </Button>
             <Button Style="{StaticResource WindowCommandsButtonStyle}"
-                    ToolTip="{x:Static properties:Resources.Ribbon_Command_Save_As}"
+                    ToolTip="{x:Static properties:Resources.WindowCommands_SaveAs_ToolTip}"
                     AutomationProperties.AutomationId="WindowCommandsSaveProjectAs"
                     Click="OnFileSaveAsClicked">
                 <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE940;"/>
             </Button>
             <Button Style="{StaticResource WindowCommandsButtonStyle}"
-                    ToolTip="{x:Static properties:Resources.Ribbon_Command_Open}"
+                    ToolTip="{x:Static properties:Resources.WindowCommands_Open_ToolTip}"
                     AutomationProperties.AutomationId= "WindowCommandsOpenProject"
                     Click="OnFileOpenClicked">
                 <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE93D;"/>
@@ -108,7 +108,7 @@ All rights reserved.
         <DockPanel>
             <StackPanel DockPanel.Dock="Top" Height="100" Background="{StaticResource MainButtonBarBackgroundBrush}" Orientation="Horizontal">
                 <Button Style="{StaticResource MainButtonBarButtonStyle}"
-                        Tag="Project"
+                        Tag="{x:Static properties:Resources.MainButtonBar_Project_DisplayName}"
                         AutomationProperties.AutomationId="MainButtonBarProject">
                     <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
                                Text="&#xE949;"/>
@@ -148,28 +148,31 @@ All rights reserved.
             <DockPanel Height="30" DockPanel.Dock="Bottom" Style="{StaticResource PanelBackgroundWindowTitleStyle}">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                     <ToggleButton Style="{StaticResource ViewStateBarToggleButtonStyle}"
+                                  ToolTip="{x:Static properties:Resources.ViewStateBar_ProjectExplorer_ToolTip}"
                                   AutomationProperties.AutomationId="ViewStateButtonBarShowProjectExplorer">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE95B;"/>
                     </ToggleButton>
                     <ToggleButton Name="ButtonShowProperties"
                                   Style="{StaticResource ViewStateBarToggleButtonStyle}"
-                                  ToolTip="{x:Static properties:Resources.Ribbon_Properties}"
+                                  ToolTip="{x:Static properties:Resources.ViewStateBar_Properties_ToolTip}"
                                   Click="ButtonShowProperties_Click"
                                   AutomationProperties.AutomationId="ViewStateButtonBarShowProperties">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE945;"/>
                     </ToggleButton>
                     <ToggleButton Name="ButtonShowMessages"
                                   Style="{StaticResource ViewStateBarToggleButtonStyle}"
-                                  ToolTip="{x:Static properties:Resources.Ribbon_Messages}"
+                                  ToolTip="{x:Static properties:Resources.ViewStateBar_Messages_ToolTip}"
                                   Click="ButtonShowMessages_Click"
                                   AutomationProperties.AutomationId="ViewStateButtonBarShowMessages">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE942;"/>
                     </ToggleButton>
                     <ToggleButton Style="{StaticResource ViewStateBarToggleButtonStyle}"
+                                  ToolTip="{x:Static properties:Resources.ViewStateBar_Map_ToolTip}"
                                   AutomationProperties.AutomationId="ViewStateButtonBarShowMap">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE94C;"/>
                     </ToggleButton>
                     <ToggleButton Style="{StaticResource ViewStateBarToggleButtonStyle}"
+                                  ToolTip="{x:Static properties:Resources.ViewStateBar_Chart_ToolTip}"
                                   AutomationProperties.AutomationId="ViewStateButtonBarShowChart">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE943;"/>
                     </ToggleButton>
@@ -177,27 +180,27 @@ All rights reserved.
 
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="40 0 0 0">
                     <Button Style="{StaticResource ViewStateBarButtonStyle}"
-                            ToolTip="{x:Static properties:Resources.Ribbon_Show_Log}"
+                            ToolTip="{x:Static properties:Resources.ViewStateBar_ShowLog_ToolTip}"
                             Click="OnFileHelpShowLog_Clicked"
                             AutomationProperties.AutomationId="ViewStateButtonBarShowLog">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE946;"/>
                     </Button>
                     <Button Name="FileManualButton"
                             Style="{StaticResource ViewStateBarButtonStyle}"
-                            ToolTip="{x:Static properties:Resources.Ribbon_Open_Manual}"
+                            ToolTip="{x:Static properties:Resources.ViewStateBar_OpenManual_ToolTip}"
                             Click="OnFileManual_Clicked"
                             x:FieldModifier="private"
                             AutomationProperties.AutomationId="ViewStateButtonBarOpenManual">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE92D;"/>
                     </Button>
                     <Button Style="{StaticResource ViewStateBarButtonStyle}"
-                            ToolTip="{x:Static properties:Resources.Ribbon_About}"
+                            ToolTip="{x:Static properties:Resources.ViewStateBar_About_ToolTip}"
                             Click="OnAboutDialog_Clicked"
                             AutomationProperties.AutomationId="ViewStateButtonBarShowAbout">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE921;"/>
                     </Button>
                     <Button Style="{StaticResource ViewStateBarButtonStyle}"
-                            ToolTip="{x:Static properties:Resources.Ribbon_Exit}"
+                            ToolTip="{x:Static properties:Resources.ViewStateBar_Exit_ToolTip}"
                             Click="OnFileExitClicked"
                             AutomationProperties.AutomationId="ViewStateButtonBarExit">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE901;"/>

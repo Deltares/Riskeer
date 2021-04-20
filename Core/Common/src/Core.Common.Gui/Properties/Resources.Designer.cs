@@ -1018,6 +1018,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Project.
+        /// </summary>
+        public static string MainButtonBar_Project_DisplayName {
+            get {
+                return ResourceManager.GetString("MainButtonBar_Project_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berichten.
         /// </summary>
         public static string Messages {
@@ -1241,105 +1250,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Over.
-        /// </summary>
-        public static string Ribbon_About {
-            get {
-                return ResourceManager.GetString("Ribbon_About", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nieuw.
-        /// </summary>
-        public static string Ribbon_Command_New {
-            get {
-                return ResourceManager.GetString("Ribbon_Command_New", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Openen.
-        /// </summary>
-        public static string Ribbon_Command_Open {
-            get {
-                return ResourceManager.GetString("Ribbon_Command_Open", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opslaan.
-        /// </summary>
-        public static string Ribbon_Command_Save {
-            get {
-                return ResourceManager.GetString("Ribbon_Command_Save", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opslaan Als.
-        /// </summary>
-        public static string Ribbon_Command_Save_As {
-            get {
-                return ResourceManager.GetString("Ribbon_Command_Save_As", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Afsluiten.
-        /// </summary>
-        public static string Ribbon_Exit {
-            get {
-                return ResourceManager.GetString("Ribbon_Exit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berichten.
-        /// </summary>
-        public static string Ribbon_Messages {
-            get {
-                return ResourceManager.GetString("Ribbon_Messages", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gebruikershandleiding Openen.
-        /// </summary>
-        public static string Ribbon_Open_Manual {
-            get {
-                return ResourceManager.GetString("Ribbon_Open_Manual", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Eigenschappen.
-        /// </summary>
-        public static string Ribbon_Properties {
-            get {
-                return ResourceManager.GetString("Ribbon_Properties", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log Tonen.
-        /// </summary>
-        public static string Ribbon_Show_Log {
-            get {
-                return ResourceManager.GetString("Ribbon_Show_Log", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Help.
-        /// </summary>
-        public static string Ribbon_TabItem_Help {
-            get {
-                return ResourceManager.GetString("Ribbon_TabItem_Help", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon Riskeer {
@@ -1521,12 +1431,129 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Over.
+        /// </summary>
+        public static string ViewStateBar_About_ToolTip {
+            get {
+                return ResourceManager.GetString("ViewStateBar_About_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grafiek.
+        /// </summary>
+        public static string ViewStateBar_Chart_ToolTip {
+            get {
+                return ResourceManager.GetString("ViewStateBar_Chart_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Afsluiten.
+        /// </summary>
+        public static string ViewStateBar_Exit_ToolTip {
+            get {
+                return ResourceManager.GetString("ViewStateBar_Exit_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaart.
+        /// </summary>
+        public static string ViewStateBar_Map_ToolTip {
+            get {
+                return ResourceManager.GetString("ViewStateBar_Map_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berichten.
+        /// </summary>
+        public static string ViewStateBar_Messages_ToolTip {
+            get {
+                return ResourceManager.GetString("ViewStateBar_Messages_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gebruikershandleiding Openen.
+        /// </summary>
+        public static string ViewStateBar_OpenManual_ToolTip {
+            get {
+                return ResourceManager.GetString("ViewStateBar_OpenManual_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projectverkenner.
+        /// </summary>
+        public static string ViewStateBar_ProjectExplorer_ToolTip {
+            get {
+                return ResourceManager.GetString("ViewStateBar_ProjectExplorer_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eigenschappen.
+        /// </summary>
+        public static string ViewStateBar_Properties_ToolTip {
+            get {
+                return ResourceManager.GetString("ViewStateBar_Properties_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log Tonen.
+        /// </summary>
+        public static string ViewStateBar_ShowLog_ToolTip {
+            get {
+                return ResourceManager.GetString("ViewStateBar_ShowLog_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon warning {
             get {
                 object obj = ResourceManager.GetObject("warning", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuw.
+        /// </summary>
+        public static string WindowCommands_New_ToolTip {
+            get {
+                return ResourceManager.GetString("WindowCommands_New_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Openen.
+        /// </summary>
+        public static string WindowCommands_Open_ToolTip {
+            get {
+                return ResourceManager.GetString("WindowCommands_Open_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opslaan.
+        /// </summary>
+        public static string WindowCommands_Save_ToolTip {
+            get {
+                return ResourceManager.GetString("WindowCommands_Save_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opslaan Als.
+        /// </summary>
+        public static string WindowCommands_SaveAs_ToolTip {
+            get {
+                return ResourceManager.GetString("WindowCommands_SaveAs_ToolTip", resourceCulture);
             }
         }
     }

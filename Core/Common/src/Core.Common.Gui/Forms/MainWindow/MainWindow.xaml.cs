@@ -415,7 +415,7 @@ namespace Core.Common.Gui.Forms.MainWindow
                 SupportPhoneNumber = settings.FixedSettings.SupportPhoneNumber,
                 AllowsTransparency = false,
                 WindowStyle = WindowStyle.SingleBorderWindow,
-                Title = Properties.Resources.Ribbon_About,
+                Title = Properties.Resources.ViewStateBar_About_ToolTip,
                 Icon = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.information.GetHbitmap(),
                                                              IntPtr.Zero,
                                                              Int32Rect.Empty,
