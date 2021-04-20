@@ -4,18 +4,18 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="DeltaresGeneralStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <Style x:Key="ButtonIconStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="TextAlignment" Value="Center" />
         <Setter Property="FontFamily" Value="{StaticResource RiskeerFont}" />
         <Setter Property="FontSize" Value="20" />
     </Style>
-            
+
     <Style x:Key="ButtonLargeIconStyle" TargetType="{x:Type TextBlock}"
            BasedOn="{StaticResource ButtonIconStyle}">
         <Setter Property="FontSize" Value="32" />
     </Style>
-    
+
     <Style x:Key="WindowCommandsButtonStyle" TargetType="{x:Type Button}"
            BasedOn="{StaticResource {x:Static metro:WindowCommands.ButtonStyleKey}}">
         <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
@@ -32,14 +32,14 @@
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}"/>
             </Trigger>
-            
+
             <DataTrigger
                 Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
                 Value="False">
                 <Setter Property="Background"
                         Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=NonActiveBorderBrush}" />
             </DataTrigger>
-            
+
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition
@@ -51,7 +51,7 @@
             </MultiDataTrigger>
         </Style.Triggers>
     </Style>
-    
+
     <Style x:Key="ViewStateBarButtonStyle" TargetType="{x:Type ButtonBase}">
         <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
         <Setter Property="BorderThickness" Value="0" />
@@ -73,7 +73,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-            
+
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource ButtonHoverBackgroundBrush}"/>
@@ -85,14 +85,14 @@
                 <Setter Property="Background" Value="{StaticResource DisabledButtonBackgroundBrush}"/>
                 <Setter Property="Foreground" Value="{StaticResource DisabledButtonForegroundBrush}"/>
             </Trigger>
-            
+
             <DataTrigger
                 Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
                 Value="False">
                 <Setter Property="Background"
                         Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=NonActiveBorderBrush}" />
             </DataTrigger>
-            
+
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition
@@ -104,14 +104,14 @@
             </MultiDataTrigger>
         </Style.Triggers>
     </Style>
-        
+
     <Style x:Key="ViewStateBarToggleButtonStyle" TargetType="{x:Type ToggleButton}"
            BasedOn="{StaticResource ViewStateBarButtonStyle}">
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}" />
             </Trigger>
-    
+
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition
@@ -123,7 +123,7 @@
             </MultiDataTrigger>
         </Style.Triggers>
     </Style>
-    
+
     <Style x:Key="MainButtonBarButtonStyle" TargetType="{x:Type ButtonBase}">
         <Setter Property="Padding" Value="0 6 0 0" />
         <Setter Property="Margin" Value="3 6 " />
@@ -134,7 +134,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ButtonBase}">
-                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
@@ -160,7 +162,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-            
+
     <Style x:Key="MainButtonBarToggleButtonStyle" TargetType="{x:Type ToggleButton}"
            BasedOn="{StaticResource MainButtonBarButtonStyle}">
         <Style.Triggers>

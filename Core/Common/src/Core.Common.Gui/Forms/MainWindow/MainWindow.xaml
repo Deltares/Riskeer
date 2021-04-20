@@ -45,7 +45,7 @@ All rights reserved.
         <CommandBinding Command="Close" Executed="OnFileExitClicked" />
         <CommandBinding Command="{x:Static commands:MainWindowCommands.CloseViewTabCommand}" Executed="CloseDocumentTab" CanExecute="CanCloseDocumentTab"/>
     </metro:MetroWindow.CommandBindings>
-    
+
     <metro:MetroWindow.InputBindings>
         <KeyBinding Command="New" Key="N" Modifiers="Ctrl"/>
         <KeyBinding Command="Save" Key="S" Modifiers="Ctrl"/>
@@ -54,13 +54,13 @@ All rights reserved.
         <KeyBinding Command="Close" Key="F4" Modifiers="Alt"/>
         <KeyBinding Command="{x:Static commands:MainWindowCommands.CloseViewTabCommand}" Key="F4" Modifiers="Ctrl"/>
     </metro:MetroWindow.InputBindings>
-    
+
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Core.Common.Gui;component/Style/DeltaresStyle.xaml" /> 
             </ResourceDictionary.MergedDictionaries>
-            
+
             <Style x:Key="PanelBackgroundWindowTitleStyle" TargetType="{x:Type Panel}">
                 <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
                 <Style.Triggers>
@@ -72,16 +72,9 @@ All rights reserved.
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-            
-            <Style x:Key="MainButtonBarSeparatorStyle" TargetType="{x:Type Separator}"
-                   BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
-                <Setter Property="Width" Value="1"/>
-                <Setter Property="Height" Value="84"/>
-                <Setter Property="Background" Value="{StaticResource SeparatorBackgroundBrush}" />
-            </Style>
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
-    
+
     <metro:MetroWindow.LeftWindowCommands>
         <metro:WindowCommands>
             <Button Name="ButtonMenuFileNewProject"
@@ -118,10 +111,10 @@ All rights reserved.
                 </Button>
         </metro:WindowCommands>
     </metro:MetroWindow.LeftWindowCommands>
-    
+
     <Grid Background="{StaticResource BackgroundColorBrush}">
         <DockPanel>
-            
+
             <StackPanel DockPanel.Dock="Top" Height="100" Background="{StaticResource MainButtonBarBackgroundBrush}" Orientation="Horizontal">
                 <Button Style="{StaticResource MainButtonBarButtonStyle}"
                         Tag="Project">
@@ -151,11 +144,11 @@ All rights reserved.
                 </ToggleButton>
                 <Separator Style="{StaticResource MainButtonBarSeparatorStyle}" />
             </StackPanel>
-            
+
             <Border DockPanel.Dock="Top"
                     BorderThickness="0,1,0,0"
                     BorderBrush="{StaticResource MainButtonBarBottomBorderBrush}" />
-            
+
             <DockPanel Height="30" DockPanel.Dock="Bottom" Style="{StaticResource PanelBackgroundWindowTitleStyle}">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                     <ToggleButton Name="ButtonShowProjectExplorer"
@@ -183,7 +176,7 @@ All rights reserved.
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE943;"/>
                     </ToggleButton>
                 </StackPanel>
-                
+
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="40 0 0 0">
                     <Button ToolTip="{x:Static properties:Resources.Ribbon_Show_Log}"
                             DockPanel.Dock="Left"
@@ -215,9 +208,9 @@ All rights reserved.
                     </Button>
                 </StackPanel>
             </DockPanel>
-            
+
             <viewHost:AvalonDockViewHost x:Name="AvalonDockViewHost" />
-            
+
         </DockPanel>
     </Grid>
 </metro:MetroWindow>
