@@ -144,6 +144,10 @@ All rights reserved.
                     <Trigger Property="IsPressed" Value="True">
                         <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}"/>
                     </Trigger>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" Value="{StaticResource DisabledInputBackgroundBrush}"/>
+                        <Setter Property="Foreground" Value="{StaticResource DisabledInputForegroundBrush}"/>
+                    </Trigger>
                     
                     <DataTrigger
                         Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
