@@ -117,13 +117,29 @@ All rights reserved.
             
             <Style x:Key="BottomButtonStyle" TargetType="{x:Type ButtonBase}">
                 <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
-                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+                <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Width" Value="30"/>
+                <Setter Property="Height" Value="30"/>
                 <Setter Property="Foreground" Value="{StaticResource WhiteBrush}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ButtonBase}">
+                            <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter Margin="{TemplateBinding Padding}"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
                 
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}"/>
+                        <Setter Property="Background" Value="{StaticResource ZoomControlHoverItemBackground}"/>
                     </Trigger>
                     <Trigger Property="IsPressed" Value="True">
                         <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}"/>
@@ -135,6 +151,35 @@ All rights reserved.
                         <Setter Property="Background"
                                 Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=NonActiveBorderBrush}" />
                     </DataTrigger>
+                    
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition
+                                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
+                                Value="False" />
+                            <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Background" Value="{StaticResource ZoomControlHoverItemBackground}" />
+                    </MultiDataTrigger>
+                </Style.Triggers>
+            </Style>
+            
+            <Style x:Key="BottomToggleButtonStyle" TargetType="{x:Type ToggleButton}"
+                BasedOn="{StaticResource BottomButtonStyle}">
+                <Style.Triggers>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}" />
+                    </Trigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition
+                                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
+                                Value="False" />
+                            <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Background" Value="{StaticResource ZoomControlHoverItemBackground}" />
+                    </MultiDataTrigger>
                 </Style.Triggers>
             </Style>
             
@@ -149,7 +194,7 @@ All rights reserved.
                 <Setter Property="FontSize" Value="32" />
             </Style>
             
-            <Style x:Key="MainButtonBarButtonStyle" TargetType="ButtonBase">
+            <Style x:Key="MainButtonBarButtonStyle" TargetType="{x:Type ButtonBase}">
                 <Setter Property="Padding" Value="0 6 0 0" />
                 <Setter Property="Margin" Value="3 6 " />
                 <Setter Property="MinWidth" Value="66" />
@@ -186,7 +231,7 @@ All rights reserved.
                 </Setter>
             </Style>
             
-            <Style x:Key="ToggleButtonStyle" TargetType="ToggleButton"
+            <Style x:Key="MainButtonBarToggleButtonStyle" TargetType="{x:Type ToggleButton}"
                    BasedOn="{StaticResource MainButtonBarButtonStyle}">
                 <Style.Triggers>
                     <Trigger Property="IsChecked" Value="True">
@@ -253,22 +298,22 @@ All rights reserved.
                                Text="&#xE949;"/>
                 </Button>
                 <Separator Style="{StaticResource SeparatorStyle}" />
-                <ToggleButton Style="{StaticResource ToggleButtonStyle}"
+                <ToggleButton Style="{StaticResource MainButtonBarToggleButtonStyle}"
                               Tag="Traject">
                     <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
                                Text="&#xE94E;"/>
                 </ToggleButton>
-                <ToggleButton Style="{StaticResource ToggleButtonStyle}"
+                <ToggleButton Style="{StaticResource MainButtonBarToggleButtonStyle}"
                               Tag="Faalpaden">
                     <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
                                Text="&#xE945;"/>
                 </ToggleButton>
-                <ToggleButton Style="{StaticResource ToggleButtonStyle}"
+                <ToggleButton Style="{StaticResource MainButtonBarToggleButtonStyle}"
                               Tag="Berekeningen">
                     <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
                                Text="&#xE91D;"/>
                 </ToggleButton>
-                <ToggleButton Style="{StaticResource ToggleButtonStyle}"
+                <ToggleButton Style="{StaticResource MainButtonBarToggleButtonStyle}"
                               Tag="Assembleren">
                     <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
                                Text="&#xE94B;"/>
@@ -280,19 +325,19 @@ All rights reserved.
                     BorderThickness="0,1,0,0"
                     BorderBrush="{StaticResource MainButtonBarBottomBorderBrush}" />
             
-            <DockPanel Height="25" DockPanel.Dock="Bottom" Style="{StaticResource PanelBackgroundWindowTitleStyle}">
+            <DockPanel Height="30" DockPanel.Dock="Bottom" Style="{StaticResource PanelBackgroundWindowTitleStyle}">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                     <ToggleButton Name="ButtonShowProperties"
                                   ToolTip="{x:Static properties:Resources.Ribbon_Properties}"
                                   Click="ButtonShowProperties_Click"
-                                  Style="{StaticResource BottomButtonStyle}">
-                        <Image Source="/Core.Common.Gui;component\Resources\PropertiesHS.png" />
+                                  Style="{StaticResource BottomToggleButtonStyle}">
+                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE95B;"/>
                     </ToggleButton>
                     <ToggleButton Name="ButtonShowMessages"
                                   ToolTip="{x:Static properties:Resources.Ribbon_Messages}"
                                   Click="ButtonShowMessages_Click"
-                                  Style="{StaticResource BottomButtonStyle}">
-                        <Image Source="/Core.Common.Gui;component\Resources\application_view_list.png" />
+                                  Style="{StaticResource BottomToggleButtonStyle}">
+                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE942;"/>
                     </ToggleButton>
                 </StackPanel>
                 
@@ -301,7 +346,7 @@ All rights reserved.
                             DockPanel.Dock="Left"
                             Click="OnFileHelpShowLog_Clicked"
                             Style="{StaticResource BottomButtonStyle}">
-                        <Image Source="/Core.Common.Gui;component\Resources\application_view_list.png"/>
+                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE946;"/>
                     </Button>
                     <Button Name="FileManualButton"
                             DockPanel.Dock="Left"
@@ -309,7 +354,7 @@ All rights reserved.
                             Click="OnFileManual_Clicked"
                             x:FieldModifier="private"
                             Style="{StaticResource BottomButtonStyle}">
-                        <Image Source="/Core.Common.Gui;component\Resources\manual.png"/>
+                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE92D;"/>
                     </Button>
                     <Button Name="AboutButton"
                             DockPanel.Dock="Left"
@@ -317,13 +362,13 @@ All rights reserved.
                             Click="OnAboutDialog_Clicked"
                             x:FieldModifier="private"
                             Style="{StaticResource BottomButtonStyle}">
-                        <Image Source="/Core.Common.Gui;component\Resources\information.png"/>
+                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE921;"/>
                     </Button>
                     <Button ToolTip="{x:Static properties:Resources.Ribbon_Exit}"
                             DockPanel.Dock="Left"
                             Click="OnFileExitClicked"
                             Style="{StaticResource BottomButtonStyle}">
-                        <Image Source="/Core.Common.Gui;component\Resources\ClosePreviewHH.png"/>
+                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE901;"/>
                     </Button>
                 </StackPanel>
             </DockPanel>
