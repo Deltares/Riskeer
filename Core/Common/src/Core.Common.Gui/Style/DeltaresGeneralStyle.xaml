@@ -34,11 +34,15 @@ All rights reserved.
     <Color x:Key="Gray">#C6C6C6</Color>
     <Color x:Key="White">#FFFFFF</Color>
     <Color x:Key="Black">#000000</Color>
-    <Color x:Key="MainButtonBarBackgroundColor">#F1F1EE</Color>
+    <Color x:Key="MainButtonBarBackground">#F1F1EE</Color>
     <Color x:Key="Transparent">#00FFFFFF</Color>
+    <Color x:Key="MainButtonBarPressedButtonBackground">#e4e4df</Color>
+    <Color x:Key="MainButtonBarPressedButtonBorder">#d2d2ca</Color>
 
     <SolidColorBrush x:Key="MainButtonBarBottomBorderBrush" Color="{StaticResource DeltaresSand}" />
-    <SolidColorBrush x:Key="MainButtonBarBackgroundBrush" Color="{StaticResource MainButtonBarBackgroundColor}" />
+    <SolidColorBrush x:Key="MainButtonBarBackgroundBrush" Color="{StaticResource MainButtonBarBackground}" />
+    <SolidColorBrush x:Key="MainButtonBarPressedButtonBackgroundBrush" Color="{StaticResource MainButtonBarPressedButtonBackground}" />
+    <SolidColorBrush x:Key="MainButtonBarPressedButtonBorderBrush" Color="{StaticResource MainButtonBarPressedButtonBorder}" />
 
     <SolidColorBrush x:Key="WindowGlowBrush" Color="{StaticResource Black}" />
     <SolidColorBrush x:Key="WindowOverlayBrush" Color="{StaticResource Black}" Opacity="0.5" />
@@ -46,26 +50,17 @@ All rights reserved.
     <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource DeltaresBlue}" options:Freeze="True" />
     <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource DeltaresBlue}" options:Freeze="True" />
 
-    <SolidColorBrush x:Key="ViewStateBarButtonHoverBackgroundBrush" Color="{StaticResource White}" Opacity="0.2" />
+    <SolidColorBrush x:Key="ButtonHoverBackgroundBrush" Color="{StaticResource White}" Opacity="0.2" />
 
     <SolidColorBrush x:Key="TransparentBrush" Color="{StaticResource Transparent}" />
 
     <SolidColorBrush x:Key="DisabledButtonBackgroundBrush" Color="{StaticResource Black}" Opacity="0.15" />
     <SolidColorBrush x:Key="DisabledButtonForegroundBrush" Color="{StaticResource Black}" />
 
-    <SolidColorBrush x:Key="HighTransparentWhiteBrush" Color="{StaticResource White}" Opacity="0.2" />
-
     <SolidColorBrush x:Key="SeparatorBackgroundBrush" Color="{StaticResource DeltaresSand}" Opacity="0.25" />
 
-    <SolidColorBrush x:Key="DeltaresBlueBrush" Color="{StaticResource DeltaresBlue}" />
     <SolidColorBrush x:Key="DeltaresDarkerBlueBrush" Color="{StaticResource DeltaresDarkerBlue}" />
     <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}" />
-    <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource Gray}" />
-    <SolidColorBrush x:Key="Transparent50PercentBlackBrush" Color="Black" Opacity="0.5" />
-    <SolidColorBrush x:Key="White5PercentBlackBrush" Color="#F2F2F2" Opacity="1" />
-    <SolidColorBrush x:Key="White25PercentBlackBrush" Color="#C0C0C0" Opacity="1" />
-    <SolidColorBrush x:Key="White16PercentBlackBrush" Color="#D5D5D5" Opacity="1" />
-    <SolidColorBrush x:Key="White33PercentBlackBrush" Color="#A9A9A9" Opacity="1" />
 
     <Style TargetType="main:MainWindow">
         <Setter Property="GlowBrush" Value="{DynamicResource WindowGlowBrush}" />
