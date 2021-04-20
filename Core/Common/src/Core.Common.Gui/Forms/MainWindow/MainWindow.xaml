@@ -310,7 +310,7 @@ All rights reserved.
                 <ToggleButton Style="{StaticResource MainButtonBarToggleButtonStyle}"
                               Tag="Faalpaden">
                     <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
-                               Text="&#xE945;"/>
+                               Text="&#xE953;"/>
                 </ToggleButton>
                 <ToggleButton Style="{StaticResource MainButtonBarToggleButtonStyle}"
                               Tag="Berekeningen">
@@ -331,17 +331,29 @@ All rights reserved.
             
             <DockPanel Height="30" DockPanel.Dock="Bottom" Style="{StaticResource PanelBackgroundWindowTitleStyle}">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                    <ToggleButton Name="ButtonShowProjectExplorer"
+                                  Style="{StaticResource BottomToggleButtonStyle}">
+                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE95B;"/>
+                    </ToggleButton>
                     <ToggleButton Name="ButtonShowProperties"
                                   ToolTip="{x:Static properties:Resources.Ribbon_Properties}"
                                   Click="ButtonShowProperties_Click"
                                   Style="{StaticResource BottomToggleButtonStyle}">
-                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE95B;"/>
+                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE945;"/>
                     </ToggleButton>
                     <ToggleButton Name="ButtonShowMessages"
                                   ToolTip="{x:Static properties:Resources.Ribbon_Messages}"
                                   Click="ButtonShowMessages_Click"
                                   Style="{StaticResource BottomToggleButtonStyle}">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE942;"/>
+                    </ToggleButton>
+                    <ToggleButton Name="ButtonShowMapLegendView"
+                                  Style="{StaticResource BottomToggleButtonStyle}">
+                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE94C;"/>
+                    </ToggleButton>
+                    <ToggleButton Name="ButtonShowChartLegendView"
+                                  Style="{StaticResource BottomToggleButtonStyle}">
+                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE943;"/>
                     </ToggleButton>
                 </StackPanel>
                 
