@@ -23,7 +23,6 @@ All rights reserved.
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
-                    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:main="clr-namespace:Core.Common.Gui.Forms.MainWindow">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Core.Common.Gui;component/Style/Symbols/RiskeerSymbols.xaml" />
@@ -47,12 +46,9 @@ All rights reserved.
 
     <SolidColorBrush x:Key="WindowGlowBrush" Color="{StaticResource Black}" />
     <SolidColorBrush x:Key="WindowOverlayBrush" Color="{StaticResource Black}" Opacity="0.5" />
-    <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource DeltaresSand}" Opacity="0.25"
-                     options:Freeze="True" />
-    <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource DeltaresBlue}"
-                     options:Freeze="True" />
-    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource DeltaresBlue}"
-                     options:Freeze="True" />
+    <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource DeltaresSand}" Opacity="0.25" options:Freeze="True" />
+    <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource DeltaresBlue}" options:Freeze="True" />
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource DeltaresBlue}" options:Freeze="True" />
 
     <SolidColorBrush x:Key="DrawingDistanceSwitchActiveItemBackground" Color="{StaticResource Black}" Opacity="0.2" />
     <SolidColorBrush x:Key="DrawingDistanceSwitchHoverItemBackground" Color="{StaticResource White}" Opacity="0.2" />
@@ -72,20 +68,7 @@ All rights reserved.
 
     <SolidColorBrush x:Key="HighTransparentWhiteBrush" Color="{StaticResource White}" Opacity="0.2" />
 
-    <SolidColorBrush x:Key="RowColor" Color="{StaticResource DeltaresSand}"
-                     Opacity="0.15" />
-    <SolidColorBrush x:Key="GridContentTopBorder" Color="{StaticResource DeltaresSand}"
-                     Opacity="0.25" />
-    <SolidColorBrush x:Key="AlternatingRowColor"
-                     Color="{StaticResource DeltaresSand}"
-                     Opacity="0.05" />
-
-    <SolidColorBrush x:Key="GroupBoxSeparatorBackgroundBrush"
-                     Color="{StaticResource DeltaresSand}"
-                     Opacity="0.25" />
-
-    <SolidColorBrush x:Key="CheckBoxActiveBackgroundColor" Color="{StaticResource DeltaresBlue}"
-                     options:Freeze="True" />
+    <SolidColorBrush x:Key="GroupBoxSeparatorBackgroundBrush" Color="{StaticResource DeltaresSand}" Opacity="0.25" />
 
     <SolidColorBrush x:Key="DeltaresBlueBrush" Color="{StaticResource DeltaresBlue}" />
     <SolidColorBrush x:Key="DeltaresDarkerBlueBrush" Color="{StaticResource DeltaresDarkerBlue}" />
@@ -96,43 +79,6 @@ All rights reserved.
     <SolidColorBrush x:Key="White25PercentBlackBrush" Color="#C0C0C0" Opacity="1" />
     <SolidColorBrush x:Key="White16PercentBlackBrush" Color="#D5D5D5" Opacity="1" />
     <SolidColorBrush x:Key="White33PercentBlackBrush" Color="#A9A9A9" Opacity="1" />
-
-    <Style TargetType="TextBox" BasedOn="{StaticResource MetroTextBox}">
-        <Style.Resources>
-            <SolidColorBrush x:Key="ControlsDisabledBrush" Color="{StaticResource Black}" Opacity="0.15" />
-        </Style.Resources>
-        <Setter Property="Padding" Value="0 -1 0 0" />
-        <Setter Property="Height" Value="26" />
-        <Setter Property="MinHeight" Value="26" />
-        <Setter Property="FontSize" Value="13" />
-        <Setter Property="BorderThickness" Value="2" />
-        <Style.Triggers>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="BorderThickness" Value="0" />
-            </Trigger>
-
-            <Trigger Property="IsReadOnly" Value="True">
-                <Setter Property="Background" Value="{StaticResource ControlsDisabledBrush}" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="IsTabStop" Value="False" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="NotesTextBoxStyle" BasedOn="{StaticResource {x:Type TextBox}}" TargetType="TextBox">
-        <Setter Property="MinHeight" Value="46" />
-        <Setter Property="Height" Value="Auto" />
-        <Setter Property="AcceptsReturn" Value="True" />
-        <Setter Property="TextWrapping" Value="WrapWithOverflow" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-    </Style>
-
-    <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource MetroDatePicker}">
-        <Setter Property="BorderThickness" Value="2" />
-        <Setter Property="Height" Value="24" />
-        <Setter Property="MinHeight" Value="24" />
-        <Setter Property="metro:TextBoxHelper.ButtonWidth" Value="20" />
-    </Style>
 
     <Style TargetType="main:MainWindow">
         <Setter Property="GlowBrush" Value="{DynamicResource WindowGlowBrush}" />
@@ -146,171 +92,9 @@ All rights reserved.
         <Setter Property="Width" Value="525" />
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="PropertiesFieldSetLabel">
-        <Setter Property="FontSize" Value="15" />
-        <Setter Property="Margin" Value="0 4" />
-    </Style>
-
-    <Style TargetType="TextBlock" x:Key="InspectorLabel">
-        <Setter Property="FontSize" Value="15" />
-        <Setter Property="Margin" Value="0 4" />
-        <Setter Property="Foreground" Value="{DynamicResource DeltaresBlueBrush}" />
-    </Style>
-
-
-    <Style TargetType="TextBlock" x:Key="CommentStyle">
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="Foreground" Value="{StaticResource Transparent50PercentBlackBrush}" />
-        <Setter Property="Margin" Value="0 4" />
-    </Style>
-
-    <Style TargetType="TextBlock" x:Key="PropertiesFieldLabel">
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="Margin" Value="0 -4 0 2" />
-    </Style>
-
-    <Style TargetType="TextBlock" x:Key="TextButton">
-        <Setter Property="Foreground" Value="{StaticResource AccentBrush}" />
-    </Style>
-
-    <Style TargetType="{x:Type TextBlock}" x:Key="AnnotationReference">
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="FontFamily" Value="{StaticResource Deltares}" />
-        <Setter Property="Foreground" Value="{StaticResource AccentBrush}" />
-    </Style>
-
-    <Style x:Key="NotificationText" TargetType="{x:Type TextBlock}">
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="Foreground" Value="White" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-    </Style>
-
-    <Style x:Key="NotificationLevelImage" TargetType="{x:Type TextBlock}">
-        <Setter Property="FontFamily" Value="{StaticResource Deltares}" />
-        <Setter Property="Foreground" Value="White" />
-        <Setter Property="FontSize" Value="16" />
-        <Setter Property="Margin" Value="4" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-    </Style>
-
-    <Style x:Key="ExplanatoryPanel" TargetType="StackPanel">
-        <Setter Property="Background" Value="{StaticResource PropertyPanelBackgroundBrush}" />
-        <Style.Resources>
-            <Style TargetType="TextBlock" BasedOn="{StaticResource PropertiesFieldSetLabel}">
-                <Setter Property="Foreground" Value="{StaticResource ExplanatoryPanelForegroundBrush}" />
-                <Setter Property="TextWrapping" Value="Wrap" />
-            </Style>
-        </Style.Resources>
-    </Style>
-
-    <Style x:Key="PropertyPanelBorder" TargetType="Border">
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="BorderBrush" Value="{StaticResource PropertyPanelBackgroundBrush}" />
-    </Style>
-
     <Style TargetType="Separator">
         <Setter Property="Background" Value="{StaticResource GroupBoxSeparatorBackgroundBrush}" />
         <Setter Property="Margin" Value="0 20 0 8" />
-    </Style>
-
-    <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="{StaticResource White16PercentBlackBrush}" />
-        <Setter Property="Foreground" Value="Black" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="Height" Value="24" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}"
-                            Padding="{TemplateBinding Padding}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource White33PercentBlackBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="{StaticResource White33PercentBlackBrush}" />
-                            <Setter Property="BorderThickness" Value="1" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Background" Value="{StaticResource White5PercentBlackBrush}" />
-                            <Setter Property="Foreground" Value="{StaticResource White25PercentBlackBrush}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="HighlightedButtonStyle" BasedOn="{StaticResource ButtonStyle}" TargetType="Button">
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}" />
-            </Trigger>
-        </Style.Triggers>
-        <Setter Property="Background" Value="{StaticResource DeltaresBlueBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource WhiteBrush}" />
-    </Style>
-
-    <Style x:Key="TransparentButtonStyle" BasedOn="{StaticResource ButtonStyle}" TargetType="Button">
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource White5PercentBlackBrush}" />
-                <Setter Property="Foreground" Value="Black" />
-            </Trigger>
-        </Style.Triggers>
-        <Setter Property="BorderBrush" Value="White" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Background" Value="{StaticResource TransparentBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource WhiteBrush}" />
-    </Style>
-
-    <Style x:Key="ComboBoxStyle" BasedOn="{StaticResource MetroComboBox}" TargetType="{x:Type ComboBox}">
-        <Setter Property="BorderThickness" Value="2" />
-        <Setter Property="Margin" Value="0 4" />
-    </Style>
-
-    <Style x:Key="Subscript" TargetType="{x:Type Run}">
-        <Setter Property="FontSize" Value="10" />
-        <Setter Property="BaselineAlignment" Value="Subscript" />
-    </Style>
-
-    <Style x:Key="MahApps.Metro.Styles.Dialogs.Button"
-           BasedOn="{StaticResource MetroFlatButton}"
-           TargetType="{x:Type Button}">
-        <Setter Property="Width" Value="131" />
-        <Setter Property="FontSize" Value="15" />
-        <Setter Property="FontFamily" Value="Segoe UI" />
-    </Style>
-
-    <Style x:Key="MahApps.Metro.Styles.Dialogs.AccentButton"
-           BasedOn="{StaticResource MahApps.Metro.Styles.Dialogs.Button}"
-           TargetType="{x:Type Button}">
-        <Setter Property="Foreground" Value="White" />
-        <Setter Property="Background" Value="{DynamicResource MessageWindowAccentedButtonColor}" />
-        <Style.Triggers>
-            <Trigger Property="Button.IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource MessageWindowAccentedButtonHoverColor}" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="DeltaresDialogStyle" TargetType="{x:Type metro:BaseMetroDialog}"
-           BasedOn="{StaticResource MahApps.Metro.Styles.MetroDialog}">
-        <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="Width" Value="Auto" />
-        <Setter Property="Height" Value="Auto" />
-        <Setter Property="Padding" Value="24 24 24 0" />
-    </Style>
-
-    <Style TargetType="{x:Type metro:MessageDialog}" BasedOn="{StaticResource DeltaresDialogStyle}" />
-    <Style TargetType="{x:Type metro:CustomDialog}" BasedOn="{StaticResource DeltaresDialogStyle}" />
-    <Style TargetType="{x:Type metro:ProgressDialog}" BasedOn="{StaticResource DeltaresDialogStyle}">
-        <Setter Property="DialogContentWidth" Value="468" />
     </Style>
 
 </ResourceDictionary>
