@@ -27,7 +27,7 @@
         <Setter Property="Foreground" Value="{StaticResource WhiteBrush}" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource ZoomControlHoverItemBackground}"/>
+                <Setter Property="Background" Value="{StaticResource ViewStateBarButtonHoverBackgroundBrush}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}"/>
@@ -47,12 +47,12 @@
                         Value="False" />
                     <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Background" Value="{StaticResource ZoomControlHoverItemBackground}" />
+                <Setter Property="Background" Value="{StaticResource ViewStateBarButtonHoverBackgroundBrush}" />
             </MultiDataTrigger>
         </Style.Triggers>
     </Style>
     
-    <Style x:Key="BottomButtonStyle" TargetType="{x:Type ButtonBase}">
+    <Style x:Key="ViewStateBarButtonStyle" TargetType="{x:Type ButtonBase}">
         <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Margin" Value="0" />
@@ -76,14 +76,14 @@
             
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource ZoomControlHoverItemBackground}"/>
+                <Setter Property="Background" Value="{StaticResource ViewStateBarButtonHoverBackgroundBrush}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" Value="{StaticResource DisabledInputBackgroundBrush}"/>
-                <Setter Property="Foreground" Value="{StaticResource DisabledInputForegroundBrush}"/>
+                <Setter Property="Background" Value="{StaticResource DisabledButtonBackgroundBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource DisabledButtonForegroundBrush}"/>
             </Trigger>
             
             <DataTrigger
@@ -100,13 +100,13 @@
                         Value="False" />
                     <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Background" Value="{StaticResource ZoomControlHoverItemBackground}" />
+                <Setter Property="Background" Value="{StaticResource ViewStateBarButtonHoverBackgroundBrush}" />
             </MultiDataTrigger>
         </Style.Triggers>
     </Style>
         
-    <Style x:Key="BottomToggleButtonStyle" TargetType="{x:Type ToggleButton}"
-           BasedOn="{StaticResource BottomButtonStyle}">
+    <Style x:Key="ViewStateBarToggleButtonStyle" TargetType="{x:Type ToggleButton}"
+           BasedOn="{StaticResource ViewStateBarButtonStyle}">
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}" />
@@ -119,7 +119,7 @@
                         Value="False" />
                     <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True" />
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Background" Value="{StaticResource ZoomControlHoverItemBackground}" />
+                <Setter Property="Background" Value="{StaticResource ViewStateBarButtonHoverBackgroundBrush}" />
             </MultiDataTrigger>
         </Style.Triggers>
     </Style>
@@ -129,8 +129,8 @@
         <Setter Property="Margin" Value="3 6 " />
         <Setter Property="MinWidth" Value="66" />
         <Setter Property="Height" Value="85" />
-        <Setter Property="Background" Value="{StaticResource BorderBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ButtonBackground}" />
+        <Setter Property="Background" Value="{StaticResource TransparentBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource TransparentBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ButtonBase}">

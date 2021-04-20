@@ -73,11 +73,11 @@ All rights reserved.
                 </Style.Triggers>
             </Style>
             
-            <Style x:Key="SeparatorStyle" TargetType="{x:Type Separator}"
+            <Style x:Key="MainButtonBarSeparatorStyle" TargetType="{x:Type Separator}"
                    BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
                 <Setter Property="Width" Value="1"/>
                 <Setter Property="Height" Value="84"/>
-                <Setter Property="Background" Value="#d2d2ca" />
+                <Setter Property="Background" Value="{StaticResource SeparatorBackgroundBrush}" />
             </Style>
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
@@ -122,13 +122,13 @@ All rights reserved.
     <Grid Background="{StaticResource BackgroundColorBrush}">
         <DockPanel>
             
-            <StackPanel DockPanel.Dock="Top" Height="100" Background="{StaticResource MainButtonBarActiveBackgroundColor}" Orientation="Horizontal">
+            <StackPanel DockPanel.Dock="Top" Height="100" Background="{StaticResource MainButtonBarBackgroundBrush}" Orientation="Horizontal">
                 <Button Style="{StaticResource MainButtonBarButtonStyle}"
                         Tag="Project">
                     <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
                                Text="&#xE949;"/>
                 </Button>
-                <Separator Style="{StaticResource SeparatorStyle}" />
+                <Separator Style="{StaticResource MainButtonBarSeparatorStyle}" />
                 <ToggleButton Style="{StaticResource MainButtonBarToggleButtonStyle}"
                               Tag="Traject">
                     <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
@@ -149,7 +149,7 @@ All rights reserved.
                     <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
                                Text="&#xE94B;"/>
                 </ToggleButton>
-                <Separator Style="{StaticResource SeparatorStyle}" />
+                <Separator Style="{StaticResource MainButtonBarSeparatorStyle}" />
             </StackPanel>
             
             <Border DockPanel.Dock="Top"
@@ -159,27 +159,27 @@ All rights reserved.
             <DockPanel Height="30" DockPanel.Dock="Bottom" Style="{StaticResource PanelBackgroundWindowTitleStyle}">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                     <ToggleButton Name="ButtonShowProjectExplorer"
-                                  Style="{StaticResource BottomToggleButtonStyle}">
+                                  Style="{StaticResource ViewStateBarToggleButtonStyle}">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE95B;"/>
                     </ToggleButton>
                     <ToggleButton Name="ButtonShowProperties"
                                   ToolTip="{x:Static properties:Resources.Ribbon_Properties}"
                                   Click="ButtonShowProperties_Click"
-                                  Style="{StaticResource BottomToggleButtonStyle}">
+                                  Style="{StaticResource ViewStateBarToggleButtonStyle}">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE945;"/>
                     </ToggleButton>
                     <ToggleButton Name="ButtonShowMessages"
                                   ToolTip="{x:Static properties:Resources.Ribbon_Messages}"
                                   Click="ButtonShowMessages_Click"
-                                  Style="{StaticResource BottomToggleButtonStyle}">
+                                  Style="{StaticResource ViewStateBarToggleButtonStyle}">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE942;"/>
                     </ToggleButton>
                     <ToggleButton Name="ButtonShowMapLegendView"
-                                  Style="{StaticResource BottomToggleButtonStyle}">
+                                  Style="{StaticResource ViewStateBarToggleButtonStyle}">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE94C;"/>
                     </ToggleButton>
                     <ToggleButton Name="ButtonShowChartLegendView"
-                                  Style="{StaticResource BottomToggleButtonStyle}">
+                                  Style="{StaticResource ViewStateBarToggleButtonStyle}">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE943;"/>
                     </ToggleButton>
                 </StackPanel>
@@ -188,7 +188,7 @@ All rights reserved.
                     <Button ToolTip="{x:Static properties:Resources.Ribbon_Show_Log}"
                             DockPanel.Dock="Left"
                             Click="OnFileHelpShowLog_Clicked"
-                            Style="{StaticResource BottomButtonStyle}">
+                            Style="{StaticResource ViewStateBarButtonStyle}">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE946;"/>
                     </Button>
                     <Button Name="FileManualButton"
@@ -196,7 +196,7 @@ All rights reserved.
                             ToolTip="{x:Static properties:Resources.Ribbon_Open_Manual}"
                             Click="OnFileManual_Clicked"
                             x:FieldModifier="private"
-                            Style="{StaticResource BottomButtonStyle}">
+                            Style="{StaticResource ViewStateBarButtonStyle}">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE92D;"/>
                     </Button>
                     <Button Name="AboutButton"
@@ -204,13 +204,13 @@ All rights reserved.
                             ToolTip="{x:Static properties:Resources.Ribbon_About}"
                             Click="OnAboutDialog_Clicked"
                             x:FieldModifier="private"
-                            Style="{StaticResource BottomButtonStyle}">
+                            Style="{StaticResource ViewStateBarButtonStyle}">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE921;"/>
                     </Button>
                     <Button ToolTip="{x:Static properties:Resources.Ribbon_Exit}"
                             DockPanel.Dock="Left"
                             Click="OnFileExitClicked"
-                            Style="{StaticResource BottomButtonStyle}">
+                            Style="{StaticResource ViewStateBarButtonStyle}">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE901;"/>
                     </Button>
                 </StackPanel>
