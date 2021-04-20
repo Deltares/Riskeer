@@ -1,4 +1,4 @@
-﻿<!--
+<!--
 Copyright (C) Stichting Deltares 2020. All rights reserved.
 
 This file is part of D-GEO Suite Stability.
@@ -39,6 +39,11 @@ All rights reserved.
     <Color x:Key="ActiveStageBackgroundColor">#E7E7E3</Color>
     <Color x:Key="InactiveStageBackgroundColor">#DFDFD9</Color>
     <Color x:Key="Transparent">#00FFFFFF</Color>
+
+    <SolidColorBrush x:Key="ButtonBackground" Color="Transparent" />
+    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource Transparent}" />
+    <SolidColorBrush x:Key="MainButtonBarBottomBorderBrush" Color="{StaticResource DeltaresSand}" />
+    <SolidColorBrush x:Key="MainButtonBarActiveBackgroundColor" Color="#F1F1EE" />
 
     <SolidColorBrush x:Key="WindowGlowBrush" Color="{StaticResource Black}" />
     <SolidColorBrush x:Key="WindowOverlayBrush" Color="{StaticResource Black}" Opacity="0.5" />
