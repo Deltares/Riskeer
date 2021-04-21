@@ -59,7 +59,7 @@ namespace Core.Components.DotSpatial.Forms
             this.tableLayoutPanel1.Controls.Add(this.checkBox2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.checkBox3, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBox4, 1, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(323, 280);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(644, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -115,12 +115,12 @@ namespace Core.Components.DotSpatial.Forms
             this.checkBox4.TabIndex = 3;
             this.checkBox4.UseVisualStyleBackColor = true;
             // 
-            // MapControl2
+            // MapControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "MapControl2";
+            this.Name = "MapControl";
             this.Size = new System.Drawing.Size(697, 611);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
