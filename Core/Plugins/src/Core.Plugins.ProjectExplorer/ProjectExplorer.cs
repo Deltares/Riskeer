@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Commands;
-using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.ProjectExplorer;
 using Core.Common.Util.Events;
 using Core.Plugins.ProjectExplorer.Properties;
 
