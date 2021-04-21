@@ -61,6 +61,9 @@ namespace Core.Components.DotSpatial.Forms
         private MapDataCollection data;
         private ImageBasedMapData backgroundMapData;
         private Timer updateTimer;
+        private bool isPanningEnabled;
+        private bool isRectangleZoomingEnabled;
+        private bool isMouseCoordinatesVisible;
         private bool handlingToggleButtonClicked;
         private bool handlingZoomToExtentsButtonClicked;
 
@@ -461,52 +464,6 @@ namespace Core.Components.DotSpatial.Forms
 
         #region Map Interaction
 
-        public bool IsPanningEnabled { get; private set; }
-        public bool IsRectangleZoomingEnabled { get; private set; }
-
-        public bool IsMouseCoordinatesVisible { get; private set; }
-
-        private static void AddPadding(Extent extent)
-        {
-            double padding = Math.Min(extent.Height, extent.Width) * 0.05;
-            if (Math.Max(extent.Height, extent.Width) + padding <= double.MaxValue)
-            {
-                extent.ExpandBy(padding);
-            }
-        }
-
-        public void TogglePanning()
-        {
-            ResetDefaultInteraction();
-
-            IsPanningEnabled = true;
-
-            map.FunctionMode = FunctionMode.Pan;
-        }
-
-        public void ToggleRectangleZooming()
-        {
-            ResetDefaultInteraction();
-
-            IsRectangleZoomingEnabled = true;
-
-            map.ActivateMapFunction(mapFunctionSelectionZoom);
-        }
-
-        public void ToggleMouseCoordinatesVisibility()
-        {
-            if (!IsMouseCoordinatesVisible)
-            {
-                mouseCoordinatesMapExtension.Activate();
-                IsMouseCoordinatesVisible = true;
-            }
-            else
-            {
-                mouseCoordinatesMapExtension.Deactivate();
-                IsMouseCoordinatesVisible = false;
-            }
-        }
-
         public void ZoomToAllVisibleLayers()
         {
             ZoomToAllVisibleLayers(Data);
@@ -517,9 +474,50 @@ namespace Core.Components.DotSpatial.Forms
             Envelope envelope = CreateEnvelopeForAllVisibleLayers(layerData);
             if (!envelope.IsNull)
             {
-                Extent extent = envelope.ToExtent();
+                var extent = envelope.ToExtent();
                 AddPadding(extent);
                 map.ViewExtents = extent;
+            }
+        }
+
+        private static void AddPadding(Extent extent)
+        {
+            double padding = Math.Min(extent.Height, extent.Width) * 0.05;
+            if (Math.Max(extent.Height, extent.Width) + padding <= double.MaxValue)
+            {
+                extent.ExpandBy(padding);
+            }
+        }
+
+        private void TogglePanning()
+        {
+            ResetDefaultInteraction();
+
+            isPanningEnabled = true;
+
+            map.FunctionMode = FunctionMode.Pan;
+        }
+
+        private void ToggleRectangleZooming()
+        {
+            ResetDefaultInteraction();
+
+            isRectangleZoomingEnabled = true;
+
+            map.ActivateMapFunction(mapFunctionSelectionZoom);
+        }
+
+        private void ToggleMouseCoordinatesVisibility()
+        {
+            if (!isMouseCoordinatesVisible)
+            {
+                mouseCoordinatesMapExtension.Activate();
+                isMouseCoordinatesVisible = true;
+            }
+            else
+            {
+                mouseCoordinatesMapExtension.Deactivate();
+                isMouseCoordinatesVisible = false;
             }
         }
 
@@ -579,8 +577,8 @@ namespace Core.Components.DotSpatial.Forms
 
         private void ResetDefaultInteraction()
         {
-            IsPanningEnabled = false;
-            IsRectangleZoomingEnabled = false;
+            isPanningEnabled = false;
+            isRectangleZoomingEnabled = false;
 
             map.FunctionMode = FunctionMode.None;
         }
@@ -622,7 +620,7 @@ namespace Core.Components.DotSpatial.Forms
                 return;
             }
 
-            if (IsPanningEnabled)
+            if (isPanningEnabled)
             {
                 panningToggleButton.CheckState = CheckState.Checked;
 
@@ -647,7 +645,7 @@ namespace Core.Components.DotSpatial.Forms
                 return;
             }
 
-            if (IsRectangleZoomingEnabled)
+            if (isRectangleZoomingEnabled)
             {
                 zoomToRectangleToggleButton.CheckState = CheckState.Checked;
 
