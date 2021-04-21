@@ -74,6 +74,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
 
                 Assert.IsNull(mainWindow.MessageWindow);
                 Assert.IsNull(mainWindow.PropertyGrid);
+                Assert.IsNull(mainWindow.ProjectExplorer);
 
                 Assert.IsNotNull(mainWindow.Handle);
                 Assert.IsFalse(mainWindow.InvokeRequired,

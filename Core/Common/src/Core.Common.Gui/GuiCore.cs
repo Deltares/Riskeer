@@ -337,14 +337,6 @@ namespace Core.Common.Gui
             isAlreadyRunningInstanceOfIGui = false;
         }
 
-        private IProjectExplorer ProjectExplorer
-        {
-            get
-            {
-                return ViewHost.ToolViews.OfType<IProjectExplorer>().FirstOrDefault();
-            }
-        }
-
         private void InitializeProjectFromPath(string projectPath)
         {
             bool isPathGiven = !string.IsNullOrWhiteSpace(projectPath);
@@ -455,9 +447,9 @@ namespace Core.Common.Gui
                     ViewHost.BringToFront(mainWindow.MessageWindow);
                 }
 
-                if (ViewHost.ToolViews.Contains(ProjectExplorer))
+                if (ViewHost.ToolViews.Contains(mainWindow.ProjectExplorer))
                 {
-                    ViewHost.BringToFront(ProjectExplorer);
+                    ViewHost.BringToFront(mainWindow.ProjectExplorer);
                 }
 
                 mainWindow.ValidateItems();

@@ -58,6 +58,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         private PropertyGridView.PropertyGridView propertyGrid;
 
         private IGui gui;
+        private ProjectExplorer.ProjectExplorer projectExplorer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -158,6 +159,8 @@ namespace Core.Common.Gui.Forms.MainWindow
                 return !Dispatcher.CheckAccess();
             }
         }
+
+        public ProjectExplorer.ProjectExplorer ProjectExplorer => projectExplorer;
 
         /// <summary>
         /// Sets the <see cref="IGui"/> and dependencies.
