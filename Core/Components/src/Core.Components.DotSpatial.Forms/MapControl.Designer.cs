@@ -38,92 +38,92 @@ namespace Core.Components.DotSpatial.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.panToggleButton = new System.Windows.Forms.CheckBox();
+            this.zoomToRectangleToggleButton = new System.Windows.Forms.CheckBox();
+            this.zoomToExtentsButton = new System.Windows.Forms.CheckBox();
+            this.showCoordinatesToggleButton = new System.Windows.Forms.CheckBox();
+            this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanel
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.AutoSize = true;
-            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.Controls.Add(this.checkBox1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox2, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox3, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox4, 1, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(644, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(50, 50);
-            this.tableLayoutPanel1.TabIndex = 1;
+            this.tableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel.AutoSize = true;
+            this.tableLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel.BackColor = System.Drawing.Color.Transparent;
+            this.tableLayoutPanel.ColumnCount = 2;
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel.Controls.Add(this.panToggleButton, 0, 0);
+            this.tableLayoutPanel.Controls.Add(this.zoomToRectangleToggleButton, 1, 0);
+            this.tableLayoutPanel.Controls.Add(this.zoomToExtentsButton, 0, 1);
+            this.tableLayoutPanel.Controls.Add(this.showCoordinatesToggleButton, 1, 1);
+            this.tableLayoutPanel.Location = new System.Drawing.Point(618, 3);
+            this.tableLayoutPanel.Name = "tableLayoutPanel";
+            this.tableLayoutPanel.RowCount = 2;
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel.Size = new System.Drawing.Size(76, 76);
+            this.tableLayoutPanel.TabIndex = 1;
             // 
-            // checkBox1
+            // panToggleButton
             // 
-            this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox1.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapPanZoomImage;
-            this.checkBox1.Location = new System.Drawing.Point(3, 3);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(19, 19);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.panToggleButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.panToggleButton.AutoSize = true;
+            this.panToggleButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panToggleButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapPanZoomImage;
+            this.panToggleButton.Location = new System.Drawing.Point(3, 3);
+            this.panToggleButton.Name = "panToggleButton";
+            this.panToggleButton.Size = new System.Drawing.Size(32, 32);
+            this.panToggleButton.TabIndex = 0;
+            this.panToggleButton.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // zoomToRectangleToggleButton
             // 
-            this.checkBox2.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox2.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.zoomrectangle;
-            this.checkBox2.Location = new System.Drawing.Point(28, 3);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(19, 19);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.zoomToRectangleToggleButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.zoomToRectangleToggleButton.AutoSize = true;
+            this.zoomToRectangleToggleButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.zoomToRectangleToggleButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.zoomrectangle;
+            this.zoomToRectangleToggleButton.Location = new System.Drawing.Point(41, 3);
+            this.zoomToRectangleToggleButton.Name = "zoomToRectangleToggleButton";
+            this.zoomToRectangleToggleButton.Size = new System.Drawing.Size(32, 32);
+            this.zoomToRectangleToggleButton.TabIndex = 1;
+            this.zoomToRectangleToggleButton.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // zoomToExtentsButton
             // 
-            this.checkBox3.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox3.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.zoomextents;
-            this.checkBox3.Location = new System.Drawing.Point(3, 28);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(19, 19);
-            this.checkBox3.TabIndex = 2;
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.zoomToExtentsButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.zoomToExtentsButton.AutoSize = true;
+            this.zoomToExtentsButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.zoomToExtentsButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.zoomextents;
+            this.zoomToExtentsButton.Location = new System.Drawing.Point(3, 41);
+            this.zoomToExtentsButton.Name = "zoomToExtentsButton";
+            this.zoomToExtentsButton.Size = new System.Drawing.Size(32, 32);
+            this.zoomToExtentsButton.TabIndex = 2;
+            this.zoomToExtentsButton.UseVisualStyleBackColor = true;
             // 
-            // checkBox4
+            // showCoordinatesToggleButton
             // 
-            this.checkBox4.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox4.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.map_pin;
-            this.checkBox4.Location = new System.Drawing.Point(28, 28);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(19, 19);
-            this.checkBox4.TabIndex = 3;
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.showCoordinatesToggleButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.showCoordinatesToggleButton.AutoSize = true;
+            this.showCoordinatesToggleButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.showCoordinatesToggleButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.map_pin;
+            this.showCoordinatesToggleButton.Location = new System.Drawing.Point(41, 41);
+            this.showCoordinatesToggleButton.Name = "showCoordinatesToggleButton";
+            this.showCoordinatesToggleButton.Size = new System.Drawing.Size(32, 32);
+            this.showCoordinatesToggleButton.TabIndex = 3;
+            this.showCoordinatesToggleButton.UseVisualStyleBackColor = true;
             // 
             // MapControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.tableLayoutPanel);
             this.Name = "MapControl";
             this.Size = new System.Drawing.Size(697, 611);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel.ResumeLayout(false);
+            this.tableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,10 +131,10 @@ namespace Core.Components.DotSpatial.Forms
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+        private System.Windows.Forms.CheckBox panToggleButton;
+        private System.Windows.Forms.CheckBox zoomToRectangleToggleButton;
+        private System.Windows.Forms.CheckBox zoomToExtentsButton;
+        private System.Windows.Forms.CheckBox showCoordinatesToggleButton;
     }
 }
