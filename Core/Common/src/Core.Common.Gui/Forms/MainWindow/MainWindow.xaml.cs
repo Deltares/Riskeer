@@ -348,6 +348,22 @@ namespace Core.Common.Gui.Forms.MainWindow
             ValidateItems();
         }
 
+        private void ButtonShowProjectExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            bool active = viewController.ViewHost.ToolViews.Contains(ProjectExplorer);
+
+            if (active)
+            {
+                viewController.ViewHost.Remove(ProjectExplorer);
+            }
+            else
+            {
+                InitProjectExplorerWindowOrBringToFront();
+            }
+
+            ButtonShowProjectExplorer.IsChecked = !active;
+        }
+
         private void ButtonShowProperties_Click(object sender, RoutedEventArgs e)
         {
             bool active = viewController.ViewHost.ToolViews.Contains(PropertyGrid);
