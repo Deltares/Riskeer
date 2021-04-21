@@ -79,24 +79,12 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// <summary>
         /// Gets the log messages tool window.
         /// </summary>
-        public IMessageWindow MessageWindow
-        {
-            get
-            {
-                return messageWindow;
-            }
-        }
+        public IMessageWindow MessageWindow => messageWindow;
 
         /// <summary>
         /// Gets the view host.
         /// </summary>
-        public IViewHost ViewHost
-        {
-            get
-            {
-                return AvalonDockViewHost;
-            }
-        }
+        public IViewHost ViewHost => AvalonDockViewHost;
 
         /// <summary>
         /// Gets or sets a value indicating whether or not the main user interface is visible.
@@ -104,10 +92,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// <exception cref="InvalidOperationException">Thrown when no gui has been set using <see cref="SetGui"/>.</exception>
         public bool Visible
         {
-            get
-            {
-                return IsVisible;
-            }
+            get => IsVisible;
             set
             {
                 if (gui == null)
@@ -136,29 +121,11 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
-        public IView PropertyGrid
-        {
-            get
-            {
-                return propertyGrid;
-            }
-        }
+        public IView PropertyGrid => propertyGrid;
 
-        public IntPtr Handle
-        {
-            get
-            {
-                return windowInteropHelper.Handle;
-            }
-        }
+        public IntPtr Handle => windowInteropHelper.Handle;
 
-        public bool InvokeRequired
-        {
-            get
-            {
-                return !Dispatcher.CheckAccess();
-            }
-        }
+        public bool InvokeRequired => !Dispatcher.CheckAccess();
 
         public ProjectExplorer.ProjectExplorer ProjectExplorer => projectExplorer;
 

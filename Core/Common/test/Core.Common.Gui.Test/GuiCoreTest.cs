@@ -73,7 +73,7 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ParameteredConstructor_ValidArguments_ExpectedValues()
+        public void Constructor_ValidArguments_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -133,10 +133,10 @@ namespace Core.Common.Gui.Test
             var guiCoreSettings = new GuiCoreSettings();
 
             // Call
-            TestDelegate call = () => new GuiCore(null, projectStore, projectMigrator, projectFactory, guiCoreSettings);
+            void Call() => new GuiCore(null, projectStore, projectMigrator, projectFactory, guiCoreSettings);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("mainWindow", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -156,10 +156,10 @@ namespace Core.Common.Gui.Test
             using (var mainWindow = new MainWindow())
             {
                 // Call
-                TestDelegate call = () => new GuiCore(mainWindow, projectStore, null, projectFactory, guiCoreSettings);
+                void Call() => new GuiCore(mainWindow, projectStore, null, projectFactory, guiCoreSettings);
 
                 // Assert
-                var exception = Assert.Throws<ArgumentNullException>(call);
+                var exception = Assert.Throws<ArgumentNullException>(Call);
                 Assert.AreEqual("projectMigrator", exception.ParamName);
             }
 
@@ -181,10 +181,10 @@ namespace Core.Common.Gui.Test
             using (var mainWindow = new MainWindow())
             {
                 // Call
-                TestDelegate call = () => new GuiCore(mainWindow, null, projectMigrator, projectFactory, guiCoreSettings);
+                void Call() => new GuiCore(mainWindow, null, projectMigrator, projectFactory, guiCoreSettings);
 
                 // Assert
-                var exception = Assert.Throws<ArgumentNullException>(call);
+                var exception = Assert.Throws<ArgumentNullException>(Call);
                 Assert.AreEqual("projectStore", exception.ParamName);
             }
 
@@ -206,10 +206,10 @@ namespace Core.Common.Gui.Test
             using (var mainWindow = new MainWindow())
             {
                 // Call
-                TestDelegate call = () => new GuiCore(mainWindow, projectStore, projectMigrator, null, guiCoreSettings);
+                void Call() => new GuiCore(mainWindow, projectStore, projectMigrator, null, guiCoreSettings);
 
                 // Assert
-                var exception = Assert.Throws<ArgumentNullException>(call);
+                var exception = Assert.Throws<ArgumentNullException>(Call);
                 Assert.AreEqual("projectFactory", exception.ParamName);
             }
 
@@ -230,10 +230,10 @@ namespace Core.Common.Gui.Test
             using (var mainWindow = new MainWindow())
             {
                 // Call
-                TestDelegate call = () => new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, null);
+                void Call() => new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, null);
 
                 // Assert
-                var exception = Assert.Throws<ArgumentNullException>(call);
+                var exception = Assert.Throws<ArgumentNullException>(Call);
                 Assert.AreEqual("fixedSettings", exception.ParamName);
             }
 
@@ -257,13 +257,13 @@ namespace Core.Common.Gui.Test
             using (new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
             {
                 // Call
-                TestDelegate call = () =>
+                void Call()
                 {
                     using (new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings)) {}
-                };
+                }
 
                 // Assert
-                Assert.Throws<InvalidOperationException>(call);
+                Assert.Throws<InvalidOperationException>(Call);
             }
 
             mocks.VerifyAll();
@@ -287,10 +287,10 @@ namespace Core.Common.Gui.Test
                 gui.Plugins.Add(plugin);
 
                 // Call
-                TestDelegate test = () => gui.SetProject(null, null);
+                void Call() => gui.SetProject(null, null);
 
                 // Assert
-                Assert.Throws<ArgumentNullException>(test);
+                Assert.Throws<ArgumentNullException>(Call);
             }
 
             mocks.VerifyAll();
@@ -339,10 +339,10 @@ namespace Core.Common.Gui.Test
             gui.Plugins.Add(plugin);
 
             // Call
-            Action call = () => gui.Dispose();
+            void Call() => gui.Dispose();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.", 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, "Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.", 1);
             Assert.IsNull(gui.Plugins);
             mocks.VerifyAll();
         }
@@ -373,7 +373,7 @@ namespace Core.Common.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Dispose_HasMainWindow_DiposeOfMainWindow()
+        public void Dispose_HasMainWindow_DisposeOfMainWindow()
         {
             // Setup
             var mocks = new MockRepository();
@@ -560,7 +560,7 @@ namespace Core.Common.Gui.Test
             IAppender[] originalAppenders = rootLogger.Appenders.ToArray();
             rootLogger.RemoveAllAppenders();
             rootLogger.AddAppender(appender);
-            bool rootloggerConfigured = rootLogger.Repository.Configured;
+            bool rootLoggerConfigured = rootLogger.Repository.Configured;
 
             try
             {
@@ -573,7 +573,7 @@ namespace Core.Common.Gui.Test
                     Assert.AreEqual(1, rootLogger.Appenders.Count);
                     Assert.AreSame(appender, rootLogger.Appenders[0]);
                     Assert.AreSame(appender, MessageWindowLogAppender.Instance);
-                    Assert.AreEqual(rootloggerConfigured, rootLogger.Repository.Configured);
+                    Assert.AreEqual(rootLoggerConfigured, rootLogger.Repository.Configured);
 
                     Assert.IsTrue(MessageWindowLogAppender.Instance.Enabled);
                 }
@@ -596,7 +596,7 @@ namespace Core.Common.Gui.Test
         {
             // Setup
             const string fileName = "SomeFile";
-            string testFile = $"{fileName}.rtd";
+            var testFile = $"{fileName}.rtd";
 
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
@@ -616,7 +616,7 @@ namespace Core.Common.Gui.Test
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
                 // Call
-                Action call = () => gui.Run(testFile);
+                void Call() => gui.Run(testFile);
 
                 // Assert
                 Tuple<string, LogLevelConstant>[] expectedMessages =
@@ -624,13 +624,13 @@ namespace Core.Common.Gui.Test
                     Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                     Tuple.Create("Openen van project is gelukt.", LogLevelConstant.Info)
                 };
-                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
+                TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages);
                 Assert.AreEqual(testFile, gui.ProjectFilePath);
                 Assert.AreSame(deserializedProject, gui.Project);
                 Assert.AreEqual(fileName, gui.Project.Name,
                                 "Project name should be updated to the name of the file.");
 
-                string expectedTitle = $"{fileName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                var expectedTitle = $"{fileName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
 
@@ -643,7 +643,7 @@ namespace Core.Common.Gui.Test
         {
             // Setup
             const string fileName = "SomeFile";
-            string testFile = $"{fileName}.rtd";
+            var testFile = $"{fileName}.rtd";
 
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
@@ -673,7 +673,7 @@ namespace Core.Common.Gui.Test
 
                 // Assert
                 Assert.IsNull(gui.ProjectFilePath);
-                string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
 
@@ -686,7 +686,7 @@ namespace Core.Common.Gui.Test
         {
             // Setup
             const string fileName = "SomeFile";
-            string testFile = $"{fileName}.rtd";
+            var testFile = $"{fileName}.rtd";
 
             const string expectedErrorMessage = "You shall not migrate!";
 
@@ -714,10 +714,10 @@ namespace Core.Common.Gui.Test
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
                 // Call
-                Action call = () => gui.Run(testFile);
+                void Call() => gui.Run(testFile);
 
                 // Assert
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedErrorMessage, LogLevelConstant.Error));
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedErrorMessage, LogLevelConstant.Error));
 
                 Assert.IsNull(gui.ProjectFilePath);
                 string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
@@ -733,8 +733,8 @@ namespace Core.Common.Gui.Test
         {
             // Setup
             const string fileName = "SomeFile";
-            string testFile = $"{fileName}.rtd";
-            string targetFile = $"{fileName}_17_1.rtd";
+            var testFile = $"{fileName}.rtd";
+            var targetFile = $"{fileName}_17_1.rtd";
 
             const string expectedErrorMessage = "You shall not migrate!";
 
@@ -764,7 +764,7 @@ namespace Core.Common.Gui.Test
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
                 // Call
-                Action call = () => gui.Run(testFile);
+                void Call() => gui.Run(testFile);
 
                 // Assert
                 Tuple<string, LogLevelConstant>[] expectedMessages =
@@ -773,10 +773,10 @@ namespace Core.Common.Gui.Test
                     Tuple.Create(expectedErrorMessage, LogLevelConstant.Error),
                     Tuple.Create("Openen van project is mislukt.", LogLevelConstant.Error)
                 };
-                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
+                TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages);
 
                 Assert.IsNull(gui.ProjectFilePath);
-                string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
 
@@ -789,7 +789,7 @@ namespace Core.Common.Gui.Test
         {
             // Setup
             const string fileName = "SomeFile";
-            string testFile = $"{fileName}.rtd";
+            var testFile = $"{fileName}.rtd";
 
             const string storageExceptionText = "<Some error preventing the project from being opened>";
 
@@ -815,7 +815,7 @@ namespace Core.Common.Gui.Test
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
                 // Call
-                Action call = () => gui.Run(testFile);
+                void Call() => gui.Run(testFile);
 
                 // Assert
                 Tuple<string, LogLevelConstant>[] expectedMessages =
@@ -824,10 +824,10 @@ namespace Core.Common.Gui.Test
                     Tuple.Create(storageExceptionText, LogLevelConstant.Error),
                     Tuple.Create("Openen van project is mislukt.", LogLevelConstant.Error)
                 };
-                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages);
+                TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages);
 
                 Assert.IsNull(gui.ProjectFilePath);
-                string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
 
@@ -867,7 +867,7 @@ namespace Core.Common.Gui.Test
                 // Assert
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.AreSame(project, gui.Project);
-                string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
 
@@ -956,12 +956,12 @@ namespace Core.Common.Gui.Test
                 gui.Plugins.Add(plugin);
 
                 // Call
-                Action call = () => gui.Run();
+                void Call() => gui.Run();
 
                 // Assert
                 const string expectedMessage = "Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.";
                 Tuple<string, LogLevelConstant> expectedMessageAndLogLevel = Tuple.Create(expectedMessage, LogLevelConstant.Error);
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessageAndLogLevel);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, expectedMessageAndLogLevel);
             }
 
             mocks.VerifyAll(); // Expect Dispose call on plugin
@@ -1228,10 +1228,10 @@ namespace Core.Common.Gui.Test
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 // Call
-                TestDelegate call = () => gui.Get(new object(), treeView);
+                void Call() => gui.Get(new object(), treeView);
 
                 // Assert
-                string message = Assert.Throws<InvalidOperationException>(call).Message;
+                string message = Assert.Throws<InvalidOperationException>(Call).Message;
                 Assert.AreEqual("Call IGui.Run in order to initialize dependencies before getting the ContextMenuBuilder.", message);
             }
 

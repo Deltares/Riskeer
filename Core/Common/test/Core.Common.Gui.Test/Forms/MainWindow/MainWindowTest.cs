@@ -61,7 +61,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -114,10 +114,10 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
                 // Call
-                TestDelegate call = () => mainWindow.Visible = newVisibleValue;
+                void Call() => mainWindow.Visible = newVisibleValue;
 
                 // Assert
-                Assert.Throws<InvalidOperationException>(call);
+                Assert.Throws<InvalidOperationException>(Call);
             }
         }
 
@@ -194,10 +194,10 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
                 // Call
-                TestDelegate call = () => mainWindow.SubscribeToGui();
+                void Call() => mainWindow.SubscribeToGui();
 
                 // Assert
-                Assert.DoesNotThrow(call);
+                Assert.DoesNotThrow(Call);
             }
         }
 
@@ -234,10 +234,10 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
                 // Call
-                TestDelegate call = () => mainWindow.UnsubscribeFromGui();
+                void Call() => mainWindow.UnsubscribeFromGui();
 
                 // Assert
-                Assert.DoesNotThrow(call);
+                Assert.DoesNotThrow(Call);
             }
         }
 
@@ -276,10 +276,10 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
                 // Call
-                TestDelegate call = () => mainWindow.InitPropertiesWindowOrBringToFront();
+                void Call() => mainWindow.InitPropertiesWindowOrBringToFront();
 
                 // Assert
-                Assert.Throws<InvalidOperationException>(call);
+                Assert.Throws<InvalidOperationException>(Call);
             }
         }
 
@@ -371,10 +371,10 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
                 // Call
-                TestDelegate call = () => mainWindow.InitializeToolWindows();
+                void Call() => mainWindow.InitializeToolWindows();
 
                 // Assert
-                Assert.Throws<InvalidOperationException>(call);
+                Assert.Throws<InvalidOperationException>(Call);
             }
         }
 
@@ -439,7 +439,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         [Apartment(ApartmentState.STA)]
         public void GivenGuiWithProjectExplorer_WhenClosingProjectExplorer_ThenProjectExplorerSetToNull()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
@@ -475,10 +475,10 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 // Precondition
                 Assert.IsNotNull(mainWindow.ProjectExplorer);
 
-                // Call
+                // When
                 mainWindow.ViewHost.Remove(mainWindow.ProjectExplorer);
 
-                // Assert
+                // Then
                 Assert.IsNull(mainWindow.ProjectExplorer);
             }
 
@@ -489,7 +489,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         [Apartment(ApartmentState.STA)]
         public void GivenGuiWithPropertyGrid_WhenClosingPropertyGrid_ThenPropertyGridSetToNull()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
@@ -525,10 +525,10 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 // Precondition
                 Assert.IsNotNull(mainWindow.PropertyGrid);
 
-                // Call
+                // When
                 mainWindow.ViewHost.Remove(mainWindow.PropertyGrid);
 
-                // Assert
+                // Then
                 Assert.IsNull(mainWindow.PropertyGrid);
             }
 
@@ -539,7 +539,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
         [Apartment(ApartmentState.STA)]
         public void GivenGuiWithMessageWindow_WhenClosingMessageWindow_ThenMessageWindowSetToNull()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
@@ -575,10 +575,10 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 // Precondition
                 Assert.IsNotNull(mainWindow.MessageWindow);
 
-                // Call
+                // When
                 mainWindow.ViewHost.Remove(mainWindow.MessageWindow);
 
-                // Assert
+                // Then
                 Assert.IsNull(mainWindow.MessageWindow);
             }
 
