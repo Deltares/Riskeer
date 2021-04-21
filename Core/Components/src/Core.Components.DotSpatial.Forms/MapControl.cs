@@ -491,20 +491,19 @@ namespace Core.Components.DotSpatial.Forms
 
         private void TogglePanning()
         {
-            ResetDefaultInteraction();
+            map.FunctionMode = FunctionMode.Pan;
 
             isPanningEnabled = true;
-
-            map.FunctionMode = FunctionMode.Pan;
+            isRectangleZoomingEnabled = false;
         }
 
         private void ToggleRectangleZooming()
         {
-            ResetDefaultInteraction();
-
-            isRectangleZoomingEnabled = true;
-
+            map.FunctionMode = FunctionMode.None;
             map.ActivateMapFunction(mapFunctionSelectionZoom);
+
+            isPanningEnabled = false;
+            isRectangleZoomingEnabled = true;
         }
 
         private void ToggleMouseCoordinatesVisibility()
@@ -573,14 +572,6 @@ namespace Core.Components.DotSpatial.Forms
         private static bool LayerHasVisibleExtent(IMapLayer layer)
         {
             return layer.IsVisible && !layer.Extent.IsEmpty();
-        }
-
-        private void ResetDefaultInteraction()
-        {
-            isPanningEnabled = false;
-            isRectangleZoomingEnabled = false;
-
-            map.FunctionMode = FunctionMode.None;
         }
 
         private void MapFunctionActivateFunction(object sender, EventArgs e)
