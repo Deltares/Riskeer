@@ -43,7 +43,7 @@ namespace Core.Components.DotSpatial.Forms
     /// <summary>
     /// This class describes a map control with configured projection and function mode.
     /// </summary>
-    public class MapControl : UserControl, IMapControl
+    public partial class MapControl : UserControl, IMapControl
     {
         private const int updateTimerInterval = 10;
         private readonly ILog log = LogManager.GetLogger(typeof(MapControl));
@@ -60,11 +60,6 @@ namespace Core.Components.DotSpatial.Forms
         private RdNewMouseCoordinatesMapExtension mouseCoordinatesMapExtension;
         private MapDataCollection data;
         private ImageBasedMapData backgroundMapData;
-        private TableLayoutPanel tableLayoutPanel1;
-        private CheckBox checkBox1;
-        private CheckBox checkBox2;
-        private CheckBox checkBox3;
-        private CheckBox checkBox4;
         private Timer updateTimer;
 
         /// <summary>
@@ -140,11 +135,17 @@ namespace Core.Components.DotSpatial.Forms
 
         protected override void Dispose(bool disposing)
         {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+
             map.Dispose();
             mouseCoordinatesMapExtension.Dispose();
             mapDataCollectionObserver.Dispose();
             backGroundMapDataObserver.Dispose();
             backgroundLayerStatus.Dispose();
+
 
             base.Dispose(disposing);
         }
@@ -658,96 +659,5 @@ namespace Core.Components.DotSpatial.Forms
         }
 
         #endregion
-
-        private void InitializeComponent()
-        {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.AutoSize = true;
-            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.Controls.Add(this.checkBox1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox2, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox3, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox4, 1, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(541, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(50, 50);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox1.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapPanZoomImage;
-            this.checkBox1.Location = new System.Drawing.Point(3, 3);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(19, 19);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox2.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.zoomrectangle;
-            this.checkBox2.Location = new System.Drawing.Point(28, 3);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(19, 19);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox3.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.zoomextents;
-            this.checkBox3.Location = new System.Drawing.Point(3, 28);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(19, 19);
-            this.checkBox3.TabIndex = 2;
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox4.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.map_pin;
-            this.checkBox4.Location = new System.Drawing.Point(28, 28);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(19, 19);
-            this.checkBox4.TabIndex = 3;
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // MapControl
-            // 
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "MapControl";
-            this.Size = new System.Drawing.Size(594, 526);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
-        }
     }
 }
