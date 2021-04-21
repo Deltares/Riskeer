@@ -40,37 +40,43 @@ namespace Core.Common.Gui.Test.Forms.ProjectExplorer
     public class ProjectExplorerTest : NUnitFormTest
     {
         [Test]
-        [TestCase(0)]
-        [TestCase(1)]
-        public void Constructor_ArgumentsNull_ThrowsArgumentNullException(int paramNullIndex)
+        public void Constructor_ViewCommandsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new Gui.Forms.ProjectExplorer.ProjectExplorer(null, Enumerable.Empty<TreeNodeInfo>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("viewCommands", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_TreeNodeInfosNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
-            IViewCommands viewCommands = paramNullIndex == 0 ? null : mocks.StrictMock<IViewCommands>();
-            IEnumerable<TreeNodeInfo> treeNodeInfos = paramNullIndex == 1 ? null : Enumerable.Empty<TreeNodeInfo>();
-
+            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new Common.Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos);
+            void Call() => new Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("treeNodeInfos", exception.ParamName);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_NoNullArguments_CreatesNewInstance()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            IEnumerable<TreeNodeInfo> treeNodeInfos = Enumerable.Empty<TreeNodeInfo>();
-
             mocks.ReplayAll();
 
             // Call
-            using (var explorer = new Common.Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos))
+            using (var explorer = new Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, Enumerable.Empty<TreeNodeInfo>()))
             {
                 // Assert
                 Assert.IsInstanceOf<IProjectExplorer>(explorer);
@@ -86,9 +92,8 @@ namespace Core.Common.Gui.Test.Forms.ProjectExplorer
         {
             // Setup
             var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var viewCommands = mocks.Stub<IViewCommands>();
             var project = mocks.Stub<IProject>();
-
             mocks.ReplayAll();
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
@@ -99,7 +104,7 @@ namespace Core.Common.Gui.Test.Forms.ProjectExplorer
                 }
             };
 
-            using (var explorer = new Common.Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos))
+            using (var explorer = new Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos))
             {
                 var treeViewControl = TypeUtils.GetField<TreeViewControl>(explorer, "treeViewControl");
 
@@ -118,11 +123,9 @@ namespace Core.Common.Gui.Test.Forms.ProjectExplorer
         {
             // Setup
             var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
             var project = mocks.Stub<IProject>();
-
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vc => vc.RemoveAllViewsForItem(project));
-
             mocks.ReplayAll();
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
@@ -140,7 +143,7 @@ namespace Core.Common.Gui.Test.Forms.ProjectExplorer
                 messageBox.ClickOk();
             };
 
-            using (var explorer = new Common.Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos)
+            using (var explorer = new Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos)
             {
                 Data = project
             })
@@ -162,12 +165,10 @@ namespace Core.Common.Gui.Test.Forms.ProjectExplorer
             // Setup
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-
             var project = mocks.Stub<IProject>();
-            const string stringA = "testA";
-
             mocks.ReplayAll();
 
+            const string stringA = "testA";
             const string stringB = "testB";
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
@@ -187,7 +188,7 @@ namespace Core.Common.Gui.Test.Forms.ProjectExplorer
                 }
             };
 
-            using (var explorer = new Common.Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos)
+            using (var explorer = new Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos)
             {
                 Data = project
             })
@@ -217,13 +218,11 @@ namespace Core.Common.Gui.Test.Forms.ProjectExplorer
             // Setup
             const string treeIdentifier = "SomeName";
             const string formIdentifier = "SomeForm";
-            var mocks = new MockRepository();
 
+            var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(a => a.OpenViewForSelection());
-
             var project = mocks.Stub<IProject>();
-
             mocks.ReplayAll();
 
             IEnumerable<TreeNodeInfo> treeNodeInfos = new[]
@@ -234,7 +233,7 @@ namespace Core.Common.Gui.Test.Forms.ProjectExplorer
                 }
             };
 
-            using (var explorer = new Common.Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos)
+            using (var explorer = new Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos)
             {
                 Data = project
             })
@@ -269,9 +268,8 @@ namespace Core.Common.Gui.Test.Forms.ProjectExplorer
         {
             // Setup
             var mocks = new MockRepository();
-            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var viewCommands = mocks.Stub<IViewCommands>();
             var project = mocks.Stub<IProject>();
-
             mocks.ReplayAll();
 
             const string stringA = "testA";
@@ -294,7 +292,7 @@ namespace Core.Common.Gui.Test.Forms.ProjectExplorer
                 }
             };
 
-            using (var explorer = new Common.Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos)
+            using (var explorer = new Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos)
             {
                 Data = project
             })

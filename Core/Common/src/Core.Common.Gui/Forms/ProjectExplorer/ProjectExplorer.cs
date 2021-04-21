@@ -75,10 +75,7 @@ namespace Core.Common.Gui.Forms.ProjectExplorer
 
         public object Data
         {
-            get
-            {
-                return treeViewControl.Data;
-            }
+            get => treeViewControl.Data;
             set
             {
                 if (!IsDisposed)
@@ -88,13 +85,7 @@ namespace Core.Common.Gui.Forms.ProjectExplorer
             }
         }
 
-        public object Selection
-        {
-            get
-            {
-                return treeViewControl.SelectedData;
-            }
-        }
+        public object Selection => treeViewControl.SelectedData;
 
         private void BindTreeInteractionEvents()
         {
