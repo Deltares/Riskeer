@@ -28,7 +28,6 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
-using Core.Plugins.ProjectExplorer;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Integration.Plugin;
@@ -113,7 +112,6 @@ namespace Core.Common.Integration.Test.Riskeer.Application.Riskeer
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new RiskeerPlugin());
-                gui.Plugins.Add(new ProjectExplorerPlugin());
 
                 gui.Run();
 
