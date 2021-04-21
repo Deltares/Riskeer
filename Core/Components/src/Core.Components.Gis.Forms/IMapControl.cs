@@ -30,21 +30,6 @@ namespace Core.Components.Gis.Forms
     public interface IMapControl
     {
         /// <summary>
-        /// Gets a value indicating whether or not the map can be panned with the left mouse button.
-        /// </summary>
-        bool IsPanningEnabled { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether or not the map can be zoomed by rectangle with the left mouse button.
-        /// </summary>
-        bool IsRectangleZoomingEnabled { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether or not the map coordinates of the mouse should be shown.
-        /// </summary>
-        bool IsMouseCoordinatesVisible { get; }
-
-        /// <summary>
         /// Gets the data to show in the <see cref="IMapControl"/>.
         /// </summary>
         MapDataCollection Data { get; }
@@ -53,11 +38,6 @@ namespace Core.Components.Gis.Forms
         /// Gets the data to show in the background of the <see cref="IMapControl"/>.
         /// </summary>
         ImageBasedMapData BackgroundMapData { get; }
-
-        /// <summary>
-        /// Removes all the data from the map without redrawing any layers.
-        /// </summary>
-        void RemoveAllData();
 
         /// <summary>
         /// Zooms to a level so that all visible layers are in view.
@@ -71,20 +51,5 @@ namespace Core.Components.Gis.Forms
         /// <exception cref="ArgumentException">Thrown when <paramref name="layerData"/>
         /// is not part of <see cref="Data"/>.</exception>
         void ZoomToAllVisibleLayers(MapData layerData);
-
-        /// <summary>
-        /// Toggles panning of the <see cref="IMapControl"/>. Panning is invoked by clicking the left mouse-button.
-        /// </summary>
-        void TogglePanning();
-
-        /// <summary>
-        /// Toggles rectangle zooming of the <see cref="IMapControl"/>. Rectangle zooming is invoked by clicking the left mouse-button.
-        /// </summary>
-        void ToggleRectangleZooming();
-
-        /// <summary>
-        /// Toggles the visibility mouse coordinates of the <see cref="IMapControl"/>.
-        /// </summary>
-        void ToggleMouseCoordinatesVisibility();
     }
 }
