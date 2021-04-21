@@ -61,6 +61,8 @@ namespace Core.Components.DotSpatial.Forms
         private MapDataCollection data;
         private ImageBasedMapData backgroundMapData;
         private Timer updateTimer;
+        private bool handlingToggleButtonClicked;
+        private bool handlingZoomToExtentsButtonClicked;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapControl"/>.
@@ -146,7 +148,6 @@ namespace Core.Components.DotSpatial.Forms
             backGroundMapDataObserver.Dispose();
             backgroundLayerStatus.Dispose();
 
-
             base.Dispose(disposing);
         }
 
@@ -196,7 +197,9 @@ namespace Core.Components.DotSpatial.Forms
             mapFunctionSelectionZoom.MouseUp += MapFunctionOnMouseUp;
 
             mouseCoordinatesMapExtension = new RdNewMouseCoordinatesMapExtension(map);
-            ToggleMouseCoordinatesVisibility();
+
+            panningToggleButton.CheckState = CheckState.Checked;
+            showCoordinatesToggleButton.CheckState = CheckState.Checked;
 
             Controls.Add(map);
         }
@@ -231,6 +234,81 @@ namespace Core.Components.DotSpatial.Forms
                     mapLayer.Invalidate();
                 }
             }
+        }
+
+        private void PanningToggleButtonClicked(object sender, EventArgs e)
+        {
+            if (handlingToggleButtonClicked)
+            {
+                return;
+            }
+
+            if (IsPanningEnabled)
+            {
+                panningToggleButton.CheckState = CheckState.Checked;
+
+                return;
+            }
+
+            handlingToggleButtonClicked = true;
+
+            TogglePanning();
+
+            zoomToRectangleToggleButton.CheckState = CheckState.Unchecked;
+
+            map.Focus();
+
+            handlingToggleButtonClicked = false;
+        }
+
+        private void ZoomToRectangleToggleButtonClicked(object sender, EventArgs e)
+        {
+            if (handlingToggleButtonClicked)
+            {
+                return;
+            }
+
+            if (IsRectangleZoomingEnabled)
+            {
+                zoomToRectangleToggleButton.CheckState = CheckState.Checked;
+
+                return;
+            }
+
+            handlingToggleButtonClicked = true;
+
+            ToggleRectangleZooming();
+
+            panningToggleButton.CheckState = CheckState.Unchecked;
+
+            map.Focus();
+
+            handlingToggleButtonClicked = false;
+        }
+
+        private void ZoomToAllVisibleLayersButtonClicked(object sender, EventArgs e)
+        {
+            if (handlingZoomToExtentsButtonClicked)
+            {
+                return;
+            }
+
+            handlingZoomToExtentsButtonClicked = true;
+
+            zoomToAllVisibleLayersButton.CheckState = CheckState.Unchecked;
+
+            map.Focus();
+
+            ZoomToAllVisibleLayers();
+
+            handlingZoomToExtentsButtonClicked = false;
+        }
+
+        private void ShowCoordinatesToggleButtonClicked(object sender, EventArgs e)
+        {
+            ToggleMouseCoordinatesVisibility();
+
+            map.Focus();
         }
 
         #region Background layer

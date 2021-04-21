@@ -39,9 +39,9 @@ namespace Core.Components.DotSpatial.Forms
         private void InitializeComponent()
         {
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.panToggleButton = new System.Windows.Forms.CheckBox();
+            this.panningToggleButton = new System.Windows.Forms.CheckBox();
             this.zoomToRectangleToggleButton = new System.Windows.Forms.CheckBox();
-            this.zoomToExtentsButton = new System.Windows.Forms.CheckBox();
+            this.zoomToAllVisibleLayersButton = new System.Windows.Forms.CheckBox();
             this.showCoordinatesToggleButton = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
@@ -55,9 +55,9 @@ namespace Core.Components.DotSpatial.Forms
             this.tableLayoutPanel.ColumnCount = 2;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel.Controls.Add(this.panToggleButton, 0, 0);
+            this.tableLayoutPanel.Controls.Add(this.panningToggleButton, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.zoomToRectangleToggleButton, 1, 0);
-            this.tableLayoutPanel.Controls.Add(this.zoomToExtentsButton, 0, 1);
+            this.tableLayoutPanel.Controls.Add(this.zoomToAllVisibleLayersButton, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.showCoordinatesToggleButton, 1, 1);
             this.tableLayoutPanel.Location = new System.Drawing.Point(618, 3);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
@@ -67,17 +67,19 @@ namespace Core.Components.DotSpatial.Forms
             this.tableLayoutPanel.Size = new System.Drawing.Size(76, 76);
             this.tableLayoutPanel.TabIndex = 1;
             // 
-            // panToggleButton
+            // panningToggleButton
             // 
-            this.panToggleButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.panToggleButton.AutoSize = true;
-            this.panToggleButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panToggleButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapPanZoomImage;
-            this.panToggleButton.Location = new System.Drawing.Point(3, 3);
-            this.panToggleButton.Name = "panToggleButton";
-            this.panToggleButton.Size = new System.Drawing.Size(32, 32);
-            this.panToggleButton.TabIndex = 0;
-            this.panToggleButton.UseVisualStyleBackColor = true;
+            this.panningToggleButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.panningToggleButton.AutoSize = true;
+            this.panningToggleButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panningToggleButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapPanZoomImage;
+            this.panningToggleButton.Location = new System.Drawing.Point(3, 3);
+            this.panningToggleButton.Name = "panningToggleButton";
+            this.panningToggleButton.Size = new System.Drawing.Size(32, 32);
+            this.panningToggleButton.TabIndex = 0;
+            this.panningToggleButton.TabStop = false;
+            this.panningToggleButton.UseVisualStyleBackColor = true;
+            this.panningToggleButton.CheckedChanged += new System.EventHandler(this.PanningToggleButtonClicked);
             // 
             // zoomToRectangleToggleButton
             // 
@@ -89,19 +91,23 @@ namespace Core.Components.DotSpatial.Forms
             this.zoomToRectangleToggleButton.Name = "zoomToRectangleToggleButton";
             this.zoomToRectangleToggleButton.Size = new System.Drawing.Size(32, 32);
             this.zoomToRectangleToggleButton.TabIndex = 1;
+            this.zoomToRectangleToggleButton.TabStop = false;
             this.zoomToRectangleToggleButton.UseVisualStyleBackColor = true;
+            this.zoomToRectangleToggleButton.CheckedChanged += new System.EventHandler(this.ZoomToRectangleToggleButtonClicked);
             // 
-            // zoomToExtentsButton
+            // zoomToAllVisibleLayersButton
             // 
-            this.zoomToExtentsButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.zoomToExtentsButton.AutoSize = true;
-            this.zoomToExtentsButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.zoomToExtentsButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.zoomextents;
-            this.zoomToExtentsButton.Location = new System.Drawing.Point(3, 41);
-            this.zoomToExtentsButton.Name = "zoomToExtentsButton";
-            this.zoomToExtentsButton.Size = new System.Drawing.Size(32, 32);
-            this.zoomToExtentsButton.TabIndex = 2;
-            this.zoomToExtentsButton.UseVisualStyleBackColor = true;
+            this.zoomToAllVisibleLayersButton.Appearance = System.Windows.Forms.Appearance.Button;
+            this.zoomToAllVisibleLayersButton.AutoSize = true;
+            this.zoomToAllVisibleLayersButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.zoomToAllVisibleLayersButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.zoomextents;
+            this.zoomToAllVisibleLayersButton.Location = new System.Drawing.Point(3, 41);
+            this.zoomToAllVisibleLayersButton.Name = "zoomToAllVisibleLayersButton";
+            this.zoomToAllVisibleLayersButton.Size = new System.Drawing.Size(32, 32);
+            this.zoomToAllVisibleLayersButton.TabIndex = 2;
+            this.zoomToAllVisibleLayersButton.TabStop = false;
+            this.zoomToAllVisibleLayersButton.UseVisualStyleBackColor = true;
+            this.zoomToAllVisibleLayersButton.CheckedChanged += new System.EventHandler(this.ZoomToAllVisibleLayersButtonClicked);
             // 
             // showCoordinatesToggleButton
             // 
@@ -113,7 +119,9 @@ namespace Core.Components.DotSpatial.Forms
             this.showCoordinatesToggleButton.Name = "showCoordinatesToggleButton";
             this.showCoordinatesToggleButton.Size = new System.Drawing.Size(32, 32);
             this.showCoordinatesToggleButton.TabIndex = 3;
+            this.showCoordinatesToggleButton.TabStop = false;
             this.showCoordinatesToggleButton.UseVisualStyleBackColor = true;
+            this.showCoordinatesToggleButton.CheckedChanged += new System.EventHandler(this.ShowCoordinatesToggleButtonClicked);
             // 
             // MapControl
             // 
@@ -132,9 +140,9 @@ namespace Core.Components.DotSpatial.Forms
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
-        private System.Windows.Forms.CheckBox panToggleButton;
+        private System.Windows.Forms.CheckBox panningToggleButton;
         private System.Windows.Forms.CheckBox zoomToRectangleToggleButton;
-        private System.Windows.Forms.CheckBox zoomToExtentsButton;
+        private System.Windows.Forms.CheckBox zoomToAllVisibleLayersButton;
         private System.Windows.Forms.CheckBox showCoordinatesToggleButton;
     }
 }
