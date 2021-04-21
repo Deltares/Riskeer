@@ -68,11 +68,11 @@ namespace Core.Plugins.ProjectExplorer.Test
             var toolViewList = new List<IView>();
 
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
-            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.NotNull,
+            viewHost.Expect(vm => vm.AddToolView(Arg<Common.Gui.Forms.ProjectExplorer.ProjectExplorer>.Is.NotNull,
                                                  Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
-                    .WhenCalled(invocation => toolViewList.Add(invocation.Arguments[0] as ProjectExplorer));
+                    .WhenCalled(invocation => toolViewList.Add(invocation.Arguments[0] as Common.Gui.Forms.ProjectExplorer.ProjectExplorer));
             viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
-            viewHost.Expect(vm => vm.Remove(Arg<ProjectExplorer>.Is.TypeOf));
+            viewHost.Expect(vm => vm.Remove(Arg<Common.Gui.Forms.ProjectExplorer.ProjectExplorer>.Is.TypeOf));
 
             var viewController = mocks.StrictMock<IViewController>();
             viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
@@ -101,7 +101,7 @@ namespace Core.Plugins.ProjectExplorer.Test
             var viewHost = mocks.Stub<IViewHost>();
 
             viewHost.Stub(vm => vm.ToolViews).Return(new List<IView>());
-            viewHost.Stub(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.TypeOf, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
+            viewHost.Stub(vm => vm.AddToolView(Arg<Common.Gui.Forms.ProjectExplorer.ProjectExplorer>.Is.TypeOf, Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)));
             viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
 
             var viewController = mocks.StrictMock<IViewController>();
@@ -138,11 +138,11 @@ namespace Core.Plugins.ProjectExplorer.Test
 
             if (isOpen)
             {
-                viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.NotNull,
+                viewHost.Expect(vm => vm.AddToolView(Arg<Common.Gui.Forms.ProjectExplorer.ProjectExplorer>.Is.NotNull,
                                                      Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
-                        .WhenCalled(invocation => toolViewList.Add(invocation.Arguments[0] as ProjectExplorer));
+                        .WhenCalled(invocation => toolViewList.Add(invocation.Arguments[0] as Common.Gui.Forms.ProjectExplorer.ProjectExplorer));
                 viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
-                viewHost.Expect(vm => vm.Remove(Arg<ProjectExplorer>.Is.TypeOf));
+                viewHost.Expect(vm => vm.Remove(Arg<Common.Gui.Forms.ProjectExplorer.ProjectExplorer>.Is.TypeOf));
             }
 
             mocks.ReplayAll();
@@ -175,11 +175,11 @@ namespace Core.Plugins.ProjectExplorer.Test
             var toolViewList = new List<IView>();
 
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
-            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.NotNull,
+            viewHost.Expect(vm => vm.AddToolView(Arg<Common.Gui.Forms.ProjectExplorer.ProjectExplorer>.Is.NotNull,
                                                  Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
-                    .WhenCalled(invocation => toolViewList.Add(invocation.Arguments[0] as ProjectExplorer));
+                    .WhenCalled(invocation => toolViewList.Add(invocation.Arguments[0] as Common.Gui.Forms.ProjectExplorer.ProjectExplorer));
             viewHost.Expect(vm => vm.SetImage(null, null)).IgnoreArguments();
-            viewHost.Expect(vm => vm.Remove(Arg<ProjectExplorer>.Is.TypeOf));
+            viewHost.Expect(vm => vm.Remove(Arg<Common.Gui.Forms.ProjectExplorer.ProjectExplorer>.Is.TypeOf));
 
             var viewController = mocks.Stub<IViewController>();
             viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);

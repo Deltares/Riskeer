@@ -1137,6 +1137,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Projectverkenner.
+        /// </summary>
+        public static string ProjectExplorer_DisplayName {
+            get {
+                return ResourceManager.GetString("ProjectExplorer_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ProjectIcon {

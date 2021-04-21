@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
+using Core.Common.Gui.Forms.ProjectExplorer;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Plugins.ProjectExplorer.Properties;
 
@@ -40,7 +41,7 @@ namespace Core.Plugins.ProjectExplorer
         private readonly IEnumerable<TreeNodeInfo> treeNodeInfos;
         private readonly IViewCommands viewCommands;
 
-        private ProjectExplorer projectExplorer;
+        private Common.Gui.Forms.ProjectExplorer.ProjectExplorer projectExplorer;
 
         /// <summary>
         /// Fired when the project explorer view has been opened.
@@ -142,7 +143,7 @@ namespace Core.Plugins.ProjectExplorer
 
         private void OpenProjectExplorer()
         {
-            projectExplorer = new ProjectExplorer(viewCommands, treeNodeInfos);
+            projectExplorer = new Common.Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos);
 
             viewController.ViewHost.AddToolView(projectExplorer, ToolViewLocation.Left);
             viewController.ViewHost.SetImage(projectExplorer, Resources.ProjectExplorerIcon);

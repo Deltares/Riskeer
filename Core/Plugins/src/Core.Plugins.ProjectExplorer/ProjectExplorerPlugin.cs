@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
+using Core.Common.Gui.Forms.ProjectExplorer;
 using Core.Common.Gui.Plugin;
 using Core.Plugins.ProjectExplorer.Exceptions;
 using ProjectExplorerResources = Core.Plugins.ProjectExplorer.Properties.Resources;

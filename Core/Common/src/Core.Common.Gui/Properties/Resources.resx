@@ -595,4 +595,7 @@
   <data name="ViewStateBar_Chart_ToolTip" xml:space="preserve">
     <value>Grafiek</value>
   </data>
+  <data name="ProjectExplorer_DisplayName" xml:space="preserve">
+    <value>Projectverkenner</value>
+  </data>
 </root>

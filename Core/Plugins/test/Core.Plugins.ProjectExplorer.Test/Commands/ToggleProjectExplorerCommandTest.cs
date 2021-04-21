@@ -90,11 +90,11 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
 
             if (isViewOpen)
             {
-                viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.NotNull,
+                viewHost.Expect(vm => vm.AddToolView(Arg<Common.Gui.Forms.ProjectExplorer.ProjectExplorer>.Is.NotNull,
                                                      Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
-                        .WhenCalled(invocation => toolViewList.Add(invocation.Arguments[0] as ProjectExplorer));
+                        .WhenCalled(invocation => toolViewList.Add(invocation.Arguments[0] as Common.Gui.Forms.ProjectExplorer.ProjectExplorer));
                 viewHost.Expect(tvc => tvc.SetImage(null, null)).IgnoreArguments();
-                viewHost.Expect(vm => vm.Remove(Arg<ProjectExplorer>.Is.TypeOf));
+                viewHost.Expect(vm => vm.Remove(Arg<Common.Gui.Forms.ProjectExplorer.ProjectExplorer>.Is.TypeOf));
             }
 
             var viewController = mocks.StrictMock<IViewController>();
@@ -135,12 +135,12 @@ namespace Core.Plugins.ProjectExplorer.Test.Commands
             var viewHost = mocks.StrictMock<IViewHost>();
 
             viewHost.Stub(vm => vm.ToolViews).Return(toolViewList);
-            viewHost.Expect(vm => vm.AddToolView(Arg<ProjectExplorer>.Is.NotNull,
+            viewHost.Expect(vm => vm.AddToolView(Arg<Common.Gui.Forms.ProjectExplorer.ProjectExplorer>.Is.NotNull,
                                                  Arg<ToolViewLocation>.Matches(vl => vl == ToolViewLocation.Left)))
-                    .WhenCalled(invocation => toolViewList.Add(invocation.Arguments[0] as ProjectExplorer));
+                    .WhenCalled(invocation => toolViewList.Add(invocation.Arguments[0] as Common.Gui.Forms.ProjectExplorer.ProjectExplorer));
             viewHost.Stub(vm => vm.SetImage(null, null)).IgnoreArguments();
 
-            viewHost.Expect(tvc => tvc.Remove(Arg<ProjectExplorer>.Is.TypeOf));
+            viewHost.Expect(tvc => tvc.Remove(Arg<Common.Gui.Forms.ProjectExplorer.ProjectExplorer>.Is.TypeOf));
 
             var viewController = mocks.StrictMock<IViewController>();
             viewController.Stub(tvc => tvc.ViewHost).Return(viewHost);
