@@ -223,6 +223,17 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
         }
 
+        /// <summary>
+        /// Updates the data of the <see cref="ProjectExplorer"/>.
+        /// </summary>
+        public void UpdateProjectExplorer()
+        {
+            if (ProjectExplorer != null)
+            {
+                ProjectExplorer.Data = gui.Project;
+            }
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (IsWindowDisposed || !disposing)

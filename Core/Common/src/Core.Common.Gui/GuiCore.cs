@@ -368,6 +368,7 @@ namespace Core.Common.Gui
 
             projectObserver.Observable = newProject;
             UpdateTitle();
+            mainWindow?.UpdateProjectExplorer();
         }
 
         private void ApplicationBeforeProjectOpened(IProject oldProject)

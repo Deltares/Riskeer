@@ -632,6 +632,7 @@ namespace Core.Common.Gui.Test
 
                 var expectedTitle = $"{fileName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
+                Assert.AreSame(gui.Project, mainWindow.ProjectExplorer.Data);
             }
 
             mocks.VerifyAll();

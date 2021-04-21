@@ -584,5 +584,61 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
 
             mocks.VerifyAll();
         }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenGuiWithProjectExplorer_WhenUpdateProjectExplorer_ThenDataSetOnProjectExplorer()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var project1 = mocks.Stub<IProject>();
+            var project2 = mocks.Stub<IProject>();
+
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project1);
+            
+            var plugin = mocks.Stub<PluginBase>();
+            plugin.Stub(p => p.Deactivate());
+            plugin.Stub(p => p.Dispose());
+            plugin.Expect(p => p.Activate());
+            plugin.Expect(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
+            plugin.Expect(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
+            plugin.Expect(p => p.GetChildDataWithViewDefinitions(null)).IgnoreArguments().Return(Enumerable.Empty<object>());
+            plugin.Stub(p => p.GetTreeNodeInfos()).Return(new TreeNodeInfo[]
+            {
+                new TreeNodeInfo<IProject>()
+            });
+            mocks.ReplayAll();
+            
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings())
+            {
+                Plugins =
+                {
+                    plugin
+                }
+            })
+            {
+                gui.Run();
+                
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+
+                // Precondition
+                Assert.IsNotNull(mainWindow.ProjectExplorer);
+                Assert.AreSame(project1, mainWindow.ProjectExplorer.Data);
+                
+                gui.SetProject(project2, string.Empty);
+
+                // When
+                mainWindow.UpdateProjectExplorer();
+                
+                // Then
+                Assert.AreSame(project2, mainWindow.ProjectExplorer.Data);
+            }
+            mocks.VerifyAll();
+        }
     }
 }
