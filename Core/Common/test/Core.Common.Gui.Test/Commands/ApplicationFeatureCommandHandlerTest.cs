@@ -38,7 +38,7 @@ namespace Core.Common.Gui.Test.Commands
             var mocks = new MockRepository();
             var propertyResolver = mocks.Stub<IPropertyResolver>();
             var mainWindow = mocks.Stub<IMainWindow>();
-            mainWindow.Expect(w => w.InitPropertiesWindowAndActivate());
+            mainWindow.Expect(w => w.InitPropertiesWindowOrBringToFront());
             mocks.ReplayAll();
 
             var commandHandler = new ApplicationFeatureCommandHandler(propertyResolver, mainWindow);

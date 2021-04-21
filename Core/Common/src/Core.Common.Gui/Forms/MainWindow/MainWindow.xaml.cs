@@ -205,8 +205,9 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// </exception>
         public void InitializeToolWindows()
         {
-            InitMessagesWindowOrActivate();
-            InitPropertiesWindowAndActivate();
+            InitProjectExplorerWindowOrBringToFront();
+            InitMessagesWindowOrBringToFront();
+            InitPropertiesWindowOrBringToFront();
         }
 
         public void ValidateItems()
@@ -231,7 +232,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// <exception cref="InvalidOperationException">
         /// When a <see cref="IGui"/> hasn't been set with <see cref="SetGui"/>.
         /// </exception>
-        public void InitPropertiesWindowAndActivate()
+        public void InitPropertiesWindowOrBringToFront()
         {
             if (gui == null)
             {
@@ -280,6 +281,11 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 messageWindow = null;
             }
+
+            if (ReferenceEquals(e.View, projectExplorer))
+            {
+                projectExplorer = null;
+            }
         }
 
         private void UpdateToolWindowButtonState()
@@ -290,8 +296,30 @@ namespace Core.Common.Gui.Forms.MainWindow
                 ButtonShowProperties.IsChecked = viewController.ViewHost.ToolViews.Contains(PropertyGrid);
             }
         }
+        
+        private void InitProjectExplorerWindowOrBringToFront()
+        {
+            if (gui == null)
+            {
+                throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitMessagesWindowOrActivate'.");
+            }
 
-        private void InitMessagesWindowOrActivate()
+            if (projectExplorer == null)
+            {
+                projectExplorer = new ProjectExplorer.ProjectExplorer(gui.ViewCommands, gui.GetTreeNodeInfos())
+                {
+                    Data = gui.Project
+                };
+                viewController.ViewHost.AddToolView(projectExplorer, ToolViewLocation.Left);
+                viewController.ViewHost.SetImage(messageWindow, Properties.Resources.application_view_list);
+            }
+            else
+            {
+                viewController.ViewHost.BringToFront(projectExplorer);
+            }
+        }
+        
+        private void InitMessagesWindowOrBringToFront()
         {
             if (gui == null)
             {
@@ -362,7 +390,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
             else
             {
-                InitPropertiesWindowAndActivate();
+                InitPropertiesWindowOrBringToFront();
             }
 
             ButtonShowProperties.IsChecked = !active;
@@ -378,7 +406,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             }
             else
             {
-                InitMessagesWindowOrActivate();
+                InitMessagesWindowOrBringToFront();
             }
 
             ButtonShowMessages.IsChecked = !active;

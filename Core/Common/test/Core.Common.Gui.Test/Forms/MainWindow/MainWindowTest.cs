@@ -26,7 +26,9 @@ using System.Threading;
 using System.Windows;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
+using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
 using Core.Common.Gui.Forms.PropertyGridView;
@@ -268,13 +270,13 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void InitPropertiesWindowAndActivate_GuiNotSet_ThrowInvalidOperationException()
+        public void InitPropertiesWindowOrBringToFront_GuiNotSet_ThrowInvalidOperationException()
         {
             // Setup
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
                 // Call
-                TestDelegate call = () => mainWindow.InitPropertiesWindowAndActivate();
+                TestDelegate call = () => mainWindow.InitPropertiesWindowOrBringToFront();
 
                 // Assert
                 Assert.Throws<InvalidOperationException>(call);
@@ -283,7 +285,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void InitPropertiesWindowAndActivate_GuiSet_InitializePropertyGrid()
+        public void InitPropertiesWindowOrBringToFront_GuiSet_InitializePropertyGrid()
         {
             // Setup
             var selectedObject = new object();
@@ -308,7 +310,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 mainWindow.SetGui(gui);
 
                 // Call
-                mainWindow.InitPropertiesWindowAndActivate();
+                mainWindow.InitPropertiesWindowOrBringToFront();
 
                 // Assert
                 Assert.IsNull(viewHost.ActiveDocumentView);
@@ -322,7 +324,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void InitPropertiesWindowAndActivate_GuiSetAndCalledTwice_PropertyGridViewInstanceNotUpdatedRedundantly()
+        public void InitPropertiesWindowOrBringToFront_GuiSetAndCalledTwice_PropertyGridViewInstanceNotUpdatedRedundantly()
         {
             // Setup
             var selectedObject = new object();
@@ -344,12 +346,12 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
                 mainWindow.SetGui(gui);
-                mainWindow.InitPropertiesWindowAndActivate();
+                mainWindow.InitPropertiesWindowOrBringToFront();
 
                 IView originalPropertyGrid = mainWindow.PropertyGrid;
 
                 // Call
-                mainWindow.InitPropertiesWindowAndActivate();
+                mainWindow.InitPropertiesWindowOrBringToFront();
 
                 // Assert
                 Assert.IsNull(viewHost.ActiveDocumentView);
@@ -378,23 +380,36 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void InitializeToolWindows_GuiSet_InitializePropertyGridAndMessageWindowAndMakeActive()
+        public void InitializeToolWindows_GuiSet_InitializeToolWindows()
         {
             // Setup
             var selectedObject = new object();
+            var viewHost = new AvalonDockViewHost();
 
+            var treeNodeInfos = new TreeNodeInfo[]
+            {
+                new TreeNodeInfo<IProject>()
+            };
+            
             var mocks = new MockRepository();
             var selectedObjectProperties = mocks.Stub<IObjectProperties>();
-            var viewHost = new AvalonDockViewHost();
+
             var propertyResolver = mocks.Stub<IPropertyResolver>();
             propertyResolver.Expect(r => r.GetObjectProperties(selectedObject))
                             .Return(selectedObjectProperties);
 
+            var viewCommands = mocks.Stub<IViewCommands>();
+            var project = mocks.Stub<IProject>();
+
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.ViewHost).Return(viewHost);
-            gui.Selection = selectedObject;
             gui.Stub(g => g.PropertyResolver).Return(propertyResolver);
+            gui.Stub(g => g.ViewCommands).Return(viewCommands);
+            gui.Stub(g => g.Project).Return(project);
+            gui.Stub(g => g.GetTreeNodeInfos()).Return(treeNodeInfos);
             mocks.ReplayAll();
+            
+            gui.Selection = selectedObject;
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
@@ -404,6 +419,9 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 mainWindow.InitializeToolWindows();
 
                 // Assert
+                Assert.IsInstanceOf<Gui.Forms.ProjectExplorer.ProjectExplorer>(mainWindow.ProjectExplorer);
+                Assert.AreSame(gui.Project, mainWindow.ProjectExplorer.Data);
+                
                 Assert.IsInstanceOf<Gui.Forms.PropertyGridView.PropertyGridView>(mainWindow.PropertyGrid);
                 Assert.AreEqual("Eigenschappen", mainWindow.PropertyGrid.Text);
                 Assert.AreEqual(selectedObject, mainWindow.PropertyGrid.Data);
@@ -419,7 +437,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenGuiWithPropertyGrid_ClosingPropertyGrid_PropertyGridPropertySetToNull()
+        public void GivenGuiWithProjectExplorer_WhenClosingProjectExplorer_ThenProjectExplorerSetToNull()
         {
             // Setup
             var mocks = new MockRepository();
@@ -427,10 +445,77 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+
+            var plugin = mocks.Stub<PluginBase>();
+            plugin.Stub(p => p.Deactivate());
+            plugin.Stub(p => p.Dispose());
+            plugin.Expect(p => p.Activate());
+            plugin.Expect(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
+            plugin.Expect(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
+            plugin.Stub(p => p.GetTreeNodeInfos()).Return(new TreeNodeInfo[]
+            {
+                new TreeNodeInfo<IProject>()
+            });
+            mocks.ReplayAll();
+            
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings())
+            {
+                Plugins =
+                {
+                    plugin
+                }
+            })
+            {
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+            
+                // Precondition
+                Assert.IsNotNull(mainWindow.ProjectExplorer);
+
+                // Call
+                mainWindow.ViewHost.Remove(mainWindow.ProjectExplorer);
+
+                // Assert
+                Assert.IsNull(mainWindow.ProjectExplorer);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenGuiWithPropertyGrid_WhenClosingPropertyGrid_ThenPropertyGridSetToNull()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            
+            var plugin = mocks.Stub<PluginBase>();
+            plugin.Stub(p => p.Deactivate());
+            plugin.Stub(p => p.Dispose());
+            plugin.Expect(p => p.Activate());
+            plugin.Expect(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
+            plugin.Expect(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
+            plugin.Stub(p => p.GetTreeNodeInfos()).Return(new TreeNodeInfo[]
+            {
+                new TreeNodeInfo<IProject>()
+            });
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings())
+            {
+                Plugins =
+                {
+                    plugin
+                }
+            })
             {
                 gui.Run();
 
@@ -452,7 +537,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenGuiWithMessageWindow_ClosingMessageWindow_MessageWindowPropertySetToNull()
+        public void GivenGuiWithMessageWindow_WhenClosingMessageWindow_ThenMessageWindowSetToNull()
         {
             // Setup
             var mocks = new MockRepository();
@@ -460,10 +545,27 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            
+            var plugin = mocks.Stub<PluginBase>();
+            plugin.Stub(p => p.Deactivate());
+            plugin.Stub(p => p.Dispose());
+            plugin.Expect(p => p.Activate());
+            plugin.Expect(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
+            plugin.Expect(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
+            plugin.Stub(p => p.GetTreeNodeInfos()).Return(new TreeNodeInfo[]
+            {
+                new TreeNodeInfo<IProject>()
+            });
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings())
+            {
+                Plugins =
+                {
+                    plugin
+                }
+            })
             {
                 gui.Run();
 

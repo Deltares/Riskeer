@@ -55,7 +55,7 @@ namespace Core.Common.Gui.Commands
 
         public void ShowPropertiesForSelection()
         {
-            mainWindow.InitPropertiesWindowAndActivate();
+            mainWindow.InitPropertiesWindowOrBringToFront();
         }
 
         public bool CanShowPropertiesFor(object obj)

@@ -37,6 +37,6 @@ namespace Core.Common.Gui.Forms.MainWindow
         /// <summary>
         /// Initializes and shows the property grid tool window.
         /// </summary>
-        void InitPropertiesWindowAndActivate();
+        void InitPropertiesWindowOrBringToFront();
     }
 }
