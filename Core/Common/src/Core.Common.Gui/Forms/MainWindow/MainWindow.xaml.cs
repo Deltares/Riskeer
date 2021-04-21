@@ -259,6 +259,7 @@ namespace Core.Common.Gui.Forms.MainWindow
         {
             if (viewController.ViewHost != null)
             {
+                ButtonShowProjectExplorer.IsChecked = viewController.ViewHost.ToolViews.Contains(ProjectExplorer);
                 ButtonShowMessages.IsChecked = viewController.ViewHost.ToolViews.Contains(MessageWindow);
                 ButtonShowProperties.IsChecked = viewController.ViewHost.ToolViews.Contains(PropertyGrid);
             }

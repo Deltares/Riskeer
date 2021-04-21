@@ -147,7 +147,8 @@ All rights reserved.
 
             <DockPanel Height="30" DockPanel.Dock="Bottom" Style="{StaticResource PanelBackgroundWindowTitleStyle}">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                    <ToggleButton Style="{StaticResource ViewStateBarToggleButtonStyle}"
+                    <ToggleButton Name="ButtonShowProjectExplorer" 
+                                  Style="{StaticResource ViewStateBarToggleButtonStyle}"
                                   ToolTip="{x:Static properties:Resources.ViewStateBar_ProjectExplorer_ToolTip}"
                                   AutomationProperties.AutomationId="ViewStateButtonBarShowProjectExplorer">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE95B;"/>
