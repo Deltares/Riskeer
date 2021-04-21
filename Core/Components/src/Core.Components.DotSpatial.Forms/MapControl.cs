@@ -72,7 +72,9 @@ namespace Core.Components.DotSpatial.Forms
             InitializeComponent();
 
             InitializeMap();
-            TogglePanning();
+
+            panningToggleButton.CheckState = CheckState.Checked;
+            showCoordinatesToggleButton.CheckState = CheckState.Checked;
 
             mapDataCollectionObserver = new RecursiveObserver<MapDataCollection, MapDataCollection>(HandleMapDataCollectionChange, mdc => mdc.Collection);
             backGroundMapDataObserver = new Observer(HandleBackgroundMapDataChange);
@@ -137,16 +139,16 @@ namespace Core.Components.DotSpatial.Forms
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-
             map.Dispose();
             mouseCoordinatesMapExtension.Dispose();
             mapDataCollectionObserver.Dispose();
             backGroundMapDataObserver.Dispose();
             backgroundLayerStatus.Dispose();
+
+            if (disposing)
+            {
+                components?.Dispose();
+            }
 
             base.Dispose(disposing);
         }
@@ -183,13 +185,11 @@ namespace Core.Components.DotSpatial.Forms
                 Projection = MapDataConstants.FeatureBasedMapDataCoordinateSystem
             };
 
-            // Configure the map pan function
             MapFunctionPan mapFunctionPan = map.MapFunctions.OfType<MapFunctionPan>().First();
             mapFunctionPan.FunctionActivated += MapFunctionActivateFunction;
             mapFunctionPan.MouseDown += MapFunctionPanOnMouseDown;
             mapFunctionPan.MouseUp += MapFunctionOnMouseUp;
 
-            // Add and configure the map selection zoom function
             mapFunctionSelectionZoom = new MapFunctionSelectionZoom(map);
             map.MapFunctions.Add(mapFunctionSelectionZoom);
             mapFunctionSelectionZoom.FunctionActivated += MapFunctionActivateFunction;
@@ -197,9 +197,6 @@ namespace Core.Components.DotSpatial.Forms
             mapFunctionSelectionZoom.MouseUp += MapFunctionOnMouseUp;
 
             mouseCoordinatesMapExtension = new RdNewMouseCoordinatesMapExtension(map);
-
-            panningToggleButton.CheckState = CheckState.Checked;
-            showCoordinatesToggleButton.CheckState = CheckState.Checked;
 
             Controls.Add(map);
         }
@@ -234,81 +231,6 @@ namespace Core.Components.DotSpatial.Forms
                     mapLayer.Invalidate();
                 }
             }
-        }
-
-        private void PanningToggleButtonClicked(object sender, EventArgs e)
-        {
-            if (handlingToggleButtonClicked)
-            {
-                return;
-            }
-
-            if (IsPanningEnabled)
-            {
-                panningToggleButton.CheckState = CheckState.Checked;
-
-                return;
-            }
-
-            handlingToggleButtonClicked = true;
-
-            TogglePanning();
-
-            zoomToRectangleToggleButton.CheckState = CheckState.Unchecked;
-
-            map.Focus();
-
-            handlingToggleButtonClicked = false;
-        }
-
-        private void ZoomToRectangleToggleButtonClicked(object sender, EventArgs e)
-        {
-            if (handlingToggleButtonClicked)
-            {
-                return;
-            }
-
-            if (IsRectangleZoomingEnabled)
-            {
-                zoomToRectangleToggleButton.CheckState = CheckState.Checked;
-
-                return;
-            }
-
-            handlingToggleButtonClicked = true;
-
-            ToggleRectangleZooming();
-
-            panningToggleButton.CheckState = CheckState.Unchecked;
-
-            map.Focus();
-
-            handlingToggleButtonClicked = false;
-        }
-
-        private void ZoomToAllVisibleLayersButtonClicked(object sender, EventArgs e)
-        {
-            if (handlingZoomToExtentsButtonClicked)
-            {
-                return;
-            }
-
-            handlingZoomToExtentsButtonClicked = true;
-
-            zoomToAllVisibleLayersButton.CheckState = CheckState.Unchecked;
-
-            map.Focus();
-
-            ZoomToAllVisibleLayers();
-
-            handlingZoomToExtentsButtonClicked = false;
-        }
-
-        private void ShowCoordinatesToggleButtonClicked(object sender, EventArgs e)
-        {
-            ToggleMouseCoordinatesVisibility();
-
-            map.Focus();
         }
 
         #region Background layer
@@ -396,40 +318,6 @@ namespace Core.Components.DotSpatial.Forms
             else
             {
                 InsertBackgroundLayer();
-            }
-        }
-
-        #endregion
-
-        #region Event handlers
-
-        private void MapFunctionActivateFunction(object sender, EventArgs e)
-        {
-            map.Cursor = defaultCursor;
-        }
-
-        private void MapFunctionOnMouseUp(object sender, GeoMouseArgs e)
-        {
-            map.Cursor = defaultCursor;
-        }
-
-        private void MapFunctionPanOnMouseDown(object sender, GeoMouseArgs geoMouseArgs)
-        {
-            map.Cursor = geoMouseArgs.Button != MouseButtons.Right ? Cursors.Hand : defaultCursor;
-        }
-
-        private void MapFunctionSelectionZoomOnMouseDown(object sender, GeoMouseArgs geoMouseArgs)
-        {
-            switch (geoMouseArgs.Button)
-            {
-                case MouseButtons.Left:
-                    map.Cursor = Cursors.SizeNWSE;
-                    break;
-                default:
-                    map.Cursor = map.IsBusy
-                                     ? Cursors.SizeNWSE
-                                     : defaultCursor;
-                    break;
             }
         }
 
@@ -695,6 +583,111 @@ namespace Core.Components.DotSpatial.Forms
             IsRectangleZoomingEnabled = false;
 
             map.FunctionMode = FunctionMode.None;
+        }
+
+        private void MapFunctionActivateFunction(object sender, EventArgs e)
+        {
+            map.Cursor = defaultCursor;
+        }
+
+        private void MapFunctionOnMouseUp(object sender, GeoMouseArgs e)
+        {
+            map.Cursor = defaultCursor;
+        }
+
+        private void MapFunctionPanOnMouseDown(object sender, GeoMouseArgs geoMouseArgs)
+        {
+            map.Cursor = geoMouseArgs.Button != MouseButtons.Right ? Cursors.Hand : defaultCursor;
+        }
+
+        private void MapFunctionSelectionZoomOnMouseDown(object sender, GeoMouseArgs geoMouseArgs)
+        {
+            switch (geoMouseArgs.Button)
+            {
+                case MouseButtons.Left:
+                    map.Cursor = Cursors.SizeNWSE;
+                    break;
+                default:
+                    map.Cursor = map.IsBusy
+                                     ? Cursors.SizeNWSE
+                                     : defaultCursor;
+                    break;
+            }
+        }
+
+        private void PanningToggleButtonClicked(object sender, EventArgs e)
+        {
+            if (handlingToggleButtonClicked)
+            {
+                return;
+            }
+
+            if (IsPanningEnabled)
+            {
+                panningToggleButton.CheckState = CheckState.Checked;
+
+                return;
+            }
+
+            handlingToggleButtonClicked = true;
+
+            TogglePanning();
+
+            zoomToRectangleToggleButton.CheckState = CheckState.Unchecked;
+
+            map.Focus();
+
+            handlingToggleButtonClicked = false;
+        }
+
+        private void ZoomToRectangleToggleButtonClicked(object sender, EventArgs e)
+        {
+            if (handlingToggleButtonClicked)
+            {
+                return;
+            }
+
+            if (IsRectangleZoomingEnabled)
+            {
+                zoomToRectangleToggleButton.CheckState = CheckState.Checked;
+
+                return;
+            }
+
+            handlingToggleButtonClicked = true;
+
+            ToggleRectangleZooming();
+
+            panningToggleButton.CheckState = CheckState.Unchecked;
+
+            map.Focus();
+
+            handlingToggleButtonClicked = false;
+        }
+
+        private void ZoomToAllVisibleLayersButtonClicked(object sender, EventArgs e)
+        {
+            if (handlingZoomToExtentsButtonClicked)
+            {
+                return;
+            }
+
+            handlingZoomToExtentsButtonClicked = true;
+
+            zoomToAllVisibleLayersButton.CheckState = CheckState.Unchecked;
+
+            map.Focus();
+
+            ZoomToAllVisibleLayers();
+
+            handlingZoomToExtentsButtonClicked = false;
+        }
+
+        private void ShowCoordinatesToggleButtonClicked(object sender, EventArgs e)
+        {
+            ToggleMouseCoordinatesVisibility();
+
+            map.Focus();
         }
 
         #endregion
