@@ -31,6 +31,7 @@ using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.Gui.TestUtil;
+using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
@@ -172,6 +173,7 @@ namespace Core.Plugins.Chart.Test
                     Gui = gui
                 };
 
+                gui.Plugins.Add(new TestPlugin());
                 gui.Plugins.Add(plugin);
                 gui.Run();
 
@@ -212,6 +214,7 @@ namespace Core.Plugins.Chart.Test
                     Gui = gui
                 };
 
+                gui.Plugins.Add(new TestPlugin());
                 gui.Plugins.Add(plugin);
                 gui.Run();
 
@@ -256,6 +259,7 @@ namespace Core.Plugins.Chart.Test
                     Gui = gui
                 };
 
+                gui.Plugins.Add(new TestPlugin());
                 gui.Plugins.Add(plugin);
                 gui.Run();
 
@@ -298,6 +302,7 @@ namespace Core.Plugins.Chart.Test
                     Gui = gui
                 };
 
+                gui.Plugins.Add(new TestPlugin());
                 gui.Plugins.Add(plugin);
                 gui.Run();
 

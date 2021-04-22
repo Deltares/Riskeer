@@ -181,6 +181,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
+                
                 // When
                 gui.Run(testFile);
 
@@ -218,6 +220,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
+                
                 // When
                 void Action() => gui.Run(projectFilePath);
 

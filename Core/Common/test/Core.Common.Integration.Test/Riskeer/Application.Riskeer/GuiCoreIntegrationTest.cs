@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -30,6 +31,7 @@ using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.Plugin;
 
 namespace Core.Common.Integration.Test.Riskeer.Application.Riskeer
@@ -57,7 +59,7 @@ namespace Core.Common.Integration.Test.Riskeer.Application.Riskeer
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(new RiskeerProject());
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
@@ -73,7 +75,30 @@ namespace Core.Common.Integration.Test.Riskeer.Application.Riskeer
         [Apartment(ApartmentState.STA)]
         public void Run_StartWithCommonPlugins_RunsFasterThanThreshold()
         {
-            TestHelper.AssertIsFasterThan(7500, StartWithCommonPlugins);
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(new RiskeerProject());
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new RiskeerPlugin());
+
+                // Call
+                void Action()
+                {
+                    gui.Run();
+                    WpfTestHelper.ShowModal((Control) gui.MainWindow);
+                }
+
+                // Assert
+                TestHelper.AssertIsFasterThan(7500, Action);
+            }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -91,31 +116,12 @@ namespace Core.Common.Integration.Test.Riskeer.Application.Riskeer
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
+                
                 var callCount = 0;
                 WpfTestHelper.ShowModal((Control) gui.MainWindow, () => callCount++);
                 Assert.AreEqual(1, callCount);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        private static void StartWithCommonPlugins()
-        {
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
-            mocks.ReplayAll();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                gui.Plugins.Add(new RiskeerPlugin());
-
-                gui.Run();
-
-                WpfTestHelper.ShowModal((Control) gui.MainWindow);
             }
 
             mocks.VerifyAll();

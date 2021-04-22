@@ -34,6 +34,7 @@ using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
+using Core.Common.Gui.Forms.ProjectExplorer;
 using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
@@ -417,6 +418,7 @@ namespace Core.Common.Gui.Test
             {
                 using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
                 {
+                    gui.Plugins.Add(new TestPlugin());
                     gui.Run();
 
                     // Precondition:
@@ -454,6 +456,7 @@ namespace Core.Common.Gui.Test
             using (var toolView = new TestView())
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 gui.ViewHost.AddToolView(toolView, ToolViewLocation.Left);
@@ -483,6 +486,7 @@ namespace Core.Common.Gui.Test
             using (var documentView = new TestView())
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 gui.ViewHost.AddDocumentView(documentView);
@@ -518,6 +522,8 @@ namespace Core.Common.Gui.Test
             {
                 using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
                 {
+                    gui.Plugins.Add(new TestPlugin());
+                    
                     // Call
                     gui.Run();
 
@@ -566,6 +572,8 @@ namespace Core.Common.Gui.Test
             {
                 using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
                 {
+                    gui.Plugins.Add(new TestPlugin());
+
                     // Call
                     gui.Run();
 
@@ -615,6 +623,8 @@ namespace Core.Common.Gui.Test
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
+                gui.Plugins.Add(new TestPlugin());
+                
                 // Call
                 void Call() => gui.Run(testFile);
 
@@ -669,6 +679,8 @@ namespace Core.Common.Gui.Test
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
+                gui.Plugins.Add(new TestPlugin());
+                
                 // Call
                 gui.Run(testFile);
 
@@ -714,6 +726,8 @@ namespace Core.Common.Gui.Test
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
+                gui.Plugins.Add(new TestPlugin());
+                
                 // Call
                 void Call() => gui.Run(testFile);
 
@@ -764,6 +778,8 @@ namespace Core.Common.Gui.Test
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
+                gui.Plugins.Add(new TestPlugin());
+                
                 // Call
                 void Call() => gui.Run(testFile);
 
@@ -815,6 +831,8 @@ namespace Core.Common.Gui.Test
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
+                gui.Plugins.Add(new TestPlugin());
+                
                 // Call
                 void Call() => gui.Run(testFile);
 
@@ -862,6 +880,8 @@ namespace Core.Common.Gui.Test
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
+                gui.Plugins.Add(new TestPlugin());
+                
                 // Call
                 gui.Run(path);
 
@@ -882,18 +902,13 @@ namespace Core.Common.Gui.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var plugin = mocks.Stub<PluginBase>();
-            plugin.Stub(p => p.Deactivate());
-            plugin.Stub(p => p.Dispose());
-            plugin.Expect(p => p.Activate());
-            plugin.Expect(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
-            plugin.Expect(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
             IProjectFactory projectFactory = CreateProjectFactory(mocks);
             mocks.ReplayAll();
 
             // Setup
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                var plugin = new TestPlugin();
                 gui.Plugins.Add(plugin);
 
                 // Call
@@ -916,6 +931,10 @@ namespace Core.Common.Gui.Test
             var plugin = mocks.Stub<PluginBase>();
             plugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
             plugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
+            plugin.Stub(p => p.GetTreeNodeInfos()).Return(new TreeNodeInfo[]
+            {
+                new TreeNodeInfo<IProject>()
+            });
             plugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
             plugin.Expect(p => p.Deactivate());
             plugin.Expect(p => p.Dispose());
@@ -945,6 +964,10 @@ namespace Core.Common.Gui.Test
             var plugin = mocks.Stub<PluginBase>();
             plugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
             plugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
+            plugin.Stub(p => p.GetTreeNodeInfos()).Return(new TreeNodeInfo[]
+            {
+                new TreeNodeInfo<IProject>()
+            });
             plugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
             plugin.Stub(p => p.Deactivate()).Throw(new Exception("MORE ERROR!"));
             plugin.Expect(p => p.Dispose());
@@ -981,6 +1004,8 @@ namespace Core.Common.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
+                
                 // Call
                 gui.Run();
 
@@ -988,7 +1013,8 @@ namespace Core.Common.Gui.Test
                 CollectionAssert.IsEmpty(gui.ViewHost.DocumentViews);
                 Assert.IsNull(gui.ViewHost.ActiveDocumentView);
 
-                Assert.AreEqual(2, gui.ViewHost.ToolViews.Count());
+                Assert.AreEqual(3, gui.ViewHost.ToolViews.Count());
+                Assert.AreEqual(1, gui.ViewHost.ToolViews.Count(v => v is ProjectExplorer));
                 Assert.AreEqual(1, gui.ViewHost.ToolViews.Count(v => v is PropertyGridView));
                 Assert.AreEqual(1, gui.ViewHost.ToolViews.Count(v => v is MessageWindow));
 
@@ -1253,6 +1279,7 @@ namespace Core.Common.Gui.Test
             using (var treeView = new TreeViewControl())
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 // Call
@@ -1330,6 +1357,7 @@ namespace Core.Common.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
 
@@ -1361,6 +1389,7 @@ namespace Core.Common.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
 
@@ -1391,6 +1420,7 @@ namespace Core.Common.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
                 SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
@@ -1423,6 +1453,7 @@ namespace Core.Common.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
                 SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
@@ -1457,6 +1488,7 @@ namespace Core.Common.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(testView);
 
@@ -1488,6 +1520,7 @@ namespace Core.Common.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(testView);
 
@@ -1518,6 +1551,7 @@ namespace Core.Common.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
                 SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
@@ -1550,6 +1584,7 @@ namespace Core.Common.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
                 SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);

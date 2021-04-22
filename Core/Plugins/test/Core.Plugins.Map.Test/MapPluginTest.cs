@@ -31,6 +31,7 @@ using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.Settings;
 using Core.Common.Gui.TestUtil;
+using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Forms;
@@ -176,6 +177,7 @@ namespace Core.Plugins.Map.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Plugins.Add(new MapPlugin
                 {
                     Gui = gui
@@ -219,6 +221,7 @@ namespace Core.Plugins.Map.Test
                     Gui = gui
                 };
 
+                gui.Plugins.Add(new TestPlugin());
                 gui.Plugins.Add(plugin);
                 gui.Run();
 
@@ -259,6 +262,7 @@ namespace Core.Plugins.Map.Test
                     Gui = gui
                 };
 
+                gui.Plugins.Add(new TestPlugin());
                 gui.Plugins.Add(plugin);
                 gui.Run();
 
@@ -303,6 +307,7 @@ namespace Core.Plugins.Map.Test
                     Gui = gui
                 };
 
+                gui.Plugins.Add(new TestPlugin());
                 gui.Plugins.Add(plugin);
                 gui.Run();
 
@@ -345,6 +350,7 @@ namespace Core.Plugins.Map.Test
                     Gui = gui
                 };
 
+                gui.Plugins.Add(new TestPlugin());
                 gui.Plugins.Add(plugin);
                 gui.Run();
 
