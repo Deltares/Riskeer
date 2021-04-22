@@ -290,14 +290,14 @@ namespace Core.Common.Gui.Forms.MainWindow
                     Data = gui.Project
                 };
                 viewController.ViewHost.AddToolView(projectExplorer, ToolViewLocation.Left);
-                viewController.ViewHost.SetImage(messageWindow, Properties.Resources.application_view_list);
+                viewController.ViewHost.SetImage(projectExplorer, Properties.Resources.ProjectExplorerIcon);
             }
             else
             {
                 viewController.ViewHost.BringToFront(projectExplorer);
             }
         }
-        
+
         private void InitMessagesWindowOrBringToFront()
         {
             if (gui == null)

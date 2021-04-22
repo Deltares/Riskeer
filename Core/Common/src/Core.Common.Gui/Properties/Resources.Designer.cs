@@ -1148,6 +1148,16 @@ namespace Core.Common.Gui.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap ProjectExplorerIcon {
+            get {
+                object obj = ResourceManager.GetObject("ProjectExplorerIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap ProjectIcon {
             get {
                 object obj = ResourceManager.GetObject("ProjectIcon", resourceCulture);
