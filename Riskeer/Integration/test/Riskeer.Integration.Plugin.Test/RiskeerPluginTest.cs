@@ -38,6 +38,7 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.ClosingStructures.Plugin;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -51,6 +52,10 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.Views;
+using Riskeer.DuneErosion.Plugin;
+using Riskeer.GrassCoverErosionInwards.Plugin;
+using Riskeer.GrassCoverErosionOutwards.Plugin;
+using Riskeer.HeightStructures.Plugin;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
@@ -60,6 +65,11 @@ using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 using Riskeer.Integration.Forms.Views;
 using Riskeer.Integration.Forms.Views.SectionResultViews;
+using Riskeer.MacroStabilityInwards.Plugin;
+using Riskeer.Piping.Plugin;
+using Riskeer.StabilityPointStructures.Plugin;
+using Riskeer.StabilityStoneCover.Plugin;
+using Riskeer.WaveImpactAsphaltCover.Plugin;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test
@@ -69,7 +79,7 @@ namespace Riskeer.Integration.Plugin.Test
     {
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             using (var plugin = new RiskeerPlugin())
@@ -91,25 +101,22 @@ namespace Riskeer.Integration.Plugin.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
-                using (var plugin = new RiskeerPlugin())
+                SetPlugins(gui);
+                gui.Run();
+
+                var project = new RiskeerProject
                 {
-                    plugin.Gui = gui;
-                    gui.Run();
-
-                    var project = new RiskeerProject
+                    AssessmentSections =
                     {
-                        AssessmentSections =
-                        {
-                            new AssessmentSection(AssessmentSectionComposition.Dike)
-                        }
-                    };
+                        new AssessmentSection(AssessmentSectionComposition.Dike)
+                    }
+                };
 
-                    // When
-                    Action action = () => gui.SetProject(project, null);
+                // When
+                Action action = () => gui.SetProject(project, null);
 
-                    // Then
-                    TestHelper.AssertLogMessagesCount(action, 0);
-                }
+                // Then
+                TestHelper.AssertLogMessagesCount(action, 0);
             }
 
             mocks.VerifyAll();
@@ -131,34 +138,31 @@ namespace Riskeer.Integration.Plugin.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
-                using (var plugin = new RiskeerPlugin())
+                SetPlugins(gui);
+                gui.Run();
+
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
-                    plugin.Gui = gui;
-                    gui.Run();
-
-                    var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                    HydraulicBoundaryDatabase =
                     {
-                        HydraulicBoundaryDatabase =
-                        {
-                            FilePath = testFilePath
-                        }
-                    };
-                    HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+                        FilePath = testFilePath
+                    }
+                };
+                HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-                    var project = new RiskeerProject
+                var project = new RiskeerProject
+                {
+                    AssessmentSections =
                     {
-                        AssessmentSections =
-                        {
-                            assessmentSection
-                        }
-                    };
+                        assessmentSection
+                    }
+                };
 
-                    // When
-                    Action action = () => gui.SetProject(project, null);
+                // When
+                Action action = () => gui.SetProject(project, null);
 
-                    // Then
-                    TestHelper.AssertLogMessagesCount(action, 0);
-                }
+                // Then
+                TestHelper.AssertLogMessagesCount(action, 0);
             }
 
             mocks.VerifyAll();
@@ -177,37 +181,34 @@ namespace Riskeer.Integration.Plugin.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
-                using (var plugin = new RiskeerPlugin())
+                SetPlugins(gui);
+                gui.Run();
+
+                const string nonExistingFile = "not_existing_file";
+
+                var project = new RiskeerProject
                 {
-                    plugin.Gui = gui;
-                    gui.Run();
-
-                    const string nonExistingFile = "not_existing_file";
-
-                    var project = new RiskeerProject
+                    AssessmentSections =
                     {
-                        AssessmentSections =
+                        new AssessmentSection(AssessmentSectionComposition.Dike)
                         {
-                            new AssessmentSection(AssessmentSectionComposition.Dike)
+                            HydraulicBoundaryDatabase =
                             {
-                                HydraulicBoundaryDatabase =
-                                {
-                                    FilePath = nonExistingFile
-                                }
+                                FilePath = nonExistingFile
                             }
                         }
-                    };
+                    }
+                };
 
-                    // When
-                    Action action = () => gui.SetProject(project, null);
+                // When
+                Action action = () => gui.SetProject(project, null);
 
-                    // Then
-                    string fileMissingMessage = $"Fout bij het lezen van bestand '{nonExistingFile}': het bestand bestaat niet.";
-                    string message = string.Format(
-                        RiskeerCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
-                        fileMissingMessage);
-                    TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(message, LogLevelConstant.Warn));
-                }
+                // Then
+                string fileMissingMessage = $"Fout bij het lezen van bestand '{nonExistingFile}': het bestand bestaat niet.";
+                string message = string.Format(
+                    RiskeerCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
+                    fileMissingMessage);
+                TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(message, LogLevelConstant.Warn));
             }
 
             mocks.VerifyAll();
@@ -742,6 +743,24 @@ namespace Riskeer.Integration.Plugin.Test
                 // Assert
                 Assert.Throws<InvalidOperationException>(test);
             }
+        }
+
+        private static void SetPlugins(IPluginsHost gui)
+        {
+            gui.Plugins.AddRange(new PluginBase[]
+            {
+                new RiskeerPlugin(),
+                new ClosingStructuresPlugin(),
+                new StabilityPointStructuresPlugin(),
+                new WaveImpactAsphaltCoverPlugin(),
+                new GrassCoverErosionInwardsPlugin(),
+                new GrassCoverErosionOutwardsPlugin(),
+                new PipingPlugin(),
+                new HeightStructuresPlugin(),
+                new StabilityStoneCoverPlugin(),
+                new DuneErosionPlugin(),
+                new MacroStabilityInwardsPlugin()
+            });
         }
     }
 }

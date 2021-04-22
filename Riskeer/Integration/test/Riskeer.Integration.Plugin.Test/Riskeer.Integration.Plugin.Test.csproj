@@ -37,6 +37,7 @@
     <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\ClosingStructures\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj" />
     <ProjectReference Include="..\..\..\ClosingStructures\src\Riskeer.ClosingStructures.Forms\Riskeer.ClosingStructures.Forms.csproj" />
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Riskeer.ClosingStructures.Plugin\Riskeer.ClosingStructures.Plugin.csproj" />
     <ProjectReference Include="..\..\..\ClosingStructures\test\Riskeer.ClosingStructures.Data.TestUtil\Riskeer.ClosingStructures.Data.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj" />
@@ -54,11 +55,14 @@
     <ProjectReference Include="..\..\..\DuneErosion\test\Riskeer.DuneErosion.Data.TestUtil\Riskeer.DuneErosion.Data.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj" />
     <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Forms\Riskeer.GrassCoverErosionInwards.Forms.csproj" />
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Plugin\Riskeer.GrassCoverErosionInwards.Plugin.csproj" />
     <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj" />
     <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Forms\Riskeer.GrassCoverErosionOutwards.Forms.csproj" />
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Plugin\Riskeer.GrassCoverErosionOutwards.Plugin.csproj" />
     <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\test\Riskeer.GrassCoverErosionOutwards.Data.TestUtil\Riskeer.GrassCoverErosionOutwards.Data.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\HeightStructures\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj" />
     <ProjectReference Include="..\..\..\HeightStructures\src\Riskeer.HeightStructures.Forms\Riskeer.HeightStructures.Forms.csproj" />
+    <ProjectReference Include="..\..\..\HeightStructures\src\Riskeer.HeightStructures.Plugin\Riskeer.HeightStructures.Plugin.csproj" />
     <ProjectReference Include="..\..\..\HeightStructures\test\Riskeer.HeightStructures.Data.TestUtil\Riskeer.HeightStructures.Data.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj" />
     <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.IO\Riskeer.HydraRing.IO.csproj" />
@@ -78,11 +82,14 @@
     <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj" />
     <ProjectReference Include="..\..\..\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj" />
     <ProjectReference Include="..\..\..\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Forms\Riskeer.StabilityPointStructures.Forms.csproj" />
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Plugin\Riskeer.StabilityPointStructures.Plugin.csproj" />
     <ProjectReference Include="..\..\..\StabilityPointStructures\test\Riskeer.StabilityPointStructures.Data.TestUtil\Riskeer.StabilityPointStructures.Data.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj" />
     <ProjectReference Include="..\..\..\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Forms\Riskeer.StabilityStoneCover.Forms.csproj" />
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Plugin\Riskeer.StabilityStoneCover.Plugin.csproj" />
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj" />
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Forms\Riskeer.WaveImpactAsphaltCover.Forms.csproj" />
+    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Plugin\Riskeer.WaveImpactAsphaltCover.Plugin.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Integration.Forms\Riskeer.Integration.Forms.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Integration.IO\Riskeer.Integration.IO.csproj" />
