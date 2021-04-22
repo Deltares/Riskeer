@@ -63,6 +63,8 @@ namespace Application.Riskeer.Integration.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
+                
                 // When
                 gui.Run(targetFilePath);
 
@@ -102,6 +104,8 @@ namespace Application.Riskeer.Integration.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
+                
                 // When
                 gui.Run(sourceFilePath);
 
@@ -135,6 +139,8 @@ namespace Application.Riskeer.Integration.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
+                gui.Plugins.Add(new TestPlugin());
+                
                 // When
                 gui.Run(sourceFilePath);
 
