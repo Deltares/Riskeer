@@ -186,7 +186,7 @@ namespace Core.Plugins.Map.Test
                 gui.Run();
 
                 var testMapView = new TestMapView();
-                var map = (DotSpatialMap) ((MapControl) testMapView.Map).Controls[0];
+                var map = (DotSpatialMap) ((MapControl) testMapView.Map).Controls[1];
 
                 // Precondition
                 Extent initialExtents = map.ViewExtents;
