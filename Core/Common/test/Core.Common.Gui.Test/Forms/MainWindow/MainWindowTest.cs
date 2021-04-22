@@ -36,6 +36,7 @@ using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Gui.Settings;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -445,28 +446,12 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
-
-            var plugin = mocks.Stub<PluginBase>();
-            plugin.Stub(p => p.Deactivate());
-            plugin.Stub(p => p.Dispose());
-            plugin.Expect(p => p.Activate());
-            plugin.Expect(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
-            plugin.Expect(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
-            plugin.Stub(p => p.GetTreeNodeInfos()).Return(new TreeNodeInfo[]
-            {
-                new TreeNodeInfo<IProject>()
-            });
             mocks.ReplayAll();
             
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                Plugins =
-                {
-                    plugin
-                }
-            })
-            {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -495,28 +480,12 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
-            
-            var plugin = mocks.Stub<PluginBase>();
-            plugin.Stub(p => p.Deactivate());
-            plugin.Stub(p => p.Dispose());
-            plugin.Expect(p => p.Activate());
-            plugin.Expect(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
-            plugin.Expect(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
-            plugin.Stub(p => p.GetTreeNodeInfos()).Return(new TreeNodeInfo[]
-            {
-                new TreeNodeInfo<IProject>()
-            });
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                Plugins =
-                {
-                    plugin
-                }
-            })
-            {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -545,28 +514,12 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
-            
-            var plugin = mocks.Stub<PluginBase>();
-            plugin.Stub(p => p.Deactivate());
-            plugin.Stub(p => p.Dispose());
-            plugin.Expect(p => p.Activate());
-            plugin.Expect(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
-            plugin.Expect(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
-            plugin.Stub(p => p.GetTreeNodeInfos()).Return(new TreeNodeInfo[]
-            {
-                new TreeNodeInfo<IProject>()
-            });
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                Plugins =
-                {
-                    plugin
-                }
-            })
-            {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -598,29 +551,12 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(project1);
-            
-            var plugin = mocks.Stub<PluginBase>();
-            plugin.Stub(p => p.Deactivate());
-            plugin.Stub(p => p.Dispose());
-            plugin.Expect(p => p.Activate());
-            plugin.Expect(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
-            plugin.Expect(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
-            plugin.Expect(p => p.GetChildDataWithViewDefinitions(null)).IgnoreArguments().Return(Enumerable.Empty<object>());
-            plugin.Stub(p => p.GetTreeNodeInfos()).Return(new TreeNodeInfo[]
-            {
-                new TreeNodeInfo<IProject>()
-            });
             mocks.ReplayAll();
             
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                Plugins =
-                {
-                    plugin
-                }
-            })
-            {
+                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 
                 mainWindow.SetGui(gui);

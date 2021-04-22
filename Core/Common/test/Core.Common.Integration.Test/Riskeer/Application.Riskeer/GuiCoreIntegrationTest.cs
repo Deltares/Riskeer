@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -49,26 +48,6 @@ namespace Core.Common.Integration.Test.Riskeer.Application.Riskeer
         public void TearDown()
         {
             Dispatcher.CurrentDispatcher.InvokeShutdown();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Run_GuiWithRiskeerPlugin_DoesNotCrash()
-        {
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(new RiskeerProject());
-            mocks.ReplayAll();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                gui.Plugins.Add(new RiskeerPlugin());
-                gui.Run();
-            }
-
-            mocks.VerifyAll();
         }
 
         [Test]
