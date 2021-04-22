@@ -549,6 +549,19 @@ namespace Core.Components.DotSpatial.Forms.Test
             return mapDataCollection;
         }
 
+        /// <summary>
+        /// Creates a <see cref="MapControl"/> without dimensions. This way aspect ratio related issues can be bypassed.
+        /// </summary>
+        /// <returns>The created <see cref="MapControl"/>.</returns>
+        private static MapControl CreateDimensionlessMapControl()
+        {
+            return new MapControl
+            {
+                Width = 0,
+                Height = 0
+            };
+        }
+
         #region BackgroundMapData
 
         [Test]
@@ -983,11 +996,10 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(newBackgroundMapData))
-            using (var map = new MapControl
+            using (MapControl map = CreateDimensionlessMapControl())
             {
-                BackgroundMapData = startingBackgroundMapData
-            })
-            {
+                map.BackgroundMapData = startingBackgroundMapData;
+
                 Map mapView = map.Controls.OfType<Map>().First();
 
                 var mapPointData = new MapPointData("Points")
@@ -1051,11 +1063,10 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl
+            using (MapControl map = CreateDimensionlessMapControl())
             {
-                BackgroundMapData = backgroundMapData
-            })
-            {
+                map.BackgroundMapData = backgroundMapData;
+
                 Map mapView = map.Controls.OfType<Map>().First();
 
                 var mapPointData = new MapPointData("Points")
@@ -1117,7 +1128,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl())
+            using (MapControl map = CreateDimensionlessMapControl())
             {
                 var mapDataCollection = new MapDataCollection("A");
                 mapDataCollection.Add(new MapPointData("points")
@@ -1172,7 +1183,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl())
+            using (MapControl map = CreateDimensionlessMapControl())
             {
                 var mapDataCollection = new MapDataCollection("A");
                 mapDataCollection.Add(new MapPointData("points")
@@ -1227,7 +1238,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl())
+            using (MapControl map = CreateDimensionlessMapControl())
             {
                 var mapDataCollection = new MapDataCollection("A");
                 mapDataCollection.Add(new MapPointData("points")
@@ -1289,7 +1300,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl())
+            using (MapControl map = CreateDimensionlessMapControl())
             {
                 var mapDataCollection = new MapDataCollection("A");
                 mapDataCollection.Add(new MapPointData("points")
@@ -1888,7 +1899,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl())
+            using (MapControl map = CreateDimensionlessMapControl())
             {
                 var mapDataCollection = new MapDataCollection("A");
                 mapDataCollection.Add(new MapPointData("points")
@@ -2273,7 +2284,8 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var form = new Form())
             {
-                var map = new MapControl();
+                MapControl map = CreateDimensionlessMapControl();
+
                 var mapFeatures = new[]
                 {
                     new MapFeature(new[]
@@ -2302,10 +2314,9 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 form.Controls.Add(map);
 
-                mapView.Invalidated += (sender, args) => invalidated++;
-
                 form.Show();
-                Assert.AreEqual(0, invalidated, "Precondition failed: mapView.Invalidated > 0");
+
+                mapView.Invalidated += (sender, args) => invalidated++;
 
                 // Call
                 map.ZoomToAllVisibleLayers();
@@ -2324,7 +2335,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ZoomToAllVisibleLayers_NotAllLayersVisible_ZoomToVisibleLayersExtent()
         {
             // Setup
-            using (var map = new MapControl())
+            using (MapControl map = CreateDimensionlessMapControl())
             {
                 Map mapView = map.Controls.OfType<Map>().First();
 
@@ -2406,7 +2417,8 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var form = new Form())
             {
-                var map = new MapControl();
+                MapControl map = CreateDimensionlessMapControl();
+
                 var mapFeatures = new[]
                 {
                     new MapFeature(new[]
@@ -2435,10 +2447,9 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 form.Controls.Add(map);
 
-                mapView.Invalidated += (sender, args) => invalidated++;
-
                 form.Show();
-                Assert.AreEqual(0, invalidated, "Precondition failed: mapView.Invalidated > 0");
+
+                mapView.Invalidated += (sender, args) => invalidated++;
 
                 // Call
                 map.ZoomToAllVisibleLayers(mapData);
@@ -2457,7 +2468,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ZoomToAllVisibleLayers_ForVisibleChildMapData_ZoomToVisibleLayerExtent()
         {
             // Setup
-            using (var map = new MapControl())
+            using (MapControl map = CreateDimensionlessMapControl())
             {
                 Map mapView = map.Controls.OfType<Map>().First();
 
@@ -2519,7 +2530,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ZoomToAllVisibleLayers_ForMapDataOfVariousDimensions_ZoomToVisibleLayerExtent(double xMax, double yMax)
         {
             // Setup
-            using (var map = new MapControl())
+            using (MapControl map = CreateDimensionlessMapControl())
             {
                 Map mapView = map.Controls.OfType<Map>().First();
 
