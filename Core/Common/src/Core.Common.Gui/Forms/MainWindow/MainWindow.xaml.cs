@@ -215,7 +215,7 @@ namespace Core.Common.Gui.Forms.MainWindow
                 };
 
                 viewController.ViewHost.AddToolView(propertyGrid, ToolViewLocation.Right);
-                viewController.ViewHost.SetImage(propertyGrid, Properties.Resources.PropertiesHS);
+                viewController.ViewHost.SetImage(propertyGrid, Properties.Resources.PropertiesPanelIcon);
             }
             else
             {
