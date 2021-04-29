@@ -38,111 +38,105 @@ namespace Core.Components.DotSpatial.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.panningToggleButton = new System.Windows.Forms.CheckBox();
-            this.zoomToRectangleToggleButton = new System.Windows.Forms.CheckBox();
-            this.zoomToAllVisibleLayersButton = new System.Windows.Forms.CheckBox();
-            this.showCoordinatesToggleButton = new System.Windows.Forms.CheckBox();
-            this.tableLayoutPanel.SuspendLayout();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.panToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.zoomToRectangleToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.zoomToAllVisibleLayersToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.showCoordinatesToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel
+            // toolStrip
             // 
-            this.tableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel.AutoSize = true;
-            this.tableLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanel.ColumnCount = 2;
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel.Controls.Add(this.panningToggleButton, 0, 0);
-            this.tableLayoutPanel.Controls.Add(this.zoomToRectangleToggleButton, 1, 0);
-            this.tableLayoutPanel.Controls.Add(this.zoomToAllVisibleLayersButton, 0, 1);
-            this.tableLayoutPanel.Controls.Add(this.showCoordinatesToggleButton, 1, 1);
-            this.tableLayoutPanel.Location = new System.Drawing.Point(618, 3);
-            this.tableLayoutPanel.Name = "tableLayoutPanel";
-            this.tableLayoutPanel.RowCount = 2;
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(76, 76);
-            this.tableLayoutPanel.TabIndex = 1;
+            this.toolStrip.CanOverflow = false;
+            this.toolStrip.Dock = System.Windows.Forms.DockStyle.Right;
+            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.panToolStripButton,
+            this.zoomToRectangleToolStripButton,
+            this.toolStripSeparator1,
+            this.zoomToAllVisibleLayersToolStripButton,
+            this.toolStripSeparator2,
+            this.showCoordinatesToolStripButton});
+            this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
+            this.toolStrip.Location = new System.Drawing.Point(649, 0);
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.Size = new System.Drawing.Size(48, 611);
+            this.toolStrip.TabIndex = 2;
             // 
-            // panningToggleButton
+            // panToolStripButton
             // 
-            this.panningToggleButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.panningToggleButton.AutoSize = true;
-            this.panningToggleButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panningToggleButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapPanZoomImage;
-            this.panningToggleButton.Location = new System.Drawing.Point(3, 3);
-            this.panningToggleButton.Name = "panningToggleButton";
-            this.panningToggleButton.Size = new System.Drawing.Size(32, 32);
-            this.panningToggleButton.TabIndex = 0;
-            this.panningToggleButton.TabStop = false;
-            this.panningToggleButton.UseVisualStyleBackColor = true;
-            this.panningToggleButton.CheckedChanged += new System.EventHandler(this.PanningToggleButtonClicked);
+            this.panToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.panToolStripButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapPanZoomImage;
+            this.panToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.panToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 0, 3);
+            this.panToolStripButton.Name = "panToolStripButton";
+            this.panToolStripButton.Size = new System.Drawing.Size(41, 20);
+            this.panToolStripButton.Click += new System.EventHandler(this.PanToolStripButtonClick);
             // 
-            // zoomToRectangleToggleButton
+            // zoomToRectangleToolStripButton
             // 
-            this.zoomToRectangleToggleButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.zoomToRectangleToggleButton.AutoSize = true;
-            this.zoomToRectangleToggleButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.zoomToRectangleToggleButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.zoomrectangle;
-            this.zoomToRectangleToggleButton.Location = new System.Drawing.Point(41, 3);
-            this.zoomToRectangleToggleButton.Name = "zoomToRectangleToggleButton";
-            this.zoomToRectangleToggleButton.Size = new System.Drawing.Size(32, 32);
-            this.zoomToRectangleToggleButton.TabIndex = 1;
-            this.zoomToRectangleToggleButton.TabStop = false;
-            this.zoomToRectangleToggleButton.UseVisualStyleBackColor = true;
-            this.zoomToRectangleToggleButton.CheckedChanged += new System.EventHandler(this.ZoomToRectangleToggleButtonClicked);
+            this.zoomToRectangleToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.zoomToRectangleToolStripButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.zoomrectangle;
+            this.zoomToRectangleToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.zoomToRectangleToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 0, 3);
+            this.zoomToRectangleToolStripButton.Name = "zoomToRectangleToolStripButton";
+            this.zoomToRectangleToolStripButton.Size = new System.Drawing.Size(41, 20);
+            this.zoomToRectangleToolStripButton.Click += new System.EventHandler(this.ZoomToRectangleToolStripButtonClick);
             // 
-            // zoomToAllVisibleLayersButton
+            // toolStripSeparator1
             // 
-            this.zoomToAllVisibleLayersButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.zoomToAllVisibleLayersButton.AutoSize = true;
-            this.zoomToAllVisibleLayersButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.zoomToAllVisibleLayersButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.zoomextents;
-            this.zoomToAllVisibleLayersButton.Location = new System.Drawing.Point(3, 41);
-            this.zoomToAllVisibleLayersButton.Name = "zoomToAllVisibleLayersButton";
-            this.zoomToAllVisibleLayersButton.Size = new System.Drawing.Size(32, 32);
-            this.zoomToAllVisibleLayersButton.TabIndex = 2;
-            this.zoomToAllVisibleLayersButton.TabStop = false;
-            this.zoomToAllVisibleLayersButton.UseVisualStyleBackColor = true;
-            this.zoomToAllVisibleLayersButton.CheckedChanged += new System.EventHandler(this.ZoomToAllVisibleLayersButtonClicked);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(31, 6);
             // 
-            // showCoordinatesToggleButton
+            // zoomToAllVisibleLayersToolStripButton
             // 
-            this.showCoordinatesToggleButton.Appearance = System.Windows.Forms.Appearance.Button;
-            this.showCoordinatesToggleButton.AutoSize = true;
-            this.showCoordinatesToggleButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.showCoordinatesToggleButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.map_pin;
-            this.showCoordinatesToggleButton.Location = new System.Drawing.Point(41, 41);
-            this.showCoordinatesToggleButton.Name = "showCoordinatesToggleButton";
-            this.showCoordinatesToggleButton.Size = new System.Drawing.Size(32, 32);
-            this.showCoordinatesToggleButton.TabIndex = 3;
-            this.showCoordinatesToggleButton.TabStop = false;
-            this.showCoordinatesToggleButton.UseVisualStyleBackColor = true;
-            this.showCoordinatesToggleButton.CheckedChanged += new System.EventHandler(this.ShowCoordinatesToggleButtonClicked);
+            this.zoomToAllVisibleLayersToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.zoomToAllVisibleLayersToolStripButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.zoomextents;
+            this.zoomToAllVisibleLayersToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.zoomToAllVisibleLayersToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 0, 3);
+            this.zoomToAllVisibleLayersToolStripButton.Name = "zoomToAllVisibleLayersToolStripButton";
+            this.zoomToAllVisibleLayersToolStripButton.Size = new System.Drawing.Size(41, 20);
+            this.zoomToAllVisibleLayersToolStripButton.Click += new System.EventHandler(this.ZoomToAllVisibleLayersToolStripButtonClick);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(31, 6);
+            // 
+            // showCoordinatesToolStripButton
+            // 
+            this.showCoordinatesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.showCoordinatesToolStripButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.map_pin;
+            this.showCoordinatesToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.showCoordinatesToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 0, 3);
+            this.showCoordinatesToolStripButton.Name = "showCoordinatesToolStripButton";
+            this.showCoordinatesToolStripButton.Size = new System.Drawing.Size(41, 20);
+            this.showCoordinatesToolStripButton.Click += new System.EventHandler(this.ShowCoordinatesToolStripButtonClick);
             // 
             // MapControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel);
+            this.Controls.Add(this.toolStrip);
             this.Name = "MapControl";
             this.Size = new System.Drawing.Size(697, 611);
-            this.tableLayoutPanel.ResumeLayout(false);
-            this.tableLayoutPanel.PerformLayout();
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
-        private System.Windows.Forms.CheckBox panningToggleButton;
-        private System.Windows.Forms.CheckBox zoomToRectangleToggleButton;
-        private System.Windows.Forms.CheckBox zoomToAllVisibleLayersButton;
-        private System.Windows.Forms.CheckBox showCoordinatesToggleButton;
+        private System.Windows.Forms.ToolStrip toolStrip;
+        private System.Windows.Forms.ToolStripButton panToolStripButton;
+        private System.Windows.Forms.ToolStripButton zoomToRectangleToolStripButton;
+        private System.Windows.Forms.ToolStripButton zoomToAllVisibleLayersToolStripButton;
+        private System.Windows.Forms.ToolStripButton showCoordinatesToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }

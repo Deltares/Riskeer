@@ -61,11 +61,6 @@ namespace Core.Components.DotSpatial.Forms
         private MapDataCollection data;
         private ImageBasedMapData backgroundMapData;
         private Timer updateTimer;
-        private bool isPanningEnabled;
-        private bool isRectangleZoomingEnabled;
-        private bool isMouseCoordinatesVisible;
-        private bool handlingToggleButtonClicked;
-        private bool handlingZoomToExtentsButtonClicked;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapControl"/>.
@@ -76,8 +71,8 @@ namespace Core.Components.DotSpatial.Forms
 
             InitializeMap();
 
-            panningToggleButton.CheckState = CheckState.Checked;
-            showCoordinatesToggleButton.CheckState = CheckState.Checked;
+            panToolStripButton.PerformClick();
+            showCoordinatesToolStripButton.PerformClick();
 
             mapDataCollectionObserver = new RecursiveObserver<MapDataCollection, MapDataCollection>(HandleMapDataCollectionChange, mdc => mdc.Collection);
             backGroundMapDataObserver = new Observer(HandleBackgroundMapDataChange);
@@ -489,37 +484,6 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        private void TogglePanning()
-        {
-            map.FunctionMode = FunctionMode.Pan;
-
-            isPanningEnabled = true;
-            isRectangleZoomingEnabled = false;
-        }
-
-        private void ToggleRectangleZooming()
-        {
-            map.FunctionMode = FunctionMode.None;
-            map.ActivateMapFunction(mapFunctionSelectionZoom);
-
-            isPanningEnabled = false;
-            isRectangleZoomingEnabled = true;
-        }
-
-        private void ToggleMouseCoordinatesVisibility()
-        {
-            if (!isMouseCoordinatesVisible)
-            {
-                mouseCoordinatesMapExtension.Activate();
-                isMouseCoordinatesVisible = true;
-            }
-            else
-            {
-                mouseCoordinatesMapExtension.Deactivate();
-                isMouseCoordinatesVisible = false;
-            }
-        }
-
         /// <summary>
         /// Defines the area taken up by the visible map-data based on the provided map-data.
         /// </summary>
@@ -604,79 +568,50 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        private void PanningToggleButtonClicked(object sender, EventArgs e)
+        private void PanToolStripButtonClick(object sender, EventArgs e)
         {
-            if (handlingToggleButtonClicked)
+            if (panToolStripButton.Checked)
             {
                 return;
             }
 
-            if (isPanningEnabled)
-            {
-                panningToggleButton.CheckState = CheckState.Checked;
+            map.FunctionMode = FunctionMode.Pan;
 
-                return;
-            }
-
-            handlingToggleButtonClicked = true;
-
-            TogglePanning();
-
-            zoomToRectangleToggleButton.CheckState = CheckState.Unchecked;
-
-            map.Focus();
-
-            handlingToggleButtonClicked = false;
+            panToolStripButton.Checked = true;
+            zoomToRectangleToolStripButton.Checked = false;
         }
 
-        private void ZoomToRectangleToggleButtonClicked(object sender, EventArgs e)
+        private void ZoomToRectangleToolStripButtonClick(object sender, EventArgs e)
         {
-            if (handlingToggleButtonClicked)
+            if (zoomToRectangleToolStripButton.Checked)
             {
                 return;
             }
 
-            if (isRectangleZoomingEnabled)
-            {
-                zoomToRectangleToggleButton.CheckState = CheckState.Checked;
+            map.FunctionMode = FunctionMode.None;
+            map.ActivateMapFunction(mapFunctionSelectionZoom);
 
-                return;
-            }
-
-            handlingToggleButtonClicked = true;
-
-            ToggleRectangleZooming();
-
-            panningToggleButton.CheckState = CheckState.Unchecked;
-
-            map.Focus();
-
-            handlingToggleButtonClicked = false;
+            panToolStripButton.Checked = false;
+            zoomToRectangleToolStripButton.Checked = true;
         }
 
-        private void ZoomToAllVisibleLayersButtonClicked(object sender, EventArgs e)
+        private void ZoomToAllVisibleLayersToolStripButtonClick(object sender, EventArgs e)
         {
-            if (handlingZoomToExtentsButtonClicked)
-            {
-                return;
-            }
-
-            handlingZoomToExtentsButtonClicked = true;
-
-            zoomToAllVisibleLayersButton.CheckState = CheckState.Unchecked;
-
-            map.Focus();
-
             ZoomToAllVisibleLayers();
-
-            handlingZoomToExtentsButtonClicked = false;
         }
 
-        private void ShowCoordinatesToggleButtonClicked(object sender, EventArgs e)
+        private void ShowCoordinatesToolStripButtonClick(object sender, EventArgs e)
         {
-            ToggleMouseCoordinatesVisibility();
+            showCoordinatesToolStripButton.Checked = !showCoordinatesToolStripButton.Checked;
 
-            map.Focus();
+            if (showCoordinatesToolStripButton.Checked)
+            {
+                mouseCoordinatesMapExtension.Activate();
+            }
+            else
+            {
+                mouseCoordinatesMapExtension.Deactivate();
+            }
         }
 
         #endregion
