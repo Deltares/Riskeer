@@ -114,6 +114,26 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Pan {
+            get {
+                object obj = ResourceManager.GetObject("Pan", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ShowCoordinates {
+            get {
+                object obj = ResourceManager.GetObject("ShowCoordinates", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap zoomextents {
             get {
                 object obj = ResourceManager.GetObject("zoomextents", resourceCulture);
@@ -127,6 +147,26 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         internal static System.Drawing.Bitmap zoomrectangle {
             get {
                 object obj = ResourceManager.GetObject("zoomrectangle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ZoomToExtents {
+            get {
+                object obj = ResourceManager.GetObject("ZoomToExtents", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ZoomToRectangle {
+            get {
+                object obj = ResourceManager.GetObject("ZoomToRectangle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
