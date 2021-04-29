@@ -72,9 +72,9 @@ namespace Core.Components.DotSpatial.Forms
             this.panToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.panToolStripButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.Pan;
             this.panToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.panToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 0, 3);
+            this.panToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.panToolStripButton.Name = "panToolStripButton";
-            this.panToolStripButton.Size = new System.Drawing.Size(41, 28);
+            this.panToolStripButton.Size = new System.Drawing.Size(39, 36);
             this.panToolStripButton.Click += new System.EventHandler(this.PanToolStripButtonClick);
             // 
             // zoomToRectangleToolStripButton
@@ -82,9 +82,9 @@ namespace Core.Components.DotSpatial.Forms
             this.zoomToRectangleToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.zoomToRectangleToolStripButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.ZoomToRectangle;
             this.zoomToRectangleToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.zoomToRectangleToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 0, 3);
+            this.zoomToRectangleToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToRectangleToolStripButton.Name = "zoomToRectangleToolStripButton";
-            this.zoomToRectangleToolStripButton.Size = new System.Drawing.Size(41, 28);
+            this.zoomToRectangleToolStripButton.Size = new System.Drawing.Size(39, 36);
             this.zoomToRectangleToolStripButton.Click += new System.EventHandler(this.ZoomToRectangleToolStripButtonClick);
             // 
             // toolStripSeparator1
@@ -97,9 +97,9 @@ namespace Core.Components.DotSpatial.Forms
             this.zoomToAllVisibleLayersToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.zoomToAllVisibleLayersToolStripButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.ZoomToExtents;
             this.zoomToAllVisibleLayersToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.zoomToAllVisibleLayersToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 0, 3);
+            this.zoomToAllVisibleLayersToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToAllVisibleLayersToolStripButton.Name = "zoomToAllVisibleLayersToolStripButton";
-            this.zoomToAllVisibleLayersToolStripButton.Size = new System.Drawing.Size(41, 28);
+            this.zoomToAllVisibleLayersToolStripButton.Size = new System.Drawing.Size(39, 36);
             this.zoomToAllVisibleLayersToolStripButton.Click += new System.EventHandler(this.ZoomToAllVisibleLayersToolStripButtonClick);
             // 
             // toolStripSeparator2
@@ -112,9 +112,9 @@ namespace Core.Components.DotSpatial.Forms
             this.showCoordinatesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.showCoordinatesToolStripButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.ShowCoordinates;
             this.showCoordinatesToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.showCoordinatesToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 0, 3);
+            this.showCoordinatesToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.showCoordinatesToolStripButton.Name = "showCoordinatesToolStripButton";
-            this.showCoordinatesToolStripButton.Size = new System.Drawing.Size(41, 28);
+            this.showCoordinatesToolStripButton.Size = new System.Drawing.Size(39, 36);
             this.showCoordinatesToolStripButton.Click += new System.EventHandler(this.ShowCoordinatesToolStripButtonClick);
             // 
             // MapControl
