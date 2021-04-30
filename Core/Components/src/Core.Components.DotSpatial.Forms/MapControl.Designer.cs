@@ -75,6 +75,7 @@ namespace Core.Components.DotSpatial.Forms
             this.panToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.panToolStripButton.Name = "panToolStripButton";
             this.panToolStripButton.Size = new System.Drawing.Size(39, 36);
+            this.panToolStripButton.ToolTipText = "Verschuiven";
             this.panToolStripButton.Click += new System.EventHandler(this.PanToolStripButtonClick);
             // 
             // zoomToRectangleToolStripButton
@@ -85,6 +86,7 @@ namespace Core.Components.DotSpatial.Forms
             this.zoomToRectangleToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToRectangleToolStripButton.Name = "zoomToRectangleToolStripButton";
             this.zoomToRectangleToolStripButton.Size = new System.Drawing.Size(39, 36);
+            this.zoomToRectangleToolStripButton.ToolTipText = "Zoom door rechthoek";
             this.zoomToRectangleToolStripButton.Click += new System.EventHandler(this.ZoomToRectangleToolStripButtonClick);
             // 
             // toolStripSeparator1
@@ -100,6 +102,7 @@ namespace Core.Components.DotSpatial.Forms
             this.zoomToAllVisibleLayersToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToAllVisibleLayersToolStripButton.Name = "zoomToAllVisibleLayersToolStripButton";
             this.zoomToAllVisibleLayersToolStripButton.Size = new System.Drawing.Size(39, 36);
+            this.zoomToAllVisibleLayersToolStripButton.ToolTipText = "Zoom naar alles";
             this.zoomToAllVisibleLayersToolStripButton.Click += new System.EventHandler(this.ZoomToAllVisibleLayersToolStripButtonClick);
             // 
             // toolStripSeparator2
@@ -115,6 +118,7 @@ namespace Core.Components.DotSpatial.Forms
             this.showCoordinatesToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.showCoordinatesToolStripButton.Name = "showCoordinatesToolStripButton";
             this.showCoordinatesToolStripButton.Size = new System.Drawing.Size(39, 36);
+            this.showCoordinatesToolStripButton.ToolTipText = "Toon coördinaten";
             this.showCoordinatesToolStripButton.Click += new System.EventHandler(this.ShowCoordinatesToolStripButtonClick);
             // 
             // MapControl
