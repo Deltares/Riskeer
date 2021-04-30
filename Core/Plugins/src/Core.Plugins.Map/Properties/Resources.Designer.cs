@@ -630,16 +630,6 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap MapPointIcon {
-            get {
-                object obj = ResourceManager.GetObject("MapPointIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De kleur van de vlakken waarmee deze kaartlaag wordt weergegeven..
         /// </summary>
         public static string MapPolygonData_FillColor_Description {
@@ -672,16 +662,6 @@ namespace Core.Plugins.Map.Properties {
         public static string Name_Layer {
             get {
                 return ResourceManager.GetString("Name_Layer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap PanIcon {
-            get {
-                object obj = ResourceManager.GetObject("PanIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -768,34 +748,6 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap RectangleZoomIcon {
-            get {
-                object obj = ResourceManager.GetObject("RectangleZoomIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toon coördinaten.
-        /// </summary>
-        public static string Ribbon_Toggle_Coordinates {
-            get {
-                return ResourceManager.GetString("Ribbon_Toggle_Coordinates", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toon de coördinaten van de cursor op de kaart..
-        /// </summary>
-        public static string Ribbon_Toggle_Coordinates_ToolTip {
-            get {
-                return ResourceManager.GetString("Ribbon_Toggle_Coordinates_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kaart.
         /// </summary>
         public static string Ribbon_Toggle_Legend {
@@ -814,56 +766,11 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verschuiven.
-        /// </summary>
-        public static string Ribbon_Toggle_Panning {
-            get {
-                return ResourceManager.GetString("Ribbon_Toggle_Panning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Om te verschuiven, houdt u de linker muisknop ingedrukt op de kaart terwijl u de muis beweegt..
-        /// </summary>
-        public static string Ribbon_Toggle_Panning_ToolTip {
-            get {
-                return ResourceManager.GetString("Ribbon_Toggle_Panning_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zoom door rechthoek.
-        /// </summary>
-        public static string Ribbon_Toggle_RectangleZooming {
-            get {
-                return ResourceManager.GetString("Ribbon_Toggle_RectangleZooming", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Om in te zoomen met behulp van een rechthoek, houdt u de linker muisknop ingedrukt op de kaart terwijl u de muis beweegt..
-        /// </summary>
-        public static string Ribbon_Toggle_RectangleZooming_ToolTip {
-            get {
-                return ResourceManager.GetString("Ribbon_Toggle_RectangleZooming_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Zoom naar alles.
         /// </summary>
         public static string Ribbon_ZoomToAll {
             get {
                 return ResourceManager.GetString("Ribbon_ZoomToAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zet het zoomniveau van de kaart dusdanig dat alle zichtbare elementen precies in het beeld passen..
-        /// </summary>
-        public static string Ribbon_ZoomToAll_ToolTip {
-            get {
-                return ResourceManager.GetString("Ribbon_ZoomToAll_ToolTip", resourceCulture);
             }
         }
         
