@@ -37,7 +37,6 @@ using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.MessageWindow;
-using Core.Common.Gui.Forms.ProjectExplorer;
 using Core.Common.Gui.Forms.PropertyGridView;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Helpers;

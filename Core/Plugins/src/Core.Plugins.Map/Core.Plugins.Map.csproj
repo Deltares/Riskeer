@@ -39,18 +39,6 @@
     <None Include="Resources\points.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MapPanZoomImage.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\zoomrectangle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\zoomextents.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\map-pin.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\map--plus.png" />
   </ItemGroup>
   <ItemGroup>
