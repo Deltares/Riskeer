@@ -40,7 +40,7 @@ namespace Core.Components.DotSpatial.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -88,46 +88,6 @@ namespace Core.Components.DotSpatial.Forms.Properties {
             get {
                 return ResourceManager.GetString("MapControl_HandleBruTileInitializationException_Message_0_therefore_cannot_show_b" +
                         "ackground_layer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Pan {
-            get {
-                object obj = ResourceManager.GetObject("Pan", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ShowCoordinates {
-            get {
-                object obj = ResourceManager.GetObject("ShowCoordinates", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ZoomToExtents {
-            get {
-                object obj = ResourceManager.GetObject("ZoomToExtents", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ZoomToRectangle {
-            get {
-                object obj = ResourceManager.GetObject("ZoomToRectangle", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

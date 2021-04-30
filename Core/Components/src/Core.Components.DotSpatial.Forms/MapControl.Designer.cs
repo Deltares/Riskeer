@@ -53,7 +53,7 @@ namespace Core.Components.DotSpatial.Forms
             this.toolStrip.CanOverflow = false;
             this.toolStrip.Dock = System.Windows.Forms.DockStyle.Right;
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.panToolStripButton,
             this.zoomToRectangleToolStripButton,
@@ -69,23 +69,23 @@ namespace Core.Components.DotSpatial.Forms
             // 
             // panToolStripButton
             // 
-            this.panToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.panToolStripButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.Pan;
-            this.panToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.panToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.panToolStripButton.Font = new System.Drawing.Font("Deltares-Riskeer-Symbols", 12F);
             this.panToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.panToolStripButton.Name = "panToolStripButton";
-            this.panToolStripButton.Size = new System.Drawing.Size(39, 36);
+            this.panToolStripButton.Size = new System.Drawing.Size(39, 29);
+            this.panToolStripButton.Text = "";
             this.panToolStripButton.ToolTipText = "Verschuiven";
             this.panToolStripButton.Click += new System.EventHandler(this.PanToolStripButtonClick);
             // 
             // zoomToRectangleToolStripButton
             // 
-            this.zoomToRectangleToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.zoomToRectangleToolStripButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.ZoomToRectangle;
-            this.zoomToRectangleToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.zoomToRectangleToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.zoomToRectangleToolStripButton.Font = new System.Drawing.Font("Deltares-Riskeer-Symbols", 12F);
             this.zoomToRectangleToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToRectangleToolStripButton.Name = "zoomToRectangleToolStripButton";
-            this.zoomToRectangleToolStripButton.Size = new System.Drawing.Size(39, 36);
+            this.zoomToRectangleToolStripButton.Size = new System.Drawing.Size(39, 29);
+            this.zoomToRectangleToolStripButton.Text = "";
             this.zoomToRectangleToolStripButton.ToolTipText = "Zoom door rechthoek";
             this.zoomToRectangleToolStripButton.Click += new System.EventHandler(this.ZoomToRectangleToolStripButtonClick);
             // 
@@ -96,12 +96,12 @@ namespace Core.Components.DotSpatial.Forms
             // 
             // zoomToAllVisibleLayersToolStripButton
             // 
-            this.zoomToAllVisibleLayersToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.zoomToAllVisibleLayersToolStripButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.ZoomToExtents;
-            this.zoomToAllVisibleLayersToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.zoomToAllVisibleLayersToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.zoomToAllVisibleLayersToolStripButton.Font = new System.Drawing.Font("Deltares-Riskeer-Symbols", 12F);
             this.zoomToAllVisibleLayersToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToAllVisibleLayersToolStripButton.Name = "zoomToAllVisibleLayersToolStripButton";
-            this.zoomToAllVisibleLayersToolStripButton.Size = new System.Drawing.Size(39, 36);
+            this.zoomToAllVisibleLayersToolStripButton.Size = new System.Drawing.Size(39, 29);
+            this.zoomToAllVisibleLayersToolStripButton.Text = "";
             this.zoomToAllVisibleLayersToolStripButton.ToolTipText = "Zoom naar alles";
             this.zoomToAllVisibleLayersToolStripButton.Click += new System.EventHandler(this.ZoomToAllVisibleLayersToolStripButtonClick);
             // 
@@ -112,12 +112,12 @@ namespace Core.Components.DotSpatial.Forms
             // 
             // showCoordinatesToolStripButton
             // 
-            this.showCoordinatesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.showCoordinatesToolStripButton.Image = global::Core.Components.DotSpatial.Forms.Properties.Resources.ShowCoordinates;
-            this.showCoordinatesToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.showCoordinatesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.showCoordinatesToolStripButton.Font = new System.Drawing.Font("Deltares-Riskeer-Symbols", 12F);
             this.showCoordinatesToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.showCoordinatesToolStripButton.Name = "showCoordinatesToolStripButton";
-            this.showCoordinatesToolStripButton.Size = new System.Drawing.Size(39, 36);
+            this.showCoordinatesToolStripButton.Size = new System.Drawing.Size(39, 29);
+            this.showCoordinatesToolStripButton.Text = "";
             this.showCoordinatesToolStripButton.ToolTipText = "Toon coördinaten";
             this.showCoordinatesToolStripButton.Click += new System.EventHandler(this.ShowCoordinatesToolStripButtonClick);
             // 
