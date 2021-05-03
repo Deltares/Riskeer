@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Gui.Plugin;
-using Core.Common.Gui.PropertyBag;
+using Core.Gui.Plugin;
+using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -34,7 +34,7 @@ using Riskeer.HeightStructures.Forms.PropertyClasses;
 namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class HeightStrucutesOutputPropertyInfoTest
+    public class HeightStructuresOutputPropertyInfoTest
     {
         private HeightStructuresPlugin plugin;
         private PropertyInfo info;
