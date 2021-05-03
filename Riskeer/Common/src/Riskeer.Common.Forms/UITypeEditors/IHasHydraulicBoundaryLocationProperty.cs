@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Gui.PropertyBag;
+using Core.Gui.PropertyBag;
 using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Forms.UITypeEditors

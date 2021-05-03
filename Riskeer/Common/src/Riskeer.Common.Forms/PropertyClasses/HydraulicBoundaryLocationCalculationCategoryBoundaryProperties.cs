@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Gui.Attributes;
 using Core.Common.Util.Attributes;
+using Core.Gui.Attributes;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Properties;
 

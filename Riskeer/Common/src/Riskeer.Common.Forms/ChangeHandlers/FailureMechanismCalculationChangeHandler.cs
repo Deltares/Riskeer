@@ -21,7 +21,7 @@
 
 using System;
 using System.Linq;
-using Core.Common.Gui.Helpers;
+using Core.Gui.Helpers;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO;
 

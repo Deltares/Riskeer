@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Gui.Attributes;
 using Core.Common.Util.Attributes;
+using Core.Gui.Attributes;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.Properties;

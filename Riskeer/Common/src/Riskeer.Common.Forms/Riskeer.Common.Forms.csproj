@@ -15,7 +15,6 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Geometry\Core.Common.Geometry.csproj" />
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart\Core.Components.Chart.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj" />
@@ -27,6 +26,7 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.PointedTree\Core.Components.PointedTree.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Stack\Core.Components.Stack.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Gui\src\Core.Gui\Core.Gui.csproj" />
     <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj" />
     <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Forms\Riskeer.AssemblyTool.Forms.csproj" />
     <ProjectReference Include="..\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />

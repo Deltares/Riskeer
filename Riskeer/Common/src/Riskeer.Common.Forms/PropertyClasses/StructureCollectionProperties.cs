@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Core.Gui.PropertyBag;
 using Riskeer.Common.Data;
 using Riskeer.Common.Forms.Properties;
 

@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.Gui.UITypeEditors;
+using Core.Gui.UITypeEditors;
 using Riskeer.Common.Data.DikeProfiles;
 using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 

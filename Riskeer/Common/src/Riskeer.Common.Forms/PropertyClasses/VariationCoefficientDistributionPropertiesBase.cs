@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Gui.Attributes;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Core.Gui.Attributes;
+using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Properties;

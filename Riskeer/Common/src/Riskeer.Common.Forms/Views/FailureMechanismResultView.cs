@@ -32,7 +32,7 @@ using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Properties;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Views
 {
@@ -224,7 +224,7 @@ namespace Riskeer.Common.Forms.Views
 
         private void InitializeFailureMechanismAssemblyResultPanel()
         {
-            infoIcon.BackgroundImage = CoreCommonGuiResources.information;
+            infoIcon.BackgroundImage = CoreGuiResources.information;
             toolTip.SetToolTip(infoIcon, Resources.FailureMechanismResultView_InfoToolTip);
 
             FailureMechanismAssemblyResultControl = new TAssemblyResultControl();

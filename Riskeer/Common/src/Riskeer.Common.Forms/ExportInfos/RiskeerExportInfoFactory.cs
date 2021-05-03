@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base.IO;
-using Core.Common.Gui.Helpers;
-using Core.Common.Gui.Plugin;
 using Core.Common.Util;
+using Core.Gui.Helpers;
+using Core.Gui.Plugin;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;

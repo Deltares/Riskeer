@@ -22,10 +22,10 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Gui.Attributes;
-using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Core.Gui.Attributes;
+using Core.Gui.Converters;
+using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Forms.Properties;
 

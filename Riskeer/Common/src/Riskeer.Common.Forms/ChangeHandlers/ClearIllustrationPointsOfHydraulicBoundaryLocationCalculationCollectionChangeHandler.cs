@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Core.Common.Gui.Helpers;
+using Core.Gui.Helpers;
 using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.ChangeHandlers

@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Gui.Plugin;
+using Core.Gui.Plugin;
 using Core.Common.Util;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;

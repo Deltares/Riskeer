@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Gui.PropertyBag;
+using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Forms.PropertyClasses

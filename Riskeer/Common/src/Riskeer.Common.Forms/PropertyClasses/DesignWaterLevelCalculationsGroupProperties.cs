@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Gui.Converters;
 using Core.Common.Util.Attributes;
+using Core.Gui.Converters;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Properties;
 
