@@ -28,13 +28,13 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
-using Core.Common.Gui.Commands;
-using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Plugin;
-using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using Core.Gui;
+using Core.Gui.Commands;
+using Core.Gui.ContextMenu;
+using Core.Gui.Forms.MainWindow;
+using Core.Gui.Plugin;
+using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -52,7 +52,7 @@ using Riskeer.Revetment.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 {
@@ -502,11 +502,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportConfigurationIndex,
                                                                   "&Importeren...",
                                                                   "Importeer de gegevens vanuit een bestand.",
-                                                                  CoreCommonGuiResources.ImportIcon);
+                                                                  CoreGuiResources.ImportIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportConfigurationIndex,
                                                                   "&Exporteren...",
                                                                   "Exporteer de gegevens naar een bestand.",
-                                                                  CoreCommonGuiResources.ExportIcon);
+                                                                  CoreGuiResources.ExportIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &berekeningen...",
@@ -523,7 +523,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
                                                                   "Ma&p leegmaken...",
                                                                   "Er zijn geen onderliggende elementen om te verwijderen.",
-                                                                  CoreCommonGuiResources.DeleteChildrenIcon,
+                                                                  CoreGuiResources.DeleteChildrenIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                                   "Alles &valideren",
@@ -543,17 +543,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
                                                                   "Alles i&nklappen",
                                                                   "Klap dit element en alle onderliggende elementen in.",
-                                                                  CoreCommonGuiResources.CollapseAllIcon,
+                                                                  CoreGuiResources.CollapseAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
                                                                   "Alles ui&tklappen",
                                                                   "Klap dit element en alle onderliggende elementen uit.",
-                                                                  CoreCommonGuiResources.ExpandAllIcon,
+                                                                  CoreGuiResources.ExpandAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
                                                                   "Ei&genschappen",
                                                                   "Toon de eigenschappen in het Eigenschappenpaneel.",
-                                                                  CoreCommonGuiResources.PropertiesHS,
+                                                                  CoreGuiResources.PropertiesHS,
                                                                   false);
                 }
             }
@@ -611,11 +611,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportConfigurationIndex,
                                                                   "&Importeren...",
                                                                   "Importeer de gegevens vanuit een bestand.",
-                                                                  CoreCommonGuiResources.ImportIcon);
+                                                                  CoreGuiResources.ImportIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportConfigurationIndex,
                                                                   "&Exporteren...",
                                                                   "Exporteer de gegevens naar een bestand.",
-                                                                  CoreCommonGuiResources.ExportIcon);
+                                                                  CoreGuiResources.ExportIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &berekeningen...",
@@ -633,7 +633,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
                                                                   "Ma&p leegmaken...",
                                                                   "Er zijn geen onderliggende elementen om te verwijderen.",
-                                                                  CoreCommonGuiResources.DeleteChildrenIcon,
+                                                                  CoreGuiResources.DeleteChildrenIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                                   "Alles &valideren",
@@ -653,17 +653,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
                                                                   "Alles ui&tklappen",
                                                                   "Klap dit element en alle onderliggende elementen uit.",
-                                                                  CoreCommonGuiResources.ExpandAllIcon,
+                                                                  CoreGuiResources.ExpandAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
                                                                   "Alles i&nklappen",
                                                                   "Klap dit element en alle onderliggende elementen in.",
-                                                                  CoreCommonGuiResources.CollapseAllIcon,
+                                                                  CoreGuiResources.CollapseAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
                                                                   "Ei&genschappen",
                                                                   "Toon de eigenschappen in het Eigenschappenpaneel.",
-                                                                  CoreCommonGuiResources.PropertiesHS,
+                                                                  CoreGuiResources.PropertiesHS,
                                                                   false);
                 }
             }

@@ -21,9 +21,9 @@
 
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Core.Gui.Converters;
+using Core.Gui.PropertyBag;
 using Riskeer.Revetment.Forms.PropertyClasses;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.Properties;

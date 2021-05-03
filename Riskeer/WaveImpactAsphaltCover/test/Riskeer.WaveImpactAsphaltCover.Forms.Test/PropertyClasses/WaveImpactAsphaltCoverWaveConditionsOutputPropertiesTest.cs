@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
-using Core.Common.TestUtil;
 using Core.Common.Util;
+using Core.Gui.Converters;
+using Core.Gui.PropertyBag;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
