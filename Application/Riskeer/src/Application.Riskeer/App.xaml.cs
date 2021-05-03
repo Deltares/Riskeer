@@ -33,13 +33,13 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
-using Core.Common.Gui;
-using Core.Common.Gui.Appenders;
-using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Helpers;
-using Core.Common.Gui.Settings;
 using Core.Common.Util;
 using Core.Common.Util.Settings;
+using Core.Gui;
+using Core.Gui.Appenders;
+using Core.Gui.Forms.MainWindow;
+using Core.Gui.Helpers;
+using Core.Gui.Settings;
 using Core.Plugins.Chart;
 using Core.Plugins.CommonTools;
 using Core.Plugins.Map;
@@ -60,7 +60,7 @@ using Riskeer.StabilityPointStructures.Plugin;
 using Riskeer.StabilityStoneCover.Plugin;
 using Riskeer.Storage.Core;
 using Riskeer.WaveImpactAsphaltCover.Plugin;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 using MessageBox = System.Windows.MessageBox;
 
 namespace Application.Riskeer
@@ -97,7 +97,7 @@ namespace Application.Riskeer
             SetLanguage();
 
             string userDisplay = UserDisplay();
-            log.Info(string.Format(CoreCommonGuiResources.App_Starting_Riskeer_version_0_by_user_0,
+            log.Info(string.Format(CoreGuiResources.App_Starting_Riskeer_version_0_by_user_0,
                                    SettingsHelper.Instance.ApplicationVersion,
                                    userDisplay));
         }
@@ -115,7 +115,7 @@ namespace Application.Riskeer
             WaitForPreviousInstanceToExit();
             if (IsNotFirstInstance())
             {
-                MessageBox.Show(CoreCommonGuiResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first);
+                MessageBox.Show(CoreGuiResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first);
                 Shutdown(1);
                 return;
             }
@@ -184,7 +184,7 @@ namespace Application.Riskeer
 
         private void AppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Exception exception = e.ExceptionObject as Exception ?? new Exception(CoreCommonGuiResources.App_Unhandled_exception);
+            Exception exception = e.ExceptionObject as Exception ?? new Exception(CoreGuiResources.App_Unhandled_exception);
 
             HandleExceptionOnMainThread(exception);
         }
@@ -211,7 +211,7 @@ namespace Application.Riskeer
 
         private void HandleException(Exception exception)
         {
-            log.Error(CoreCommonGuiResources.App_Unhandled_exception, exception);
+            log.Error(CoreGuiResources.App_Unhandled_exception, exception);
 
             if (gui?.MainWindow != null)
             {

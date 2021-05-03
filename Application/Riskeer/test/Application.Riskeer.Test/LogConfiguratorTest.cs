@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Gui.Forms.MessageWindow;
+using Core.Gui.Forms.MessageWindow;
 using log4net;
 using log4net.Appender;
 using log4net.Core;

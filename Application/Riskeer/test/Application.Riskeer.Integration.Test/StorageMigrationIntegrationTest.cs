@@ -22,11 +22,12 @@
 using System;
 using System.IO;
 using System.Threading;
-using Core.Common.Gui;
-using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Helpers;
-using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
+using Core.Gui;
+using Core.Gui.Forms.MainWindow;
+using Core.Gui.Helpers;
+using Core.Gui.Settings;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Util;
@@ -64,7 +65,7 @@ namespace Application.Riskeer.Integration.Test
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new TestPlugin());
-                
+
                 // When
                 gui.Run(targetFilePath);
 
@@ -105,7 +106,7 @@ namespace Application.Riskeer.Integration.Test
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new TestPlugin());
-                
+
                 // When
                 gui.Run(sourceFilePath);
 
@@ -140,7 +141,7 @@ namespace Application.Riskeer.Integration.Test
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new TestPlugin());
-                
+
                 // When
                 gui.Run(sourceFilePath);
 
