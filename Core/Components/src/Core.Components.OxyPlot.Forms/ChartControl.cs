@@ -144,6 +144,11 @@ namespace Core.Components.OxyPlot.Forms
             plotView.Dispose();
             chartDataCollectionObserver.Dispose();
 
+            if (disposing)
+            {
+                components?.Dispose();
+            }
+
             base.Dispose(disposing);
         }
 
