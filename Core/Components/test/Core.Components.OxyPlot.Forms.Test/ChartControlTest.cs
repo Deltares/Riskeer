@@ -46,7 +46,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             using (var chart = new ChartControl())
             {
                 // Assert
-                Assert.IsInstanceOf<Control>(chart);
+                Assert.IsInstanceOf<UserControl>(chart);
                 Assert.IsInstanceOf<IChartControl>(chart);
                 Assert.AreEqual(100, chart.MinimumSize.Height);
                 Assert.AreEqual(100, chart.MinimumSize.Width);

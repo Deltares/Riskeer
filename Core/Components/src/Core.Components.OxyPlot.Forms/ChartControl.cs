@@ -35,7 +35,7 @@ namespace Core.Components.OxyPlot.Forms
     /// <summary>
     /// This class describes a plot view with configured representation of axes.
     /// </summary>
-    public sealed class ChartControl : Control, IChartControl
+    public partial class ChartControl : UserControl, IChartControl
     {
         private readonly RecursiveObserver<ChartDataCollection, ChartDataCollection> chartDataCollectionObserver;
         private readonly List<DrawnChartData> drawnChartDataList = new List<DrawnChartData>();
@@ -49,7 +49,10 @@ namespace Core.Components.OxyPlot.Forms
         /// </summary>
         public ChartControl()
         {
+            InitializeComponent();
+            
             InitializePlotView();
+            
             MinimumSize = new Size(100, 100);
 
             chartDataCollectionObserver = new RecursiveObserver<ChartDataCollection, ChartDataCollection>(HandleChartDataCollectionChange, cdc => cdc.Collection);
