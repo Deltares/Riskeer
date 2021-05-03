@@ -11,9 +11,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Gui\src\Core.Gui\Core.Gui.csproj" />
     <ProjectReference Include="..\..\..\..\Migration\Core\src\Migration.Core.Storage\Migration.Core.Storage.csproj" />
     <ProjectReference Include="..\..\..\..\Migration\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj" />
     <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj" />
