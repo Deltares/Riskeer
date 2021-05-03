@@ -70,7 +70,6 @@ namespace Core.Components.DotSpatial.Forms
             // panToolStripButton
             // 
             this.panToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.panToolStripButton.Font = new System.Drawing.Font("Deltares-Riskeer-Symbols", 12F);
             this.panToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.panToolStripButton.Name = "panToolStripButton";
             this.panToolStripButton.Size = new System.Drawing.Size(39, 29);
@@ -81,7 +80,6 @@ namespace Core.Components.DotSpatial.Forms
             // zoomToRectangleToolStripButton
             // 
             this.zoomToRectangleToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.zoomToRectangleToolStripButton.Font = new System.Drawing.Font("Deltares-Riskeer-Symbols", 12F);
             this.zoomToRectangleToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToRectangleToolStripButton.Name = "zoomToRectangleToolStripButton";
             this.zoomToRectangleToolStripButton.Size = new System.Drawing.Size(39, 29);
@@ -97,7 +95,6 @@ namespace Core.Components.DotSpatial.Forms
             // zoomToAllVisibleLayersToolStripButton
             // 
             this.zoomToAllVisibleLayersToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.zoomToAllVisibleLayersToolStripButton.Font = new System.Drawing.Font("Deltares-Riskeer-Symbols", 12F);
             this.zoomToAllVisibleLayersToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToAllVisibleLayersToolStripButton.Name = "zoomToAllVisibleLayersToolStripButton";
             this.zoomToAllVisibleLayersToolStripButton.Size = new System.Drawing.Size(39, 29);
@@ -113,7 +110,6 @@ namespace Core.Components.DotSpatial.Forms
             // showCoordinatesToolStripButton
             // 
             this.showCoordinatesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.showCoordinatesToolStripButton.Font = new System.Drawing.Font("Deltares-Riskeer-Symbols", 12F);
             this.showCoordinatesToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.showCoordinatesToolStripButton.Name = "showCoordinatesToolStripButton";
             this.showCoordinatesToolStripButton.Size = new System.Drawing.Size(39, 29);

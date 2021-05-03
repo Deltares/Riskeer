@@ -21,7 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.DotSpatial.Forms.Properties;
@@ -53,6 +56,7 @@ namespace Core.Components.DotSpatial.Forms
         private readonly List<DrawnMapData> drawnMapDataList = new List<DrawnMapData>();
         private readonly MapControlBackgroundLayerStatus backgroundLayerStatus = new MapControlBackgroundLayerStatus();
         private readonly List<IFeatureBasedMapDataLayer> mapDataLayersToUpdate = new List<IFeatureBasedMapDataLayer>();
+        private readonly PrivateFontCollection fonts = new PrivateFontCollection();
 
         private Map map;
         private bool removing;
@@ -61,6 +65,7 @@ namespace Core.Components.DotSpatial.Forms
         private MapDataCollection data;
         private ImageBasedMapData backgroundMapData;
         private Timer updateTimer;
+        private Font myFont;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapControl"/>.
@@ -68,6 +73,8 @@ namespace Core.Components.DotSpatial.Forms
         public MapControl()
         {
             InitializeComponent();
+
+            InitializeFont();
 
             InitializeMap();
 
@@ -171,6 +178,29 @@ namespace Core.Components.DotSpatial.Forms
             {
                 return backgroundMapData != null || data != null;
             }
+        }
+
+        [DllImport("gdi32.dll")]
+        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont,
+                                                          IntPtr pdv, [In] ref uint pcFonts);
+
+        private void InitializeFont()
+        {
+            byte[] fontData = Resources.Deltares_Riskeer_Symbols;
+            IntPtr fontPtr = Marshal.AllocCoTaskMem(fontData.Length);
+            Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
+
+            uint dummy = 0;
+            fonts.AddMemoryFont(fontPtr, Resources.Deltares_Riskeer_Symbols.Length);
+            AddFontMemResourceEx(fontPtr, (uint) Resources.Deltares_Riskeer_Symbols.Length, IntPtr.Zero, ref dummy);
+            Marshal.FreeCoTaskMem(fontPtr);
+
+            myFont = new Font(fonts.Families[0], 14.0F);
+
+            panToolStripButton.Font = myFont;
+            zoomToRectangleToolStripButton.Font = myFont;
+            zoomToAllVisibleLayersToolStripButton.Font = myFont;
+            showCoordinatesToolStripButton.Font = myFont;
         }
 
         private void InitializeMap()
@@ -493,8 +523,7 @@ namespace Core.Components.DotSpatial.Forms
         /// not part of the drawn map features.</exception>
         private Envelope CreateEnvelopeForAllVisibleLayers(MapData mapData)
         {
-            var collection = mapData as MapDataCollection;
-            if (collection != null)
+            if (mapData is MapDataCollection collection)
             {
                 return CreateEnvelopeForAllVisibleLayers(collection);
             }
@@ -502,7 +531,7 @@ namespace Core.Components.DotSpatial.Forms
             DrawnMapData drawnMapData = drawnMapDataList.FirstOrDefault(dmd => dmd.FeatureBasedMapData.Equals(mapData));
             if (drawnMapData == null)
             {
-                throw new ArgumentException($@"Can only zoom to {typeof(MapData).Name} that is part of this {typeof(MapControl).Name}s drawn {nameof(mapData)}.",
+                throw new ArgumentException($@"Can only zoom to {nameof(MapData)} that is part of this {nameof(MapControl)}s drawn {nameof(mapData)}.",
                                             nameof(mapData));
             }
 
