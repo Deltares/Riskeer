@@ -26,13 +26,13 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
-using Core.Common.Gui.Commands;
-using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Plugin;
-using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using Core.Gui;
+using Core.Gui.Commands;
+using Core.Gui.ContextMenu;
+using Core.Gui.Forms.MainWindow;
+using Core.Gui.Plugin;
+using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -48,8 +48,8 @@ using Riskeer.MacroStabilityInwards.Forms;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Riskeer.MacroStabilityInwards.Primitives;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {
@@ -247,11 +247,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportCalculationGroupIndexNestedGroup,
                                                               "&Importeren...",
                                                               "Importeer de gegevens vanuit een bestand.",
-                                                              CoreCommonGuiResources.ImportIcon);
+                                                              CoreGuiResources.ImportIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportCalculationGroupIndexNestedGroup,
                                                               "&Exporteren...",
                                                               "Exporteer de gegevens naar een bestand.",
-                                                              CoreCommonGuiResources.ExportIcon);
+                                                              CoreGuiResources.ExportIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndexNestedGroup,
                                                               "D&upliceren",
                                                               "Dupliceer dit element.",
@@ -267,7 +267,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRenameCalculationGroupIndexNestedGroup,
                                                               "&Hernoemen",
                                                               "Wijzig de naam van dit element.",
-                                                              CoreCommonGuiResources.RenameIcon);
+                                                              CoreGuiResources.RenameIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
                                                               "Alles &valideren",
                                                               "Valideer alle berekeningen binnen deze map met berekeningen.",
@@ -283,21 +283,21 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDeleteCalculationGroupIndexNestedGroup,
                                                               "Verwij&deren...",
                                                               "Verwijder dit element uit de boom.",
-                                                              CoreCommonGuiResources.DeleteIcon);
+                                                              CoreGuiResources.DeleteIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexNestedGroup,
                                                               "Alles i&nklappen",
                                                               "Klap dit element en alle onderliggende elementen in.",
-                                                              CoreCommonGuiResources.CollapseAllIcon,
+                                                              CoreGuiResources.CollapseAllIcon,
                                                               false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexNestedGroup,
                                                               "Alles ui&tklappen",
                                                               "Klap dit element en alle onderliggende elementen uit.",
-                                                              CoreCommonGuiResources.ExpandAllIcon,
+                                                              CoreGuiResources.ExpandAllIcon,
                                                               false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexNestedGroup,
                                                               "Ei&genschappen",
                                                               "Toon de eigenschappen in het Eigenschappenpaneel.",
-                                                              CoreCommonGuiResources.PropertiesHS,
+                                                              CoreGuiResources.PropertiesHS,
                                                               false);
 
                 CollectionAssert.AllItemsAreInstancesOfType(new[]
@@ -372,12 +372,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportCalculationGroupIndexRootGroup,
                                                               "&Importeren...",
                                                               "Importeer de gegevens vanuit een bestand.",
-                                                              CoreCommonGuiResources.ImportIcon);
+                                                              CoreGuiResources.ImportIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExportCalculationGroupIndexRootGroup,
                                                               "&Exporteren...",
                                                               "Exporteer de gegevens naar een bestand.",
-                                                              CoreCommonGuiResources.ExportIcon);
+                                                              CoreGuiResources.ExportIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                               "&Map toevoegen",
@@ -404,18 +404,18 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
                                                               "Alles i&nklappen",
                                                               "Klap dit element en alle onderliggende elementen in.",
-                                                              CoreCommonGuiResources.CollapseAllIcon,
+                                                              CoreGuiResources.CollapseAllIcon,
                                                               false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
                                                               "Alles ui&tklappen",
                                                               "Klap dit element en alle onderliggende elementen uit.",
-                                                              CoreCommonGuiResources.ExpandAllIcon,
+                                                              CoreGuiResources.ExpandAllIcon,
                                                               false);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
                                                               "Ei&genschappen",
                                                               "Toon de eigenschappen in het Eigenschappenpaneel.",
-                                                              CoreCommonGuiResources.PropertiesHS,
+                                                              CoreGuiResources.PropertiesHS,
                                                               false);
                 CollectionAssert.AllItemsAreInstancesOfType(new[]
                 {

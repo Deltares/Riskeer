@@ -23,9 +23,10 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Gui.Attributes;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Gui.Attributes;
+using Core.Gui.PropertyBag;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
@@ -109,7 +110,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual("data", exception.ParamName);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Constructor_GeneralInputNull_ThrowsArgumentNullException()
         {
@@ -331,7 +332,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsInput input = calculation.InputParameters;
 
             var propertyChangeHandler = new ObservablePropertyChangeHandler(calculation, input);
-            var properties = new MacroStabilityInwardsWaterStressesProperties(input, 
+            var properties = new MacroStabilityInwardsWaterStressesProperties(input,
                                                                               new GeneralMacroStabilityInwardsInput(),
                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel(),
                                                                               propertyChangeHandler);

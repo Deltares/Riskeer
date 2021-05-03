@@ -23,9 +23,10 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Util;
+using Core.Gui.PropertyBag;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
@@ -368,8 +369,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             [Values(true, false)] bool isTangentlineDeterminationTypeLayerSeparated,
             [Values(true, false)] bool isGridDeterminationTypeAutomatic,
             [Values(nameof(MacroStabilityInwardsGridSettingsProperties.TangentLineZTop),
-                nameof(MacroStabilityInwardsGridSettingsProperties.TangentLineZBottom),
-                nameof(MacroStabilityInwardsGridSettingsProperties.TangentLineNumber))]
+                    nameof(MacroStabilityInwardsGridSettingsProperties.TangentLineZBottom),
+                    nameof(MacroStabilityInwardsGridSettingsProperties.TangentLineNumber))]
             string propertyName)
         {
             // Setup

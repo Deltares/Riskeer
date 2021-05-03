@@ -22,9 +22,9 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Gui.Attributes;
-using Core.Common.Gui.Converters;
 using Core.Common.Util.Attributes;
+using Core.Gui.Attributes;
+using Core.Gui.Converters;
 using Riskeer.MacroStabilityInwards.Forms.Properties;
 using Riskeer.MacroStabilityInwards.Primitives;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;

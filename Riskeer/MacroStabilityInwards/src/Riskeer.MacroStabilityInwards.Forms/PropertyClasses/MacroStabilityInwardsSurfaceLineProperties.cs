@@ -21,9 +21,9 @@
 
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Core.Gui.Converters;
+using Core.Gui.PropertyBag;
 using Riskeer.MacroStabilityInwards.Primitives;
 using TypeConverter = System.ComponentModel.TypeConverterAttribute;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;

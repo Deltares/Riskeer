@@ -22,9 +22,9 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
-using Core.Common.Gui.Attributes;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Core.Gui.Attributes;
+using Core.Gui.PropertyBag;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.Properties;
 using MacroStabilityInwardsDataResources = Riskeer.MacroStabilityInwards.Data.Properties.Resources;

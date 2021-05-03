@@ -25,12 +25,12 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
-using Core.Common.Gui.Commands;
-using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using Core.Gui;
+using Core.Gui.Commands;
+using Core.Gui.ContextMenu;
+using Core.Gui.Forms.MainWindow;
+using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -48,8 +48,8 @@ using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {
@@ -350,7 +350,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                   0,
                                                                   "&Openen",
                                                                   "Open de gegevens in een nieuw documentvenster.",
-                                                                  CoreCommonGuiResources.OpenIcon,
+                                                                  CoreGuiResources.OpenIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu,
@@ -379,20 +379,20 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                   9,
                                                                   "Alles i&nklappen",
                                                                   "Klap dit element en alle onderliggende elementen in.",
-                                                                  CoreCommonGuiResources.CollapseAllIcon,
+                                                                  CoreGuiResources.CollapseAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   10,
                                                                   "Alles ui&tklappen",
                                                                   "Klap dit element en alle onderliggende elementen uit.",
-                                                                  CoreCommonGuiResources.ExpandAllIcon,
+                                                                  CoreGuiResources.ExpandAllIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   12,
                                                                   "Ei&genschappen",
                                                                   "Toon de eigenschappen in het Eigenschappenpaneel.",
-                                                                  CoreCommonGuiResources.PropertiesHS,
+                                                                  CoreGuiResources.PropertiesHS,
                                                                   false);
 
                     CollectionAssert.AllItemsAreInstancesOfType(new[]

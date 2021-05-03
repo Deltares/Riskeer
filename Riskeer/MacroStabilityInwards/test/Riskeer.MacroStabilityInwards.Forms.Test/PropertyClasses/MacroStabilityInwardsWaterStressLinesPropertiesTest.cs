@@ -22,8 +22,9 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Gui.PropertyBag;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil;
@@ -50,13 +51,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
         }
-        
+
         [Test]
         public void Constructor_GeneralInputNull_ThrowsArgumentNullException()
         {
             // Setup
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
-            
+
             // Call
             void Call() => new MacroStabilityInwardsWaterStressLinesProperties(input, null, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 

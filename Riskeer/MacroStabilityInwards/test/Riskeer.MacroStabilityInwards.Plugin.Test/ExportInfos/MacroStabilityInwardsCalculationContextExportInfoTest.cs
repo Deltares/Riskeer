@@ -21,11 +21,11 @@
 
 using System.Linq;
 using Core.Common.Base.IO;
-using Core.Common.Gui;
-using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Plugin;
-using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
+using Core.Gui;
+using Core.Gui.Forms.MainWindow;
+using Core.Gui.Plugin;
+using Core.Gui.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;

@@ -21,10 +21,10 @@
 
 using System.Linq;
 using Core.Common.Base.IO;
-using Core.Common.Gui;
-using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
+using Core.Gui;
+using Core.Gui.Forms.MainWindow;
+using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -35,7 +35,7 @@ using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.IO.Exporters;
 using Riskeer.MacroStabilityInwards.Primitives;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
 {
@@ -81,7 +81,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
             Assert.IsNotNull(info.CreateFileExporter);
             Assert.IsNotNull(info.IsEnabled);
             Assert.AreEqual("Algemeen", info.Category);
-            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
+            TestHelper.AssertImagesAreEqual(CoreGuiResources.ExportIcon, info.Image);
             Assert.IsNotNull(info.GetExportPath);
         }
 

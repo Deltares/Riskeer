@@ -33,7 +33,7 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.Exporters
 {
@@ -172,7 +172,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
         private bool ExportCalculation(MacroStabilityInwardsCalculation calculation, string currentFolderPath, IDictionary<MacroStabilityInwardsCalculation, string> exportedCalculations)
         {
-            log.InfoFormat(CoreCommonGuiResources.GuiExportHandler_ExportItemUsingDialog_Start_exporting_DataType_0_, calculation.Name);
+            log.InfoFormat(CoreGuiResources.GuiExportHandler_ExportItemUsingDialog_Start_exporting_DataType_0_, calculation.Name);
 
             string uniqueName = NamingHelper.GetUniqueName(exportedCalculations, ((ICalculationBase) calculation).Name, c => c.Value);
             string filePath = GetCalculationFilePath(currentFolderPath, uniqueName);

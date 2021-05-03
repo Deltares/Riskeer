@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms.Design;
 using Core.Common.Base.Geometry;
-using Core.Common.Gui.PropertyBag;
+using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;

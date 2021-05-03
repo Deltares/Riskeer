@@ -23,8 +23,9 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Gui.PropertyBag;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
@@ -223,12 +224,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void DynamicReadOnlyValidationMethod_CoordinatesDrainageConstruction_DependsOnSoilScenarioAndDrainageConstructionPresent(
             [Values(true, false)] bool drainageConstructionPresent,
             [Values(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand,
-                MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay,
-                MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand,
-                MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)]
+                    MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay,
+                    MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand,
+                    MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)]
             MacroStabilityInwardsDikeSoilScenario soilScenario,
             [Values(nameof(MacroStabilityInwardsDrainageProperties.XCoordinateDrainageConstruction),
-                nameof(MacroStabilityInwardsDrainageProperties.ZCoordinateDrainageConstruction))]
+                    nameof(MacroStabilityInwardsDrainageProperties.ZCoordinateDrainageConstruction))]
             string propertyName)
         {
             // Setup
@@ -258,9 +259,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void DynamicReadOnlyValidationMethod_DrainageConstructionPresent_DependsOnSoilScenario(
             [Values(true, false)] bool drainageConstructionPresent,
             [Values(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand,
-                MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay,
-                MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand,
-                MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)]
+                    MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay,
+                    MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand,
+                    MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay)]
             MacroStabilityInwardsDikeSoilScenario soilScenario)
         {
             // Setup
