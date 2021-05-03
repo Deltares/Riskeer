@@ -28,12 +28,12 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
-using Core.Common.Gui.Commands;
-using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Plugin;
-using Core.Common.Gui.TestUtil.ContextMenu;
+using Core.Gui;
+using Core.Gui.Commands;
+using Core.Gui.ContextMenu;
+using Core.Gui.Forms.MainWindow;
+using Core.Gui.Plugin;
+using Core.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -53,8 +53,8 @@ using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Revetment.Data;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 {
@@ -540,22 +540,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
                                                                   "Ma&p leegmaken...",
                                                                   "Er zijn geen onderliggende elementen om te verwijderen.",
-                                                                  CoreCommonGuiResources.DeleteChildrenIcon,
+                                                                  CoreGuiResources.DeleteChildrenIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
                                                                   expectedTextExpandAll,
                                                                   expectedTextExpandAllToolTip,
-                                                                  CoreCommonGuiResources.ExpandAllIcon,
+                                                                  CoreGuiResources.ExpandAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
                                                                   expectedTextCollapseAll,
                                                                   expectedTextCollapseAllToolTip,
-                                                                  CoreCommonGuiResources.CollapseAllIcon,
+                                                                  CoreGuiResources.CollapseAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
                                                                   expectedTextProperties,
                                                                   expectedTextPropertiesToolTip,
-                                                                  CoreCommonGuiResources.PropertiesHS,
+                                                                  CoreGuiResources.PropertiesHS,
                                                                   false);
                 }
             }
@@ -625,7 +625,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
                                                                   "Ma&p leegmaken...",
                                                                   "Er zijn geen onderliggende elementen om te verwijderen.",
-                                                                  CoreCommonGuiResources.DeleteChildrenIcon,
+                                                                  CoreGuiResources.DeleteChildrenIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                                   "Alles &valideren",
@@ -645,17 +645,17 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
                                                                   expectedTextExpandAll,
                                                                   expectedTextExpandAllToolTip,
-                                                                  CoreCommonGuiResources.ExpandAllIcon,
+                                                                  CoreGuiResources.ExpandAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
                                                                   expectedTextCollapseAll,
                                                                   expectedTextCollapseAllToolTip,
-                                                                  CoreCommonGuiResources.CollapseAllIcon,
+                                                                  CoreGuiResources.CollapseAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
                                                                   expectedTextProperties,
                                                                   expectedTextPropertiesToolTip,
-                                                                  CoreCommonGuiResources.PropertiesHS,
+                                                                  CoreGuiResources.PropertiesHS,
                                                                   false);
                 }
             }

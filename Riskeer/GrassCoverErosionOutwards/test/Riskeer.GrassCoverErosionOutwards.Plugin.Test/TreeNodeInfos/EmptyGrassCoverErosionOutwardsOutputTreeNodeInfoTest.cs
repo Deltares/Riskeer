@@ -22,9 +22,11 @@
 using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
-using Core.Common.Gui.ContextMenu;
+using Core.Gui;
+using Core.Gui.ContextMenu;
 using Core.Common.TestUtil;
+using Core.Gui;
+using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;

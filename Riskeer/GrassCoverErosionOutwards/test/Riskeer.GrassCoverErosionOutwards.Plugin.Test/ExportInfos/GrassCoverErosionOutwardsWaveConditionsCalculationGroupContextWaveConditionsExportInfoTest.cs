@@ -21,10 +21,10 @@
 
 using System.Linq;
 using Core.Common.Base.IO;
-using Core.Common.Gui;
-using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
+using Core.Gui;
+using Core.Gui.Forms.MainWindow;
+using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -33,7 +33,7 @@ using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.Revetment.IO.WaveConditions;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
 {
@@ -79,7 +79,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             Assert.IsNotNull(info.CreateFileExporter);
             Assert.IsNotNull(info.IsEnabled);
             Assert.AreEqual("Algemeen", info.Category);
-            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
+            TestHelper.AssertImagesAreEqual(CoreGuiResources.ExportIcon, info.Image);
             Assert.IsNotNull(info.GetExportPath);
         }
 
