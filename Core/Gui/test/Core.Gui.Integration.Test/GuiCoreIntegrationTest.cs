@@ -24,16 +24,16 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
-using Core.Common.Gui;
-using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
+using Core.Gui.Forms.MainWindow;
+using Core.Gui.Settings;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Plugin;
 
-namespace Core.Common.Integration.Test.Riskeer.Application.Riskeer
+namespace Core.Gui.Integration.Test
 {
     [TestFixture]
     public class GuiCoreIntegrationTest

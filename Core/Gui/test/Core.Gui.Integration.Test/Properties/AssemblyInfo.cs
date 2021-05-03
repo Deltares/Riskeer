@@ -21,5 +21,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Core.Common.Integration.Test")]
-[assembly: AssemblyProduct("Core.Common.Integration.Test")]
+[assembly: AssemblyTitle("Core.Gui.Integration.Test")]
+[assembly: AssemblyProduct("Core.Gui.Integration.Test")]
