@@ -103,7 +103,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             // 
             this.CalculateForSelectedButtonErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.CalculateForSelectedButtonErrorProvider.ContainerControl = this;
-            this.CalculateForSelectedButtonErrorProvider.Icon = Core.Common.Gui.Properties.Resources.warning;
+            this.CalculateForSelectedButtonErrorProvider.Icon = Core.Gui.Properties.Resources.warning;
             this.CalculateForSelectedButtonErrorProvider.SetIconPadding(CalculateForSelectedButton, 2);
             // 
             // DuneLocationCalculationsViewBase

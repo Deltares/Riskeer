@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.IO;
-using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
+using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -33,7 +33,7 @@ using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.IO;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
 {
@@ -55,7 +55,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
                 Assert.AreEqual("Hydraulische belastingen", info.Name);
                 Assert.AreEqual("bnd", info.Extension);
                 Assert.AreEqual("Algemeen", info.Category);
-                TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
+                TestHelper.AssertImagesAreEqual(CoreGuiResources.ExportIcon, info.Image);
                 Assert.IsNotNull(info.GetExportPath);
             }
         }

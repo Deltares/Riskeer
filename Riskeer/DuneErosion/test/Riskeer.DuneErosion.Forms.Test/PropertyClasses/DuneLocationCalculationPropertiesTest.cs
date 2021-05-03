@@ -25,6 +25,7 @@ using System.Globalization;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Util;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;

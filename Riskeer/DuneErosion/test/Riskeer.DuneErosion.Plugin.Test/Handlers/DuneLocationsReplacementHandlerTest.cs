@@ -22,7 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.Gui.Commands;
+using Core.Gui.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Hydraulics;

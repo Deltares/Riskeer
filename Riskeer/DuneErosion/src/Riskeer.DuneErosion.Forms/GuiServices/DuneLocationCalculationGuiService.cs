@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Core.Common.Gui.Forms.ProgressDialog;
+using Core.Gui.Forms.ProgressDialog;
 using log4net;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
