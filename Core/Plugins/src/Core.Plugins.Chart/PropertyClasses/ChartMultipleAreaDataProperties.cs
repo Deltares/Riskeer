@@ -22,11 +22,11 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
-using Core.Common.Gui.Attributes;
-using Core.Common.Gui.Converters;
-using Core.Common.Gui.UITypeEditors;
 using Core.Common.Util.Attributes;
 using Core.Components.Chart.Data;
+using Core.Gui.Attributes;
+using Core.Gui.Converters;
+using Core.Gui.UITypeEditors;
 using Core.Plugins.Chart.Properties;
 
 namespace Core.Plugins.Chart.PropertyClasses

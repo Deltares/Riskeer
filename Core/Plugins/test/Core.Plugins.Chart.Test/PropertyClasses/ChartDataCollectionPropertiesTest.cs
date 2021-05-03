@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using Core.Common.Gui.PropertyBag;
-using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
+using Core.Gui.PropertyBag;
+using Core.Gui.TestUtil;
 using Core.Plugins.Chart.PropertyClasses;
 using NUnit.Framework;
 

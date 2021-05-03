@@ -22,11 +22,11 @@
 using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Base;
-using Core.Common.Gui.Converters;
-using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
+using Core.Gui.Converters;
+using Core.Gui.TestUtil;
 using Core.Plugins.Chart.PropertyClasses;
 using NUnit.Framework;
 using Rhino.Mocks;

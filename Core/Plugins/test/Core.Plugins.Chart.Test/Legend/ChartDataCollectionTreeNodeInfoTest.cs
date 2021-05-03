@@ -27,8 +27,8 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.TestUtil.ContextMenu;
+using Core.Gui.ContextMenu;
+using Core.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Components.Chart.Data;
@@ -36,10 +36,10 @@ using Core.Components.Chart.Forms;
 using Core.Components.Chart.TestUtil;
 using Core.Plugins.Chart.Legend;
 using Core.Plugins.Chart.PresentationObjects;
+using Core.Plugins.Chart.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
-using GuiResources = Core.Common.Gui.Properties.Resources;
-using ChartResources = Core.Plugins.Chart.Properties.Resources;
+using GuiResources = Core.Gui.Properties.Resources;
 
 namespace Core.Plugins.Chart.Test.Legend
 {
@@ -355,7 +355,7 @@ namespace Core.Plugins.Chart.Test.Legend
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
                                                               "&Zoom naar alles",
                                                               "Om het zoomniveau aan te passen moet er minstens één gegevensreeks in deze map met gegevensreeksen zichtbaar zijn.",
-                                                              ChartResources.ZoomToAllIcon,
+                                                              Resources.ZoomToAllIcon,
                                                               false);
             }
         }
@@ -391,7 +391,7 @@ namespace Core.Plugins.Chart.Test.Legend
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
                                                               "&Zoom naar alles",
                                                               "Om het zoomniveau aan te passen moet minstens één van de zichtbare gegevensreeksen in deze map met gegevensreeksen elementen bevatten.",
-                                                              ChartResources.ZoomToAllIcon,
+                                                              Resources.ZoomToAllIcon,
                                                               false);
             }
         }
@@ -422,7 +422,7 @@ namespace Core.Plugins.Chart.Test.Legend
                 TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuZoomToAllIndex,
                                                               "&Zoom naar alles",
                                                               "Zet het zoomniveau van de grafiek dusdanig dat alle zichtbare gegevensreeksen in deze map met gegevensreeksen precies in het beeld passen.",
-                                                              ChartResources.ZoomToAllIcon);
+                                                              Resources.ZoomToAllIcon);
             }
         }
 

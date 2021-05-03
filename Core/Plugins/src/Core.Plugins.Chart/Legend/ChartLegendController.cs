@@ -21,10 +21,10 @@
 
 using System;
 using System.Linq;
-using Core.Common.Gui;
-using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Forms.ViewHost;
 using Core.Components.Chart.Forms;
+using Core.Gui;
+using Core.Gui.ContextMenu;
+using Core.Gui.Forms.ViewHost;
 using Core.Plugins.Chart.Properties;
 
 namespace Core.Plugins.Chart.Legend

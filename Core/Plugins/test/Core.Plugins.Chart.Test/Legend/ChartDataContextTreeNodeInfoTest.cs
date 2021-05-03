@@ -27,8 +27,8 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.TestUtil.ContextMenu;
+using Core.Gui.ContextMenu;
+using Core.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Components.Chart.Data;
@@ -39,7 +39,7 @@ using Core.Plugins.Chart.PresentationObjects;
 using Core.Plugins.Chart.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
-using GuiResources = Core.Common.Gui.Properties.Resources;
+using GuiResources = Core.Gui.Properties.Resources;
 
 namespace Core.Plugins.Chart.Test.Legend
 {

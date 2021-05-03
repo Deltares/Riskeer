@@ -26,12 +26,12 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
-using Core.Common.Gui.ContextMenu;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
+using Core.Gui.ContextMenu;
 using Core.Plugins.Chart.PresentationObjects;
 using ChartResources = Core.Plugins.Chart.Properties.Resources;
-using GuiResources = Core.Common.Gui.Properties.Resources;
+using GuiResources = Core.Gui.Properties.Resources;
 
 namespace Core.Plugins.Chart.Legend
 {

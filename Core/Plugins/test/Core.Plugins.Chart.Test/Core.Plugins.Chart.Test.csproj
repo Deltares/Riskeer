@@ -19,14 +19,14 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj" />
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj" />
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Chart\Core.Components.Chart.csproj" />
     <ProjectReference Include="..\..\..\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj" />
     <ProjectReference Include="..\..\..\Components\test\Core.Components.Chart.TestUtil\Core.Components.Chart.TestUtil.csproj" />
+    <ProjectReference Include="..\..\..\Gui\src\Core.Gui\Core.Gui.csproj" />
+    <ProjectReference Include="..\..\..\Gui\test\Core.Gui.TestUtil\Core.Gui.TestUtil.csproj" />
     <ProjectReference Include="..\..\src\Core.Plugins.Chart\Core.Plugins.Chart.csproj" />
   </ItemGroup>
   <ItemGroup>

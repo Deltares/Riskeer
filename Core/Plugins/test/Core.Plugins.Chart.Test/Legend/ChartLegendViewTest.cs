@@ -26,7 +26,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
-using Core.Common.Gui.ContextMenu;
+using Core.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Components.Chart.Data;

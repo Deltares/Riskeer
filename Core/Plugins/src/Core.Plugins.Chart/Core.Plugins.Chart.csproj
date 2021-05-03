@@ -14,10 +14,10 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj" />
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj" />
     <ProjectReference Include="..\..\..\Components\src\Core.Components.Chart\Core.Components.Chart.csproj" />
+    <ProjectReference Include="..\..\..\Gui\src\Core.Gui\Core.Gui.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\chart.png" />

@@ -21,11 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Gui;
-using Core.Common.Gui.Forms.ViewHost;
-using Core.Common.Gui.Plugin;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
+using Core.Gui;
+using Core.Gui.Forms.ViewHost;
+using Core.Gui.Plugin;
 using Core.Plugins.Chart.Legend;
 using Core.Plugins.Chart.PropertyClasses;
 
