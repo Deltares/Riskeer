@@ -22,10 +22,10 @@
 using System;
 using System.Drawing;
 using Core.Common.Base.IO;
-using Core.Common.Gui.Helpers;
-using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using Core.Common.Util;
+using Core.Gui.Helpers;
+using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;

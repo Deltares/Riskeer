@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
-using Core.Common.Gui.UITypeEditors;
+using Core.Gui.UITypeEditors;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
 

@@ -21,8 +21,8 @@
 
 using System.ComponentModel;
 using Core.Common.Base.Geometry;
-using Core.Common.Gui.PropertyBag;
-using Core.Common.TestUtil;
+using Core.Gui.PropertyBag;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Piping.Forms.PropertyClasses;
 using Riskeer.Piping.Primitives;

@@ -21,10 +21,10 @@
 
 using System.Linq;
 using Core.Common.Base.IO;
-using Core.Common.Gui;
-using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
+using Core.Gui;
+using Core.Gui.Forms.MainWindow;
+using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -35,7 +35,7 @@ using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.IO.Configurations;
 using Riskeer.Piping.Primitives;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.Test.ExportInfos
 {
@@ -80,7 +80,7 @@ namespace Riskeer.Piping.Plugin.Test.ExportInfos
             Assert.AreEqual("Riskeer berekeningenconfiguratie", info.Name);
             Assert.AreEqual("xml", info.Extension);
             Assert.AreEqual("Algemeen", info.Category);
-            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
+            TestHelper.AssertImagesAreEqual(CoreGuiResources.ExportIcon, info.Image);
             Assert.IsNotNull(info.GetExportPath);
         }
 

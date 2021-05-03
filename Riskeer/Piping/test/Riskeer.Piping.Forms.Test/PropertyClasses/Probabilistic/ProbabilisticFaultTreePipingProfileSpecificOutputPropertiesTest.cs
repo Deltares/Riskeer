@@ -22,8 +22,9 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
+using Core.Gui.Converters;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;

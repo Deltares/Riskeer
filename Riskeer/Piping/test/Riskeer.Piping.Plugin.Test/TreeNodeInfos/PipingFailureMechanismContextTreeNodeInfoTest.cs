@@ -26,12 +26,12 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
-using Core.Common.Gui.Commands;
-using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using Core.Gui;
+using Core.Gui.Commands;
+using Core.Gui.ContextMenu;
+using Core.Gui.Forms.MainWindow;
+using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -56,7 +56,7 @@ using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 {
@@ -350,7 +350,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   0,
                                                                   "&Openen",
                                                                   "Open de gegevens in een nieuw documentvenster.",
-                                                                  CoreCommonGuiResources.OpenIcon,
+                                                                  CoreGuiResources.OpenIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu,
@@ -385,20 +385,20 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                                   10,
                                                                   "Alles i&nklappen",
                                                                   "Klap dit element en alle onderliggende elementen in.",
-                                                                  CoreCommonGuiResources.CollapseAllIcon,
+                                                                  CoreGuiResources.CollapseAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   11,
                                                                   "Alles ui&tklappen",
                                                                   "Klap dit element en alle onderliggende elementen uit.",
-                                                                  CoreCommonGuiResources.ExpandAllIcon,
+                                                                  CoreGuiResources.ExpandAllIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   13,
                                                                   "Ei&genschappen",
                                                                   "Toon de eigenschappen in het Eigenschappenpaneel.",
-                                                                  CoreCommonGuiResources.PropertiesHS,
+                                                                  CoreGuiResources.PropertiesHS,
                                                                   false);
 
                     CollectionAssert.AllItemsAreInstancesOfType(new[]

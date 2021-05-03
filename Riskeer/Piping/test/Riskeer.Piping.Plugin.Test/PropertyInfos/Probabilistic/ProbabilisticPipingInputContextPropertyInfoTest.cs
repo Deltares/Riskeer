@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Gui.Plugin;
-using Core.Common.Gui.PropertyBag;
+using Core.Gui.Plugin;
+using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data;

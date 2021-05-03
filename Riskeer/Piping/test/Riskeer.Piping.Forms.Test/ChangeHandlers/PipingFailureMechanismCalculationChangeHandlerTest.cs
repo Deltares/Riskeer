@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Gui.Helpers;
+using Core.Gui.Helpers;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Forms.ChangeHandlers;

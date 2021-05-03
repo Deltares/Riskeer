@@ -22,8 +22,8 @@
 using System.Linq;
 using System.Threading;
 using Core.Common.Controls.Views;
-using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
+using Core.Gui.Plugin;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;

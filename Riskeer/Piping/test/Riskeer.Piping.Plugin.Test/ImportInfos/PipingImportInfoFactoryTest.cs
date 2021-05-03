@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Gui.Helpers;
-using Core.Common.Gui.Plugin;
+using Core.Gui.Helpers;
+using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Piping.Forms.PresentationObjects;

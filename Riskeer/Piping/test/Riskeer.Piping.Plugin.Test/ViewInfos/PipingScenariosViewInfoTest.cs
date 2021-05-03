@@ -21,8 +21,8 @@
 
 using System.Linq;
 using Core.Common.Controls.Views;
-using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
+using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;

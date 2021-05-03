@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Gui.PropertyBag;
+using Core.Gui.PropertyBag;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.UITypeEditors
