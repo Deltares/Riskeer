@@ -26,10 +26,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui.Commands;
-using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Plugin;
-using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Components.Gis.Data;
@@ -37,13 +33,17 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.TestUtil;
+using Core.Gui.Commands;
+using Core.Gui.ContextMenu;
+using Core.Gui.Plugin;
+using Core.Gui.TestUtil.ContextMenu;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.PresentationObjects;
 using Core.Plugins.Map.Properties;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using GuiResources = Core.Common.Gui.Properties.Resources;
+using GuiResources = Core.Gui.Properties.Resources;
 
 namespace Core.Plugins.Map.Test.Legend
 {

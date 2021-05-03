@@ -21,11 +21,11 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Gui.Attributes;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Theme;
+using Core.Gui.Attributes;
+using Core.Gui.PropertyBag;
 using Core.Plugins.Map.Properties;
 
 namespace Core.Plugins.Map.PropertyClasses

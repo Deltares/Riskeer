@@ -21,11 +21,12 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;
+using Core.Gui.PropertyBag;
+using Core.Gui.TestUtil;
 using Core.Plugins.Map.PropertyClasses;
 using NUnit.Framework;
 

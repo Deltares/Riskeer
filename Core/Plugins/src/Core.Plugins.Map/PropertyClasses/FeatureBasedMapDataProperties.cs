@@ -24,11 +24,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Linq;
-using Core.Common.Gui.Attributes;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Core.Common.Util.Extensions;
 using Core.Components.Gis.Data;
+using Core.Gui.Attributes;
+using Core.Gui.PropertyBag;
 using Core.Plugins.Map.Properties;
 using Core.Plugins.Map.UITypeEditors;
 

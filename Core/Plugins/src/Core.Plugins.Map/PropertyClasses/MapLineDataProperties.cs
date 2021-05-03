@@ -25,14 +25,14 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
 using System.Linq;
-using Core.Common.Gui.Attributes;
-using Core.Common.Gui.Converters;
-using Core.Common.Gui.UITypeEditors;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
+using Core.Gui.Attributes;
+using Core.Gui.Converters;
+using Core.Gui.UITypeEditors;
 using Core.Plugins.Map.Properties;
 
 namespace Core.Plugins.Map.PropertyClasses

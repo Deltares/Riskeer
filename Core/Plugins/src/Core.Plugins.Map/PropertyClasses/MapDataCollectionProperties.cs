@@ -21,10 +21,10 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Core.Components.Gis.Data;
+using Core.Gui.PropertyBag;
 using Core.Plugins.Map.Properties;
 
 namespace Core.Plugins.Map.PropertyClasses

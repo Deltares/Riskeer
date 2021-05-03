@@ -21,13 +21,13 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Gui;
-using Core.Common.Gui.Forms.ViewHost;
-using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.IO.Importers;
+using Core.Gui;
+using Core.Gui.Forms.ViewHost;
+using Core.Gui.Plugin;
 using Core.Plugins.Map.Helpers;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.PresentationObjects;

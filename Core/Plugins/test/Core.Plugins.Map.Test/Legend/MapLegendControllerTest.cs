@@ -22,9 +22,9 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Controls.Views;
-using Core.Common.Gui;
-using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Forms.ViewHost;
+using Core.Gui;
+using Core.Gui.ContextMenu;
+using Core.Gui.Forms.ViewHost;
 using Core.Plugins.Map.Legend;
 using NUnit.Framework;
 using Rhino.Mocks;

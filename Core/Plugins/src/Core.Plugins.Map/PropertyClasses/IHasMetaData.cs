@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Gui.PropertyBag;
+using Core.Gui.PropertyBag;
 using Core.Plugins.Map.UITypeEditors;
 
 namespace Core.Plugins.Map.PropertyClasses

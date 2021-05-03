@@ -26,15 +26,15 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
-using Core.Common.Gui.ContextMenu;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Data.Removable;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Helpers;
+using Core.Gui.ContextMenu;
 using Core.Plugins.Map.Helpers;
 using Core.Plugins.Map.PresentationObjects;
 using MapResources = Core.Plugins.Map.Properties.Resources;
-using GuiResources = Core.Common.Gui.Properties.Resources;
+using GuiResources = Core.Gui.Properties.Resources;
 
 namespace Core.Plugins.Map.Legend
 {

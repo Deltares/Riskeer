@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Gui.Plugin;
-using Core.Common.Gui.PropertyBag;
 using Core.Components.Gis.Data;
+using Core.Gui.Plugin;
+using Core.Gui.PropertyBag;
 using Core.Plugins.Map.PresentationObjects;
 using Core.Plugins.Map.PropertyClasses;
 using NUnit.Framework;
