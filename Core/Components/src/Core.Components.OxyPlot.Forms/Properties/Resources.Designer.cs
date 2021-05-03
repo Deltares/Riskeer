@@ -40,10 +40,10 @@ namespace Core.Components.OxyPlot.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -57,7 +57,7 @@ namespace Core.Components.OxyPlot.Forms.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Core.Components.OxyPlot.Forms.Properties.Resources", typeof(Resources).Assembly);
@@ -72,7 +72,7 @@ namespace Core.Components.OxyPlot.Forms.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -84,7 +84,7 @@ namespace Core.Components.OxyPlot.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Verschuiven.
         /// </summary>
-        public static string ChartControl_Pan {
+        internal static string ChartControl_Pan {
             get {
                 return ResourceManager.GetString("ChartControl_Pan", resourceCulture);
             }
@@ -93,7 +93,7 @@ namespace Core.Components.OxyPlot.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to L.
         /// </summary>
-        public static string ChartControl_XAxisTitle {
+        internal static string ChartControl_XAxisTitle {
             get {
                 return ResourceManager.GetString("ChartControl_XAxisTitle", resourceCulture);
             }
@@ -102,7 +102,7 @@ namespace Core.Components.OxyPlot.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Hoogte.
         /// </summary>
-        public static string ChartControl_YAxisTitle {
+        internal static string ChartControl_YAxisTitle {
             get {
                 return ResourceManager.GetString("ChartControl_YAxisTitle", resourceCulture);
             }
@@ -111,7 +111,7 @@ namespace Core.Components.OxyPlot.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Zoom door rechthoek.
         /// </summary>
-        public static string ChartControl_ZoomToRectangle {
+        internal static string ChartControl_ZoomToRectangle {
             get {
                 return ResourceManager.GetString("ChartControl_ZoomToRectangle", resourceCulture);
             }
@@ -120,9 +120,19 @@ namespace Core.Components.OxyPlot.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Zoom naar alles.
         /// </summary>
-        public static string ChartControl_ZoomToVisibleLayers {
+        internal static string ChartControl_ZoomToVisibleLayers {
             get {
                 return ResourceManager.GetString("ChartControl_ZoomToVisibleLayers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Deltares_Riskeer_Symbols {
+            get {
+                object obj = ResourceManager.GetObject("Deltares_Riskeer_Symbols", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

@@ -39,7 +39,6 @@ namespace Core.Components.OxyPlot.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChartControl));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.panToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.zoomToRectangleToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -60,9 +59,9 @@ namespace Core.Components.OxyPlot.Forms
             this.toolStripSeparator1,
             this.zoomToVisibleLayersToolStripButton});
             this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.toolStrip.Location = new System.Drawing.Point(651, 0);
+            this.toolStrip.Location = new System.Drawing.Point(659, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(48, 596);
+            this.toolStrip.Size = new System.Drawing.Size(40, 596);
             this.toolStrip.TabIndex = 0;
             // 
             // panToolStripButton
@@ -70,9 +69,9 @@ namespace Core.Components.OxyPlot.Forms
             this.panToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.panToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.panToolStripButton.Name = "panToolStripButton";
-            this.panToolStripButton.Size = new System.Drawing.Size(39, 29);
+            this.panToolStripButton.Size = new System.Drawing.Size(31, 29);
             this.panToolStripButton.Text = "";
-            this.panToolStripButton.ToolTipText = Resources.ChartControl_Pan;
+            this.panToolStripButton.ToolTipText = global::Core.Components.OxyPlot.Forms.Properties.Resources.ChartControl_Pan;
             this.panToolStripButton.Click += new System.EventHandler(this.PanToolStripButtonClick);
             // 
             // zoomToRectangleToolStripButton
@@ -80,24 +79,24 @@ namespace Core.Components.OxyPlot.Forms
             this.zoomToRectangleToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.zoomToRectangleToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToRectangleToolStripButton.Name = "zoomToRectangleToolStripButton";
-            this.zoomToRectangleToolStripButton.Size = new System.Drawing.Size(39, 29);
+            this.zoomToRectangleToolStripButton.Size = new System.Drawing.Size(31, 29);
             this.zoomToRectangleToolStripButton.Text = "";
-            this.zoomToRectangleToolStripButton.ToolTipText = Resources.ChartControl_ZoomToRectangle;
+            this.zoomToRectangleToolStripButton.ToolTipText = global::Core.Components.OxyPlot.Forms.Properties.Resources.ChartControl_ZoomToRectangle;
             this.zoomToRectangleToolStripButton.Click += new System.EventHandler(this.ZoomToRectangleToolStripButtonClick);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(43, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(35, 6);
             // 
-            // zoomToAllVisibleLayersToolStripButton
+            // zoomToVisibleLayersToolStripButton
             // 
             this.zoomToVisibleLayersToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.zoomToVisibleLayersToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
-            this.zoomToVisibleLayersToolStripButton.Name = "zoomToAllVisibleLayersToolStripButton";
-            this.zoomToVisibleLayersToolStripButton.Size = new System.Drawing.Size(39, 29);
+            this.zoomToVisibleLayersToolStripButton.Name = "zoomToVisibleLayersToolStripButton";
+            this.zoomToVisibleLayersToolStripButton.Size = new System.Drawing.Size(31, 29);
             this.zoomToVisibleLayersToolStripButton.Text = "";
-            this.zoomToVisibleLayersToolStripButton.ToolTipText = Resources.ChartControl_ZoomToVisibleLayers;
+            this.zoomToVisibleLayersToolStripButton.ToolTipText = global::Core.Components.OxyPlot.Forms.Properties.Resources.ChartControl_ZoomToVisibleLayers;
             this.zoomToVisibleLayersToolStripButton.Click += new System.EventHandler(this.ZoomToAllVisibleLayersToolStripButtonClick);
             // 
             // ChartControl
@@ -105,6 +104,7 @@ namespace Core.Components.OxyPlot.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.toolStrip);
+            this.MinimumSize = new System.Drawing.Size(100, 100);
             this.Name = "ChartControl";
             this.Size = new System.Drawing.Size(699, 596);
             this.toolStrip.ResumeLayout(false);

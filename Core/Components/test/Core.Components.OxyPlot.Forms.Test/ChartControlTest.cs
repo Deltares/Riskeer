@@ -51,8 +51,6 @@ namespace Core.Components.OxyPlot.Forms.Test
                 Assert.AreEqual(100, chart.MinimumSize.Height);
                 Assert.AreEqual(100, chart.MinimumSize.Width);
                 Assert.IsNull(chart.Data);
-                Assert.IsTrue(chart.IsPanningEnabled);
-                Assert.IsFalse(chart.IsRectangleZoomingEnabled);
 
                 LinearPlotView plotView = chart.Controls.OfType<LinearPlotView>().Single();
                 Assert.AreEqual(Color.White, plotView.BackColor);
@@ -278,49 +276,6 @@ namespace Core.Components.OxyPlot.Forms.Test
                 Assert.AreEqual("Areas", series[1].Title);
                 Assert.AreEqual("Points", series[2].Title);
                 Assert.AreEqual(0, seriesBeforeUpdate.Except(series).Count());
-            }
-        }
-
-        [Test]
-        public void TogglePanning_Always_PanningEnabled()
-        {
-            // Setup
-            using (var chart = new ChartControl())
-            {
-                // Precondition
-                Assert.IsTrue(chart.IsPanningEnabled);
-
-                // Call
-                chart.TogglePanning();
-
-                // Assert
-                Assert.IsTrue(chart.IsPanningEnabled);
-                Assert.IsFalse(chart.IsRectangleZoomingEnabled);
-            }
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ToggleRectangleZooming_Always_ChangesState(bool isRectangleZooming)
-        {
-            // Setup
-            using (var chart = new ChartControl())
-            {
-                if (isRectangleZooming)
-                {
-                    chart.ToggleRectangleZooming();
-                }
-
-                // Precondition
-                Assert.AreEqual(isRectangleZooming, chart.IsRectangleZoomingEnabled);
-                Assert.AreEqual(!isRectangleZooming, chart.IsPanningEnabled);
-
-                // Call
-                chart.ToggleRectangleZooming();
-
-                // Assert
-                Assert.IsTrue(chart.IsRectangleZoomingEnabled);
             }
         }
 

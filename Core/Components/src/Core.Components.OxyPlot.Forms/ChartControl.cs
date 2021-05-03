@@ -22,12 +22,15 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using Core.Components.OxyPlot.DataSeries.Chart;
+using Core.Components.OxyPlot.Forms.Properties;
 using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Forms
@@ -39,6 +42,7 @@ namespace Core.Components.OxyPlot.Forms
     {
         private readonly RecursiveObserver<ChartDataCollection, ChartDataCollection> chartDataCollectionObserver;
         private readonly List<DrawnChartData> drawnChartDataList = new List<DrawnChartData>();
+        private readonly PrivateFontCollection fonts = new PrivateFontCollection();
 
         private LinearPlotView plotView;
         private DynamicPlotController plotController;
@@ -51,27 +55,11 @@ namespace Core.Components.OxyPlot.Forms
         {
             InitializeComponent();
 
+            InitializeFont();
+
             InitializePlotView();
 
-            MinimumSize = new Size(100, 100);
-
             chartDataCollectionObserver = new RecursiveObserver<ChartDataCollection, ChartDataCollection>(HandleChartDataCollectionChange, cdc => cdc.Collection);
-        }
-
-        public bool IsPanningEnabled
-        {
-            get
-            {
-                return plotController.IsPanningEnabled;
-            }
-        }
-
-        public bool IsRectangleZoomingEnabled
-        {
-            get
-            {
-                return plotController.IsRectangleZoomingEnabled;
-            }
         }
 
         public ChartDataCollection Data
@@ -136,27 +124,14 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
-        public void TogglePanning()
-        {
-            plotController.TogglePanning();
-        }
-
-        public void ToggleRectangleZooming()
-        {
-            plotController.ToggleRectangleZooming();
-        }
-
-        public void ZoomToAllVisibleLayers()
-        {
-            ZoomToAllVisibleLayers(Data);
-        }
-
         public void ZoomToAllVisibleLayers(ChartData layerData)
         {
             Extent extent = CreateEnvelopeForAllVisibleLayers(layerData);
+
             if (!extent.IsNaN)
             {
                 Extent extentWithPadding = extent.AddPadding(0.01);
+
                 plotView.SetExtent(extentWithPadding);
                 plotView.Refresh();
             }
@@ -170,6 +145,44 @@ namespace Core.Components.OxyPlot.Forms
             base.Dispose(disposing);
         }
 
+        [DllImport("gdi32.dll")]
+        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont,
+                                                          IntPtr pdv, [In] ref uint pcFonts);
+
+        private void InitializeFont()
+        {
+            byte[] fontData = Resources.Deltares_Riskeer_Symbols;
+            IntPtr fontPtr = Marshal.AllocCoTaskMem(fontData.Length);
+            Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
+
+            uint dummy = 0;
+            fonts.AddMemoryFont(fontPtr, Resources.Deltares_Riskeer_Symbols.Length);
+            AddFontMemResourceEx(fontPtr, (uint) Resources.Deltares_Riskeer_Symbols.Length, IntPtr.Zero, ref dummy);
+            Marshal.FreeCoTaskMem(fontPtr);
+
+            var font = new Font(fonts.Families[0], 14.0F);
+            panToolStripButton.Font = font;
+            zoomToRectangleToolStripButton.Font = font;
+            zoomToVisibleLayersToolStripButton.Font = font;
+        }
+
+        private void InitializePlotView()
+        {
+            plotController = new DynamicPlotController();
+
+            plotView = new LinearPlotView
+            {
+                BackColor = Color.White,
+                Model =
+                {
+                    IsLegendVisible = false
+                },
+                Controller = plotController
+            };
+
+            Controls.Add(plotView);
+        }
+
         /// <summary>
         /// Defines the area taken up by the visible chart data based on the provided chart data.
         /// </summary>
@@ -179,22 +192,23 @@ namespace Core.Components.OxyPlot.Forms
         /// not part of the drawn chart data.</exception>
         private Extent CreateEnvelopeForAllVisibleLayers(ChartData chartData)
         {
-            var collection = chartData as ChartDataCollection;
-            if (collection != null)
+            if (chartData is ChartDataCollection collection)
             {
                 return CreateEnvelopeForAllVisibleLayers(collection);
             }
 
             DrawnChartData drawnChartData = drawnChartDataList.FirstOrDefault(dmd => dmd.ChartData.Equals(chartData));
+
             if (drawnChartData == null)
             {
-                throw new ArgumentException($@"Can only zoom to {typeof(ChartData).Name} that is part of this {typeof(ChartControl).Name}s drawn {nameof(chartData)}.",
+                throw new ArgumentException($@"Can only zoom to {nameof(ChartData)} that is part of this {nameof(ChartControl)}s drawn {nameof(chartData)}.",
                                             nameof(chartData));
             }
 
             var extent = new Extent();
 
             ChartData chartDataDrawn = drawnChartData.ChartData;
+
             if (chartDataDrawn.IsVisible && chartDataDrawn.HasData)
             {
                 extent.ExpandToInclude(CreateExtentFor(drawnChartData.ChartDataSeries as XYAxisSeries));
@@ -213,6 +227,7 @@ namespace Core.Components.OxyPlot.Forms
         private Extent CreateEnvelopeForAllVisibleLayers(ChartDataCollection chartDataCollection)
         {
             var envelope = new Extent();
+
             foreach (ChartData childChartData in chartDataCollection.Collection)
             {
                 envelope.ExpandToInclude(CreateEnvelopeForAllVisibleLayers(childChartData));
@@ -230,23 +245,6 @@ namespace Core.Components.OxyPlot.Forms
                 chartData.MinY,
                 chartData.MaxY
             );
-        }
-
-        private void InitializePlotView()
-        {
-            plotController = new DynamicPlotController();
-
-            plotView = new LinearPlotView
-            {
-                BackColor = Color.White,
-                Model =
-                {
-                    IsLegendVisible = false
-                },
-                Controller = plotController
-            };
-
-            Controls.Add(plotView);
         }
 
         private void HandleChartDataCollectionChange()
@@ -345,6 +343,37 @@ namespace Core.Components.OxyPlot.Forms
             plotView.Model.Series.Clear();
         }
 
+        private void PanToolStripButtonClick(object sender, EventArgs e)
+        {
+            if (panToolStripButton.Checked)
+            {
+                return;
+            }
+
+            plotController.TogglePanning();
+
+            panToolStripButton.Checked = true;
+            zoomToRectangleToolStripButton.Checked = false;
+        }
+
+        private void ZoomToRectangleToolStripButtonClick(object sender, EventArgs e)
+        {
+            if (zoomToRectangleToolStripButton.Checked)
+            {
+                return;
+            }
+
+            plotController.ToggleRectangleZooming();
+
+            panToolStripButton.Checked = false;
+            zoomToRectangleToolStripButton.Checked = true;
+        }
+
+        private void ZoomToAllVisibleLayersToolStripButtonClick(object sender, EventArgs e)
+        {
+            ZoomToAllVisibleLayers(Data);
+        }
+
         /// <summary>
         /// Lookup class for administration related to drawn chart data series.
         /// </summary>
@@ -364,21 +393,6 @@ namespace Core.Components.OxyPlot.Forms
             /// The observer attached to <see cref="ChartData"/> and responsible for updating <see cref="ChartDataSeries"/>.
             /// </summary>
             public Observer Observer { get; set; }
-        }
-
-        private void PanToolStripButtonClick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ZoomToRectangleToolStripButtonClick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ZoomToAllVisibleLayersToolStripButtonClick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
     }
 }
