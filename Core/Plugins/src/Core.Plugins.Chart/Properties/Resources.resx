@@ -130,14 +130,8 @@
   <data name="LineIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PanIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\hand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="PointsIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\points.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="RectangleZoomIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\zoomrectangle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Ribbon_Toggle_Legend" xml:space="preserve">
     <value>Grafiek</value>
@@ -145,23 +139,8 @@
   <data name="Ribbon_Toggle_Legend_ToolTip" xml:space="preserve">
     <value>Open het grafiekenpaneel.</value>
   </data>
-  <data name="Ribbon_Toggle_Panning" xml:space="preserve">
-    <value>Verschuiven</value>
-  </data>
-  <data name="Ribbon_Toggle_Panning_ToolTip" xml:space="preserve">
-    <value>Om te verschuiven, houdt u de linker muisknop ingedrukt op de grafiek terwijl u de muis beweegt.</value>
-  </data>
-  <data name="Ribbon_Toggle_RectangleZooming" xml:space="preserve">
-    <value>Zoom door rechthoek</value>
-  </data>
-  <data name="Ribbon_Toggle_RectangleZooming_ToolTip" xml:space="preserve">
-    <value>Om in te zoomen met behulp van een rechthoek, houdt u de linker muisknop ingedrukt op de grafiek terwijl u de muis beweegt.</value>
-  </data>
   <data name="Ribbon_ZoomToAll" xml:space="preserve">
     <value>Zoom naar alles</value>
-  </data>
-  <data name="Ribbon_ZoomToAll_ToolTip" xml:space="preserve">
-    <value>Zet het zoomniveau van de grafiek dusdanig dat alle zichtbare elementen precies in het beeld passen.</value>
   </data>
   <data name="ZoomToAllIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\zoomextents.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

@@ -40,7 +40,7 @@ namespace Core.Plugins.Chart.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -431,29 +431,9 @@ namespace Core.Plugins.Chart.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap PanIcon {
-            get {
-                object obj = ResourceManager.GetObject("PanIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap PointsIcon {
             get {
                 object obj = ResourceManager.GetObject("PointsIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap RectangleZoomIcon {
-            get {
-                object obj = ResourceManager.GetObject("RectangleZoomIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -477,56 +457,11 @@ namespace Core.Plugins.Chart.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verschuiven.
-        /// </summary>
-        public static string Ribbon_Toggle_Panning {
-            get {
-                return ResourceManager.GetString("Ribbon_Toggle_Panning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Om te verschuiven, houdt u de linker muisknop ingedrukt op de grafiek terwijl u de muis beweegt..
-        /// </summary>
-        public static string Ribbon_Toggle_Panning_ToolTip {
-            get {
-                return ResourceManager.GetString("Ribbon_Toggle_Panning_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zoom door rechthoek.
-        /// </summary>
-        public static string Ribbon_Toggle_RectangleZooming {
-            get {
-                return ResourceManager.GetString("Ribbon_Toggle_RectangleZooming", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Om in te zoomen met behulp van een rechthoek, houdt u de linker muisknop ingedrukt op de grafiek terwijl u de muis beweegt..
-        /// </summary>
-        public static string Ribbon_Toggle_RectangleZooming_ToolTip {
-            get {
-                return ResourceManager.GetString("Ribbon_Toggle_RectangleZooming_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Zoom naar alles.
         /// </summary>
         public static string Ribbon_ZoomToAll {
             get {
                 return ResourceManager.GetString("Ribbon_ZoomToAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zet het zoomniveau van de grafiek dusdanig dat alle zichtbare elementen precies in het beeld passen..
-        /// </summary>
-        public static string Ribbon_ZoomToAll_ToolTip {
-            get {
-                return ResourceManager.GetString("Ribbon_ZoomToAll_ToolTip", resourceCulture);
             }
         }
         

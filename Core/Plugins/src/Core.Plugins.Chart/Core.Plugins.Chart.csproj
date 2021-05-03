@@ -23,11 +23,9 @@
     <None Include="Resources\chart.png" />
     <None Include="Resources\area.png" />
     <None Include="Resources\document.png" />
-    <None Include="Resources\hand.png" />
     <None Include="Resources\line.png" />
     <None Include="Resources\points.png" />
     <None Include="Resources\zoomExtents.png" />
-    <None Include="Resources\zoomRectangle.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
