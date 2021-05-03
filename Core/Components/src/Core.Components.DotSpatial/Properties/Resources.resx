@@ -123,4 +123,16 @@
   <data name="BruTileLayer_Transparency_Value_out_of_Range_0_" xml:space="preserve">
     <value>Transparantie moet in het bereik {0} liggen.</value>
   </data>
+  <data name="MapControl_Pan" xml:space="preserve">
+    <value>Verschuiven</value>
+  </data>
+  <data name="MapControl_ZoomToRectangle" xml:space="preserve">
+    <value>Zoom door rechthoek</value>
+  </data>
+  <data name="MapControl_ZoomToVisibleLayers" xml:space="preserve">
+    <value>Zoom naar alles</value>
+  </data>
+  <data name="MapControl_ShowCoordinates" xml:space="preserve">
+    <value>Toon coördinaten</value>
+  </data>
 </root>

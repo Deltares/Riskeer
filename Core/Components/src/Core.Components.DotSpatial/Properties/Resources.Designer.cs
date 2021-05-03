@@ -40,10 +40,10 @@ namespace Core.Components.DotSpatial.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -57,7 +57,7 @@ namespace Core.Components.DotSpatial.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Core.Components.DotSpatial.Properties.Resources", typeof(Resources).Assembly);
@@ -72,7 +72,7 @@ namespace Core.Components.DotSpatial.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -84,16 +84,52 @@ namespace Core.Components.DotSpatial.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Transparantie moet in het bereik {0} liggen..
         /// </summary>
-        internal static string BruTileLayer_Transparency_Value_out_of_Range_0_ {
+        public static string BruTileLayer_Transparency_Value_out_of_Range_0_ {
             get {
                 return ResourceManager.GetString("BruTileLayer_Transparency_Value_out_of_Range_0_", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Verschuiven.
+        /// </summary>
+        public static string MapControl_Pan {
+            get {
+                return ResourceManager.GetString("MapControl_Pan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toon coördinaten.
+        /// </summary>
+        public static string MapControl_ShowCoordinates {
+            get {
+                return ResourceManager.GetString("MapControl_ShowCoordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom door rechthoek.
+        /// </summary>
+        public static string MapControl_ZoomToRectangle {
+            get {
+                return ResourceManager.GetString("MapControl_ZoomToRectangle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom naar alles.
+        /// </summary>
+        public static string MapControl_ZoomToVisibleLayers {
+            get {
+                return ResourceManager.GetString("MapControl_ZoomToVisibleLayers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ongeldige transformatie parameters: transformatie moet omkeerbaar zijn..
         /// </summary>
-        internal static string WorldFile_Not_invertable_transformation_arguments_error {
+        public static string WorldFile_Not_invertable_transformation_arguments_error {
             get {
                 return ResourceManager.GetString("WorldFile_Not_invertable_transformation_arguments_error", resourceCulture);
             }

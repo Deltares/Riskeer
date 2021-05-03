@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using Core.Components.DotSpatial.Properties;
 
 namespace Core.Components.DotSpatial.Forms
 {
@@ -74,7 +75,7 @@ namespace Core.Components.DotSpatial.Forms
             this.panToolStripButton.Name = "panToolStripButton";
             this.panToolStripButton.Size = new System.Drawing.Size(39, 29);
             this.panToolStripButton.Text = "";
-            this.panToolStripButton.ToolTipText = "Verschuiven";
+            this.panToolStripButton.ToolTipText = Resources.MapControl_Pan;
             this.panToolStripButton.Click += new System.EventHandler(this.PanToolStripButtonClick);
             // 
             // zoomToRectangleToolStripButton
@@ -84,7 +85,7 @@ namespace Core.Components.DotSpatial.Forms
             this.zoomToRectangleToolStripButton.Name = "zoomToRectangleToolStripButton";
             this.zoomToRectangleToolStripButton.Size = new System.Drawing.Size(39, 29);
             this.zoomToRectangleToolStripButton.Text = "";
-            this.zoomToRectangleToolStripButton.ToolTipText = "Zoom door rechthoek";
+            this.zoomToRectangleToolStripButton.ToolTipText = Resources.MapControl_ZoomToRectangle;
             this.zoomToRectangleToolStripButton.Click += new System.EventHandler(this.ZoomToRectangleToolStripButtonClick);
             // 
             // toolStripSeparator1
@@ -99,7 +100,7 @@ namespace Core.Components.DotSpatial.Forms
             this.zoomToAllVisibleLayersToolStripButton.Name = "zoomToAllVisibleLayersToolStripButton";
             this.zoomToAllVisibleLayersToolStripButton.Size = new System.Drawing.Size(39, 29);
             this.zoomToAllVisibleLayersToolStripButton.Text = "";
-            this.zoomToAllVisibleLayersToolStripButton.ToolTipText = "Zoom naar alles";
+            this.zoomToAllVisibleLayersToolStripButton.ToolTipText = Resources.MapControl_ZoomToVisibleLayers;
             this.zoomToAllVisibleLayersToolStripButton.Click += new System.EventHandler(this.ZoomToAllVisibleLayersToolStripButtonClick);
             // 
             // toolStripSeparator2
@@ -114,7 +115,7 @@ namespace Core.Components.DotSpatial.Forms
             this.showCoordinatesToolStripButton.Name = "showCoordinatesToolStripButton";
             this.showCoordinatesToolStripButton.Size = new System.Drawing.Size(39, 29);
             this.showCoordinatesToolStripButton.Text = "";
-            this.showCoordinatesToolStripButton.ToolTipText = "Toon coördinaten";
+            this.showCoordinatesToolStripButton.ToolTipText = Resources.MapControl_ShowCoordinates;
             this.showCoordinatesToolStripButton.Click += new System.EventHandler(this.ShowCoordinatesToolStripButtonClick);
             // 
             // MapControl
