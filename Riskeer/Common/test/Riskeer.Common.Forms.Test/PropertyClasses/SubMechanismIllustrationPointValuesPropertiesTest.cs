@@ -22,9 +22,10 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
+using Core.Gui.Converters;
+using Core.Gui.PropertyBag;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Forms.PropertyClasses;

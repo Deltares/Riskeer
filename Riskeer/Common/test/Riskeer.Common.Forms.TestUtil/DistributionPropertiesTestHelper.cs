@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using Core.Common.TestUtil;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Forms.PropertyClasses;

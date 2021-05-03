@@ -37,7 +37,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Views;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Test.Views
 {
@@ -160,7 +160,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Assert
                 var infoIcon = (PictureBox) new ControlTester("infoIcon").TheObject;
-                TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.information, infoIcon.BackgroundImage);
+                TestHelper.AssertImagesAreEqual(CoreGuiResources.information, infoIcon.BackgroundImage);
                 Assert.AreEqual(ImageLayout.Center, infoIcon.BackgroundImageLayout);
 
                 var toolTip = TypeUtils.GetField<ToolTip>(view, "toolTip");

@@ -21,16 +21,16 @@
 
 using System;
 using Core.Common.Base.IO;
-using Core.Common.Gui.Helpers;
-using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
+using Core.Gui.Helpers;
+using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.ExportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Test.ExportInfos
 {
@@ -58,7 +58,7 @@ namespace Riskeer.Common.Forms.Test.ExportInfos
             Assert.AreEqual("xml", exportInfo.Extension);
             Assert.AreEqual("Algemeen", exportInfo.Category);
 
-            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, exportInfo.Image);
+            TestHelper.AssertImagesAreEqual(CoreGuiResources.ExportIcon, exportInfo.Image);
             Assert.IsTrue(exportInfo.IsEnabled(null));
 
             Assert.IsNotNull(exportInfo.GetExportPath);
@@ -89,7 +89,7 @@ namespace Riskeer.Common.Forms.Test.ExportInfos
             Assert.AreEqual("xml", exportInfo.Extension);
             Assert.AreEqual("Algemeen", exportInfo.Category);
 
-            TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, exportInfo.Image);
+            TestHelper.AssertImagesAreEqual(CoreGuiResources.ExportIcon, exportInfo.Image);
 
             Assert.IsNotNull(exportInfo.GetExportPath);
 

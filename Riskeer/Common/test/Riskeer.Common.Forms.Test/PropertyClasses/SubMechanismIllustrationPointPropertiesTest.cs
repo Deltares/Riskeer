@@ -20,9 +20,10 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using Core.Common.Util;
+using Core.Gui.Converters;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
