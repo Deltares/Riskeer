@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Core.Gui.PropertyBag;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.Properties;
 
