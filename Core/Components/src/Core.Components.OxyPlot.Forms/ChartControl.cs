@@ -59,6 +59,8 @@ namespace Core.Components.OxyPlot.Forms
 
             InitializePlotView();
 
+            panToolStripButton.PerformClick();
+
             chartDataCollectionObserver = new RecursiveObserver<ChartDataCollection, ChartDataCollection>(HandleChartDataCollectionChange, cdc => cdc.Collection);
         }
 
