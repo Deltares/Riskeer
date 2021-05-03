@@ -41,6 +41,7 @@ using Core.Gui.Forms.PropertyGridView;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using Core.Gui.Settings;
+using Core.Gui.TestUtil;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;

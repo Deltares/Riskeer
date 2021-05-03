@@ -26,6 +26,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using CategoryAttribute = System.ComponentModel.CategoryAttribute;
 

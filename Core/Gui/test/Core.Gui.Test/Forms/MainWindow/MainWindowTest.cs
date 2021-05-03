@@ -37,6 +37,7 @@ using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using Core.Gui.Settings;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 

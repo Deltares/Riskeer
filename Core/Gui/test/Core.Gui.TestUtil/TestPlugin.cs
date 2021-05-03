@@ -22,9 +22,9 @@
 using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui.Plugin;
+using Core.Gui.Plugin;
 
-namespace Core.Common.TestUtil
+namespace Core.Gui.TestUtil
 {
     /// <summary>
     /// Simple plugin that can be used in tests.
