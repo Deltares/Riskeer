@@ -65,7 +65,6 @@ namespace Core.Components.DotSpatial.Forms
         private MapDataCollection data;
         private ImageBasedMapData backgroundMapData;
         private Timer updateTimer;
-        private Font myFont;
 
         /// <summary>
         /// Creates a new instance of <see cref="MapControl"/>.
@@ -195,12 +194,11 @@ namespace Core.Components.DotSpatial.Forms
             AddFontMemResourceEx(fontPtr, (uint) Resources.Deltares_Riskeer_Symbols.Length, IntPtr.Zero, ref dummy);
             Marshal.FreeCoTaskMem(fontPtr);
 
-            myFont = new Font(fonts.Families[0], 14.0F);
-
-            panToolStripButton.Font = myFont;
-            zoomToRectangleToolStripButton.Font = myFont;
-            zoomToAllVisibleLayersToolStripButton.Font = myFont;
-            showCoordinatesToolStripButton.Font = myFont;
+            var font = new Font(fonts.Families[0], 14.0F);
+            panToolStripButton.Font = font;
+            zoomToRectangleToolStripButton.Font = font;
+            zoomToAllVisibleLayersToolStripButton.Font = font;
+            showCoordinatesToolStripButton.Font = font;
         }
 
         private void InitializeMap()
@@ -497,10 +495,13 @@ namespace Core.Components.DotSpatial.Forms
         public void ZoomToAllVisibleLayers(MapData layerData)
         {
             Envelope envelope = CreateEnvelopeForAllVisibleLayers(layerData);
+
             if (!envelope.IsNull)
             {
-                var extent = envelope.ToExtent();
+                Extent extent = envelope.ToExtent();
+
                 AddPadding(extent);
+
                 map.ViewExtents = extent;
             }
         }
@@ -508,6 +509,7 @@ namespace Core.Components.DotSpatial.Forms
         private static void AddPadding(Extent extent)
         {
             double padding = Math.Min(extent.Height, extent.Width) * 0.05;
+
             if (Math.Max(extent.Height, extent.Width) + padding <= double.MaxValue)
             {
                 extent.ExpandBy(padding);
@@ -529,13 +531,15 @@ namespace Core.Components.DotSpatial.Forms
             }
 
             DrawnMapData drawnMapData = drawnMapDataList.FirstOrDefault(dmd => dmd.FeatureBasedMapData.Equals(mapData));
+
             if (drawnMapData == null)
             {
                 throw new ArgumentException($@"Can only zoom to {nameof(MapData)} that is part of this {nameof(MapControl)}s drawn {nameof(mapData)}.",
                                             nameof(mapData));
             }
 
-            Envelope envelope = new Envelope();
+            var envelope = new Envelope();
+
             if (LayerHasVisibleExtent(drawnMapData.FeatureBasedMapDataLayer))
             {
                 envelope.ExpandToInclude(drawnMapData.FeatureBasedMapDataLayer.Extent.ToEnvelope());
@@ -553,7 +557,8 @@ namespace Core.Components.DotSpatial.Forms
         /// any of its children is not part of the drawn map features.</exception>
         private Envelope CreateEnvelopeForAllVisibleLayers(MapDataCollection mapData)
         {
-            Envelope envelope = new Envelope();
+            var envelope = new Envelope();
+
             foreach (MapData childMapData in mapData.Collection)
             {
                 envelope.ExpandToInclude(CreateEnvelopeForAllVisibleLayers(childMapData));

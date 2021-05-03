@@ -63,13 +63,13 @@ namespace Core.Components.DotSpatial.Forms.Test
         private string settingsDirectory;
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_DefaultValues()
         {
             // Call
             using (var map = new MapControl())
             {
                 // Assert
-                Assert.IsInstanceOf<Control>(map);
+                Assert.IsInstanceOf<UserControl>(map);
                 Assert.IsInstanceOf<IMapControl>(map);
                 Assert.IsNull(map.Data);
                 Assert.IsNull(map.BackgroundMapData);
@@ -78,7 +78,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void DefaultConstructor_MapCorrectlyInitialized()
+        public void Constructor_MapCorrectlyInitialized()
         {
             using (var form = new Form())
             {
@@ -440,10 +440,10 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         private static Extent GetExpectedExtent(FeatureBasedMapData visibleMapData)
         {
-            double minX = double.MaxValue;
-            double maxX = double.MinValue;
-            double minY = double.MaxValue;
-            double maxY = double.MinValue;
+            var minX = double.MaxValue;
+            var maxX = double.MinValue;
+            var minY = double.MaxValue;
+            var maxY = double.MinValue;
 
             foreach (MapFeature feature in visibleMapData.Features)
             {
@@ -668,12 +668,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                 ProjectionInfo originalProjection = mapView.Projection;
 
                 // When
-                Action call = () => map.BackgroundMapData = backgroundMapData;
+                void Call() => map.BackgroundMapData = backgroundMapData;
 
                 // Then
                 const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
 
                 Assert.AreEqual(0, mapView.Layers.Count);
 
@@ -702,12 +702,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // When
-                Action call = () => map.BackgroundMapData = backgroundMapData;
+                void Call() => map.BackgroundMapData = backgroundMapData;
 
                 // Then
                 const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
 
                 Assert.AreEqual(0, mapView.Layers.Count);
 
@@ -730,10 +730,10 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var map = new MapControl())
             {
                 // Precondition
-                Action setAndCauseFailingInitialization = () => map.BackgroundMapData = backgroundMapData;
+                void SetAndCauseFailingInitialization() => map.BackgroundMapData = backgroundMapData;
                 const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(setAndCauseFailingInitialization, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+                TestHelper.AssertLogMessageWithLevelIsGenerated(SetAndCauseFailingInitialization, Tuple.Create(expectedMessage, LogLevelConstant.Error));
 
                 using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
                 {
@@ -769,10 +769,10 @@ namespace Core.Components.DotSpatial.Forms.Test
                 helper.LockDirectory(FileSystemRights.Write);
 
                 // Precondition
-                Action setAndCauseCacheInitializationFailure = () => map.BackgroundMapData = backgroundMapData;
+                void SetAndCauseCacheInitializationFailure() => map.BackgroundMapData = backgroundMapData;
                 const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageIsGenerated(setAndCauseCacheInitializationFailure, expectedMessage, 1);
+                TestHelper.AssertLogMessageIsGenerated(SetAndCauseCacheInitializationFailure, expectedMessage, 1);
 
                 helper.UnlockDirectory();
 
@@ -807,16 +807,16 @@ namespace Core.Components.DotSpatial.Forms.Test
                 ProjectionInfo originalProjection = mapView.Projection;
 
                 // Precondition
-                Action setAndCauseFailToInitializeLayer = () => map.BackgroundMapData = backgroundMapData;
+                void SetAndCauseFailToInitializeLayer() => map.BackgroundMapData = backgroundMapData;
                 const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageIsGenerated(setAndCauseFailToInitializeLayer, expectedMessage, 1);
+                TestHelper.AssertLogMessageIsGenerated(SetAndCauseFailToInitializeLayer, expectedMessage, 1);
 
                 // When
-                Action call = () => backgroundMapData.NotifyObservers();
+                void Call() => backgroundMapData.NotifyObservers();
 
                 // Then
-                TestHelper.AssertLogMessagesCount(call, 0);
+                TestHelper.AssertLogMessagesCount(Call, 0);
 
                 Assert.AreEqual(0, mapView.Layers.Count);
 
@@ -825,7 +825,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void GivenMapControlWithFailedCacheforBackgroundMapData_WhenBackgroundNotifiesObservers_ThenFailedInitializationShouldNotGenerateLogMessage()
+        public void GivenMapControlWithFailedCacheForBackgroundMapData_WhenBackgroundNotifiesObservers_ThenFailedInitializationShouldNotGenerateLogMessage()
         {
             // Given
             string folderWithoutPermission = Path.GetRandomFileName();
@@ -846,16 +846,16 @@ namespace Core.Components.DotSpatial.Forms.Test
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Precondition
-                Action setAndCauseCacheInitializationFailure = () => map.BackgroundMapData = backgroundMapData;
+                void SetAndCauseCacheInitializationFailure() => map.BackgroundMapData = backgroundMapData;
                 const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageIsGenerated(setAndCauseCacheInitializationFailure, expectedMessage, 1);
+                TestHelper.AssertLogMessageIsGenerated(SetAndCauseCacheInitializationFailure, expectedMessage, 1);
 
                 // When
-                Action call = () => backgroundMapData.NotifyObservers();
+                void Call() => backgroundMapData.NotifyObservers();
 
                 // Then
-                TestHelper.AssertLogMessagesCount(call, 0);
+                TestHelper.AssertLogMessagesCount(Call, 0);
 
                 Assert.AreEqual(0, mapView.Layers.Count);
 
@@ -1427,15 +1427,15 @@ namespace Core.Components.DotSpatial.Forms.Test
                 mapDataCollection.Add(mapPointData);
 
                 // When
-                Action call = () =>
+                void Call()
                 {
                     map.BackgroundMapData = backgroundMapData;
                     map.Data = mapDataCollection;
-                };
+                }
 
                 // Then
                 const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1); // Message should only the generated once!
+                TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1); // Message should only the generated once!
 
                 Assert.AreEqual(1, mapView.Layers.Count);
                 var pointsLayer = (FeatureLayer) mapView.Layers[0];
@@ -1487,16 +1487,16 @@ namespace Core.Components.DotSpatial.Forms.Test
                 mapDataCollection.Add(mapPointData);
 
                 // When
-                Action call = () =>
+                void Call()
                 {
                     map.BackgroundMapData = backgroundMapData;
                     map.Data = mapDataCollection;
-                };
+                }
 
                 // Then
                 const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+                TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
 
                 Assert.AreEqual(1, mapView.Layers.Count);
                 var pointsLayer = (FeatureLayer) mapView.Layers[0];
@@ -1552,7 +1552,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y, 1e-6,
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
 
-                Action callAction = () =>
+                void Call()
                 {
                     // When
                     mapPointData.Features = new[]
@@ -1569,19 +1569,18 @@ namespace Core.Components.DotSpatial.Forms.Test
                         })
                     };
                     mapPointData.NotifyObservers();
-                };
-                Action assertAction = () =>
+                }
+
+                void AssertAction()
                 {
                     // Then
                     CollectionAssert.AreEqual(layersBeforeUpdate, mapView.Layers);
                     Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
-                    Assert.AreEqual(535405.97207404568, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X, 1e-6,
-                                    "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=12345.6789000&y=9876.5432100).");
-                    Assert.AreEqual(5323789.7111355662, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y, 1e-6,
-                                    "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=12345.6789000&y=9876.5432100).");
-                };
+                    Assert.AreEqual(535405.97207404568, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X, 1e-6, "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=12345.6789000&y=9876.5432100).");
+                    Assert.AreEqual(5323789.7111355662, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y, 1e-6, "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=12345.6789000&y=9876.5432100).");
+                }
 
-                TestHelper.PerformActionWithDelayedAssert(callAction, assertAction, 20);
+                TestHelper.PerformActionWithDelayedAssert(Call, AssertAction, 20);
             }
         }
 
@@ -1592,7 +1591,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         /// <returns>The data for the test cases.</returns>
         /// <remarks>Some test runners, like TeamCity, cannot properly deal with reuse of
         /// <see cref="TestCaseData"/> sources where the source defines a name of the test,
-        /// as these testrunners to not display tests in hierarchical form.</remarks>
+        /// as these test runners to not display tests in hierarchical form.</remarks>
         private static IEnumerable<TestCaseData> GetProblematicTileSourceFactoryTestCaseData(string prefix)
         {
             var factoryWithoutRequiredTileSource = MockRepository.GenerateStub<ITileSourceFactory>();
@@ -1664,13 +1663,13 @@ namespace Core.Components.DotSpatial.Forms.Test
                 ProjectionInfo originalProjection = mapView.Projection;
 
                 // When
-                Action call = () => map.BackgroundMapData = backgroundMapData;
+                void Call() => map.BackgroundMapData = backgroundMapData;
 
                 // Then
                 string tileDisplayName = TypeUtils.GetDisplayName(backgroundMapData.TileSource);
                 string expectedMessage = $"Verbinden met '{tileDisplayName}' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. "
                                          + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
 
                 Assert.AreEqual(0, mapView.Layers.Count);
 
@@ -1699,12 +1698,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // When
-                Action call = () => map.BackgroundMapData = backgroundMapData;
+                void Call() => map.BackgroundMapData = backgroundMapData;
 
                 // Then
                 const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
 
                 Assert.AreEqual(0, mapView.Layers.Count);
 
@@ -1728,10 +1727,10 @@ namespace Core.Components.DotSpatial.Forms.Test
             {
                 // Precondition
                 string tileDisplayName = TypeUtils.GetDisplayName(backgroundMapData.TileSource);
-                Action setAndCauseFailingInitialization = () => map.BackgroundMapData = backgroundMapData;
+                void SetAndCauseFailingInitialization() => map.BackgroundMapData = backgroundMapData;
                 string expectedMessage = $"Verbinden met '{tileDisplayName}' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. "
                                          + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(setAndCauseFailingInitialization, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+                TestHelper.AssertLogMessageWithLevelIsGenerated(SetAndCauseFailingInitialization, Tuple.Create(expectedMessage, LogLevelConstant.Error));
 
                 using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
                 {
@@ -1765,11 +1764,12 @@ namespace Core.Components.DotSpatial.Forms.Test
             using (var map = new MapControl())
             {
                 helper.LockDirectory(FileSystemRights.Write);
+
                 // Precondition
-                Action setAndCauseCacheInitializationFailure = () => map.BackgroundMapData = backgroundMapData;
+                void SetAndCauseCacheInitializationFailure() => map.BackgroundMapData = backgroundMapData;
                 const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageIsGenerated(setAndCauseCacheInitializationFailure, expectedMessage, 1);
+                TestHelper.AssertLogMessageIsGenerated(SetAndCauseCacheInitializationFailure, expectedMessage, 1);
                 helper.UnlockDirectory();
 
                 // When
@@ -1804,23 +1804,23 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Precondition
                 string tileDisplayName = TypeUtils.GetDisplayName(backgroundMapData.TileSource);
-                Action setAndCauseFailToInitializeLayer = () => map.BackgroundMapData = backgroundMapData;
+                void SetAndCauseFailToInitializeLayer() => map.BackgroundMapData = backgroundMapData;
                 string expectedMessage = $"Verbinden met '{tileDisplayName}' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. "
                                          + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(setAndCauseFailToInitializeLayer, Tuple.Create(expectedMessage, LogLevelConstant.Error));
+                TestHelper.AssertLogMessageWithLevelIsGenerated(SetAndCauseFailToInitializeLayer, Tuple.Create(expectedMessage, LogLevelConstant.Error));
 
                 // When
-                Action call = () => backgroundMapData.NotifyObservers();
+                void Call() => backgroundMapData.NotifyObservers();
 
                 // Then
-                TestHelper.AssertLogMessagesCount(call, 0);
+                TestHelper.AssertLogMessagesCount(Call, 0);
                 Assert.AreEqual(0, mapView.Layers.Count);
                 Assert.AreSame(originalProjection, mapView.Projection);
             }
         }
 
         [Test]
-        public void GivenMapControlWithFailedCacheforBackgroundMapData_WhenWellKnownBackgroundNotifiesObservers_ThenFailedInitializationShouldNotGenerateLogMessage()
+        public void GivenMapControlWithFailedCacheForBackgroundMapData_WhenWellKnownBackgroundNotifiesObservers_ThenFailedInitializationShouldNotGenerateLogMessage()
         {
             // Given
             string folderWithoutPermission = Path.GetRandomFileName();
@@ -1840,16 +1840,16 @@ namespace Core.Components.DotSpatial.Forms.Test
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Precondition
-                Action setAndCauseCacheInitializationFailure = () => map.BackgroundMapData = backgroundMapData;
+                void SetAndCauseCacheInitializationFailure() => map.BackgroundMapData = backgroundMapData;
                 const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageIsGenerated(setAndCauseCacheInitializationFailure, expectedMessage, 1);
+                TestHelper.AssertLogMessageIsGenerated(SetAndCauseCacheInitializationFailure, expectedMessage, 1);
 
                 // When
-                Action call = () => backgroundMapData.NotifyObservers();
+                void Call() => backgroundMapData.NotifyObservers();
 
                 // Then
-                TestHelper.AssertLogMessagesCount(call, 0);
+                TestHelper.AssertLogMessagesCount(Call, 0);
                 Assert.AreEqual(0, mapView.Layers.Count);
                 Assert.AreSame(originalProjection, mapView.Projection);
             }
@@ -1983,17 +1983,17 @@ namespace Core.Components.DotSpatial.Forms.Test
                 mapDataCollection.Add(mapPointData);
 
                 // When
-                Action call = () =>
+                void Call()
                 {
                     map.BackgroundMapData = backgroundMapData;
                     map.Data = mapDataCollection;
-                };
+                }
 
                 // Then
                 string expectedMessage = $"Verbinden met '{TypeUtils.GetDisplayName(backgroundMapData.TileSource)}' " +
                                          "is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. " +
                                          "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1); // Message should only the generated once!
+                TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1); // Message should only the generated once!
 
                 Assert.AreEqual(1, mapView.Layers.Count);
                 var pointsLayer = (FeatureLayer) mapView.Layers[0];
@@ -2044,16 +2044,16 @@ namespace Core.Components.DotSpatial.Forms.Test
                 mapDataCollection.Add(mapPointData);
 
                 // When
-                Action call = () =>
+                void Call()
                 {
                     map.BackgroundMapData = backgroundMapData;
                     map.Data = mapDataCollection;
-                };
+                }
 
                 // Then
                 const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
-                TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+                TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
 
                 Assert.AreEqual(1, mapView.Layers.Count);
                 var pointsLayer = (FeatureLayer) mapView.Layers[0];
@@ -2371,11 +2371,11 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapData = new MapPointData("Test data");
 
                 // Call
-                TestDelegate call = () => map.ZoomToAllVisibleLayers(mapData);
+                void Call() => map.ZoomToAllVisibleLayers(mapData);
 
                 // Assert
                 const string message = "Can only zoom to MapData that is part of this MapControls drawn mapData.";
-                string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
+                string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, message).ParamName;
                 Assert.AreEqual("mapData", paramName);
             }
         }
