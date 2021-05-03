@@ -1,0 +1,84 @@
+<!--
+Copyright (C) Stichting Deltares 2020. All rights reserved.
+
+This file is part of D-GEO Suite Stability.
+
+D-GEO Suite Stability is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+All names, logos, and references to "Deltares" are registered trademarks of
+Stichting Deltares and remain full property of Stichting Deltares at all times.
+All rights reserved.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+                    xmlns:mainWindow="clr-namespace:Core.Gui.Forms.MainWindow">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/Symbols/RiskeerSymbols.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Color x:Key="DeltaresBlue">#008BBF</Color>
+    <Color x:Key="DeltaresDarkerBlue">#006F99</Color>
+    <Color x:Key="DeltaresSand">#9F9E8E</Color>
+    <Color x:Key="Gray">#C6C6C6</Color>
+    <Color x:Key="White">#FFFFFF</Color>
+    <Color x:Key="Black">#000000</Color>
+    <Color x:Key="MainButtonBarBackground">#F1F1EE</Color>
+    <Color x:Key="Transparent">#00FFFFFF</Color>
+    <Color x:Key="MainButtonBarPressedButtonBackground">#e4e4df</Color>
+    <Color x:Key="MainButtonBarPressedButtonBorder">#d2d2ca</Color>
+
+    <SolidColorBrush x:Key="MainButtonBarBottomBorderBrush" Color="{StaticResource DeltaresSand}" />
+    <SolidColorBrush x:Key="MainButtonBarBackgroundBrush" Color="{StaticResource MainButtonBarBackground}" />
+    <SolidColorBrush x:Key="MainButtonBarPressedButtonBackgroundBrush" Color="{StaticResource MainButtonBarPressedButtonBackground}" />
+    <SolidColorBrush x:Key="MainButtonBarPressedButtonBorderBrush" Color="{StaticResource MainButtonBarPressedButtonBorder}" />
+
+    <SolidColorBrush x:Key="WindowGlowBrush" Color="{StaticResource Black}" />
+    <SolidColorBrush x:Key="WindowOverlayBrush" Color="{StaticResource Black}" Opacity="0.5" />
+    <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource DeltaresSand}" Opacity="0.25" options:Freeze="True" />
+    <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource DeltaresBlue}" options:Freeze="True" />
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource DeltaresBlue}" options:Freeze="True" />
+
+    <SolidColorBrush x:Key="ButtonHoverBackgroundBrush" Color="{StaticResource White}" Opacity="0.2" />
+
+    <SolidColorBrush x:Key="TransparentBrush" Color="{StaticResource Transparent}" />
+
+    <SolidColorBrush x:Key="DisabledButtonBackgroundBrush" Color="{StaticResource Black}" Opacity="0.15" />
+    <SolidColorBrush x:Key="DisabledButtonForegroundBrush" Color="{StaticResource Black}" />
+
+    <SolidColorBrush x:Key="SeparatorBackgroundBrush" Color="{StaticResource DeltaresSand}" Opacity="0.25" />
+
+    <SolidColorBrush x:Key="DeltaresDarkerBlueBrush" Color="{StaticResource DeltaresDarkerBlue}" />
+    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}" />
+
+    <Style TargetType="mainWindow:MainWindow">
+        <Setter Property="GlowBrush" Value="{DynamicResource WindowGlowBrush}" />
+        <Setter Property="OverlayBrush" Value="{DynamicResource WindowOverlayBrush}" />
+        <Setter Property="WindowTitleBrush" Value="{DynamicResource WindowTitleColorBrush}" />
+        <Setter Property="Title" Value="Riskeer" />
+        <Setter Property="Icon" Value="../Resources/Riskeer.ico" />
+        <Setter Property="TitleAlignment" Value="Center"/>
+        <Setter Property="ShowIconOnTitleBar" Value="False" />
+        <Setter Property="Height" Value="350" />
+        <Setter Property="Width" Value="525" />
+    </Style>
+
+    <Style x:Key="MainButtonBarSeparatorStyle" TargetType="{x:Type Separator}"
+           BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
+        <Setter Property="Width" Value="1"/>
+        <Setter Property="Height" Value="84"/>
+        <Setter Property="Background" Value="{StaticResource SeparatorBackgroundBrush}" />
+    </Style>
+
+</ResourceDictionary>

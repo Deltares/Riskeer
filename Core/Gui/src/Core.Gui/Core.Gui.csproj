@@ -1,0 +1,144 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)build\Source.targets" />
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
+      <Link>Copying.Lesser.licenseheader</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-000-medium.png" />
+    <None Include="Resources\Busy indicator.gif" />
+    <None Include="Resources\arrow.png" />
+    <None Include="Resources\arrow-stop-090.png" />
+    <None Include="Resources\arrow-stop-270.png" />
+    <None Include="Resources\table-import.png" />
+    <None Include="Resources\table-export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Forms\MainWindow\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\SplashScreen\SplashScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\ViewHost\AvalonDockViewHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <None Remove="Style\DeltaresStyle.xaml" />
+    <Page Include="Style\DeltaresStyle.xaml" />
+    <None Remove="Style\DeltaresRadioButtonStyle.xaml" />
+    <None Remove="Style\DeltaresGeneralStyle.xaml" />
+    <Page Include="Style\DeltaresGeneralStyle.xaml" />
+    <None Remove="Style\Symbols\RiskeerSymbols.xaml" />
+    <Page Include="Style\Symbols\RiskeerSymbols.xaml" />
+    <None Remove="Style\DeltaresButtonStyle.xaml" />
+    <Page Include="Style\DeltaresButtonStyle.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\application_import_blue.ico" />
+    <Resource Include="Resources\application_import_blue.png" />
+    <Resource Include="Resources\application_view_list.png" />
+    <Resource Include="Resources\brick.png" />
+    <Resource Include="Resources\Copy.png" />
+    <Resource Include="Resources\CopyHS.png" />
+    <Resource Include="Resources\DeleteHS.png" />
+    <Resource Include="Resources\error.png" />
+    <Resource Include="Resources\exclamation.png" />
+    <Resource Include="Resources\folder.png" />
+    <Resource Include="Resources\icon_clear_all_messages.PNG" />
+    <Resource Include="Resources\information.png" />
+    <Resource Include="Resources\Paste.png" />
+    <Resource Include="Resources\PasteLarge.png" />
+    <Resource Include="Resources\PropertiesHS.png" />
+    <Resource Include="Resources\Riskeer.ico" />
+    <Resource Include="Resources\SplashScreenBackground.png" />
+    <None Remove="Style\Symbols\Deltares-Riskeer-Symbols.ttf" />
+    <Resource Include="Style\Symbols\Deltares-Riskeer-Symbols.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow-000-medium-question-mark.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\key.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\project-16.png" />
+    <None Include="Resources\broom.png" />
+    <None Include="Resources\table_refresh.png" />
+    <None Include="Resources\bug-exclamation.ico" />
+    <None Include="Resources\textfield_rename.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AvalonDock">
+      <Version>2.0.2000</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="ControlzEx">
+      <Version>4.4.0</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.12</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="MahApps.Metro">
+      <Version>2.4.4</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
+      <Version>1.1.31</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Forms\ProjectExplorer\ProjectExplorer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /d/s/y &quot;$(PkgAvalonDock)\lib\net40\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\AvalonDock-2.0.2000\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgControlzEx)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\ControlzEx-4.4.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(ProjectDir)\nl\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\AvalonDock-2.0.2000\nl\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\Log4net-2.0.12\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgMahApps_Metro)\lib\net46\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\MahApps.Metro-2.4.4\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgMicrosoft_Xaml_Behaviors_Wpf)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\Microsoft.Xaml.Behaviors.Wpf-1.1.31\*&quot;" />
+  </Target>
+</Project>
