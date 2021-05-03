@@ -21,9 +21,9 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Gui.Converters;
-using Core.Common.Gui.PropertyBag;
-using Core.Common.TestUtil;
+using Core.Gui.Converters;
+using Core.Gui.PropertyBag;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.PropertyClasses;

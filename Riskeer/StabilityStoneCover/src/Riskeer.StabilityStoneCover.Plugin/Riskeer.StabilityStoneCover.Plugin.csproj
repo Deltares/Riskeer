@@ -12,27 +12,27 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj"/>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj"/>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj"/>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj"/>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj"/>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Plugin\Riskeer.Common.Plugin.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj"/>
-    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj"/>
-    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Forms\Riskeer.Revetment.Forms.csproj"/>
-    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Service\Riskeer.Revetment.Service.csproj"/>
-    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.IO\Riskeer.Revetment.IO.csproj"/>
-    <ProjectReference Include="..\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj"/>
-    <ProjectReference Include="..\Riskeer.StabilityStoneCover.Forms\Riskeer.StabilityStoneCover.Forms.csproj"/>
-    <ProjectReference Include="..\Riskeer.StabilityStoneCover.IO\Riskeer.StabilityStoneCover.IO.csproj"/>
-    <ProjectReference Include="..\Riskeer.StabilityStoneCover.Service\Riskeer.StabilityStoneCover.Service.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Gui\src\Core.Gui\Core.Gui.csproj" />
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Plugin\Riskeer.Common.Plugin.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj" />
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj" />
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Forms\Riskeer.Revetment.Forms.csproj" />
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Service\Riskeer.Revetment.Service.csproj" />
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.IO\Riskeer.Revetment.IO.csproj" />
+    <ProjectReference Include="..\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj" />
+    <ProjectReference Include="..\Riskeer.StabilityStoneCover.Forms\Riskeer.StabilityStoneCover.Forms.csproj" />
+    <ProjectReference Include="..\Riskeer.StabilityStoneCover.IO\Riskeer.StabilityStoneCover.IO.csproj" />
+    <ProjectReference Include="..\Riskeer.StabilityStoneCover.Service\Riskeer.StabilityStoneCover.Service.csproj" />
   </ItemGroup>
 </Project>
