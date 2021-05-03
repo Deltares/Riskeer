@@ -21,5 +21,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Core.Common.Gui.TestUtil")]
-[assembly: AssemblyProduct("Core.Common.Gui.TestUtil")]
+[assembly: AssemblyTitle("Core.Gui.TestUtil")]
+[assembly: AssemblyProduct("Core.Gui.TestUtil")]

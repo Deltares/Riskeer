@@ -22,6 +22,8 @@
 using System;
 using System.Data;
 using System.Windows.Forms;
+using Core.Gui.Clipboard;
+using Core.Gui.TestUtil.Clipboard;
 using log4net.Core;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;

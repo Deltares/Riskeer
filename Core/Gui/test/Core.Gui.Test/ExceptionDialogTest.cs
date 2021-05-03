@@ -23,6 +23,7 @@ using System;
 using System.Windows.Forms;
 using Core.Gui.Clipboard;
 using Core.Gui.Commands;
+using Core.Gui.TestUtil.Clipboard;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;

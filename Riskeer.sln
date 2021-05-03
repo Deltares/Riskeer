@@ -1763,6 +1763,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Gui.Test", "Core\Gui\t
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Gui.TestUtil", "Core\Gui\test\Core.Gui.TestUtil\Core.Gui.TestUtil.csproj", "{073EE964-974D-442E-801F-F4FCD6D303F5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -3579,6 +3584,12 @@ Global
 		{D0C7032E-5730-46D1-A06F-7C4F06BA590A}.Release|x86.Build.0 = Release|x86
 		{D0C7032E-5730-46D1-A06F-7C4F06BA590A}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{D0C7032E-5730-46D1-A06F-7C4F06BA590A}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{073EE964-974D-442E-801F-F4FCD6D303F5}.Debug|x86.ActiveCfg = Debug|x86
+		{073EE964-974D-442E-801F-F4FCD6D303F5}.Debug|x86.Build.0 = Debug|x86
+		{073EE964-974D-442E-801F-F4FCD6D303F5}.Release|x86.ActiveCfg = Release|x86
+		{073EE964-974D-442E-801F-F4FCD6D303F5}.Release|x86.Build.0 = Release|x86
+		{073EE964-974D-442E-801F-F4FCD6D303F5}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{073EE964-974D-442E-801F-F4FCD6D303F5}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3961,6 +3972,7 @@ Global
 		{F73AF5D7-DDD9-4A48-A171-037817B59056} = {94E919CC-F375-485D-A849-3CE3FCC9B2C3}
 		{FE63A65E-C5AF-456D-A786-912F9B7E26A1} = {8BE49C65-DD09-4890-82B1-5216BF13E757}
 		{D0C7032E-5730-46D1-A06F-7C4F06BA590A} = {F73AF5D7-DDD9-4A48-A171-037817B59056}
+		{073EE964-974D-442E-801F-F4FCD6D303F5} = {F73AF5D7-DDD9-4A48-A171-037817B59056}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {039D31AA-B517-4354-B8CD-0B2B826D0B1F}

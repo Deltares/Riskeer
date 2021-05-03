@@ -21,9 +21,9 @@
 
 using System;
 using System.Windows.Forms;
-using Core.Common.Gui.Clipboard;
+using Core.Gui.Clipboard;
 
-namespace Core.Common.Gui.TestUtil.Clipboard
+namespace Core.Gui.TestUtil.Clipboard
 {
     /// <summary>
     /// This class can be used to set a temporary <see cref="IClipboard"/> for <see cref="ClipboardProvider"/> while

@@ -22,10 +22,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Plugin;
+using Core.Gui.ContextMenu;
+using Core.Gui.Plugin;
 
-namespace Core.Common.Gui.TestUtil.ContextMenu
+namespace Core.Gui.TestUtil.ContextMenu
 {
     /// <summary>
     /// This class can be used for easily testing the custom items which are added to a context menu.

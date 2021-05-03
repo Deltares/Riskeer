@@ -29,6 +29,7 @@
     <ProjectReference Include="..\..\src\Core.Gui\Core.Gui.csproj" />
     <ProjectReference Include="..\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj" />
     <ProjectReference Include="..\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
+    <ProjectReference Include="..\Core.Gui.TestUtil\Core.Gui.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">

@@ -22,10 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Gui.Plugin;
+using Core.Gui.Plugin;
 using NUnit.Framework;
 
-namespace Core.Common.Gui.TestUtil
+namespace Core.Gui.TestUtil
 {
     /// <summary>
     /// Contains routines for testing classes which are related to GUI.
