@@ -50,12 +50,28 @@ namespace Core.Components.OxyPlot.Forms
         public ChartControl()
         {
             InitializeComponent();
-            
+
             InitializePlotView();
-            
+
             MinimumSize = new Size(100, 100);
 
             chartDataCollectionObserver = new RecursiveObserver<ChartDataCollection, ChartDataCollection>(HandleChartDataCollectionChange, cdc => cdc.Collection);
+        }
+
+        public bool IsPanningEnabled
+        {
+            get
+            {
+                return plotController.IsPanningEnabled;
+            }
+        }
+
+        public bool IsRectangleZoomingEnabled
+        {
+            get
+            {
+                return plotController.IsRectangleZoomingEnabled;
+            }
         }
 
         public ChartDataCollection Data
@@ -117,22 +133,6 @@ namespace Core.Components.OxyPlot.Forms
             set
             {
                 plotView.LeftAxisTitle = value;
-            }
-        }
-
-        public bool IsPanningEnabled
-        {
-            get
-            {
-                return plotController.IsPanningEnabled;
-            }
-        }
-
-        public bool IsRectangleZoomingEnabled
-        {
-            get
-            {
-                return plotController.IsRectangleZoomingEnabled;
             }
         }
 

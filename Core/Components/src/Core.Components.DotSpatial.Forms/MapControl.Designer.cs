@@ -66,7 +66,7 @@ namespace Core.Components.DotSpatial.Forms
             this.toolStrip.Location = new System.Drawing.Point(649, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(48, 611);
-            this.toolStrip.TabIndex = 2;
+            this.toolStrip.TabIndex = 0;
             // 
             // panToolStripButton
             // 
