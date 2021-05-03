@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Forms.Design;
-using Core.Common.Gui.PropertyBag;
+using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;

@@ -21,9 +21,10 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using Core.Common.Util;
+using Core.Gui.PropertyBag;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;

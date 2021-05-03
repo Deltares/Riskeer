@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Gui.Helpers;
+using Core.Gui.Helpers;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Util;
