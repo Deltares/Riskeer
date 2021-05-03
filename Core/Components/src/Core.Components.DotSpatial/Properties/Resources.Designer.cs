@@ -91,42 +91,6 @@ namespace Core.Components.DotSpatial.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verschuiven.
-        /// </summary>
-        public static string MapControl_Pan {
-            get {
-                return ResourceManager.GetString("MapControl_Pan", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toon coördinaten.
-        /// </summary>
-        public static string MapControl_ShowCoordinates {
-            get {
-                return ResourceManager.GetString("MapControl_ShowCoordinates", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zoom door rechthoek.
-        /// </summary>
-        public static string MapControl_ZoomToRectangle {
-            get {
-                return ResourceManager.GetString("MapControl_ZoomToRectangle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zoom naar alles.
-        /// </summary>
-        public static string MapControl_ZoomToVisibleLayers {
-            get {
-                return ResourceManager.GetString("MapControl_ZoomToVisibleLayers", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ongeldige transformatie parameters: transformatie moet omkeerbaar zijn..
         /// </summary>
         public static string WorldFile_Not_invertable_transformation_arguments_error {

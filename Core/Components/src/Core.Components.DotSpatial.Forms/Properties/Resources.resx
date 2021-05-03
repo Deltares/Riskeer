@@ -124,4 +124,16 @@
   <data name="MapControl_HandleBruTileInitializationException_Message_0_therefore_cannot_show_background_layer" xml:space="preserve">
     <value>{0} De achtergrondkaart kan nu niet getoond worden.</value>
   </data>
+  <data name="MapControl_Pan" xml:space="preserve">
+    <value>Verschuiven</value>
+  </data>
+  <data name="MapControl_ZoomToRectangle" xml:space="preserve">
+    <value>Zoom door rechthoek</value>
+  </data>
+  <data name="MapControl_ZoomToExtents" xml:space="preserve">
+    <value>Zoom naar alles</value>
+  </data>
+  <data name="MapControl_ShowCoordinates" xml:space="preserve">
+    <value>Toon coördinaten</value>
+  </data>
 </root>

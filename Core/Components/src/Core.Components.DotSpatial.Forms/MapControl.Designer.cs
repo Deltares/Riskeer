@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using Core.Components.DotSpatial.Properties;
+using Core.Components.DotSpatial.Forms.Properties;
 
 namespace Core.Components.DotSpatial.Forms
 {
@@ -100,7 +100,7 @@ namespace Core.Components.DotSpatial.Forms
             this.zoomToAllVisibleLayersToolStripButton.Name = "zoomToAllVisibleLayersToolStripButton";
             this.zoomToAllVisibleLayersToolStripButton.Size = new System.Drawing.Size(39, 29);
             this.zoomToAllVisibleLayersToolStripButton.Text = "";
-            this.zoomToAllVisibleLayersToolStripButton.ToolTipText = Resources.MapControl_ZoomToVisibleLayers;
+            this.zoomToAllVisibleLayersToolStripButton.ToolTipText = Resources.MapControl_ZoomToExtents;
             this.zoomToAllVisibleLayersToolStripButton.Click += new System.EventHandler(this.ZoomToAllVisibleLayersToolStripButtonClick);
             // 
             // toolStripSeparator2

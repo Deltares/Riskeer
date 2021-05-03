@@ -100,5 +100,41 @@ namespace Core.Components.DotSpatial.Forms.Properties {
                         "ackground_layer", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verschuiven.
+        /// </summary>
+        internal static string MapControl_Pan {
+            get {
+                return ResourceManager.GetString("MapControl_Pan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toon coördinaten.
+        /// </summary>
+        internal static string MapControl_ShowCoordinates {
+            get {
+                return ResourceManager.GetString("MapControl_ShowCoordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom naar alles.
+        /// </summary>
+        internal static string MapControl_ZoomToExtents {
+            get {
+                return ResourceManager.GetString("MapControl_ZoomToExtents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom door rechthoek.
+        /// </summary>
+        internal static string MapControl_ZoomToRectangle {
+            get {
+                return ResourceManager.GetString("MapControl_ZoomToRectangle", resourceCulture);
+            }
+        }
     }
 }
