@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)build\Test.targets" />
+  <ItemGroup>
+    <Reference Include="NUnitForms">
+      <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.XML" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
+    <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj" />
+    <ProjectReference Include="..\..\src\Core.Common.Controls\Core.Common.Controls.csproj" />
+    <ProjectReference Include="..\..\src\Core.Common.Gui\Core.Common.Gui.csproj" />
+    <ProjectReference Include="..\..\src\Core.Common.Util\Core.Common.Util.csproj" />
+    <ProjectReference Include="..\..\src\Core.Gui\Core.Gui.csproj" />
+    <ProjectReference Include="..\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj" />
+    <ProjectReference Include="..\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
+      <Link>Copying.Lesser.licenseheader</Link>
+    </None>
+  </ItemGroup>
+ <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\abacus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net">
+      <Version>2.0.12</Version>
+    </PackageReference>
+    <PackageReference Include="MahApps.Metro">
+      <Version>2.4.4</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit">
+      <Version>3.8.1</Version>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+    </PackageReference>
+    <PackageReference Include="AvalonDock">
+      <Version>2.0.2000</Version>
+    </PackageReference>
+  </ItemGroup>
+</Project>
