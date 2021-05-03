@@ -18,7 +18,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
     <ProjectReference Include="..\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj" />
     <ProjectReference Include="..\Core.Components.PointedTree.Forms\Core.Components.PointedTree.Forms.csproj" />
