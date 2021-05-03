@@ -30,16 +30,6 @@ namespace Core.Components.Chart.Forms
     public interface IChartControl
     {
         /// <summary>
-        /// Gets a value indicating whether or not the chart can be panned with the left mouse button.
-        /// </summary>
-        bool IsPanningEnabled { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether or not the chart can be zoomed by rectangle with the left mouse button.
-        /// </summary>
-        bool IsRectangleZoomingEnabled { get; }
-
-        /// <summary>
         /// Gets or sets the data to show in the <see cref="IChartControl"/>.
         /// </summary>
         ChartDataCollection Data { get; set; }
@@ -58,21 +48,6 @@ namespace Core.Components.Chart.Forms
         /// Gets or sets the title of the left axis in the view.
         /// </summary>
         string LeftAxisTitle { get; set; }
-
-        /// <summary>
-        /// Toggles panning of the <see cref="IChartControl"/>. Panning is invoked by clicking the left mouse-button.
-        /// </summary>
-        void TogglePanning();
-
-        /// <summary>
-        /// Toggles rectangle zooming of the <see cref="IChartControl"/>. Rectangle zooming is invoked by clicking the left mouse-button.
-        /// </summary>
-        void ToggleRectangleZooming();
-
-        /// <summary>
-        /// Zooms to a level so that everything is in view.
-        /// </summary>
-        void ZoomToAllVisibleLayers();
 
         /// <summary>
         /// Zooms to a level such that the given chart data is in view.
