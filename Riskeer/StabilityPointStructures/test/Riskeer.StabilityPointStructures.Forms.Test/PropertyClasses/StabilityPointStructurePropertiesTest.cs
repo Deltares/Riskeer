@@ -22,8 +22,8 @@
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Gui.PropertyBag;
-using Core.Common.TestUtil;
+using Core.Gui.PropertyBag;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.StabilityPointStructures.Data;
