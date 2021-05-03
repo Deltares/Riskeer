@@ -365,5 +365,20 @@ namespace Core.Components.OxyPlot.Forms
             /// </summary>
             public Observer Observer { get; set; }
         }
+
+        private void PanToolStripButtonClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ZoomToRectangleToolStripButtonClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ZoomToAllVisibleLayersToolStripButtonClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

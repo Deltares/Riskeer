@@ -82,6 +82,15 @@ namespace Core.Components.OxyPlot.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Verschuiven.
+        /// </summary>
+        public static string ChartControl_Pan {
+            get {
+                return ResourceManager.GetString("ChartControl_Pan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to L.
         /// </summary>
         public static string ChartControl_XAxisTitle {
@@ -96,6 +105,24 @@ namespace Core.Components.OxyPlot.Forms.Properties {
         public static string ChartControl_YAxisTitle {
             get {
                 return ResourceManager.GetString("ChartControl_YAxisTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom door rechthoek.
+        /// </summary>
+        public static string ChartControl_ZoomToRectangle {
+            get {
+                return ResourceManager.GetString("ChartControl_ZoomToRectangle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom naar alles.
+        /// </summary>
+        public static string ChartControl_ZoomToVisibleLayers {
+            get {
+                return ResourceManager.GetString("ChartControl_ZoomToVisibleLayers", resourceCulture);
             }
         }
     }

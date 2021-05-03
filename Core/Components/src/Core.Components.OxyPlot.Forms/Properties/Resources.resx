@@ -117,10 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ChartControl_Pan" xml:space="preserve">
+    <value>Verschuiven</value>
+  </data>
   <data name="ChartControl_XAxisTitle" xml:space="preserve">
     <value>L</value>
   </data>
   <data name="ChartControl_YAxisTitle" xml:space="preserve">
     <value>Hoogte</value>
+  </data>
+  <data name="ChartControl_ZoomToRectangle" xml:space="preserve">
+    <value>Zoom door rechthoek</value>
+  </data>
+  <data name="ChartControl_ZoomToVisibleLayers" xml:space="preserve">
+    <value>Zoom naar alles</value>
   </data>
 </root>
