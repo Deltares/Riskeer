@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Gui.Forms;
-using Core.Common.Gui.Plugin;
-using Core.Common.Gui.Properties;
 using Core.Common.TestUtil;
+using Core.Gui.Forms;
+using Core.Gui.Plugin;
 using NUnit.Framework;
+using GuiResources = Core.Gui.Properties.Resources;
 
 namespace Core.Plugins.CommonTools.Test
 {
@@ -48,7 +48,7 @@ namespace Core.Plugins.CommonTools.Test
 
                 Assert.AreEqual(richTextFileInfo.ViewType, typeof(RichTextView));
                 Assert.IsNull(richTextFileInfo.Description);
-                TestHelper.AssertImagesAreEqual(Resources.key, richTextFileInfo.Image);
+                TestHelper.AssertImagesAreEqual(GuiResources.key, richTextFileInfo.Image);
             }
         }
 

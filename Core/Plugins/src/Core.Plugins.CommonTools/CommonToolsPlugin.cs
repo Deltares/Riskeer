@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Gui.Forms;
-using Core.Common.Gui.Plugin;
-using Core.Common.Gui.Properties;
+using Core.Gui.Forms;
+using Core.Gui.Plugin;
+using GuiResources = Core.Gui.Properties.Resources;
 
 namespace Core.Plugins.CommonTools
 {
@@ -35,7 +35,7 @@ namespace Core.Plugins.CommonTools
         {
             yield return new ViewInfo<RichTextFile, RichTextView>
             {
-                Image = Resources.key,
+                Image = GuiResources.key,
                 GetViewName = (v, o) => o != null ? o.Name : ""
             };
         }
