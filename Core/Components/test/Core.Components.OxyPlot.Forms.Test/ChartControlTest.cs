@@ -40,7 +40,7 @@ namespace Core.Components.OxyPlot.Forms.Test
     public class ChartControlTest
     {
         [Test]
-        public void DefaultConstructor_PropertiesSet()
+        public void Constructor_PropertiesSet()
         {
             // Call
             using (var chart = new ChartControl())
@@ -361,7 +361,7 @@ namespace Core.Components.OxyPlot.Forms.Test
             }
         }
 
-        private void AssertExpectedExtent(ElementCollection<Axis> modelAxes, Extent expectedExtent)
+        private static void AssertExpectedExtent(ElementCollection<Axis> modelAxes, Extent expectedExtent)
         {
             const double accuracy = 1e-8;
             Assert.AreEqual(expectedExtent.XMin, modelAxes[0].ActualMinimum, Math.Abs(expectedExtent.XMin * accuracy));
@@ -371,176 +371,6 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         #region ZoomToAllVisibleLayers
-
-        [Test]
-        public void ZoomToAllVisibleLayers_ChartInForm_ViewInvalidatedSeriesSame()
-        {
-            // Setup
-            using (var form = new Form())
-            {
-                var chart = new ChartControl();
-                var testData = new ChartLineData("test data")
-                {
-                    Points = new[]
-                    {
-                        new Point2D(2, 3)
-                    }
-                };
-                var collection = new ChartDataCollection("collection");
-                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().Single();
-                var invalidated = 0;
-
-                collection.Add(testData);
-
-                chart.Data = collection;
-
-                List<Series> series = view.Model.Series.ToList();
-
-                form.Controls.Add(chart);
-                view.Invalidated += (sender, args) => invalidated++;
-
-                form.Show();
-                view.Update();
-
-                // Call
-                chart.ZoomToAllVisibleLayers();
-
-                // Assert
-                Assert.AreEqual(1, invalidated);
-                CollectionAssert.AreEqual(series, view.Model.Series);
-            }
-        }
-
-        [Test]
-        public void ZoomToAllVisibleLayers_ChartWithoutDataInForm_ViewNotInvalidated()
-        {
-            // Setup
-            using (var form = new Form())
-            {
-                var chart = new ChartControl();
-                var testData = new ChartLineData("test data");
-                var collection = new ChartDataCollection("collection");
-                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().Single();
-                var invalidated = 0;
-
-                collection.Add(testData);
-
-                chart.Data = collection;
-
-                List<Series> series = view.Model.Series.ToList();
-
-                form.Controls.Add(chart);
-                view.Invalidated += (sender, args) => invalidated++;
-
-                form.Show();
-                view.Update();
-
-                // Call
-                chart.ZoomToAllVisibleLayers();
-
-                // Assert
-                Assert.AreEqual(0, invalidated);
-                CollectionAssert.AreEqual(series, view.Model.Series);
-            }
-        }
-
-        [Test]
-        public void ZoomToAllVisibleLayers_NotAllLayersVisible_ZoomToVisibleLayersExtent()
-        {
-            // Setup
-            using (var form = new Form())
-            {
-                var chart = new ChartControl();
-                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().Single();
-                form.Controls.Add(chart);
-                form.Show();
-
-                var collection = new ChartDataCollection("collection");
-                collection.Add(new ChartLineData("test data")
-                {
-                    Points = new[]
-                    {
-                        new Point2D(1, 5),
-                        new Point2D(4, 3)
-                    }
-                });
-                collection.Add(new ChartPointData("test data")
-                {
-                    Points = new[]
-                    {
-                        new Point2D(8, 2),
-                        new Point2D(1, 1),
-                        new Point2D(1, 4)
-                    }
-                });
-                collection.Add(new ChartAreaData("test data")
-                {
-                    IsVisible = false,
-                    Points = new[]
-                    {
-                        new Point2D(1, 2),
-                        new Point2D(2, 3),
-                        new Point2D(3, 3),
-                        new Point2D(2, -1)
-                    }
-                });
-                chart.Data = collection;
-                chart.Update();
-
-                var expectedExtent = new Extent(1 - 0.07, 8 + 0.07, 1 - 0.04, 5 + 0.04);
-
-                // Precondition
-                Assert.AreEqual(3, view.Model.Series.Count, "Precondition failed: expected 3 series.");
-                Assert.IsFalse(view.Model.Series.All(l => l.IsVisible), "Precondition failed: not all series should be visible.");
-
-                // Call
-                chart.ZoomToAllVisibleLayers();
-
-                // Assert
-                AssertExpectedExtent(view.Model.Axes, expectedExtent);
-            }
-        }
-
-        [Test]
-        [TestCase(5.0, 5.0)]
-        [TestCase(45.3, 1.0)]
-        [TestCase(1.0, 122.9)]
-        [TestCase(1.0e12 * 0.55, 1.0e12 * 0.55)]
-        public void ZoomToAllVisibleLayers_LayersOfVariousDimensions_ZoomToVisibleLayersExtent(double xMax, double yMax)
-        {
-            // Setup
-            using (var form = new Form())
-            {
-                var chart = new ChartControl();
-                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().Single();
-                form.Controls.Add(chart);
-                form.Show();
-
-                var collection = new ChartDataCollection("collection");
-                collection.Add(new ChartLineData("test data")
-                {
-                    IsVisible = true,
-                    Points = new[]
-                    {
-                        new Point2D(0.0, 0.0),
-                        new Point2D(xMax, yMax)
-                    }
-                });
-
-                chart.Data = collection;
-                chart.Update();
-
-                double xMargin = xMax * 0.01;
-                double yMargin = yMax * 0.01;
-                var expectedExtent = new Extent(-xMargin, xMax + xMargin, -yMargin, yMax + yMargin);
-
-                // Call
-                chart.ZoomToAllVisibleLayers();
-
-                // Assert
-                AssertExpectedExtent(view.Model.Axes, expectedExtent);
-            }
-        }
 
         [Test]
         [Apartment(ApartmentState.STA)]
@@ -556,11 +386,11 @@ namespace Core.Components.OxyPlot.Forms.Test
                 chart.Update();
 
                 // Call
-                TestDelegate call = () => chart.ZoomToAllVisibleLayers(chartData);
+                void Call() => chart.ZoomToAllVisibleLayers(chartData);
 
                 // Assert
                 const string message = "Can only zoom to ChartData that is part of this ChartControls drawn chartData.";
-                string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
+                string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, message).ParamName;
                 Assert.AreEqual("chartData", paramName);
             }
         }
