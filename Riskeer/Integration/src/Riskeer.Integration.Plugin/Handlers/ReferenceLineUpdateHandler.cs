@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Gui.Commands;
+using Core.Gui.Commands;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.IO.ReferenceLines;
 using Riskeer.Common.Service;

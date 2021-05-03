@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base.Storage;
-using Core.Common.Gui.Forms.ProgressDialog;
+using Core.Gui.Forms.ProgressDialog;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Service.Merge;

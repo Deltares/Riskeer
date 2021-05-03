@@ -37,7 +37,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Forms.Merge;
 using Riskeer.Integration.TestUtil;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Test.Merge
 {
@@ -177,7 +177,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
 
                 // Assert
                 var infoIcon = (PictureBox) new ControlTester("infoIcon", dialog).TheObject;
-                TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.information, infoIcon.BackgroundImage);
+                TestHelper.AssertImagesAreEqual(CoreGuiResources.information, infoIcon.BackgroundImage);
                 Assert.AreEqual(ImageLayout.Center, infoIcon.BackgroundImageLayout);
 
                 var toolTip = TypeUtils.GetField<ToolTip>(dialog, "toolTip");

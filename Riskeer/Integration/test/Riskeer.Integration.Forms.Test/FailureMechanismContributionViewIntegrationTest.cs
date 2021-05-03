@@ -22,8 +22,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Gui.Commands;
 using Core.Common.Util;
+using Core.Gui.Commands;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;

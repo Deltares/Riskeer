@@ -22,8 +22,8 @@
 using System;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
+using Core.Gui.Plugin;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;

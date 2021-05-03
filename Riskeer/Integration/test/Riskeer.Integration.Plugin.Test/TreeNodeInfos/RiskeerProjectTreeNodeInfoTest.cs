@@ -23,16 +23,16 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
-using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using Core.Gui;
+using Core.Gui.ContextMenu;
+using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Properties;
-using GuiResources = Core.Common.Gui.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
@@ -110,7 +110,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Image image = info.Image(project);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(GuiResources.ProjectIcon, image);
+                TestHelper.AssertImagesAreEqual(CoreGuiResources.ProjectIcon, image);
             }
         }
 

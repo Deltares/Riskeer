@@ -28,15 +28,15 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
-using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Forms.ProgressDialog;
-using Core.Common.Gui.Helpers;
-using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Core.Common.Util.Extensions;
 using Core.Components.Gis.Data;
+using Core.Gui;
+using Core.Gui.ContextMenu;
+using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.ProgressDialog;
+using Core.Gui.Helpers;
+using Core.Gui.Plugin;
 using log4net;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
@@ -108,13 +108,13 @@ using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 using RiskeerDataResources = Riskeer.Integration.Data.Properties.Resources;
 using RiskeerFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
-using GuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin
 {
@@ -1116,7 +1116,7 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<RiskeerProject>
             {
                 Text = project => project.Name,
-                Image = project => GuiResources.ProjectIcon,
+                Image = project => CoreGuiResources.ProjectIcon,
                 ChildNodeObjects = nodeData => nodeData.AssessmentSections.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) =>
                 {
@@ -1722,9 +1722,9 @@ namespace Riskeer.Integration.Plugin
                 (sender, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData)); });
 
             var importItem = new StrictContextMenuItem(
-                GuiResources.Import,
-                GuiResources.Import_ToolTip,
-                GuiResources.ImportIcon,
+                CoreGuiResources.Import,
+                CoreGuiResources.Import_ToolTip,
+                CoreGuiResources.ImportIcon,
                 (sender, args) => assessmentSectionMerger.StartMerge(nodeData));
 
             return Gui.Get(nodeData, treeViewControl)

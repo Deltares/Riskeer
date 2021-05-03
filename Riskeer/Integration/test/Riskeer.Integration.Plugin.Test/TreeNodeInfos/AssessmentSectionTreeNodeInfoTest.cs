@@ -29,12 +29,12 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui;
-using Core.Common.Gui.ContextMenu;
-using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Forms.ViewHost;
-using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using Core.Gui;
+using Core.Gui.ContextMenu;
+using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.ViewHost;
+using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data.TestUtil;
@@ -80,7 +80,7 @@ using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 using RiskeerIntegrationFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -399,7 +399,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportAssessmentSectionIndex,
                                                                       "&Importeren...",
                                                                       "Importeer de gegevens vanuit een bestand.",
-                                                                      CoreCommonGuiResources.ImportIcon);
+                                                                      CoreGuiResources.ImportIcon);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                                       "Alles be&rekenen",

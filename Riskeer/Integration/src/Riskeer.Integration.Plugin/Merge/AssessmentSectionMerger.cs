@@ -28,7 +28,7 @@ using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Forms.Merge;
 using Riskeer.Integration.Plugin.Properties;
 using Riskeer.Integration.Service.Comparers;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Merge
 {
@@ -164,7 +164,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
         private static void LogCancelMessage()
         {
-            log.Warn(CoreCommonGuiResources.GuiImportHandler_ImportItemsUsingDialog_Importing_cancelled);
+            log.Warn(CoreGuiResources.GuiImportHandler_ImportItemsUsingDialog_Importing_cancelled);
         }
     }
 }

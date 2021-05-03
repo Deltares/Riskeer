@@ -21,10 +21,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Gui.Plugin;
-using Core.Common.Gui.PropertyBag;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;
+using Core.Gui.Plugin;
+using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;

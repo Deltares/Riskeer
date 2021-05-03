@@ -22,7 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Gui.Commands;
+using Core.Gui.Commands;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;

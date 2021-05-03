@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Gui.Commands;
+using Core.Gui.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Contribution;

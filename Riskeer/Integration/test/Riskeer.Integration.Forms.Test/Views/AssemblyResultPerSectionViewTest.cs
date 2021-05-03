@@ -42,8 +42,8 @@ using Riskeer.Integration.Forms.Views;
 using Riskeer.Integration.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Test.Views
 {
@@ -138,7 +138,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(4, errorProvider.GetIconPadding(button));
 
                 ErrorProvider warningProvider = GetWarningProvider(view);
-                TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.warning.ToBitmap(), warningProvider.Icon.ToBitmap());
+                TestHelper.AssertImagesAreEqual(CoreGuiResources.warning.ToBitmap(), warningProvider.Icon.ToBitmap());
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, warningProvider.BlinkStyle);
                 Assert.IsEmpty(warningProvider.GetError(button));
                 Assert.AreEqual(4, warningProvider.GetIconPadding(button));

@@ -18,7 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj" />
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Base.TestUtil\Core.Common.Base.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
@@ -28,6 +27,7 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Components\test\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Gui\test\Core.Gui.TestUtil\Core.Gui.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj" />
     <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Forms\Riskeer.AssemblyTool.Forms.csproj" />
     <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj" />

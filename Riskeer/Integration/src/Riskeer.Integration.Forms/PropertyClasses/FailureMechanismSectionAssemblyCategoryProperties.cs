@@ -21,10 +21,10 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Gui.Attributes;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
+using Core.Gui.Attributes;
+using Core.Gui.PropertyBag;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Forms.TypeConverters;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;

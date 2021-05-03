@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
-using Core.Common.Gui.Commands;
+using Core.Gui.Commands;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;

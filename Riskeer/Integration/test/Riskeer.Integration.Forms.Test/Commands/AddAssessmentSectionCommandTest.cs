@@ -22,8 +22,8 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Commands;
-using Core.Common.Gui;
-using Core.Common.Gui.Forms.ViewHost;
+using Core.Gui;
+using Core.Gui.Forms.ViewHost;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Integration.Forms.Commands;

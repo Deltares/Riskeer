@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Gui.Attributes;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Core.Gui.Attributes;
+using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;

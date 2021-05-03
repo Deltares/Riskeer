@@ -22,8 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
+using Core.Gui.Converters;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.Forms.PropertyClasses;

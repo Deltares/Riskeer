@@ -21,15 +21,15 @@
 
 using System.Linq;
 using Core.Common.Base.IO;
-using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
+using Core.Gui.Plugin;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.IO.Exporters;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.ExportInfos
 {
@@ -51,7 +51,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 Assert.IsNotNull(info.CreateFileExporter);
                 Assert.IsNotNull(info.IsEnabled);
                 Assert.AreEqual("Algemeen", info.Category);
-                TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.ExportIcon, info.Image);
+                TestHelper.AssertImagesAreEqual(CoreGuiResources.ExportIcon, info.Image);
                 Assert.IsNotNull(info.GetExportPath);
             }
         }

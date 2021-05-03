@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using Core.Common.TestUtil;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PropertyClasses;

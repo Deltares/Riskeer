@@ -39,8 +39,8 @@ using Riskeer.Piping.Data;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Merge
 {
@@ -141,7 +141,7 @@ namespace Riskeer.Integration.Forms.Merge
 
         private void InitializeTooltip()
         {
-            infoIcon.BackgroundImage = CoreCommonGuiResources.information;
+            infoIcon.BackgroundImage = CoreGuiResources.information;
             toolTip.SetToolTip(infoIcon, Resources.AssessmentSectionMergeDataProviderDialog_InfoToolTip);
         }
 

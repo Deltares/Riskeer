@@ -22,9 +22,9 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base;
-using Core.Common.Gui.Commands;
-using Core.Common.Gui.PropertyBag;
-using Core.Common.TestUtil;
+using Core.Gui.Commands;
+using Core.Gui.PropertyBag;
+using Core.Gui.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;

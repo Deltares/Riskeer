@@ -21,8 +21,8 @@
 
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Gui.Plugin;
-using Core.Common.Gui.PropertyBag;
+using Core.Gui.Plugin;
+using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
