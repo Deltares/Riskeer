@@ -184,10 +184,11 @@ namespace Core.Components.OxyPlot.Forms
                 {
                     IsLegendVisible = false
                 },
-                Controller = plotController
+                Controller = plotController,
+                Dock = DockStyle.Fill
             };
 
-            Controls.Add(plotView);
+            tableLayoutPanel.Controls.Add(plotView, 0, 0);
         }
 
         /// <summary>
