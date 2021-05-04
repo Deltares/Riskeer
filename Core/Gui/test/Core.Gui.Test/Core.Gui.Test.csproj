@@ -17,6 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
+    <ProjectReference Include="..\..\..\Components\test\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj" />
     <ProjectReference Include="..\..\src\Core.Gui\Core.Gui.csproj" />
     <ProjectReference Include="..\Core.Gui.TestUtil\Core.Gui.TestUtil.csproj" />
   </ItemGroup>

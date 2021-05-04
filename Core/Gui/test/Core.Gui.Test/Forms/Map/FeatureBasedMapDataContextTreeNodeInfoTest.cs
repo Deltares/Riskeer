@@ -37,13 +37,12 @@ using Core.Components.Gis.TestUtil;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Map;
 using Core.Gui.PresentationObjects.Map;
+using Core.Gui.Properties;
 using Core.Gui.TestUtil.ContextMenu;
-using Core.Plugins.Map.Legend;
-using Core.Plugins.Map.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.Map.Test.Legend
+namespace Core.Gui.Test.Forms.Map
 {
     [TestFixture]
     public class FeatureBasedMapDataContextTreeNodeInfoTest
@@ -216,7 +215,7 @@ namespace Core.Plugins.Map.Test.Legend
 
             MapDataCollectionContext rootCollectionContext = GetContext(mapDataCollection);
             MapDataCollectionContext nestedCollectionContext = GetContext(nestedMapDataCollection, rootCollectionContext);
-            FeatureBasedMapDataContext featureBasedMapDataContext = GetContext(featureBasedMapData, nestedCollectionContext);
+            FeatureBasedMapDataContext featureBasedMapDataContext = GetContext((FeatureBasedMapData) featureBasedMapData, nestedCollectionContext);
 
             nestedMapDataCollection.Attach(collectionObserver);
             mapDataCollection.Attach(parentCollectionObserver);

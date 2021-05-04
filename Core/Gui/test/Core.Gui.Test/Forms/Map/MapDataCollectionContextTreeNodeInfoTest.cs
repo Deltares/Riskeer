@@ -38,15 +38,13 @@ using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Map;
 using Core.Gui.Plugin;
 using Core.Gui.PresentationObjects.Map;
+using Core.Gui.Properties;
 using Core.Gui.TestUtil.ContextMenu;
-using Core.Plugins.Map.Legend;
-using Core.Plugins.Map.Properties;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using GuiResources = Core.Gui.Properties.Resources;
 
-namespace Core.Plugins.Map.Test.Legend
+namespace Core.Gui.Test.Forms.Map
 {
     [TestFixture]
     public class MapDataCollectionContextTreeNodeInfoTest : NUnitFormTest
@@ -103,7 +101,7 @@ namespace Core.Plugins.Map.Test.Legend
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(GuiResources.folder, image);
+            TestHelper.AssertImagesAreEqual(Resources.folder, image);
         }
 
         [Test]
