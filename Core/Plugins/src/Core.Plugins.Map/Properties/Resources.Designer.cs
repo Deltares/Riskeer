@@ -40,10 +40,10 @@ namespace Core.Plugins.Map.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -57,7 +57,7 @@ namespace Core.Plugins.Map.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Core.Plugins.Map.Properties.Resources", typeof(Resources).Assembly);
@@ -72,7 +72,7 @@ namespace Core.Plugins.Map.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -84,7 +84,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap AreaIcon {
+        internal static System.Drawing.Bitmap AreaIcon {
             get {
                 object obj = ResourceManager.GetObject("AreaIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -94,7 +94,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Labels.
         /// </summary>
-        public static string Categories_Label {
+        internal static string Categories_Label {
             get {
                 return ResourceManager.GetString("Categories_Label", resourceCulture);
             }
@@ -103,7 +103,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kaartlaag.
         /// </summary>
-        public static string Categories_Layer {
+        internal static string Categories_Layer {
             get {
                 return ResourceManager.GetString("Categories_Layer", resourceCulture);
             }
@@ -112,7 +112,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kaartlagenmap.
         /// </summary>
-        public static string Categories_MapDataCollection {
+        internal static string Categories_MapDataCollection {
             get {
                 return ResourceManager.GetString("Categories_MapDataCollection", resourceCulture);
             }
@@ -121,7 +121,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Stijl.
         /// </summary>
-        public static string Categories_Styling {
+        internal static string Categories_Styling {
             get {
                 return ResourceManager.GetString("Categories_Styling", resourceCulture);
             }
@@ -130,7 +130,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het criterium van deze categorie..
         /// </summary>
-        public static string CategoryThemeProperties_Criterion_Description {
+        internal static string CategoryThemeProperties_Criterion_Description {
             get {
                 return ResourceManager.GetString("CategoryThemeProperties_Criterion_Description", resourceCulture);
             }
@@ -139,7 +139,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Criterium.
         /// </summary>
-        public static string CategoryThemeProperties_Criterion_DisplayName {
+        internal static string CategoryThemeProperties_Criterion_DisplayName {
             get {
                 return ResourceManager.GetString("CategoryThemeProperties_Criterion_DisplayName", resourceCulture);
             }
@@ -148,7 +148,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} = {1}.
         /// </summary>
-        public static string CategoryThemeProperties_Criterion_ValueCriterionOperatorEqualValue_AttributeName_0_Value_1_ {
+        internal static string CategoryThemeProperties_Criterion_ValueCriterionOperatorEqualValue_AttributeName_0_Value_1_ {
             get {
                 return ResourceManager.GetString("CategoryThemeProperties_Criterion_ValueCriterionOperatorEqualValue_AttributeName_" +
                         "0_Value_1_", resourceCulture);
@@ -158,7 +158,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} ≠ {1}.
         /// </summary>
-        public static string CategoryThemeProperties_Criterion_ValueCriterionOperatorUnequalValue_AttributeName_0_Value_1_ {
+        internal static string CategoryThemeProperties_Criterion_ValueCriterionOperatorUnequalValue_AttributeName_0_Value_1_ {
             get {
                 return ResourceManager.GetString("CategoryThemeProperties_Criterion_ValueCriterionOperatorUnequalValue_AttributeNam" +
                         "e_0_Value_1_", resourceCulture);
@@ -168,7 +168,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Toont de eigenschap op basis waarvan labels worden weergegeven op deze kaartlaag..
         /// </summary>
-        public static string FeatureBasedMapdata_SelectedMetaDataAttribute_Description {
+        internal static string FeatureBasedMapdata_SelectedMetaDataAttribute_Description {
             get {
                 return ResourceManager.GetString("FeatureBasedMapdata_SelectedMetaDataAttribute_Description", resourceCulture);
             }
@@ -177,7 +177,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Op basis van.
         /// </summary>
-        public static string FeatureBasedMapdata_SelectedMetaDataAttribute_DisplayName {
+        internal static string FeatureBasedMapdata_SelectedMetaDataAttribute_DisplayName {
             get {
                 return ResourceManager.GetString("FeatureBasedMapdata_SelectedMetaDataAttribute_DisplayName", resourceCulture);
             }
@@ -186,7 +186,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Geeft aan of labels worden weergegeven op deze kaartlaag..
         /// </summary>
-        public static string FeatureBasedMapData_ShowLabels_Description {
+        internal static string FeatureBasedMapData_ShowLabels_Description {
             get {
                 return ResourceManager.GetString("FeatureBasedMapData_ShowLabels_Description", resourceCulture);
             }
@@ -195,7 +195,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Weergeven.
         /// </summary>
-        public static string FeatureBasedMapData_ShowLabels_DisplayName {
+        internal static string FeatureBasedMapData_ShowLabels_DisplayName {
             get {
                 return ResourceManager.GetString("FeatureBasedMapData_ShowLabels_DisplayName", resourceCulture);
             }
@@ -204,7 +204,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het type van de stijl die wordt toegepast voor het weergeven van deze kaartlaag..
         /// </summary>
-        public static string FeatureBasedMapdata_StyleType_Description {
+        internal static string FeatureBasedMapdata_StyleType_Description {
             get {
                 return ResourceManager.GetString("FeatureBasedMapdata_StyleType_Description", resourceCulture);
             }
@@ -213,7 +213,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Type.
         /// </summary>
-        public static string FeatureBasedMapdata_StyleType_DisplayName {
+        internal static string FeatureBasedMapdata_StyleType_DisplayName {
             get {
                 return ResourceManager.GetString("FeatureBasedMapdata_StyleType_DisplayName", resourceCulture);
             }
@@ -222,7 +222,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het type van de data die wordt weergegeven op deze kaartlaag..
         /// </summary>
-        public static string FeatureBasedMapData_Type_Description {
+        internal static string FeatureBasedMapData_Type_Description {
             get {
                 return ResourceManager.GetString("FeatureBasedMapData_Type_Description", resourceCulture);
             }
@@ -231,7 +231,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Type.
         /// </summary>
-        public static string FeatureBasedMapData_Type_DisplayName {
+        internal static string FeatureBasedMapData_Type_DisplayName {
             get {
                 return ResourceManager.GetString("FeatureBasedMapData_Type_DisplayName", resourceCulture);
             }
@@ -240,7 +240,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Lijnen.
         /// </summary>
-        public static string FeatureBasedMapData_Type_Lines {
+        internal static string FeatureBasedMapData_Type_Lines {
             get {
                 return ResourceManager.GetString("FeatureBasedMapData_Type_Lines", resourceCulture);
             }
@@ -249,7 +249,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Punten.
         /// </summary>
-        public static string FeatureBasedMapData_Type_Points {
+        internal static string FeatureBasedMapData_Type_Points {
             get {
                 return ResourceManager.GetString("FeatureBasedMapData_Type_Points", resourceCulture);
             }
@@ -258,25 +258,16 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Polygonen.
         /// </summary>
-        public static string FeatureBasedMapData_Type_Polygons {
+        internal static string FeatureBasedMapData_Type_Polygons {
             get {
                 return ResourceManager.GetString("FeatureBasedMapData_Type_Polygons", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kaart.
-        /// </summary>
-        public static string General_Map {
-            get {
-                return ResourceManager.GetString("General_Map", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De kleur van de lijnen waarmee deze categorie wordt weergegeven..
         /// </summary>
-        public static string LineCategoryTheme_Color_Description {
+        internal static string LineCategoryTheme_Color_Description {
             get {
                 return ResourceManager.GetString("LineCategoryTheme_Color_Description", resourceCulture);
             }
@@ -285,7 +276,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De stijl van de lijnen waarmee deze categorie wordt weergegeven..
         /// </summary>
-        public static string LineCategoryTheme_DashStyle_Description {
+        internal static string LineCategoryTheme_DashStyle_Description {
             get {
                 return ResourceManager.GetString("LineCategoryTheme_DashStyle_Description", resourceCulture);
             }
@@ -294,7 +285,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De dikte van de lijnen waarmee deze categorie wordt weergegeven..
         /// </summary>
-        public static string LineCategoryTheme_Width_Description {
+        internal static string LineCategoryTheme_Width_Description {
             get {
                 return ResourceManager.GetString("LineCategoryTheme_Width_Description", resourceCulture);
             }
@@ -303,7 +294,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap LineIcon {
+        internal static System.Drawing.Bitmap LineIcon {
             get {
                 object obj = ResourceManager.GetObject("LineIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -313,7 +304,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Categorieën.
         /// </summary>
-        public static string MapData_Categories_DisplayName {
+        internal static string MapData_Categories_DisplayName {
             get {
                 return ResourceManager.GetString("MapData_Categories_DisplayName", resourceCulture);
             }
@@ -322,7 +313,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kleur.
         /// </summary>
-        public static string MapData_Color_DisplayName {
+        internal static string MapData_Color_DisplayName {
             get {
                 return ResourceManager.GetString("MapData_Color_DisplayName", resourceCulture);
             }
@@ -331,7 +322,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Geeft aan of deze kaartlaag wordt weergegeven..
         /// </summary>
-        public static string MapData_IsVisible_Description {
+        internal static string MapData_IsVisible_Description {
             get {
                 return ResourceManager.GetString("MapData_IsVisible_Description", resourceCulture);
             }
@@ -340,7 +331,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Weergeven.
         /// </summary>
-        public static string MapData_IsVisible_DisplayName {
+        internal static string MapData_IsVisible_DisplayName {
             get {
                 return ResourceManager.GetString("MapData_IsVisible_DisplayName", resourceCulture);
             }
@@ -349,7 +340,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De naam van deze kaartlaag..
         /// </summary>
-        public static string MapData_Name_Description {
+        internal static string MapData_Name_Description {
             get {
                 return ResourceManager.GetString("MapData_Name_Description", resourceCulture);
             }
@@ -358,7 +349,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Naam.
         /// </summary>
-        public static string MapData_Name_DisplayName {
+        internal static string MapData_Name_DisplayName {
             get {
                 return ResourceManager.GetString("MapData_Name_DisplayName", resourceCulture);
             }
@@ -367,7 +358,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Lijnkleur.
         /// </summary>
-        public static string MapData_StrokeColor_DisplayName {
+        internal static string MapData_StrokeColor_DisplayName {
             get {
                 return ResourceManager.GetString("MapData_StrokeColor_DisplayName", resourceCulture);
             }
@@ -376,7 +367,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Lijndikte.
         /// </summary>
-        public static string MapData_StrokeThickness_DisplayName {
+        internal static string MapData_StrokeThickness_DisplayName {
             get {
                 return ResourceManager.GetString("MapData_StrokeThickness_DisplayName", resourceCulture);
             }
@@ -385,7 +376,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Categorie.
         /// </summary>
-        public static string MapData_StyleType_Categories {
+        internal static string MapData_StyleType_Categories {
             get {
                 return ResourceManager.GetString("MapData_StyleType_Categories", resourceCulture);
             }
@@ -394,7 +385,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Enkel symbool.
         /// </summary>
-        public static string MapData_StyleType_Single_Symbol {
+        internal static string MapData_StyleType_Single_Symbol {
             get {
                 return ResourceManager.GetString("MapData_StyleType_Single_Symbol", resourceCulture);
             }
@@ -403,7 +394,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Geeft aan of deze kaartlagenmap wordt weergegeven..
         /// </summary>
-        public static string MapDataCollection_IsVisible_Description {
+        internal static string MapDataCollection_IsVisible_Description {
             get {
                 return ResourceManager.GetString("MapDataCollection_IsVisible_Description", resourceCulture);
             }
@@ -412,7 +403,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De naam van deze kaartlagenmap..
         /// </summary>
-        public static string MapDataCollection_Name_Description {
+        internal static string MapDataCollection_Name_Description {
             get {
                 return ResourceManager.GetString("MapDataCollection_Name_Description", resourceCulture);
             }
@@ -421,7 +412,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap MapIcon {
+        internal static System.Drawing.Bitmap MapIcon {
             get {
                 object obj = ResourceManager.GetObject("MapIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -429,83 +420,9 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet minstens één van de zichtbare kaartlagen in deze map met kaartlagen elementen bevatten..
-        /// </summary>
-        public static string MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisabled_Tooltip {
-            get {
-                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisab" +
-                        "led_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zet het zoomniveau van de kaart dusdanig dat alle zichtbare kaartlagen in deze map met kaartlagen precies in het beeld passen..
-        /// </summary>
-        public static string MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip {
-            get {
-                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet er minstens één kaartlaag in deze map met kaartlagen zichtbaar zijn..
-        /// </summary>
-        public static string MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip {
-            get {
-                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip" +
-                        "", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet de kaartlaag elementen bevatten..
-        /// </summary>
-        public static string MapLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip {
-            get {
-                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zet het zoomniveau van de kaart dusdanig dat deze kaartlaag precies in het beeld past..
-        /// </summary>
-        public static string MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip {
-            get {
-                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet de kaartlaag zichtbaar zijn..
-        /// </summary>
-        public static string MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip {
-            get {
-                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &amp;Voeg kaartlaag toe....
-        /// </summary>
-        public static string MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer {
-            get {
-                return ResourceManager.GetString("MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Importeer een nieuwe kaartlaag en voeg deze toe..
-        /// </summary>
-        public static string MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip {
-            get {
-                return ResourceManager.GetString("MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De kleur van de lijnen waarmee deze kaartlaag wordt weergegeven..
         /// </summary>
-        public static string MapLineData_Color_Description {
+        internal static string MapLineData_Color_Description {
             get {
                 return ResourceManager.GetString("MapLineData_Color_Description", resourceCulture);
             }
@@ -514,7 +431,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De stijl van de lijnen waarmee deze kaartlaag wordt weergegeven..
         /// </summary>
-        public static string MapLineData_DashStyle_Description {
+        internal static string MapLineData_DashStyle_Description {
             get {
                 return ResourceManager.GetString("MapLineData_DashStyle_Description", resourceCulture);
             }
@@ -523,7 +440,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Lijnstijl.
         /// </summary>
-        public static string MapLineData_DashStyle_DisplayName {
+        internal static string MapLineData_DashStyle_DisplayName {
             get {
                 return ResourceManager.GetString("MapLineData_DashStyle_DisplayName", resourceCulture);
             }
@@ -532,7 +449,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De dikte van de lijnen waarmee deze kaartlaag wordt weergegeven..
         /// </summary>
-        public static string MapLineData_Width_Description {
+        internal static string MapLineData_Width_Description {
             get {
                 return ResourceManager.GetString("MapLineData_Width_Description", resourceCulture);
             }
@@ -541,7 +458,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Shapebestand.
         /// </summary>
-        public static string MapPlugin_GetImportInfos_MapDataCollection_filefilter_Description {
+        internal static string MapPlugin_GetImportInfos_MapDataCollection_filefilter_Description {
             get {
                 return ResourceManager.GetString("MapPlugin_GetImportInfos_MapDataCollection_filefilter_Description", resourceCulture);
             }
@@ -550,7 +467,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to shp.
         /// </summary>
-        public static string MapPlugin_GetImportInfos_MapDataCollection_filefilter_Extension {
+        internal static string MapPlugin_GetImportInfos_MapDataCollection_filefilter_Extension {
             get {
                 return ResourceManager.GetString("MapPlugin_GetImportInfos_MapDataCollection_filefilter_Extension", resourceCulture);
             }
@@ -559,7 +476,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap MapPlusIcon {
+        internal static System.Drawing.Bitmap MapPlusIcon {
             get {
                 object obj = ResourceManager.GetObject("MapPlusIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -569,7 +486,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De kleur van de symbolen waarmee deze kaartlaag wordt weergegeven..
         /// </summary>
-        public static string MapPointData_Color_Description {
+        internal static string MapPointData_Color_Description {
             get {
                 return ResourceManager.GetString("MapPointData_Color_Description", resourceCulture);
             }
@@ -578,7 +495,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De grootte van de symbolen waarmee deze kaartlaag wordt weergegeven..
         /// </summary>
-        public static string MapPointData_Size_Description {
+        internal static string MapPointData_Size_Description {
             get {
                 return ResourceManager.GetString("MapPointData_Size_Description", resourceCulture);
             }
@@ -587,7 +504,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Grootte.
         /// </summary>
-        public static string MapPointData_Size_DisplayName {
+        internal static string MapPointData_Size_DisplayName {
             get {
                 return ResourceManager.GetString("MapPointData_Size_DisplayName", resourceCulture);
             }
@@ -596,7 +513,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De kleur van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven..
         /// </summary>
-        public static string MapPointData_StrokeColor_Description {
+        internal static string MapPointData_StrokeColor_Description {
             get {
                 return ResourceManager.GetString("MapPointData_StrokeColor_Description", resourceCulture);
             }
@@ -605,7 +522,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De dikte van de lijn van de symbolen waarmee deze kaartlaag wordt weergegeven..
         /// </summary>
-        public static string MapPointData_StrokeThickness_Description {
+        internal static string MapPointData_StrokeThickness_Description {
             get {
                 return ResourceManager.GetString("MapPointData_StrokeThickness_Description", resourceCulture);
             }
@@ -614,7 +531,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het symbool waarmee deze kaartlaag wordt weergegeven..
         /// </summary>
-        public static string MapPointData_Symbol_Description {
+        internal static string MapPointData_Symbol_Description {
             get {
                 return ResourceManager.GetString("MapPointData_Symbol_Description", resourceCulture);
             }
@@ -623,7 +540,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Symbool.
         /// </summary>
-        public static string MapPointData_Symbol_Displayname {
+        internal static string MapPointData_Symbol_Displayname {
             get {
                 return ResourceManager.GetString("MapPointData_Symbol_Displayname", resourceCulture);
             }
@@ -632,7 +549,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De kleur van de vlakken waarmee deze kaartlaag wordt weergegeven..
         /// </summary>
-        public static string MapPolygonData_FillColor_Description {
+        internal static string MapPolygonData_FillColor_Description {
             get {
                 return ResourceManager.GetString("MapPolygonData_FillColor_Description", resourceCulture);
             }
@@ -641,7 +558,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De kleur van de lijn van de vlakken waarmee deze kaartlaag wordt weergegeven..
         /// </summary>
-        public static string MapPolygonData_StrokeColor_Description {
+        internal static string MapPolygonData_StrokeColor_Description {
             get {
                 return ResourceManager.GetString("MapPolygonData_StrokeColor_Description", resourceCulture);
             }
@@ -650,7 +567,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De dikte van de lijn van de vlakken waarmee deze kaartlaag wordt weergegeven..
         /// </summary>
-        public static string MapPolygonData_StrokeThickness_Description {
+        internal static string MapPolygonData_StrokeThickness_Description {
             get {
                 return ResourceManager.GetString("MapPolygonData_StrokeThickness_Description", resourceCulture);
             }
@@ -659,7 +576,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kaartlaag.
         /// </summary>
-        public static string Name_Layer {
+        internal static string Name_Layer {
             get {
                 return ResourceManager.GetString("Name_Layer", resourceCulture);
             }
@@ -668,7 +585,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De kleur van de symbolen waarmee deze categorie wordt weergegeven..
         /// </summary>
-        public static string PointCategoryTheme_Color_Description {
+        internal static string PointCategoryTheme_Color_Description {
             get {
                 return ResourceManager.GetString("PointCategoryTheme_Color_Description", resourceCulture);
             }
@@ -677,7 +594,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De grootte van de symbolen waarmee deze categorie wordt weergegeven..
         /// </summary>
-        public static string PointCategoryTheme_Size_Description {
+        internal static string PointCategoryTheme_Size_Description {
             get {
                 return ResourceManager.GetString("PointCategoryTheme_Size_Description", resourceCulture);
             }
@@ -686,7 +603,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De kleur van de lijn van de symbolen waarmee deze categorie wordt weergegeven..
         /// </summary>
-        public static string PointCategoryTheme_StrokeColor_Description {
+        internal static string PointCategoryTheme_StrokeColor_Description {
             get {
                 return ResourceManager.GetString("PointCategoryTheme_StrokeColor_Description", resourceCulture);
             }
@@ -695,7 +612,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De dikte van de lijn van de symbolen waarmee deze categorie wordt weergegeven..
         /// </summary>
-        public static string PointCategoryTheme_StrokeThickness_Description {
+        internal static string PointCategoryTheme_StrokeThickness_Description {
             get {
                 return ResourceManager.GetString("PointCategoryTheme_StrokeThickness_Description", resourceCulture);
             }
@@ -704,7 +621,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het symbool waarmee deze categorie wordt weergegeven..
         /// </summary>
-        public static string PointCategoryTheme_Symbol_Description {
+        internal static string PointCategoryTheme_Symbol_Description {
             get {
                 return ResourceManager.GetString("PointCategoryTheme_Symbol_Description", resourceCulture);
             }
@@ -713,7 +630,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap PointsIcon {
+        internal static System.Drawing.Bitmap PointsIcon {
             get {
                 object obj = ResourceManager.GetObject("PointsIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -723,7 +640,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De kleur van de vlakken waarmee deze categorie wordt weergegeven..
         /// </summary>
-        public static string PolygonCategoryTheme_FillColor_Description {
+        internal static string PolygonCategoryTheme_FillColor_Description {
             get {
                 return ResourceManager.GetString("PolygonCategoryTheme_FillColor_Description", resourceCulture);
             }
@@ -732,7 +649,7 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De kleur van de lijn van de vlakken waarmee deze categorie wordt weergegeven..
         /// </summary>
-        public static string PolygonCategoryTheme_StrokeColor_Description {
+        internal static string PolygonCategoryTheme_StrokeColor_Description {
             get {
                 return ResourceManager.GetString("PolygonCategoryTheme_StrokeColor_Description", resourceCulture);
             }
@@ -741,43 +658,16 @@ namespace Core.Plugins.Map.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De dikte van de lijn van de vlakken waarmee deze categorie wordt weergegeven..
         /// </summary>
-        public static string PolygonCategoryTheme_StrokeThickness_Description {
+        internal static string PolygonCategoryTheme_StrokeThickness_Description {
             get {
                 return ResourceManager.GetString("PolygonCategoryTheme_StrokeThickness_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kaart.
-        /// </summary>
-        public static string Ribbon_Toggle_Legend {
-            get {
-                return ResourceManager.GetString("Ribbon_Toggle_Legend", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open het kaartenpaneel..
-        /// </summary>
-        public static string Ribbon_Toggle_Legend_ToolTip {
-            get {
-                return ResourceManager.GetString("Ribbon_Toggle_Legend_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zoom naar alles.
-        /// </summary>
-        public static string Ribbon_ZoomToAll {
-            get {
-                return ResourceManager.GetString("Ribbon_ZoomToAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap ZoomToAllIcon {
+        internal static System.Drawing.Bitmap ZoomToAllIcon {
             get {
                 object obj = ResourceManager.GetObject("ZoomToAllIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));

@@ -117,18 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="General_Map" xml:space="preserve">
-    <value>Kaart</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="MapIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\map.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Ribbon_Toggle_Legend" xml:space="preserve">
-    <value>Kaart</value>
-  </data>
-  <data name="Ribbon_Toggle_Legend_ToolTip" xml:space="preserve">
-    <value>Open het kaartenpaneel.</value>
   </data>
   <data name="AreaIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\area.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,17 +130,8 @@
   <data name="PointsIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\points.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Ribbon_ZoomToAll" xml:space="preserve">
-    <value>Zoom naar alles</value>
-  </data>
   <data name="ZoomToAllIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\zoomextents.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer" xml:space="preserve">
-    <value>&amp;Voeg kaartlaag toe...</value>
-  </data>
-  <data name="MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip" xml:space="preserve">
-    <value>Importeer een nieuwe kaartlaag en voeg deze toe.</value>
   </data>
   <data name="MapPlusIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\map--plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -216,24 +198,6 @@
   </data>
   <data name="MapPlugin_GetImportInfos_MapDataCollection_filefilter_Extension" xml:space="preserve">
     <value>shp</value>
-  </data>
-  <data name="MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip" xml:space="preserve">
-    <value>Zet het zoomniveau van de kaart dusdanig dat deze kaartlaag precies in het beeld past.</value>
-  </data>
-  <data name="MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip" xml:space="preserve">
-    <value>Om het zoomniveau aan te passen moet de kaartlaag zichtbaar zijn.</value>
-  </data>
-  <data name="MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisabled_Tooltip" xml:space="preserve">
-    <value>Om het zoomniveau aan te passen moet minstens één van de zichtbare kaartlagen in deze map met kaartlagen elementen bevatten.</value>
-  </data>
-  <data name="MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip" xml:space="preserve">
-    <value>Om het zoomniveau aan te passen moet er minstens één kaartlaag in deze map met kaartlagen zichtbaar zijn.</value>
-  </data>
-  <data name="MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip" xml:space="preserve">
-    <value>Zet het zoomniveau van de kaart dusdanig dat alle zichtbare kaartlagen in deze map met kaartlagen precies in het beeld passen.</value>
-  </data>
-  <data name="MapLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip" xml:space="preserve">
-    <value>Om het zoomniveau aan te passen moet de kaartlaag elementen bevatten.</value>
   </data>
   <data name="Categories_Styling" xml:space="preserve">
     <value>Stijl</value>

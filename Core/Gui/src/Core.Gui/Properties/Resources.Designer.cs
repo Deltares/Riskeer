@@ -30,6 +30,9 @@
 //------------------------------------------------------------------------------
 
 namespace Core.Gui.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -37,7 +40,7 @@ namespace Core.Gui.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -170,6 +173,16 @@ namespace Core.Gui.Properties {
             get {
                 return ResourceManager.GetString("ApplicationFeatureiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file_Ope" +
                         "ning_log_file_directory_instead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap AreaIcon {
+            get {
+                object obj = ResourceManager.GetObject("AreaIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1015,11 +1028,141 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap LineIcon {
+            get {
+                object obj = ResourceManager.GetObject("LineIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project.
         /// </summary>
         public static string MainButtonBar_Project_DisplayName {
             get {
                 return ResourceManager.GetString("MainButtonBar_Project_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet minstens één van de zichtbare kaartlagen in deze map met kaartlagen elementen bevatten..
+        /// </summary>
+        public static string MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisabled_Tooltip {
+            get {
+                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisab" +
+                        "led_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zet het zoomniveau van de kaart dusdanig dat alle zichtbare kaartlagen in deze map met kaartlagen precies in het beeld passen..
+        /// </summary>
+        public static string MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip {
+            get {
+                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet er minstens één kaartlaag in deze map met kaartlagen zichtbaar zijn..
+        /// </summary>
+        public static string MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip {
+            get {
+                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet de kaartlaag elementen bevatten..
+        /// </summary>
+        public static string MapLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip {
+            get {
+                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom naar alles.
+        /// </summary>
+        public static string MapLegendView_CreateZoomToExtentsItem_ZoomToAll_DisplayName {
+            get {
+                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_ZoomToAll_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zet het zoomniveau van de kaart dusdanig dat deze kaartlaag precies in het beeld past..
+        /// </summary>
+        public static string MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip {
+            get {
+                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet de kaartlaag zichtbaar zijn..
+        /// </summary>
+        public static string MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip {
+            get {
+                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaart.
+        /// </summary>
+        public static string MapLegendView_Map_DisplayName {
+            get {
+                return ResourceManager.GetString("MapLegendView_Map_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Voeg kaartlaag toe....
+        /// </summary>
+        public static string MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer {
+            get {
+                return ResourceManager.GetString("MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importeer een nieuwe kaartlaag en voeg deze toe..
+        /// </summary>
+        public static string MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip {
+            get {
+                return ResourceManager.GetString("MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaart.
+        /// </summary>
+        public static string MapLegendView_Toggle_Legend {
+            get {
+                return ResourceManager.GetString("MapLegendView_Toggle_Legend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open het kaartenpaneel..
+        /// </summary>
+        public static string MapLegendView_Toggle_Legend_ToolTip {
+            get {
+                return ResourceManager.GetString("MapLegendView_Toggle_Legend_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap MapPlusIcon {
+            get {
+                object obj = ResourceManager.GetObject("MapPlusIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1130,6 +1273,16 @@ namespace Core.Gui.Properties {
         public static string OpenProjectActivity_ProgressTextStepName_ReadProject {
             get {
                 return ResourceManager.GetString("OpenProjectActivity_ProgressTextStepName_ReadProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap PointsIcon {
+            get {
+                object obj = ResourceManager.GetObject("PointsIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1580,6 +1733,16 @@ namespace Core.Gui.Properties {
         public static string WindowCommands_SaveAs_ToolTip {
             get {
                 return ResourceManager.GetString("WindowCommands_SaveAs_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ZoomToAllIcon {
+            get {
+                object obj = ResourceManager.GetObject("ZoomToAllIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

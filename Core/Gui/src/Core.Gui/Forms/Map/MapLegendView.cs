@@ -63,7 +63,7 @@ namespace Core.Gui.Forms.Map
 
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
             InitializeComponent();
-            Text = MapResources.General_Map;
+            Text = GuiResources.MapLegendView_Map_DisplayName;
 
             RegisterTreeNodeInfos();
 
@@ -173,12 +173,12 @@ namespace Core.Gui.Forms.Map
             if (nodeData.IsVisible)
             {
                 toolTip = hasFeatures
-                              ? MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip
-                              : MapResources.MapLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip;
+                              ? GuiResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip
+                              : GuiResources.MapLegendView_CreateZoomToExtentsItem_NoFeatures_ZoomToAllDisabled_Tooltip;
             }
             else
             {
-                toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip;
+                toolTip = GuiResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip;
             }
 
             return CreateZoomToExtentsItem(nodeData, toolTip, enabled);
@@ -210,12 +210,12 @@ namespace Core.Gui.Forms.Map
             if (isVisible)
             {
                 toolTip = hasFeatures
-                              ? MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip
-                              : MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisabled_Tooltip;
+                              ? GuiResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAll_Tooltip
+                              : GuiResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisabled_Tooltip;
             }
             else
             {
-                toolTip = MapResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip;
+                toolTip = GuiResources.MapLegendView_CreateZoomToExtentsItem_MapDataCollection_ZoomToAllDisabled_Tooltip;
             }
 
             return CreateZoomToExtentsItem(nodeData, toolTip, enabled);
@@ -223,9 +223,9 @@ namespace Core.Gui.Forms.Map
 
         private StrictContextMenuItem CreateZoomToExtentsItem(MapData nodeData, string toolTip, bool isEnabled)
         {
-            return new StrictContextMenuItem($"&{MapResources.Ribbon_ZoomToAll}",
+            return new StrictContextMenuItem($"&{GuiResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAll_DisplayName}",
                                              toolTip,
-                                             MapResources.ZoomToAllIcon,
+                                             GuiResources.ZoomToAllIcon,
                                              (sender, args) => MapControl?.ZoomToAllVisibleLayers(nodeData))
             {
                 Enabled = isEnabled
@@ -248,17 +248,17 @@ namespace Core.Gui.Forms.Map
         {
             if (context.WrappedData is MapPointData)
             {
-                return MapResources.PointsIcon;
+                return GuiResources.PointsIcon;
             }
 
             if (context.WrappedData is MapLineData)
             {
-                return MapResources.LineIcon;
+                return GuiResources.LineIcon;
             }
 
             if (context.WrappedData is MapPolygonData)
             {
-                return MapResources.AreaIcon;
+                return GuiResources.AreaIcon;
             }
 
             return GuiResources.folder;
@@ -421,9 +421,9 @@ namespace Core.Gui.Forms.Map
         {
             return contextMenuBuilderProvider.Get(context, treeView)
                                              .AddImportItem(
-                                                 MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer,
-                                                 MapResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip,
-                                                 MapResources.MapPlusIcon)
+                                                 GuiResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer,
+                                                 GuiResources.MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip,
+                                                 GuiResources.MapPlusIcon)
                                              .AddSeparator()
                                              .AddCustomItem(CreateZoomToExtentsItem(context))
                                              .AddSeparator()
