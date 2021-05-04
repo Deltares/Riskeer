@@ -631,7 +631,7 @@ namespace Core.Plugins.Chart.Test.Legend
             contextMenuBuilderProvider.Expect(p => p.Get(null, null)).IgnoreArguments().Return(builder);
             var chartControl = mocks.StrictMock<IChartControl>();
             chartControl.Expect(c => c.Data).Return(new ChartDataCollection("name"));
-            chartControl.Expect(c => c.ZoomToAllVisibleLayers(lineData));
+            chartControl.Expect(c => c.ZoomToAllVisibleSeries(lineData));
             mocks.ReplayAll();
 
             chartLegendView.ChartControl = chartControl;

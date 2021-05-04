@@ -120,9 +120,9 @@ namespace Core.Components.OxyPlot.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Zoom naar alles.
         /// </summary>
-        internal static string ChartControl_ZoomToVisibleLayers {
+        internal static string ChartControl_ZoomToVisibleSeries {
             get {
-                return ResourceManager.GetString("ChartControl_ZoomToVisibleLayers", resourceCulture);
+                return ResourceManager.GetString("ChartControl_ZoomToVisibleSeries", resourceCulture);
             }
         }
         

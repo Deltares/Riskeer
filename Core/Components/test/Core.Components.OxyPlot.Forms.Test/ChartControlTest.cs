@@ -373,11 +373,11 @@ namespace Core.Components.OxyPlot.Forms.Test
             return chartControl.Controls[0].Controls.OfType<LinearPlotView>().First();
         }
 
-        #region ZoomToAllVisibleLayers
+        #region ZoomToAllVisibleSeries
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ZoomToAllVisibleLayers_WithNonChildChartData_ThrowArgumentException()
+        public void ZoomToAllVisibleSeries_WithNonChildChartData_ThrowArgumentException()
         {
             // Setup
             using (var chartControl = new ChartControl())
@@ -389,7 +389,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 chartControl.Update();
 
                 // Call
-                void Call() => chartControl.ZoomToAllVisibleLayers(chartData);
+                void Call() => chartControl.ZoomToAllVisibleSeries(chartData);
 
                 // Assert
                 const string message = "Can only zoom to ChartData that is part of this ChartControls drawn chartData.";
@@ -400,7 +400,7 @@ namespace Core.Components.OxyPlot.Forms.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ZoomToAllVisibleLayers_ChartInFormWithEmptyDataSetAndZoomChildChartData_ViewNotInvalidated()
+        public void ZoomToAllVisibleSeries_ChartInFormWithEmptyDataSetAndZoomChildChartData_ViewNotInvalidated()
         {
             // Setup
             using (var form = new Form())
@@ -428,7 +428,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 linearPlotView.Invalidated += (sender, args) => invalidated++;
 
                 // Call
-                chartControl.ZoomToAllVisibleLayers(chartData);
+                chartControl.ZoomToAllVisibleSeries(chartData);
 
                 // Assert
                 Assert.AreEqual(0, invalidated);
@@ -438,7 +438,7 @@ namespace Core.Components.OxyPlot.Forms.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ZoomToAllVisibleLayers_ChartInFormForChildChartData_ViewInvalidatedLayersSame()
+        public void ZoomToAllVisibleSeries_ChartInFormForChildChartData_ViewInvalidatedSeriesSame()
         {
             // Setup
             using (var form = new Form())
@@ -467,7 +467,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 linearPlotView.Invalidated += (sender, args) => invalidated++;
 
                 // Call
-                chartControl.ZoomToAllVisibleLayers(chartData);
+                chartControl.ZoomToAllVisibleSeries(chartData);
 
                 // Assert
                 Assert.AreEqual(1, invalidated);
@@ -483,7 +483,7 @@ namespace Core.Components.OxyPlot.Forms.Test
         }
 
         [Test]
-        public void ZoomToAllVisibleLayers_ForInvisibleChildChartData_DoNotChangeViewExtentsOfChartView()
+        public void ZoomToAllVisibleSeries_ForInvisibleChildChartData_DoNotChangeViewExtentsOfChartView()
         {
             // Setup
             using (var form = new Form())
@@ -515,7 +515,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                     linearPlotView.Model.Axes[1].ActualMaximum);
 
                 // Call
-                chartControl.ZoomToAllVisibleLayers(chartData);
+                chartControl.ZoomToAllVisibleSeries(chartData);
 
                 // Assert
                 AssertExpectedExtent(linearPlotView.Model.Axes, expectedExtent);

@@ -42,7 +42,7 @@ namespace Core.Components.OxyPlot.Forms
             this.panToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.zoomToRectangleToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.zoomToVisibleLayersToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.zoomToVisibleSeriesToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
@@ -58,7 +58,7 @@ namespace Core.Components.OxyPlot.Forms
             this.panToolStripButton,
             this.zoomToRectangleToolStripButton,
             this.toolStripSeparator1,
-            this.zoomToVisibleLayersToolStripButton});
+            this.zoomToVisibleSeriesToolStripButton});
             this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.toolStrip.Location = new System.Drawing.Point(438, 0);
             this.toolStrip.Name = "toolStrip";
@@ -90,15 +90,15 @@ namespace Core.Components.OxyPlot.Forms
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(26, 6);
             // 
-            // zoomToVisibleLayersToolStripButton
+            // zoomToVisibleSeriesToolStripButton
             // 
-            this.zoomToVisibleLayersToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.zoomToVisibleLayersToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
-            this.zoomToVisibleLayersToolStripButton.Name = "zoomToVisibleLayersToolStripButton";
-            this.zoomToVisibleLayersToolStripButton.Size = new System.Drawing.Size(22, 19);
-            this.zoomToVisibleLayersToolStripButton.Text = "";
-            this.zoomToVisibleLayersToolStripButton.ToolTipText = global::Core.Components.OxyPlot.Forms.Properties.Resources.ChartControl_ZoomToVisibleLayers;
-            this.zoomToVisibleLayersToolStripButton.Click += new System.EventHandler(this.ZoomToAllVisibleLayersToolStripButtonClick);
+            this.zoomToVisibleSeriesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.zoomToVisibleSeriesToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
+            this.zoomToVisibleSeriesToolStripButton.Name = "zoomToVisibleSeriesToolStripButton";
+            this.zoomToVisibleSeriesToolStripButton.Size = new System.Drawing.Size(22, 19);
+            this.zoomToVisibleSeriesToolStripButton.Text = "";
+            this.zoomToVisibleSeriesToolStripButton.ToolTipText = global::Core.Components.OxyPlot.Forms.Properties.Resources.ChartControl_ZoomToVisibleSeries;
+            this.zoomToVisibleSeriesToolStripButton.Click += new System.EventHandler(this.ZoomToAllVisibleSeriesToolStripButtonClick);
             // 
             // tableLayoutPanel
             // 
@@ -136,7 +136,7 @@ namespace Core.Components.OxyPlot.Forms
         private System.Windows.Forms.ToolStripButton panToolStripButton;
         private System.Windows.Forms.ToolStripButton zoomToRectangleToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton zoomToVisibleLayersToolStripButton;
+        private System.Windows.Forms.ToolStripButton zoomToVisibleSeriesToolStripButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
     }
 }

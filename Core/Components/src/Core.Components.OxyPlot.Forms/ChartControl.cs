@@ -126,9 +126,9 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
-        public void ZoomToAllVisibleLayers(ChartData layerData)
+        public void ZoomToAllVisibleSeries(ChartData layerData)
         {
-            Extent extent = CreateEnvelopeForAllVisibleLayers(layerData);
+            Extent extent = CreateEnvelopeForAllVisibleSeries(layerData);
 
             if (!extent.IsNaN)
             {
@@ -170,7 +170,7 @@ namespace Core.Components.OxyPlot.Forms
             var font = new Font(fonts.Families[0], 14.0F);
             panToolStripButton.Font = font;
             zoomToRectangleToolStripButton.Font = font;
-            zoomToVisibleLayersToolStripButton.Font = font;
+            zoomToVisibleSeriesToolStripButton.Font = font;
         }
 
         private void InitializePlotView()
@@ -198,11 +198,11 @@ namespace Core.Components.OxyPlot.Forms
         /// <returns>The area definition.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="chartData"/> is
         /// not part of the drawn chart data.</exception>
-        private Extent CreateEnvelopeForAllVisibleLayers(ChartData chartData)
+        private Extent CreateEnvelopeForAllVisibleSeries(ChartData chartData)
         {
             if (chartData is ChartDataCollection collection)
             {
-                return CreateEnvelopeForAllVisibleLayers(collection);
+                return CreateEnvelopeForAllVisibleSeries(collection);
             }
 
             DrawnChartData drawnChartData = drawnChartDataList.FirstOrDefault(dmd => dmd.ChartData.Equals(chartData));
@@ -232,13 +232,13 @@ namespace Core.Components.OxyPlot.Forms
         /// <returns>The area definition.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="chartDataCollection"/> or
         /// any of its children is not part of the drawn chart data.</exception>
-        private Extent CreateEnvelopeForAllVisibleLayers(ChartDataCollection chartDataCollection)
+        private Extent CreateEnvelopeForAllVisibleSeries(ChartDataCollection chartDataCollection)
         {
             var envelope = new Extent();
 
             foreach (ChartData childChartData in chartDataCollection.Collection)
             {
-                envelope.ExpandToInclude(CreateEnvelopeForAllVisibleLayers(childChartData));
+                envelope.ExpandToInclude(CreateEnvelopeForAllVisibleSeries(childChartData));
             }
 
             return envelope;
@@ -377,9 +377,9 @@ namespace Core.Components.OxyPlot.Forms
             zoomToRectangleToolStripButton.Checked = true;
         }
 
-        private void ZoomToAllVisibleLayersToolStripButtonClick(object sender, EventArgs e)
+        private void ZoomToAllVisibleSeriesToolStripButtonClick(object sender, EventArgs e)
         {
-            ZoomToAllVisibleLayers(Data);
+            ZoomToAllVisibleSeries(Data);
         }
 
         /// <summary>
