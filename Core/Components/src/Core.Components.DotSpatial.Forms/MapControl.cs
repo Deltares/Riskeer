@@ -492,9 +492,9 @@ namespace Core.Components.DotSpatial.Forms
             ZoomToAllVisibleLayers(Data);
         }
 
-        public void ZoomToAllVisibleLayers(MapData layerData)
+        public void ZoomToAllVisibleLayers(MapData mapData)
         {
-            Envelope envelope = CreateEnvelopeForAllVisibleLayers(layerData);
+            Envelope envelope = CreateEnvelopeForAllVisibleLayers(mapData);
 
             if (!envelope.IsNull)
             {
