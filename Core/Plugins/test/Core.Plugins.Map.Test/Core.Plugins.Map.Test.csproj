@@ -59,6 +59,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="PresentationObjects" />
     <Folder Include="PropertyClasses" />
     <Folder Include="UITypeEditors" />
   </ItemGroup>

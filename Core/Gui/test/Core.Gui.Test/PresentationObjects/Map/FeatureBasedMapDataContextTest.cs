@@ -19,29 +19,45 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.TestUtil;
 using Core.Gui.PresentationObjects.Map;
 using NUnit.Framework;
 
-namespace Core.Plugins.Map.Test.PresentationObjects
+namespace Core.Gui.Test.PresentationObjects.Map
 {
     [TestFixture]
-    public class MapPolygonDataContextTest
+    public class FeatureBasedMapDataContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var data = new MapPolygonData("test");
-            var parent = new MapDataCollectionContext(new MapDataCollection("parent"), null);
+            FeatureBasedMapData data = new TestFeatureBasedMapData();
+            var collection = new MapDataCollection("test");
+            collection.Add(data);
+
+            var collectionContext = new MapDataCollectionContext(collection, null);
 
             // Call
-            var context = new MapPolygonDataContext(data, parent);
+            var context = new FeatureBasedMapDataContext(data, collectionContext);
 
             // Assert
-            Assert.IsInstanceOf<FeatureBasedMapDataContext>(context);
+            Assert.IsInstanceOf<MapDataContext>(context);
             Assert.AreSame(data, context.WrappedData);
-            Assert.AreSame(parent, context.ParentMapData);
+            Assert.AreSame(collectionContext, context.ParentMapData);
+        }
+
+        [Test]
+        public void Constructor_ParentMapDataNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new FeatureBasedMapDataContext(new TestFeatureBasedMapData(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("parentMapData", exception.ParamName);
         }
     }
 }

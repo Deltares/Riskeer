@@ -19,29 +19,37 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Controls.PresentationObjects;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.TestUtil;
 using Core.Gui.PresentationObjects.Map;
 using NUnit.Framework;
 
-namespace Core.Plugins.Map.Test.PresentationObjects
+namespace Core.Gui.Test.PresentationObjects.Map
 {
     [TestFixture]
-    public class MapPointDataContextTest
+    public class MapDataContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var data = new MapPointData("test");
-            var parent = new MapDataCollectionContext(new MapDataCollection("parent"), null);
+            MapData data = new TestMapData();
 
             // Call
-            var context = new MapPointDataContext(data, parent);
+            var context = new TestMapDataContext(data);
 
             // Assert
-            Assert.IsInstanceOf<FeatureBasedMapDataContext>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<MapData>>(context);
             Assert.AreSame(data, context.WrappedData);
-            Assert.AreSame(parent, context.ParentMapData);
+        }
+
+        private class TestMapDataContext : MapDataContext
+        {
+            public TestMapDataContext(MapData wrappedData)
+                : base(wrappedData) {}
+
+            public override MapDataCollectionContext ParentMapData { get; }
         }
     }
 }

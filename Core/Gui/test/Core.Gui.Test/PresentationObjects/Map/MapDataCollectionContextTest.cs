@@ -23,7 +23,7 @@ using Core.Components.Gis.Data;
 using Core.Gui.PresentationObjects.Map;
 using NUnit.Framework;
 
-namespace Core.Plugins.Map.Test.PresentationObjects
+namespace Core.Gui.Test.PresentationObjects.Map
 {
     [TestFixture]
     public class MapDataCollectionContextTest

@@ -23,20 +23,20 @@ using Core.Components.Gis.Data;
 using Core.Gui.PresentationObjects.Map;
 using NUnit.Framework;
 
-namespace Core.Plugins.Map.Test.PresentationObjects
+namespace Core.Gui.Test.PresentationObjects.Map
 {
     [TestFixture]
-    public class MapLineDataContextTest
+    public class MapPolygonDataContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var data = new MapLineData("test");
+            var data = new MapPolygonData("test");
             var parent = new MapDataCollectionContext(new MapDataCollection("parent"), null);
 
             // Call
-            var context = new MapLineDataContext(data, parent);
+            var context = new MapPolygonDataContext(data, parent);
 
             // Assert
             Assert.IsInstanceOf<FeatureBasedMapDataContext>(context);
