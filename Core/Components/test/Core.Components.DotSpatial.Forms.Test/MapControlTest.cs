@@ -566,9 +566,9 @@ namespace Core.Components.DotSpatial.Forms.Test
             return mapControl;
         }
 
-        private static Map GetMap(MapControl map)
+        private static Map GetMap(MapControl mapControl)
         {
-            return map.Controls[0].Controls.OfType<Map>().First();
+            return mapControl.Controls[0].Controls.OfType<Map>().First();
         }
 
         #region BackgroundMapData
