@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using Core.Components.Gis.Data;
-using Core.Plugins.Map.Helpers;
-using Core.Plugins.Map.PresentationObjects;
+using Core.Gui.Helpers;
+using Core.Gui.PresentationObjects.Map;
 using NUnit.Framework;
 
 namespace Core.Plugins.Map.Test.Helpers

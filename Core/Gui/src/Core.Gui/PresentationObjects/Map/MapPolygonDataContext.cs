@@ -22,21 +22,21 @@
 using System;
 using Core.Components.Gis.Data;
 
-namespace Core.Plugins.Map.PresentationObjects
+namespace Core.Gui.PresentationObjects.Map
 {
     /// <summary>
-    /// Presentation object for <see cref="MapLineData"/>.
+    /// Presentation object for <see cref="MapPolygonData"/>.
     /// </summary>
-    public class MapLineDataContext : FeatureBasedMapDataContext
+    public class MapPolygonDataContext : FeatureBasedMapDataContext
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MapLineDataContext"/>.
+        /// Creates a new instance of <see cref="MapPolygonDataContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="MapLineData"/> to wrap.</param>
+        /// <param name="wrappedData">The <see cref="MapPolygonData"/> to wrap.</param>
         /// <param name="parentMapData">The parent <see cref="MapDataCollectionContext"/> 
         /// the <paramref name="wrappedData"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MapLineDataContext(MapLineData wrappedData, MapDataCollectionContext parentMapData)
+        public MapPolygonDataContext(MapPolygonData wrappedData, MapDataCollectionContext parentMapData)
             : base(wrappedData, parentMapData) {}
     }
 }

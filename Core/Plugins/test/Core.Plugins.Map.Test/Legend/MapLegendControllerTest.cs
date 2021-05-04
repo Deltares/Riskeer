@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Controls.Views;
 using Core.Gui;
 using Core.Gui.ContextMenu;
+using Core.Gui.Forms.Map;
 using Core.Gui.Forms.ViewHost;
 using Core.Plugins.Map.Legend;
 using NUnit.Framework;

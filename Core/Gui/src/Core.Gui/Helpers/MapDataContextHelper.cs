@@ -20,33 +20,40 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Components.Gis.Data;
+using Core.Gui.PresentationObjects.Map;
 
-namespace Core.Plugins.Map.PresentationObjects
+namespace Core.Gui.Helpers
 {
     /// <summary>
-    /// Presentation object for <see cref="FeatureBasedMapData"/>.
+    /// Helper class for <see cref="MapDataContext"/>.
     /// </summary>
-    public class FeatureBasedMapDataContext : MapDataContext
+    public static class MapDataContextHelper
     {
         /// <summary>
-        /// Creates a new instance of <see cref="FeatureBasedMapDataContext"/>.
+        /// Gets all the parents of the given <paramref name="context"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="FeatureBasedMapData"/> to wrap.</param>
-        /// <param name="parentMapData">The parent <see cref="MapDataCollectionContext"/> 
-        /// the <paramref name="wrappedData"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FeatureBasedMapDataContext(FeatureBasedMapData wrappedData, MapDataCollectionContext parentMapData)
-            : base(wrappedData)
+        /// <param name="context">The context to get the parents for.</param>
+        /// <returns>A collection of <see cref="MapDataCollection"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="context"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<MapDataCollection> GetParentsFromContext(MapDataContext context)
         {
-            if (parentMapData == null)
+            if (context == null)
             {
-                throw new ArgumentNullException(nameof(parentMapData));
+                throw new ArgumentNullException(nameof(context));
             }
 
-            ParentMapData = parentMapData;
-        }
+            var parents = new List<MapDataCollection>();
 
-        public override MapDataCollectionContext ParentMapData { get; }
+            if (context.ParentMapData != null)
+            {
+                parents.Add((MapDataCollection) context.ParentMapData.WrappedData);
+                parents.AddRange(GetParentsFromContext(context.ParentMapData));
+            }
+
+            return parents;
+        }
     }
 }

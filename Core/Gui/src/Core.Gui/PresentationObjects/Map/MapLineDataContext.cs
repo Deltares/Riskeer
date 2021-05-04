@@ -20,29 +20,23 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Controls.PresentationObjects;
 using Core.Components.Gis.Data;
 
-namespace Core.Plugins.Map.PresentationObjects
+namespace Core.Gui.PresentationObjects.Map
 {
     /// <summary>
-    /// Presentation object for <see cref="MapData"/>.
+    /// Presentation object for <see cref="MapLineData"/>.
     /// </summary>
-    public abstract class MapDataContext : ObservableWrappedObjectContextBase<MapData>
+    public class MapLineDataContext : FeatureBasedMapDataContext
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MapDataContext"/>.
+        /// Creates a new instance of <see cref="MapLineDataContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="MapData"/> to wrap.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>
-        /// is <c>null</c>.</exception>
-        protected MapDataContext(MapData wrappedData)
-            : base(wrappedData) {}
-
-        /// <summary>
-        /// Gets the parent <see cref="MapDataCollectionContext"/>
-        /// the <see cref="WrappedObjectContextBase{T}.WrappedData"/> belongs to.
-        /// </summary>
-        public abstract MapDataCollectionContext ParentMapData { get; }
+        /// <param name="wrappedData">The <see cref="MapLineData"/> to wrap.</param>
+        /// <param name="parentMapData">The parent <see cref="MapDataCollectionContext"/> 
+        /// the <paramref name="wrappedData"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public MapLineDataContext(MapLineData wrappedData, MapDataCollectionContext parentMapData)
+            : base(wrappedData, parentMapData) {}
     }
 }

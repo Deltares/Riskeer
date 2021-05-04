@@ -22,7 +22,7 @@
 using System;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;
-using Core.Plugins.Map.PresentationObjects;
+using Core.Gui.PresentationObjects.Map;
 using NUnit.Framework;
 
 namespace Core.Plugins.Map.Test.PresentationObjects

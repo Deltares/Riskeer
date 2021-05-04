@@ -22,21 +22,31 @@
 using System;
 using Core.Components.Gis.Data;
 
-namespace Core.Plugins.Map.PresentationObjects
+namespace Core.Gui.PresentationObjects.Map
 {
     /// <summary>
-    /// Presentation object for <see cref="MapPolygonData"/>.
+    /// Presentation object for <see cref="FeatureBasedMapData"/>.
     /// </summary>
-    public class MapPolygonDataContext : FeatureBasedMapDataContext
+    public class FeatureBasedMapDataContext : MapDataContext
     {
         /// <summary>
-        /// Creates a new instance of <see cref="MapPolygonDataContext"/>.
+        /// Creates a new instance of <see cref="FeatureBasedMapDataContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="MapPolygonData"/> to wrap.</param>
+        /// <param name="wrappedData">The <see cref="FeatureBasedMapData"/> to wrap.</param>
         /// <param name="parentMapData">The parent <see cref="MapDataCollectionContext"/> 
         /// the <paramref name="wrappedData"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MapPolygonDataContext(MapPolygonData wrappedData, MapDataCollectionContext parentMapData)
-            : base(wrappedData, parentMapData) {}
+        public FeatureBasedMapDataContext(FeatureBasedMapData wrappedData, MapDataCollectionContext parentMapData)
+            : base(wrappedData)
+        {
+            if (parentMapData == null)
+            {
+                throw new ArgumentNullException(nameof(parentMapData));
+            }
+
+            ParentMapData = parentMapData;
+        }
+
+        public override MapDataCollectionContext ParentMapData { get; }
     }
 }

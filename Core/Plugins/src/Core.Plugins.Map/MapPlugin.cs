@@ -27,10 +27,10 @@ using Core.Components.Gis.Forms;
 using Core.Components.Gis.IO.Importers;
 using Core.Gui;
 using Core.Gui.Forms.ViewHost;
+using Core.Gui.Helpers;
 using Core.Gui.Plugin;
-using Core.Plugins.Map.Helpers;
+using Core.Gui.PresentationObjects.Map;
 using Core.Plugins.Map.Legend;
-using Core.Plugins.Map.PresentationObjects;
 using Core.Plugins.Map.Properties;
 using Core.Plugins.Map.PropertyClasses;
 

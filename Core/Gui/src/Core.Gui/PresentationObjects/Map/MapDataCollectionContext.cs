@@ -22,7 +22,7 @@
 using System;
 using Core.Components.Gis.Data;
 
-namespace Core.Plugins.Map.PresentationObjects
+namespace Core.Gui.PresentationObjects.Map
 {
     /// <summary>
     /// Presentation object for <see cref="MapDataCollection"/>.

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Controls.Commands;
+using Core.Gui.Forms.Map;
 using Core.Plugins.Map.Legend;
 
 namespace Core.Plugins.Map.Commands

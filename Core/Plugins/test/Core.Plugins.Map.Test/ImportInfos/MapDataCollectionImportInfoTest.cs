@@ -27,7 +27,7 @@ using Core.Common.Util;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Importers;
 using Core.Gui.Plugin;
-using Core.Plugins.Map.PresentationObjects;
+using Core.Gui.PresentationObjects.Map;
 using Core.Plugins.Map.Properties;
 using NUnit.Framework;
 

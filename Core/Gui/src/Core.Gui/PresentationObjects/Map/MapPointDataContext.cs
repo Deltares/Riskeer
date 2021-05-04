@@ -19,29 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Components.Gis.Data;
-using Core.Gui.PresentationObjects.Map;
-using NUnit.Framework;
 
-namespace Core.Plugins.Map.Test.PresentationObjects
+namespace Core.Gui.PresentationObjects.Map
 {
-    [TestFixture]
-    public class MapPointDataContextTest
+    /// <summary>
+    /// Presentation object for <see cref="MapPointData"/>.
+    /// </summary>
+    public class MapPointDataContext : FeatureBasedMapDataContext
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            var data = new MapPointData("test");
-            var parent = new MapDataCollectionContext(new MapDataCollection("parent"), null);
-
-            // Call
-            var context = new MapPointDataContext(data, parent);
-
-            // Assert
-            Assert.IsInstanceOf<FeatureBasedMapDataContext>(context);
-            Assert.AreSame(data, context.WrappedData);
-            Assert.AreSame(parent, context.ParentMapData);
-        }
+        /// <summary>
+        /// Creates a new instance of <see cref="MapPointDataContext"/>.
+        /// </summary>
+        /// <param name="wrappedData">The <see cref="MapPointData"/> to wrap.</param>
+        /// <param name="parentMapData">The parent <see cref="MapDataCollectionContext"/> 
+        /// the <paramref name="wrappedData"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public MapPointDataContext(MapPointData wrappedData, MapDataCollectionContext parentMapData)
+            : base(wrappedData, parentMapData) {}
     }
 }

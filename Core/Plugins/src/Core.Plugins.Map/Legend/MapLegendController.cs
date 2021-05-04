@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Components.Gis.Forms;
 using Core.Gui;
 using Core.Gui.ContextMenu;
+using Core.Gui.Forms.Map;
 using Core.Gui.Forms.ViewHost;
 using Core.Plugins.Map.Properties;
 
