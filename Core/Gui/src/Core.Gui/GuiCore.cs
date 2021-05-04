@@ -27,6 +27,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Web.UI.WebControls;
 using System.Windows;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -450,6 +451,11 @@ namespace Core.Gui
                 if (ViewHost.ToolViews.Contains(mainWindow.ProjectExplorer))
                 {
                     ViewHost.BringToFront(mainWindow.ProjectExplorer);
+                }
+
+                if (ViewHost.ToolViews.Contains(mainWindow.MapLegendView))
+                {
+                    ViewHost.BringToFront(mainWindow.MapLegendView);
                 }
 
                 mainWindow.ValidateItems();

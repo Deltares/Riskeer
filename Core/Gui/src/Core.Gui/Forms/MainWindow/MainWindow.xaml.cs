@@ -31,6 +31,7 @@ using System.Windows.Media.Imaging;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Settings;
 using Core.Gui.Commands;
+using Core.Gui.Forms.Map;
 using Core.Gui.Forms.MessageWindow;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Selection;
@@ -54,11 +55,9 @@ namespace Core.Gui.Forms.MainWindow
         private ISettingsOwner settings;
         private IApplicationSelection applicationSelection;
 
-        private MessageWindow.MessageWindow messageWindow;
-        private PropertyGridView.PropertyGridView propertyGrid;
-
         private IGui gui;
-        private ProjectExplorer.ProjectExplorer projectExplorer;
+
+        private PropertyGridView.PropertyGridView propertyGrid;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -79,7 +78,7 @@ namespace Core.Gui.Forms.MainWindow
         /// <summary>
         /// Gets the log messages tool window.
         /// </summary>
-        public IMessageWindow MessageWindow => messageWindow;
+        public IMessageWindow MessageWindow { get; private set; }
 
         /// <summary>
         /// Gets the view host.
@@ -127,7 +126,15 @@ namespace Core.Gui.Forms.MainWindow
 
         public bool InvokeRequired => !Dispatcher.CheckAccess();
 
-        public ProjectExplorer.ProjectExplorer ProjectExplorer => projectExplorer;
+        /// <summary>
+        /// Gets the <see cref="Core.Gui.Forms.ProjectExplorer.ProjectExplorer"/>.
+        /// </summary>
+        public ProjectExplorer.ProjectExplorer ProjectExplorer { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="Core.Gui.Forms.Map.MapLegendView"/>.
+        /// </summary>
+        public MapLegendView MapLegendView { get; private set; }
 
         /// <summary>
         /// Sets the <see cref="IGui"/> and dependencies.
@@ -175,6 +182,7 @@ namespace Core.Gui.Forms.MainWindow
             InitProjectExplorerWindowOrBringToFront();
             InitMessagesWindowOrBringToFront();
             InitPropertiesWindowOrBringToFront();
+            InitMapLegendWindowOrBringToFront();
         }
 
         public void ValidateItems()
@@ -255,14 +263,19 @@ namespace Core.Gui.Forms.MainWindow
                 propertyGrid = null;
             }
 
-            if (ReferenceEquals(e.View, messageWindow))
+            if (ReferenceEquals(e.View, MessageWindow))
             {
-                messageWindow = null;
+                MessageWindow = null;
             }
 
-            if (ReferenceEquals(e.View, projectExplorer))
+            if (ReferenceEquals(e.View, ProjectExplorer))
             {
-                projectExplorer = null;
+                ProjectExplorer = null;
+            }
+
+            if (ReferenceEquals(e.View, MapLegendView))
+            {
+                MapLegendView = null;
             }
         }
 
@@ -273,6 +286,7 @@ namespace Core.Gui.Forms.MainWindow
                 ButtonShowProjectExplorer.IsChecked = viewController.ViewHost.ToolViews.Contains(ProjectExplorer);
                 ButtonShowMessages.IsChecked = viewController.ViewHost.ToolViews.Contains(MessageWindow);
                 ButtonShowProperties.IsChecked = viewController.ViewHost.ToolViews.Contains(PropertyGrid);
+                ButtonShowMapLegendView.IsChecked = viewController.ViewHost.ToolViews.Contains(MapLegendView);
             }
         }
         
@@ -283,18 +297,18 @@ namespace Core.Gui.Forms.MainWindow
                 throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitMessagesWindowOrActivate'.");
             }
 
-            if (projectExplorer == null)
+            if (ProjectExplorer == null)
             {
-                projectExplorer = new ProjectExplorer.ProjectExplorer(gui.ViewCommands, gui.GetTreeNodeInfos())
+                ProjectExplorer = new ProjectExplorer.ProjectExplorer(gui.ViewCommands, gui.GetTreeNodeInfos())
                 {
                     Data = gui.Project
                 };
-                viewController.ViewHost.AddToolView(projectExplorer, ToolViewLocation.Left);
-                viewController.ViewHost.SetImage(projectExplorer, Properties.Resources.ProjectExplorerIcon);
+                viewController.ViewHost.AddToolView(ProjectExplorer, ToolViewLocation.Left);
+                viewController.ViewHost.SetImage(ProjectExplorer, Properties.Resources.ProjectExplorerIcon);
             }
             else
             {
-                viewController.ViewHost.BringToFront(projectExplorer);
+                viewController.ViewHost.BringToFront(ProjectExplorer);
             }
         }
 
@@ -305,18 +319,38 @@ namespace Core.Gui.Forms.MainWindow
                 throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitMessagesWindowOrActivate'.");
             }
 
-            if (messageWindow == null)
+            if (MessageWindow == null)
             {
-                messageWindow = new MessageWindow.MessageWindow(this)
+                MessageWindow = new MessageWindow.MessageWindow(this)
                 {
                     Text = Properties.Resources.Messages
                 };
-                viewController.ViewHost.AddToolView(messageWindow, ToolViewLocation.Bottom);
-                viewController.ViewHost.SetImage(messageWindow, Properties.Resources.application_view_list);
+                viewController.ViewHost.AddToolView(MessageWindow, ToolViewLocation.Bottom);
+                viewController.ViewHost.SetImage(MessageWindow, Properties.Resources.application_view_list);
             }
             else
             {
-                viewController.ViewHost.BringToFront(messageWindow);
+                viewController.ViewHost.BringToFront(MessageWindow);
+            }
+        }
+
+        private void InitMapLegendWindowOrBringToFront()
+        {
+            if (gui == null)
+            {
+                throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitMessagesWindowOrActivate'.");
+            }
+
+            if (MapLegendView == null)
+            {
+                MapLegendView = new MapLegendView(gui);
+                
+                viewController.ViewHost.AddToolView(MapLegendView, ToolViewLocation.Left);
+                viewController.ViewHost.SetImage(MapLegendView, Properties.Resources.application_view_list);
+            }
+            else
+            {
+                viewController.ViewHost.BringToFront(MapLegendView);
             }
         }
 
@@ -405,6 +439,22 @@ namespace Core.Gui.Forms.MainWindow
             }
 
             ButtonShowMessages.IsChecked = !active;
+        }
+        
+        private void ButtonShowMapLegendView_Click(object sender, RoutedEventArgs e)
+        {
+            bool active = viewController.ViewHost.ToolViews.Contains(MapLegendView);
+
+            if (active)
+            {
+                viewController.ViewHost.Remove(MapLegendView);
+            }
+            else
+            {
+                InitMapLegendWindowOrBringToFront();
+            }
+
+            ButtonShowMapLegendView.IsChecked = !active;
         }
 
         private void OnFileHelpShowLog_Clicked(object sender, RoutedEventArgs e)

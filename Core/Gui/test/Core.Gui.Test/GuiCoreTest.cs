@@ -35,6 +35,7 @@ using Core.Common.Util.Settings;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Map;
 using Core.Gui.Forms.MessageWindow;
 using Core.Gui.Forms.ProjectExplorer;
 using Core.Gui.Forms.PropertyGridView;
@@ -1014,10 +1015,11 @@ namespace Core.Gui.Test
                 CollectionAssert.IsEmpty(gui.ViewHost.DocumentViews);
                 Assert.IsNull(gui.ViewHost.ActiveDocumentView);
 
-                Assert.AreEqual(3, gui.ViewHost.ToolViews.Count());
+                Assert.AreEqual(4, gui.ViewHost.ToolViews.Count());
                 Assert.AreEqual(1, gui.ViewHost.ToolViews.Count(v => v is ProjectExplorer));
                 Assert.AreEqual(1, gui.ViewHost.ToolViews.Count(v => v is PropertyGridView));
                 Assert.AreEqual(1, gui.ViewHost.ToolViews.Count(v => v is MessageWindow));
+                Assert.AreEqual(1, gui.ViewHost.ToolViews.Count(v => v is MapLegendView));
 
                 Assert.IsNotNull(gui.DocumentViewController);
             }

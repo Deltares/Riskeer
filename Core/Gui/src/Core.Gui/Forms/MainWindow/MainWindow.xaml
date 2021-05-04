@@ -168,8 +168,10 @@ All rights reserved.
                                   AutomationProperties.AutomationId="ViewStateButtonBarShowMessages">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE942;"/>
                     </ToggleButton>
-                    <ToggleButton Style="{StaticResource ViewStateBarToggleButtonStyle}"
+                    <ToggleButton Name="ButtonShowMapLegendView"
+                                  Style="{StaticResource ViewStateBarToggleButtonStyle}"
                                   ToolTip="{x:Static properties:Resources.ViewStateBar_Map_ToolTip}"
+                                  Click="ButtonShowMapLegendView_Click"
                                   AutomationProperties.AutomationId="ViewStateButtonBarShowMap">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE94C;"/>
                     </ToggleButton>

@@ -28,9 +28,9 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
 using Core.Gui.Commands;
 using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Map;
 using Core.Gui.Forms.MessageWindow;
 using Core.Gui.Forms.PropertyGridView;
 using Core.Gui.Forms.ViewHost;
@@ -430,6 +430,9 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 Assert.IsInstanceOf<Gui.Forms.MessageWindow.MessageWindow>(mainWindow.MessageWindow);
                 Assert.AreEqual("Berichten", mainWindow.MessageWindow.Text);
+                
+                Assert.IsInstanceOf<MapLegendView>(mainWindow.MapLegendView);
+                Assert.IsNull(mainWindow.MapLegendView.Data);
 
                 Assert.IsNull(viewHost.ActiveDocumentView);
             }
@@ -534,6 +537,40 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 // Then
                 Assert.IsNull(mainWindow.MessageWindow);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenGuiWithMapLegendView_WhenClosingMapLegendView_ThenMapLegendViewSetToNull()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+
+                // Precondition
+                Assert.IsNotNull(mainWindow.MapLegendView);
+
+                // When
+                mainWindow.ViewHost.Remove(mainWindow.MapLegendView);
+
+                // Then
+                Assert.IsNull(mainWindow.MapLegendView);
             }
 
             mocks.VerifyAll();
