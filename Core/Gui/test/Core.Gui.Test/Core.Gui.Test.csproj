@@ -16,17 +16,8 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj" />
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj" />
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
     <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
-    <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj" />
-    <ProjectReference Include="..\..\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj" />
-    <ProjectReference Include="..\..\src\Core.Common.Controls\Core.Common.Controls.csproj" />
-    <ProjectReference Include="..\..\src\Core.Common.Util\Core.Common.Util.csproj" />
     <ProjectReference Include="..\..\src\Core.Gui\Core.Gui.csproj" />
-    <ProjectReference Include="..\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
     <ProjectReference Include="..\Core.Gui.TestUtil\Core.Gui.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>

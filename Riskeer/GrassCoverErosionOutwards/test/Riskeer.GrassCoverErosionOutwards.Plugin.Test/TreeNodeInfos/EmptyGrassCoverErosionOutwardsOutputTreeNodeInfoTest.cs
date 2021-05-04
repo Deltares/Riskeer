@@ -25,8 +25,6 @@ using Core.Common.Controls.TreeView;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Common.TestUtil;
-using Core.Gui;
-using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
