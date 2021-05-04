@@ -22,11 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Text;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Util.Drawing;
 using Core.Components.DotSpatial.Forms.Properties;
 using Core.Components.DotSpatial.Layer;
 using Core.Components.DotSpatial.Layer.BruTile;
@@ -56,7 +55,6 @@ namespace Core.Components.DotSpatial.Forms
         private readonly List<DrawnMapData> drawnMapDataList = new List<DrawnMapData>();
         private readonly MapControlBackgroundLayerStatus backgroundLayerStatus = new MapControlBackgroundLayerStatus();
         private readonly List<IFeatureBasedMapDataLayer> mapDataLayersToUpdate = new List<IFeatureBasedMapDataLayer>();
-        private readonly PrivateFontCollection fonts = new PrivateFontCollection();
 
         private Map map;
         private bool removing;
@@ -73,7 +71,7 @@ namespace Core.Components.DotSpatial.Forms
         {
             InitializeComponent();
 
-            InitializeFont();
+            SetFonts();
 
             InitializeMap();
 
@@ -179,22 +177,10 @@ namespace Core.Components.DotSpatial.Forms
             }
         }
 
-        [DllImport("gdi32.dll")]
-        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont,
-                                                          IntPtr pdv, [In] ref uint pcFonts);
-
-        private void InitializeFont()
+        private void SetFonts()
         {
-            byte[] fontData = Resources.Deltares_Riskeer_Symbols;
-            IntPtr fontPtr = Marshal.AllocCoTaskMem(fontData.Length);
-            Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
+            Font font = FontHelper.CreateFont(Resources.Deltares_Riskeer_Symbols);
 
-            uint dummy = 0;
-            fonts.AddMemoryFont(fontPtr, Resources.Deltares_Riskeer_Symbols.Length);
-            AddFontMemResourceEx(fontPtr, (uint) Resources.Deltares_Riskeer_Symbols.Length, IntPtr.Zero, ref dummy);
-            Marshal.FreeCoTaskMem(fontPtr);
-
-            var font = new Font(fonts.Families[0], 14.0F);
             panToolStripButton.Font = font;
             zoomToRectangleToolStripButton.Font = font;
             zoomToVisibleLayersToolStripButton.Font = font;
