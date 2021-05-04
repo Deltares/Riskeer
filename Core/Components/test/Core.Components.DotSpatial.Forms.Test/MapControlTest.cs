@@ -550,16 +550,20 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         /// <summary>
-        /// Creates a <see cref="MapControl"/> without dimensions. This way aspect ratio related issues can be bypassed.
+        /// Creates a <see cref="MapControl"/> with a <see cref="Map"/> that has no dimensions. This way aspect ratio related issues can be bypassed.
         /// </summary>
         /// <returns>The created <see cref="MapControl"/>.</returns>
-        private static MapControl CreateDimensionlessMapControl()
+        private static MapControl CreateMapControlWithDimensionlessMap()
         {
-            return new MapControl
-            {
-                Width = 0,
-                Height = 0
-            };
+            var mapControl = new MapControl();
+
+            Map map = GetMap(mapControl);
+
+            map.Dock = DockStyle.None;
+            map.Width = 0;
+            map.Height = 0;
+
+            return mapControl;
         }
 
         private static Map GetMap(MapControl map)
@@ -1001,7 +1005,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(newBackgroundMapData))
-            using (MapControl mapControl = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateMapControlWithDimensionlessMap())
             {
                 mapControl.BackgroundMapData = startingBackgroundMapData;
 
@@ -1068,7 +1072,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (MapControl mapControl = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateMapControlWithDimensionlessMap())
             {
                 mapControl.BackgroundMapData = backgroundMapData;
 
@@ -1133,7 +1137,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (MapControl mapControl = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateMapControlWithDimensionlessMap())
             {
                 var mapDataCollection = new MapDataCollection("A");
                 mapDataCollection.Add(new MapPointData("points")
@@ -1188,7 +1192,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (MapControl mapControl = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateMapControlWithDimensionlessMap())
             {
                 var mapDataCollection = new MapDataCollection("A");
                 mapDataCollection.Add(new MapPointData("points")
@@ -1243,7 +1247,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (MapControl mapControl = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateMapControlWithDimensionlessMap())
             {
                 var mapDataCollection = new MapDataCollection("A");
                 mapDataCollection.Add(new MapPointData("points")
@@ -1305,7 +1309,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (MapControl mapControl = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateMapControlWithDimensionlessMap())
             {
                 var mapDataCollection = new MapDataCollection("A");
                 mapDataCollection.Add(new MapPointData("points")
@@ -1904,7 +1908,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (MapControl mapControl = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateMapControlWithDimensionlessMap())
             {
                 var mapDataCollection = new MapDataCollection("A");
                 mapDataCollection.Add(new MapPointData("points")
@@ -2289,7 +2293,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var form = new Form())
             {
-                MapControl mapControl = CreateDimensionlessMapControl();
+                MapControl mapControl = CreateMapControlWithDimensionlessMap();
 
                 var mapFeatures = new[]
                 {
@@ -2340,7 +2344,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ZoomToAllVisibleLayers_NotAllLayersVisible_ZoomToVisibleLayersExtent()
         {
             // Setup
-            using (MapControl mapControl = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateMapControlWithDimensionlessMap())
             {
                 Map map = GetMap(mapControl);
 
@@ -2422,7 +2426,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var form = new Form())
             {
-                MapControl mapControl = CreateDimensionlessMapControl();
+                MapControl mapControl = CreateMapControlWithDimensionlessMap();
 
                 var mapFeatures = new[]
                 {
@@ -2473,7 +2477,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ZoomToAllVisibleLayers_ForVisibleChildMapData_ZoomToVisibleLayerExtent()
         {
             // Setup
-            using (MapControl mapControl = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateMapControlWithDimensionlessMap())
             {
                 Map map = GetMap(mapControl);
 
@@ -2535,7 +2539,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ZoomToAllVisibleLayers_ForMapDataOfVariousDimensions_ZoomToVisibleLayerExtent(double xMax, double yMax)
         {
             // Setup
-            using (MapControl mapControl = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateMapControlWithDimensionlessMap())
             {
                 Map map = GetMap(mapControl);
 
