@@ -46,13 +46,15 @@ namespace Core.Components.DotSpatial.Forms
             this.zoomToAllVisibleLayersToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.showCoordinatesToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.toolStrip.SuspendLayout();
+            this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip
             // 
             this.toolStrip.CanOverflow = false;
-            this.toolStrip.Dock = System.Windows.Forms.DockStyle.Right;
+            this.toolStrip.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -63,9 +65,9 @@ namespace Core.Components.DotSpatial.Forms
             this.toolStripSeparator2,
             this.showCoordinatesToolStripButton});
             this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.toolStrip.Location = new System.Drawing.Point(649, 0);
+            this.toolStrip.Location = new System.Drawing.Point(437, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(48, 611);
+            this.toolStrip.Size = new System.Drawing.Size(28, 397);
             this.toolStrip.TabIndex = 0;
             // 
             // panToolStripButton
@@ -73,9 +75,9 @@ namespace Core.Components.DotSpatial.Forms
             this.panToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.panToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.panToolStripButton.Name = "panToolStripButton";
-            this.panToolStripButton.Size = new System.Drawing.Size(39, 29);
+            this.panToolStripButton.Size = new System.Drawing.Size(22, 19);
             this.panToolStripButton.Text = "";
-            this.panToolStripButton.ToolTipText = Resources.MapControl_Pan;
+            this.panToolStripButton.ToolTipText = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapControl_Pan;
             this.panToolStripButton.Click += new System.EventHandler(this.PanToolStripButtonClick);
             // 
             // zoomToRectangleToolStripButton
@@ -83,52 +85,68 @@ namespace Core.Components.DotSpatial.Forms
             this.zoomToRectangleToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.zoomToRectangleToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToRectangleToolStripButton.Name = "zoomToRectangleToolStripButton";
-            this.zoomToRectangleToolStripButton.Size = new System.Drawing.Size(39, 29);
+            this.zoomToRectangleToolStripButton.Size = new System.Drawing.Size(22, 19);
             this.zoomToRectangleToolStripButton.Text = "";
-            this.zoomToRectangleToolStripButton.ToolTipText = Resources.MapControl_ZoomToRectangle;
+            this.zoomToRectangleToolStripButton.ToolTipText = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapControl_ZoomToRectangle;
             this.zoomToRectangleToolStripButton.Click += new System.EventHandler(this.ZoomToRectangleToolStripButtonClick);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(43, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(26, 6);
             // 
             // zoomToAllVisibleLayersToolStripButton
             // 
             this.zoomToAllVisibleLayersToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.zoomToAllVisibleLayersToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToAllVisibleLayersToolStripButton.Name = "zoomToAllVisibleLayersToolStripButton";
-            this.zoomToAllVisibleLayersToolStripButton.Size = new System.Drawing.Size(39, 29);
+            this.zoomToAllVisibleLayersToolStripButton.Size = new System.Drawing.Size(22, 19);
             this.zoomToAllVisibleLayersToolStripButton.Text = "";
-            this.zoomToAllVisibleLayersToolStripButton.ToolTipText = Resources.MapControl_ZoomToExtents;
+            this.zoomToAllVisibleLayersToolStripButton.ToolTipText = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapControl_ZoomToExtents;
             this.zoomToAllVisibleLayersToolStripButton.Click += new System.EventHandler(this.ZoomToAllVisibleLayersToolStripButtonClick);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(43, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(26, 6);
             // 
             // showCoordinatesToolStripButton
             // 
             this.showCoordinatesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.showCoordinatesToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.showCoordinatesToolStripButton.Name = "showCoordinatesToolStripButton";
-            this.showCoordinatesToolStripButton.Size = new System.Drawing.Size(39, 29);
+            this.showCoordinatesToolStripButton.Size = new System.Drawing.Size(22, 19);
             this.showCoordinatesToolStripButton.Text = "";
-            this.showCoordinatesToolStripButton.ToolTipText = Resources.MapControl_ShowCoordinates;
+            this.showCoordinatesToolStripButton.ToolTipText = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapControl_ShowCoordinates;
             this.showCoordinatesToolStripButton.Click += new System.EventHandler(this.ShowCoordinatesToolStripButtonClick);
+            // 
+            // tableLayoutPanel
+            // 
+            this.tableLayoutPanel.ColumnCount = 2;
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel.Controls.Add(this.toolStrip, 1, 0);
+            this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel.Name = "tableLayoutPanel";
+            this.tableLayoutPanel.RowCount = 1;
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel.Size = new System.Drawing.Size(465, 397);
+            this.tableLayoutPanel.TabIndex = 1;
             // 
             // MapControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.toolStrip);
+            this.Controls.Add(this.tableLayoutPanel);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "MapControl";
-            this.Size = new System.Drawing.Size(697, 611);
+            this.Size = new System.Drawing.Size(465, 397);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
+            this.tableLayoutPanel.ResumeLayout(false);
+            this.tableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -140,5 +158,6 @@ namespace Core.Components.DotSpatial.Forms
         private System.Windows.Forms.ToolStripButton showCoordinatesToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
     }
 }

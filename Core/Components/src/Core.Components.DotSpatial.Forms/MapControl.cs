@@ -224,7 +224,7 @@ namespace Core.Components.DotSpatial.Forms
 
             mouseCoordinatesMapExtension = new RdNewMouseCoordinatesMapExtension(map);
 
-            Controls.Add(map);
+            tableLayoutPanel.Controls.Add(map, 0, 0);
         }
 
         private void ReprojectViewExtents(ProjectionInfo projectFrom, ProjectionInfo projectTo)
