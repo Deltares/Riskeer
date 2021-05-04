@@ -66,13 +66,13 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void Constructor_DefaultValues()
         {
             // Call
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
                 // Assert
-                Assert.IsInstanceOf<UserControl>(map);
-                Assert.IsInstanceOf<IMapControl>(map);
-                Assert.IsNull(map.Data);
-                Assert.IsNull(map.BackgroundMapData);
+                Assert.IsInstanceOf<UserControl>(mapControl);
+                Assert.IsInstanceOf<IMapControl>(mapControl);
+                Assert.IsNull(mapControl.Data);
+                Assert.IsNull(mapControl.BackgroundMapData);
             }
         }
 
@@ -87,7 +87,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 form.Controls.Add(mapControl);
                 form.Show();
 
-                var map = (Map) form.Controls.Find("Map", true)[0];
+                Map map = GetMap(mapControl);
 
                 // Assert
                 Assert.AreEqual(MapDataConstants.FeatureBasedMapDataCoordinateSystem, map.Projection);
@@ -111,9 +111,9 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                map.BackgroundMapData = backgroundMapData;
+                mapControl.BackgroundMapData = backgroundMapData;
                 var mapDataCollection = new MapDataCollection("A");
                 mapDataCollection.Add(new MapPointData("Points")
                 {
@@ -131,18 +131,18 @@ namespace Core.Components.DotSpatial.Forms.Test
                         })
                     }
                 });
-                map.Data = mapDataCollection;
+                mapControl.Data = mapDataCollection;
 
                 // Precondition
-                Assert.IsNotNull(map.Data);
-                Assert.IsNotNull(map.BackgroundMapData);
+                Assert.IsNotNull(mapControl.Data);
+                Assert.IsNotNull(mapControl.BackgroundMapData);
 
                 // Call
-                map.RemoveAllData();
+                mapControl.RemoveAllData();
 
                 // Assert
-                Assert.IsNull(map.Data);
-                Assert.IsNull(map.BackgroundMapData);
+                Assert.IsNull(mapControl.Data);
+                Assert.IsNull(mapControl.BackgroundMapData);
             }
         }
 
@@ -150,23 +150,23 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithoutData_WhenDataSetToMapDataCollection_ThenMapControlUpdated()
         {
             // Given
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
                 // When
-                map.Data = CreateTestMapDataCollection();
+                mapControl.Data = CreateTestMapDataCollection();
 
                 // Then
-                Map mapView = map.Controls.OfType<Map>().First();
-                Assert.AreEqual(3, mapView.Layers.Count);
-                List<FeatureLayer> featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                Map map = GetMap(mapControl);
+                Assert.AreEqual(3, map.Layers.Count);
+                List<FeatureLayer> featureLayers = map.Layers.Cast<FeatureLayer>().ToList();
                 Assert.AreEqual("Points", featureLayers[0].Name);
-                Assert.IsTrue(mapView.Projection.Equals(featureLayers[0].Projection));
+                Assert.IsTrue(map.Projection.Equals(featureLayers[0].Projection));
                 Assert.AreEqual(1.1, featureLayers[0].FeatureSet.Features[0].Geometry.Coordinates[0].X);
                 Assert.AreEqual(2.2, featureLayers[0].FeatureSet.Features[0].Geometry.Coordinates[0].Y);
                 Assert.AreEqual("Lines", featureLayers[1].Name);
-                Assert.IsTrue(mapView.Projection.Equals(featureLayers[1].Projection));
+                Assert.IsTrue(map.Projection.Equals(featureLayers[1].Projection));
                 Assert.AreEqual("Polygons", featureLayers[2].Name);
-                Assert.IsTrue(mapView.Projection.Equals(featureLayers[2].Projection));
+                Assert.IsTrue(map.Projection.Equals(featureLayers[2].Projection));
             }
         }
 
@@ -174,9 +174,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithData_WhenDataSetToOtherMapDataCollection_ThenMapControlUpdated()
         {
             // Given
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
                 var mapPointData = new MapPointData("Points");
                 var mapLineData = new MapLineData("Lines");
                 var mapPolygonData = new MapPolygonData("Polygons");
@@ -187,18 +187,18 @@ namespace Core.Components.DotSpatial.Forms.Test
                 mapDataCollection2.Add(mapLineData);
                 mapDataCollection2.Add(mapPolygonData);
 
-                map.Data = mapDataCollection1;
+                mapControl.Data = mapDataCollection1;
 
                 // Precondition
-                Assert.AreEqual(1, mapView.Layers.Count);
-                Assert.AreEqual("Points", ((FeatureLayer) mapView.Layers[0]).Name);
+                Assert.AreEqual(1, map.Layers.Count);
+                Assert.AreEqual("Points", ((FeatureLayer) map.Layers[0]).Name);
 
                 // When
-                map.Data = mapDataCollection2;
+                mapControl.Data = mapDataCollection2;
 
                 // Then
-                Assert.AreEqual(2, mapView.Layers.Count);
-                List<FeatureLayer> featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                Assert.AreEqual(2, map.Layers.Count);
+                List<FeatureLayer> featureLayers = map.Layers.Cast<FeatureLayer>().ToList();
                 Assert.AreEqual("Lines", featureLayers[0].Name);
                 Assert.AreEqual("Polygons", featureLayers[1].Name);
             }
@@ -208,24 +208,24 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithData_WhenMapDataNotifiesChange_ThenAllLayersReused()
         {
             // Given
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
                 MapDataCollection testMapDataCollection = CreateTestMapDataCollection();
                 FeatureBasedMapData featureBasedMapData = testMapDataCollection.Collection
                                                                                .OfType<FeatureBasedMapData>()
                                                                                .First();
 
-                map.Data = testMapDataCollection;
+                mapControl.Data = testMapDataCollection;
 
-                IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
+                IMapLayer[] layersBeforeUpdate = map.Layers.ToArray();
 
                 // When
                 featureBasedMapData.Features = new MapFeature[0];
                 featureBasedMapData.NotifyObservers();
 
                 // Then
-                CollectionAssert.AreEqual(layersBeforeUpdate, mapView.Layers);
+                CollectionAssert.AreEqual(layersBeforeUpdate, map.Layers);
             }
         }
 
@@ -233,9 +233,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithData_WhenMapDataRemoved_ThenCorrespondingLayerRemovedAndOtherLayersReused()
         {
             // Given
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
                 MapDataCollection testMapDataCollection = CreateTestMapDataCollection();
                 MapDataCollection nestedMapDataCollection = testMapDataCollection.Collection
                                                                                  .OfType<MapDataCollection>()
@@ -244,9 +244,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                                                                        .OfType<MapLineData>()
                                                                        .First();
 
-                map.Data = testMapDataCollection;
+                mapControl.Data = testMapDataCollection;
 
-                List<IMapLayer> layersBeforeUpdate = mapView.Layers.ToList();
+                List<IMapLayer> layersBeforeUpdate = map.Layers.ToList();
 
                 // Precondition
                 Assert.AreEqual(3, layersBeforeUpdate.Count);
@@ -256,11 +256,11 @@ namespace Core.Components.DotSpatial.Forms.Test
                 nestedMapDataCollection.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(2, mapView.Layers.Count);
-                List<FeatureLayer> featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                Assert.AreEqual(2, map.Layers.Count);
+                List<FeatureLayer> featureLayers = map.Layers.Cast<FeatureLayer>().ToList();
                 Assert.AreEqual("Points", featureLayers[0].Name);
                 Assert.AreEqual("Polygons", featureLayers[1].Name);
-                Assert.AreEqual(0, mapView.Layers.Except(layersBeforeUpdate).Count());
+                Assert.AreEqual(0, map.Layers.Except(layersBeforeUpdate).Count());
             }
         }
 
@@ -268,17 +268,17 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithData_WhenMapDataAdded_ThenCorrespondingLayerAddedAndOtherLayersReused()
         {
             // Given
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
                 MapDataCollection testMapDataCollection = CreateTestMapDataCollection();
                 MapDataCollection nestedMapDataCollection = testMapDataCollection.Collection
                                                                                  .OfType<MapDataCollection>()
                                                                                  .First();
 
-                map.Data = testMapDataCollection;
+                mapControl.Data = testMapDataCollection;
 
-                List<IMapLayer> layersBeforeUpdate = mapView.Layers.ToList();
+                List<IMapLayer> layersBeforeUpdate = map.Layers.ToList();
 
                 // Precondition
                 Assert.AreEqual(3, layersBeforeUpdate.Count);
@@ -288,13 +288,13 @@ namespace Core.Components.DotSpatial.Forms.Test
                 nestedMapDataCollection.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(4, mapView.Layers.Count);
-                List<FeatureLayer> featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                Assert.AreEqual(4, map.Layers.Count);
+                List<FeatureLayer> featureLayers = map.Layers.Cast<FeatureLayer>().ToList();
                 Assert.AreEqual("Points", featureLayers[0].Name);
                 Assert.AreEqual("Additional polygons", featureLayers[1].Name);
                 Assert.AreEqual("Lines", featureLayers[2].Name);
                 Assert.AreEqual("Polygons", featureLayers[3].Name);
-                Assert.AreEqual(0, layersBeforeUpdate.Except(mapView.Layers).Count());
+                Assert.AreEqual(0, layersBeforeUpdate.Except(map.Layers).Count());
             }
         }
 
@@ -302,9 +302,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithData_WhenMapDataMoved_ThenCorrespondingLayerMovedAndAllLayersReused()
         {
             // Given
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
                 MapDataCollection testMapDataCollection = CreateTestMapDataCollection();
                 MapDataCollection nestedMapDataCollection = testMapDataCollection.Collection
                                                                                  .OfType<MapDataCollection>()
@@ -313,9 +313,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                                                                        .OfType<MapPointData>()
                                                                        .First();
 
-                map.Data = testMapDataCollection;
+                mapControl.Data = testMapDataCollection;
 
-                List<FeatureLayer> layersBeforeUpdate = mapView.Layers.Cast<FeatureLayer>().ToList();
+                List<FeatureLayer> layersBeforeUpdate = map.Layers.Cast<FeatureLayer>().ToList();
 
                 // Precondition
                 Assert.AreEqual(3, layersBeforeUpdate.Count);
@@ -329,8 +329,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 nestedMapDataCollection.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(3, mapView.Layers.Count);
-                List<FeatureLayer> featureLayers = mapView.Layers.Cast<FeatureLayer>().ToList();
+                Assert.AreEqual(3, map.Layers.Count);
+                List<FeatureLayer> featureLayers = map.Layers.Cast<FeatureLayer>().ToList();
                 Assert.AreEqual("Lines", featureLayers[0].Name);
                 Assert.AreEqual("Polygons", featureLayers[1].Name);
                 Assert.AreEqual("Points", featureLayers[2].Name);
@@ -474,12 +474,12 @@ namespace Core.Components.DotSpatial.Forms.Test
             mapView.ViewExtents.MaxY = 5.7;
         }
 
-        private static void SetReprojectedExtents(Map mapView)
+        private static void SetReprojectedExtents(Map map)
         {
-            mapView.ViewExtents.MinX = 523413.98162662971;
-            mapView.ViewExtents.MaxX = 523415.89786963863;
-            mapView.ViewExtents.MinY = 5313601.4625104629;
-            mapView.ViewExtents.MaxY = 5313604.0206882581;
+            map.ViewExtents.MinX = 523413.98162662971;
+            map.ViewExtents.MaxX = 523415.89786963863;
+            map.ViewExtents.MinY = 5313601.4625104629;
+            map.ViewExtents.MaxY = 5313604.0206882581;
         }
 
         private static void AssertReprojectedTo28992TestExtents(IMapView mapView)
@@ -562,6 +562,11 @@ namespace Core.Components.DotSpatial.Forms.Test
             };
         }
 
+        private static Map GetMap(MapControl map)
+        {
+            return map.Controls[0].Controls.OfType<Map>().First();
+        }
+
         #region BackgroundMapData
 
         [Test]
@@ -574,12 +579,12 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(newBackgroundMapData))
-            using (var map = new MapControl
+            using (var mapControl = new MapControl
             {
                 BackgroundMapData = startingBackgroundMapData
             })
             {
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
 
                 var mapPointData = new MapPointData("Points")
                 {
@@ -600,10 +605,10 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapDataCollection = new MapDataCollection("Root collection");
                 mapDataCollection.Add(mapPointData);
 
-                map.Data = mapDataCollection;
-                SetTestExtents(mapView);
+                mapControl.Data = mapDataCollection;
+                SetTestExtents(map);
 
-                IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
+                IMapLayer[] layersBeforeUpdate = map.Layers.ToArray();
                 var pointFeatureLayer = (FeatureLayer) layersBeforeUpdate[0];
                 pointFeatureLayer.ItemChanged += (sender, args) => itemChangedCount++;
 
@@ -632,20 +637,20 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
                 // When
-                map.BackgroundMapData = backgroundMapData;
+                mapControl.BackgroundMapData = backgroundMapData;
 
                 // Then
-                Map mapView = map.Controls.OfType<Map>().First();
-                Assert.AreEqual(1, mapView.Layers.Count);
-                var bruTileLayer = (BruTileLayer) mapView.Layers[0];
+                Map map = GetMap(mapControl);
+                Assert.AreEqual(1, map.Layers.Count);
+                var bruTileLayer = (BruTileLayer) map.Layers[0];
                 Assert.AreEqual(isVisible, bruTileLayer.IsVisible);
                 Assert.AreEqual(backgroundMapData.Transparency.Value, bruTileLayer.Transparency);
 
-                Assert.IsTrue(bruTileLayer.Projection.Equals(mapView.Projection),
-                              "The background layer's Project should define the Projection of 'mapView'.");
+                Assert.IsTrue(bruTileLayer.Projection.Equals(map.Projection),
+                              "The background layer's Project should define the Projection of 'map'.");
             }
         }
 
@@ -662,22 +667,22 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
-                ProjectionInfo originalProjection = mapView.Projection;
+                Map map = GetMap(mapControl);
+                ProjectionInfo originalProjection = map.Projection;
 
                 // When
-                void Call() => map.BackgroundMapData = backgroundMapData;
+                void Call() => mapControl.BackgroundMapData = backgroundMapData;
 
                 // Then
                 const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
 
-                Assert.AreEqual(0, mapView.Layers.Count);
+                Assert.AreEqual(0, map.Layers.Count);
 
-                Assert.AreSame(originalProjection, mapView.Projection);
+                Assert.AreSame(originalProjection, map.Projection);
             }
         }
 
@@ -694,24 +699,24 @@ namespace Core.Components.DotSpatial.Forms.Test
             }))
             using (var disposeHelper = new DirectoryDisposeHelper(settingsDirectory, folderWithoutPermission))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
-                ProjectionInfo originalProjection = mapView.Projection;
+                Map map = GetMap(mapControl);
+                ProjectionInfo originalProjection = map.Projection;
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // When
-                void Call() => map.BackgroundMapData = backgroundMapData;
+                void Call() => mapControl.BackgroundMapData = backgroundMapData;
 
                 // Then
                 const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
 
-                Assert.AreEqual(0, mapView.Layers.Count);
+                Assert.AreEqual(0, map.Layers.Count);
 
-                Assert.AreSame(originalProjection, mapView.Projection);
+                Assert.AreSame(originalProjection, map.Projection);
             }
         }
 
@@ -727,10 +732,10 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
                 // Precondition
-                void SetAndCauseFailingInitialization() => map.BackgroundMapData = backgroundMapData;
+                void SetAndCauseFailingInitialization() => mapControl.BackgroundMapData = backgroundMapData;
                 const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(SetAndCauseFailingInitialization, Tuple.Create(expectedMessage, LogLevelConstant.Error));
@@ -741,12 +746,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                     backgroundMapData.NotifyObservers();
 
                     // Then
-                    Map mapView = map.Controls.OfType<Map>().First();
-                    Assert.AreEqual(1, mapView.Layers.Count);
-                    IMapLayer backgroundLayer = mapView.Layers[0];
+                    Map map = GetMap(mapControl);
+                    Assert.AreEqual(1, map.Layers.Count);
+                    IMapLayer backgroundLayer = map.Layers[0];
 
                     Assert.IsInstanceOf<BruTileLayer>(backgroundLayer);
-                    Assert.AreSame(backgroundLayer.Projection, mapView.Projection);
+                    Assert.AreSame(backgroundLayer.Projection, map.Projection);
                 }
             }
         }
@@ -764,12 +769,12 @@ namespace Core.Components.DotSpatial.Forms.Test
             }))
             using (var helper = new DirectoryDisposeHelper(settingsDirectory, folderWithoutPermission))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
                 helper.LockDirectory(FileSystemRights.Write);
 
                 // Precondition
-                void SetAndCauseCacheInitializationFailure() => map.BackgroundMapData = backgroundMapData;
+                void SetAndCauseCacheInitializationFailure() => mapControl.BackgroundMapData = backgroundMapData;
                 const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageIsGenerated(SetAndCauseCacheInitializationFailure, expectedMessage, 1);
@@ -780,12 +785,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                 backgroundMapData.NotifyObservers();
 
                 // Then
-                Map mapView = map.Controls.OfType<Map>().First();
-                Assert.AreEqual(1, mapView.Layers.Count);
-                IMapLayer backgroundLayer = mapView.Layers[0];
+                Map map = GetMap(mapControl);
+                Assert.AreEqual(1, map.Layers.Count);
+                IMapLayer backgroundLayer = map.Layers[0];
 
                 Assert.IsInstanceOf<BruTileLayer>(backgroundLayer);
-                Assert.AreSame(backgroundLayer.Projection, mapView.Projection);
+                Assert.AreSame(backgroundLayer.Projection, map.Projection);
             }
         }
 
@@ -801,13 +806,13 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
-                ProjectionInfo originalProjection = mapView.Projection;
+                Map map = GetMap(mapControl);
+                ProjectionInfo originalProjection = map.Projection;
 
                 // Precondition
-                void SetAndCauseFailToInitializeLayer() => map.BackgroundMapData = backgroundMapData;
+                void SetAndCauseFailToInitializeLayer() => mapControl.BackgroundMapData = backgroundMapData;
                 const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageIsGenerated(SetAndCauseFailToInitializeLayer, expectedMessage, 1);
@@ -818,9 +823,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Then
                 TestHelper.AssertLogMessagesCount(Call, 0);
 
-                Assert.AreEqual(0, mapView.Layers.Count);
+                Assert.AreEqual(0, map.Layers.Count);
 
-                Assert.AreSame(originalProjection, mapView.Projection);
+                Assert.AreSame(originalProjection, map.Projection);
             }
         }
 
@@ -838,15 +843,15 @@ namespace Core.Components.DotSpatial.Forms.Test
             }))
             using (var disposeHelper = new DirectoryDisposeHelper(settingsDirectory, folderWithoutPermission))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
-                ProjectionInfo originalProjection = mapView.Projection;
+                Map map = GetMap(mapControl);
+                ProjectionInfo originalProjection = map.Projection;
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Precondition
-                void SetAndCauseCacheInitializationFailure() => map.BackgroundMapData = backgroundMapData;
+                void SetAndCauseCacheInitializationFailure() => mapControl.BackgroundMapData = backgroundMapData;
                 const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageIsGenerated(SetAndCauseCacheInitializationFailure, expectedMessage, 1);
@@ -857,9 +862,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Then
                 TestHelper.AssertLogMessagesCount(Call, 0);
 
-                Assert.AreEqual(0, mapView.Layers.Count);
+                Assert.AreEqual(0, map.Layers.Count);
 
-                Assert.AreSame(originalProjection, mapView.Projection);
+                Assert.AreSame(originalProjection, map.Projection);
             }
         }
 
@@ -867,20 +872,20 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void GivenMapControlWithoutBackgroundMapData_WhenUnconfiguredBackgroundMapDataSet_NoChangedToMap()
         {
             // Given
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
-                ProjectionInfo originalProjection = mapView.Projection;
+                Map map = GetMap(mapControl);
+                ProjectionInfo originalProjection = map.Projection;
 
                 WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
                 // When
-                map.BackgroundMapData = backgroundMapData;
+                mapControl.BackgroundMapData = backgroundMapData;
 
                 // Then
-                Assert.AreEqual(0, mapView.Layers.Count);
+                Assert.AreEqual(0, map.Layers.Count);
 
-                Assert.AreEqual(originalProjection, mapView.Projection);
+                Assert.AreEqual(originalProjection, map.Projection);
             }
         }
 
@@ -894,28 +899,28 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(originalBackgroundMapData))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
 
             {
-                Map mapView = map.Controls.OfType<Map>().First();
-                ProjectionInfo originalProjection = mapView.Projection;
+                Map map = GetMap(mapControl);
+                ProjectionInfo originalProjection = map.Projection;
 
-                map.BackgroundMapData = originalBackgroundMapData;
+                mapControl.BackgroundMapData = originalBackgroundMapData;
 
                 // Precondition
-                Assert.AreEqual(1, mapView.Layers.Count);
-                var layer = (BruTileLayer) mapView.Layers[0];
+                Assert.AreEqual(1, map.Layers.Count);
+                var layer = (BruTileLayer) map.Layers[0];
                 Assert.AreEqual(true, layer.IsVisible);
                 Assert.AreEqual(0.25, layer.Transparency);
-                Assert.AreEqual(layer.Projection, mapView.Projection);
+                Assert.AreEqual(layer.Projection, map.Projection);
 
                 // When
                 WmtsMapData newBackgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
-                map.BackgroundMapData = newBackgroundMapData;
+                mapControl.BackgroundMapData = newBackgroundMapData;
 
                 // Then
-                Assert.AreEqual(0, mapView.Layers.Count);
-                Assert.IsTrue(originalProjection.Equals(mapView.Projection));
+                Assert.AreEqual(0, map.Layers.Count);
+                Assert.IsTrue(originalProjection.Equals(map.Projection));
             }
         }
 
@@ -929,28 +934,28 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(newBackgroundMapData))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
                 WmtsMapData originalBackgroundMapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
-                Map mapView = map.Controls.OfType<Map>().First();
-                ProjectionInfo originalProjection = mapView.Projection;
+                Map map = GetMap(mapControl);
+                ProjectionInfo originalProjection = map.Projection;
 
-                map.BackgroundMapData = originalBackgroundMapData;
+                mapControl.BackgroundMapData = originalBackgroundMapData;
 
                 // Precondition
-                Assert.AreEqual(0, mapView.Layers.Count);
-                Assert.IsTrue(originalProjection.Equals(mapView.Projection));
+                Assert.AreEqual(0, map.Layers.Count);
+                Assert.IsTrue(originalProjection.Equals(map.Projection));
 
                 // When
-                map.BackgroundMapData = newBackgroundMapData;
+                mapControl.BackgroundMapData = newBackgroundMapData;
 
                 // Then
-                Assert.AreEqual(1, mapView.Layers.Count);
-                var layer = (BruTileLayer) mapView.Layers[0];
+                Assert.AreEqual(1, map.Layers.Count);
+                var layer = (BruTileLayer) map.Layers[0];
                 Assert.AreEqual(true, layer.IsVisible);
                 Assert.AreEqual(0.75, layer.Transparency);
-                Assert.IsTrue(layer.Projection.Equals(mapView.Projection));
+                Assert.IsTrue(layer.Projection.Equals(map.Projection));
             }
         }
 
@@ -964,13 +969,13 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl
+            using (var mapControl = new MapControl
             {
                 BackgroundMapData = backgroundMapData
             })
             {
-                Map mapView = map.Controls.OfType<Map>().First();
-                IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
+                Map map = GetMap(mapControl);
+                IMapLayer[] layersBeforeUpdate = map.Layers.ToArray();
 
                 // When
                 const bool newVisibilityValue = false;
@@ -980,7 +985,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 backgroundMapData.NotifyObservers();
 
                 // Then
-                CollectionAssert.AreEqual(layersBeforeUpdate, mapView.Layers);
+                CollectionAssert.AreEqual(layersBeforeUpdate, map.Layers);
                 var backgroundLayer = (BruTileLayer) layersBeforeUpdate[0];
                 Assert.AreEqual(newVisibilityValue, backgroundLayer.IsVisible);
                 Assert.AreEqual(newTransparencyValue, backgroundLayer.Transparency);
@@ -996,11 +1001,11 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(newBackgroundMapData))
-            using (MapControl map = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateDimensionlessMapControl())
             {
-                map.BackgroundMapData = startingBackgroundMapData;
+                mapControl.BackgroundMapData = startingBackgroundMapData;
 
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
 
                 var mapPointData = new MapPointData("Points")
                 {
@@ -1021,19 +1026,19 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapDataCollection = new MapDataCollection("Root collection");
                 mapDataCollection.Add(mapPointData);
 
-                map.Data = mapDataCollection;
-                SetTestExtents(mapView);
+                mapControl.Data = mapDataCollection;
+                SetTestExtents(map);
 
                 // Precondition
-                IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
+                IMapLayer[] layersBeforeUpdate = map.Layers.ToArray();
                 var pointFeatureLayer = (FeatureLayer) layersBeforeUpdate[0];
-                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.IsTrue(map.Projection.Equals(pointFeatureLayer.Projection));
                 Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X);
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y);
-                Assert.AreEqual(0.2, mapView.ViewExtents.MinX, 1e-2);
-                Assert.AreEqual(2.2, mapView.ViewExtents.MaxX, 1e-2);
-                Assert.AreEqual(3.2, mapView.ViewExtents.MinY, 1e-2);
-                Assert.AreEqual(5.7, mapView.ViewExtents.MaxY, 1e-2);
+                Assert.AreEqual(0.2, map.ViewExtents.MinX, 1e-2);
+                Assert.AreEqual(2.2, map.ViewExtents.MaxX, 1e-2);
+                Assert.AreEqual(3.2, map.ViewExtents.MinY, 1e-2);
+                Assert.AreEqual(5.7, map.ViewExtents.MaxY, 1e-2);
 
                 // When
                 startingBackgroundMapData.Configure(newBackgroundMapData.SourceCapabilitiesUrl,
@@ -1042,16 +1047,16 @@ namespace Core.Components.DotSpatial.Forms.Test
                 startingBackgroundMapData.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(2, mapView.Layers.Count);
-                CollectionAssert.AreEqual(layersBeforeUpdate, mapView.Layers.Skip(1));
-                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
-                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
-                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.AreEqual(2, map.Layers.Count);
+                CollectionAssert.AreEqual(layersBeforeUpdate, map.Layers.Skip(1));
+                Assert.IsInstanceOf<BruTileLayer>(map.Layers[0]);
+                Assert.IsTrue(map.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.IsTrue(map.Projection.Equals(pointFeatureLayer.Projection));
                 Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X, 1e-6,
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
                 Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y, 1e-6,
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
-                AssertReprojectedTo28992TestExtents(mapView);
+                AssertReprojectedTo28992TestExtents(map);
             }
         }
 
@@ -1063,11 +1068,11 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (MapControl map = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateDimensionlessMapControl())
             {
-                map.BackgroundMapData = backgroundMapData;
+                mapControl.BackgroundMapData = backgroundMapData;
 
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
 
                 var mapPointData = new MapPointData("Points")
                 {
@@ -1088,16 +1093,16 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapDataCollection = new MapDataCollection("Root collection");
                 mapDataCollection.Add(mapPointData);
 
-                map.Data = mapDataCollection;
-                SetReprojectedExtents(mapView);
+                mapControl.Data = mapDataCollection;
+                SetReprojectedExtents(map);
 
                 // Precondition
-                Assert.AreEqual(2, mapView.Layers.Count);
-                IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
-                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
+                Assert.AreEqual(2, map.Layers.Count);
+                IMapLayer[] layersBeforeUpdate = map.Layers.ToArray();
+                Assert.IsInstanceOf<BruTileLayer>(map.Layers[0]);
                 var pointFeatureLayer = (FeatureLayer) layersBeforeUpdate[1];
-                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
-                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.IsTrue(map.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.IsTrue(map.Projection.Equals(pointFeatureLayer.Projection));
                 Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X, 1e-6,
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
                 Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y, 1e-6,
@@ -1108,15 +1113,15 @@ namespace Core.Components.DotSpatial.Forms.Test
                 backgroundMapData.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(MapDataConstants.FeatureBasedMapDataCoordinateSystem.Equals(mapView.Projection));
-                Assert.AreEqual(1, mapView.Layers.Count);
-                CollectionAssert.DoesNotContain(mapView.Layers, layersBeforeUpdate[0]);
-                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.IsTrue(MapDataConstants.FeatureBasedMapDataCoordinateSystem.Equals(map.Projection));
+                Assert.AreEqual(1, map.Layers.Count);
+                CollectionAssert.DoesNotContain(map.Layers, layersBeforeUpdate[0]);
+                Assert.IsTrue(map.Projection.Equals(pointFeatureLayer.Projection));
                 Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X, 1e-4,
                                 "Minimal drift is acceptable (if it becomes a problem, we need to keep original coordinates in the layer).");
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y, 1e-4,
                                 "Minimal drift is acceptable (if it becomes a problem, we need to keep original coordinates in the layer).");
-                AssertOriginalExtents(mapView);
+                AssertOriginalExtents(map);
             }
         }
 
@@ -1128,7 +1133,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (MapControl map = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateDimensionlessMapControl())
             {
                 var mapDataCollection = new MapDataCollection("A");
                 mapDataCollection.Add(new MapPointData("points")
@@ -1147,31 +1152,31 @@ namespace Core.Components.DotSpatial.Forms.Test
                         })
                     }
                 });
-                map.Data = mapDataCollection;
+                mapControl.Data = mapDataCollection;
 
-                Map mapView = map.Controls.OfType<Map>().First();
-                SetTestExtents(mapView);
+                Map map = GetMap(mapControl);
+                SetTestExtents(map);
 
                 // Precondition
-                Assert.AreEqual(1, mapView.Layers.Count);
-                var pointFeatureLayer = (FeatureLayer) mapView.Layers[0];
+                Assert.AreEqual(1, map.Layers.Count);
+                var pointFeatureLayer = (FeatureLayer) map.Layers[0];
                 Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X);
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y);
 
                 // When
-                map.BackgroundMapData = backgroundMapData;
+                mapControl.BackgroundMapData = backgroundMapData;
 
                 // Then
-                Assert.AreEqual(2, mapView.Layers.Count);
-                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
-                pointFeatureLayer = (FeatureLayer) mapView.Layers[1];
-                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.AreEqual(2, map.Layers.Count);
+                Assert.IsInstanceOf<BruTileLayer>(map.Layers[0]);
+                pointFeatureLayer = (FeatureLayer) map.Layers[1];
+                Assert.IsTrue(map.Projection.Equals(pointFeatureLayer.Projection));
                 Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X, 1e-6,
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
                 Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y, 1e-6,
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
 
-                AssertReprojectedTo28992TestExtents(mapView);
+                AssertReprojectedTo28992TestExtents(map);
             }
         }
 
@@ -1183,7 +1188,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (MapControl map = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateDimensionlessMapControl())
             {
                 var mapDataCollection = new MapDataCollection("A");
                 mapDataCollection.Add(new MapPointData("points")
@@ -1202,31 +1207,31 @@ namespace Core.Components.DotSpatial.Forms.Test
                         })
                     }
                 });
-                map.Data = mapDataCollection;
+                mapControl.Data = mapDataCollection;
 
-                Map mapView = map.Controls.OfType<Map>().First();
-                SetTestExtents(mapView);
+                Map map = GetMap(mapControl);
+                SetTestExtents(map);
 
                 // Precondition
-                Assert.AreEqual(1, mapView.Layers.Count);
-                var pointFeatureLayer = (FeatureLayer) mapView.Layers[0];
+                Assert.AreEqual(1, map.Layers.Count);
+                var pointFeatureLayer = (FeatureLayer) map.Layers[0];
                 Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X);
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y);
 
                 // When
-                map.BackgroundMapData = backgroundMapData;
+                mapControl.BackgroundMapData = backgroundMapData;
 
                 // Then
-                Assert.AreEqual(1, mapView.Layers.Count);
-                pointFeatureLayer = (FeatureLayer) mapView.Layers[0];
-                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.AreEqual(1, map.Layers.Count);
+                pointFeatureLayer = (FeatureLayer) map.Layers[0];
+                Assert.IsTrue(map.Projection.Equals(pointFeatureLayer.Projection));
                 Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X);
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y);
 
-                Assert.AreEqual(0.2, mapView.ViewExtents.MinX, 1e-2);
-                Assert.AreEqual(2.2, mapView.ViewExtents.MaxX, 1e-2);
-                Assert.AreEqual(3.2, mapView.ViewExtents.MinY, 1e-2);
-                Assert.AreEqual(5.7, mapView.ViewExtents.MaxY, 1e-2);
+                Assert.AreEqual(0.2, map.ViewExtents.MinX, 1e-2);
+                Assert.AreEqual(2.2, map.ViewExtents.MaxX, 1e-2);
+                Assert.AreEqual(3.2, map.ViewExtents.MinY, 1e-2);
+                Assert.AreEqual(5.7, map.ViewExtents.MaxY, 1e-2);
             }
         }
 
@@ -1238,7 +1243,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (MapControl map = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateDimensionlessMapControl())
             {
                 var mapDataCollection = new MapDataCollection("A");
                 mapDataCollection.Add(new MapPointData("points")
@@ -1257,17 +1262,17 @@ namespace Core.Components.DotSpatial.Forms.Test
                         })
                     }
                 });
-                map.Data = mapDataCollection;
-                map.BackgroundMapData = backgroundMapData;
+                mapControl.Data = mapDataCollection;
+                mapControl.BackgroundMapData = backgroundMapData;
 
-                Map mapView = map.Controls.OfType<Map>().First();
-                SetTestExtents(mapView);
+                Map map = GetMap(mapControl);
+                SetTestExtents(map);
 
                 // Precondition
-                Assert.AreEqual(2, mapView.Layers.Count);
-                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
-                var pointFeatureLayer = (FeatureLayer) mapView.Layers[1];
-                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.AreEqual(2, map.Layers.Count);
+                Assert.IsInstanceOf<BruTileLayer>(map.Layers[0]);
+                var pointFeatureLayer = (FeatureLayer) map.Layers[1];
+                Assert.IsTrue(map.Projection.Equals(pointFeatureLayer.Projection));
                 Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X, 1e-1);
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y, 1e-1);
 
@@ -1275,19 +1280,19 @@ namespace Core.Components.DotSpatial.Forms.Test
                 WmtsMapData differentBackgroundMapData = WmtsMapDataTestHelper.CreateAlternativePdokMapData();
                 using (new UseCustomTileSourceFactoryConfig(differentBackgroundMapData))
                 {
-                    map.BackgroundMapData = differentBackgroundMapData;
+                    mapControl.BackgroundMapData = differentBackgroundMapData;
 
                     // Then
-                    Assert.AreEqual(2, mapView.Layers.Count);
-                    Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
-                    pointFeatureLayer = (FeatureLayer) mapView.Layers[1];
-                    Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                    Assert.AreEqual(2, map.Layers.Count);
+                    Assert.IsInstanceOf<BruTileLayer>(map.Layers[0]);
+                    pointFeatureLayer = (FeatureLayer) map.Layers[1];
+                    Assert.IsTrue(map.Projection.Equals(pointFeatureLayer.Projection));
                     Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X, 1e-6,
                                     "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
                     Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y, 1e-6,
                                     "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
 
-                    AssertReprojectedTo28992TestExtents(mapView);
+                    AssertReprojectedTo28992TestExtents(map);
                 }
             }
         }
@@ -1300,7 +1305,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (MapControl map = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateDimensionlessMapControl())
             {
                 var mapDataCollection = new MapDataCollection("A");
                 mapDataCollection.Add(new MapPointData("points")
@@ -1319,17 +1324,17 @@ namespace Core.Components.DotSpatial.Forms.Test
                         })
                     }
                 });
-                map.Data = mapDataCollection;
-                map.BackgroundMapData = backgroundMapData;
+                mapControl.Data = mapDataCollection;
+                mapControl.BackgroundMapData = backgroundMapData;
 
-                Map mapView = map.Controls.OfType<Map>().First();
-                SetReprojectedExtents(mapView);
+                Map map = GetMap(mapControl);
+                SetReprojectedExtents(map);
 
                 // Precondition
-                Assert.AreEqual(2, mapView.Layers.Count);
-                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
-                var pointFeatureLayer = (FeatureLayer) mapView.Layers[1];
-                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.AreEqual(2, map.Layers.Count);
+                Assert.IsInstanceOf<BruTileLayer>(map.Layers[0]);
+                var pointFeatureLayer = (FeatureLayer) map.Layers[1];
+                Assert.IsTrue(map.Projection.Equals(pointFeatureLayer.Projection));
                 Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X, 1e-6,
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
                 Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y, 1e-6,
@@ -1340,16 +1345,16 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 using (new UseCustomTileSourceFactoryConfig(differentBackgroundMapData))
                 {
-                    map.BackgroundMapData = differentBackgroundMapData;
+                    mapControl.BackgroundMapData = differentBackgroundMapData;
 
                     // Then
-                    Assert.AreEqual(1, mapView.Layers.Count);
-                    pointFeatureLayer = (FeatureLayer) mapView.Layers[0];
-                    Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                    Assert.AreEqual(1, map.Layers.Count);
+                    pointFeatureLayer = (FeatureLayer) map.Layers[0];
+                    Assert.IsTrue(map.Projection.Equals(pointFeatureLayer.Projection));
                     Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X);
                     Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y);
 
-                    AssertOriginalExtents(mapView);
+                    AssertOriginalExtents(map);
                 }
             }
         }
@@ -1362,31 +1367,31 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl
+            using (var mapControl = new MapControl
             {
                 BackgroundMapData = backgroundMapData
             })
             {
                 MapDataCollection testMapDataCollection = CreateTestMapDataCollection();
 
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
 
                 // When
-                map.Data = testMapDataCollection;
+                mapControl.Data = testMapDataCollection;
 
                 // Then
-                Assert.AreEqual(4, mapView.Layers.Count);
-                List<FeatureLayer> featureLayers = mapView.Layers.Skip(1).Cast<FeatureLayer>().ToList();
+                Assert.AreEqual(4, map.Layers.Count);
+                List<FeatureLayer> featureLayers = map.Layers.Skip(1).Cast<FeatureLayer>().ToList();
                 Assert.AreEqual("Points", featureLayers[0].Name);
-                Assert.IsTrue(mapView.Projection.Equals(featureLayers[0].Projection));
+                Assert.IsTrue(map.Projection.Equals(featureLayers[0].Projection));
                 Assert.AreEqual(523402.42866793618, featureLayers[0].FeatureSet.Features[0].Geometry.Coordinates[0].X, 1e-6,
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
                 Assert.AreEqual(5313545.4037142638, featureLayers[0].FeatureSet.Features[0].Geometry.Coordinates[0].Y, 1e-5,
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
                 Assert.AreEqual("Lines", featureLayers[1].Name);
-                Assert.IsTrue(mapView.Projection.Equals(featureLayers[1].Projection));
+                Assert.IsTrue(map.Projection.Equals(featureLayers[1].Projection));
                 Assert.AreEqual("Polygons", featureLayers[2].Name);
-                Assert.IsTrue(mapView.Projection.Equals(featureLayers[2].Projection));
+                Assert.IsTrue(map.Projection.Equals(featureLayers[2].Projection));
             }
         }
 
@@ -1402,10 +1407,10 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
-                ProjectionInfo originalProjection = mapView.Projection;
+                Map map = GetMap(mapControl);
+                ProjectionInfo originalProjection = map.Projection;
 
                 var mapPointData = new MapPointData("Points")
                 {
@@ -1429,20 +1434,20 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // When
                 void Call()
                 {
-                    map.BackgroundMapData = backgroundMapData;
-                    map.Data = mapDataCollection;
+                    mapControl.BackgroundMapData = backgroundMapData;
+                    mapControl.Data = mapDataCollection;
                 }
 
                 // Then
                 const string expectedMessage = "Verbinden met WMTS is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1); // Message should only the generated once!
 
-                Assert.AreEqual(1, mapView.Layers.Count);
-                var pointsLayer = (FeatureLayer) mapView.Layers[0];
+                Assert.AreEqual(1, map.Layers.Count);
+                var pointsLayer = (FeatureLayer) map.Layers[0];
                 Assert.AreEqual(mapPointData.Name, pointsLayer.Name);
                 Assert.AreSame(originalProjection, pointsLayer.Projection);
 
-                Assert.AreSame(originalProjection, mapView.Projection);
+                Assert.AreSame(originalProjection, map.Projection);
             }
         }
 
@@ -1460,10 +1465,10 @@ namespace Core.Components.DotSpatial.Forms.Test
             }))
             using (var disposeHelper = new DirectoryDisposeHelper(settingsDirectory, folderWithoutPermission))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
-                ProjectionInfo originalProjection = mapView.Projection;
+                Map map = GetMap(mapControl);
+                ProjectionInfo originalProjection = map.Projection;
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
@@ -1489,8 +1494,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // When
                 void Call()
                 {
-                    map.BackgroundMapData = backgroundMapData;
-                    map.Data = mapDataCollection;
+                    mapControl.BackgroundMapData = backgroundMapData;
+                    mapControl.Data = mapDataCollection;
                 }
 
                 // Then
@@ -1498,12 +1503,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                                                + "De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
 
-                Assert.AreEqual(1, mapView.Layers.Count);
-                var pointsLayer = (FeatureLayer) mapView.Layers[0];
+                Assert.AreEqual(1, map.Layers.Count);
+                var pointsLayer = (FeatureLayer) map.Layers[0];
                 Assert.AreEqual(mapPointData.Name, pointsLayer.Name);
                 Assert.AreSame(originalProjection, pointsLayer.Projection);
 
-                Assert.AreSame(originalProjection, mapView.Projection);
+                Assert.AreSame(originalProjection, map.Projection);
             }
         }
 
@@ -1515,12 +1520,12 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl
+            using (var mapControl = new MapControl
             {
                 BackgroundMapData = backgroundMapData
             })
             {
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
 
                 var mapPointData = new MapPointData("Points")
                 {
@@ -1541,12 +1546,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapDataCollection = new MapDataCollection("Root collection");
                 mapDataCollection.Add(mapPointData);
 
-                map.Data = mapDataCollection;
+                mapControl.Data = mapDataCollection;
 
                 // Precondition
-                IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
+                IMapLayer[] layersBeforeUpdate = map.Layers.ToArray();
                 var pointFeatureLayer = (FeatureLayer) layersBeforeUpdate[1];
-                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.IsTrue(map.Projection.Equals(pointFeatureLayer.Projection));
                 Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X, 1e-6,
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
                 Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y, 1e-6,
@@ -1574,8 +1579,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 void AssertAction()
                 {
                     // Then
-                    CollectionAssert.AreEqual(layersBeforeUpdate, mapView.Layers);
-                    Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                    CollectionAssert.AreEqual(layersBeforeUpdate, map.Layers);
+                    Assert.IsTrue(map.Projection.Equals(pointFeatureLayer.Projection));
                     Assert.AreEqual(535405.97207404568, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X, 1e-6, "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=12345.6789000&y=9876.5432100).");
                     Assert.AreEqual(5323789.7111355662, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y, 1e-6, "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=12345.6789000&y=9876.5432100).");
                 }
@@ -1627,20 +1632,20 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
                 // When
-                map.BackgroundMapData = backgroundMapData;
+                mapControl.BackgroundMapData = backgroundMapData;
 
                 // Then
-                Map mapView = map.Controls.OfType<Map>().First();
-                Assert.AreEqual(1, mapView.Layers.Count);
-                var bruTileLayer = (BruTileLayer) mapView.Layers[0];
+                Map map = GetMap(mapControl);
+                Assert.AreEqual(1, map.Layers.Count);
+                var bruTileLayer = (BruTileLayer) map.Layers[0];
                 Assert.AreEqual(isVisible, bruTileLayer.IsVisible);
                 Assert.AreEqual(backgroundMapData.Transparency.Value, bruTileLayer.Transparency);
 
-                Assert.IsTrue(bruTileLayer.Projection.Equals(mapView.Projection),
-                              "The background layer's Project should define the Projection of 'mapView'.");
+                Assert.IsTrue(bruTileLayer.Projection.Equals(map.Projection),
+                              "The background layer's Project should define the Projection of 'map'.");
             }
         }
 
@@ -1657,13 +1662,13 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
-                ProjectionInfo originalProjection = mapView.Projection;
+                Map map = GetMap(mapControl);
+                ProjectionInfo originalProjection = map.Projection;
 
                 // When
-                void Call() => map.BackgroundMapData = backgroundMapData;
+                void Call() => mapControl.BackgroundMapData = backgroundMapData;
 
                 // Then
                 string tileDisplayName = TypeUtils.GetDisplayName(backgroundMapData.TileSource);
@@ -1671,9 +1676,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                                          + "De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
 
-                Assert.AreEqual(0, mapView.Layers.Count);
+                Assert.AreEqual(0, map.Layers.Count);
 
-                Assert.AreSame(originalProjection, mapView.Projection);
+                Assert.AreSame(originalProjection, map.Projection);
             }
         }
 
@@ -1690,24 +1695,24 @@ namespace Core.Components.DotSpatial.Forms.Test
             }))
             using (var disposeHelper = new DirectoryDisposeHelper(settingsDirectory, folderWithoutPermission))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
-                ProjectionInfo originalProjection = mapView.Projection;
+                Map map = GetMap(mapControl);
+                ProjectionInfo originalProjection = map.Projection;
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // When
-                void Call() => map.BackgroundMapData = backgroundMapData;
+                void Call() => mapControl.BackgroundMapData = backgroundMapData;
 
                 // Then
                 const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error));
 
-                Assert.AreEqual(0, mapView.Layers.Count);
+                Assert.AreEqual(0, map.Layers.Count);
 
-                Assert.AreSame(originalProjection, mapView.Projection);
+                Assert.AreSame(originalProjection, map.Projection);
             }
         }
 
@@ -1723,11 +1728,11 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
                 // Precondition
                 string tileDisplayName = TypeUtils.GetDisplayName(backgroundMapData.TileSource);
-                void SetAndCauseFailingInitialization() => map.BackgroundMapData = backgroundMapData;
+                void SetAndCauseFailingInitialization() => mapControl.BackgroundMapData = backgroundMapData;
                 string expectedMessage = $"Verbinden met '{tileDisplayName}' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. "
                                          + "De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(SetAndCauseFailingInitialization, Tuple.Create(expectedMessage, LogLevelConstant.Error));
@@ -1738,12 +1743,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                     backgroundMapData.NotifyObservers();
 
                     // Then
-                    Map mapView = map.Controls.OfType<Map>().First();
-                    Assert.AreEqual(1, mapView.Layers.Count);
-                    IMapLayer backgroundLayer = mapView.Layers[0];
+                    Map map = GetMap(mapControl);
+                    Assert.AreEqual(1, map.Layers.Count);
+                    IMapLayer backgroundLayer = map.Layers[0];
 
                     Assert.IsInstanceOf<BruTileLayer>(backgroundLayer);
-                    Assert.AreSame(backgroundLayer.Projection, mapView.Projection);
+                    Assert.AreSame(backgroundLayer.Projection, map.Projection);
                 }
             }
         }
@@ -1761,12 +1766,12 @@ namespace Core.Components.DotSpatial.Forms.Test
             }))
             using (var helper = new DirectoryDisposeHelper(settingsDirectory, folderWithoutPermission))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
                 helper.LockDirectory(FileSystemRights.Write);
 
                 // Precondition
-                void SetAndCauseCacheInitializationFailure() => map.BackgroundMapData = backgroundMapData;
+                void SetAndCauseCacheInitializationFailure() => mapControl.BackgroundMapData = backgroundMapData;
                 const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageIsGenerated(SetAndCauseCacheInitializationFailure, expectedMessage, 1);
@@ -1776,12 +1781,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                 backgroundMapData.NotifyObservers();
 
                 // Then
-                Map mapView = map.Controls.OfType<Map>().First();
-                Assert.AreEqual(1, mapView.Layers.Count);
-                IMapLayer backgroundLayer = mapView.Layers[0];
+                Map map = GetMap(mapControl);
+                Assert.AreEqual(1, map.Layers.Count);
+                IMapLayer backgroundLayer = map.Layers[0];
 
                 Assert.IsInstanceOf<BruTileLayer>(backgroundLayer);
-                Assert.AreSame(backgroundLayer.Projection, mapView.Projection);
+                Assert.AreSame(backgroundLayer.Projection, map.Projection);
             }
         }
 
@@ -1797,14 +1802,14 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
-                ProjectionInfo originalProjection = mapView.Projection;
+                Map map = GetMap(mapControl);
+                ProjectionInfo originalProjection = map.Projection;
 
                 // Precondition
                 string tileDisplayName = TypeUtils.GetDisplayName(backgroundMapData.TileSource);
-                void SetAndCauseFailToInitializeLayer() => map.BackgroundMapData = backgroundMapData;
+                void SetAndCauseFailToInitializeLayer() => mapControl.BackgroundMapData = backgroundMapData;
                 string expectedMessage = $"Verbinden met '{tileDisplayName}' is mislukt waardoor geen kaartgegevens ingeladen kunnen worden. "
                                          + "De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(SetAndCauseFailToInitializeLayer, Tuple.Create(expectedMessage, LogLevelConstant.Error));
@@ -1814,8 +1819,8 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Then
                 TestHelper.AssertLogMessagesCount(Call, 0);
-                Assert.AreEqual(0, mapView.Layers.Count);
-                Assert.AreSame(originalProjection, mapView.Projection);
+                Assert.AreEqual(0, map.Layers.Count);
+                Assert.AreSame(originalProjection, map.Projection);
             }
         }
 
@@ -1832,15 +1837,15 @@ namespace Core.Components.DotSpatial.Forms.Test
             }))
             using (var disposeHelper = new DirectoryDisposeHelper(settingsDirectory, folderWithoutPermission))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
-                ProjectionInfo originalProjection = mapView.Projection;
+                Map map = GetMap(mapControl);
+                ProjectionInfo originalProjection = map.Projection;
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Precondition
-                void SetAndCauseCacheInitializationFailure() => map.BackgroundMapData = backgroundMapData;
+                void SetAndCauseCacheInitializationFailure() => mapControl.BackgroundMapData = backgroundMapData;
                 const string expectedMessage = "Configuratie van kaartgegevens hulpbestanden is mislukt. "
                                                + "De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageIsGenerated(SetAndCauseCacheInitializationFailure, expectedMessage, 1);
@@ -1850,8 +1855,8 @@ namespace Core.Components.DotSpatial.Forms.Test
 
                 // Then
                 TestHelper.AssertLogMessagesCount(Call, 0);
-                Assert.AreEqual(0, mapView.Layers.Count);
-                Assert.AreSame(originalProjection, mapView.Projection);
+                Assert.AreEqual(0, map.Layers.Count);
+                Assert.AreSame(originalProjection, map.Projection);
             }
         }
 
@@ -1868,13 +1873,13 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl
+            using (var mapControl = new MapControl
             {
                 BackgroundMapData = backgroundMapData
             })
             {
-                Map mapView = map.Controls.OfType<Map>().First();
-                IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
+                Map map = GetMap(mapControl);
+                IMapLayer[] layersBeforeUpdate = map.Layers.ToArray();
 
                 // When
                 bool newVisibilityValue = !backgroundMapData.IsVisible;
@@ -1884,7 +1889,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 backgroundMapData.NotifyObservers();
 
                 // Then
-                CollectionAssert.AreEqual(layersBeforeUpdate, mapView.Layers);
+                CollectionAssert.AreEqual(layersBeforeUpdate, map.Layers);
                 var backgroundLayer = (BruTileLayer) layersBeforeUpdate[0];
                 Assert.AreEqual(newVisibilityValue, backgroundLayer.IsVisible);
                 Assert.AreEqual(newTransparencyValue, backgroundLayer.Transparency, 1e-6);
@@ -1899,7 +1904,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (MapControl map = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateDimensionlessMapControl())
             {
                 var mapDataCollection = new MapDataCollection("A");
                 mapDataCollection.Add(new MapPointData("points")
@@ -1918,31 +1923,31 @@ namespace Core.Components.DotSpatial.Forms.Test
                         })
                     }
                 });
-                map.Data = mapDataCollection;
+                mapControl.Data = mapDataCollection;
 
-                Map mapView = map.Controls.OfType<Map>().First();
-                SetTestExtents(mapView);
+                Map map = GetMap(mapControl);
+                SetTestExtents(map);
 
                 // Precondition
-                Assert.AreEqual(1, mapView.Layers.Count);
-                var pointFeatureLayer = (FeatureLayer) mapView.Layers[0];
+                Assert.AreEqual(1, map.Layers.Count);
+                var pointFeatureLayer = (FeatureLayer) map.Layers[0];
                 Assert.AreEqual(1.1, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X);
                 Assert.AreEqual(2.2, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y);
 
                 // When
-                map.BackgroundMapData = backgroundMapData;
+                mapControl.BackgroundMapData = backgroundMapData;
 
                 // Then
-                Assert.AreEqual(2, mapView.Layers.Count);
-                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
-                pointFeatureLayer = (FeatureLayer) mapView.Layers[1];
-                Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
+                Assert.AreEqual(2, map.Layers.Count);
+                Assert.IsInstanceOf<BruTileLayer>(map.Layers[0]);
+                pointFeatureLayer = (FeatureLayer) map.Layers[1];
+                Assert.IsTrue(map.Projection.Equals(pointFeatureLayer.Projection));
                 Assert.AreEqual(368865.09, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X, 1e-1,
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=3857&x=1.1000000&y=2.2000000).");
                 Assert.AreEqual(6102661.13, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y, 1e-1,
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=3857&x=1.1000000&y=2.2000000).");
 
-                AssertReprojectedTo3857TestExtents(mapView);
+                AssertReprojectedTo3857TestExtents(map);
             }
         }
 
@@ -1958,10 +1963,10 @@ namespace Core.Components.DotSpatial.Forms.Test
 
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(problematicFactory))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
-                ProjectionInfo originalProjection = mapView.Projection;
+                Map map = GetMap(mapControl);
+                ProjectionInfo originalProjection = map.Projection;
 
                 var mapPointData = new MapPointData("Points")
                 {
@@ -1985,8 +1990,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // When
                 void Call()
                 {
-                    map.BackgroundMapData = backgroundMapData;
-                    map.Data = mapDataCollection;
+                    mapControl.BackgroundMapData = backgroundMapData;
+                    mapControl.Data = mapDataCollection;
                 }
 
                 // Then
@@ -1995,12 +2000,12 @@ namespace Core.Components.DotSpatial.Forms.Test
                                          "De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1); // Message should only the generated once!
 
-                Assert.AreEqual(1, mapView.Layers.Count);
-                var pointsLayer = (FeatureLayer) mapView.Layers[0];
+                Assert.AreEqual(1, map.Layers.Count);
+                var pointsLayer = (FeatureLayer) map.Layers[0];
                 Assert.AreEqual(mapPointData.Name, pointsLayer.Name);
                 Assert.AreSame(originalProjection, pointsLayer.Projection);
 
-                Assert.AreSame(originalProjection, mapView.Projection);
+                Assert.AreSame(originalProjection, map.Projection);
             }
         }
 
@@ -2017,10 +2022,10 @@ namespace Core.Components.DotSpatial.Forms.Test
             }))
             using (var disposeHelper = new DirectoryDisposeHelper(settingsDirectory, folderWithoutPermission))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
-                ProjectionInfo originalProjection = mapView.Projection;
+                Map map = GetMap(mapControl);
+                ProjectionInfo originalProjection = map.Projection;
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
@@ -2046,8 +2051,8 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // When
                 void Call()
                 {
-                    map.BackgroundMapData = backgroundMapData;
-                    map.Data = mapDataCollection;
+                    mapControl.BackgroundMapData = backgroundMapData;
+                    mapControl.Data = mapDataCollection;
                 }
 
                 // Then
@@ -2055,11 +2060,11 @@ namespace Core.Components.DotSpatial.Forms.Test
                                                + "De achtergrondkaart kan nu niet getoond worden.";
                 TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
 
-                Assert.AreEqual(1, mapView.Layers.Count);
-                var pointsLayer = (FeatureLayer) mapView.Layers[0];
+                Assert.AreEqual(1, map.Layers.Count);
+                var pointsLayer = (FeatureLayer) map.Layers[0];
                 Assert.AreEqual(mapPointData.Name, pointsLayer.Name);
                 Assert.AreSame(originalProjection, pointsLayer.Projection);
-                Assert.AreSame(originalProjection, mapView.Projection);
+                Assert.AreSame(originalProjection, map.Projection);
             }
         }
 
@@ -2081,12 +2086,12 @@ namespace Core.Components.DotSpatial.Forms.Test
             WmtsMapData backgroundMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
 
             // Given
-            using (var map = new MapControl
+            using (var mapControl = new MapControl
             {
                 BackgroundMapData = backgroundMapData
             })
             {
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
                 MapDataCollection testMapDataCollection = CreateTestMapDataCollection();
                 MapDataCollection nestedMapDataCollection = testMapDataCollection.Collection
                                                                                  .OfType<MapDataCollection>()
@@ -2095,16 +2100,16 @@ namespace Core.Components.DotSpatial.Forms.Test
                                                                        .OfType<MapLineData>()
                                                                        .First();
 
-                map.Data = testMapDataCollection;
+                mapControl.Data = testMapDataCollection;
 
-                IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
+                IMapLayer[] layersBeforeUpdate = map.Layers.ToArray();
 
                 // When
                 nestedMapLineData.Features = new MapFeature[0];
                 nestedMapLineData.NotifyObservers();
 
                 // Then
-                CollectionAssert.AreEqual(layersBeforeUpdate, mapView.Layers);
+                CollectionAssert.AreEqual(layersBeforeUpdate, map.Layers);
             }
         }
 
@@ -2116,12 +2121,12 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl
+            using (var mapControl = new MapControl
             {
                 BackgroundMapData = backgroundMapData
             })
             {
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
                 MapDataCollection testMapDataCollection = CreateTestMapDataCollection();
                 MapDataCollection nestedMapDataCollection = testMapDataCollection.Collection
                                                                                  .OfType<MapDataCollection>()
@@ -2130,9 +2135,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                                                                        .OfType<MapLineData>()
                                                                        .First();
 
-                map.Data = testMapDataCollection;
+                mapControl.Data = testMapDataCollection;
 
-                List<IMapLayer> layersBeforeUpdate = mapView.Layers.ToList();
+                List<IMapLayer> layersBeforeUpdate = map.Layers.ToList();
 
                 // Precondition
                 Assert.AreEqual(4, layersBeforeUpdate.Count);
@@ -2142,11 +2147,11 @@ namespace Core.Components.DotSpatial.Forms.Test
                 nestedMapDataCollection.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(3, mapView.Layers.Count);
-                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
-                AssertFeatureLayer(mapView.Layers[1], "Points");
-                AssertFeatureLayer(mapView.Layers[2], "Polygons");
-                Assert.AreEqual(0, mapView.Layers.Except(layersBeforeUpdate).Count());
+                Assert.AreEqual(3, map.Layers.Count);
+                Assert.IsInstanceOf<BruTileLayer>(map.Layers[0]);
+                AssertFeatureLayer(map.Layers[1], "Points");
+                AssertFeatureLayer(map.Layers[2], "Polygons");
+                Assert.AreEqual(0, map.Layers.Except(layersBeforeUpdate).Count());
             }
         }
 
@@ -2158,20 +2163,20 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl
+            using (var mapControl = new MapControl
             {
                 BackgroundMapData = backgroundMapData
             })
             {
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
                 MapDataCollection testMapDataCollection = CreateTestMapDataCollection();
                 MapDataCollection nestedMapDataCollection = testMapDataCollection.Collection
                                                                                  .OfType<MapDataCollection>()
                                                                                  .Last();
 
-                map.Data = testMapDataCollection;
+                mapControl.Data = testMapDataCollection;
 
-                List<IMapLayer> layersBeforeUpdate = mapView.Layers.ToList();
+                List<IMapLayer> layersBeforeUpdate = map.Layers.ToList();
 
                 // Precondition
                 Assert.AreEqual(4, layersBeforeUpdate.Count);
@@ -2181,13 +2186,13 @@ namespace Core.Components.DotSpatial.Forms.Test
                 nestedMapDataCollection.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(5, mapView.Layers.Count);
-                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
-                AssertFeatureLayer(mapView.Layers[1], "Points");
-                AssertFeatureLayer(mapView.Layers[2], "Additional polygons");
-                AssertFeatureLayer(mapView.Layers[3], "Lines");
-                AssertFeatureLayer(mapView.Layers[4], "Polygons");
-                Assert.AreEqual(0, layersBeforeUpdate.Except(mapView.Layers).Count());
+                Assert.AreEqual(5, map.Layers.Count);
+                Assert.IsInstanceOf<BruTileLayer>(map.Layers[0]);
+                AssertFeatureLayer(map.Layers[1], "Points");
+                AssertFeatureLayer(map.Layers[2], "Additional polygons");
+                AssertFeatureLayer(map.Layers[3], "Lines");
+                AssertFeatureLayer(map.Layers[4], "Polygons");
+                Assert.AreEqual(0, layersBeforeUpdate.Except(map.Layers).Count());
             }
         }
 
@@ -2199,12 +2204,12 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Given
             using (new UseCustomSettingsHelper(testSettingsHelper))
             using (new UseCustomTileSourceFactoryConfig(backgroundMapData))
-            using (var map = new MapControl
+            using (var mapControl = new MapControl
             {
                 BackgroundMapData = backgroundMapData
             })
             {
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
                 MapDataCollection testMapDataCollection = CreateTestMapDataCollection();
                 MapDataCollection nestedMapDataCollection = testMapDataCollection.Collection
                                                                                  .OfType<MapDataCollection>()
@@ -2213,14 +2218,14 @@ namespace Core.Components.DotSpatial.Forms.Test
                                                                        .OfType<MapPointData>()
                                                                        .First();
 
-                map.Data = testMapDataCollection;
+                mapControl.Data = testMapDataCollection;
 
                 // Precondition
-                Assert.AreEqual(4, mapView.Layers.Count);
-                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
-                AssertFeatureLayer(mapView.Layers[1], "Points");
-                AssertFeatureLayer(mapView.Layers[2], "Lines");
-                AssertFeatureLayer(mapView.Layers[3], "Polygons");
+                Assert.AreEqual(4, map.Layers.Count);
+                Assert.IsInstanceOf<BruTileLayer>(map.Layers[0]);
+                AssertFeatureLayer(map.Layers[1], "Points");
+                AssertFeatureLayer(map.Layers[2], "Lines");
+                AssertFeatureLayer(map.Layers[3], "Polygons");
 
                 // When
                 testMapDataCollection.Remove(nestedMapPointData);
@@ -2228,11 +2233,11 @@ namespace Core.Components.DotSpatial.Forms.Test
                 nestedMapDataCollection.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(4, mapView.Layers.Count);
-                Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
-                AssertFeatureLayer(mapView.Layers[1], "Lines");
-                AssertFeatureLayer(mapView.Layers[2], "Polygons");
-                AssertFeatureLayer(mapView.Layers[3], "Points");
+                Assert.AreEqual(4, map.Layers.Count);
+                Assert.IsInstanceOf<BruTileLayer>(map.Layers[0]);
+                AssertFeatureLayer(map.Layers[1], "Lines");
+                AssertFeatureLayer(map.Layers[2], "Polygons");
+                AssertFeatureLayer(map.Layers[3], "Points");
             }
         }
 
@@ -2252,28 +2257,28 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ZoomToAllVisibleLayers_MapInFormWithEmptyDataSet_ViewNotInvalidatedLayersSame()
         {
             // Setup
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
                 var mapDataCollection = new MapDataCollection("Collection");
                 var mapData = new MapPointData("Test data");
                 var invalidated = 0;
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
 
                 mapDataCollection.Add(mapData);
 
-                map.Data = mapDataCollection;
+                mapControl.Data = mapDataCollection;
 
-                mapView.Invalidated += (sender, args) => invalidated++;
+                map.Invalidated += (sender, args) => invalidated++;
 
-                Assert.AreEqual(0, invalidated, "Precondition failed: mapView.Invalidated > 0");
+                Assert.AreEqual(0, invalidated, "Precondition failed: map.Invalidated > 0");
 
                 // Call
-                map.ZoomToAllVisibleLayers();
+                mapControl.ZoomToAllVisibleLayers();
 
                 // Assert
                 Assert.AreEqual(0, invalidated);
                 var expectedExtent = new Extent(0.0, 0.0, 0.0, 0.0);
-                Assert.AreEqual(expectedExtent, mapView.ViewExtents);
+                Assert.AreEqual(expectedExtent, map.ViewExtents);
             }
         }
 
@@ -2284,7 +2289,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var form = new Form())
             {
-                MapControl map = CreateDimensionlessMapControl();
+                MapControl mapControl = CreateDimensionlessMapControl();
 
                 var mapFeatures = new[]
                 {
@@ -2305,29 +2310,29 @@ namespace Core.Components.DotSpatial.Forms.Test
                 {
                     Features = mapFeatures
                 };
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
                 var invalidated = 0;
 
                 mapDataCollection.Add(mapData);
 
-                map.Data = mapDataCollection;
+                mapControl.Data = mapDataCollection;
 
-                form.Controls.Add(map);
+                form.Controls.Add(mapControl);
 
                 form.Show();
 
-                mapView.Invalidated += (sender, args) => invalidated++;
+                map.Invalidated += (sender, args) => invalidated++;
 
                 // Call
-                map.ZoomToAllVisibleLayers();
+                mapControl.ZoomToAllVisibleLayers();
 
                 // Assert
                 Assert.AreEqual(2, invalidated);
 
-                Extent expectedExtent = mapView.GetMaxExtent();
+                Extent expectedExtent = map.GetMaxExtent();
                 ExtendWithExpectedMargin(expectedExtent);
 
-                Assert.AreEqual(expectedExtent, mapView.ViewExtents);
+                Assert.AreEqual(expectedExtent, map.ViewExtents);
             }
         }
 
@@ -2335,25 +2340,25 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ZoomToAllVisibleLayers_NotAllLayersVisible_ZoomToVisibleLayersExtent()
         {
             // Setup
-            using (MapControl map = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateDimensionlessMapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
 
-                map.Data = GetTestData();
+                mapControl.Data = GetTestData();
 
                 var expectedExtent = new Extent(0.0, 0.5, 1.6, 2.1);
                 ExtendWithExpectedMargin(expectedExtent);
 
                 // Precondition
-                Assert.AreEqual(3, mapView.Layers.Count, "Precondition failed: mapView.Layers != 3");
-                Assert.IsFalse(mapView.Layers.All(l => l.IsVisible), "Precondition failed: not all map layers should be visible.");
+                Assert.AreEqual(3, map.Layers.Count, "Precondition failed: map.Layers != 3");
+                Assert.IsFalse(map.Layers.All(l => l.IsVisible), "Precondition failed: not all map layers should be visible.");
 
                 // Call
-                map.ZoomToAllVisibleLayers();
+                mapControl.ZoomToAllVisibleLayers();
 
                 // Assert
-                Assert.AreNotEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
-                Assert.AreEqual(expectedExtent, mapView.ViewExtents);
+                Assert.AreNotEqual(map.GetMaxExtent(), map.ViewExtents);
+                Assert.AreEqual(expectedExtent, map.ViewExtents);
             }
         }
 
@@ -2363,7 +2368,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         {
             // Setup
             var mapDataCollection = new MapDataCollection("Collection");
-            using (var map = new MapControl
+            using (var mapControl = new MapControl
             {
                 Data = mapDataCollection
             })
@@ -2371,7 +2376,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapData = new MapPointData("Test data");
 
                 // Call
-                void Call() => map.ZoomToAllVisibleLayers(mapData);
+                void Call() => mapControl.ZoomToAllVisibleLayers(mapData);
 
                 // Assert
                 const string message = "Can only zoom to MapData that is part of this MapControls drawn mapData.";
@@ -2385,28 +2390,28 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ZoomToAllVisibleLayers_MapInFormWithEmptyDataSetAndForChildMapData_ViewNotInvalidatedLayersSame()
         {
             // Setup
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
                 var mapDataCollection = new MapDataCollection("Collection");
                 var mapData = new MapPointData("Test data");
                 var invalidated = 0;
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
 
                 mapDataCollection.Add(mapData);
 
-                map.Data = mapDataCollection;
+                mapControl.Data = mapDataCollection;
 
-                mapView.Invalidated += (sender, args) => invalidated++;
+                map.Invalidated += (sender, args) => invalidated++;
 
-                Assert.AreEqual(0, invalidated, "Precondition failed: mapView.Invalidated > 0");
+                Assert.AreEqual(0, invalidated, "Precondition failed: map.Invalidated > 0");
 
                 // Call
-                map.ZoomToAllVisibleLayers(mapData);
+                mapControl.ZoomToAllVisibleLayers(mapData);
 
                 // Assert
                 Assert.AreEqual(0, invalidated);
                 var expectedExtent = new Extent(0.0, 0.0, 0.0, 0.0);
-                Assert.AreEqual(expectedExtent, mapView.ViewExtents);
+                Assert.AreEqual(expectedExtent, map.ViewExtents);
             }
         }
 
@@ -2417,7 +2422,7 @@ namespace Core.Components.DotSpatial.Forms.Test
             // Setup
             using (var form = new Form())
             {
-                MapControl map = CreateDimensionlessMapControl();
+                MapControl mapControl = CreateDimensionlessMapControl();
 
                 var mapFeatures = new[]
                 {
@@ -2438,29 +2443,29 @@ namespace Core.Components.DotSpatial.Forms.Test
                 {
                     Features = mapFeatures
                 };
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
                 var invalidated = 0;
 
                 mapDataCollection.Add(mapData);
 
-                map.Data = mapDataCollection;
+                mapControl.Data = mapDataCollection;
 
-                form.Controls.Add(map);
+                form.Controls.Add(mapControl);
 
                 form.Show();
 
-                mapView.Invalidated += (sender, args) => invalidated++;
+                map.Invalidated += (sender, args) => invalidated++;
 
                 // Call
-                map.ZoomToAllVisibleLayers(mapData);
+                mapControl.ZoomToAllVisibleLayers(mapData);
 
                 // Assert
                 Assert.AreEqual(2, invalidated);
 
-                Extent expectedExtent = mapView.GetMaxExtent();
+                Extent expectedExtent = map.GetMaxExtent();
                 ExtendWithExpectedMargin(expectedExtent);
 
-                Assert.AreEqual(expectedExtent, mapView.ViewExtents);
+                Assert.AreEqual(expectedExtent, map.ViewExtents);
             }
         }
 
@@ -2468,12 +2473,12 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ZoomToAllVisibleLayers_ForVisibleChildMapData_ZoomToVisibleLayerExtent()
         {
             // Setup
-            using (MapControl map = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateDimensionlessMapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
 
                 MapDataCollection dataCollection = GetTestData();
-                map.Data = dataCollection;
+                mapControl.Data = dataCollection;
 
                 MapData mapData = dataCollection.Collection.ElementAt(0);
                 Extent expectedExtent = GetExpectedExtent((FeatureBasedMapData) mapData);
@@ -2483,24 +2488,24 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.IsTrue(mapData.IsVisible);
 
                 // Call
-                map.ZoomToAllVisibleLayers(mapData);
+                mapControl.ZoomToAllVisibleLayers(mapData);
 
                 // Assert
-                Assert.AreNotEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
-                Assert.AreEqual(expectedExtent, mapView.ViewExtents);
+                Assert.AreNotEqual(map.GetMaxExtent(), map.ViewExtents);
+                Assert.AreEqual(expectedExtent, map.ViewExtents);
             }
         }
 
         [Test]
-        public void ZoomToAllVisibleLayers_ForInvisibleChildMapData_DoNotChangeViewExtentsOfMapView()
+        public void ZoomToAllVisibleLayers_ForInvisibleChildMapData_DoNotChangeViewExtentsOfMap()
         {
             // Setup
-            using (var map = new MapControl())
+            using (var mapControl = new MapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
 
                 MapDataCollection dataCollection = GetTestData();
-                map.Data = dataCollection;
+                mapControl.Data = dataCollection;
 
                 MapData mapData = dataCollection.Collection.ElementAt(2);
                 Extent unexpectedExtent = GetExpectedExtent((FeatureBasedMapData) mapData);
@@ -2509,15 +2514,15 @@ namespace Core.Components.DotSpatial.Forms.Test
                 // Precondition
                 Assert.IsFalse(mapData.IsVisible);
 
-                var originalViewExtents = (Extent) mapView.ViewExtents.Clone();
+                var originalViewExtents = (Extent) map.ViewExtents.Clone();
 
                 // Call
-                map.ZoomToAllVisibleLayers(mapData);
+                mapControl.ZoomToAllVisibleLayers(mapData);
 
                 // Assert
-                Assert.AreNotEqual(unexpectedExtent, mapView.ViewExtents,
+                Assert.AreNotEqual(unexpectedExtent, map.ViewExtents,
                                    "Do not set extent based on the invisible layer.");
-                Assert.AreEqual(originalViewExtents, mapView.ViewExtents);
+                Assert.AreEqual(originalViewExtents, map.ViewExtents);
             }
         }
 
@@ -2530,9 +2535,9 @@ namespace Core.Components.DotSpatial.Forms.Test
         public void ZoomToAllVisibleLayers_ForMapDataOfVariousDimensions_ZoomToVisibleLayerExtent(double xMax, double yMax)
         {
             // Setup
-            using (MapControl map = CreateDimensionlessMapControl())
+            using (MapControl mapControl = CreateDimensionlessMapControl())
             {
-                Map mapView = map.Controls.OfType<Map>().First();
+                Map map = GetMap(mapControl);
 
                 MapData mapData = new MapPointData("Test data")
                 {
@@ -2554,24 +2559,24 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapDataCollection = new MapDataCollection("Test data collection");
                 mapDataCollection.Add(mapData);
 
-                map.Data = mapDataCollection;
+                mapControl.Data = mapDataCollection;
 
                 var expectedExtent = new Extent(0.0, 0.0, xMax, yMax);
                 ExtendWithExpectedMargin(expectedExtent);
 
                 // Call
-                map.ZoomToAllVisibleLayers(mapData);
+                mapControl.ZoomToAllVisibleLayers(mapData);
 
                 // Assert
                 if (double.IsInfinity(expectedExtent.Height) || double.IsInfinity(expectedExtent.Width))
                 {
-                    Assert.AreEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
-                    Assert.AreNotEqual(expectedExtent, mapView.ViewExtents);
+                    Assert.AreEqual(map.GetMaxExtent(), map.ViewExtents);
+                    Assert.AreNotEqual(expectedExtent, map.ViewExtents);
                 }
                 else
                 {
-                    Assert.AreNotEqual(mapView.GetMaxExtent(), mapView.ViewExtents);
-                    Assert.AreEqual(expectedExtent, mapView.ViewExtents);
+                    Assert.AreNotEqual(map.GetMaxExtent(), map.ViewExtents);
+                    Assert.AreEqual(expectedExtent, map.ViewExtents);
                 }
             }
         }
