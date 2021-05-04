@@ -26,7 +26,7 @@ using Core.Gui.Helpers;
 using Core.Gui.PresentationObjects.Map;
 using NUnit.Framework;
 
-namespace Core.Plugins.Map.Test.Helpers
+namespace Core.Gui.Test.Helpers
 {
     [TestFixture]
     public class MapDataContextHelperTest
