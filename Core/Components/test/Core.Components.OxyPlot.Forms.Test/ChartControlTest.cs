@@ -43,18 +43,16 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void Constructor_PropertiesSet()
         {
             // Call
-            using (var chart = new ChartControl())
+            using (var chartControl = new ChartControl())
             {
                 // Assert
-                Assert.IsInstanceOf<UserControl>(chart);
-                Assert.IsInstanceOf<IChartControl>(chart);
-                Assert.AreEqual(100, chart.MinimumSize.Height);
-                Assert.AreEqual(100, chart.MinimumSize.Width);
-                Assert.IsNull(chart.Data);
+                Assert.IsInstanceOf<UserControl>(chartControl);
+                Assert.IsInstanceOf<IChartControl>(chartControl);
+                Assert.IsNull(chartControl.Data);
 
-                LinearPlotView plotView = chart.Controls.OfType<LinearPlotView>().Single();
-                Assert.AreEqual(Color.White, plotView.BackColor);
-                Assert.IsFalse(plotView.Model.IsLegendVisible);
+                LinearPlotView linearPlotView = GetLinearPlotView(chartControl);
+                Assert.AreEqual(Color.White, linearPlotView.BackColor);
+                Assert.IsFalse(linearPlotView.Model.IsLegendVisible);
             }
         }
 
@@ -62,9 +60,9 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void GivenChartControlWithoutData_WhenDataSetToChartDataCollection_ThenChartControlUpdated()
         {
             // Given
-            using (var chart = new ChartControl())
+            using (var chartControl = new ChartControl())
             {
-                LinearPlotView plotView = chart.Controls.OfType<LinearPlotView>().Single();
+                LinearPlotView linearPlotView = GetLinearPlotView(chartControl);
                 var chartPointData = new ChartPointData("Points");
                 var chartLineData = new ChartLineData("Lines");
                 var chartAreaData = new ChartAreaData("Areas");
@@ -79,10 +77,10 @@ namespace Core.Components.OxyPlot.Forms.Test
                 nestedChartDataCollection2.Add(chartAreaData);
 
                 // When
-                chart.Data = chartDataCollection;
+                chartControl.Data = chartDataCollection;
 
                 // Then
-                ElementCollection<Series> series = plotView.Model.Series;
+                ElementCollection<Series> series = linearPlotView.Model.Series;
                 Assert.AreEqual(3, series.Count);
                 Assert.AreEqual("Points", series[0].Title);
                 Assert.AreEqual("Lines", series[1].Title);
@@ -94,9 +92,9 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void GivenChartControlWithData_WhenDataSetToOtherChartDataCollection_ThenChartControlUpdated()
         {
             // Given
-            using (var chart = new ChartControl())
+            using (var chartControl = new ChartControl())
             {
-                LinearPlotView plotView = chart.Controls.OfType<LinearPlotView>().Single();
+                LinearPlotView linearPlotView = GetLinearPlotView(chartControl);
                 var chartPointData = new ChartPointData("Points");
                 var chartLineData = new ChartLineData("Lines");
                 var chartAreaData = new ChartAreaData("Areas");
@@ -107,19 +105,19 @@ namespace Core.Components.OxyPlot.Forms.Test
                 chartDataCollection2.Add(chartLineData);
                 chartDataCollection2.Add(chartAreaData);
 
-                chart.Data = chartDataCollection1;
+                chartControl.Data = chartDataCollection1;
 
                 // Precondition
-                Assert.AreEqual(1, plotView.Model.Series.Count);
-                Assert.AreEqual("Points", plotView.Model.Series[0].Title);
+                Assert.AreEqual(1, linearPlotView.Model.Series.Count);
+                Assert.AreEqual("Points", linearPlotView.Model.Series[0].Title);
 
                 // When
-                chart.Data = chartDataCollection2;
+                chartControl.Data = chartDataCollection2;
 
                 // Then
-                Assert.AreEqual(2, plotView.Model.Series.Count);
-                Assert.AreEqual("Lines", plotView.Model.Series[0].Title);
-                Assert.AreEqual("Areas", plotView.Model.Series[1].Title);
+                Assert.AreEqual(2, linearPlotView.Model.Series.Count);
+                Assert.AreEqual("Lines", linearPlotView.Model.Series[0].Title);
+                Assert.AreEqual("Areas", linearPlotView.Model.Series[1].Title);
             }
         }
 
@@ -127,9 +125,9 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void GivenChartControlWithData_WhenChartDataNotifiesChange_ThenAllSeriesReused()
         {
             // Given
-            using (var chart = new ChartControl())
+            using (var chartControl = new ChartControl())
             {
-                LinearPlotView plotView = chart.Controls.OfType<LinearPlotView>().Single();
+                LinearPlotView linearPlotView = GetLinearPlotView(chartControl);
                 var chartPointData = new ChartPointData("Points");
                 var chartLineData = new ChartLineData("Lines");
                 var chartAreaData = new ChartAreaData("Areas");
@@ -143,16 +141,16 @@ namespace Core.Components.OxyPlot.Forms.Test
                 nestedChartDataCollection1.Add(nestedChartDataCollection2);
                 nestedChartDataCollection2.Add(chartAreaData);
 
-                chart.Data = chartDataCollection;
+                chartControl.Data = chartDataCollection;
 
-                List<Series> seriesBeforeUpdate = plotView.Model.Series.ToList();
+                List<Series> seriesBeforeUpdate = linearPlotView.Model.Series.ToList();
 
                 // When
                 chartLineData.Points = new Point2D[0];
                 chartLineData.NotifyObservers();
 
                 // Then
-                CollectionAssert.AreEqual(seriesBeforeUpdate, plotView.Model.Series);
+                CollectionAssert.AreEqual(seriesBeforeUpdate, linearPlotView.Model.Series);
             }
         }
 
@@ -160,9 +158,9 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void GivenChartControlWithData_WhenChartDataRemoved_ThenCorrespondingSeriesRemovedAndOtherSeriesReused()
         {
             // Given
-            using (var chart = new ChartControl())
+            using (var chartControl = new ChartControl())
             {
-                LinearPlotView plotView = chart.Controls.OfType<LinearPlotView>().Single();
+                LinearPlotView linearPlotView = GetLinearPlotView(chartControl);
                 var chartPointData = new ChartPointData("Points");
                 var chartLineData = new ChartLineData("Lines");
                 var chartAreaData = new ChartAreaData("Areas");
@@ -176,9 +174,9 @@ namespace Core.Components.OxyPlot.Forms.Test
                 nestedChartDataCollection1.Add(nestedChartDataCollection2);
                 nestedChartDataCollection2.Add(chartAreaData);
 
-                chart.Data = chartDataCollection;
+                chartControl.Data = chartDataCollection;
 
-                List<Series> seriesBeforeUpdate = plotView.Model.Series.ToList();
+                List<Series> seriesBeforeUpdate = linearPlotView.Model.Series.ToList();
 
                 // Precondition
                 Assert.AreEqual(3, seriesBeforeUpdate.Count);
@@ -188,7 +186,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 nestedChartDataCollection1.NotifyObservers();
 
                 // Then
-                ElementCollection<Series> series = plotView.Model.Series;
+                ElementCollection<Series> series = linearPlotView.Model.Series;
                 Assert.AreEqual(2, series.Count);
                 Assert.AreEqual("Points", series[0].Title);
                 Assert.AreEqual("Areas", series[1].Title);
@@ -200,9 +198,9 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void GivenChartControlWithData_WhenChartDataAdded_ThenCorrespondingSeriesAddedAndOtherSeriesReused()
         {
             // Given
-            using (var chart = new ChartControl())
+            using (var chartControl = new ChartControl())
             {
-                LinearPlotView plotView = chart.Controls.OfType<LinearPlotView>().Single();
+                LinearPlotView linearPlotView = GetLinearPlotView(chartControl);
                 var chartPointData = new ChartPointData("Points");
                 var chartLineData = new ChartLineData("Lines");
                 var chartAreaData = new ChartAreaData("Areas");
@@ -216,9 +214,9 @@ namespace Core.Components.OxyPlot.Forms.Test
                 nestedChartDataCollection1.Add(nestedChartDataCollection2);
                 nestedChartDataCollection2.Add(chartAreaData);
 
-                chart.Data = chartDataCollection;
+                chartControl.Data = chartDataCollection;
 
-                List<Series> seriesBeforeUpdate = plotView.Model.Series.ToList();
+                List<Series> seriesBeforeUpdate = linearPlotView.Model.Series.ToList();
 
                 // Precondition
                 Assert.AreEqual(3, seriesBeforeUpdate.Count);
@@ -228,7 +226,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 nestedChartDataCollection1.NotifyObservers();
 
                 // Then
-                ElementCollection<Series> series = plotView.Model.Series;
+                ElementCollection<Series> series = linearPlotView.Model.Series;
                 Assert.AreEqual(4, series.Count);
                 Assert.AreEqual("Points", series[0].Title);
                 Assert.AreEqual("Additional areas", series[1].Title);
@@ -242,9 +240,9 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void GivenChartControlWithData_WhenChartDataMoved_ThenCorrespondingSeriesMovedAndAllSeriesReused()
         {
             // Given
-            using (var chart = new ChartControl())
+            using (var chartControl = new ChartControl())
             {
-                LinearPlotView plotView = chart.Controls.OfType<LinearPlotView>().Single();
+                LinearPlotView linearPlotView = GetLinearPlotView(chartControl);
                 var chartPointData = new ChartPointData("Points");
                 var chartLineData = new ChartLineData("Lines");
                 var chartAreaData = new ChartAreaData("Areas");
@@ -254,9 +252,9 @@ namespace Core.Components.OxyPlot.Forms.Test
                 chartDataCollection.Add(chartLineData);
                 chartDataCollection.Add(chartAreaData);
 
-                chart.Data = chartDataCollection;
+                chartControl.Data = chartDataCollection;
 
-                List<Series> seriesBeforeUpdate = plotView.Model.Series.ToList();
+                List<Series> seriesBeforeUpdate = linearPlotView.Model.Series.ToList();
 
                 // Precondition
                 Assert.AreEqual(3, seriesBeforeUpdate.Count);
@@ -270,7 +268,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                 chartDataCollection.NotifyObservers();
 
                 // Then
-                ElementCollection<Series> series = plotView.Model.Series;
+                ElementCollection<Series> series = linearPlotView.Model.Series;
                 Assert.AreEqual(3, series.Count);
                 Assert.AreEqual("Lines", series[0].Title);
                 Assert.AreEqual("Areas", series[1].Title);
@@ -289,20 +287,20 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Setup
             using (var form = new Form())
             {
-                var chart = new ChartControl();
-                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().Single();
-                form.Controls.Add(chart);
+                var chartControl = new ChartControl();
+                LinearPlotView linearPlotView = GetLinearPlotView(chartControl);
+                form.Controls.Add(chartControl);
 
                 form.Show();
 
                 var invalidated = 0;
-                view.Invalidated += (sender, args) => invalidated++;
+                linearPlotView.Invalidated += (sender, args) => invalidated++;
 
                 // Call
-                chart.BottomAxisTitle = newTitle;
+                chartControl.BottomAxisTitle = newTitle;
 
                 // Assert
-                Assert.AreEqual(chart.BottomAxisTitle, newTitle);
+                Assert.AreEqual(chartControl.BottomAxisTitle, newTitle);
                 Assert.AreEqual(1, invalidated);
             }
         }
@@ -316,20 +314,20 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Setup
             using (var form = new Form())
             {
-                var chart = new ChartControl();
-                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().Single();
-                form.Controls.Add(chart);
+                var chartControl = new ChartControl();
+                LinearPlotView linearPlotView = GetLinearPlotView(chartControl);
+                form.Controls.Add(chartControl);
 
                 form.Show();
 
                 var invalidated = 0;
-                view.Invalidated += (sender, args) => invalidated++;
+                linearPlotView.Invalidated += (sender, args) => invalidated++;
 
                 // Call
-                chart.LeftAxisTitle = newTitle;
+                chartControl.LeftAxisTitle = newTitle;
 
                 // Assert
-                Assert.AreEqual(chart.LeftAxisTitle, newTitle);
+                Assert.AreEqual(chartControl.LeftAxisTitle, newTitle);
                 Assert.AreEqual(1, invalidated);
             }
         }
@@ -343,20 +341,20 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Setup
             using (var form = new Form())
             {
-                var chart = new ChartControl();
-                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().Single();
-                form.Controls.Add(chart);
+                var chartControl = new ChartControl();
+                LinearPlotView linearPlotView = GetLinearPlotView(chartControl);
+                form.Controls.Add(chartControl);
 
                 form.Show();
 
                 var invalidated = 0;
-                view.Invalidated += (sender, args) => invalidated++;
+                linearPlotView.Invalidated += (sender, args) => invalidated++;
 
                 // Call
-                chart.ChartTitle = newTitle;
+                chartControl.ChartTitle = newTitle;
 
                 // Assert
-                Assert.AreEqual(chart.ChartTitle, newTitle);
+                Assert.AreEqual(chartControl.ChartTitle, newTitle);
                 Assert.AreEqual(1, invalidated);
             }
         }
@@ -370,6 +368,11 @@ namespace Core.Components.OxyPlot.Forms.Test
             Assert.AreEqual(expectedExtent.YMax, modelAxes[1].ActualMaximum, Math.Abs(expectedExtent.YMax * accuracy));
         }
 
+        private static LinearPlotView GetLinearPlotView(ChartControl chartControl)
+        {
+            return chartControl.Controls[0].Controls.OfType<LinearPlotView>().First();
+        }
+
         #region ZoomToAllVisibleLayers
 
         [Test]
@@ -377,16 +380,16 @@ namespace Core.Components.OxyPlot.Forms.Test
         public void ZoomToAllVisibleLayers_WithNonChildChartData_ThrowArgumentException()
         {
             // Setup
-            using (var chart = new ChartControl())
+            using (var chartControl = new ChartControl())
             {
                 var chartDataCollection = new ChartDataCollection("Collection");
                 var chartData = new ChartLineData("Test data");
 
-                chart.Data = chartDataCollection;
-                chart.Update();
+                chartControl.Data = chartDataCollection;
+                chartControl.Update();
 
                 // Call
-                void Call() => chart.ZoomToAllVisibleLayers(chartData);
+                void Call() => chartControl.ZoomToAllVisibleLayers(chartData);
 
                 // Assert
                 const string message = "Can only zoom to ChartData that is part of this ChartControls drawn chartData.";
@@ -402,9 +405,9 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Setup
             using (var form = new Form())
             {
-                var chart = new ChartControl();
-                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().Single();
-                form.Controls.Add(chart);
+                var chartControl = new ChartControl();
+                LinearPlotView linearPlotView = GetLinearPlotView(chartControl);
+                form.Controls.Add(chartControl);
                 form.Show();
 
                 var chartDataCollection = new ChartDataCollection("Collection");
@@ -413,23 +416,23 @@ namespace Core.Components.OxyPlot.Forms.Test
 
                 chartDataCollection.Add(chartData);
 
-                chart.Data = chartDataCollection;
-                chart.Update();
+                chartControl.Data = chartDataCollection;
+                chartControl.Update();
 
                 var expectedExtent = new Extent(
-                    view.Model.Axes[0].ActualMinimum,
-                    view.Model.Axes[0].ActualMaximum,
-                    view.Model.Axes[1].ActualMinimum,
-                    view.Model.Axes[1].ActualMaximum);
+                    linearPlotView.Model.Axes[0].ActualMinimum,
+                    linearPlotView.Model.Axes[0].ActualMaximum,
+                    linearPlotView.Model.Axes[1].ActualMinimum,
+                    linearPlotView.Model.Axes[1].ActualMaximum);
 
-                view.Invalidated += (sender, args) => invalidated++;
+                linearPlotView.Invalidated += (sender, args) => invalidated++;
 
                 // Call
-                chart.ZoomToAllVisibleLayers(chartData);
+                chartControl.ZoomToAllVisibleLayers(chartData);
 
                 // Assert
                 Assert.AreEqual(0, invalidated);
-                AssertExpectedExtent(view.Model.Axes, expectedExtent);
+                AssertExpectedExtent(linearPlotView.Model.Axes, expectedExtent);
             }
         }
 
@@ -440,9 +443,9 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Setup
             using (var form = new Form())
             {
-                var chart = new ChartControl();
-                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().Single();
-                form.Controls.Add(chart);
+                var chartControl = new ChartControl();
+                LinearPlotView linearPlotView = GetLinearPlotView(chartControl);
+                form.Controls.Add(chartControl);
                 form.Show();
 
                 var chartDataCollection = new ChartDataCollection("Collection");
@@ -458,13 +461,13 @@ namespace Core.Components.OxyPlot.Forms.Test
                 chartDataCollection.Add(chartData);
                 var invalidated = 0;
 
-                chart.Data = chartDataCollection;
-                chart.Update();
+                chartControl.Data = chartDataCollection;
+                chartControl.Update();
 
-                view.Invalidated += (sender, args) => invalidated++;
+                linearPlotView.Invalidated += (sender, args) => invalidated++;
 
                 // Call
-                chart.ZoomToAllVisibleLayers(chartData);
+                chartControl.ZoomToAllVisibleLayers(chartData);
 
                 // Assert
                 Assert.AreEqual(1, invalidated);
@@ -475,7 +478,7 @@ namespace Core.Components.OxyPlot.Forms.Test
                     -0.01,
                     1.01);
 
-                AssertExpectedExtent(view.Model.Axes, expectedExtent);
+                AssertExpectedExtent(linearPlotView.Model.Axes, expectedExtent);
             }
         }
 
@@ -485,9 +488,9 @@ namespace Core.Components.OxyPlot.Forms.Test
             // Setup
             using (var form = new Form())
             {
-                var chart = new ChartControl();
-                LinearPlotView view = chart.Controls.OfType<LinearPlotView>().Single();
-                form.Controls.Add(chart);
+                var chartControl = new ChartControl();
+                LinearPlotView linearPlotView = GetLinearPlotView(chartControl);
+                form.Controls.Add(chartControl);
                 form.Show();
 
                 var chartDataCollection = new ChartDataCollection("Collection");
@@ -502,20 +505,20 @@ namespace Core.Components.OxyPlot.Forms.Test
                 };
 
                 chartDataCollection.Add(chartData);
-                chart.Data = chartDataCollection;
-                chart.Update();
+                chartControl.Data = chartDataCollection;
+                chartControl.Update();
 
                 var expectedExtent = new Extent(
-                    view.Model.Axes[0].ActualMinimum,
-                    view.Model.Axes[0].ActualMaximum,
-                    view.Model.Axes[1].ActualMinimum,
-                    view.Model.Axes[1].ActualMaximum);
+                    linearPlotView.Model.Axes[0].ActualMinimum,
+                    linearPlotView.Model.Axes[0].ActualMaximum,
+                    linearPlotView.Model.Axes[1].ActualMinimum,
+                    linearPlotView.Model.Axes[1].ActualMaximum);
 
                 // Call
-                chart.ZoomToAllVisibleLayers(chartData);
+                chartControl.ZoomToAllVisibleLayers(chartData);
 
                 // Assert
-                AssertExpectedExtent(view.Model.Axes, expectedExtent);
+                AssertExpectedExtent(linearPlotView.Model.Axes, expectedExtent);
             }
         }
 

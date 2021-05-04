@@ -120,7 +120,6 @@ namespace Core.Components.OxyPlot.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel);
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.MinimumSize = new System.Drawing.Size(67, 65);
             this.Name = "ChartControl";
             this.Size = new System.Drawing.Size(466, 387);
             this.toolStrip.ResumeLayout(false);
