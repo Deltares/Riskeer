@@ -30,10 +30,10 @@ using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
 using Core.Gui.Attributes;
 using Core.Gui.Converters;
+using Core.Gui.Properties;
 using Core.Gui.UITypeEditors;
-using Core.Plugins.Map.Properties;
 
-namespace Core.Plugins.Map.PropertyClasses
+namespace Core.Gui.PropertyClasses.Map
 {
     /// <summary>
     /// ViewModel of <see cref="LineCategoryTheme"/> for properties panel.

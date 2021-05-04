@@ -30,9 +30,9 @@ using Core.Gui.Forms.ViewHost;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
 using Core.Gui.PresentationObjects.Map;
+using Core.Gui.PropertyClasses.Map;
 using Core.Plugins.Map.Legend;
 using Core.Plugins.Map.Properties;
-using Core.Plugins.Map.PropertyClasses;
 
 namespace Core.Plugins.Map
 {

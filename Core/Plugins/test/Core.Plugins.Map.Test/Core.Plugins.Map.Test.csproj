@@ -58,4 +58,8 @@
       <Version>3.6.1</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PropertyClasses" />
+    <Folder Include="UITypeEditors" />
+  </ItemGroup>
 </Project>

@@ -29,13 +29,13 @@ using Core.Components.Gis.Style;
 using Core.Components.Gis.TestUtil;
 using Core.Components.Gis.Theme;
 using Core.Gui.Converters;
+using Core.Gui.PropertyClasses.Map;
 using Core.Gui.TestUtil;
-using Core.Plugins.Map.PropertyClasses;
-using Core.Plugins.Map.TestUtil;
+using Core.Gui.TestUtil.Map;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Plugins.Map.Test.PropertyClasses
+namespace Core.Gui.Test.PropertyClasses.Map
 {
     [TestFixture]
     public class PolygonCategoryThemePropertiesTest

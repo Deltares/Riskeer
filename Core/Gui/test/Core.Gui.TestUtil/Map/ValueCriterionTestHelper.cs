@@ -23,7 +23,7 @@ using System;
 using Core.Components.Gis.Theme;
 using NUnit.Framework;
 
-namespace Core.Plugins.Map.TestUtil
+namespace Core.Gui.TestUtil.Map
 {
     /// <summary>
     /// Test helper which can be used to assert <see cref="ValueCriterion"/>.

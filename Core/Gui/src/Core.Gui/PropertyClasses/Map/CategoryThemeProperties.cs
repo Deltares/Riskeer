@@ -25,10 +25,10 @@ using Core.Common.Util.Attributes;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Theme;
 using Core.Gui.Attributes;
+using Core.Gui.Properties;
 using Core.Gui.PropertyBag;
-using Core.Plugins.Map.Properties;
 
-namespace Core.Plugins.Map.PropertyClasses
+namespace Core.Gui.PropertyClasses.Map
 {
     /// <summary>
     /// ViewModel of <see cref="CategoryTheme"/> for properties panel.

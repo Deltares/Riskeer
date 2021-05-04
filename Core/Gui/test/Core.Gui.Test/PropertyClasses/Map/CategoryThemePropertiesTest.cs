@@ -26,11 +26,11 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.TestUtil;
 using Core.Components.Gis.Theme;
 using Core.Gui.PropertyBag;
+using Core.Gui.PropertyClasses.Map;
 using Core.Gui.TestUtil;
-using Core.Plugins.Map.PropertyClasses;
 using NUnit.Framework;
 
-namespace Core.Plugins.Map.Test.PropertyClasses
+namespace Core.Gui.Test.PropertyClasses.Map
 {
     [TestFixture]
     public class CategoryThemePropertiesTest

@@ -10,7 +10,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis\Core.Components.Gis.csproj"/>
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis\Core.Components.Gis.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">

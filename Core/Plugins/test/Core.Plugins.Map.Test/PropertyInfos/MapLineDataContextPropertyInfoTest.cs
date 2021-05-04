@@ -24,7 +24,7 @@ using Core.Components.Gis.Data;
 using Core.Gui.Plugin;
 using Core.Gui.PresentationObjects.Map;
 using Core.Gui.PropertyBag;
-using Core.Plugins.Map.PropertyClasses;
+using Core.Gui.PropertyClasses.Map;
 using NUnit.Framework;
 
 namespace Core.Plugins.Map.Test.PropertyInfos
