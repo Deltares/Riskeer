@@ -210,7 +210,10 @@ namespace Core.Gui.Test.Forms.MainWindow
             // Setup
             var mocks = new MockRepository();
             var viewHost = mocks.Stub<IViewHost>();
-            viewHost.Expect(vm => vm.ViewClosed += null).IgnoreArguments();
+            viewHost.Expect(vh => vh.ViewOpened += null).IgnoreArguments();
+            viewHost.Expect(vh => vh.ViewBroughtToFront += null).IgnoreArguments();
+            viewHost.Expect(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Expect(vh => vh.ActiveDocumentViewChanged += null).IgnoreArguments();
 
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.ViewHost).Return(viewHost);
@@ -250,8 +253,14 @@ namespace Core.Gui.Test.Forms.MainWindow
             // Setup
             var mocks = new MockRepository();
             var viewHost = mocks.Stub<IViewHost>();
-            viewHost.Expect(l => l.ViewClosed += null).IgnoreArguments();
-            viewHost.Expect(l => l.ViewClosed -= null).IgnoreArguments();
+            viewHost.Expect(vh => vh.ViewOpened += null).IgnoreArguments();
+            viewHost.Expect(vh => vh.ViewOpened -= null).IgnoreArguments();
+            viewHost.Expect(vh => vh.ViewBroughtToFront += null).IgnoreArguments();
+            viewHost.Expect(vh => vh.ViewBroughtToFront -= null).IgnoreArguments();
+            viewHost.Expect(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Expect(vh => vh.ViewClosed -= null).IgnoreArguments();
+            viewHost.Expect(vh => vh.ActiveDocumentViewChanged += null).IgnoreArguments();
+            viewHost.Expect(vh => vh.ActiveDocumentViewChanged -= null).IgnoreArguments();
 
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.ViewHost).Return(viewHost);
