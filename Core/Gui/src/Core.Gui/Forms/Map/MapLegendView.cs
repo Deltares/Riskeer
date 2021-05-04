@@ -38,7 +38,7 @@ using GuiResources = Core.Gui.Properties.Resources;
 namespace Core.Gui.Forms.Map
 {
     /// <summary>
-    /// The view which shows the data that is added to a <see cref="Core.Components.DotSpatial.Forms.MapControl"/>.
+    /// The view which shows the data that is added to a <see cref="MapControl"/>.
     /// </summary>
     public sealed partial class MapLegendView : UserControl, ISelectionProvider, IView
     {
@@ -58,7 +58,7 @@ namespace Core.Gui.Forms.Map
             if (contextMenuBuilderProvider == null)
             {
                 throw new ArgumentNullException(nameof(contextMenuBuilderProvider),
-                                                $@"Cannot create a {typeof(MapLegendView).Name} when the context menu builder provider is null.");
+                                                $@"Cannot create a {nameof(MapLegendView)} when the context menu builder provider is null.");
             }
 
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
@@ -71,7 +71,7 @@ namespace Core.Gui.Forms.Map
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="Core.Components.Gis.Forms.IMapControl"/> for which this legend view is configured
+        /// Gets or sets the <see cref="IMapControl"/> for which this legend view is configured
         /// to show the internal map data for.
         /// </summary>
         public IMapControl MapControl
@@ -87,26 +87,14 @@ namespace Core.Gui.Forms.Map
             }
         }
 
-        public object Selection
-        {
-            get
-            {
-                return treeViewControl.SelectedData;
-            }
-        }
+        public object Selection => treeViewControl.SelectedData;
 
         public object Data
         {
-            get
-            {
-                return (MapDataCollectionContext) treeViewControl.Data;
-            }
-            set
-            {
-                treeViewControl.Data = value != null
-                                           ? new MapDataCollectionContext((MapDataCollection) value, null)
-                                           : null;
-            }
+            get => (MapDataCollectionContext) treeViewControl.Data;
+            set => treeViewControl.Data = value != null
+                                              ? new MapDataCollectionContext((MapDataCollection) value, null)
+                                              : null;
         }
 
         private void TreeViewControlSelectedDataChanged(object sender, EventArgs e)
@@ -186,10 +174,10 @@ namespace Core.Gui.Forms.Map
 
         private StrictContextMenuItem CreateZoomToExtentsItem(MapDataCollection nodeData)
         {
-            FeatureBasedMapData[] featureBasedMapDatas = nodeData.GetFeatureBasedMapDataRecursively().ToArray();
+            FeatureBasedMapData[] featureBasedMapDataItems = nodeData.GetFeatureBasedMapDataRecursively().ToArray();
             var isVisible = false;
             var hasFeatures = false;
-            foreach (FeatureBasedMapData mapData in featureBasedMapDatas)
+            foreach (FeatureBasedMapData mapData in featureBasedMapDataItems)
             {
                 if (mapData.IsVisible)
                 {
@@ -246,22 +234,17 @@ namespace Core.Gui.Forms.Map
 
         private static Image GetImage(FeatureBasedMapDataContext context)
         {
-            if (context.WrappedData is MapPointData)
+            switch (context.WrappedData)
             {
-                return GuiResources.PointsIcon;
+                case MapPointData _:
+                    return GuiResources.PointsIcon;
+                case MapLineData _:
+                    return GuiResources.LineIcon;
+                case MapPolygonData _:
+                    return GuiResources.AreaIcon;
+                default:
+                    return GuiResources.folder;
             }
-
-            if (context.WrappedData is MapLineData)
-            {
-                return GuiResources.LineIcon;
-            }
-
-            if (context.WrappedData is MapPolygonData)
-            {
-                return GuiResources.AreaIcon;
-            }
-
-            return GuiResources.folder;
         }
 
         private static void FeatureBasedMapDataContextOnNodeChecked(FeatureBasedMapDataContext mapDataContext, object parentData)
@@ -310,26 +293,22 @@ namespace Core.Gui.Forms.Map
 
             foreach (MapData mapData in collection.Collection.Reverse())
             {
-                var mapPointData = mapData as MapPointData;
-                if (mapPointData != null)
+                if (mapData is MapPointData mapPointData)
                 {
                     childObjects.Add(new MapPointDataContext(mapPointData, context));
                 }
 
-                var mapLineData = mapData as MapLineData;
-                if (mapLineData != null)
+                if (mapData is MapLineData mapLineData)
                 {
                     childObjects.Add(new MapLineDataContext(mapLineData, context));
                 }
 
-                var mapPolygonData = mapData as MapPolygonData;
-                if (mapPolygonData != null)
+                if (mapData is MapPolygonData mapPolygonData)
                 {
                     childObjects.Add(new MapPolygonDataContext(mapPolygonData, context));
                 }
 
-                var nestedCollection = mapData as MapDataCollection;
-                if (nestedCollection != null)
+                if (mapData is MapDataCollection nestedCollection)
                 {
                     childObjects.Add(new MapDataCollectionContext(nestedCollection, context));
                 }
@@ -375,23 +354,17 @@ namespace Core.Gui.Forms.Map
 
         private static void NotifyNestedMapDataCollections(Dictionary<MapDataCollection, MapDataCollectionVisibility> childStates)
         {
-            foreach (KeyValuePair<MapDataCollection, MapDataCollectionVisibility> child in childStates)
+            foreach (KeyValuePair<MapDataCollection, MapDataCollectionVisibility> child in childStates.Where(child => child.Key.GetVisibility() != child.Value))
             {
-                if (child.Key.GetVisibility() != child.Value)
-                {
-                    child.Key.NotifyObservers();
-                }
+                child.Key.NotifyObservers();
             }
         }
 
         private static void NotifyMapDataCollectionChildren(Dictionary<FeatureBasedMapData, bool> childStates)
         {
-            foreach (KeyValuePair<FeatureBasedMapData, bool> child in childStates)
+            foreach (KeyValuePair<FeatureBasedMapData, bool> child in childStates.Where(child => child.Key.IsVisible != child.Value))
             {
-                if (child.Key.IsVisible != child.Value)
-                {
-                    child.Key.NotifyObservers();
-                }
+                child.Key.NotifyObservers();
             }
         }
 
