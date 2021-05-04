@@ -42,7 +42,7 @@ namespace Core.Components.Gis.Forms
         /// <summary>
         /// Zooms to a level so that all visible layers are in view.
         /// </summary>
-        void ZoomToAllVisibleLayers();
+        void ZoomToVisibleLayers();
 
         /// <summary>
         /// Zooms to a level such that the given map data is in view.
@@ -50,6 +50,6 @@ namespace Core.Components.Gis.Forms
         /// <param name="mapData">The data to zoom to.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="mapData"/>
         /// is not part of <see cref="Data"/>.</exception>
-        void ZoomToAllVisibleLayers(MapData mapData);
+        void ZoomToVisibleLayers(MapData mapData);
     }
 }

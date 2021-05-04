@@ -130,7 +130,7 @@
   <data name="MapControl_ZoomToRectangle" xml:space="preserve">
     <value>Zoom door rechthoek</value>
   </data>
-  <data name="MapControl_ZoomToExtents" xml:space="preserve">
+  <data name="MapControl_ZoomToVisibleLayers" xml:space="preserve">
     <value>Zoom naar alles</value>
   </data>
   <data name="MapControl_ShowCoordinates" xml:space="preserve">

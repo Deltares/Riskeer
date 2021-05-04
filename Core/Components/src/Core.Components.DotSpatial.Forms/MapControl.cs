@@ -197,7 +197,7 @@ namespace Core.Components.DotSpatial.Forms
             var font = new Font(fonts.Families[0], 14.0F);
             panToolStripButton.Font = font;
             zoomToRectangleToolStripButton.Font = font;
-            zoomToAllVisibleLayersToolStripButton.Font = font;
+            zoomToVisibleLayersToolStripButton.Font = font;
             showCoordinatesToolStripButton.Font = font;
         }
 
@@ -487,14 +487,14 @@ namespace Core.Components.DotSpatial.Forms
 
         #region Map Interaction
 
-        public void ZoomToAllVisibleLayers()
+        public void ZoomToVisibleLayers()
         {
-            ZoomToAllVisibleLayers(Data);
+            ZoomToVisibleLayers(Data);
         }
 
-        public void ZoomToAllVisibleLayers(MapData mapData)
+        public void ZoomToVisibleLayers(MapData mapData)
         {
-            Envelope envelope = CreateEnvelopeForAllVisibleLayers(mapData);
+            Envelope envelope = CreateEnvelopeForVisibleLayers(mapData);
 
             if (!envelope.IsNull)
             {
@@ -523,11 +523,11 @@ namespace Core.Components.DotSpatial.Forms
         /// <returns>The area definition.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="mapData"/> is
         /// not part of the drawn map features.</exception>
-        private Envelope CreateEnvelopeForAllVisibleLayers(MapData mapData)
+        private Envelope CreateEnvelopeForVisibleLayers(MapData mapData)
         {
             if (mapData is MapDataCollection collection)
             {
-                return CreateEnvelopeForAllVisibleLayers(collection);
+                return CreateEnvelopeForVisibleLayers(collection);
             }
 
             DrawnMapData drawnMapData = drawnMapDataList.FirstOrDefault(dmd => dmd.FeatureBasedMapData.Equals(mapData));
@@ -555,13 +555,13 @@ namespace Core.Components.DotSpatial.Forms
         /// <returns>The area definition.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="mapData"/> or
         /// any of its children is not part of the drawn map features.</exception>
-        private Envelope CreateEnvelopeForAllVisibleLayers(MapDataCollection mapData)
+        private Envelope CreateEnvelopeForVisibleLayers(MapDataCollection mapData)
         {
             var envelope = new Envelope();
 
             foreach (MapData childMapData in mapData.Collection)
             {
-                envelope.ExpandToInclude(CreateEnvelopeForAllVisibleLayers(childMapData));
+                envelope.ExpandToInclude(CreateEnvelopeForVisibleLayers(childMapData));
             }
 
             return envelope;
@@ -629,9 +629,9 @@ namespace Core.Components.DotSpatial.Forms
             zoomToRectangleToolStripButton.Checked = true;
         }
 
-        private void ZoomToAllVisibleLayersToolStripButtonClick(object sender, EventArgs e)
+        private void ZoomToVisibleLayersToolStripButtonClick(object sender, EventArgs e)
         {
-            ZoomToAllVisibleLayers();
+            ZoomToVisibleLayers();
         }
 
         private void ShowCoordinatesToolStripButtonClick(object sender, EventArgs e)

@@ -2254,11 +2254,11 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         #endregion
 
-        #region ZoomToAllVisibleLayers
+        #region ZoomToVisibleLayers
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ZoomToAllVisibleLayers_MapInFormWithEmptyDataSet_ViewNotInvalidatedLayersSame()
+        public void ZoomToVisibleLayers_MapInFormWithEmptyDataSet_ViewNotInvalidatedLayersSame()
         {
             // Setup
             using (var mapControl = new MapControl())
@@ -2277,7 +2277,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(0, invalidated, "Precondition failed: map.Invalidated > 0");
 
                 // Call
-                mapControl.ZoomToAllVisibleLayers();
+                mapControl.ZoomToVisibleLayers();
 
                 // Assert
                 Assert.AreEqual(0, invalidated);
@@ -2288,7 +2288,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ZoomToAllVisibleLayers_MapInForm_ViewInvalidatedLayersSame()
+        public void ZoomToVisibleLayers_MapInForm_ViewInvalidatedLayersSame()
         {
             // Setup
             using (var form = new Form())
@@ -2328,7 +2328,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 map.Invalidated += (sender, args) => invalidated++;
 
                 // Call
-                mapControl.ZoomToAllVisibleLayers();
+                mapControl.ZoomToVisibleLayers();
 
                 // Assert
                 Assert.AreEqual(2, invalidated);
@@ -2341,7 +2341,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void ZoomToAllVisibleLayers_NotAllLayersVisible_ZoomToVisibleLayersExtent()
+        public void ZoomToVisibleLayers_NotAllLayersVisible_ZoomToVisibleLayersExtent()
         {
             // Setup
             using (MapControl mapControl = CreateMapControlWithDimensionlessMap())
@@ -2358,7 +2358,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.IsFalse(map.Layers.All(l => l.IsVisible), "Precondition failed: not all map layers should be visible.");
 
                 // Call
-                mapControl.ZoomToAllVisibleLayers();
+                mapControl.ZoomToVisibleLayers();
 
                 // Assert
                 Assert.AreNotEqual(map.GetMaxExtent(), map.ViewExtents);
@@ -2368,7 +2368,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ZoomToAllVisibleLayers_WithNonChildMapData_ThrowArgumentException()
+        public void ZoomToVisibleLayers_WithNonChildMapData_ThrowArgumentException()
         {
             // Setup
             var mapDataCollection = new MapDataCollection("Collection");
@@ -2380,7 +2380,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var mapData = new MapPointData("Test data");
 
                 // Call
-                void Call() => mapControl.ZoomToAllVisibleLayers(mapData);
+                void Call() => mapControl.ZoomToVisibleLayers(mapData);
 
                 // Assert
                 const string message = "Can only zoom to MapData that is part of this MapControls drawn mapData.";
@@ -2391,7 +2391,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ZoomToAllVisibleLayers_MapInFormWithEmptyDataSetAndForChildMapData_ViewNotInvalidatedLayersSame()
+        public void ZoomToVisibleLayers_MapInFormWithEmptyDataSetAndForChildMapData_ViewNotInvalidatedLayersSame()
         {
             // Setup
             using (var mapControl = new MapControl())
@@ -2410,7 +2410,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.AreEqual(0, invalidated, "Precondition failed: map.Invalidated > 0");
 
                 // Call
-                mapControl.ZoomToAllVisibleLayers(mapData);
+                mapControl.ZoomToVisibleLayers(mapData);
 
                 // Assert
                 Assert.AreEqual(0, invalidated);
@@ -2421,7 +2421,7 @@ namespace Core.Components.DotSpatial.Forms.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ZoomToAllVisibleLayers_MapInFormForChildMapData_ViewInvalidatedLayersSame()
+        public void ZoomToVisibleLayers_MapInFormForChildMapData_ViewInvalidatedLayersSame()
         {
             // Setup
             using (var form = new Form())
@@ -2461,7 +2461,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 map.Invalidated += (sender, args) => invalidated++;
 
                 // Call
-                mapControl.ZoomToAllVisibleLayers(mapData);
+                mapControl.ZoomToVisibleLayers(mapData);
 
                 // Assert
                 Assert.AreEqual(2, invalidated);
@@ -2474,7 +2474,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void ZoomToAllVisibleLayers_ForVisibleChildMapData_ZoomToVisibleLayerExtent()
+        public void ZoomToVisibleLayers_ForVisibleChildMapData_ZoomToVisibleLayerExtent()
         {
             // Setup
             using (MapControl mapControl = CreateMapControlWithDimensionlessMap())
@@ -2492,7 +2492,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.IsTrue(mapData.IsVisible);
 
                 // Call
-                mapControl.ZoomToAllVisibleLayers(mapData);
+                mapControl.ZoomToVisibleLayers(mapData);
 
                 // Assert
                 Assert.AreNotEqual(map.GetMaxExtent(), map.ViewExtents);
@@ -2501,7 +2501,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         }
 
         [Test]
-        public void ZoomToAllVisibleLayers_ForInvisibleChildMapData_DoNotChangeViewExtentsOfMap()
+        public void ZoomToVisibleLayers_ForInvisibleChildMapData_DoNotChangeViewExtentsOfMap()
         {
             // Setup
             using (var mapControl = new MapControl())
@@ -2521,7 +2521,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var originalViewExtents = (Extent) map.ViewExtents.Clone();
 
                 // Call
-                mapControl.ZoomToAllVisibleLayers(mapData);
+                mapControl.ZoomToVisibleLayers(mapData);
 
                 // Assert
                 Assert.AreNotEqual(unexpectedExtent, map.ViewExtents,
@@ -2536,7 +2536,7 @@ namespace Core.Components.DotSpatial.Forms.Test
         [TestCase(1.0, 5.0)]
         [TestCase(double.MaxValue * 0.96, double.MaxValue * 0.96)]
         [TestCase(double.MaxValue, double.MaxValue)]
-        public void ZoomToAllVisibleLayers_ForMapDataOfVariousDimensions_ZoomToVisibleLayerExtent(double xMax, double yMax)
+        public void ZoomToVisibleLayers_ForMapDataOfVariousDimensions_ZoomToVisibleLayerExtent(double xMax, double yMax)
         {
             // Setup
             using (MapControl mapControl = CreateMapControlWithDimensionlessMap())
@@ -2569,7 +2569,7 @@ namespace Core.Components.DotSpatial.Forms.Test
                 ExtendWithExpectedMargin(expectedExtent);
 
                 // Call
-                mapControl.ZoomToAllVisibleLayers(mapData);
+                mapControl.ZoomToVisibleLayers(mapData);
 
                 // Assert
                 if (double.IsInfinity(expectedExtent.Height) || double.IsInfinity(expectedExtent.Width))

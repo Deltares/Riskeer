@@ -512,7 +512,7 @@ namespace Core.Gui.Forms.MainWindow
         {
             if (e.View is IMapView mapView)
             {
-                mapView.Map.ZoomToAllVisibleLayers();
+                mapView.Map.ZoomToVisibleLayers();
                 UpdateComponentsForMapView(mapView);
             }
         }

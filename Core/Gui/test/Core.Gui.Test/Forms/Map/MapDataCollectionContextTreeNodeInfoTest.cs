@@ -674,7 +674,7 @@ namespace Core.Gui.Test.Forms.Map
             contextMenuBuilderProvider.Stub(p => p.Get(null, null)).IgnoreArguments().Return(builder);
             var mapControl = mocks.StrictMock<IMapControl>();
             mapControl.Expect(c => c.Data).Return(mapData);
-            mapControl.Expect(c => c.ZoomToAllVisibleLayers(mapData));
+            mapControl.Expect(c => c.ZoomToVisibleLayers(mapData));
             mocks.ReplayAll();
 
             mapLegendView.MapControl = mapControl;

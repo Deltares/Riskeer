@@ -43,7 +43,7 @@ namespace Core.Components.DotSpatial.Forms
             this.panToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.zoomToRectangleToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.zoomToAllVisibleLayersToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.zoomToVisibleLayersToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.showCoordinatesToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -61,7 +61,7 @@ namespace Core.Components.DotSpatial.Forms
             this.panToolStripButton,
             this.zoomToRectangleToolStripButton,
             this.toolStripSeparator1,
-            this.zoomToAllVisibleLayersToolStripButton,
+            this.zoomToVisibleLayersToolStripButton,
             this.toolStripSeparator2,
             this.showCoordinatesToolStripButton});
             this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
@@ -95,15 +95,15 @@ namespace Core.Components.DotSpatial.Forms
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(26, 6);
             // 
-            // zoomToAllVisibleLayersToolStripButton
+            // zoomToVisibleLayersToolStripButton
             // 
-            this.zoomToAllVisibleLayersToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.zoomToAllVisibleLayersToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
-            this.zoomToAllVisibleLayersToolStripButton.Name = "zoomToAllVisibleLayersToolStripButton";
-            this.zoomToAllVisibleLayersToolStripButton.Size = new System.Drawing.Size(22, 19);
-            this.zoomToAllVisibleLayersToolStripButton.Text = "";
-            this.zoomToAllVisibleLayersToolStripButton.ToolTipText = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapControl_ZoomToExtents;
-            this.zoomToAllVisibleLayersToolStripButton.Click += new System.EventHandler(this.ZoomToAllVisibleLayersToolStripButtonClick);
+            this.zoomToVisibleLayersToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.zoomToVisibleLayersToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
+            this.zoomToVisibleLayersToolStripButton.Name = "zoomToVisibleLayersToolStripButton";
+            this.zoomToVisibleLayersToolStripButton.Size = new System.Drawing.Size(22, 19);
+            this.zoomToVisibleLayersToolStripButton.Text = "";
+            this.zoomToVisibleLayersToolStripButton.ToolTipText = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapControl_ZoomToVisibleLayers;
+            this.zoomToVisibleLayersToolStripButton.Click += new System.EventHandler(this.ZoomToVisibleLayersToolStripButtonClick);
             // 
             // toolStripSeparator2
             // 
@@ -154,7 +154,7 @@ namespace Core.Components.DotSpatial.Forms
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripButton panToolStripButton;
         private System.Windows.Forms.ToolStripButton zoomToRectangleToolStripButton;
-        private System.Windows.Forms.ToolStripButton zoomToAllVisibleLayersToolStripButton;
+        private System.Windows.Forms.ToolStripButton zoomToVisibleLayersToolStripButton;
         private System.Windows.Forms.ToolStripButton showCoordinatesToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;

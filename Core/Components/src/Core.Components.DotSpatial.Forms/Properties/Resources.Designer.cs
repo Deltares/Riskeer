@@ -120,20 +120,20 @@ namespace Core.Components.DotSpatial.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zoom naar alles.
-        /// </summary>
-        internal static string MapControl_ZoomToExtents {
-            get {
-                return ResourceManager.GetString("MapControl_ZoomToExtents", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Zoom door rechthoek.
         /// </summary>
         internal static string MapControl_ZoomToRectangle {
             get {
                 return ResourceManager.GetString("MapControl_ZoomToRectangle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom naar alles.
+        /// </summary>
+        internal static string MapControl_ZoomToVisibleLayers {
+            get {
+                return ResourceManager.GetString("MapControl_ZoomToVisibleLayers", resourceCulture);
             }
         }
     }
