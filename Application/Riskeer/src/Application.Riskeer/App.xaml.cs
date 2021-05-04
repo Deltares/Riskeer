@@ -42,7 +42,6 @@ using Core.Gui.Helpers;
 using Core.Gui.Settings;
 using Core.Plugins.Chart;
 using Core.Plugins.CommonTools;
-using Core.Plugins.Map;
 using log4net;
 using log4net.Appender;
 using Riskeer.ClosingStructures.Plugin;
@@ -149,8 +148,7 @@ namespace Application.Riskeer
                     new StabilityStoneCoverPlugin(),
                     new DuneErosionPlugin(),
                     new MacroStabilityInwardsPlugin(),
-                    new ChartPlugin(),
-                    new MapPlugin()
+                    new ChartPlugin()
                 }
             };
 
