@@ -92,15 +92,6 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kaartlaag.
-        /// </summary>
-        internal static string Categories_Layer {
-            get {
-                return ResourceManager.GetString("Categories_Layer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap LineIcon {
@@ -121,39 +112,12 @@ namespace Core.Plugins.Map.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shapebestand.
-        /// </summary>
-        internal static string MapPlugin_GetImportInfos_MapDataCollection_filefilter_Description {
-            get {
-                return ResourceManager.GetString("MapPlugin_GetImportInfos_MapDataCollection_filefilter_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to shp.
-        /// </summary>
-        internal static string MapPlugin_GetImportInfos_MapDataCollection_filefilter_Extension {
-            get {
-                return ResourceManager.GetString("MapPlugin_GetImportInfos_MapDataCollection_filefilter_Extension", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap MapPlusIcon {
             get {
                 object obj = ResourceManager.GetObject("MapPlusIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kaartlaag.
-        /// </summary>
-        internal static string Name_Layer {
-            get {
-                return ResourceManager.GetString("Name_Layer", resourceCulture);
             }
         }
         

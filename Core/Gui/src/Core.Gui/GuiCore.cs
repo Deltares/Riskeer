@@ -133,7 +133,9 @@ namespace Core.Gui
             StorageCommands = new StorageCommandHandler(projectStore, projectMigrator, projectFactory,
                                                         this, dialogBasedInquiryHelper, MainWindow);
 
-            importCommandHandler = new GuiImportHandler(MainWindow, Plugins.SelectMany(p => p.GetImportInfos()), dialogBasedInquiryHelper);
+            importCommandHandler = new GuiImportHandler(MainWindow, Plugins.SelectMany(p => p.GetImportInfos())
+                                                                           .Concat(MapImportInfoFactory.Create()),
+                                                        dialogBasedInquiryHelper);
             exportCommandHandler = new GuiExportHandler(MainWindow, Plugins.SelectMany(p => p.GetExportInfos()));
             updateCommandHandler = new GuiUpdateHandler(MainWindow, Plugins.SelectMany(p => p.GetUpdateInfos()), dialogBasedInquiryHelper);
 

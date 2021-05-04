@@ -56,21 +56,6 @@ namespace Core.Plugins.Map
             Gui.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
 
             activated = true;
-        } 
-
-        public override IEnumerable<ImportInfo> GetImportInfos()
-        {
-            yield return new ImportInfo<MapDataCollectionContext>
-            {
-                Name = Resources.Name_Layer,
-                Category = Resources.Categories_Layer,
-                Image = Resources.MapPlusIcon,
-                FileFilterGenerator = new FileFilterGenerator(
-                    Resources.MapPlugin_GetImportInfos_MapDataCollection_filefilter_Extension,
-                    Resources.MapPlugin_GetImportInfos_MapDataCollection_filefilter_Description),
-                IsEnabled = context => true,
-                CreateFileImporter = (context, filePath) => new FeatureBasedMapDataImporter((MapDataCollection) context.WrappedData, filePath)
-            };
         }
 
         protected override void Dispose(bool disposing)

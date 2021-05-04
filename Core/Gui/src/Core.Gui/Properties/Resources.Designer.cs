@@ -40,7 +40,7 @@ namespace Core.Gui.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -1355,6 +1355,24 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shapebestand.
+        /// </summary>
+        public static string MapImportInfoFactory_Create_MapDataCollection_filefilter_Description {
+            get {
+                return ResourceManager.GetString("MapImportInfoFactory_Create_MapDataCollection_filefilter_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to shp.
+        /// </summary>
+        public static string MapImportInfoFactory_Create_MapDataCollection_filefilter_Extension {
+            get {
+                return ResourceManager.GetString("MapImportInfoFactory_Create_MapDataCollection_filefilter_Extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet minstens één van de zichtbare kaartlagen in deze map met kaartlagen elementen bevatten..
         /// </summary>
         public static string MapLegendView_CreateZoomToExtentsItem_MapDataCollection_NoFeatures_ZoomToAllDisabled_Tooltip {
@@ -1625,6 +1643,15 @@ namespace Core.Gui.Properties {
             get {
                 return ResourceManager.GetString("MessageWindowLogAppender_AppendToMessageWindow_Check_log_file_for_more_informatio" +
                         "n_Home_Show_Log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaartlaag.
+        /// </summary>
+        public static string Name_Layer {
+            get {
+                return ResourceManager.GetString("Name_Layer", resourceCulture);
             }
         }
         
