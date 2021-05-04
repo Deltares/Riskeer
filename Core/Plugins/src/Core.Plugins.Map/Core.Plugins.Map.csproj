@@ -54,8 +54,4 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PropertyClasses" />
-    <Folder Include="UITypeEditors" />
-  </ItemGroup>
 </Project>
