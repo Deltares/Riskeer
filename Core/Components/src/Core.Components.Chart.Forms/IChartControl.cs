@@ -52,9 +52,9 @@ namespace Core.Components.Chart.Forms
         /// <summary>
         /// Zooms to a level such that the given chart data is in view.
         /// </summary>
-        /// <param name="layerData">The data to zoom to.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="layerData"/>
+        /// <param name="chartData">The data to zoom to.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="chartData"/>
         /// is not part of <see cref="Data"/>.</exception>
-        void ZoomToAllVisibleSeries(ChartData layerData);
+        void ZoomToAllVisibleSeries(ChartData chartData);
     }
 }

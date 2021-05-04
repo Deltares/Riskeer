@@ -126,9 +126,9 @@ namespace Core.Components.OxyPlot.Forms
             }
         }
 
-        public void ZoomToAllVisibleSeries(ChartData layerData)
+        public void ZoomToAllVisibleSeries(ChartData chartData)
         {
-            Extent extent = CreateEnvelopeForAllVisibleSeries(layerData);
+            Extent extent = CreateEnvelopeForAllVisibleSeries(chartData);
 
             if (!extent.IsNaN)
             {
