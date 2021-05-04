@@ -98,7 +98,7 @@ namespace Core.Components.OxyPlot.Forms
             this.zoomToVisibleSeriesToolStripButton.Size = new System.Drawing.Size(22, 19);
             this.zoomToVisibleSeriesToolStripButton.Text = "";
             this.zoomToVisibleSeriesToolStripButton.ToolTipText = global::Core.Components.OxyPlot.Forms.Properties.Resources.ChartControl_ZoomToVisibleSeries;
-            this.zoomToVisibleSeriesToolStripButton.Click += new System.EventHandler(this.ZoomToAllVisibleSeriesToolStripButtonClick);
+            this.zoomToVisibleSeriesToolStripButton.Click += new System.EventHandler(this.ZoomToVisibleSeriesToolStripButtonClick);
             // 
             // tableLayoutPanel
             // 

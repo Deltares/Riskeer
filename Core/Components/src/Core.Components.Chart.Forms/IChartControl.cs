@@ -55,6 +55,6 @@ namespace Core.Components.Chart.Forms
         /// <param name="chartData">The data to zoom to.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="chartData"/>
         /// is not part of <see cref="Data"/>.</exception>
-        void ZoomToAllVisibleSeries(ChartData chartData);
+        void ZoomToVisibleSeries(ChartData chartData);
     }
 }
