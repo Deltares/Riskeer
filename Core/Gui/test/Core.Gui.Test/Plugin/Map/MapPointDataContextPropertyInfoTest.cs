@@ -22,53 +22,46 @@
 using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Gui.Plugin;
+using Core.Gui.Plugin.Map;
 using Core.Gui.PresentationObjects.Map;
 using Core.Gui.PropertyBag;
 using Core.Gui.PropertyClasses.Map;
 using NUnit.Framework;
 
-namespace Core.Plugins.Map.Test.PropertyInfos
+namespace Core.Gui.Test.Plugin.Map
 {
     [TestFixture]
-    public class FailureMechanismSectionsPropertyInfoTest
+    public class MapPointDataContextPropertyInfoTest
     {
-        private MapPlugin plugin;
         private PropertyInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new MapPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(MapDataCollectionProperties));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
+            info = MapPropertyInfoFactory.Create().Single(pi => pi.PropertyObjectType == typeof(MapPointDataProperties));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(MapDataCollectionContext), info.DataType);
-            Assert.AreEqual(typeof(MapDataCollectionProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(MapPointDataContext), info.DataType);
+            Assert.AreEqual(typeof(MapPointDataProperties), info.PropertyObjectType);
         }
 
         [Test]
-        public void CreateInstance_WithValidArguments_NewPropertiesWithMapDataCollectionAsData()
+        public void CreateInstance_WithValidArguments_NewPropertiesWithMapPointDataAsData()
         {
             // Setup
-            var mapDataCollection = new MapDataCollection("Test");
-            var context = new MapDataCollectionContext(mapDataCollection, null);
+            var mapData = new MapPointData("Test");
+            var context = new MapPointDataContext(mapData, new MapDataCollectionContext(new MapDataCollection("test"), null));
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<MapDataCollectionProperties>(objectProperties);
-            Assert.AreSame(mapDataCollection, objectProperties.Data);
+            Assert.IsInstanceOf<MapPointDataProperties>(objectProperties);
+            Assert.AreSame(mapData, objectProperties.Data);
         }
     }
 }

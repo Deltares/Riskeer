@@ -56,27 +56,7 @@ namespace Core.Plugins.Map
             Gui.ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
 
             activated = true;
-        }
-
-        public override IEnumerable<PropertyInfo> GetPropertyInfos()
-        {
-            yield return new PropertyInfo<MapDataCollectionContext, MapDataCollectionProperties>
-            {
-                CreateInstance = context => new MapDataCollectionProperties((MapDataCollection) context.WrappedData)
-            };
-            yield return new PropertyInfo<MapPointDataContext, MapPointDataProperties>
-            {
-                CreateInstance = context => new MapPointDataProperties((MapPointData) context.WrappedData, MapDataContextHelper.GetParentsFromContext(context))
-            };
-            yield return new PropertyInfo<MapLineDataContext, MapLineDataProperties>
-            {
-                CreateInstance = context => new MapLineDataProperties((MapLineData) context.WrappedData, MapDataContextHelper.GetParentsFromContext(context))
-            };
-            yield return new PropertyInfo<MapPolygonDataContext, MapPolygonDataProperties>
-            {
-                CreateInstance = context => new MapPolygonDataProperties((MapPolygonData) context.WrappedData, MapDataContextHelper.GetParentsFromContext(context))
-            };
-        }
+        } 
 
         public override IEnumerable<ImportInfo> GetImportInfos()
         {

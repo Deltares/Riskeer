@@ -22,52 +22,45 @@
 using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Gui.Plugin;
+using Core.Gui.Plugin.Map;
 using Core.Gui.PresentationObjects.Map;
 using Core.Gui.PropertyBag;
 using Core.Gui.PropertyClasses.Map;
 using NUnit.Framework;
 
-namespace Core.Plugins.Map.Test.PropertyInfos
+namespace Core.Gui.Test.Plugin.Map
 {
     [TestFixture]
-    public class MapPointDataContextPropertyInfoTest
+    public class MapPolygonDataContextPropertyInfoTest
     {
-        private MapPlugin plugin;
         private PropertyInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new MapPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(MapPointDataProperties));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
+            info = MapPropertyInfoFactory.Create().Single(pi => pi.PropertyObjectType == typeof(MapPolygonDataProperties));
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(MapPointDataContext), info.DataType);
-            Assert.AreEqual(typeof(MapPointDataProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(MapPolygonDataContext), info.DataType);
+            Assert.AreEqual(typeof(MapPolygonDataProperties), info.PropertyObjectType);
         }
 
         [Test]
-        public void CreateInstance_WithValidArguments_NewPropertiesWithMapPointDataAsData()
+        public void CreateInstance_WithValidArguments_NewPropertiesWithMapPolygonDataAsData()
         {
             // Setup
-            var mapData = new MapPointData("Test");
-            var context = new MapPointDataContext(mapData, new MapDataCollectionContext(new MapDataCollection("test"), null));
+            var mapData = new MapPolygonData("Test");
+            var context = new MapPolygonDataContext(mapData, new MapDataCollectionContext(new MapDataCollection("test"), null));
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<MapPointDataProperties>(objectProperties);
+            Assert.IsInstanceOf<MapPolygonDataProperties>(objectProperties);
             Assert.AreSame(mapData, objectProperties.Data);
         }
     }

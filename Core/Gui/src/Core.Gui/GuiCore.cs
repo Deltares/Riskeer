@@ -27,7 +27,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Web.UI.WebControls;
 using System.Windows;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -44,6 +43,7 @@ using Core.Gui.Forms.PropertyGridView;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
+using Core.Gui.Plugin.Map;
 using Core.Gui.Properties;
 using Core.Gui.Settings;
 using log4net;
@@ -485,7 +485,8 @@ namespace Core.Gui
 
             DocumentViewController = new DocumentViewController(ViewHost, Plugins.SelectMany(p => p.GetViewInfos()), mainWindow);
 
-            PropertyResolver = new PropertyResolver(Plugins.SelectMany(p => p.GetPropertyInfos()));
+            PropertyResolver = new PropertyResolver(Plugins.SelectMany(p => p.GetPropertyInfos())
+                                                           .Concat(MapPropertyInfoFactory.Create()));
             applicationFeatureCommands = new ApplicationFeatureCommandHandler(PropertyResolver, mainWindow);
 
             mainWindow.InitializeToolWindows();

@@ -22,30 +22,23 @@
 using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Gui.Plugin;
+using Core.Gui.Plugin.Map;
 using Core.Gui.PresentationObjects.Map;
 using Core.Gui.PropertyBag;
 using Core.Gui.PropertyClasses.Map;
 using NUnit.Framework;
 
-namespace Core.Plugins.Map.Test.PropertyInfos
+namespace Core.Gui.Test.Plugin.Map
 {
     [TestFixture]
     public class MapLineDataContextPropertyInfoTest
     {
-        private MapPlugin plugin;
         private PropertyInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new MapPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(MapLineDataProperties));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
+            info = MapPropertyInfoFactory.Create().Single(pi => pi.PropertyObjectType == typeof(MapLineDataProperties));
         }
 
         [Test]
