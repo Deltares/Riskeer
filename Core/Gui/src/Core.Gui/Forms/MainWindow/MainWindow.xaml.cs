@@ -445,8 +445,7 @@ namespace Core.Gui.Forms.MainWindow
                     Data = applicationSelection.Selection
                 };
 
-                viewController.ViewHost.AddToolView(propertyGrid, ToolViewLocation.Right);
-                viewController.ViewHost.SetImage(propertyGrid, Properties.Resources.PropertiesPanelIcon);
+                viewController.ViewHost.AddToolView(propertyGrid, ToolViewLocation.Right, "\uE0945");
             }
             else
             {
@@ -479,8 +478,7 @@ namespace Core.Gui.Forms.MainWindow
                 {
                     Data = gui.Project
                 };
-                viewController.ViewHost.AddToolView(ProjectExplorer, ToolViewLocation.Left);
-                viewController.ViewHost.SetImage(ProjectExplorer, Properties.Resources.ProjectExplorerIcon);
+                viewController.ViewHost.AddToolView(ProjectExplorer, ToolViewLocation.Left, "\uE95B");
             }
             else
             {
@@ -501,8 +499,7 @@ namespace Core.Gui.Forms.MainWindow
                 {
                     Text = Properties.Resources.Messages
                 };
-                viewController.ViewHost.AddToolView(MessageWindow, ToolViewLocation.Bottom);
-                viewController.ViewHost.SetImage(MessageWindow, Properties.Resources.application_view_list);
+                viewController.ViewHost.AddToolView(MessageWindow, ToolViewLocation.Bottom, "\uE942");
             }
             else
             {
@@ -521,8 +518,7 @@ namespace Core.Gui.Forms.MainWindow
             {
                 MapLegendView = new MapLegendView(gui);
 
-                viewController.ViewHost.AddToolView(MapLegendView, ToolViewLocation.Left);
-                viewController.ViewHost.SetImage(MapLegendView, Properties.Resources.application_view_list);
+                viewController.ViewHost.AddToolView(MapLegendView, ToolViewLocation.Left, "\uE94C");
             }
             else
             {
@@ -541,8 +537,7 @@ namespace Core.Gui.Forms.MainWindow
             {
                 ChartLegendView = new ChartLegendView(gui);
 
-                viewController.ViewHost.AddToolView(ChartLegendView, ToolViewLocation.Left);
-                viewController.ViewHost.SetImage(ChartLegendView, Properties.Resources.application_view_list);
+                viewController.ViewHost.AddToolView(ChartLegendView, ToolViewLocation.Left, "\uE943");
             }
             else
             {

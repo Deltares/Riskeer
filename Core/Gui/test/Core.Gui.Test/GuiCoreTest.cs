@@ -462,7 +462,7 @@ namespace Core.Gui.Test
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                gui.ViewHost.AddToolView(toolView, ToolViewLocation.Left);
+                gui.ViewHost.AddToolView(toolView, ToolViewLocation.Left, string.Empty);
 
                 // Call
                 gui.Dispose();

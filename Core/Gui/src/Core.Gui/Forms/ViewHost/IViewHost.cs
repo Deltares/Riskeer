@@ -88,7 +88,8 @@ namespace Core.Gui.Forms.ViewHost
         /// </summary>
         /// <param name="view">The tool view add.</param>
         /// <param name="toolViewLocation">The location where the tool view should be added.</param>
-        void AddToolView(IView view, ToolViewLocation toolViewLocation);
+        /// <param name="symbol">The symbol to show.</param>
+        void AddToolView(IView view, ToolViewLocation toolViewLocation, string symbol);
 
         /// <summary>
         /// Removes a document view or tool view.
