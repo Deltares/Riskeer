@@ -40,7 +40,6 @@ using Core.Gui.Appenders;
 using Core.Gui.Forms.MainWindow;
 using Core.Gui.Helpers;
 using Core.Gui.Settings;
-using Core.Plugins.Chart;
 using Core.Plugins.CommonTools;
 using log4net;
 using log4net.Appender;
@@ -147,8 +146,7 @@ namespace Application.Riskeer
                     new HeightStructuresPlugin(),
                     new StabilityStoneCoverPlugin(),
                     new DuneErosionPlugin(),
-                    new MacroStabilityInwardsPlugin(),
-                    new ChartPlugin()
+                    new MacroStabilityInwardsPlugin()
                 }
             };
 
