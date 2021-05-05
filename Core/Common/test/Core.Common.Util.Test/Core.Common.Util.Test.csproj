@@ -6,6 +6,9 @@
     <None Remove="test-data\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Resources\ValidFont.ttf" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -34,6 +37,7 @@
   <ItemGroup>
     <EmbeddedResource Include="EmbeddedResources\EmbeddedResource1.txt" />
     <EmbeddedResource Include="EmbeddedResources\EmbeddedResource2.txt" />
+    <EmbeddedResource Include="Resources\ValidFont.ttf" />
     <None Include="EmbeddedResources\NonEmbeddedResource.txt" />
     <EmbeddedResource Include="EmbeddedResources\testFile.txt" />
   </ItemGroup>
