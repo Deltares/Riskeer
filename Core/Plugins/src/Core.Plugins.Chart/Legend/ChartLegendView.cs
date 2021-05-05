@@ -29,7 +29,7 @@ using Core.Common.Controls.Views;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using Core.Gui.ContextMenu;
-using Core.Plugins.Chart.PresentationObjects;
+using Core.Gui.PresentationObjects.Chart;
 using ChartResources = Core.Plugins.Chart.Properties.Resources;
 using GuiResources = Core.Gui.Properties.Resources;
 

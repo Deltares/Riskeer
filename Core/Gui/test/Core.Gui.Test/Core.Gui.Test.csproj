@@ -17,7 +17,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.Chart\Core.Components.Chart.csproj" />
     <ProjectReference Include="..\..\..\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj" />
+    <ProjectReference Include="..\..\..\Components\test\Core.Components.Chart.TestUtil\Core.Components.Chart.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\Components\test\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj" />
     <ProjectReference Include="..\..\src\Core.Gui\Core.Gui.csproj" />
     <ProjectReference Include="..\Core.Gui.TestUtil\Core.Gui.TestUtil.csproj" />
