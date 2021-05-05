@@ -40,7 +40,6 @@ using Core.Gui.Appenders;
 using Core.Gui.Forms.MainWindow;
 using Core.Gui.Helpers;
 using Core.Gui.Settings;
-using Core.Plugins.CommonTools;
 using log4net;
 using log4net.Appender;
 using Riskeer.ClosingStructures.Plugin;
@@ -135,7 +134,6 @@ namespace Application.Riskeer
             {
                 Plugins =
                 {
-                    new CommonToolsPlugin(),
                     new RiskeerPlugin(),
                     new ClosingStructuresPlugin(),
                     new StabilityPointStructuresPlugin(),
