@@ -29,6 +29,7 @@ All rights reserved.
                    xmlns:commands="clr-namespace:Core.Gui.Forms.MainWindow"
                    xmlns:properties="clr-namespace:Core.Gui.Properties"
                    xmlns:viewHost="clr-namespace:Core.Gui.Forms.ViewHost"
+                   xmlns:backstage="clr-namespace:Core.Gui.Forms.Backstage"
                    mc:Ignorable="d" 
                    Title="MainWindow" Height="768" Width="1024" 
                    x:Name="Window"
@@ -105,7 +106,7 @@ All rights reserved.
     </metro:MetroWindow.LeftWindowCommands>
 
     <Grid Background="{StaticResource BackgroundColorBrush}">
-        <DockPanel>
+        <DockPanel Name="MainDockPanel">
             <StackPanel Name="MainButtonStackPanel"
                         DockPanel.Dock="Top"
                         Height="100"
@@ -113,6 +114,7 @@ All rights reserved.
                         Orientation="Horizontal">
                 <Button Style="{StaticResource MainButtonBarButtonStyle}"
                         Tag="{x:Static properties:Resources.MainButtonBar_Project_DisplayName}"
+                        Click="ButtonBase_OnClick"
                         AutomationProperties.AutomationId="MainButtonBarProject">
                     <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
                                Text="&#xE949;"/>
@@ -196,6 +198,10 @@ All rights reserved.
 
             <viewHost:AvalonDockViewHost x:Name="AvalonDockViewHost" />
 
+        </DockPanel>
+        
+        <DockPanel Name="BackstageDockPanel" Visibility="Collapsed">
+            <backstage:BackstageControl DockPanel.Dock="Top" />
         </DockPanel>
     </Grid>
 </metro:MetroWindow>
