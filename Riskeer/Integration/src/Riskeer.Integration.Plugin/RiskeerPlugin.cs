@@ -274,9 +274,6 @@ namespace Riskeer.Integration.Plugin
                                                                   new AssessmentSectionMergeHandler(Gui.ViewCommands));
         }
 
-        /// <summary>
-        /// Returns all <see cref="PropertyInfo"/> instances provided for data of <see cref="RiskeerPlugin"/>.
-        /// </summary>
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<IProject, RiskeerProjectProperties>();
@@ -412,9 +409,6 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        /// <summary>
-        /// Returns all <see cref="ViewInfo"/> instances provided for data of <see cref="RiskeerPlugin"/>.
-        /// </summary>
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
             yield return new ViewInfo<FailureMechanismContributionContext, FailureMechanismContribution, FailureMechanismContributionView>
@@ -853,11 +847,6 @@ namespace Riskeer.Integration.Plugin
                 new WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategy());
         }
 
-        /// <summary>
-        /// Gets the child data instances that have <see cref="ViewInfo"/> definitions of some parent data object.
-        /// </summary>
-        /// <param name="viewData">The parent data object.</param>
-        /// <returns>Sequence of child data.</returns>
         public override IEnumerable<object> GetChildDataWithViewDefinitions(object viewData)
         {
             if (viewData is RiskeerProject project)
@@ -874,9 +863,6 @@ namespace Riskeer.Integration.Plugin
             }
         }
 
-        /// <summary>
-        /// Returns all <see cref="TreeNodeInfo"/> instances provided for data of <see cref="RiskeerPlugin"/>.
-        /// </summary>
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
             yield return new TreeNodeInfo<AssessmentSection>
