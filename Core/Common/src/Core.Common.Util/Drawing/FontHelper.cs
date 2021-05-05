@@ -46,20 +46,22 @@ namespace Core.Common.Util.Drawing
             }
 
             uint dummy = 0;
-            var fonts = new PrivateFontCollection();
 
-            IntPtr fontPtr = Marshal.AllocCoTaskMem(fontData.Length);
-            Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
-            fonts.AddMemoryFont(fontPtr, fontData.Length);
-            AddFontMemResourceEx(fontPtr, (uint) fontData.Length, IntPtr.Zero, ref dummy);
-            Marshal.FreeCoTaskMem(fontPtr);
-
-            if (fonts.Families.Length == 0)
+            using (var fonts = new PrivateFontCollection())
             {
-                throw new ArgumentException("Font data could not be loaded.");
-            }
+                IntPtr fontPtr = Marshal.AllocCoTaskMem(fontData.Length);
+                Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
+                fonts.AddMemoryFont(fontPtr, fontData.Length);
+                AddFontMemResourceEx(fontPtr, (uint) fontData.Length, IntPtr.Zero, ref dummy);
+                Marshal.FreeCoTaskMem(fontPtr);
 
-            return new Font(fonts.Families[0], 14.0F);
+                if (fonts.Families.Length == 0)
+                {
+                    throw new ArgumentException("Font data could not be loaded.");
+                }
+
+                return new Font(fonts.Families[0], 14.0F);
+            }
         }
 
         [DllImport("gdi32.dll")]
