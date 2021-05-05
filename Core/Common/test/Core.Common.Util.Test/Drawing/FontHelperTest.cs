@@ -51,22 +51,5 @@ namespace Core.Common.Util.Test.Drawing
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("fontData", exception.ParamName);
         }
-
-        [Test]
-        public void CreateFont_InvalidFontData_ThrowsArgumentException()
-        {
-            // Setup
-            var random = new Random();
-            var fontData = new byte[100000];
-
-            random.NextBytes(fontData);
-
-            // Call
-            void Call() => FontHelper.CreateFont(fontData);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(Call);
-            Assert.AreEqual("Font data could not be loaded.", exception.Message);
-        }
     }
 }
