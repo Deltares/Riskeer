@@ -63,6 +63,5 @@ namespace Core.Gui.Plugin.Map
                     MapDataContextHelper.GetParentsFromContext(context))
             };
         }
-
     }
 }

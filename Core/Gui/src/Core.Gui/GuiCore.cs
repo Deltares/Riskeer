@@ -43,6 +43,7 @@ using Core.Gui.Forms.PropertyGridView;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
+using Core.Gui.Plugin.Chart;
 using Core.Gui.Plugin.Map;
 using Core.Gui.Properties;
 using Core.Gui.Settings;
@@ -483,6 +484,7 @@ namespace Core.Gui
             DocumentViewController = new DocumentViewController(ViewHost, Plugins.SelectMany(p => p.GetViewInfos()), mainWindow);
 
             PropertyResolver = new PropertyResolver(Plugins.SelectMany(p => p.GetPropertyInfos())
+                                                           .Concat(ChartPropertyInfoFactory.Create())
                                                            .Concat(MapPropertyInfoFactory.Create()));
             applicationFeatureCommands = new ApplicationFeatureCommandHandler(PropertyResolver, mainWindow);
 

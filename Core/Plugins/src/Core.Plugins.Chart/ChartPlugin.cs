@@ -53,16 +53,6 @@ namespace Core.Plugins.Chart
             activated = true;
         }
 
-        public override IEnumerable<PropertyInfo> GetPropertyInfos()
-        {
-            yield return new PropertyInfo<ChartDataCollection, ChartDataCollectionProperties>();
-            yield return new PropertyInfo<ChartLineData, ChartLineDataProperties>();
-            yield return new PropertyInfo<ChartAreaData, ChartAreaDataProperties>();
-            yield return new PropertyInfo<ChartMultipleAreaData, ChartMultipleAreaDataProperties>();
-            yield return new PropertyInfo<ChartMultipleLineData, ChartMultipleLineDataProperties>();
-            yield return new PropertyInfo<ChartPointData, ChartPointDataProperties>();
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (activated && disposing)
