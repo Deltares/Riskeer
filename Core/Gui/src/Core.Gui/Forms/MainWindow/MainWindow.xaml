@@ -175,8 +175,10 @@ All rights reserved.
                                   AutomationProperties.AutomationId="ViewStateButtonBarShowMap">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE94C;"/>
                     </ToggleButton>
-                    <ToggleButton Style="{StaticResource ViewStateBarToggleButtonStyle}"
+                    <ToggleButton Name="ButtonShowChartLegendView"
+                                  Style="{StaticResource ViewStateBarToggleButtonStyle}"
                                   ToolTip="{x:Static properties:Resources.ViewStateBar_Chart_ToolTip}"
+                                  Click="ButtonShowChartLegendView_Click"
                                   AutomationProperties.AutomationId="ViewStateButtonBarShowChart">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE943;"/>
                     </ToggleButton>

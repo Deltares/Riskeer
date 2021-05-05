@@ -29,9 +29,11 @@ using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Reflection;
+using Core.Components.Chart.Forms;
 using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Forms;
 using Core.Gui.Commands;
+using Core.Gui.Forms.Chart;
 using Core.Gui.Forms.MainWindow;
 using Core.Gui.Forms.Map;
 using Core.Gui.Forms.MessageWindow;
@@ -435,6 +437,9 @@ namespace Core.Gui.Test.Forms.MainWindow
                 Assert.IsInstanceOf<MapLegendView>(mainWindow.MapLegendView);
                 Assert.IsNull(GetMapControl(mainWindow.MapLegendView));
 
+                Assert.IsInstanceOf<ChartLegendView>(mainWindow.ChartLegendView);
+                Assert.IsNull(GetChartControl(mainWindow.ChartLegendView));
+                
                 Assert.IsNull(viewHost.ActiveDocumentView);
             }
 
@@ -568,6 +573,39 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 // Then
                 Assert.IsNull(mainWindow.MapLegendView);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGuiWithChartLegendView_WhenClosingChartLegendView_ThenChartLegendViewSetToNull()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+
+                // Precondition
+                Assert.IsNotNull(mainWindow.ChartLegendView);
+
+                // When
+                mainWindow.ViewHost.Remove(mainWindow.ChartLegendView);
+
+                // Then
+                Assert.IsNull(mainWindow.ChartLegendView);
             }
 
             mocks.VerifyAll();
@@ -804,6 +842,11 @@ namespace Core.Gui.Test.Forms.MainWindow
         private static IMapControl GetMapControl(MapLegendView mapLegendView)
         {
             return TypeUtils.GetProperty<IMapControl>(mapLegendView, "MapControl");
+        }
+        
+        private static IChartControl GetChartControl(ChartLegendView chartLegendView)
+        {
+            return TypeUtils.GetProperty<IChartControl>(chartLegendView, "ChartControl");
         }
     }
 }

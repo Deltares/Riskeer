@@ -32,6 +32,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Util.Settings;
 using Core.Components.Gis.Forms;
 using Core.Gui.Commands;
+using Core.Gui.Forms.Chart;
 using Core.Gui.Forms.Map;
 using Core.Gui.Forms.MessageWindow;
 using Core.Gui.Forms.ViewHost;
@@ -76,11 +77,6 @@ namespace Core.Gui.Forms.MainWindow
         /// Gets a value indicating whether this window is disposed.
         /// </summary>
         public bool IsWindowDisposed { get; private set; }
-
-        /// <summary>
-        /// Gets the log messages tool window.
-        /// </summary>
-        public IMessageWindow MessageWindow { get; private set; }
 
         /// <summary>
         /// Gets the view host.
@@ -128,9 +124,19 @@ namespace Core.Gui.Forms.MainWindow
         public ProjectExplorer.ProjectExplorer ProjectExplorer { get; private set; }
 
         /// <summary>
+        /// Gets the log messages tool window.
+        /// </summary>
+        public IMessageWindow MessageWindow { get; private set; }
+
+        /// <summary>
         /// Gets the <see cref="Core.Gui.Forms.Map.MapLegendView"/>.
         /// </summary>
         public MapLegendView MapLegendView { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="Core.Gui.Forms.Chart.ChartLegendView"/>
+        /// </summary>
+        public ChartLegendView ChartLegendView { get; private set; }
 
         public IView PropertyGrid => propertyGrid;
 
@@ -189,6 +195,7 @@ namespace Core.Gui.Forms.MainWindow
         {
             InitProjectExplorerWindowOrBringToFront();
             InitMapLegendWindowOrBringToFront();
+            InitChartLegendWindowOrBringToFront();
             InitMessagesWindowOrBringToFront();
             InitPropertiesWindowOrBringToFront();
         }
@@ -339,6 +346,22 @@ namespace Core.Gui.Forms.MainWindow
             ButtonShowMapLegendView.IsChecked = !active;
         }
 
+        private void ButtonShowChartLegendView_Click(object sender, RoutedEventArgs e)
+        {
+            bool active = viewController.ViewHost.ToolViews.Contains(ChartLegendView);
+
+            if (active)
+            {
+                viewController.ViewHost.Remove(ChartLegendView);
+            }
+            else
+            {
+                InitChartLegendWindowOrBringToFront();
+            }
+
+            ButtonShowChartLegendView.IsChecked = !active;
+        }
+
         private void OnFileHelpShowLog_Clicked(object sender, RoutedEventArgs e)
         {
             commands.ApplicationCommands.OpenLogFileExternal();
@@ -437,6 +460,7 @@ namespace Core.Gui.Forms.MainWindow
                 ButtonShowMessages.IsChecked = viewController.ViewHost.ToolViews.Contains(MessageWindow);
                 ButtonShowProperties.IsChecked = viewController.ViewHost.ToolViews.Contains(PropertyGrid);
                 ButtonShowMapLegendView.IsChecked = viewController.ViewHost.ToolViews.Contains(MapLegendView);
+                ButtonShowChartLegendView.IsChecked = viewController.ViewHost.ToolViews.Contains(ChartLegendView);
             }
         }
 
@@ -504,6 +528,26 @@ namespace Core.Gui.Forms.MainWindow
             }
         }
 
+        private void InitChartLegendWindowOrBringToFront()
+        {
+            if (gui == null)
+            {
+                throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitMessagesWindowOrActivate'.");
+            }
+
+            if (ChartLegendView == null)
+            {
+                ChartLegendView = new ChartLegendView(gui);
+
+                viewController.ViewHost.AddToolView(ChartLegendView, ToolViewLocation.Left);
+                viewController.ViewHost.SetImage(ChartLegendView, Properties.Resources.application_view_list);
+            }
+            else
+            {
+                viewController.ViewHost.BringToFront(ChartLegendView);
+            }
+        }
+
         #endregion
 
         #region Events
@@ -547,6 +591,11 @@ namespace Core.Gui.Forms.MainWindow
             if (ReferenceEquals(e.View, MapLegendView))
             {
                 MapLegendView = null;
+            }
+
+            if (ReferenceEquals(e.View, ChartLegendView))
+            {
+                ChartLegendView = null;
             }
 
             if (ReferenceEquals(e.View, currentMapView))
