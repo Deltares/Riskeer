@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Data;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 
@@ -32,13 +34,25 @@ namespace Core.Gui.Test.Plugin
         {
             // Setup
             const string symbol = "Symbol";
+            Func<IProject, object> getRootData = o => new object();
 
             // Call
-            var stateInfo = new StateInfo(symbol, null);
+            var stateInfo = new StateInfo(symbol, getRootData);
 
             // Assert
             Assert.AreEqual(symbol, stateInfo.Symbol);
-            Assert.IsNull(stateInfo.GetRootData);
+            Assert.AreSame(getRootData, stateInfo.GetRootData);
+        }
+
+        [Test]
+        public void Constructor_GetRootDataNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new StateInfo(string.Empty, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("getRootData", exception.ParamName);
         }
     }
 }

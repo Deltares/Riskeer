@@ -34,10 +34,11 @@ namespace Core.Gui.Plugin
         /// </summary>
         /// <param name="symbol">The symbol of the state.</param>
         /// <param name="getRootData">The method for obtaining the root data of the state.</param>
-        public StateInfo(string symbol, Func<object, IProject> getRootData)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="getRootData"/> is <c>null</c>.</exception>
+        public StateInfo(string symbol, Func<IProject, object> getRootData)
         {
             Symbol = symbol;
-            GetRootData = getRootData;
+            GetRootData = getRootData ?? throw new ArgumentNullException(nameof(getRootData));
         }
 
         /// <summary>
@@ -52,6 +53,6 @@ namespace Core.Gui.Plugin
         ///     <item>out - The root data object of the state.</item>
         /// </list>
         /// </summary>
-        public Func<object, IProject> GetRootData { get; }
+        public Func<IProject, object> GetRootData { get; }
     }
 }
