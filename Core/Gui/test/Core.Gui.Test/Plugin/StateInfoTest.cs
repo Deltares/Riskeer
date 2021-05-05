@@ -30,11 +30,15 @@ namespace Core.Gui.Test.Plugin
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            const string symbol = "Symbol";
+
             // Call
-            var stateInfo = new StateInfo();
+            var stateInfo = new StateInfo(symbol, null);
 
             // Assert
-            Assert.IsNotNull(stateInfo);
+            Assert.AreEqual(symbol, stateInfo.Symbol);
+            Assert.IsNull(stateInfo.GetRootData);
         }
     }
 }

@@ -19,10 +19,39 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Data;
+
 namespace Core.Gui.Plugin
 {
     /// <summary>
     /// Information for setting the application into a specific state.
     /// </summary>
-    public class StateInfo {}
+    public class StateInfo
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="StateInfo"/>.
+        /// </summary>
+        /// <param name="symbol">The symbol of the state.</param>
+        /// <param name="getRootData">The method for obtaining the root data of the state.</param>
+        public StateInfo(string symbol, Func<object, IProject> getRootData)
+        {
+            Symbol = symbol;
+            GetRootData = getRootData;
+        }
+
+        /// <summary>
+        /// Gets the symbol of the state.
+        /// </summary>
+        public string Symbol { get; }
+
+        /// <summary>
+        /// Gets the method for obtaining the root data of the state. Function arguments:
+        /// <list type="number">
+        ///     <item>The current <see cref="IProject"/> to get the state data from.</item>
+        ///     <item>out - The root data object of the state.</item>
+        /// </list>
+        /// </summary>
+        public Func<object, IProject> GetRootData { get; }
+    }
 }
