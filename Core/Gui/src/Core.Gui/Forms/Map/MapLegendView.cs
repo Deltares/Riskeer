@@ -211,7 +211,7 @@ namespace Core.Gui.Forms.Map
 
         private StrictContextMenuItem CreateZoomToExtentsItem(MapData nodeData, string toolTip, bool isEnabled)
         {
-            return new StrictContextMenuItem($"&{GuiResources.MapLegendView_CreateZoomToExtentsItem_ZoomToAll_DisplayName}",
+            return new StrictContextMenuItem($"&{GuiResources.ZoomToAll_DisplayName}",
                                              toolTip,
                                              GuiResources.ZoomToAllIcon,
                                              (sender, args) => MapControl?.ZoomToVisibleLayers(nodeData))

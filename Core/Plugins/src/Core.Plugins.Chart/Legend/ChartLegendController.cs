@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Components.Chart.Forms;
 using Core.Gui;
 using Core.Gui.ContextMenu;
+using Core.Gui.Forms.Chart;
 using Core.Gui.Forms.ViewHost;
 using Core.Plugins.Chart.Properties;
 

@@ -124,9 +124,6 @@
   <data name="ChartIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\chart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="General_Chart" xml:space="preserve">
-    <value>Grafiek</value>
-  </data>
   <data name="LineIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -139,29 +136,8 @@
   <data name="Ribbon_Toggle_Legend_ToolTip" xml:space="preserve">
     <value>Open het grafiekenpaneel.</value>
   </data>
-  <data name="Ribbon_ZoomToAll" xml:space="preserve">
-    <value>Zoom naar alles</value>
-  </data>
   <data name="ZoomToAllIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\zoomextents.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ChartLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip" xml:space="preserve">
-    <value>Zet het zoomniveau van de grafiek dusdanig dat deze gegevensreeks precies in het beeld past.</value>
-  </data>
-  <data name="ChartLegendView_CreateZoomToExtentsItem_NoData_ZoomToAllDisabled_Tooltip" xml:space="preserve">
-    <value>Om het zoomniveau aan te passen moet de gegevensreeks elementen bevatten.</value>
-  </data>
-  <data name="ChartLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip" xml:space="preserve">
-    <value>Om het zoomniveau aan te passen moet de gegevensreeks zichtbaar zijn.</value>
-  </data>
-  <data name="ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_NoData_ZoomToAllDisabled_Tooltip" xml:space="preserve">
-    <value>Om het zoomniveau aan te passen moet minstens één van de zichtbare gegevensreeksen in deze map met gegevensreeksen elementen bevatten.</value>
-  </data>
-  <data name="ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_ZoomToAllDisabled_Tooltip" xml:space="preserve">
-    <value>Om het zoomniveau aan te passen moet er minstens één gegevensreeks in deze map met gegevensreeksen zichtbaar zijn.</value>
-  </data>
-  <data name="ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_ZoomToAll_Tooltip" xml:space="preserve">
-    <value>Zet het zoomniveau van de grafiek dusdanig dat alle zichtbare gegevensreeksen in deze map met gegevensreeksen precies in het beeld passen.</value>
   </data>
   <data name="Categories_General" xml:space="preserve">
     <value>Algemeen</value>

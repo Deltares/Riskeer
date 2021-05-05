@@ -34,6 +34,7 @@ using Core.Common.Util.Reflection;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using Core.Components.Chart.TestUtil;
+using Core.Gui.Forms.Chart;
 using Core.Gui.PresentationObjects.Chart;
 using Core.Plugins.Chart.Legend;
 using Core.Plugins.Chart.Properties;

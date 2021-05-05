@@ -311,6 +311,71 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Grafiek.
+        /// </summary>
+        public static string ChartLegendView_Chart_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartLegendView_Chart_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet minstens één van de zichtbare gegevensreeksen in deze map met gegevensreeksen elementen bevatten..
+        /// </summary>
+        public static string ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_NoData_ZoomToAllDisabled_Tooltip {
+            get {
+                return ResourceManager.GetString("ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_NoData_ZoomToAllDisab" +
+                        "led_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zet het zoomniveau van de grafiek dusdanig dat alle zichtbare gegevensreeksen in deze map met gegevensreeksen precies in het beeld passen..
+        /// </summary>
+        public static string ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_ZoomToAll_Tooltip {
+            get {
+                return ResourceManager.GetString("ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_ZoomToAll_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet er minstens één gegevensreeks in deze map met gegevensreeksen zichtbaar zijn..
+        /// </summary>
+        public static string ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_ZoomToAllDisabled_Tooltip {
+            get {
+                return ResourceManager.GetString("ChartLegendView_CreateZoomToExtentsItem_ChartDataCollection_ZoomToAllDisabled_Too" +
+                        "ltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet de gegevensreeks elementen bevatten..
+        /// </summary>
+        public static string ChartLegendView_CreateZoomToExtentsItem_NoData_ZoomToAllDisabled_Tooltip {
+            get {
+                return ResourceManager.GetString("ChartLegendView_CreateZoomToExtentsItem_NoData_ZoomToAllDisabled_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zet het zoomniveau van de grafiek dusdanig dat deze gegevensreeks precies in het beeld past..
+        /// </summary>
+        public static string ChartLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip {
+            get {
+                return ResourceManager.GetString("ChartLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Om het zoomniveau aan te passen moet de gegevensreeks zichtbaar zijn..
+        /// </summary>
+        public static string ChartLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip {
+            get {
+                return ResourceManager.GetString("ChartLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alles i&amp;nklappen.
         /// </summary>
         public static string Collapse_all {
@@ -1411,15 +1476,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zoom naar alles.
-        /// </summary>
-        public static string MapLegendView_CreateZoomToExtentsItem_ZoomToAll_DisplayName {
-            get {
-                return ResourceManager.GetString("MapLegendView_CreateZoomToExtentsItem_ZoomToAll_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Zet het zoomniveau van de kaart dusdanig dat deze kaartlaag precies in het beeld past..
         /// </summary>
         public static string MapLegendView_CreateZoomToExtentsItem_ZoomToAll_Tooltip {
@@ -2266,6 +2322,15 @@ namespace Core.Gui.Properties {
         public static string WindowCommands_SaveAs_ToolTip {
             get {
                 return ResourceManager.GetString("WindowCommands_SaveAs_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom naar alles.
+        /// </summary>
+        public static string ZoomToAll_DisplayName {
+            get {
+                return ResourceManager.GetString("ZoomToAll_DisplayName", resourceCulture);
             }
         }
         

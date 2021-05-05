@@ -29,6 +29,7 @@ using Core.Common.Util.Reflection;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using Core.Gui;
+using Core.Gui.Forms.Chart;
 using Core.Gui.Forms.MainWindow;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;

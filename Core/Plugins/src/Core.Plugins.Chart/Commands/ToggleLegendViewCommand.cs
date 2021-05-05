@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Controls.Commands;
+using Core.Gui.Forms.Chart;
 using Core.Plugins.Chart.Legend;
 
 namespace Core.Plugins.Chart.Commands
