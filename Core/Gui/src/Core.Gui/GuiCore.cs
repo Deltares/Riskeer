@@ -455,11 +455,6 @@ namespace Core.Gui
                     ViewHost.BringToFront(mainWindow.ProjectExplorer);
                 }
 
-                if (ViewHost.ToolViews.Contains(mainWindow.MapLegendView))
-                {
-                    ViewHost.BringToFront(mainWindow.MapLegendView);
-                }
-
                 mainWindow.ValidateItems();
             };
 
