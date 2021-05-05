@@ -50,6 +50,14 @@ namespace Core.Gui.Plugin
         public virtual void Deactivate() {}
 
         /// <summary>
+        /// Returns all <see cref="StateInfo"/> instances provided by this plug-in.
+        /// </summary>
+        public virtual IEnumerable<StateInfo> GetStateInfos()
+        {
+            yield break;
+        }
+
+        /// <summary>
         /// Returns all <see cref="ImportInfo"/> instances provided by this plug-in.
         /// </summary>
         public virtual IEnumerable<ImportInfo> GetImportInfos()

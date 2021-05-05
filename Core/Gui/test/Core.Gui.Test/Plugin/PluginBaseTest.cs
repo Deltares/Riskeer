@@ -93,6 +93,20 @@ namespace Core.Gui.Test.Plugin
         }
 
         [Test]
+        public void GetStateInfos_ReturnsEmpty()
+        {
+            // Setup
+            using (var plugin = new SimplePlugin())
+            {
+                // Call
+                IEnumerable<StateInfo> infos = plugin.GetStateInfos();
+
+                // Assert
+                CollectionAssert.IsEmpty(infos);
+            }
+        }
+
+        [Test]
         public void GetPropertyInfos_ReturnsEmpty()
         {
             // Setup
