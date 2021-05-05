@@ -25,6 +25,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
@@ -221,6 +223,26 @@ namespace Core.Gui.Forms.MainWindow
             {
                 ProjectExplorer.Data = gui.Project;
             }
+        }
+
+        /// <summary>
+        /// Adds a state button to the <see cref="MainButtonStackPanel"/>.
+        /// </summary>
+        /// <param name="text">The text of the button.</param>
+        /// <param name="symbol">The symbol of the button.</param>
+        public void AddStateButton(string text, string symbol)
+        {
+            MainButtonStackPanel.Children.Insert(MainButtonStackPanel.Children.Count - 1,
+                                                 new ToggleButton
+                                                 {
+                                                     Tag = text,
+                                                     Style = (Style) FindResource("MainButtonBarToggleButtonStyle"),
+                                                     Content = new TextBlock
+                                                     {
+                                                         Style = (Style) FindResource("ButtonLargeIconStyle"),
+                                                         Text = symbol
+                                                     }
+                                                 });
         }
 
         public void Dispose()

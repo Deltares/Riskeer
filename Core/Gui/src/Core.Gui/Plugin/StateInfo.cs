@@ -32,14 +32,21 @@ namespace Core.Gui.Plugin
         /// <summary>
         /// Creates a new instance of <see cref="StateInfo"/>.
         /// </summary>
+        /// <param name="name">The name of the state.</param>
         /// <param name="symbol">The symbol of the state.</param>
         /// <param name="getRootData">The method for obtaining the root data of the state.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="getRootData"/> is <c>null</c>.</exception>
-        public StateInfo(string symbol, Func<IProject, object> getRootData)
+        public StateInfo(string name, string symbol, Func<IProject, object> getRootData)
         {
+            Name = name;
             Symbol = symbol;
             GetRootData = getRootData ?? throw new ArgumentNullException(nameof(getRootData));
         }
+
+        /// <summary>
+        /// Gets the name of the state.
+        /// </summary>
+        public string Name { get; }
 
         /// <summary>
         /// Gets the symbol of the state.

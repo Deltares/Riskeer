@@ -276,43 +276,43 @@ namespace Riskeer.Integration.Plugin
 
         public override IEnumerable<StateInfo> GetStateInfos()
         {
-            yield return new StateInfo("A", project =>
+            yield return new StateInfo("Traject", "\uE94E", project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {
                     return riskeerProject.AssessmentSections.FirstOrDefault();
                 }
-                
-                return project;
-            });
-            
-            yield return new StateInfo("B", project =>
-            {
-                if (project is RiskeerProject riskeerProject)
-                {
-                    return riskeerProject.AssessmentSections.FirstOrDefault();
-                }
-                
+
                 return project;
             });
 
-            yield return new StateInfo("C", project =>
+            yield return new StateInfo("Faalpaden", "\uE953", project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {
                     return riskeerProject.AssessmentSections.FirstOrDefault();
                 }
-                
+
                 return project;
             });
 
-            yield return new StateInfo("D", project =>
+            yield return new StateInfo("Berekeningen", "\uE91D", project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {
                     return riskeerProject.AssessmentSections.FirstOrDefault();
                 }
-                
+
+                return project;
+            });
+
+            yield return new StateInfo("Assembleren", "\uE94B", project =>
+            {
+                if (project is RiskeerProject riskeerProject)
+                {
+                    return riskeerProject.AssessmentSections.FirstOrDefault();
+                }
+
                 return project;
             });
         }

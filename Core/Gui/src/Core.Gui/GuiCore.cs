@@ -490,6 +490,11 @@ namespace Core.Gui
 
             mainWindow.InitializeToolWindows();
 
+            foreach (StateInfo stateInfo in Plugins.SelectMany(p => p.GetStateInfos()))
+            {
+                mainWindow.AddStateButton(stateInfo.Name, stateInfo.Symbol);
+            }
+            
             mainWindow.SubscribeToGui();
 
             UpdateTitle();

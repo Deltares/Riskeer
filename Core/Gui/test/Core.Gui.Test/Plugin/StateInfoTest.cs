@@ -33,13 +33,15 @@ namespace Core.Gui.Test.Plugin
         public void Constructor_ExpectedValues()
         {
             // Setup
+            const string name = "Name";
             const string symbol = "Symbol";
             Func<IProject, object> getRootData = o => new object();
 
             // Call
-            var stateInfo = new StateInfo(symbol, getRootData);
+            var stateInfo = new StateInfo(name, symbol, getRootData);
 
             // Assert
+            Assert.AreEqual(name, stateInfo.Name);
             Assert.AreEqual(symbol, stateInfo.Symbol);
             Assert.AreSame(getRootData, stateInfo.GetRootData);
         }
@@ -48,7 +50,7 @@ namespace Core.Gui.Test.Plugin
         public void Constructor_GetRootDataNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new StateInfo(string.Empty, null);
+            void Call() => new StateInfo(string.Empty, string.Empty, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);

@@ -106,7 +106,11 @@ All rights reserved.
 
     <Grid Background="{StaticResource BackgroundColorBrush}">
         <DockPanel>
-            <StackPanel DockPanel.Dock="Top" Height="100" Background="{StaticResource MainButtonBarBackgroundBrush}" Orientation="Horizontal">
+            <StackPanel Name="MainButtonStackPanel"
+                        DockPanel.Dock="Top"
+                        Height="100"
+                        Background="{StaticResource MainButtonBarBackgroundBrush}"
+                        Orientation="Horizontal">
                 <Button Style="{StaticResource MainButtonBarButtonStyle}"
                         Tag="{x:Static properties:Resources.MainButtonBar_Project_DisplayName}"
                         AutomationProperties.AutomationId="MainButtonBarProject">
@@ -114,30 +118,6 @@ All rights reserved.
                                Text="&#xE949;"/>
                 </Button>
                 <Separator Style="{StaticResource MainButtonBarSeparatorStyle}" />
-                <ToggleButton Style="{StaticResource MainButtonBarToggleButtonStyle}"
-                              Tag="Traject"
-                              AutomationProperties.AutomationId="MainButtonBarTraject">
-                    <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
-                               Text="&#xE94E;"/>
-                </ToggleButton>
-                <ToggleButton Style="{StaticResource MainButtonBarToggleButtonStyle}"
-                              Tag="Faalpaden"
-                              AutomationProperties.AutomationId="MainButtonBarFailurePaths">
-                    <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
-                               Text="&#xE953;"/>
-                </ToggleButton>
-                <ToggleButton Style="{StaticResource MainButtonBarToggleButtonStyle}"
-                              Tag="Berekeningen"
-                              AutomationProperties.AutomationId="MainButtonBarCalculations">
-                    <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
-                               Text="&#xE91D;"/>
-                </ToggleButton>
-                <ToggleButton Style="{StaticResource MainButtonBarToggleButtonStyle}"
-                              Tag="Assembleren"
-                              AutomationProperties.AutomationId="MainButtonBarAssembly">
-                    <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
-                               Text="&#xE94B;"/>
-                </ToggleButton>
                 <Separator Style="{StaticResource MainButtonBarSeparatorStyle}" />
             </StackPanel>
 
