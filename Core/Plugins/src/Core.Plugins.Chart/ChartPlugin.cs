@@ -26,8 +26,8 @@ using Core.Components.Chart.Forms;
 using Core.Gui;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
+using Core.Gui.PropertyClasses.Chart;
 using Core.Plugins.Chart.Legend;
-using Core.Plugins.Chart.PropertyClasses;
 
 namespace Core.Plugins.Chart
 {

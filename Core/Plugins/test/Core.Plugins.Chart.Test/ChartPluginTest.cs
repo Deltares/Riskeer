@@ -33,10 +33,10 @@ using Core.Gui.Forms.Chart;
 using Core.Gui.Forms.MainWindow;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
+using Core.Gui.PropertyClasses.Chart;
 using Core.Gui.Settings;
 using Core.Gui.TestUtil;
 using Core.Plugins.Chart.Legend;
-using Core.Plugins.Chart.PropertyClasses;
 using NUnit.Framework;
 using Rhino.Mocks;
 

@@ -40,7 +40,7 @@ namespace Core.Gui.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -237,6 +237,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Algemeen.
+        /// </summary>
+        public static string Categories_General {
+            get {
+                return ResourceManager.GetString("Categories_General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Labels.
         /// </summary>
         public static string Categories_Label {
@@ -311,6 +320,141 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De kleur van de vlakken waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartAreaData_FillColor_Description {
+            get {
+                return ResourceManager.GetString("ChartAreaData_FillColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de lijn van de vlakken waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartAreaData_StrokeColor_Description {
+            get {
+                return ResourceManager.GetString("ChartAreaData_StrokeColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De dikte van de lijn van de vlakken waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartAreaData_StrokeThickness_Description {
+            get {
+                return ResourceManager.GetString("ChartAreaData_StrokeThickness_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kleur.
+        /// </summary>
+        public static string ChartData_Color_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartData_Color_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijnkleur.
+        /// </summary>
+        public static string ChartData_StrokeColor_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartData_StrokeColor_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijndikte.
+        /// </summary>
+        public static string ChartData_StrokeThickness_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartData_StrokeThickness_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geeft aan of de gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartDataProperties_IsVisible_Description {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_IsVisible_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weergeven.
+        /// </summary>
+        public static string ChartDataProperties_IsVisible_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_IsVisible_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De naam van deze gegevensreeks..
+        /// </summary>
+        public static string ChartDataProperties_Name_Description {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string ChartDataProperties_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vlakken.
+        /// </summary>
+        public static string ChartDataProperties_Type_Areas {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_Type_Areas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het type van de data die wordt weergegeven in de gegevensreeks..
+        /// </summary>
+        public static string ChartDataProperties_Type_Description {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_Type_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string ChartDataProperties_Type_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_Type_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijnen.
+        /// </summary>
+        public static string ChartDataProperties_Type_Lines {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_Type_Lines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Punten.
+        /// </summary>
+        public static string ChartDataProperties_Type_Points {
+            get {
+                return ResourceManager.GetString("ChartDataProperties_Type_Points", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grafiek.
         /// </summary>
         public static string ChartLegendView_Chart_DisplayName {
@@ -372,6 +516,105 @@ namespace Core.Gui.Properties {
         public static string ChartLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip {
             get {
                 return ResourceManager.GetString("ChartLegendView_CreateZoomToExtentsItem_ZoomToAllDisabled_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de lijnen waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartLineData_Color_Description {
+            get {
+                return ResourceManager.GetString("ChartLineData_Color_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De stijl van de lijnen waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartLineData_DashStyle_Description {
+            get {
+                return ResourceManager.GetString("ChartLineData_DashStyle_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lijnstijl.
+        /// </summary>
+        public static string ChartLineData_DashStyle_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartLineData_DashStyle_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De dikte van de lijnen waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartLineData_Width_Description {
+            get {
+                return ResourceManager.GetString("ChartLineData_Width_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de symbolen waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartPointData_Color_Description {
+            get {
+                return ResourceManager.GetString("ChartPointData_Color_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De grootte van de symbolen waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartPointData_Size_Description {
+            get {
+                return ResourceManager.GetString("ChartPointData_Size_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grootte.
+        /// </summary>
+        public static string ChartPointData_Size_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartPointData_Size_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De kleur van de lijn van de symbolen waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartPointData_StrokeColor_Description {
+            get {
+                return ResourceManager.GetString("ChartPointData_StrokeColor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De dikte van de lijn van de symbolen waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartPointData_StrokeThickness_Description {
+            get {
+                return ResourceManager.GetString("ChartPointData_StrokeThickness_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het symbool waarmee deze gegevensreeks wordt weergegeven..
+        /// </summary>
+        public static string ChartPointData_Symbol_Description {
+            get {
+                return ResourceManager.GetString("ChartPointData_Symbol_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Symbool.
+        /// </summary>
+        public static string ChartPointData_Symbol_DisplayName {
+            get {
+                return ResourceManager.GetString("ChartPointData_Symbol_DisplayName", resourceCulture);
             }
         }
         
