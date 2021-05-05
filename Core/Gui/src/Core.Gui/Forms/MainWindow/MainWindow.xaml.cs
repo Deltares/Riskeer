@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -197,10 +197,15 @@ namespace Core.Gui.Forms.MainWindow
         /// </exception>
         public void InitializeToolWindows()
         {
-            InitProjectExplorerWindowOrBringToFront();
-            InitMapLegendWindowOrBringToFront();
-            InitChartLegendWindowOrBringToFront();
-            InitMessagesWindowOrBringToFront();
+            if (gui == null)
+            {
+                throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitializeToolWindows'.");
+            }
+
+            InitProjectExplorerWindow();
+            InitMapLegendWindow();
+            InitChartLegendWindow();
+            InitMessagesWindow();
             InitPropertiesWindowOrBringToFront();
         }
 
@@ -308,82 +313,43 @@ namespace Core.Gui.Forms.MainWindow
 
         private void ButtonShowProjectExplorer_Click(object sender, RoutedEventArgs e)
         {
-            bool active = viewController.ViewHost.ToolViews.Contains(ProjectExplorer);
-
-            if (active)
-            {
-                viewController.ViewHost.Remove(ProjectExplorer);
-            }
-            else
-            {
-                InitProjectExplorerWindowOrBringToFront();
-            }
-
-            ButtonShowProjectExplorer.IsChecked = !active;
+            ToggleToolWindow(ProjectExplorer, InitProjectExplorerWindow, ButtonShowProjectExplorer);
         }
 
         private void ButtonShowProperties_Click(object sender, RoutedEventArgs e)
         {
-            bool active = viewController.ViewHost.ToolViews.Contains(PropertyGrid);
-
-            if (active)
-            {
-                viewController.ViewHost.Remove(PropertyGrid);
-            }
-            else
-            {
-                InitPropertiesWindowOrBringToFront();
-            }
-
-            ButtonShowProperties.IsChecked = !active;
+            ToggleToolWindow(PropertyGrid, InitPropertiesWindowOrBringToFront, ButtonShowProperties);
         }
 
         private void ButtonShowMessages_Click(object sender, RoutedEventArgs e)
         {
-            bool active = viewController.ViewHost.ToolViews.Contains(MessageWindow);
-
-            if (active)
-            {
-                viewController.ViewHost.Remove(MessageWindow);
-            }
-            else
-            {
-                InitMessagesWindowOrBringToFront();
-            }
-
-            ButtonShowMessages.IsChecked = !active;
+            ToggleToolWindow(MessageWindow, InitMessagesWindow, ButtonShowMessages);
         }
 
         private void ButtonShowMapLegendView_Click(object sender, RoutedEventArgs e)
         {
-            bool active = viewController.ViewHost.ToolViews.Contains(MapLegendView);
-
-            if (active)
-            {
-                viewController.ViewHost.Remove(MapLegendView);
-            }
-            else
-            {
-                InitMapLegendWindowOrBringToFront();
-            }
-
-            ButtonShowMapLegendView.IsChecked = !active;
+            ToggleToolWindow(MapLegendView, InitMapLegendWindow, ButtonShowMapLegendView);
         }
 
         private void ButtonShowChartLegendView_Click(object sender, RoutedEventArgs e)
         {
-            bool active = viewController.ViewHost.ToolViews.Contains(ChartLegendView);
+            ToggleToolWindow(ChartLegendView, InitChartLegendWindow, ButtonShowChartLegendView);
+        }
 
+        private void ToggleToolWindow(IView toolView, Action initializeToolWindowAction, ToggleButton toggleButton)
+        {
+            bool active = viewController.ViewHost.ToolViews.Contains(toolView);
+            
             if (active)
             {
-                viewController.ViewHost.Remove(ChartLegendView);
+                viewController.ViewHost.Remove(toolView);
             }
             else
             {
-                InitChartLegendWindowOrBringToFront();
+                initializeToolWindowAction();
             }
 
-            ButtonShowChartLegendView.IsChecked = !active;
+            toggleButton.IsChecked = !active;
         }
 
         private void OnFileHelpShowLog_Clicked(object sender, RoutedEventArgs e)
@@ -487,84 +453,36 @@ namespace Core.Gui.Forms.MainWindow
             }
         }
 
-        private void InitProjectExplorerWindowOrBringToFront()
+        private void InitProjectExplorerWindow()
         {
-            if (gui == null)
+            ProjectExplorer = new ProjectExplorer.ProjectExplorer(gui.ViewCommands, gui.GetTreeNodeInfos())
             {
-                throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitMessagesWindowOrActivate'.");
-            }
-
-            if (ProjectExplorer == null)
-            {
-                ProjectExplorer = new ProjectExplorer.ProjectExplorer(gui.ViewCommands, gui.GetTreeNodeInfos())
-                {
-                    Data = gui.Project
-                };
-                viewController.ViewHost.AddToolView(ProjectExplorer, ToolViewLocation.Left, "\uE95B");
-            }
-            else
-            {
-                viewController.ViewHost.BringToFront(ProjectExplorer);
-            }
+                Data = gui.Project
+            };
+            viewController.ViewHost.AddToolView(ProjectExplorer, ToolViewLocation.Left, "\uE95B");
         }
 
-        private void InitMessagesWindowOrBringToFront()
+        private void InitMessagesWindow()
         {
-            if (gui == null)
+            MessageWindow = new MessageWindow.MessageWindow(this)
             {
-                throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitMessagesWindowOrActivate'.");
-            }
-
-            if (MessageWindow == null)
-            {
-                MessageWindow = new MessageWindow.MessageWindow(this)
-                {
-                    Text = Properties.Resources.Messages
-                };
-                viewController.ViewHost.AddToolView(MessageWindow, ToolViewLocation.Bottom, "\uE942");
-            }
-            else
-            {
-                viewController.ViewHost.BringToFront(MessageWindow);
-            }
+                Text = Properties.Resources.Messages
+            };
+            viewController.ViewHost.AddToolView(MessageWindow, ToolViewLocation.Bottom, "\uE942");
         }
 
-        private void InitMapLegendWindowOrBringToFront()
+        private void InitMapLegendWindow()
         {
-            if (gui == null)
-            {
-                throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitMessagesWindowOrActivate'.");
-            }
+            MapLegendView = new MapLegendView(gui);
 
-            if (MapLegendView == null)
-            {
-                MapLegendView = new MapLegendView(gui);
-
-                viewController.ViewHost.AddToolView(MapLegendView, ToolViewLocation.Left, "\uE94C");
-            }
-            else
-            {
-                viewController.ViewHost.BringToFront(MapLegendView);
-            }
+            viewController.ViewHost.AddToolView(MapLegendView, ToolViewLocation.Left, "\uE94C");
         }
 
-        private void InitChartLegendWindowOrBringToFront()
+        private void InitChartLegendWindow()
         {
-            if (gui == null)
-            {
-                throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitMessagesWindowOrActivate'.");
-            }
+            ChartLegendView = new ChartLegendView(gui);
 
-            if (ChartLegendView == null)
-            {
-                ChartLegendView = new ChartLegendView(gui);
-
-                viewController.ViewHost.AddToolView(ChartLegendView, ToolViewLocation.Left, "\uE943");
-            }
-            else
-            {
-                viewController.ViewHost.BringToFront(ChartLegendView);
-            }
+            viewController.ViewHost.AddToolView(ChartLegendView, ToolViewLocation.Left, "\uE943");
         }
 
         #endregion
