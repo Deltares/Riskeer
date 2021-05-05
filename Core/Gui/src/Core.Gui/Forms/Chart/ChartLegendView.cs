@@ -54,7 +54,7 @@ namespace Core.Gui.Forms.Chart
             if (contextMenuBuilderProvider == null)
             {
                 throw new ArgumentNullException(nameof(contextMenuBuilderProvider),
-                                                $@"Cannot create a {typeof(ChartLegendView).Name} when the context menu builder provider is null.");
+                                                $@"Cannot create a {nameof(ChartLegendView)} when the context menu builder provider is null.");
             }
 
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
@@ -79,30 +79,14 @@ namespace Core.Gui.Forms.Chart
             }
         }
 
-        public object Selection
-        {
-            get
-            {
-                var chartDataContext = treeViewControl.SelectedData as ChartDataContext;
-                if (chartDataContext != null)
-                {
-                    return chartDataContext.WrappedData;
-                }
-
-                return treeViewControl.SelectedData;
-            }
-        }
+        public object Selection => treeViewControl.SelectedData is ChartDataContext chartDataContext 
+                                       ? chartDataContext.WrappedData
+                                       : treeViewControl.SelectedData;
 
         public object Data
         {
-            get
-            {
-                return (ChartData) treeViewControl.Data;
-            }
-            set
-            {
-                treeViewControl.Data = (ChartData) value;
-            }
+            get => (ChartData) treeViewControl.Data;
+            set => treeViewControl.Data = (ChartData) value;
         }
 
         private void RegisterTreeNodeInfos()
@@ -176,10 +160,10 @@ namespace Core.Gui.Forms.Chart
 
         private StrictContextMenuItem CreateZoomToExtentsItem(ChartDataCollection nodeData)
         {
-            ChartData[] chartDatas = nodeData.GetChartDataRecursively().ToArray();
+            ChartData[] chartDataItems = nodeData.GetChartDataRecursively().ToArray();
             var isVisible = false;
             var hasData = false;
-            foreach (ChartData chartData in chartDatas)
+            foreach (ChartData chartData in chartDataItems)
             {
                 if (chartData.IsVisible)
                 {
@@ -233,28 +217,26 @@ namespace Core.Gui.Forms.Chart
 
         private static Image GetImage(ChartDataContext context)
         {
-            if (context.WrappedData is ChartPointData)
+            switch (context.WrappedData)
             {
-                return GuiResources.PointsIcon;
+                case ChartPointData _:
+                    return GuiResources.PointsIcon;
+                case ChartLineData _:
+                case ChartMultipleLineData _:
+                    return GuiResources.LineIcon;
+                case ChartAreaData _:
+                case ChartMultipleAreaData _:
+                    return GuiResources.AreaIcon;
+                default:
+                    return GuiResources.folder;
             }
-
-            if (context.WrappedData is ChartLineData || context.WrappedData is ChartMultipleLineData)
-            {
-                return GuiResources.LineIcon;
-            }
-
-            if (context.WrappedData is ChartAreaData || context.WrappedData is ChartMultipleAreaData)
-            {
-                return GuiResources.AreaIcon;
-            }
-
-            return GuiResources.folder;
         }
 
         private static object[] ChartDataContextGetChildNodeObjects(ChartDataContext chartDataContext)
         {
-            var collection = chartDataContext.WrappedData as ChartDataCollection;
-            return collection != null ? GetChildNodeObjects(collection) : new object[0];
+            return chartDataContext.WrappedData is ChartDataCollection collection
+                       ? GetChildNodeObjects(collection)
+                       : new object[0];
         }
 
         private void ChartDataContextOnNodeChecked(ChartDataContext chartDataContext, object parentData)
@@ -296,8 +278,9 @@ namespace Core.Gui.Forms.Chart
         private static bool ChartDataCollectionCanDropAndInsert(object draggedData, object targetData)
         {
             var draggedDataContext = (ChartDataContext) draggedData;
-            var targetDataContext = targetData as ChartDataContext;
-            object targetDataObject = targetDataContext != null ? targetDataContext.ParentChartData : targetData;
+            object targetDataObject = targetData is ChartDataContext targetDataContext
+                                          ? targetDataContext.ParentChartData
+                                          : targetData;
 
             return draggedDataContext.ParentChartData.Equals(targetDataObject);
         }
