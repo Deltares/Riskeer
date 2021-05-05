@@ -36,8 +36,15 @@ namespace Core.Common.Util.Drawing
         /// </summary>
         /// <param name="fontData">The data to create the <see cref="Font"/> from.</param>
         /// <returns>The created <see cref="Font"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fontData"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="fontData"/> is not a valid font.</exception>
         public static Font CreateFont(byte[] fontData)
         {
+            if (fontData == null)
+            {
+                throw new ArgumentNullException(nameof(fontData));
+            }
+
             uint dummy = 0;
             var fonts = new PrivateFontCollection();
 
@@ -46,6 +53,11 @@ namespace Core.Common.Util.Drawing
             fonts.AddMemoryFont(fontPtr, fontData.Length);
             AddFontMemResourceEx(fontPtr, (uint) fontData.Length, IntPtr.Zero, ref dummy);
             Marshal.FreeCoTaskMem(fontPtr);
+
+            if (fonts.Families.Length == 0)
+            {
+                throw new ArgumentException("Font data could not be loaded.");
+            }
 
             return new Font(fonts.Families[0], 14.0F);
         }
