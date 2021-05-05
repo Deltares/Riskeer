@@ -22,6 +22,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Text;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace Core.Common.Util.Drawing
@@ -55,7 +56,7 @@ namespace Core.Common.Util.Drawing
                 AddFontMemResourceEx(fontPtr, (uint) fontData.Length, IntPtr.Zero, ref dummy);
                 Marshal.FreeCoTaskMem(fontPtr);
 
-                if (fonts.Families.Length == 0)
+                if (fonts.Families.ToArray().Length == 0)
                 {
                     throw new ArgumentException("Font data could not be loaded.");
                 }
