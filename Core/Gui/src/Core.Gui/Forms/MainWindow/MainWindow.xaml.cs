@@ -30,6 +30,7 @@ using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Settings;
+using Core.Components.Chart.Forms;
 using Core.Components.Gis.Forms;
 using Core.Gui.Commands;
 using Core.Gui.Forms.Chart;
@@ -61,6 +62,7 @@ namespace Core.Gui.Forms.MainWindow
 
         private PropertyGridView.PropertyGridView propertyGrid;
         private IMapView currentMapView;
+        private IChartView currentChartView;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -559,16 +561,23 @@ namespace Core.Gui.Forms.MainWindow
                 mapView.Map.ZoomToVisibleLayers();
                 UpdateComponentsForMapView(mapView);
             }
+
+            if (e.View is IChartView chartView)
+            {
+                UpdateComponentsForChartView(chartView);
+            }
         }
 
         private void OnViewBroughtToFront(object sender, ViewChangeEventArgs e)
         {
             UpdateComponentsForMapView(e.View as IMapView);
+            UpdateComponentsForChartView(e.View as IChartView);
         }
 
         private void OnActiveDocumentViewChanged(object sender, EventArgs e)
         {
             UpdateComponentsForMapView(viewController.ViewHost.ActiveDocumentView as IMapView);
+            UpdateComponentsForChartView(viewController.ViewHost.ActiveDocumentView as IChartView);
         }
 
         private void OnViewClosed(object sender, ViewChangeEventArgs e)
@@ -602,6 +611,11 @@ namespace Core.Gui.Forms.MainWindow
             {
                 UpdateComponentsForMapView(null);
             }
+
+            if (ReferenceEquals(e.View, currentChartView))
+            {
+                UpdateComponentsForChartView(null);
+            }
         }
 
         private void UpdateComponentsForMapView(IMapView mapView)
@@ -612,8 +626,18 @@ namespace Core.Gui.Forms.MainWindow
             }
 
             currentMapView = mapView;
-
             MapLegendView.MapControl = mapView?.Map;
+        }
+
+        private void UpdateComponentsForChartView(IChartView chartView)
+        {
+            if (ReferenceEquals(currentChartView, chartView))
+            {
+                return;
+            }
+
+            currentChartView = chartView;
+            ChartLegendView.ChartControl = chartView?.Chart;
         }
 
         #endregion

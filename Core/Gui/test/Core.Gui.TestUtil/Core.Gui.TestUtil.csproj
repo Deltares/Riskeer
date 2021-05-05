@@ -8,7 +8,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj" />
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj" />
     <ProjectReference Include="..\..\..\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj" />
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.OxyPlot.Forms\Core.Components.OxyPlot.Forms.csproj" />
     <ProjectReference Include="..\..\src\Core.Gui\Core.Gui.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -20,5 +22,10 @@
     <PackageReference Include="NUnit">
       <Version>3.8.1</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="TestChartView.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

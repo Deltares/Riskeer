@@ -395,7 +395,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             {
                 new TreeNodeInfo<IProject>()
             };
-            
+
             var mocks = new MockRepository();
             var selectedObjectProperties = mocks.Stub<IObjectProperties>();
 
@@ -413,7 +413,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             gui.Stub(g => g.Project).Return(project);
             gui.Stub(g => g.GetTreeNodeInfos()).Return(treeNodeInfos);
             mocks.ReplayAll();
-            
+
             gui.Selection = selectedObject;
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -426,20 +426,20 @@ namespace Core.Gui.Test.Forms.MainWindow
                 // Assert
                 Assert.IsInstanceOf<Gui.Forms.ProjectExplorer.ProjectExplorer>(mainWindow.ProjectExplorer);
                 Assert.AreSame(gui.Project, mainWindow.ProjectExplorer.Data);
-                
+
                 Assert.IsInstanceOf<Gui.Forms.PropertyGridView.PropertyGridView>(mainWindow.PropertyGrid);
                 Assert.AreEqual("Eigenschappen", mainWindow.PropertyGrid.Text);
                 Assert.AreEqual(selectedObject, mainWindow.PropertyGrid.Data);
 
                 Assert.IsInstanceOf<Gui.Forms.MessageWindow.MessageWindow>(mainWindow.MessageWindow);
                 Assert.AreEqual("Berichten", mainWindow.MessageWindow.Text);
-                
+
                 Assert.IsInstanceOf<MapLegendView>(mainWindow.MapLegendView);
                 Assert.IsNull(GetMapControl(mainWindow.MapLegendView));
 
                 Assert.IsInstanceOf<ChartLegendView>(mainWindow.ChartLegendView);
                 Assert.IsNull(GetChartControl(mainWindow.ChartLegendView));
-                
+
                 Assert.IsNull(viewHost.ActiveDocumentView);
             }
 
@@ -456,7 +456,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
-            
+
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
@@ -465,7 +465,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 mainWindow.SetGui(gui);
                 mainWindow.InitializeToolWindows();
-            
+
                 // Precondition
                 Assert.IsNotNull(mainWindow.ProjectExplorer);
 
@@ -624,28 +624,29 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(project1);
             mocks.ReplayAll();
-            
+
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
-                
+
                 mainWindow.SetGui(gui);
                 mainWindow.InitializeToolWindows();
 
                 // Precondition
                 Assert.IsNotNull(mainWindow.ProjectExplorer);
                 Assert.AreSame(project1, mainWindow.ProjectExplorer.Data);
-                
+
                 gui.SetProject(project2, string.Empty);
 
                 // When
                 mainWindow.UpdateProjectExplorer();
-                
+
                 // Then
                 Assert.AreSame(project2, mainWindow.ProjectExplorer.Data);
             }
+
             mocks.VerifyAll();
         }
 
@@ -665,7 +666,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             {
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
-        
+
                 mainWindow.SetGui(gui);
                 mainWindow.InitializeToolWindows();
 
@@ -701,7 +702,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             {
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
-        
+
                 mainWindow.SetGui(gui);
                 mainWindow.InitializeToolWindows();
 
@@ -737,10 +738,10 @@ namespace Core.Gui.Test.Forms.MainWindow
             {
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
-        
+
                 mainWindow.SetGui(gui);
                 mainWindow.InitializeToolWindows();
-        
+
                 var view1 = new TestMapView();
                 var view2 = new TestMapView();
                 MapLegendView mapLegendView = mainWindow.MapLegendView;
@@ -777,10 +778,10 @@ namespace Core.Gui.Test.Forms.MainWindow
             {
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
-        
+
                 mainWindow.SetGui(gui);
                 mainWindow.InitializeToolWindows();
-        
+
                 var view = new TestMapView();
                 MapLegendView mapLegendView = mainWindow.MapLegendView;
 
@@ -815,10 +816,10 @@ namespace Core.Gui.Test.Forms.MainWindow
             {
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
-        
+
                 mainWindow.SetGui(gui);
                 mainWindow.InitializeToolWindows();
-        
+
                 var view1 = new TestMapView();
                 var view2 = new TestMapView();
                 MapLegendView mapLegendView = mainWindow.MapLegendView;
@@ -838,12 +839,166 @@ namespace Core.Gui.Test.Forms.MainWindow
 
             mocks.VerifyAll();
         }
-        
+
+        [Test]
+        public void GivenGuiWithChartLegendView_WhenChartViewAdded_ThenComponentsUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+
+                var view = new TestChartView();
+                ChartLegendView chartLegendView = mainWindow.ChartLegendView;
+
+                // Precondition
+                Assert.IsNull(GetChartControl(chartLegendView));
+
+                // When
+                gui.ViewHost.AddDocumentView(view);
+
+                // Then
+                Assert.AreSame(view.Chart, GetChartControl(chartLegendView));
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGuiWithChartLegendView_WhenChartViewBroughtToFront_ThenComponentsUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+
+                var view1 = new TestChartView();
+                var view2 = new TestChartView();
+                ChartLegendView chartLegendView = mainWindow.ChartLegendView;
+
+                gui.ViewHost.AddDocumentView(view1);
+                gui.ViewHost.AddDocumentView(view2);
+
+                // Precondition
+                Assert.AreSame(view2.Chart, GetChartControl(chartLegendView));
+
+                // When
+                gui.ViewHost.BringToFront(view1);
+
+                // Then
+                Assert.AreSame(view1.Chart, GetChartControl(chartLegendView));
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGuiWithChartLegendView_WhenChartViewRemoved_ThenComponentsUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+
+                var view = new TestChartView();
+                ChartLegendView chartLegendView = mainWindow.ChartLegendView;
+
+                gui.ViewHost.AddDocumentView(view);
+
+                // Precondition
+                Assert.AreSame(view.Chart, GetChartControl(chartLegendView));
+
+                // When
+                gui.ViewHost.Remove(view);
+
+                // Then
+                Assert.IsNull(GetChartControl(chartLegendView));
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGuiWithChartLegendView_WhenOtherChartViewRemoved_ThenComponentsNotUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+
+                var view1 = new TestChartView();
+                var view2 = new TestChartView();
+                ChartLegendView chartLegendView = mainWindow.ChartLegendView;
+
+                gui.ViewHost.AddDocumentView(view1);
+                gui.ViewHost.AddDocumentView(view2);
+
+                // Precondition
+                Assert.AreSame(view2.Chart, GetChartControl(chartLegendView));
+
+                // When
+                gui.ViewHost.Remove(view1);
+
+                // Then
+                Assert.AreSame(view2.Chart, GetChartControl(chartLegendView));
+            }
+
+            mocks.VerifyAll();
+        }
+
         private static IMapControl GetMapControl(MapLegendView mapLegendView)
         {
             return TypeUtils.GetProperty<IMapControl>(mapLegendView, "MapControl");
         }
-        
+
         private static IChartControl GetChartControl(ChartLegendView chartLegendView)
         {
             return TypeUtils.GetProperty<IChartControl>(chartLegendView, "ChartControl");
