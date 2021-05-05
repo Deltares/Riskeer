@@ -274,6 +274,49 @@ namespace Riskeer.Integration.Plugin
                                                                   new AssessmentSectionMergeHandler(Gui.ViewCommands));
         }
 
+        public override IEnumerable<StateInfo> GetStateInfos()
+        {
+            yield return new StateInfo("A", project =>
+            {
+                if (project is RiskeerProject riskeerProject)
+                {
+                    return riskeerProject.AssessmentSections.FirstOrDefault();
+                }
+                
+                return project;
+            });
+            
+            yield return new StateInfo("B", project =>
+            {
+                if (project is RiskeerProject riskeerProject)
+                {
+                    return riskeerProject.AssessmentSections.FirstOrDefault();
+                }
+                
+                return project;
+            });
+
+            yield return new StateInfo("C", project =>
+            {
+                if (project is RiskeerProject riskeerProject)
+                {
+                    return riskeerProject.AssessmentSections.FirstOrDefault();
+                }
+                
+                return project;
+            });
+
+            yield return new StateInfo("D", project =>
+            {
+                if (project is RiskeerProject riskeerProject)
+                {
+                    return riskeerProject.AssessmentSections.FirstOrDefault();
+                }
+                
+                return project;
+            });
+        }
+
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<IProject, RiskeerProjectProperties>();
