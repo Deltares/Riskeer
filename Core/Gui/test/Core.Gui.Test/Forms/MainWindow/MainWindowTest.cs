@@ -28,6 +28,9 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
+using Core.Common.Util.Reflection;
+using Core.Components.DotSpatial.Forms;
+using Core.Components.Gis.Forms;
 using Core.Gui.Commands;
 using Core.Gui.Forms.MainWindow;
 using Core.Gui.Forms.Map;
@@ -38,12 +41,15 @@ using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using Core.Gui.Settings;
 using Core.Gui.TestUtil;
+using Core.Gui.TestUtil.Map;
+using DotSpatial.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace Core.Gui.Test.Forms.MainWindow
 {
     [TestFixture]
+    [Apartment(ApartmentState.STA)]
     public class MainWindowTest
     {
         private MessageWindowLogAppender originalValue;
@@ -62,7 +68,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Constructor_ExpectedValues()
         {
             // Call
@@ -92,7 +97,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Dispose_SetIsWindowDisposedTrue()
         {
             // Setup
@@ -109,7 +113,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        [Apartment(ApartmentState.STA)]
         public void Visible_SettingValueWithoutHavingSetGui_ThrowInvalidOperationException(bool newVisibleValue)
         {
             // Setup
@@ -124,7 +127,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Visible_SetToTrue_ShowMainForm()
         {
             // Setup
@@ -156,7 +158,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Visible_SetToFalse_HideMainForm()
         {
             // Setup
@@ -189,7 +190,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void SubscribeToGui_NoGuiSet_DoNothing()
         {
             // Setup
@@ -204,7 +204,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void SubscribeToGui_GuiSet_AttachEvents()
         {
             // Setup
@@ -232,7 +231,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void UnsubscribeFromGui_NoGuiSet_DoNothing()
         {
             // Setup
@@ -247,7 +245,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void UnsubscribeFromGui_GuiSetAndSubscribed_DetachEvents()
         {
             // Setup
@@ -280,7 +277,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void InitPropertiesWindowOrBringToFront_GuiNotSet_ThrowInvalidOperationException()
         {
             // Setup
@@ -295,7 +291,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void InitPropertiesWindowOrBringToFront_GuiSet_InitializePropertyGrid()
         {
             // Setup
@@ -334,7 +329,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void InitPropertiesWindowOrBringToFront_GuiSetAndCalledTwice_PropertyGridViewInstanceNotUpdatedRedundantly()
         {
             // Setup
@@ -375,7 +369,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void InitializeToolWindows_GuiNotSet_ThrowInvalidOperationException()
         {
             // Setup
@@ -390,7 +383,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void InitializeToolWindows_GuiSet_InitializeToolWindows()
         {
             // Setup
@@ -441,7 +433,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 Assert.AreEqual("Berichten", mainWindow.MessageWindow.Text);
                 
                 Assert.IsInstanceOf<MapLegendView>(mainWindow.MapLegendView);
-                Assert.IsNull(mainWindow.MapLegendView.Data);
+                Assert.IsNull(GetMapControl(mainWindow.MapLegendView));
 
                 Assert.IsNull(viewHost.ActiveDocumentView);
             }
@@ -450,7 +442,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithProjectExplorer_WhenClosingProjectExplorer_ThenProjectExplorerSetToNull()
         {
             // Given
@@ -484,7 +475,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithPropertyGrid_WhenClosingPropertyGrid_ThenPropertyGridSetToNull()
         {
             // Given
@@ -518,7 +508,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithMessageWindow_WhenClosingMessageWindow_ThenMessageWindowSetToNull()
         {
             // Given
@@ -552,7 +541,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithMapLegendView_WhenClosingMapLegendView_ThenMapLegendViewSetToNull()
         {
             // Given
@@ -586,7 +574,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithProjectExplorer_WhenUpdateProjectExplorer_ThenDataSetOnProjectExplorer()
         {
             // Given
@@ -622,6 +609,201 @@ namespace Core.Gui.Test.Forms.MainWindow
                 Assert.AreSame(project2, mainWindow.ProjectExplorer.Data);
             }
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGuiWithMapLegendView_WhenMapViewOpened_ThenMapZoomedToExtents()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+        
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+
+                var testMapView = new TestMapView();
+                var map = (DotSpatialMap) ((MapControl) testMapView.Map).Controls[0].Controls[1];
+
+                // Precondition
+                Extent initialExtents = map.ViewExtents;
+
+                // When
+                gui.ViewHost.AddDocumentView(testMapView);
+
+                // Then
+                Assert.AreNotEqual(initialExtents, map.ViewExtents);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGuiWithMapLegendView_WhenMapViewAdded_ThenComponentsUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+        
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+
+                var view = new TestMapView();
+                MapLegendView mapLegendView = mainWindow.MapLegendView;
+
+                // Precondition
+                Assert.IsNull(GetMapControl(mapLegendView));
+
+                // When
+                gui.ViewHost.AddDocumentView(view);
+
+                // Then
+                Assert.AreSame(view.Map, GetMapControl(mapLegendView));
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGuiWithMapLegendView_WhenMapViewBroughtToFront_ThenComponentsUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+        
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+        
+                var view1 = new TestMapView();
+                var view2 = new TestMapView();
+                MapLegendView mapLegendView = mainWindow.MapLegendView;
+
+                gui.ViewHost.AddDocumentView(view1);
+                gui.ViewHost.AddDocumentView(view2);
+
+                // Precondition
+                Assert.AreSame(view2.Map, GetMapControl(mapLegendView));
+
+                // When
+                gui.ViewHost.BringToFront(view1);
+
+                // Then
+                Assert.AreSame(view1.Map, GetMapControl(mapLegendView));
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGuiWithMapLegendView_WhenMapViewRemoved_ThenComponentsUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+        
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+        
+                var view = new TestMapView();
+                MapLegendView mapLegendView = mainWindow.MapLegendView;
+
+                gui.ViewHost.AddDocumentView(view);
+
+                // Precondition
+                Assert.AreSame(view.Map, GetMapControl(mapLegendView));
+
+                // When
+                gui.ViewHost.Remove(view);
+
+                // Then
+                Assert.IsNull(GetMapControl(mapLegendView));
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGuiWithMapLegendView_WhenOtherMapViewRemoved_ThenComponentsNotUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+        
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+        
+                var view1 = new TestMapView();
+                var view2 = new TestMapView();
+                MapLegendView mapLegendView = mainWindow.MapLegendView;
+
+                gui.ViewHost.AddDocumentView(view1);
+                gui.ViewHost.AddDocumentView(view2);
+
+                // Precondition
+                Assert.AreSame(view2.Map, GetMapControl(mapLegendView));
+
+                // When
+                gui.ViewHost.Remove(view1);
+
+                // Then
+                Assert.AreSame(view2.Map, GetMapControl(mapLegendView));
+            }
+
+            mocks.VerifyAll();
+        }
+        
+        private static IMapControl GetMapControl(MapLegendView mapLegendView)
+        {
+            return TypeUtils.GetProperty<IMapControl>(mapLegendView, "MapControl");
         }
     }
 }
