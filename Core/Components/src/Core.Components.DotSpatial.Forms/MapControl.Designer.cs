@@ -76,7 +76,7 @@ namespace Core.Components.DotSpatial.Forms
             this.panToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.panToolStripButton.Name = "panToolStripButton";
             this.panToolStripButton.Size = new System.Drawing.Size(22, 19);
-            this.panToolStripButton.Text = "";
+            this.panToolStripButton.Text = "\uE921";
             this.panToolStripButton.ToolTipText = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapControl_Pan;
             this.panToolStripButton.Click += new System.EventHandler(this.PanToolStripButtonClick);
             // 
@@ -86,7 +86,7 @@ namespace Core.Components.DotSpatial.Forms
             this.zoomToRectangleToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToRectangleToolStripButton.Name = "zoomToRectangleToolStripButton";
             this.zoomToRectangleToolStripButton.Size = new System.Drawing.Size(22, 19);
-            this.zoomToRectangleToolStripButton.Text = "";
+            this.zoomToRectangleToolStripButton.Text = "\uE922";
             this.zoomToRectangleToolStripButton.ToolTipText = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapControl_ZoomToRectangle;
             this.zoomToRectangleToolStripButton.Click += new System.EventHandler(this.ZoomToRectangleToolStripButtonClick);
             // 
@@ -101,7 +101,7 @@ namespace Core.Components.DotSpatial.Forms
             this.zoomToVisibleLayersToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToVisibleLayersToolStripButton.Name = "zoomToVisibleLayersToolStripButton";
             this.zoomToVisibleLayersToolStripButton.Size = new System.Drawing.Size(22, 19);
-            this.zoomToVisibleLayersToolStripButton.Text = "";
+            this.zoomToVisibleLayersToolStripButton.Text = "\uE923";
             this.zoomToVisibleLayersToolStripButton.ToolTipText = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapControl_ZoomToVisibleLayers;
             this.zoomToVisibleLayersToolStripButton.Click += new System.EventHandler(this.ZoomToVisibleLayersToolStripButtonClick);
             // 
@@ -116,7 +116,7 @@ namespace Core.Components.DotSpatial.Forms
             this.showCoordinatesToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.showCoordinatesToolStripButton.Name = "showCoordinatesToolStripButton";
             this.showCoordinatesToolStripButton.Size = new System.Drawing.Size(22, 19);
-            this.showCoordinatesToolStripButton.Text = "";
+            this.showCoordinatesToolStripButton.Text = "\uE924";
             this.showCoordinatesToolStripButton.ToolTipText = global::Core.Components.DotSpatial.Forms.Properties.Resources.MapControl_ShowCoordinates;
             this.showCoordinatesToolStripButton.Click += new System.EventHandler(this.ShowCoordinatesToolStripButtonClick);
             // 
