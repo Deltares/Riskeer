@@ -27,21 +27,30 @@ All rights reserved.
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:commands="clr-namespace:Core.Gui.Forms.MainWindow"
                    mc:Ignorable="d">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/DeltaresStyle.xaml" /> 
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <Grid>
-        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <StackPanel Width="100" DockPanel.Dock="Left" Background="Blue">
+        <DockPanel>
+            <StackPanel Width="150" DockPanel.Dock="Left" Background="{StaticResource WindowTitleColorBrush}">
                 <Button Command="{x:Static commands:MainWindowCommands.ToggleBackstageCommand}">Terug</Button>
                 <Separator/>
                 <ToggleButton>INFO</ToggleButton>
-                <Button>Openen</Button>
-                <Button>Opslaan</Button>
-                <Button>Opslaan Als</Button>
+                <ToggleButton>OPENEN</ToggleButton>
+                <Button Command="Save">Opslaan</Button>
+                <Button Command="SaveAs">Opslaan Als</Button>
                 <Separator/>
                 <ToggleButton>OVER</ToggleButton>
                 <Button>Toon log</Button>
                 <Button>Handleiding</Button>
                 <Separator/>
-                <Button>Afsluiten</Button>
+                <Button Command="Close">Afsluiten</Button>
             </StackPanel>
             
             <Border/>
