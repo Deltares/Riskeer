@@ -556,28 +556,44 @@ namespace Core.Gui.Forms.MainWindow
 
         private void OnViewOpened(object sender, ViewChangeEventArgs e)
         {
-            if (e.View is IMapView mapView)
-            {
-                mapView.Map.ZoomToVisibleLayers();
-                UpdateComponentsForMapView(mapView);
-            }
+            var mapView = e.View as IMapView;
+            mapView?.Map.ZoomToVisibleLayers();
+            UpdateComponentsForMapView(mapView);
+            currentMapView = mapView;
 
-            if (e.View is IChartView chartView)
+            var chartView = e.View as IChartView;
+            UpdateComponentsForChartView(chartView);
+            currentChartView = chartView;
+
+            if (e.View is MapLegendView || e.View is ChartLegendView)
             {
-                UpdateComponentsForChartView(chartView);
+                UpdateComponentsForView(viewController.ViewHost.ActiveDocumentView);
             }
         }
 
         private void OnViewBroughtToFront(object sender, ViewChangeEventArgs e)
         {
-            UpdateComponentsForMapView(e.View as IMapView);
-            UpdateComponentsForChartView(e.View as IChartView);
+            UpdateComponentsForView(e.View);
         }
 
         private void OnActiveDocumentViewChanged(object sender, EventArgs e)
         {
-            UpdateComponentsForMapView(viewController.ViewHost.ActiveDocumentView as IMapView);
-            UpdateComponentsForChartView(viewController.ViewHost.ActiveDocumentView as IChartView);
+            UpdateComponentsForView(viewController.ViewHost.ActiveDocumentView);
+        }
+
+        private void UpdateComponentsForView(IView view)
+        {
+            var mapView = view as IMapView;
+            if (!ReferenceEquals(currentMapView, mapView))
+            {
+                UpdateComponentsForMapView(mapView);
+            }
+
+            var chartView = view as IChartView;
+            if (!ReferenceEquals(currentChartView, chartView))
+            {
+                UpdateComponentsForChartView(chartView);
+            }
         }
 
         private void OnViewClosed(object sender, ViewChangeEventArgs e)
@@ -620,7 +636,7 @@ namespace Core.Gui.Forms.MainWindow
 
         private void UpdateComponentsForMapView(IMapView mapView)
         {
-            if (ReferenceEquals(currentMapView, mapView))
+            if (MapLegendView == null)
             {
                 return;
             }
@@ -631,7 +647,7 @@ namespace Core.Gui.Forms.MainWindow
 
         private void UpdateComponentsForChartView(IChartView chartView)
         {
-            if (ReferenceEquals(currentChartView, chartView))
+            if (ChartLegendView == null)
             {
                 return;
             }
