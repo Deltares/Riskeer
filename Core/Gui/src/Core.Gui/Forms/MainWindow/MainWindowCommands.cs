@@ -32,5 +32,10 @@ namespace Core.Gui.Forms.MainWindow
         /// The command for closing the current active view.
         /// </summary>
         public static readonly RoutedUICommand CloseViewTabCommand = new RoutedUICommand();
+
+        /// <summary>
+        /// The command for toggling the backstage.
+        /// </summary>
+        public static readonly RoutedUICommand ToggleBackstageCommand = new RoutedUICommand();
     }
 }

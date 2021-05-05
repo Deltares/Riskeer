@@ -656,10 +656,18 @@ namespace Core.Gui.Forms.MainWindow
 
         #endregion
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            MainDockPanel.Visibility = Visibility.Collapsed;
-            BackstageDockPanel.Visibility = Visibility.Visible;
+            if (MainDockPanel.Visibility == Visibility.Visible)
+            {
+                MainDockPanel.Visibility = Visibility.Collapsed;
+                BackstageDockPanel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MainDockPanel.Visibility = Visibility.Visible;
+                BackstageDockPanel.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

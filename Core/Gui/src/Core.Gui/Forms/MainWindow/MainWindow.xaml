@@ -45,6 +45,7 @@ All rights reserved.
         <CommandBinding Command="Open" Executed="OnFileOpenClicked" />
         <CommandBinding Command="Close" Executed="OnFileExitClicked" />
         <CommandBinding Command="{x:Static commands:MainWindowCommands.CloseViewTabCommand}" Executed="CloseDocumentTab" CanExecute="CanCloseDocumentTab"/>
+        <CommandBinding Command="{x:Static commands:MainWindowCommands.ToggleBackstageCommand}" Executed="CommandBinding_OnExecuted"/>
     </metro:MetroWindow.CommandBindings>
 
     <metro:MetroWindow.InputBindings>
@@ -114,7 +115,7 @@ All rights reserved.
                         Orientation="Horizontal">
                 <Button Style="{StaticResource MainButtonBarButtonStyle}"
                         Tag="{x:Static properties:Resources.MainButtonBar_Project_DisplayName}"
-                        Click="ButtonBase_OnClick"
+                        Command="{x:Static commands:MainWindowCommands.ToggleBackstageCommand}"
                         AutomationProperties.AutomationId="MainButtonBarProject">
                     <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
                                Text="&#xE949;"/>

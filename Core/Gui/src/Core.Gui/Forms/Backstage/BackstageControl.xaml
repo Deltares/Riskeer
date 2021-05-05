@@ -25,11 +25,12 @@ All rights reserved.
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:commands="clr-namespace:Core.Gui.Forms.MainWindow"
                    mc:Ignorable="d">
     <Grid>
         <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <StackPanel Width="100" DockPanel.Dock="Left" Background="Blue">
-                <Button>Terug</Button>
+                <Button Command="{x:Static commands:MainWindowCommands.ToggleBackstageCommand}">Terug</Button>
                 <Separator/>
                 <ToggleButton>INFO</ToggleButton>
                 <Button>Openen</Button>
