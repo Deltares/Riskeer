@@ -300,7 +300,24 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return WrapFailureMechanismsInContexts(riskeerProject.AssessmentSections.First());
+                    AssessmentSection assessmentSection = riskeerProject.AssessmentSections.First();
+
+                    var failureMechanisms = new IFailureMechanism[]
+                    {
+                        assessmentSection.MacroStabilityOutwards,
+                        assessmentSection.Microstability,
+                        assessmentSection.WaterPressureAsphaltCover,
+                        assessmentSection.GrassCoverSlipOffOutwards,
+                        assessmentSection.GrassCoverSlipOffInwards,
+                        assessmentSection.PipingStructure,
+                        assessmentSection.StrengthStabilityLengthwiseConstruction,
+                        assessmentSection.TechnicalInnovation
+                    };
+
+                    return failureMechanisms.Select(failureMechanism => failureMechanismAssociations
+                                                                        .First(a => a.Match(failureMechanism))
+                                                                        .Create(failureMechanism, assessmentSection))
+                                            .ToArray();
                 }
 
                 return null;
@@ -310,7 +327,26 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return WrapFailureMechanismsInContexts(riskeerProject.AssessmentSections.First());
+                    AssessmentSection assessmentSection = riskeerProject.AssessmentSections.First();
+
+                    var failureMechanisms = new IFailureMechanism[]
+                    {
+                        assessmentSection.Piping,
+                        assessmentSection.GrassCoverErosionInwards,
+                        assessmentSection.MacroStabilityInwards,
+                        assessmentSection.StabilityStoneCover,
+                        assessmentSection.WaveImpactAsphaltCover,
+                        assessmentSection.GrassCoverErosionOutwards,
+                        assessmentSection.HeightStructures,
+                        assessmentSection.ClosingStructures,
+                        assessmentSection.StabilityPointStructures,
+                        assessmentSection.DuneErosion
+                    };
+
+                    return failureMechanisms.Select(failureMechanism => failureMechanismAssociations
+                                                                        .First(a => a.Match(failureMechanism))
+                                                                        .Create(failureMechanism, assessmentSection))
+                                            .ToArray();
                 }
 
                 return null;
