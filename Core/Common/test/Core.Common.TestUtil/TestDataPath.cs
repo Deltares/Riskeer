@@ -51,6 +51,8 @@ namespace Core.Common.TestUtil
                     public static readonly TestDataPath IO = "Core.Components.Gis.IO.Test";
                 }
             }
+
+            public static readonly TestDataPath Gui = "Core.Gui.Test";
         }
 
         public static class Riskeer

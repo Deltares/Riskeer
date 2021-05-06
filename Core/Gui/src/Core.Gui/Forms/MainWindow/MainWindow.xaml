@@ -50,7 +50,7 @@ All rights reserved.
         <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.CloseApplicationCommand}"
                                        Command="{Binding Path=CloseApplicationCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
         <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.ToggleBackstageCommand}"
-                                       Command="{Binding Path=ToggleBackStageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
+                                       Command="{Binding Path=ToggleBackstageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
     </commands:RoutedCommandHandlers.Commands>
 
     <metro:MetroWindow.InputBindings>

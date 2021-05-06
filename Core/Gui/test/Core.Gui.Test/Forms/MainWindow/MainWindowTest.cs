@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -28,6 +29,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
+using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Components.Chart.Forms;
 using Core.Components.DotSpatial.Forms;
@@ -42,9 +44,11 @@ using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using Core.Gui.Settings;
+using Core.Gui.Test.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.Map;
 using DotSpatial.Data;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -52,7 +56,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 {
     [TestFixture]
     [Apartment(ApartmentState.STA)]
-    public class MainWindowTest
+    public class MainWindowTest : NUnitFormTest
     {
         private MessageWindowLogAppender originalValue;
 
@@ -64,9 +68,10 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [TearDown]
-        public void TearDown()
+        public override void TearDown()
         {
             MessageWindowLogAppender.Instance = originalValue;
+            base.TearDown();
         }
 
         [Test]
@@ -95,6 +100,13 @@ namespace Core.Gui.Test.Forms.MainWindow
                 Assert.AreEqual(ResizeMode.CanResizeWithGrip, mainWindow.ResizeMode);
                 Assert.AreEqual(FlowDirection.LeftToRight, mainWindow.FlowDirection);
                 Assert.AreEqual("RiskeerMainWindow", mainWindow.Name);
+
+                Assert.IsNotNull(mainWindow.NewProjectCommand);
+                Assert.IsNotNull(mainWindow.SaveProjectCommand);
+                Assert.IsNotNull(mainWindow.SaveProjectAsCommand);
+                Assert.IsNotNull(mainWindow.OpenProjectCommand);
+                Assert.IsNotNull(mainWindow.CloseApplicationCommand);
+                Assert.IsNotNull(mainWindow.ToggleBackstageCommand);
             }
         }
 
@@ -992,6 +1004,305 @@ namespace Core.Gui.Test.Forms.MainWindow
             }
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenMainWindow_WhenNewProjectIsCalled_ThenCreateNewProject()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.StrictMock<IProjectFactory>();
+            projectFactory.Expect(pf => pf.CreateNewProject())
+                          .Return(mocks.Stub<IProject>())
+                          .Repeat.Times(3);
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+
+                // When
+                mainWindow.NewProjectCommand.Execute(null);
+            }
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenMainWindow_WhenSaveProjectIsCalled_ThenProjectSaved()
+        {
+            // Given
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(MainWindowTest));
+            string someValidFilePath = Path.Combine(directoryPath, nameof(GivenMainWindow_WhenSaveProjectIsCalled_ThenProjectSaved));
+
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), directoryPath))
+            {
+                var mocks = new MockRepository();
+                var project = mocks.Stub<IProject>();
+
+                var projectStore = mocks.StrictMock<IStoreProject>();
+                projectStore.Expect(ps => ps.SaveProjectAs(someValidFilePath));
+                projectStore.Expect(ps => ps.SaveProjectFileFilter).Return(string.Empty);
+                projectStore.Expect(ps => ps.HasStagedProject).Return(false);
+                projectStore.Expect(ps => ps.StageProject(project));
+
+                var projectMigrator = mocks.Stub<IMigrateProject>();
+                var projectFactory = mocks.Stub<IProjectFactory>();
+                projectFactory.Stub(pf => pf.CreateNewProject())
+                              .Return(project);
+                mocks.ReplayAll();
+
+                DialogBoxHandler = (s, hWnd) =>
+                {
+                    var saveFileDialogTester = new SaveFileDialogTester(hWnd);
+                    saveFileDialogTester.SaveFile(someValidFilePath);
+
+                    DialogBoxHandler = (name, wnd) =>
+                    {
+                        // Expect progress dialog, which will close automatically.    
+                    };
+                };
+
+                using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+                using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+                {
+                    gui.Plugins.Add(new TestPlugin());
+                    gui.Run();
+
+                    mainWindow.SetGui(gui);
+
+                    // When
+                    mainWindow.SaveProjectCommand.Execute(null);
+                }
+
+                // Then
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenMainWindow_WhenSaveProjectAsIsCalled_ThenProjectSaved()
+        {
+            // Given
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(MainWindowTest));
+            string someValidFilePath = Path.Combine(directoryPath, nameof(GivenMainWindow_WhenSaveProjectAsIsCalled_ThenProjectSaved));
+
+            using (new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), directoryPath))
+            {
+                var mocks = new MockRepository();
+                var project = mocks.Stub<IProject>();
+
+                var projectStore = mocks.StrictMock<IStoreProject>();
+                projectStore.Expect(ps => ps.SaveProjectAs(someValidFilePath));
+                projectStore.Expect(ps => ps.SaveProjectFileFilter).Return(string.Empty);
+                projectStore.Expect(ps => ps.HasStagedProject).Return(false);
+                projectStore.Expect(ps => ps.StageProject(project));
+
+                var projectMigrator = mocks.Stub<IMigrateProject>();
+                var projectFactory = mocks.Stub<IProjectFactory>();
+                projectFactory.Stub(pf => pf.CreateNewProject())
+                              .Return(project);
+                mocks.ReplayAll();
+
+                DialogBoxHandler = (s, hWnd) =>
+                {
+                    var saveFileDialogTester = new SaveFileDialogTester(hWnd);
+                    saveFileDialogTester.SaveFile(someValidFilePath);
+
+                    DialogBoxHandler = (name, wnd) =>
+                    {
+                        // Expect progress dialog, which will close automatically.    
+                    };
+                };
+
+                using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+                using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+                {
+                    gui.Plugins.Add(new TestPlugin());
+                    gui.Run();
+
+                    mainWindow.SetGui(gui);
+
+                    // When
+                    mainWindow.SaveProjectAsCommand.Execute(null);
+                }
+
+                // Then
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenMainWindow_WhenOpenProjectIsCalled_ThenProjectOpened()
+        {
+            // Given
+            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Core.Gui);
+            string filePath = Path.Combine(directoryPath, nameof(MainWindowTest), "Project.risk");
+
+            var mocks = new MockRepository();
+            var project = mocks.Stub<IProject>();
+
+            var projectStore = mocks.StrictMock<IStoreProject>();
+            projectStore.Expect(ps => ps.LoadProject(filePath));
+            projectStore.Expect(ps => ps.OpenProjectFileFilter).Return(string.Empty);
+
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject())
+                          .Return(project);
+            mocks.ReplayAll();
+
+            DialogBoxHandler = (s, hWnd) =>
+            {
+                var openFileDialogTester = new OpenFileDialogTester(hWnd);
+                openFileDialogTester.OpenFile(filePath);
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    // Expect progress dialog, which will close automatically.    
+                };
+            };
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+
+                // When
+                mainWindow.OpenProjectCommand.Execute(null);
+            }
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenMainWindowWithoutViewTabOpen_WhenCanExecuteCloseViewTabCommand_ThenFalse()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var project = mocks.Stub<IProject>();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject())
+                          .Return(project);
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+
+                // When
+                bool canExecute = mainWindow.CloseViewTabCommand.CanExecute(null);
+
+                // Then
+                Assert.IsFalse(canExecute);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenMainWindowWithViewTabOpen_WhenCanExecuteCloseViewTabCommand_ThenTrue()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var project = mocks.Stub<IProject>();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject())
+                          .Return(project);
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+
+                gui.ViewHost.AddDocumentView(new TestView());
+
+                // When
+                bool canExecute = mainWindow.CloseViewTabCommand.CanExecute(null);
+
+                // Then
+                Assert.IsTrue(canExecute);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenMainWindow_WhenExecuteToggleBackstageCommand_ThenBackstageToggled(bool backstageVisible)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var project = mocks.Stub<IProject>();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject())
+                          .Return(project);
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+
+                if (backstageVisible)
+                {
+                    mainWindow.ToggleBackstageCommand.Execute(null);
+                }
+                
+                // Precondition
+                AssertVisibility(mainWindow, backstageVisible);
+
+                // When
+                mainWindow.ToggleBackstageCommand.Execute(null);
+
+                // Then
+                AssertVisibility(mainWindow, !backstageVisible);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        private static void AssertVisibility(Gui.Forms.MainWindow.MainWindow mainWindow, bool backStageVisible)
+        {
+            if (backStageVisible)
+            {
+                Assert.AreEqual(Visibility.Collapsed, mainWindow.MainDockPanel.Visibility);
+                Assert.AreEqual(Visibility.Visible, mainWindow.BackstageDockPanel.Visibility);
+            }
+            else
+            {
+                Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
+                Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
+            }
         }
 
         private static IMapControl GetMapControl(MapLegendView mapLegendView)

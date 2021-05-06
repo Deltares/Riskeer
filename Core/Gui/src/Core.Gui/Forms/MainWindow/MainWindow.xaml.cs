@@ -87,7 +87,7 @@ namespace Core.Gui.Forms.MainWindow
             CloseApplicationCommand = new RelayCommand(OnCloseApplication);
             CloseViewTabCommand = new RelayCommand(OnCloseViewTab, CanCloseViewTab);
 
-            ToggleBackStageCommand = new RelayCommand(OnToggleBackstage);
+            ToggleBackstageCommand = new RelayCommand(OnToggleBackstage);
         }
 
         /// <summary>
@@ -357,7 +357,7 @@ namespace Core.Gui.Forms.MainWindow
         /// <summary>
         /// Gets the command to toggle the backstage.
         /// </summary>
-        public ICommand ToggleBackStageCommand { get; }
+        public ICommand ToggleBackstageCommand { get; }
 
         private void OnNewProject(object obj)
         {
