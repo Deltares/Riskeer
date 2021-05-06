@@ -280,40 +280,40 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return riskeerProject.AssessmentSections.FirstOrDefault();
+                    return riskeerProject.AssessmentSections.First();
                 }
 
-                return project;
+                return null;
             });
 
             yield return new StateInfo("Faalpaden", "\uE953", project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return riskeerProject.AssessmentSections.FirstOrDefault();
+                    return riskeerProject.AssessmentSections.First();
                 }
 
-                return project;
+                return null;
             });
 
             yield return new StateInfo("Berekeningen", "\uE91D", project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return riskeerProject.AssessmentSections.FirstOrDefault();
+                    return riskeerProject.AssessmentSections.First();
                 }
 
-                return project;
+                return null;
             });
 
             yield return new StateInfo("Assembleren", "\uE94B", project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return riskeerProject.AssessmentSections.FirstOrDefault();
+                    return riskeerProject.AssessmentSections.First();
                 }
 
-                return project;
+                return null;
             });
         }
 

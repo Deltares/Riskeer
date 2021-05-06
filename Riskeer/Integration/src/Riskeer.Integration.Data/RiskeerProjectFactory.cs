@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
+using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.Integration.Data
 {
@@ -30,7 +31,13 @@ namespace Riskeer.Integration.Data
     {
         public IProject CreateNewProject()
         {
-            return new RiskeerProject();
+            return new RiskeerProject
+            {
+                AssessmentSections =
+                {
+                    new AssessmentSection(AssessmentSectionComposition.Dike)
+                }
+            };
         }
     }
 }

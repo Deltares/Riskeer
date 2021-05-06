@@ -232,12 +232,32 @@ namespace Core.Gui.Forms.MainWindow
             {
                 return;
             }
-            
+
             ToggleButton checkedStateToggleButton = stateToggleButtonLookup.Keys.FirstOrDefault(stb => stb.IsChecked.HasValue && stb.IsChecked.Value);
 
             ProjectExplorer.Data = checkedStateToggleButton != null
                                        ? stateToggleButtonLookup[checkedStateToggleButton](gui.Project)
                                        : null;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (IsWindowDisposed || !disposing)
+            {
+                return;
+            }
+
+            IsWindowDisposed = true;
+
+            Close();
+
+            SetGui(null);
         }
 
         /// <summary>
@@ -267,28 +287,10 @@ namespace Core.Gui.Forms.MainWindow
 
             if (stateToggleButtonLookup.Count == 1)
             {
-                HandleStateButtonClick(stateToggleButton);
+                stateToggleButton.IsChecked = true;
+
+                UpdateProjectExplorer();
             }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (IsWindowDisposed || !disposing)
-            {
-                return;
-            }
-
-            IsWindowDisposed = true;
-
-            Close();
-
-            SetGui(null);
         }
 
         private void HandleStateButtonClick(ToggleButton clickedStateToggleButton)
@@ -497,9 +499,9 @@ namespace Core.Gui.Forms.MainWindow
         private void InitProjectExplorerWindow()
         {
             ProjectExplorer = new ProjectExplorer.ProjectExplorer(gui.ViewCommands, gui.GetTreeNodeInfos());
-            
+
             viewController.ViewHost.AddToolView(ProjectExplorer, ToolViewLocation.Left, "\uE95B");
-            
+
             UpdateProjectExplorer();
         }
 
