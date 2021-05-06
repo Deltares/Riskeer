@@ -932,6 +932,7 @@ namespace Core.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var plugin = mocks.Stub<PluginBase>();
+            plugin.Stub(p => p.GetStateInfos()).Return(Enumerable.Empty<StateInfo>());
             plugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
             plugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
             plugin.Stub(p => p.GetTreeNodeInfos()).Return(new TreeNodeInfo[]
@@ -965,6 +966,7 @@ namespace Core.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var plugin = mocks.Stub<PluginBase>();
+            plugin.Stub(p => p.GetStateInfos()).Return(Enumerable.Empty<StateInfo>());
             plugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
             plugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
             plugin.Stub(p => p.GetTreeNodeInfos()).Return(new TreeNodeInfo[]
