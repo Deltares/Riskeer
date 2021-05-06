@@ -25,7 +25,7 @@ All rights reserved.
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                   xmlns:commands="clr-namespace:Core.Gui.Forms.MainWindow"
+                   xmlns:commands="clr-namespace:Core.Gui.Commands"
                    mc:Ignorable="d">
     
     <UserControl.Resources>
@@ -43,14 +43,14 @@ All rights reserved.
                 <Separator/>
                 <ToggleButton>INFO</ToggleButton>
                 <ToggleButton>OPENEN</ToggleButton>
-                <Button Command="Save">Opslaan</Button>
-                <Button Command="SaveAs">Opslaan Als</Button>
+                <Button Command="{x:Static commands:MainWindowCommands.SaveProjectCommand}">Opslaan</Button>
+                <Button Command="{x:Static commands:MainWindowCommands.SaveProjectAsCommand}">Opslaan Als</Button>
                 <Separator/>
                 <ToggleButton>OVER</ToggleButton>
                 <Button>Toon log</Button>
                 <Button>Handleiding</Button>
                 <Separator/>
-                <Button Command="Close">Afsluiten</Button>
+                <Button Command="{x:Static commands:MainWindowCommands.CloseApplicationCommand}">Afsluiten</Button>
             </StackPanel>
             
             <Border/>

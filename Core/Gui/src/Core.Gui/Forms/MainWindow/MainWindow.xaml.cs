@@ -69,6 +69,14 @@ namespace Core.Gui.Forms.MainWindow
         private PropertyGridView.PropertyGridView propertyGrid;
         private IMapView currentMapView;
         private IChartView currentChartView;
+        
+        public ICommand NewProjectCommand { get; }
+        public ICommand SaveProjectCommand { get; }
+        public ICommand SaveProjectAsCommand { get; }
+        public ICommand OpenProjectCommand { get; }
+        public ICommand CloseApplicationCommand { get; }
+        public ICommand CloseViewTabCommand { get; }
+        public ICommand ToggleBackStageCommand { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -79,6 +87,15 @@ namespace Core.Gui.Forms.MainWindow
 
             windowInteropHelper = new WindowInteropHelper(this);
             Name = "RiskeerMainWindow";
+
+            NewProjectCommand = new RelayCommand(OnNewProject);
+            SaveProjectCommand = new RelayCommand(OnSaveProject);
+            SaveProjectAsCommand = new RelayCommand(OnSaveProjectAs);
+            OpenProjectCommand = new RelayCommand(OnOpenProject);
+            CloseApplicationCommand = new RelayCommand(OnCloseApplication);
+            CloseViewTabCommand = new RelayCommand(OnCloseViewTab, CanCloseViewTab);
+
+            ToggleBackStageCommand = new RelayCommand(OnToggleBackstage);
         }
 
         /// <summary>
@@ -315,17 +332,23 @@ namespace Core.Gui.Forms.MainWindow
 
         #region OnClick events
 
-        private void OnFileSaveClicked(object sender, RoutedEventArgs e)
+        private void OnNewProject(object obj)
+        {
+            commands.StorageCommands.CreateNewProject();
+            ValidateItems();
+        }
+        
+        private void OnSaveProject(object obj)
         {
             commands.StorageCommands.SaveProject();
         }
-
-        private void OnFileSaveAsClicked(object sender, RoutedEventArgs e)
+        
+        private void OnSaveProjectAs(object obj)
         {
             commands.StorageCommands.SaveProjectAs();
         }
-
-        private void OnFileOpenClicked(object sender, RoutedEventArgs e)
+        
+        private void OnOpenProject(object obj)
         {
             string projectPath = commands.StorageCommands.GetExistingProjectFilePath();
             if (!string.IsNullOrEmpty(projectPath))
@@ -334,24 +357,33 @@ namespace Core.Gui.Forms.MainWindow
             }
         }
 
-        private void OnFileNewClicked(object sender, RoutedEventArgs e)
-        {
-            commands.StorageCommands.CreateNewProject();
-            ValidateItems();
-        }
-
-        private void OnFileExitClicked(object sender, RoutedEventArgs e)
+        private void OnCloseApplication(object obj)
         {
             gui.ExitApplication();
         }
-
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        
+        private bool CanCloseViewTab(object arg)
         {
-            WindowState = WindowState.Maximized;
+            return viewController.ViewHost.DocumentViews.Any();
+        }
 
-            FileManualButton.IsEnabled = File.Exists(settings.FixedSettings.ManualFilePath);
+        private void OnCloseViewTab(object obj)
+        {
+            viewController.ViewHost.Remove(viewController.ViewHost.ActiveDocumentView);
+        }
 
-            ValidateItems();
+        private void OnToggleBackstage(object obj)
+        {
+            if (MainDockPanel.Visibility == Visibility.Visible)
+            {
+                MainDockPanel.Visibility = Visibility.Collapsed;
+                BackstageDockPanel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MainDockPanel.Visibility = Visibility.Visible;
+                BackstageDockPanel.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void ButtonShowProjectExplorer_Click(object sender, RoutedEventArgs e)
@@ -408,16 +440,6 @@ namespace Core.Gui.Forms.MainWindow
             {
                 Process.Start(manualFileName);
             }
-        }
-
-        private void CloseDocumentTab(object sender, ExecutedRoutedEventArgs e)
-        {
-            viewController.ViewHost.Remove(viewController.ViewHost.ActiveDocumentView);
-        }
-
-        private void CanCloseDocumentTab(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = viewController.ViewHost.DocumentViews.Any();
         }
 
         private void OnAboutDialog_Clicked(object sender, RoutedEventArgs e)
@@ -532,6 +554,15 @@ namespace Core.Gui.Forms.MainWindow
 
         #region Events
 
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Maximized;
+
+            FileManualButton.IsEnabled = File.Exists(settings.FixedSettings.ManualFilePath);
+
+            ValidateItems();
+        }
+        
         private void OnViewOpened(object sender, ViewChangeEventArgs e)
         {
             var mapView = e.View as IMapView;
@@ -655,19 +686,5 @@ namespace Core.Gui.Forms.MainWindow
         }
 
         #endregion
-
-        private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (MainDockPanel.Visibility == Visibility.Visible)
-            {
-                MainDockPanel.Visibility = Visibility.Collapsed;
-                BackstageDockPanel.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                MainDockPanel.Visibility = Visibility.Visible;
-                BackstageDockPanel.Visibility = Visibility.Collapsed;
-            }
-        }
     }
 }

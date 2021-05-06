@@ -26,10 +26,10 @@ All rights reserved.
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
-                   xmlns:commands="clr-namespace:Core.Gui.Forms.MainWindow"
                    xmlns:properties="clr-namespace:Core.Gui.Properties"
                    xmlns:viewHost="clr-namespace:Core.Gui.Forms.ViewHost"
                    xmlns:backstage="clr-namespace:Core.Gui.Forms.Backstage"
+                   xmlns:commands="clr-namespace:Core.Gui.Commands"
                    mc:Ignorable="d" 
                    Title="MainWindow" Height="768" Width="1024" 
                    x:Name="Window"
@@ -37,24 +37,30 @@ All rights reserved.
                    ResizeMode="CanResizeWithGrip"
                    FlowDirection="LeftToRight"
                    Loaded="MainWindow_OnLoaded">
-
-    <metro:MetroWindow.CommandBindings>
-        <CommandBinding Command="New" Executed="OnFileNewClicked" />
-        <CommandBinding Command="Save" Executed="OnFileSaveClicked" />
-        <CommandBinding Command="SaveAs" Executed="OnFileSaveAsClicked" />
-        <CommandBinding Command="Open" Executed="OnFileOpenClicked" />
-        <CommandBinding Command="Close" Executed="OnFileExitClicked" />
-        <CommandBinding Command="{x:Static commands:MainWindowCommands.CloseViewTabCommand}" Executed="CloseDocumentTab" CanExecute="CanCloseDocumentTab"/>
-        <CommandBinding Command="{x:Static commands:MainWindowCommands.ToggleBackstageCommand}" Executed="CommandBinding_OnExecuted"/>
-    </metro:MetroWindow.CommandBindings>
+    
+    <commands:RoutedCommandHandlers.Commands>
+        <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.NewProjectCommand}"
+                                       Command="{Binding Path=NewProjectCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
+        <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.SaveProjectCommand}"
+                                       Command="{Binding Path=SaveProjectCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
+        <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.SaveProjectAsCommand}"
+                                       Command="{Binding Path=SaveProjectAsCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
+        <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.OpenProjectCommand}"
+                                       Command="{Binding Path=OpenProjectCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
+        <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.CloseApplicationCommand}"
+                                       Command="{Binding Path=CloseApplicationCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
+        <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.ToggleBackstageCommand}"
+                                       Command="{Binding Path=ToggleBackStageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
+    </commands:RoutedCommandHandlers.Commands>
 
     <metro:MetroWindow.InputBindings>
-        <KeyBinding Command="New" Key="N" Modifiers="Ctrl"/>
-        <KeyBinding Command="Save" Key="S" Modifiers="Ctrl"/>
-        <KeyBinding Command="SaveAs" Key="S" Modifiers="Ctrl + Shift" />
-        <KeyBinding Command="Open" Key="O" Modifiers="Ctrl"/>
-        <KeyBinding Command="Close" Key="F4" Modifiers="Alt"/>
-        <KeyBinding Command="{x:Static commands:MainWindowCommands.CloseViewTabCommand}" Key="F4" Modifiers="Ctrl"/>
+        <KeyBinding Command="{x:Static commands:MainWindowCommands.NewProjectCommand}" Key="N" Modifiers="Ctrl"/>
+        <KeyBinding Command="{x:Static commands:MainWindowCommands.SaveProjectCommand}" Key="S" Modifiers="Ctrl"/>
+        <KeyBinding Command="{x:Static commands:MainWindowCommands.SaveProjectAsCommand}" Key="S" Modifiers="Ctrl + Shift" />
+        <KeyBinding Command="{x:Static commands:MainWindowCommands.OpenProjectCommand}" Key="O" Modifiers="Ctrl"/>
+        <KeyBinding Command="{x:Static commands:MainWindowCommands.CloseApplicationCommand}" Key="F4" Modifiers="Alt"/>
+        <KeyBinding Command="{Binding Path=CloseViewTabCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}"
+                    Key="F4" Modifiers="Ctrl"/>
     </metro:MetroWindow.InputBindings>
 
     <metro:MetroWindow.Resources>
@@ -81,26 +87,26 @@ All rights reserved.
         <metro:WindowCommands>
             <Button Style="{StaticResource WindowCommandsButtonStyle}"
                     ToolTip="{x:Static properties:Resources.WindowCommands_New_ToolTip}"
-                    AutomationProperties.AutomationId="WindowCommandsNewProject"
-                    Click="OnFileNewClicked">
-                <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE93C;"/>
+                    Command="{x:Static commands:MainWindowCommands.NewProjectCommand}"
+                    AutomationProperties.AutomationId="WindowCommandsNewProject">
+            <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE93C;"/>
             </Button>
             <Button Style="{StaticResource WindowCommandsButtonStyle}"
                     ToolTip="{x:Static properties:Resources.WindowCommands_Save_ToolTip}"
-                    AutomationProperties.AutomationId="WindowCommandsSaveProject"
-                    Click="OnFileSaveClicked">
+                    Command="{x:Static commands:MainWindowCommands.SaveProjectCommand}"
+                    AutomationProperties.AutomationId="WindowCommandsSaveProject">
                 <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE93E;"/>
             </Button>
             <Button Style="{StaticResource WindowCommandsButtonStyle}"
                     ToolTip="{x:Static properties:Resources.WindowCommands_SaveAs_ToolTip}"
-                    AutomationProperties.AutomationId="WindowCommandsSaveProjectAs"
-                    Click="OnFileSaveAsClicked">
+                    Command="{x:Static commands:MainWindowCommands.SaveProjectAsCommand}"
+                    AutomationProperties.AutomationId="WindowCommandsSaveProjectAs">
                 <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE940;"/>
             </Button>
             <Button Style="{StaticResource WindowCommandsButtonStyle}"
                     ToolTip="{x:Static properties:Resources.WindowCommands_Open_ToolTip}"
-                    AutomationProperties.AutomationId= "WindowCommandsOpenProject"
-                    Click="OnFileOpenClicked">
+                    Command="{x:Static commands:MainWindowCommands.OpenProjectCommand}"
+                    AutomationProperties.AutomationId= "WindowCommandsOpenProject">
                 <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE93D;"/>
             </Button>
         </metro:WindowCommands>
@@ -190,7 +196,7 @@ All rights reserved.
                     </Button>
                     <Button Style="{StaticResource ViewStateBarButtonStyle}"
                             ToolTip="{x:Static properties:Resources.ViewStateBar_Exit_ToolTip}"
-                            Click="OnFileExitClicked"
+                            Command="{x:Static commands:MainWindowCommands.CloseApplicationCommand}"
                             AutomationProperties.AutomationId="ViewStateButtonBarExit">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE901;"/>
                     </Button>

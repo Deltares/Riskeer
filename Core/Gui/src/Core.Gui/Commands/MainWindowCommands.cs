@@ -20,8 +20,9 @@
 // All rights reserved.
 
 using System.Windows.Input;
+using Core.Gui.Forms.MainWindow;
 
-namespace Core.Gui.Forms.MainWindow
+namespace Core.Gui.Commands
 {
     /// <summary>
     /// This class defines <see cref="RoutedUICommand"/> members for the custom commands of <see cref="MainWindow"/>.
@@ -29,13 +30,38 @@ namespace Core.Gui.Forms.MainWindow
     public static class MainWindowCommands
     {
         /// <summary>
+        /// The command for creating a new project.
+        /// </summary>
+        public static readonly ICommand NewProjectCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The command for saving the project.
+        /// </summary>
+        public static readonly ICommand SaveProjectCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The command for saving the project as.
+        /// </summary>
+        public static readonly ICommand SaveProjectAsCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The command for opening a project.
+        /// </summary>
+        public static readonly ICommand OpenProjectCommand = new RoutedCommand();
+        
+        /// <summary>
+        /// The command for closing the application.
+        /// </summary>
+        public static readonly ICommand CloseApplicationCommand = new RoutedCommand();
+
+        /// <summary>
         /// The command for closing the current active view.
         /// </summary>
-        public static readonly RoutedUICommand CloseViewTabCommand = new RoutedUICommand();
+        public static readonly ICommand CloseViewTabCommand = new RoutedCommand();
 
         /// <summary>
         /// The command for toggling the backstage.
         /// </summary>
-        public static readonly RoutedUICommand ToggleBackstageCommand = new RoutedUICommand();
+        public static readonly ICommand ToggleBackstageCommand = new RoutedCommand();
     }
 }
