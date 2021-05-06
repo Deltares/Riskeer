@@ -69,14 +69,6 @@ namespace Core.Gui.Forms.MainWindow
         private PropertyGridView.PropertyGridView propertyGrid;
         private IMapView currentMapView;
         private IChartView currentChartView;
-        
-        public ICommand NewProjectCommand { get; }
-        public ICommand SaveProjectCommand { get; }
-        public ICommand SaveProjectAsCommand { get; }
-        public ICommand OpenProjectCommand { get; }
-        public ICommand CloseApplicationCommand { get; }
-        public ICommand CloseViewTabCommand { get; }
-        public ICommand ToggleBackStageCommand { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -330,24 +322,59 @@ namespace Core.Gui.Forms.MainWindow
             UpdateProjectExplorer();
         }
 
-        #region OnClick events
+        #region Commands
+
+        /// <summary>
+        /// Gets the command to start a new project.
+        /// </summary>
+        public ICommand NewProjectCommand { get; }
+
+        /// <summary>
+        /// Gets the command to save a project.
+        /// </summary>
+        public ICommand SaveProjectCommand { get; }
+
+        /// <summary>
+        /// Gets the command to save a project as.
+        /// </summary>
+        public ICommand SaveProjectAsCommand { get; }
+
+        /// <summary>
+        /// Gets the command to open a project.
+        /// </summary>
+        public ICommand OpenProjectCommand { get; }
+
+        /// <summary>
+        /// Gets the command to close the application.
+        /// </summary>
+        public ICommand CloseApplicationCommand { get; }
+
+        /// <summary>
+        /// Gets the command to close a view tab.
+        /// </summary>
+        public ICommand CloseViewTabCommand { get; }
+
+        /// <summary>
+        /// Gets the command to toggle the backstage.
+        /// </summary>
+        public ICommand ToggleBackStageCommand { get; }
 
         private void OnNewProject(object obj)
         {
             commands.StorageCommands.CreateNewProject();
             ValidateItems();
         }
-        
+
         private void OnSaveProject(object obj)
         {
             commands.StorageCommands.SaveProject();
         }
-        
+
         private void OnSaveProjectAs(object obj)
         {
             commands.StorageCommands.SaveProjectAs();
         }
-        
+
         private void OnOpenProject(object obj)
         {
             string projectPath = commands.StorageCommands.GetExistingProjectFilePath();
@@ -361,7 +388,7 @@ namespace Core.Gui.Forms.MainWindow
         {
             gui.ExitApplication();
         }
-        
+
         private bool CanCloseViewTab(object arg)
         {
             return viewController.ViewHost.DocumentViews.Any();
@@ -385,6 +412,10 @@ namespace Core.Gui.Forms.MainWindow
                 BackstageDockPanel.Visibility = Visibility.Collapsed;
             }
         }
+
+        #endregion
+
+        #region OnClick events
 
         private void ButtonShowProjectExplorer_Click(object sender, RoutedEventArgs e)
         {
@@ -562,7 +593,7 @@ namespace Core.Gui.Forms.MainWindow
 
             ValidateItems();
         }
-        
+
         private void OnViewOpened(object sender, ViewChangeEventArgs e)
         {
             var mapView = e.View as IMapView;

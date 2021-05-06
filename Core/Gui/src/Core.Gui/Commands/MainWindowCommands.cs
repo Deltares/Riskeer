@@ -20,12 +20,11 @@
 // All rights reserved.
 
 using System.Windows.Input;
-using Core.Gui.Forms.MainWindow;
 
 namespace Core.Gui.Commands
 {
     /// <summary>
-    /// This class defines <see cref="RoutedUICommand"/> members for the custom commands of <see cref="MainWindow"/>.
+    /// Provides a set of commands for the main window.
     /// </summary>
     public static class MainWindowCommands
     {
@@ -48,16 +47,11 @@ namespace Core.Gui.Commands
         /// The command for opening a project.
         /// </summary>
         public static readonly ICommand OpenProjectCommand = new RoutedCommand();
-        
+
         /// <summary>
         /// The command for closing the application.
         /// </summary>
         public static readonly ICommand CloseApplicationCommand = new RoutedCommand();
-
-        /// <summary>
-        /// The command for closing the current active view.
-        /// </summary>
-        public static readonly ICommand CloseViewTabCommand = new RoutedCommand();
 
         /// <summary>
         /// The command for toggling the backstage.
