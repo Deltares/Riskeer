@@ -57,5 +57,10 @@ namespace Core.Gui.Commands
         /// The command for toggling the backstage.
         /// </summary>
         public static readonly ICommand ToggleBackstageCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The command for opening the log file.
+        /// </summary>
+        public static readonly ICommand OpenLogFileCommand = new RoutedCommand();
     }
 }

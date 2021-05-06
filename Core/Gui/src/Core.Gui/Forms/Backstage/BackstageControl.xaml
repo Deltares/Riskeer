@@ -47,7 +47,7 @@ All rights reserved.
                 <Button Command="{x:Static commands:MainWindowCommands.SaveProjectAsCommand}">Opslaan Als</Button>
                 <Separator/>
                 <ToggleButton>OVER</ToggleButton>
-                <Button>Toon log</Button>
+                <Button Command="{x:Static commands:MainWindowCommands.OpenLogFileCommand}">Toon log</Button>
                 <Button>Handleiding</Button>
                 <Separator/>
                 <Button Command="{x:Static commands:MainWindowCommands.CloseApplicationCommand}">Afsluiten</Button>

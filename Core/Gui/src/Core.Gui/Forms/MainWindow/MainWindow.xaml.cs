@@ -93,6 +93,7 @@ namespace Core.Gui.Forms.MainWindow
             ToggleChartLegendViewCommand = new RelayCommand(OnToggleChartLegendView);
             TogglePropertyGridViewCommand = new RelayCommand(OnTogglePropertyGridView);
             ToggleMessageWindowCommand = new RelayCommand(OnToggleMessageWindow);
+            OpenLogFileCommand = new RelayCommand(OnOpenLogFile);
         }
 
         /// <summary>
@@ -389,6 +390,11 @@ namespace Core.Gui.Forms.MainWindow
         /// </summary>
         public ICommand ToggleMessageWindowCommand { get; }
 
+        /// <summary>
+        /// Gets the command to open the log file.
+        /// </summary>
+        public ICommand OpenLogFileCommand { get; }
+
         private void OnNewProject(object obj)
         {
             commands.StorageCommands.CreateNewProject();
@@ -484,14 +490,14 @@ namespace Core.Gui.Forms.MainWindow
             toggleButton.IsChecked = !active;
         }
 
-        #endregion
-
-        #region OnClick events
-
-        private void OnFileHelpShowLog_Clicked(object sender, RoutedEventArgs e)
+        private void OnOpenLogFile(object obj)
         {
             commands.ApplicationCommands.OpenLogFileExternal();
         }
+
+        #endregion
+
+        #region OnClick events
 
         private void OnFileManual_Clicked(object sender, RoutedEventArgs e)
         {
