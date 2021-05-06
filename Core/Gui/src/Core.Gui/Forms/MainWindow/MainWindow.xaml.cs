@@ -88,6 +88,11 @@ namespace Core.Gui.Forms.MainWindow
             CloseViewTabCommand = new RelayCommand(OnCloseViewTab, CanCloseViewTab);
 
             ToggleBackstageCommand = new RelayCommand(OnToggleBackstage);
+            ToggleProjectExplorerCommand = new RelayCommand(OnToggleProjectExplorer);
+            ToggleMapLegendViewCommand = new RelayCommand(OnToggleMapLegendView);
+            ToggleChartLegendViewCommand = new RelayCommand(OnToggleChartLegendView);
+            TogglePropertyGridViewCommand = new RelayCommand(OnTogglePropertyGridView);
+            ToggleMessageWindowCommand = new RelayCommand(OnToggleMessageWindow);
         }
 
         /// <summary>
@@ -359,6 +364,31 @@ namespace Core.Gui.Forms.MainWindow
         /// </summary>
         public ICommand ToggleBackstageCommand { get; }
 
+        /// <summary>
+        /// Gets the command to toggle the <see cref="ProjectExplorer"/>.
+        /// </summary>
+        public ICommand ToggleProjectExplorerCommand { get; }
+
+        /// <summary>
+        /// Gets the command to toggle the <see cref="MapLegendView"/>.
+        /// </summary>
+        public ICommand ToggleMapLegendViewCommand { get; }
+
+        /// <summary>
+        /// Gets the command to toggle the <see cref="ChartLegendView"/>.
+        /// </summary>
+        public ICommand ToggleChartLegendViewCommand { get; }
+
+        /// <summary>
+        /// Gets the command to toggle the <see cref="PropertyGridView"/>.
+        /// </summary>
+        public ICommand TogglePropertyGridViewCommand { get; }
+
+        /// <summary>
+        /// Gets the command to toggle the <see cref="MessageWindow"/>.
+        /// </summary>
+        public ICommand ToggleMessageWindowCommand { get; }
+
         private void OnNewProject(object obj)
         {
             commands.StorageCommands.CreateNewProject();
@@ -413,33 +443,29 @@ namespace Core.Gui.Forms.MainWindow
             }
         }
 
-        #endregion
-
-        #region OnClick events
-
-        private void ButtonShowProjectExplorer_Click(object sender, RoutedEventArgs e)
+        private void OnToggleProjectExplorer(object obj)
         {
             ToggleToolWindow(ProjectExplorer, InitProjectExplorerWindow, ButtonShowProjectExplorer);
         }
 
-        private void ButtonShowProperties_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleToolWindow(PropertyGrid, InitPropertiesWindowOrBringToFront, ButtonShowProperties);
-        }
-
-        private void ButtonShowMessages_Click(object sender, RoutedEventArgs e)
-        {
-            ToggleToolWindow(MessageWindow, InitMessagesWindow, ButtonShowMessages);
-        }
-
-        private void ButtonShowMapLegendView_Click(object sender, RoutedEventArgs e)
+        private void OnToggleMapLegendView(object obj)
         {
             ToggleToolWindow(MapLegendView, InitMapLegendWindow, ButtonShowMapLegendView);
         }
 
-        private void ButtonShowChartLegendView_Click(object sender, RoutedEventArgs e)
+        private void OnToggleChartLegendView(object obj)
         {
             ToggleToolWindow(ChartLegendView, InitChartLegendWindow, ButtonShowChartLegendView);
+        }
+
+        private void OnTogglePropertyGridView(object obj)
+        {
+            ToggleToolWindow(PropertyGrid, InitPropertiesWindowOrBringToFront, ButtonShowProperties);
+        }
+
+        private void OnToggleMessageWindow(object obj)
+        {
+            ToggleToolWindow(MessageWindow, InitMessagesWindow, ButtonShowMessages);
         }
 
         private void ToggleToolWindow(IView toolView, Action initializeToolWindowAction, ToggleButton toggleButton)
@@ -457,6 +483,10 @@ namespace Core.Gui.Forms.MainWindow
 
             toggleButton.IsChecked = !active;
         }
+
+        #endregion
+
+        #region OnClick events
 
         private void OnFileHelpShowLog_Clicked(object sender, RoutedEventArgs e)
         {

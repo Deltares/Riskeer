@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using System.Windows.Input;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
@@ -459,168 +461,48 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        public void GivenGuiWithProjectExplorer_WhenClosingProjectExplorer_ThenProjectExplorerSetToNull()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenMainWindow_WhenToggleProjectExplorerCalled_ThenProjectExploreToggled(bool initiallyAdded)
         {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
-            mocks.ReplayAll();
-
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                gui.Plugins.Add(new TestPlugin());
-                gui.Run();
-
-                mainWindow.SetGui(gui);
-                mainWindow.InitializeToolWindows();
-
-                // Precondition
-                Assert.IsNotNull(mainWindow.ProjectExplorer);
-
-                // When
-                mainWindow.ViewHost.Remove(mainWindow.ProjectExplorer);
-
-                // Then
-                Assert.IsNull(mainWindow.ProjectExplorer);
-            }
-
-            mocks.VerifyAll();
+            // When & Then
+            ToggleToolViewAndAssert(window => window.ProjectExplorer, window => window.ToggleProjectExplorerCommand, initiallyAdded);
         }
 
         [Test]
-        public void GivenGuiWithPropertyGrid_WhenClosingPropertyGrid_ThenPropertyGridSetToNull()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenMainWindow_WhenTogglePropertyGridViewCalled_ThenPropertyGridViewToggled(bool initiallyAdded)
         {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
-            mocks.ReplayAll();
-
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                gui.Plugins.Add(new TestPlugin());
-                gui.Run();
-
-                mainWindow.SetGui(gui);
-                mainWindow.InitializeToolWindows();
-
-                // Precondition
-                Assert.IsNotNull(mainWindow.PropertyGrid);
-
-                // When
-                mainWindow.ViewHost.Remove(mainWindow.PropertyGrid);
-
-                // Then
-                Assert.IsNull(mainWindow.PropertyGrid);
-            }
-
-            mocks.VerifyAll();
+            // When & Then
+            ToggleToolViewAndAssert(window => window.PropertyGrid, window => window.TogglePropertyGridViewCommand, initiallyAdded);
         }
 
         [Test]
-        public void GivenGuiWithMessageWindow_WhenClosingMessageWindow_ThenMessageWindowSetToNull()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenMainWindow_WhenToggleMessageWindowCalled_ThenMessageWindowToggled(bool initiallyAdded)
         {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
-            mocks.ReplayAll();
-
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                gui.Plugins.Add(new TestPlugin());
-                gui.Run();
-
-                mainWindow.SetGui(gui);
-                mainWindow.InitializeToolWindows();
-
-                // Precondition
-                Assert.IsNotNull(mainWindow.MessageWindow);
-
-                // When
-                mainWindow.ViewHost.Remove(mainWindow.MessageWindow);
-
-                // Then
-                Assert.IsNull(mainWindow.MessageWindow);
-            }
-
-            mocks.VerifyAll();
+            // When & Then
+            ToggleToolViewAndAssert(window => window.MessageWindow, window => window.ToggleMessageWindowCommand, initiallyAdded);
         }
 
         [Test]
-        public void GivenGuiWithMapLegendView_WhenClosingMapLegendView_ThenMapLegendViewSetToNull()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenMainWindow_WhenToggleMapLegendViewCalled_ThenMapLegendViewToggled(bool initiallyAdded)
         {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
-            mocks.ReplayAll();
-
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                gui.Plugins.Add(new TestPlugin());
-                gui.Run();
-
-                mainWindow.SetGui(gui);
-                mainWindow.InitializeToolWindows();
-
-                // Precondition
-                Assert.IsNotNull(mainWindow.MapLegendView);
-
-                // When
-                mainWindow.ViewHost.Remove(mainWindow.MapLegendView);
-
-                // Then
-                Assert.IsNull(mainWindow.MapLegendView);
-            }
-
-            mocks.VerifyAll();
+            // When & Then
+            ToggleToolViewAndAssert(window => window.MapLegendView, window => window.ToggleMapLegendViewCommand, initiallyAdded);
         }
 
         [Test]
-        public void GivenGuiWithChartLegendView_WhenClosingChartLegendView_ThenChartLegendViewSetToNull()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenMainWindow_WhenToggleChartLegendViewCalled_ThenChartLegendViewToggled(bool initiallyAdded)
         {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
-            mocks.ReplayAll();
-
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                gui.Plugins.Add(new TestPlugin());
-                gui.Run();
-
-                mainWindow.SetGui(gui);
-                mainWindow.InitializeToolWindows();
-
-                // Precondition
-                Assert.IsNotNull(mainWindow.ChartLegendView);
-
-                // When
-                mainWindow.ViewHost.Remove(mainWindow.ChartLegendView);
-
-                // Then
-                Assert.IsNull(mainWindow.ChartLegendView);
-            }
-
-            mocks.VerifyAll();
+            // When & Then
+            ToggleToolViewAndAssert(window => window.ChartLegendView, window => window.ToggleChartLegendViewCommand, initiallyAdded);
         }
 
         [Test]
@@ -1277,7 +1159,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 {
                     mainWindow.ToggleBackstageCommand.Execute(null);
                 }
-                
+
                 // Precondition
                 AssertVisibility(mainWindow, backstageVisible);
 
@@ -1289,6 +1171,60 @@ namespace Core.Gui.Test.Forms.MainWindow
             }
 
             mocks.VerifyAll();
+        }
+
+        private static void ToggleToolViewAndAssert(Func<Gui.Forms.MainWindow.MainWindow, IView> getToolViewFunc,
+                                                    Func<Gui.Forms.MainWindow.MainWindow, ICommand> getCommandFunc,
+                                                    bool initiallyAdded)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+
+                ICommand command = getCommandFunc(mainWindow);
+
+                if (!initiallyAdded)
+                {
+                    command.Execute(null);
+                }
+
+                // Precondition
+                AssertToolWindowPresent(mainWindow.ViewHost.ToolViews, getToolViewFunc(mainWindow), initiallyAdded);
+
+                // When
+                command.Execute(null);
+
+                // Then
+                AssertToolWindowPresent(mainWindow.ViewHost.ToolViews, getToolViewFunc(mainWindow), !initiallyAdded);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        private static void AssertToolWindowPresent(IEnumerable<IView> toolViews, IView toolView, bool isPresent)
+        {
+            if (isPresent)
+            {
+                Assert.IsNotNull(toolView);
+                CollectionAssert.Contains(toolViews, toolView);
+            }
+            else
+            {
+                Assert.IsNull(toolView);
+                CollectionAssert.DoesNotContain(toolViews, toolView);
+            }
         }
 
         private static void AssertVisibility(Gui.Forms.MainWindow.MainWindow mainWindow, bool backStageVisible)
