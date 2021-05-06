@@ -161,7 +161,7 @@ namespace Core.Common.Controls.TreeView
                     return;
                 }
 
-                AddRootNode();
+                AddRootNodes();
 
                 treeView.SelectedNode = treeView.Nodes.Count > 0 ? treeView.Nodes[0] : null;
             }
@@ -518,23 +518,40 @@ namespace Core.Common.Controls.TreeView
                              .FirstOrDefault(node => node != null);
         }
 
-        private void AddRootNode()
+        private void AddRootNodes()
+        {
+            if (data is IEnumerable<object> rootObjects)
+            {
+                foreach (object rootObject in rootObjects)
+                {
+                    AddRootNode(rootObject);
+                }
+            }
+            else
+            {
+                TreeNode rootNode = AddRootNode(data);
+
+                if (rootNode.Nodes.Count > 0)
+                {
+                    rootNode.Expand();
+                }
+            }
+        }
+
+        private TreeNode AddRootNode(object rootObject)
         {
             var rootNode = new TreeNode
             {
-                Tag = data
+                Tag = rootObject
             };
 
             UpdateNode(rootNode);
 
-            if (rootNode.Nodes.Count > 0)
-            {
-                rootNode.Expand();
-            }
-
             treeView.Nodes.Add(rootNode);
 
             treeNodeObserverLookup.Add(rootNode, new TreeNodeObserver(rootNode, this));
+
+            return rootNode;
         }
 
         private TreeNode CreateTreeNode(TreeNode parentNode, object nodeData)

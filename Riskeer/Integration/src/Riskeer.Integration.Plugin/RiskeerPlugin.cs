@@ -280,7 +280,17 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return riskeerProject.AssessmentSections.First();
+                    AssessmentSection assessmentSection = riskeerProject.AssessmentSections.First();
+
+                    return new object[]
+                    {
+                        new ReferenceLineContext(assessmentSection.ReferenceLine, assessmentSection),
+                        new NormContext(assessmentSection.FailureMechanismContribution, assessmentSection),
+                        new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection),
+                        new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
+                        assessmentSection.BackgroundData,
+                        assessmentSection.Comments
+                    };
                 }
 
                 return null;
@@ -290,7 +300,7 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return riskeerProject.AssessmentSections.First();
+                    return WrapFailureMechanismsInContexts(riskeerProject.AssessmentSections.First());
                 }
 
                 return null;
@@ -300,7 +310,7 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return riskeerProject.AssessmentSections.First();
+                    return WrapFailureMechanismsInContexts(riskeerProject.AssessmentSections.First());
                 }
 
                 return null;
@@ -310,7 +320,15 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return riskeerProject.AssessmentSections.First();
+                    AssessmentSection assessmentSection = riskeerProject.AssessmentSections.First();
+
+                    return new object[]
+                    {
+                        new AssemblyResultCategoriesContext(assessmentSection),
+                        new AssemblyResultTotalContext(assessmentSection),
+                        new AssemblyResultPerSectionContext(assessmentSection),
+                        new AssemblyResultPerSectionMapContext(assessmentSection)
+                    };
                 }
 
                 return null;
