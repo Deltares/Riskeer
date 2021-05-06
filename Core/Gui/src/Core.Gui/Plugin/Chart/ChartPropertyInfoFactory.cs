@@ -21,13 +21,12 @@
 
 using System.Collections.Generic;
 using Core.Components.Chart.Data;
-using Core.Gui.Forms.Chart;
 using Core.Gui.PropertyClasses.Chart;
 
 namespace Core.Gui.Plugin.Chart
 {
     /// <summary>
-    /// Factory for creating <see cref="PropertyInfo"/> objects for <see cref="ChartLegendView"/>.
+    /// Factory for creating <see cref="PropertyInfo"/> objects for <see cref="ChartData"/>.
     /// </summary>
     public static class ChartPropertyInfoFactory
     {

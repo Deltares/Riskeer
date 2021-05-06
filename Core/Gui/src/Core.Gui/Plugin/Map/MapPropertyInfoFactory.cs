@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using Core.Components.Gis.Data;
-using Core.Gui.Forms.Map;
 using Core.Gui.Helpers;
 using Core.Gui.PresentationObjects.Map;
 using Core.Gui.PropertyClasses.Map;
@@ -29,7 +28,7 @@ using Core.Gui.PropertyClasses.Map;
 namespace Core.Gui.Plugin.Map
 {
     /// <summary>
-    /// Factory for creating <see cref="PropertyInfo"/> objects for <see cref="MapLegendView"/>.
+    /// Factory for creating <see cref="PropertyInfo"/> objects for <see cref="MapData"/>.
     /// </summary>
     public static class MapPropertyInfoFactory
     {

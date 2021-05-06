@@ -23,14 +23,13 @@ using System.Collections.Generic;
 using Core.Common.Util;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Importers;
-using Core.Gui.Forms.Map;
 using Core.Gui.PresentationObjects.Map;
 using Core.Gui.Properties;
 
 namespace Core.Gui.Plugin.Map
 {
     /// <summary>
-    /// Factory for creating <see cref="ImportInfo"/> objects for <see cref="MapLegendView"/>.
+    /// Factory for creating <see cref="ImportInfo"/> objects for <see cref="MapData"/>.
     /// </summary>
     public static class MapImportInfoFactory
     {
