@@ -48,7 +48,7 @@ All rights reserved.
                 <Separator/>
                 <ToggleButton>OVER</ToggleButton>
                 <Button Command="{x:Static commands:MainWindowCommands.OpenLogFileCommand}">Toon log</Button>
-                <Button>Handleiding</Button>
+                <Button Command="{x:Static commands:MainWindowCommands.OpenUserManualCommand}">Handleiding</Button>
                 <Separator/>
                 <Button Command="{x:Static commands:MainWindowCommands.CloseApplicationCommand}">Afsluiten</Button>
             </StackPanel>

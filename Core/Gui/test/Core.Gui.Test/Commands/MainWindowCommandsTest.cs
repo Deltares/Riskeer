@@ -39,6 +39,7 @@ namespace Core.Gui.Test.Commands
             ICommand closeApplicationCommand = MainWindowCommands.CloseApplicationCommand;
             ICommand toggleBackstageCommand = MainWindowCommands.ToggleBackstageCommand;
             ICommand openLogFileCommand = MainWindowCommands.OpenLogFileCommand;
+            ICommand openUserManualCommand = MainWindowCommands.OpenUserManualCommand;
 
             // Assert
             Assert.IsInstanceOf<RoutedCommand>(newProjectCommand);
@@ -48,6 +49,7 @@ namespace Core.Gui.Test.Commands
             Assert.IsInstanceOf<RoutedCommand>(closeApplicationCommand);
             Assert.IsInstanceOf<RoutedCommand>(toggleBackstageCommand);
             Assert.IsInstanceOf<RoutedCommand>(openLogFileCommand);
+            Assert.IsInstanceOf<RoutedCommand>(openUserManualCommand);
         }
     }
 }

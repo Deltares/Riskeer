@@ -62,5 +62,10 @@ namespace Core.Gui.Commands
         /// The command for opening the log file.
         /// </summary>
         public static readonly ICommand OpenLogFileCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The command for opening the user manual.
+        /// </summary>
+        public static readonly ICommand OpenUserManualCommand = new RoutedCommand();
     }
 }

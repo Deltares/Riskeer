@@ -94,6 +94,7 @@ namespace Core.Gui.Forms.MainWindow
             TogglePropertyGridViewCommand = new RelayCommand(OnTogglePropertyGridView);
             ToggleMessageWindowCommand = new RelayCommand(OnToggleMessageWindow);
             OpenLogFileCommand = new RelayCommand(OnOpenLogFile);
+            OpenUserManualCommand = new RelayCommand(OnOpenUserManual, CanOpenUserManual);
         }
 
         /// <summary>
@@ -328,6 +329,41 @@ namespace Core.Gui.Forms.MainWindow
             UpdateProjectExplorer();
         }
 
+        #region OnClick events
+
+        private void OnAboutDialog_Clicked(object sender, RoutedEventArgs e)
+        {
+            var aboutDialog = new SplashScreen.SplashScreen
+            {
+                VersionText = SettingsHelper.Instance.ApplicationVersion,
+                SupportEmail = settings.FixedSettings.SupportEmailAddress,
+                SupportPhoneNumber = settings.FixedSettings.SupportPhoneNumber,
+                AllowsTransparency = false,
+                WindowStyle = WindowStyle.SingleBorderWindow,
+                Title = Properties.Resources.ViewStateBar_About_ToolTip,
+                Icon = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.information.GetHbitmap(),
+                                                             IntPtr.Zero,
+                                                             Int32Rect.Empty,
+                                                             BitmapSizeOptions.FromEmptyOptions()),
+                ShowInTaskbar = false,
+                Owner = this,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+
+            aboutDialog.PreviewKeyDown += (s, ev) =>
+            {
+                if (ev.Key == Key.Escape)
+                {
+                    ev.Handled = true;
+                    aboutDialog.Shutdown();
+                }
+            };
+
+            aboutDialog.ShowDialog();
+        }
+
+        #endregion
+
         #region Commands
 
         /// <summary>
@@ -394,6 +430,11 @@ namespace Core.Gui.Forms.MainWindow
         /// Gets the command to open the log file.
         /// </summary>
         public ICommand OpenLogFileCommand { get; }
+
+        /// <summary>
+        /// Gets the command to open the user manual.
+        /// </summary>
+        public ICommand OpenUserManualCommand { get; }
 
         private void OnNewProject(object obj)
         {
@@ -495,49 +536,14 @@ namespace Core.Gui.Forms.MainWindow
             commands.ApplicationCommands.OpenLogFileExternal();
         }
 
-        #endregion
-
-        #region OnClick events
-
-        private void OnFileManual_Clicked(object sender, RoutedEventArgs e)
+        private bool CanOpenUserManual(object obj)
         {
-            string manualFileName = settings.FixedSettings.ManualFilePath;
-
-            if (File.Exists(manualFileName))
-            {
-                Process.Start(manualFileName);
-            }
+            return File.Exists(settings?.FixedSettings.ManualFilePath);
         }
 
-        private void OnAboutDialog_Clicked(object sender, RoutedEventArgs e)
+        private void OnOpenUserManual(object obj)
         {
-            var aboutDialog = new SplashScreen.SplashScreen
-            {
-                VersionText = SettingsHelper.Instance.ApplicationVersion,
-                SupportEmail = settings.FixedSettings.SupportEmailAddress,
-                SupportPhoneNumber = settings.FixedSettings.SupportPhoneNumber,
-                AllowsTransparency = false,
-                WindowStyle = WindowStyle.SingleBorderWindow,
-                Title = Properties.Resources.ViewStateBar_About_ToolTip,
-                Icon = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.information.GetHbitmap(),
-                                                             IntPtr.Zero,
-                                                             Int32Rect.Empty,
-                                                             BitmapSizeOptions.FromEmptyOptions()),
-                ShowInTaskbar = false,
-                Owner = this,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
-
-            aboutDialog.PreviewKeyDown += (s, ev) =>
-            {
-                if (ev.Key == Key.Escape)
-                {
-                    ev.Handled = true;
-                    aboutDialog.Shutdown();
-                }
-            };
-
-            aboutDialog.ShowDialog();
+            Process.Start(settings.FixedSettings.ManualFilePath);
         }
 
         #endregion
@@ -624,8 +630,6 @@ namespace Core.Gui.Forms.MainWindow
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Maximized;
-
-            FileManualButton.IsEnabled = File.Exists(settings.FixedSettings.ManualFilePath);
 
             ValidateItems();
         }

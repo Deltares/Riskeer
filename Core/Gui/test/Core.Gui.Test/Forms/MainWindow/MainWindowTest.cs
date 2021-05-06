@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -109,6 +110,13 @@ namespace Core.Gui.Test.Forms.MainWindow
                 Assert.IsNotNull(mainWindow.OpenProjectCommand);
                 Assert.IsNotNull(mainWindow.CloseApplicationCommand);
                 Assert.IsNotNull(mainWindow.ToggleBackstageCommand);
+                Assert.IsNotNull(mainWindow.ToggleProjectExplorerCommand);
+                Assert.IsNotNull(mainWindow.ToggleMapLegendViewCommand);
+                Assert.IsNotNull(mainWindow.ToggleChartLegendViewCommand);
+                Assert.IsNotNull(mainWindow.TogglePropertyGridViewCommand);
+                Assert.IsNotNull(mainWindow.ToggleMessageWindowCommand);
+                Assert.IsNotNull(mainWindow.OpenLogFileCommand);
+                Assert.IsNotNull(mainWindow.OpenUserManualCommand);
             }
         }
 
@@ -1168,6 +1176,46 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 // Then
                 AssertVisibility(mainWindow, !backstageVisible);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenMainWindowWithOrWithoutUserManual_WhenCanExecuteOpenUserManualCommand_ThenExpectedValue(bool userManualPresent)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var project = mocks.Stub<IProject>();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject())
+                          .Return(project);
+            mocks.ReplayAll();
+
+            string path = Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path);
+
+            var settings = new GuiCoreSettings
+            {
+                ManualFilePath = userManualPresent ? path : null
+            };
+            
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, settings))
+            {
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+                
+                // When
+                bool canExecute = mainWindow.OpenUserManualCommand.CanExecute(null);
+
+                // Then
+                Assert.AreEqual(userManualPresent, canExecute);
             }
 
             mocks.VerifyAll();

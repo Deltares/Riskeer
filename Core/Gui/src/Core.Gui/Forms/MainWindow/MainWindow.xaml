@@ -53,6 +53,8 @@ All rights reserved.
                                        Command="{Binding Path=ToggleBackstageCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
         <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.OpenLogFileCommand}"
                                        Command="{Binding Path=OpenLogFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
+        <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.OpenUserManualCommand}"
+                                       Command="{Binding Path=OpenUserManualCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
     </commands:RoutedCommandHandlers.Commands>
 
     <metro:MetroWindow.InputBindings>
@@ -182,11 +184,9 @@ All rights reserved.
                             AutomationProperties.AutomationId="ViewStateButtonBarShowLog">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE946;"/>
                     </Button>
-                    <Button Name="FileManualButton"
-                            Style="{StaticResource ViewStateBarButtonStyle}"
+                    <Button Style="{StaticResource ViewStateBarButtonStyle}"
                             ToolTip="{x:Static properties:Resources.ViewStateBar_OpenManual_ToolTip}"
-                            Click="OnFileManual_Clicked"
-                            x:FieldModifier="private"
+                            Command="{x:Static commands:MainWindowCommands.OpenUserManualCommand}"
                             AutomationProperties.AutomationId="ViewStateButtonBarOpenManual">
                         <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE92D;"/>
                     </Button>
