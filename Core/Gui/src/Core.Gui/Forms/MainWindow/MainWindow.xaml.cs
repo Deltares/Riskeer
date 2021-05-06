@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -30,6 +31,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Settings;
 using Core.Components.Chart.Forms;
@@ -54,6 +56,8 @@ namespace Core.Gui.Forms.MainWindow
         /// ensure common UI functionality such as maximizing works as expected.
         /// </summary>
         private readonly WindowInteropHelper windowInteropHelper;
+
+        private readonly IDictionary<ToggleButton, Func<IProject, object>> stateToggleButtonLookup = new Dictionary<ToggleButton, Func<IProject, object>>();
 
         private IViewController viewController;
         private ICommandsOwner commands;
@@ -224,10 +228,16 @@ namespace Core.Gui.Forms.MainWindow
         /// </summary>
         public void UpdateProjectExplorer()
         {
-            if (ProjectExplorer != null)
+            if (ProjectExplorer == null)
             {
-                ProjectExplorer.Data = gui.Project;
+                return;
             }
+            
+            ToggleButton checkedStateToggleButton = stateToggleButtonLookup.Keys.FirstOrDefault(stb => stb.IsChecked.HasValue && stb.IsChecked.Value);
+
+            ProjectExplorer.Data = checkedStateToggleButton != null
+                                       ? stateToggleButtonLookup[checkedStateToggleButton](gui.Project)
+                                       : null;
         }
 
         /// <summary>
@@ -235,19 +245,30 @@ namespace Core.Gui.Forms.MainWindow
         /// </summary>
         /// <param name="text">The text of the button.</param>
         /// <param name="symbol">The symbol of the button.</param>
-        public void AddStateButton(string text, string symbol)
+        /// <param name="getRootData">The method for obtaining the root data of the state.</param>
+        internal void AddStateButton(string text, string symbol, Func<IProject, object> getRootData)
         {
-            MainButtonStackPanel.Children.Insert(MainButtonStackPanel.Children.Count - 1,
-                                                 new ToggleButton
-                                                 {
-                                                     Tag = text,
-                                                     Style = (Style) FindResource("MainButtonBarToggleButtonStyle"),
-                                                     Content = new TextBlock
-                                                     {
-                                                         Style = (Style) FindResource("ButtonLargeIconStyle"),
-                                                         Text = symbol
-                                                     }
-                                                 });
+            var stateToggleButton = new ToggleButton
+            {
+                Tag = text,
+                Style = (Style) FindResource("MainButtonBarToggleButtonStyle"),
+                Content = new TextBlock
+                {
+                    Style = (Style) FindResource("ButtonLargeIconStyle"),
+                    Text = symbol
+                }
+            };
+
+            stateToggleButton.Click += (sender, e) => { HandleStateButtonClick((ToggleButton) sender); };
+
+            MainButtonStackPanel.Children.Insert(MainButtonStackPanel.Children.Count - 1, stateToggleButton);
+
+            stateToggleButtonLookup.Add(stateToggleButton, getRootData);
+
+            if (stateToggleButtonLookup.Count == 1)
+            {
+                HandleStateButtonClick(stateToggleButton);
+            }
         }
 
         public void Dispose()
@@ -268,6 +289,26 @@ namespace Core.Gui.Forms.MainWindow
             Close();
 
             SetGui(null);
+        }
+
+        private void HandleStateButtonClick(ToggleButton clickedStateToggleButton)
+        {
+            if (clickedStateToggleButton.IsChecked != null && !clickedStateToggleButton.IsChecked.Value)
+            {
+                clickedStateToggleButton.IsChecked = true;
+
+                return;
+            }
+
+            foreach (ToggleButton stateToggleButton in stateToggleButtonLookup.Keys.Except(new[]
+            {
+                clickedStateToggleButton
+            }))
+            {
+                stateToggleButton.IsChecked = false;
+            }
+
+            UpdateProjectExplorer();
         }
 
         #region OnClick events
@@ -339,7 +380,7 @@ namespace Core.Gui.Forms.MainWindow
         private void ToggleToolWindow(IView toolView, Action initializeToolWindowAction, ToggleButton toggleButton)
         {
             bool active = viewController.ViewHost.ToolViews.Contains(toolView);
-            
+
             if (active)
             {
                 viewController.ViewHost.Remove(toolView);
@@ -455,11 +496,11 @@ namespace Core.Gui.Forms.MainWindow
 
         private void InitProjectExplorerWindow()
         {
-            ProjectExplorer = new ProjectExplorer.ProjectExplorer(gui.ViewCommands, gui.GetTreeNodeInfos())
-            {
-                Data = gui.Project
-            };
+            ProjectExplorer = new ProjectExplorer.ProjectExplorer(gui.ViewCommands, gui.GetTreeNodeInfos());
+            
             viewController.ViewHost.AddToolView(ProjectExplorer, ToolViewLocation.Left, "\uE95B");
+            
+            UpdateProjectExplorer();
         }
 
         private void InitMessagesWindow()

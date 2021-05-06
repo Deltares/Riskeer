@@ -492,7 +492,7 @@ namespace Core.Gui
 
             foreach (StateInfo stateInfo in Plugins.SelectMany(p => p.GetStateInfos()))
             {
-                mainWindow.AddStateButton(stateInfo.Name, stateInfo.Symbol);
+                mainWindow.AddStateButton(stateInfo.Name, stateInfo.Symbol, stateInfo.GetRootData);
             }
             
             mainWindow.SubscribeToGui();
