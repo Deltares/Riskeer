@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Linq;
-using Core.Common.TestUtil;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
