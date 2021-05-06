@@ -505,17 +505,17 @@ namespace Core.Common.Controls.TreeView
             return treeView.Nodes.Count > 0 ? GetNodeByTag(treeView.Nodes[0], nodeData) : null;
         }
 
-        private static TreeNode GetNodeByTag(TreeNode rootNode, object tag)
+        private static TreeNode GetNodeByTag(TreeNode parentNode, object tag)
         {
-            if (Equals(rootNode.Tag, tag))
+            if (Equals(parentNode.Tag, tag))
             {
-                return rootNode;
+                return parentNode;
             }
 
-            return rootNode.Nodes
-                           .Cast<TreeNode>()
-                           .Select(n => GetNodeByTag(n, tag))
-                           .FirstOrDefault(node => node != null);
+            return parentNode.Nodes
+                             .Cast<TreeNode>()
+                             .Select(n => GetNodeByTag(n, tag))
+                             .FirstOrDefault(node => node != null);
         }
 
         private void AddRootNode()
