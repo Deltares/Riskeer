@@ -75,13 +75,6 @@ All rights reserved.
         <Setter Property="Width" Value="525" />
     </Style>
 
-    <Style x:Key="MainButtonBarSeparatorStyle" TargetType="{x:Type Separator}"
-           BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
-        <Setter Property="Width" Value="1"/>
-        <Setter Property="Height" Value="84"/>
-        <Setter Property="Background" Value="{StaticResource SeparatorBackgroundBrush}" />
-    </Style>
-
     <Style x:Key="PanelBackgroundWindowTitleStyle" TargetType="{x:Type Panel}">
         <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
         <Style.Triggers>

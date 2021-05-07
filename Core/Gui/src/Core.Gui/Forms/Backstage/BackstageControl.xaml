@@ -66,6 +66,13 @@ All rights reserved.
                     </MultiDataTrigger>
                 </Style.Triggers>
             </Style>
+            
+            <Style x:Key="BackstageSeparatorStyle" TargetType="{x:Type Separator}"
+                   BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
+                <Setter Property="Background" Value="{StaticResource ButtonHoverBackgroundBrush}" />
+                <Setter Property="Height" Value="1" />
+                <Setter Property="Margin" Value="25 10 15 10" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     
@@ -77,7 +84,7 @@ All rights reserved.
                         Content="Terug" />
                 <ToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
                               Content="Info" />
-                <Separator />
+                <Separator Style="{StaticResource BackstageSeparatorStyle}" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Command="{x:Static commands:MainWindowCommands.NewProjectCommand}"
                         Content="Nieuw" />
@@ -89,7 +96,7 @@ All rights reserved.
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Command="{x:Static commands:MainWindowCommands.SaveProjectAsCommand}"
                         Content="Opslaan Als" />
-                <Separator />
+                <Separator Style="{StaticResource BackstageSeparatorStyle}" />
                 <ToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
                               Content="Over" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
@@ -98,7 +105,7 @@ All rights reserved.
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Command="{x:Static commands:MainWindowCommands.OpenUserManualCommand}"
                         Content="Handleiding" />
-                <Separator/>
+                <Separator Style="{StaticResource BackstageSeparatorStyle}" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Command="{x:Static commands:MainWindowCommands.CloseApplicationCommand}"
                         Content="Afsluiten" />

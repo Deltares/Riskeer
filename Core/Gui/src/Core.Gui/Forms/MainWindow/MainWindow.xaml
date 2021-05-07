@@ -73,6 +73,13 @@ All rights reserved.
                 <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/DeltaresStyle.xaml" /> 
             </ResourceDictionary.MergedDictionaries>
 
+            <Style x:Key="MainButtonBarSeparatorStyle" TargetType="{x:Type Separator}"
+                   BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
+                <Setter Property="Width" Value="1"/>
+                <Setter Property="Height" Value="84"/>
+                <Setter Property="Background" Value="{StaticResource SeparatorBackgroundBrush}" />
+            </Style>
+
             <Style x:Key="ViewStateBarToggleButtonStyle" TargetType="{x:Type ToggleButton}"
                    BasedOn="{StaticResource RiskeerToggleButtonStyle}">
                 <Setter Property="Height" Value="30"/>
