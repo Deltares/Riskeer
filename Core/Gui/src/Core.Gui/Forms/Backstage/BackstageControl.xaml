@@ -69,9 +69,12 @@ All rights reserved.
                 <Button Style="{StaticResource BackstageButtonStyle}" 
                         Command="{x:Static commands:MainWindowCommands.ToggleBackstageCommand}"
                         Content="Terug" />
-                <Separator />
                 <ToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
                               Content="Info" />
+                <Separator />
+                <Button Style="{StaticResource BackstageButtonStyle}"
+                        Command="{x:Static commands:MainWindowCommands.NewProjectCommand}"
+                        Content="Nieuw" />
                 <ToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
                               Content="Openen" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
