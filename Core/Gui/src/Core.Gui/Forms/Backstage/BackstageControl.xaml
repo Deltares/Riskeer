@@ -37,12 +37,18 @@ All rights reserved.
             
             <Style x:Key="BackstageButtonStyle" TargetType="{x:Type ButtonBase}"
                    BasedOn="{StaticResource RiskeerButtonStyle}">
-                <Setter Property="Height" Value="40"/>
+                <Setter Property="Height" Value="40" />
+                <Setter Property="Width" Value="140" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Padding" Value="25 0 15 0"/>
             </Style>
             
             <Style x:Key="BackstageToggleButtonStyle" TargetType="{x:Type ToggleButton}"
                    BasedOn="{StaticResource RiskeerToggleButtonStyle}">
-                <Setter Property="Height" Value="40"/>
+                <Setter Property="Height" Value="40" />
+                <Setter Property="Width" Value="140" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Padding" Value="25 0 15 0"/>
                 
                 <Style.Triggers>
                     <Trigger Property="IsChecked" Value="True">
