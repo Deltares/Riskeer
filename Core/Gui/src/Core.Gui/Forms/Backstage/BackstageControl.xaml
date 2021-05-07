@@ -37,17 +37,17 @@ All rights reserved.
             
             <Style x:Key="BackstageButtonStyle" TargetType="{x:Type ButtonBase}"
                    BasedOn="{StaticResource RiskeerButtonStyle}">
-                <Setter Property="Height" Value="40" />
-                <Setter Property="Width" Value="140" />
+                <Setter Property="Height" Value="38" />
+                <Setter Property="Width" Value="139" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="Padding" Value="25 0 15 0"/>
+                <Setter Property="Padding" Value="25 0 15 0" />
                 
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}"/>
+                        <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}" />
                     </Trigger>
                     <Trigger Property="IsPressed" Value="True">
-                        <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}"/>
+                        <Setter Property="Background" Value="{StaticResource WhiteOverlayBrush}" />
                     </Trigger>
 
                     <MultiDataTrigger>
@@ -57,7 +57,7 @@ All rights reserved.
                                 Value="False" />
                             <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
                         </MultiDataTrigger.Conditions>
-                        <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}" />
+                        <Setter Property="Background" Value="{StaticResource WhiteOverlayBrush}" />
                     </MultiDataTrigger>
 
                     <MultiDataTrigger>
@@ -72,11 +72,36 @@ All rights reserved.
                 </Style.Triggers>
             </Style>
             
+            <Style x:Key="BackstageBackButtonStyle" TargetType="{x:Type Button}"
+                   BasedOn="{StaticResource BackstageButtonStyle}">
+                <Setter Property="Padding" Value="22 3 0 -3" />
+                <Setter Property="Margin" Value="0 15" />
+                
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="{StaticResource WhiteOverlayBrush}" />
+                        <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
+                    </Trigger>
+                    
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition
+                                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
+                                Value="False" />
+                            <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Background"
+                                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=NonActiveBorderBrush}" />
+                        <Setter Property="Foreground" Value="{StaticResource GrayBrush}" />
+                    </MultiDataTrigger>
+                </Style.Triggers>
+            </Style>
+            
             <Style x:Key="BackstageToggleButtonStyle" TargetType="{x:Type ToggleButton}"
                    BasedOn="{StaticResource BackstageButtonStyle}">
                 <Style.Triggers>
                     <Trigger Property="IsChecked" Value="True">
-                        <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}" />
+                        <Setter Property="Background" Value="{StaticResource WhiteOverlayBrush}" />
                     </Trigger>
 
                     <MultiDataTrigger>
@@ -86,14 +111,14 @@ All rights reserved.
                                 Value="False" />
                             <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True" />
                         </MultiDataTrigger.Conditions>
-                        <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}" />
+                        <Setter Property="Background" Value="{StaticResource WhiteOverlayBrush}" />
                     </MultiDataTrigger>
                 </Style.Triggers>
             </Style>
             
             <Style x:Key="BackstageSeparatorStyle" TargetType="{x:Type Separator}"
                    BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
-                <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}" />
+                <Setter Property="Background" Value="{StaticResource WhiteOverlayBrush}" />
                 <Setter Property="Height" Value="1" />
                 <Setter Property="Margin" Value="25 10 15 10" />
             </Style>
@@ -103,9 +128,12 @@ All rights reserved.
     <Grid>
         <DockPanel>
             <StackPanel Width="140" DockPanel.Dock="Left" Style="{StaticResource PanelBackgroundWindowTitleStyle}">
-                <Button Style="{StaticResource BackstageButtonStyle}" 
-                        Command="{x:Static commands:MainWindowCommands.ToggleBackstageCommand}"
-                        Content="Terug" />
+                <Button Style="{StaticResource BackstageBackButtonStyle}" 
+                        Command="{x:Static commands:MainWindowCommands.ToggleBackstageCommand}">
+                    <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
+                               FontSize="35"
+                               Text="&#xE916;"/>
+                </Button>
                 <ToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
                               Content="Info" />
                 <Separator Style="{StaticResource BackstageSeparatorStyle}" />

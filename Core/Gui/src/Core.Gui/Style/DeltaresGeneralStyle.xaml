@@ -52,7 +52,7 @@ All rights reserved.
     <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource DeltaresBlue}" options:Freeze="True" />
     <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource DeltaresBlue}" options:Freeze="True" />
 
-    <SolidColorBrush x:Key="WitheOverlayBrush" Color="{StaticResource White}" Opacity="0.2" />
+    <SolidColorBrush x:Key="WhiteOverlayBrush" Color="{StaticResource White}" Opacity="0.2" />
 
     <SolidColorBrush x:Key="TransparentBrush" Color="{StaticResource Transparent}" />
 
@@ -61,6 +61,7 @@ All rights reserved.
 
     <SolidColorBrush x:Key="DeltaresDarkerBlueBrush" Color="{StaticResource DeltaresDarkerBlue}" />
     <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}" />
+    <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource Gray}" />
 
     <Style TargetType="mainWindow:MainWindow">
         <Setter Property="GlowBrush" Value="{DynamicResource WindowGlowBrush}" />

@@ -27,7 +27,7 @@
         <Setter Property="Foreground" Value="{StaticResource WhiteBrush}" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}"/>
+                <Setter Property="Background" Value="{StaticResource WhiteOverlayBrush}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}"/>
@@ -47,7 +47,7 @@
                         Value="False" />
                     <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}" />
+                <Setter Property="Background" Value="{StaticResource WhiteOverlayBrush}" />
             </MultiDataTrigger>
         </Style.Triggers>
     </Style>
@@ -76,7 +76,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}"/>
+                <Setter Property="Background" Value="{StaticResource WhiteOverlayBrush}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}"/>
@@ -100,7 +100,7 @@
                         Value="False" />
                     <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}" />
+                <Setter Property="Background" Value="{StaticResource WhiteOverlayBrush}" />
             </MultiDataTrigger>
 
             <MultiDataTrigger>
@@ -135,7 +135,7 @@
                         Value="False" />
                     <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True" />
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}" />
+                <Setter Property="Background" Value="{StaticResource WhiteOverlayBrush}" />
             </MultiDataTrigger>
         </Style.Triggers>
     </Style>
