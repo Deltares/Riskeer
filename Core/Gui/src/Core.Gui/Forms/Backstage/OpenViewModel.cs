@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -19,23 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Windows.Controls;
-
 namespace Core.Gui.Forms.Backstage
 {
-    /// <summary>
-    /// Main user interface of the application.
-    /// </summary>
-    public partial class BackstageControl : UserControl
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BackstageControl"/> class.
-        /// </summary>
-        public BackstageControl()
-        {
-            InitializeComponent();
-
-            DataContext = new BackstageViewModel();
-        }
-    }
+    public class OpenViewModel : IViewModel {}
 }

@@ -28,7 +28,9 @@ All rights reserved.
                    xmlns:commands="clr-namespace:Core.Gui.Commands"
                    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
                    xmlns:properties="clr-namespace:Core.Gui.Properties"
-                   mc:Ignorable="d">
+                   xmlns:backstage="clr-namespace:Core.Gui.Forms.Backstage"
+                   mc:Ignorable="d"
+                   d:DataContext="{d:DesignInstance IsDesignTimeCreatable=False, Type={x:Type backstage:BackstageViewModel}}">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -123,48 +125,65 @@ All rights reserved.
                 <Setter Property="Height" Value="1" />
                 <Setter Property="Margin" Value="25 10" />
             </Style>
+            
+            <DataTemplate DataType="{x:Type backstage:InfoViewModel}">
+                <TextBlock FontSize="35">Info</TextBlock>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type backstage:OpenViewModel}">
+                <TextBlock FontSize="35">Open</TextBlock>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type backstage:AboutViewModel}">
+                <TextBlock FontSize="35">Over</TextBlock>
+            </DataTemplate>
+            
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
         <DockPanel>
-            <StackPanel Width="140" DockPanel.Dock="Left" Style="{StaticResource PanelBackgroundWindowTitleStyle}">
+            <StackPanel Width="138" DockPanel.Dock="Left" Style="{StaticResource PanelBackgroundWindowTitleStyle}">
                 <Button Style="{StaticResource BackstageBackButtonStyle}" 
                         Command="{x:Static commands:MainWindowCommands.ToggleBackstageCommand}">
                     <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
                                FontSize="35"
-                               Text="&#xE916;"/>
+                               Text="&#xE916;" />
                 </Button>
                 <ToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
-                              Content="{x:Static properties:Resources.Info_DisplayName}" />
+                              Content="{x:Static properties:Resources.Info_DisplayName}"
+                              Command="{Binding SetCurrentViewModelCommand}"
+                              CommandParameter="{Binding InfoViewModel}" />
                 <Separator Style="{StaticResource BackstageSeparatorStyle}" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
-                        Command="{x:Static commands:MainWindowCommands.NewProjectCommand}"
-                        Content="{x:Static properties:Resources.NewProject_DisplayName}" />
+                        Content="{x:Static properties:Resources.NewProject_DisplayName}"
+                        Command="{x:Static commands:MainWindowCommands.NewProjectCommand}" />
                 <ToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
-                              Content="{x:Static properties:Resources.OpenProject_DisplayName}" />
+                              Content="{x:Static properties:Resources.OpenProject_DisplayName}"
+                              Command="{Binding SetCurrentViewModelCommand}"
+                              CommandParameter="{Binding OpenViewModel}" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
-                        Command="{x:Static commands:MainWindowCommands.SaveProjectCommand}"
-                        Content="{x:Static properties:Resources.SaveProject_DisplayName}" />
+                        Content="{x:Static properties:Resources.SaveProject_DisplayName}"
+                        Command="{x:Static commands:MainWindowCommands.SaveProjectCommand}" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
-                        Command="{x:Static commands:MainWindowCommands.SaveProjectAsCommand}"
-                        Content="{x:Static properties:Resources.SaveProjectAs_DisplayName}" />
+                        Content="{x:Static properties:Resources.SaveProjectAs_DisplayName}"
+                        Command="{x:Static commands:MainWindowCommands.SaveProjectAsCommand}" />
                 <Separator Style="{StaticResource BackstageSeparatorStyle}" />
                 <ToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
-                              Content="{x:Static properties:Resources.About_DisplayName}" />
+                              Content="{x:Static properties:Resources.About_DisplayName}"
+                              Command="{Binding SetCurrentViewModelCommand}"
+                              CommandParameter="{Binding AboutViewModel}" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
-                        Command="{x:Static commands:MainWindowCommands.OpenLogFileCommand}"
-                        Content="{x:Static properties:Resources.ShowLog_DisplayName}"/>
+                        Content="{x:Static properties:Resources.ShowLog_DisplayName}"
+                        Command="{x:Static commands:MainWindowCommands.OpenLogFileCommand}" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
-                        Command="{x:Static commands:MainWindowCommands.OpenUserManualCommand}"
-                        Content="{x:Static properties:Resources.ShowManual_DisplayName}" />
+                        Content="{x:Static properties:Resources.ShowManual_DisplayName}"
+                        Command="{x:Static commands:MainWindowCommands.OpenUserManualCommand}" />
                 <Separator Style="{StaticResource BackstageSeparatorStyle}" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
-                        Command="{x:Static commands:MainWindowCommands.CloseApplicationCommand}"
-                        Content="{x:Static properties:Resources.ExitApplication_DisplayName}" />
+                        Content="{x:Static properties:Resources.ExitApplication_DisplayName}"
+                        Command="{x:Static commands:MainWindowCommands.CloseApplicationCommand}" />
             </StackPanel>
 
-            <Border Background="{StaticResource BackstageBackgroundColorBrush}"/>
+            <ContentControl Content="{Binding CurrentViewModel}" Background="{StaticResource BackstageBackgroundColorBrush}"/>
         </DockPanel>
     </Grid>
 </UserControl>
