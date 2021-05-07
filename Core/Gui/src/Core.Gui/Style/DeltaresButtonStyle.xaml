@@ -52,13 +52,11 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="ViewStateBarButtonStyle" TargetType="{x:Type ButtonBase}">
+    <Style x:Key="RiskeerButtonStyle" TargetType="{x:Type ButtonBase}">
         <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="0" />
-        <Setter Property="Width" Value="30"/>
-        <Setter Property="Height" Value="30"/>
         <Setter Property="Foreground" Value="{StaticResource WhiteBrush}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -105,8 +103,14 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="ViewStateBarToggleButtonStyle" TargetType="{x:Type ToggleButton}"
-           BasedOn="{StaticResource ViewStateBarButtonStyle}">
+    <Style x:Key="ViewStateBarButtonStyle" TargetType="{x:Type ButtonBase}"
+           BasedOn="{StaticResource RiskeerButtonStyle}">
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+    </Style>
+
+    <Style x:Key="RiskeerToggleButtonStyle" TargetType="{x:Type ToggleButton}"
+           BasedOn="{StaticResource RiskeerButtonStyle}">
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}" />
