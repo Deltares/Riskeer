@@ -19,7 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Core.Gui.Forms.Backstage
+using Core.Gui.Forms.Backstage;
+using NUnit.Framework;
+
+namespace Core.Gui.Test.Forms.Backstage
 {
-    public class InfoViewModel : IBackstagePageViewModel {}
+    [TestFixture]
+    public class OpenViewModelTest
+    {
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var viewModel = new AboutViewModel();
+
+            // Assert
+            Assert.IsInstanceOf<IBackstagePageViewModel>(viewModel);
+        }
+    }
 }

@@ -21,5 +21,5 @@
 
 namespace Core.Gui.Forms.Backstage
 {
-    public class OpenViewModel : IViewModel {}
+    public class OpenViewModel : IBackstagePageViewModel {}
 }

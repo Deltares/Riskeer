@@ -19,7 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Core.Gui.Forms.Backstage
+using System.Windows.Controls;
+using Core.Gui.Forms.Backstage;
+using NUnit.Framework;
+
+namespace Core.Gui.Test.Forms.Backstage
 {
-    public class InfoViewModel : IBackstagePageViewModel {}
+    [TestFixture]
+    public class BackstageControlTest
+    {
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var backstageControl = new BackstageControl();
+
+            // Assert
+            Assert.IsInstanceOf<UserControl>(backstageControl);
+            Assert.IsNotNull(backstageControl.DataContext);
+        }
+    }
 }

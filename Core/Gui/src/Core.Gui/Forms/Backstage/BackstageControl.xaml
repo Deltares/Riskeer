@@ -151,7 +151,7 @@ All rights reserved.
                 </Button>
                 <controls:OneWayToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
                                              Content="{x:Static properties:Resources.Info_DisplayName}"
-                                             Command="{Binding SetCurrentViewModelCommand}"
+                                             Command="{Binding SetSelectedViewModelCommand}"
                                              CommandParameter="{Binding InfoViewModel}" 
                                              IsChecked="{Binding InfoSelected, Mode=OneWay}" />
                 <Separator Style="{StaticResource BackstageSeparatorStyle}" />
@@ -160,7 +160,7 @@ All rights reserved.
                         Command="{x:Static commands:MainWindowCommands.NewProjectCommand}" />
                 <controls:OneWayToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
                                              Content="{x:Static properties:Resources.OpenProject_DisplayName}"
-                                             Command="{Binding SetCurrentViewModelCommand}"
+                                             Command="{Binding SetSelectedViewModelCommand}"
                                              CommandParameter="{Binding OpenViewModel}"
                                              IsChecked="{Binding OpenSelected, Mode=OneWay}" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
@@ -172,7 +172,7 @@ All rights reserved.
                 <Separator Style="{StaticResource BackstageSeparatorStyle}" />
                 <controls:OneWayToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
                                              Content="{x:Static properties:Resources.About_DisplayName}"
-                                             Command="{Binding SetCurrentViewModelCommand}"
+                                             Command="{Binding SetSelectedViewModelCommand}"
                                              CommandParameter="{Binding AboutViewModel}"
                                              IsChecked="{Binding AboutSelected, Mode=OneWay}" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
@@ -187,7 +187,7 @@ All rights reserved.
                         Command="{x:Static commands:MainWindowCommands.CloseApplicationCommand}" />
             </StackPanel>
 
-            <ContentControl Content="{Binding CurrentViewModel}"
+            <ContentControl Content="{Binding SelectedViewModel}"
                             Background="{StaticResource BackstageBackgroundColorBrush}"/>
         </DockPanel>
     </Grid>

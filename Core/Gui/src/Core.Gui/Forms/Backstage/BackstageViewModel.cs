@@ -26,47 +26,76 @@ using Core.Gui.Commands;
 
 namespace Core.Gui.Forms.Backstage
 {
+    /// <summary>
+    /// ViewModel for the <see cref="BackstageControl"/>.
+    /// </summary>
     public class BackstageViewModel : INotifyPropertyChanged
     {
-        private IViewModel currentViewModel;
+        private IBackstagePageViewModel selectedViewModel;
         private bool infoSelected;
         private bool openSelected;
         private bool aboutSelected;
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="BackstageViewModel"/>.
+        /// </summary>
         public BackstageViewModel()
         {
             InfoViewModel = new InfoViewModel();
             OpenViewModel = new OpenViewModel();
             AboutViewModel = new AboutViewModel();
 
-            SetCurrentViewModelCommand = new RelayCommand(OnSetCurrentViewModel);
+            SetSelectedViewModelCommand = new RelayCommand(OnSetCurrentViewModel);
 
-            CurrentViewModel = InfoViewModel;
+            SelectedViewModel = InfoViewModel;
         }
 
-        public ICommand SetCurrentViewModelCommand { get; }
-        public IViewModel InfoViewModel { get; }
-        public IViewModel OpenViewModel { get; }
-        public IViewModel AboutViewModel { get; }
+        /// <summary>
+        /// Gets the command to set the selected view model.
+        /// </summary>
+        public ICommand SetSelectedViewModelCommand { get; }
+        
+        /// <summary>
+        /// Gets the <see cref="InfoViewModel"/>.
+        /// </summary>
+        public InfoViewModel InfoViewModel { get; }
+        
+        /// <summary>
+        /// Gets the <see cref="OpenViewModel"/>.
+        /// </summary>
+        public OpenViewModel OpenViewModel { get; }
+        
+        /// <summary>
+        /// Gets the <see cref="AboutViewModel"/>.
+        /// </summary>
+        public AboutViewModel AboutViewModel { get; }
 
-        public IViewModel CurrentViewModel
+        /// <summary>
+        /// Gets or sets the selected view model.
+        /// </summary>
+        public IBackstagePageViewModel SelectedViewModel
         {
-            get => currentViewModel;
+            get => selectedViewModel;
             set
             {
-                if (value == currentViewModel)
+                if (value == selectedViewModel)
                 {
                     return;
                 }
 
-                currentViewModel = value;
-                OnPropertyChanged(nameof(CurrentViewModel));
+                selectedViewModel = value;
+                OnPropertyChanged(nameof(SelectedViewModel));
 
                 SetButtonStates();
             }
         }
 
+        /// <summary>
+        /// Gets an indicator whether the <see cref="InfoViewModel"/>
+        /// is selected.
+        /// </summary>
         public bool InfoSelected
         {
             get => infoSelected;
@@ -77,6 +106,10 @@ namespace Core.Gui.Forms.Backstage
             }
         }
 
+        /// <summary>
+        /// Gets an indicator whether the <see cref="OpenViewModel"/>
+        /// is selected.
+        /// </summary>
         public bool OpenSelected
         {
             get => openSelected;
@@ -87,6 +120,10 @@ namespace Core.Gui.Forms.Backstage
             }
         }
 
+        /// <summary>
+        /// Gets an indicator whether the <see cref="AboutViewModel"/>
+        /// is selected.
+        /// </summary>
         public bool AboutSelected
         {
             get => aboutSelected;
@@ -104,14 +141,14 @@ namespace Core.Gui.Forms.Backstage
 
         private void SetButtonStates()
         {
-            InfoSelected = currentViewModel is InfoViewModel;
-            OpenSelected = currentViewModel is OpenViewModel;
-            AboutSelected = currentViewModel is AboutViewModel;
+            InfoSelected = selectedViewModel is InfoViewModel;
+            OpenSelected = selectedViewModel is OpenViewModel;
+            AboutSelected = selectedViewModel is AboutViewModel;
         }
 
         private void OnSetCurrentViewModel(object obj)
         {
-            CurrentViewModel = (IViewModel) obj;
+            SelectedViewModel = (IBackstagePageViewModel) obj;
         }
     }
 }
