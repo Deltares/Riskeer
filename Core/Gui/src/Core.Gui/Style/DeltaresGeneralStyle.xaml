@@ -44,6 +44,7 @@ All rights reserved.
     <SolidColorBrush x:Key="MainButtonBarBackgroundBrush" Color="{StaticResource MainButtonBarBackground}" />
     <SolidColorBrush x:Key="MainButtonBarPressedButtonBackgroundBrush" Color="{StaticResource MainButtonBarPressedButtonBackground}" />
     <SolidColorBrush x:Key="MainButtonBarPressedButtonBorderBrush" Color="{StaticResource MainButtonBarPressedButtonBorder}" />
+    <SolidColorBrush x:Key="MainButtonBarSeparatorBackgroundBrush" Color="{StaticResource DeltaresSand}" Opacity="0.25" />
 
     <SolidColorBrush x:Key="WindowGlowBrush" Color="{StaticResource Black}" />
     <SolidColorBrush x:Key="WindowOverlayBrush" Color="{StaticResource Black}" Opacity="0.5" />
@@ -51,14 +52,12 @@ All rights reserved.
     <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource DeltaresBlue}" options:Freeze="True" />
     <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource DeltaresBlue}" options:Freeze="True" />
 
-    <SolidColorBrush x:Key="ButtonHoverBackgroundBrush" Color="{StaticResource White}" Opacity="0.2" />
+    <SolidColorBrush x:Key="WitheOverlayBrush" Color="{StaticResource White}" Opacity="0.2" />
 
     <SolidColorBrush x:Key="TransparentBrush" Color="{StaticResource Transparent}" />
 
-    <SolidColorBrush x:Key="DisabledButtonBackgroundBrush" Color="{StaticResource Black}" Opacity="0.15" />
+    <SolidColorBrush x:Key="DarkOverlayBrush" Color="{StaticResource Black}" Opacity="0.15" />
     <SolidColorBrush x:Key="DisabledButtonForegroundBrush" Color="{StaticResource Black}" />
-
-    <SolidColorBrush x:Key="SeparatorBackgroundBrush" Color="{StaticResource DeltaresSand}" Opacity="0.25" />
 
     <SolidColorBrush x:Key="DeltaresDarkerBlueBrush" Color="{StaticResource DeltaresDarkerBlue}" />
     <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}" />

@@ -77,7 +77,7 @@ All rights reserved.
                    BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
                 <Setter Property="Width" Value="1"/>
                 <Setter Property="Height" Value="84"/>
-                <Setter Property="Background" Value="{StaticResource SeparatorBackgroundBrush}" />
+                <Setter Property="Background" Value="{StaticResource MainButtonBarSeparatorBackgroundBrush}" />
             </Style>
 
             <Style x:Key="ViewStateBarToggleButtonStyle" TargetType="{x:Type ToggleButton}"

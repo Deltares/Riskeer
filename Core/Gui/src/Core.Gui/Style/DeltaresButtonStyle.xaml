@@ -27,7 +27,7 @@
         <Setter Property="Foreground" Value="{StaticResource WhiteBrush}" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource ButtonHoverBackgroundBrush}"/>
+                <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}"/>
@@ -47,7 +47,7 @@
                         Value="False" />
                     <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Background" Value="{StaticResource ButtonHoverBackgroundBrush}" />
+                <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}" />
             </MultiDataTrigger>
         </Style.Triggers>
     </Style>
@@ -76,13 +76,13 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource ButtonHoverBackgroundBrush}"/>
+                <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Background" Value="{StaticResource DisabledButtonBackgroundBrush}"/>
+                <Setter Property="Background" Value="{StaticResource DarkOverlayBrush}"/>
                 <Setter Property="Foreground" Value="{StaticResource DisabledButtonForegroundBrush}"/>
             </Trigger>
 
@@ -100,7 +100,7 @@
                         Value="False" />
                     <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Background" Value="{StaticResource ButtonHoverBackgroundBrush}" />
+                <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}" />
             </MultiDataTrigger>
 
             <MultiDataTrigger>
@@ -110,7 +110,7 @@
                         Value="False" />
                     <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled}" Value="False" />
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Background" Value="{StaticResource DisabledButtonBackgroundBrush}" />
+                <Setter Property="Background" Value="{StaticResource DarkOverlayBrush}" />
             </MultiDataTrigger>
         </Style.Triggers>
     </Style>
@@ -135,7 +135,7 @@
                         Value="False" />
                     <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True" />
                 </MultiDataTrigger.Conditions>
-                <Setter Property="Background" Value="{StaticResource ButtonHoverBackgroundBrush}" />
+                <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}" />
             </MultiDataTrigger>
         </Style.Triggers>
     </Style>

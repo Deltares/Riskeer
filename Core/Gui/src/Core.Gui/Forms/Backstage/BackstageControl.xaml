@@ -41,18 +41,42 @@ All rights reserved.
                 <Setter Property="Width" Value="140" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="Padding" Value="25 0 15 0"/>
+                
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}"/>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}"/>
+                    </Trigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition
+                                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
+                                Value="False" />
+                            <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}" />
+                    </MultiDataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition
+                                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
+                                Value="False" />
+                            <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled}" Value="False" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Background" Value="{StaticResource DarkOverlayBrush}" />
+                    </MultiDataTrigger>
+                </Style.Triggers>
             </Style>
             
             <Style x:Key="BackstageToggleButtonStyle" TargetType="{x:Type ToggleButton}"
-                   BasedOn="{StaticResource RiskeerToggleButtonStyle}">
-                <Setter Property="Height" Value="40" />
-                <Setter Property="Width" Value="140" />
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="Padding" Value="25 0 15 0"/>
-                
+                   BasedOn="{StaticResource BackstageButtonStyle}">
                 <Style.Triggers>
                     <Trigger Property="IsChecked" Value="True">
-                        <Setter Property="Background" Value="{StaticResource ButtonHoverBackgroundBrush}" />
+                        <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}" />
                     </Trigger>
 
                     <MultiDataTrigger>
@@ -62,14 +86,14 @@ All rights reserved.
                                 Value="False" />
                             <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True" />
                         </MultiDataTrigger.Conditions>
-                        <Setter Property="Background" Value="{StaticResource ButtonHoverBackgroundBrush}" />
+                        <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}" />
                     </MultiDataTrigger>
                 </Style.Triggers>
             </Style>
             
             <Style x:Key="BackstageSeparatorStyle" TargetType="{x:Type Separator}"
                    BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
-                <Setter Property="Background" Value="{StaticResource ButtonHoverBackgroundBrush}" />
+                <Setter Property="Background" Value="{StaticResource WitheOverlayBrush}" />
                 <Setter Property="Height" Value="1" />
                 <Setter Property="Margin" Value="25 10 15 10" />
             </Style>
