@@ -29,6 +29,9 @@ namespace Core.Gui.Forms.Backstage
     public class BackstageViewModel : INotifyPropertyChanged
     {
         private IViewModel currentViewModel;
+        private bool infoSelected;
+        private bool openSelected;
+        private bool aboutSelected;
         public event PropertyChangedEventHandler PropertyChanged;
 
         public BackstageViewModel()
@@ -38,27 +41,72 @@ namespace Core.Gui.Forms.Backstage
             AboutViewModel = new AboutViewModel();
 
             SetCurrentViewModelCommand = new RelayCommand(OnSetCurrentViewModel);
+
+            CurrentViewModel = InfoViewModel;
         }
+
+        public ICommand SetCurrentViewModelCommand { get; }
+        public IViewModel InfoViewModel { get; }
+        public IViewModel OpenViewModel { get; }
+        public IViewModel AboutViewModel { get; }
 
         public IViewModel CurrentViewModel
         {
             get => currentViewModel;
             set
             {
+                if (value == currentViewModel)
+                {
+                    return;
+                }
+
                 currentViewModel = value;
                 OnPropertyChanged(nameof(CurrentViewModel));
+
+                SetButtonStates();
             }
         }
 
-        public ICommand SetCurrentViewModelCommand { get; }
+        public bool InfoSelected
+        {
+            get => infoSelected;
+            private set
+            {
+                infoSelected = value;
+                OnPropertyChanged(nameof(InfoSelected));
+            }
+        }
 
-        public IViewModel InfoViewModel { get; }
-        public IViewModel OpenViewModel { get; }
-        public IViewModel AboutViewModel { get; }
+        public bool OpenSelected
+        {
+            get => openSelected;
+            private set
+            {
+                openSelected = value;
+                OnPropertyChanged(nameof(OpenSelected));
+            }
+        }
+
+        public bool AboutSelected
+        {
+            get => aboutSelected;
+            private set
+            {
+                aboutSelected = value;
+                OnPropertyChanged(nameof(AboutSelected));
+            }
+        }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void SetButtonStates()
+        {
+            InfoSelected = currentViewModel is InfoViewModel;
+            OpenSelected = currentViewModel is OpenViewModel;
+            AboutSelected = currentViewModel is AboutViewModel;
         }
 
         private void OnSetCurrentViewModel(object obj)
