@@ -340,7 +340,7 @@ namespace Core.Gui.Forms.MainWindow
                 SupportPhoneNumber = settings.FixedSettings.SupportPhoneNumber,
                 AllowsTransparency = false,
                 WindowStyle = WindowStyle.SingleBorderWindow,
-                Title = Properties.Resources.ViewStateBar_About_ToolTip,
+                Title = Properties.Resources.About_DisplayName,
                 Icon = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.information.GetHbitmap(),
                                                              IntPtr.Zero,
                                                              Int32Rect.Empty,

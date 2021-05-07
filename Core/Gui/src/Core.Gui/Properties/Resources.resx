@@ -120,7 +120,7 @@
   <data name="Properties_Title" xml:space="preserve">
     <value>Eigenschappen</value>
   </data>
-  <data name="WindowCommands_New_ToolTip" xml:space="preserve">
+  <data name="NewProject_DisplayName" xml:space="preserve">
     <value>Nieuw</value>
   </data>
   <data name="App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first" xml:space="preserve">
@@ -133,7 +133,7 @@
   <data name="App_Unhandled_exception" xml:space="preserve">
     <value>Onbekende kritieke fout opgetreden.</value>
   </data>
-  <data name="WindowCommands_Save_ToolTip" xml:space="preserve">
+  <data name="SaveProject_DisplayName" xml:space="preserve">
     <value>Opslaan</value>
   </data>
   <data name="GuiCore_ActivatePlugins_Exception_during_plugin_gui_deactivation" xml:space="preserve">
@@ -166,7 +166,7 @@
   <data name="PropertiesHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PropertiesHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WindowCommands_SaveAs_ToolTip" xml:space="preserve">
+  <data name="SaveProjectAs_DisplayName" xml:space="preserve">
     <value>Opslaan Als</value>
   </data>
   <data name="SelectViewDialog_listBox_DrawItem_Default" xml:space="preserve">
@@ -196,13 +196,13 @@
   <data name="application_import_blue1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\application_import_blue.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WindowCommands_Open_ToolTip" xml:space="preserve">
+  <data name="OpenProject_DisplayName" xml:space="preserve">
     <value>Openen</value>
   </data>
   <data name="GuiCore_ShowSplashScreen_User_has_canceled_start_Exiting" xml:space="preserve">
     <value>Gebruiker heeft het opstarten onderbroken. Het programma wordt afgesloten...</value>
   </data>
-  <data name="ViewStateBar_About_ToolTip" xml:space="preserve">
+  <data name="About_DisplayName" xml:space="preserve">
     <value>Over</value>
   </data>
   <data name="error" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -235,7 +235,7 @@
   <data name="GuiUpdateHandler_GetSupportedUpdaterForTargetType_No_updater_available_for_this_item" xml:space="preserve">
     <value>Geen enkele 'Updater' is beschikbaar voor dit element.</value>
   </data>
-  <data name="ViewStateBar_Exit_ToolTip" xml:space="preserve">
+  <data name="ExitApplication_DisplayName" xml:space="preserve">
     <value>Afsluiten</value>
   </data>
   <data name="information" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -933,5 +933,14 @@
   </data>
   <data name="ChartPointData_Symbol_DisplayName" xml:space="preserve">
     <value>Symbool</value>
+  </data>
+  <data name="Info_DisplayName" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="ShowLog_DisplayName" xml:space="preserve">
+    <value>Toon log</value>
+  </data>
+  <data name="ShowManual_DisplayName" xml:space="preserve">
+    <value>Handleiding</value>
   </data>
 </root>

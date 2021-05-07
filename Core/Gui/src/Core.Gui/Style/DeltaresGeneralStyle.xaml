@@ -37,8 +37,9 @@ All rights reserved.
     <Color x:Key="Black">#000000</Color>
     <Color x:Key="MainButtonBarBackground">#F1F1EE</Color>
     <Color x:Key="Transparent">#00FFFFFF</Color>
-    <Color x:Key="MainButtonBarPressedButtonBackground">#e4e4df</Color>
-    <Color x:Key="MainButtonBarPressedButtonBorder">#d2d2ca</Color>
+    <Color x:Key="MainButtonBarPressedButtonBackground">#E4E4DF</Color>
+    <Color x:Key="MainButtonBarPressedButtonBorder">#D2D2CA</Color>
+    <Color x:Key="BackstageBackgroundColor">#E7E7E3</Color>
 
     <SolidColorBrush x:Key="MainButtonBarBottomBorderBrush" Color="{StaticResource DeltaresSand}" />
     <SolidColorBrush x:Key="MainButtonBarBackgroundBrush" Color="{StaticResource MainButtonBarBackground}" />
@@ -62,6 +63,8 @@ All rights reserved.
     <SolidColorBrush x:Key="DeltaresDarkerBlueBrush" Color="{StaticResource DeltaresDarkerBlue}" />
     <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}" />
     <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource Gray}" />
+
+    <SolidColorBrush x:Key="BackstageBackgroundColorBrush" Color="{StaticResource BackstageBackgroundColor}" />
 
     <Style TargetType="mainWindow:MainWindow">
         <Setter Property="GlowBrush" Value="{DynamicResource WindowGlowBrush}" />

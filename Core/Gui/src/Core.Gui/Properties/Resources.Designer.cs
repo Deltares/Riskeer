@@ -40,7 +40,7 @@ namespace Core.Gui.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -78,6 +78,15 @@ namespace Core.Gui.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Over.
+        /// </summary>
+        public static string About_DisplayName {
+            get {
+                return ResourceManager.GetString("About_DisplayName", resourceCulture);
             }
         }
         
@@ -971,6 +980,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Afsluiten.
+        /// </summary>
+        public static string ExitApplication_DisplayName {
+            get {
+                return ResourceManager.GetString("ExitApplication_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alles ui&amp;tklappen.
         /// </summary>
         public static string Expand_all {
@@ -1489,6 +1507,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        public static string Info_DisplayName {
+            get {
+                return ResourceManager.GetString("Info_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap information {
@@ -1955,6 +1982,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nieuw.
+        /// </summary>
+        public static string NewProject_DisplayName {
+            get {
+                return ResourceManager.GetString("NewProject_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Openen.
         /// </summary>
         public static string Open {
@@ -1988,6 +2024,15 @@ namespace Core.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("OpenIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Openen.
+        /// </summary>
+        public static string OpenProject_DisplayName {
+            get {
+                return ResourceManager.GetString("OpenProject_DisplayName", resourceCulture);
             }
         }
         
@@ -2280,6 +2325,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opslaan.
+        /// </summary>
+        public static string SaveProject_DisplayName {
+            get {
+                return ResourceManager.GetString("SaveProject_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Initialiseren van opgeslagen project.
         /// </summary>
         public static string SaveProjectActivity_ProgressTextStepName_InitializeSavedProject {
@@ -2325,6 +2379,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opslaan Als.
+        /// </summary>
+        public static string SaveProjectAs_DisplayName {
+            get {
+                return ResourceManager.GetString("SaveProjectAs_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fout.
         /// </summary>
         public static string SelectItemDialog_buttonOk_Click_Error {
@@ -2348,6 +2411,24 @@ namespace Core.Gui.Properties {
         public static string SelectViewDialog_listBox_DrawItem_Default {
             get {
                 return ResourceManager.GetString("SelectViewDialog_listBox_DrawItem_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toon log.
+        /// </summary>
+        public static string ShowLog_DisplayName {
+            get {
+                return ResourceManager.GetString("ShowLog_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handleiding.
+        /// </summary>
+        public static string ShowManual_DisplayName {
+            get {
+                return ResourceManager.GetString("ShowManual_DisplayName", resourceCulture);
             }
         }
         
@@ -2442,29 +2523,11 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Over.
-        /// </summary>
-        public static string ViewStateBar_About_ToolTip {
-            get {
-                return ResourceManager.GetString("ViewStateBar_About_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Grafiek.
         /// </summary>
         public static string ViewStateBar_Chart_ToolTip {
             get {
                 return ResourceManager.GetString("ViewStateBar_Chart_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Afsluiten.
-        /// </summary>
-        public static string ViewStateBar_Exit_ToolTip {
-            get {
-                return ResourceManager.GetString("ViewStateBar_Exit_ToolTip", resourceCulture);
             }
         }
         
@@ -2529,42 +2592,6 @@ namespace Core.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("warning", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nieuw.
-        /// </summary>
-        public static string WindowCommands_New_ToolTip {
-            get {
-                return ResourceManager.GetString("WindowCommands_New_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Openen.
-        /// </summary>
-        public static string WindowCommands_Open_ToolTip {
-            get {
-                return ResourceManager.GetString("WindowCommands_Open_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opslaan.
-        /// </summary>
-        public static string WindowCommands_Save_ToolTip {
-            get {
-                return ResourceManager.GetString("WindowCommands_Save_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opslaan Als.
-        /// </summary>
-        public static string WindowCommands_SaveAs_ToolTip {
-            get {
-                return ResourceManager.GetString("WindowCommands_SaveAs_ToolTip", resourceCulture);
             }
         }
         

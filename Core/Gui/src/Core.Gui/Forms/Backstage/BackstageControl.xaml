@@ -27,6 +27,7 @@ All rights reserved.
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:commands="clr-namespace:Core.Gui.Commands"
                    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+                   xmlns:properties="clr-namespace:Core.Gui.Properties"
                    mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -124,7 +125,7 @@ All rights reserved.
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <Grid>
         <DockPanel>
             <StackPanel Width="140" DockPanel.Dock="Left" Style="{StaticResource PanelBackgroundWindowTitleStyle}">
@@ -135,35 +136,35 @@ All rights reserved.
                                Text="&#xE916;"/>
                 </Button>
                 <ToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
-                              Content="Info" />
+                              Content="{x:Static properties:Resources.Info_DisplayName}" />
                 <Separator Style="{StaticResource BackstageSeparatorStyle}" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Command="{x:Static commands:MainWindowCommands.NewProjectCommand}"
-                        Content="Nieuw" />
+                        Content="{x:Static properties:Resources.NewProject_DisplayName}" />
                 <ToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
-                              Content="Openen" />
+                              Content="{x:Static properties:Resources.OpenProject_DisplayName}" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Command="{x:Static commands:MainWindowCommands.SaveProjectCommand}"
-                        Content="Opslaan" />
+                        Content="{x:Static properties:Resources.SaveProject_DisplayName}" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Command="{x:Static commands:MainWindowCommands.SaveProjectAsCommand}"
-                        Content="Opslaan Als" />
+                        Content="{x:Static properties:Resources.SaveProjectAs_DisplayName}" />
                 <Separator Style="{StaticResource BackstageSeparatorStyle}" />
                 <ToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
-                              Content="Over" />
+                              Content="{x:Static properties:Resources.About_DisplayName}" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Command="{x:Static commands:MainWindowCommands.OpenLogFileCommand}"
-                        Content="Toon log"/>
+                        Content="{x:Static properties:Resources.ShowLog_DisplayName}"/>
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Command="{x:Static commands:MainWindowCommands.OpenUserManualCommand}"
-                        Content="Handleiding" />
+                        Content="{x:Static properties:Resources.ShowManual_DisplayName}" />
                 <Separator Style="{StaticResource BackstageSeparatorStyle}" />
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Command="{x:Static commands:MainWindowCommands.CloseApplicationCommand}"
-                        Content="Afsluiten" />
+                        Content="{x:Static properties:Resources.ExitApplication_DisplayName}" />
             </StackPanel>
-            
-            <Border/>
+
+            <Border Background="{StaticResource BackstageBackgroundColorBrush}"/>
         </DockPanel>
     </Grid>
 </UserControl>
