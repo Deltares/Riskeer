@@ -100,6 +100,16 @@
                 </MultiDataTrigger.Conditions>
                 <Setter Property="Background" Value="{StaticResource ButtonHoverBackgroundBrush}" />
             </MultiDataTrigger>
+
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition
+                        Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
+                        Value="False" />
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled}" Value="False" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Background" Value="{StaticResource DisabledButtonBackgroundBrush}" />
+            </MultiDataTrigger>
         </Style.Triggers>
     </Style>
 

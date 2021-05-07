@@ -26,6 +26,7 @@ All rights reserved.
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:commands="clr-namespace:Core.Gui.Commands"
+                   xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
                    mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -42,6 +43,22 @@ All rights reserved.
             <Style x:Key="BackstageToggleButtonStyle" TargetType="{x:Type ToggleButton}"
                    BasedOn="{StaticResource RiskeerToggleButtonStyle}">
                 <Setter Property="Height" Value="40"/>
+                
+                <Style.Triggers>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="Background" Value="{StaticResource ButtonHoverBackgroundBrush}" />
+                    </Trigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition
+                                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
+                                Value="False" />
+                            <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="Background" Value="{StaticResource ButtonHoverBackgroundBrush}" />
+                    </MultiDataTrigger>
+                </Style.Triggers>
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
