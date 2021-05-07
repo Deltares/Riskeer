@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -19,15 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Controls;
+
 namespace Core.Gui.Forms.Backstage
 {
     /// <summary>
-    /// ViewModel for <see cref="InfoBackstagePage"/>.
+    /// Main user interface of the application.
     /// </summary>
-    public class InfoViewModel : IBackstagePageViewModel
+    public partial class InfoBackstagePage : UserControl
     {
-        public string ProjectName => "Project";
-
-        public string AssessmentSectionName => "Traject 12-2";
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InfoBackstagePage"/> class.
+        /// </summary>
+        public InfoBackstagePage()
+        {
+            InitializeComponent();
+        }
     }
 }

@@ -128,7 +128,7 @@ All rights reserved.
             </Style>
             
             <DataTemplate DataType="{x:Type backstage:InfoViewModel}">
-                <TextBlock FontSize="35">Info</TextBlock>
+                <backstage:InfoBackstagePage />
             </DataTemplate>
             <DataTemplate DataType="{x:Type backstage:OpenViewModel}">
                 <TextBlock FontSize="35">Open</TextBlock>

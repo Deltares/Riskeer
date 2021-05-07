@@ -31,7 +31,7 @@ namespace Core.Gui.Test.Forms.Backstage
         public void Constructor_ExpectedValues()
         {
             // Call
-            var viewModel = new AboutViewModel();
+            var viewModel = new OpenViewModel();
 
             // Assert
             Assert.IsInstanceOf<IBackstagePageViewModel>(viewModel);

@@ -31,10 +31,13 @@ namespace Core.Gui.Test.Forms.Backstage
         public void Constructor_ExpectedValues()
         {
             // Call
-            var viewModel = new AboutViewModel();
+            var viewModel = new InfoViewModel();
 
             // Assert
             Assert.IsInstanceOf<IBackstagePageViewModel>(viewModel);
+            
+            Assert.AreEqual("Project", viewModel.ProjectName);
+            Assert.AreEqual("Traject 12-2", viewModel.AssessmentSectionName);
         }
     }
 }
