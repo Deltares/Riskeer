@@ -120,7 +120,7 @@ All rights reserved.
                    BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
                 <Setter Property="Background" Value="{StaticResource WhiteOverlayBrush}" />
                 <Setter Property="Height" Value="1" />
-                <Setter Property="Margin" Value="25 10 15 10" />
+                <Setter Property="Margin" Value="25 10" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
