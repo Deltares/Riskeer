@@ -32,7 +32,7 @@ All rights reserved.
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/DeltaresStyle.xaml" /> 
+                <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/DeltaresBackstageStyle.xaml" /> 
             </ResourceDictionary.MergedDictionaries>
 
             <Style TargetType="DockPanel">
