@@ -38,17 +38,17 @@ namespace Core.Gui.Test.Forms.Backstage
 
             // Assert
             Assert.IsInstanceOf<INotifyPropertyChanged>(viewModel);
-            
+
             Assert.IsNotNull(viewModel.InfoViewModel);
-            Assert.IsNotNull(viewModel.OpenViewModel);
             Assert.IsNotNull(viewModel.AboutViewModel);
-            
+            Assert.IsNotNull(viewModel.SupportViewModel);
+
             Assert.IsNotNull(viewModel.SetSelectedViewModelCommand);
-            
+
             Assert.AreSame(viewModel.InfoViewModel, viewModel.SelectedViewModel);
             Assert.IsTrue(viewModel.InfoSelected);
-            Assert.IsFalse(viewModel.OpenSelected);
             Assert.IsFalse(viewModel.AboutSelected);
+            Assert.IsFalse(viewModel.SupportSelected);
         }
 
         [Test]
@@ -65,15 +65,15 @@ namespace Core.Gui.Test.Forms.Backstage
             {
                 viewModel.SelectedViewModel = viewModel.AboutViewModel;
             }
-            
+
             // When
             viewModel.SetSelectedViewModelCommand.Execute(backstagePageViewModel);
-            
+
             // Assert
             Assert.AreSame(backstagePageViewModel, viewModel.SelectedViewModel);
             Assert.AreEqual(infoSelected, viewModel.InfoSelected);
-            Assert.AreEqual(openSelected, viewModel.OpenSelected);
             Assert.AreEqual(aboutSelected, viewModel.AboutSelected);
+            Assert.AreEqual(openSelected, viewModel.SupportSelected);
         }
 
         [Test]
@@ -91,8 +91,8 @@ namespace Core.Gui.Test.Forms.Backstage
             // Precondition
             Assert.AreSame(backstagePageViewModel, viewModel.SelectedViewModel);
             Assert.AreEqual(infoSelected, viewModel.InfoSelected);
-            Assert.AreEqual(openSelected, viewModel.OpenSelected);
             Assert.AreEqual(aboutSelected, viewModel.AboutSelected);
+            Assert.AreEqual(openSelected, viewModel.SupportSelected);
 
             // When
             viewModel.SetSelectedViewModelCommand.Execute(backstagePageViewModel);
@@ -100,18 +100,18 @@ namespace Core.Gui.Test.Forms.Backstage
             // Assert
             Assert.AreSame(backstagePageViewModel, viewModel.SelectedViewModel);
             Assert.AreEqual(infoSelected, viewModel.InfoSelected);
-            Assert.AreEqual(openSelected, viewModel.OpenSelected);
             Assert.AreEqual(aboutSelected, viewModel.AboutSelected);
+            Assert.AreEqual(openSelected, viewModel.SupportSelected);
         }
 
         private static IEnumerable<TestCaseData> GetBackstagePageViewModels()
         {
             yield return new TestCaseData(new Func<BackstageViewModel, IBackstagePageViewModel>(
-                                              viewModel => viewModel.InfoViewModel), true, false ,false);
-            yield return new TestCaseData(new Func<BackstageViewModel, IBackstagePageViewModel>(
-                                              viewModel => viewModel.OpenViewModel), false, true, false);
+                                              viewModel => viewModel.InfoViewModel), true, false, false);
             yield return new TestCaseData(new Func<BackstageViewModel, IBackstagePageViewModel>(
                                               viewModel => viewModel.AboutViewModel), false, false, true);
+            yield return new TestCaseData(new Func<BackstageViewModel, IBackstagePageViewModel>(
+                                              viewModel => viewModel.SupportViewModel), false, true, false);
         }
     }
 }

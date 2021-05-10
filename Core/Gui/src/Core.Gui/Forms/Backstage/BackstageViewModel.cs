@@ -33,9 +33,9 @@ namespace Core.Gui.Forms.Backstage
     {
         private IBackstagePageViewModel selectedViewModel;
         private bool infoSelected;
-        private bool openSelected;
+        private bool supportSelected;
         private bool aboutSelected;
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
@@ -44,8 +44,8 @@ namespace Core.Gui.Forms.Backstage
         public BackstageViewModel()
         {
             InfoViewModel = new InfoViewModel();
-            OpenViewModel = new OpenViewModel();
             AboutViewModel = new AboutViewModel();
+            SupportViewModel = new SupportViewModel();
 
             SetSelectedViewModelCommand = new RelayCommand(OnSetCurrentViewModel);
 
@@ -56,21 +56,21 @@ namespace Core.Gui.Forms.Backstage
         /// Gets the command to set the selected view model.
         /// </summary>
         public ICommand SetSelectedViewModelCommand { get; }
-        
+
         /// <summary>
         /// Gets the <see cref="InfoViewModel"/>.
         /// </summary>
         public InfoViewModel InfoViewModel { get; }
-        
-        /// <summary>
-        /// Gets the <see cref="OpenViewModel"/>.
-        /// </summary>
-        public OpenViewModel OpenViewModel { get; }
-        
+
         /// <summary>
         /// Gets the <see cref="AboutViewModel"/>.
         /// </summary>
         public AboutViewModel AboutViewModel { get; }
+
+        /// <summary>
+        /// Gets the <see cref="SupportViewModel"/>.
+        /// </summary>
+        public SupportViewModel SupportViewModel { get; }
 
         /// <summary>
         /// Gets or sets the selected view model.
@@ -107,20 +107,6 @@ namespace Core.Gui.Forms.Backstage
         }
 
         /// <summary>
-        /// Gets an indicator whether the <see cref="OpenViewModel"/>
-        /// is selected.
-        /// </summary>
-        public bool OpenSelected
-        {
-            get => openSelected;
-            private set
-            {
-                openSelected = value;
-                OnPropertyChanged(nameof(OpenSelected));
-            }
-        }
-
-        /// <summary>
         /// Gets an indicator whether the <see cref="AboutViewModel"/>
         /// is selected.
         /// </summary>
@@ -134,6 +120,20 @@ namespace Core.Gui.Forms.Backstage
             }
         }
 
+        /// <summary>
+        /// Gets an indicator whether the <see cref="SupportViewModel"/>
+        /// is selected.
+        /// </summary>
+        public bool SupportSelected
+        {
+            get => supportSelected;
+            private set
+            {
+                supportSelected = value;
+                OnPropertyChanged(nameof(SupportSelected));
+            }
+        }
+
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -142,8 +142,8 @@ namespace Core.Gui.Forms.Backstage
         private void SetButtonStates()
         {
             InfoSelected = selectedViewModel is InfoViewModel;
-            OpenSelected = selectedViewModel is OpenViewModel;
             AboutSelected = selectedViewModel is AboutViewModel;
+            SupportSelected = selectedViewModel is SupportViewModel;
         }
 
         private void OnSetCurrentViewModel(object obj)

@@ -131,13 +131,12 @@ All rights reserved.
             <DataTemplate DataType="{x:Type backstage:InfoViewModel}">
                 <backstage:InfoBackstagePage />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type backstage:OpenViewModel}">
-                <TextBlock FontSize="35">Open</TextBlock>
-            </DataTemplate>
             <DataTemplate DataType="{x:Type backstage:AboutViewModel}">
                 <backstage:AboutBackstagePage />
             </DataTemplate>
-            
+            <DataTemplate DataType="{x:Type backstage:SupportViewModel}">
+                <TextBlock FontSize="35">Support</TextBlock>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -190,6 +189,12 @@ All rights reserved.
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Content="{x:Static properties:Resources.ShowManual_DisplayName}"
                         Command="{x:Static commands:MainWindowCommands.OpenUserManualCommand}" />
+                
+                <controls:OneWayToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
+                                             Content="{x:Static properties:Resources.Support_DisplayName}"
+                                             Command="{Binding SetSelectedViewModelCommand}"
+                                             CommandParameter="{Binding SupportViewModel}"
+                                             IsChecked="{Binding SupportSelected, Mode=OneWay}" />
                 
                 <Separator Style="{StaticResource BackstageSeparatorStyle}" />
                 

@@ -2496,6 +2496,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Support.
+        /// </summary>
+        public static string Support_DisplayName {
+            get {
+                return ResourceManager.GetString("Support_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Bijwerken....
         /// </summary>
         public static string Update {

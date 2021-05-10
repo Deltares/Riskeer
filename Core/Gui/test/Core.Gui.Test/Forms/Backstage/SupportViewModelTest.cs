@@ -25,13 +25,13 @@ using NUnit.Framework;
 namespace Core.Gui.Test.Forms.Backstage
 {
     [TestFixture]
-    public class OpenViewModelTest
+    public class SupportViewModelTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var viewModel = new OpenViewModel();
+            var viewModel = new SupportViewModel();
 
             // Assert
             Assert.IsInstanceOf<IBackstagePageViewModel>(viewModel);
