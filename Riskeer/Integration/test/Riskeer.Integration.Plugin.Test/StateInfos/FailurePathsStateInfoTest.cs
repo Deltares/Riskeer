@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 
 namespace Riskeer.Integration.Plugin.Test.StateInfos
 {
@@ -75,6 +76,14 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
             var rootDataCollection = rootData as object[];
             Assert.IsNotNull(rootDataCollection);
             Assert.AreEqual(8, rootDataCollection.Length);
+            Assert.AreEqual(new MacroStabilityOutwardsFailureMechanismContext(assessmentSection.MacroStabilityOutwards, assessmentSection), rootDataCollection[0]);
+            Assert.AreEqual(new MicrostabilityFailureMechanismContext(assessmentSection.Microstability, assessmentSection), rootDataCollection[1]);
+            Assert.AreEqual(new WaterPressureAsphaltCoverFailureMechanismContext(assessmentSection.WaterPressureAsphaltCover, assessmentSection), rootDataCollection[2]);
+            Assert.AreEqual(new GrassCoverSlipOffOutwardsFailureMechanismContext(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection), rootDataCollection[3]);
+            Assert.AreEqual(new GrassCoverSlipOffInwardsFailureMechanismContext(assessmentSection.GrassCoverSlipOffInwards, assessmentSection), rootDataCollection[4]);
+            Assert.AreEqual(new PipingStructureFailureMechanismContext(assessmentSection.PipingStructure, assessmentSection), rootDataCollection[5]);
+            Assert.AreEqual(new StrengthStabilityLengthwiseConstructionFailureMechanismContext(assessmentSection.StrengthStabilityLengthwiseConstruction, assessmentSection), rootDataCollection[6]);
+            Assert.AreEqual(new TechnicalInnovationFailureMechanismContext(assessmentSection.TechnicalInnovation, assessmentSection), rootDataCollection[7]);
         }
 
         [Test]
