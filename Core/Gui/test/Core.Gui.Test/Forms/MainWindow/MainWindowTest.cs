@@ -117,6 +117,27 @@ namespace Core.Gui.Test.Forms.MainWindow
                 Assert.IsNotNull(mainWindow.ToggleMessageWindowCommand);
                 Assert.IsNotNull(mainWindow.OpenLogFileCommand);
                 Assert.IsNotNull(mainWindow.OpenUserManualCommand);
+
+                Assert.IsNull(mainWindow.BackstageViewModel);
+            }
+        }
+
+        [Test]
+        public void SetGui_Always_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var gui = mocks.Stub<IGui>();
+            gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            {
+                mainWindow.SetGui(gui);
+
+                // Assert
+                Assert.IsNotNull(mainWindow.BackstageViewModel);
+                mocks.VerifyAll();
             }
         }
 
@@ -240,6 +261,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.ViewHost).Return(viewHost);
+            gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -285,6 +307,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
             var gui = mocks.Stub<IGui>();
             gui.Stub(g => g.ViewHost).Return(viewHost);
+            gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -333,6 +356,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             gui.Stub(g => g.ViewHost).Return(viewHost);
             gui.Selection = selectedObject;
             gui.Stub(g => g.PropertyResolver).Return(propertyResolver);
+            gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -370,6 +394,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             gui.Stub(g => g.ViewHost).Return(viewHost);
             gui.Selection = selectedObject;
             gui.Stub(g => g.PropertyResolver).Return(propertyResolver);
+            gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -434,6 +459,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             gui.Stub(g => g.ViewCommands).Return(viewCommands);
             gui.Stub(g => g.Project).Return(project);
             gui.Stub(g => g.GetTreeNodeInfos()).Return(treeNodeInfos);
+            gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
             mocks.ReplayAll();
 
             gui.Selection = selectedObject;
@@ -1202,7 +1228,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             {
                 ManualFilePath = userManualPresent ? path : null
             };
-            
+
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, settings))
             {
@@ -1210,7 +1236,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Run();
 
                 mainWindow.SetGui(gui);
-                
+
                 // When
                 bool canExecute = mainWindow.OpenUserManualCommand.CanExecute(null);
 

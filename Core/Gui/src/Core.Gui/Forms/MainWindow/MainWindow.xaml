@@ -184,7 +184,8 @@ All rights reserved.
         </DockPanel>
         
         <DockPanel Name="BackstageDockPanel" Visibility="Collapsed">
-            <backstage:BackstageControl DockPanel.Dock="Top" />
+            <backstage:BackstageControl DockPanel.Dock="Top"
+                                        DataContext="{Binding Path=BackstageViewModel, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
         </DockPanel>
     </Grid>
 </metro:MetroWindow>

@@ -35,8 +35,13 @@ namespace Core.Gui.Forms.Backstage
         /// <summary>
         /// Creates a new instance of <see cref="AboutViewModel"/>.
         /// </summary>
-        public AboutViewModel()
+        /// <param name="applicationName">The application name.</param>
+        /// <param name="version">The application version.</param>
+        public AboutViewModel(string applicationName, string version)
         {
+            ApplicationName = applicationName;
+            Version = version;
+            
             WindowsEdition = (string) GetOperatingSystemValue("Caption");
             WindowsBuild = (string) GetOperatingSystemValue("BuildNumber");
             Processor = (string) GetProcessorValue("Name");
@@ -45,12 +50,12 @@ namespace Core.Gui.Forms.Backstage
         /// <summary>
         /// Gets the application name.
         /// </summary>
-        public string ApplicationName => "Riskeer";
-        
+        public string ApplicationName { get; }
+
         /// <summary>
         /// Gets the application version.
         /// </summary>
-        public string Version => "21.2.1.1";
+        public string Version { get; }
 
         /// <summary>
         /// Gets the Windows edition.

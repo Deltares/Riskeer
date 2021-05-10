@@ -37,6 +37,7 @@ using Core.Common.Util.Settings;
 using Core.Components.Chart.Forms;
 using Core.Components.Gis.Forms;
 using Core.Gui.Commands;
+using Core.Gui.Forms.Backstage;
 using Core.Gui.Forms.Chart;
 using Core.Gui.Forms.Map;
 using Core.Gui.Forms.MessageWindow;
@@ -96,6 +97,11 @@ namespace Core.Gui.Forms.MainWindow
             OpenLogFileCommand = new RelayCommand(OnOpenLogFile);
             OpenUserManualCommand = new RelayCommand(OnOpenUserManual, CanOpenUserManual);
         }
+
+        /// <summary>
+        /// Gets the <see cref="BackstageViewModel"/>.
+        /// </summary>
+        public BackstageViewModel BackstageViewModel { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether this window is disposed.
@@ -179,6 +185,9 @@ namespace Core.Gui.Forms.MainWindow
             settings = gui;
             commands = gui;
             applicationSelection = gui;
+
+            BackstageViewModel = new BackstageViewModel(settings.FixedSettings, SettingsHelper.Instance.ApplicationVersion);
+
         }
 
         /// <summary>
@@ -273,7 +282,11 @@ namespace Core.Gui.Forms.MainWindow
 
             Close();
 
-            SetGui(null);
+            gui = null;
+            viewController = null;
+            settings = null;
+            commands = null;
+            applicationSelection = null;
         }
 
         internal void AddStateButton(string text, string symbol, Func<IProject, object> getRootData)

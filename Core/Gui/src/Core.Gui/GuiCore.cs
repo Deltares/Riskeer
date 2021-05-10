@@ -120,9 +120,9 @@ namespace Core.Gui
                 throw new ArgumentNullException(nameof(fixedSettings));
             }
 
-            MainWindow = mainWindow;
             ProjectStore = projectStore;
             FixedSettings = fixedSettings;
+            MainWindow = mainWindow;
 
             isAlreadyRunningInstanceOfIGui = true;
             instanceCreationStackTrace = new StackTrace().ToString();

@@ -19,10 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Core.Gui.Commands;
+using Core.Gui.Settings;
 
 namespace Core.Gui.Forms.Backstage
 {
@@ -41,10 +43,19 @@ namespace Core.Gui.Forms.Backstage
         /// <summary>
         /// Creates a new instance of <see cref="BackstageViewModel"/>.
         /// </summary>
-        public BackstageViewModel()
+        /// <param name="settings">The application settings.</param>
+        /// <param name="version">The application version.</param>
+        /// <exception cref="ArgumentNullException">Thrown when
+        /// <paramref name="settings"/> is <c>null</c>.</exception>
+        public BackstageViewModel(GuiCoreSettings settings, string version)
         {
+            if (settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+
             InfoViewModel = new InfoViewModel();
-            AboutViewModel = new AboutViewModel();
+            AboutViewModel = new AboutViewModel(settings.MainWindowTitle, version);
             SupportViewModel = new SupportViewModel();
 
             SetSelectedViewModelCommand = new RelayCommand(OnSetCurrentViewModel);

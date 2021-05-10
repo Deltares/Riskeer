@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Threading;
 using System.Windows.Controls;
 using Core.Gui.Forms.Backstage;
 using NUnit.Framework;
@@ -29,6 +30,7 @@ namespace Core.Gui.Test.Forms.Backstage
     public class BackstageControlTest
     {
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void Constructor_ExpectedValues()
         {
             // Call
@@ -36,7 +38,6 @@ namespace Core.Gui.Test.Forms.Backstage
 
             // Assert
             Assert.IsInstanceOf<UserControl>(backstageControl);
-            Assert.IsNotNull(backstageControl.DataContext);
         }
     }
 }

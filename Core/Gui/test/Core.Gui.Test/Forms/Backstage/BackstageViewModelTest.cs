@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Gui.Forms.Backstage;
+using Core.Gui.Settings;
 using NUnit.Framework;
 
 namespace Core.Gui.Test.Forms.Backstage
@@ -31,16 +32,38 @@ namespace Core.Gui.Test.Forms.Backstage
     public class BackstageViewModelTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_SettingsNull_ThrowsArgumentNullException()
         {
             // Call
-            var viewModel = new BackstageViewModel();
+            void Call() => new BackstageViewModel(null, "0");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("settings", exception.ParamName);
+        }
+        
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var settings = new GuiCoreSettings
+            {
+                MainWindowTitle = "Riskeer"
+            };
+            const string version = "1.0";
+            
+            // Call
+            var viewModel = new BackstageViewModel(settings, version);
 
             // Assert
             Assert.IsInstanceOf<INotifyPropertyChanged>(viewModel);
 
             Assert.IsNotNull(viewModel.InfoViewModel);
+            
             Assert.IsNotNull(viewModel.AboutViewModel);
+            Assert.AreEqual(settings.MainWindowTitle, viewModel.AboutViewModel.ApplicationName);
+            Assert.AreEqual(version, viewModel.AboutViewModel.Version);
+            
             Assert.IsNotNull(viewModel.SupportViewModel);
 
             Assert.IsNotNull(viewModel.SetSelectedViewModelCommand);
@@ -58,7 +81,7 @@ namespace Core.Gui.Test.Forms.Backstage
             bool infoSelected, bool openSelected, bool aboutSelected)
         {
             // Given
-            var viewModel = new BackstageViewModel();
+            var viewModel = new BackstageViewModel(new GuiCoreSettings(), "1.0");
             IBackstagePageViewModel backstagePageViewModel = getBackstagePageViewModelFunc(viewModel);
 
             if (backstagePageViewModel is InfoViewModel)
@@ -83,7 +106,7 @@ namespace Core.Gui.Test.Forms.Backstage
             bool infoSelected, bool openSelected, bool aboutSelected)
         {
             // Given
-            var viewModel = new BackstageViewModel();
+            var viewModel = new BackstageViewModel(new GuiCoreSettings(), "1.0");
             IBackstagePageViewModel backstagePageViewModel = getBackstagePageViewModelFunc(viewModel);
 
             viewModel.SelectedViewModel = backstagePageViewModel;

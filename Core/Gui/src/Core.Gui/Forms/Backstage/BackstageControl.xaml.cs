@@ -34,8 +34,6 @@ namespace Core.Gui.Forms.Backstage
         public BackstageControl()
         {
             InitializeComponent();
-
-            DataContext = new BackstageViewModel();
         }
     }
 }

@@ -35,13 +35,17 @@ namespace Core.Gui.Test.Forms.Backstage
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            const string applicationName = "Riskeer";
+            const string version = "1.0";
+            
             // Call
-            var viewModel = new AboutViewModel();
+            var viewModel = new AboutViewModel(applicationName, version);
 
             // Assert
             Assert.IsInstanceOf<IBackstagePageViewModel>(viewModel);
-            Assert.AreEqual("Riskeer", viewModel.ApplicationName);
-            Assert.AreEqual("21.2.1.1", viewModel.Version);
+            Assert.AreEqual(applicationName, viewModel.ApplicationName);
+            Assert.AreEqual(version, viewModel.Version);
             
             ManagementObject processorManagementObject =
                 new ManagementObjectSearcher("select * from Win32_Processor")
