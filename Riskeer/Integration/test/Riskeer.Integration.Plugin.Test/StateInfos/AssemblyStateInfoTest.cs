@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.PresentationObjects;
 
 namespace Riskeer.Integration.Plugin.Test.StateInfos
 {
@@ -75,6 +76,10 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
             var rootDataCollection = rootData as object[];
             Assert.IsNotNull(rootDataCollection);
             Assert.AreEqual(4, rootDataCollection.Length);
+            Assert.AreEqual(new AssemblyResultCategoriesContext(assessmentSection), rootDataCollection[0]);
+            Assert.AreEqual(new AssemblyResultTotalContext(assessmentSection), rootDataCollection[1]);
+            Assert.AreEqual(new AssemblyResultPerSectionContext(assessmentSection), rootDataCollection[2]);
+            Assert.AreEqual(new AssemblyResultPerSectionMapContext(assessmentSection), rootDataCollection[3]);
         }
 
         [Test]
