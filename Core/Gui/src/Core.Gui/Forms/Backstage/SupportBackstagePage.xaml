@@ -1,0 +1,154 @@
+<!--
+Copyright (C) Stichting Deltares 2021. All rights reserved.
+
+This file is part of Riskeer.
+
+Riskeer is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+All names, logos, and references to "Deltares" are registered trademarks of
+Stichting Deltares and remain full property of Stichting Deltares at all times.
+All rights reserved.
+-->
+<UserControl x:Class="Core.Gui.Forms.Backstage.SupportBackstagePage" 
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:backstage="clr-namespace:Core.Gui.Forms.Backstage"
+                   mc:Ignorable="d"
+                   d:DataContext="{d:DesignInstance IsDesignTimeCreatable=False, Type={x:Type backstage:SupportViewModel}}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/Symbols/RiskeerSymbols.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/DeltaresGeneralStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/DeltaresBackstageStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="DockPanel">
+                <Setter Property="Margin" Value="32" />
+            </Style>
+            <Style TargetType="RowDefinition">
+                <Setter Property="MinHeight" Value="28" />
+            </Style>
+            <Style x:Key="ExplanatoryTextBlockStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="Margin" Value="0 0 0 8" />
+            </Style>
+            <Style TargetType="Grid">
+                <Setter Property="VerticalAlignment" Value="Top" />
+            </Style>
+
+            <Style x:Key="BigButtonIconStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="FontFamily" Value="{StaticResource RiskeerFont}" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="56" />
+            </Style>
+
+            <Style x:Key="BackstageBigButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="Margin" Value="0 0 4 4" />
+                <Setter Property="Foreground" Value="{StaticResource DeltaresBlueBrush}" />
+                <Setter Property="Background" Value="White" />
+                <Setter Property="Width" Value="110" />
+                <Setter Property="Height" Value="110" />
+                <Setter Property="BorderBrush" Value="{StaticResource StartScreenBigButtonMouseOverBrush}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="Border" Background="{TemplateBinding Background}"
+                                    BorderThickness="1"
+                                    BorderBrush="{TemplateBinding BorderBrush}">
+                                <DockPanel Margin="8">
+                                    <TextBlock FontSize="13" DockPanel.Dock="Bottom" HorizontalAlignment="Left">
+                                        <ContentPresenter Content="{TemplateBinding Tag}" />
+                                    </TextBlock>
+                                    <TextBlock FontFamily="{StaticResource RiskeerFont}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center" FontSize="40">
+                                        <ContentPresenter />
+                                    </TextBlock>
+                                </DockPanel>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Foreground" Value="#5F000000" />
+                                    <Setter Property="BorderBrush" Value="#11FFFFFF" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background"
+                                            Value="{DynamicResource BackstageBigButtonMouseOverBrush}" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background"
+                                            Value="{DynamicResource BackstageBigButtonMouseDownBrush}" />
+                                    <Setter Property="BorderBrush"
+                                            TargetName="Border"
+                                            Value="{DynamicResource BackstageBigButtonMouseDownBrush}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <TextBlock DockPanel.Dock="Top" Style="{StaticResource Header1}"
+                   Text="Support" />
+         <Grid VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Margin="0 0 8 0">
+                <TextBlock Style="{StaticResource Header2}"
+                           Text="We kunnen helpen!" />
+                <TextBlock Style="{StaticResource ExplanatoryTextBlockStyle}"
+                           Text="Heeft u problemen in het gebruik van de softare? Neem dan contact op." />
+
+                <TextBlock Style="{StaticResource Header2}"
+                           Text="Helpdesk Water" />
+                <TextBlock Style="{StaticResource ExplanatoryTextBlockStyle}"
+                           Text="De Helpdesk Water is gehuisvest bij de Rijkswaterstaat Water, Verkeer en Leefomgeving (RWS WVL). De helpdesk richt zich op het ontsluiten van kennis die aanwezig is binnen de werkvelden waterbeleid en waterbeheer in de breedste zin.
+
+Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel binnen Rijkswaterstaat als daar buiten. Op deze manier kan de helpdesk uw vragen snel en efficiënt beantwoorden, waarbij optimaal gebruik wordt gemaakt van de beschikbare kennis." />
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{StaticResource BackstageBigButtonStyle}"
+                            Tag="Bezoek website">
+                        <TextBlock Style="{StaticResource BigButtonIconStyle}"
+                                   Text="&#xE946;"/>
+                    </Button>
+
+                    <Button Style="{StaticResource BackstageBigButtonStyle}"
+                            Tag="Bel support">
+                        <TextBlock Style="{StaticResource BigButtonIconStyle}"
+                                   Text="&#xE949;"/>
+                    </Button>
+
+                    <Button Style="{StaticResource BackstageBigButtonStyle}"
+                            Tag="Email Support">
+                        <TextBlock Style="{StaticResource BigButtonIconStyle}"
+                                   Text="&#xE947;"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1 0 0 0" />
+        </Grid>
+    </DockPanel>
+</UserControl>

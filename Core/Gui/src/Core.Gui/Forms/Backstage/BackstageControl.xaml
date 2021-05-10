@@ -135,7 +135,7 @@ All rights reserved.
                 <backstage:AboutBackstagePage />
             </DataTemplate>
             <DataTemplate DataType="{x:Type backstage:SupportViewModel}">
-                <TextBlock FontSize="35">Support</TextBlock>
+                <backstage:SupportBackstagePage />
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
