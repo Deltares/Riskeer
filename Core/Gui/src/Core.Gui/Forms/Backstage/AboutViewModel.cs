@@ -19,7 +19,99 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Globalization;
+using System.Linq;
+using System.Management;
+using System.Windows;
+
 namespace Core.Gui.Forms.Backstage
 {
-    public class AboutViewModel : IBackstagePageViewModel {}
+    /// <summary>
+    /// ViewModel for <see cref="AboutBackstagePage"/>.
+    /// </summary>
+    public class AboutViewModel : IBackstagePageViewModel
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="AboutViewModel"/>.
+        /// </summary>
+        public AboutViewModel()
+        {
+            WindowsEdition = (string) GetOperatingSystemValue("Caption");
+            WindowsBuild = (string) GetOperatingSystemValue("BuildNumber");
+            Processor = (string) GetProcessorValue("Name");
+        }
+        
+        /// <summary>
+        /// Gets the application version.
+        /// </summary>
+        public string Version => "Riskeer 21.2.1.1";
+
+        /// <summary>
+        /// Gets the Windows edition.
+        /// </summary>
+        public string WindowsEdition { get; }
+
+        /// <summary>
+        /// Gets the Windows build.
+        /// </summary>
+        public string WindowsBuild { get; }
+
+        /// <summary>
+        /// Gets the processor information.
+        /// </summary>
+        public string Processor { get; }
+
+        /// <summary>
+        /// Gets the amount of installed RAM.
+        /// </summary>
+        public string InstalledRam
+        {
+            get
+            {
+                const double kilobyteDivider = 1024.0;
+                const double gigabyteDivider = kilobyteDivider * kilobyteDivider * kilobyteDivider;
+                double installedRam = (ulong) GetComputerSystemValue("TotalPhysicalMemory") / gigabyteDivider;
+
+                return $"{Math.Round(installedRam, 2).ToString(CultureInfo.InvariantCulture)} GB";
+            }
+        }
+
+        /// <summary>
+        /// Gets the primary display resolution.
+        /// </summary>
+        public string Resolution =>
+            $"{SystemParameters.PrimaryScreenWidth.ToString(CultureInfo.InvariantCulture)} " +
+            $"x {SystemParameters.PrimaryScreenHeight.ToString(CultureInfo.InvariantCulture)}";
+
+        private static object GetOperatingSystemValue(string propertyName)
+        {
+            ManagementObject managementObject =
+                new ManagementObjectSearcher("select * from Win32_OperatingSystem")
+                    .Get()
+                    .Cast<ManagementObject>()
+                    .First();
+            return managementObject[propertyName];
+        }
+
+        private static object GetProcessorValue(string propertyName)
+        {
+            ManagementObject managementObject =
+                new ManagementObjectSearcher("select * from Win32_Processor")
+                    .Get()
+                    .Cast<ManagementObject>()
+                    .First();
+            return managementObject[propertyName];
+        }
+
+        private static object GetComputerSystemValue(string propertyName)
+        {
+            ManagementObject managementObject =
+                new ManagementObjectSearcher("select * from Win32_ComputerSystem")
+                    .Get()
+                    .Cast<ManagementObject>()
+                    .First();
+            return managementObject[propertyName];
+        }
+    }
 }

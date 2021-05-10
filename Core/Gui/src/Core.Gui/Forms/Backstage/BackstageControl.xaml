@@ -135,7 +135,7 @@ All rights reserved.
                 <TextBlock FontSize="35">Open</TextBlock>
             </DataTemplate>
             <DataTemplate DataType="{x:Type backstage:AboutViewModel}">
-                <TextBlock FontSize="35">Over</TextBlock>
+                <backstage:AboutBackstagePage />
             </DataTemplate>
             
         </ResourceDictionary>
