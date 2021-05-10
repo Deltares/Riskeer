@@ -529,16 +529,11 @@ namespace Core.Common.Controls.TreeView
             }
             else
             {
-                TreeNode rootNode = AddRootNode(data);
-
-                if (rootNode.Nodes.Count > 0)
-                {
-                    rootNode.Expand();
-                }
+                AddRootNode(data);
             }
         }
 
-        private TreeNode AddRootNode(object rootObject)
+        private void AddRootNode(object rootObject)
         {
             var rootNode = new TreeNode
             {
@@ -550,8 +545,6 @@ namespace Core.Common.Controls.TreeView
             treeView.Nodes.Add(rootNode);
 
             treeNodeObserverLookup.Add(rootNode, new TreeNodeObserver(rootNode, this));
-
-            return rootNode;
         }
 
         private TreeNode CreateTreeNode(TreeNode parentNode, object nodeData)

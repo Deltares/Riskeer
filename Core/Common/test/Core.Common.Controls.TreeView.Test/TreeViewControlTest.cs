@@ -189,6 +189,58 @@ namespace Core.Common.Controls.TreeView.Test
         }
 
         [Test]
+        public void Data_NodeInfoSetAndDataIsSingleObject_RootNodeAddedAccordingly()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo
+                {
+                    TagType = typeof(object)
+                });
+
+                var testNodeData = new object();
+
+                // Call
+                treeViewControl.Data = testNodeData;
+
+                // Assert
+                TreeNodeCollection nodes = ((System.Windows.Forms.TreeView) treeViewControl.Controls[0]).Nodes;
+                Assert.AreEqual(1, nodes.Count);
+                Assert.AreSame(testNodeData, nodes[0].Tag);
+            }
+        }
+
+        [Test]
+        public void Data_NodeInfoSetAndDataIsEnumerationOfObjects_RootNodesAddedAccordingly()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                treeViewControl.RegisterTreeNodeInfo(new TreeNodeInfo
+                {
+                    TagType = typeof(object)
+                });
+
+                var testNodeData1 = new object();
+                var testNodeData2 = new object();
+
+                // Call
+                treeViewControl.Data = new[]
+                {
+                    testNodeData1,
+                    testNodeData2
+                };
+
+                // Assert
+                TreeNodeCollection nodes = ((System.Windows.Forms.TreeView) treeViewControl.Controls[0]).Nodes;
+                Assert.AreEqual(2, nodes.Count);
+                Assert.AreSame(testNodeData1, nodes[0].Tag);
+                Assert.AreSame(testNodeData2, nodes[1].Tag);
+            }
+        }
+
+        [Test]
         public void CanRenameNodeForData_Null_ReturnsFalse()
         {
             // Setup
