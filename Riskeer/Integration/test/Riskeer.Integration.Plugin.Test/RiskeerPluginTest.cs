@@ -216,6 +216,24 @@ namespace Riskeer.Integration.Plugin.Test
         }
 
         [Test]
+        public void GetStateInfos_ReturnsSupportedStateInfos()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                // Call
+                StateInfo[] stateInfos = plugin.GetStateInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(4, stateInfos.Length);
+                Assert.IsTrue(stateInfos.Any(si => si.Name == "Traject"));
+                Assert.IsTrue(stateInfos.Any(si => si.Name == "Faalpaden"));
+                Assert.IsTrue(stateInfos.Any(si => si.Name == "Berekeningen"));
+                Assert.IsTrue(stateInfos.Any(si => si.Name == "Assembleren"));
+            }
+        }
+
+        [Test]
         public void GetPropertyInfos_ReturnsSupportedPropertyInfos()
         {
             // Setup
