@@ -37,7 +37,9 @@ namespace Riskeer.Integration.Data.Test
             IProject result = projectFactory.CreateNewProject();
 
             // Assert
-            Assert.IsInstanceOf<RiskeerProject>(result);
+            var riskeerProject = result as RiskeerProject;
+            Assert.IsNotNull(riskeerProject);
+            Assert.AreEqual(1, riskeerProject.AssessmentSections.Count);
         }
     }
 }
