@@ -115,6 +115,14 @@ namespace Core.Gui.Forms.ViewHost
             return true;
         }
 
+        public void CloseAllViews()
+        {
+            foreach (IView view in viewHost.DocumentViews.ToArray())
+            {
+                viewHost.Remove(view);
+            }
+        }
+
         public void CloseAllViewsFor(object data)
         {
             if (data == null)

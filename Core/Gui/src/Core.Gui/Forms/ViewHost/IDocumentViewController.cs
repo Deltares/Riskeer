@@ -50,6 +50,11 @@ namespace Core.Gui.Forms.ViewHost
         bool OpenViewForData(object data, bool alwaysShowDialog = false);
 
         /// <summary>
+        /// Closes all views.
+        /// </summary>
+        void CloseAllViews();
+        
+        /// <summary>
         /// Closes all views for <paramref name="data"/>.
         /// </summary>
         /// <param name="data">The data object to close all views for.</param>

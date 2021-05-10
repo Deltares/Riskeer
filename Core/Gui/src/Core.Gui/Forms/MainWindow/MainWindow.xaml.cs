@@ -326,6 +326,8 @@ namespace Core.Gui.Forms.MainWindow
                 stateToggleButton.IsChecked = false;
             }
 
+            gui.DocumentViewController.CloseAllViews();
+
             UpdateProjectExplorer();
         }
 
