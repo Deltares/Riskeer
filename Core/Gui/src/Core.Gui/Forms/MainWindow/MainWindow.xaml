@@ -131,7 +131,7 @@ All rights reserved.
                         Background="{StaticResource MainButtonBarBackgroundBrush}"
                         Orientation="Horizontal">
                 <Button Style="{StaticResource MainButtonBarButtonStyle}"
-                        Tag="{x:Static properties:Resources.MainButtonBar_Project_DisplayName}"
+                        Tag="{x:Static properties:Resources.Project_DisplayName}"
                         Command="{x:Static commands:MainWindowCommands.ToggleBackstageCommand}"
                         AutomationProperties.AutomationId="MainButtonBarProject">
                     <TextBlock Style="{StaticResource ButtonLargeIconStyle}"

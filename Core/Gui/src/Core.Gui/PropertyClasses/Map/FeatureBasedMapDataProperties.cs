@@ -73,7 +73,7 @@ namespace Core.Gui.PropertyClasses.Map
 
         [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Layer))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Name_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Name_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapData_Name_Description))]
         public string Name
         {

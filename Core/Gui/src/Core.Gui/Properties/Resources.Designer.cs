@@ -137,6 +137,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Applicatie.
+        /// </summary>
+        public static string Application_DisplayName {
+            get {
+                return ResourceManager.GetString("Application_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap application_import_blue {
@@ -242,6 +251,15 @@ namespace Core.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("Busy_indicator", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bel support.
+        /// </summary>
+        public static string CallSupport_DisplayName {
+            get {
+                return ResourceManager.GetString("CallSupport_DisplayName", resourceCulture);
             }
         }
         
@@ -924,6 +942,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email Support.
+        /// </summary>
+        public static string EmailSupport_DisplayName {
+            get {
+                return ResourceManager.GetString("EmailSupport_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap error {
@@ -1460,6 +1487,26 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De Helpdesk Water is gehuisvest bij de Rijkswaterstaat Water, Verkeer en Leefomgeving (RWS WVL). De helpdesk richt zich op het ontsluiten van kennis die aanwezig is binnen de werkvelden waterbeleid en waterbeheer in de breedste zin.
+        ///
+        ///Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel binnen Rijkswaterstaat als daar buiten. Op deze manier kan de helpdesk uw vragen snel en efficiënt beantwoorden, waarbij optimaal gebruik wordt gemaakt van de beschikbare kennis..
+        /// </summary>
+        public static string HelpdeskWater_Description {
+            get {
+                return ResourceManager.GetString("HelpdeskWater_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Helpdesk Water.
+        /// </summary>
+        public static string HelpdeskWater_DisplayName {
+            get {
+                return ResourceManager.GetString("HelpdeskWater_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap icon_clear_all_messages {
@@ -1512,6 +1559,15 @@ namespace Core.Gui.Properties {
         public static string Info_DisplayName {
             get {
                 return ResourceManager.GetString("Info_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voorbeeld niet beschikbaar....
+        /// </summary>
+        public static string InfoBackstagePage_Example_not_available {
+            get {
+                return ResourceManager.GetString("InfoBackstagePage_Example_not_available", resourceCulture);
             }
         }
         
@@ -1573,15 +1629,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Project.
-        /// </summary>
-        public static string MainButtonBar_Project_DisplayName {
-            get {
-                return ResourceManager.GetString("MainButtonBar_Project_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Categorieën.
         /// </summary>
         public static string MapData_Categories_DisplayName {
@@ -1623,15 +1670,6 @@ namespace Core.Gui.Properties {
         public static string MapData_Name_Description {
             get {
                 return ResourceManager.GetString("MapData_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string MapData_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("MapData_Name_DisplayName", resourceCulture);
             }
         }
         
@@ -1973,6 +2011,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string Name_DisplayName {
+            get {
+                return ResourceManager.GetString("Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kaartlaag.
         /// </summary>
         public static string Name_Layer {
@@ -2164,6 +2211,24 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Processor.
+        /// </summary>
+        public static string Processor_DisplayName {
+            get {
+                return ResourceManager.GetString("Processor_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project.
+        /// </summary>
+        public static string Project_DisplayName {
+            get {
+                return ResourceManager.GetString("Project_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Projectverkenner.
         /// </summary>
         public static string ProjectExplorer_DisplayName {
@@ -2204,9 +2269,9 @@ namespace Core.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Eigenschappen.
         /// </summary>
-        public static string Properties_Title {
+        public static string Properties_DisplayName {
             get {
-                return ResourceManager.GetString("Properties_Title", resourceCulture);
+                return ResourceManager.GetString("Properties_DisplayName", resourceCulture);
             }
         }
         
@@ -2264,6 +2329,15 @@ namespace Core.Gui.Properties {
             get {
                 return ResourceManager.GetString("PropertyResolver_PropertyResolver_Cannot_create_PropertyResolver_without_list_of_" +
                         "PropertyInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RAM.
+        /// </summary>
+        public static string RAM_DisplayName {
+            get {
+                return ResourceManager.GetString("RAM_DisplayName", resourceCulture);
             }
         }
         
@@ -2388,6 +2462,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scherm resolutie.
+        /// </summary>
+        public static string ScreenResolution_DisplayName {
+            get {
+                return ResourceManager.GetString("ScreenResolution_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fout.
         /// </summary>
         public static string SelectItemDialog_buttonOk_Click_Error {
@@ -2460,15 +2543,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Versie.
-        /// </summary>
-        public static string SplashScreen_Version {
-            get {
-                return ResourceManager.GetString("SplashScreen_Version", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Project afsluiten.
         /// </summary>
         public static string StorageCommandHandler_ClosingProject_Title {
@@ -2505,6 +2579,33 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Heeft u problemen in het gebruik van de softare? Neem dan contact op..
+        /// </summary>
+        public static string SupportBackstagePage_WeCanHelp_Discription {
+            get {
+                return ResourceManager.GetString("SupportBackstagePage_WeCanHelp_Discription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We kunnen helpen!.
+        /// </summary>
+        public static string SupportBackstagePage_WeCanHelp_DisplayName {
+            get {
+                return ResourceManager.GetString("SupportBackstagePage_WeCanHelp_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Systeeminformatie.
+        /// </summary>
+        public static string SystemInformation_DisplayName {
+            get {
+                return ResourceManager.GetString("SystemInformation_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Bijwerken....
         /// </summary>
         public static string Update {
@@ -2528,6 +2629,15 @@ namespace Core.Gui.Properties {
         public static string UpdateInfo_Default_category {
             get {
                 return ResourceManager.GetString("UpdateInfo_Default_category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Versie.
+        /// </summary>
+        public static string Version_DisplayName {
+            get {
+                return ResourceManager.GetString("Version_DisplayName", resourceCulture);
             }
         }
         
@@ -2595,12 +2705,39 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bezoek website.
+        /// </summary>
+        public static string VisitWebsite_DisplayName {
+            get {
+                return ResourceManager.GetString("VisitWebsite_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon warning {
             get {
                 object obj = ResourceManager.GetObject("warning", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows build.
+        /// </summary>
+        public static string WindowsBuild_DisplayName {
+            get {
+                return ResourceManager.GetString("WindowsBuild_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows editie.
+        /// </summary>
+        public static string WindowsEdition_DisplayName {
+            get {
+                return ResourceManager.GetString("WindowsEdition_DisplayName", resourceCulture);
             }
         }
         

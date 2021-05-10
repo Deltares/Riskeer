@@ -27,6 +27,7 @@ All rights reserved.
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:backstage="clr-namespace:Core.Gui.Forms.Backstage"
                    xmlns:commands="clr-namespace:Core.Gui.Commands"
+                   xmlns:properties="clr-namespace:Core.Gui.Properties"
                    mc:Ignorable="d"
                    d:DataContext="{d:DesignInstance IsDesignTimeCreatable=False, Type={x:Type backstage:SupportViewModel}}">
 
@@ -110,7 +111,7 @@ All rights reserved.
 
     <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource Header1}"
-                   Text="Support" />
+                   Text="{x:Static properties:Resources.Support_DisplayName}" />
          <Grid VerticalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50*" />
@@ -119,33 +120,31 @@ All rights reserved.
 
             <StackPanel Grid.Column="0" Margin="0 0 8 0">
                 <TextBlock Style="{StaticResource Header2}"
-                           Text="We kunnen helpen!" />
+                           Text="{x:Static properties:Resources.SupportBackstagePage_WeCanHelp_DisplayName}" />
                 <TextBlock Style="{StaticResource ExplanatoryTextBlockStyle}"
-                           Text="Heeft u problemen in het gebruik van de softare? Neem dan contact op." />
+                           Text="{x:Static properties:Resources.SupportBackstagePage_WeCanHelp_Discription}" />
 
                 <TextBlock Style="{StaticResource Header2}"
-                           Text="Helpdesk Water" />
+                           Text="{x:Static properties:Resources.HelpdeskWater_DisplayName}" />
                 <TextBlock Style="{StaticResource ExplanatoryTextBlockStyle}"
-                           Text="De Helpdesk Water is gehuisvest bij de Rijkswaterstaat Water, Verkeer en Leefomgeving (RWS WVL). De helpdesk richt zich op het ontsluiten van kennis die aanwezig is binnen de werkvelden waterbeleid en waterbeheer in de breedste zin.
-
-Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel binnen Rijkswaterstaat als daar buiten. Op deze manier kan de helpdesk uw vragen snel en efficiënt beantwoorden, waarbij optimaal gebruik wordt gemaakt van de beschikbare kennis." />
+                           Text="{x:Static properties:Resources.HelpdeskWater_Description}" />
                 <StackPanel Orientation="Horizontal">
                     <Button Style="{StaticResource BackstageBigButtonStyle}"
-                            Tag="Bezoek website"
+                            Tag="{x:Static properties:Resources.VisitWebsite_DisplayName}"
                             Command="{x:Static commands:MainWindowCommands.OpenHelpdeskWaterWebsiteCommand}">
                         <TextBlock Style="{StaticResource BigButtonIconStyle}"
                                    Text="&#xE946;"/>
                     </Button>
 
                     <Button Style="{StaticResource BackstageBigButtonStyle}"
-                            Tag="Bel support"
+                            Tag="{x:Static properties:Resources.CallSupport_DisplayName}"
                             Command="{x:Static commands:MainWindowCommands.CallHelpdeskWaterWebsiteCommand}">
                         <TextBlock Style="{StaticResource BigButtonIconStyle}"
                                    Text="&#xE949;"/>
                     </Button>
     
                     <Button Style="{StaticResource BackstageBigButtonStyle}"
-                            Tag="Email Support"
+                            Tag="{x:Static properties:Resources.EmailSupport_DisplayName}"
                             Command="{x:Static commands:MainWindowCommands.EmailHelpdeskWaterWebsiteCommand}">
                         <TextBlock Style="{StaticResource BigButtonIconStyle}"
                                    Text="&#xE947;"/>

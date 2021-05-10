@@ -49,7 +49,7 @@ All rights reserved.
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             
-            <Label x:Name="LabelVersionTitle"  Content="{x:Static properties:Resources.SplashScreen_Version}" Padding="0,1,0,2" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Grid.Column="0" Grid.Row="0"/>
+            <Label x:Name="LabelVersionTitle"  Content="{x:Static properties:Resources.Version_DisplayName}" Padding="0,1,0,2" FontSize="10pt" FontFamily="Arial" FontWeight="Bold" Grid.Column="0" Grid.Row="0"/>
             <Label x:Name="LabelVersion" Content="" Padding="0,1,0,2" FontSize="10pt" FontFamily="Arial" Grid.Column="2" Grid.Row="0"/>
 
             <Label x:Name="LabelSupportTitle" Content="{x:Static properties:Resources.SplashScreen_SupportTitle}" Padding="0,1,0,2" FontSize="10pt" FontFamily="Arial" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1" />

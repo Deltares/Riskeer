@@ -51,7 +51,7 @@ namespace Core.Gui.PropertyClasses.Map
         }
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_MapDataCollection))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MapData_Name_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Name_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MapDataCollection_Name_Description))]
         public string Name
         {

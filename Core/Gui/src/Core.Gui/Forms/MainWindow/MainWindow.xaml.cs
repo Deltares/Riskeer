@@ -522,7 +522,7 @@ namespace Core.Gui.Forms.MainWindow
             {
                 propertyGrid = new PropertyGridView.PropertyGridView(gui.PropertyResolver)
                 {
-                    Text = Properties.Resources.Properties_Title,
+                    Text = Properties.Resources.Properties_DisplayName,
                     Data = applicationSelection.Selection
                 };
 

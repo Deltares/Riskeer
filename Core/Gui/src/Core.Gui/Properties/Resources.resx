@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Properties_Title" xml:space="preserve">
+  <data name="Properties_DisplayName" xml:space="preserve">
     <value>Eigenschappen</value>
   </data>
   <data name="NewProject_DisplayName" xml:space="preserve">
@@ -277,7 +277,7 @@
   <data name="GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_0_available" xml:space="preserve">
     <value>Riskeer kan de huidige selectie ({0}) niet exporteren.</value>
   </data>
-  <data name="SplashScreen_Version" xml:space="preserve">
+  <data name="Version_DisplayName" xml:space="preserve">
     <value>Versie</value>
   </data>
   <data name="Export" xml:space="preserve">
@@ -583,7 +583,7 @@
   <data name="warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\warning.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MainButtonBar_Project_DisplayName" xml:space="preserve">
+  <data name="Project_DisplayName" xml:space="preserve">
     <value>Project</value>
   </data>
   <data name="ViewStateBar_ProjectExplorer_ToolTip" xml:space="preserve">
@@ -742,7 +742,7 @@
   <data name="MapData_Name_Description" xml:space="preserve">
     <value>De naam van deze kaartlaag.</value>
   </data>
-  <data name="MapData_Name_DisplayName" xml:space="preserve">
+  <data name="Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
   <data name="MapData_StrokeColor_DisplayName" xml:space="preserve">
@@ -945,5 +945,52 @@
   </data>
   <data name="Support_DisplayName" xml:space="preserve">
     <value>Support</value>
+  </data>
+  <data name="Application_DisplayName" xml:space="preserve">
+    <value>Applicatie</value>
+  </data>
+  <data name="SystemInformation_DisplayName" xml:space="preserve">
+    <value>Systeeminformatie</value>
+  </data>
+  <data name="WindowsEdition_DisplayName" xml:space="preserve">
+    <value>Windows editie</value>
+  </data>
+  <data name="WindowsBuild_DisplayName" xml:space="preserve">
+    <value>Windows build</value>
+  </data>
+  <data name="Processor_DisplayName" xml:space="preserve">
+    <value>Processor</value>
+  </data>
+  <data name="RAM_DisplayName" xml:space="preserve">
+    <value>RAM</value>
+  </data>
+  <data name="ScreenResolution_DisplayName" xml:space="preserve">
+    <value>Scherm resolutie</value>
+  </data>
+  <data name="InfoBackstagePage_Example_not_available" xml:space="preserve">
+    <value>Voorbeeld niet beschikbaar...</value>
+  </data>
+  <data name="SupportBackstagePage_WeCanHelp_DisplayName" xml:space="preserve">
+    <value>We kunnen helpen!</value>
+  </data>
+  <data name="SupportBackstagePage_WeCanHelp_Discription" xml:space="preserve">
+    <value>Heeft u problemen in het gebruik van de softare? Neem dan contact op.</value>
+  </data>
+  <data name="HelpdeskWater_DisplayName" xml:space="preserve">
+    <value>Helpdesk Water</value>
+  </data>
+  <data name="HelpdeskWater_Description" xml:space="preserve">
+    <value>De Helpdesk Water is gehuisvest bij de Rijkswaterstaat Water, Verkeer en Leefomgeving (RWS WVL). De helpdesk richt zich op het ontsluiten van kennis die aanwezig is binnen de werkvelden waterbeleid en waterbeheer in de breedste zin.
+
+Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel binnen Rijkswaterstaat als daar buiten. Op deze manier kan de helpdesk uw vragen snel en efficiënt beantwoorden, waarbij optimaal gebruik wordt gemaakt van de beschikbare kennis.</value>
+  </data>
+  <data name="VisitWebsite_DisplayName" xml:space="preserve">
+    <value>Bezoek website</value>
+  </data>
+  <data name="CallSupport_DisplayName" xml:space="preserve">
+    <value>Bel support</value>
+  </data>
+  <data name="EmailSupport_DisplayName" xml:space="preserve">
+    <value>Email Support</value>
   </data>
 </root>

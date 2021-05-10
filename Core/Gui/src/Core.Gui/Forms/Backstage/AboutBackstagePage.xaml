@@ -26,6 +26,7 @@ All rights reserved.
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:backstage="clr-namespace:Core.Gui.Forms.Backstage"
+                   xmlns:properties="clr-namespace:Core.Gui.Properties"
                    mc:Ignorable="d"
                    d:DataContext="{d:DesignInstance IsDesignTimeCreatable=False, Type={x:Type backstage:AboutViewModel}}">
 
@@ -57,7 +58,7 @@ All rights reserved.
 
     <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <TextBlock DockPanel.Dock="Top" Style="{StaticResource Header1}"
-                   Text="Over" />
+                   Text="{x:Static properties:Resources.About_DisplayName}" />
          <Grid VerticalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50*" />
@@ -66,7 +67,7 @@ All rights reserved.
 
             <StackPanel Grid.Column="0" Margin="0 0 8 0">
                 <TextBlock Style="{DynamicResource Header2}"
-                           Text="Applicatie informatie" />
+                           Text="{x:Static properties:Resources.Application_DisplayName}" />
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30*" />
@@ -77,15 +78,15 @@ All rights reserved.
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     
-                    <TextBlock Text="Naam" Grid.Column="0" Grid.Row="0" />
+                    <TextBlock Text="{x:Static properties:Resources.Name_DisplayName}" Grid.Column="0" Grid.Row="0" />
                     <TextBlock Text="{Binding ApplicationName}" Grid.Column="1" Grid.Row="0" />
                     
-                    <TextBlock Text="Versie" Grid.Column="0" Grid.Row="1" />
+                    <TextBlock Text="{x:Static properties:Resources.Version_DisplayName}" Grid.Column="0" Grid.Row="1" />
                     <TextBlock Text="{Binding Version}" Grid.Column="1" Grid.Row="1" />
                 </Grid>
 
                 <TextBlock Style="{DynamicResource Header2}"
-                           Text="Systeem informatie" />
+                           Text="{x:Static properties:Resources.SystemInformation_DisplayName}" />
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -100,22 +101,22 @@ All rights reserved.
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Windows editie" Grid.Column="0"
+                    <TextBlock Text="{x:Static properties:Resources.WindowsEdition_DisplayName}" Grid.Column="0"
                                Grid.Row="0" />
                     <TextBlock Text="{Binding WindowsEdition}" Grid.Column="1" Grid.Row="0" />
 
-                    <TextBlock Text="Windows build" Grid.Column="0"
+                    <TextBlock Text="{x:Static properties:Resources.WindowsBuild_DisplayName}" Grid.Column="0"
                                Grid.Row="1" />
                     <TextBlock Text="{Binding WindowsBuild}" Grid.Column="1" Grid.Row="1" />
 
-                    <TextBlock Text="Processor" Grid.Column="0" Grid.Row="2" />
+                    <TextBlock Text="{x:Static properties:Resources.Processor_DisplayName}" Grid.Column="0" Grid.Row="2" />
                     <TextBlock Text="{Binding Processor}" Grid.Column="1" Grid.Row="2" />
 
-                    <TextBlock Text="RAM" Grid.Column="0"
+                    <TextBlock Text="{x:Static properties:Resources.RAM_DisplayName}" Grid.Column="0"
                                Grid.Row="3" />
                     <TextBlock Text="{Binding InstalledRam}" Grid.Column="1" Grid.Row="3" />
 
-                    <TextBlock Text="Scherm resolutie" Grid.Column="0" Grid.Row="4" />
+                    <TextBlock Text="{x:Static properties:Resources.ScreenResolution_DisplayName}" Grid.Column="0" Grid.Row="4" />
                     <TextBlock Text="{Binding Resolution}" Grid.Column="1" Grid.Row="4" />
                 </Grid>
             </StackPanel>
