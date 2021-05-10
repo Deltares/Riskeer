@@ -26,7 +26,6 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Controls.TreeView.Properties;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -66,10 +65,10 @@ namespace Core.Common.Controls.TreeView.Test
             using (var treeViewControl = new TreeViewControl())
             {
                 // Call
-                TestDelegate test = () => treeViewControl.RegisterTreeNodeInfo(null);
+                void Call() => treeViewControl.RegisterTreeNodeInfo(null);
 
                 // Assert
-                Assert.Throws<NullReferenceException>(test);
+                Assert.Throws<NullReferenceException>(Call);
             }
         }
 
@@ -82,10 +81,10 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo();
 
                 // Call
-                TestDelegate test = () => treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                void Call() => treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
 
                 // Assert
-                Assert.Throws<ArgumentNullException>(test);
+                Assert.Throws<ArgumentNullException>(Call);
             }
         }
 
@@ -101,10 +100,10 @@ namespace Core.Common.Controls.TreeView.Test
                 };
 
                 // Call
-                TestDelegate test = () => treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                void Call() => treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
 
                 // Assert
-                Assert.DoesNotThrow(test);
+                Assert.DoesNotThrow(Call);
             }
         }
 
@@ -160,10 +159,10 @@ namespace Core.Common.Controls.TreeView.Test
                 var testNodeData = new object();
 
                 // Call
-                TestDelegate test = () => treeViewControl.Data = testNodeData;
+                void Call() => treeViewControl.Data = testNodeData;
 
                 // Assert
-                Assert.Throws<InvalidOperationException>(test);
+                Assert.Throws<InvalidOperationException>(Call);
             }
         }
 
@@ -287,7 +286,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.TryRenameNodeForData(dataObject);
 
                 // Assert
-                Assert.AreEqual(Resources.TreeViewControl_The_selected_item_cannot_be_renamed, messageBoxText);
+                Assert.AreEqual("Het geselecteerde element kan niet worden hernoemd.", messageBoxText);
             }
         }
 
@@ -436,7 +435,7 @@ namespace Core.Common.Controls.TreeView.Test
                 Assert.AreEqual(0, onNodeRemovedHit);
                 Assert.AreEqual(0, onDataDeletedHit);
 
-                Assert.AreEqual(Resources.TreeViewControl_The_selected_item_cannot_be_removed, messageBoxText);
+                Assert.AreEqual("Het geselecteerde element kan niet worden verwijderd.", messageBoxText);
             }
         }
 
@@ -481,7 +480,7 @@ namespace Core.Common.Controls.TreeView.Test
                     Assert.AreEqual(1, onNodeRemovedHit);
                     Assert.AreEqual(1, onDataDeletedHit);
 
-                    Assert.AreEqual(Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item, messageBoxText);
+                    Assert.AreEqual("Weet u zeker dat u het geselecteerde element wilt verwijderen?", messageBoxText);
                 }
                 finally
                 {
@@ -768,7 +767,7 @@ namespace Core.Common.Controls.TreeView.Test
                     // Assert
                     Assert.AreEqual(0, hit);
 
-                    Assert.AreEqual(Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item, messageBoxText);
+                    Assert.AreEqual("Weet u zeker dat u het geselecteerde element wilt verwijderen?", messageBoxText);
                 }
                 finally
                 {
@@ -1282,10 +1281,10 @@ namespace Core.Common.Controls.TreeView.Test
                     WindowsFormsTestHelper.Show(treeViewControl);
 
                     // Call
-                    TestDelegate test = () => treeViewControl.TrySelectNodeForData(string.Empty);
+                    void Call() => treeViewControl.TrySelectNodeForData(string.Empty);
 
                     // Assert
-                    Assert.DoesNotThrow(test);
+                    Assert.DoesNotThrow(Call);
                 }
                 finally
                 {
@@ -1476,10 +1475,10 @@ namespace Core.Common.Controls.TreeView.Test
                     var treeViewTester = new TreeViewTester(identifier);
 
                     // Call
-                    TestDelegate test = () => treeViewTester.FireEvent("DoubleClick", new NodeLabelEditEventArgs(null, null));
+                    void Call() => treeViewTester.FireEvent("DoubleClick", new NodeLabelEditEventArgs(null, null));
 
                     // Assert
-                    Assert.DoesNotThrow(test);
+                    Assert.DoesNotThrow(Call);
                 }
                 finally
                 {
@@ -1667,20 +1666,20 @@ namespace Core.Common.Controls.TreeView.Test
                 };
 
                 // When
-                TestDelegate call = () =>
+                void Call()
                 {
                     treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
                     treeViewControl.Data = new object();
-                };
+                }
 
                 // Then
-                string expectedMessage = $"The value of argument 'treeNodeCheckedState' ({0}) is invalid for Enum type '{nameof(TreeNodeCheckedState)}'.";
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage);
+                var expectedMessage = $"The value of argument 'treeNodeCheckedState' ({0}) is invalid for Enum type '{nameof(TreeNodeCheckedState)}'.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
             }
         }
 
         [Test]
-        public void GivenObservableDataOnTreeControl_WhenObserversNotified_ThenNodeForDataChanges()
+        public void GivenObservableDataOnTreeViewControl_WhenObserversNotified_ThenNodeForDataChanges()
         {
             // Given
             var observable = new TestObservable();
@@ -1711,7 +1710,7 @@ namespace Core.Common.Controls.TreeView.Test
 
         [Test]
         [TestCaseSource(nameof(GetDataModifiers))]
-        public void GivenObservableDataOnTreeControlThatIsModified_WhenObserversNotified_ThenNodeChildNodesUpdated(DataModifier dataModifier)
+        public void GivenObservableDataOnTreeViewControlThatIsModified_WhenObserversNotified_ThenNodeChildNodesUpdated(DataModifier dataModifier)
         {
             // Given
             var observable = new TestObservable();
@@ -1781,7 +1780,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = data;
                 treeViewControl.TryExpandAllNodesForData(data);
 
-                // Precondition:
+                // Precondition
                 Assert.AreSame(data, treeViewControl.SelectedData);
 
                 const string identifier = "identifier";
@@ -1837,7 +1836,7 @@ namespace Core.Common.Controls.TreeView.Test
                 treeViewControl.Data = data;
                 treeViewControl.TryExpandAllNodesForData(data);
 
-                // Precondition:
+                // Precondition
                 Assert.AreSame(data, treeViewControl.SelectedData);
 
                 const string identifier = "identifier";
