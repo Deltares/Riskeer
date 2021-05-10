@@ -372,7 +372,6 @@ namespace Core.Gui
             projectObserver.Observable = newProject;
             UpdateTitle();
             mainWindow.UpdateProjectExplorer();
-            mainWindow.BackstageViewModel.InfoViewModel.ProjectName = project.Name;
         }
 
         private void ApplicationBeforeProjectOpened(IProject oldProject)
@@ -495,7 +494,7 @@ namespace Core.Gui
             {
                 mainWindow.AddStateButton(stateInfo.Name, stateInfo.Symbol, stateInfo.GetRootData);
             }
-            
+
             mainWindow.SubscribeToGui();
 
             UpdateTitle();
@@ -782,14 +781,13 @@ namespace Core.Gui
 
         private void UpdateTitle()
         {
-            if (mainWindow != null)
-            {
-                mainWindow.Title = string.Format(CultureInfo.CurrentCulture,
-                                                 "{0} - {1} {2}",
-                                                 Project.Name,
-                                                 FixedSettings.MainWindowTitle,
-                                                 SettingsHelper.Instance.ApplicationVersion);
-            }
+            mainWindow.Title = string.Format(CultureInfo.CurrentCulture,
+                                             "{0} - {1} {2}",
+                                             Project.Name,
+                                             FixedSettings.MainWindowTitle,
+                                             SettingsHelper.Instance.ApplicationVersion);
+
+            mainWindow.BackstageViewModel.InfoViewModel.ProjectName = project.Name;
         }
 
         #endregion
