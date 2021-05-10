@@ -22,9 +22,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
+using Core.Common.Base.Data;
+using Core.Common.Base.Storage;
 using Core.Gui.Forms.Backstage;
 using Core.Gui.Settings;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Gui.Test.Forms.Backstage
 {
@@ -69,6 +74,7 @@ namespace Core.Gui.Test.Forms.Backstage
             Assert.IsNotNull(viewModel.OpenHelpdeskWaterWebsiteCommand);
             Assert.IsNotNull(viewModel.CallHelpdeskWaterSupportCommand);
             Assert.IsNotNull(viewModel.EmailHelpdeskWaterSupportCommand);
+            Assert.IsNotNull(viewModel.OpenUserManualCommand);
             Assert.IsNotNull(viewModel.SetSelectedViewModelCommand);
 
             Assert.AreSame(viewModel.InfoViewModel, viewModel.SelectedViewModel);
@@ -128,6 +134,29 @@ namespace Core.Gui.Test.Forms.Backstage
             Assert.AreEqual(infoSelected, viewModel.InfoSelected);
             Assert.AreEqual(aboutSelected, viewModel.AboutSelected);
             Assert.AreEqual(openSelected, viewModel.SupportSelected);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenViewModelWithSettingsWithOrWithoutUserManualPathSet_WhenCanExecuteOpenUserManualCommand_ThenExpectedValue(
+            bool userManualPresent)
+        {
+            // Given
+            string path = Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path);
+
+            var settings = new GuiCoreSettings
+            {
+                ManualFilePath = userManualPresent ? path : null
+            };
+
+            var viewModel = new BackstageViewModel(settings, "1.0");
+
+            // When
+            bool canExecute = viewModel.OpenUserManualCommand.CanExecute(null);
+
+            // Then
+            Assert.AreEqual(userManualPresent, canExecute);
         }
 
         private static IEnumerable<TestCaseData> GetBackstagePageViewModels()

@@ -22,8 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -95,7 +93,6 @@ namespace Core.Gui.Forms.MainWindow
             TogglePropertyGridViewCommand = new RelayCommand(OnTogglePropertyGridView);
             ToggleMessageWindowCommand = new RelayCommand(OnToggleMessageWindow);
             OpenLogFileCommand = new RelayCommand(OnOpenLogFile);
-            OpenUserManualCommand = new RelayCommand(OnOpenUserManual, CanOpenUserManual);
         }
 
         /// <summary>
@@ -440,11 +437,6 @@ namespace Core.Gui.Forms.MainWindow
         /// </summary>
         public ICommand OpenLogFileCommand { get; }
 
-        /// <summary>
-        /// Gets the command to open the user manual.
-        /// </summary>
-        public ICommand OpenUserManualCommand { get; }
-
         private void OnNewProject(object obj)
         {
             commands.StorageCommands.CreateNewProject();
@@ -543,16 +535,6 @@ namespace Core.Gui.Forms.MainWindow
         private void OnOpenLogFile(object obj)
         {
             commands.ApplicationCommands.OpenLogFileExternal();
-        }
-
-        private bool CanOpenUserManual(object obj)
-        {
-            return File.Exists(settings?.FixedSettings.ManualFilePath);
-        }
-
-        private void OnOpenUserManual(object obj)
-        {
-            Process.Start(settings.FixedSettings.ManualFilePath);
         }
 
         #endregion

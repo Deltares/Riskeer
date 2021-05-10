@@ -54,7 +54,7 @@ All rights reserved.
         <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.OpenLogFileCommand}"
                                        Command="{Binding Path=OpenLogFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
         <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.OpenUserManualCommand}"
-                                       Command="{Binding Path=OpenUserManualCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
+                                       Command="{Binding Path=BackstageViewModel.OpenUserManualCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
         <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.OpenHelpdeskWaterWebsiteCommand}"
                                        Command="{Binding Path=BackstageViewModel.OpenHelpdeskWaterWebsiteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
         <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.CallHelpdeskWaterWebsiteCommand}"

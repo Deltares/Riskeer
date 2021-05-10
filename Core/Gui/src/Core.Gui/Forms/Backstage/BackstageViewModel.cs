@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Core.Gui.Commands;
@@ -65,6 +66,7 @@ namespace Core.Gui.Forms.Backstage
             OpenHelpdeskWaterWebsiteCommand = new RelayCommand(OnOpenHelpdeskWaterWebsite);
             EmailHelpdeskWaterSupportCommand = new RelayCommand(OnEmailHelpdeskWaterSupport);
             CallHelpdeskWaterSupportCommand = new RelayCommand(OnCallHelpdeskWaterSupport);
+            OpenUserManualCommand = new RelayCommand(OnOpenUserManual, CanOpenUserManual);
             SetSelectedViewModelCommand = new RelayCommand(OnSetCurrentViewModel);
 
             SelectedViewModel = InfoViewModel;
@@ -84,6 +86,11 @@ namespace Core.Gui.Forms.Backstage
         /// Gets the call Helpdesk Water support command.
         /// </summary>
         public ICommand CallHelpdeskWaterSupportCommand { get; }
+
+        /// <summary>
+        /// Gets the command to open the user manual.
+        /// </summary>
+        public ICommand OpenUserManualCommand { get; }
 
         /// <summary>
         /// Gets the command to set the selected view model.
@@ -192,6 +199,16 @@ namespace Core.Gui.Forms.Backstage
         private void OnCallHelpdeskWaterSupport(object obj)
         {
             Process.Start(settings.SupportPhoneNumberUrl);
+        }
+
+        private bool CanOpenUserManual(object obj)
+        {
+            return File.Exists(settings.ManualFilePath);
+        }
+
+        private void OnOpenUserManual(object obj)
+        {
+            Process.Start(settings.ManualFilePath);
         }
 
         private void OnSetCurrentViewModel(object obj)
