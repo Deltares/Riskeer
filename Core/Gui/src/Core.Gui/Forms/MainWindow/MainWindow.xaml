@@ -94,35 +94,6 @@ All rights reserved.
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
 
-    <metro:MetroWindow.LeftWindowCommands>
-        <metro:WindowCommands>
-            <Button Style="{StaticResource WindowCommandsButtonStyle}"
-                    ToolTip="{x:Static properties:Resources.NewProject_DisplayName}"
-                    Command="{x:Static commands:MainWindowCommands.NewProjectCommand}"
-                    AutomationProperties.AutomationId="WindowCommandsNewProject">
-            <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE93C;"/>
-            </Button>
-            <Button Style="{StaticResource WindowCommandsButtonStyle}"
-                    ToolTip="{x:Static properties:Resources.SaveProject_DisplayName}"
-                    Command="{x:Static commands:MainWindowCommands.SaveProjectCommand}"
-                    AutomationProperties.AutomationId="WindowCommandsSaveProject">
-                <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE93E;"/>
-            </Button>
-            <Button Style="{StaticResource WindowCommandsButtonStyle}"
-                    ToolTip="{x:Static properties:Resources.SaveProjectAs_DisplayName}"
-                    Command="{x:Static commands:MainWindowCommands.SaveProjectAsCommand}"
-                    AutomationProperties.AutomationId="WindowCommandsSaveProjectAs">
-                <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE940;"/>
-            </Button>
-            <Button Style="{StaticResource WindowCommandsButtonStyle}"
-                    ToolTip="{x:Static properties:Resources.OpenProject_DisplayName}"
-                    Command="{x:Static commands:MainWindowCommands.OpenProjectCommand}"
-                    AutomationProperties.AutomationId= "WindowCommandsOpenProject">
-                <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE93D;"/>
-            </Button>
-        </metro:WindowCommands>
-    </metro:MetroWindow.LeftWindowCommands>
-
     <Grid Background="{StaticResource BackgroundColorBrush}">
         <DockPanel Name="MainDockPanel">
             <StackPanel Name="MainButtonStackPanel"
