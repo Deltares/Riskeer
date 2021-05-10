@@ -19,15 +19,41 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
 namespace Core.Gui.Forms.Backstage
 {
     /// <summary>
     /// ViewModel for <see cref="InfoBackstagePage"/>.
     /// </summary>
-    public class InfoViewModel : IBackstagePageViewModel
+    public class InfoViewModel : IBackstagePageViewModel, INotifyPropertyChanged
     {
-        public string ProjectName => "Project";
+        private string projectName;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Gets the name of the project.
+        /// </summary>
+        public string ProjectName
+        {
+            get => projectName;
+            set
+            {
+                projectName = value;
+                OnPropertyChanged(nameof(ProjectName));
+            }
+        }
+
+        /// <summary>
+        /// Gets the name of the assessment section.
+        /// </summary>
         public string AssessmentSectionName => "Traject 12-2";
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

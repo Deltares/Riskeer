@@ -250,7 +250,7 @@ namespace Core.Gui
 
                 isExiting = true;
 
-                mainWindow?.UnsubscribeFromGui();
+                mainWindow.UnsubscribeFromGui();
 
                 Selection = null;
 
@@ -367,11 +367,12 @@ namespace Core.Gui
 
         private void ApplicationProjectOpened(IProject newProject)
         {
-            mainWindow?.ValidateItems();
+            mainWindow.ValidateItems();
 
             projectObserver.Observable = newProject;
             UpdateTitle();
-            mainWindow?.UpdateProjectExplorer();
+            mainWindow.UpdateProjectExplorer();
+            mainWindow.BackstageViewModel.InfoViewModel.ProjectName = project.Name;
         }
 
         private void ApplicationBeforeProjectOpened(IProject oldProject)

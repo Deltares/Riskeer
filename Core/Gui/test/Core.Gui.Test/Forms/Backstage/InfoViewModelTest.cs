@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using Core.Gui.Forms.Backstage;
 using NUnit.Framework;
 
@@ -35,8 +36,9 @@ namespace Core.Gui.Test.Forms.Backstage
 
             // Assert
             Assert.IsInstanceOf<IBackstagePageViewModel>(viewModel);
+            Assert.IsInstanceOf<INotifyPropertyChanged>(viewModel);
+            Assert.IsNull(viewModel.ProjectName);
             
-            Assert.AreEqual("Project", viewModel.ProjectName);
             Assert.AreEqual("Traject 12-2", viewModel.AssessmentSectionName);
         }
     }

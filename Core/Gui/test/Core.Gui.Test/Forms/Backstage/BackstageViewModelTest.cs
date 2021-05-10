@@ -23,13 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
-using Core.Common.Base.Data;
-using Core.Common.Base.Storage;
 using Core.Gui.Forms.Backstage;
 using Core.Gui.Settings;
-using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Forms.Backstage
 {
@@ -64,6 +60,7 @@ namespace Core.Gui.Test.Forms.Backstage
             Assert.IsInstanceOf<INotifyPropertyChanged>(viewModel);
 
             Assert.IsNotNull(viewModel.InfoViewModel);
+            Assert.IsNull(viewModel.InfoViewModel.ProjectName);
             
             Assert.IsNotNull(viewModel.AboutViewModel);
             Assert.AreEqual(settings.MainWindowTitle, viewModel.AboutViewModel.ApplicationName);
