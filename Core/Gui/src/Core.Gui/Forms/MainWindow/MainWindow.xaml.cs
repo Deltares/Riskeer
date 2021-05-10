@@ -28,7 +28,6 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media.Imaging;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Settings;
@@ -334,41 +333,6 @@ namespace Core.Gui.Forms.MainWindow
 
             UpdateProjectExplorer();
         }
-
-        #region OnClick events
-
-        private void OnAboutDialog_Clicked(object sender, RoutedEventArgs e)
-        {
-            var aboutDialog = new SplashScreen.SplashScreen
-            {
-                VersionText = SettingsHelper.Instance.ApplicationVersion,
-                SupportEmail = settings.FixedSettings.SupportEmailAddressUrl,
-                SupportPhoneNumber = settings.FixedSettings.SupportPhoneNumberUrl,
-                AllowsTransparency = false,
-                WindowStyle = WindowStyle.SingleBorderWindow,
-                Title = Properties.Resources.About_DisplayName,
-                Icon = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.information.GetHbitmap(),
-                                                             IntPtr.Zero,
-                                                             Int32Rect.Empty,
-                                                             BitmapSizeOptions.FromEmptyOptions()),
-                ShowInTaskbar = false,
-                Owner = this,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
-
-            aboutDialog.PreviewKeyDown += (s, ev) =>
-            {
-                if (ev.Key == Key.Escape)
-                {
-                    ev.Handled = true;
-                    aboutDialog.Shutdown();
-                }
-            };
-
-            aboutDialog.ShowDialog();
-        }
-
-        #endregion
 
         #region Commands
 
