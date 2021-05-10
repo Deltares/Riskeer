@@ -168,39 +168,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("  ")]
-        public void GivenRiskeerGuiWithStorageSqlAndMigrator_WhenRunWithEmptyFile_DefaultProjectStillSet(string testFile)
-        {
-            // Given
-            var mocks = new MockRepository();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            mocks.ReplayAll();
-
-            var projectStore = new StorageSqLite();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
-            {
-                gui.Plugins.Add(new TestPlugin());
-                
-                // When
-                gui.Run(testFile);
-
-                // Then
-                Assert.AreEqual(null, gui.ProjectFilePath);
-                Assert.NotNull(gui.Project);
-                Assert.AreEqual("Project", gui.Project.Name);
-                Assert.IsEmpty(gui.Project.Description);
-                Assert.IsInstanceOf<RiskeerProject>(gui.Project);
-                CollectionAssert.IsEmpty(((RiskeerProject) gui.Project).AssessmentSections);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenRiskeerGuiWithStorageSqlAndMigrator_WhenRunWithValidFile_ProjectSet()
         {
             // Given
@@ -222,7 +189,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new TestPlugin());
-                
+
                 // When
                 void Action() => gui.Run(projectFilePath);
 
