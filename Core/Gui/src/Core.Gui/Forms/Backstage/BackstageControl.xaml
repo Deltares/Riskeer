@@ -85,7 +85,7 @@ All rights reserved.
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
                         <Setter Property="Foreground" Value="{StaticResource WhiteOverlayBrush}" />
-                        <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
+                        <Setter Property="Background" Value="{StaticResource DeltaresBlueBrush}" />
                     </Trigger>
                     
                     <MultiDataTrigger>

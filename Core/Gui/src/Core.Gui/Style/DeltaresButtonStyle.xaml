@@ -18,7 +18,7 @@
 
     <Style x:Key="WindowCommandsButtonStyle" TargetType="{x:Type Button}"
            BasedOn="{StaticResource {x:Static metro:WindowCommands.ButtonStyleKey}}">
-        <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
+        <Setter Property="Background" Value="{StaticResource DeltaresBlueBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="0" />
@@ -53,7 +53,7 @@
     </Style>
 
     <Style x:Key="RiskeerButtonStyle" TargetType="{x:Type ButtonBase}">
-        <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
+        <Setter Property="Background" Value="{StaticResource DeltaresBlueBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="0" />
@@ -175,7 +175,7 @@
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{StaticResource MainButtonBarPressedButtonBackgroundBrush}" />
                 <Setter Property="BorderBrush" Value="{StaticResource MainButtonBarPressedButtonBorderBrush}" />
-                <Setter Property="Foreground" Value="{StaticResource WindowTitleColorBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource DeltaresBlueBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -186,7 +186,7 @@
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Background" Value="{StaticResource MainButtonBarPressedButtonBackgroundBrush}" />
                 <Setter Property="BorderBrush" Value="{StaticResource MainButtonBarPressedButtonBorderBrush}" />
-                <Setter Property="Foreground" Value="{StaticResource WindowTitleColorBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource DeltaresBlueBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>

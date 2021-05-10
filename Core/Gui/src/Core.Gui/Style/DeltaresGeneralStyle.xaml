@@ -41,8 +41,6 @@ All rights reserved.
     <Color x:Key="MainButtonBarPressedButtonBorder">#D2D2CA</Color>
     <Color x:Key="BackstageBackgroundColor">#E7E7E3</Color>
 
-    <SolidColorBrush x:Key="DeltaresBlueBrush" Color="{StaticResource DeltaresBlue}" />
-
     <SolidColorBrush x:Key="MainButtonBarBottomBorderBrush" Color="{StaticResource DeltaresSand}" />
     <SolidColorBrush x:Key="MainButtonBarBackgroundBrush" Color="{StaticResource MainButtonBarBackground}" />
     <SolidColorBrush x:Key="MainButtonBarPressedButtonBackgroundBrush" Color="{StaticResource MainButtonBarPressedButtonBackground}" />
@@ -52,8 +50,7 @@ All rights reserved.
     <SolidColorBrush x:Key="WindowGlowBrush" Color="{StaticResource Black}" />
     <SolidColorBrush x:Key="WindowOverlayBrush" Color="{StaticResource Black}" Opacity="0.5" />
     <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource DeltaresSand}" Opacity="0.25" options:Freeze="True" />
-    <SolidColorBrush x:Key="WindowTitleColorBrush" Color="{StaticResource DeltaresBlue}" options:Freeze="True" />
-    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource DeltaresBlue}" options:Freeze="True" />
+    <SolidColorBrush x:Key="DeltaresBlueBrush" Color="{StaticResource DeltaresBlue}" options:Freeze="True" />
 
     <SolidColorBrush x:Key="WhiteOverlayBrush" Color="{StaticResource White}" Opacity="0.2" />
 
@@ -78,7 +75,7 @@ All rights reserved.
     <Style TargetType="mainWindow:MainWindow">
         <Setter Property="GlowBrush" Value="{DynamicResource WindowGlowBrush}" />
         <Setter Property="OverlayBrush" Value="{DynamicResource WindowOverlayBrush}" />
-        <Setter Property="WindowTitleBrush" Value="{DynamicResource WindowTitleColorBrush}" />
+        <Setter Property="WindowTitleBrush" Value="{DynamicResource DeltaresBlueBrush}" />
         <Setter Property="Title" Value="Riskeer" />
         <Setter Property="Icon" Value="../Resources/Riskeer.ico" />
         <Setter Property="TitleAlignment" Value="Center"/>
@@ -88,7 +85,7 @@ All rights reserved.
     </Style>
 
     <Style x:Key="PanelBackgroundWindowTitleStyle" TargetType="{x:Type Panel}">
-        <Setter Property="Background" Value="{StaticResource WindowTitleColorBrush}" />
+        <Setter Property="Background" Value="{StaticResource DeltaresBlueBrush}" />
         <Style.Triggers>
             <DataTrigger
                 Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
