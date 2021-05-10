@@ -405,16 +405,20 @@ namespace Core.Gui.Forms.MainWindow
         {
             commands.StorageCommands.CreateNewProject();
             ValidateItems();
+
+            CloseBackstage();
         }
 
         private void OnSaveProject(object obj)
         {
             commands.StorageCommands.SaveProject();
+            CloseBackstage();
         }
 
         private void OnSaveProjectAs(object obj)
         {
             commands.StorageCommands.SaveProjectAs();
+            CloseBackstage();
         }
 
         private void OnOpenProject(object obj)
@@ -423,6 +427,16 @@ namespace Core.Gui.Forms.MainWindow
             if (!string.IsNullOrEmpty(projectPath))
             {
                 commands.StorageCommands.OpenExistingProject(projectPath);
+            }
+            CloseBackstage();
+        }
+        
+        private void CloseBackstage()
+        {
+            if (BackstageDockPanel.Visibility == Visibility.Visible)
+            {
+                MainDockPanel.Visibility = Visibility.Visible;
+                BackstageDockPanel.Visibility = Visibility.Collapsed;
             }
         }
 

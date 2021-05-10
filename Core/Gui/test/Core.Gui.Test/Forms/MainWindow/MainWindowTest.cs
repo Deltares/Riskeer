@@ -922,7 +922,9 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        public void GivenMainWindow_WhenNewProjectIsCalled_ThenCreateNewProject()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenMainWindow_WhenNewProjectIsCalled_ThenCreateNewProject(bool backstageVisible)
         {
             // Given
             var mocks = new MockRepository();
@@ -942,16 +944,26 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 mainWindow.SetGui(gui);
 
+                if (backstageVisible)
+                {
+                    mainWindow.ToggleBackstageCommand.Execute(null);
+                }
+
                 // When
                 mainWindow.NewProjectCommand.Execute(null);
+                
+                // Then
+                Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
+                Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
             }
 
-            // Then
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenMainWindow_WhenSaveProjectIsCalled_ThenProjectSaved()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenMainWindow_WhenSaveProjectIsCalled_ThenProjectSaved(bool backstageVisible)
         {
             // Given
             string directoryPath = TestHelper.GetScratchPadPath(nameof(MainWindowTest));
@@ -992,18 +1004,28 @@ namespace Core.Gui.Test.Forms.MainWindow
                     gui.Run();
 
                     mainWindow.SetGui(gui);
+                    
+                    if (backstageVisible)
+                    {
+                        mainWindow.ToggleBackstageCommand.Execute(null);
+                    }
 
                     // When
                     mainWindow.SaveProjectCommand.Execute(null);
+                    
+                    // Then
+                    Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
+                    Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
                 }
 
-                // Then
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void GivenMainWindow_WhenSaveProjectAsIsCalled_ThenProjectSaved()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenMainWindow_WhenSaveProjectAsIsCalled_ThenProjectSaved(bool backstageVisible)
         {
             // Given
             string directoryPath = TestHelper.GetScratchPadPath(nameof(MainWindowTest));
@@ -1044,18 +1066,28 @@ namespace Core.Gui.Test.Forms.MainWindow
                     gui.Run();
 
                     mainWindow.SetGui(gui);
+                    
+                    if (backstageVisible)
+                    {
+                        mainWindow.ToggleBackstageCommand.Execute(null);
+                    }
 
                     // When
                     mainWindow.SaveProjectAsCommand.Execute(null);
+                    
+                    // Then
+                    Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
+                    Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
                 }
 
-                // Then
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void GivenMainWindow_WhenOpenProjectIsCalled_ThenProjectOpened()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenMainWindow_WhenOpenProjectIsCalled_ThenProjectOpened(bool backstageVisible)
         {
             // Given
             string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Core.Gui);
@@ -1092,12 +1124,20 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Run();
 
                 mainWindow.SetGui(gui);
+                
+                if (backstageVisible)
+                {
+                    mainWindow.ToggleBackstageCommand.Execute(null);
+                }
 
                 // When
                 mainWindow.OpenProjectCommand.Execute(null);
+                
+                // Then
+                Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
+                Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
             }
 
-            // Then
             mocks.VerifyAll();
         }
 
