@@ -404,6 +404,42 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assembleren.
+        /// </summary>
+        public static string RiskeerPlugin_GetStateInfos_Assembly {
+            get {
+                return ResourceManager.GetString("RiskeerPlugin_GetStateInfos_Assembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Traject.
+        /// </summary>
+        public static string RiskeerPlugin_GetStateInfos_AssessmentSection {
+            get {
+                return ResourceManager.GetString("RiskeerPlugin_GetStateInfos_AssessmentSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekeningen.
+        /// </summary>
+        public static string RiskeerPlugin_GetStateInfos_Calculations {
+            get {
+                return ResourceManager.GetString("RiskeerPlugin_GetStateInfos_Calculations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalpaden.
+        /// </summary>
+        public static string RiskeerPlugin_GetStateInfos_FailurePaths {
+            get {
+                return ResourceManager.GetString("RiskeerPlugin_GetStateInfos_FailurePaths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Als u voorlandprofielen importeert, dan worden de  resultaten van alle berekeningen in dit toetsspoor die voorlandprofielen gebruiken verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.

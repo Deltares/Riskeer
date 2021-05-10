@@ -276,7 +276,7 @@ namespace Riskeer.Integration.Plugin
 
         public override IEnumerable<StateInfo> GetStateInfos()
         {
-            yield return new StateInfo("Traject", "\uE94E", project =>
+            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_AssessmentSection, "\uE94E", project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {
@@ -296,7 +296,7 @@ namespace Riskeer.Integration.Plugin
                 return null;
             });
 
-            yield return new StateInfo("Faalpaden", "\uE953", project =>
+            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_FailurePaths, "\uE953", project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {
@@ -323,7 +323,7 @@ namespace Riskeer.Integration.Plugin
                 return null;
             });
 
-            yield return new StateInfo("Berekeningen", "\uE91D", project =>
+            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_Calculations, "\uE91D", project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {
@@ -352,7 +352,7 @@ namespace Riskeer.Integration.Plugin
                 return null;
             });
 
-            yield return new StateInfo("Assembleren", "\uE94B", project =>
+            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_Assembly, "\uE94B", project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {
