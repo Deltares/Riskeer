@@ -40,7 +40,8 @@ namespace Core.Gui.Test.Forms.Backstage
 
             // Assert
             Assert.IsInstanceOf<IBackstagePageViewModel>(viewModel);
-            Assert.AreEqual("Riskeer 21.2.1.1", viewModel.Version);
+            Assert.AreEqual("Riskeer", viewModel.ApplicationName);
+            Assert.AreEqual("21.2.1.1", viewModel.Version);
             
             ManagementObject processorManagementObject =
                 new ManagementObjectSearcher("select * from Win32_Processor")

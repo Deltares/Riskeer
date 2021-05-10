@@ -72,9 +72,16 @@ All rights reserved.
                         <ColumnDefinition Width="30*" />
                         <ColumnDefinition Width="70*" />
                     </Grid.ColumnDefinitions>
-
-                    <TextBlock Text="Versie" Grid.Column="0" />
-                    <TextBlock Text="{Binding Version}" Grid.Column="1" />
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Text="Naam" Grid.Column="0" Grid.Row="0" />
+                    <TextBlock Text="{Binding ApplicationName}" Grid.Column="1" Grid.Row="0" />
+                    
+                    <TextBlock Text="Versie" Grid.Column="0" Grid.Row="1" />
+                    <TextBlock Text="{Binding Version}" Grid.Column="1" Grid.Row="1" />
                 </Grid>
 
                 <TextBlock Style="{DynamicResource Header2}"

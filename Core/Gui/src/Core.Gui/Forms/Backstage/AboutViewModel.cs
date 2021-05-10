@@ -41,11 +41,16 @@ namespace Core.Gui.Forms.Backstage
             WindowsBuild = (string) GetOperatingSystemValue("BuildNumber");
             Processor = (string) GetProcessorValue("Name");
         }
+
+        /// <summary>
+        /// Gets the application name.
+        /// </summary>
+        public string ApplicationName => "Riskeer";
         
         /// <summary>
         /// Gets the application version.
         /// </summary>
-        public string Version => "Riskeer 21.2.1.1";
+        public string Version => "21.2.1.1";
 
         /// <summary>
         /// Gets the Windows edition.
