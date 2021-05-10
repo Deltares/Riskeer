@@ -1554,7 +1554,7 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Info.
+        ///   Looks up a localized string similar to Informatie.
         /// </summary>
         public static string Info_DisplayName {
             get {
@@ -2333,7 +2333,7 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RAM.
+        ///   Looks up a localized string similar to Geïnstalleerd RAM-geheugen.
         /// </summary>
         public static string RAM_DisplayName {
             get {
@@ -2462,7 +2462,7 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scherm resolutie.
+        ///   Looks up a localized string similar to Schermresolutie.
         /// </summary>
         public static string ScreenResolution_DisplayName {
             get {
@@ -2570,7 +2570,7 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Support.
+        ///   Looks up a localized string similar to Ondersteuning.
         /// </summary>
         public static string Support_DisplayName {
             get {
@@ -2579,7 +2579,7 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heeft u problemen in het gebruik van de softare? Neem dan contact op..
+        ///   Looks up a localized string similar to Heeft u problemen in het gebruik van de software? Neem dan contact op..
         /// </summary>
         public static string SupportBackstagePage_WeCanHelp_Discription {
             get {
@@ -2724,7 +2724,7 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Windows build.
+        ///   Looks up a localized string similar to Build van het besturingssysteem.
         /// </summary>
         public static string WindowsBuild_DisplayName {
             get {

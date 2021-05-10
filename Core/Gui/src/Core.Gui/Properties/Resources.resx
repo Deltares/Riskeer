@@ -935,7 +935,7 @@
     <value>Symbool</value>
   </data>
   <data name="Info_DisplayName" xml:space="preserve">
-    <value>Info</value>
+    <value>Informatie</value>
   </data>
   <data name="ShowLog_DisplayName" xml:space="preserve">
     <value>Toon log</value>
@@ -944,7 +944,7 @@
     <value>Handleiding</value>
   </data>
   <data name="Support_DisplayName" xml:space="preserve">
-    <value>Support</value>
+    <value>Ondersteuning</value>
   </data>
   <data name="Application_DisplayName" xml:space="preserve">
     <value>Applicatie</value>
@@ -956,16 +956,16 @@
     <value>Windows editie</value>
   </data>
   <data name="WindowsBuild_DisplayName" xml:space="preserve">
-    <value>Windows build</value>
+    <value>Build van het besturingssysteem</value>
   </data>
   <data name="Processor_DisplayName" xml:space="preserve">
     <value>Processor</value>
   </data>
   <data name="RAM_DisplayName" xml:space="preserve">
-    <value>RAM</value>
+    <value>Geïnstalleerd RAM-geheugen</value>
   </data>
   <data name="ScreenResolution_DisplayName" xml:space="preserve">
-    <value>Scherm resolutie</value>
+    <value>Schermresolutie</value>
   </data>
   <data name="InfoBackstagePage_Example_not_available" xml:space="preserve">
     <value>Voorbeeld niet beschikbaar...</value>
@@ -974,7 +974,7 @@
     <value>We kunnen helpen!</value>
   </data>
   <data name="SupportBackstagePage_WeCanHelp_Discription" xml:space="preserve">
-    <value>Heeft u problemen in het gebruik van de softare? Neem dan contact op.</value>
+    <value>Heeft u problemen in het gebruik van de software? Neem dan contact op.</value>
   </data>
   <data name="HelpdeskWater_DisplayName" xml:space="preserve">
     <value>Helpdesk Water</value>

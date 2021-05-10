@@ -411,14 +411,18 @@ namespace Core.Gui.Forms.MainWindow
 
         private void OnSaveProject(object obj)
         {
-            commands.StorageCommands.SaveProject();
-            CloseBackstage();
+            if (commands.StorageCommands.SaveProject())
+            {
+                CloseBackstage();
+            }
         }
 
         private void OnSaveProjectAs(object obj)
         {
-            commands.StorageCommands.SaveProjectAs();
-            CloseBackstage();
+            if (commands.StorageCommands.SaveProjectAs())
+            {
+                CloseBackstage();
+            }
         }
 
         private void OnOpenProject(object obj)
@@ -427,8 +431,8 @@ namespace Core.Gui.Forms.MainWindow
             if (!string.IsNullOrEmpty(projectPath))
             {
                 commands.StorageCommands.OpenExistingProject(projectPath);
+                CloseBackstage();
             }
-            CloseBackstage();
         }
         
         private void CloseBackstage()

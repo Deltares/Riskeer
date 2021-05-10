@@ -65,8 +65,6 @@ All rights reserved.
 
     <SolidColorBrush x:Key="BackstageBackgroundColorBrush" Color="{StaticResource BackstageBackgroundColor}" />
 
-    <SolidColorBrush x:Key="ExplanatoryPanelForegroundBrush" Color="{StaticResource Black}" Opacity="0.33" />
-
     <SolidColorBrush x:Key="StartScreenBigButtonMouseOverBrush" Color="{StaticResource White}" Opacity="0.2" />
     <SolidColorBrush x:Key="StartScreenBigButtonMouseDownBrush" Color="{StaticResource White}" Opacity="0.1" />
     <SolidColorBrush x:Key="BackstageBigButtonMouseDownBrush" Color="{StaticResource DeltaresBlue}" Opacity="0.1" />
