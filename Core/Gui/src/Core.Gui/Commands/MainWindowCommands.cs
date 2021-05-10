@@ -67,5 +67,20 @@ namespace Core.Gui.Commands
         /// The command for opening the user manual.
         /// </summary>
         public static readonly ICommand OpenUserManualCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The command for opening the helpdesk water website.
+        /// </summary>
+        public static readonly ICommand OpenHelpdeskWaterWebsiteCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The command for opening the helpdesk water call information website.
+        /// </summary>
+        public static readonly ICommand CallHelpdeskWaterWebsiteCommand = new RoutedCommand();
+
+        /// <summary>
+        /// The command for opening the helpdesk water email information website.
+        /// </summary>
+        public static readonly ICommand EmailHelpdeskWaterWebsiteCommand = new RoutedCommand();
     }
 }

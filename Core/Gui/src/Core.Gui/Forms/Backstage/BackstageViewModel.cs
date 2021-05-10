@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Core.Gui.Commands;
@@ -33,6 +34,7 @@ namespace Core.Gui.Forms.Backstage
     /// </summary>
     public class BackstageViewModel : INotifyPropertyChanged
     {
+        private readonly GuiCoreSettings settings;
         private IBackstagePageViewModel selectedViewModel;
         private bool infoSelected;
         private bool supportSelected;
@@ -54,14 +56,34 @@ namespace Core.Gui.Forms.Backstage
                 throw new ArgumentNullException(nameof(settings));
             }
 
+            this.settings = settings;
+
             InfoViewModel = new InfoViewModel();
             AboutViewModel = new AboutViewModel(settings.MainWindowTitle, version);
             SupportViewModel = new SupportViewModel();
 
+            OpenHelpdeskWaterWebsiteCommand = new RelayCommand(OnOpenHelpdeskWaterWebsite);
+            EmailHelpdeskWaterSupportCommand = new RelayCommand(OnEmailHelpdeskWaterSupport);
+            CallHelpdeskWaterSupportCommand = new RelayCommand(OnCallHelpdeskWaterSupport);
             SetSelectedViewModelCommand = new RelayCommand(OnSetCurrentViewModel);
 
             SelectedViewModel = InfoViewModel;
         }
+
+        /// <summary>
+        /// Gets the open Helpdesk water website command.
+        /// </summary>
+        public ICommand OpenHelpdeskWaterWebsiteCommand { get; }
+
+        /// <summary>
+        /// Gets the open Helpdesk Water support command.
+        /// </summary>
+        public ICommand EmailHelpdeskWaterSupportCommand { get; }
+
+        /// <summary>
+        /// Gets the call Helpdesk Water support command.
+        /// </summary>
+        public ICommand CallHelpdeskWaterSupportCommand { get; }
 
         /// <summary>
         /// Gets the command to set the selected view model.
@@ -155,6 +177,21 @@ namespace Core.Gui.Forms.Backstage
             InfoSelected = selectedViewModel is InfoViewModel;
             AboutSelected = selectedViewModel is AboutViewModel;
             SupportSelected = selectedViewModel is SupportViewModel;
+        }
+
+        private void OnOpenHelpdeskWaterWebsite(object obj)
+        {
+            Process.Start(settings.SupportWebsiteAddressUrl);
+        }
+
+        private void OnEmailHelpdeskWaterSupport(object obj)
+        {
+            Process.Start(settings.SupportEmailAddressUrl);
+        }
+
+        private void OnCallHelpdeskWaterSupport(object obj)
+        {
+            Process.Start(settings.SupportPhoneNumberUrl);
         }
 
         private void OnSetCurrentViewModel(object obj)

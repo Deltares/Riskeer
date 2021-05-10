@@ -345,8 +345,8 @@ namespace Core.Gui.Forms.MainWindow
             var aboutDialog = new SplashScreen.SplashScreen
             {
                 VersionText = SettingsHelper.Instance.ApplicationVersion,
-                SupportEmail = settings.FixedSettings.SupportEmailAddress,
-                SupportPhoneNumber = settings.FixedSettings.SupportPhoneNumber,
+                SupportEmail = settings.FixedSettings.SupportEmailAddressUrl,
+                SupportPhoneNumber = settings.FixedSettings.SupportPhoneNumberUrl,
                 AllowsTransparency = false,
                 WindowStyle = WindowStyle.SingleBorderWindow,
                 Title = Properties.Resources.About_DisplayName,

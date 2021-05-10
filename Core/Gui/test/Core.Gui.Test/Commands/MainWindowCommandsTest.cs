@@ -40,6 +40,9 @@ namespace Core.Gui.Test.Commands
             ICommand toggleBackstageCommand = MainWindowCommands.ToggleBackstageCommand;
             ICommand openLogFileCommand = MainWindowCommands.OpenLogFileCommand;
             ICommand openUserManualCommand = MainWindowCommands.OpenUserManualCommand;
+            ICommand openHelpdeskWaterWebsiteCommand = MainWindowCommands.OpenHelpdeskWaterWebsiteCommand;
+            ICommand callHelpdeskWaterWebsiteCommand = MainWindowCommands.CallHelpdeskWaterWebsiteCommand;
+            ICommand emailHelpdeskWaterWebsiteCommand = MainWindowCommands.EmailHelpdeskWaterWebsiteCommand;
 
             // Assert
             Assert.IsInstanceOf<RoutedCommand>(newProjectCommand);
@@ -50,6 +53,9 @@ namespace Core.Gui.Test.Commands
             Assert.IsInstanceOf<RoutedCommand>(toggleBackstageCommand);
             Assert.IsInstanceOf<RoutedCommand>(openLogFileCommand);
             Assert.IsInstanceOf<RoutedCommand>(openUserManualCommand);
+            Assert.IsInstanceOf<RoutedCommand>(openHelpdeskWaterWebsiteCommand);
+            Assert.IsInstanceOf<RoutedCommand>(callHelpdeskWaterWebsiteCommand);
+            Assert.IsInstanceOf<RoutedCommand>(emailHelpdeskWaterWebsiteCommand);
         }
     }
 }

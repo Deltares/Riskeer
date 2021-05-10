@@ -55,6 +55,12 @@ All rights reserved.
                                        Command="{Binding Path=OpenLogFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
         <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.OpenUserManualCommand}"
                                        Command="{Binding Path=OpenUserManualCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
+        <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.OpenHelpdeskWaterWebsiteCommand}"
+                                       Command="{Binding Path=BackstageViewModel.OpenHelpdeskWaterWebsiteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
+        <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.CallHelpdeskWaterWebsiteCommand}"
+                                       Command="{Binding Path=BackstageViewModel.CallHelpdeskWaterSupportCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
+        <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.EmailHelpdeskWaterWebsiteCommand}"
+                                       Command="{Binding Path=BackstageViewModel.EmailHelpdeskWaterSupportCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" />
     </commands:RoutedCommandHandlers.Commands>
 
     <metro:MetroWindow.InputBindings>

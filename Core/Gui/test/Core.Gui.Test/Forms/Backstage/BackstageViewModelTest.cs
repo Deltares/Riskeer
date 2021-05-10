@@ -66,6 +66,9 @@ namespace Core.Gui.Test.Forms.Backstage
             
             Assert.IsNotNull(viewModel.SupportViewModel);
 
+            Assert.IsNotNull(viewModel.OpenHelpdeskWaterWebsiteCommand);
+            Assert.IsNotNull(viewModel.CallHelpdeskWaterSupportCommand);
+            Assert.IsNotNull(viewModel.EmailHelpdeskWaterSupportCommand);
             Assert.IsNotNull(viewModel.SetSelectedViewModelCommand);
 
             Assert.AreSame(viewModel.InfoViewModel, viewModel.SelectedViewModel);

@@ -26,6 +26,7 @@ All rights reserved.
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:backstage="clr-namespace:Core.Gui.Forms.Backstage"
+                   xmlns:commands="clr-namespace:Core.Gui.Commands"
                    mc:Ignorable="d"
                    d:DataContext="{d:DesignInstance IsDesignTimeCreatable=False, Type={x:Type backstage:SupportViewModel}}">
 
@@ -130,19 +131,22 @@ All rights reserved.
 Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel binnen Rijkswaterstaat als daar buiten. Op deze manier kan de helpdesk uw vragen snel en efficiënt beantwoorden, waarbij optimaal gebruik wordt gemaakt van de beschikbare kennis." />
                 <StackPanel Orientation="Horizontal">
                     <Button Style="{StaticResource BackstageBigButtonStyle}"
-                            Tag="Bezoek website">
+                            Tag="Bezoek website"
+                            Command="{x:Static commands:MainWindowCommands.OpenHelpdeskWaterWebsiteCommand}">
                         <TextBlock Style="{StaticResource BigButtonIconStyle}"
                                    Text="&#xE946;"/>
                     </Button>
 
                     <Button Style="{StaticResource BackstageBigButtonStyle}"
-                            Tag="Bel support">
+                            Tag="Bel support"
+                            Command="{x:Static commands:MainWindowCommands.CallHelpdeskWaterWebsiteCommand}">
                         <TextBlock Style="{StaticResource BigButtonIconStyle}"
                                    Text="&#xE949;"/>
                     </Button>
-
+    
                     <Button Style="{StaticResource BackstageBigButtonStyle}"
-                            Tag="Email Support">
+                            Tag="Email Support"
+                            Command="{x:Static commands:MainWindowCommands.EmailHelpdeskWaterWebsiteCommand}">
                         <TextBlock Style="{StaticResource BigButtonIconStyle}"
                                    Text="&#xE947;"/>
                     </Button>

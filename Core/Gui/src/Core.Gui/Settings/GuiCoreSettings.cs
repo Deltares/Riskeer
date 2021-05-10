@@ -27,22 +27,27 @@ namespace Core.Gui.Settings
     public class GuiCoreSettings
     {
         /// <summary>
-        /// Gets or sets the support email address to show in the graphical user interface.
+        /// Gets or sets the support website address url.
         /// </summary>
-        public string SupportEmailAddress { get; set; }
+        public string SupportWebsiteAddressUrl { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the support email address url.
+        /// </summary>
+        public string SupportEmailAddressUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the support phone number to show in the graphical user interface.
+        /// Gets or sets the support phone number url.
         /// </summary>
-        public string SupportPhoneNumber { get; set; }
+        public string SupportPhoneNumberUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the title to show in the main window of the graphical user interface.
+        /// Gets or sets the title of the main window.
         /// </summary>
         public string MainWindowTitle { get; set; }
 
         /// <summary>
-        /// Gets or sets the path of the manual file to use in the graphical interface.
+        /// Gets or sets the path of the manual file.
         /// </summary>
         public string ManualFilePath { get; set; }
     }
