@@ -39,14 +39,14 @@ All rights reserved.
                 <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/DeltaresStyle.xaml" /> 
                 <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/DeltaresBackstageStyle.xaml" /> 
             </ResourceDictionary.MergedDictionaries>
-            
+
             <Style x:Key="BackstageButtonStyle" TargetType="{x:Type ButtonBase}"
                    BasedOn="{StaticResource RiskeerButtonStyle}">
                 <Setter Property="Height" Value="38" />
                 <Setter Property="Width" Value="139" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="Padding" Value="25 0 15 0" />
-                
+
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
                         <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}" />
@@ -76,18 +76,18 @@ All rights reserved.
                     </MultiDataTrigger>
                 </Style.Triggers>
             </Style>
-            
+
             <Style x:Key="BackstageBackButtonStyle" TargetType="{x:Type Button}"
                    BasedOn="{StaticResource BackstageButtonStyle}">
                 <Setter Property="Padding" Value="22 3 0 -3" />
                 <Setter Property="Margin" Value="0 15" />
-                
+
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
                         <Setter Property="Foreground" Value="{StaticResource WhiteOverlayBrush}" />
                         <Setter Property="Background" Value="{StaticResource DeltaresBlueBrush}" />
                     </Trigger>
-                    
+
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
                             <Condition
@@ -101,7 +101,7 @@ All rights reserved.
                     </MultiDataTrigger>
                 </Style.Triggers>
             </Style>
-            
+
             <Style x:Key="BackstageToggleButtonStyle" TargetType="{x:Type ToggleButton}"
                    BasedOn="{StaticResource BackstageButtonStyle}">
                 <Style.Triggers>
@@ -120,14 +120,14 @@ All rights reserved.
                     </MultiDataTrigger>
                 </Style.Triggers>
             </Style>
-            
+
             <Style x:Key="BackstageSeparatorStyle" TargetType="{x:Type Separator}"
                    BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}">
                 <Setter Property="Background" Value="{StaticResource WhiteOverlayBrush}" />
                 <Setter Property="Height" Value="1" />
                 <Setter Property="Margin" Value="25 10" />
             </Style>
-            
+
             <DataTemplate DataType="{x:Type backstage:InfoViewModel}">
                 <backstage:InfoBackstagePage />
             </DataTemplate>
@@ -149,55 +149,55 @@ All rights reserved.
                                FontSize="35"
                                Text="&#xE916;" />
                 </Button>
-                
+
                 <controls:OneWayToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
                                              Content="{x:Static properties:Resources.Info_DisplayName}"
                                              Command="{Binding SetSelectedViewModelCommand}"
                                              CommandParameter="{Binding InfoViewModel}" 
                                              IsChecked="{Binding InfoSelected, Mode=OneWay}" />
-                
+
                 <Separator Style="{StaticResource BackstageSeparatorStyle}" />
-                
+
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Content="{x:Static properties:Resources.NewProject_DisplayName}"
                         Command="{x:Static commands:MainWindowCommands.NewProjectCommand}" />
-                
+
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Content="{x:Static properties:Resources.OpenProject_DisplayName}"
                         Command="{x:Static commands:MainWindowCommands.OpenProjectCommand}" />
-                
+
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Content="{x:Static properties:Resources.SaveProject_DisplayName}"
                         Command="{x:Static commands:MainWindowCommands.SaveProjectCommand}" />
-                
+
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Content="{x:Static properties:Resources.SaveProjectAs_DisplayName}"
                         Command="{x:Static commands:MainWindowCommands.SaveProjectAsCommand}" />
-                
+
                 <Separator Style="{StaticResource BackstageSeparatorStyle}" />
-                
+
                 <controls:OneWayToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
                                              Content="{x:Static properties:Resources.About_DisplayName}"
                                              Command="{Binding SetSelectedViewModelCommand}"
                                              CommandParameter="{Binding AboutViewModel}"
                                              IsChecked="{Binding AboutSelected, Mode=OneWay}" />
-                
+
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Content="{x:Static properties:Resources.ShowLog_DisplayName}"
                         Command="{x:Static commands:MainWindowCommands.OpenLogFileCommand}" />
-                
+
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Content="{x:Static properties:Resources.ShowManual_DisplayName}"
                         Command="{x:Static commands:MainWindowCommands.OpenUserManualCommand}" />
-                
+
                 <controls:OneWayToggleButton Style="{StaticResource BackstageToggleButtonStyle}"
                                              Content="{x:Static properties:Resources.Support_DisplayName}"
                                              Command="{Binding SetSelectedViewModelCommand}"
                                              CommandParameter="{Binding SupportViewModel}"
                                              IsChecked="{Binding SupportSelected, Mode=OneWay}" />
-                
+
                 <Separator Style="{StaticResource BackstageSeparatorStyle}" />
-                
+
                 <Button Style="{StaticResource BackstageButtonStyle}"
                         Content="{x:Static properties:Resources.ExitApplication_DisplayName}"
                         Command="{x:Static commands:MainWindowCommands.CloseApplicationCommand}" />

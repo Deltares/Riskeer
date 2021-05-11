@@ -21,5 +21,8 @@
 
 namespace Core.Gui.Forms.Backstage
 {
+    /// <summary>
+    /// Interface for backstage page view models.
+    /// </summary>
     public interface IBackstagePageViewModel {}
 }

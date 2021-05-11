@@ -45,10 +45,6 @@ All rights reserved.
             <Style TargetType="TextBlock">
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
-            <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-                <Setter Property="Width" Value="240" />
-                <Setter Property="HorizontalAlignment" Value="Left" />
-            </Style>
             <Style TargetType="Grid">
                 <Setter Property="VerticalAlignment" Value="Top" />
             </Style>
@@ -66,34 +62,16 @@ All rights reserved.
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Margin="0 0 8 0">
-                <TextBlock Style="{DynamicResource Header2}"
-                           Text="{x:Static properties:Resources.Application_DisplayName}" />
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30*" />
                         <ColumnDefinition Width="70*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="45" />
                         <RowDefinition />
                         <RowDefinition />
-                    </Grid.RowDefinitions>
-                    
-                    <TextBlock Text="{x:Static properties:Resources.Name_DisplayName}" Grid.Column="0" Grid.Row="0" />
-                    <TextBlock Text="{Binding ApplicationName}" Grid.Column="1" Grid.Row="0" />
-                    
-                    <TextBlock Text="{x:Static properties:Resources.Version_DisplayName}" Grid.Column="0" Grid.Row="1" />
-                    <TextBlock Text="{Binding Version}" Grid.Column="1" Grid.Row="1" />
-                </Grid>
-
-                <TextBlock Style="{DynamicResource Header2}"
-                           Text="{x:Static properties:Resources.SystemInformation_DisplayName}" />
-
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30*" />
-                        <ColumnDefinition Width="70*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45" />
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
@@ -101,23 +79,48 @@ All rights reserved.
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="{x:Static properties:Resources.WindowsEdition_DisplayName}" Grid.Column="0"
-                               Grid.Row="0" />
-                    <TextBlock Text="{Binding WindowsEdition}" Grid.Column="1" Grid.Row="0" />
+                    <TextBlock Style="{StaticResource Header2}"
+                               Text="{x:Static properties:Resources.Application_DisplayName}"
+                               Grid.Column="0" Grid.Row="0"/>
 
-                    <TextBlock Text="{x:Static properties:Resources.WindowsBuild_DisplayName}" Grid.Column="0"
-                               Grid.Row="1" />
-                    <TextBlock Text="{Binding WindowsBuild}" Grid.Column="1" Grid.Row="1" />
+                    <TextBlock Text="{x:Static properties:Resources.Name_DisplayName}"
+                               Grid.Column="0" Grid.Row="1" />
+                    <TextBlock Text="{Binding ApplicationName}"
+                               Grid.Column="1" Grid.Row="1" />
 
-                    <TextBlock Text="{x:Static properties:Resources.Processor_DisplayName}" Grid.Column="0" Grid.Row="2" />
-                    <TextBlock Text="{Binding Processor}" Grid.Column="1" Grid.Row="2" />
+                    <TextBlock Text="{x:Static properties:Resources.Version_DisplayName}"
+                               Grid.Column="0" Grid.Row="2" />
+                    <TextBlock Text="{Binding Version}"
+                               Grid.Column="1" Grid.Row="2" />
 
-                    <TextBlock Text="{x:Static properties:Resources.RAM_DisplayName}" Grid.Column="0"
-                               Grid.Row="3" />
-                    <TextBlock Text="{Binding InstalledRam}" Grid.Column="1" Grid.Row="3" />
+                    <TextBlock Style="{StaticResource Header2}"
+                               Text="{x:Static properties:Resources.SystemInformation_DisplayName}" 
+                               Grid.Column="0" Grid.Row="3" />
 
-                    <TextBlock Text="{x:Static properties:Resources.ScreenResolution_DisplayName}" Grid.Column="0" Grid.Row="4" />
-                    <TextBlock Text="{Binding Resolution}" Grid.Column="1" Grid.Row="4" />
+                    <TextBlock Text="{x:Static properties:Resources.WindowsEdition_DisplayName}"
+                               Grid.Column="0" Grid.Row="4" />
+                    <TextBlock Text="{Binding WindowsEdition}"
+                               Grid.Column="1" Grid.Row="4" />
+
+                    <TextBlock Text="{x:Static properties:Resources.WindowsBuild_DisplayName}"
+                               Grid.Column="0" Grid.Row="5" />
+                    <TextBlock Text="{Binding WindowsBuild}"
+                               Grid.Column="1" Grid.Row="5" />
+
+                    <TextBlock Text="{x:Static properties:Resources.Processor_DisplayName}"
+                               Grid.Column="0" Grid.Row="6" />
+                    <TextBlock Text="{Binding Processor}"
+                               Grid.Column="1" Grid.Row="6" />
+
+                    <TextBlock Text="{x:Static properties:Resources.RAM_DisplayName}"
+                               Grid.Column="0" Grid.Row="7" />
+                    <TextBlock Text="{Binding InstalledRam}"
+                               Grid.Column="1" Grid.Row="7" />
+
+                    <TextBlock Text="{x:Static properties:Resources.ScreenResolution_DisplayName}"
+                               Grid.Column="0" Grid.Row="8" />
+                    <TextBlock Text="{Binding Resolution}"
+                               Grid.Column="1" Grid.Row="8" />
                 </Grid>
             </StackPanel>
             <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1 0 0 0" />

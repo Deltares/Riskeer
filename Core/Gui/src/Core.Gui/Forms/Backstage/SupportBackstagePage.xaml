@@ -91,14 +91,14 @@ All rights reserved.
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background"
-                                            Value="{DynamicResource BackstageBigButtonMouseOverBrush}" />
+                                            Value="{StaticResource BackstageBigButtonMouseOverBrush}" />
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="True">
                                     <Setter Property="Background"
-                                            Value="{DynamicResource BackstageBigButtonMouseDownBrush}" />
+                                            Value="{StaticResource BackstageBigButtonMouseDownBrush}" />
                                     <Setter Property="BorderBrush"
                                             TargetName="Border"
-                                            Value="{DynamicResource BackstageBigButtonMouseDownBrush}" />
+                                            Value="{StaticResource BackstageBigButtonMouseDownBrush}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

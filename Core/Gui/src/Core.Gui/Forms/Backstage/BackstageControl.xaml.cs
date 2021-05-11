@@ -24,7 +24,7 @@ using System.Windows.Controls;
 namespace Core.Gui.Forms.Backstage
 {
     /// <summary>
-    /// Main user interface of the application.
+    /// Interaction logic for <see cref="BackstageControl"/>.
     /// </summary>
     public partial class BackstageControl : UserControl
     {

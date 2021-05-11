@@ -21,5 +21,8 @@
 
 namespace Core.Gui.Forms.Backstage
 {
+    /// <summary>
+    /// ViewModel for <see cref="SupportBackstagePage"/>.
+    /// </summary>
     public class SupportViewModel : IBackstagePageViewModel {}
 }

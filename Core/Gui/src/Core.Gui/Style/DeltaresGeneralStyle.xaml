@@ -71,9 +71,9 @@ All rights reserved.
     <SolidColorBrush x:Key="BackstageBigButtonMouseOverBrush" Color="{StaticResource DeltaresBlue}" Opacity="0.1" />
 
     <Style TargetType="mainWindow:MainWindow">
-        <Setter Property="GlowBrush" Value="{DynamicResource WindowGlowBrush}" />
-        <Setter Property="OverlayBrush" Value="{DynamicResource WindowOverlayBrush}" />
-        <Setter Property="WindowTitleBrush" Value="{DynamicResource DeltaresBlueBrush}" />
+        <Setter Property="GlowBrush" Value="{StaticResource WindowGlowBrush}" />
+        <Setter Property="OverlayBrush" Value="{StaticResource WindowOverlayBrush}" />
+        <Setter Property="WindowTitleBrush" Value="{StaticResource DeltaresBlueBrush}" />
         <Setter Property="Title" Value="Riskeer" />
         <Setter Property="Icon" Value="../Resources/Riskeer.ico" />
         <Setter Property="TitleAlignment" Value="Center"/>
