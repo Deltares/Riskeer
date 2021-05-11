@@ -69,7 +69,7 @@ namespace Core.Gui.Forms.MainWindow
         private IChartView currentChartView;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// Creates a new instance of <see cref="MainWindow"/>.
         /// </summary>
         public MainWindow()
         {

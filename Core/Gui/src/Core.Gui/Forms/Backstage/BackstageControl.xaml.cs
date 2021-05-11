@@ -29,7 +29,7 @@ namespace Core.Gui.Forms.Backstage
     public partial class BackstageControl : UserControl
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BackstageControl"/> class.
+        /// Creates a new instance of <see cref="BackstageControl"/>.
         /// </summary>
         public BackstageControl()
         {
