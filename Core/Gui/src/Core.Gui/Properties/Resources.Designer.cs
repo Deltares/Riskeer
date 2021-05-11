@@ -804,6 +804,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Omschrijving.
+        /// </summary>
+        public static string Description_DisplayName {
+            get {
+                return ResourceManager.GetString("Description_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DynamicPropertyOrderEvaluationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}..
         /// </summary>
         public static string DynamicPropertyOrderEvaluationMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_ {

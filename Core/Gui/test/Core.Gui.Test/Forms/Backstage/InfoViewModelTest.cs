@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Gui.Forms.Backstage;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Gui.Test.Forms.Backstage
 {
@@ -38,8 +41,43 @@ namespace Core.Gui.Test.Forms.Backstage
             Assert.IsInstanceOf<IBackstagePageViewModel>(viewModel);
             Assert.IsInstanceOf<INotifyPropertyChanged>(viewModel);
             Assert.IsNull(viewModel.ProjectName);
+            Assert.IsNull(viewModel.ProjectDescription);
+        }
+
+        [Test]
+        public void SetProject_ProjectNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var viewModel = new InfoViewModel();
             
-            Assert.AreEqual("Traject 12-2", viewModel.AssessmentSectionName);
+            // Call
+            void Call() => viewModel.SetProject(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("projectToSet", exception.ParamName);
+        }
+
+        [Test]
+        public void SetProject_WithProject_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var project = mocks.Stub<IProject>();
+            mocks.ReplayAll();
+
+            project.Name = "Test";
+            project.Description = "Test description";
+            
+            var viewModel = new InfoViewModel();
+            
+            // Call
+            viewModel.SetProject(project);
+
+            // Assert
+            Assert.AreEqual(project.Name, viewModel.ProjectName);
+            Assert.AreEqual(project.Description, viewModel.ProjectDescription);
+            mocks.VerifyAll();
         }
     }
 }

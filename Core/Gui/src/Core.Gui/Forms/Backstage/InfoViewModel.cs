@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Core.Common.Base.Data;
 
 namespace Core.Gui.Forms.Backstage
 {
@@ -29,27 +31,53 @@ namespace Core.Gui.Forms.Backstage
     /// </summary>
     public class InfoViewModel : IBackstagePageViewModel, INotifyPropertyChanged
     {
-        private string projectName;
+        private IProject project;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Gets the name of the project.
+        /// Gets or sets the name of the project.
         /// </summary>
         public string ProjectName
         {
-            get => projectName;
+            get => project?.Name;
             set
             {
-                projectName = value;
+                project.Name = value;
                 OnPropertyChanged(nameof(ProjectName));
             }
         }
 
         /// <summary>
-        /// Gets the name of the assessment section.
+        /// Gets or sets the description of the project.
         /// </summary>
-        public string AssessmentSectionName => "Traject 12-2";
+        public string ProjectDescription
+        {
+            get => project?.Description;
+            set
+            {
+                project.Description = value;
+                OnPropertyChanged(nameof(ProjectDescription));
+            }
+        }
+
+        /// <summary>
+        /// Sets the project.
+        /// </summary>
+        /// <param name="projectToSet">The project to set.</param>
+        /// <exception cref="ArgumentNullException">Thrown when<paramref name="projectToSet"/>
+        /// is <c>null</c></exception>
+        public void SetProject(IProject projectToSet)
+        {
+            if (projectToSet == null)
+            {
+                throw new ArgumentNullException(nameof(projectToSet));
+            }
+
+            project = projectToSet;
+            OnPropertyChanged(nameof(ProjectName));
+            OnPropertyChanged(nameof(ProjectDescription));
+        }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

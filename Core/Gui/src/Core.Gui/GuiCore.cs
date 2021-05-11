@@ -145,7 +145,7 @@ namespace Core.Gui
 
             ProjectOpened += ApplicationProjectOpened;
             BeforeProjectOpened += ApplicationBeforeProjectOpened;
-            projectObserver = new Observer(UpdateTitle);
+            projectObserver = new Observer(UpdateProjectData);
 
             Project = projectFactory.CreateNewProject();
         }
@@ -370,7 +370,7 @@ namespace Core.Gui
             mainWindow.ValidateItems();
 
             projectObserver.Observable = newProject;
-            UpdateTitle();
+            UpdateProjectData();
             mainWindow.UpdateProjectExplorer();
         }
 
@@ -497,7 +497,7 @@ namespace Core.Gui
 
             mainWindow.SubscribeToGui();
 
-            UpdateTitle();
+            UpdateProjectData();
         }
 
         private void OnViewClosed(object sender, ViewChangeEventArgs e)
@@ -779,7 +779,7 @@ namespace Core.Gui
             }
         }
 
-        private void UpdateTitle()
+        private void UpdateProjectData()
         {
             mainWindow.Title = string.Format(CultureInfo.CurrentCulture,
                                              "{0} - {1} {2}",
@@ -787,7 +787,7 @@ namespace Core.Gui
                                              FixedSettings.MainWindowTitle,
                                              SettingsHelper.Instance.ApplicationVersion);
 
-            mainWindow.BackstageViewModel.InfoViewModel.ProjectName = project.Name;
+            mainWindow.BackstageViewModel.InfoViewModel.SetProject(project);
         }
 
         #endregion

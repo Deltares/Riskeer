@@ -993,4 +993,7 @@ Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel bin
   <data name="EmailSupport_DisplayName" xml:space="preserve">
     <value>Email Support</value>
   </data>
+  <data name="Description_DisplayName" xml:space="preserve">
+    <value>Omschrijving</value>
+  </data>
 </root>
