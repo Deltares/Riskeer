@@ -419,23 +419,21 @@ namespace Core.Gui.Test
 
             try
             {
-                using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-                {
-                    gui.Plugins.Add(new TestPlugin());
-                    gui.Run();
+                var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
+                gui.Plugins.Add(new TestPlugin());
+                gui.Run();
 
-                    // Precondition:
-                    Assert.IsNotNull(MessageWindowLogAppender.Instance.MessageWindow);
-                    Assert.IsNotNull(messageWindowLogAppender.MessageWindow);
+                // Precondition:
+                Assert.IsNotNull(MessageWindowLogAppender.Instance.MessageWindow);
+                Assert.IsNotNull(messageWindowLogAppender.MessageWindow);
 
-                    // Call
-                    gui.Dispose();
+                // Call
+                gui.Dispose();
 
-                    // Assert
-                    Assert.IsNull(MessageWindowLogAppender.Instance.MessageWindow);
-                    Assert.IsNull(messageWindowLogAppender.MessageWindow);
-                    CollectionAssert.DoesNotContain(rootLogger.Appenders, messageWindowLogAppender);
-                }
+                // Assert
+                Assert.IsNull(MessageWindowLogAppender.Instance.MessageWindow);
+                Assert.IsNull(messageWindowLogAppender.MessageWindow);
+                CollectionAssert.DoesNotContain(rootLogger.Appenders, messageWindowLogAppender);
             }
             finally
             {
@@ -457,8 +455,8 @@ namespace Core.Gui.Test
             mocks.ReplayAll();
 
             using (var toolView = new TestView())
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
@@ -487,8 +485,8 @@ namespace Core.Gui.Test
             mocks.ReplayAll();
 
             using (var documentView = new TestView())
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
+                var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
