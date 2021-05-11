@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -539,13 +538,112 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        public void GivenGuiWithProjectExplorer_WhenUpdateProjectExplorer_ThenDataSetOnProjectExplorer()
+        public void GivenGuiWithProjectExplorerAndNoStateInfos_WhenInitializeToolWindows_ThenNoDataSetOnProjectExplorer()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var project = mocks.Stub<IProject>();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin());
+
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+
+                // When
+                mainWindow.InitializeToolWindows();
+
+                // Then
+                Assert.IsNull(mainWindow.ProjectExplorer.Data);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGuiWithProjectExplorerAndSingleStateInfo_WhenInitializeToolWindows_ThenExpectedDataSetOnProjectExplorer()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var project = mocks.Stub<IProject>();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin(new[]
+                {
+                    new StateInfo("Name", "Symbol", p => p)
+                }));
+
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+
+                // When
+                mainWindow.InitializeToolWindows();
+
+                // Then
+                Assert.AreSame(project, mainWindow.ProjectExplorer.Data);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGuiWithProjectExplorerAndMultipleStateInfos_WhenInitializeToolWindows_ThenExpectedDataSetOnProjectExplorer()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var project = mocks.Stub<IProject>();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin(new[]
+                {
+                    new StateInfo("Name", "Symbol", p => p),
+                    new StateInfo("Name", "Symbol", p => new object())
+                }));
+
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+
+                // When
+                mainWindow.InitializeToolWindows();
+
+                // Then
+                Assert.AreSame(project, mainWindow.ProjectExplorer.Data);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGuiWithProjectExplorerAndNoStateInfos_WhenUpdateProjectExplorer_ThenNoDataSetOnProjectExplorer()
         {
             // Given
             var mocks = new MockRepository();
             var project1 = mocks.Stub<IProject>();
             var project2 = mocks.Stub<IProject>();
-
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
@@ -556,6 +654,92 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new TestPlugin());
+
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+
+                // Precondition
+                Assert.IsNotNull(mainWindow.ProjectExplorer);
+                Assert.IsNull(mainWindow.ProjectExplorer.Data);
+
+                gui.SetProject(project2, string.Empty);
+
+                // When
+                mainWindow.UpdateProjectExplorer();
+
+                // Then
+                Assert.IsNull(mainWindow.ProjectExplorer.Data);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGuiWithProjectExplorerAndSingleStateInfo_WhenUpdateProjectExplorer_ThenExpectedDataSetOnProjectExplorer()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var project1 = mocks.Stub<IProject>();
+            var project2 = mocks.Stub<IProject>();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project1);
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin(new[]
+                {
+                    new StateInfo("Name", "Symbol", p => p)
+                }));
+
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+                mainWindow.InitializeToolWindows();
+
+                // Precondition
+                Assert.IsNotNull(mainWindow.ProjectExplorer);
+                Assert.AreSame(project1, mainWindow.ProjectExplorer.Data);
+
+                gui.SetProject(project2, string.Empty);
+
+                // When
+                mainWindow.UpdateProjectExplorer();
+
+                // Then
+                Assert.AreSame(project2, mainWindow.ProjectExplorer.Data);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGuiWithProjectExplorerAndMultipleStateInfos_WhenUpdateProjectExplorer_ThenExpectedDataSetOnProjectExplorer()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var project1 = mocks.Stub<IProject>();
+            var project2 = mocks.Stub<IProject>();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project1);
+            mocks.ReplayAll();
+
+            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.Add(new TestPlugin(new[]
+                {
+                    new StateInfo("Name", "Symbol", p => p),
+                    new StateInfo("Name", "Symbol", p => new object())
+                }));
+
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -951,7 +1135,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 // When
                 mainWindow.NewProjectCommand.Execute(null);
-                
+
                 // Then
                 Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
                 Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
@@ -1004,7 +1188,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                     gui.Run();
 
                     mainWindow.SetGui(gui);
-                    
+
                     if (backstageVisible)
                     {
                         mainWindow.ToggleBackstageCommand.Execute(null);
@@ -1012,7 +1196,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                     // When
                     mainWindow.SaveProjectCommand.Execute(null);
-                    
+
                     // Then
                     Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
                     Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
@@ -1066,7 +1250,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                     gui.Run();
 
                     mainWindow.SetGui(gui);
-                    
+
                     if (backstageVisible)
                     {
                         mainWindow.ToggleBackstageCommand.Execute(null);
@@ -1074,7 +1258,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                     // When
                     mainWindow.SaveProjectAsCommand.Execute(null);
-                    
+
                     // Then
                     Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
                     Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
@@ -1124,7 +1308,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Run();
 
                 mainWindow.SetGui(gui);
-                
+
                 if (backstageVisible)
                 {
                     mainWindow.ToggleBackstageCommand.Execute(null);
@@ -1132,7 +1316,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 // When
                 mainWindow.OpenProjectCommand.Execute(null);
-                
+
                 // Then
                 Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
                 Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
