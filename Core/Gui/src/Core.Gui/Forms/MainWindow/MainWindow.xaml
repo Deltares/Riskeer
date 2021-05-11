@@ -64,13 +64,12 @@ All rights reserved.
     </commands:RoutedCommandHandlers.Commands>
 
     <metro:MetroWindow.InputBindings>
-        <KeyBinding Command="{x:Static commands:MainWindowCommands.NewProjectCommand}" Key="N" Modifiers="Ctrl"/>
-        <KeyBinding Command="{x:Static commands:MainWindowCommands.SaveProjectCommand}" Key="S" Modifiers="Ctrl"/>
-        <KeyBinding Command="{x:Static commands:MainWindowCommands.SaveProjectAsCommand}" Key="S" Modifiers="Ctrl + Shift" />
-        <KeyBinding Command="{x:Static commands:MainWindowCommands.OpenProjectCommand}" Key="O" Modifiers="Ctrl"/>
-        <KeyBinding Command="{x:Static commands:MainWindowCommands.CloseApplicationCommand}" Key="F4" Modifiers="Alt"/>
-        <KeyBinding Command="{Binding Path=CloseViewTabCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}"
-                    Key="F4" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding Path=NewProjectCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" Gesture="CTRL+N" />
+        <KeyBinding Command="{Binding Path=SaveProjectCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" Gesture="CTRL+S" />
+        <KeyBinding Command="{Binding Path=SaveProjectAsCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" Gesture="CTRL+SHIFT+S" />
+        <KeyBinding Command="{Binding Path=OpenProjectCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" Gesture="CTRL+O" />
+        <KeyBinding Command="{Binding Path=CloseApplicationCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" Gesture="ALT+F4" />
+        <KeyBinding Command="{Binding Path=CloseViewTabCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}" Gesture="CTRL+F4" />
     </metro:MetroWindow.InputBindings>
 
     <metro:MetroWindow.Resources>
