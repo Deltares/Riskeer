@@ -159,7 +159,7 @@
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
                             <ContentPresenter Grid.Row="0" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}"/>
-                            <Label Grid.Row="1" Content="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                            <Label Grid.Row="1" Content="{TemplateBinding Tag}"
                                    HorizontalAlignment="Center" Foreground="{TemplateBinding Foreground}"/>
                         </Grid>
                     </Border>
