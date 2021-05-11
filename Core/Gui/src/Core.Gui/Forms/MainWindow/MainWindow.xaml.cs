@@ -276,12 +276,6 @@ namespace Core.Gui.Forms.MainWindow
             SetGui(null);
         }
 
-        /// <summary>
-        /// Adds a state button to the <see cref="MainButtonStackPanel"/>.
-        /// </summary>
-        /// <param name="text">The text of the button.</param>
-        /// <param name="symbol">The symbol of the button.</param>
-        /// <param name="getRootData">The method for obtaining the root data of the state.</param>
         internal void AddStateButton(string text, string symbol, Func<IProject, object> getRootData)
         {
             var stateToggleButton = new ToggleButton

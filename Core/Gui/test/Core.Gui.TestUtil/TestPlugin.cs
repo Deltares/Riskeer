@@ -35,5 +35,10 @@ namespace Core.Gui.TestUtil
         {
             yield return new TreeNodeInfo<IProject>();
         }
+
+        public override IEnumerable<StateInfo> GetStateInfos()
+        {
+            yield return new StateInfo("Name", "Symbol", project => project);
+        }
     }
 }
