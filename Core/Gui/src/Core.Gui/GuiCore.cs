@@ -490,7 +490,7 @@ namespace Core.Gui
 
             mainWindow.InitializeToolWindows();
 
-            foreach (StateInfo stateInfo in Plugins.SelectMany(p => p.GetStateInfos()))
+            foreach (StateInfo stateInfo in GetStateInfos())
             {
                 mainWindow.AddStateButton(stateInfo.Name, stateInfo.Symbol, stateInfo.GetRootData);
             }
@@ -728,6 +728,11 @@ namespace Core.Gui
         #region Implementation: IPluginHost
 
         public List<PluginBase> Plugins { get; private set; }
+
+        public IEnumerable<StateInfo> GetStateInfos()
+        {
+            return Plugins.SelectMany(pluginGui => pluginGui.GetStateInfos());
+        }
 
         public IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {

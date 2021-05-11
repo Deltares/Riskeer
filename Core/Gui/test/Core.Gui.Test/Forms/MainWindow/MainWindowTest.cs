@@ -447,7 +447,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 // Assert
                 Assert.IsInstanceOf<Gui.Forms.ProjectExplorer.ProjectExplorer>(mainWindow.ProjectExplorer);
-                Assert.AreSame(gui.Project, mainWindow.ProjectExplorer.Data);
+                Assert.IsNull(mainWindow.ProjectExplorer.Data);
 
                 Assert.IsInstanceOf<Gui.Forms.PropertyGridView.PropertyGridView>(mainWindow.PropertyGrid);
                 Assert.AreEqual("Eigenschappen", mainWindow.PropertyGrid.Text);
