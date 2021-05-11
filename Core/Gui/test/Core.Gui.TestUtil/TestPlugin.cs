@@ -31,6 +31,13 @@ namespace Core.Gui.TestUtil
     /// </summary>
     public class TestPlugin : PluginBase
     {
+        private readonly IEnumerable<StateInfo> stateInfos;
+
+        public TestPlugin(IEnumerable<StateInfo> stateInfos = null)
+        {
+            this.stateInfos = stateInfos;
+        }
+
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
             yield return new TreeNodeInfo<IProject>();
@@ -38,7 +45,7 @@ namespace Core.Gui.TestUtil
 
         public override IEnumerable<StateInfo> GetStateInfos()
         {
-            yield return new StateInfo("Name", "Symbol", project => project);
+            return stateInfos ?? base.GetStateInfos();
         }
     }
 }

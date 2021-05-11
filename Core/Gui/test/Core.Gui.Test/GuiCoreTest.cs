@@ -526,7 +526,7 @@ namespace Core.Gui.Test
                 using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
                 {
                     gui.Plugins.Add(new TestPlugin());
-                    
+
                     // Call
                     gui.Run();
 
@@ -626,8 +626,11 @@ namespace Core.Gui.Test
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
-                gui.Plugins.Add(new TestPlugin());
-                
+                gui.Plugins.Add(new TestPlugin(new[]
+                {
+                    new StateInfo("Name", "Symbol", project => project)
+                }));
+
                 // Call
                 void Call() => gui.Run(testFile);
 
@@ -683,7 +686,7 @@ namespace Core.Gui.Test
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
                 gui.Plugins.Add(new TestPlugin());
-                
+
                 // Call
                 gui.Run(testFile);
 
@@ -730,7 +733,7 @@ namespace Core.Gui.Test
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
                 gui.Plugins.Add(new TestPlugin());
-                
+
                 // Call
                 void Call() => gui.Run(testFile);
 
@@ -782,7 +785,7 @@ namespace Core.Gui.Test
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
                 gui.Plugins.Add(new TestPlugin());
-                
+
                 // Call
                 void Call() => gui.Run(testFile);
 
@@ -835,7 +838,7 @@ namespace Core.Gui.Test
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
                 gui.Plugins.Add(new TestPlugin());
-                
+
                 // Call
                 void Call() => gui.Run(testFile);
 
@@ -884,7 +887,7 @@ namespace Core.Gui.Test
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
                 gui.Plugins.Add(new TestPlugin());
-                
+
                 // Call
                 gui.Run(path);
 
@@ -1010,7 +1013,7 @@ namespace Core.Gui.Test
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new TestPlugin());
-                
+
                 // Call
                 gui.Run();
 
