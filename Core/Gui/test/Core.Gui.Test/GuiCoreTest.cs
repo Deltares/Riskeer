@@ -1590,24 +1590,22 @@ namespace Core.Gui.Test
 
             var selectionProvider = new TestSelectionProvider();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                gui.Plugins.Add(new TestPlugin());
-                gui.Run();
-                gui.ViewHost.AddDocumentView(selectionProvider);
-                SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
+            var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
+            gui.Plugins.Add(new TestPlugin());
+            gui.Run();
+            gui.ViewHost.AddDocumentView(selectionProvider);
+            SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
 
-                gui.Dispose();
+            gui.Dispose();
 
-                // Precondition
-                Assert.IsNull(gui.Selection);
+            // Precondition
+            Assert.IsNull(gui.Selection);
 
-                // When
-                selectionProvider.ChangeSelection();
+            // When
+            selectionProvider.ChangeSelection();
 
-                // Then
-                Assert.IsNull(gui.Selection);
-            }
+            // Then
+            Assert.IsNull(gui.Selection);
 
             mocks.VerifyAll();
         }
