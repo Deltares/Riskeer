@@ -32,7 +32,11 @@ namespace Core.Gui.Commands
         private readonly Action<object> action;
         private readonly Func<object, bool> canExecute;
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
+        }
 
         /// <summary>
         /// Creates a new instance of <see cref="RelayCommand"/>.
