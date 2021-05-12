@@ -255,7 +255,7 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bel support.
+        ///   Looks up a localized string similar to Bel helpdesk.
         /// </summary>
         public static string CallSupport_DisplayName {
             get {
@@ -951,7 +951,7 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email Support.
+        ///   Looks up a localized string similar to E-mail helpdesk.
         /// </summary>
         public static string EmailSupport_DisplayName {
             get {

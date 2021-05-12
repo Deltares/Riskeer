@@ -988,10 +988,10 @@ Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel bin
     <value>Bezoek website</value>
   </data>
   <data name="CallSupport_DisplayName" xml:space="preserve">
-    <value>Bel support</value>
+    <value>Bel helpdesk</value>
   </data>
   <data name="EmailSupport_DisplayName" xml:space="preserve">
-    <value>Email Support</value>
+    <value>E-mail helpdesk</value>
   </data>
   <data name="Description_DisplayName" xml:space="preserve">
     <value>Omschrijving</value>

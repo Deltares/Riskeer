@@ -74,7 +74,7 @@ All rights reserved.
                                     BorderThickness="1"
                                     BorderBrush="{TemplateBinding BorderBrush}">
                                 <DockPanel Margin="8">
-                                    <TextBlock FontSize="13" DockPanel.Dock="Bottom" HorizontalAlignment="Left">
+                                    <TextBlock FontSize="13" DockPanel.Dock="Bottom" HorizontalAlignment="Center">
                                         <ContentPresenter Content="{TemplateBinding Tag}" />
                                     </TextBlock>
                                     <TextBlock FontFamily="{StaticResource RiskeerFont}"
@@ -140,7 +140,7 @@ All rights reserved.
                             Tag="{x:Static properties:Resources.CallSupport_DisplayName}"
                             Command="{x:Static commands:MainWindowCommands.CallHelpdeskWaterWebsiteCommand}">
                         <TextBlock Style="{StaticResource BigButtonIconStyle}"
-                                   Text="&#xE949;"/>
+                                   Text="&#xE948;"/>
                     </Button>
     
                     <Button Style="{StaticResource BackstageBigButtonStyle}"
