@@ -143,10 +143,11 @@ All rights reserved.
     <Grid>
         <DockPanel>
             <StackPanel Width="138" DockPanel.Dock="Left" Style="{StaticResource PanelBackgroundWindowTitleStyle}">
-                <Button Style="{StaticResource BackstageBackButtonStyle}" 
+                <Button Style="{StaticResource BackstageBackButtonStyle}"
+                        Height="52"
                         Command="{x:Static commands:MainWindowCommands.ToggleBackstageCommand}">
                     <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
-                               FontSize="35"
+                               FontSize="42"
                                Text="&#xE916;" />
                 </Button>
 
