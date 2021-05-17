@@ -26,6 +26,7 @@ All rights reserved.
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+                   xmlns:properties="clr-namespace:Core.Gui.Properties"
                    mc:Ignorable="d"
                    MinWidth="1366"
                    MinHeight="768"
@@ -139,7 +140,7 @@ All rights reserved.
                         <StackPanel VerticalAlignment="Top" Margin="8 20"
                                     Orientation="Horizontal" DockPanel.Dock="Left">
                             <Button Style="{StaticResource BigButtonStyle}"
-                                           Tag="Nieuw"
+                                           Tag="{x:Static properties:Resources.NewProject_DisplayName}"
                                            IsDefault="True">
                                 <TextBlock Text="&#xE90B;"
                                            FontFamily="{StaticResource RiskeerFont}"
