@@ -151,7 +151,7 @@ namespace Application.Riskeer
 
             RunRiskeer();
 
-            mainWindow.Show();
+            mainWindow.ShowStartScreen();
         }
 
         private void RunRiskeer()

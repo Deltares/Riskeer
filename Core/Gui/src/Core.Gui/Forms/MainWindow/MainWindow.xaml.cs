@@ -94,6 +94,13 @@ namespace Core.Gui.Forms.MainWindow
             OpenLogFileCommand = new RelayCommand(OnOpenLogFile);
         }
 
+        public void ShowStartScreen()
+        {
+            var startScreen = new StartScreen();
+            startScreen.Closed += (sender, args) => Close();
+            startScreen.Show();
+        }
+
         /// <summary>
         /// Gets the <see cref="BackstageViewModel"/>.
         /// </summary>
