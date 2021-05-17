@@ -70,6 +70,15 @@ All rights reserved.
     <SolidColorBrush x:Key="BackstageBigButtonMouseDownBrush" Color="{StaticResource DeltaresBlue}" Opacity="0.1" />
     <SolidColorBrush x:Key="BackstageBigButtonMouseOverBrush" Color="{StaticResource DeltaresBlue}" Opacity="0.1" />
 
+    <Style TargetType="mainWindow:StartScreen">
+        <Setter Property="GlowBrush" Value="{StaticResource WindowGlowBrush}" />
+        <Setter Property="OverlayBrush" Value="{StaticResource WindowOverlayBrush}" />
+        <Setter Property="WindowTitleBrush" Value="{StaticResource DeltaresBlueBrush}" />
+        <Setter Property="ShowIconOnTitleBar" Value="False" />
+        <Setter Property="Height" Value="350" />
+        <Setter Property="Width" Value="525" />
+    </Style>
+    
     <Style TargetType="mainWindow:MainWindow">
         <Setter Property="GlowBrush" Value="{StaticResource WindowGlowBrush}" />
         <Setter Property="OverlayBrush" Value="{StaticResource WindowOverlayBrush}" />
