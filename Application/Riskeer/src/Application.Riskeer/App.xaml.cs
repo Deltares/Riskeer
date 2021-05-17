@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -150,8 +150,6 @@ namespace Application.Riskeer
             };
 
             RunRiskeer();
-
-            mainWindow.ShowStartScreen();
         }
 
         private void RunRiskeer()

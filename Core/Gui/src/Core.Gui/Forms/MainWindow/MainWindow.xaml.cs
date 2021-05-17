@@ -94,13 +94,6 @@ namespace Core.Gui.Forms.MainWindow
             OpenLogFileCommand = new RelayCommand(OnOpenLogFile);
         }
 
-        public void ShowStartScreen()
-        {
-            var startScreen = new StartScreen();
-            startScreen.Closed += (sender, args) => Close();
-            startScreen.Show();
-        }
-
         /// <summary>
         /// Gets the <see cref="BackstageViewModel"/>.
         /// </summary>
@@ -190,7 +183,6 @@ namespace Core.Gui.Forms.MainWindow
             applicationSelection = gui;
 
             BackstageViewModel = new BackstageViewModel(settings.FixedSettings, SettingsHelper.Instance.ApplicationVersion);
-
         }
 
         /// <summary>
@@ -441,7 +433,7 @@ namespace Core.Gui.Forms.MainWindow
                 CloseBackstage();
             }
         }
-        
+
         private void CloseBackstage()
         {
             if (BackstageDockPanel.Visibility == Visibility.Visible)

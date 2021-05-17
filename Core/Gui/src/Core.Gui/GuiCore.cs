@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -50,7 +50,6 @@ using Core.Gui.Settings;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
-using SplashScreen = Core.Gui.Forms.SplashScreen.SplashScreen;
 using WindowsApplication = System.Windows.Forms.Application;
 
 namespace Core.Gui
@@ -69,8 +68,9 @@ namespace Core.Gui
         private ISelectionProvider currentSelectionProvider;
 
         private bool isExiting;
-        private bool runFinished;
-        private SplashScreen splashScreen;
+
+        private StartScreen startScreen;
+        private bool startScreenShown;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuiCore"/> class.
@@ -169,17 +169,17 @@ namespace Core.Gui
 
             ConfigureLogging();
 
-            ShowSplashScreen();
-
-            InitializeProjectFromPath(projectPath);
-
             Initialize();
 
             log.InfoFormat(Resources.GuiCore_Run_Started_in_0_f2_sec, (DateTime.Now - startTime).TotalSeconds);
 
-            runFinished = true;
+            ShowStartScreen();
 
-            HideSplashScreen();
+            bool isPathGiven = !string.IsNullOrWhiteSpace(projectPath);
+            if (isPathGiven)
+            {
+                StorageCommands.OpenExistingProject(projectPath);
+            }
 
             MessageWindowLogAppender.Instance.Enabled = true;
         }
@@ -278,8 +278,6 @@ namespace Core.Gui
                     DocumentViewController = null;
                 }
 
-                splashScreen = null;
-
                 MessageWindowLogAppender.Instance.MessageWindow = null;
 
                 RemoveLogging();
@@ -338,13 +336,27 @@ namespace Core.Gui
             isAlreadyRunningInstanceOfIGui = false;
         }
 
-        private void InitializeProjectFromPath(string projectPath)
+        private void ShowStartScreen()
         {
-            bool isPathGiven = !string.IsNullOrWhiteSpace(projectPath);
-            if (isPathGiven)
-            {
-                StorageCommands.OpenExistingProject(projectPath);
-            }
+            startScreen = new StartScreen();
+            startScreen.Closed += OnStartScreenClosed;
+            startScreen.Show();
+
+            startScreenShown = true;
+        }
+
+        private void OnStartScreenClosed(object sender, EventArgs e)
+        {
+            ExitApplication();
+        }
+
+        private void ShowMainWindow()
+        {
+            startScreen.Closed -= OnStartScreenClosed;
+            startScreen.Close();
+            startScreenShown = false;
+
+            mainWindow.Show();
         }
 
         private void DeactivatePlugin(PluginBase plugin)
@@ -370,6 +382,11 @@ namespace Core.Gui
             projectObserver.Observable = newProject;
             UpdateProjectData();
             mainWindow.UpdateProjectExplorer();
+
+            if (startScreenShown)
+            {
+                ShowMainWindow();
+            }
         }
 
         private void ApplicationBeforeProjectOpened(IProject oldProject)
@@ -404,35 +421,6 @@ namespace Core.Gui
             InitializeWindows();
 
             InitializePlugins();
-        }
-
-        private void ShowSplashScreen()
-        {
-            splashScreen = new SplashScreen
-            {
-                VersionText = SettingsHelper.Instance.ApplicationVersion
-            };
-
-            splashScreen.IsVisibleChanged += delegate
-            {
-                if (splashScreen.IsVisible)
-                {
-                    return;
-                }
-
-                if (!runFinished) // splash screen was closed before gui started.
-                {
-                    log.Info(Resources.GuiCore_ShowSplashScreen_User_has_canceled_start_Exiting);
-                    Environment.Exit(1);
-                }
-            };
-
-            splashScreen.Show();
-        }
-
-        private void HideSplashScreen()
-        {
-            splashScreen.Shutdown();
         }
 
         private void InitializeMainWindow()
