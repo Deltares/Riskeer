@@ -79,7 +79,6 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.Input;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
-using Riskeer.Integration.Forms.Commands;
 using Riskeer.Integration.Forms.Dialogs;
 using Riskeer.Integration.Forms.Factories;
 using Riskeer.Integration.Forms.Merge;

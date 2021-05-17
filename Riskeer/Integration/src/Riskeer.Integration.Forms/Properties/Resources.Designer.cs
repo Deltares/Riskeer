@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -244,46 +244,6 @@ namespace Riskeer.Integration.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("AssessmentSectionFolderIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het importeren van de referentielijn is mislukt..
-        /// </summary>
-        public static string AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Importing_ReferenceLineFailed {
-            get {
-                return ResourceManager.GetString("AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Importing_Referen" +
-                        "ceLineFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden..
-        /// </summary>
-        public static string AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection {
-            get {
-                return ResourceManager.GetString("AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found" +
-                        "_for_AssessmentSection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het traject kan niet aangemaakt worden met een ondergrens van {0} en een signaleringswaarde van {1}. De waarde van de ondergrens en signaleringswaarde moet in het bereik {2} liggen en de ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde..
-        /// </summary>
-        public static string AssessmentSectionFromFileCommandHandler_Unable_to_create_assessmentSection_with_LowerLimitNorm_0_and_SignalingNorm_1_Norms_should_be_in_Range_2_ {
-            get {
-                return ResourceManager.GetString("AssessmentSectionFromFileCommandHandler_Unable_to_create_assessmentSection_with_L" +
-                        "owerLimitNorm_0_and_SignalingNorm_1_Norms_should_be_in_Range_2_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er kunnen geen trajecten gelezen worden uit het shapebestand..
-        /// </summary>
-        public static string AssessmentSectionFromFileCommandHandler_ValidateReferenceLineMetas_No_referenceLines_in_file {
-            get {
-                return ResourceManager.GetString("AssessmentSectionFromFileCommandHandler_ValidateReferenceLineMetas_No_referenceLi" +
-                        "nes_in_file", resourceCulture);
             }
         }
         

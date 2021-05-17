@@ -178,18 +178,6 @@
   <data name="ReferenceLineMetaSelectionDialog_ColumnHeader_LowerLimitValue" xml:space="preserve">
     <value>Ondergrens</value>
   </data>
-  <data name="AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection" xml:space="preserve">
-    <value>Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden.</value>
-  </data>
-  <data name="AssessmentSectionFromFileCommandHandler_ValidateReferenceLineMetas_No_referenceLines_in_file" xml:space="preserve">
-    <value>Er kunnen geen trajecten gelezen worden uit het shapebestand.</value>
-  </data>
-  <data name="AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Importing_ReferenceLineFailed" xml:space="preserve">
-    <value>Het importeren van de referentielijn is mislukt.</value>
-  </data>
-  <data name="AssessmentSectionFromFileCommandHandler_Unable_to_create_assessmentSection_with_LowerLimitNorm_0_and_SignalingNorm_1_Norms_should_be_in_Range_2_" xml:space="preserve">
-    <value>Het traject kan niet aangemaakt worden met een ondergrens van {0} en een signaleringswaarde van {1}. De waarde van de ondergrens en signaleringswaarde moet in het bereik {2} liggen en de ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde.</value>
-  </data>
   <data name="AssessmentSectionFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder-stand32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

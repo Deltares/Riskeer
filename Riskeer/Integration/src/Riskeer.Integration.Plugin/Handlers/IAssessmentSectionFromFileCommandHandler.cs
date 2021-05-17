@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.AssessmentSection;
 
-namespace Riskeer.Integration.Forms.Commands
+namespace Riskeer.Integration.Plugin.Handlers
 {
     /// <summary>
     /// Interface for handling commands related to adding <see cref="IAssessmentSection"/> to a <see cref="TProject"/>.

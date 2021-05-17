@@ -27,7 +27,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
-using Core.Gui;
 using Core.Gui.Forms.ViewHost;
 using log4net;
 using Riskeer.Common.Data.AssessmentSection;
@@ -37,12 +36,13 @@ using Riskeer.Common.IO;
 using Riskeer.Common.IO.Exceptions;
 using Riskeer.Common.IO.ReferenceLines;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms;
 using Riskeer.Integration.Forms.Dialogs;
-using Riskeer.Integration.Forms.Properties;
+using Riskeer.Integration.Plugin.Properties;
 using IntegrationResources = Riskeer.Integration.Data.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Riskeer.Integration.Forms.Commands
+namespace Riskeer.Integration.Plugin.Handlers
 {
     /// <summary>
     /// This class is responsible for adding an <see cref="AssessmentSection"/> from a predefined location.

@@ -39,10 +39,10 @@ using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Forms.Commands;
 using Riskeer.Integration.Forms.Dialogs;
+using Riskeer.Integration.Plugin.Handlers;
 
-namespace Riskeer.Integration.Forms.Test.Commands
+namespace Riskeer.Integration.Plugin.Test
 {
     [TestFixture]
     public class AssessmentSectionFromFileCommandHandlerTest : NUnitFormTest
