@@ -42,10 +42,10 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Dialogs;
 using Riskeer.Integration.Plugin.Handlers;
 
-namespace Riskeer.Integration.Plugin.Test
+namespace Riskeer.Integration.Plugin.Test.Handlers
 {
     [TestFixture]
-    public class AssessmentSectionFromFileCommandHandlerTest : NUnitFormTest
+    public class AssessmentSectionFromFileHandlerTest : NUnitFormTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "ReferenceLineMetaImporter");
 
@@ -58,7 +58,7 @@ namespace Riskeer.Integration.Plugin.Test
             mockRepository.ReplayAll();
 
             // Call
-            void Call() => new AssessmentSectionFromFileCommandHandler(null, viewController);
+            void Call() => new AssessmentSectionFromFileHandler(null, viewController);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -75,7 +75,7 @@ namespace Riskeer.Integration.Plugin.Test
             mockRepository.ReplayAll();
 
             // Call
-            void Call() => new AssessmentSectionFromFileCommandHandler(parentDialog, null);
+            void Call() => new AssessmentSectionFromFileHandler(parentDialog, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -93,10 +93,10 @@ namespace Riskeer.Integration.Plugin.Test
             mockRepository.ReplayAll();
 
             // Call
-            var assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
 
             // Assert
-            Assert.IsInstanceOf<IAssessmentSectionFromFileCommandHandler<RiskeerProject>>(assessmentSectionFromFileCommandHandler);
+            Assert.IsInstanceOf<IAssessmentSectionFromFileHandler<RiskeerProject>>(assessmentSectionFromFileHandler);
             mockRepository.VerifyAll();
         }
 
@@ -109,17 +109,17 @@ namespace Riskeer.Integration.Plugin.Test
             var viewController = mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(parentDialog, viewController);
-            
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+
             // Call
-            void Call() => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile(null);
+            void Call() => assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("project", exception.ParamName);
             mockRepository.VerifyAll();
         }
-        
+
         [Test]
         public void AddAssessmentSectionFromFile_InvalidDirectory_LogsWarningProjectNotUpdated()
         {
@@ -129,15 +129,15 @@ namespace Riskeer.Integration.Plugin.Test
             var viewController = mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
 
             string pathToNonExistingFolder = Path.Combine(testDataPath, "I do not exist");
-            SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathToNonExistingFolder);
+            SetShapeFileDirectory(assessmentSectionFromFileHandler, pathToNonExistingFolder);
 
             var project = new RiskeerProject();
 
             // Call
-            void Action() => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile(project);
+            void Action() => assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
 
             // Assert
             var expectedMessage = $"De map met specificaties voor trajecten '{pathToNonExistingFolder}' is niet gevonden.";
@@ -155,10 +155,10 @@ namespace Riskeer.Integration.Plugin.Test
             var viewController = mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
 
             string pathValidFolder = Path.Combine(testDataPath, "EmptyShapeFile");
-            SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathValidFolder);
+            SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
 
             string messageText = null;
             DialogBoxHandler = (name, wnd) =>
@@ -171,7 +171,7 @@ namespace Riskeer.Integration.Plugin.Test
             var project = new RiskeerProject();
 
             // Call
-            void Action() => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile(project);
+            void Action() => assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
 
             // Assert
             const string expectedMessage = "Er kunnen geen trajecten gelezen worden uit het shapebestand.";
@@ -190,10 +190,10 @@ namespace Riskeer.Integration.Plugin.Test
             var viewController = mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
 
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
-            SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathValidFolder);
+            SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -204,7 +204,7 @@ namespace Riskeer.Integration.Plugin.Test
             var project = new RiskeerProject();
 
             // Call
-            assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile(project);
+            assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
 
             // Assert
             Assert.IsEmpty(project.AssessmentSections);
@@ -221,10 +221,10 @@ namespace Riskeer.Integration.Plugin.Test
             viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileCommandHandler =
-                new AssessmentSectionFromFileCommandHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
-            SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathValidFolder);
+            SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
 
             var rowCount = 0;
             DialogBoxHandler = (name, wnd) =>
@@ -238,7 +238,7 @@ namespace Riskeer.Integration.Plugin.Test
             var project = new RiskeerProject();
 
             // Call
-            assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile(project);
+            assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
 
             // Assert
             Assert.AreEqual(3, rowCount);
@@ -258,10 +258,10 @@ namespace Riskeer.Integration.Plugin.Test
             viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFile =
-                new AssessmentSectionFromFileCommandHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
-            SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
+            SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
 
             var project = new RiskeerProject();
             project.AssessmentSections.Add(TestAssessmentSection1_2(true));
@@ -277,7 +277,7 @@ namespace Riskeer.Integration.Plugin.Test
             };
 
             // Call
-            assessmentSectionFromFile.AddAssessmentSectionFromFile(project);
+            assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
 
             // Assert
             Assert.IsTrue(signallingValueRadioButtonSelected);
@@ -301,9 +301,10 @@ namespace Riskeer.Integration.Plugin.Test
             viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
-            SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
+            SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -316,7 +317,7 @@ namespace Riskeer.Integration.Plugin.Test
             var project = new RiskeerProject();
 
             // Call
-            assessmentSectionFromFile.AddAssessmentSectionFromFile(project);
+            assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
 
             // Assert
             AssessmentSection assessmentSection = project.AssessmentSections.FirstOrDefault();
@@ -335,9 +336,10 @@ namespace Riskeer.Integration.Plugin.Test
             viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFile = new AssessmentSectionFromFileCommandHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
-            SetShapeFileDirectory(assessmentSectionFromFile, pathValidFolder);
+            SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
 
             var rowCount = 0;
             DialogBoxHandler = (name, wnd) =>
@@ -354,7 +356,7 @@ namespace Riskeer.Integration.Plugin.Test
             var project = new RiskeerProject();
 
             // Call
-            assessmentSectionFromFile.AddAssessmentSectionFromFile(project);
+            assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
 
             // Assert
             Assert.AreEqual(3, rowCount);
@@ -374,10 +376,10 @@ namespace Riskeer.Integration.Plugin.Test
             viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileCommandHandler =
-                new AssessmentSectionFromFileCommandHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
-            SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathValidFolder);
+            SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -392,7 +394,7 @@ namespace Riskeer.Integration.Plugin.Test
             var project = new RiskeerProject();
 
             // Call
-            void Call() => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile(project);
+            void Call() => assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
 
             // Assert
             const string expectedMessage = "Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden.";
@@ -413,10 +415,10 @@ namespace Riskeer.Integration.Plugin.Test
             viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileCommandHandler =
-                new AssessmentSectionFromFileCommandHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+
             string pathValidFolder = Path.Combine(testDataPath, "ShapeWithoutPoints");
-            SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathValidFolder);
+            SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -431,7 +433,7 @@ namespace Riskeer.Integration.Plugin.Test
             var project = new RiskeerProject();
 
             // Call
-            void Call() => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile(project);
+            void Call() => assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
 
             // Assert
             const string expectedMessage = "Het importeren van de referentielijn is mislukt.";
@@ -456,10 +458,10 @@ namespace Riskeer.Integration.Plugin.Test
             var viewController = mockRepository.StrictMock<IDocumentViewController>();
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileCommandHandler =
-                new AssessmentSectionFromFileCommandHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+
             string pathValidFolder = Path.Combine(testDataPath, "InvalidNorm");
-            SetShapeFileDirectory(assessmentSectionFromFileCommandHandler, pathValidFolder);
+            SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -474,7 +476,7 @@ namespace Riskeer.Integration.Plugin.Test
             var project = new RiskeerProject();
 
             // Call
-            void Call() => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile(project);
+            void Call() => assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
 
             // Assert
             const string expectedMessage = "Het traject kan niet aangemaakt worden met een ondergrens van 1/9.999.999 en een signaleringswaarde van 1/8.888.888. " +
@@ -492,10 +494,10 @@ namespace Riskeer.Integration.Plugin.Test
             mockRepository.VerifyAll();
         }
 
-        private static void SetShapeFileDirectory(AssessmentSectionFromFileCommandHandler commandHandler, string nonExistingFolder)
+        private static void SetShapeFileDirectory(AssessmentSectionFromFileHandler handler, string nonExistingFolder)
         {
             const string privateShapeFileDirectoryName = "shapeFileDirectory";
-            Type commandHandlerType = commandHandler.GetType();
+            Type commandHandlerType = handler.GetType();
             FieldInfo fieldInfo = commandHandlerType.GetField(privateShapeFileDirectoryName, BindingFlags.NonPublic | BindingFlags.Instance);
             if (fieldInfo == null)
             {
@@ -503,7 +505,7 @@ namespace Riskeer.Integration.Plugin.Test
             }
             else
             {
-                fieldInfo.SetValue(commandHandler, nonExistingFolder);
+                fieldInfo.SetValue(handler, nonExistingFolder);
             }
         }
 

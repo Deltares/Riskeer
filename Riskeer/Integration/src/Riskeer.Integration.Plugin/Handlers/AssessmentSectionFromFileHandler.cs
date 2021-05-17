@@ -47,9 +47,9 @@ namespace Riskeer.Integration.Plugin.Handlers
     /// <summary>
     /// This class is responsible for adding an <see cref="AssessmentSection"/> from a predefined location.
     /// </summary>
-    public class AssessmentSectionFromFileCommandHandler : IAssessmentSectionFromFileCommandHandler<RiskeerProject>
+    public class AssessmentSectionFromFileHandler : IAssessmentSectionFromFileHandler<RiskeerProject>
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionFromFileCommandHandler));
+        private static readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionFromFileHandler));
         private readonly string shapeFileDirectory = RiskeerSettingsHelper.GetCommonDocumentsRiskeerShapeFileDirectory();
 
         private readonly IWin32Window dialogParent;
@@ -58,12 +58,12 @@ namespace Riskeer.Integration.Plugin.Handlers
         private IEnumerable<ReferenceLineMeta> referenceLineMetas = new List<ReferenceLineMeta>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssessmentSectionFromFileCommandHandler"/> class.
+        /// Initializes a new instance of the <see cref="AssessmentSectionFromFileHandler"/> class.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
         /// <param name="viewController">The document view controller.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public AssessmentSectionFromFileCommandHandler(IWin32Window dialogParent, IDocumentViewController viewController)
+        public AssessmentSectionFromFileHandler(IWin32Window dialogParent, IDocumentViewController viewController)
         {
             if (dialogParent == null)
             {

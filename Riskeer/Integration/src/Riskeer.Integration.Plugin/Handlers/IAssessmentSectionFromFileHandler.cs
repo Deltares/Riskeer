@@ -26,10 +26,10 @@ using Riskeer.Common.Data.AssessmentSection;
 namespace Riskeer.Integration.Plugin.Handlers
 {
     /// <summary>
-    /// Interface for handling commands related to adding <see cref="IAssessmentSection"/> to a <see cref="TProject"/>.
+    /// Interface for handling adding <see cref="IAssessmentSection"/> to a <see cref="TProject"/>.
     /// </summary>
     /// <typeparam name="TProject">The type of project.</typeparam>
-    public interface IAssessmentSectionFromFileCommandHandler<in TProject>
+    public interface IAssessmentSectionFromFileHandler<in TProject>
         where TProject : IProject
     {
         /// <summary>
