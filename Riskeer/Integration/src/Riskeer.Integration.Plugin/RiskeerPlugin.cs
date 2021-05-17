@@ -241,7 +241,6 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        private IAssessmentSectionFromFileCommandHandler assessmentSectionFromFileCommandHandler;
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
         private AssessmentSectionMerger assessmentSectionMerger;
 
@@ -265,7 +264,6 @@ namespace Riskeer.Integration.Plugin
                 throw new InvalidOperationException("Gui cannot be null");
             }
 
-            assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
             hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
             assessmentSectionMerger = new AssessmentSectionMerger(new AssessmentSectionMergeFilePathProvider(GetInquiryHelper()),
                                                                   new AssessmentSectionProvider(Gui.MainWindow, Gui.ProjectStore),
@@ -373,7 +371,6 @@ namespace Riskeer.Integration.Plugin
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<IProject, RiskeerProjectProperties>();
             yield return new PropertyInfo<IAssessmentSection, AssessmentSectionProperties>();
             yield return new PropertyInfo<BackgroundData, BackgroundDataProperties>
             {
@@ -1194,30 +1191,6 @@ namespace Riskeer.Integration.Plugin
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
-            };
-
-            yield return new TreeNodeInfo<RiskeerProject>
-            {
-                Text = project => project.Name,
-                Image = project => CoreGuiResources.ProjectIcon,
-                ChildNodeObjects = nodeData => nodeData.AssessmentSections.Cast<object>().ToArray(),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) =>
-                {
-                    var addItem = new StrictContextMenuItem(
-                        RiskeerFormsResources.AddAssessmentSection_DisplayName,
-                        RiskeerCommonFormsResources.RiskeerProject_ToolTip,
-                        RiskeerFormsResources.AddAssessmentSectionFolder,
-                        (s, e) => assessmentSectionFromFileCommandHandler.AddAssessmentSectionFromFile());
-
-                    return Gui.Get(nodeData, treeViewControl)
-                              .AddCustomItem(addItem)
-                              .AddSeparator()
-                              .AddCollapseAllItem()
-                              .AddExpandAllItem()
-                              .AddSeparator()
-                              .AddPropertiesItem()
-                              .Build();
-                }
             };
 
             yield return new TreeNodeInfo<StructuresOutputContext>

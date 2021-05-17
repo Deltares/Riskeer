@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Data;
+
 namespace Core.Gui.Settings
 {
     /// <summary>
@@ -50,5 +53,7 @@ namespace Core.Gui.Settings
         /// Gets or sets the path of the manual file.
         /// </summary>
         public string ManualFilePath { get; set; }
+
+        public Action<IGui, IProject> OnNewProjectCreatedAction { get; set; }
     }
 }

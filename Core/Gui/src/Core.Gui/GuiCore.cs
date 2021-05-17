@@ -72,6 +72,7 @@ namespace Core.Gui
 
         private StartScreen startScreen;
         private bool startScreenShown;
+        private bool creatingNewProject;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuiCore"/> class.
@@ -349,6 +350,7 @@ namespace Core.Gui
 
         private void OnNewProject()
         {
+            creatingNewProject = true;
             StorageCommands.CreateNewProject();
         }
 
@@ -393,6 +395,11 @@ namespace Core.Gui
 
         private void ApplicationProjectOpened(IProject newProject)
         {
+            if (creatingNewProject)
+            {
+                FixedSettings.OnNewProjectCreatedAction(this, project);
+            }
+            
             mainWindow.ValidateItems();
 
             projectObserver.Observable = newProject;
@@ -403,6 +410,8 @@ namespace Core.Gui
             {
                 ShowMainWindow();
             }
+
+            creatingNewProject = false;
         }
 
         private void ApplicationBeforeProjectOpened(IProject oldProject)

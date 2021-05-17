@@ -19,20 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.Integration.Forms.Commands
 {
     /// <summary>
-    /// Interface for handling commands related to adding <see cref="IAssessmentSection"/> to a <see cref="IProject"/>.
+    /// Interface for handling commands related to adding <see cref="IAssessmentSection"/> to a <see cref="TProject"/>.
     /// </summary>
-    public interface IAssessmentSectionFromFileCommandHandler
+    /// <typeparam name="TProject">The type of project.</typeparam>
+    public interface IAssessmentSectionFromFileCommandHandler<in TProject>
+        where TProject : IProject
     {
         /// <summary>
         /// Displays available <see cref="IAssessmentSection"/> objects to the user and asks to select one. 
-        /// The selected <see cref="IAssessmentSection"/>, if any, will be added to the <see cref="IProject"/>.
+        /// The selected <see cref="IAssessmentSection"/>, if any, will be added to the <see cref="TProject"/>.
         /// </summary>
-        void AddAssessmentSectionFromFile();
+        /// <param name="project">The project to add the <see cref="IAssessmentSection"/> to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/>
+        /// is <c>null</c>.</exception>
+        void AddAssessmentSectionFromFile(TProject project);
     }
 }

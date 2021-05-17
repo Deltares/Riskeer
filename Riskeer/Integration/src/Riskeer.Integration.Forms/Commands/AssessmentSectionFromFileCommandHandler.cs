@@ -47,13 +47,12 @@ namespace Riskeer.Integration.Forms.Commands
     /// <summary>
     /// This class is responsible for adding an <see cref="AssessmentSection"/> from a predefined location.
     /// </summary>
-    public class AssessmentSectionFromFileCommandHandler : IAssessmentSectionFromFileCommandHandler
+    public class AssessmentSectionFromFileCommandHandler : IAssessmentSectionFromFileCommandHandler<RiskeerProject>
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionFromFileCommandHandler));
         private readonly string shapeFileDirectory = RiskeerSettingsHelper.GetCommonDocumentsRiskeerShapeFileDirectory();
 
         private readonly IWin32Window dialogParent;
-        private readonly IProjectOwner projectOwner;
         private readonly IDocumentViewController viewController;
         private IEnumerable<AssessmentSectionSettings> settings;
         private IEnumerable<ReferenceLineMeta> referenceLineMetas = new List<ReferenceLineMeta>();
@@ -62,19 +61,13 @@ namespace Riskeer.Integration.Forms.Commands
         /// Initializes a new instance of the <see cref="AssessmentSectionFromFileCommandHandler"/> class.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
-        /// <param name="projectOwner">The class owning the application project.</param>
         /// <param name="viewController">The document view controller.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public AssessmentSectionFromFileCommandHandler(IWin32Window dialogParent, IProjectOwner projectOwner, IDocumentViewController viewController)
+        public AssessmentSectionFromFileCommandHandler(IWin32Window dialogParent, IDocumentViewController viewController)
         {
             if (dialogParent == null)
             {
                 throw new ArgumentNullException(nameof(dialogParent));
-            }
-
-            if (projectOwner == null)
-            {
-                throw new ArgumentNullException(nameof(projectOwner));
             }
 
             if (viewController == null)
@@ -83,20 +76,23 @@ namespace Riskeer.Integration.Forms.Commands
             }
 
             this.dialogParent = dialogParent;
-            this.projectOwner = projectOwner;
             this.viewController = viewController;
         }
 
-        public void AddAssessmentSectionFromFile()
+        public void AddAssessmentSectionFromFile(RiskeerProject project)
         {
+            if (project == null)
+            {
+                throw new ArgumentNullException(nameof(project));
+            }
+
             if (!TryReadSourceFiles())
             {
                 return;
             }
 
             AssessmentSection assessmentSection = GetAssessmentSectionFromDialog();
-            var project = projectOwner.Project as RiskeerProject;
-            if (assessmentSection == null || project == null)
+            if (assessmentSection == null)
             {
                 return;
             }
