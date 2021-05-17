@@ -84,8 +84,6 @@ namespace Core.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            var project = mocks.Stub<IProject>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
             mocks.ReplayAll();
 
             var guiCoreSettings = new GuiCoreSettings();
@@ -98,7 +96,7 @@ namespace Core.Gui.Test
                 Assert.AreEqual(null, gui.PropertyResolver);
 
                 Assert.IsNull(gui.ProjectFilePath);
-                Assert.AreSame(project, gui.Project);
+                Assert.IsNull(gui.Project);
 
                 Assert.AreEqual(null, gui.Selection);
 

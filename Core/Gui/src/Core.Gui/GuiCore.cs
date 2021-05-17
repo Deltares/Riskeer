@@ -146,8 +146,6 @@ namespace Core.Gui
             ProjectOpened += ApplicationProjectOpened;
             BeforeProjectOpened += ApplicationBeforeProjectOpened;
             projectObserver = new Observer(UpdateProjectData);
-
-            Project = projectFactory.CreateNewProject();
         }
 
         public IPropertyResolver PropertyResolver { get; private set; }
@@ -496,8 +494,6 @@ namespace Core.Gui
             }
 
             mainWindow.SubscribeToGui();
-
-            UpdateProjectData();
         }
 
         private void OnViewClosed(object sender, ViewChangeEventArgs e)

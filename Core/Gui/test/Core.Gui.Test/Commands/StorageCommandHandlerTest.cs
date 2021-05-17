@@ -713,10 +713,8 @@ namespace Core.Gui.Test.Commands
             var projectStorage = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectOwner = mocks.Stub<IProjectOwner>();
-            var project = mocks.Stub<IProject>();
 
-            projectOwner.Stub(po => po.Project).Return(project);
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
+            projectOwner.Stub(po => po.Project).Return(null);
             projectStorage.Stub(ps => ps.HasStagedProjectChanges(null)).IgnoreArguments().Return(false);
             projectStorage.Stub(ps => ps.OpenProjectFileFilter).Return(string.Empty);
 
@@ -784,7 +782,37 @@ namespace Core.Gui.Test.Commands
         }
 
         [Test]
-        public void AskConfirmationUnsavedChanges_ProjectSetNoChange_ReturnsTrue()
+        public void HandleUnsavedChanges_NoProjectSet_ReturnsTrue()
+        {
+            // Setup
+            var mainWindowController = mocks.Stub<IWin32Window>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            var projectStorage = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Stub(po => po.Project).Return(null);
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            var storageCommandHandler = new StorageCommandHandler(
+                projectStorage,
+                projectMigrator,
+                projectFactory,
+                projectOwner,
+                inquiryHelper,
+                mainWindowController);
+
+            // Call
+            bool changesHandled = storageCommandHandler.HandleUnsavedChanges();
+
+            // Assert
+            Assert.IsTrue(changesHandled);
+
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void HandleUnsavedChanges_ProjectSetNoChange_ReturnsTrue()
         {
             // Setup
             var mainWindowController = mocks.Stub<IWin32Window>();
@@ -817,7 +845,7 @@ namespace Core.Gui.Test.Commands
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void AskConfirmationUnsavedChanges_ProjectSetWithChangeCancelPressed_ReturnsFalse()
+        public void HandleUnsavedChanges_ProjectSetWithChangeCancelPressed_ReturnsFalse()
         {
             // Setup
             var mainWindowController = mocks.Stub<IWin32Window>();
@@ -864,7 +892,7 @@ namespace Core.Gui.Test.Commands
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void AskConfirmationUnsavedChanges_ProjectSetWithChangeNoPressed_ReturnsTrue()
+        public void HandleUnsavedChangesProjectSetWithChangeNoPressed_ReturnsTrue()
         {
             // Setup
             var mainWindowController = mocks.Stub<IWin32Window>();
@@ -911,11 +939,11 @@ namespace Core.Gui.Test.Commands
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void AskConfirmationUnsavedChanges_ProjectSetWithChangeYesPressed_ReturnsTrue()
+        public void HandleUnsavedChanges_ProjectSetWithChangeYesPressed_ReturnsTrue()
         {
             // Setup
             const string projectName = "Project";
-            string someValidFilePath = TestHelper.GetScratchPadPath(nameof(AskConfirmationUnsavedChanges_ProjectSetWithChangeYesPressed_ReturnsTrue));
+            string someValidFilePath = TestHelper.GetScratchPadPath(nameof(HandleUnsavedChanges_ProjectSetWithChangeYesPressed_ReturnsTrue));
             using (new FileDisposeHelper(someValidFilePath))
             {
                 var mainWindowController = mocks.Stub<IWin32Window>();
@@ -968,12 +996,12 @@ namespace Core.Gui.Test.Commands
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void AskConfirmationUnsavedChanges_ProjectSetWithChangeYesFileDoesNotExist_ReturnsTrue()
+        public void HandleUnsavedChanges_ProjectSetWithChangeYesFileDoesNotExist_ReturnsTrue()
         {
             // Setup
             const string fileFilter = "<Some text> | *.rtd";
             const string projectName = "Project";
-            string someValidFilePath = TestHelper.GetScratchPadPath(nameof(AskConfirmationUnsavedChanges_ProjectSetWithChangeYesFileDoesNotExist_ReturnsTrue));
+            string someValidFilePath = TestHelper.GetScratchPadPath(nameof(HandleUnsavedChanges_ProjectSetWithChangeYesFileDoesNotExist_ReturnsTrue));
 
             var mainWindowController = mocks.Stub<IWin32Window>();
             var projectFactory = mocks.Stub<IProjectFactory>();

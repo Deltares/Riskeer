@@ -71,7 +71,7 @@ namespace Core.Gui.Commands
 
         public bool HandleUnsavedChanges()
         {
-            if (IsCurrentNew())
+            if (projectOwner.Project == null)
             {
                 return true;
             }
@@ -270,11 +270,6 @@ namespace Core.Gui.Commands
             ActivityProgressDialogRunner.Run(dialogParent, activity);
 
             return activity.State == ActivityState.Finished;
-        }
-
-        private bool IsCurrentNew()
-        {
-            return projectOwner.Project.Equals(projectFactory.CreateNewProject());
         }
 
         private bool ShowSaveUnsavedChangesDialog()
