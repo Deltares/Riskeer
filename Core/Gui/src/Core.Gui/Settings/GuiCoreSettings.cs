@@ -27,6 +27,11 @@ namespace Core.Gui.Settings
     public class GuiCoreSettings
     {
         /// <summary>
+        /// Gets or sets the name of the application.
+        /// </summary>
+        public string ApplicationName { get; set; }
+        
+        /// <summary>
         /// Gets or sets the support website address url.
         /// </summary>
         public string SupportWebsiteAddressUrl { get; set; }
@@ -40,11 +45,6 @@ namespace Core.Gui.Settings
         /// Gets or sets the support phone number url.
         /// </summary>
         public string SupportPhoneNumberUrl { get; set; }
-
-        /// <summary>
-        /// Gets or sets the title of the main window.
-        /// </summary>
-        public string MainWindowTitle { get; set; }
 
         /// <summary>
         /// Gets or sets the path of the manual file.

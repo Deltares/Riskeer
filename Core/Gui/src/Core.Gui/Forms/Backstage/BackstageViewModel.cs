@@ -60,7 +60,7 @@ namespace Core.Gui.Forms.Backstage
             this.settings = settings;
 
             InfoViewModel = new InfoViewModel();
-            AboutViewModel = new AboutViewModel(settings.MainWindowTitle, version);
+            AboutViewModel = new AboutViewModel(settings.ApplicationName, version);
             SupportViewModel = new SupportViewModel();
 
             OpenHelpdeskWaterWebsiteCommand = new RelayCommand(OnOpenHelpdeskWaterWebsite);

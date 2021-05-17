@@ -784,7 +784,7 @@ namespace Core.Gui
             mainWindow.Title = string.Format(CultureInfo.CurrentCulture,
                                              "{0} - {1} {2}",
                                              Project.Name,
-                                             FixedSettings.MainWindowTitle,
+                                             FixedSettings.ApplicationName,
                                              SettingsHelper.Instance.ApplicationVersion);
 
             mainWindow.BackstageViewModel.InfoViewModel.SetProject(project);

@@ -49,7 +49,7 @@ namespace Core.Gui.Test.Forms.Backstage
             // Setup
             var settings = new GuiCoreSettings
             {
-                MainWindowTitle = "Riskeer"
+                ApplicationName = "Riskeer"
             };
             const string version = "1.0";
             
@@ -63,7 +63,7 @@ namespace Core.Gui.Test.Forms.Backstage
             Assert.IsNull(viewModel.InfoViewModel.ProjectName);
             
             Assert.IsNotNull(viewModel.AboutViewModel);
-            Assert.AreEqual(settings.MainWindowTitle, viewModel.AboutViewModel.ApplicationName);
+            Assert.AreEqual(settings.ApplicationName, viewModel.AboutViewModel.ApplicationName);
             Assert.AreEqual(version, viewModel.AboutViewModel.Version);
             
             Assert.IsNotNull(viewModel.SupportViewModel);

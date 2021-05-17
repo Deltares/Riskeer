@@ -616,7 +616,7 @@ namespace Core.Gui.Test
 
             var fixedSettings = new GuiCoreSettings
             {
-                MainWindowTitle = "<main window title part>"
+                ApplicationName = "<main window title part>"
             };
 
             using (var mainWindow = new MainWindow())
@@ -642,7 +642,7 @@ namespace Core.Gui.Test
                 Assert.AreEqual(fileName, gui.Project.Name,
                                 "Project name should be updated to the name of the file.");
 
-                var expectedTitle = $"{fileName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                var expectedTitle = $"{fileName} - {fixedSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
                 Assert.AreSame(gui.Project, mainWindow.ProjectExplorer.Data);
             }
@@ -675,7 +675,7 @@ namespace Core.Gui.Test
 
             var fixedSettings = new GuiCoreSettings
             {
-                MainWindowTitle = "<main window title part>"
+                ApplicationName = "<main window title part>"
             };
 
             using (var mainWindow = new MainWindow())
@@ -688,7 +688,7 @@ namespace Core.Gui.Test
 
                 // Assert
                 Assert.IsNull(gui.ProjectFilePath);
-                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                var expectedTitle = $"{expectedProjectName} - {fixedSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
 
@@ -722,7 +722,7 @@ namespace Core.Gui.Test
 
             var fixedSettings = new GuiCoreSettings
             {
-                MainWindowTitle = "<main window title part>"
+                ApplicationName = "<main window title part>"
             };
 
             using (var mainWindow = new MainWindow())
@@ -737,7 +737,7 @@ namespace Core.Gui.Test
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedErrorMessage, LogLevelConstant.Error));
 
                 Assert.IsNull(gui.ProjectFilePath);
-                string expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                string expectedTitle = $"{expectedProjectName} - {fixedSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
 
@@ -774,7 +774,7 @@ namespace Core.Gui.Test
 
             var fixedSettings = new GuiCoreSettings
             {
-                MainWindowTitle = "<main window title part>"
+                ApplicationName = "<main window title part>"
             };
 
             using (var mainWindow = new MainWindow())
@@ -795,7 +795,7 @@ namespace Core.Gui.Test
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages);
 
                 Assert.IsNull(gui.ProjectFilePath);
-                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                var expectedTitle = $"{expectedProjectName} - {fixedSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
 
@@ -827,7 +827,7 @@ namespace Core.Gui.Test
 
             var fixedSettings = new GuiCoreSettings
             {
-                MainWindowTitle = "<main window title part>"
+                ApplicationName = "<main window title part>"
             };
 
             using (var mainWindow = new MainWindow())
@@ -848,7 +848,7 @@ namespace Core.Gui.Test
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages);
 
                 Assert.IsNull(gui.ProjectFilePath);
-                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                var expectedTitle = $"{expectedProjectName} - {fixedSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
 
@@ -876,7 +876,7 @@ namespace Core.Gui.Test
 
             var fixedSettings = new GuiCoreSettings
             {
-                MainWindowTitle = "<title part>"
+                ApplicationName = "<title part>"
             };
 
             using (var mainWindow = new MainWindow())
@@ -890,7 +890,7 @@ namespace Core.Gui.Test
                 // Assert
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.AreSame(project, gui.Project);
-                var expectedTitle = $"{expectedProjectName} - {fixedSettings.MainWindowTitle} {SettingsHelper.Instance.ApplicationVersion}";
+                var expectedTitle = $"{expectedProjectName} - {fixedSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
             }
 

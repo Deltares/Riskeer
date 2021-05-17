@@ -123,10 +123,10 @@ namespace Application.Riskeer
 
             var settings = new GuiCoreSettings
             {
+                ApplicationName = "Riskeer",
                 SupportWebsiteAddressUrl = "https://www.helpdeskwater.nl/onderwerpen/applicaties-modellen/applicaties-per/omgevings/omgevings/riskeer/",
                 SupportEmailAddressUrl = "https://www.helpdeskwater.nl/onderwerpen/applicaties-modellen/applicaties-per/omgevings/omgevings/riskeer/contact/vraag-ringtoets/",
                 SupportPhoneNumberUrl = "https://www.helpdeskwater.nl/secundaire-navigatie/contact/",
-                MainWindowTitle = "Riskeer",
                 ManualFilePath = "Gebruikershandleiding Riskeer 21.1.1.pdf"
             };
             var mainWindow = new MainWindow();
