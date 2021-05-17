@@ -96,8 +96,8 @@ All rights reserved.
         </Grid.ColumnDefinitions>
             
          <Grid VerticalAlignment="Stretch">
-            <Border Padding="15,25">
-                <Border BorderThickness="0 0 1 0" Margin="0 20" Padding="20 0"
+            <Border Padding="0 0 0 50">
+                <Border BorderThickness="0 0 1 0" Padding="25 0"
                         BorderBrush="White">
                     <Grid Width="500">
                         <Grid.RowDefinitions>
@@ -106,7 +106,10 @@ All rights reserved.
                             <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <ContentControl Grid.Row="0" Content="{Binding Title, ElementName=StartScreenParent}" />
+                        <TextBlock Grid.Row="0" FontSize="35"
+                                   Foreground="{StaticResource WhiteBrush}"
+                                   Text="Riskeer" />
+                        
                         <TextBlock Grid.Row="1" FontSize="28" Margin="0 16 0 8"
                                    Foreground="{StaticResource WhiteBrush}"
                                    Text="Recent" />
