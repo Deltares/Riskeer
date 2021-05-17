@@ -27,11 +27,13 @@ All rights reserved.
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
                    xmlns:properties="clr-namespace:Core.Gui.Properties"
+                   xmlns:mainWindow="clr-namespace:Core.Gui.Forms.MainWindow"
                    mc:Ignorable="d"
                    MinWidth="1366"
                    MinHeight="768"
                    Width="1366"
-                   Height="768">
+                   Height="768"
+                   d:DataContext="{d:DesignInstance IsDesignTimeCreatable=False, Type={x:Type mainWindow:StartScreenViewModel}}">
 
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
@@ -119,7 +121,7 @@ All rights reserved.
                             </ScrollViewer>
                         </Grid>
                         <Grid Grid.Row="3" Margin="0 8 0 0" VerticalAlignment="Top">
-                            <Button Padding="4 8" FontSize="16">Browse</Button>
+                            <Button Padding="4 8" FontSize="16" Command="{Binding OpenProjectCommand}">Browse</Button>
                             <!-- <controls:IconButton -->
                             <!--     x:Name="BrowseButton" -->
                             <!--     Padding="4 8" -->
@@ -141,6 +143,7 @@ All rights reserved.
                                     Orientation="Horizontal" DockPanel.Dock="Left">
                             <Button Style="{StaticResource BigButtonStyle}"
                                            Tag="{x:Static properties:Resources.NewProject_DisplayName}"
+                                           Command="{Binding NewProjectCommand}"
                                            IsDefault="True">
                                 <TextBlock Text="&#xE90B;"
                                            FontFamily="{StaticResource RiskeerFont}"

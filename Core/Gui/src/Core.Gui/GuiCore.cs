@@ -338,11 +338,26 @@ namespace Core.Gui
 
         private void ShowStartScreen()
         {
-            startScreen = new StartScreen();
+            startScreen = new StartScreen(
+                new StartScreenViewModel(OnNewProject, OnOpenProject));
             startScreen.Closed += OnStartScreenClosed;
             startScreen.Show();
 
             startScreenShown = true;
+        }
+
+        private void OnNewProject()
+        {
+            StorageCommands.CreateNewProject();
+        }
+
+        private void OnOpenProject()
+        {
+            string projectPath = StorageCommands.GetExistingProjectFilePath();
+            if (!string.IsNullOrEmpty(projectPath))
+            {
+                StorageCommands.OpenExistingProject(projectPath);
+            }
         }
 
         private void OnStartScreenClosed(object sender, EventArgs e)

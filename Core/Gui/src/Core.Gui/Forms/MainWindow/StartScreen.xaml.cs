@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using MahApps.Metro.Controls;
 
 namespace Core.Gui.Forms.MainWindow
@@ -31,9 +32,19 @@ namespace Core.Gui.Forms.MainWindow
         /// <summary>
         /// Creates a new instance of <see cref="StartScreen"/>.
         /// </summary>
-        public StartScreen()
+        /// <param name="viewModel">The view model of the <see cref="StartScreen"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="viewModel"/>
+        /// is <c>null</c>.</exception>
+        public StartScreen(StartScreenViewModel viewModel)
         {
+            if (viewModel == null)
+            {
+                throw new ArgumentNullException(nameof(viewModel));
+            }
+
             InitializeComponent();
+
+            DataContext = viewModel;
         }
     }
 }
