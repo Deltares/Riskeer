@@ -179,7 +179,7 @@ namespace Core.Components.DotSpatial.Forms
 
         private void SetFonts()
         {
-            Font font = FontHelper.CreateFont(Resources.Deltares_Riskeer_Symbols);
+            Font font = FontHelper.CreateFont(Resources.Symbols);
 
             panToolStripButton.Font = font;
             zoomToRectangleToolStripButton.Font = font;

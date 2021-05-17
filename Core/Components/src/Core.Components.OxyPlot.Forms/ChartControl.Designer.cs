@@ -71,7 +71,7 @@ namespace Core.Components.OxyPlot.Forms
             this.panToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.panToolStripButton.Name = "panToolStripButton";
             this.panToolStripButton.Size = new System.Drawing.Size(22, 19);
-            this.panToolStripButton.Text = "\uE921";
+            this.panToolStripButton.Text = "\uE900";
             this.panToolStripButton.ToolTipText = global::Core.Components.OxyPlot.Forms.Properties.Resources.ChartControl_Pan;
             this.panToolStripButton.Click += new System.EventHandler(this.PanToolStripButtonClick);
             // 
@@ -81,7 +81,7 @@ namespace Core.Components.OxyPlot.Forms
             this.zoomToRectangleToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToRectangleToolStripButton.Name = "zoomToRectangleToolStripButton";
             this.zoomToRectangleToolStripButton.Size = new System.Drawing.Size(22, 19);
-            this.zoomToRectangleToolStripButton.Text = "\uE922";
+            this.zoomToRectangleToolStripButton.Text = "\uE901";
             this.zoomToRectangleToolStripButton.ToolTipText = global::Core.Components.OxyPlot.Forms.Properties.Resources.ChartControl_ZoomToRectangle;
             this.zoomToRectangleToolStripButton.Click += new System.EventHandler(this.ZoomToRectangleToolStripButtonClick);
             // 
@@ -96,7 +96,7 @@ namespace Core.Components.OxyPlot.Forms
             this.zoomToVisibleSeriesToolStripButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 3);
             this.zoomToVisibleSeriesToolStripButton.Name = "zoomToVisibleSeriesToolStripButton";
             this.zoomToVisibleSeriesToolStripButton.Size = new System.Drawing.Size(22, 19);
-            this.zoomToVisibleSeriesToolStripButton.Text = "\uE923";
+            this.zoomToVisibleSeriesToolStripButton.Text = "\uE902";
             this.zoomToVisibleSeriesToolStripButton.ToolTipText = global::Core.Components.OxyPlot.Forms.Properties.Resources.ChartControl_ZoomToVisibleSeries;
             this.zoomToVisibleSeriesToolStripButton.Click += new System.EventHandler(this.ZoomToVisibleSeriesToolStripButtonClick);
             // 

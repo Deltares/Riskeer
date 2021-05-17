@@ -4,7 +4,7 @@
     <None Remove="Resources\Deltares-Riskeer-Symbols.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Deltares-Riskeer-Symbols.ttf" />
+    <EmbeddedResource Include="Resources\Symbols.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

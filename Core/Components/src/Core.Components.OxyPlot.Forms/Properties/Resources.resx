@@ -133,7 +133,7 @@
     <value>Zoom naar alles</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Deltares_Riskeer_Symbols" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Deltares-Riskeer-Symbols.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Symbols" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Symbols.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
