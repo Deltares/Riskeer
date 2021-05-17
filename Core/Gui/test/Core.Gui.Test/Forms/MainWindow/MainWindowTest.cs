@@ -103,7 +103,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 Assert.AreEqual(FlowDirection.LeftToRight, mainWindow.FlowDirection);
                 Assert.AreEqual("RiskeerMainWindow", mainWindow.Name);
 
-                Assert.IsNotNull(mainWindow.NewProjectCommand);
+                Assert.IsNull(mainWindow.NewProjectCommand);
                 Assert.IsNotNull(mainWindow.SaveProjectCommand);
                 Assert.IsNotNull(mainWindow.SaveProjectAsCommand);
                 Assert.IsNotNull(mainWindow.OpenProjectCommand);
@@ -131,10 +131,11 @@ namespace Core.Gui.Test.Forms.MainWindow
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
 
                 // Assert
                 Assert.IsNotNull(mainWindow.BackstageViewModel);
+                Assert.IsNotNull(mainWindow.NewProjectCommand);
                 mocks.VerifyAll();
             }
         }
@@ -186,7 +187,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
 
                 // Call
                 mainWindow.Visible = true;
@@ -217,7 +218,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
                 mainWindow.Visible = true;
 
                 // Call
@@ -264,7 +265,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
 
                 // Call
                 mainWindow.SubscribeToGui();
@@ -310,7 +311,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
                 mainWindow.SubscribeToGui();
 
                 // Call
@@ -359,7 +360,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
 
                 // Call
                 mainWindow.InitPropertiesWindowOrBringToFront();
@@ -397,7 +398,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
                 mainWindow.InitPropertiesWindowOrBringToFront();
 
                 IView originalPropertyGrid = mainWindow.PropertyGrid;
@@ -464,7 +465,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
 
                 // Call
                 mainWindow.InitializeToolWindows();
@@ -556,7 +557,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
 
                 // When
                 mainWindow.InitializeToolWindows();
@@ -590,7 +591,8 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
+                gui.SetProject(project, null);
 
                 // When
                 mainWindow.InitializeToolWindows();
@@ -625,7 +627,8 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
+                gui.SetProject(project, null);
 
                 // When
                 mainWindow.InitializeToolWindows();
@@ -657,7 +660,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
                 mainWindow.InitializeToolWindows();
 
                 // Precondition
@@ -699,8 +702,9 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
                 mainWindow.InitializeToolWindows();
+                gui.SetProject(project1, null);
 
                 // Precondition
                 Assert.IsNotNull(mainWindow.ProjectExplorer);
@@ -742,8 +746,9 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
                 mainWindow.InitializeToolWindows();
+                gui.SetProject(project1, null);
 
                 // Precondition
                 Assert.IsNotNull(mainWindow.ProjectExplorer);
@@ -778,7 +783,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
                 mainWindow.InitializeToolWindows();
 
                 var testMapView = new TestMapView();
@@ -814,7 +819,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
                 mainWindow.InitializeToolWindows();
 
                 var view = new TestMapView();
@@ -850,7 +855,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
                 mainWindow.InitializeToolWindows();
 
                 var view1 = new TestMapView();
@@ -890,7 +895,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
                 mainWindow.InitializeToolWindows();
 
                 var view = new TestMapView();
@@ -928,7 +933,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
                 mainWindow.InitializeToolWindows();
 
                 var view1 = new TestMapView();
@@ -968,7 +973,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
                 mainWindow.InitializeToolWindows();
 
                 var view = new TestChartView();
@@ -1004,7 +1009,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
                 mainWindow.InitializeToolWindows();
 
                 var view1 = new TestChartView();
@@ -1044,7 +1049,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
                 mainWindow.InitializeToolWindows();
 
                 var view = new TestChartView();
@@ -1082,7 +1087,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
                 mainWindow.InitializeToolWindows();
 
                 var view1 = new TestChartView();
@@ -1115,9 +1120,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
-            projectFactory.Expect(pf => pf.CreateNewProject())
-                          .Return(mocks.Stub<IProject>())
-                          .Repeat.Times(3);
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -1126,7 +1128,13 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                var onNewProjectActionClicked = 0;
+                void OnNewProjectAction()
+                {
+                    onNewProjectActionClicked++;
+                }
+                
+                mainWindow.SetGui(gui, OnNewProjectAction);
 
                 if (backstageVisible)
                 {
@@ -1137,6 +1145,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 mainWindow.NewProjectCommand.Execute(null);
 
                 // Then
+                Assert.AreEqual(1, onNewProjectActionClicked);
                 Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
                 Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
             }
@@ -1187,7 +1196,8 @@ namespace Core.Gui.Test.Forms.MainWindow
                     gui.Plugins.Add(new TestPlugin());
                     gui.Run();
 
-                    mainWindow.SetGui(gui);
+                    mainWindow.SetGui(gui, () => {});
+                    gui.SetProject(project, null);
 
                     if (backstageVisible)
                     {
@@ -1249,7 +1259,8 @@ namespace Core.Gui.Test.Forms.MainWindow
                     gui.Plugins.Add(new TestPlugin());
                     gui.Run();
 
-                    mainWindow.SetGui(gui);
+                    mainWindow.SetGui(gui, () => {});
+                    gui.SetProject(project, null);
 
                     if (backstageVisible)
                     {
@@ -1307,7 +1318,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
 
                 if (backstageVisible)
                 {
@@ -1344,7 +1355,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
 
                 // When
                 bool canExecute = mainWindow.CloseViewTabCommand.CanExecute(null);
@@ -1375,7 +1386,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
 
                 gui.ViewHost.AddDocumentView(new TestView());
 
@@ -1410,7 +1421,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
 
                 if (backstageVisible)
                 {
@@ -1448,7 +1459,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                mainWindow.SetGui(gui);
+                mainWindow.SetGui(gui, () => {});
 
                 ICommand command = getCommandFunc(mainWindow);
 

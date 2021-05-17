@@ -147,8 +147,7 @@ namespace Application.Riskeer.Integration.Test
 
                 // Then
                 Assert.IsNull(gui.ProjectFilePath);
-                Assert.AreEqual("Project", gui.Project.Name);
-                Assert.IsEmpty(gui.Project.Description);
+                Assert.IsNull(gui.Project);
             }
 
             mocks.VerifyAll();

@@ -609,10 +609,13 @@ namespace Core.Gui.Test
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             projectMigrator.Stub(m => m.ShouldMigrate(testFile)).Return(MigrationRequired.No);
-            var deserializedProject = mocks.Stub<IProject>();
-            projectStore.Expect(ps => ps.LoadProject(testFile)).Return(deserializedProject);
-            IProjectFactory projectFactory = CreateProjectFactory(mocks);
+            var project = mocks.Stub<IProject>();
+            projectStore.Expect(ps => ps.LoadProject(testFile)).Return(project);
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
             mocks.ReplayAll();
+
+            project.Name = fileName;
 
             var fixedSettings = new GuiCoreSettings
             {
@@ -624,7 +627,7 @@ namespace Core.Gui.Test
             {
                 gui.Plugins.Add(new TestPlugin(new[]
                 {
-                    new StateInfo("Name", "Symbol", project => project)
+                    new StateInfo("Name", "Symbol", p => p)
                 }));
 
                 // Call
@@ -638,9 +641,8 @@ namespace Core.Gui.Test
                 };
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages);
                 Assert.AreEqual(testFile, gui.ProjectFilePath);
-                Assert.AreSame(deserializedProject, gui.Project);
-                Assert.AreEqual(fileName, gui.Project.Name,
-                                "Project name should be updated to the name of the file.");
+                Assert.AreSame(project, gui.Project);
+                Assert.AreEqual(fileName, gui.Project.Name);
 
                 var expectedTitle = $"{fileName} - {fixedSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
@@ -652,7 +654,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_LoadingFromOutdatedFileAndMigrationCancelled_LoadDefaultProjectInstead()
+        public void Run_LoadingFromOutdatedFileAndMigrationCancelled_NoProjectSetAndMainWindowNotShown()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -660,36 +662,27 @@ namespace Core.Gui.Test
 
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
-
             var projectMigrator = mocks.Stub<IMigrateProject>();
             projectMigrator.Stub(pm => pm.ShouldMigrate(testFile)).Return(MigrationRequired.Yes);
             projectMigrator.Stub(pm => pm.DetermineMigrationLocation(testFile)).Return(null);
-
-            const string expectedProjectName = "Project";
-            var project = mocks.Stub<IProject>();
-            project.Name = expectedProjectName;
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(ph => ph.CreateNewProject()).Return(project);
-
             mocks.ReplayAll();
 
-            var fixedSettings = new GuiCoreSettings
-            {
-                ApplicationName = "<main window title part>"
-            };
-
             using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new TestPlugin());
+
+                var mainWindowShownCounter = 0;
+                mainWindow.Loaded += (sender, args) => mainWindowShownCounter++;
 
                 // Call
                 gui.Run(testFile);
 
                 // Assert
                 Assert.IsNull(gui.ProjectFilePath);
-                var expectedTitle = $"{expectedProjectName} - {fixedSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
-                Assert.AreEqual(expectedTitle, mainWindow.Title);
+                Assert.IsNull(gui.Project);
+                Assert.AreEqual(0, mainWindowShownCounter);
             }
 
             mocks.VerifyAll();
@@ -860,38 +853,32 @@ namespace Core.Gui.Test
         [TestCase("     ")]
         [TestCase(null)]
         [Apartment(ApartmentState.STA)]
-        public void Run_WithoutFile_DefaultProjectStillSet(string path)
+        public void Run_WithoutFile_NoProjectSetAndMainWindowNotShown(string path)
         {
             // Setup
             var mocks = new MockRepository();
             var projectStore = mocks.StrictMock<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-
-            const string expectedProjectName = "Project";
-            var project = mocks.Stub<IProject>();
-            project.Name = expectedProjectName;
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(ph => ph.CreateNewProject()).Return(project);
             mocks.ReplayAll();
 
-            var fixedSettings = new GuiCoreSettings
-            {
-                ApplicationName = "<title part>"
-            };
+            var fixedSettings = new GuiCoreSettings();
 
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
                 gui.Plugins.Add(new TestPlugin());
 
+                var mainWindowShownCounter = 0;
+                mainWindow.Loaded += (sender, args) => mainWindowShownCounter++;
+
                 // Call
                 gui.Run(path);
 
                 // Assert
                 Assert.IsNull(gui.ProjectFilePath);
-                Assert.AreSame(project, gui.Project);
-                var expectedTitle = $"{expectedProjectName} - {fixedSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
-                Assert.AreEqual(expectedTitle, mainWindow.Title);
+                Assert.IsNull(gui.Project);
+                Assert.AreEqual(0, mainWindowShownCounter);
             }
 
             mocks.VerifyAll();
@@ -1316,10 +1303,8 @@ namespace Core.Gui.Test
             var mocks = new MockRepository();
             var storeProject = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var oldProject = mocks.Stub<IProject>();
             var newProject = mocks.Stub<IProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(oldProject);
             mocks.ReplayAll();
 
             using (var gui = new GuiCore(new MainWindow(), storeProject, projectMigrator, projectFactory, new GuiCoreSettings()))
@@ -1328,7 +1313,7 @@ namespace Core.Gui.Test
                 var beforeOpenCallCount = 0;
                 gui.BeforeProjectOpened += project =>
                 {
-                    Assert.AreSame(oldProject, project);
+                    Assert.IsNull(project);
                     beforeOpenCallCount++;
                 };
                 gui.ProjectOpened += project =>
