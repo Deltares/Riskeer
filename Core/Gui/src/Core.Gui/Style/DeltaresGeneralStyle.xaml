@@ -54,6 +54,7 @@ All rights reserved.
     <SolidColorBrush x:Key="DeltaresBlueBrush" Color="{StaticResource DeltaresBlue}" options:Freeze="True" />
 
     <SolidColorBrush x:Key="WhiteOverlayBrush" Color="{StaticResource White}" Opacity="0.2" />
+    <SolidColorBrush x:Key="WhiteOverlayMouseDownBrush" Color="{StaticResource White}" Opacity="0.1" />
 
     <SolidColorBrush x:Key="TransparentBrush" Color="{StaticResource Transparent}" />
 
@@ -66,8 +67,6 @@ All rights reserved.
 
     <SolidColorBrush x:Key="BackstageBackgroundColorBrush" Color="{StaticResource BackstageBackgroundColor}" />
 
-    <SolidColorBrush x:Key="StartScreenBigButtonMouseOverBrush" Color="{StaticResource White}" Opacity="0.2" />
-    <SolidColorBrush x:Key="StartScreenBigButtonMouseDownBrush" Color="{StaticResource White}" Opacity="0.1" />
     <SolidColorBrush x:Key="BackstageBigButtonMouseDownBrush" Color="{StaticResource DeltaresBlue}" Opacity="0.1" />
     <SolidColorBrush x:Key="BackstageBigButtonMouseOverBrush" Color="{StaticResource DeltaresBlue}" Opacity="0.1" />
 

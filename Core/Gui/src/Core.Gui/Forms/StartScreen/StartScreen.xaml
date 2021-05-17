@@ -28,6 +28,7 @@ All rights reserved.
                    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
                    xmlns:properties="clr-namespace:Core.Gui.Properties"
                    xmlns:startScreen="clr-namespace:Core.Gui.Forms.StartScreen"
+                   xmlns:controls="clr-namespace:Core.Gui.Controls"
                    mc:Ignorable="d"
                    MinWidth="1366"
                    MinHeight="768"
@@ -48,7 +49,7 @@ All rights reserved.
                 <Setter Property="Width" Value="128" />
                 <Setter Property="Height" Value="128" />
                 <Setter Property="Foreground" Value="White" />
-                <Setter Property="BorderBrush" Value="{StaticResource StartScreenBigButtonMouseOverBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource WhiteOverlayBrush}" />
                 <Setter Property="Background" Value="{StaticResource TransparentBrush}" />
                 <Setter Property="Template">
                     <Setter.Value>
@@ -66,14 +67,14 @@ All rights reserved.
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background"
-                                            Value="{StaticResource StartScreenBigButtonMouseOverBrush}" />
+                                            Value="{StaticResource WhiteOverlayBrush}" />
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="True">
                                     <Setter Property="Background"
-                                            Value="{StaticResource StartScreenBigButtonMouseDownBrush}" />
+                                            Value="{StaticResource WhiteOverlayMouseDownBrush}" />
                                     <Setter Property="BorderBrush"
                                             TargetName="Border"
-                                            Value="{StaticResource StartScreenBigButtonMouseDownBrush}" />
+                                            Value="{StaticResource WhiteOverlayMouseDownBrush}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -120,11 +121,11 @@ All rights reserved.
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" FontSize="35"
                                    Foreground="{StaticResource WhiteBrush}"
-                                   Text="Riskeer" />
+                                   Text="{x:Static properties:Resources.Riskeer_DisplayName}" />
                         
                         <TextBlock Grid.Row="1" FontSize="28" Margin="0 16 0 8"
                                    Foreground="{StaticResource WhiteBrush}"
-                                   Text="Recent" />
+                                   Text="{x:Static properties:Resources.Recent_DisplayName}" />
                         <Grid Grid.Row="2">
                             <ScrollViewer Style="{StaticResource RecentFileListBorder}"
                                           VerticalScrollBarVisibility="Auto">
@@ -133,14 +134,13 @@ All rights reserved.
                             </ScrollViewer>
                         </Grid>
                         <Grid Grid.Row="3" Margin="0 8 0 0" VerticalAlignment="Top">
-                            <Button Padding="4 8" FontSize="16" Command="{Binding OpenProjectCommand}">Browse</Button>
-                            <!-- <controls:IconButton -->
-                            <!--     x:Name="BrowseButton" -->
-                            <!--     Padding="4 8" -->
-                            <!--     Foreground="White" -->
-                            <!--     IconSize="36" HeaderSize="16" -->
-                            <!--     Icon="&#xE90C;" Header="{x:Static p:Resources.BackstageTabItem_Header_Browse}" -->
-                            <!--     Command="{x:Static controls:RibbonCommands.Open}" /> -->
+                            <controls:IconButton
+                                Padding="4 8"
+                                Foreground="White"
+                                IconSize="36" HeaderSize="16"
+                                Icon="&#xE93D;" Header="{x:Static properties:Resources.Browse_DisplayName}"
+                                Background="{StaticResource TransparentBrush}"
+                                Command="{Binding OpenProjectCommand}" />
                         </Grid>
                     </Grid>
                 </Border>

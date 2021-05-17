@@ -999,4 +999,13 @@ Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel bin
   <data name="StartScreen_NewProject_DisplayName" xml:space="preserve">
     <value>Nieuw project</value>
   </data>
+  <data name="Browse_DisplayName" xml:space="preserve">
+    <value>Bladeren</value>
+  </data>
+  <data name="Riskeer_DisplayName" xml:space="preserve">
+    <value>Riskeer</value>
+  </data>
+  <data name="Recent_DisplayName" xml:space="preserve">
+    <value>Recent</value>
+  </data>
 </root>

@@ -235,6 +235,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bladeren.
+        /// </summary>
+        public static string Browse_DisplayName {
+            get {
+                return ResourceManager.GetString("Browse_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon bug_exclamation {
@@ -2351,6 +2360,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recent.
+        /// </summary>
+        public static string Recent_DisplayName {
+            get {
+                return ResourceManager.GetString("Recent_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap RefreshIcon {
@@ -2395,6 +2413,15 @@ namespace Core.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("Riskeer", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Riskeer.
+        /// </summary>
+        public static string Riskeer_DisplayName {
+            get {
+                return ResourceManager.GetString("Riskeer_DisplayName", resourceCulture);
             }
         }
         
