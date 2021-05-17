@@ -49,7 +49,7 @@ All rights reserved.
                 <Setter Property="Height" Value="128" />
                 <Setter Property="Foreground" Value="White" />
                 <Setter Property="BorderBrush" Value="{StaticResource StartScreenBigButtonMouseOverBrush}" />
-                <Setter Property="Background" Value="{StaticResource DeltaresBlueBrush}" />
+                <Setter Property="Background" Value="{StaticResource TransparentBrush}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
@@ -81,15 +81,27 @@ All rights reserved.
                 </Setter>
             </Style>
             
-            <Style x:Key="RecentFileListBorder" TargetType="ScrollViewer">
+            <Style x:Key="RecentFileListBorder" TargetType="{x:Type ScrollViewer}">
                 <Setter Property="BorderThickness" Value="0 0 0 1" />
                 <Setter Property="BorderBrush" Value="White" />
+            </Style>
+            
+            <Style x:Key="StartScreenStyle" TargetType="{x:Type Grid}">
+                <Setter Property="Background" Value="{StaticResource DeltaresBlueBrush}" />
+                <Style.Triggers>
+                    <DataTrigger
+                        Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=IsActive}"
+                        Value="False">
+                        <Setter Property="Background"
+                                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type metro:MetroWindow}}, Path=NonActiveBorderBrush}" />
+                    </DataTrigger>
+                </Style.Triggers>
             </Style>
             
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
 
-    <Grid Background="{StaticResource DeltaresBlueBrush}">
+    <Grid Style="{StaticResource StartScreenStyle}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
