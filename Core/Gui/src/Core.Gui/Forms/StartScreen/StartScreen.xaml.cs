@@ -22,7 +22,7 @@
 using System;
 using MahApps.Metro.Controls;
 
-namespace Core.Gui.Forms.MainWindow
+namespace Core.Gui.Forms.StartScreen
 {
     /// <summary>
     /// Interaction logic for <see cref="StartScreen"/>.

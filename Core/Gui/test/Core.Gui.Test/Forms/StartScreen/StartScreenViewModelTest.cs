@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.StartScreen;
 using NUnit.Framework;
 
-namespace Core.Gui.Test.Forms.MainWindow
+namespace Core.Gui.Test.Forms.StartScreen
 {
     [TestFixture]
     public class StartScreenViewModelTest

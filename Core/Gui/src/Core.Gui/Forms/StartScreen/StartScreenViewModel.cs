@@ -23,7 +23,7 @@ using System;
 using System.Windows.Input;
 using Core.Gui.Commands;
 
-namespace Core.Gui.Forms.MainWindow
+namespace Core.Gui.Forms.StartScreen
 {
     /// <summary>
     /// ViewModel for <see cref="StartScreen"/>.

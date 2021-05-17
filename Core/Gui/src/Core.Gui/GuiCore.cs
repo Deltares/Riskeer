@@ -40,6 +40,7 @@ using Core.Gui.ContextMenu;
 using Core.Gui.Forms.MainWindow;
 using Core.Gui.Forms.MessageWindow;
 using Core.Gui.Forms.PropertyGridView;
+using Core.Gui.Forms.StartScreen;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;

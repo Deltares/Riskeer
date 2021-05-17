@@ -21,11 +21,11 @@
 
 using System;
 using System.Threading;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.StartScreen;
 using MahApps.Metro.Controls;
 using NUnit.Framework;
 
-namespace Core.Gui.Test.Forms.MainWindow
+namespace Core.Gui.Test.Forms.StartScreen
 {
     [TestFixture]
     [Apartment(ApartmentState.STA)]
@@ -35,7 +35,7 @@ namespace Core.Gui.Test.Forms.MainWindow
         public void Constructor_ViewModelNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new StartScreen(null);
+            void Call() => new Gui.Forms.StartScreen.StartScreen(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -49,7 +49,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             var viewModel = new StartScreenViewModel(() => {}, () => {});
 
             // Call
-            var startScreen = new StartScreen(viewModel);
+            var startScreen = new Gui.Forms.StartScreen.StartScreen(viewModel);
 
             // Assert
             Assert.IsInstanceOf<MetroWindow>(startScreen);

@@ -20,20 +20,20 @@ All names, logos, and references to "Deltares" are registered trademarks of
 Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
-<metro:MetroWindow x:Class="Core.Gui.Forms.MainWindow.StartScreen" 
+<metro:MetroWindow x:Class="Core.Gui.Forms.StartScreen.StartScreen" 
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
                    xmlns:properties="clr-namespace:Core.Gui.Properties"
-                   xmlns:mainWindow="clr-namespace:Core.Gui.Forms.MainWindow"
+                   xmlns:startScreen="clr-namespace:Core.Gui.Forms.StartScreen"
                    mc:Ignorable="d"
                    MinWidth="1366"
                    MinHeight="768"
                    Width="1366"
                    Height="768"
-                   d:DataContext="{d:DesignInstance IsDesignTimeCreatable=False, Type={x:Type mainWindow:StartScreenViewModel}}">
+                   d:DataContext="{d:DesignInstance IsDesignTimeCreatable=False, Type={x:Type startScreen:StartScreenViewModel}}">
 
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
