@@ -157,7 +157,7 @@ All rights reserved.
                                            Tag="{x:Static properties:Resources.StartScreen_NewProject_DisplayName}"
                                            Command="{Binding NewProjectCommand}"
                                            IsDefault="True">
-                                <TextBlock Text="&#xE90B;"
+                                <TextBlock Text="&#xE93C;"
                                            FontFamily="{StaticResource RiskeerFont}"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center" FontSize="56" />
