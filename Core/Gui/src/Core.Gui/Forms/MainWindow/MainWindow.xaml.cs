@@ -78,7 +78,6 @@ namespace Core.Gui.Forms.MainWindow
             windowInteropHelper = new WindowInteropHelper(this);
             Name = "RiskeerMainWindow";
 
-            NewProjectCommand = new RelayCommand(OnNewProject);
             SaveProjectCommand = new RelayCommand(OnSaveProject);
             SaveProjectAsCommand = new RelayCommand(OnSaveProjectAs);
             OpenProjectCommand = new RelayCommand(OnOpenProject);
@@ -173,7 +172,7 @@ namespace Core.Gui.Forms.MainWindow
         /// <summary>
         /// Sets the <see cref="IGui"/> and dependencies.
         /// </summary>
-        public void SetGui(IGui value)
+        public void SetGui(IGui value, Action onNewProjectAction)
         {
             gui = value;
 
@@ -181,6 +180,12 @@ namespace Core.Gui.Forms.MainWindow
             settings = gui;
             commands = gui;
             applicationSelection = gui;
+
+            NewProjectCommand = new RelayCommand(o =>
+            {
+                onNewProjectAction();
+                CloseBackstage();
+            });
 
             BackstageViewModel = new BackstageViewModel(settings.FixedSettings, SettingsHelper.Instance.ApplicationVersion);
         }
@@ -338,7 +343,7 @@ namespace Core.Gui.Forms.MainWindow
         /// <summary>
         /// Gets the command to start a new project.
         /// </summary>
-        public ICommand NewProjectCommand { get; }
+        public ICommand NewProjectCommand { get; private set; }
 
         /// <summary>
         /// Gets the command to save a project.
@@ -399,14 +404,6 @@ namespace Core.Gui.Forms.MainWindow
         /// Gets the command to open the log file.
         /// </summary>
         public ICommand OpenLogFileCommand { get; }
-
-        private void OnNewProject(object obj)
-        {
-            commands.StorageCommands.CreateNewProject();
-            ValidateItems();
-
-            CloseBackstage();
-        }
 
         private void OnSaveProject(object obj)
         {

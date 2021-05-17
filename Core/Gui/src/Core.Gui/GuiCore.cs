@@ -783,7 +783,7 @@ namespace Core.Gui
             private set
             {
                 mainWindow = (MainWindow) value;
-                mainWindow.SetGui(this);
+                mainWindow.SetGui(this, OnNewProject);
                 dialogBasedInquiryHelper = new DialogBasedInquiryHelper(MainWindow);
             }
         }
