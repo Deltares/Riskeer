@@ -49,6 +49,7 @@ All rights reserved.
                 <Setter Property="Height" Value="128" />
                 <Setter Property="Foreground" Value="White" />
                 <Setter Property="BorderBrush" Value="{StaticResource StartScreenBigButtonMouseOverBrush}" />
+                <Setter Property="Background" Value="{StaticResource DeltaresBlueBrush}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
@@ -56,17 +57,13 @@ All rights reserved.
                                     BorderThickness="1"
                                     BorderBrush="{TemplateBinding BorderBrush}">
                                 <DockPanel Margin="8">
-                                    <TextBlock FontSize="13" DockPanel.Dock="Bottom" HorizontalAlignment="Left">
+                                    <TextBlock FontSize="13" DockPanel.Dock="Bottom" HorizontalAlignment="Center">
                                         <ContentPresenter Content="{TemplateBinding Tag}" />
                                     </TextBlock>
                                     <ContentPresenter />
                                 </DockPanel>
                             </Border>
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter Property="Foreground" Value="#5FFFFFFF" />
-                                    <Setter Property="BorderBrush" Value="#11FFFFFF" />
-                                </Trigger>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background"
                                             Value="{StaticResource StartScreenBigButtonMouseOverBrush}" />
@@ -142,7 +139,7 @@ All rights reserved.
                         <StackPanel VerticalAlignment="Top" Margin="8 20"
                                     Orientation="Horizontal" DockPanel.Dock="Left">
                             <Button Style="{StaticResource BigButtonStyle}"
-                                           Tag="{x:Static properties:Resources.NewProject_DisplayName}"
+                                           Tag="{x:Static properties:Resources.StartScreen_NewProject_DisplayName}"
                                            Command="{Binding NewProjectCommand}"
                                            IsDefault="True">
                                 <TextBlock Text="&#xE90B;"

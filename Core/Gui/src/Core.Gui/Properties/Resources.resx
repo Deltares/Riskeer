@@ -996,4 +996,7 @@ Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel bin
   <data name="Description_DisplayName" xml:space="preserve">
     <value>Omschrijving</value>
   </data>
+  <data name="StartScreen_NewProject_DisplayName" xml:space="preserve">
+    <value>Nieuw project</value>
+  </data>
 </root>

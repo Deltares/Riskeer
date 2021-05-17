@@ -2552,6 +2552,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nieuw project.
+        /// </summary>
+        public static string StartScreen_NewProject_DisplayName {
+            get {
+                return ResourceManager.GetString("StartScreen_NewProject_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project afsluiten.
         /// </summary>
         public static string StorageCommandHandler_ClosingProject_Title {
