@@ -84,44 +84,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void Constructor_WithData_ExpectedValues()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.Stub<IDocumentViewController>();
-            mockRepository.ReplayAll();
-
-            // Call
-            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
-
-            // Assert
-            Assert.IsInstanceOf<IAssessmentSectionFromFileHandler<RiskeerProject>>(assessmentSectionFromFileHandler);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void GetAssessmentSectionFromFile_ProjectNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.Stub<IDocumentViewController>();
-            mockRepository.ReplayAll();
-
-            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
-
-            // Call
-            void Call() => assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("project", exception.ParamName);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void GetAssessmentSectionFromFile_InvalidDirectory_ThrowsExceptionProjectNotUpdated()
+        public void GetAssessmentSectionFromFile_InvalidDirectory_ThrowsCriticalFileReadException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -134,21 +97,18 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             string pathToNonExistingFolder = Path.Combine(testDataPath, "I do not exist");
             SetShapeFileDirectory(assessmentSectionFromFileHandler, pathToNonExistingFolder);
 
-            var project = new RiskeerProject();
-
             // Call
-            void Action() => assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
+            void Call() => assessmentSectionFromFileHandler.GetAssessmentSectionFromFile();
 
             // Assert
             var expectedMessage = $"De map met specificaties voor trajecten '{pathToNonExistingFolder}' is niet gevonden.";
-            var exception = Assert.Throws<CriticalFileReadException>(Action);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsEmpty(project.AssessmentSections);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void GetAssessmentSectionFromFile_validDirectoryWithEmptyShapeFile_ThrowsExceptionWarningProjectNotUpdated()
+        public void GetAssessmentSectionFromFile_validDirectoryWithEmptyShapeFile_ShowsWarningDialogAndThrowsCriticalFileReadException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -169,22 +129,19 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 messageBox.ClickOk();
             };
 
-            var project = new RiskeerProject();
-
             // Call
-            void Action() => assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
+            void Call() => assessmentSectionFromFileHandler.GetAssessmentSectionFromFile();
 
             // Assert
             const string expectedMessage = "Er kunnen geen trajecten gelezen worden uit het shapebestand.";
-            var exception = Assert.Throws<CriticalFileValidationException>(Action);
+            var exception = Assert.Throws<CriticalFileValidationException>(Call);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.AreEqual(expectedMessage, messageText);
-            Assert.IsEmpty(project.AssessmentSections);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void GetAssessmentSectionFromFile_ValidDirectoryUserClicksCancel_ProjectNotUpdated()
+        public void GetAssessmentSectionFromFile_ValidDirectoryUserClicksCancel_ReturnsNull()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -203,14 +160,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 new ButtonTester("Cancel", selectionDialog).Click();
             };
 
-            var project = new RiskeerProject();
-
             // Call
-            AssessmentSection assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
+            AssessmentSection assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile();
 
             // Assert
             Assert.IsNull(assessmentSection);
-            Assert.IsEmpty(project.AssessmentSections);
             mockRepository.VerifyAll();
         }
 
@@ -237,10 +191,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 new ButtonTester("Ok", selectionDialog).Click();
             };
 
-            var project = new RiskeerProject();
-
             // Call
-            AssessmentSection assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
+            AssessmentSection assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile();
 
             // Assert
             Assert.AreEqual(3, rowCount);
@@ -270,10 +222,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 new ButtonTester("Ok", selectionDialog).Click();
             };
 
-            var project = new RiskeerProject();
-            
             // Call
-            AssessmentSection assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
+            AssessmentSection assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile();
 
             // Assert
             AssertAssessmentSection(TestAssessmentSection1_2(false), assessmentSection);
@@ -306,10 +256,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 new ButtonTester("Ok", selectionDialog).Click();
             };
 
-            var project = new RiskeerProject();
-
             // Call
-            AssessmentSection assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
+            AssessmentSection assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile();
 
             // Assert
             Assert.AreEqual(3, rowCount);
@@ -341,12 +289,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 new ButtonTester("Ok", selectionDialog).Click();
             };
 
-            var project = new RiskeerProject();
-
             AssessmentSection assessmentSection = null;
             
             // Call
-            void Call() => assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
+            void Call() => assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile();
 
             // Assert
             const string expectedMessage = "Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden.";
@@ -380,12 +326,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 new ButtonTester("Ok", selectionDialog).Click();
             };
 
-            var project = new RiskeerProject();
-
             AssessmentSection assessmentSection = null;
             
             // Call
-            void Call() => assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
+            void Call() => assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile();
 
             // Assert
             const string expectedMessage = "Het importeren van de referentielijn is mislukt.";
@@ -401,7 +345,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
         [Test]
         [SetCulture("nl-NL")]
-        public void GetAssessmentSectionFromFile_ShapeWithInvalidNorm_ThrowsCriticalFileValidationExceptionAndProjectNotUpdated()
+        public void GetAssessmentSectionFromFile_ShapeWithInvalidNorm_ThrowsCriticalFileValidationException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -424,10 +368,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 new ButtonTester("Ok", selectionDialog).Click();
             };
 
-            var project = new RiskeerProject();
-
             // Call
-            void Call() => assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
+            void Call() => assessmentSectionFromFileHandler.GetAssessmentSectionFromFile();
 
             // Assert
             const string expectedMessage = "Het traject kan niet aangemaakt worden met een ondergrens van 1/9.999.999 en een signaleringswaarde van 1/8.888.888. " +
@@ -436,7 +378,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var exception = Assert.Throws<CriticalFileValidationException>(Call);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<ArgumentOutOfRangeException>(exception.InnerException);
-            CollectionAssert.IsEmpty(project.AssessmentSections);
             mockRepository.VerifyAll();
         }
 

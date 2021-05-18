@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Plugin.Handlers
     /// <summary>
     /// This class is responsible for adding an <see cref="AssessmentSection"/> from a predefined location.
     /// </summary>
-    public class AssessmentSectionFromFileHandler : IAssessmentSectionFromFileHandler<RiskeerProject>
+    public class AssessmentSectionFromFileHandler
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionFromFileHandler));
         private readonly string shapeFileDirectory = RiskeerSettingsHelper.GetCommonDocumentsRiskeerShapeFileDirectory();
@@ -79,6 +79,39 @@ namespace Riskeer.Integration.Plugin.Handlers
             this.viewController = viewController;
         }
 
+        /// <summary>
+        /// Displays available <see cref="AssessmentSection"/> objects to the user and asks to select one. 
+        /// The selected <see cref="AssessmentSection"/>, if any, will be returned.
+        /// </summary>
+        /// <returns>The selected <see cref="AssessmentSection"/>; or <c>null</c> when cancelled.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item><see cref="shapeFileDirectory"/> points to an invalid directory.</item>
+        /// <item>The path <see cref="shapeFileDirectory"/> does not contain any shape files.</item>
+        /// <item cref="CriticalFileReadException">Thrown when the shape file does not contain poly lines.</item>
+        /// </list></exception>
+        /// <exception cref="CriticalFileValidationException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The shape file does not contain the required attributes.</item>
+        /// <item>The assessment section ids in the shape file are not unique or are missing.</item>
+        /// <item>No <see cref="ReferenceLineMeta"/> could be read from the shape file.</item>
+        /// <item>The lower limit norm is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The signaling norm is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The signaling norm is larger than the lower limit norm.</item>
+        /// </list></exception>
+        public AssessmentSection GetAssessmentSectionFromFile()
+        {
+            TryReadSourceFiles();
+            return GetAssessmentSectionFromDialog();
+        }
+        
+        /// <summary>
+        /// Performs the post actions.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/>
+        /// to do the actions for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
         public void DoPostHandleActions(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
@@ -89,19 +122,6 @@ namespace Riskeer.Integration.Plugin.Handlers
             viewController.OpenViewForData(assessmentSection);
         }
 
-        public AssessmentSection GetAssessmentSectionFromFile(RiskeerProject project)
-        {
-            if (project == null)
-            {
-                throw new ArgumentNullException(nameof(project));
-            }
-
-            TryReadSourceFiles();
-            return GetAssessmentSectionFromDialog();
-        }
-
-        #region Set AssessmentSection to Project
-
         private static void SetFailureMechanismsValueN(AssessmentSection assessmentSection, int n)
         {
             var roundedN = (RoundedDouble) n;
@@ -109,8 +129,6 @@ namespace Riskeer.Integration.Plugin.Handlers
             assessmentSection.GrassCoverErosionOutwards.GeneralInput.N = roundedN;
             assessmentSection.HeightStructures.GeneralInput.N = roundedN;
         }
-
-        #endregion
 
         #region Dialog
 
@@ -263,6 +281,21 @@ namespace Riskeer.Integration.Plugin.Handlers
             return assessmentSection;
         }
 
+        /// <summary>
+        /// Tries to create the <see cref="AssessmentSection"/>.
+        /// </summary>
+        /// <param name="selectedItem">The selected <see cref="ReferenceLineMeta"/>.</param>
+        /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
+        /// <param name="signalingNorm">The signaling norm which of the assessment section.</param>
+        /// <param name="normativeNorm">The norm type of the assessment section.</param>
+        /// <returns>The created <see cref="AssessmentSection"/>.</returns>
+        /// <exception cref="CriticalFileValidationException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalingNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
+        /// </list>
+        /// </exception>
         private AssessmentSection TryCreateAssessmentSection(ReferenceLineMeta selectedItem,
                                                              double lowerLimitNorm,
                                                              double signalingNorm,
@@ -291,6 +324,21 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         #region Validators
 
+        /// <summary>
+        /// Tries to read the source files.
+        /// </summary>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item><see cref="shapeFileDirectory"/> points to an invalid directory.</item>
+        /// <item>The path <see cref="shapeFileDirectory"/> does not contain any shape files.</item>
+        /// <item cref="CriticalFileReadException">Thrown when the shape file does not contain poly lines.</item>
+        /// </list></exception>
+        /// <exception cref="CriticalFileValidationException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The shape file does not contain the required attributes.</item>
+        /// <item>The assessment section ids in the shape file are not unique or are missing.</item>
+        /// <item>No <see cref="ReferenceLineMeta"/> could be read from the shape file.</item>
+        /// </list></exception>
         private void TryReadSourceFiles()
         {
             ReadAssessmentSectionSettings();
