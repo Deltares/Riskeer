@@ -21,8 +21,10 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.IO;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.IO.Exceptions;
 using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Plugin.Test
@@ -77,7 +79,7 @@ namespace Riskeer.Integration.Plugin.Test
         }
 
         [Test]
-        public void CreateNewProject_WithOnCreateNewProjectFuncThrowsException_ThrowsProjectFactoryException()
+        public void CreateNewProject_WithOnCreateNewProjectFuncThrowsException_ThrowsException()
         {
             // Setup
             var projectFactory = new RiskeerProjectFactory();
@@ -85,6 +87,37 @@ namespace Riskeer.Integration.Plugin.Test
 
             // Call
             void Call() => projectFactory.CreateNewProject(() => throw new Exception(expectedMessage));
+
+            // Assert
+            var exception = Assert.Throws<Exception>(Call);
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void CreateNewProject_WithOnCreateNewProjectFuncThrowsCriticalFileReadException_ThrowsProjectFactoryException()
+        {
+            // Setup
+            var projectFactory = new RiskeerProjectFactory();
+            const string expectedMessage = "Exception message test";
+
+            // Call
+            void Call() => projectFactory.CreateNewProject(() => throw new CriticalFileReadException(expectedMessage));
+
+            // Assert
+            var exception = Assert.Throws<ProjectFactoryException>(Call);
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<Exception>(exception.InnerException);
+        }
+
+        [Test]
+        public void CreateNewProject_WithOnCreateNewProjectFuncThrowsCriticalFileValidationException_ThrowsProjectFactoryException()
+        {
+            // Setup
+            var projectFactory = new RiskeerProjectFactory();
+            const string expectedMessage = "Exception message test";
+
+            // Call
+            void Call() => projectFactory.CreateNewProject(() => throw new CriticalFileValidationException(expectedMessage));
 
             // Assert
             var exception = Assert.Throws<ProjectFactoryException>(Call);

@@ -397,7 +397,7 @@ namespace Core.Gui.Test.Commands
         }
 
         [Test]
-        public void OpenExistingProject_ShouldMigrateYesAndDetermineMigrationLocationThrowsArgumentException_LogFailureAndCreateNewProjectAndReturnsFalse()
+        public void OpenExistingProject_ShouldMigrateYesAndDetermineMigrationLocationThrowsArgumentException_LogFailureAndReturnsFalse()
         {
             // Setup
             const string errorMessage = "I am an error message.";
@@ -413,14 +413,8 @@ namespace Core.Gui.Test.Commands
                                .Throw(new ArgumentException(errorMessage));
             }
 
-            var project = mocks.Stub<IProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
-            projectFactory.Expect(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments().Return(project);
-
             var projectOwner = mocks.StrictMock<IProjectOwner>();
-            projectOwner.Stub(po => po.Project).Return(project);
-            projectOwner.Expect(po => po.SetProject(project, null));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             var mainWindowController = mocks.Stub<IMainWindowController>();
@@ -445,7 +439,7 @@ namespace Core.Gui.Test.Commands
         }
 
         [Test]
-        public void OpenExistingProject_ShouldMigrateTrueAndMigrateThrowsArgumentException_LogFailureAndCreateNewProjectAndReturnsFalse()
+        public void OpenExistingProject_ShouldMigrateTrueAndMigrateThrowsArgumentException_LogFailureAndReturnsFalse()
         {
             // Setup
             const string errorMessage = "I am an error message.";
@@ -466,14 +460,8 @@ namespace Core.Gui.Test.Commands
                                .Throw(new ArgumentException(errorMessage));
             }
 
-            var project = mocks.Stub<IProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
-            projectFactory.Expect(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments().Return(project);
-
             var projectOwner = mocks.StrictMock<IProjectOwner>();
-            projectOwner.Stub(po => po.Project).Return(project);
-            projectOwner.Expect(po => po.SetProject(project, null));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();

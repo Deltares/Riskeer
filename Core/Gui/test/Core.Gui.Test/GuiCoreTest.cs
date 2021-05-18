@@ -692,7 +692,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_LoadingFromOutdatedAndShouldMigrateThrowsArgumentException_LogErrorAndLoadDefaultProjectInstead()
+        public void Run_LoadingFromOutdatedAndShouldMigrateThrowsArgumentException_LogErrorAndShowStartScreen()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -706,21 +706,10 @@ namespace Core.Gui.Test
             var projectMigrator = mocks.Stub<IMigrateProject>();
             projectMigrator.Stub(pm => pm.ShouldMigrate(testFile))
                            .Throw(new ArgumentException(expectedErrorMessage));
-
-            const string expectedProjectName = "Project";
-            var project = mocks.Stub<IProject>();
-            project.Name = expectedProjectName;
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
-                          .Return(project);
-
             mocks.ReplayAll();
 
-            var fixedSettings = new GuiCoreSettings
-            {
-                ApplicationName = "<main window title part>"
-            };
+            var fixedSettings = new GuiCoreSettings();
 
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
@@ -734,8 +723,8 @@ namespace Core.Gui.Test
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedErrorMessage, LogLevelConstant.Error));
 
                 Assert.IsNull(gui.ProjectFilePath);
-                string expectedTitle = $"{expectedProjectName} - {fixedSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
-                Assert.AreEqual(expectedTitle, mainWindow.Title);
+                Assert.IsNull(gui.Project);
+                Assert.IsInstanceOf<StartScreen>(gui.ActiveParentWindow);
             }
 
             mocks.VerifyAll();
@@ -743,7 +732,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_LoadingFromOutdatedAndMigrateThrowsArgumentException_LogErrorAndLoadDefaultProjectInstead()
+        public void Run_LoadingFromOutdatedAndMigrateThrowsArgumentException_LogErrorAndShowStartScreen()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -760,21 +749,10 @@ namespace Core.Gui.Test
             projectMigrator.Stub(pm => pm.DetermineMigrationLocation(testFile)).Return(targetFile);
             projectMigrator.Stub(pm => pm.Migrate(testFile, targetFile))
                            .Throw(new ArgumentException(expectedErrorMessage));
-
-            const string expectedProjectName = "Project";
-            var project = mocks.Stub<IProject>();
-            project.Name = expectedProjectName;
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
-                          .Return(project);
-
             mocks.ReplayAll();
 
-            var fixedSettings = new GuiCoreSettings
-            {
-                ApplicationName = "<main window title part>"
-            };
+            var fixedSettings = new GuiCoreSettings();
 
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
@@ -794,8 +772,8 @@ namespace Core.Gui.Test
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages);
 
                 Assert.IsNull(gui.ProjectFilePath);
-                var expectedTitle = $"{expectedProjectName} - {fixedSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
-                Assert.AreEqual(expectedTitle, mainWindow.Title);
+                Assert.IsNull(gui.Project);
+                Assert.IsInstanceOf<StartScreen>(gui.ActiveParentWindow);
             }
 
             mocks.VerifyAll();
@@ -803,7 +781,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_LoadingFromFileThrowsStorageException_LogErrorAndLoadDefaultProjectInstead()
+        public void Run_LoadingFromFileThrowsStorageException_LogErrorAndShowStartScreen()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -816,20 +794,10 @@ namespace Core.Gui.Test
             var projectMigrator = mocks.Stub<IMigrateProject>();
             projectMigrator.Stub(m => m.ShouldMigrate(testFile)).Return(MigrationRequired.No);
             projectStore.Expect(ps => ps.LoadProject(testFile)).Throw(new StorageException(storageExceptionText));
-            const string expectedProjectName = "Project";
-            var project = mocks.Stub<IProject>();
-            project.Name = expectedProjectName;
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
-                          .Return(project);
-
             mocks.ReplayAll();
 
-            var fixedSettings = new GuiCoreSettings
-            {
-                ApplicationName = "<main window title part>"
-            };
+            var fixedSettings = new GuiCoreSettings();
 
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
@@ -849,8 +817,8 @@ namespace Core.Gui.Test
                 TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages);
 
                 Assert.IsNull(gui.ProjectFilePath);
-                var expectedTitle = $"{expectedProjectName} - {fixedSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
-                Assert.AreEqual(expectedTitle, mainWindow.Title);
+                Assert.IsNull(gui.Project);
+                Assert.IsInstanceOf<StartScreen>(gui.ActiveParentWindow);
             }
 
             mocks.VerifyAll();

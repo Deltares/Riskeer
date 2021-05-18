@@ -710,7 +710,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        public void GivenOpenProjectActivityAndFailedDueToNoProject_WhenFinishingOpenProjectActivity_ThenProjectOwnerHasNewEmptyProjectWithLogMessage()
+        public void GivenOpenProjectActivityAndFailedDueToNoProject_WhenFinishingOpenProjectActivity_ThenMessageLogged()
         {
             // Given
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
@@ -720,14 +720,8 @@ namespace Core.Gui.Test
             projectStorage.Stub(ps => ps.LoadProject(someFilePath))
                           .Return(null);
 
-            var project = mocks.Stub<IProject>();
-
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Expect(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
-                          .Return(project);
             var projectOwner = mocks.Stub<IProjectOwner>();
-            projectOwner.Expect(po => po.SetProject(project, null));
             mocks.ReplayAll();
 
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
@@ -774,14 +768,8 @@ namespace Core.Gui.Test
             projectStorage.Stub(ps => ps.LoadProject(someFilePath))
                           .Throw(exceptionToThrow);
 
-            var project = mocks.Stub<IProject>();
-
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Expect(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
-                          .Return(project);
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            projectOwner.Expect(po => po.SetProject(project, null));
+            var projectFactory = mocks.StrictMock<IProjectFactory>();
+            var projectOwner = mocks.StrictMock<IProjectOwner>();
             mocks.ReplayAll();
 
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
@@ -807,8 +795,8 @@ namespace Core.Gui.Test
             };
 
             // Then
-            Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Openen van project is mislukt.",
-                                                                           LogLevelConstant.Error);
+            var expectedMessage = Tuple.Create("Openen van project is mislukt.",
+                                               LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
             Assert.AreEqual(ActivityState.Failed, activity.State);
@@ -970,111 +958,6 @@ namespace Core.Gui.Test
             var expectedProgressMessages = new[]
             {
                 "Stap 2 van 2 | Initialiseren van geopend project"
-            };
-            CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Finish_ProjectMigrationFailed_ExpectedProgressText()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var storeProject = mocks.Stub<IStoreProject>();
-            var migrateProject = mocks.Stub<IMigrateProject>();
-            migrateProject.Stub(pm => pm.Migrate(null, null))
-                          .IgnoreArguments()
-                          .Throw(new ArgumentException());
-            mocks.ReplayAll();
-
-            var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
-            {
-                FilePath = "",
-                ProjectFactory = projectFactory,
-                ProjectOwner = projectOwner,
-                ProjectStorage = storeProject
-            };
-            var migrateProjectProperties = new OpenProjectActivity.ProjectMigrationConstructionProperties
-            {
-                MigrationFilePath = "",
-                Migrator = migrateProject
-            };
-
-            var activity = new OpenProjectActivity(openProjectProperties,
-                                                   migrateProjectProperties);
-            activity.Run();
-
-            // Precondition
-            Assert.AreEqual(ActivityState.Failed, activity.State);
-
-            var progressMessages = new List<string>();
-            activity.ProgressChanged += (sender, args) =>
-            {
-                Assert.AreSame(activity, sender);
-                Assert.AreEqual(EventArgs.Empty, args);
-
-                progressMessages.Add(activity.ProgressText);
-            };
-
-            // Call
-            activity.Finish();
-
-            // Assert
-            var expectedProgressMessages = new[]
-            {
-                "Stap 3 van 3 | Initialiseren van leeg project"
-            };
-            CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Finish_OnlyProjectOpenFailed_ExpectedProgressText()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
-            var storeProject = mocks.Stub<IStoreProject>();
-            storeProject.Stub(s => s.LoadProject(null))
-                        .IgnoreArguments()
-                        .Throw(new StorageException());
-            mocks.ReplayAll();
-
-            var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
-            {
-                FilePath = "",
-                ProjectFactory = projectFactory,
-                ProjectOwner = projectOwner,
-                ProjectStorage = storeProject
-            };
-
-            var activity = new OpenProjectActivity(openProjectProperties);
-            activity.Run();
-
-            // Precondition
-            Assert.AreEqual(ActivityState.Failed, activity.State);
-
-            var progressMessages = new List<string>();
-            activity.ProgressChanged += (sender, args) =>
-            {
-                Assert.AreSame(activity, sender);
-                Assert.AreEqual(EventArgs.Empty, args);
-
-                progressMessages.Add(activity.ProgressText);
-            };
-
-            // Call
-            activity.Finish();
-
-            // Assert
-            var expectedProgressMessages = new[]
-            {
-                "Stap 2 van 2 | Initialiseren van leeg project"
             };
             CollectionAssert.AreEqual(expectedProgressMessages, progressMessages);
 
