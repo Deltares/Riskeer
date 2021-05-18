@@ -2597,6 +2597,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nieuw project aanmaken is mislukt..
+        /// </summary>
+        public static string StorageCommandHandler_NewProject_Creating_new_project_failed {
+            get {
+                return ResourceManager.GetString("StorageCommandHandler_NewProject_Creating_new_project_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sla wijzigingen in het project op: {0}?.
         /// </summary>
         public static string StorageCommandHandler_OpenSaveOrDiscardProjectDialog_SaveChangesToProject_0 {

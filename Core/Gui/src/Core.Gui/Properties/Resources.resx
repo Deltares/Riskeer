@@ -469,6 +469,9 @@
   <data name="StorageCommandHandler_NewProject_Creating_new_project_canceled" xml:space="preserve">
     <value>Nieuw project aanmaken is geannuleerd.</value>
   </data>
+  <data name="StorageCommandHandler_NewProject_Creating_new_project_failed" xml:space="preserve">
+    <value>Nieuw project aanmaken is mislukt.</value>
+  </data>  
   <data name="GuiExportHandler_GetSupportedExporterForItemUsingDialog_Error" xml:space="preserve">
     <value>Fout</value>
   </data>

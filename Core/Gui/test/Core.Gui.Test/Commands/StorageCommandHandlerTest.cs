@@ -58,7 +58,8 @@ namespace Core.Gui.Test.Commands
             projectOwner.Stub(po => po.ProjectFilePath).Return(savedProjectPath);
 
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(OnCreateNewProjectFunc)).Return(newProject);
+            projectFactory.Stub(pf => pf.CreateNewProject(OnCreateNewProjectFunc))
+                          .Return(newProject);
             projectOwner.Expect(po => po.SetProject(newProject, null));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
@@ -84,6 +85,90 @@ namespace Core.Gui.Test.Commands
                 Tuple.Create("Nieuw project aanmaken is gelukt.", LogLevelConstant.Info)
             };
             TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 2);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateNewProject_ProjectFactoryReturnsNull_LogsMessage()
+        {
+            // Setup
+            object OnCreateNewProjectFunc() => null;
+
+            var projectStorage = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+
+            var projectFactory = mocks.StrictMock<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject(OnCreateNewProjectFunc))
+                          .Return(null);
+
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+
+            mocks.ReplayAll();
+
+            var storageCommandHandler = new StorageCommandHandler(
+                projectStorage,
+                projectMigrator,
+                projectFactory,
+                projectOwner,
+                inquiryHelper,
+                mainWindowController);
+
+            // Call
+            void Call() => storageCommandHandler.CreateNewProject(OnCreateNewProjectFunc);
+
+            // Assert
+            Tuple<string, LogLevelConstant>[] expectedMessages =
+            {
+                Tuple.Create("Nieuw project aanmaken is gestart.", LogLevelConstant.Info),
+                Tuple.Create("Nieuw project aanmaken is geannuleerd.", LogLevelConstant.Info)
+            };
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 2);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateNewProject_ProjectFactoryThrowsProjectFactoryException_LogsMessage()
+        {
+            // Setup
+            const string expectedExceptionMessage = "Error message";
+            object OnCreateNewProjectFunc() => null;
+
+            var projectStorage = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+
+            var projectFactory = mocks.StrictMock<IProjectFactory>();
+            projectFactory.Stub(pf => pf.CreateNewProject(OnCreateNewProjectFunc))
+                          .Throw(new ProjectFactoryException(expectedExceptionMessage));
+
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+
+            mocks.ReplayAll();
+
+            var storageCommandHandler = new StorageCommandHandler(
+                projectStorage,
+                projectMigrator,
+                projectFactory,
+                projectOwner,
+                inquiryHelper,
+                mainWindowController);
+
+            // Call
+            void Call() => storageCommandHandler.CreateNewProject(OnCreateNewProjectFunc);
+
+            // Assert
+            Tuple<string, LogLevelConstant>[] expectedMessages =
+            {
+                Tuple.Create("Nieuw project aanmaken is gestart.", LogLevelConstant.Info),
+                Tuple.Create(expectedExceptionMessage, LogLevelConstant.Error),
+                Tuple.Create("Nieuw project aanmaken is mislukt.", LogLevelConstant.Info)
+            };
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 3);
 
             mocks.VerifyAll();
         }
