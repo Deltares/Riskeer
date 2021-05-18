@@ -122,12 +122,12 @@ All rights reserved.
                 <TextBlock Style="{StaticResource Header2}"
                            Text="{x:Static properties:Resources.SupportBackstagePage_WeCanHelp_DisplayName}" />
                 <TextBlock Style="{StaticResource ExplanatoryTextBlockStyle}"
-                           Text="{x:Static properties:Resources.SupportBackstagePage_WeCanHelp_Discription}" />
+                           Text="{x:Static properties:Resources.SupportBackstagePage_WeCanHelp_Description}" />
 
                 <TextBlock Style="{StaticResource Header2}"
-                           Text="{x:Static properties:Resources.HelpdeskWater_DisplayName}" />
+                           Text="{Binding SupportHeader}" />
                 <TextBlock Style="{StaticResource ExplanatoryTextBlockStyle}"
-                           Text="{x:Static properties:Resources.HelpdeskWater_Description}" />
+                           Text="{Binding SupportText}" />
                 <StackPanel Orientation="Horizontal">
                     <Button Style="{StaticResource BackstageBigButtonStyle}"
                             Tag="{x:Static properties:Resources.VisitWebsite_DisplayName}"

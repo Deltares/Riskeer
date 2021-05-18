@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Gui.Forms.Backstage;
+using Core.Gui.Settings;
 using NUnit.Framework;
 
 namespace Core.Gui.Test.Forms.Backstage
@@ -28,13 +30,33 @@ namespace Core.Gui.Test.Forms.Backstage
     public class SupportViewModelTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_SettingsNull_ThrowsArgumentNullException()
         {
             // Call
-            var viewModel = new SupportViewModel();
+            void Call() => new SupportViewModel(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("settings", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var settings = new GuiCoreSettings
+            {
+                SupportHeader = "Support",
+                SupportText = "Some text"
+            };
+
+            // Call
+            var viewModel = new SupportViewModel(settings);
 
             // Assert
             Assert.IsInstanceOf<IBackstagePageViewModel>(viewModel);
+            Assert.AreEqual(settings.SupportHeader, viewModel.SupportHeader);
+            Assert.AreEqual(settings.SupportText, viewModel.SupportText);
         }
     }
 }

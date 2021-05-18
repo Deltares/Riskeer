@@ -973,7 +973,7 @@
   <data name="SupportBackstagePage_WeCanHelp_DisplayName" xml:space="preserve">
     <value>We kunnen helpen!</value>
   </data>
-  <data name="SupportBackstagePage_WeCanHelp_Discription" xml:space="preserve">
+  <data name="SupportBackstagePage_WeCanHelp_Description" xml:space="preserve">
     <value>Heeft u problemen in het gebruik van de software? Neem dan contact op.</value>
   </data>
   <data name="HelpdeskWater_DisplayName" xml:space="preserve">

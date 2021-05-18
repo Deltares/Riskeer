@@ -125,6 +125,8 @@ namespace Application.Riskeer
             var settings = new GuiCoreSettings
             {
                 ApplicationName = "Riskeer",
+                SupportHeader = CoreGuiResources.HelpdeskWater_DisplayName,
+                SupportText = CoreGuiResources.HelpdeskWater_Description,
                 SupportWebsiteAddressUrl = "https://www.helpdeskwater.nl/onderwerpen/applicaties-modellen/applicaties-per/omgevings/omgevings/riskeer/",
                 SupportEmailAddressUrl = "https://www.helpdeskwater.nl/onderwerpen/applicaties-modellen/applicaties-per/omgevings/omgevings/riskeer/contact/vraag-ringtoets/",
                 SupportPhoneNumberUrl = "https://www.helpdeskwater.nl/secundaire-navigatie/contact/",

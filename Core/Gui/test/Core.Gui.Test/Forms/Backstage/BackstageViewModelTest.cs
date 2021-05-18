@@ -49,7 +49,9 @@ namespace Core.Gui.Test.Forms.Backstage
             // Setup
             var settings = new GuiCoreSettings
             {
-                ApplicationName = "Riskeer"
+                ApplicationName = "Riskeer",
+                SupportHeader = "Support",
+                SupportText = "Some text"
             };
             const string version = "1.0";
             
@@ -67,6 +69,8 @@ namespace Core.Gui.Test.Forms.Backstage
             Assert.AreEqual(version, viewModel.AboutViewModel.Version);
             
             Assert.IsNotNull(viewModel.SupportViewModel);
+            Assert.AreEqual(settings.SupportHeader, viewModel.SupportViewModel.SupportHeader);
+            Assert.AreEqual(settings.SupportText, viewModel.SupportViewModel.SupportText);
 
             Assert.IsNotNull(viewModel.OpenHelpdeskWaterWebsiteCommand);
             Assert.IsNotNull(viewModel.CallHelpdeskWaterSupportCommand);

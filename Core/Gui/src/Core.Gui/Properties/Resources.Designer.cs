@@ -2617,9 +2617,9 @@ namespace Core.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Heeft u problemen in het gebruik van de software? Neem dan contact op..
         /// </summary>
-        public static string SupportBackstagePage_WeCanHelp_Discription {
+        public static string SupportBackstagePage_WeCanHelp_Description {
             get {
-                return ResourceManager.GetString("SupportBackstagePage_WeCanHelp_Discription", resourceCulture);
+                return ResourceManager.GetString("SupportBackstagePage_WeCanHelp_Description", resourceCulture);
             }
         }
         

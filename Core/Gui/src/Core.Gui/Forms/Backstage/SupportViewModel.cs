@@ -19,10 +19,42 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Gui.Settings;
+
 namespace Core.Gui.Forms.Backstage
 {
     /// <summary>
     /// ViewModel for <see cref="SupportBackstagePage"/>.
     /// </summary>
-    public class SupportViewModel : IBackstagePageViewModel {}
+    public class SupportViewModel : IBackstagePageViewModel
+    {
+        private readonly GuiCoreSettings settings;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SupportViewModel"/>.
+        /// </summary>
+        /// <param name="settings">The application settings.</param>
+        /// <exception cref="ArgumentNullException">Thrown when
+        /// <paramref name="settings"/> is <c>null</c>.</exception>
+        public SupportViewModel(GuiCoreSettings settings)
+        {
+            if (settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+
+            this.settings = settings;
+        }
+
+        /// <summary>
+        /// Gets the header of the support text.
+        /// </summary>
+        public string SupportHeader => settings.SupportHeader;
+
+        /// <summary>
+        /// Gets the support text.
+        /// </summary>
+        public string SupportText => settings.SupportText;
+    }
 }

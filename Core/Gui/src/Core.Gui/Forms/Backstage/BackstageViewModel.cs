@@ -61,7 +61,7 @@ namespace Core.Gui.Forms.Backstage
 
             InfoViewModel = new InfoViewModel();
             AboutViewModel = new AboutViewModel(settings.ApplicationName, version);
-            SupportViewModel = new SupportViewModel();
+            SupportViewModel = new SupportViewModel(settings);
 
             OpenHelpdeskWaterWebsiteCommand = new RelayCommand(OnOpenHelpdeskWaterWebsite);
             EmailHelpdeskWaterSupportCommand = new RelayCommand(OnEmailHelpdeskWaterSupport);

@@ -35,6 +35,16 @@ namespace Core.Gui.Settings
         public string ApplicationName { get; set; }
         
         /// <summary>
+        /// Gets or sets the header of the support text.
+        /// </summary>
+        public string SupportHeader { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the support text.
+        /// </summary>
+        public string SupportText { get; set; }
+        
+        /// <summary>
         /// Gets or sets the support website address url.
         /// </summary>
         public string SupportWebsiteAddressUrl { get; set; }
