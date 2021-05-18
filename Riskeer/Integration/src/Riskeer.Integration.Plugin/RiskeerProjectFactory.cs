@@ -21,6 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.IO;
+using Riskeer.Common.IO.Exceptions;
 using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Plugin
@@ -42,20 +44,27 @@ namespace Riskeer.Integration.Plugin
                 throw new ArgumentNullException(nameof(onCreateNewProjectFunc));
             }
 
-            var assessmentSection = (AssessmentSection) onCreateNewProjectFunc();
-
-            if (assessmentSection == null)
+            try
             {
-                return null;
-            }
-
-            return new RiskeerProject
-            {
-                AssessmentSections =
+                var assessmentSection = (AssessmentSection) onCreateNewProjectFunc();
+                
+                if (assessmentSection == null)
                 {
-                    assessmentSection
+                    return null;
                 }
-            };
+
+                return new RiskeerProject
+                {
+                    AssessmentSections =
+                    {
+                        assessmentSection
+                    }
+                };
+            }
+            catch (Exception e) when (e is CriticalFileReadException || e is CriticalFileValidationException)
+            {
+                throw new ProjectFactoryException(e.Message, e);
+            }
         }
     }
 }

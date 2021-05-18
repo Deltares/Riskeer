@@ -32,8 +32,10 @@ namespace Core.Common.Base.Data
         /// Creates a new instance of <see cref="IProject"/>.
         /// </summary>
         /// <param name="onCreateNewProjectFunc">The func to perform
-        /// after the project is created.</param>
+        /// when the project is created.</param>
         /// <returns>An empty <see cref="IProject"/> object.</returns>
+        /// <exception cref="ProjectFactoryException">Thrown when something
+        /// went wrong while creating an <see cref="IProject"/> object.</exception>
         IProject CreateNewProject(Func<object> onCreateNewProjectFunc);
     }
 }

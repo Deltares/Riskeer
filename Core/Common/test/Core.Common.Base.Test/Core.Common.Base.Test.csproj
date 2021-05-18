@@ -5,10 +5,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj"/>
-    <ProjectReference Include="..\Core.Common.Base.TestUtil\Core.Common.Base.TestUtil.csproj"/>
-    <ProjectReference Include="..\Core.Common.Data.TestUtil\Core.Common.Data.TestUtil.csproj"/>
-    <ProjectReference Include="..\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\Core.Common.Base.TestUtil\Core.Common.Base.TestUtil.csproj" />
+    <ProjectReference Include="..\Core.Common.Data.TestUtil\Core.Common.Data.TestUtil.csproj" />
+    <ProjectReference Include="..\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">

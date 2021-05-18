@@ -77,7 +77,7 @@ namespace Riskeer.Integration.Plugin.Test
         }
 
         [Test]
-        public void CreateNewProject_WithOnCreateNewProjectFuncThrowsException_ThrowsException()
+        public void CreateNewProject_WithOnCreateNewProjectFuncThrowsException_ThrowsProjectFactoryException()
         {
             // Setup
             var projectFactory = new RiskeerProjectFactory();
@@ -87,8 +87,9 @@ namespace Riskeer.Integration.Plugin.Test
             void Call() => projectFactory.CreateNewProject(() => throw new Exception(expectedMessage));
 
             // Assert
-            var exception = Assert.Throws<Exception>(Call);
+            var exception = Assert.Throws<ProjectFactoryException>(Call);
             Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<Exception>(exception.InnerException);
         }
     }
 }
