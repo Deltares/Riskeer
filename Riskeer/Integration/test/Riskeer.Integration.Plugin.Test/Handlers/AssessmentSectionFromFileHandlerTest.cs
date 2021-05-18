@@ -26,18 +26,18 @@ using System.Reflection;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Base.IO;
 using Core.Common.Base.TestUtil.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using Core.Gui.Forms.ViewHost;
-using log4net.Core;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TestUtil;
+using Riskeer.Common.IO.Exceptions;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Dialogs;
 using Riskeer.Integration.Plugin.Handlers;
@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var viewController = mockRepository.StrictMock<IDocumentViewController>();
+            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             // Call
@@ -71,7 +71,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.StrictMock<IWin32Window>();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
             mockRepository.ReplayAll();
 
             // Call
@@ -88,8 +88,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.StrictMock<IWin32Window>();
-            var viewController = mockRepository.StrictMock<IDocumentViewController>();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
+            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             // Call
@@ -101,18 +101,18 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void AddAssessmentSectionFromFile_ProjectNull_ThrowsArgumentNullException()
+        public void GetAssessmentSectionFromFile_ProjectNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.StrictMock<IWin32Window>();
-            var viewController = mockRepository.StrictMock<IDocumentViewController>();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
+            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
 
             // Call
-            void Call() => assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(null);
+            void Call() => assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -121,12 +121,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void AddAssessmentSectionFromFile_InvalidDirectory_LogsWarningProjectNotUpdated()
+        public void GetAssessmentSectionFromFile_InvalidDirectory_ThrowsExceptionProjectNotUpdated()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.StrictMock<IWin32Window>();
-            var viewController = mockRepository.StrictMock<IDocumentViewController>();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
+            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
@@ -137,22 +137,23 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var project = new RiskeerProject();
 
             // Call
-            void Action() => assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
+            void Action() => assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
 
             // Assert
             var expectedMessage = $"De map met specificaties voor trajecten '{pathToNonExistingFolder}' is niet gevonden.";
-            TestHelper.AssertLogMessageIsGenerated(Action, expectedMessage);
+            var exception = Assert.Throws<CriticalFileReadException>(Action);
+            Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsEmpty(project.AssessmentSections);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void AddAssessmentSectionFromFile_validDirectoryWithEmptyShapeFile_LogsWarningProjectNotUpdated()
+        public void GetAssessmentSectionFromFile_validDirectoryWithEmptyShapeFile_ThrowsExceptionWarningProjectNotUpdated()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.StrictMock<IWin32Window>();
-            var viewController = mockRepository.StrictMock<IDocumentViewController>();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
+            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
@@ -171,23 +172,24 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var project = new RiskeerProject();
 
             // Call
-            void Action() => assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
+            void Action() => assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
 
             // Assert
             const string expectedMessage = "Er kunnen geen trajecten gelezen worden uit het shapebestand.";
-            TestHelper.AssertLogMessageIsGenerated(Action, expectedMessage);
+            var exception = Assert.Throws<CriticalFileValidationException>(Action);
+            Assert.AreEqual(expectedMessage, exception.Message);
             Assert.AreEqual(expectedMessage, messageText);
             Assert.IsEmpty(project.AssessmentSections);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void AddAssessmentSectionFromFile_ValidDirectoryUserClicksCancel_ProjectNotUpdated()
+        public void GetAssessmentSectionFromFile_ValidDirectoryUserClicksCancel_ProjectNotUpdated()
         {
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.StrictMock<IDocumentViewController>();
+            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
@@ -204,21 +206,21 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var project = new RiskeerProject();
 
             // Call
-            assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
+            AssessmentSection assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
 
             // Assert
+            Assert.IsNull(assessmentSection);
             Assert.IsEmpty(project.AssessmentSections);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void AddAssessmentSectionFromFile_ValidDirectoryOkClicked_SetsFirstReadAssessmentSection()
+        public void GetAssessmentSectionFromFile_ValidDirectoryOkClicked_ReturnsFirstReadAssessmentSection()
         {
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.StrictMock<IDocumentViewController>();
-            viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
+            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
@@ -238,67 +240,21 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var project = new RiskeerProject();
 
             // Call
-            assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
+            AssessmentSection assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
 
             // Assert
             Assert.AreEqual(3, rowCount);
-            AssessmentSection assessmentSection = project.AssessmentSections.FirstOrDefault();
-            Assert.IsNotNull(assessmentSection);
             AssertAssessmentSection(TestAssessmentSection1_2(true), assessmentSection);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void AddAssessmentSectionFromFile_ValidDirectoryOkClickedForDuplicateAssessmentSection_SetsFirstReadAssessmentSectionWithUniqueName()
+        public void GetAssessmentSectionFromFile_ValidDirectoryLowLimitSelectedOkClicked_ReturnsFirstReadAssessmentSectionWithLowLimit()
         {
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.StrictMock<IDocumentViewController>();
-            viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
-            mockRepository.ReplayAll();
-
-            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
-
-            string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
-            SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
-
-            var project = new RiskeerProject();
-            project.AssessmentSections.Add(TestAssessmentSection1_2(true));
-            string expectedAssessmentSectionName = NamingHelper.GetUniqueName(project.AssessmentSections, "Traject 1-2", a => a.Name);
-
-            var signallingValueRadioButtonSelected = false;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
-                var signallingValueRadioButton = (RadioButton) new RadioButtonTester("SignallingValueRadioButton", selectionDialog).TheObject;
-                signallingValueRadioButtonSelected = signallingValueRadioButton.Checked;
-                new ButtonTester("Ok", selectionDialog).Click();
-            };
-
-            // Call
-            assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
-
-            // Assert
-            Assert.IsTrue(signallingValueRadioButtonSelected);
-            Assert.AreEqual(2, project.AssessmentSections.Count);
-            AssessmentSection assessmentSection = project.AssessmentSections[1];
-            Assert.IsNotNull(assessmentSection);
-
-            AssessmentSection expectedAssessmentSection = TestAssessmentSection1_2(true);
-            expectedAssessmentSection.Name = expectedAssessmentSectionName;
-            AssertAssessmentSection(expectedAssessmentSection, assessmentSection);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void AddAssessmentSectionFromFile_ValidDirectoryLowLimitSelectedOkClicked_SetsFirstReadAssessmentSectionWithLowLimit()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.StrictMock<IDocumentViewController>();
-            viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
+            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
@@ -315,25 +271,22 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             var project = new RiskeerProject();
-
+            
             // Call
-            assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
+            AssessmentSection assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
 
             // Assert
-            AssessmentSection assessmentSection = project.AssessmentSections.FirstOrDefault();
-            Assert.IsNotNull(assessmentSection);
             AssertAssessmentSection(TestAssessmentSection1_2(false), assessmentSection);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void AddAssessmentSectionFromFile_SecondRowSelectedOkClicked_SetsSecondReadAssessmentSection()
+        public void GetAssessmentSectionFromFile_SecondRowSelectedOkClicked_ReturnsSecondReadAssessmentSection()
         {
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.StrictMock<IDocumentViewController>();
-            viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
+            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
@@ -356,24 +309,21 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var project = new RiskeerProject();
 
             // Call
-            assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
+            AssessmentSection assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
 
             // Assert
             Assert.AreEqual(3, rowCount);
-            AssessmentSection assessmentSection = project.AssessmentSections.FirstOrDefault();
-            Assert.IsNotNull(assessmentSection);
             AssertAssessmentSection(TestAssessmentSection2_1(), assessmentSection);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void AddAssessmentSectionFromFile_ThirdRowSelectedOkClicked_SetsThirdReadAssessmentSection()
+        public void GetAssessmentSectionFromFile_ThirdRowSelectedOkClicked_ReturnsThirdReadAssessmentSection()
         {
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.StrictMock<IDocumentViewController>();
-            viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
+            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
@@ -393,26 +343,26 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             var project = new RiskeerProject();
 
+            AssessmentSection assessmentSection = null;
+            
             // Call
-            void Call() => assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
+            void Call() => assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
 
             // Assert
             const string expectedMessage = "Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden.";
             TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);
-            AssessmentSection assessmentSection = project.AssessmentSections.FirstOrDefault();
             Assert.IsNotNull(assessmentSection);
             AssertAssessmentSection(TestAssessmentSection3_3(), assessmentSection);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void AddAssessmentSectionFromFile_ShapeWithoutPointsOkClicked_LogsAndSetsAssessmentSectionWithoutReferenceLine()
+        public void GetAssessmentSectionFromFile_ShapeWithoutPointsOkClicked_LogsAndReturnsAssessmentSectionWithoutReferenceLine()
         {
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.StrictMock<IDocumentViewController>();
-            viewController.Expect(dvc => dvc.OpenViewForData(null)).IgnoreArguments().Return(true);
+            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
@@ -432,13 +382,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             var project = new RiskeerProject();
 
+            AssessmentSection assessmentSection = null;
+            
             // Call
-            void Call() => assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
+            void Call() => assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
 
             // Assert
             const string expectedMessage = "Het importeren van de referentielijn is mislukt.";
             TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);
-            AssessmentSection assessmentSection = project.AssessmentSections.FirstOrDefault();
             Assert.IsNotNull(assessmentSection);
 
             AssessmentSection expectedAssessmentSection = TestAssessmentSection1_2(true);
@@ -450,12 +401,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
         [Test]
         [SetCulture("nl-NL")]
-        public void AddAssessmentSectionFromFile_ShapeWithInvalidNorm_LogsAndProjectNotUpdated()
+        public void GetAssessmentSectionFromFile_ShapeWithInvalidNorm_ThrowsCriticalFileValidationExceptionAndProjectNotUpdated()
         {
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.StrictMock<IDocumentViewController>();
+            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
             var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
@@ -476,21 +427,56 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var project = new RiskeerProject();
 
             // Call
-            void Call() => assessmentSectionFromFileHandler.AddAssessmentSectionFromFile(project);
+            void Call() => assessmentSectionFromFileHandler.GetAssessmentSectionFromFile(project);
 
             // Assert
             const string expectedMessage = "Het traject kan niet aangemaakt worden met een ondergrens van 1/9.999.999 en een signaleringswaarde van 1/8.888.888. " +
                                            "De waarde van de ondergrens en signaleringswaarde moet in het bereik [0,000001, 0,1] liggen en " +
                                            "de ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde.";
-            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, tuples =>
-            {
-                Tuple<string, Level, Exception> tuple = tuples.Single();
-                Assert.AreEqual(expectedMessage, tuple.Item1);
-                Assert.AreEqual(Level.Error, tuple.Item2);
-                Assert.IsInstanceOf<ArgumentOutOfRangeException>(tuple.Item3);
-            });
+            var exception = Assert.Throws<CriticalFileValidationException>(Call);
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<ArgumentOutOfRangeException>(exception.InnerException);
             CollectionAssert.IsEmpty(project.AssessmentSections);
+            mockRepository.VerifyAll();
+        }
 
+        [Test]
+        public void DoPostHandleActions_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
+            var viewController = mockRepository.Stub<IDocumentViewController>();
+            mockRepository.ReplayAll();
+            
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+            
+            // Call
+            void Call() => assessmentSectionFromFileHandler.DoPostHandleActions(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+        
+        [Test]
+        public void DoPostHandleActions_WithAssessmentSection_OpensViewForAssessmentSection()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            
+            var mockRepository = new MockRepository();
+            var parentDialog = mockRepository.Stub<IWin32Window>();
+            var viewController = mockRepository.StrictMock<IDocumentViewController>();
+            viewController.Expect(dvc => dvc.OpenViewForData(assessmentSection)).Return(true);
+            mockRepository.ReplayAll();
+            
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+
+            // Call
+            assessmentSectionFromFileHandler.DoPostHandleActions(assessmentSection);
+            
+            // Assert
             mockRepository.VerifyAll();
         }
 

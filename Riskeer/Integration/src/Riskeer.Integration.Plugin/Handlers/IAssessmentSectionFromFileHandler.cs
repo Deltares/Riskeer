@@ -21,24 +21,25 @@
 
 using System;
 using Core.Common.Base.Data;
-using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Plugin.Handlers
 {
     /// <summary>
-    /// Interface for handling adding <see cref="IAssessmentSection"/> to a <see cref="TProject"/>.
+    /// Interface for handling adding <see cref="AssessmentSection"/> to a <see cref="TProject"/>.
     /// </summary>
     /// <typeparam name="TProject">The type of project.</typeparam>
     public interface IAssessmentSectionFromFileHandler<in TProject>
         where TProject : IProject
     {
         /// <summary>
-        /// Displays available <see cref="IAssessmentSection"/> objects to the user and asks to select one. 
-        /// The selected <see cref="IAssessmentSection"/>, if any, will be added to the <see cref="TProject"/>.
+        /// Displays available <see cref="AssessmentSection"/> objects to the user and asks to select one. 
+        /// The selected <see cref="AssessmentSection"/>, if any, will be returned.
         /// </summary>
-        /// <param name="project">The project to add the <see cref="IAssessmentSection"/> to.</param>
+        /// <param name="project">The project to add the <see cref="AssessmentSection"/> to.</param>
+        /// <returns>The selected <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="project"/>
         /// is <c>null</c>.</exception>
-        void AddAssessmentSectionFromFile(TProject project);
+        AssessmentSection GetAssessmentSectionFromFile(TProject project);
     }
 }

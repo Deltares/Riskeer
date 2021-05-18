@@ -79,26 +79,38 @@ namespace Riskeer.Integration.Plugin.Handlers
             this.viewController = viewController;
         }
 
-        public void AddAssessmentSectionFromFile(RiskeerProject project)
+        public void DoPostHandleActions(AssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            viewController.OpenViewForData(assessmentSection);
+        }
+
+        public AssessmentSection GetAssessmentSectionFromFile(RiskeerProject project)
         {
             if (project == null)
             {
                 throw new ArgumentNullException(nameof(project));
             }
 
-            if (!TryReadSourceFiles())
-            {
-                return;
-            }
-
-            AssessmentSection assessmentSection = GetAssessmentSectionFromDialog();
-            if (assessmentSection == null)
-            {
-                return;
-            }
-
-            SetAssessmentSectionToProject(project, assessmentSection);
+            TryReadSourceFiles();
+            return GetAssessmentSectionFromDialog();
         }
+
+        #region Set AssessmentSection to Project
+
+        private static void SetFailureMechanismsValueN(AssessmentSection assessmentSection, int n)
+        {
+            var roundedN = (RoundedDouble) n;
+            assessmentSection.GrassCoverErosionInwards.GeneralInput.N = roundedN;
+            assessmentSection.GrassCoverErosionOutwards.GeneralInput.N = roundedN;
+            assessmentSection.HeightStructures.GeneralInput.N = roundedN;
+        }
+
+        #endregion
 
         #region Dialog
 
@@ -125,32 +137,6 @@ namespace Riskeer.Integration.Plugin.Handlers
         private ReferenceLineMetaSelectionDialog CreateReferenceLineMetaSelectionDialogWithItems()
         {
             return new ReferenceLineMetaSelectionDialog(dialogParent, referenceLineMetas);
-        }
-
-        #endregion
-
-        #region Set AssessmentSection to Project
-
-        private static void SetFailureMechanismsValueN(AssessmentSection assessmentSection, int n)
-        {
-            var roundedN = (RoundedDouble) n;
-            assessmentSection.GrassCoverErosionInwards.GeneralInput.N = roundedN;
-            assessmentSection.GrassCoverErosionOutwards.GeneralInput.N = roundedN;
-            assessmentSection.HeightStructures.GeneralInput.N = roundedN;
-        }
-
-        private void SetAssessmentSectionToProject(RiskeerProject riskeerProject, AssessmentSection assessmentSection)
-        {
-            assessmentSection.Name = GetUniqueForAssessmentSectionName(riskeerProject.AssessmentSections, assessmentSection.Name);
-            riskeerProject.AssessmentSections.Add(assessmentSection);
-            riskeerProject.NotifyObservers();
-
-            viewController.OpenViewForData(assessmentSection);
-        }
-
-        private static string GetUniqueForAssessmentSectionName(IEnumerable<IAssessmentSection> assessmentSections, string baseName)
-        {
-            return NamingHelper.GetUniqueName(assessmentSections, baseName, a => a.Name);
         }
 
         #endregion
@@ -297,17 +283,15 @@ namespace Riskeer.Integration.Plugin.Handlers
                                                ProbabilityFormattingHelper.Format(signalingNorm),
                                                normValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
 
-                log.Error(message, exception);
+                throw new CriticalFileValidationException(message, exception);
             }
-
-            return null;
         }
 
         #endregion
 
         #region Validators
 
-        private bool TryReadSourceFiles()
+        private void TryReadSourceFiles()
         {
             ReadAssessmentSectionSettings();
 
@@ -318,16 +302,8 @@ namespace Riskeer.Integration.Plugin.Handlers
             catch (CriticalFileValidationException exception)
             {
                 MessageBox.Show(exception.Message, BaseResources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                log.Error(exception.Message, exception.InnerException);
-                return false;
+                throw;
             }
-            catch (CriticalFileReadException exception)
-            {
-                log.Error(exception.Message, exception.InnerException);
-                return false;
-            }
-
-            return true;
         }
 
         /// <summary>
