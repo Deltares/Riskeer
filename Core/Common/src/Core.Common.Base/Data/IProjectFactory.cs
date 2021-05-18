@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Core.Common.Base.Data
 {
     /// <summary>
@@ -29,7 +31,9 @@ namespace Core.Common.Base.Data
         /// <summary>
         /// Creates a new instance of <see cref="IProject"/>.
         /// </summary>
+        /// <param name="onCreateNewProjectFunc">The func to perform
+        /// after the project is created.</param>
         /// <returns>An empty <see cref="IProject"/> object.</returns>
-        IProject CreateNewProject();
+        IProject CreateNewProject(Func<object> onCreateNewProjectFunc);
     }
 }

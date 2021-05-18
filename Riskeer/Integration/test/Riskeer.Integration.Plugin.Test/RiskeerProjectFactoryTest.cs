@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Plugin.Test
@@ -29,16 +31,64 @@ namespace Riskeer.Integration.Plugin.Test
     public class RiskeerProjectFactoryTest
     {
         [Test]
-        public void CreateNewProject_ReturnsNewRiskeerProject()
+        public void CreateNewProject_OnCreateNewProjectFuncNull_ThrowsArgumentNullException()
         {
             // Setup
             var projectFactory = new RiskeerProjectFactory();
 
             // Call
-            IProject result = projectFactory.CreateNewProject();
+            void Call() => projectFactory.CreateNewProject(null);
 
             // Assert
-            Assert.IsInstanceOf<RiskeerProject>(result);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("onCreateNewProjectFunc", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateNewProject_WithOnCreateNewProjectFuncReturnAssessmentSection_ReturnsNewRiskeerProject()
+        {
+            // Setup
+            var projectFactory = new RiskeerProjectFactory();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            // Call
+            IProject project = projectFactory.CreateNewProject(() => assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<RiskeerProject>(project);
+            var riskeerProject = (RiskeerProject) project;
+            CollectionAssert.AreEqual(new[]
+            {
+                assessmentSection
+            }, riskeerProject.AssessmentSections);
+        }
+
+        [Test]
+        public void CreateNewProject_WithOnCreateNewProjectFuncReturnNull_ReturnsNull()
+        {
+            // Setup
+            var projectFactory = new RiskeerProjectFactory();
+
+            // Call
+            IProject project = projectFactory.CreateNewProject(() => null);
+
+            // Assert
+            Assert.IsNull(project);
+        }
+
+        [Test]
+        public void CreateNewProject_WithOnCreateNewProjectFuncThrowsException_ThrowsException()
+        {
+            // Setup
+            var projectFactory = new RiskeerProjectFactory();
+            const string expectedMessage = "Exception message test";
+
+            // Call
+            void Call() => projectFactory.CreateNewProject(() => throw new Exception(expectedMessage));
+
+            // Assert
+            var exception = Assert.Throws<Exception>(Call);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
     }
 }

@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Plugin
@@ -30,13 +30,30 @@ namespace Riskeer.Integration.Plugin
     /// </summary>
     public class RiskeerProjectFactory : IProjectFactory
     {
-        public IProject CreateNewProject()
+        /// <inheritdoc />
+        /// <returns>A <see cref="RiskeerProject"/>; or <c>null</c> when there
+        /// is no <see cref="AssessmentSection"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when
+        /// <paramref name="onCreateNewProjectFunc"/> is <c>null</c>.</exception>
+        public IProject CreateNewProject(Func<object> onCreateNewProjectFunc)
         {
+            if (onCreateNewProjectFunc == null)
+            {
+                throw new ArgumentNullException(nameof(onCreateNewProjectFunc));
+            }
+
+            var assessmentSection = (AssessmentSection) onCreateNewProjectFunc();
+
+            if (assessmentSection == null)
+            {
+                return null;
+            }
+
             return new RiskeerProject
             {
                 AssessmentSections =
                 {
-                    new AssessmentSection(AssessmentSectionComposition.Dike)
+                    assessmentSection
                 }
             };
         }
