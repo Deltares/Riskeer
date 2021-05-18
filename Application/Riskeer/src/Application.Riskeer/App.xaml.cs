@@ -130,7 +130,8 @@ namespace Application.Riskeer
                 SupportEmailAddressUrl = "https://www.helpdeskwater.nl/onderwerpen/applicaties-modellen/applicaties-per/omgevings/omgevings/riskeer/contact/vraag-ringtoets/",
                 SupportPhoneNumberUrl = "https://www.helpdeskwater.nl/secundaire-navigatie/contact/",
                 ManualFilePath = "Gebruikershandleiding Riskeer 21.1.1.pdf",
-                OnNewProjectCreatedFunc = g => new AssessmentSectionFromFileHandler(g.ActiveParentWindow, g.DocumentViewController).GetAssessmentSectionFromFile()
+                OnCreateNewProjectFunc = g => new AssessmentSectionFromFileHandler(g.ActiveParentWindow).GetAssessmentSectionFromFile(),
+                AfterProjectOpenedAction = AssessmentSectionFromFileHandler.DoPostHandleActions
             };
             
             var mainWindow = new MainWindow();

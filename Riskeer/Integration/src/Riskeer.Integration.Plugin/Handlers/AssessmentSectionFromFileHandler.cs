@@ -53,30 +53,23 @@ namespace Riskeer.Integration.Plugin.Handlers
         private readonly string shapeFileDirectory = RiskeerSettingsHelper.GetCommonDocumentsRiskeerShapeFileDirectory();
 
         private readonly IWin32Window dialogParent;
-        private readonly IDocumentViewController viewController;
         private IEnumerable<AssessmentSectionSettings> settings;
         private IEnumerable<ReferenceLineMeta> referenceLineMetas = new List<ReferenceLineMeta>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssessmentSectionFromFileHandler"/> class.
+        /// Creates a new instance of <see cref="AssessmentSectionFromFileHandler"/>.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
-        /// <param name="viewController">The document view controller.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public AssessmentSectionFromFileHandler(IWin32Window dialogParent, IDocumentViewController viewController)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/>
+        /// is <c>null</c>.</exception>
+        public AssessmentSectionFromFileHandler(IWin32Window dialogParent)
         {
             if (dialogParent == null)
             {
                 throw new ArgumentNullException(nameof(dialogParent));
             }
 
-            if (viewController == null)
-            {
-                throw new ArgumentNullException(nameof(viewController));
-            }
-
             this.dialogParent = dialogParent;
-            this.viewController = viewController;
         }
 
         /// <summary>
@@ -108,18 +101,22 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// <summary>
         /// Performs the post actions.
         /// </summary>
-        /// <param name="assessmentSection">The <see cref="AssessmentSection"/>
-        /// to do the actions for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
-        public void DoPostHandleActions(AssessmentSection assessmentSection)
+        /// <param name="project">The <see cref="IProject"/> to do the actions for.</param>
+        /// <param name="viewController">The document view controller.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void DoPostHandleActions(IProject project, IDocumentViewController viewController)
         {
-            if (assessmentSection == null)
+            if (project == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSection));
+                throw new ArgumentNullException(nameof(project));
             }
 
-            viewController.OpenViewForData(assessmentSection);
+            if (viewController == null)
+            {
+                throw new ArgumentNullException(nameof(viewController));
+            }
+
+            viewController.OpenViewForData(((RiskeerProject) project).AssessmentSections.First());
         }
 
         private static void SetFailureMechanismsValueN(AssessmentSection assessmentSection, int n)

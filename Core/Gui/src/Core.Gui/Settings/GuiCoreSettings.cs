@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
+using Core.Gui.Forms.ViewHost;
 
 namespace Core.Gui.Settings
 {
@@ -63,6 +65,16 @@ namespace Core.Gui.Settings
         /// </summary>
         public string ManualFilePath { get; set; }
 
-        public Func<IGui, object> OnNewProjectCreatedFunc { get; set; }
+        /// <summary>
+        /// Gets or sets the <see cref="Func{TIn, TResult}"/> that should be executed
+        /// when a new project is created.
+        /// </summary>
+        public Func<IGui, object> OnCreateNewProjectFunc { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the <see cref="Action"/> that should be executed
+        /// after a project is opened.
+        /// </summary>
+        public Action<IProject, IDocumentViewController> AfterProjectOpenedAction { get; set; }
     }
 }

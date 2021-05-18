@@ -349,7 +349,7 @@ namespace Core.Gui
 
         private void OnNewProject()
         {
-            StorageCommands.CreateNewProject(() => FixedSettings.OnNewProjectCreatedFunc(this));
+            StorageCommands.CreateNewProject(() => FixedSettings.OnCreateNewProjectFunc(this));
         }
 
         private void OnOpenProject()
@@ -404,6 +404,8 @@ namespace Core.Gui
             {
                 ShowMainWindow();
             }
+
+            FixedSettings.AfterProjectOpenedAction(newProject, DocumentViewController);
         }
 
         private void ApplicationBeforeProjectOpened(IProject oldProject)

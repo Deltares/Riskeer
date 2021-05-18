@@ -52,35 +52,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         [Test]
         public void Constructor_ParentDialogNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mockRepository = new MockRepository();
-            var viewController = mockRepository.Stub<IDocumentViewController>();
-            mockRepository.ReplayAll();
-
             // Call
-            void Call() => new AssessmentSectionFromFileHandler(null, viewController);
+            void Call() => new AssessmentSectionFromFileHandler(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("dialogParent", exception.ParamName);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_ViewControllerNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
-            mockRepository.ReplayAll();
-
-            // Call
-            void Call() => new AssessmentSectionFromFileHandler(parentDialog, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("viewController", exception.ParamName);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -89,10 +66,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathToNonExistingFolder = Path.Combine(testDataPath, "I do not exist");
             SetShapeFileDirectory(assessmentSectionFromFileHandler, pathToNonExistingFolder);
@@ -113,10 +89,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathValidFolder = Path.Combine(testDataPath, "EmptyShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
@@ -146,10 +121,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
@@ -174,10 +148,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
@@ -206,10 +179,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
@@ -236,10 +208,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
@@ -271,10 +242,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathValidFolder = Path.Combine(testDataPath, "ValidShapeFile");
             SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
@@ -308,10 +278,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathValidFolder = Path.Combine(testDataPath, "ShapeWithoutPoints");
             SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
@@ -350,10 +319,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Setup
             var mockRepository = new MockRepository();
             var parentDialog = mockRepository.Stub<IWin32Window>();
-            var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
 
-            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog);
 
             string pathValidFolder = Path.Combine(testDataPath, "InvalidNorm");
             SetShapeFileDirectory(assessmentSectionFromFileHandler, pathValidFolder);
@@ -382,22 +350,37 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void DoPostHandleActions_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void DoPostHandleActions_ProjectNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
             var viewController = mockRepository.Stub<IDocumentViewController>();
             mockRepository.ReplayAll();
             
-            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
-            
             // Call
-            void Call() => assessmentSectionFromFileHandler.DoPostHandleActions(null);
+            void Call() => AssessmentSectionFromFileHandler.DoPostHandleActions(null, viewController);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
+            Assert.AreEqual("project", exception.ParamName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void DoPostHandleActions_ViewControllerNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var project = mockRepository.Stub<IProject>();
+            mockRepository.ReplayAll();
+            
+            // Call
+            void Call() => AssessmentSectionFromFileHandler.DoPostHandleActions(project, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("viewController", exception.ParamName);
+            mockRepository.VerifyAll();
         }
         
         [Test]
@@ -407,15 +390,20 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             
             var mockRepository = new MockRepository();
-            var parentDialog = mockRepository.Stub<IWin32Window>();
             var viewController = mockRepository.StrictMock<IDocumentViewController>();
             viewController.Expect(dvc => dvc.OpenViewForData(assessmentSection)).Return(true);
             mockRepository.ReplayAll();
-            
-            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(parentDialog, viewController);
+
+            var project = new RiskeerProject
+            {
+                AssessmentSections =
+                {
+                    assessmentSection
+                }
+            };
 
             // Call
-            assessmentSectionFromFileHandler.DoPostHandleActions(assessmentSection);
+            AssessmentSectionFromFileHandler.DoPostHandleActions(project, viewController);
             
             // Assert
             mockRepository.VerifyAll();
