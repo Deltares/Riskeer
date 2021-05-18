@@ -102,7 +102,7 @@ namespace Core.Gui.Commands
             return unsavedChangesHandled;
         }
 
-        public void CreateNewProject()
+        public void CreateNewProject(Func<object> onCreateNewProjectFunc)
         {
             if (!HandleUnsavedChanges())
             {
@@ -111,7 +111,25 @@ namespace Core.Gui.Commands
             }
 
             log.Info(Resources.Creating_new_project_started);
-            projectOwner.SetProject(projectFactory.CreateNewProject(), null);
+
+            IProject newProject;
+            try
+            {
+                newProject = projectFactory.CreateNewProject(onCreateNewProjectFunc);
+            }
+            catch (ProjectFactoryException e)
+            {
+                log.Error(e);
+                return;
+            }
+
+            if (newProject == null)
+            {
+                log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_canceled);
+                return;
+            }
+
+            projectOwner.SetProject(newProject, null);
             log.Info(Resources.Creating_new_project_successful);
         }
 
@@ -141,7 +159,6 @@ namespace Core.Gui.Commands
             catch (Exception e) when (e is ArgumentException || e is CriticalFileReadException || e is StorageValidationException)
             {
                 log.Error(e.Message, e);
-                projectOwner.SetProject(projectFactory.CreateNewProject(), null);
                 return false;
             }
         }

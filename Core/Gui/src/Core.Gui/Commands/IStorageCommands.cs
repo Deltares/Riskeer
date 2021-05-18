@@ -34,7 +34,9 @@ namespace Core.Gui.Commands
         /// <summary>
         /// Closes the current project and creates a new one.
         /// </summary>
-        void CreateNewProject();
+        /// <param name="onCreateNewProjectFunc">The func to perform
+        /// when the project is created.</param>
+        void CreateNewProject(Func<object> onCreateNewProjectFunc);
 
         /// <summary>
         /// Checks whether the current project has unsaved changes. If so, these unsaved changes

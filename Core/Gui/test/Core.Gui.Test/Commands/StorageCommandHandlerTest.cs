@@ -46,6 +46,7 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             const string savedProjectPath = @"C:\savedProject.rtd";
+            object OnCreateNewProjectFunc() => null;
 
             var oldProject = mocks.Stub<IProject>();
             var newProject = mocks.Stub<IProject>();
@@ -57,7 +58,7 @@ namespace Core.Gui.Test.Commands
             projectOwner.Stub(po => po.ProjectFilePath).Return(savedProjectPath);
 
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(newProject);
+            projectFactory.Stub(pf => pf.CreateNewProject(OnCreateNewProjectFunc)).Return(newProject);
             projectOwner.Expect(po => po.SetProject(newProject, null));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
@@ -74,7 +75,7 @@ namespace Core.Gui.Test.Commands
                 mainWindowController);
 
             // Call
-            void Call() => storageCommandHandler.CreateNewProject();
+            void Call() => storageCommandHandler.CreateNewProject(OnCreateNewProjectFunc);
 
             // Assert
             Tuple<string, LogLevelConstant>[] expectedMessages =
@@ -273,7 +274,9 @@ namespace Core.Gui.Test.Commands
 
             var project = mocks.Stub<IProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
-            projectFactory.Expect(pf => pf.CreateNewProject()).Return(project)
+            projectFactory.Expect(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(project)
                           .Repeat.Never();
 
             var projectOwner = mocks.StrictMock<IProjectOwner>();
@@ -319,7 +322,9 @@ namespace Core.Gui.Test.Commands
 
             var project = mocks.Stub<IProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
-            projectFactory.Expect(pf => pf.CreateNewProject()).Return(project)
+            projectFactory.Expect(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(project)
                           .Repeat.Never();
 
             var projectOwner = mocks.StrictMock<IProjectOwner>();
@@ -362,7 +367,8 @@ namespace Core.Gui.Test.Commands
 
             var project = mocks.Stub<IProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments().Return(project);
 
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
@@ -409,7 +415,8 @@ namespace Core.Gui.Test.Commands
 
             var project = mocks.Stub<IProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
-            projectFactory.Expect(pf => pf.CreateNewProject()).Return(project);
+            projectFactory.Expect(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments().Return(project);
 
             var projectOwner = mocks.StrictMock<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
@@ -461,7 +468,8 @@ namespace Core.Gui.Test.Commands
 
             var project = mocks.Stub<IProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
-            projectFactory.Expect(pf => pf.CreateNewProject()).Return(project);
+            projectFactory.Expect(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments().Return(project);
 
             var projectOwner = mocks.StrictMock<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
@@ -509,7 +517,9 @@ namespace Core.Gui.Test.Commands
             projectMigrator.Stub(m => m.ShouldMigrate(pathToSomeInvalidFile)).Return(MigrationRequired.No);
 
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(project);
 
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
@@ -564,7 +574,9 @@ namespace Core.Gui.Test.Commands
             var projectMigrator = mocks.Stub<IMigrateProject>();
 
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(project);
 
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
