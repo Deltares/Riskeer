@@ -47,7 +47,6 @@ using Riskeer.DuneErosion.Plugin;
 using Riskeer.GrassCoverErosionInwards.Plugin;
 using Riskeer.GrassCoverErosionOutwards.Plugin;
 using Riskeer.HeightStructures.Plugin;
-using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms;
 using Riskeer.Integration.Plugin;
 using Riskeer.Integration.Plugin.Handlers;
@@ -131,7 +130,7 @@ namespace Application.Riskeer
                 SupportEmailAddressUrl = "https://www.helpdeskwater.nl/onderwerpen/applicaties-modellen/applicaties-per/omgevings/omgevings/riskeer/contact/vraag-ringtoets/",
                 SupportPhoneNumberUrl = "https://www.helpdeskwater.nl/secundaire-navigatie/contact/",
                 ManualFilePath = "Gebruikershandleiding Riskeer 21.1.1.pdf",
-                OnNewProjectCreatedAction = (g, project) => new AssessmentSectionFromFileHandler(g.ActiveParentWindow, g.DocumentViewController).GetAssessmentSectionFromFile()
+                OnNewProjectCreatedFunc = g => new AssessmentSectionFromFileHandler(g.ActiveParentWindow, g.DocumentViewController).GetAssessmentSectionFromFile()
             };
             
             var mainWindow = new MainWindow();

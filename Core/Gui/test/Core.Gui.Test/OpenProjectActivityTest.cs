@@ -723,7 +723,8 @@ namespace Core.Gui.Test
             var project = mocks.Stub<IProject>();
 
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Expect(f => f.CreateNewProject())
+            projectFactory.Expect(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
                           .Return(project);
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Expect(po => po.SetProject(project, null));
@@ -776,7 +777,8 @@ namespace Core.Gui.Test
             var project = mocks.Stub<IProject>();
 
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Expect(f => f.CreateNewProject())
+            projectFactory.Expect(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
                           .Return(project);
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Expect(po => po.SetProject(project, null));

@@ -547,7 +547,9 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(project);
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -578,7 +580,9 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(project);
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -613,7 +617,9 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(project);
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -650,7 +656,9 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project1);
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(project1);
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -689,7 +697,9 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project1);
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(project1);
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -732,7 +742,9 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(project1);
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(project1);
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -774,7 +786,9 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -810,7 +824,9 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -846,7 +862,9 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -886,7 +904,9 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -924,7 +944,9 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -964,7 +986,9 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -1000,7 +1024,9 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -1040,7 +1066,9 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -1078,7 +1106,9 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -1175,7 +1205,8 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 var projectMigrator = mocks.Stub<IMigrateProject>();
                 var projectFactory = mocks.Stub<IProjectFactory>();
-                projectFactory.Stub(pf => pf.CreateNewProject())
+                projectFactory.Stub(pf => pf.CreateNewProject(null))
+                              .IgnoreArguments()
                               .Return(project);
                 mocks.ReplayAll();
 
@@ -1238,7 +1269,8 @@ namespace Core.Gui.Test.Forms.MainWindow
 
                 var projectMigrator = mocks.Stub<IMigrateProject>();
                 var projectFactory = mocks.Stub<IProjectFactory>();
-                projectFactory.Stub(pf => pf.CreateNewProject())
+                projectFactory.Stub(pf => pf.CreateNewProject(null))
+                              .IgnoreArguments()
                               .Return(project);
                 mocks.ReplayAll();
 
@@ -1297,7 +1329,8 @@ namespace Core.Gui.Test.Forms.MainWindow
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
                           .Return(project);
             mocks.ReplayAll();
 
@@ -1345,7 +1378,8 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
                           .Return(project);
             mocks.ReplayAll();
 
@@ -1376,7 +1410,8 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
                           .Return(project);
             mocks.ReplayAll();
 
@@ -1411,7 +1446,8 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
                           .Return(project);
             mocks.ReplayAll();
 
@@ -1450,7 +1486,9 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject()).Return(mocks.Stub<IProject>());
+            projectFactory.Stub(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 
 namespace Core.Gui.Settings
 {
@@ -64,6 +63,6 @@ namespace Core.Gui.Settings
         /// </summary>
         public string ManualFilePath { get; set; }
 
-        public Action<IGui, IProject> OnNewProjectCreatedAction { get; set; }
+        public Func<IGui, object> OnNewProjectCreatedFunc { get; set; }
     }
 }

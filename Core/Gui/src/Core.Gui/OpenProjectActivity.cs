@@ -38,7 +38,6 @@ namespace Core.Gui
     {
         private readonly string filePath;
         private readonly IProjectOwner projectOwner;
-        private readonly IProjectFactory projectFactory;
         private readonly IStoreProject storage;
         private readonly ILog log = LogManager.GetLogger(typeof(OpenProjectActivity));
         private readonly string migratedProjectFilePath;
@@ -77,7 +76,6 @@ namespace Core.Gui
 
             filePath = requiredOpenProjectProperties.FilePath;
             projectOwner = requiredOpenProjectProperties.ProjectOwner;
-            projectFactory = requiredOpenProjectProperties.ProjectFactory;
             storage = requiredOpenProjectProperties.ProjectStorage;
 
             Description = Resources.OpenProjectActivity_Open_project;
@@ -107,10 +105,7 @@ namespace Core.Gui
             switch (State)
             {
                 case ActivityState.Executed:
-                    InitializeSuccssfulOpenedProject();
-                    break;
-                case ActivityState.Failed:
-                    InitializeEmptyProject();
+                    InitializeSuccessfulOpenedProject();
                     break;
                 case ActivityState.Canceled:
                     ClearOpenedProject();
@@ -202,16 +197,7 @@ namespace Core.Gui
             openedProject = null;
         }
 
-        private void InitializeEmptyProject()
-        {
-            UpdateProgressText(Resources.OpenProjectActivity_ProgressTextStepName_InitializeEmptyProject,
-                               totalNumberOfSteps,
-                               totalNumberOfSteps);
-
-            projectOwner.SetProject(projectFactory.CreateNewProject(), null);
-        }
-
-        private void InitializeSuccssfulOpenedProject()
+        private void InitializeSuccessfulOpenedProject()
         {
             UpdateProgressText(Resources.OpenProjectActivity_ProgressTextStepName_InitializeProject,
                                totalNumberOfSteps,
