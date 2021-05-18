@@ -150,20 +150,18 @@ All rights reserved.
         <Grid Height="Auto" Grid.Column="1">
             <Border Padding="33,16">
                 <Grid>
-                    <DockPanel LastChildFill="False">
-                        <StackPanel VerticalAlignment="Top" Margin="8 20"
-                                    Orientation="Horizontal" DockPanel.Dock="Left">
-                            <Button Style="{StaticResource BigButtonStyle}"
-                                           Tag="{x:Static properties:Resources.StartScreen_NewProject_DisplayName}"
-                                           Command="{Binding NewProjectCommand}"
-                                           IsDefault="True">
-                                <TextBlock Text="&#xE93C;"
-                                           FontFamily="{StaticResource RiskeerFont}"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center" FontSize="56" />
-                            </Button>
-                        </StackPanel>
-                    </DockPanel>
+                    <StackPanel VerticalAlignment="Top" Margin="8 20"
+                                Orientation="Horizontal" DockPanel.Dock="Left">
+                        <Button Style="{StaticResource BigButtonStyle}"
+                                       Tag="{x:Static properties:Resources.StartScreen_NewProject_DisplayName}"
+                                       Command="{Binding NewProjectCommand}"
+                                       IsDefault="True">
+                            <TextBlock Text="&#xE93C;"
+                                       FontFamily="{StaticResource RiskeerFont}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" FontSize="56" />
+                        </Button>
+                    </StackPanel>
                 </Grid>
             </Border>
         </Grid>

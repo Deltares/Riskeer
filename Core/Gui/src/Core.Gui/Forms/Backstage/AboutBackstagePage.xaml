@@ -36,16 +36,16 @@ All rights reserved.
                 <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/DeltaresBackstageStyle.xaml" /> 
             </ResourceDictionary.MergedDictionaries>
 
-            <Style TargetType="DockPanel">
+            <Style TargetType="{x:Type DockPanel}">
                 <Setter Property="Margin" Value="32" />
             </Style>
-            <Style TargetType="RowDefinition">
+            <Style TargetType="{x:Type RowDefinition}">
                 <Setter Property="MinHeight" Value="28" />
             </Style>
-            <Style TargetType="TextBlock">
+            <Style TargetType="{x:Type TextBlock}">
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
-            <Style TargetType="Grid">
+            <Style TargetType="{x:Type Grid}">
                 <Setter Property="VerticalAlignment" Value="Top" />
             </Style>
 

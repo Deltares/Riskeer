@@ -42,10 +42,10 @@ All rights reserved.
                 <Setter.Value>
                     <ControlTemplate>
                         <ControlTemplate.Resources>
-                            <Style TargetType="StackPanel">
+                            <Style TargetType="{x:Type StackPanel}">
                                 <Setter Property="VerticalAlignment" Value="Stretch" />
                             </Style>
-                            <Style TargetType="Border">
+                            <Style TargetType="{x:Type Border}">
                                 <Setter Property="Background"
                                         Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
                                 <Style.Triggers>
@@ -54,7 +54,7 @@ All rights reserved.
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
-                            <Style TargetType="TextBlock">
+                            <Style TargetType="{x:Type TextBlock}">
                                 <Setter Property="VerticalAlignment" Value="Center" />
                                 <Setter Property="Margin" Value="0 0 16 0" />
                             </Style>

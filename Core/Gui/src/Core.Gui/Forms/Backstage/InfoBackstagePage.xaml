@@ -37,10 +37,10 @@ All rights reserved.
                 <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/DeltaresBackstageStyle.xaml" /> 
             </ResourceDictionary.MergedDictionaries>
 
-            <Style TargetType="DockPanel">
+            <Style TargetType="{x:Type DockPanel}">
                 <Setter Property="Margin" Value="32" />
             </Style>
-            <Style TargetType="RowDefinition">
+            <Style TargetType="{x:Type RowDefinition}">
                 <Setter Property="MinHeight" Value="28" />
             </Style>
 
@@ -70,7 +70,7 @@ All rights reserved.
                 </Style.Triggers>
             </Style>
 
-            <Style TargetType="Grid">
+            <Style TargetType="{x:Type Grid}">
                 <Setter Property="VerticalAlignment" Value="Top" />
             </Style>
 
