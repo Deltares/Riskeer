@@ -21,6 +21,7 @@
 
 using System;
 using System.Threading;
+using System.Windows.Forms;
 using Core.Gui.Forms.StartScreen;
 using MahApps.Metro.Controls;
 using NUnit.Framework;
@@ -53,6 +54,7 @@ namespace Core.Gui.Test.Forms.StartScreen
 
             // Assert
             Assert.IsInstanceOf<MetroWindow>(startScreen);
+            Assert.IsInstanceOf<IWin32Window>(startScreen);
             Assert.AreSame(viewModel, startScreen.DataContext);
         }
     }

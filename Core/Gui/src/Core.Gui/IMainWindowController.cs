@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
 using Core.Gui.Forms.MainWindow;
 
 namespace Core.Gui
@@ -33,5 +34,10 @@ namespace Core.Gui
         /// Gets main window of the graphical user interface.
         /// </summary>
         IMainWindow MainWindow { get; }
+        
+        /// <summary>
+        /// Gets the active parent window.
+        /// </summary>
+        IWin32Window ActiveParentWindow { get; }
     }
 }

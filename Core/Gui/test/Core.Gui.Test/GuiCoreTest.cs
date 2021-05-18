@@ -40,6 +40,7 @@ using Core.Gui.Forms.Map;
 using Core.Gui.Forms.MessageWindow;
 using Core.Gui.Forms.ProjectExplorer;
 using Core.Gui.Forms.PropertyGridView;
+using Core.Gui.Forms.StartScreen;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using Core.Gui.Settings;
@@ -599,7 +600,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_WithFile_LoadProjectFromFile()
+        public void Run_WithFile_LoadProjectFromFileAndShowMainWindow()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -644,6 +645,8 @@ namespace Core.Gui.Test
                 Assert.AreSame(project, gui.Project);
                 Assert.AreEqual(fileName, gui.Project.Name);
 
+                Assert.IsInstanceOf<MainWindow>(gui.ActiveParentWindow);
+
                 var expectedTitle = $"{fileName} - {fixedSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
                 Assert.AreSame(gui.Project, mainWindow.ProjectExplorer.Data);
@@ -654,7 +657,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_LoadingFromOutdatedFileAndMigrationCancelled_NoProjectSetAndMainWindowNotShown()
+        public void Run_LoadingFromOutdatedFileAndMigrationCancelled_NoProjectSetAndStartScreenShown()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -673,16 +676,13 @@ namespace Core.Gui.Test
             {
                 gui.Plugins.Add(new TestPlugin());
 
-                var mainWindowShownCounter = 0;
-                mainWindow.Loaded += (sender, args) => mainWindowShownCounter++;
-
                 // Call
                 gui.Run(testFile);
 
                 // Assert
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.IsNull(gui.Project);
-                Assert.AreEqual(0, mainWindowShownCounter);
+                Assert.IsInstanceOf<StartScreen>(gui.ActiveParentWindow);
             }
 
             mocks.VerifyAll();
@@ -853,7 +853,7 @@ namespace Core.Gui.Test
         [TestCase("     ")]
         [TestCase(null)]
         [Apartment(ApartmentState.STA)]
-        public void Run_WithoutFile_NoProjectSetAndMainWindowNotShown(string path)
+        public void Run_WithoutFile_NoProjectSetAndStartScreenShown(string path)
         {
             // Setup
             var mocks = new MockRepository();
@@ -869,16 +869,13 @@ namespace Core.Gui.Test
             {
                 gui.Plugins.Add(new TestPlugin());
 
-                var mainWindowShownCounter = 0;
-                mainWindow.Loaded += (sender, args) => mainWindowShownCounter++;
-
                 // Call
                 gui.Run(path);
 
                 // Assert
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.IsNull(gui.Project);
-                Assert.AreEqual(0, mainWindowShownCounter);
+                Assert.IsInstanceOf<StartScreen>(gui.ActiveParentWindow);
             }
 
             mocks.VerifyAll();

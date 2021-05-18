@@ -27,7 +27,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Windows;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
@@ -51,6 +51,7 @@ using Core.Gui.Settings;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
+using Application = System.Windows.Application;
 using WindowsApplication = System.Windows.Forms.Application;
 
 namespace Core.Gui
@@ -71,7 +72,6 @@ namespace Core.Gui
         private bool isExiting;
 
         private StartScreen startScreen;
-        private bool startScreenShown;
         private bool creatingNewProject;
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace Core.Gui
             viewCommandHandler = new ViewCommandHandler(this, this, this);
 
             StorageCommands = new StorageCommandHandler(projectStore, projectMigrator, projectFactory,
-                                                        this, dialogBasedInquiryHelper, MainWindow);
+                                                        this, dialogBasedInquiryHelper, this);
 
             importCommandHandler = new GuiImportHandler(MainWindow, Plugins.SelectMany(p => p.GetImportInfos())
                                                                            .Concat(MapImportInfoFactory.Create()),
@@ -345,7 +345,7 @@ namespace Core.Gui
             startScreen.Closed += OnStartScreenClosed;
             startScreen.Show();
 
-            startScreenShown = true;
+            ActiveParentWindow = startScreen;
         }
 
         private void OnNewProject()
@@ -372,7 +372,8 @@ namespace Core.Gui
         {
             startScreen.Closed -= OnStartScreenClosed;
             startScreen.Close();
-            startScreenShown = false;
+
+            ActiveParentWindow = mainWindow;
 
             mainWindow.Show();
         }
@@ -406,7 +407,7 @@ namespace Core.Gui
             UpdateProjectData();
             mainWindow.UpdateProjectExplorer();
 
-            if (startScreenShown)
+            if (ActiveParentWindow is StartScreen)
             {
                 ShowMainWindow();
             }
@@ -787,6 +788,8 @@ namespace Core.Gui
                 dialogBasedInquiryHelper = new DialogBasedInquiryHelper(MainWindow);
             }
         }
+
+        public IWin32Window ActiveParentWindow { get; private set; }
 
         private void UpdateProjectData()
         {

@@ -41,7 +41,7 @@ namespace Core.Gui.Commands
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(StorageCommandHandler));
 
-        private readonly IWin32Window dialogParent;
+        private readonly IMainWindowController mainWindowController;
         private readonly IProjectOwner projectOwner;
         private readonly IStoreProject projectPersister;
         private readonly IProjectFactory projectFactory;
@@ -49,24 +49,24 @@ namespace Core.Gui.Commands
         private readonly IInquiryHelper inquiryHelper;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StorageCommandHandler"/> class.
+        /// Creates a new instance of <see cref="StorageCommandHandler"/>.
         /// </summary>
         /// <param name="projectStorage">Class responsible to storing and loading the application project.</param>
         /// <param name="projectMigrator">Class responsible for the migration of the application projects.</param>
         /// <param name="projectFactory">The factory to use when creating new projects.</param>
         /// <param name="projectOwner">The class owning the application project.</param>
         /// <param name="inquiryHelper">The object facilitating user interaction.</param>
-        /// <param name="dialogParent">Controller for UI.</param>
+        /// <param name="mainWindowController">The object owning the parent Controller for UI.</param>
         public StorageCommandHandler(IStoreProject projectStorage, IMigrateProject projectMigrator,
                                      IProjectFactory projectFactory, IProjectOwner projectOwner,
-                                     IInquiryHelper inquiryHelper, IWin32Window dialogParent)
+                                     IInquiryHelper inquiryHelper, IMainWindowController mainWindowController)
         {
-            this.dialogParent = dialogParent;
-            this.projectOwner = projectOwner;
-            this.inquiryHelper = inquiryHelper;
             projectPersister = projectStorage;
             this.projectMigrator = projectMigrator;
             this.projectFactory = projectFactory;
+            this.projectOwner = projectOwner;
+            this.inquiryHelper = inquiryHelper;
+            this.mainWindowController = mainWindowController;
         }
 
         public bool HandleUnsavedChanges()
@@ -123,7 +123,7 @@ namespace Core.Gui.Commands
                 Title = Resources.OpenFileDialog_Title
             })
             {
-                if (openFileDialog.ShowDialog(dialogParent) != DialogResult.Cancel && HandleUnsavedChanges())
+                if (openFileDialog.ShowDialog(mainWindowController.ActiveParentWindow) != DialogResult.Cancel && HandleUnsavedChanges())
                 {
                     return openFileDialog.FileName;
                 }
@@ -157,7 +157,7 @@ namespace Core.Gui.Commands
             }
 
             var activity = new SaveProjectActivity(project, filePath, false, projectPersister, projectOwner);
-            ActivityProgressDialogRunner.Run(dialogParent, activity);
+            ActivityProgressDialogRunner.Run(mainWindowController.ActiveParentWindow, activity);
             return activity.State == ActivityState.Finished;
         }
 
@@ -173,7 +173,7 @@ namespace Core.Gui.Commands
             }
 
             var activity = new SaveProjectActivity(project, filePath, true, projectPersister, projectOwner);
-            ActivityProgressDialogRunner.Run(dialogParent, activity);
+            ActivityProgressDialogRunner.Run(mainWindowController.ActiveParentWindow, activity);
             return activity.State == ActivityState.Finished;
         }
 
@@ -267,7 +267,7 @@ namespace Core.Gui.Commands
                 ProjectStorage = projectPersister
             };
             var activity = new OpenProjectActivity(openProjectProperties, migrationProperties);
-            ActivityProgressDialogRunner.Run(dialogParent, activity);
+            ActivityProgressDialogRunner.Run(mainWindowController.ActiveParentWindow, activity);
 
             return activity.State == ActivityState.Finished;
         }

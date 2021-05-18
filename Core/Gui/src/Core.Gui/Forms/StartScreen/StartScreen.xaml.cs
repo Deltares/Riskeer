@@ -20,15 +20,23 @@
 // All rights reserved.
 
 using System;
+using System.Windows.Interop;
 using MahApps.Metro.Controls;
+using IWin32Window = System.Windows.Forms.IWin32Window;
 
 namespace Core.Gui.Forms.StartScreen
 {
     /// <summary>
     /// Interaction logic for <see cref="StartScreen"/>.
     /// </summary>
-    public partial class StartScreen : MetroWindow
+    public partial class StartScreen : MetroWindow, IWin32Window
     {
+        /// <summary>
+        /// Class to help with hybrid winforms - WPF applications. Provides UI handle to
+        /// ensure common UI functionality such as maximizing works as expected.
+        /// </summary>
+        private readonly WindowInteropHelper windowInteropHelper;
+
         /// <summary>
         /// Creates a new instance of <see cref="StartScreen"/>.
         /// </summary>
@@ -44,7 +52,11 @@ namespace Core.Gui.Forms.StartScreen
 
             InitializeComponent();
 
+            windowInteropHelper = new WindowInteropHelper(this);
+
             DataContext = viewModel;
         }
+
+        public IntPtr Handle => windowInteropHelper.Handle;
     }
 }

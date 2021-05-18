@@ -55,12 +55,13 @@ namespace Core.Gui.Test.Commands
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(oldProject);
             projectOwner.Stub(po => po.ProjectFilePath).Return(savedProjectPath);
+
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(newProject);
             projectOwner.Expect(po => po.SetProject(newProject, null));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            var mainWindowController = mocks.Stub<IWin32Window>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
 
             mocks.ReplayAll();
 
@@ -73,7 +74,7 @@ namespace Core.Gui.Test.Commands
                 mainWindowController);
 
             // Call
-            Action call = () => storageCommandHandler.CreateNewProject();
+            void Call() => storageCommandHandler.CreateNewProject();
 
             // Assert
             Tuple<string, LogLevelConstant>[] expectedMessages =
@@ -81,7 +82,7 @@ namespace Core.Gui.Test.Commands
                 Tuple.Create("Nieuw project aanmaken is gestart.", LogLevelConstant.Info),
                 Tuple.Create("Nieuw project aanmaken is gelukt.", LogLevelConstant.Info)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 2);
 
             mocks.VerifyAll();
         }
@@ -106,12 +107,14 @@ namespace Core.Gui.Test.Commands
 
                 var projectMigrator = mocks.Stub<IMigrateProject>();
 
-                var mainWindowController = mocks.Stub<IWin32Window>();
                 var projectOwner = mocks.Stub<IProjectOwner>();
                 projectOwner.Stub(po => po.Project).Return(project);
                 projectOwner.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
 
                 var inquiryHelper = mocks.Stub<IInquiryHelper>();
+
+                var mainWindowController = mocks.Stub<IMainWindowController>();
+                mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
                 mocks.ReplayAll();
 
                 var storageCommandHandler = new StorageCommandHandler(
@@ -129,7 +132,7 @@ namespace Core.Gui.Test.Commands
 
                 // Call
                 var result = true;
-                Action call = () => result = storageCommandHandler.SaveProject();
+                void Call() => result = storageCommandHandler.SaveProject();
 
                 // Assert
                 Tuple<string, LogLevelConstant>[] expectedMessages =
@@ -138,7 +141,7 @@ namespace Core.Gui.Test.Commands
                     Tuple.Create(exceptionMessage, LogLevelConstant.Error),
                     Tuple.Create("Opslaan van bestaand project is mislukt.", LogLevelConstant.Error)
                 };
-                TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
+                TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 3);
                 Assert.IsFalse(result);
             }
 
@@ -162,12 +165,14 @@ namespace Core.Gui.Test.Commands
 
                 var projectMigrator = mocks.Stub<IMigrateProject>();
 
-                var mainWindowController = mocks.Stub<IWin32Window>();
                 var projectOwner = mocks.Stub<IProjectOwner>();
                 projectOwner.Stub(po => po.Project).Return(project);
                 projectOwner.Stub(po => po.ProjectFilePath).Return(someValidFilePath);
 
                 var inquiryHelper = mocks.Stub<IInquiryHelper>();
+
+                var mainWindowController = mocks.Stub<IMainWindowController>();
+                mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
                 mocks.ReplayAll();
 
                 var storageCommandHandler = new StorageCommandHandler(
@@ -185,10 +190,10 @@ namespace Core.Gui.Test.Commands
 
                 // Call
                 var result = false;
-                Action call = () => result = storageCommandHandler.SaveProject();
+                void Call() => result = storageCommandHandler.SaveProject();
 
                 // Assert
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create("Opslaan van bestaand project is gelukt.", LogLevelConstant.Info));
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create("Opslaan van bestaand project is gelukt.", LogLevelConstant.Info));
                 Assert.IsTrue(result);
             }
 
@@ -200,8 +205,8 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             const string fileName = "newProject";
-            string pathToSomeValidFile = $"C://folder/directory/{fileName}.rtd";
-            string pathToMigratedFile = $"C://folder/directory/{fileName}-newerVersion.rtd";
+            var pathToSomeValidFile = $"C://folder/directory/{fileName}.rtd";
+            var pathToMigratedFile = $"C://folder/directory/{fileName}-newerVersion.rtd";
             var loadedProject = mocks.Stub<IProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
 
@@ -209,15 +214,15 @@ namespace Core.Gui.Test.Commands
             projectStorage.Stub(ps => ps.LoadProject(pathToMigratedFile))
                           .Return(loadedProject);
 
+            var mainWindowController = mocks.Stub<IMainWindowController>();
             var projectMigrator = mocks.StrictMock<IMigrateProject>();
             using (mocks.Ordered())
             {
                 projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationRequired.Yes);
                 projectMigrator.Expect(pm => pm.DetermineMigrationLocation(pathToSomeValidFile)).Return(pathToMigratedFile);
+                mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
                 projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile, pathToMigratedFile)).Return(true);
             }
-
-            var mainWindowController = mocks.Stub<IWin32Window>();
 
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.SetProject(loadedProject, pathToMigratedFile));
@@ -240,7 +245,7 @@ namespace Core.Gui.Test.Commands
 
             // Call
             var result = false;
-            Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
+            void Call() => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
             Tuple<string, LogLevelConstant>[] expectedMessages =
@@ -248,7 +253,7 @@ namespace Core.Gui.Test.Commands
                 Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                 Tuple.Create("Openen van project is gelukt.", LogLevelConstant.Info)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 2);
             Assert.IsTrue(result);
 
             mocks.VerifyAll();
@@ -259,7 +264,7 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             const string fileName = "newProject";
-            string pathToSomeValidFile = $"C://folder/directory/{fileName}.rtd";
+            var pathToSomeValidFile = $"C://folder/directory/{fileName}.rtd";
 
             var projectStorage = mocks.StrictMock<IStoreProject>();
 
@@ -276,8 +281,8 @@ namespace Core.Gui.Test.Commands
             projectOwner.Expect(po => po.SetProject(project, null))
                         .Repeat.Never();
 
-            var mainWindowController = mocks.Stub<IWin32Window>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -301,7 +306,7 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             const string fileName = "newProject";
-            string pathToSomeValidFile = $"C://folder/directory/{fileName}.rtd";
+            var pathToSomeValidFile = $"C://folder/directory/{fileName}.rtd";
 
             var projectStorage = mocks.StrictMock<IStoreProject>();
 
@@ -322,8 +327,8 @@ namespace Core.Gui.Test.Commands
             projectOwner.Expect(po => po.SetProject(project, null))
                         .Repeat.Never();
 
-            var mainWindowController = mocks.Stub<IWin32Window>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -363,8 +368,8 @@ namespace Core.Gui.Test.Commands
             projectOwner.Stub(po => po.Project).Return(project);
             projectOwner.Stub(po => po.SetProject(project, null));
 
-            var mainWindowController = mocks.Stub<IWin32Window>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -377,10 +382,10 @@ namespace Core.Gui.Test.Commands
 
             // Call
             var result = true;
-            Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
+            void Call() => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(errorMessage, LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(errorMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(result);
             mocks.VerifyAll();
         }
@@ -410,8 +415,8 @@ namespace Core.Gui.Test.Commands
             projectOwner.Stub(po => po.Project).Return(project);
             projectOwner.Expect(po => po.SetProject(project, null));
 
-            var mainWindowController = mocks.Stub<IWin32Window>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -424,10 +429,10 @@ namespace Core.Gui.Test.Commands
 
             // Call
             var result = true;
-            Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
+            void Call() => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(errorMessage, LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(errorMessage, LogLevelConstant.Error), 1);
             Assert.IsFalse(result);
             mocks.VerifyAll();
         }
@@ -438,16 +443,18 @@ namespace Core.Gui.Test.Commands
             // Setup
             const string errorMessage = "I am an error message.";
             const string fileName = "newProject";
-            string pathToSomeValidFile = $"C://folder/directory/{fileName}.rtd";
-            string pathToMigratedFile = $"C://folder/directory/{fileName}-newerVersion.rtd";
+            var pathToSomeValidFile = $"C://folder/directory/{fileName}.rtd";
+            var pathToMigratedFile = $"C://folder/directory/{fileName}-newerVersion.rtd";
 
             var projectStorage = mocks.StrictMock<IStoreProject>();
 
+            var mainWindowController = mocks.Stub<IMainWindowController>();
             var projectMigrator = mocks.StrictMock<IMigrateProject>();
             using (mocks.Ordered())
             {
                 projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationRequired.Yes);
                 projectMigrator.Expect(pm => pm.DetermineMigrationLocation(pathToSomeValidFile)).Return(pathToMigratedFile);
+                mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
                 projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile, pathToMigratedFile))
                                .Throw(new ArgumentException(errorMessage));
             }
@@ -460,7 +467,6 @@ namespace Core.Gui.Test.Commands
             projectOwner.Stub(po => po.Project).Return(project);
             projectOwner.Expect(po => po.SetProject(project, null));
 
-            var mainWindowController = mocks.Stub<IWin32Window>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -479,10 +485,10 @@ namespace Core.Gui.Test.Commands
 
             // Call
             var result = true;
-            Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
+            void Call() => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(errorMessage, LogLevelConstant.Error), 3);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(errorMessage, LogLevelConstant.Error), 3);
             Assert.IsFalse(result);
             mocks.VerifyAll();
         }
@@ -498,15 +504,20 @@ namespace Core.Gui.Test.Commands
             var projectStorage = mocks.Stub<IStoreProject>();
             projectStorage.Stub(ps => ps.LoadProject(pathToSomeInvalidFile))
                           .Throw(new StorageException(goodErrorMessageText, new Exception("H@X!")));
+
             var projectMigrator = mocks.Stub<IMigrateProject>();
             projectMigrator.Stub(m => m.ShouldMigrate(pathToSomeInvalidFile)).Return(MigrationRequired.No);
+
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject()).Return(project);
-            var mainWindowController = mocks.Stub<IWin32Window>();
+
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             projectOwner.Stub(po => po.SetProject(project, null));
+
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -524,7 +535,7 @@ namespace Core.Gui.Test.Commands
 
             // Call
             var result = true;
-            Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeInvalidFile);
+            void Call() => result = storageCommandHandler.OpenExistingProject(pathToSomeInvalidFile);
 
             // Assert
             Tuple<string, LogLevelConstant>[] expectedMessages =
@@ -533,7 +544,7 @@ namespace Core.Gui.Test.Commands
                 Tuple.Create(goodErrorMessageText, LogLevelConstant.Error),
                 Tuple.Create("Openen van project is mislukt.", LogLevelConstant.Error)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 3);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 3);
             Assert.IsFalse(result);
 
             mocks.VerifyAll();
@@ -546,7 +557,6 @@ namespace Core.Gui.Test.Commands
             const string pathToSomeInvalidFile = "<path to some invalid file>";
 
             var project = mocks.Stub<IProject>();
-            var mainWindowController = mocks.Stub<IWin32Window>();
             var projectStorage = mocks.Stub<IStoreProject>();
             projectStorage.Stub(ps => ps.LoadProject(pathToSomeInvalidFile))
                           .Return(null);
@@ -561,6 +571,8 @@ namespace Core.Gui.Test.Commands
             projectOwner.Stub(po => po.SetProject(project, null));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -578,7 +590,7 @@ namespace Core.Gui.Test.Commands
 
             // Call
             var result = true;
-            Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeInvalidFile);
+            void Call() => result = storageCommandHandler.OpenExistingProject(pathToSomeInvalidFile);
 
             // Assert
             Tuple<string, LogLevelConstant>[] expectedMessages =
@@ -586,7 +598,7 @@ namespace Core.Gui.Test.Commands
                 Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                 Tuple.Create("Openen van project is mislukt.", LogLevelConstant.Error)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 2);
             Assert.IsFalse(result);
 
             mocks.VerifyAll();
@@ -597,7 +609,7 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             const string fileName = "newProject";
-            string pathToSomeValidFile = $"C://folder/directory/{fileName}.rtd";
+            var pathToSomeValidFile = $"C://folder/directory/{fileName}.rtd";
             var loadedProject = mocks.Stub<IProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
 
@@ -607,12 +619,14 @@ namespace Core.Gui.Test.Commands
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
             projectMigrator.Stub(m => m.ShouldMigrate(pathToSomeValidFile)).Return(MigrationRequired.No);
-            var mainWindowController = mocks.Stub<IWin32Window>();
 
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.SetProject(loadedProject, pathToSomeValidFile));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -630,7 +644,7 @@ namespace Core.Gui.Test.Commands
 
             // Call
             var result = false;
-            Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
+            void Call() => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
             Tuple<string, LogLevelConstant>[] expectedMessages =
@@ -638,7 +652,7 @@ namespace Core.Gui.Test.Commands
                 Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                 Tuple.Create("Openen van project is gelukt.", LogLevelConstant.Info)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 2);
             Assert.IsTrue(result);
 
             mocks.VerifyAll();
@@ -664,14 +678,15 @@ namespace Core.Gui.Test.Commands
             var applicationSelection = mocks.Stub<IApplicationSelection>();
             applicationSelection.Selection = originalProject;
 
-            var mainWindowController = mocks.Stub<IWin32Window>();
-
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(originalProject);
             projectOwner.Stub(po => po.ProjectFilePath).Return("<original file path>");
             projectOwner.Stub(po => po.SetProject(loadedProject, pathToSomeValidFile));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -689,7 +704,7 @@ namespace Core.Gui.Test.Commands
 
             // Call
             var result = false;
-            Action call = () => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
+            void Call() => result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
 
             // Assert
             Tuple<string, LogLevelConstant>[] expectedMessages =
@@ -697,7 +712,7 @@ namespace Core.Gui.Test.Commands
                 Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                 Tuple.Create("Openen van project is gelukt.", LogLevelConstant.Info)
             };
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedMessages, 2);
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, expectedMessages, 2);
             Assert.IsTrue(result);
 
             mocks.VerifyAll();
@@ -708,17 +723,17 @@ namespace Core.Gui.Test.Commands
         public void GetExistingProjectFilePath_FilePathSelectedAndOkClicked_ReturnsSelectedFilePath()
         {
             // Setup
-            var mainWindowController = mocks.Stub<IWin32Window>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
             var projectStorage = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
 
+            var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(null);
             projectStorage.Stub(ps => ps.HasStagedProjectChanges(null)).IgnoreArguments().Return(false);
             projectStorage.Stub(ps => ps.OpenProjectFileFilter).Return(string.Empty);
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
             mocks.ReplayAll();
 
             string projectPath = TestHelper.GetScratchPadPath(
@@ -752,12 +767,12 @@ namespace Core.Gui.Test.Commands
         public void GetExistingProjectFilePath_NoFilePathSelectedAndCancelClicked_ReturnsFilePathNull()
         {
             // Setup
-            var mainWindowController = mocks.Stub<IWin32Window>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
             var projectStorage = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -785,13 +800,13 @@ namespace Core.Gui.Test.Commands
         public void HandleUnsavedChanges_NoProjectSet_ReturnsTrue()
         {
             // Setup
-            var mainWindowController = mocks.Stub<IWin32Window>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
             var projectStorage = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(null);
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -810,20 +825,20 @@ namespace Core.Gui.Test.Commands
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void HandleUnsavedChanges_ProjectSetNoChange_ReturnsTrue()
         {
             // Setup
-            var mainWindowController = mocks.Stub<IWin32Window>();
             var project = mocks.Stub<IProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
             var projectStorage = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             projectOwner.Stub(po => po.ProjectFilePath).Return("");
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -848,9 +863,6 @@ namespace Core.Gui.Test.Commands
         public void HandleUnsavedChanges_ProjectSetWithChangeCancelPressed_ReturnsFalse()
         {
             // Setup
-            var mainWindowController = mocks.Stub<IWin32Window>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-
             var project = mocks.Stub<IProject>();
             const string projectName = "Project";
             project.Name = projectName;
@@ -862,6 +874,7 @@ namespace Core.Gui.Test.Commands
             projectStorage.Expect(ps => ps.UnstageProject());
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
 
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
@@ -871,6 +884,7 @@ namespace Core.Gui.Test.Commands
             inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project afsluiten",
                                                                    $"Sla wijzigingen in het project op: {projectName}?"))
                          .Return(OptionalStepResult.Cancel);
+            var mainWindowController = mocks.Stub<IMainWindowController>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -895,9 +909,6 @@ namespace Core.Gui.Test.Commands
         public void HandleUnsavedChangesProjectSetWithChangeNoPressed_ReturnsTrue()
         {
             // Setup
-            var mainWindowController = mocks.Stub<IWin32Window>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-
             var project = mocks.Stub<IProject>();
             const string projectName = "Project";
             project.Name = projectName;
@@ -909,6 +920,7 @@ namespace Core.Gui.Test.Commands
             projectStorage.Expect(ps => ps.UnstageProject());
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
 
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
@@ -918,6 +930,7 @@ namespace Core.Gui.Test.Commands
             inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project afsluiten",
                                                                    $"Sla wijzigingen in het project op: {projectName}?"))
                          .Return(OptionalStepResult.SkipOptionalStep);
+            var mainWindowController = mocks.Stub<IMainWindowController>();
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -946,9 +959,6 @@ namespace Core.Gui.Test.Commands
             string someValidFilePath = TestHelper.GetScratchPadPath(nameof(HandleUnsavedChanges_ProjectSetWithChangeYesPressed_ReturnsTrue));
             using (new FileDisposeHelper(someValidFilePath))
             {
-                var mainWindowController = mocks.Stub<IWin32Window>();
-                var projectFactory = mocks.Stub<IProjectFactory>();
-
                 var project = mocks.Stub<IProject>();
                 project.Name = projectName;
 
@@ -960,6 +970,7 @@ namespace Core.Gui.Test.Commands
                 projectStorage.Expect(p => p.SaveProjectAs(someValidFilePath));
 
                 var projectMigrator = mocks.Stub<IMigrateProject>();
+                var projectFactory = mocks.Stub<IProjectFactory>();
 
                 var projectOwner = mocks.Stub<IProjectOwner>();
                 projectOwner.Stub(po => po.Project).Return(project);
@@ -969,6 +980,9 @@ namespace Core.Gui.Test.Commands
                 inquiryHelper.Expect(h => h.InquirePerformOptionalStep("Project afsluiten",
                                                                        $"Sla wijzigingen in het project op: {projectName}?"))
                              .Return(OptionalStepResult.PerformOptionalStep);
+
+                var mainWindowController = mocks.Stub<IMainWindowController>();
+                mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
                 mocks.ReplayAll();
 
                 var storageCommandHandler = new StorageCommandHandler(
@@ -1003,9 +1017,6 @@ namespace Core.Gui.Test.Commands
             const string projectName = "Project";
             string someValidFilePath = TestHelper.GetScratchPadPath(nameof(HandleUnsavedChanges_ProjectSetWithChangeYesFileDoesNotExist_ReturnsTrue));
 
-            var mainWindowController = mocks.Stub<IWin32Window>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-
             var project = mocks.Stub<IProject>();
             project.Name = projectName;
 
@@ -1018,6 +1029,7 @@ namespace Core.Gui.Test.Commands
             projectStorage.Expect(p => p.SaveProjectAs(someValidFilePath));
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
 
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
@@ -1030,6 +1042,9 @@ namespace Core.Gui.Test.Commands
                          .Return(OptionalStepResult.PerformOptionalStep);
             inquiryHelper.Expect(h => h.GetTargetFileLocation(fileFilter, projectName))
                          .Return(someValidFilePath);
+
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
