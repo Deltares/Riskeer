@@ -32,7 +32,7 @@ namespace Core.Gui.Test.Forms.StartScreen
         public void Constructor_NewProjectActionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new StartScreenViewModel(null, () => {});
+            void Call() => new StartScreenViewModel(string.Empty, null, () => {});
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -43,7 +43,7 @@ namespace Core.Gui.Test.Forms.StartScreen
         public void Constructor_OpenProjectActionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new StartScreenViewModel(() => {}, null);
+            void Call() => new StartScreenViewModel(string.Empty, () => {}, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -53,10 +53,14 @@ namespace Core.Gui.Test.Forms.StartScreen
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var applicationName = "StartScreen";
+            
             // Call
-            var viewModel = new StartScreenViewModel(() => {}, () => {});
+            var viewModel = new StartScreenViewModel(applicationName, () => {}, () => {});
 
             // Assert
+            Assert.AreEqual(applicationName, viewModel.ApplicationName);
             Assert.IsNotNull(viewModel.NewProjectCommand);
             Assert.IsNotNull(viewModel.OpenProjectCommand);
         }
@@ -72,7 +76,7 @@ namespace Core.Gui.Test.Forms.StartScreen
                 newProjectActionCalled++;
             }
 
-            var viewModel = new StartScreenViewModel(NewProjectAction, () => {});
+            var viewModel = new StartScreenViewModel(string.Empty, NewProjectAction, () => {});
 
             // When
             viewModel.NewProjectCommand.Execute(null);
@@ -92,7 +96,7 @@ namespace Core.Gui.Test.Forms.StartScreen
                 openProjectActionCalled++;
             }
 
-            var viewModel = new StartScreenViewModel(() => {}, OpenProjectAction);
+            var viewModel = new StartScreenViewModel(string.Empty, () => {}, OpenProjectAction);
 
             // When
             viewModel.OpenProjectCommand.Execute(null);

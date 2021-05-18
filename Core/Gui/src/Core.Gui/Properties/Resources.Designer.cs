@@ -2417,15 +2417,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Riskeer.
-        /// </summary>
-        public static string Riskeer_DisplayName {
-            get {
-                return ResourceManager.GetString("Riskeer_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Opslaan als.
         /// </summary>
         public static string SaveFileDialog_Title {

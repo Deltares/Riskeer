@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -47,7 +47,7 @@ namespace Core.Gui.Test.Forms.StartScreen
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var viewModel = new StartScreenViewModel(() => {}, () => {});
+            var viewModel = new StartScreenViewModel(string.Empty, () => {}, () => {});
 
             // Call
             var startScreen = new Gui.Forms.StartScreen.StartScreen(viewModel);

@@ -341,7 +341,7 @@ namespace Core.Gui
         private void ShowStartScreen()
         {
             startScreen = new StartScreen(
-                new StartScreenViewModel(OnNewProject, OnOpenProject));
+                new StartScreenViewModel(FixedSettings.ApplicationName, OnNewProject, OnOpenProject));
             startScreen.Closed += OnStartScreenClosed;
             startScreen.Show();
 

@@ -121,7 +121,7 @@ All rights reserved.
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" FontSize="35"
                                    Foreground="{StaticResource WhiteBrush}"
-                                   Text="{x:Static properties:Resources.Riskeer_DisplayName}" />
+                                   Text="{Binding ApplicationName}" />
                         
                         <TextBlock Grid.Row="1" FontSize="28" Margin="0 16 0 8"
                                    Foreground="{StaticResource WhiteBrush}"

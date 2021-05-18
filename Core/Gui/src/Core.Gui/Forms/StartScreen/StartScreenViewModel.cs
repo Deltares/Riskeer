@@ -33,10 +33,11 @@ namespace Core.Gui.Forms.StartScreen
         /// <summary>
         /// Creates a new instance of <see cref="StartScreenViewModel"/>.
         /// </summary>
+        /// <param name="applicationName">The application name.</param>
         /// <param name="newProjectAction">The action to perform to create a new project.</param>
         /// <param name="openProjectAction">The action to perform to open a project.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StartScreenViewModel(Action newProjectAction, Action openProjectAction)
+        public StartScreenViewModel(string applicationName, Action newProjectAction, Action openProjectAction)
         {
             if (newProjectAction == null)
             {
@@ -47,16 +48,23 @@ namespace Core.Gui.Forms.StartScreen
             {
                 throw new ArgumentNullException(nameof(openProjectAction));
             }
-            
+
+            ApplicationName = applicationName;
+
             NewProjectCommand = new RelayCommand(o => newProjectAction());
             OpenProjectCommand = new RelayCommand(o => openProjectAction());
         }
 
         /// <summary>
+        /// Gets the application name.
+        /// </summary>
+        public string ApplicationName { get; }
+
+        /// <summary>
         /// Gets the command to create a new project.
         /// </summary>
         public ICommand NewProjectCommand { get; }
-        
+
         /// <summary>
         /// Gets the command to open a project.
         /// </summary>
