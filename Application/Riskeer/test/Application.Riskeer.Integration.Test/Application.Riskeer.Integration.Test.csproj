@@ -24,6 +24,7 @@
     <ProjectReference Include="..\..\..\..\Migration\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj" />
     <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj" />
     <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj" />
     <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration.Core\Riskeer.Migration.Core.csproj" />
     <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration\Riskeer.Migration.csproj" />
     <ProjectReference Include="..\..\..\..\Riskeer\Migration\test\Riskeer.Migration.Core.TestUtil\Riskeer.Migration.Core.TestUtil.csproj" />

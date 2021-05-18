@@ -21,8 +21,9 @@
 
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Riskeer.Integration.Data;
 
-namespace Riskeer.Integration.Data.Test
+namespace Riskeer.Integration.Plugin.Test
 {
     [TestFixture]
     public class RiskeerProjectFactoryTest

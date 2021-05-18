@@ -52,6 +52,7 @@
     <ProjectReference Include="..\..\..\..\Riskeer\Piping\src\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj" />
     <ProjectReference Include="..\..\..\..\Riskeer\Piping\test\Riskeer.Piping.Data.TestUtil\Riskeer.Piping.Data.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\..\Riskeer\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj" />
+    <ProjectReference Include="..\..\..\Integration\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj" />
     <ProjectReference Include="..\Riskeer.Storage.Core.TestUtil\Riskeer.Storage.Core.TestUtil.csproj" />
   </ItemGroup>

@@ -21,8 +21,9 @@
 
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Integration.Data;
 
-namespace Riskeer.Integration.Data
+namespace Riskeer.Integration.Plugin
 {
     /// <summary>
     /// Factory to create instances of <see cref="RiskeerProject"/>.
