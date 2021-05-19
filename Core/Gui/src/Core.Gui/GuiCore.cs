@@ -405,7 +405,7 @@ namespace Core.Gui
                 ShowMainWindow();
             }
 
-            FixedSettings.AfterProjectOpenedAction(newProject, DocumentViewController);
+            FixedSettings.AfterProjectOpenedAction?.Invoke(newProject, DocumentViewController);
         }
 
         private void ApplicationBeforeProjectOpened(IProject oldProject)
