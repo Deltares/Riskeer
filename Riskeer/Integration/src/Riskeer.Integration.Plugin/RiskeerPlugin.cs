@@ -1818,12 +1818,6 @@ namespace Riskeer.Integration.Plugin
         
         private ContextMenuStrip AssessmentSectionStateRootContextMenuStrip(AssessmentSectionStateRootContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
-            var calculateAllItem = new StrictContextMenuItem(
-                RiskeerCommonFormsResources.Calculate_All,
-                Resources.AssessmentSection_Calculate_All_ToolTip,
-                RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData.WrappedData)); });
-
             var importItem = new StrictContextMenuItem(
                 CoreGuiResources.Import,
                 CoreGuiResources.Import_ToolTip,
