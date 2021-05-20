@@ -279,15 +279,7 @@ namespace Riskeer.Integration.Plugin
                 {
                     AssessmentSection assessmentSection = riskeerProject.AssessmentSections.First();
 
-                    return new object[]
-                    {
-                        new ReferenceLineContext(assessmentSection.ReferenceLine, assessmentSection),
-                        new NormContext(assessmentSection.FailureMechanismContribution, assessmentSection),
-                        new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection),
-                        new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
-                        assessmentSection.BackgroundData,
-                        assessmentSection.Comments
-                    };
+                    return new AssessmentSectionStateRootContext(assessmentSection);
                 }
 
                 return null;
@@ -956,6 +948,18 @@ namespace Riskeer.Integration.Plugin
                 OnNodeRenamed = AssessmentSectionOnNodeRenamed,
                 CanRemove = (assessmentSection, parentNodeData) => true,
                 OnNodeRemoved = AssessmentSectionOnNodeRemoved
+            };
+            
+            yield return new TreeNodeInfo<AssessmentSectionStateRootContext>
+            {
+                Text = context => context.WrappedData.Name,
+                Image = assessmentSection => RiskeerFormsResources.AssessmentSectionFolderIcon,
+                EnsureVisibleOnCreate = (assessmentSection, parent) => true,
+                ExpandOnCreate = assessmentSection => true,
+                ChildNodeObjects = AssessmentSectionStateRootContextChildNodeObjects,
+                CanRename = (assessmentSection, parentData) => true,
+                OnNodeRenamed = AssessmentSectionStateRootContextOnNodeRenamed,
+                CanRemove = (assessmentSection, parentNodeData) => true
             };
 
             yield return new TreeNodeInfo<BackgroundData>
@@ -1784,6 +1788,31 @@ namespace Riskeer.Integration.Plugin
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
+        }
+
+        #endregion
+
+        #region AssessmentSectionStateRootContext TreeNodeInfo
+
+        private static object[] AssessmentSectionStateRootContextChildNodeObjects(AssessmentSectionStateRootContext nodeData)
+        {
+            var childNodes = new List<object>
+            {
+                new ReferenceLineContext(nodeData.WrappedData.ReferenceLine, nodeData.WrappedData),
+                new NormContext(nodeData.WrappedData.FailureMechanismContribution, nodeData.WrappedData),
+                new FailureMechanismContributionContext(nodeData.WrappedData.FailureMechanismContribution, nodeData.WrappedData),
+                new HydraulicBoundaryDatabaseContext(nodeData.WrappedData.HydraulicBoundaryDatabase, nodeData.WrappedData),
+                nodeData.WrappedData.BackgroundData,
+                nodeData.WrappedData.Comments
+            };
+
+            return childNodes.ToArray();
+        }
+        
+        private static void AssessmentSectionStateRootContextOnNodeRenamed(AssessmentSectionStateRootContext nodeData, string newName)
+        {
+            nodeData.WrappedData.Name = newName;
+            nodeData.WrappedData.NotifyObservers();
         }
 
         #endregion
