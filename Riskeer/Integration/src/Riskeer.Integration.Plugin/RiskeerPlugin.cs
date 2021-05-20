@@ -340,28 +340,14 @@ namespace Riskeer.Integration.Plugin
                         assessmentSection.TechnicalInnovation
                     };
 
-                    return failureMechanisms.Select(failureMechanism => failureMechanismAssociations
-                                                                        .First(a => a.Match(failureMechanism))
-                                                                        .Create(failureMechanism, assessmentSection))
-                                            .ToArray();
-                }
+                    List<object> objects = failureMechanisms.Select(failureMechanism => failureMechanismAssociations
+                                                                                        .First(a => a.Match(failureMechanism))
+                                                                                        .Create(failureMechanism, assessmentSection))
+                                                            .ToList();
 
-                return null;
-            });
+                    objects.Add(new AssemblyResultsContext(assessmentSection));
 
-            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_Assembly, "\uE94B", project =>
-            {
-                if (project is RiskeerProject riskeerProject)
-                {
-                    AssessmentSection assessmentSection = riskeerProject.AssessmentSections.First();
-
-                    return new object[]
-                    {
-                        new AssemblyResultCategoriesContext(assessmentSection),
-                        new AssemblyResultTotalContext(assessmentSection),
-                        new AssemblyResultPerSectionContext(assessmentSection),
-                        new AssemblyResultPerSectionMapContext(assessmentSection)
-                    };
+                    return objects.ToArray();
                 }
 
                 return null;

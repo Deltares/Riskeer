@@ -444,15 +444,6 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assembleren.
-        /// </summary>
-        public static string RiskeerPlugin_GetStateInfos_Assembly {
-            get {
-                return ResourceManager.GetString("RiskeerPlugin_GetStateInfos_Assembly", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Traject.
         /// </summary>
         public static string RiskeerPlugin_GetStateInfos_AssessmentSection {

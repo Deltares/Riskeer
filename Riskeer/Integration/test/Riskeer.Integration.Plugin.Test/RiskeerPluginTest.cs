@@ -224,11 +224,10 @@ namespace Riskeer.Integration.Plugin.Test
                 StateInfo[] stateInfos = plugin.GetStateInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(4, stateInfos.Length);
+                Assert.AreEqual(3, stateInfos.Length);
                 Assert.IsTrue(stateInfos.Any(si => si.Name == "Traject"));
                 Assert.IsTrue(stateInfos.Any(si => si.Name == "Berekeningen"));
                 Assert.IsTrue(stateInfos.Any(si => si.Name == "Faalpaden"));
-                Assert.IsTrue(stateInfos.Any(si => si.Name == "Assembleren"));
             }
         }
 

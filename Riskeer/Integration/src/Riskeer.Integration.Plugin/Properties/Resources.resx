@@ -246,9 +246,6 @@ Wilt u doorgaan?</value>
   <data name="RiskeerPlugin_GetStateInfos_Calculations" xml:space="preserve">
     <value>Berekeningen</value>
   </data>
-  <data name="RiskeerPlugin_GetStateInfos_Assembly" xml:space="preserve">
-    <value>Assembleren</value>
-  </data>
   <data name="AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection" xml:space="preserve">
     <value>Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden.</value>
   </data>
