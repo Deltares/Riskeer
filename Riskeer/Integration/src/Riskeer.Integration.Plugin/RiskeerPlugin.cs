@@ -293,33 +293,6 @@ namespace Riskeer.Integration.Plugin
                 return null;
             });
 
-            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_FailurePaths, "\uE953", project =>
-            {
-                if (project is RiskeerProject riskeerProject)
-                {
-                    AssessmentSection assessmentSection = riskeerProject.AssessmentSections.First();
-
-                    var failureMechanisms = new IFailureMechanism[]
-                    {
-                        assessmentSection.MacroStabilityOutwards,
-                        assessmentSection.Microstability,
-                        assessmentSection.WaterPressureAsphaltCover,
-                        assessmentSection.GrassCoverSlipOffOutwards,
-                        assessmentSection.GrassCoverSlipOffInwards,
-                        assessmentSection.PipingStructure,
-                        assessmentSection.StrengthStabilityLengthwiseConstruction,
-                        assessmentSection.TechnicalInnovation
-                    };
-
-                    return failureMechanisms.Select(failureMechanism => failureMechanismAssociations
-                                                                        .First(a => a.Match(failureMechanism))
-                                                                        .Create(failureMechanism, assessmentSection))
-                                            .ToArray();
-                }
-
-                return null;
-            });
-
             yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_Calculations, "\uE91D", project =>
             {
                 if (project is RiskeerProject riskeerProject)
@@ -338,6 +311,33 @@ namespace Riskeer.Integration.Plugin
                         assessmentSection.ClosingStructures,
                         assessmentSection.StabilityPointStructures,
                         assessmentSection.DuneErosion
+                    };
+
+                    return failureMechanisms.Select(failureMechanism => failureMechanismAssociations
+                                                                        .First(a => a.Match(failureMechanism))
+                                                                        .Create(failureMechanism, assessmentSection))
+                                            .ToArray();
+                }
+
+                return null;
+            });
+
+            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_FailurePaths, "\uE953", project =>
+            {
+                if (project is RiskeerProject riskeerProject)
+                {
+                    AssessmentSection assessmentSection = riskeerProject.AssessmentSections.First();
+
+                    var failureMechanisms = new IFailureMechanism[]
+                    {
+                        assessmentSection.MacroStabilityOutwards,
+                        assessmentSection.Microstability,
+                        assessmentSection.WaterPressureAsphaltCover,
+                        assessmentSection.GrassCoverSlipOffOutwards,
+                        assessmentSection.GrassCoverSlipOffInwards,
+                        assessmentSection.PipingStructure,
+                        assessmentSection.StrengthStabilityLengthwiseConstruction,
+                        assessmentSection.TechnicalInnovation
                     };
 
                     return failureMechanisms.Select(failureMechanism => failureMechanismAssociations
