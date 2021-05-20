@@ -510,7 +510,10 @@ namespace Riskeer.Integration.Plugin
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
                                                                                  context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
 
             yield return new ViewInfo<WaveHeightCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
@@ -524,7 +527,10 @@ namespace Riskeer.Integration.Plugin
                                                                            context.AssessmentSection,
                                                                            context.GetNormFunc,
                                                                            context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
 
             yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>
@@ -949,7 +955,7 @@ namespace Riskeer.Integration.Plugin
                 CanRemove = (assessmentSection, parentNodeData) => true,
                 OnNodeRemoved = AssessmentSectionOnNodeRemoved
             };
-            
+
             yield return new TreeNodeInfo<AssessmentSectionStateRootContext>
             {
                 Text = context => context.WrappedData.Name,
@@ -1765,7 +1771,10 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.Calculate_All,
                 Resources.AssessmentSection_Calculate_All_ToolTip,
                 RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData)); });
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData));
+                });
 
             var importItem = new StrictContextMenuItem(
                 CoreGuiResources.Import,
@@ -1809,13 +1818,13 @@ namespace Riskeer.Integration.Plugin
 
             return childNodes.ToArray();
         }
-        
+
         private static void AssessmentSectionStateRootContextOnNodeRenamed(AssessmentSectionStateRootContext nodeData, string newName)
         {
             nodeData.WrappedData.Name = newName;
             nodeData.WrappedData.NotifyObservers();
         }
-        
+
         private ContextMenuStrip AssessmentSectionStateRootContextMenuStrip(AssessmentSectionStateRootContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var importItem = new StrictContextMenuItem(
