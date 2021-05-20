@@ -27,7 +27,6 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Forms.PresentationObjects;
 
 namespace Riskeer.Integration.Plugin.Test.StateInfos
 {
@@ -74,15 +73,8 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
             object rootData = info.GetRootData(project);
 
             // Assert
-            var rootDataCollection = rootData as object[];
-            Assert.IsNotNull(rootDataCollection);
-            Assert.AreEqual(6, rootDataCollection.Length);
-            Assert.AreEqual(new ReferenceLineContext(assessmentSection.ReferenceLine, assessmentSection), rootDataCollection[0]);
-            Assert.AreEqual(new NormContext(assessmentSection.FailureMechanismContribution, assessmentSection), rootDataCollection[1]);
-            Assert.AreEqual(new FailureMechanismContributionContext(assessmentSection.FailureMechanismContribution, assessmentSection), rootDataCollection[2]);
-            Assert.AreEqual(new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection), rootDataCollection[3]);
-            Assert.AreSame(assessmentSection.BackgroundData, rootDataCollection[4]);
-            Assert.AreSame(assessmentSection.Comments, rootDataCollection[5]);
+            Assert.IsNotNull(rootData);
+            Assert.IsInstanceOf<AssessmentSectionStateRootContext>(rootData);
         }
 
         [Test]

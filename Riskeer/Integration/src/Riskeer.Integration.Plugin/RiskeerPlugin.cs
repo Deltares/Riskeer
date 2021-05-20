@@ -957,9 +957,10 @@ namespace Riskeer.Integration.Plugin
                 EnsureVisibleOnCreate = (assessmentSection, parent) => true,
                 ExpandOnCreate = assessmentSection => true,
                 ChildNodeObjects = AssessmentSectionStateRootContextChildNodeObjects,
+                ContextMenuStrip = AssessmentSectionStateRootContextMenuStrip,
                 CanRename = (assessmentSection, parentData) => true,
-                OnNodeRenamed = AssessmentSectionStateRootContextOnNodeRenamed,
-                CanRemove = (assessmentSection, parentNodeData) => true
+                CanRemove = (assessmentSection, parentNodeData) => false,
+                OnNodeRenamed = AssessmentSectionStateRootContextOnNodeRenamed
             };
 
             yield return new TreeNodeInfo<BackgroundData>
@@ -1813,6 +1814,34 @@ namespace Riskeer.Integration.Plugin
         {
             nodeData.WrappedData.Name = newName;
             nodeData.WrappedData.NotifyObservers();
+        }
+        
+        private ContextMenuStrip AssessmentSectionStateRootContextMenuStrip(AssessmentSectionStateRootContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var calculateAllItem = new StrictContextMenuItem(
+                RiskeerCommonFormsResources.Calculate_All,
+                Resources.AssessmentSection_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
+                (sender, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData.WrappedData)); });
+
+            var importItem = new StrictContextMenuItem(
+                CoreGuiResources.Import,
+                CoreGuiResources.Import_ToolTip,
+                CoreGuiResources.ImportIcon,
+                (sender, args) => assessmentSectionMerger.StartMerge(nodeData.WrappedData));
+
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
+                      .AddCustomItem(importItem)
+                      .AddSeparator()
+                      .AddRenameItem()
+                      .AddSeparator()
+                      .AddCollapseAllItem()
+                      .AddExpandAllItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
         }
 
         #endregion
