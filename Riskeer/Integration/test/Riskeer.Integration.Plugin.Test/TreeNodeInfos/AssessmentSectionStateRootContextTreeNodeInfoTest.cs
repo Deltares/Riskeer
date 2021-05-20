@@ -181,7 +181,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 object[] objects = info.ChildNodeObjects(assessmentSectionContext).ToArray();
 
                 // Assert
-                Assert.AreEqual(6, objects.Length);
+                Assert.AreEqual(5, objects.Length);
 
                 var referenceLineContext = (ReferenceLineContext) objects[0];
                 Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
@@ -195,14 +195,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.FailureMechanismContribution, contributionContext.WrappedData);
                 Assert.AreSame(assessmentSection, contributionContext.Parent);
 
-                var context = (HydraulicBoundaryDatabaseContext) objects[3];
-                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, context.WrappedData);
-                Assert.AreSame(assessmentSection, context.AssessmentSection);
-
-                var backgroundData = (BackgroundData) objects[4];
+                var backgroundData = (BackgroundData) objects[3];
                 Assert.AreSame(assessmentSection.BackgroundData, backgroundData);
 
-                var comment = (Comment) objects[5];
+                var comment = (Comment) objects[4];
                 Assert.AreSame(assessmentSection.Comments, comment);
             }
         }

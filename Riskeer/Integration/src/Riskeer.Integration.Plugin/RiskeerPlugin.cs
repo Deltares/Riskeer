@@ -1818,7 +1818,6 @@ namespace Riskeer.Integration.Plugin
                 new ReferenceLineContext(nodeData.WrappedData.ReferenceLine, nodeData.WrappedData),
                 new NormContext(nodeData.WrappedData.FailureMechanismContribution, nodeData.WrappedData),
                 new FailureMechanismContributionContext(nodeData.WrappedData.FailureMechanismContribution, nodeData.WrappedData),
-                new HydraulicBoundaryDatabaseContext(nodeData.WrappedData.HydraulicBoundaryDatabase, nodeData.WrappedData),
                 nodeData.WrappedData.BackgroundData,
                 nodeData.WrappedData.Comments
             };
