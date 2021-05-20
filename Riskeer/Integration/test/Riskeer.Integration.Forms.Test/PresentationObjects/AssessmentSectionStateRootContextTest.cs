@@ -2,10 +2,10 @@
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.PresentationObjects;
 
-namespace Riskeer.Common.Forms.Test.PresentationObjects
+namespace Riskeer.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class AssessmentSectionStateRootContextTest

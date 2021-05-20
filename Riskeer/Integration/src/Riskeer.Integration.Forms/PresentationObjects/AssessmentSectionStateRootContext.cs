@@ -21,12 +21,13 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 
-namespace Riskeer.Common.Forms.PresentationObjects
+namespace Riskeer.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="AssessmentSection"/>.
+    /// Presentation object for all data required to configure an instance of <see cref="IAssessmentSection"/>.
     /// </summary>
     public class AssessmentSectionStateRootContext : ObservableWrappedObjectContextBase<AssessmentSection>
     {

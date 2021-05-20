@@ -25,8 +25,8 @@ using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.PresentationObjects;
 
 namespace Riskeer.Integration.Plugin.Test.StateInfos
 {
