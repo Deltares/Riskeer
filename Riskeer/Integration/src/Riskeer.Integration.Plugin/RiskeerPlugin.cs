@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -942,6 +942,16 @@ namespace Riskeer.Integration.Plugin
             yield return CreateStateRootTreeNodeInfo<CalculationsStateRootContext>(
                 CalculationsStateRootContextChildNodeObjects,
                 CalculationsStateRootContextMenuStrip);
+
+            yield return CreateStateRootTreeNodeInfo<FailurePathsStateRootContext>(
+                FailurePathsStateRootContextChildNodeObjects,
+                FailurePathsStateRootContextMenuStrip);
+
+            yield return new TreeNodeInfo<FailurePathsContext>
+            {
+                Text = context => Resources.RiskeerPlugin_GetStateInfos_FailurePaths,
+                Image = data => RiskeerCommonFormsResources.GeneralFolderIcon
+            };
 
             yield return new TreeNodeInfo<BackgroundData>
             {
@@ -1897,6 +1907,37 @@ namespace Riskeer.Integration.Plugin
                       .AddPropertiesItem()
                       .Build();
         }
+
+
+        #region FailurePathsStateRootContext TreeNodeInfo
+
+        private static object[] FailurePathsStateRootContextChildNodeObjects(FailurePathsStateRootContext nodeData)
+        {
+            AssessmentSection assessmentSection = nodeData.WrappedData;
+            
+            return new object[]
+            {
+                new FailurePathsContext(assessmentSection),
+                new AssemblyResultsContext(assessmentSection)
+            };
+        }
+
+        private ContextMenuStrip FailurePathsStateRootContextMenuStrip(FailurePathsStateRootContext nodeData,
+                                                                       object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
+                      .AddRenameItem()
+                      .AddSeparator()
+                      .AddCollapseAllItem()
+                      .AddExpandAllItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+        
+        #endregion
 
         #endregion
 
