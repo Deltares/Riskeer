@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Controls.PresentationObjects;
 using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Forms.PresentationObjects
@@ -28,7 +27,7 @@ namespace Riskeer.Integration.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for the calculations state.
     /// </summary>
-    public class CalculationsStateRootContext : ObservableWrappedObjectContextBase<AssessmentSection>
+    public class CalculationsStateRootContext : StateRootContext
     {
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionStateRootContext"/>.

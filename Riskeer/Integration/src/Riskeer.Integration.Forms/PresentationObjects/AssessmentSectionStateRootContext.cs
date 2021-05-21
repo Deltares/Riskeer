@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 
@@ -29,7 +28,7 @@ namespace Riskeer.Integration.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="IAssessmentSection"/>.
     /// </summary>
-    public class AssessmentSectionStateRootContext : ObservableWrappedObjectContextBase<AssessmentSection>
+    public class AssessmentSectionStateRootContext : StateRootContext
     {
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionStateRootContext"/>.

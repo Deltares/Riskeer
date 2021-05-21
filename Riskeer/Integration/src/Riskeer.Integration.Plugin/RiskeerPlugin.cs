@@ -27,7 +27,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Controls.PresentationObjects;
 using Core.Common.Controls.TreeView;
 using Core.Common.Util;
 using Core.Common.Util.Extensions;
@@ -1782,7 +1781,7 @@ namespace Riskeer.Integration.Plugin
         private static TreeNodeInfo<TContext> CreateStateRootTreeNodeInfo<TContext>(
             Func<TContext, object[]> childNodeObjectsFunc,
             Func<TContext, object, TreeViewControl, ContextMenuStrip> contextMenuStripFunc)
-            where TContext : ObservableWrappedObjectContextBase<AssessmentSection>
+            where TContext : StateRootContext
         {
             return new TreeNodeInfo<TContext>
             {
@@ -1799,7 +1798,7 @@ namespace Riskeer.Integration.Plugin
         }
 
         private static void StateRootContextOnNodeRenamed<TContext>(TContext nodeData, string newName)
-            where TContext : ObservableWrappedObjectContextBase<AssessmentSection>
+            where TContext : StateRootContext
         {
             nodeData.WrappedData.Name = newName;
             nodeData.WrappedData.NotifyObservers();

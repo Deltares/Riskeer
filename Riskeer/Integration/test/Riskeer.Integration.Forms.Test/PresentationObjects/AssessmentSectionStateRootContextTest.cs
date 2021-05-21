@@ -1,5 +1,4 @@
 ﻿using System;
-using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
@@ -20,7 +19,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var context = new AssessmentSectionStateRootContext(assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<AssessmentSection>>(context);
+            Assert.IsInstanceOf<StateRootContext>(context);
             Assert.AreSame(assessmentSection, context.WrappedData);
         }
 

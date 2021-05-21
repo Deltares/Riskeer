@@ -19,28 +19,25 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
+using System;
+using Core.Common.Controls.PresentationObjects;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Forms.PresentationObjects;
 
-namespace Riskeer.Integration.Forms.Test.PresentationObjects
+namespace Riskeer.Integration.Forms.PresentationObjects
 {
-    [TestFixture]
-    public class CalculationsStateRootContextTest
+    /// <summary>
+    /// Presentation object for the state root.
+    /// </summary>
+    public abstract class StateRootContext : ObservableWrappedObjectContextBase<AssessmentSection>
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            // Call
-            var context = new CalculationsStateRootContext(assessmentSection);
-
-            // Assert
-            Assert.IsInstanceOf<StateRootContext>(context);
-            Assert.AreSame(assessmentSection, context.WrappedData);
-        }
+        /// <summary>
+        /// Creates a new instance of <see cref="StateRootContext"/>.
+        /// </summary>
+        /// <param name="wrappedData">The <see cref="AssessmentSection"/> which the
+        /// <see cref="AssessmentSectionStateRootContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when
+        /// <paramref name="wrappedData"/> is <c>null</c>.</exception>
+        protected StateRootContext(AssessmentSection wrappedData)
+            : base(wrappedData) {}
     }
 }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
@@ -27,7 +28,7 @@ using Riskeer.Integration.Forms.PresentationObjects;
 namespace Riskeer.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class CalculationsStateRootContextTest
+    public class StateRootContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -36,11 +37,16 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            var context = new CalculationsStateRootContext(assessmentSection);
+            var context = new TestStateRootContext(assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<StateRootContext>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<AssessmentSection>>(context);
             Assert.AreSame(assessmentSection, context.WrappedData);
+        }
+
+        private class TestStateRootContext : StateRootContext
+        {
+            public TestStateRootContext(AssessmentSection wrappedData) : base(wrappedData) {}
         }
     }
 }
