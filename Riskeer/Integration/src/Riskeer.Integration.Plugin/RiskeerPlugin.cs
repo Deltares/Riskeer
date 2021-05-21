@@ -330,12 +330,9 @@ namespace Riskeer.Integration.Plugin
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<IAssessmentSection, AssessmentSectionProperties>();
-            yield return new PropertyInfo<AssessmentSectionStateRootContext, AssessmentSectionProperties>
+            yield return new PropertyInfo<StateRootContext, AssessmentSectionProperties>
             {
-                CreateInstance = context => new AssessmentSectionProperties
-                {
-                    Data = context.WrappedData
-                }
+                CreateInstance = context => new AssessmentSectionProperties(context.WrappedData)
             };
             yield return new PropertyInfo<BackgroundData, BackgroundDataProperties>
             {

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Util.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.AssessmentSection;
@@ -33,6 +34,23 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// </summary>
     public class AssessmentSectionProperties : ObjectProperties<IAssessmentSection>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="AssessmentSectionProperties"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/>
+        /// to show the properties of.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        public AssessmentSectionProperties(IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            Data = assessmentSection;
+        }
+        
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSection_Id_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.AssessmentSection_Id_Description))]
