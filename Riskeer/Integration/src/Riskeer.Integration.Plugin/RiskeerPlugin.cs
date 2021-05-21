@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -299,28 +299,7 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    AssessmentSection assessmentSection = riskeerProject.AssessmentSections.First();
-
-                    var failureMechanisms = new IFailureMechanism[]
-                    {
-                        assessmentSection.MacroStabilityOutwards,
-                        assessmentSection.Microstability,
-                        assessmentSection.WaterPressureAsphaltCover,
-                        assessmentSection.GrassCoverSlipOffOutwards,
-                        assessmentSection.GrassCoverSlipOffInwards,
-                        assessmentSection.PipingStructure,
-                        assessmentSection.StrengthStabilityLengthwiseConstruction,
-                        assessmentSection.TechnicalInnovation
-                    };
-
-                    List<object> objects = failureMechanisms.Select(failureMechanism => failureMechanismAssociations
-                                                                                        .First(a => a.Match(failureMechanism))
-                                                                                        .Create(failureMechanism, assessmentSection))
-                                                            .ToList();
-
-                    objects.Add(new AssemblyResultsContext(assessmentSection));
-
-                    return objects.ToArray();
+                    return new FailurePathsStateRootContext(riskeerProject.AssessmentSections.First());
                 }
 
                 return null;

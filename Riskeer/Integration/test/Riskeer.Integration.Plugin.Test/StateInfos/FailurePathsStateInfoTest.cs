@@ -74,18 +74,11 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
             object rootData = info.GetRootData(project);
 
             // Assert
-            var rootDataCollection = rootData as object[];
-            Assert.IsNotNull(rootDataCollection);
-            Assert.AreEqual(9, rootDataCollection.Length);
-            Assert.AreEqual(new MacroStabilityOutwardsFailureMechanismContext(assessmentSection.MacroStabilityOutwards, assessmentSection), rootDataCollection[0]);
-            Assert.AreEqual(new MicrostabilityFailureMechanismContext(assessmentSection.Microstability, assessmentSection), rootDataCollection[1]);
-            Assert.AreEqual(new WaterPressureAsphaltCoverFailureMechanismContext(assessmentSection.WaterPressureAsphaltCover, assessmentSection), rootDataCollection[2]);
-            Assert.AreEqual(new GrassCoverSlipOffOutwardsFailureMechanismContext(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection), rootDataCollection[3]);
-            Assert.AreEqual(new GrassCoverSlipOffInwardsFailureMechanismContext(assessmentSection.GrassCoverSlipOffInwards, assessmentSection), rootDataCollection[4]);
-            Assert.AreEqual(new PipingStructureFailureMechanismContext(assessmentSection.PipingStructure, assessmentSection), rootDataCollection[5]);
-            Assert.AreEqual(new StrengthStabilityLengthwiseConstructionFailureMechanismContext(assessmentSection.StrengthStabilityLengthwiseConstruction, assessmentSection), rootDataCollection[6]);
-            Assert.AreEqual(new TechnicalInnovationFailureMechanismContext(assessmentSection.TechnicalInnovation, assessmentSection), rootDataCollection[7]);
-            Assert.AreEqual(new AssemblyResultsContext(assessmentSection), rootDataCollection[8]);
+            Assert.IsNotNull(rootData);
+            Assert.IsInstanceOf<FailurePathsStateRootContext>(rootData);
+            
+            var failurePathsStateRootContext = (FailurePathsStateRootContext) rootData;
+            Assert.AreSame(assessmentSection, failurePathsStateRootContext.WrappedData);
         }
 
         [Test]

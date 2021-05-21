@@ -75,6 +75,9 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
             // Assert
             Assert.IsNotNull(rootData);
             Assert.IsInstanceOf<AssessmentSectionStateRootContext>(rootData);
+            
+            var assessmentSectionStateRootContext = (AssessmentSectionStateRootContext) rootData;
+            Assert.AreSame(assessmentSection, assessmentSectionStateRootContext.WrappedData);
         }
 
         [Test]
