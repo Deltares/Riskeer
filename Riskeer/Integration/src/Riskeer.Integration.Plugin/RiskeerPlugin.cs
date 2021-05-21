@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -27,6 +27,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Controls.PresentationObjects;
 using Core.Common.Controls.TreeView;
 using Core.Common.Util;
 using Core.Common.Util.Extensions;
@@ -517,10 +518,7 @@ namespace Riskeer.Integration.Plugin
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
                                                                                  context.CategoryBoundaryName),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                }
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
             yield return new ViewInfo<WaveHeightCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
@@ -534,10 +532,7 @@ namespace Riskeer.Integration.Plugin
                                                                            context.AssessmentSection,
                                                                            context.GetNormFunc,
                                                                            context.CategoryBoundaryName),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                }
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
             yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>
@@ -963,18 +958,13 @@ namespace Riskeer.Integration.Plugin
                 OnNodeRemoved = AssessmentSectionOnNodeRemoved
             };
 
-            yield return new TreeNodeInfo<AssessmentSectionStateRootContext>
-            {
-                Text = context => context.WrappedData.Name,
-                Image = assessmentSection => RiskeerFormsResources.AssessmentSectionFolderIcon,
-                EnsureVisibleOnCreate = (assessmentSection, parent) => true,
-                ExpandOnCreate = assessmentSection => true,
-                ChildNodeObjects = AssessmentSectionStateRootContextChildNodeObjects,
-                ContextMenuStrip = AssessmentSectionStateRootContextMenuStrip,
-                CanRename = (assessmentSection, parentData) => true,
-                CanRemove = (assessmentSection, parentNodeData) => false,
-                OnNodeRenamed = AssessmentSectionStateRootContextOnNodeRenamed
-            };
+            yield return CreateStateRootTreeNodeInfo<AssessmentSectionStateRootContext>(
+                AssessmentSectionStateRootContextChildNodeObjects,
+                AssessmentSectionStateRootContextMenuStrip);
+
+            yield return CreateStateRootTreeNodeInfo<CalculationsStateRootContext>(
+                CalculationsStateRootContextChildNodeObjects,
+                CalculationsStateRootContextMenuStrip);
 
             yield return new TreeNodeInfo<BackgroundData>
             {
@@ -1778,10 +1768,7 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.Calculate_All,
                 Resources.AssessmentSection_Calculate_All_ToolTip,
                 RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) =>
-                {
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData));
-                });
+                (sender, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData)); });
 
             var importItem = new StrictContextMenuItem(
                 CoreGuiResources.Import,
@@ -1809,6 +1796,36 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
+        #region StateRoot TreeNodeInfo
+
+        private static TreeNodeInfo<TContext> CreateStateRootTreeNodeInfo<TContext>(
+            Func<TContext, object[]> childNodeObjectsFunc,
+            Func<TContext, object, TreeViewControl, ContextMenuStrip> contextMenuStripFunc)
+            where TContext : ObservableWrappedObjectContextBase<AssessmentSection>
+        {
+            return new TreeNodeInfo<TContext>
+            {
+                Text = context => context.WrappedData.Name,
+                Image = context => RiskeerFormsResources.AssessmentSectionFolderIcon,
+                EnsureVisibleOnCreate = (context, parent) => true,
+                ExpandOnCreate = context => true,
+                ChildNodeObjects = childNodeObjectsFunc,
+                ContextMenuStrip = contextMenuStripFunc,
+                CanRename = (context, parentData) => true,
+                OnNodeRenamed = StateRootContextOnNodeRenamed,
+                CanRemove = (context, parentNodeData) => false
+            };
+        }
+
+        private static void StateRootContextOnNodeRenamed<TContext>(TContext nodeData, string newName)
+            where TContext : ObservableWrappedObjectContextBase<AssessmentSection>
+        {
+            nodeData.WrappedData.Name = newName;
+            nodeData.WrappedData.NotifyObservers();
+        }
+
+        #endregion
+
         #region AssessmentSectionStateRootContext TreeNodeInfo
 
         private static object[] AssessmentSectionStateRootContextChildNodeObjects(AssessmentSectionStateRootContext nodeData)
@@ -1825,12 +1842,6 @@ namespace Riskeer.Integration.Plugin
             return childNodes.ToArray();
         }
 
-        private static void AssessmentSectionStateRootContextOnNodeRenamed(AssessmentSectionStateRootContext nodeData, string newName)
-        {
-            nodeData.WrappedData.Name = newName;
-            nodeData.WrappedData.NotifyObservers();
-        }
-
         private ContextMenuStrip AssessmentSectionStateRootContextMenuStrip(AssessmentSectionStateRootContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var importItem = new StrictContextMenuItem(
@@ -1845,6 +1856,63 @@ namespace Riskeer.Integration.Plugin
                       .AddCustomItem(importItem)
                       .AddSeparator()
                       .AddRenameItem()
+                      .AddSeparator()
+                      .AddCollapseAllItem()
+                      .AddExpandAllItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        #endregion
+
+        #region CalculationsStateRootContext TreeNodeInfo
+
+        private static object[] CalculationsStateRootContextChildNodeObjects(CalculationsStateRootContext nodeData)
+        {
+            AssessmentSection assessmentSection = nodeData.WrappedData;
+
+            var failureMechanisms = new IFailureMechanism[]
+            {
+                assessmentSection.Piping,
+                assessmentSection.GrassCoverErosionInwards,
+                assessmentSection.MacroStabilityInwards,
+                assessmentSection.StabilityStoneCover,
+                assessmentSection.WaveImpactAsphaltCover,
+                assessmentSection.GrassCoverErosionOutwards,
+                assessmentSection.HeightStructures,
+                assessmentSection.ClosingStructures,
+                assessmentSection.StabilityPointStructures,
+                assessmentSection.DuneErosion
+            };
+
+            var childNodes = new List<object>
+            {
+                new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection)
+            };
+
+            childNodes.AddRange(failureMechanisms.Select(failureMechanism => failureMechanismAssociations
+                                                                             .First(a => a.Match(failureMechanism))
+                                                                             .Create(failureMechanism, assessmentSection)));
+
+            return childNodes.ToArray();
+        }
+
+        private ContextMenuStrip CalculationsStateRootContextMenuStrip(CalculationsStateRootContext nodeData,
+                                                                       object parentData, TreeViewControl treeViewControl)
+        {
+            var calculateAllItem = new StrictContextMenuItem(
+                RiskeerCommonFormsResources.Calculate_All,
+                Resources.AssessmentSection_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
+                (sender, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData.WrappedData)); });
+
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
+                      .AddRenameItem()
+                      .AddSeparator()
+                      .AddCustomItem(calculateAllItem)
                       .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
