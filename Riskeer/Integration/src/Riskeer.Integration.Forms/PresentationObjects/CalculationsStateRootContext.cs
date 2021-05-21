@@ -33,7 +33,7 @@ namespace Riskeer.Integration.Forms.PresentationObjects
         /// Creates a new instance of <see cref="AssessmentSectionStateRootContext"/>.
         /// </summary>
         /// <param name="wrappedData">The <see cref="AssessmentSection"/> which the
-        /// <see cref="AssessmentSectionStateRootContext"/> belongs to.</param>
+        /// <see cref="CalculationsStateRootContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when
         /// <paramref name="wrappedData"/> is <c>null</c>.</exception>
         public CalculationsStateRootContext(AssessmentSection wrappedData) 
