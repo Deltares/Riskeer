@@ -31,6 +31,7 @@ using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
@@ -82,19 +83,8 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
             object rootData = info.GetRootData(project);
 
             // Assert
-            var rootDataCollection = rootData as object[];
-            Assert.IsNotNull(rootDataCollection);
-            Assert.AreEqual(10, rootDataCollection.Length);
-            Assert.AreEqual(new PipingFailureMechanismContext(assessmentSection.Piping, assessmentSection), rootDataCollection[0]);
-            Assert.AreEqual(new GrassCoverErosionInwardsFailureMechanismContext(assessmentSection.GrassCoverErosionInwards, assessmentSection), rootDataCollection[1]);
-            Assert.AreEqual(new MacroStabilityInwardsFailureMechanismContext(assessmentSection.MacroStabilityInwards, assessmentSection), rootDataCollection[2]);
-            Assert.AreEqual(new StabilityStoneCoverFailureMechanismContext(assessmentSection.StabilityStoneCover, assessmentSection), rootDataCollection[3]);
-            Assert.AreEqual(new WaveImpactAsphaltCoverFailureMechanismContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection), rootDataCollection[4]);
-            Assert.AreEqual(new GrassCoverErosionOutwardsFailureMechanismContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection), rootDataCollection[5]);
-            Assert.AreEqual(new HeightStructuresFailureMechanismContext(assessmentSection.HeightStructures, assessmentSection), rootDataCollection[6]);
-            Assert.AreEqual(new ClosingStructuresFailureMechanismContext(assessmentSection.ClosingStructures, assessmentSection), rootDataCollection[7]);
-            Assert.AreEqual(new StabilityPointStructuresFailureMechanismContext(assessmentSection.StabilityPointStructures, assessmentSection), rootDataCollection[8]);
-            Assert.AreEqual(new DuneErosionFailureMechanismContext(assessmentSection.DuneErosion, assessmentSection), rootDataCollection[9]);
+            Assert.IsNotNull(rootData);
+            Assert.IsInstanceOf<CalculationsStateRootContext>(rootData);
         }
 
         [Test]
