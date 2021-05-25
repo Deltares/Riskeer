@@ -30,7 +30,7 @@ namespace Riskeer.Integration.Forms.PresentationObjects
     public class CalculationsStateRootContext : StateRootContext
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionStateRootContext"/>.
+        /// Creates a new instance of <see cref="CalculationsStateRootContext"/>.
         /// </summary>
         /// <param name="wrappedData">The <see cref="AssessmentSection"/> which the
         /// <see cref="CalculationsStateRootContext"/> belongs to.</param>
