@@ -155,7 +155,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnsChildrenOfData()
+        public void ChildNodeObjects_WithContext_ReturnsChildrenOfData()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -328,6 +328,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
+                
                 // Call
                 const string newName = "New Name";
                 info.OnNodeRenamed(context, newName);
@@ -346,6 +347,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
+                
                 // Call
                 bool canRemove = info.CanRemove(null, null);
 
