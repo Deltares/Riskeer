@@ -85,8 +85,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 
         private static PropertyInfo GetInfo(RiskeerPlugin plugin)
         {
-            PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().Where(tni => tni.PropertyObjectType == typeof(AssessmentSectionProperties)).ToArray();
-            return propertyInfos[1];
+            return plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(AssessmentSectionProperties));
         }
     }
 }

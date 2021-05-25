@@ -308,8 +308,7 @@ namespace Riskeer.Integration.Plugin
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<IAssessmentSection, AssessmentSectionProperties>();
-            yield return new PropertyInfo<StateRootContext, AssessmentSectionProperties>
+            yield return new PropertyInfo<AssessmentSectionStateRootContext, AssessmentSectionProperties>
             {
                 CreateInstance = context => new AssessmentSectionProperties(context.WrappedData)
             };
@@ -474,7 +473,10 @@ namespace Riskeer.Integration.Plugin
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
                                                                                  context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
 
             yield return new ViewInfo<WaveHeightCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
@@ -488,7 +490,10 @@ namespace Riskeer.Integration.Plugin
                                                                            context.AssessmentSection,
                                                                            context.GetNormFunc,
                                                                            context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
 
             yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>
@@ -1734,7 +1739,10 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.Calculate_All,
                 Resources.AssessmentSection_Calculate_All_ToolTip,
                 RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData)); });
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData));
+                });
 
             var importItem = new StrictContextMenuItem(
                 CoreGuiResources.Import,
@@ -1871,7 +1879,10 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.Calculate_All,
                 Resources.AssessmentSection_Calculate_All_ToolTip,
                 RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData.WrappedData)); });
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData.WrappedData));
+                });
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -1887,13 +1898,12 @@ namespace Riskeer.Integration.Plugin
                       .Build();
         }
 
-
         #region FailurePathsStateRootContext TreeNodeInfo
 
         private static object[] FailurePathsStateRootContextChildNodeObjects(FailurePathsStateRootContext nodeData)
         {
             AssessmentSection assessmentSection = nodeData.WrappedData;
-            
+
             return new object[]
             {
                 new FailurePathsContext(assessmentSection),
@@ -1915,7 +1925,7 @@ namespace Riskeer.Integration.Plugin
                       .AddPropertiesItem()
                       .Build();
         }
-        
+
         #endregion
 
         #endregion
