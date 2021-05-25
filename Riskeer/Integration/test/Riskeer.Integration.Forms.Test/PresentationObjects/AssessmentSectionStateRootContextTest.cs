@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
@@ -42,17 +41,6 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             // Assert
             Assert.IsInstanceOf<StateRootContext>(context);
             Assert.AreSame(assessmentSection, context.WrappedData);
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new AssessmentSectionStateRootContext(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("wrappedData", exception.ParamName);
         }
     }
 }

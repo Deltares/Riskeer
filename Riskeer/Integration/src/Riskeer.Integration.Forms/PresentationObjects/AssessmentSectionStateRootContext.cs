@@ -20,13 +20,12 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="IAssessmentSection"/>.
+    /// Presentation object for the <see cref="AssessmentSection"/> state.
     /// </summary>
     public class AssessmentSectionStateRootContext : StateRootContext
     {
