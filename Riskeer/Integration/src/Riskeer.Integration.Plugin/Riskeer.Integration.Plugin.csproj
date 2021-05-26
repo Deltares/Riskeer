@@ -88,7 +88,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Riskeer-Symbols.ttf" />
+    <Resource Include="Resources\Symbols.ttf" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\Log4net-2.0.12\*&quot;" />
