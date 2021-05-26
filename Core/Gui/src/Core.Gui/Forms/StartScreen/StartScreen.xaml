@@ -138,7 +138,7 @@ All rights reserved.
                                 Padding="4 8"
                                 Foreground="White"
                                 IconSize="36" HeaderSize="16"
-                                Icon="&#xE93D;" Header="{x:Static properties:Resources.Browse_DisplayName}"
+                                Icon="&#xE901;" Header="{x:Static properties:Resources.Browse_DisplayName}"
                                 Background="{StaticResource TransparentBrush}"
                                 Command="{Binding OpenProjectCommand}" />
                         </Grid>
@@ -156,7 +156,7 @@ All rights reserved.
                                        Tag="{x:Static properties:Resources.StartScreen_NewProject_DisplayName}"
                                        Command="{Binding NewProjectCommand}"
                                        IsDefault="True">
-                            <TextBlock Text="&#xE93C;"
+                            <TextBlock Text="&#xE900;"
                                        FontFamily="{StaticResource RiskeerFont}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center" FontSize="56" />

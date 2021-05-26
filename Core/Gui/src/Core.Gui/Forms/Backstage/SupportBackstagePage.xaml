@@ -133,21 +133,21 @@ All rights reserved.
                             Tag="{x:Static properties:Resources.VisitWebsite_DisplayName}"
                             Command="{x:Static commands:MainWindowCommands.OpenHelpdeskWaterWebsiteCommand}">
                         <TextBlock Style="{StaticResource BigButtonIconStyle}"
-                                   Text="&#xE946;"/>
+                                   Text="&#xE903;"/>
                     </Button>
 
                     <Button Style="{StaticResource BackstageBigButtonStyle}"
                             Tag="{x:Static properties:Resources.CallSupport_DisplayName}"
                             Command="{x:Static commands:MainWindowCommands.CallHelpdeskWaterWebsiteCommand}">
                         <TextBlock Style="{StaticResource BigButtonIconStyle}"
-                                   Text="&#xE948;"/>
+                                   Text="&#xE904;"/>
                     </Button>
     
                     <Button Style="{StaticResource BackstageBigButtonStyle}"
                             Tag="{x:Static properties:Resources.EmailSupport_DisplayName}"
                             Command="{x:Static commands:MainWindowCommands.EmailHelpdeskWaterWebsiteCommand}">
                         <TextBlock Style="{StaticResource BigButtonIconStyle}"
-                                   Text="&#xE947;"/>
+                                   Text="&#xE905;"/>
                     </Button>
                 </StackPanel>
             </StackPanel>
