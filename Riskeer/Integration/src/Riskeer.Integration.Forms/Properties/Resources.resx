@@ -181,27 +181,6 @@
   <data name="AssessmentSectionFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder-stand32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="RiskeerProjectProperties_Description_Description" xml:space="preserve">
-    <value>Korte beschrijving van het project.</value>
-  </data>
-  <data name="RiskeerProjectProperties_Description_DisplayName" xml:space="preserve">
-    <value>Omschrijving</value>
-  </data>
-  <data name="RiskeerProjectProperties_Name_Description" xml:space="preserve">
-    <value>Naam van het project.</value>
-  </data>
-  <data name="RiskeerProjectProperties_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
-  </data>
-  <data name="AddAssessmentSectionFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AddFolder-stand32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="RiskeerRibbon_AddAssessmentSection" xml:space="preserve">
-    <value>Traject Toevoegen</value>
-  </data>
-  <data name="AddAssessmentSection_DisplayName" xml:space="preserve">
-    <value>T&amp;raject toevoegen...</value>
-  </data>
   <data name="AssessmentSectionComposition_Composition_Description" xml:space="preserve">
     <value>Selecteer het type traject, bepalend voor de faalkansbegroting.</value>
   </data>

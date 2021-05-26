@@ -166,16 +166,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap application_view_list {
-            get {
-                object obj = ResourceManager.GetObject("application_view_list", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Logbestand kan niet worden geopend..
         /// </summary>
         public static string ApplicationFeatureCommandHandler_OpenLogFileExternal_Unable_to_open_log_file {
@@ -1303,15 +1293,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gebruiker heeft het opstarten onderbroken. Het programma wordt afgesloten....
-        /// </summary>
-        public static string GuiCore_ShowSplashScreen_User_has_canceled_start_Exiting {
-            get {
-                return ResourceManager.GetString("GuiCore_ShowSplashScreen_User_has_canceled_start_Exiting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gegevens zijn geëxporteerd naar bestand &apos;{0}&apos;..
         /// </summary>
         public static string GuiExportHandler_ExportItemUsingDialog_Data_exported_to_File_0 {
@@ -1581,30 +1562,11 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voorbeeld niet beschikbaar....
-        /// </summary>
-        public static string InfoBackstagePage_Example_not_available {
-            get {
-                return ResourceManager.GetString("InfoBackstagePage_Example_not_available", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap information {
             get {
                 object obj = ResourceManager.GetObject("information", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap key {
-            get {
-                object obj = ResourceManager.GetObject("key", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1843,24 +1805,6 @@ namespace Core.Gui.Properties {
         public static string MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip {
             get {
                 return ResourceManager.GetString("MapLegendView_MapDataCollectionContextMenuStrip_Add_MapLayer_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kaart.
-        /// </summary>
-        public static string MapLegendView_Toggle_Legend {
-            get {
-                return ResourceManager.GetString("MapLegendView_Toggle_Legend", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open het kaartenpaneel..
-        /// </summary>
-        public static string MapLegendView_Toggle_Legend_ToolTip {
-            get {
-                return ResourceManager.GetString("MapLegendView_Toggle_Legend_ToolTip", resourceCulture);
             }
         }
         
@@ -2111,15 +2055,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Initialiseren van leeg project.
-        /// </summary>
-        public static string OpenProjectActivity_ProgressTextStepName_InitializeEmptyProject {
-            get {
-                return ResourceManager.GetString("OpenProjectActivity_ProgressTextStepName_InitializeEmptyProject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Initialiseren van geopend project.
         /// </summary>
         public static string OpenProjectActivity_ProgressTextStepName_InitializeProject {
@@ -2256,26 +2191,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ProjectExplorerIcon {
-            get {
-                object obj = ResourceManager.GetObject("ProjectExplorerIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ProjectIcon {
-            get {
-                object obj = ResourceManager.GetObject("ProjectIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ei&amp;genschappen.
         /// </summary>
         public static string Properties {
@@ -2308,16 +2223,6 @@ namespace Core.Gui.Properties {
         public static System.Drawing.Bitmap PropertiesHS {
             get {
                 object obj = ResourceManager.GetObject("PropertiesHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap PropertiesPanelIcon {
-            get {
-                object obj = ResourceManager.GetObject("PropertiesPanelIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2543,33 +2448,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Website.
-        /// </summary>
-        public static string SplashScreen_SupportEmail {
-            get {
-                return ResourceManager.GetString("SplashScreen_SupportEmail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Telefoon.
-        /// </summary>
-        public static string SplashScreen_SupportPhoneNumber {
-            get {
-                return ResourceManager.GetString("SplashScreen_SupportPhoneNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voor vragen: Helpdesk Water..
-        /// </summary>
-        public static string SplashScreen_SupportTitle {
-            get {
-                return ResourceManager.GetString("SplashScreen_SupportTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Nieuw project.
         /// </summary>
         public static string StartScreen_NewProject_DisplayName {
@@ -2714,15 +2592,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gebruikershandleiding Openen.
-        /// </summary>
-        public static string ViewStateBar_OpenManual_ToolTip {
-            get {
-                return ResourceManager.GetString("ViewStateBar_OpenManual_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Projectverkenner.
         /// </summary>
         public static string ViewStateBar_ProjectExplorer_ToolTip {
@@ -2737,15 +2606,6 @@ namespace Core.Gui.Properties {
         public static string ViewStateBar_Properties_ToolTip {
             get {
                 return ResourceManager.GetString("ViewStateBar_Properties_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log Tonen.
-        /// </summary>
-        public static string ViewStateBar_ShowLog_ToolTip {
-            get {
-                return ResourceManager.GetString("ViewStateBar_ShowLog_ToolTip", resourceCulture);
             }
         }
         

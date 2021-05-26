@@ -82,25 +82,6 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to T&amp;raject toevoegen....
-        /// </summary>
-        public static string AddAssessmentSection_DisplayName {
-            get {
-                return ResourceManager.GetString("AddAssessmentSection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap AddAssessmentSectionFolder {
-            get {
-                object obj = ResourceManager.GetObject("AddAssessmentSectionFolder", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Categoriegrenzen voor de gecombineerde toetssporen 1 en 2.
         /// </summary>
         public static string AssemblyResultCategories_DisplayName {
@@ -961,51 +942,6 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string RefreshAssemblyResultsButton_Text {
             get {
                 return ResourceManager.GetString("RefreshAssemblyResultsButton_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Korte beschrijving van het project..
-        /// </summary>
-        public static string RiskeerProjectProperties_Description_Description {
-            get {
-                return ResourceManager.GetString("RiskeerProjectProperties_Description_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Omschrijving.
-        /// </summary>
-        public static string RiskeerProjectProperties_Description_DisplayName {
-            get {
-                return ResourceManager.GetString("RiskeerProjectProperties_Description_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van het project..
-        /// </summary>
-        public static string RiskeerProjectProperties_Name_Description {
-            get {
-                return ResourceManager.GetString("RiskeerProjectProperties_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string RiskeerProjectProperties_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("RiskeerProjectProperties_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Traject Toevoegen.
-        /// </summary>
-        public static string RiskeerRibbon_AddAssessmentSection {
-            get {
-                return ResourceManager.GetString("RiskeerRibbon_AddAssessmentSection", resourceCulture);
             }
         }
         

@@ -45,7 +45,6 @@
     <None Include="Resources\folder-stand.png" />
     <None Include="Resources\map.png" />
     <None Include="Resources\folder-stand32.png" />
-    <None Include="Resources\AddFolder-stand32.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

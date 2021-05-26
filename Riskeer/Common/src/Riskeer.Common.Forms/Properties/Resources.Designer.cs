@@ -3119,15 +3119,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuw traject toe aan het project..
-        /// </summary>
-        public static string RiskeerProject_ToolTip {
-            get {
-                return ResourceManager.GetString("RiskeerProject_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} ({1}).
         /// </summary>
         public static string RiskeerStackChartDataFactory_CreateColumns_WindDirection_0_ClosingSituation_1 {
