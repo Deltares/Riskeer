@@ -45,13 +45,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     public class AssessmentSectionStateRootContextTreeNodeInfoTest
     {
         private const int contextMenuImportAssessmentSectionIndex = 2;
-        private MockRepository mocks;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-        }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -84,7 +77,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsName()
+        public void Text_WithContext_ReturnsName()
         {
             // Setup
             const string testName = "ttt";
@@ -112,15 +105,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var assessmentSectionContext = new AssessmentSectionStateRootContext(assessmentSection);
-
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Call
-                Image image = info.Image(assessmentSectionContext);
+                Image image = info.Image(null);
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerIntegrationFormsResources.AssessmentSectionFolderIcon, image);
@@ -131,8 +121,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void EnsureVisibleOnCreate_Always_ReturnsTrue()
         {
             // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -143,16 +131,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.IsTrue(result);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ExpandOnCreate_Always_ReturnsTrue()
         {
             // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -163,12 +147,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.IsTrue(result);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnsChildrenOfData()
+        public void ChildNodeObjects_WithContext_ReturnsChildrenOfData()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -207,6 +189,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
+            var mocks = new MockRepository();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
@@ -255,6 +238,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var assessmentSectionContext = new AssessmentSectionStateRootContext(assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
+                var mocks = new MockRepository();
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(assessmentSectionContext, treeView)).Return(menuBuilder);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
@@ -284,8 +268,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void CanRename_Always_ReturnsTrue()
         {
             // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -296,14 +278,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.IsTrue(canRename);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void OnNodeRenamed_WithData_SetProjectNameWithNotification()
         {
             // Setup
+            var mocks = new MockRepository();
             var observer = mocks.Stub<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -315,6 +296,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
+                
                 // Call
                 const string newName = "New Name";
                 info.OnNodeRenamed(assessmentSectionContext, newName);
@@ -330,19 +312,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void CanRemove_Always_ReturnsFalse()
         {
             // Setup
-            mocks.ReplayAll();
-
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
+                
                 // Call
                 bool canRemove = info.CanRemove(null, null);
 
                 // Assert
                 Assert.IsFalse(canRemove);
             }
-
-            mocks.VerifyAll();
         }
 
         private TreeNodeInfo GetInfo(RiskeerPlugin plugin)

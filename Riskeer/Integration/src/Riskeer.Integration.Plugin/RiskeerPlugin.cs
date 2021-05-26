@@ -905,20 +905,6 @@ namespace Riskeer.Integration.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return new TreeNodeInfo<AssessmentSection>
-            {
-                Text = assessmentSection => assessmentSection.Name,
-                Image = assessmentSection => RiskeerFormsResources.AssessmentSectionFolderIcon,
-                EnsureVisibleOnCreate = (assessmentSection, parent) => true,
-                ExpandOnCreate = assessmentSection => true,
-                ChildNodeObjects = AssessmentSectionChildNodeObjects,
-                ContextMenuStrip = AssessmentSectionContextMenuStrip,
-                CanRename = (assessmentSection, parentData) => true,
-                OnNodeRenamed = AssessmentSectionOnNodeRenamed,
-                CanRemove = (assessmentSection, parentNodeData) => true,
-                OnNodeRemoved = AssessmentSectionOnNodeRemoved
-            };
-
             yield return CreateStateRootTreeNodeInfo<AssessmentSectionStateRootContext>(
                 AssessmentSectionStateRootContextChildNodeObjects,
                 AssessmentSectionStateRootContextMenuStrip);
