@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Windows.Media;
 using Core.Common.Base.Data;
 using Core.Gui.Plugin;
 using NUnit.Framework;
@@ -35,22 +36,35 @@ namespace Core.Gui.Test.Plugin
             // Setup
             const string name = "Name";
             const string symbol = "Symbol";
+            var fontFamily = new FontFamily();
             Func<IProject, object> getRootData = o => new object();
 
             // Call
-            var stateInfo = new StateInfo(name, symbol, getRootData);
+            var stateInfo = new StateInfo(name, symbol, fontFamily, getRootData);
 
             // Assert
             Assert.AreEqual(name, stateInfo.Name);
             Assert.AreEqual(symbol, stateInfo.Symbol);
+            Assert.AreSame(fontFamily, stateInfo.FontFamily);
             Assert.AreSame(getRootData, stateInfo.GetRootData);
+        }
+
+        [Test]
+        public void Constructor_FontFamilyNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new StateInfo(string.Empty, string.Empty, null, project => project);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("fontFamily", exception.ParamName);
         }
 
         [Test]
         public void Constructor_GetRootDataNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new StateInfo(string.Empty, string.Empty, null);
+            void Call() => new StateInfo(string.Empty, string.Empty, new FontFamily(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);

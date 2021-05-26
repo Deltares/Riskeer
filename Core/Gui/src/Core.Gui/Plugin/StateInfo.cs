@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Windows.Media;
 using Core.Common.Base.Data;
 
 namespace Core.Gui.Plugin
@@ -34,13 +35,26 @@ namespace Core.Gui.Plugin
         /// </summary>
         /// <param name="name">The name of the state.</param>
         /// <param name="symbol">The symbol of the state.</param>
+        /// <param name="fontFamily">The font family of the symbol.</param>
         /// <param name="getRootData">The method for obtaining the root data of the state.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="getRootData"/> is <c>null</c>.</exception>
-        public StateInfo(string name, string symbol, Func<IProject, object> getRootData)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fontFamily"/>
+        /// or <paramref name="getRootData"/> is <c>null</c>.</exception>
+        public StateInfo(string name, string symbol, FontFamily fontFamily, Func<IProject, object> getRootData)
         {
+            if (fontFamily == null)
+            {
+                throw new ArgumentNullException(nameof(fontFamily));
+            }
+            
+            if (getRootData == null)
+            {
+                throw new ArgumentNullException(nameof(getRootData));
+            }
+            
             Name = name;
             Symbol = symbol;
-            GetRootData = getRootData ?? throw new ArgumentNullException(nameof(getRootData));
+            FontFamily = fontFamily;
+            GetRootData = getRootData;
         }
 
         /// <summary>
@@ -52,6 +66,11 @@ namespace Core.Gui.Plugin
         /// Gets the symbol of the state.
         /// </summary>
         public string Symbol { get; }
+
+        /// <summary>
+        /// Gets the font family of the symbol.
+        /// </summary>
+        public FontFamily FontFamily { get; }
 
         /// <summary>
         /// Gets the method for obtaining the root data of the state. Function arguments:

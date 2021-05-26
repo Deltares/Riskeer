@@ -26,6 +26,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+using System.Windows.Media;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
@@ -630,7 +631,7 @@ namespace Core.Gui.Test
             {
                 gui.Plugins.Add(new TestPlugin(new[]
                 {
-                    new StateInfo("Name", "Symbol", p => p)
+                    new StateInfo("Name", "Symbol", new FontFamily(), p => p)
                 }));
 
                 // Call

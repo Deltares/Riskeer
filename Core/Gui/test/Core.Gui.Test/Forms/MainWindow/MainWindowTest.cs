@@ -27,6 +27,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
@@ -590,7 +591,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             {
                 gui.Plugins.Add(new TestPlugin(new[]
                 {
-                    new StateInfo("Name", "Symbol", p => p)
+                    new StateInfo("Name", "Symbol", new FontFamily(), p => p)
                 }));
 
                 gui.Run();
@@ -627,8 +628,8 @@ namespace Core.Gui.Test.Forms.MainWindow
             {
                 gui.Plugins.Add(new TestPlugin(new[]
                 {
-                    new StateInfo("Name", "Symbol", p => p),
-                    new StateInfo("Name", "Symbol", p => new object())
+                    new StateInfo("Name", "Symbol", new FontFamily(), p => p),
+                    new StateInfo("Name", "Symbol", new FontFamily(), p => new object())
                 }));
 
                 gui.Run();
@@ -707,7 +708,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             {
                 gui.Plugins.Add(new TestPlugin(new[]
                 {
-                    new StateInfo("Name", "Symbol", p => p)
+                    new StateInfo("Name", "Symbol", new FontFamily(), p => p)
                 }));
 
                 gui.Run();
@@ -752,8 +753,8 @@ namespace Core.Gui.Test.Forms.MainWindow
             {
                 gui.Plugins.Add(new TestPlugin(new[]
                 {
-                    new StateInfo("Name", "Symbol", p => p),
-                    new StateInfo("Name", "Symbol", p => new object())
+                    new StateInfo("Name", "Symbol", new FontFamily(), p => p),
+                    new StateInfo("Name", "Symbol", new FontFamily(), p => new object())
                 }));
 
                 gui.Run();

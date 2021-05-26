@@ -28,6 +28,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Settings;
@@ -289,7 +290,7 @@ namespace Core.Gui.Forms.MainWindow
             applicationSelection = null;
         }
 
-        internal void AddStateButton(string text, string symbol, Func<IProject, object> getRootData)
+        internal void AddStateButton(string text, string symbol, FontFamily fontFamily, Func<IProject, object> getRootData)
         {
             var stateToggleButton = new ToggleButton
             {
@@ -298,7 +299,8 @@ namespace Core.Gui.Forms.MainWindow
                 Content = new TextBlock
                 {
                     Style = (Style) FindResource("ButtonLargeIconStyle"),
-                    Text = symbol
+                    Text = symbol,
+                    FontFamily = fontFamily
                 }
             };
 

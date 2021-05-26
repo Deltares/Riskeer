@@ -497,7 +497,7 @@ namespace Core.Gui
 
             foreach (StateInfo stateInfo in GetStateInfos())
             {
-                mainWindow.AddStateButton(stateInfo.Name, stateInfo.Symbol, stateInfo.GetRootData);
+                mainWindow.AddStateButton(stateInfo.Name, stateInfo.Symbol, stateInfo.FontFamily, stateInfo.GetRootData);
             }
 
             mainWindow.SubscribeToGui();

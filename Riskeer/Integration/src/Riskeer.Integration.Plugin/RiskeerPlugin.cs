@@ -114,6 +114,7 @@ using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
+using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Riskeer.Integration.Plugin
 {
@@ -273,7 +274,9 @@ namespace Riskeer.Integration.Plugin
 
         public override IEnumerable<StateInfo> GetStateInfos()
         {
-            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_AssessmentSection, "\uE94E", project =>
+            var fontFamily = new FontFamily(new Uri("pack://application:,,,/Riskeer.Integration.Plugin;component/Resources/"), "./#Deltares-Riskeer-Symbols");
+
+            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_AssessmentSection, "\uE900", fontFamily, project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {
@@ -285,7 +288,7 @@ namespace Riskeer.Integration.Plugin
                 return null;
             });
 
-            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_Calculations, "\uE91D", project =>
+            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_Calculations, "\uE901", fontFamily, project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {
@@ -295,7 +298,7 @@ namespace Riskeer.Integration.Plugin
                 return null;
             });
 
-            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_FailurePaths, "\uE953", project =>
+            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_FailurePaths, "\uE902", fontFamily, project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {
