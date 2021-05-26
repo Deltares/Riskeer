@@ -1675,87 +1675,6 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region AssessmentSection TreeNodeInfo
-
-        private static object[] AssessmentSectionChildNodeObjects(AssessmentSection nodeData)
-        {
-            var childNodes = new List<object>
-            {
-                new ReferenceLineContext(nodeData.ReferenceLine, nodeData),
-                new NormContext(nodeData.FailureMechanismContribution, nodeData),
-                new FailureMechanismContributionContext(nodeData.FailureMechanismContribution, nodeData),
-                new HydraulicBoundaryDatabaseContext(nodeData.HydraulicBoundaryDatabase, nodeData),
-                nodeData.BackgroundData,
-                nodeData.Comments
-            };
-
-            childNodes.AddRange(WrapFailureMechanismsInContexts(nodeData));
-            childNodes.Add(new AssemblyResultsContext(nodeData));
-
-            return childNodes.ToArray();
-        }
-
-        private static IEnumerable<object> WrapFailureMechanismsInContexts(IAssessmentSection assessmentSection)
-        {
-            return assessmentSection
-                   .GetFailureMechanisms()
-                   .Select(failureMechanism => failureMechanismAssociations
-                                               .First(a => a.Match(failureMechanism))
-                                               .Create(failureMechanism, assessmentSection))
-                   .ToArray();
-        }
-
-        private static void AssessmentSectionOnNodeRenamed(IAssessmentSection nodeData, string newName)
-        {
-            nodeData.Name = newName;
-            nodeData.NotifyObservers();
-        }
-
-        private static void AssessmentSectionOnNodeRemoved(IAssessmentSection nodeData, object parentNodeData)
-        {
-            var parentProject = (RiskeerProject) parentNodeData;
-            var assessmentSection = (AssessmentSection) nodeData;
-            parentProject.AssessmentSections.Remove(assessmentSection);
-            parentProject.NotifyObservers();
-        }
-
-        private ContextMenuStrip AssessmentSectionContextMenuStrip(AssessmentSection nodeData, object parentData, TreeViewControl treeViewControl)
-        {
-            var calculateAllItem = new StrictContextMenuItem(
-                RiskeerCommonFormsResources.Calculate_All,
-                Resources.AssessmentSection_Calculate_All_ToolTip,
-                RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) =>
-                {
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData));
-                });
-
-            var importItem = new StrictContextMenuItem(
-                CoreGuiResources.Import,
-                CoreGuiResources.Import_ToolTip,
-                CoreGuiResources.ImportIcon,
-                (sender, args) => assessmentSectionMerger.StartMerge(nodeData));
-
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddOpenItem()
-                      .AddSeparator()
-                      .AddCustomItem(importItem)
-                      .AddSeparator()
-                      .AddRenameItem()
-                      .AddSeparator()
-                      .AddCustomItem(calculateAllItem)
-                      .AddSeparator()
-                      .AddDeleteItem()
-                      .AddSeparator()
-                      .AddCollapseAllItem()
-                      .AddExpandAllItem()
-                      .AddSeparator()
-                      .AddPropertiesItem()
-                      .Build();
-        }
-
-        #endregion
-
         #region StateRoot TreeNodeInfo
 
         private static TreeNodeInfo<TContext> CreateStateRootTreeNodeInfo<TContext>(
@@ -1790,7 +1709,7 @@ namespace Riskeer.Integration.Plugin
 
         private static object[] AssessmentSectionStateRootContextChildNodeObjects(AssessmentSectionStateRootContext nodeData)
         {
-            var childNodes = new List<object>
+            return new object[]
             {
                 new ReferenceLineContext(nodeData.WrappedData.ReferenceLine, nodeData.WrappedData),
                 new NormContext(nodeData.WrappedData.FailureMechanismContribution, nodeData.WrappedData),
@@ -1798,8 +1717,6 @@ namespace Riskeer.Integration.Plugin
                 nodeData.WrappedData.BackgroundData,
                 nodeData.WrappedData.Comments
             };
-
-            return childNodes.ToArray();
         }
 
         private ContextMenuStrip AssessmentSectionStateRootContextMenuStrip(AssessmentSectionStateRootContext nodeData, object parentData, TreeViewControl treeViewControl)
