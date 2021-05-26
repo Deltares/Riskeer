@@ -542,7 +542,7 @@ namespace Core.Gui.Forms.MainWindow
                     Data = applicationSelection.Selection
                 };
 
-                viewController.ViewHost.AddToolView(propertyGrid, ToolViewLocation.Right, "\uE907");
+                viewController.ViewHost.AddToolView(propertyGrid, ToolViewLocation.Right, "\uE908");
             }
             else
             {
@@ -566,7 +566,7 @@ namespace Core.Gui.Forms.MainWindow
         {
             ProjectExplorer = new ProjectExplorer.ProjectExplorer(gui.ViewCommands, gui.GetTreeNodeInfos());
 
-            viewController.ViewHost.AddToolView(ProjectExplorer, ToolViewLocation.Left, "\uE906");
+            viewController.ViewHost.AddToolView(ProjectExplorer, ToolViewLocation.Left, "\uE907");
 
             UpdateProjectExplorer();
         }
@@ -584,14 +584,14 @@ namespace Core.Gui.Forms.MainWindow
         {
             MapLegendView = new MapLegendView(gui);
 
-            viewController.ViewHost.AddToolView(MapLegendView, ToolViewLocation.Left, "\uE909");
+            viewController.ViewHost.AddToolView(MapLegendView, ToolViewLocation.Left, "\uE90A");
         }
 
         private void InitChartLegendWindow()
         {
             ChartLegendView = new ChartLegendView(gui);
 
-            viewController.ViewHost.AddToolView(ChartLegendView, ToolViewLocation.Left, "\uE90A");
+            viewController.ViewHost.AddToolView(ChartLegendView, ToolViewLocation.Left, "\uE90B");
         }
 
         #endregion

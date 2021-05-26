@@ -7,7 +7,7 @@
 
     <Style x:Key="ButtonIconStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="TextAlignment" Value="Center" />
-        <Setter Property="FontFamily" Value="{StaticResource RiskeerFont}" />
+        <Setter Property="FontFamily" Value="{StaticResource Symbols}" />
         <Setter Property="FontSize" Value="20" />
     </Style>
 

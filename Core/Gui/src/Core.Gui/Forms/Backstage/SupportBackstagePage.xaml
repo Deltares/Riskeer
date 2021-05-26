@@ -34,7 +34,7 @@ All rights reserved.
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/Symbols/RiskeerSymbols.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/Symbols/Symbols.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/DeltaresGeneralStyle.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/DeltaresBackstageStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -54,7 +54,7 @@ All rights reserved.
             </Style>
 
             <Style x:Key="BigButtonIconStyle" TargetType="{x:Type TextBlock}">
-                <Setter Property="FontFamily" Value="{StaticResource RiskeerFont}" />
+                <Setter Property="FontFamily" Value="{StaticResource Symbols}" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="FontSize" Value="56" />
@@ -77,7 +77,7 @@ All rights reserved.
                                     <TextBlock FontSize="13" DockPanel.Dock="Bottom" HorizontalAlignment="Center">
                                         <ContentPresenter Content="{TemplateBinding Tag}" />
                                     </TextBlock>
-                                    <TextBlock FontFamily="{StaticResource RiskeerFont}"
+                                    <TextBlock FontFamily="{StaticResource Symbols}"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center" FontSize="40">
                                         <ContentPresenter />
@@ -133,21 +133,21 @@ All rights reserved.
                             Tag="{x:Static properties:Resources.VisitWebsite_DisplayName}"
                             Command="{x:Static commands:MainWindowCommands.OpenHelpdeskWaterWebsiteCommand}">
                         <TextBlock Style="{StaticResource BigButtonIconStyle}"
-                                   Text="&#xE903;"/>
+                                   Text="&#xE904;"/>
                     </Button>
 
                     <Button Style="{StaticResource BackstageBigButtonStyle}"
                             Tag="{x:Static properties:Resources.CallSupport_DisplayName}"
                             Command="{x:Static commands:MainWindowCommands.CallHelpdeskWaterWebsiteCommand}">
                         <TextBlock Style="{StaticResource BigButtonIconStyle}"
-                                   Text="&#xE904;"/>
+                                   Text="&#xE905;"/>
                     </Button>
     
                     <Button Style="{StaticResource BackstageBigButtonStyle}"
                             Tag="{x:Static properties:Resources.EmailSupport_DisplayName}"
                             Command="{x:Static commands:MainWindowCommands.EmailHelpdeskWaterWebsiteCommand}">
                         <TextBlock Style="{StaticResource BigButtonIconStyle}"
-                                   Text="&#xE905;"/>
+                                   Text="&#xE906;"/>
                     </Button>
                 </StackPanel>
             </StackPanel>

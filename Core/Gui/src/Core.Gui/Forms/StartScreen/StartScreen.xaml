@@ -41,7 +41,7 @@ All rights reserved.
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/DeltaresStyle.xaml" /> 
                 <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/DeltaresBackstageStyle.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/Symbols/RiskeerSymbols.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/Symbols/Symbols.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="BigButtonStyle" TargetType="{x:Type Button}">
@@ -157,7 +157,7 @@ All rights reserved.
                                        Command="{Binding NewProjectCommand}"
                                        IsDefault="True">
                             <TextBlock Text="&#xE900;"
-                                       FontFamily="{StaticResource RiskeerFont}"
+                                       FontFamily="{StaticResource Symbols}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center" FontSize="56" />
                         </Button>

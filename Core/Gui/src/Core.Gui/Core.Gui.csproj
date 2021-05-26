@@ -61,16 +61,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <None Remove="Style\DeltaresBackstageStyle.xaml" />
     <Page Include="Style\DeltaresBackstageStyle.xaml" />
-    <None Remove="Style\DeltaresButtonStyle.xaml" />
     <Page Include="Style\DeltaresButtonStyle.xaml" />
-    <None Remove="Style\DeltaresGeneralStyle.xaml" />
     <Page Include="Style\DeltaresGeneralStyle.xaml" />
-    <None Remove="Style\DeltaresStyle.xaml" />
     <Page Include="Style\DeltaresStyle.xaml" />
-    <None Remove="Style\Symbols\RiskeerSymbols.xaml" />
-    <Page Include="Style\Symbols\RiskeerSymbols.xaml" />
+    <Page Include="Style\Symbols\Symbols.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\application_import_blue.ico" />
@@ -90,8 +85,7 @@
     <Resource Include="Resources\PropertiesHS.png" />
     <Resource Include="Resources\Riskeer.ico" />
     <Resource Include="Resources\SplashScreenBackground.png" />
-    <None Remove="Style\Symbols\Deltares-Riskeer-Symbols.ttf" />
-    <Resource Include="Style\Symbols\Deltares-Riskeer-Symbols.ttf" />
+    <Resource Include="Style\Symbols\Symbols.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\arrow-000-medium-question-mark.ico" />

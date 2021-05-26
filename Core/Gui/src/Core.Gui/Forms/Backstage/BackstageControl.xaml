@@ -148,7 +148,7 @@ All rights reserved.
                         Command="{x:Static commands:MainWindowCommands.ToggleBackstageCommand}">
                     <TextBlock Style="{StaticResource ButtonLargeIconStyle}"
                                FontSize="42"
-                               Text="&#xE916;" />
+                               Text="&#xE903;" />
                 </Button>
 
                 <controls:OneWayToggleButton Style="{StaticResource BackstageToggleButtonStyle}"

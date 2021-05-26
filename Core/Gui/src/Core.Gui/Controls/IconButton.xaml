@@ -31,7 +31,7 @@ All rights reserved.
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/DeltaresGeneralStyle.xaml" /> 
-                <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/Symbols/RiskeerSymbols.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/Symbols/Symbols.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Button.Resources>
@@ -62,7 +62,7 @@ All rights reserved.
                         <Border Padding="{Binding Padding, RelativeSource={RelativeSource TemplatedParent}}">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Foreground="{Binding Foreground, ElementName=ButtonParent}"
-                                           FontFamily="{StaticResource RiskeerFont}"
+                                           FontFamily="{StaticResource Symbols}"
                                            FontSize="{Binding IconSize, ElementName=ButtonParent}"
                                            Text="{Binding Icon,  ElementName=ButtonParent}" />
                                 <TextBlock Foreground="{Binding Foreground, ElementName=ButtonParent}"

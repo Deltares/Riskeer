@@ -27,7 +27,7 @@ All rights reserved.
                     xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:startScreen="clr-namespace:Core.Gui.Forms.StartScreen">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/Symbols/RiskeerSymbols.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/Symbols/Symbols.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Color x:Key="DeltaresBlue">#008BBF</Color>

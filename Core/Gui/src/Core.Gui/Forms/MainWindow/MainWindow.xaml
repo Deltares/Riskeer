@@ -124,35 +124,35 @@ All rights reserved.
                                   ToolTip="{x:Static properties:Resources.ViewStateBar_ProjectExplorer_ToolTip}"
                                   Command="{Binding Path=ToggleProjectExplorerCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}"
                                   AutomationProperties.AutomationId="ViewStateButtonBarShowProjectExplorer">
-                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE906;"/>
+                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE907;"/>
                     </ToggleButton>
                     <ToggleButton Name="ButtonShowProperties"
                                   Style="{StaticResource ViewStateBarToggleButtonStyle}"
                                   ToolTip="{x:Static properties:Resources.ViewStateBar_Properties_ToolTip}"
                                   Command="{Binding Path=TogglePropertyGridViewCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}"
                                   AutomationProperties.AutomationId="ViewStateButtonBarShowProperties">
-                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE907;"/>
+                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE908;"/>
                     </ToggleButton>
                     <ToggleButton Name="ButtonShowMessages"
                                   Style="{StaticResource ViewStateBarToggleButtonStyle}"
                                   ToolTip="{x:Static properties:Resources.ViewStateBar_Messages_ToolTip}"
                                   Command="{Binding Path=ToggleMessageWindowCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}"
                                   AutomationProperties.AutomationId="ViewStateButtonBarShowMessages">
-                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE908;"/>
+                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE909;"/>
                     </ToggleButton>
                     <ToggleButton Name="ButtonShowMapLegendView"
                                   Style="{StaticResource ViewStateBarToggleButtonStyle}"
                                   ToolTip="{x:Static properties:Resources.ViewStateBar_Map_ToolTip}"
                                   Command="{Binding Path=ToggleMapLegendViewCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}"
                                   AutomationProperties.AutomationId="ViewStateButtonBarShowMap">
-                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE909;"/>
+                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE90A;"/>
                     </ToggleButton>
                     <ToggleButton Name="ButtonShowChartLegendView"
                                   Style="{StaticResource ViewStateBarToggleButtonStyle}"
                                   ToolTip="{x:Static properties:Resources.ViewStateBar_Chart_ToolTip}"
                                   Command="{Binding Path=ToggleChartLegendViewCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=metro:MetroWindow}}"
                                   AutomationProperties.AutomationId="ViewStateButtonBarShowChart">
-                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE90A;"/>
+                        <TextBlock Style="{StaticResource ButtonIconStyle}" Text="&#xE90B;"/>
                     </ToggleButton>
                 </StackPanel>
             </DockPanel>
