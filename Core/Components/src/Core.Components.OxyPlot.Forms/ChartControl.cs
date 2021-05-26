@@ -39,6 +39,7 @@ namespace Core.Components.OxyPlot.Forms
     /// </summary>
     public partial class ChartControl : UserControl, IChartControl
     {
+        private static readonly Font font = FontHelper.CreateFont(Resources.Symbols);
         private readonly RecursiveObserver<ChartDataCollection, ChartDataCollection> chartDataCollectionObserver;
         private readonly List<DrawnChartData> drawnChartDataList = new List<DrawnChartData>();
 
@@ -152,8 +153,6 @@ namespace Core.Components.OxyPlot.Forms
 
         private void SetFonts()
         {
-            Font font = FontHelper.CreateFont(Resources.Symbols);
-
             panToolStripButton.Font = font;
             zoomToRectangleToolStripButton.Font = font;
             zoomToVisibleSeriesToolStripButton.Font = font;

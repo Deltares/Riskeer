@@ -48,6 +48,7 @@ namespace Core.Components.DotSpatial.Forms
     public partial class MapControl : UserControl, IMapControl
     {
         private const int updateTimerInterval = 10;
+        private static readonly Font font = FontHelper.CreateFont(Resources.Symbols);
         private readonly ILog log = LogManager.GetLogger(typeof(MapControl));
         private readonly Cursor defaultCursor = Cursors.Default;
         private readonly RecursiveObserver<MapDataCollection, MapDataCollection> mapDataCollectionObserver;
@@ -179,8 +180,6 @@ namespace Core.Components.DotSpatial.Forms
 
         private void SetFonts()
         {
-            Font font = FontHelper.CreateFont(Resources.Symbols);
-
             panToolStripButton.Font = font;
             zoomToRectangleToolStripButton.Font = font;
             zoomToVisibleLayersToolStripButton.Font = font;

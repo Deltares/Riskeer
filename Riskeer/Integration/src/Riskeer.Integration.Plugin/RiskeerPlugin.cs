@@ -243,6 +243,7 @@ namespace Riskeer.Integration.Plugin
 
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
         private AssessmentSectionMerger assessmentSectionMerger;
+        private static readonly FontFamily fontFamily = new FontFamily(new Uri("pack://application:,,,/Riskeer.Integration.Plugin;component/Resources/"), "./#Deltares-Riskeer-Symbols");
 
         public override IGui Gui
         {
@@ -274,8 +275,6 @@ namespace Riskeer.Integration.Plugin
 
         public override IEnumerable<StateInfo> GetStateInfos()
         {
-            var fontFamily = new FontFamily(new Uri("pack://application:,,,/Riskeer.Integration.Plugin;component/Resources/"), "./#Deltares-Riskeer-Symbols");
-
             yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_AssessmentSection, "\uE900", fontFamily, project =>
             {
                 if (project is RiskeerProject riskeerProject)
