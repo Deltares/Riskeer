@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -39,7 +40,9 @@ namespace Core.Components.OxyPlot.Forms
     /// </summary>
     public partial class ChartControl : UserControl, IChartControl
     {
-        private static readonly Font font = FontHelper.CreateFont(Resources.Symbols);
+        private static readonly PrivateFontCollection privateFontCollection = new PrivateFontCollection();
+        private static readonly Font font = FontHelper.CreateFont(Resources.Symbols, privateFontCollection);
+
         private readonly RecursiveObserver<ChartDataCollection, ChartDataCollection> chartDataCollectionObserver;
         private readonly List<DrawnChartData> drawnChartDataList = new List<DrawnChartData>();
 

@@ -22,6 +22,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Text;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace Core.Common.Util.Drawing
@@ -35,27 +36,31 @@ namespace Core.Common.Util.Drawing
         /// Creates a <see cref="Font"/> based on the provided byte array.
         /// </summary>
         /// <param name="fontData">The data to create the <see cref="Font"/> from.</param>
+        /// <param name="privateFontCollection">The container that will become the owner of the created <see cref="Font"/>.</param>
         /// <returns>The created <see cref="Font"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fontData"/> is <c>null</c>.</exception>
-        public static Font CreateFont(byte[] fontData)
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <remarks>The <paramref name="privateFontCollection"/> should be in scope (alive) at the calling side in order to prevent unintended garbage collection.</remarks>
+        public static Font CreateFont(byte[] fontData, PrivateFontCollection privateFontCollection)
         {
             if (fontData == null)
             {
                 throw new ArgumentNullException(nameof(fontData));
             }
 
+            if (privateFontCollection == null)
+            {
+                throw new ArgumentNullException(nameof(privateFontCollection));
+            }
+
             uint dummy = 0;
 
-            using (var fonts = new PrivateFontCollection())
-            {
-                IntPtr fontPtr = Marshal.AllocCoTaskMem(fontData.Length);
-                Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
-                fonts.AddMemoryFont(fontPtr, fontData.Length);
-                AddFontMemResourceEx(fontPtr, (uint) fontData.Length, IntPtr.Zero, ref dummy);
-                Marshal.FreeCoTaskMem(fontPtr);
+            IntPtr fontPtr = Marshal.AllocCoTaskMem(fontData.Length);
+            Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
+            privateFontCollection.AddMemoryFont(fontPtr, fontData.Length);
+            AddFontMemResourceEx(fontPtr, (uint) fontData.Length, IntPtr.Zero, ref dummy);
+            Marshal.FreeCoTaskMem(fontPtr);
 
-                return new Font(fonts.Families[0], 14.0F);
-            }
+            return new Font(privateFontCollection.Families.Last(), 14.0F);
         }
 
         [DllImport("gdi32.dll")]

@@ -21,6 +21,7 @@
 
 using System;
 using System.Drawing;
+using System.Drawing.Text;
 using Core.Common.Util.Drawing;
 using Core.Common.Util.Test.Properties;
 using NUnit.Framework;
@@ -33,23 +34,38 @@ namespace Core.Common.Util.Test.Drawing
         [Test]
         public void CreateFont_ValidFontData_CreatesExpectedFont()
         {
+            // Setup
+            var privateFontCollection = new PrivateFontCollection();
+
             // Call
-            Font font = FontHelper.CreateFont(Resources.ValidFont);
+            Font font = FontHelper.CreateFont(Resources.ValidFont, privateFontCollection);
 
             // Assert
             Assert.IsNotNull(font);
             Assert.AreEqual(14, font.Size);
+            Assert.AreEqual(1, privateFontCollection.Families.Length);
         }
 
         [Test]
         public void CreateFont_FontDataNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FontHelper.CreateFont(null);
+            void Call() => FontHelper.CreateFont(null, new PrivateFontCollection());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("fontData", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateFont_PrivateFontCollectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FontHelper.CreateFont(Resources.ValidFont, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("privateFontCollection", exception.ParamName);
         }
     }
 }

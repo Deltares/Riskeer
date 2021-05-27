@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -48,7 +49,10 @@ namespace Core.Components.DotSpatial.Forms
     public partial class MapControl : UserControl, IMapControl
     {
         private const int updateTimerInterval = 10;
-        private static readonly Font font = FontHelper.CreateFont(Resources.Symbols);
+
+        private static readonly PrivateFontCollection privateFontCollection = new PrivateFontCollection();
+        private static readonly Font font = FontHelper.CreateFont(Resources.Symbols, privateFontCollection);
+
         private readonly ILog log = LogManager.GetLogger(typeof(MapControl));
         private readonly Cursor defaultCursor = Cursors.Default;
         private readonly RecursiveObserver<MapDataCollection, MapDataCollection> mapDataCollectionObserver;
