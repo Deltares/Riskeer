@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO.Packaging;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -244,7 +245,7 @@ namespace Riskeer.Integration.Plugin
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
         private AssessmentSectionMerger assessmentSectionMerger;
         private static readonly FontFamily fontFamily = new FontFamily(
-            new Uri($"{System.IO.Packaging.PackUriHelper.UriSchemePack}://application:,,,/Riskeer.Integration.Plugin;component/Resources/"),
+            new Uri($"{PackUriHelper.UriSchemePack}://application:,,,/Riskeer.Integration.Plugin;component/Resources/"),
             "./#Symbols");
 
         public override IGui Gui
