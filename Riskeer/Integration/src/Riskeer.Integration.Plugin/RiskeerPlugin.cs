@@ -243,7 +243,9 @@ namespace Riskeer.Integration.Plugin
 
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
         private AssessmentSectionMerger assessmentSectionMerger;
-        private static readonly FontFamily fontFamily = new FontFamily(new Uri("pack://application:,,,/Riskeer.Integration.Plugin;component/Resources/"), "./#Symbols");
+        private static readonly FontFamily fontFamily = new FontFamily(
+            new Uri($"{System.IO.Packaging.PackUriHelper.UriSchemePack}://application:,,,/Riskeer.Integration.Plugin;component/Resources/"),
+            "./#Symbols");
 
         public override IGui Gui
         {
