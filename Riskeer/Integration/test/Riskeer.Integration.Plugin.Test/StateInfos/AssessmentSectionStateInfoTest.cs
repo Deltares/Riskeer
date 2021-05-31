@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
         }
 
         [Test]
-        public void GetRootData_ProjectMock_ReturnsNull()
+        public void GetRootData_OtherThanRiskeerProject_ReturnsNull()
         {
             // Setup
             var mockRepository = new MockRepository();
