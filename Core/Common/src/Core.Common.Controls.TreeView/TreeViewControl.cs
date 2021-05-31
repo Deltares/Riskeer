@@ -161,7 +161,7 @@ namespace Core.Common.Controls.TreeView
                     return;
                 }
 
-                AddRootNodes();
+                AddRootNode(data);
 
                 treeView.SelectedNode = treeView.Nodes.Count > 0 ? treeView.Nodes[0] : null;
             }
@@ -516,21 +516,6 @@ namespace Core.Common.Controls.TreeView
                              .Cast<TreeNode>()
                              .Select(n => GetNodeByTag(n, tag))
                              .FirstOrDefault(node => node != null);
-        }
-
-        private void AddRootNodes()
-        {
-            if (data is IEnumerable<object> rootObjects)
-            {
-                foreach (object rootObject in rootObjects)
-                {
-                    AddRootNode(rootObject);
-                }
-            }
-            else
-            {
-                AddRootNode(data);
-            }
         }
 
         private void AddRootNode(object rootObject)
