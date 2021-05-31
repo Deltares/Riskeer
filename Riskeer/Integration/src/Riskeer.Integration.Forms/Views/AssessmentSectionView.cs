@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Forms;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Factories;
@@ -33,7 +32,7 @@ namespace Riskeer.Integration.Forms.Views
     /// <summary>
     /// This class is a view showing map data for an assessment section.
     /// </summary>
-    public partial class AssessmentSectionView : AssessmentSectionReferenceLineView, IMapView
+    public partial class AssessmentSectionView : AssessmentSectionReferenceLineView
     {
         private readonly IAssessmentSection assessmentSection;
 

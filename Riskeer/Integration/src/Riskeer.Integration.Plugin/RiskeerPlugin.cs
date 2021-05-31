@@ -508,7 +508,7 @@ namespace Riskeer.Integration.Plugin
                 Image = RiskeerFormsResources.Map,
                 CreateInstance = section => new AssessmentSectionView(section)
             };
-            
+
             yield return new ViewInfo<AssessmentSectionStateRootContext, AssessmentSectionReferenceLineView>
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
