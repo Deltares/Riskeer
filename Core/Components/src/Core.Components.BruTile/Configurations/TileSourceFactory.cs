@@ -111,10 +111,7 @@ namespace Core.Components.BruTile.Configurations
 
         private static void AddSupportForAllSecurityProtocols()
         {
-            ServicePointManager.SecurityProtocol |=
-                SecurityProtocolType.Ssl3 |
-                SecurityProtocolType.Tls |
-                SecurityProtocolType.Tls11 |
+            ServicePointManager.SecurityProtocol |= 
                 SecurityProtocolType.Tls12;
         }
     }
