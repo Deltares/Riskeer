@@ -6,9 +6,6 @@
     <None Remove="test-data\**" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Resources\ValidFont.ttf" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />

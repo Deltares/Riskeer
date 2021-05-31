@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO.Packaging;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -103,7 +104,7 @@ namespace Core.Components.GraphSharp.Forms
 
             var myResourceDictionary = new ResourceDictionary
             {
-                Source = new Uri("pack://application:,,,/Core.Components.GraphSharp.Forms;component/Templates/PointedTreeGraphTemplate.xaml", UriKind.Absolute)
+                Source = new Uri($"{PackUriHelper.UriSchemePack}://application:,,,/Core.Components.GraphSharp.Forms;component/Templates/PointedTreeGraphTemplate.xaml", UriKind.Absolute)
             };
             zoomControl.Resources.MergedDictionaries.Add(myResourceDictionary);
             wpfElementHost.Child = zoomControl;
@@ -158,8 +159,7 @@ namespace Core.Components.GraphSharp.Forms
         {
             if (e.PropertyName == nameof(PointedTreeElementVertex.IsSelected))
             {
-                var changedVertex = sender as PointedTreeElementVertex;
-                if (changedVertex != null && changedVertex.IsSelected)
+                if (sender is PointedTreeElementVertex changedVertex && changedVertex.IsSelected)
                 {
                     foreach (DrawnGraphNode drawnGraphNode in drawnGraphNodeList)
                     {

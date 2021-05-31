@@ -1,9 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
-    <None Remove="Resources\Deltares-Riskeer-Symbols.ttf" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\Symbols.ttf" />
   </ItemGroup>
   <ItemGroup>
