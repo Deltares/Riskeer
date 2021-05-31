@@ -55,7 +55,7 @@ namespace Riskeer.Storage.Core
 
             try
             {
-                string filePath = Path.GetTempFileName();
+                string filePath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
                 byte[] computeHash = ComputeHash(entity, filePath);
 
