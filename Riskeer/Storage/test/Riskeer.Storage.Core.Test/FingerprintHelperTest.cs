@@ -143,7 +143,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Given
             var random = new Random(42);
-            const int arraySize = 100000000;
+            const int arraySize = 1000000;
             var array1 = new byte[arraySize];
             var array2 = new byte[arraySize];
             random.NextBytes(array1);
@@ -155,7 +155,7 @@ namespace Riskeer.Storage.Core.Test
             // When
             var stopwatch = new Stopwatch();
             long timeToBeat = 0, actualTime = 0;
-            for (var i = 0; i < 100000; i++)
+            for (var i = 0; i < 10000; i++)
             {
                 stopwatch.Start();
                 Assert.IsFalse(SlowBaselineLinqEquality(array1, array2));
