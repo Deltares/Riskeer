@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
@@ -28,8 +27,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Integration.Data;
-using Riskeer.Integration.Forms.Properties;
 
 namespace Riskeer.Integration.Forms.Views
 {
@@ -60,11 +57,6 @@ namespace Riskeer.Integration.Forms.Views
         /// is <c>null</c>.</exception>
         public AssessmentSectionView(IAssessmentSection assessmentSection) : base(assessmentSection)
         {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             InitializeComponent();
 
             this.assessmentSection = assessmentSection;

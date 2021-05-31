@@ -58,7 +58,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.IsInstanceOf<IMapView>(view);
                 Assert.IsNull(view.Data);
 
-                Assert.AreEqual(1, view.Controls.Count);
+                Assert.AreEqual(2, view.Controls.Count);
                 Assert.IsInstanceOf<RiskeerMapControl>(view.Controls[0]);
                 Assert.AreSame(view.Map, ((RiskeerMapControl) view.Controls[0]).MapControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
@@ -70,10 +70,10 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssessmentSectionView(null);
+            void Call() => new AssessmentSectionView(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
