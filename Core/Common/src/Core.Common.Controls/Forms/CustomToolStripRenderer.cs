@@ -1,0 +1,56 @@
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+//
+// This file is part of Riskeer.
+//
+// Riskeer is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace Core.Common.Controls.Forms
+{
+    /// <summary>
+    /// Custom tool strip renderer.
+    /// </summary>
+    public class CustomToolStripRenderer : ToolStripProfessionalRenderer
+    {
+        protected override void OnRenderButtonBackground(ToolStripItemRenderEventArgs e)
+        {
+            if (e.Item is ToolStripButton btn)
+            {
+                if (btn.Checked)
+                {
+                    var bounds = new Rectangle(Point.Empty, e.Item.Size);
+
+                    e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(228, 228, 223)), bounds);
+                    e.Graphics.DrawRectangle(new Pen(Color.FromArgb(210, 210, 202)), bounds);
+
+                    btn.ForeColor = Color.FromArgb(0, 139, 191);
+                }
+                else
+                {
+                    btn.ForeColor = Color.Black;
+                }
+
+                return;
+            }
+
+            base.OnRenderButtonBackground(e);
+        }
+    }
+}
