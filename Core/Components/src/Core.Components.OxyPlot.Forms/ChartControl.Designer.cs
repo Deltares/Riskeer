@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using System.Drawing;
+using Core.Common.Controls.Forms;
 
 namespace Core.Components.OxyPlot.Forms
 {
@@ -54,6 +56,7 @@ namespace Core.Components.OxyPlot.Forms
             this.toolStrip.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.toolStrip.BackColor = Color.FromArgb(241, 241, 238);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.panToolStripButton,
             this.zoomToRectangleToolStripButton,
@@ -64,6 +67,7 @@ namespace Core.Components.OxyPlot.Forms
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(28, 387);
             this.toolStrip.TabIndex = 0;
+            this.toolStrip.Renderer = new CustomToolStripRenderer();
             // 
             // panToolStripButton
             // 
