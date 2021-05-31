@@ -508,6 +508,13 @@ namespace Riskeer.Integration.Plugin
                 Image = RiskeerFormsResources.Map,
                 CreateInstance = section => new AssessmentSectionView(section)
             };
+            
+            yield return new ViewInfo<AssessmentSectionStateRootContext, AssessmentSectionBaseView>
+            {
+                GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
+                Image = RiskeerFormsResources.Map,
+                CreateInstance = context => new AssessmentSectionBaseView(context.WrappedData)
+            };
 
             yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<MacroStabilityOutwardsFailureMechanismContext, MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>(
                 context => new FailureMechanismWithDetailedAssessmentView<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>(
