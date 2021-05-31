@@ -64,10 +64,10 @@ namespace Riskeer.Integration.Forms.Views
 
             hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
 
-            MapDataCollection.Add(hydraulicBoundaryLocationsMapData);
+            //MapDataCollection.Add(hydraulicBoundaryLocationsMapData);
 
-            SetAllMapDataFeatures();
-            riskeerMapControl.SetAllData(MapDataCollection, assessmentSection.BackgroundData);
+            //SetAllMapDataFeatures();
+            //riskeerMapControl.SetAllData(MapDataCollection, assessmentSection.BackgroundData);
         }
 
         protected override void Dispose(bool disposing)
