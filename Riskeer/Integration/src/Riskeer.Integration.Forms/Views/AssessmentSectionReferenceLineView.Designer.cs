@@ -21,7 +21,7 @@
 
 namespace Riskeer.Integration.Forms.Views
 {
-    partial class AssessmentSectionBaseView
+    partial class AssessmentSectionReferenceLineView
     {
         /// <summary> 
         /// Required designer variable.
@@ -52,7 +52,7 @@ namespace Riskeer.Integration.Forms.Views
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.riskeerMapControl);
-            this.Name = "AssessmentSectionBaseView";
+            this.Name = "AssessmentSectionReferenceLineView";
             this.ResumeLayout(false);
 
         }

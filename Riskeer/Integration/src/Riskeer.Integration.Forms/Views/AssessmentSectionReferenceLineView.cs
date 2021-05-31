@@ -33,7 +33,7 @@ namespace Riskeer.Integration.Forms.Views
     /// <summary>
     /// This class is a view showing map data for an assessment section.
     /// </summary>
-    public partial class AssessmentSectionBaseView : UserControl, IMapView
+    public partial class AssessmentSectionReferenceLineView : UserControl, IMapView
     {
         private readonly AssessmentSection assessmentSection;
 
@@ -43,12 +43,12 @@ namespace Riskeer.Integration.Forms.Views
         private Observer referenceLineObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionBaseView"/>.
+        /// Creates a new instance of <see cref="AssessmentSectionReferenceLineView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
-        public AssessmentSectionBaseView(AssessmentSection assessmentSection)
+        public AssessmentSectionReferenceLineView(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
