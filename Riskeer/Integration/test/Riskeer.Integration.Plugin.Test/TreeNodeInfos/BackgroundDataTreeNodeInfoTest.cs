@@ -44,7 +44,9 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Util.TypeConverters;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Dialogs;
+using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -241,7 +243,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var backgroundData = new BackgroundData(new TestBackgroundDataConfiguration());
 
             var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(new AssessmentSection(AssessmentSectionComposition.Dike));
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mockRepository.Stub<IGui>();
@@ -256,7 +258,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     plugin.Gui = gui;
 
                     // Call
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(backgroundData, assessmentSection, treeViewControl))
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(backgroundData, assessmentSectionStateRootContext, treeViewControl))
                     {
                         const string expectedItemText = "&Selecteren...";
                         const string expectedItemTooltip = "Selecteer een achtergrondkaart.";
@@ -312,7 +314,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(backgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
-                var assessmentSection = new AssessmentSectionStub();
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+                var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(assessmentSection);
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
 
                 DialogBoxHandler = (name, wnd) =>
@@ -332,7 +335,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundData, assessmentSection, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundData, assessmentSectionStateRootContext, treeViewControl))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
@@ -373,7 +376,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(backgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
-                var assessmentSection = new AssessmentSectionStub();
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+                var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(assessmentSection);
                 assessmentSection.Attach(assessmentSectionObserver);
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
 
@@ -389,7 +393,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundData, assessmentSection, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(backgroundData, assessmentSectionStateRootContext, treeViewControl))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
@@ -416,7 +420,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             WmtsMapData newMapData = WmtsMapDataTestHelper.CreateDefaultPdokMapData();
             BackgroundData newBackgroundData = BackgroundDataConverter.ConvertTo(newMapData);
 
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(assessmentSection);
 
             using (new UseCustomSettingsHelper(new TestSettingsHelper
             {
@@ -457,7 +462,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundData, assessmentSection, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundData, assessmentSectionStateRootContext, treeViewControl))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
@@ -481,7 +486,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             WmtsMapData mapData = WmtsMapDataTestHelper.CreateUnconnectedMapData();
 
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(assessmentSection);
 
             const WellKnownTileSource wellKnownTileSource = WellKnownTileSource.BingAerial;
             var newMapData = new WellKnownTileSourceMapData(wellKnownTileSource);
@@ -525,7 +531,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundData, assessmentSection, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundData, assessmentSectionStateRootContext, treeViewControl))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();
@@ -571,7 +577,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(newBackgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 
-                var assessmentSection = new AssessmentSectionStub();
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+                var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(assessmentSection);
                 assessmentSection.Attach(assessmentSectionObserver);
                 assessmentSection.BackgroundData.Attach(backgroundDataObserver);
 
@@ -587,7 +594,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundData, assessmentSection, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(newBackgroundData, assessmentSectionStateRootContext, treeViewControl))
                 {
                     // When
                     contextMenuStrip.Items[selectContextMenuIndex].PerformClick();

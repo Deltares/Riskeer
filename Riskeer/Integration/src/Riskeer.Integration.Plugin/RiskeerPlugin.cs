@@ -109,13 +109,13 @@ using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using CoreGuiResources = Core.Gui.Properties.Resources;
+using FontFamily = System.Windows.Media.FontFamily;
 using RiskeerDataResources = Riskeer.Integration.Data.Properties.Resources;
 using RiskeerFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
-using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Riskeer.Integration.Plugin
 {
@@ -242,11 +242,12 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
-        private AssessmentSectionMerger assessmentSectionMerger;
         private static readonly FontFamily fontFamily = new FontFamily(
             new Uri($"{PackUriHelper.UriSchemePack}://application:,,,/Riskeer.Integration.Plugin;component/Resources/"),
             "./#Symbols");
+
+        private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
+        private AssessmentSectionMerger assessmentSectionMerger;
 
         public override IGui Gui
         {
@@ -1635,12 +1636,12 @@ namespace Riskeer.Integration.Plugin
 
         private ContextMenuStrip BackgroundDataMenuStrip(BackgroundData nodeData, object parentData, TreeViewControl treeViewControl)
         {
-            var assessmentSection = parentData as IAssessmentSection;
+            var assessmentSectionStateRootContext = (AssessmentSectionStateRootContext) parentData;
 
             var mapDataItem = new StrictContextMenuItem(
                 Resources.BackgroundData_SelectMapData,
                 Resources.BackgroundData_SelectMapData_Tooltip,
-                RiskeerCommonFormsResources.MapsIcon, (sender, args) => SelectMapData(assessmentSection, nodeData));
+                RiskeerCommonFormsResources.MapsIcon, (sender, args) => SelectMapData(assessmentSectionStateRootContext.WrappedData, nodeData));
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(mapDataItem)
@@ -1651,11 +1652,6 @@ namespace Riskeer.Integration.Plugin
 
         private void SelectMapData(IAssessmentSection assessmentSection, BackgroundData backgroundData)
         {
-            if (assessmentSection == null)
-            {
-                return;
-            }
-
             ImageBasedMapData currentData = BackgroundDataConverter.ConvertFrom(backgroundData);
             using (var dialog = new BackgroundMapDataSelectionDialog(Gui.MainWindow, currentData))
             {
