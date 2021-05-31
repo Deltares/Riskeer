@@ -24,18 +24,18 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Factories;
-using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Properties;
 
 namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
-    /// This class is a view showing map data for an assessment section.
+    /// This class is a view showing reference line map data for an assessment section.
     /// </summary>
     public partial class AssessmentSectionReferenceLineView : UserControl, IMapView
     {
-        private readonly AssessmentSection assessmentSection;
+        private readonly IAssessmentSection assessmentSection;
 
         private readonly MapLineData referenceLineMapData;
 
@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Forms.Views
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
-        public AssessmentSectionReferenceLineView(AssessmentSection assessmentSection)
+        public AssessmentSectionReferenceLineView(IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
@@ -61,13 +61,13 @@ namespace Riskeer.Integration.Forms.Views
 
             CreateObservers();
 
-            var mapDataCollection = new MapDataCollection(Resources.AssessmentSectionMap_DisplayName);
+            MapDataCollection = new MapDataCollection(Resources.AssessmentSectionMap_DisplayName);
             referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
 
-            mapDataCollection.Add(referenceLineMapData);
+            MapDataCollection.Add(referenceLineMapData);
 
             SetAllMapDataFeatures();
-            riskeerMapControl.SetAllData(mapDataCollection, assessmentSection.BackgroundData);
+            riskeerMapControl.SetAllData(MapDataCollection, assessmentSection.BackgroundData);
         }
 
         public object Data { get; set; }
@@ -79,6 +79,8 @@ namespace Riskeer.Integration.Forms.Views
                 return riskeerMapControl.MapControl;
             }
         }
+
+        protected MapDataCollection MapDataCollection { get; }
 
         protected override void Dispose(bool disposing)
         {

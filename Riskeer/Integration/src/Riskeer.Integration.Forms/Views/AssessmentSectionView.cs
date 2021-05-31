@@ -28,6 +28,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Properties;
 
 namespace Riskeer.Integration.Forms.Views
@@ -35,15 +36,12 @@ namespace Riskeer.Integration.Forms.Views
     /// <summary>
     /// This class is a view showing map data for an assessment section.
     /// </summary>
-    public partial class AssessmentSectionView : UserControl, IMapView
+    public partial class AssessmentSectionView : AssessmentSectionReferenceLineView, IMapView
     {
         private readonly IAssessmentSection assessmentSection;
 
-        private readonly MapLineData referenceLineMapData;
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
 
-        private Observer assessmentSectionObserver;
-        private Observer referenceLineObserver;
         private Observer hydraulicBoundaryLocationsObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
@@ -60,7 +58,7 @@ namespace Riskeer.Integration.Forms.Views
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
-        public AssessmentSectionView(IAssessmentSection assessmentSection)
+        public AssessmentSectionView(IAssessmentSection assessmentSection) : base(assessmentSection)
         {
             if (assessmentSection == null)
             {
@@ -73,31 +71,16 @@ namespace Riskeer.Integration.Forms.Views
 
             CreateObservers();
 
-            var mapDataCollection = new MapDataCollection(Resources.AssessmentSectionMap_DisplayName);
-            referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
 
-            mapDataCollection.Add(referenceLineMapData);
-            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
+            MapDataCollection.Add(hydraulicBoundaryLocationsMapData);
 
             SetAllMapDataFeatures();
-            riskeerMapControl.SetAllData(mapDataCollection, assessmentSection.BackgroundData);
-        }
-
-        public object Data { get; set; }
-
-        public IMapControl Map
-        {
-            get
-            {
-                return riskeerMapControl.MapControl;
-            }
+            riskeerMapControl.SetAllData(MapDataCollection, assessmentSection.BackgroundData);
         }
 
         protected override void Dispose(bool disposing)
         {
-            assessmentSectionObserver.Dispose();
-            referenceLineObserver.Dispose();
             waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
             waterLevelCalculationsForSignalingNormObserver.Dispose();
             waterLevelCalculationsForLowerLimitNormObserver.Dispose();
@@ -118,16 +101,6 @@ namespace Riskeer.Integration.Forms.Views
 
         private void CreateObservers()
         {
-            assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
-            {
-                Observable = assessmentSection
-            };
-
-            referenceLineObserver = new Observer(UpdateReferenceLineMapData)
-            {
-                Observable = assessmentSection.ReferenceLine
-            };
-
             waterLevelCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
                 assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
             waterLevelCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
@@ -153,24 +126,8 @@ namespace Riskeer.Integration.Forms.Views
 
         private void SetAllMapDataFeatures()
         {
-            SetReferenceLineMapData();
             SetHydraulicBoundaryLocationsMapData();
         }
-
-        #region ReferenceLine MapData
-
-        private void UpdateReferenceLineMapData()
-        {
-            SetReferenceLineMapData();
-            referenceLineMapData.NotifyObservers();
-        }
-
-        private void SetReferenceLineMapData()
-        {
-            referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(assessmentSection.ReferenceLine, assessmentSection.Id, assessmentSection.Name);
-        }
-
-        #endregion
 
         #region HydraulicBoundaryLocations MapData
 
