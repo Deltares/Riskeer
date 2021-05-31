@@ -46,11 +46,6 @@ namespace Core.Gui
         IEnumerable GetAllDataWithViewDefinitionsRecursively(object rootValue);
 
         /// <summary>
-        /// Retrieves all the <see cref="StateInfo"/> defined on the configured plugins.
-        /// </summary>
-        IEnumerable<StateInfo> GetStateInfos();
-
-        /// <summary>
         /// Retrieves all the <see cref="TreeNodeInfo"/> defined on the configured plugins.
         /// </summary>
         IEnumerable<TreeNodeInfo> GetTreeNodeInfos();

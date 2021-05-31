@@ -24,19 +24,9 @@ using Core.Common.Base.Data;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.DuneErosion.Forms.PresentationObjects;
-using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
-using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
-using Riskeer.Piping.Forms.PresentationObjects;
-using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
-using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
-using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 
 namespace Riskeer.Integration.Plugin.Test.StateInfos
 {
@@ -85,7 +75,7 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
             // Assert
             Assert.IsNotNull(rootData);
             Assert.IsInstanceOf<CalculationsStateRootContext>(rootData);
-            
+
             var calculationsStateRootContext = (CalculationsStateRootContext) rootData;
             Assert.AreSame(assessmentSection, calculationsStateRootContext.WrappedData);
         }
