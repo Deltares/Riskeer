@@ -161,7 +161,7 @@ namespace Core.Common.Controls.TreeView
                     return;
                 }
 
-                AddRootNode(data);
+                AddRootNode();
 
                 treeView.SelectedNode = treeView.Nodes.Count > 0 ? treeView.Nodes[0] : null;
             }
@@ -518,11 +518,11 @@ namespace Core.Common.Controls.TreeView
                              .FirstOrDefault(node => node != null);
         }
 
-        private void AddRootNode(object rootObject)
+        private void AddRootNode()
         {
             var rootNode = new TreeNode
             {
-                Tag = rootObject
+                Tag = data
             };
 
             UpdateNode(rootNode);
