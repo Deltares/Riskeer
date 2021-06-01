@@ -34,7 +34,7 @@ using RiskeerFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class AssessmentSectionReferenceLineInfoTest
+    public class AssessmentSectionReferenceLineViewInfoTest
     {
         private RiskeerPlugin plugin;
         private ViewInfo info;
