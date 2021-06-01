@@ -370,11 +370,9 @@ namespace Riskeer.Piping.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<PipingFailureMechanismCalculationStateContext>(
-                FailureMechanismEnabledChildNodeObjects,
-                FailureMechanismDisabledChildNodeObjects,
-                FailureMechanismEnabledContextMenuStrip,
-                FailureMechanismDisabledContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismCalculationStateContextTreeNodeInfo<PipingFailureMechanismCalculationStateContext>(
+                FailureMechanismCalculationStateChildNodeObjects,
+                FailureMechanismCalculationStateContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<SemiProbabilisticPipingCalculationScenarioContext>(
                 SemiProbabilisticPipingCalculationScenarioContextChildNodeObjects,
@@ -784,7 +782,7 @@ namespace Riskeer.Piping.Plugin
 
         #region PipingFailureMechanismCalculationStateContext TreeNodeInfo
 
-        private static object[] FailureMechanismEnabledChildNodeObjects(PipingFailureMechanismCalculationStateContext context)
+        private static object[] FailureMechanismCalculationStateChildNodeObjects(PipingFailureMechanismCalculationStateContext context)
         {
             PipingFailureMechanism wrappedData = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -794,14 +792,6 @@ namespace Riskeer.Piping.Plugin
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
                 new PipingCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, assessmentSection),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
-            };
-        }
-
-        private static object[] FailureMechanismDisabledChildNodeObjects(PipingFailureMechanismCalculationStateContext context)
-        {
-            return new object[]
-            {
-                context.WrappedData.NotRelevantComments
             };
         }
 
@@ -830,9 +820,9 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(PipingFailureMechanismCalculationStateContext context,
-                                                                         object parentData,
-                                                                         TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismCalculationStateContextMenuStrip(PipingFailureMechanismCalculationStateContext context,
+                                                                                  object parentData,
+                                                                                  TreeViewControl treeViewControl)
         {
             IEnumerable<ProbabilisticPipingCalculationScenario> calculations = context.WrappedData
                                                                                       .Calculations
@@ -856,21 +846,6 @@ namespace Riskeer.Piping.Plugin
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
                               () => ProbabilisticPipingIllustrationPointsHelper.HasIllustrationPoints(calculations),
                               CreateChangeHandler(inquiryHelper, calculations))
-                          .AddSeparator()
-                          .AddCollapseAllItem()
-                          .AddExpandAllItem()
-                          .AddSeparator()
-                          .AddPropertiesItem()
-                          .Build();
-        }
-
-        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(PipingFailureMechanismCalculationStateContext context,
-                                                                          object parentData,
-                                                                          TreeViewControl treeViewControl)
-        {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
-
-            return builder.AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()

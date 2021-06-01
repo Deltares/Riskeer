@@ -136,7 +136,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
+        public void ChildNodeObjects_Always_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -208,29 +208,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var commentContext = (Comment) outputsFolder.Contents.ElementAt(3);
             Assert.AreSame(pipingFailureMechanism.OutputComments, commentContext);
-        }
-
-        [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismNotRelevantComments()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var pipingFailureMechanism = new PipingFailureMechanism
-            {
-                IsRelevant = false
-            };
-
-            var context = new PipingFailureMechanismCalculationStateContext(pipingFailureMechanism, assessmentSection);
-
-            // Call
-            object[] children = info.ChildNodeObjects(context).ToArray();
-
-            // Assert
-            Assert.AreEqual(1, children.Length);
-            var comment = (Comment) children[0];
-            Assert.AreSame(pipingFailureMechanism.NotRelevantComments, comment);
         }
 
         [Test]
@@ -612,7 +589,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -644,45 +621,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
-            }
-
-            // Assert
-            // Assert expectancies are called in TearDown()
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevant_CallsContextMenuBuilderMethods()
-        {
-            // Setup
-            var treeViewControl = new TreeViewControl();
-            {
-                var pipingFailureMechanism = new PipingFailureMechanism
-                {
-                    IsRelevant = false
-                };
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new PipingFailureMechanismCalculationStateContext(pipingFailureMechanism, assessmentSection);
-
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                using (mocks.Ordered())
-                {
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
-                }
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
