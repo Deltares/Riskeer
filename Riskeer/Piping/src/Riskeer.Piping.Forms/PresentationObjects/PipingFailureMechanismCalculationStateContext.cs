@@ -29,15 +29,15 @@ namespace Riskeer.Piping.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for an instance of <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class PipingFailureMechanismContext : FailureMechanismContext<PipingFailureMechanism>
+    public class PipingFailureMechanismCalculationStateContext : FailureMechanismContext<PipingFailureMechanism>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PipingFailureMechanismContext"/> class.
+        /// Creates a new instance of <see cref="PipingFailureMechanismCalculationStateContext"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The parent of <paramref name="failureMechanism"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public PipingFailureMechanismContext(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection) :
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public PipingFailureMechanismCalculationStateContext(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection) :
             base(failureMechanism, assessmentSection) {}
     }
 }

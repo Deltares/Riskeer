@@ -61,7 +61,7 @@ using CoreGuiResources = Core.Gui.Properties.Resources;
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class PipingFailureMechanismContextTreeNodeInfoTest : NUnitFormTest
+    public class PipingFailureMechanismCalculationStateContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuRelevancyIndexWhenRelevant = 2;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
@@ -113,7 +113,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new PipingFailureMechanism();
-            var mechanismContext = new PipingFailureMechanismContext(mechanism, assessmentSection);
+            var mechanismContext = new PipingFailureMechanismCalculationStateContext(mechanism, assessmentSection);
 
             // Call
             string text = info.Text(mechanismContext);
@@ -141,7 +141,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
+            var pipingFailureMechanismContext = new PipingFailureMechanismCalculationStateContext(pipingFailureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(pipingFailureMechanismContext).ToArray();
@@ -222,7 +222,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 IsRelevant = false
             };
 
-            var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
+            var pipingFailureMechanismContext = new PipingFailureMechanismCalculationStateContext(pipingFailureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(pipingFailureMechanismContext).ToArray();
@@ -255,7 +255,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation2);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -315,7 +315,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.Stub<IImportCommandHandler>();
@@ -427,7 +427,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 });
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
@@ -463,7 +463,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -502,7 +502,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -541,7 +541,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -583,7 +583,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     }
                 };
 
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -619,7 +619,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
+                var pipingFailureMechanismContext = new PipingFailureMechanismCalculationStateContext(pipingFailureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -667,7 +667,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     IsRelevant = false
                 };
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var pipingFailureMechanismContext = new PipingFailureMechanismContext(pipingFailureMechanism, assessmentSection);
+                var pipingFailureMechanismContext = new PipingFailureMechanismCalculationStateContext(pipingFailureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -728,7 +728,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(validProbabilisticCalculation);
                 failureMechanism.CalculationsGroup.Children.Add(invalidSemiProbabilisticCalculation);
 
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -773,7 +773,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 failureMechanism.CalculationsGroup.Children.Add(new TestPipingCalculationScenario());
 
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -836,7 +836,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
                 failureMechanism.CalculationsGroup.Children.Add(calculationD);
 
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var mainWindow = mocks.Stub<IMainWindow>();
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -915,7 +915,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 failureMechanism.CalculationsGroup.Children.Add(new TestPipingCalculationScenario());
 
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var mainWindow = mocks.Stub<IMainWindow>();
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -952,7 +952,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.Attach(failureMechanismObserver);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var viewCommands = mocks.StrictMock<IViewCommands>();
                 viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
@@ -994,7 +994,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.Attach(failureMechanismObserver);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var viewCommands = mocks.StrictMock<IViewCommands>();
                 viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
@@ -1023,7 +1023,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingFailureMechanismContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingFailureMechanismCalculationStateContext));
         }
 
         public override void TearDown()

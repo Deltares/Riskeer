@@ -278,7 +278,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             using (var view = new PipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), assessmentSection))
             {
-                var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
+                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(new PipingFailureMechanism(), assessmentSection);
 
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -302,7 +302,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             using (var view = new PipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);

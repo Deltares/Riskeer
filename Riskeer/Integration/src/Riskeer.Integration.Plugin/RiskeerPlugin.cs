@@ -136,7 +136,7 @@ namespace Riskeer.Integration.Plugin
         {
             new FailureMechanismContextAssociation(
                 typeof(PipingFailureMechanism),
-                (mechanism, assessmentSection) => new PipingFailureMechanismContext(
+                (mechanism, assessmentSection) => new PipingFailureMechanismCalculationStateContext(
                     (PipingFailureMechanism) mechanism,
                     assessmentSection)
             ),

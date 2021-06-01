@@ -298,7 +298,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
             using (var view = new PipingInputView
             {
@@ -325,7 +325,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
+            var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(new PipingFailureMechanism(), assessmentSection);
 
             using (var view = new PipingInputView
             {
@@ -355,7 +355,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
             using (var view = new PipingInputView
             {
@@ -385,7 +385,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            var failureMechanismContext = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
+            var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(new PipingFailureMechanism(), assessmentSection);
 
             using (var view = new PipingInputView
             {
