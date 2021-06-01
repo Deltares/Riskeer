@@ -40,7 +40,7 @@ using Riskeer.Piping.Forms.PropertyClasses;
 namespace Riskeer.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class PipingFailureMechanismPropertiesTest
+    public class PipingCalculationsPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -73,7 +73,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            void Call() => new PipingFailureMechanismProperties(null, assessmentSection, handler);
+            void Call() => new PipingCalculationsProperties(null, assessmentSection, handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -90,7 +90,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            void Call() => new PipingFailureMechanismProperties(new PipingFailureMechanism(), null, handler);
+            void Call() => new PipingCalculationsProperties(new PipingFailureMechanism(), null, handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -106,7 +106,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            void Call() => new PipingFailureMechanismProperties(new PipingFailureMechanism(), assessmentSection, null);
+            void Call() => new PipingCalculationsProperties(new PipingFailureMechanism(), assessmentSection, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -132,7 +132,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, handler);
+            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, handler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<PipingFailureMechanism>>(properties);
@@ -198,7 +198,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, handler);
+            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -369,7 +369,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, handler);
+            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -426,7 +426,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, changeHandler);
+            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, changeHandler);
 
             // Call
             void Call() => properties.A = value;
@@ -456,7 +456,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, changeHandler);
+            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, changeHandler);
 
             // Call
             properties.A = value;
@@ -492,7 +492,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, changeHandler);
+            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, changeHandler);
 
             // Call            
             void Call() => properties.WaterVolumetricWeight = roundedValue;
@@ -529,7 +529,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, changeHandler);
+            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, changeHandler);
 
             // Call            
             properties.WaterVolumetricWeight = roundedValue;
@@ -556,7 +556,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             {
                 IsRelevant = isRelevant
             };
-            var properties = new PipingFailureMechanismProperties(pipingFailureMechanism, assessmentSection, changeHandler);
+            var properties = new PipingCalculationsProperties(pipingFailureMechanism, assessmentSection, changeHandler);
 
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
