@@ -394,8 +394,6 @@ namespace Core.Gui
 
         private void ApplicationProjectOpened(IProject newProject)
         {
-            mainWindow.ValidateItems();
-
             projectObserver.Observable = newProject;
             UpdateProjectData();
             mainWindow.UpdateProjectExplorer();
@@ -460,8 +458,6 @@ namespace Core.Gui
                 {
                     ViewHost.BringToFront(mainWindow.ProjectExplorer);
                 }
-
-                mainWindow.ValidateItems();
             };
 
             mainWindow.Closing += delegate(object sender, CancelEventArgs e)

@@ -601,8 +601,6 @@ namespace Core.Gui.Forms.MainWindow
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Maximized;
-
-            ValidateItems();
         }
 
         private void OnViewOpened(object sender, ViewChangeEventArgs e)
@@ -620,6 +618,8 @@ namespace Core.Gui.Forms.MainWindow
             {
                 UpdateComponentsForView(viewController.ViewHost.ActiveDocumentView);
             }
+
+            UpdateToolWindowButtonState();
         }
 
         private void OnViewBroughtToFront(object sender, ViewChangeEventArgs e)
