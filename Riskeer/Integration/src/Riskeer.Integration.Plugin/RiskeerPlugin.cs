@@ -924,12 +924,6 @@ namespace Riskeer.Integration.Plugin
                 FailurePathsStateRootContextChildNodeObjects,
                 FailurePathsStateRootContextMenuStrip);
 
-            yield return new TreeNodeInfo<FailurePathsContext>
-            {
-                Text = context => Resources.RiskeerPlugin_GetStateInfos_FailurePaths,
-                Image = data => RiskeerCommonFormsResources.GeneralFolderIcon
-            };
-
             yield return new TreeNodeInfo<BackgroundData>
             {
                 Text = data => Resources.RiskeerPlugin_BackgroundDataContext_Text,
@@ -1808,8 +1802,16 @@ namespace Riskeer.Integration.Plugin
 
             return new object[]
             {
-                new FailurePathsContext(assessmentSection),
+                new CategoryTreeFolder(Resources.RiskeerPlugin_GetStateInfos_FailurePaths, GetFailurePaths(assessmentSection)),
                 new AssemblyResultsContext(assessmentSection)
+            };
+        }
+
+        private static IEnumerable<object> GetFailurePaths(AssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new PipingFailureMechanismFailurePathStateContext(assessmentSection.Piping, assessmentSection)
             };
         }
 
