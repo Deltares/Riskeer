@@ -374,6 +374,10 @@ namespace Riskeer.Piping.Plugin
                 FailureMechanismCalculationStateChildNodeObjects,
                 FailureMechanismCalculationStateContextMenuStrip);
 
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<PipingFailureMechanismFailurePathStateContext>(
+                FailureMechanismFailurePathStateChildNodeObjects,
+                FailureMechanismFailurePathStateContextMenuStrip);
+
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<SemiProbabilisticPipingCalculationScenarioContext>(
                 SemiProbabilisticPipingCalculationScenarioContextChildNodeObjects,
                 SemiProbabilisticPipingCalculationScenarioContextContextMenuStrip,
@@ -789,12 +793,12 @@ namespace Riskeer.Piping.Plugin
 
             return new object[]
             {
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetCalculationStateInput(wrappedData, assessmentSection), TreeFolderCategory.Input),
                 new PipingCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, assessmentSection)
             };
         }
 
-        private static IEnumerable<object> GetInputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetCalculationStateInput(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -802,20 +806,6 @@ namespace Riskeer.Piping.Plugin
                 new PipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
                 new PipingStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-        {
-            PipingProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
-            return new object[]
-            {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism,
-                                                              assessmentSection,
-                                                              () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
-                new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
-                new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection),
-                failureMechanism.OutputComments
             };
         }
 
@@ -874,6 +864,60 @@ namespace Riskeer.Piping.Plugin
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
                                                                                              context.Parent));
+        }
+
+        #endregion
+
+        #region PipingFailureMechanismFailurePathStateContext TreeNodeInfo
+
+        private static object[] FailureMechanismFailurePathStateChildNodeObjects(PipingFailureMechanismFailurePathStateContext context)
+        {
+            PipingFailureMechanism wrappedData = context.WrappedData;
+            IAssessmentSection assessmentSection = context.Parent;
+
+            return new object[]
+            {
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetFailurePathStateInput(wrappedData, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+            };
+        }
+
+        private static IEnumerable<object> GetFailurePathStateInput(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                failureMechanism.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetOutputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            PipingProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
+            return new object[]
+            {
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism,
+                                                              assessmentSection,
+                                                              () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
+                new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
+                new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                failureMechanism.OutputComments
+            };
+        }
+
+        private ContextMenuStrip FailureMechanismFailurePathStateContextMenuStrip(PipingFailureMechanismFailurePathStateContext context,
+                                                                                  object parentData,
+                                                                                  TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         #endregion
