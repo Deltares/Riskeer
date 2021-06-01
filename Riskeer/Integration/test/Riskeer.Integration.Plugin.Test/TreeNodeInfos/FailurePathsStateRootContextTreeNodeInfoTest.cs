@@ -162,9 +162,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual(TreeFolderCategory.General, failurePathsFolder.Category);
                 
                 Assert.AreEqual(1, failurePathsFolder.Contents.Count());
-                var pipingFailurePathsContext = (PipingFailureMechanismFailurePathStateContext) failurePathsFolder.Contents.ElementAt(0); 
-                Assert.AreSame(assessmentSection.Piping, pipingFailurePathsContext.WrappedData);
-                Assert.AreSame(assessmentSection, pipingFailurePathsContext.Parent);
+                var pipingFailurePathContext = (PipingFailurePathContext) failurePathsFolder.Contents.ElementAt(0); 
+                Assert.AreSame(assessmentSection.Piping, pipingFailurePathContext.WrappedData);
+                Assert.AreSame(assessmentSection, pipingFailurePathContext.Parent);
                 
                 var assemblyResultsContext = (AssemblyResultsContext) objects[1];
                 Assert.AreSame(assessmentSection, assemblyResultsContext.WrappedData);

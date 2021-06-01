@@ -29,7 +29,7 @@ using Riskeer.Piping.Forms.PresentationObjects;
 namespace Riskeer.Piping.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class PipingFailureMechanismFailurePathStateContextTest
+    public class PipingFailurePathContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -42,7 +42,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var context = new PipingFailureMechanismFailurePathStateContext(failureMechanism, assessmentSection);
+            var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<PipingFailureMechanism>>(context);

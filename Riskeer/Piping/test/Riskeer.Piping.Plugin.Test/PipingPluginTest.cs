@@ -151,7 +151,7 @@ namespace Riskeer.Piping.Plugin.Test
                 // Assert
                 Assert.AreEqual(20, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingFailureMechanismCalculationStateContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingFailureMechanismFailurePathStateContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingFailurePathContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingSurfaceLinesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingSurfaceLine)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingStochasticSoilModelCollectionContext)));

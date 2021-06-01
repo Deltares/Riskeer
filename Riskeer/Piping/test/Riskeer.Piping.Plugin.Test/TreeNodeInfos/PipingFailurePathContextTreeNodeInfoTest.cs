@@ -45,7 +45,7 @@ using CoreGuiResources = Core.Gui.Properties.Resources;
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class PipingFailureMechanismFailurePathStateContextTreeNodeInfoTest : NUnitFormTest
+    public class PipingFailurePathContextTreeNodeInfoTest : NUnitFormTest
     {
         private PipingPlugin plugin;
         private TreeNodeInfo info;
@@ -82,11 +82,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var mechanism = new PipingFailureMechanism();
-            var mechanismContext = new PipingFailureMechanismFailurePathStateContext(mechanism, assessmentSection);
+            var context = new PipingFailurePathContext(new PipingFailureMechanism(), assessmentSection);
 
             // Call
-            string text = info.Text(mechanismContext);
+            string text = info.Text(context);
 
             // Assert
             Assert.AreEqual("Dijken en dammen - Piping", text);
@@ -108,8 +107,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            var context = new PipingFailureMechanismFailurePathStateContext(pipingFailureMechanism, assessmentSection);
+            var failureMechanism = new PipingFailureMechanism();
+            var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -122,11 +121,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             Assert.AreEqual(2, inputsFolder.Contents.Count());
             var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
-            Assert.AreSame(pipingFailureMechanism, failureMechanismSectionsContext.WrappedData);
+            Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 
             var comment = (Comment) inputsFolder.Contents.ElementAt(1);
-            Assert.AreSame(pipingFailureMechanism.InputComments, comment);
+            Assert.AreSame(failureMechanism.InputComments, comment);
 
             var outputsFolder = (CategoryTreeFolder) children[1];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
@@ -134,7 +133,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             Assert.AreEqual(4, outputsFolder.Contents.Count());
             var failureMechanismAssemblyCategoriesContext = (FailureMechanismAssemblyCategoriesContext) outputsFolder.Contents.ElementAt(0);
-            Assert.AreSame(pipingFailureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
+            Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -143,22 +142,22 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
-                PipingProbabilityAssessmentInput probabilityAssessmentInput = pipingFailureMechanism.PipingProbabilityAssessmentInput;
+                PipingProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
                 Assert.AreEqual(probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length), calculator.AssemblyCategoriesInput.N);
             }
 
             var failureMechanismScenariosContext = (PipingScenariosContext) outputsFolder.Contents.ElementAt(1);
-            Assert.AreSame(pipingFailureMechanism, failureMechanismScenariosContext.FailureMechanism);
-            Assert.AreSame(pipingFailureMechanism.CalculationsGroup, failureMechanismScenariosContext.WrappedData);
+            Assert.AreSame(failureMechanism, failureMechanismScenariosContext.FailureMechanism);
+            Assert.AreSame(failureMechanism.CalculationsGroup, failureMechanismScenariosContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismScenariosContext.AssessmentSection);
 
             var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(2);
-            Assert.AreSame(pipingFailureMechanism, failureMechanismResultsContext.FailureMechanism);
-            Assert.AreSame(pipingFailureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+            Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
+            Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
 
             var commentContext = (Comment) outputsFolder.Contents.ElementAt(3);
-            Assert.AreSame(pipingFailureMechanism.OutputComments, commentContext);
+            Assert.AreSame(failureMechanism.OutputComments, commentContext);
         }
 
         [Test]
@@ -170,8 +169,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                var context = new PipingFailureMechanismFailurePathStateContext(pipingFailureMechanism, assessmentSection);
+                var failureMechanism = new PipingFailureMechanism();
+                var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -203,7 +202,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public override void Setup()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingFailureMechanismFailurePathStateContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingFailurePathContext));
         }
 
         public override void TearDown()
