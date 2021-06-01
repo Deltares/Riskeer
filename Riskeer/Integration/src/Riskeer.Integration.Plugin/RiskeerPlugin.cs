@@ -100,7 +100,6 @@ using Riskeer.Integration.Service;
 using Riskeer.Integration.Service.Comparers;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
@@ -134,12 +133,6 @@ namespace Riskeer.Integration.Plugin
 
         private static readonly IEnumerable<FailureMechanismContextAssociation> failureMechanismAssociations = new[]
         {
-            new FailureMechanismContextAssociation(
-                typeof(PipingFailureMechanism),
-                (mechanism, assessmentSection) => new PipingFailureMechanismCalculationStateContext(
-                    (PipingFailureMechanism) mechanism,
-                    assessmentSection)
-            ),
             new FailureMechanismContextAssociation(
                 typeof(GrassCoverErosionInwardsFailureMechanism),
                 (mechanism, assessmentSection) => new GrassCoverErosionInwardsFailureMechanismContext(
@@ -1760,7 +1753,6 @@ namespace Riskeer.Integration.Plugin
 
             var failureMechanisms = new IFailureMechanism[]
             {
-                assessmentSection.Piping,
                 assessmentSection.GrassCoverErosionInwards,
                 assessmentSection.MacroStabilityInwards,
                 assessmentSection.StabilityStoneCover,
@@ -1774,7 +1766,8 @@ namespace Riskeer.Integration.Plugin
 
             var childNodes = new List<object>
             {
-                new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection)
+                new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
+                new PipingFailureMechanismCalculationStateContext(assessmentSection.Piping, assessmentSection)
             };
 
             childNodes.AddRange(failureMechanisms.Select(failureMechanism => failureMechanismAssociations
