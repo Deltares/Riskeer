@@ -27,17 +27,17 @@ using Riskeer.Piping.Data;
 namespace Riskeer.Piping.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for an instance of <see cref="PipingFailureMechanism"/>.
+    /// Presentation object for calculations of <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class PipingFailureMechanismCalculationStateContext : FailureMechanismContext<PipingFailureMechanism>
+    public class PipingCalculationsContext : FailureMechanismContext<PipingFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingFailureMechanismCalculationStateContext"/>.
+        /// Creates a new instance of <see cref="PipingCalculationsContext"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The parent of <paramref name="failureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailureMechanismCalculationStateContext(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection) :
-            base(failureMechanism, assessmentSection) {}
+        public PipingCalculationsContext(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection) 
+            : base(failureMechanism, assessmentSection) {}
     }
 }

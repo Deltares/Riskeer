@@ -298,7 +298,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+            var context = new PipingCalculationsContext(failureMechanism, assessmentSection);
 
             using (var view = new PipingInputView
             {
@@ -325,7 +325,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            var context = new PipingFailureMechanismCalculationStateContext(new PipingFailureMechanism(), assessmentSection);
+            var context = new PipingCalculationsContext(new PipingFailureMechanism(), assessmentSection);
 
             using (var view = new PipingInputView
             {
@@ -355,7 +355,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+            var context = new PipingCalculationsContext(failureMechanism, assessmentSection);
 
             using (var view = new PipingInputView
             {
@@ -385,7 +385,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            var context = new PipingFailureMechanismCalculationStateContext(new PipingFailureMechanism(), assessmentSection);
+            var context = new PipingCalculationsContext(new PipingFailureMechanism(), assessmentSection);
 
             using (var view = new PipingInputView
             {

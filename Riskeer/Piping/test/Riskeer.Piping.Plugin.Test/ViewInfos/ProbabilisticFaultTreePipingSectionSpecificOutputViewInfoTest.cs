@@ -216,7 +216,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
             {
-                return new PipingFailureMechanismCalculationStateContext(
+                return new PipingCalculationsContext(
                     new PipingFailureMechanism
                     {
                         CalculationsGroup =

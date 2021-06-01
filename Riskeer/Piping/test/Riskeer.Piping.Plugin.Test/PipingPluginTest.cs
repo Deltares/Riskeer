@@ -79,7 +79,7 @@ namespace Riskeer.Piping.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(PipingFailureMechanismCalculationStateContext),
+                    typeof(PipingCalculationsContext),
                     typeof(PipingFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
@@ -150,7 +150,7 @@ namespace Riskeer.Piping.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(20, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingFailureMechanismCalculationStateContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingCalculationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingFailurePathContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingSurfaceLinesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingSurfaceLine)));
@@ -187,7 +187,7 @@ namespace Riskeer.Piping.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(PipingFailureMechanismCalculationStateContext),
+                    typeof(PipingCalculationsContext),
                     typeof(PipingFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(

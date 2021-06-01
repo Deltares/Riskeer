@@ -1768,7 +1768,7 @@ namespace Riskeer.Integration.Plugin
             var childNodes = new List<object>
             {
                 new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
-                new PipingFailureMechanismCalculationStateContext(assessmentSection.Piping, assessmentSection)
+                new PipingCalculationsContext(assessmentSection.Piping, assessmentSection)
             };
 
             childNodes.AddRange(failureMechanisms.Select(failureMechanism => failureMechanismAssociations

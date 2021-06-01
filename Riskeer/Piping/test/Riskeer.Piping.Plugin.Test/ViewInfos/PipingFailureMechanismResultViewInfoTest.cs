@@ -231,7 +231,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+            var context = new PipingCalculationsContext(failureMechanism, assessmentSection);
             using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
@@ -254,7 +254,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
-                var context = new PipingFailureMechanismCalculationStateContext(
+                var context = new PipingCalculationsContext(
                     new PipingFailureMechanism(),
                     assessmentSection);
 
