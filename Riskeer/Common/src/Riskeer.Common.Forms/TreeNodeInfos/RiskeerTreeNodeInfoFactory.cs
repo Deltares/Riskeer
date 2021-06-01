@@ -140,6 +140,28 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             };
         }
 
+        /// <summary>
+        /// Creates a <see cref="TreeNodeInfo"/> object for a failure mechanism context of the type <typeparamref name="TFailureMechanismContext"/>.
+        /// </summary>
+        /// <typeparam name="TFailureMechanismContext">The type of failure mechanism context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
+        /// <param name="childNodeObjects">The function for obtaining the child node objects.</param>
+        /// <param name="contextMenuStrip">The function for obtaining the context menu strip.</param>
+        /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
+        public static TreeNodeInfo<TFailureMechanismContext> CreateFailureMechanismCalculationStateContextTreeNodeInfo<TFailureMechanismContext>(
+            Func<TFailureMechanismContext, object[]> childNodeObjects,
+            Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip)
+            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
+        {
+            return new TreeNodeInfo<TFailureMechanismContext>
+            {
+                Text = context => context.WrappedData.Name,
+                ForeColor = context => Color.FromKnownColor(KnownColor.ControlText),
+                Image = context => Resources.FailureMechanismIcon,
+                ChildNodeObjects = childNodeObjects,
+                ContextMenuStrip = contextMenuStrip
+            };
+        }
+
         #region Helper methods for CreateCalculationContextTreeNodeInfo
 
         private static bool CalculationContextCanRemove(ICalculationContext<ICalculation, IFailureMechanism> calculationContext, object parentNodeData)

@@ -1078,6 +1078,159 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
         #endregion
 
+        #region CreateFailureMechanismCalculationStateContextTreeNodeInfo
+
+        [Test]
+        public void CreateFailureMechanismCalculationStateContextTreeNodeInfo_Always_ExpectedPropertiesSet()
+        {
+            // Call
+            TreeNodeInfo<FailureMechanismContext<IFailureMechanism>> treeNodeInfo =
+                RiskeerTreeNodeInfoFactory.CreateFailureMechanismCalculationStateContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(
+                    context => null, (context, o, treeViewControl) => null);
+
+            // Assert
+            Assert.AreEqual(typeof(FailureMechanismContext<IFailureMechanism>), treeNodeInfo.TagType);
+            Assert.IsNotNull(treeNodeInfo.Text);
+            Assert.IsNotNull(treeNodeInfo.Image);
+            Assert.IsNotNull(treeNodeInfo.ForeColor);
+            Assert.IsNotNull(treeNodeInfo.ChildNodeObjects);
+            Assert.IsNotNull(treeNodeInfo.ContextMenuStrip);
+            Assert.IsNull(treeNodeInfo.EnsureVisibleOnCreate);
+            Assert.IsNull(treeNodeInfo.CanRename);
+            Assert.IsNull(treeNodeInfo.OnNodeRenamed);
+            Assert.IsNull(treeNodeInfo.CanRemove);
+            Assert.IsNull(treeNodeInfo.OnNodeRemoved);
+            Assert.IsNull(treeNodeInfo.CanCheck);
+            Assert.IsNull(treeNodeInfo.CheckedState);
+            Assert.IsNull(treeNodeInfo.OnNodeChecked);
+            Assert.IsNull(treeNodeInfo.CanDrag);
+            Assert.IsNull(treeNodeInfo.CanDrop);
+            Assert.IsNull(treeNodeInfo.CanInsert);
+            Assert.IsNull(treeNodeInfo.OnDrop);
+        }
+
+        [Test]
+        public void Text_FailureMechanismCalculationState_Always_ReturnsWrappedDataName()
+        {
+            // Setup
+            const string name = "A";
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Name).Return(name);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo =
+                RiskeerTreeNodeInfoFactory.CreateFailureMechanismCalculationStateContextTreeNodeInfo<TestFailureMechanismContext>(
+                    null, null);
+
+            // Call
+            string text = treeNodeInfo.Text(context);
+
+            // Assert
+            Assert.AreEqual(name, text);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Image_FailureMechanismCalculationState_Always_ReturnsFailureMechanismIcon()
+        {
+            // Setup
+            TreeNodeInfo<FailureMechanismContext<IFailureMechanism>> treeNodeInfo =
+                RiskeerTreeNodeInfoFactory.CreateFailureMechanismCalculationStateContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(
+                    null, null);
+
+            // Call
+            Image image = treeNodeInfo.Image(null);
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.FailureMechanismIcon, image);
+        }
+
+        [Test]
+        public void ForeColor_Always_ReturnsControlText()
+        {
+            // Setup
+            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo =
+                RiskeerTreeNodeInfoFactory.CreateFailureMechanismCalculationStateContextTreeNodeInfo<TestFailureMechanismContext>(
+                    null, null);
+
+            // Call
+            Color color = treeNodeInfo.ForeColor(null);
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+        }
+
+        [Test]
+        public void ChildNodeObjects_Always_ReturnResultFromConstructorMethod()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            object[] resultIsRelevant =
+            {
+                new object(),
+                1.1
+            };
+
+            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo
+                = RiskeerTreeNodeInfoFactory.CreateFailureMechanismCalculationStateContextTreeNodeInfo<TestFailureMechanismContext>(mechanismContext => resultIsRelevant, null);
+
+            // Call
+            object[] children = treeNodeInfo.ChildNodeObjects(context);
+
+            // Assert
+            CollectionAssert.AreEqual(resultIsRelevant, children);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_ReturnResultFromConstructorMethod()
+        {
+            // Setup
+            using (var treeView = new TreeViewControl())
+            using (var contextMenuStripRelevant = new ContextMenuStrip())
+            {
+                var mocks = new MockRepository();
+                var failureMechanism = mocks.Stub<IFailureMechanism>();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                mocks.ReplayAll();
+
+                failureMechanism.IsRelevant = true;
+
+                var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+                TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo =
+                    RiskeerTreeNodeInfoFactory.CreateFailureMechanismCalculationStateContextTreeNodeInfo<TestFailureMechanismContext>(
+                        null,
+                        (mechanismContext, parent, treeViewControl) =>
+                        {
+                            Assert.AreEqual(context, mechanismContext);
+                            Assert.AreEqual(assessmentSection, parent);
+                            Assert.AreEqual(treeView, treeViewControl);
+
+                            return contextMenuStripRelevant;
+                        });
+
+                // Call
+                using (ContextMenuStrip contextMenuStrip = treeNodeInfo.ContextMenuStrip(context, assessmentSection, treeView))
+                {
+                    // Assert
+                    Assert.AreSame(contextMenuStripRelevant, contextMenuStrip);
+                }
+
+                mocks.VerifyAll();
+            }
+        }
+
+        #endregion
+
         #region Nested types
 
         private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>
