@@ -157,22 +157,21 @@ namespace Core.Components.GraphSharp.Forms
 
         private void VertexOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(PointedTreeElementVertex.IsSelected))
+            if (e.PropertyName == nameof(PointedTreeElementVertex.IsSelected)
+                && sender is PointedTreeElementVertex changedVertex
+                && changedVertex.IsSelected)
             {
-                if (sender is PointedTreeElementVertex changedVertex && changedVertex.IsSelected)
+                foreach (DrawnGraphNode drawnGraphNode in drawnGraphNodeList)
                 {
-                    foreach (DrawnGraphNode drawnGraphNode in drawnGraphNodeList)
+                    if (drawnGraphNode.Vertex.IsSelected && drawnGraphNode.Vertex != changedVertex)
                     {
-                        if (drawnGraphNode.Vertex.IsSelected && drawnGraphNode.Vertex != changedVertex)
-                        {
-                            drawnGraphNode.Vertex.IsSelected = false;
-                        }
+                        drawnGraphNode.Vertex.IsSelected = false;
+                    }
 
-                        if (drawnGraphNode.Vertex == changedVertex && changedVertex.IsSelected)
-                        {
-                            Selection = drawnGraphNode.GraphNode;
-                            OnSelectionChanged(e);
-                        }
+                    if (drawnGraphNode.Vertex == changedVertex && changedVertex.IsSelected)
+                    {
+                        Selection = drawnGraphNode.GraphNode;
+                        OnSelectionChanged(e);
                     }
                 }
             }
