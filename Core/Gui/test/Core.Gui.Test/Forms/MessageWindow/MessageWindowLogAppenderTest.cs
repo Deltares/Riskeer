@@ -212,7 +212,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
         {
             // Setup
             const string messageText = "<logmessage text>";
-            string expectedText = $"{messageText} {Environment.NewLine}Controleer logbestand voor meer informatie (\"Bestand\"->\"Help\"->\"Log tonen\").";
+            string expectedText = $"{messageText} {Environment.NewLine}Controleer logbestand voor meer informatie (\"Project\"->\"Toon log\").";
             var exception = new Exception();
 
             Level level = LogLevelConstant.Error.ToLog4NetLevel();

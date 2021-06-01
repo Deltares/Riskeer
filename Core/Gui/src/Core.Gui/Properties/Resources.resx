@@ -212,7 +212,7 @@
     <value>Kies een type</value>
   </data>
   <data name="MessageWindowLogAppender_AppendToMessageWindow_Check_log_file_for_more_information_Home_Show_Log" xml:space="preserve">
-    <value>Controleer logbestand voor meer informatie ("Bestand"-&gt;"Help"-&gt;"Log tonen").</value>
+    <value>Controleer logbestand voor meer informatie ("Project"-&gt;"Toon log").</value>
   </data>
   <data name="ViewStateBar_Properties_ToolTip" xml:space="preserve">
     <value>Eigenschappen</value>

@@ -1963,7 +1963,7 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controleer logbestand voor meer informatie (&quot;Bestand&quot;-&gt;&quot;Help&quot;-&gt;&quot;Log tonen&quot;)..
+        ///   Looks up a localized string similar to Controleer logbestand voor meer informatie (&quot;Project&quot;-&gt;&quot;Toon log&quot;)..
         /// </summary>
         public static string MessageWindowLogAppender_AppendToMessageWindow_Check_log_file_for_more_information_Home_Show_Log {
             get {
