@@ -141,10 +141,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var pipingFailureMechanism = new PipingFailureMechanism();
-            var pipingFailureMechanismContext = new PipingFailureMechanismCalculationStateContext(pipingFailureMechanism, assessmentSection);
+            var context = new PipingFailureMechanismCalculationStateContext(pipingFailureMechanism, assessmentSection);
 
             // Call
-            object[] children = info.ChildNodeObjects(pipingFailureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -222,10 +222,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 IsRelevant = false
             };
 
-            var pipingFailureMechanismContext = new PipingFailureMechanismCalculationStateContext(pipingFailureMechanism, assessmentSection);
+            var context = new PipingFailureMechanismCalculationStateContext(pipingFailureMechanism, assessmentSection);
 
             // Call
-            object[] children = info.ChildNodeObjects(pipingFailureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
             Assert.AreEqual(1, children.Length);
@@ -255,12 +255,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation2);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
@@ -289,7 +289,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     }
                 };
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // When
                     contextMenuStrip.Items[contextMenuClearIndex].PerformClick();
@@ -315,7 +315,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+            var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.Stub<IImportCommandHandler>();
@@ -330,18 +330,18 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                          exportCommandHandler,
                                                          updateCommandHandler,
                                                          viewCommandsHandler,
-                                                         failureMechanismContext,
+                                                         context,
                                                          treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Assert
                     Assert.AreEqual(14, menu.Items.Count);
@@ -427,17 +427,17 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 });
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Assert
                     ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
@@ -463,12 +463,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
@@ -477,7 +477,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
                 // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Assert
                     ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
@@ -502,12 +502,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
@@ -516,7 +516,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
                 // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Assert
                     ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
@@ -541,12 +541,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
@@ -555,7 +555,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
                 // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Assert
                     ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
@@ -583,19 +583,19 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     }
                 };
 
-                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
@@ -619,7 +619,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var pipingFailureMechanismContext = new PipingFailureMechanismCalculationStateContext(pipingFailureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismCalculationStateContext(pipingFailureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -642,14 +642,14 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 }
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(pipingFailureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(pipingFailureMechanismContext, null, treeViewControl);
+                info.ContextMenuStrip(context, null, treeViewControl);
             }
 
             // Assert
@@ -667,7 +667,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     IsRelevant = false
                 };
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var pipingFailureMechanismContext = new PipingFailureMechanismCalculationStateContext(pipingFailureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismCalculationStateContext(pipingFailureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -682,13 +682,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 }
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(pipingFailureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(pipingFailureMechanismContext, null, treeViewControl);
+                info.ContextMenuStrip(context, null, treeViewControl);
             }
 
             // Assert
@@ -728,18 +728,18 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(validProbabilisticCalculation);
                 failureMechanism.CalculationsGroup.Children.Add(invalidSemiProbabilisticCalculation);
 
-                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
                     void Call() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
@@ -773,19 +773,19 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 failureMechanism.CalculationsGroup.Children.Add(new TestPipingCalculationScenario());
 
-                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
 
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // When
                     void Call() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
@@ -836,13 +836,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
                 failureMechanism.CalculationsGroup.Children.Add(calculationD);
 
-                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var mainWindow = mocks.Stub<IMainWindow>();
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
@@ -861,7 +861,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 using (new PipingSubCalculatorFactoryConfig())
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
                     void Call() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
@@ -915,20 +915,20 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 failureMechanism.CalculationsGroup.Children.Add(new TestPipingCalculationScenario());
 
-                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var mainWindow = mocks.Stub<IMainWindow>();
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // When
                     void Call() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
@@ -952,22 +952,22 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.Attach(failureMechanismObserver);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var viewCommands = mocks.StrictMock<IViewCommands>();
-                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
@@ -994,21 +994,21 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 failureMechanism.Attach(failureMechanismObserver);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 var viewCommands = mocks.StrictMock<IViewCommands>();
-                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();

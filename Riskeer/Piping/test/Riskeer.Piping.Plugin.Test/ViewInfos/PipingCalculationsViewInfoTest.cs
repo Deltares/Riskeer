@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -278,10 +278,10 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             using (var view = new PipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), assessmentSection))
             {
-                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(new PipingFailureMechanism(), assessmentSection);
+                var context = new PipingFailureMechanismCalculationStateContext(new PipingFailureMechanism(), assessmentSection);
 
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -302,10 +302,10 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             using (var view = new PipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                var failureMechanismContext = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismCalculationStateContext(failureMechanism, assessmentSection);
 
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsTrue(closeForData);
