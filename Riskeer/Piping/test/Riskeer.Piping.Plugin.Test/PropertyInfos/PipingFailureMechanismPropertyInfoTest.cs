@@ -32,7 +32,7 @@ using Riskeer.Piping.Forms.PropertyClasses;
 namespace Riskeer.Piping.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class PipingCalculationsPropertyInfoTest
+    public class PipingFailureMechanismPropertyInfoTest
     {
         private PipingPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingCalculationsProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingFailureMechanismProperties));
         }
 
         [TearDown]
@@ -55,7 +55,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(PipingCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(PipingCalculationsProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(PipingFailureMechanismProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<PipingCalculationsProperties>(objectProperties);
+            Assert.IsInstanceOf<PipingFailureMechanismProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
 
             mocks.VerifyAll();

@@ -80,7 +80,7 @@ namespace Riskeer.Piping.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(PipingCalculationsContext),
-                    typeof(PipingCalculationsProperties));
+                    typeof(PipingFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
