@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssessmentSectionView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssessmentSectionExtendedView));
         }
 
         [TearDown]
@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<AssessmentSectionView>(view);
+            Assert.IsInstanceOf<AssessmentSectionExtendedView>(view);
         }
     }
 }

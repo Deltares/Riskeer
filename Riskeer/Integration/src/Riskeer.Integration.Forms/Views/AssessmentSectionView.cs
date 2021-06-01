@@ -30,9 +30,9 @@ using Riskeer.Common.Forms.Helpers;
 namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
-    /// This class is a view showing map data for an assessment section.
+    /// This class is an extended view showing map data for an assessment section.
     /// </summary>
-    public partial class AssessmentSectionView : AssessmentSectionReferenceLineView
+    public partial class AssessmentSectionExtendedView : AssessmentSectionReferenceLineView
     {
         private readonly IAssessmentSection assessmentSection;
 
@@ -49,12 +49,12 @@ namespace Riskeer.Integration.Forms.Views
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNormObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionView"/>.
+        /// Creates a new instance of <see cref="AssessmentSectionExtendedView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
-        public AssessmentSectionView(IAssessmentSection assessmentSection) : base(assessmentSection)
+        public AssessmentSectionExtendedView(IAssessmentSection assessmentSection) : base(assessmentSection)
         {
             InitializeComponent();
 

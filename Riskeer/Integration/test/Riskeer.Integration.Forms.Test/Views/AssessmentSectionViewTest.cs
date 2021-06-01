@@ -56,25 +56,25 @@ namespace Riskeer.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            AssessmentSectionView view = ShowCalculationsView(assessmentSection);
+            AssessmentSectionExtendedView extendedView = ShowCalculationsView(assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<UserControl>(view);
-            Assert.IsInstanceOf<IMapView>(view);
-            Assert.IsNull(view.Data);
+            Assert.IsInstanceOf<UserControl>(extendedView);
+            Assert.IsInstanceOf<IMapView>(extendedView);
+            Assert.IsNull(extendedView.Data);
 
-            Assert.AreEqual(2, view.Controls.Count);
-            Assert.IsInstanceOf<RiskeerMapControl>(view.Controls[0]);
-            Assert.AreSame(view.Map, ((RiskeerMapControl) view.Controls[0]).MapControl);
-            Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
-            AssertEmptyMapData(view.Map.Data);
+            Assert.AreEqual(2, extendedView.Controls.Count);
+            Assert.IsInstanceOf<RiskeerMapControl>(extendedView.Controls[0]);
+            Assert.AreSame(extendedView.Map, ((RiskeerMapControl) extendedView.Controls[0]).MapControl);
+            Assert.AreEqual(DockStyle.Fill, ((Control) extendedView.Map).Dock);
+            AssertEmptyMapData(extendedView.Map.Data);
         }
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new AssessmentSectionView(null);
+            void Call() => new AssessmentSectionExtendedView(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -88,10 +88,10 @@ namespace Riskeer.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            AssessmentSectionView view = ShowCalculationsView(assessmentSection);
+            AssessmentSectionExtendedView extendedView = ShowCalculationsView(assessmentSection);
 
             // Assert
-            MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
+            MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, extendedView.Map.BackgroundMapData);
         }
 
         [Test]
@@ -115,11 +115,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             });
 
             // Call
-            AssessmentSectionView view = ShowCalculationsView(assessmentSection);
+            AssessmentSectionExtendedView extendedView = ShowCalculationsView(assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<MapDataCollection>(view.Map.Data);
-            MapDataCollection mapData = view.Map.Data;
+            Assert.IsInstanceOf<MapDataCollection>(extendedView.Map.Data);
+            MapDataCollection mapData = extendedView.Map.Data;
             Assert.IsNotNull(mapData);
 
             MapData hydraulicBoundaryLocationsMapData = mapData.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
@@ -142,9 +142,9 @@ namespace Riskeer.Integration.Forms.Test.Views
                 hydraulicBoundaryLocation
             });
 
-            AssessmentSectionView view = ShowCalculationsView(assessmentSection);
+            AssessmentSectionExtendedView extendedView = ShowCalculationsView(assessmentSection);
 
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+            IMapControl map = ((RiskeerMapControl) extendedView.Controls[0]).MapControl;
 
             var mocks = new MockRepository();
             IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -176,8 +176,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                 new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
             });
 
-            AssessmentSectionView view = ShowCalculationsView(assessmentSection);
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+            AssessmentSectionExtendedView extendedView = ShowCalculationsView(assessmentSection);
+            IMapControl map = ((RiskeerMapControl) extendedView.Controls[0]).MapControl;
 
             var mocks = new MockRepository();
             IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -217,8 +217,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            AssessmentSectionView view = ShowCalculationsView(assessmentSection);
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+            AssessmentSectionExtendedView extendedView = ShowCalculationsView(assessmentSection);
+            IMapControl map = ((RiskeerMapControl) extendedView.Controls[0]).MapControl;
 
             var mocks = new MockRepository();
             IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -256,8 +256,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            AssessmentSectionView view = ShowCalculationsView(assessmentSection);
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+            AssessmentSectionExtendedView extendedView = ShowCalculationsView(assessmentSection);
+            IMapControl map = ((RiskeerMapControl) extendedView.Controls[0]).MapControl;
 
             var mocks = new MockRepository();
             IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
@@ -302,8 +302,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                 new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
             });
 
-            AssessmentSectionView view = ShowCalculationsView(assessmentSection);
-            MapDataCollection mapData = view.Map.Data;
+            AssessmentSectionExtendedView extendedView = ShowCalculationsView(assessmentSection);
+            MapDataCollection mapData = extendedView.Map.Data;
 
             MapData dataToMove = mapData.Collection.ElementAt(0);
             mapData.Remove(dataToMove);
@@ -393,9 +393,9 @@ namespace Riskeer.Integration.Forms.Test.Views
             };
         }
 
-        private AssessmentSectionView ShowCalculationsView(IAssessmentSection assessmentSection)
+        private AssessmentSectionExtendedView ShowCalculationsView(IAssessmentSection assessmentSection)
         {
-            var assessmentSectionView = new AssessmentSectionView(assessmentSection);
+            var assessmentSectionView = new AssessmentSectionExtendedView(assessmentSection);
             testForm.Controls.Add(assessmentSectionView);
             testForm.Show();
 
