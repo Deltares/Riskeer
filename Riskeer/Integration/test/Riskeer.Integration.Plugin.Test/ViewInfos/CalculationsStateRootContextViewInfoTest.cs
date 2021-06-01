@@ -34,7 +34,7 @@ using RiskeerFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class AssessmentSectionStateRootContextViewInfoTest
+    public class CalculationsStateRootContextViewInfoTest
     {
         private RiskeerPlugin plugin;
         private ViewInfo info;
@@ -44,7 +44,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssessmentSectionReferenceLineView)
-                                                      && tni.DataType == typeof(AssessmentSectionStateRootContext));
+                                                      && tni.DataType == typeof(CalculationsStateRootContext));
         }
 
         [TearDown]
@@ -57,7 +57,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(AssessmentSectionStateRootContext), info.DataType);
+            Assert.AreEqual(typeof(CalculationsStateRootContext), info.DataType);
         }
 
         [Test]
@@ -84,10 +84,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CreateInstance_WithAssessmentSection_ReturnsAssessmentSectionView()
         {
             // Setup
-            var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(new AssessmentSection(AssessmentSectionComposition.Dike));
+            var calculationsStateRootContext = new CalculationsStateRootContext(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Call
-            IView view = info.CreateInstance(assessmentSectionStateRootContext);
+            IView view = info.CreateInstance(calculationsStateRootContext);
 
             // Assert
             Assert.IsInstanceOf<AssessmentSectionReferenceLineView>(view);
