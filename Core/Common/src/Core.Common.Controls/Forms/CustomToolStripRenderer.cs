@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Windows.Forms;
+using Core.Common.Controls.Style;
 
 namespace Core.Common.Controls.Forms
 {
@@ -37,14 +38,14 @@ namespace Core.Common.Controls.Forms
                 {
                     var bounds = new Rectangle(Point.Empty, e.Item.Size);
 
-                    e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(228, 228, 223)), bounds);
-                    e.Graphics.DrawRectangle(new Pen(Color.FromArgb(210, 210, 202)), bounds);
+                    e.Graphics.FillRectangle(new SolidBrush(ColorDefinitions.ButtonBackgroundColor), bounds);
+                    e.Graphics.DrawRectangle(new Pen(ColorDefinitions.ButtonBorderColor), bounds);
 
-                    btn.ForeColor = Color.FromArgb(0, 139, 191);
+                    btn.ForeColor = ColorDefinitions.ButtonActiveFrontColor;
                 }
                 else
                 {
-                    btn.ForeColor = Color.Black;
+                    btn.ForeColor = ColorDefinitions.ButtonInactiveFrontColor;
                 }
 
                 return;

@@ -22,6 +22,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Controls.Forms;
+using Core.Common.Controls.Style;
 
 namespace Core.Components.OxyPlot.Forms
 {
@@ -56,7 +57,7 @@ namespace Core.Components.OxyPlot.Forms
             this.toolStrip.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.toolStrip.BackColor = Color.FromArgb(241, 241, 238);
+            this.toolStrip.BackColor = ColorDefinitions.ControlBackgroundColor;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.panToolStripButton,
             this.zoomToRectangleToolStripButton,
