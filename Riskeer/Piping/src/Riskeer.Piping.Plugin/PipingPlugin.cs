@@ -833,8 +833,6 @@ namespace Riskeer.Piping.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
-                          .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               context,
                               ValidateAllInFailureMechanism)
@@ -852,11 +850,6 @@ namespace Riskeer.Piping.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private void RemoveAllViewsForItem(PipingFailureMechanismCalculationStateContext context)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
         /// <summary>
