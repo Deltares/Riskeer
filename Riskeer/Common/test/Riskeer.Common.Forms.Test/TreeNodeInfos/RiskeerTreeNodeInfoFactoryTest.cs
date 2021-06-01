@@ -1078,14 +1078,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
         #endregion
 
-        #region CreateFailureMechanismCalculationStateContextTreeNodeInfo
+        #region CreateFailureMechanismStateContextTreeNodeInfo
 
         [Test]
-        public void CreateFailureMechanismCalculationStateContextTreeNodeInfo_Always_ExpectedPropertiesSet()
+        public void CreateFailureMechanismStateContextTreeNodeInfo_Always_ExpectedPropertiesSet()
         {
             // Call
             TreeNodeInfo<FailureMechanismContext<IFailureMechanism>> treeNodeInfo =
-                RiskeerTreeNodeInfoFactory.CreateFailureMechanismCalculationStateContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(
+                RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(
                     context => null, (context, o, treeViewControl) => null);
 
             // Assert
@@ -1110,7 +1110,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_FailureMechanismCalculationState_Always_ReturnsWrappedDataName()
+        public void Text_FailureMechanismState_Always_ReturnsWrappedDataName()
         {
             // Setup
             const string name = "A";
@@ -1123,7 +1123,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
             TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo =
-                RiskeerTreeNodeInfoFactory.CreateFailureMechanismCalculationStateContextTreeNodeInfo<TestFailureMechanismContext>(
+                RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<TestFailureMechanismContext>(
                     null, null);
 
             // Call
@@ -1135,11 +1135,11 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_FailureMechanismCalculationState_Always_ReturnsFailureMechanismIcon()
+        public void Image_FailureMechanismState_Always_ReturnsFailureMechanismIcon()
         {
             // Setup
             TreeNodeInfo<FailureMechanismContext<IFailureMechanism>> treeNodeInfo =
-                RiskeerTreeNodeInfoFactory.CreateFailureMechanismCalculationStateContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(
+                RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(
                     null, null);
 
             // Call
@@ -1154,7 +1154,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo =
-                RiskeerTreeNodeInfoFactory.CreateFailureMechanismCalculationStateContextTreeNodeInfo<TestFailureMechanismContext>(
+                RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<TestFailureMechanismContext>(
                     null, null);
 
             // Call
@@ -1181,7 +1181,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
             TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo
-                = RiskeerTreeNodeInfoFactory.CreateFailureMechanismCalculationStateContextTreeNodeInfo<TestFailureMechanismContext>(mechanismContext => resultIsRelevant, null);
+                = RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<TestFailureMechanismContext>(mechanismContext => resultIsRelevant, null);
 
             // Call
             object[] children = treeNodeInfo.ChildNodeObjects(context);
@@ -1207,7 +1207,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
                 var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
                 TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo =
-                    RiskeerTreeNodeInfoFactory.CreateFailureMechanismCalculationStateContextTreeNodeInfo<TestFailureMechanismContext>(
+                    RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<TestFailureMechanismContext>(
                         null,
                         (mechanismContext, parent, treeViewControl) =>
                         {

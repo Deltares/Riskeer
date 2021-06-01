@@ -147,7 +147,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="childNodeObjects">The function for obtaining the child node objects.</param>
         /// <param name="contextMenuStrip">The function for obtaining the context menu strip.</param>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
-        public static TreeNodeInfo<TFailureMechanismContext> CreateFailureMechanismCalculationStateContextTreeNodeInfo<TFailureMechanismContext>(
+        public static TreeNodeInfo<TFailureMechanismContext> CreateFailureMechanismStateContextTreeNodeInfo<TFailureMechanismContext>(
             Func<TFailureMechanismContext, object[]> childNodeObjects,
             Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>

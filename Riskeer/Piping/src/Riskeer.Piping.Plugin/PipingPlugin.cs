@@ -370,7 +370,7 @@ namespace Riskeer.Piping.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismCalculationStateContextTreeNodeInfo<PipingFailureMechanismCalculationStateContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<PipingFailureMechanismCalculationStateContext>(
                 FailureMechanismCalculationStateChildNodeObjects,
                 FailureMechanismCalculationStateContextMenuStrip);
 
