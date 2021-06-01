@@ -33,7 +33,7 @@ using RiskeerFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class AssessmentSectionViewInfoTest
+    public class AssessmentSectionExtendedViewInfoTest
     {
         private RiskeerPlugin plugin;
         private ViewInfo info;

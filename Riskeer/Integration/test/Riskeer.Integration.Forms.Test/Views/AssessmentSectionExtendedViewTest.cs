@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 {
     [TestFixture]
     [Apartment(ApartmentState.STA)]
-    public class AssessmentSectionViewTest : NUnitFormTest
+    public class AssessmentSectionExtendedViewTest : NUnitFormTest
     {
         private const int referenceLineIndex = 0;
         private const int hydraulicBoundaryLocationsIndex = 1;
