@@ -67,7 +67,6 @@ namespace Riskeer.Integration.Forms.Views
             MapDataCollection.Add(referenceLineMapData);
 
             SetAllMapDataFeatures();
-            riskeerMapControl.SetAllData(MapDataCollection, assessmentSection.BackgroundData);
         }
 
         public object Data { get; set; }
@@ -81,6 +80,13 @@ namespace Riskeer.Integration.Forms.Views
         }
 
         protected MapDataCollection MapDataCollection { get; }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            riskeerMapControl.SetAllData(MapDataCollection, assessmentSection.BackgroundData);
+            
+            base.OnLoad(e);
+        }
 
         protected override void Dispose(bool disposing)
         {

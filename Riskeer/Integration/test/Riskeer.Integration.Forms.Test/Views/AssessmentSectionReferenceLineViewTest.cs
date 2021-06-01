@@ -22,11 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -38,9 +40,12 @@ using Riskeer.Integration.Forms.Views;
 namespace Riskeer.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class AssessmentSectionReferenceLineViewTest
+    [Apartment(ApartmentState.STA)]
+    public class AssessmentSectionReferenceLineViewTest : NUnitFormTest
     {
         private const int referenceLineIndex = 0;
+
+        private Form testForm;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -49,19 +54,18 @@ namespace Riskeer.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            using (var view = new AssessmentSectionReferenceLineView(assessmentSection))
-            {
-                // Assert
-                Assert.IsInstanceOf<UserControl>(view);
-                Assert.IsInstanceOf<IMapView>(view);
-                Assert.IsNull(view.Data);
+            AssessmentSectionReferenceLineView view = ShowCalculationsView(assessmentSection);
 
-                Assert.AreEqual(1, view.Controls.Count);
-                Assert.IsInstanceOf<RiskeerMapControl>(view.Controls[0]);
-                Assert.AreSame(view.Map, ((RiskeerMapControl) view.Controls[0]).MapControl);
-                Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
-                AssertEmptyMapData(view.Map.Data);
-            }
+            // Assert
+            Assert.IsInstanceOf<UserControl>(view);
+            Assert.IsInstanceOf<IMapView>(view);
+            Assert.IsNull(view.Data);
+
+            Assert.AreEqual(1, view.Controls.Count);
+            Assert.IsInstanceOf<RiskeerMapControl>(view.Controls[0]);
+            Assert.AreSame(view.Map, ((RiskeerMapControl) view.Controls[0]).MapControl);
+            Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
+            AssertEmptyMapData(view.Map.Data);
         }
 
         [Test]
@@ -82,11 +86,10 @@ namespace Riskeer.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            using (var view = new AssessmentSectionReferenceLineView(assessmentSection))
-            {
-                // Assert
-                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
-            }
+            AssessmentSectionReferenceLineView view = ShowCalculationsView(assessmentSection);
+
+            // Assert
+            MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
         }
 
         [Test]
@@ -106,16 +109,15 @@ namespace Riskeer.Integration.Forms.Test.Views
             };
 
             // Call
-            using (var view = new AssessmentSectionReferenceLineView(assessmentSection))
-            {
-                // Assert
-                Assert.IsInstanceOf<MapDataCollection>(view.Map.Data);
-                MapDataCollection mapData = view.Map.Data;
-                Assert.IsNotNull(mapData);
+            AssessmentSectionReferenceLineView view = ShowCalculationsView(assessmentSection);
 
-                MapData referenceLineMapData = mapData.Collection.ElementAt(referenceLineIndex);
-                AssertReferenceLineMapData(referenceLine, referenceLineMapData);
-            }
+            // Assert
+            Assert.IsInstanceOf<MapDataCollection>(view.Map.Data);
+            MapDataCollection mapData = view.Map.Data;
+            Assert.IsNotNull(mapData);
+
+            MapData referenceLineMapData = mapData.Collection.ElementAt(referenceLineIndex);
+            AssertReferenceLineMapData(referenceLine, referenceLineMapData);
         }
 
         [Test]
@@ -134,29 +136,28 @@ namespace Riskeer.Integration.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            using (var view = new AssessmentSectionReferenceLineView(assessmentSection))
-            {
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+            AssessmentSectionReferenceLineView view = ShowCalculationsView(assessmentSection);
 
-                var mocks = new MockRepository();
-                IObserver observer = AttachReferenceLineMapDataObserver(mocks, map.Data.Collection);
-                observer.Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-                var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
+            var mocks = new MockRepository();
+            IObserver observer = AttachReferenceLineMapDataObserver(mocks, map.Data.Collection);
+            observer.Expect(obs => obs.UpdateObserver());
+            mocks.ReplayAll();
 
-                // Precondition
-                MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-                AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+            var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
 
-                // Call
-                assessmentSection.Name = "New name";
-                assessmentSection.NotifyObservers();
+            // Precondition
+            MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
+            AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
-                // Assert
-                MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-                mocks.VerifyAll();
-            }
+            // Call
+            assessmentSection.Name = "New name";
+            assessmentSection.NotifyObservers();
+
+            // Assert
+            MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -175,32 +176,31 @@ namespace Riskeer.Integration.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            using (var view = new AssessmentSectionReferenceLineView(assessmentSection))
+            AssessmentSectionReferenceLineView view = ShowCalculationsView(assessmentSection);
+
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+
+            var mocks = new MockRepository();
+            IObserver observer = AttachReferenceLineMapDataObserver(mocks, map.Data.Collection);
+            observer.Expect(obs => obs.UpdateObserver());
+            mocks.ReplayAll();
+
+            MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
+
+            // Precondition
+            AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+
+            // Call
+            referenceLine.SetGeometry(new List<Point2D>
             {
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+                new Point2D(2.0, 5.0),
+                new Point2D(4.0, 3.0)
+            });
+            referenceLine.NotifyObservers();
 
-                var mocks = new MockRepository();
-                IObserver observer = AttachReferenceLineMapDataObserver(mocks, map.Data.Collection);
-                observer.Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
-
-                MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
-
-                // Precondition
-                AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-
-                // Call
-                referenceLine.SetGeometry(new List<Point2D>
-                {
-                    new Point2D(2.0, 5.0),
-                    new Point2D(4.0, 3.0)
-                });
-                referenceLine.NotifyObservers();
-
-                // Assert
-                AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-                mocks.VerifyAll();
-            }
+            // Assert
+            AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+            mocks.VerifyAll();
         }
 
         private static void AssertReferenceLineMapData(ReferenceLine referenceLine, MapData referenceLineMapData)
@@ -224,6 +224,20 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
         }
 
+        public override void Setup()
+        {
+            base.Setup();
+
+            testForm = new Form();
+        }
+
+        public override void TearDown()
+        {
+            base.TearDown();
+
+            testForm.Dispose();
+        }
+
         /// <summary>
         /// Attaches a mocked observer to the <see cref="IObservable"/> map data components.
         /// </summary>
@@ -238,6 +252,15 @@ namespace Riskeer.Integration.Forms.Test.Views
             var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
             return referenceLineMapDataObserver;
+        }
+
+        private AssessmentSectionReferenceLineView ShowCalculationsView(IAssessmentSection assessmentSection)
+        {
+            var assessmentSectionView = new AssessmentSectionReferenceLineView(assessmentSection);
+            testForm.Controls.Add(assessmentSectionView);
+            testForm.Show();
+
+            return assessmentSectionView;
         }
     }
 }
