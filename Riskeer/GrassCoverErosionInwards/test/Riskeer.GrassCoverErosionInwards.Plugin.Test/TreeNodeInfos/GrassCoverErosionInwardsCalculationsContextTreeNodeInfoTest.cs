@@ -28,7 +28,6 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
-using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.MainWindow;
 using Core.Gui.TestUtil.ContextMenu;
@@ -58,13 +57,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationsContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuRelevancyIndexWhenRelevant = 2;
-        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
-
-        private const int contextMenuValidateAllIndex = 4;
-        private const int contextMenuCalculateAllIndex = 5;
-        private const int contextMenuClearAllIndex = 7;
-        private const int contextMenuClearIllustrationPointsIndex = 8;
+        private const int contextMenuValidateAllIndex = 2;
+        private const int contextMenuCalculateAllIndex = 3;
+        private const int contextMenuClearAllIndex = 5;
+        private const int contextMenuClearIllustrationPointsIndex = 6;
 
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
 
@@ -180,8 +176,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
@@ -235,12 +229,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                 {
                     // Assert
-                    Assert.AreEqual(14, menu.Items.Count);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
-                                                                  "I&s relevant",
-                                                                  "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                  RiskeerCommonFormsResources.Checkbox_ticked);
+                    Assert.AreEqual(12, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
                                                                   "Alles &valideren",

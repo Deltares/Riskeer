@@ -547,8 +547,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             return builder
                    .AddOpenItem()
                    .AddSeparator()
-                   .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
-                   .AddSeparator()
                    .AddValidateAllCalculationsInFailureMechanismItem(
                        context,
                        ValidateAllInFailureMechanism,
@@ -568,11 +566,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                    .AddSeparator()
                    .AddPropertiesItem()
                    .Build();
-        }
-
-        private void RemoveAllViewsForItem(GrassCoverErosionInwardsCalculationsContext context)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
         private static string EnableValidateAndCalculateMenuItemForFailureMechanism(GrassCoverErosionInwardsCalculationsContext context)
