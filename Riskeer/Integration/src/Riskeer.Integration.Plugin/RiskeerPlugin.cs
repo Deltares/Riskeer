@@ -70,7 +70,6 @@ using Riskeer.Common.Util.TypeConverters;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Plugin.Handlers;
-using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -133,12 +132,6 @@ namespace Riskeer.Integration.Plugin
 
         private static readonly IEnumerable<FailureMechanismContextAssociation> failureMechanismAssociations = new[]
         {
-            new FailureMechanismContextAssociation(
-                typeof(GrassCoverErosionInwardsFailureMechanism),
-                (mechanism, assessmentSection) => new GrassCoverErosionInwardsCalculationsContext(
-                    (GrassCoverErosionInwardsFailureMechanism) mechanism,
-                    assessmentSection)
-            ),
             new FailureMechanismContextAssociation(
                 typeof(HeightStructuresFailureMechanism),
                 (mechanism, assessmentSection) => new HeightStructuresFailureMechanismContext(
@@ -1754,7 +1747,6 @@ namespace Riskeer.Integration.Plugin
 
             var failureMechanisms = new IFailureMechanism[]
             {
-                assessmentSection.GrassCoverErosionInwards,
                 assessmentSection.MacroStabilityInwards,
                 assessmentSection.StabilityStoneCover,
                 assessmentSection.WaveImpactAsphaltCover,
@@ -1768,7 +1760,8 @@ namespace Riskeer.Integration.Plugin
             var childNodes = new List<object>
             {
                 new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
-                new PipingCalculationsContext(assessmentSection.Piping, assessmentSection)
+                new PipingCalculationsContext(assessmentSection.Piping, assessmentSection),
+                new GrassCoverErosionInwardsCalculationsContext(assessmentSection.GrassCoverErosionInwards, assessmentSection)
             };
 
             childNodes.AddRange(failureMechanisms.Select(failureMechanism => failureMechanismAssociations
