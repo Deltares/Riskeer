@@ -515,7 +515,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         {
             return new object[]
             {
-                new GrassCoverErosionInwardsFailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
             };

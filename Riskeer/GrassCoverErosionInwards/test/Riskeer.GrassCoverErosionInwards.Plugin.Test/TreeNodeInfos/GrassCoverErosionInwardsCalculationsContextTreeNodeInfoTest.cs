@@ -114,17 +114,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
-            Assert.AreEqual(3, inputsFolder.Contents.Count());
-            var failureMechanismSectionsContext = (GrassCoverErosionInwardsFailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
-            Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
+            Assert.AreEqual(2, inputsFolder.Contents.Count());
 
-            var dikeProfilesContext = (DikeProfilesContext) inputsFolder.Contents.ElementAt(1);
+            var dikeProfilesContext = (DikeProfilesContext) inputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism.DikeProfiles, dikeProfilesContext.WrappedData);
             Assert.AreSame(failureMechanism, dikeProfilesContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, dikeProfilesContext.ParentAssessmentSection);
 
-            var inputComment = (Comment) inputsFolder.Contents.ElementAt(2);
+            var inputComment = (Comment) inputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
             var calculationsFolder = (GrassCoverErosionInwardsCalculationGroupContext) children[1];
