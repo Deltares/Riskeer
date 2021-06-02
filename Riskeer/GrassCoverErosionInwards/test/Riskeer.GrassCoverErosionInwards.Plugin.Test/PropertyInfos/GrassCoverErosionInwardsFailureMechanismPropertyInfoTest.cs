@@ -54,7 +54,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculationsContext), info.DataType);
             Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismProperties), info.PropertyObjectType);
         }
 
@@ -67,7 +67,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var context = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionInwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

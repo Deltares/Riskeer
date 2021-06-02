@@ -155,7 +155,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
         protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
         {
-            return new GrassCoverErosionInwardsFailureMechanismContext(
+            return new GrassCoverErosionInwardsCalculationsContext(
                 new GrassCoverErosionInwardsFailureMechanism
                 {
                     CalculationsGroup =

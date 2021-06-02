@@ -27,19 +27,19 @@ using Riskeer.GrassCoverErosionInwards.Data;
 namespace Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for an instance of <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
+    /// Presentation object for calculations of <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionInwardsFailureMechanismContext : FailureMechanismContext<GrassCoverErosionInwardsFailureMechanism>
+    public class GrassCoverErosionInwardsCalculationsContext : FailureMechanismContext<GrassCoverErosionInwardsFailureMechanism>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsFailureMechanismContext"/> class.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationsContext"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> 
         /// instance wrapped by this context object.</param>
         /// <param name="assessmentSection">The assessment section which the failure mechanism belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsFailureMechanismContext(GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                               IAssessmentSection assessmentSection) :
-            base(failureMechanism, assessmentSection) {}
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public GrassCoverErosionInwardsCalculationsContext(GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                           IAssessmentSection assessmentSection)
+            : base(failureMechanism, assessmentSection) {}
     }
 }

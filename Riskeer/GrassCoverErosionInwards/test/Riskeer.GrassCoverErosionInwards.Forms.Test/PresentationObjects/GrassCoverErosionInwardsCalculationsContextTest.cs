@@ -29,7 +29,7 @@ using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismContextTest
+    public class GrassCoverErosionInwardsCalculationsContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -42,7 +42,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            var context = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionInwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<GrassCoverErosionInwardsFailureMechanism>>(context);

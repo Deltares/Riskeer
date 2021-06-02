@@ -135,7 +135,7 @@ namespace Riskeer.Integration.Plugin
         {
             new FailureMechanismContextAssociation(
                 typeof(GrassCoverErosionInwardsFailureMechanism),
-                (mechanism, assessmentSection) => new GrassCoverErosionInwardsFailureMechanismContext(
+                (mechanism, assessmentSection) => new GrassCoverErosionInwardsCalculationsContext(
                     (GrassCoverErosionInwardsFailureMechanism) mechanism,
                     assessmentSection)
             ),
