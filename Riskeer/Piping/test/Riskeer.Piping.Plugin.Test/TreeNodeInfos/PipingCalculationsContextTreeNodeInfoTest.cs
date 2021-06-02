@@ -115,7 +115,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsPipingIcon()
+        public void Image_Always_ReturnsFailureMechanismIcon()
         {
             // Setup
             mocks.ReplayAll();
@@ -124,7 +124,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.HydraulicCalculationIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, image);
         }
 
         [Test]

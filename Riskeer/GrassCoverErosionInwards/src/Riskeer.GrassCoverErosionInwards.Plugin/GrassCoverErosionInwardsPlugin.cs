@@ -266,6 +266,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 CalculationsChildNodeObjects,
                 CalculationsContextMenuStrip);
 
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<GrassCoverErosionInwardsFailurePathContext>(
+                FailurePathChildNodeObjects,
+                FailurePathContextMenuStrip);
+
             yield return new TreeNodeInfo<DikeProfilesContext>
             {
                 Text = context => RiskeerCommonFormsResources.DikeProfiles_DisplayName,
@@ -497,7 +501,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         #region TreeNodeInfos
 
-        #region GrassCoverErosionInwardsFailureMechanismContext TreeNodeInfo
+        #region GrassCoverErosionInwardsCalculationsContext TreeNodeInfo
 
         private static object[] CalculationsChildNodeObjects(GrassCoverErosionInwardsCalculationsContext context)
         {
@@ -506,12 +510,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             return new object[]
             {
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetCalculationsInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
                 new GrassCoverErosionInwardsCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, assessmentSection)
             };
         }
 
-        private static IEnumerable<object> GetInputs(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetCalculationsInputs(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -569,6 +573,58 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
                 GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
+        }
+
+        #endregion
+
+        #region GrassCoverErosionInwardsFailurePathContext TreeNodeInfo
+
+        private static object[] FailurePathChildNodeObjects(GrassCoverErosionInwardsFailurePathContext context)
+        {
+            GrassCoverErosionInwardsFailureMechanism wrappedData = context.WrappedData;
+            IAssessmentSection assessmentSection = context.Parent;
+
+            return new object[]
+            {
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetFailurePathInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetFailurePathOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+            };
+        }
+
+        private static IEnumerable<object> GetFailurePathInputs(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new GrassCoverErosionInwardsFailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                failureMechanism.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetFailurePathOutputs(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
+                new GrassCoverErosionInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
+                new ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                failureMechanism.OutputComments
+            };
+        }
+
+        private ContextMenuStrip FailurePathContextMenuStrip(GrassCoverErosionInwardsFailurePathContext context,
+                                                             object parentData,
+                                                             TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         #endregion

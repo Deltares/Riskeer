@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -34,9 +35,6 @@ using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
@@ -93,6 +91,34 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             Assert.IsNull(info.CanDrop);
             Assert.IsNull(info.CanInsert);
             Assert.IsNull(info.OnDrop);
+        }
+
+        [Test]
+        public void Text_Always_ReturnsName()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var context = new GrassCoverErosionInwardsCalculationsContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+
+            // Call
+            string text = info.Text(context);
+
+            // Assert
+            Assert.AreEqual("Dijken en dammen - Grasbekleding erosie kruin en binnentalud", text);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Image_Always_ReturnsFailureMechanismIcon()
+        {
+            // Call
+            Image image = info.Image(null);
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, image);
         }
 
         [Test]

@@ -33,25 +33,24 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Piping.Data;
-using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
+namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class PipingFailurePathContextTreeNodeInfoTest
+    public class GrassCoverErosionInwardsFailurePathContextTreeNodeInfoTest
     {
-        private PipingPlugin plugin;
+        private GrassCoverErosionInwardsPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void Setup()
         {
-            plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingFailurePathContext));
+            plugin = new GrassCoverErosionInwardsPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsFailurePathContext));
         }
 
         [TearDown]
@@ -92,13 +91,13 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new PipingFailurePathContext(new PipingFailureMechanism(), assessmentSection);
+            var context = new GrassCoverErosionInwardsFailurePathContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             // Call
             string text = info.Text(context);
 
             // Assert
-            Assert.AreEqual("Dijken en dammen - Piping", text);
+            Assert.AreEqual("Dijken en dammen - Grasbekleding erosie kruin en binnentalud", text);
             mocks.VerifyAll();
         }
 
@@ -120,8 +119,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
             
-            var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var context = new GrassCoverErosionInwardsFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -155,22 +154,19 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
-                PipingProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
-                Assert.AreEqual(probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length), calculator.AssemblyCategoriesInput.N);
+                Assert.AreEqual(failureMechanism.GeneralInput.N, calculator.AssemblyCategoriesInput.N);
             }
 
-            var failureMechanismScenariosContext = (PipingScenariosContext) outputsFolder.Contents.ElementAt(1);
-            Assert.AreSame(failureMechanism, failureMechanismScenariosContext.FailureMechanism);
-            Assert.AreSame(failureMechanism.CalculationsGroup, failureMechanismScenariosContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismScenariosContext.AssessmentSection);
+            var scenariosContext = (GrassCoverErosionInwardsScenariosContext) outputsFolder.Contents.ElementAt(1);
+            Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
+            Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
 
-            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(2);
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
 
-            var commentContext = (Comment) outputsFolder.Contents.ElementAt(3);
-            Assert.AreSame(failureMechanism.OutputComments, commentContext);
+            var outputComment = (Comment) outputsFolder.Contents.ElementAt(3);
+            Assert.AreSame(failureMechanism.OutputComments, outputComment);
             mocks.VerifyAll();
         }
 
@@ -183,8 +179,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var failureMechanism = new PipingFailureMechanism();
-                var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
+                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var context = new GrassCoverErosionInwardsFailurePathContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
