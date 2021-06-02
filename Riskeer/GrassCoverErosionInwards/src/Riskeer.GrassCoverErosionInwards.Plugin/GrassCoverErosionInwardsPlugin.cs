@@ -507,8 +507,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
-                new GrassCoverErosionInwardsCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, assessmentSection),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new GrassCoverErosionInwardsCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, assessmentSection)
             };
         }
 
@@ -519,18 +518,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 new GrassCoverErosionInwardsFailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
-                new GrassCoverErosionInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
-                new ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
-                failureMechanism.OutputComments
             };
         }
 
