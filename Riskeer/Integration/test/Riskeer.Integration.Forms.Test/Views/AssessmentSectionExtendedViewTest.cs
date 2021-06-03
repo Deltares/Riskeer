@@ -233,13 +233,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             testForm.Dispose();
         }
 
-        /// <summary>
-        /// Attaches mocked observers to all <see cref="IObservable"/> map data components.
-        /// </summary>
-        /// <param name="mocks">The <see cref="MockRepository"/>.</param>
-        /// <param name="mapData">The map data collection containing the <see cref="IObservable"/>
-        /// elements.</param>
-        /// <returns>An array of mocked observers attached to the data in <paramref name="mapData"/>.</returns>
         private static IObserver[] AttachMapDataObservers(MockRepository mocks, IEnumerable<MapData> mapData)
         {
             MapData[] mapDataArray = mapData.ToArray();

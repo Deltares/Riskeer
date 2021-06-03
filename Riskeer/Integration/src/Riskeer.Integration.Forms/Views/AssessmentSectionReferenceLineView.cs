@@ -65,16 +65,16 @@ namespace Riskeer.Integration.Forms.Views
 
         public object Data { get; set; }
 
-        public IMapControl Map
-        {
-            get
-            {
-                return riskeerMapControl.MapControl;
-            }
-        }
+        public IMapControl Map => riskeerMapControl.MapControl;
 
+        /// <summary>
+        /// Gets the <see cref="IAssessmentSection"/>.
+        /// </summary>
         protected IAssessmentSection AssessmentSection { get; }
 
+        /// <summary>
+        /// Gets the <see cref="MapDataCollection"/>.
+        /// </summary>
         protected MapDataCollection MapDataCollection { get; }
 
         protected override void OnLoad(EventArgs e)
@@ -101,6 +101,9 @@ namespace Riskeer.Integration.Forms.Views
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Creates observers for the related data.
+        /// </summary>
         protected virtual void CreateObservers()
         {
             assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
@@ -114,6 +117,9 @@ namespace Riskeer.Integration.Forms.Views
             };
         }
 
+        /// <summary>
+        /// Sets all map data features.
+        /// </summary>
         protected virtual void SetAllMapDataFeatures()
         {
             SetReferenceLineMapData();
