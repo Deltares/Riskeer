@@ -152,6 +152,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
+
                 // Call
                 object[] objects = info.ChildNodeObjects(context).ToArray();
 
@@ -161,16 +162,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var failurePathsFolder = (CategoryTreeFolder) objects[0];
                 Assert.AreEqual("Faalpaden", failurePathsFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.General, failurePathsFolder.Category);
-                
+
                 Assert.AreEqual(2, failurePathsFolder.Contents.Count());
-                var pipingFailurePathContext = (PipingFailurePathContext) failurePathsFolder.Contents.ElementAt(0); 
+                var pipingFailurePathContext = (PipingFailurePathContext) failurePathsFolder.Contents.ElementAt(0);
                 Assert.AreSame(assessmentSection.Piping, pipingFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, pipingFailurePathContext.Parent);
-                
-                var grassCoverErosionInwardsFailurePathContext = (GrassCoverErosionInwardsFailurePathContext) failurePathsFolder.Contents.ElementAt(1); 
+
+                var grassCoverErosionInwardsFailurePathContext = (GrassCoverErosionInwardsFailurePathContext) failurePathsFolder.Contents.ElementAt(1);
                 Assert.AreSame(assessmentSection.GrassCoverErosionInwards, grassCoverErosionInwardsFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, grassCoverErosionInwardsFailurePathContext.Parent);
-                
+
                 var assemblyResultsContext = (AssemblyResultsContext) objects[1];
                 Assert.AreSame(assessmentSection, assemblyResultsContext.WrappedData);
             }

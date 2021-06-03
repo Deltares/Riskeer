@@ -788,13 +788,15 @@ namespace Riskeer.Piping.Plugin
 
         private static object[] CalculationsChildNodeObjects(PipingCalculationsContext context)
         {
-            PipingFailureMechanism wrappedData = context.WrappedData;
+            PipingFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
 
             return new object[]
             {
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetCalculationsInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
-                new PipingCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData.SurfaceLines, wrappedData.StochasticSoilModels, wrappedData, assessmentSection)
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetCalculationsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                new PipingCalculationGroupContext(failureMechanism.CalculationsGroup, null,failureMechanism.SurfaceLines,
+                                                  failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection)
             };
         }
 
@@ -872,13 +874,15 @@ namespace Riskeer.Piping.Plugin
 
         private static object[] FailurePathChildNodeObjects(PipingFailurePathContext context)
         {
-            PipingFailureMechanism wrappedData = context.WrappedData;
+            PipingFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
 
             return new object[]
             {
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetFailurePathInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetFailurePathOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetFailurePathInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                                       GetFailurePathOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
             };
         }
 

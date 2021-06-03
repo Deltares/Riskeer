@@ -99,7 +99,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsName()
+        public void Text_WithContext_ReturnsName()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -128,7 +128,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnChildDataNodes()
+        public void ChildNodeObjects_WithContext_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -544,7 +544,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
