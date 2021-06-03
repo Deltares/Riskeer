@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsGenericInputOutputIcon()
+        public void Image_Always_ReturnsExpectedIcon()
         {
             // Call
             Image image = info.Image;
@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_WithAssessmentSection_ReturnsAssessmentSectionView()
+        public void CreateInstance_WithAssessmentSection_ReturnsAssessmentSectionExtendedView()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();

@@ -59,39 +59,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             AssessmentSectionExtendedView extendedView = ShowCalculationsView(assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<UserControl>(extendedView);
-            Assert.IsInstanceOf<IMapView>(extendedView);
-            Assert.IsNull(extendedView.Data);
-
-            Assert.AreEqual(2, extendedView.Controls.Count);
-            Assert.IsInstanceOf<RiskeerMapControl>(extendedView.Controls[0]);
-            Assert.AreSame(extendedView.Map, ((RiskeerMapControl) extendedView.Controls[0]).MapControl);
-            Assert.AreEqual(DockStyle.Fill, ((Control) extendedView.Map).Dock);
-            AssertEmptyMapData(extendedView.Map.Data);
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new AssessmentSectionExtendedView(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSectionStub();
-
-            // Call
-            AssessmentSectionExtendedView extendedView = ShowCalculationsView(assessmentSection);
-
-            // Assert
-            MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, extendedView.Map.BackgroundMapData);
+            Assert.IsInstanceOf<AssessmentSectionReferenceLineView>(extendedView);
         }
 
         [Test]
@@ -126,7 +94,8 @@ namespace Riskeer.Integration.Forms.Test.Views
             MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
 
             MapData referenceLineMapData = mapData.Collection.ElementAt(referenceLineIndex);
-            AssertReferenceLineMapData(referenceLine, referenceLineMapData);
+            MapDataTestHelper.AssertReferenceLineMapData(referenceLine, referenceLineMapData);
+            Assert.IsTrue(referenceLineMapData.IsVisible);
         }
 
         [Test]
@@ -202,87 +171,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_AssessmentSectionUpdated_MapDataUpdated()
-        {
-            // Setup
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new List<Point2D>
-            {
-                new Point2D(1.0, 2.0),
-                new Point2D(2.0, 1.0)
-            });
-
-            var assessmentSection = new AssessmentSectionStub
-            {
-                ReferenceLine = referenceLine
-            };
-
-            AssessmentSectionExtendedView extendedView = ShowCalculationsView(assessmentSection);
-            IMapControl map = ((RiskeerMapControl) extendedView.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
-
-            // Precondition
-            MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-
-            // Call
-            assessmentSection.Name = "New name";
-            assessmentSection.NotifyObservers();
-
-            // Assert
-            MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
-        {
-            // Setup
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new List<Point2D>
-            {
-                new Point2D(1.0, 2.0),
-                new Point2D(2.0, 1.0)
-            });
-
-            var assessmentSection = new AssessmentSectionStub
-            {
-                ReferenceLine = referenceLine
-            };
-
-            AssessmentSectionExtendedView extendedView = ShowCalculationsView(assessmentSection);
-            IMapControl map = ((RiskeerMapControl) extendedView.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
-
-            // Precondition
-            AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-
-            // Call
-            referenceLine.SetGeometry(new List<Point2D>
-            {
-                new Point2D(2.0, 5.0),
-                new Point2D(4.0, 3.0)
-            });
-            referenceLine.NotifyObservers();
-
-            // Assert
-            AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void UpdateObserver_DataUpdated_MapLayersSameOrder()
         {
             // Setup
@@ -343,12 +231,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             base.TearDown();
 
             testForm.Dispose();
-        }
-
-        private static void AssertReferenceLineMapData(ReferenceLine referenceLine, MapData referenceLineMapData)
-        {
-            MapDataTestHelper.AssertReferenceLineMapData(referenceLine, referenceLineMapData);
-            Assert.IsTrue(referenceLineMapData.IsVisible);
         }
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)

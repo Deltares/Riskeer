@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Forms.Views
             this.riskeerMapControl.Size = new System.Drawing.Size(150, 150);
             this.riskeerMapControl.TabIndex = 0;
             // 
-            // AssessmentSectionView
+            // AssessmentSectionReferenceLineView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

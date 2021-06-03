@@ -117,7 +117,8 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.IsNotNull(mapData);
 
             MapData referenceLineMapData = mapData.Collection.ElementAt(referenceLineIndex);
-            AssertReferenceLineMapData(referenceLine, referenceLineMapData);
+            MapDataTestHelper.AssertReferenceLineMapData(referenceLine, referenceLineMapData);
+            Assert.IsTrue(referenceLineMapData.IsVisible);
         }
 
         [Test]
@@ -149,7 +150,8 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             // Precondition
             MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+            MapDataTestHelper.AssertReferenceLineMapData(referenceLine, referenceLineMapData);
+            Assert.IsTrue(referenceLineMapData.IsVisible);
 
             // Call
             assessmentSection.Name = "New name";
@@ -188,7 +190,8 @@ namespace Riskeer.Integration.Forms.Test.Views
             MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
             // Precondition
-            AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+            MapDataTestHelper.AssertReferenceLineMapData(referenceLine, referenceLineMapData);
+            Assert.IsTrue(referenceLineMapData.IsVisible);
 
             // Call
             referenceLine.SetGeometry(new List<Point2D>
@@ -199,14 +202,9 @@ namespace Riskeer.Integration.Forms.Test.Views
             referenceLine.NotifyObservers();
 
             // Assert
-            AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            mocks.VerifyAll();
-        }
-
-        private static void AssertReferenceLineMapData(ReferenceLine referenceLine, MapData referenceLineMapData)
-        {
             MapDataTestHelper.AssertReferenceLineMapData(referenceLine, referenceLineMapData);
             Assert.IsTrue(referenceLineMapData.IsVisible);
+            mocks.VerifyAll();
         }
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
