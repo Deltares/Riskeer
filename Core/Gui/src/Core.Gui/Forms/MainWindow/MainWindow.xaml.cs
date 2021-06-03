@@ -577,7 +577,7 @@ namespace Core.Gui.Forms.MainWindow
             {
                 Text = Properties.Resources.Messages
             };
-            viewController.ViewHost.AddToolView(MessageWindow, ToolViewLocation.Bottom, "\uE908");
+            viewController.ViewHost.AddToolView(MessageWindow, ToolViewLocation.Bottom, "\uE909");
         }
 
         private void InitMapLegendWindow()
