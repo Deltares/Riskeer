@@ -34,19 +34,17 @@ namespace Core.Common.Controls.Forms
         {
             if (e.Item is ToolStripButton btn)
             {
-                if (btn.Checked || btn.Pressed)
+                if (btn.Checked || btn.Pressed || btn.Selected)
                 {
                     var bounds = new Rectangle(Point.Empty, e.Item.Size);
 
                     e.Graphics.FillRectangle(new SolidBrush(ColorDefinitions.ButtonBackgroundColor), bounds);
                     e.Graphics.DrawRectangle(new Pen(ColorDefinitions.ButtonBorderColor), bounds);
+                }
 
-                    btn.ForeColor = ColorDefinitions.ButtonActiveFrontColor;
-                }
-                else
-                {
-                    btn.ForeColor = ColorDefinitions.ButtonInactiveFrontColor;
-                }
+                btn.ForeColor = btn.Checked || btn.Pressed
+                                    ? ColorDefinitions.ButtonActiveFrontColor
+                                    : ColorDefinitions.ButtonInactiveFrontColor;
 
                 return;
             }
