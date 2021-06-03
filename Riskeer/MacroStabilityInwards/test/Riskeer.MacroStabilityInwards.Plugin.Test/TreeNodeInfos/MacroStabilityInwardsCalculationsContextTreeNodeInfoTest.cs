@@ -56,12 +56,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class MacroStabilityInwardsCalculationsContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuRelevancyIndexWhenRelevant = 2;
-        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
-
-        private const int contextMenuValidateAllIndex = 4;
-        private const int contextMenuCalculateAllIndex = 5;
-        private const int contextMenuClearIndex = 7;
+        private const int contextMenuValidateAllIndex = 2;
+        private const int contextMenuCalculateAllIndex = 3;
+        private const int contextMenuClearIndex = 5;
 
         private MockRepository mocks;
         private MacroStabilityInwardsPlugin plugin;
@@ -95,7 +92,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsName()
+        public void Text_WithContext_ReturnsName()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -121,11 +118,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.HydraulicCalculationIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, image);
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
+        public void ChildNodeObjects_WithContext_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -201,29 +198,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             var commentContext = (Comment) outputsFolder.Contents.ElementAt(3);
             Assert.AreSame(failureMechanism.OutputComments, commentContext);
-        }
-
-        [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismNotRelevantComments()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism
-            {
-                IsRelevant = false
-            };
-
-            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
-
-            // Call
-            object[] children = info.ChildNodeObjects(context).ToArray();
-
-            // Assert
-            Assert.AreEqual(1, children.Length);
-            var comment = (Comment) children[0];
-            Assert.AreSame(failureMechanism.NotRelevantComments, comment);
         }
 
         [Test]
@@ -344,7 +318,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(13, menu.Items.Count);
+                    Assert.AreEqual(11, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   0,
@@ -352,44 +326,35 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                   "Open de gegevens in een nieuw documentvenster.",
                                                                   CoreGuiResources.OpenIcon,
                                                                   false);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   2,
-                                                                  "I&s relevant",
-                                                                  "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                  RiskeerCommonFormsResources.Checkbox_ticked);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  4,
                                                                   "Alles &valideren",
                                                                   "Valideer alle berekeningen binnen dit toetsspoor.",
                                                                   RiskeerCommonFormsResources.ValidateAllIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  5,
+                                                                  3,
                                                                   "Alles be&rekenen",
                                                                   "Voer alle berekeningen binnen dit toetsspoor uit.",
                                                                   RiskeerCommonFormsResources.CalculateAllIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  7,
+                                                                  5,
                                                                   "&Wis alle uitvoer...",
                                                                   "Wis de uitvoer van alle berekeningen binnen dit toetsspoor.",
                                                                   RiskeerCommonFormsResources.ClearIcon);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  9,
+                                                                  7,
                                                                   "Alles i&nklappen",
                                                                   "Klap dit element en alle onderliggende elementen in.",
                                                                   CoreGuiResources.CollapseAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  10,
+                                                                  8,
                                                                   "Alles ui&tklappen",
                                                                   "Klap dit element en alle onderliggende elementen uit.",
                                                                   CoreGuiResources.ExpandAllIcon,
                                                                   false);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                  12,
+                                                                  10,
                                                                   "Ei&genschappen",
                                                                   "Toon de eigenschappen in het Eigenschappenpaneel.",
                                                                   CoreGuiResources.PropertiesHS,
@@ -398,9 +363,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     CollectionAssert.AllItemsAreInstancesOfType(new[]
                     {
                         menu.Items[1],
-                        menu.Items[3],
-                        menu.Items[8],
-                        menu.Items[11]
+                        menu.Items[4],
+                        menu.Items[6],
+                        menu.Items[9]
                     }, typeof(ToolStripSeparator));
                 }
             }
@@ -528,7 +493,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -543,49 +508,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
-                }
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
-            }
-
-            // Assert
-            // Assert expectancies are called in TearDown()
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevant_CallsContextMenuBuilderMethods()
-        {
-            // Setup
-            var treeViewControl = new TreeViewControl();
-            {
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism
-                {
-                    IsRelevant = false
-                };
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                using (mocks.Ordered())
-                {
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
@@ -733,85 +657,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[14]);
                         Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", msgs[15]);
                     });
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevant()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var failureMechanismObserver = mocks.Stub<IObserver>();
-                failureMechanismObserver.Expect(o => o.UpdateObserver());
-
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                failureMechanism.Attach(failureMechanismObserver);
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
-
-                var viewCommands = mocks.StrictMock<IViewCommands>();
-                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
-
-                    // Assert
-                    Assert.IsFalse(failureMechanism.IsRelevant);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevant()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var failureMechanismObserver = mocks.Stub<IObserver>();
-                failureMechanismObserver.Expect(o => o.UpdateObserver());
-
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism
-                {
-                    IsRelevant = false
-                };
-                failureMechanism.Attach(failureMechanismObserver);
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
-
-                var viewCommands = mocks.StrictMock<IViewCommands>();
-                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
-
-                    // Assert
-                    Assert.IsTrue(failureMechanism.IsRelevant);
                 }
             }
         }
