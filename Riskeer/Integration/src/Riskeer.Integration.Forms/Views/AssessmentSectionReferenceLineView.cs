@@ -57,14 +57,10 @@ namespace Riskeer.Integration.Forms.Views
 
             AssessmentSection = assessmentSection;
 
-            CreateObservers();
-
             MapDataCollection = new MapDataCollection(Resources.AssessmentSectionMap_DisplayName);
             referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
 
             MapDataCollection.Add(referenceLineMapData);
-
-            SetAllMapDataFeatures();
         }
 
         public object Data { get; set; }
@@ -83,6 +79,10 @@ namespace Riskeer.Integration.Forms.Views
 
         protected override void OnLoad(EventArgs e)
         {
+            CreateObservers();
+
+            SetAllMapDataFeatures();
+
             riskeerMapControl.SetAllData(MapDataCollection, AssessmentSection.BackgroundData);
 
             base.OnLoad(e);
@@ -101,7 +101,7 @@ namespace Riskeer.Integration.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void CreateObservers()
+        protected virtual void CreateObservers()
         {
             assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
             {
@@ -114,7 +114,7 @@ namespace Riskeer.Integration.Forms.Views
             };
         }
 
-        private void SetAllMapDataFeatures()
+        protected virtual void SetAllMapDataFeatures()
         {
             SetReferenceLineMapData();
         }

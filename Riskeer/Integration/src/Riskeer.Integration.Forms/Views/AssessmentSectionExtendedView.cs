@@ -56,13 +56,9 @@ namespace Riskeer.Integration.Forms.Views
         {
             InitializeComponent();
 
-            CreateObservers();
-
             hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
 
             MapDataCollection.Add(hydraulicBoundaryLocationsMapData);
-
-            SetAllMapDataFeatures();
         }
 
         protected override void Dispose(bool disposing)
@@ -85,8 +81,10 @@ namespace Riskeer.Integration.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void CreateObservers()
+        protected override void CreateObservers()
         {
+            base.CreateObservers();
+
             waterLevelCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
                 AssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
             waterLevelCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
@@ -110,8 +108,9 @@ namespace Riskeer.Integration.Forms.Views
             };
         }
 
-        private void SetAllMapDataFeatures()
+        protected override void SetAllMapDataFeatures()
         {
+            base.SetAllMapDataFeatures();
             SetHydraulicBoundaryLocationsMapData();
         }
 
