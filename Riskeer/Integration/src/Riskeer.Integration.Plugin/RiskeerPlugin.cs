@@ -1812,7 +1812,8 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new PipingFailurePathContext(assessmentSection.Piping, assessmentSection),
-                new GrassCoverErosionInwardsFailurePathContext(assessmentSection.GrassCoverErosionInwards, assessmentSection)
+                new GrassCoverErosionInwardsFailurePathContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
+                new MacroStabilityInwardsFailurePathContext(assessmentSection.MacroStabilityInwards, assessmentSection)
             };
         }
 
