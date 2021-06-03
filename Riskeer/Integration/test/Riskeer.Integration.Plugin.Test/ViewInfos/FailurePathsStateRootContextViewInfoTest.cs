@@ -83,10 +83,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnsAssessmentSectionExtendedView()
         {
             // Setup
-            var calculationsStateRootContext = new FailurePathsStateRootContext(new AssessmentSection(AssessmentSectionComposition.Dike));
+            var context = new FailurePathsStateRootContext(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Call
-            IView view = info.CreateInstance(calculationsStateRootContext);
+            IView view = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<AssessmentSectionReferenceLineView>(view);

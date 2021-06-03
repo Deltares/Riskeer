@@ -26,7 +26,8 @@ using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.TestUtil;
+using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.Views;
 using RiskeerFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 
@@ -55,7 +56,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(IAssessmentSection), info.DataType);
+            Assert.AreEqual(typeof(FailurePathsStateRootContext), info.DataType);
         }
 
         [Test]
@@ -79,13 +80,13 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_WithAssessmentSection_ReturnsAssessmentSectionExtendedView()
+        public void CreateInstance_WithContext_ReturnsAssessmentSectionExtendedView()
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub();
+            var context = new FailurePathsStateRootContext(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Call
-            IView view = info.CreateInstance(assessmentSection);
+            IView view = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<AssessmentSectionExtendedView>(view);
