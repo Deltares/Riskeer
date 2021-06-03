@@ -224,7 +224,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedFailurePathContext_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -232,7 +232,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var context = new GrassCoverErosionInwardsCalculationsContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+            var context = new GrassCoverErosionInwardsFailurePathContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             using (var view = new GrassCoverErosionInwardsScenariosView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
@@ -247,7 +247,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnTrue()
+        public void CloseForData_ViewCorrespondingToRemovedFailurePathContext_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -255,7 +255,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var context = new GrassCoverErosionInwardsCalculationsContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionInwardsFailurePathContext(failureMechanism, assessmentSection);
 
             using (var view = new GrassCoverErosionInwardsScenariosView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
