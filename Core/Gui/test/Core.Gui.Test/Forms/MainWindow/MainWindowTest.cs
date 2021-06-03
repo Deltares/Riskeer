@@ -1151,21 +1151,13 @@ namespace Core.Gui.Test.Forms.MainWindow
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
+            projectFactory.Expect(pf => pf.CreateNewProject(null))
+                          .IgnoreArguments()
+                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
-            var onNewProjectActionClicked = 0;
-            
-            var guiCoreSettings = new GuiCoreSettings
-            {
-                OnCreateNewProjectFunc = gui =>
-                {
-                    onNewProjectActionClicked++;
-                    return null;
-                }
-            };
-
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
@@ -1181,7 +1173,6 @@ namespace Core.Gui.Test.Forms.MainWindow
                 mainWindow.NewProjectCommand.Execute(null);
 
                 // Then
-                Assert.AreEqual(1, onNewProjectActionClicked);
                 Assert.AreEqual(Visibility.Collapsed, mainWindow.BackstageDockPanel.Visibility);
                 Assert.AreEqual(Visibility.Visible, mainWindow.MainDockPanel.Visibility);
             }
