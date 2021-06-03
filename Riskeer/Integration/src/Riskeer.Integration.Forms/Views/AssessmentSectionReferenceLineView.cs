@@ -35,8 +35,6 @@ namespace Riskeer.Integration.Forms.Views
     /// </summary>
     public partial class AssessmentSectionReferenceLineView : UserControl, IMapView
     {
-        protected IAssessmentSection AssessmentSection { get; set; }
-
         private readonly MapLineData referenceLineMapData;
 
         private Observer assessmentSectionObserver;
@@ -79,12 +77,14 @@ namespace Riskeer.Integration.Forms.Views
             }
         }
 
+        protected IAssessmentSection AssessmentSection { get; }
+
         protected MapDataCollection MapDataCollection { get; }
 
         protected override void OnLoad(EventArgs e)
         {
             riskeerMapControl.SetAllData(MapDataCollection, AssessmentSection.BackgroundData);
-            
+
             base.OnLoad(e);
         }
 
