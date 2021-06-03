@@ -60,22 +60,22 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismContext), info.ViewDataType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsCalculationsContext), info.DataType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsCalculationsContext), info.ViewDataType);
         }
 
         [Test]
-        public void GetViewName_WithMacroStabilityInwardsFailureMechanismContext_ReturnsNameOfFailureMechanism()
+        public void GetViewName_WithContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var macroStabilityInwardsFailureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            string viewName = info.GetViewName(null, macroStabilityInwardsFailureMechanismContext);
+            string viewName = info.GetViewName(null, context);
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, viewName);
@@ -179,7 +179,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                 IsRelevant = isRelevant
             };
 
-            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -196,7 +196,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);

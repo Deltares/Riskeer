@@ -71,7 +71,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(MacroStabilityInwardsFailureMechanismContext),
+                    typeof(MacroStabilityInwardsCalculationsContext),
                     typeof(MacroStabilityInwardsFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
@@ -127,7 +127,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(13, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsCalculationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsFailurePathContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsSurfaceLinesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsSurfaceLine)));
@@ -157,7 +157,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(MacroStabilityInwardsFailureMechanismContext),
+                    typeof(MacroStabilityInwardsCalculationsContext),
                     typeof(MacroStabilityInwardsFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(

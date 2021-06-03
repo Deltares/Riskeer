@@ -54,7 +54,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsCalculationsContext), info.DataType);
             Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismProperties), info.PropertyObjectType);
         }
 
@@ -67,7 +67,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

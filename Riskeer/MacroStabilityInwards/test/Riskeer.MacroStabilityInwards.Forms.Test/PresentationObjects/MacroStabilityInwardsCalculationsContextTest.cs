@@ -29,7 +29,7 @@ using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailureMechanismContextTest
+    public class MacroStabilityInwardsCalculationsContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -42,7 +42,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<MacroStabilityInwardsFailureMechanism>>(context);

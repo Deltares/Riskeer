@@ -212,7 +212,7 @@ namespace Riskeer.Integration.Plugin
             ),
             new FailureMechanismContextAssociation(
                 typeof(MacroStabilityInwardsFailureMechanism),
-                (mechanism, assessmentSection) => new MacroStabilityInwardsFailureMechanismContext(
+                (mechanism, assessmentSection) => new MacroStabilityInwardsCalculationsContext(
                     (MacroStabilityInwardsFailureMechanism) mechanism,
                     assessmentSection)
             ),

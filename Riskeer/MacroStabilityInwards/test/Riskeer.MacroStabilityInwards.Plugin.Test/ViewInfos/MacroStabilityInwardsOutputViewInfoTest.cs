@@ -171,7 +171,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
             {
-                return new MacroStabilityInwardsFailureMechanismContext(
+                return new MacroStabilityInwardsCalculationsContext(
                     new MacroStabilityInwardsFailureMechanism
                     {
                         CalculationsGroup =

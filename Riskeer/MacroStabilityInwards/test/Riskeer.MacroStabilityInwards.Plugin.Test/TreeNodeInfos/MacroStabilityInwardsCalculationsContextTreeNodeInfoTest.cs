@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -54,7 +54,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailureMechanismContextTreeNodeInfoTest : NUnitFormTest
+    public class MacroStabilityInwardsCalculationsContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuRelevancyIndexWhenRelevant = 2;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
@@ -102,10 +102,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new MacroStabilityInwardsFailureMechanism();
-            var mechanismContext = new MacroStabilityInwardsFailureMechanismContext(mechanism, assessmentSection);
+            var context = new MacroStabilityInwardsCalculationsContext(mechanism, assessmentSection);
 
             // Call
-            string text = info.Text(mechanismContext);
+            string text = info.Text(context);
 
             // Assert
             Assert.AreEqual("Dijken en dammen - Macrostabiliteit binnenwaarts", text);
@@ -134,10 +134,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario());
             failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario());
 
-            var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -215,10 +215,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 IsRelevant = false
             };
 
-            var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
             Assert.AreEqual(1, children.Length);
@@ -254,12 +254,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(calculation2);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -287,7 +287,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     }
                 };
 
-                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // When
                     contextMenuStrip.Items[contextMenuClearIndex].PerformClick();
@@ -316,7 +316,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.Stub<IImportCommandHandler>();
@@ -331,17 +331,17 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                          exportCommandHandler,
                                                          updateCommandHandler,
                                                          viewCommandsHandler,
-                                                         failureMechanismContext,
+                                                         context,
                                                          treeViewControl);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Assert
                     Assert.AreEqual(13, menu.Items.Count);
@@ -418,16 +418,16 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 data.Stub(dm => dm.Calculations).Return(new ICalculation[0]);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(data, assessmentSection);
+                var context = new MacroStabilityInwardsCalculationsContext(data, assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Assert
                     ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
@@ -452,12 +452,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(calculation);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -465,7 +465,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(calculation);
 
                 // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Assert
                     ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
@@ -500,18 +500,18 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     }
                 };
 
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
@@ -535,7 +535,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -557,13 +557,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 }
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                info.ContextMenuStrip(context, null, treeViewControl);
             }
 
             // Assert
@@ -581,7 +581,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     IsRelevant = false
                 };
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -596,13 +596,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 }
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                info.ContextMenuStrip(context, null, treeViewControl);
             }
 
             // Assert
@@ -632,17 +632,17 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(validCalculation);
                 failureMechanism.CalculationsGroup.Children.Add(invalidCalculation);
 
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 using (new MacroStabilityInwardsCalculatorFactoryConfig())
                 {
                     // Call
@@ -687,13 +687,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(calculationA);
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
                 var mainWindow = mocks.Stub<IMainWindow>();
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
 
@@ -705,7 +705,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 };
 
                 using (new MacroStabilityInwardsCalculatorFactoryConfig())
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
                     Action call = () => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
@@ -750,21 +750,21 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.Attach(failureMechanismObserver);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
                 var viewCommands = mocks.StrictMock<IViewCommands>();
-                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
@@ -791,21 +791,21 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.Attach(failureMechanismObserver);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
                 var viewCommands = mocks.StrictMock<IViewCommands>();
-                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
@@ -820,7 +820,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsFailureMechanismContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsCalculationsContext));
         }
 
         public override void TearDown()

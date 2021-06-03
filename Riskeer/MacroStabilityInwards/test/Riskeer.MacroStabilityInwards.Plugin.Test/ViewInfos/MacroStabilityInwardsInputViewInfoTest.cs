@@ -327,7 +327,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  new GeneralMacroStabilityInwardsInput(),
@@ -335,7 +335,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -354,7 +354,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            var context = new MacroStabilityInwardsCalculationsContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  new GeneralMacroStabilityInwardsInput(),
@@ -362,7 +362,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -384,7 +384,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  new GeneralMacroStabilityInwardsInput(),
@@ -392,7 +392,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -414,7 +414,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            var context = new MacroStabilityInwardsCalculationsContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  new GeneralMacroStabilityInwardsInput(),
@@ -422,7 +422,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsFalse(closeForData);
