@@ -76,7 +76,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsSectionResults()
+        public void GetViewData_WithContext_ReturnsSectionResults()
         {
             // Setup
             var mocks = new MockRepository();
@@ -219,7 +219,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingToRemovedFailurePathContext_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -227,7 +227,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var context = new GrassCoverErosionInwardsCalculationsContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionInwardsFailurePathContext(failureMechanism, assessmentSection);
 
             var view = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
@@ -240,7 +240,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedFailurePathContext_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -250,8 +250,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var view = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
-            var context = new GrassCoverErosionInwardsCalculationsContext(new GrassCoverErosionInwardsFailureMechanism(),
-                                                                          assessmentSection);
+            var context = new GrassCoverErosionInwardsFailurePathContext(new GrassCoverErosionInwardsFailureMechanism(),
+                                                                         assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, context);
