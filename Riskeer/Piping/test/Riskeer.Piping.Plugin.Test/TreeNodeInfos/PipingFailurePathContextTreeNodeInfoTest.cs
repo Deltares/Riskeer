@@ -34,6 +34,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PresentationObjects;
@@ -116,10 +117,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnChildDataNodes()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-            
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
 
@@ -171,7 +169,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var commentContext = (Comment) outputsFolder.Contents.ElementAt(3);
             Assert.AreSame(failureMechanism.OutputComments, commentContext);
-            mocks.VerifyAll();
         }
 
         [Test]
