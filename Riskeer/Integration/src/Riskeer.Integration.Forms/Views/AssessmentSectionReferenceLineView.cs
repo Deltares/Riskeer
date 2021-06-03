@@ -35,7 +35,7 @@ namespace Riskeer.Integration.Forms.Views
     /// </summary>
     public partial class AssessmentSectionReferenceLineView : UserControl, IMapView
     {
-        private readonly IAssessmentSection assessmentSection;
+        protected IAssessmentSection AssessmentSection { get; set; }
 
         private readonly MapLineData referenceLineMapData;
 
@@ -57,7 +57,7 @@ namespace Riskeer.Integration.Forms.Views
 
             InitializeComponent();
 
-            this.assessmentSection = assessmentSection;
+            AssessmentSection = assessmentSection;
 
             CreateObservers();
 
@@ -83,7 +83,7 @@ namespace Riskeer.Integration.Forms.Views
 
         protected override void OnLoad(EventArgs e)
         {
-            riskeerMapControl.SetAllData(MapDataCollection, assessmentSection.BackgroundData);
+            riskeerMapControl.SetAllData(MapDataCollection, AssessmentSection.BackgroundData);
             
             base.OnLoad(e);
         }
@@ -105,12 +105,12 @@ namespace Riskeer.Integration.Forms.Views
         {
             assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
             {
-                Observable = assessmentSection
+                Observable = AssessmentSection
             };
 
             referenceLineObserver = new Observer(UpdateReferenceLineMapData)
             {
-                Observable = assessmentSection.ReferenceLine
+                Observable = AssessmentSection.ReferenceLine
             };
         }
 
@@ -129,7 +129,7 @@ namespace Riskeer.Integration.Forms.Views
 
         private void SetReferenceLineMapData()
         {
-            referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(assessmentSection.ReferenceLine, assessmentSection.Id, assessmentSection.Name);
+            referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(AssessmentSection.ReferenceLine, AssessmentSection.Id, AssessmentSection.Name);
         }
 
         #endregion
