@@ -32,7 +32,7 @@ namespace Riskeer.Integration.Forms.Views
     /// <summary>
     /// This class is an extended view showing map data for an assessment section.
     /// </summary>
-    public partial class AssessmentSectionExtendedView : AssessmentSectionReferenceLineView
+    public class AssessmentSectionExtendedView : AssessmentSectionReferenceLineView
     {
         private readonly MapPointData hydraulicBoundaryLocationsMapData;
 
@@ -54,8 +54,6 @@ namespace Riskeer.Integration.Forms.Views
         /// is <c>null</c>.</exception>
         public AssessmentSectionExtendedView(IAssessmentSection assessmentSection) : base(assessmentSection)
         {
-            InitializeComponent();
-
             hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
 
             MapDataCollection.Add(hydraulicBoundaryLocationsMapData);
@@ -72,11 +70,6 @@ namespace Riskeer.Integration.Forms.Views
             waveHeightCalculationsForLowerLimitNormObserver.Dispose();
             waveHeightCalculationsForFactorizedLowerLimitNormObserver.Dispose();
             hydraulicBoundaryLocationsObserver.Dispose();
-
-            if (disposing)
-            {
-                components?.Dispose();
-            }
 
             base.Dispose(disposing);
         }
