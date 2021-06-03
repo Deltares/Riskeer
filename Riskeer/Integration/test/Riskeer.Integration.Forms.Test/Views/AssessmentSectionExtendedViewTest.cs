@@ -233,24 +233,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             testForm.Dispose();
         }
 
-        private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
-        {
-            Assert.AreEqual("Trajectkaart", mapDataCollection.Name);
-
-            List<MapData> mapDataList = mapDataCollection.Collection.ToList();
-
-            Assert.AreEqual(2, mapDataList.Count);
-
-            var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
-            var hydraulicBoundaryLocationsMapData = (MapPointData) mapDataList[hydraulicBoundaryLocationsIndex];
-
-            CollectionAssert.IsEmpty(referenceLineMapData.Features);
-            CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
-
-            Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
-            Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
-        }
-
         /// <summary>
         /// Attaches mocked observers to all <see cref="IObservable"/> map data components.
         /// </summary>
