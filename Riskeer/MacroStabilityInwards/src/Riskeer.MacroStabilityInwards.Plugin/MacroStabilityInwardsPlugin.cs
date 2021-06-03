@@ -604,9 +604,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetCalculationsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
                 new MacroStabilityInwardsCalculationGroupContext(failureMechanism.CalculationsGroup, null, failureMechanism.SurfaceLines,
-                                                                 failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+                                                                 failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection)
             };
         }
 
@@ -617,20 +615,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 new MacroStabilityInwardsSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
                 new MacroStabilityInwardsStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-        {
-            MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
-            return new object[]
-            {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism,
-                                                              assessmentSection,
-                                                              () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
-                new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
-                new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection),
-                failureMechanism.OutputComments
             };
         }
 
