@@ -407,7 +407,7 @@ namespace Riskeer.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(33, viewInfos.Length);
+                Assert.AreEqual(32, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -433,11 +433,6 @@ namespace Riskeer.Integration.Plugin.Test
                     typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>),
                     typeof(WaveHeightCalculationsView));
 
-                PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos,
-                    typeof(IAssessmentSection),
-                    typeof(AssessmentSectionExtendedView));
-                
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(AssessmentSectionStateRootContext),

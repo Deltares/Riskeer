@@ -43,8 +43,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssessmentSectionExtendedView)
-                                                      && tni.DataType == typeof(FailurePathsStateRootContext));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssessmentSectionExtendedView));
         }
 
         [TearDown]

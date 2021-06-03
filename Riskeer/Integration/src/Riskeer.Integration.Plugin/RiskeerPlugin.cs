@@ -482,13 +482,6 @@ namespace Riskeer.Integration.Plugin
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
-            yield return new ViewInfo<IAssessmentSection, AssessmentSectionExtendedView>
-            {
-                GetViewName = (view, section) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
-                Image = RiskeerFormsResources.Map,
-                CreateInstance = section => new AssessmentSectionExtendedView(section)
-            };
-
             yield return new ViewInfo<AssessmentSectionStateRootContext, AssessmentSectionReferenceLineView>
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
