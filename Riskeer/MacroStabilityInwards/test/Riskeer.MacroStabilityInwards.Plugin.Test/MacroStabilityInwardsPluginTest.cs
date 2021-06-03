@@ -126,7 +126,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(12, treeNodeInfos.Length);
+                Assert.AreEqual(13, treeNodeInfos.Length);
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsFailurePathContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsSurfaceLinesContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsSurfaceLine)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsStochasticSoilModelCollectionContext)));
@@ -135,7 +137,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsCalculationScenarioContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsInputContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsOutputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsScenariosContext)));
