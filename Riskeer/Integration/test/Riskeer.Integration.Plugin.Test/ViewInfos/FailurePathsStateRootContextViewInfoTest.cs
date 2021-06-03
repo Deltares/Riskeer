@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssessmentSectionReferenceLineView)
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssessmentSectionExtendedView)
                                                       && tni.DataType == typeof(FailurePathsStateRootContext));
         }
 
@@ -71,7 +71,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsGenericInputOutputIcon()
+        public void Image_Always_ReturnsExpectedIcon()
         {
             // Call
             Image image = info.Image;
@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_WithAssessmentSection_ReturnsAssessmentSectionView()
+        public void CreateInstance_WithContext_ReturnsAssessmentSectionExtendedView()
         {
             // Setup
             var calculationsStateRootContext = new FailurePathsStateRootContext(new AssessmentSection(AssessmentSectionComposition.Dike));

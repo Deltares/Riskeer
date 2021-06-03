@@ -496,11 +496,11 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssessmentSectionReferenceLineView(context.WrappedData)
             };
             
-            yield return new ViewInfo<FailurePathsStateRootContext, AssessmentSectionReferenceLineView>
+            yield return new ViewInfo<FailurePathsStateRootContext, AssessmentSectionExtendedView>
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
                 Image = RiskeerFormsResources.Map,
-                CreateInstance = context => new AssessmentSectionReferenceLineView(context.WrappedData)
+                CreateInstance = context => new AssessmentSectionExtendedView(context.WrappedData)
             };
             
             yield return new ViewInfo<CalculationsStateRootContext, AssessmentSectionReferenceLineView>
