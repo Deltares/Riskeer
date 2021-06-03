@@ -34,7 +34,7 @@ namespace Core.Common.Controls.Forms
         {
             if (e.Item is ToolStripButton btn)
             {
-                if (btn.Checked)
+                if (btn.Checked || btn.Pressed)
                 {
                     var bounds = new Rectangle(Point.Empty, e.Item.Size);
 
