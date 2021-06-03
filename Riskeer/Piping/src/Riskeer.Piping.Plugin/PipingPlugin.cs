@@ -85,9 +85,9 @@ namespace Riskeer.Piping.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<PipingCalculationsContext, PipingFailureMechanismProperties>
+            yield return new PropertyInfo<PipingCalculationsContext, PipingCalculationsProperties>
             {
-                CreateInstance = context => new PipingFailureMechanismProperties(context.WrappedData, context.Parent,
+                CreateInstance = context => new PipingCalculationsProperties(context.WrappedData, context.Parent,
                                                                                  new FailureMechanismPropertyChangeHandler<PipingFailureMechanism>())
             };
             yield return new PropertyInfo<SemiProbabilisticPipingInputContext, SemiProbabilisticPipingInputContextProperties>

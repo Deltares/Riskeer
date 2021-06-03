@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="PipingFailureMechanism"/> properties panel.
     /// </summary>
-    public class PipingFailureMechanismProperties : ObjectProperties<PipingFailureMechanism>
+    public class PipingCalculationsProperties : ObjectProperties<PipingFailureMechanism>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -67,13 +67,13 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         private readonly IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> propertyChangeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="PipingCalculationsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="assessmentSection">The assessment section the data belongs to.</param>
         /// <param name="handler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailureMechanismProperties(PipingFailureMechanism data,
+        public PipingCalculationsProperties(PipingFailureMechanism data,
                                                 IAssessmentSection assessmentSection,
                                                 IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> handler)
         {
