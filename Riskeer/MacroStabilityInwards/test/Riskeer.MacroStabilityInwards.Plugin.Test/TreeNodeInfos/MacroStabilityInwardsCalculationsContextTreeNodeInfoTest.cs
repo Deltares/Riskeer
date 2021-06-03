@@ -142,22 +142,18 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
-            Assert.AreEqual(4, inputsFolder.Contents.Count());
-            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
-            Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
-
-            var surfaceLinesContext = (MacroStabilityInwardsSurfaceLinesContext) inputsFolder.Contents.ElementAt(1);
+            Assert.AreEqual(3, inputsFolder.Contents.Count());
+            var surfaceLinesContext = (MacroStabilityInwardsSurfaceLinesContext) inputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism.SurfaceLines, surfaceLinesContext.WrappedData);
             Assert.AreSame(failureMechanism, surfaceLinesContext.FailureMechanism);
             Assert.AreSame(assessmentSection, surfaceLinesContext.AssessmentSection);
 
-            var stochasticSoilModelContext = (MacroStabilityInwardsStochasticSoilModelCollectionContext) inputsFolder.Contents.ElementAt(2);
+            var stochasticSoilModelContext = (MacroStabilityInwardsStochasticSoilModelCollectionContext) inputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, stochasticSoilModelContext.FailureMechanism);
             Assert.AreSame(failureMechanism, stochasticSoilModelContext.FailureMechanism);
             Assert.AreSame(assessmentSection, stochasticSoilModelContext.AssessmentSection);
 
-            var comment = (Comment) inputsFolder.Contents.ElementAt(3);
+            var comment = (Comment) inputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism.InputComments, comment);
 
             var calculationsFolder = (MacroStabilityInwardsCalculationGroupContext) children[1];
