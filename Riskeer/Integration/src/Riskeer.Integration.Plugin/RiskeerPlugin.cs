@@ -97,7 +97,6 @@ using Riskeer.Integration.Plugin.Merge;
 using Riskeer.Integration.Plugin.Properties;
 using Riskeer.Integration.Service;
 using Riskeer.Integration.Service.Comparers;
-using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.StabilityPointStructures.Data;
@@ -208,12 +207,6 @@ namespace Riskeer.Integration.Plugin
                 typeof(ClosingStructuresFailureMechanism),
                 (mechanism, assessmentSection) => new ClosingStructuresFailureMechanismContext(
                     (ClosingStructuresFailureMechanism) mechanism,
-                    assessmentSection)
-            ),
-            new FailureMechanismContextAssociation(
-                typeof(MacroStabilityInwardsFailureMechanism),
-                (mechanism, assessmentSection) => new MacroStabilityInwardsCalculationsContext(
-                    (MacroStabilityInwardsFailureMechanism) mechanism,
                     assessmentSection)
             ),
             new FailureMechanismContextAssociation(
@@ -1746,7 +1739,6 @@ namespace Riskeer.Integration.Plugin
 
             var failureMechanisms = new IFailureMechanism[]
             {
-                assessmentSection.MacroStabilityInwards,
                 assessmentSection.StabilityStoneCover,
                 assessmentSection.WaveImpactAsphaltCover,
                 assessmentSection.GrassCoverErosionOutwards,
@@ -1760,7 +1752,8 @@ namespace Riskeer.Integration.Plugin
             {
                 new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
                 new PipingCalculationsContext(assessmentSection.Piping, assessmentSection),
-                new GrassCoverErosionInwardsCalculationsContext(assessmentSection.GrassCoverErosionInwards, assessmentSection)
+                new GrassCoverErosionInwardsCalculationsContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
+                new MacroStabilityInwardsCalculationsContext(assessmentSection.MacroStabilityInwards, assessmentSection)
             };
 
             childNodes.AddRange(failureMechanisms.Select(failureMechanism => failureMechanismAssociations
