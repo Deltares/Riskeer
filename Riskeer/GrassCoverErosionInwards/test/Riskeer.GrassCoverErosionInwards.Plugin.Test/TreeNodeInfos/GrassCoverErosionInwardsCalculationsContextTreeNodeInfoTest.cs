@@ -94,7 +94,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsName()
+        public void Text_WithContext_ReturnsName()
         {
             // Setup
             var mocks = new MockRepository();
@@ -122,11 +122,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnChildDataNodes()
+        public void ChildNodeObjects_WithContext_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var context = new GrassCoverErosionInwardsCalculationsContext(failureMechanism, assessmentSection);
 
@@ -157,7 +156,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -200,7 +199,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_AddCustomItems()
+        public void ContextMenuStrip_WithContext_AddCustomItems()
         {
             // Setup
             using (var treeView = new TreeViewControl())
