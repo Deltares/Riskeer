@@ -34,10 +34,5 @@ namespace Core.Gui
         /// Gets main window of the graphical user interface.
         /// </summary>
         IMainWindow MainWindow { get; }
-        
-        /// <summary>
-        /// Gets the active parent window.
-        /// </summary>
-        IWin32Window ActiveParentWindow { get; }
     }
 }

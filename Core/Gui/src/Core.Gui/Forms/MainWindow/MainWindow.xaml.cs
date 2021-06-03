@@ -173,7 +173,7 @@ namespace Core.Gui.Forms.MainWindow
         /// <summary>
         /// Sets the <see cref="IGui"/> and dependencies.
         /// </summary>
-        public void SetGui(IGui value, Action onNewProjectAction)
+        public void SetGui(IGui value)
         {
             gui = value;
 
@@ -182,12 +182,7 @@ namespace Core.Gui.Forms.MainWindow
             commands = gui;
             applicationSelection = gui;
 
-            NewProjectCommand = new RelayCommand(o =>
-            {
-                onNewProjectAction();
-                CloseBackstage();
-            });
-
+            NewProjectCommand = new RelayCommand(OnNewProject);
             BackstageViewModel = new BackstageViewModel(settings.FixedSettings, SettingsHelper.Instance.ApplicationVersion);
         }
 
@@ -407,6 +402,12 @@ namespace Core.Gui.Forms.MainWindow
         /// </summary>
         public ICommand OpenLogFileCommand { get; }
 
+        private void OnNewProject(object obj)
+        {
+            commands.StorageCommands.CreateNewProject(() => settings.FixedSettings.OnCreateNewProjectFunc(gui));
+            CloseBackstage();
+        }
+        
         private void OnSaveProject(object obj)
         {
             if (commands.StorageCommands.SaveProject())

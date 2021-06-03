@@ -27,7 +27,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
@@ -40,7 +39,6 @@ using Core.Gui.ContextMenu;
 using Core.Gui.Forms.MainWindow;
 using Core.Gui.Forms.MessageWindow;
 using Core.Gui.Forms.PropertyGridView;
-using Core.Gui.Forms.StartScreen;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
@@ -70,8 +68,6 @@ namespace Core.Gui
         private ISelectionProvider currentSelectionProvider;
 
         private bool isExiting;
-
-        private StartScreen startScreen;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GuiCore"/> class.
@@ -174,7 +170,7 @@ namespace Core.Gui
 
             log.InfoFormat(Resources.GuiCore_Run_Started_in_0_f2_sec, (DateTime.Now - startTime).TotalSeconds);
 
-            ShowStartScreen();
+            mainWindow.Show();
 
             bool isPathGiven = !string.IsNullOrWhiteSpace(projectPath);
             if (isPathGiven)
@@ -337,45 +333,6 @@ namespace Core.Gui
             isAlreadyRunningInstanceOfIGui = false;
         }
 
-        private void ShowStartScreen()
-        {
-            startScreen = new StartScreen(
-                new StartScreenViewModel(FixedSettings.ApplicationName, OnNewProject, OnOpenProject));
-            startScreen.Closed += OnStartScreenClosed;
-            startScreen.Show();
-
-            ActiveParentWindow = startScreen;
-        }
-
-        private void OnNewProject()
-        {
-            StorageCommands.CreateNewProject(() => FixedSettings.OnCreateNewProjectFunc(this));
-        }
-
-        private void OnOpenProject()
-        {
-            string projectPath = StorageCommands.GetExistingProjectFilePath();
-            if (!string.IsNullOrEmpty(projectPath))
-            {
-                StorageCommands.OpenExistingProject(projectPath);
-            }
-        }
-
-        private void OnStartScreenClosed(object sender, EventArgs e)
-        {
-            ExitApplication();
-        }
-
-        private void ShowMainWindow()
-        {
-            startScreen.Closed -= OnStartScreenClosed;
-            startScreen.Close();
-
-            ActiveParentWindow = mainWindow;
-
-            mainWindow.Show();
-        }
-
         private void DeactivatePlugin(PluginBase plugin)
         {
             try
@@ -397,11 +354,6 @@ namespace Core.Gui
             projectObserver.Observable = newProject;
             UpdateProjectData();
             mainWindow.UpdateProjectExplorer();
-
-            if (ActiveParentWindow is StartScreen)
-            {
-                ShowMainWindow();
-            }
 
             FixedSettings.AfterProjectOpenedAction?.Invoke(newProject, DocumentViewController);
         }
@@ -768,12 +720,10 @@ namespace Core.Gui
             private set
             {
                 mainWindow = (MainWindow) value;
-                mainWindow.SetGui(this, OnNewProject);
+                mainWindow.SetGui(this);
                 dialogBasedInquiryHelper = new DialogBasedInquiryHelper(MainWindow);
             }
         }
-
-        public IWin32Window ActiveParentWindow { get; private set; }
 
         private void UpdateProjectData()
         {

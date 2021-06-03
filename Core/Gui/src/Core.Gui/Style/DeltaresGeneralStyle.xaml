@@ -24,8 +24,7 @@ All rights reserved.
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
                     xmlns:mainWindow="clr-namespace:Core.Gui.Forms.MainWindow"
-                    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
-                    xmlns:startScreen="clr-namespace:Core.Gui.Forms.StartScreen">
+                    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Core.Gui;component/Style/Symbols/Symbols.xaml" />
     </ResourceDictionary.MergedDictionaries>
@@ -69,15 +68,6 @@ All rights reserved.
 
     <SolidColorBrush x:Key="BackstageBigButtonMouseDownBrush" Color="{StaticResource DeltaresBlue}" Opacity="0.1" />
     <SolidColorBrush x:Key="BackstageBigButtonMouseOverBrush" Color="{StaticResource DeltaresBlue}" Opacity="0.1" />
-
-    <Style TargetType="{x:Type startScreen:StartScreen}">
-        <Setter Property="GlowBrush" Value="{StaticResource WindowGlowBrush}" />
-        <Setter Property="OverlayBrush" Value="{StaticResource WindowOverlayBrush}" />
-        <Setter Property="WindowTitleBrush" Value="{StaticResource DeltaresBlueBrush}" />
-        <Setter Property="ShowIconOnTitleBar" Value="False" />
-        <Setter Property="Height" Value="350" />
-        <Setter Property="Width" Value="525" />
-    </Style>
     
     <Style TargetType="{x:Type mainWindow:MainWindow}">
         <Setter Property="GlowBrush" Value="{StaticResource WindowGlowBrush}" />

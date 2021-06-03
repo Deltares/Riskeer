@@ -41,7 +41,6 @@ using Core.Gui.Forms.Map;
 using Core.Gui.Forms.MessageWindow;
 using Core.Gui.Forms.ProjectExplorer;
 using Core.Gui.Forms.PropertyGridView;
-using Core.Gui.Forms.StartScreen;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using Core.Gui.Settings;
@@ -601,7 +600,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_WithFile_LoadProjectFromFileAndShowMainWindow()
+        public void Run_WithFile_LoadProjectFromFile()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -648,8 +647,6 @@ namespace Core.Gui.Test
                 Assert.AreSame(project, gui.Project);
                 Assert.AreEqual(fileName, gui.Project.Name);
 
-                Assert.IsInstanceOf<MainWindow>(gui.ActiveParentWindow);
-
                 var expectedTitle = $"{fileName} - {fixedSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
                 Assert.AreSame(gui.Project, mainWindow.ProjectExplorer.Data);
@@ -660,7 +657,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_LoadingFromOutdatedFileAndMigrationCancelled_NoProjectSetAndStartScreenShown()
+        public void Run_LoadingFromOutdatedFileAndMigrationCancelled_NoProjectSet()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -685,7 +682,6 @@ namespace Core.Gui.Test
                 // Assert
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.IsNull(gui.Project);
-                Assert.IsInstanceOf<StartScreen>(gui.ActiveParentWindow);
             }
 
             mocks.VerifyAll();
@@ -693,7 +689,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_LoadingFromOutdatedAndShouldMigrateThrowsArgumentException_LogErrorAndShowStartScreen()
+        public void Run_LoadingFromOutdatedAndShouldMigrateThrowsArgumentException_LogError()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -725,7 +721,6 @@ namespace Core.Gui.Test
 
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.IsNull(gui.Project);
-                Assert.IsInstanceOf<StartScreen>(gui.ActiveParentWindow);
             }
 
             mocks.VerifyAll();
@@ -733,7 +728,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_LoadingFromOutdatedAndMigrateThrowsArgumentException_LogErrorAndShowStartScreen()
+        public void Run_LoadingFromOutdatedAndMigrateThrowsArgumentException_LogError()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -774,7 +769,6 @@ namespace Core.Gui.Test
 
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.IsNull(gui.Project);
-                Assert.IsInstanceOf<StartScreen>(gui.ActiveParentWindow);
             }
 
             mocks.VerifyAll();
@@ -782,7 +776,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_LoadingFromFileThrowsStorageException_LogErrorAndShowStartScreen()
+        public void Run_LoadingFromFileThrowsStorageException_LogError()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -819,7 +813,6 @@ namespace Core.Gui.Test
 
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.IsNull(gui.Project);
-                Assert.IsInstanceOf<StartScreen>(gui.ActiveParentWindow);
             }
 
             mocks.VerifyAll();
@@ -830,7 +823,7 @@ namespace Core.Gui.Test
         [TestCase("     ")]
         [TestCase(null)]
         [Apartment(ApartmentState.STA)]
-        public void Run_WithoutFile_NoProjectSetAndStartScreenShown(string path)
+        public void Run_WithoutFile_NoProjectSet(string path)
         {
             // Setup
             var mocks = new MockRepository();
@@ -852,7 +845,6 @@ namespace Core.Gui.Test
                 // Assert
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.IsNull(gui.Project);
-                Assert.IsInstanceOf<StartScreen>(gui.ActiveParentWindow);
             }
 
             mocks.VerifyAll();

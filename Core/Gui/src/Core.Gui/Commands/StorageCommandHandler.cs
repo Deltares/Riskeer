@@ -142,7 +142,7 @@ namespace Core.Gui.Commands
                 Title = Resources.OpenFileDialog_Title
             })
             {
-                if (openFileDialog.ShowDialog(mainWindowController.ActiveParentWindow) != DialogResult.Cancel && HandleUnsavedChanges())
+                if (openFileDialog.ShowDialog(mainWindowController.MainWindow) != DialogResult.Cancel && HandleUnsavedChanges())
                 {
                     return openFileDialog.FileName;
                 }
@@ -175,7 +175,7 @@ namespace Core.Gui.Commands
             }
 
             var activity = new SaveProjectActivity(project, filePath, false, projectPersister, projectOwner);
-            ActivityProgressDialogRunner.Run(mainWindowController.ActiveParentWindow, activity);
+            ActivityProgressDialogRunner.Run(mainWindowController.MainWindow, activity);
             return activity.State == ActivityState.Finished;
         }
 
@@ -191,7 +191,7 @@ namespace Core.Gui.Commands
             }
 
             var activity = new SaveProjectActivity(project, filePath, true, projectPersister, projectOwner);
-            ActivityProgressDialogRunner.Run(mainWindowController.ActiveParentWindow, activity);
+            ActivityProgressDialogRunner.Run(mainWindowController.MainWindow, activity);
             return activity.State == ActivityState.Finished;
         }
 
@@ -285,7 +285,7 @@ namespace Core.Gui.Commands
                 ProjectStorage = projectPersister
             };
             var activity = new OpenProjectActivity(openProjectProperties, migrationProperties);
-            ActivityProgressDialogRunner.Run(mainWindowController.ActiveParentWindow, activity);
+            ActivityProgressDialogRunner.Run(mainWindowController.MainWindow, activity);
 
             return activity.State == ActivityState.Finished;
         }

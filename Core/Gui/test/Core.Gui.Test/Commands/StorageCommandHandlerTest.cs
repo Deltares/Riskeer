@@ -28,6 +28,7 @@ using Core.Common.Base.IO;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using Core.Gui.Commands;
+using Core.Gui.Forms.MainWindow;
 using Core.Gui.Helpers;
 using Core.Gui.Selection;
 using NUnit.Extensions.Forms;
@@ -200,7 +201,7 @@ namespace Core.Gui.Test.Commands
                 var inquiryHelper = mocks.Stub<IInquiryHelper>();
 
                 var mainWindowController = mocks.Stub<IMainWindowController>();
-                mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
+                mainWindowController.Stub(mwc => mwc.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 var storageCommandHandler = new StorageCommandHandler(
@@ -258,7 +259,7 @@ namespace Core.Gui.Test.Commands
                 var inquiryHelper = mocks.Stub<IInquiryHelper>();
 
                 var mainWindowController = mocks.Stub<IMainWindowController>();
-                mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
+                mainWindowController.Stub(mwc => mwc.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 var storageCommandHandler = new StorageCommandHandler(
@@ -306,7 +307,7 @@ namespace Core.Gui.Test.Commands
             {
                 projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationRequired.Yes);
                 projectMigrator.Expect(pm => pm.DetermineMigrationLocation(pathToSomeValidFile)).Return(pathToMigratedFile);
-                mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
+                mainWindowController.Stub(mwc => mwc.MainWindow).Return(mocks.Stub<IMainWindow>());
                 projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile, pathToMigratedFile)).Return(true);
             }
 
@@ -540,7 +541,7 @@ namespace Core.Gui.Test.Commands
             {
                 projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationRequired.Yes);
                 projectMigrator.Expect(pm => pm.DetermineMigrationLocation(pathToSomeValidFile)).Return(pathToMigratedFile);
-                mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
+                mainWindowController.Stub(mwc => mwc.MainWindow).Return(mocks.Stub<IMainWindow>());
                 projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile, pathToMigratedFile))
                                .Throw(new ArgumentException(errorMessage));
             }
@@ -600,7 +601,7 @@ namespace Core.Gui.Test.Commands
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             var mainWindowController = mocks.Stub<IMainWindowController>();
-            mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
+            mainWindowController.Stub(mwc => mwc.MainWindow).Return(mocks.Stub<IMainWindow>());
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -657,7 +658,7 @@ namespace Core.Gui.Test.Commands
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             var mainWindowController = mocks.Stub<IMainWindowController>();
-            mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
+            mainWindowController.Stub(mwc => mwc.MainWindow).Return(mocks.Stub<IMainWindow>());
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -711,7 +712,7 @@ namespace Core.Gui.Test.Commands
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
 
             var mainWindowController = mocks.Stub<IMainWindowController>();
-            mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
+            mainWindowController.Stub(mwc => mwc.MainWindow).Return(mocks.Stub<IMainWindow>());
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -771,7 +772,7 @@ namespace Core.Gui.Test.Commands
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
 
             var mainWindowController = mocks.Stub<IMainWindowController>();
-            mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
+            mainWindowController.Stub(mwc => mwc.MainWindow).Return(mocks.Stub<IMainWindow>());
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
@@ -1067,7 +1068,7 @@ namespace Core.Gui.Test.Commands
                              .Return(OptionalStepResult.PerformOptionalStep);
 
                 var mainWindowController = mocks.Stub<IMainWindowController>();
-                mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
+                mainWindowController.Stub(mwc => mwc.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 var storageCommandHandler = new StorageCommandHandler(
@@ -1129,7 +1130,7 @@ namespace Core.Gui.Test.Commands
                          .Return(someValidFilePath);
 
             var mainWindowController = mocks.Stub<IMainWindowController>();
-            mainWindowController.Stub(mwc => mwc.ActiveParentWindow).Return(mocks.Stub<IWin32Window>());
+            mainWindowController.Stub(mwc => mwc.MainWindow).Return(mocks.Stub<IMainWindow>());
             mocks.ReplayAll();
 
             var storageCommandHandler = new StorageCommandHandler(
