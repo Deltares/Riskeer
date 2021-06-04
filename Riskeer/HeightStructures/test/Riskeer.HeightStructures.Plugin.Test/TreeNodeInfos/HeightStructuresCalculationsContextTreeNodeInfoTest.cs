@@ -146,22 +146,18 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
-            Assert.AreEqual(4, inputsFolder.Contents.Count());
-            var failureMechanismSectionsContext = (HeightStructuresFailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
-            Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
-
-            var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents.ElementAt(1);
+            Assert.AreEqual(3, inputsFolder.Contents.Count());
+            var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, profilesContext.WrappedData);
             Assert.AreSame(failureMechanism, profilesContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, profilesContext.ParentAssessmentSection);
 
-            var heightStructuresContext = (HeightStructuresContext) inputsFolder.Contents.ElementAt(2);
+            var heightStructuresContext = (HeightStructuresContext) inputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.HeightStructures, heightStructuresContext.WrappedData);
             Assert.AreSame(failureMechanism, heightStructuresContext.FailureMechanism);
             Assert.AreSame(assessmentSection, heightStructuresContext.AssessmentSection);
 
-            var inputComment = (Comment) inputsFolder.Contents.ElementAt(3);
+            var inputComment = (Comment) inputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
             var calculationsFolder = (HeightStructuresCalculationGroupContext) children[1];
