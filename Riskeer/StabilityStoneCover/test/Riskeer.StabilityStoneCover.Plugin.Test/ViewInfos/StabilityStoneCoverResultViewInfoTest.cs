@@ -74,10 +74,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(failureMechanism.SectionResults,
-                                                                                                                                failureMechanism,
-                                                                                                                                assessmentSection);
-            mocks.ReplayAll();
+            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
@@ -214,20 +212,19 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingToRemovedFailurePathContext_ReturnsTrue()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
-                                                                                         assessmentSection);
-
             mocks.ReplayAll();
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var context = new StabilityStoneCoverFailurePathContext(failureMechanism, assessmentSection);
 
             using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -236,20 +233,19 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedFailurePathContext_ReturnsFalse()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(new StabilityStoneCoverFailureMechanism(),
-                                                                                         assessmentSection);
             mocks.ReplayAll();
 
+            var context = new StabilityStoneCoverFailurePathContext(new StabilityStoneCoverFailureMechanism(), assessmentSection);
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsFalse(closeForData);
