@@ -150,7 +150,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 object[] children = info.ChildNodeObjects(context).ToArray();
 
                 // Assert
-                Assert.AreEqual(3, children.Length);
+                Assert.AreEqual(2, children.Length);
 
                 var inputsFolder = (CategoryTreeFolder) children[0];
                 Assert.AreEqual("Invoer", inputsFolder.Name);
