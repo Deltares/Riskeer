@@ -38,6 +38,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using RiskeerIntegrationFormsResources = Riskeer.Integration.Forms.Properties.Resources;
@@ -169,7 +170,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual("Faalpaden", failurePathsFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.General, failurePathsFolder.Category);
 
-                Assert.AreEqual(8, failurePathsFolder.Contents.Count());
+                Assert.AreEqual(9, failurePathsFolder.Contents.Count());
                 var pipingFailurePathContext = (PipingFailurePathContext) failurePathsFolder.Contents.ElementAt(0);
                 Assert.AreSame(assessmentSection.Piping, pipingFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, pipingFailurePathContext.Parent);
@@ -201,6 +202,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var closingStructuresFailurePathContext = (ClosingStructuresFailurePathContext) failurePathsFolder.Contents.ElementAt(7);
                 Assert.AreSame(assessmentSection.ClosingStructures, closingStructuresFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, closingStructuresFailurePathContext.Parent);
+
+                var stabilityPointStructuresFailurePathContext = (StabilityPointStructuresFailurePathContext) failurePathsFolder.Contents.ElementAt(8);
+                Assert.AreSame(assessmentSection.StabilityPointStructures, stabilityPointStructuresFailurePathContext.WrappedData);
+                Assert.AreSame(assessmentSection, stabilityPointStructuresFailurePathContext.Parent);
 
                 var assemblyResultsContext = (AssemblyResultsContext) objects[1];
                 Assert.AreSame(assessmentSection, assemblyResultsContext.WrappedData);

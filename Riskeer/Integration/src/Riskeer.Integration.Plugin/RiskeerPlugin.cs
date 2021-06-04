@@ -1813,7 +1813,8 @@ namespace Riskeer.Integration.Plugin
                 new WaveImpactAsphaltCoverFailurePathContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
                 new GrassCoverErosionOutwardsFailurePathContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
                 new HeightStructuresFailurePathContext(assessmentSection.HeightStructures, assessmentSection),
-                new ClosingStructuresFailurePathContext(assessmentSection.ClosingStructures, assessmentSection)
+                new ClosingStructuresFailurePathContext(assessmentSection.ClosingStructures, assessmentSection),
+                new StabilityPointStructuresFailurePathContext(assessmentSection.StabilityPointStructures, assessmentSection)
             };
         }
 
