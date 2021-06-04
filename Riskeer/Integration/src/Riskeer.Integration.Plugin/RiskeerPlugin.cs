@@ -185,12 +185,6 @@ namespace Riskeer.Integration.Plugin
                     assessmentSection)
             ),
             new FailureMechanismContextAssociation(
-                typeof(WaveImpactAsphaltCoverFailureMechanism),
-                (mechanism, assessmentSection) => new WaveImpactAsphaltCoverCalculationsContext(
-                    (WaveImpactAsphaltCoverFailureMechanism) mechanism,
-                    assessmentSection)
-            ),
-            new FailureMechanismContextAssociation(
                 typeof(WaterPressureAsphaltCoverFailureMechanism),
                 (mechanism, assessmentSection) => new WaterPressureAsphaltCoverFailureMechanismContext(
                     (WaterPressureAsphaltCoverFailureMechanism) mechanism,
@@ -1726,7 +1720,6 @@ namespace Riskeer.Integration.Plugin
 
             var failureMechanisms = new IFailureMechanism[]
             {
-                assessmentSection.WaveImpactAsphaltCover,
                 assessmentSection.GrassCoverErosionOutwards,
                 assessmentSection.HeightStructures,
                 assessmentSection.ClosingStructures,
@@ -1740,7 +1733,8 @@ namespace Riskeer.Integration.Plugin
                 new PipingCalculationsContext(assessmentSection.Piping, assessmentSection),
                 new GrassCoverErosionInwardsCalculationsContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
                 new MacroStabilityInwardsCalculationsContext(assessmentSection.MacroStabilityInwards, assessmentSection),
-                new StabilityStoneCoverCalculationsContext(assessmentSection.StabilityStoneCover, assessmentSection)
+                new StabilityStoneCoverCalculationsContext(assessmentSection.StabilityStoneCover, assessmentSection),
+                new WaveImpactAsphaltCoverCalculationsContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection)
             };
 
             childNodes.AddRange(failureMechanisms.Select(failureMechanism => failureMechanismAssociations
