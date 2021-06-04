@@ -222,7 +222,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingToRemovedFailurePathContext_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -230,12 +230,12 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
 
             var view = new HeightStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
-            bool closeForData = info.CloseForData(view, failureMechanismContext);
+            bool closeForData = info.CloseForData(view, context);
 
             // Assert
             Assert.IsTrue(closeForData);
@@ -243,7 +243,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedFailurePathContext_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -251,12 +251,12 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
+            var context = new HeightStructuresFailurePathContext(new HeightStructuresFailureMechanism(), assessmentSection);
+
             var view = new HeightStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
-            var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
-
             // Call
-            bool closeForData = info.CloseForData(view, failureMechanismContext);
+            bool closeForData = info.CloseForData(view, context);
 
             // Assert
             Assert.IsFalse(closeForData);

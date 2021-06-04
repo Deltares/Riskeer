@@ -301,7 +301,7 @@ namespace Riskeer.HeightStructures.Plugin
         {
             var failureMechanism = removedData as HeightStructuresFailureMechanism;
 
-            if (removedData is HeightStructuresFailureMechanismContext failureMechanismContext)
+            if (removedData is FailureMechanismContext<HeightStructuresFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
