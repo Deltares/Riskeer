@@ -145,6 +145,10 @@ namespace Riskeer.ClosingStructures.Plugin
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<ClosingStructuresFailurePathContext>(
+                FailurePathChildNodeObjects,
+                FailurePathContextMenuStrip);
+
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<ClosingStructuresCalculationGroupContext>(
                 CalculationGroupContextChildNodeObjects,
                 CalculationGroupContextContextMenuStrip,
@@ -471,6 +475,60 @@ namespace Riskeer.ClosingStructures.Plugin
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
+        }
+
+        #endregion
+
+        #region ClosingStructuresFailurePathContext TreeNodeInfo
+
+        private static object[] FailurePathChildNodeObjects(ClosingStructuresFailurePathContext context)
+        {
+            ClosingStructuresFailureMechanism failureMechanism = context.WrappedData;
+            IAssessmentSection assessmentSection = context.Parent;
+
+            return new object[]
+            {
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetFailurePathInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                                       GetFailurePathOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+            };
+        }
+
+        private static IEnumerable<object> GetFailurePathInputs(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new ClosingStructuresFailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                failureMechanism.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetFailurePathOutputs(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
+                new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
+                new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                failureMechanism.OutputComments
+            };
+        }
+
+        private ContextMenuStrip FailurePathContextMenuStrip(ClosingStructuresFailurePathContext context,
+                                                             object parentData,
+                                                             TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         #endregion
