@@ -32,7 +32,7 @@ using Riskeer.HeightStructures.Forms.PropertyClasses;
 namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class HeightStructuresFailureMechanismContextPropertyInfoTest
+    public class HeightStructuresCalculationsContextPropertyInfoTest
     {
         private HeightStructuresPlugin plugin;
         private PropertyInfo info;
@@ -54,7 +54,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(HeightStructuresFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(HeightStructuresCalculationsContext), info.DataType);
             Assert.AreEqual(typeof(HeightStructuresFailureMechanismProperties), info.PropertyObjectType);
         }
 
@@ -67,7 +67,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

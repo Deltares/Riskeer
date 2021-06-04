@@ -60,22 +60,22 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(HeightStructuresFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(HeightStructuresFailureMechanismContext), info.ViewDataType);
+            Assert.AreEqual(typeof(HeightStructuresCalculationsContext), info.DataType);
+            Assert.AreEqual(typeof(HeightStructuresCalculationsContext), info.ViewDataType);
         }
 
         [Test]
-        public void GetViewName_WithHeightStructuresFailureMechanismContext_ReturnsNameOfFailureMechanism()
+        public void GetViewName_WithContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            string viewName = info.GetViewName(null, failureMechanismContext);
+            string viewName = info.GetViewName(null, context);
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, viewName);
@@ -179,7 +179,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
                 IsRelevant = isRelevant
             };
 
-            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -196,7 +196,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);

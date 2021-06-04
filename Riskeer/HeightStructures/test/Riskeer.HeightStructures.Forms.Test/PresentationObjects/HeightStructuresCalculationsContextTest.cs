@@ -19,25 +19,36 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Forms.PresentationObjects;
 
-namespace Riskeer.HeightStructures.Forms.PresentationObjects
+namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
 {
-    /// <summary>
-    /// This class is a presentation object for an instance of <see cref="HeightStructuresFailureMechanism"/>.
-    /// </summary>
-    public class HeightStructuresFailureMechanismContext : FailureMechanismContext<HeightStructuresFailureMechanism>
+    [TestFixture]
+    public class HeightStructuresCalculationsContextTest
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HeightStructuresFailureMechanismContext"/> class.
-        /// </summary>
-        /// <param name="wrappedFailureMechanism">The <see cref="HeightStructuresFailureMechanism"/> instance wrapped by this context object.</param>
-        /// <param name="parent">The assessment section which the failure mechanism belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public HeightStructuresFailureMechanismContext(HeightStructuresFailureMechanism wrappedFailureMechanism, IAssessmentSection parent)
-            : base(wrappedFailureMechanism, parent) {}
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            // Call
+            var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismContext<HeightStructuresFailureMechanism>>(context);
+            Assert.AreSame(assessmentSection, context.Parent);
+            Assert.AreSame(failureMechanism, context.WrappedData);
+            mocks.VerifyAll();
+        }
     }
 }

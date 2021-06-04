@@ -132,7 +132,7 @@ namespace Riskeer.Integration.Plugin
         {
             new FailureMechanismContextAssociation(
                 typeof(HeightStructuresFailureMechanism),
-                (mechanism, assessmentSection) => new HeightStructuresFailureMechanismContext(
+                (mechanism, assessmentSection) => new HeightStructuresCalculationsContext(
                     (HeightStructuresFailureMechanism) mechanism,
                     assessmentSection)
             ),

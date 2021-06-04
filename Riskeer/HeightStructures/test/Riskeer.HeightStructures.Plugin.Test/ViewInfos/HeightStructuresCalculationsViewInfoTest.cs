@@ -226,7 +226,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedCalculationsContext_ReturnsFalse()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -234,10 +234,10 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             using (var view = new HeightStructuresCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
+                var context = new HeightStructuresCalculationsContext(new HeightStructuresFailureMechanism(), assessmentSection);
 
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -245,7 +245,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingToRemovedCalculationsContext_ReturnsTrue()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -253,10 +253,10 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             using (var view = new HeightStructuresCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
 
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsTrue(closeForData);
