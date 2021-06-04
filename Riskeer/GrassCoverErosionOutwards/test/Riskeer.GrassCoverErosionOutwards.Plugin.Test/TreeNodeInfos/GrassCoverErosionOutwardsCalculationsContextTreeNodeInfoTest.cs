@@ -174,17 +174,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
-            Assert.AreEqual(3, inputsFolder.Contents.Count());
-            var failureMechanismSectionsContext = (GrassCoverErosionOutwardsFailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
-            Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
-
-            var foreshoreProfilesContext = (ForeshoreProfilesContext) inputsFolder.Contents.ElementAt(1);
+            Assert.AreEqual(2, inputsFolder.Contents.Count());
+            var foreshoreProfilesContext = (ForeshoreProfilesContext) inputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, foreshoreProfilesContext.WrappedData);
             Assert.AreSame(failureMechanism, foreshoreProfilesContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, foreshoreProfilesContext.ParentAssessmentSection);
 
-            var inputComment = (Comment) inputsFolder.Contents.ElementAt(2);
+            var inputComment = (Comment) inputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
             var hydraulicBoundaryDatabaseContext = (GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext) children[1];
