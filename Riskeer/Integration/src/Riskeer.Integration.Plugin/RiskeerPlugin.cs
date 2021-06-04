@@ -66,7 +66,6 @@ using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util;
 using Riskeer.Common.Util.TypeConverters;
-using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Plugin.Handlers;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -125,12 +124,6 @@ namespace Riskeer.Integration.Plugin
 
         private static readonly IEnumerable<FailureMechanismContextAssociation> failureMechanismAssociations = new[]
         {
-            new FailureMechanismContextAssociation(
-                typeof(DuneErosionFailureMechanism),
-                (mechanism, assessmentSection) => new DuneErosionCalculationsContext(
-                    (DuneErosionFailureMechanism) mechanism,
-                    assessmentSection)
-            ),
             new FailureMechanismContextAssociation(
                 typeof(GrassCoverSlipOffInwardsFailureMechanism),
                 (mechanism, assessmentSection) => new GrassCoverSlipOffInwardsFailureMechanismContext(
@@ -1689,12 +1682,7 @@ namespace Riskeer.Integration.Plugin
         {
             AssessmentSection assessmentSection = nodeData.WrappedData;
 
-            var failureMechanisms = new IFailureMechanism[]
-            {
-                assessmentSection.DuneErosion
-            };
-
-            var childNodes = new List<object>
+            return new object[]
             {
                 new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
                 new PipingCalculationsContext(assessmentSection.Piping, assessmentSection),
@@ -1705,14 +1693,9 @@ namespace Riskeer.Integration.Plugin
                 new GrassCoverErosionOutwardsCalculationsContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
                 new HeightStructuresCalculationsContext(assessmentSection.HeightStructures, assessmentSection),
                 new ClosingStructuresCalculationsContext(assessmentSection.ClosingStructures, assessmentSection),
-                new StabilityPointStructuresCalculationsContext(assessmentSection.StabilityPointStructures, assessmentSection)
+                new StabilityPointStructuresCalculationsContext(assessmentSection.StabilityPointStructures, assessmentSection),
+                new DuneErosionCalculationsContext(assessmentSection.DuneErosion, assessmentSection)
             };
-
-            childNodes.AddRange(failureMechanisms.Select(failureMechanism => failureMechanismAssociations
-                                                                             .First(a => a.Match(failureMechanism))
-                                                                             .Create(failureMechanism, assessmentSection)));
-
-            return childNodes.ToArray();
         }
 
         private ContextMenuStrip CalculationsStateRootContextMenuStrip(CalculationsStateRootContext nodeData,
