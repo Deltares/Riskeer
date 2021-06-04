@@ -33,9 +33,6 @@ using Core.Gui.Forms.MainWindow;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -165,7 +162,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
-            Assert.AreEqual(3, children.Length);
+            Assert.AreEqual(2, children.Length);
             var inputsFolder = (CategoryTreeFolder) children[0];
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
@@ -185,31 +182,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             Assert.IsNull(hydraulicBoundariesCalculationGroup.Parent);
             Assert.AreSame(failureMechanism, hydraulicBoundariesCalculationGroup.FailureMechanism);
             Assert.AreSame(assessmentSection, hydraulicBoundariesCalculationGroup.AssessmentSection);
-
-            var outputsFolder = (CategoryTreeFolder) children[2];
-            Assert.AreEqual("Oordeel", outputsFolder.Name);
-            Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
-            Assert.AreEqual(3, outputsFolder.Contents.Count());
-
-            var failureMechanismAssemblyCategoriesContext = (FailureMechanismAssemblyCategoriesContext) outputsFolder.Contents.ElementAt(0);
-            Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
-
-                failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
-                Assert.AreEqual(failureMechanism.GeneralInput.N, calculator.AssemblyCategoriesInput.N);
-            }
-
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
-            Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-            Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
-
-            var outputComment = (Comment) outputsFolder.Contents.ElementAt(2);
-            Assert.AreSame(failureMechanism.OutputComments, outputComment);
         }
 
         [Test]
