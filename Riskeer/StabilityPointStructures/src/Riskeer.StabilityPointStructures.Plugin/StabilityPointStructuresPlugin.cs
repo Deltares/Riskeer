@@ -137,11 +137,9 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<StabilityPointStructuresCalculationsContext>(
-                FailureMechanismEnabledChildNodeObjects,
-                FailureMechanismDisabledChildNodeObjects,
-                FailureMechanismEnabledContextMenuStrip,
-                FailureMechanismDisabledContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<StabilityPointStructuresCalculationsContext>(
+                CalculationsChildNodeObjects,
+                CalculationsContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<StabilityPointStructuresFailurePathContext>(
                 FailurePathChildNodeObjects,
@@ -355,38 +353,26 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         #region TreeNodeInfos
 
-        #region StabilityPointStructuresFailureMechanismContext TreeNodeInfo
+        #region StabilityPointStructuresCalculationsContext TreeNodeInfo
 
-        private static object[] FailureMechanismEnabledChildNodeObjects(StabilityPointStructuresCalculationsContext context)
+        private static object[] CalculationsChildNodeObjects(StabilityPointStructuresCalculationsContext context)
         {
-            StabilityPointStructuresFailureMechanism wrappedData = context.WrappedData;
+            StabilityPointStructuresFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
 
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetInputs(wrappedData, assessmentSection),
-                                       TreeFolderCategory.Input),
-                new StabilityPointStructuresCalculationGroupContext(wrappedData.CalculationsGroup,
-                                                                    null,
-                                                                    wrappedData,
-                                                                    assessmentSection),
+                                       GetCalculationsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                new StabilityPointStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                    null, failureMechanism, assessmentSection),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(wrappedData, assessmentSection),
-                                       TreeFolderCategory.Output)
+                                       GetOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
-        private static object[] FailureMechanismDisabledChildNodeObjects(StabilityPointStructuresCalculationsContext context)
-        {
-            return new object[]
-            {
-                context.WrappedData.NotRelevantComments
-            };
-        }
-
-        private static IEnumerable<object> GetInputs(StabilityPointStructuresFailureMechanism failureMechanism,
-                                                     IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetCalculationsInputs(StabilityPointStructuresFailureMechanism failureMechanism,
+                                                                 IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -410,18 +396,16 @@ namespace Riskeer.StabilityPointStructures.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(StabilityPointStructuresCalculationsContext context,
-                                                                         object parentData,
-                                                                         TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationsContextMenuStrip(StabilityPointStructuresCalculationsContext context,
+                                                              object parentData,
+                                                              TreeViewControl treeViewControl)
         {
             IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations = context.WrappedData
-                                                                                                                    .Calculations
-                                                                                                                    .Cast<StructuresCalculation<StabilityPointStructuresInput>>();
+                                                                                                    .Calculations
+                                                                                                    .Cast<StructuresCalculation<StabilityPointStructuresInput>>();
             IInquiryHelper inquiryHelper = GetInquiryHelper();
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
             return builder.AddOpenItem()
-                          .AddSeparator()
-                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               context,
@@ -441,26 +425,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(StabilityPointStructuresCalculationsContext context,
-                                                                          object parentData,
-                                                                          TreeViewControl treeViewControl)
-        {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
-
-            return builder.AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
-                          .AddSeparator()
-                          .AddCollapseAllItem()
-                          .AddExpandAllItem()
-                          .AddSeparator()
-                          .AddPropertiesItem()
-                          .Build();
-        }
-
-        private void RemoveAllViewsForItem(StabilityPointStructuresCalculationsContext context)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
         private static string EnableValidateAndCalculateMenuItemForFailureMechanism(StabilityPointStructuresCalculationsContext context)

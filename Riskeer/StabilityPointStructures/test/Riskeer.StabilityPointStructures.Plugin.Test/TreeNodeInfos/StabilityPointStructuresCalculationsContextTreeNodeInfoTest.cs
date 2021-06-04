@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -28,7 +29,6 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
-using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.MainWindow;
 using Core.Gui.TestUtil.ContextMenu;
@@ -60,13 +60,10 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class StabilityPointStructuresCalculationsContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuRelevancyIndexWhenRelevant = 2;
-        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
-
-        private const int contextMenuValidateAllIndex = 4;
-        private const int contextMenuCalculateAllIndex = 5;
-        private const int contextMenuClearAllIndex = 7;
-        private const int contextMenuClearIllustrationPointsIndex = 8;
+        private const int contextMenuValidateAllIndex = 2;
+        private const int contextMenuCalculateAllIndex = 3;
+        private const int contextMenuClearAllIndex = 5;
+        private const int contextMenuClearIllustrationPointsIndex = 6;
 
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
 
@@ -103,11 +100,48 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
+        public void Text_WithContext_ReturnsName()
+        {
+            // Setup
+            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            mocksRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+
+            using (var plugin = new StabilityPointStructuresPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                string text = info.Text(context);
+
+                // Assert
+                Assert.AreEqual(failureMechanism.Name, text);
+            }
+        }
+
+        [Test]
+        public void Image_Always_ReturnsFailureMechanismIcon()
+        {
+            // Setup
+            using (var plugin = new StabilityPointStructuresPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                Image image = info.Image(null);
+
+                // Assert
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, image);
+            }
+        }
+
+        [Test]
+        public void ChildNodeObjects_WithContext_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
 
@@ -183,36 +217,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismNotRelevantComments()
-        {
-            // Setup
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism
-            {
-                IsRelevant = false
-            };
-            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
-
-            using (var plugin = new StabilityPointStructuresPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
-
-                // Call
-                object[] children = info.ChildNodeObjects(context).ToArray();
-
-                // Assert
-                Assert.AreEqual(1, children.Length);
-                var comment = (Comment) children[0];
-                Assert.AreSame(failureMechanism.NotRelevantComments, comment);
-            }
-
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -223,8 +228,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (mocksRepository.Ordered())
             {
                 menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
@@ -259,49 +262,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevant_CallsContextMenuBuilderMethods()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism
-            {
-                IsRelevant = false
-            };
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
-
-            var menuBuilder = mocksRepository.StrictMock<IContextMenuBuilder>();
-            using (mocksRepository.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
-
-            using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                TreeNodeInfo info = GetInfo(plugin);
-
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
-            }
-
-            // Assert
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevant_AddCustomItems()
+        public void ContextMenuStrip_WithContext_AddCustomItems()
         {
             // Setup
             using (var plugin = new StabilityPointStructuresPlugin())
@@ -327,12 +288,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                 {
                     // Assert
-                    Assert.AreEqual(14, menu.Items.Count);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
-                                                                  "I&s relevant",
-                                                                  "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                  RiskeerCommonFormsResources.Checkbox_ticked);
+                    Assert.AreEqual(12, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
                                                                   "Alles &valideren",
@@ -356,126 +312,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                                   "Er zijn geen berekeningen met illustratiepunten om te wissen.",
                                                                   RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
                                                                   false);
-                }
-            }
-
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevant_AddCustomItems()
-        {
-            // Setup
-            using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeView = new TreeViewControl())
-            {
-                var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-                var failureMechanism = new StabilityPointStructuresFailureMechanism
-                {
-                    IsRelevant = false
-                };
-                var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                TreeNodeInfo info = GetInfo(plugin);
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
-                {
-                    // Assert
-                    Assert.AreEqual(6, menu.Items.Count);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenNotRelevant,
-                                                                  "I&s relevant",
-                                                                  "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                  RiskeerCommonFormsResources.Checkbox_empty);
-                }
-            }
-
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevantAndRemovesAllViewsForItem()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
-            var viewCommands = mocksRepository.StrictMock<IViewCommands>();
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
-
-            using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                TreeNodeInfo info = GetInfo(plugin);
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
-
-                    // Assert
-                    Assert.IsFalse(failureMechanism.IsRelevant);
-                }
-            }
-
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevantAndRemovesAllViewsForItem()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism
-            {
-                IsRelevant = false
-            };
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
-            var viewCommands = mocksRepository.StrictMock<IViewCommands>();
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
-
-            using (var plugin = new StabilityPointStructuresPlugin())
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                TreeNodeInfo info = GetInfo(plugin);
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
-
-                    // Assert
-                    Assert.IsTrue(failureMechanism.IsRelevant);
                 }
             }
 
