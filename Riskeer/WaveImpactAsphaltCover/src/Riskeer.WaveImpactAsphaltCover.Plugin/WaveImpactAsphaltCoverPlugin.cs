@@ -391,7 +391,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         #endregion
 
-         #region PipingFailurePathContext TreeNodeInfo
+        #region WaveImpactAsphaltCoverFailurePathContext TreeNodeInfo
 
         private static object[] FailurePathChildNodeObjects(WaveImpactAsphaltCoverFailurePathContext context)
         {
