@@ -24,12 +24,10 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
-using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.MainWindow;
 using Core.Gui.TestUtil.ContextMenu;
@@ -58,9 +56,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class WaveImpactAsphaltCoverCalculationsContextTreeNodeInfoTest
     {
-        private const int contextMenuRelevancyIndexWhenRelevant = 2;
-        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
-        private const int contextMenuCalculateAllIndex = 4;
+        private const int contextMenuCalculateAllIndex = 2;
 
         private readonly string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, Path.Combine("HydraRingCalculation", "HRD ijsselmeer.sqlite"));
 
@@ -111,7 +107,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnName()
+        public void Text_WithContext_ReturnName()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -128,43 +124,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_FailureMechanismIsRelevant_ReturnControlText()
+        public void ForeColor_Always_ReturnControlText()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-            {
-                IsRelevant = true
-            };
-            var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
-
             // Call
-            Color foreColor = info.ForeColor(context);
+            Color foreColor = info.ForeColor(null);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), foreColor);
-        }
-
-        [Test]
-        public void ForeColor_FailureMechanismIsNotRelevant_ReturnGrayText()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-            {
-                IsRelevant = false
-            };
-            var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
-
-            // Call
-            Color foreColor = info.ForeColor(context);
-
-            // Assert
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), foreColor);
         }
 
         [Test]
@@ -185,15 +154,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
+        public void ChildNodeObjects_WithContext_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-            {
-                IsRelevant = true
-            };
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -251,37 +216,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismNotRelevantComments()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-            {
-                IsRelevant = false
-            };
-            var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
-
-            // Call
-            object[] children = info.ChildNodeObjects(context).ToArray();
-
-            // Assert
-            Assert.AreEqual(1, children.Length);
-            var comment = (Comment) children[0];
-            Assert.AreSame(failureMechanism.NotRelevantComments, comment);
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-                {
-                    IsRelevant = true
-                };
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
 
@@ -292,8 +232,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -316,46 +254,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevant_CallsContextMenuBuilderMethods()
-        {
-            // Setup
-            var treeViewControl = new TreeViewControl();
-            {
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-                {
-                    IsRelevant = false
-                };
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                using (mocks.Ordered())
-                {
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
-                }
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
-            }
-
-            // Assert
-            // Assert expectancies are called in TearDown()
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevant_AddCustomItems()
+        public void ContextMenuStrip_WithContext_AddCustomItems()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -377,136 +276,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                 {
                     // Assert
-                    Assert.AreEqual(10, menu.Items.Count);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
-                                                                  "I&s relevant",
-                                                                  "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                  RiskeerCommonFormsResources.Checkbox_ticked);
+                    Assert.AreEqual(8, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                                   "Alles be&rekenen",
                                                                   "Er zijn geen berekeningen om uit te voeren.",
                                                                   RiskeerCommonFormsResources.CalculateAllIcon,
                                                                   false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevant_AddCustomItems()
-        {
-            // Setup
-            using (var treeView = new TreeViewControl())
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-                {
-                    IsRelevant = false
-                };
-                var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
-                {
-                    // Assert
-                    Assert.AreEqual(6, menu.Items.Count);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenNotRelevant,
-                                                                  "I&s relevant",
-                                                                  "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                  RiskeerCommonFormsResources.Checkbox_empty);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevant()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var failureMechanismObserver = mocks.Stub<IObserver>();
-                failureMechanismObserver.Expect(o => o.UpdateObserver());
-
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-                {
-                    IsRelevant = true
-                };
-                failureMechanism.Attach(failureMechanismObserver);
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
-
-                var viewCommands = mocks.StrictMock<IViewCommands>();
-                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
-
-                    // Assert
-                    Assert.IsFalse(failureMechanism.IsRelevant);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevant()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var failureMechanismObserver = mocks.Stub<IObserver>();
-                failureMechanismObserver.Expect(o => o.UpdateObserver());
-
-                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-                {
-                    IsRelevant = false
-                };
-                failureMechanism.Attach(failureMechanismObserver);
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
-
-                var viewCommands = mocks.StrictMock<IViewCommands>();
-                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
-
-                    // Assert
-                    Assert.IsTrue(failureMechanism.IsRelevant);
                 }
             }
         }
