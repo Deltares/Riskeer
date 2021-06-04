@@ -214,6 +214,10 @@ namespace Riskeer.HeightStructures.Plugin
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<HeightStructuresFailurePathContext>(
+                FailurePathChildNodeObjects,
+                FailurePathContextMenuStrip);
+
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<HeightStructuresCalculationGroupContext>(
                 CalculationGroupContextChildNodeObjects,
                 CalculationGroupContextContextMenuStrip,
@@ -474,6 +478,60 @@ namespace Riskeer.HeightStructures.Plugin
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
                 HeightStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
+        }
+
+        #endregion
+
+        #region HeightStructuresFailurePathContext TreeNodeInfo
+
+        private static object[] FailurePathChildNodeObjects(HeightStructuresFailurePathContext context)
+        {
+            HeightStructuresFailureMechanism failureMechanism = context.WrappedData;
+            IAssessmentSection assessmentSection = context.Parent;
+
+            return new object[]
+            {
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetFailurePathInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                                       GetFailurePathOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+            };
+        }
+
+        private static IEnumerable<object> GetFailurePathInputs(HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new HeightStructuresFailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                failureMechanism.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetFailurePathOutputs(HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
+                new HeightStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
+                new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                failureMechanism.OutputComments
+            };
+        }
+
+        private ContextMenuStrip FailurePathContextMenuStrip(HeightStructuresFailurePathContext context,
+                                                             object parentData,
+                                                             TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         #endregion
