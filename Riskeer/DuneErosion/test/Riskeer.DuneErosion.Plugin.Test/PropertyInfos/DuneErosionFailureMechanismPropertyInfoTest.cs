@@ -44,7 +44,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(DuneErosionFailureMechanismContext), info.DataType);
+                Assert.AreEqual(typeof(DuneErosionCalculationsContext), info.DataType);
                 Assert.AreEqual(typeof(DuneErosionFailureMechanismProperties), info.PropertyObjectType);
             }
         }
@@ -58,7 +58,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -77,7 +77,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
 
         private static PropertyInfo GetInfo(DuneErosionPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DuneErosionFailureMechanismContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DuneErosionCalculationsContext));
         }
     }
 }

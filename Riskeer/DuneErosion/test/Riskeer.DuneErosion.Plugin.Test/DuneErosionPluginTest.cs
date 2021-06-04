@@ -77,7 +77,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(DuneErosionFailureMechanismContext),
+                    typeof(DuneErosionCalculationsContext),
                     typeof(DuneErosionFailureMechanismProperties));
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -101,7 +101,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(5, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneErosionFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneErosionCalculationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneErosionFailurePathContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneLocationCalculationsGroupContext)));
@@ -129,7 +129,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(DuneErosionFailureMechanismContext),
+                    typeof(DuneErosionCalculationsContext),
                     typeof(DuneErosionFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(

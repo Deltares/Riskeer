@@ -323,7 +323,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseViewForData_ForMatchingFailureMechanismContext_ReturnsTrue()
+        public void CloseViewForData_ForMatchingCalculationsContext_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -338,7 +338,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            var duneErosionFailureMechanismContext = new DuneErosionFailureMechanismContext(
+            var context = new DuneErosionCalculationsContext(
                 failureMechanism,
                 assessmentSection);
 
@@ -349,7 +349,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                                                                "A"))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, duneErosionFailureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -359,7 +359,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseViewForData_ForNonMatchingFailureMechanismContext_ReturnsFalse()
+        public void CloseViewForData_ForNonMatchingCalculationsContext_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -377,7 +377,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            var duneErosionFailureMechanismContext = new DuneErosionFailureMechanismContext(
+            var context = new DuneErosionCalculationsContext(
                 new DuneErosionFailureMechanism(),
                 assessmentSectionB);
 
@@ -388,7 +388,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                                                                "A"))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, duneErosionFailureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsFalse(closeForData);

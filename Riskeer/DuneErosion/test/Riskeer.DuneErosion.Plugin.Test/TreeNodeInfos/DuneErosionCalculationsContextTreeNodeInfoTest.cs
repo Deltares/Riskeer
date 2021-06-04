@@ -54,7 +54,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class DuneErosionFailureMechanismContextTreeNodeInfoTest
+    public class DuneErosionCalculationsContextTreeNodeInfoTest
     {
         private const int contextMenuRelevancyIndexWhenRelevant = 2;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
@@ -71,7 +71,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             mocksRepository = new MockRepository();
             plugin = new DuneErosionPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneErosionFailureMechanismContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneErosionCalculationsContext));
         }
 
         [TearDown]
@@ -116,10 +116,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var assessmentSection = new AssessmentSectionStub();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -179,10 +179,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 IsRelevant = false
             };
-            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
             Assert.AreEqual(1, children.Length);
@@ -196,7 +196,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
-            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
 
             var orderMocksRepository = new MockRepository();
             var menuBuilder = orderMocksRepository.StrictMock<IContextMenuBuilder>();
@@ -220,13 +220,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                info.ContextMenuStrip(context, null, treeViewControl);
             }
 
             // Assert
@@ -242,7 +242,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 IsRelevant = false
             };
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
 
             var menuBuilder = mocksRepository.StrictMock<IContextMenuBuilder>();
             using (mocksRepository.Ordered())
@@ -259,13 +259,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                info.ContextMenuStrip(context, null, treeViewControl);
             }
 
             // Assert
@@ -280,11 +280,11 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
                 var failureMechanism = new DuneErosionFailureMechanism();
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocksRepository.ReplayAll();
@@ -292,7 +292,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView))
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                 {
                     // Assert
                     Assert.AreEqual(10, menu.Items.Count);
@@ -316,11 +316,11 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 {
                     IsRelevant = false
                 };
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocksRepository.ReplayAll();
@@ -328,7 +328,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView))
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                 {
                     // Assert
                     Assert.AreEqual(6, menu.Items.Count);
@@ -347,22 +347,22 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
-            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
             var viewCommands = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
@@ -382,22 +382,22 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 IsRelevant = false
             };
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
             var viewCommands = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
@@ -421,20 +421,20 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 duneLocation
             });
 
-            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Assert
                     ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
@@ -461,7 +461,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
 
             var mocks = new MockRepository();
 
@@ -470,13 +470,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Assert
                     ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
@@ -515,7 +515,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 duneLocation
             });
 
-            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -523,7 +523,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.DocumentViewController).Return(mocksRepository.Stub<IDocumentViewController>());
 
                 var calculatorFactory = mocksRepository.Stub<IHydraRingCalculatorFactory>();
@@ -545,7 +545,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 plugin.Gui = gui;
                 plugin.Activate();
 
-                using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     // When

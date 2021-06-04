@@ -127,7 +127,7 @@ namespace Riskeer.Integration.Plugin
         {
             new FailureMechanismContextAssociation(
                 typeof(DuneErosionFailureMechanism),
-                (mechanism, assessmentSection) => new DuneErosionFailureMechanismContext(
+                (mechanism, assessmentSection) => new DuneErosionCalculationsContext(
                     (DuneErosionFailureMechanism) mechanism,
                     assessmentSection)
             ),

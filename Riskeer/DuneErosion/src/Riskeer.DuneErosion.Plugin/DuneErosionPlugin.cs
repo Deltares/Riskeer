@@ -64,7 +64,7 @@ namespace Riskeer.DuneErosion.Plugin
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<DuneErosionFailureMechanismContext, DuneErosionFailureMechanismProperties>
+            yield return new PropertyInfo<DuneErosionCalculationsContext, DuneErosionFailureMechanismProperties>
             {
                 CreateInstance = context => new DuneErosionFailureMechanismProperties(context.WrappedData,
                                                                                       new DuneErosionFailureMechanismPropertyChangeHandler())
@@ -83,7 +83,7 @@ namespace Riskeer.DuneErosion.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<DuneErosionFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<DuneErosionCalculationsContext>(
                 FailureMechanismEnabledChildNodeObjects,
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
@@ -137,7 +137,7 @@ namespace Riskeer.DuneErosion.Plugin
                     (DuneErosionFailureMechanism) context.FailureMechanism)
             };
 
-            yield return new ViewInfo<DuneErosionFailureMechanismContext, DuneErosionFailureMechanismView>
+            yield return new ViewInfo<DuneErosionCalculationsContext, DuneErosionFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -243,7 +243,7 @@ namespace Riskeer.DuneErosion.Plugin
 
         private static bool CloseDuneLocationCalculationsViewForData(DuneLocationCalculationsView view, object dataToCloseFor)
         {
-            var failureMechanismContext = dataToCloseFor as DuneErosionFailureMechanismContext;
+            var failureMechanismContext = dataToCloseFor as DuneErosionCalculationsContext;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as DuneErosionFailureMechanism;
 
@@ -266,15 +266,15 @@ namespace Riskeer.DuneErosion.Plugin
 
         #region FailureMechanismContext TreeNodeInfo
 
-        private static object[] FailureMechanismEnabledChildNodeObjects(DuneErosionFailureMechanismContext failureMechanismContext)
+        private static object[] FailureMechanismEnabledChildNodeObjects(DuneErosionCalculationsContext context)
         {
-            DuneErosionFailureMechanism wrappedData = failureMechanismContext.WrappedData;
-            IAssessmentSection assessmentSection = failureMechanismContext.Parent;
+            DuneErosionFailureMechanism wrappedData = context.WrappedData;
+            IAssessmentSection assessmentSection = context.Parent;
 
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
-                new DuneLocationCalculationsGroupContext(failureMechanismContext.WrappedData.DuneLocations, failureMechanismContext.WrappedData, assessmentSection),
+                new DuneLocationCalculationsGroupContext(context.WrappedData.DuneLocations, context.WrappedData, assessmentSection),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
             };
         }
@@ -299,25 +299,25 @@ namespace Riskeer.DuneErosion.Plugin
             };
         }
 
-        private static object[] FailureMechanismDisabledChildNodeObjects(DuneErosionFailureMechanismContext failureMechanismContext)
+        private static object[] FailureMechanismDisabledChildNodeObjects(DuneErosionCalculationsContext context)
         {
             return new object[]
             {
-                failureMechanismContext.WrappedData.NotRelevantComments
+                context.WrappedData.NotRelevantComments
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(DuneErosionFailureMechanismContext failureMechanismContext,
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(DuneErosionCalculationsContext context,
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
+                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddCustomItem(CreateCalculateAllItem(failureMechanismContext.WrappedData, failureMechanismContext.Parent))
+                          .AddCustomItem(CreateCalculateAllItem(context.WrappedData, context.Parent))
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -326,14 +326,14 @@ namespace Riskeer.DuneErosion.Plugin
                           .Build();
         }
 
-        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(DuneErosionFailureMechanismContext failureMechanismContext,
+        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(DuneErosionCalculationsContext context,
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext,
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context,
                                                                 treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext,
+            return builder.AddToggleRelevancyOfFailureMechanismItem(context,
                                                                     RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
@@ -343,9 +343,9 @@ namespace Riskeer.DuneErosion.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(DuneErosionFailureMechanismContext failureMechanismContext)
+        private void RemoveAllViewsForItem(DuneErosionCalculationsContext context)
         {
-            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
+            Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
         #endregion

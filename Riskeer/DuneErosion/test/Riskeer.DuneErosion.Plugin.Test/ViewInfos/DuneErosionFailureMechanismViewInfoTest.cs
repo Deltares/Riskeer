@@ -59,23 +59,23 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(DuneErosionFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(DuneErosionFailureMechanismContext), info.ViewDataType);
+            Assert.AreEqual(typeof(DuneErosionCalculationsContext), info.DataType);
+            Assert.AreEqual(typeof(DuneErosionCalculationsContext), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, info.Image);
         }
 
         [Test]
-        public void GetViewName_WithDuneErosionFailureMechanismContext_ReturnsNameOfFailureMechanism()
+        public void GetViewName_WithContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            string viewName = info.GetViewName(null, failureMechanismContext);
+            string viewName = info.GetViewName(null, context);
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, viewName);
@@ -170,7 +170,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                 IsRelevant = isRelevant
             };
 
-            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -187,7 +187,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);

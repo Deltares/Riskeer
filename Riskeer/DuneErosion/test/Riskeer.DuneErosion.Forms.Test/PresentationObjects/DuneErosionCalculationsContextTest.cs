@@ -29,7 +29,7 @@ using Riskeer.DuneErosion.Forms.PresentationObjects;
 namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class DuneErosionFailureMechanismContextTest
+    public class DuneErosionCalculationsContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -42,7 +42,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<DuneErosionFailureMechanism>>(context);
