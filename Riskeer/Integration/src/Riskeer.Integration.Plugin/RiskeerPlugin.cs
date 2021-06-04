@@ -143,12 +143,6 @@ namespace Riskeer.Integration.Plugin
                     assessmentSection)
             ),
             new FailureMechanismContextAssociation(
-                typeof(GrassCoverErosionOutwardsFailureMechanism),
-                (mechanism, assessmentSection) => new GrassCoverErosionOutwardsCalculationsContext(
-                    (GrassCoverErosionOutwardsFailureMechanism) mechanism,
-                    assessmentSection)
-            ),
-            new FailureMechanismContextAssociation(
                 typeof(GrassCoverSlipOffInwardsFailureMechanism),
                 (mechanism, assessmentSection) => new GrassCoverSlipOffInwardsFailureMechanismContext(
                     (GrassCoverSlipOffInwardsFailureMechanism) mechanism,
@@ -1734,7 +1728,8 @@ namespace Riskeer.Integration.Plugin
                 new GrassCoverErosionInwardsCalculationsContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
                 new MacroStabilityInwardsCalculationsContext(assessmentSection.MacroStabilityInwards, assessmentSection),
                 new StabilityStoneCoverCalculationsContext(assessmentSection.StabilityStoneCover, assessmentSection),
-                new WaveImpactAsphaltCoverCalculationsContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection)
+                new WaveImpactAsphaltCoverCalculationsContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
+                new GrassCoverErosionOutwardsCalculationsContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection)
             };
 
             childNodes.AddRange(failureMechanisms.Select(failureMechanism => failureMechanismAssociations
