@@ -366,9 +366,7 @@ namespace Riskeer.ClosingStructures.Plugin
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetCalculationsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
-                new ClosingStructuresCalculationGroupContext(failureMechanism.CalculationsGroup, null, failureMechanism, assessmentSection),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+                new ClosingStructuresCalculationGroupContext(failureMechanism.CalculationsGroup, null, failureMechanism, assessmentSection)
             };
         }
 
@@ -379,18 +377,6 @@ namespace Riskeer.ClosingStructures.Plugin
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
-                new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
-                new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
-                failureMechanism.OutputComments
             };
         }
 
