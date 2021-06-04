@@ -68,7 +68,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<StabilityStoneCoverFailureMechanismContext, StabilityStoneCoverFailureMechanismProperties>
+            yield return new PropertyInfo<StabilityStoneCoverCalculationsContext, StabilityStoneCoverFailureMechanismProperties>
             {
                 CreateInstance = context => new StabilityStoneCoverFailureMechanismProperties(context.WrappedData)
             };
@@ -88,7 +88,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<StabilityStoneCoverFailureMechanismContext, StabilityStoneCoverFailureMechanismView>
+            yield return new ViewInfo<StabilityStoneCoverCalculationsContext, StabilityStoneCoverFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -127,7 +127,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<StabilityStoneCoverFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<StabilityStoneCoverCalculationsContext>(
                 FailureMechanismEnabledChildNodeObjects,
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
@@ -290,10 +290,10 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         #region StabilityStoneCoverFailureMechanismContext TreeNodeInfo
 
-        private static object[] FailureMechanismEnabledChildNodeObjects(StabilityStoneCoverFailureMechanismContext failureMechanismContext)
+        private static object[] FailureMechanismEnabledChildNodeObjects(StabilityStoneCoverCalculationsContext context)
         {
-            StabilityStoneCoverFailureMechanism wrappedData = failureMechanismContext.WrappedData;
-            IAssessmentSection assessmentSection = failureMechanismContext.Parent;
+            StabilityStoneCoverFailureMechanism wrappedData = context.WrappedData;
+            IAssessmentSection assessmentSection = context.Parent;
 
             return new object[]
             {
@@ -303,11 +303,11 @@ namespace Riskeer.StabilityStoneCover.Plugin
             };
         }
 
-        private static object[] FailureMechanismDisabledChildNodeObjects(StabilityStoneCoverFailureMechanismContext failureMechanismContext)
+        private static object[] FailureMechanismDisabledChildNodeObjects(StabilityStoneCoverCalculationsContext context)
         {
             return new object[]
             {
-                failureMechanismContext.WrappedData.NotRelevantComments
+                context.WrappedData.NotRelevantComments
             };
         }
 
@@ -332,18 +332,18 @@ namespace Riskeer.StabilityStoneCover.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(StabilityStoneCoverFailureMechanismContext failureMechanismContext,
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(StabilityStoneCoverCalculationsContext context,
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
+                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddPerformAllCalculationsInFailureMechanismItem(
-                              failureMechanismContext,
+                              context,
                               CalculateAllInFailureMechanism,
                               EnableValidateAndCalculateMenuItemForFailureMechanism)
                           .AddSeparator()
@@ -354,13 +354,13 @@ namespace Riskeer.StabilityStoneCover.Plugin
                           .Build();
         }
 
-        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(StabilityStoneCoverFailureMechanismContext failureMechanismContext,
+        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(StabilityStoneCoverCalculationsContext context,
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -369,17 +369,17 @@ namespace Riskeer.StabilityStoneCover.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(StabilityStoneCoverFailureMechanismContext failureMechanismContext)
+        private void RemoveAllViewsForItem(StabilityStoneCoverCalculationsContext context)
         {
-            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
+            Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
-        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(StabilityStoneCoverFailureMechanismContext context)
+        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(StabilityStoneCoverCalculationsContext context)
         {
             return EnableValidateAndCalculateMenuItem(context.Parent);
         }
 
-        private void CalculateAllInFailureMechanism(StabilityStoneCoverFailureMechanismContext context)
+        private void CalculateAllInFailureMechanism(StabilityStoneCoverCalculationsContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,

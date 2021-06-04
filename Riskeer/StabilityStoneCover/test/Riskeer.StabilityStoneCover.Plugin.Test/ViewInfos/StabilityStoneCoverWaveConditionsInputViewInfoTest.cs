@@ -204,7 +204,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 
         protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
         {
-            return new StabilityStoneCoverFailureMechanismContext(
+            return new StabilityStoneCoverCalculationsContext(
                 new StabilityStoneCoverFailureMechanism
                 {
                     WaveConditionsCalculationGroup =

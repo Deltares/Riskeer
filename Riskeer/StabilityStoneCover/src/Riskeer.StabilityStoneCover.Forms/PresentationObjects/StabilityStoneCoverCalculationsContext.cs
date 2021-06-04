@@ -27,17 +27,17 @@ using Riskeer.StabilityStoneCover.Data;
 namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for an instance of <see cref="StabilityStoneCoverFailureMechanism"/>.
+    /// Presentation object for calculations of <see cref="StabilityStoneCoverFailureMechanism"/>.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanismContext : FailureMechanismContext<StabilityStoneCoverFailureMechanism>
+    public class StabilityStoneCoverCalculationsContext : FailureMechanismContext<StabilityStoneCoverFailureMechanism>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StabilityStoneCoverFailureMechanismContext"/> class.
+        /// Creates a new instance of <see cref="StabilityStoneCoverCalculationsContext"/>.
         /// </summary>
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public StabilityStoneCoverFailureMechanismContext(StabilityStoneCoverFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
-            base(wrappedFailureMechanism, parent) {}
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public StabilityStoneCoverCalculationsContext(StabilityStoneCoverFailureMechanism wrappedFailureMechanism, IAssessmentSection parent)
+            : base(wrappedFailureMechanism, parent) {}
     }
 }

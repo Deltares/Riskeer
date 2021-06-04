@@ -29,10 +29,10 @@ using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class StabilityStoneCoverFailureMechanismContextTest
+    public class StabilityStoneCoverCalculationsContextTest
     {
         [Test]
-        public void Constructor_ValidArguments_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -42,7 +42,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<StabilityStoneCoverFailureMechanism>>(context);

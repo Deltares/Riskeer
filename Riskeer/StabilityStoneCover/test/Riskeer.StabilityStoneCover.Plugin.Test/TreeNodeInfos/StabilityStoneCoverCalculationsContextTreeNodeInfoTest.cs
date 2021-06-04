@@ -56,7 +56,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StabilityStoneCoverFailureMechanismContextTreeNodeInfoTest
+    public class StabilityStoneCoverCalculationsContextTreeNodeInfoTest
     {
         private const int contextMenuRelevancyIndexWhenRelevant = 2;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
@@ -73,7 +73,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new StabilityStoneCoverPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverFailureMechanismContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverCalculationsContext));
         }
 
         [TearDown]
@@ -118,11 +118,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
-                                                                                         assessmentSection);
+            var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            string nodeText = info.Text(failureMechanismContext);
+            string nodeText = info.Text(context);
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, nodeText);
@@ -139,11 +138,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 IsRelevant = true
             };
-            var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
-                                                                                         assessmentSection);
+            var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            Color foreColor = info.ForeColor(failureMechanismContext);
+            Color foreColor = info.ForeColor(context);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), foreColor);
@@ -160,11 +158,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 IsRelevant = false
             };
-            var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
-                                                                                         assessmentSection);
+            var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            Color foreColor = info.ForeColor(failureMechanismContext);
+            Color foreColor = info.ForeColor(context);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), foreColor);
@@ -178,11 +175,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
-                                                                                         assessmentSection);
+            var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            Image icon = info.Image(failureMechanismContext);
+            Image icon = info.Image(context);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, icon);
@@ -198,11 +194,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 IsRelevant = true
             };
-            var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
-                                                                                         assessmentSection);
+            var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -266,11 +261,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 IsRelevant = false
             };
-            var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
-                                                                                         assessmentSection);
+            var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
             Assert.AreEqual(1, children.Length);
@@ -289,8 +283,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     IsRelevant = true
                 };
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
-                                                                                             assessmentSection);
+                var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -309,13 +302,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 }
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                info.ContextMenuStrip(context, null, treeViewControl);
             }
 
             // Assert
@@ -333,7 +326,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     IsRelevant = false
                 };
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -348,13 +341,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 }
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                info.ContextMenuStrip(context, null, treeViewControl);
             }
 
             // Assert
@@ -369,11 +362,11 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocks.ReplayAll();
@@ -381,7 +374,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView))
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                 {
                     // Assert
                     Assert.AreEqual(10, menu.Items.Count);
@@ -411,11 +404,11 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 {
                     IsRelevant = false
                 };
-                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocks.ReplayAll();
@@ -423,7 +416,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView))
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                 {
                     // Assert
                     Assert.AreEqual(6, menu.Items.Count);
@@ -452,22 +445,21 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 failureMechanism.Attach(failureMechanismObserver);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
-                                                                                             assessmentSection);
+                var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
 
                 var viewCommands = mocks.StrictMock<IViewCommands>();
-                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
@@ -494,22 +486,21 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 failureMechanism.Attach(failureMechanismObserver);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
-                                                                                             assessmentSection);
+                var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
 
                 var viewCommands = mocks.StrictMock<IViewCommands>();
-                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
@@ -530,8 +521,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
 
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-                var nodeData = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
-                                                                              assessmentSection);
+                var nodeData = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var gui = mocks.Stub<IGui>();
@@ -569,8 +559,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 calculationB
             });
 
-            var nodeData = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
-                                                                          assessmentSection);
+            var nodeData = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {

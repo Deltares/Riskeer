@@ -60,22 +60,22 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(StabilityStoneCoverFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(StabilityStoneCoverFailureMechanismContext), info.ViewDataType);
+            Assert.AreEqual(typeof(StabilityStoneCoverCalculationsContext), info.DataType);
+            Assert.AreEqual(typeof(StabilityStoneCoverCalculationsContext), info.ViewDataType);
         }
 
         [Test]
-        public void GetViewName_WithStabilityStoneCoverFailureMechanismContext_ReturnsNameOfFailureMechanism()
+        public void GetViewName_WithContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-            var stabilityStoneCoverFailureMechanismContext = new StabilityStoneCoverFailureMechanismContext(stabilityStoneCoverFailureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverCalculationsContext(stabilityStoneCoverFailureMechanism, assessmentSection);
 
             // Call
-            string viewName = info.GetViewName(null, stabilityStoneCoverFailureMechanismContext);
+            string viewName = info.GetViewName(null, context);
 
             // Assert
             Assert.AreEqual(stabilityStoneCoverFailureMechanism.Name, viewName);
@@ -179,7 +179,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
                 IsRelevant = isRelevant
             };
 
-            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -196,7 +196,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);

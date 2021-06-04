@@ -175,7 +175,7 @@ namespace Riskeer.Integration.Plugin
             ),
             new FailureMechanismContextAssociation(
                 typeof(StabilityStoneCoverFailureMechanism),
-                (mechanism, assessmentSection) => new StabilityStoneCoverFailureMechanismContext(
+                (mechanism, assessmentSection) => new StabilityStoneCoverCalculationsContext(
                     (StabilityStoneCoverFailureMechanism) mechanism,
                     assessmentSection)
             ),
