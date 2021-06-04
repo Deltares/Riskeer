@@ -27,7 +27,7 @@ using Riskeer.StabilityStoneCover.Data;
 namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for an instance of <see cref="StabilityStoneCoverFailureMechanism"/>.
+    /// Presentation object for the failure path of <see cref="StabilityStoneCoverFailureMechanism"/>.
     /// </summary>
     public class StabilityStoneCoverFailurePathContext : FailureMechanismContext<StabilityStoneCoverFailureMechanism>
     {
@@ -36,7 +36,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public StabilityStoneCoverFailurePathContext(StabilityStoneCoverFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
             base(wrappedFailureMechanism, parent) {}
     }
