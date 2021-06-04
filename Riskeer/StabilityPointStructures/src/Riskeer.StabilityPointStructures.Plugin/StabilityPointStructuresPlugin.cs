@@ -376,7 +376,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
         {
             return new object[]
             {
-                new StabilityPointStructuresFailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
