@@ -28,6 +28,7 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -168,7 +169,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual("Faalpaden", failurePathsFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.General, failurePathsFolder.Category);
 
-                Assert.AreEqual(7, failurePathsFolder.Contents.Count());
+                Assert.AreEqual(8, failurePathsFolder.Contents.Count());
                 var pipingFailurePathContext = (PipingFailurePathContext) failurePathsFolder.Contents.ElementAt(0);
                 Assert.AreSame(assessmentSection.Piping, pipingFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, pipingFailurePathContext.Parent);
@@ -196,6 +197,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var heightStructuresFailurePathContext = (HeightStructuresFailurePathContext) failurePathsFolder.Contents.ElementAt(6);
                 Assert.AreSame(assessmentSection.HeightStructures, heightStructuresFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, heightStructuresFailurePathContext.Parent);
+
+                var closingStructuresFailurePathContext = (ClosingStructuresFailurePathContext) failurePathsFolder.Contents.ElementAt(7);
+                Assert.AreSame(assessmentSection.ClosingStructures, closingStructuresFailurePathContext.WrappedData);
+                Assert.AreSame(assessmentSection, closingStructuresFailurePathContext.Parent);
 
                 var assemblyResultsContext = (AssemblyResultsContext) objects[1];
                 Assert.AreSame(assessmentSection, assemblyResultsContext.WrappedData);
