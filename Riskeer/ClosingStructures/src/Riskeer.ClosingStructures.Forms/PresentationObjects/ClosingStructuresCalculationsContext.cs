@@ -19,36 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
-using Rhino.Mocks;
+using System;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 
-namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
+namespace Riskeer.ClosingStructures.Forms.PresentationObjects
 {
-    [TestFixture]
-    public class ClosingStructuresFailureMechanismContextTest
+    /// <summary>
+    /// Presentation object for calculations of <see cref="ClosingStructuresFailureMechanism"/>.
+    /// </summary>
+    public class ClosingStructuresCalculationsContext : FailureMechanismContext<ClosingStructuresFailureMechanism>
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            // Call
-            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-
-            // Assert
-            Assert.IsInstanceOf<FailureMechanismContext<ClosingStructuresFailureMechanism>>(context);
-            Assert.AreSame(assessmentSection, context.Parent);
-            Assert.AreSame(failureMechanism, context.WrappedData);
-            mocks.VerifyAll();
-        }
+        /// <summary>
+        /// Creates a new instance of <see cref="ClosingStructuresCalculationsContext"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/> instance
+        /// wrapped by this context object.</param>
+        /// <param name="assessmentSection">The assessment section which the failure mechanism belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public ClosingStructuresCalculationsContext(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            : base(failureMechanism, assessmentSection) {}
     }
 }

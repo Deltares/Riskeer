@@ -66,7 +66,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(ClosingStructuresFailureMechanismContext),
+                    typeof(ClosingStructuresCalculationsContext),
                     typeof(ClosingStructuresFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
@@ -102,7 +102,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(9, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresCalculationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresFailurePathContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresContext)));
@@ -128,7 +128,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(ClosingStructuresFailureMechanismContext),
+                    typeof(ClosingStructuresCalculationsContext),
                     typeof(ClosingStructuresFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(

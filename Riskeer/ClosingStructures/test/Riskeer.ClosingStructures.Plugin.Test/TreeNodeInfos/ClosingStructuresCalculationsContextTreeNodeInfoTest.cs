@@ -58,7 +58,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ClosingStructuresFailureMechanismContextTreeNodeInfoTest : NUnitFormTest
+    public class ClosingStructuresCalculationsContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuRelevancyIndexWhenRelevant = 2;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
@@ -108,10 +108,10 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = new AssessmentSectionStub();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -186,10 +186,10 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 IsRelevant = false
             };
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
             Assert.AreEqual(1, children.Length);
@@ -203,7 +203,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             var menuBuilder = mocksRepository.StrictMock<IContextMenuBuilder>();
             using (mocksRepository.Ordered())
@@ -228,14 +228,14 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                info.ContextMenuStrip(context, null, treeViewControl);
             }
 
             // Assert
@@ -251,7 +251,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 IsRelevant = false
             };
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             var menuBuilder = mocksRepository.StrictMock<IContextMenuBuilder>();
             using (mocksRepository.Ordered())
@@ -268,13 +268,13 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                info.ContextMenuStrip(context, null, treeViewControl);
             }
 
             // Assert
@@ -289,11 +289,11 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
                 var failureMechanism = new ClosingStructuresFailureMechanism();
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
@@ -302,7 +302,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView))
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                 {
                     // Assert
                     Assert.AreEqual(14, menu.Items.Count);
@@ -348,11 +348,11 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 {
                     IsRelevant = false
                 };
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocksRepository.ReplayAll();
@@ -360,7 +360,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView))
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                 {
                     // Assert
                     Assert.AreEqual(6, menu.Items.Count);
@@ -379,23 +379,23 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
             var viewCommands = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
@@ -415,22 +415,22 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 IsRelevant = false
             };
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
             var viewCommands = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
@@ -450,7 +450,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
 
-            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -490,7 +490,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
 
-            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -542,7 +542,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
-            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -607,12 +607,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
                 int nrOfCalculators = failureMechanism.Calculations.Count();
@@ -637,7 +637,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     // Expect an activity dialog which is automatically closed
                 };
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     // Call
@@ -700,19 +700,19 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var gui = mocksRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
                     Action call = () => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
@@ -761,7 +761,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
 
-            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -807,7 +807,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
 
-            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -862,7 +862,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
 
-            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var messageBoxText = "";
@@ -933,7 +933,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
 
-            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var nodeData = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var messageBoxText = "";
@@ -972,7 +972,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             mocksRepository = new MockRepository();
             plugin = new ClosingStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresFailureMechanismContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresCalculationsContext));
         }
 
         public override void TearDown()

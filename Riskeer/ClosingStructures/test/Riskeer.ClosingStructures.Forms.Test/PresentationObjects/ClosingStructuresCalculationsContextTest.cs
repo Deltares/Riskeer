@@ -19,25 +19,36 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 
-namespace Riskeer.ClosingStructures.Forms.PresentationObjects
+namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
 {
-    /// <summary>
-    /// This class is a presentation object for an instance of <see cref="ClosingStructuresFailureMechanism"/>.
-    /// </summary>
-    public class ClosingStructuresFailureMechanismContext : FailureMechanismContext<ClosingStructuresFailureMechanism>
+    [TestFixture]
+    public class ClosingStructuresCalculationsContextTest
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ClosingStructuresFailureMechanismContext"/> class.
-        /// </summary>
-        /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/> instance wrapped by this context object.</param>
-        /// <param name="assessmentSection">The assessment section which the failure mechanism belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public ClosingStructuresFailureMechanismContext(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            : base(failureMechanism, assessmentSection) {}
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            // Call
+            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismContext<ClosingStructuresFailureMechanism>>(context);
+            Assert.AreSame(assessmentSection, context.Parent);
+            Assert.AreSame(failureMechanism, context.WrappedData);
+            mocks.VerifyAll();
+        }
     }
 }

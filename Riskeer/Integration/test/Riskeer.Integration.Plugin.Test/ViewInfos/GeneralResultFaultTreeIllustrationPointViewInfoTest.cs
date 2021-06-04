@@ -226,7 +226,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
             {
-                return new ClosingStructuresFailureMechanismContext(
+                return new ClosingStructuresCalculationsContext(
                     new ClosingStructuresFailureMechanism
                     {
                         CalculationsGroup =

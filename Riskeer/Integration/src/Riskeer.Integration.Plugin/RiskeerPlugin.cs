@@ -177,7 +177,7 @@ namespace Riskeer.Integration.Plugin
             ),
             new FailureMechanismContextAssociation(
                 typeof(ClosingStructuresFailureMechanism),
-                (mechanism, assessmentSection) => new ClosingStructuresFailureMechanismContext(
+                (mechanism, assessmentSection) => new ClosingStructuresCalculationsContext(
                     (ClosingStructuresFailureMechanism) mechanism,
                     assessmentSection)
             ),

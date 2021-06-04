@@ -60,22 +60,22 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ClosingStructuresFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(ClosingStructuresFailureMechanismContext), info.ViewDataType);
+            Assert.AreEqual(typeof(ClosingStructuresCalculationsContext), info.DataType);
+            Assert.AreEqual(typeof(ClosingStructuresCalculationsContext), info.ViewDataType);
         }
 
         [Test]
-        public void GetViewName_WithClosingStructuresFailureMechanismContext_ReturnsNameOfFailureMechanism()
+        public void GetViewName_WithContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            string viewName = info.GetViewName(null, failureMechanismContext);
+            string viewName = info.GetViewName(null, context);
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, viewName);
@@ -180,7 +180,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
                 IsRelevant = isRelevant
             };
 
-            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -197,7 +197,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);

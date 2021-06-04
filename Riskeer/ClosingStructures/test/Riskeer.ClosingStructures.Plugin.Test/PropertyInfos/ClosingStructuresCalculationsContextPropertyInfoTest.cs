@@ -32,7 +32,7 @@ using Riskeer.Common.Data.AssessmentSection;
 namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class ClosingStructuresFailureMechanismContextPropertyInfoTest
+    public class ClosingStructuresCalculationsContextPropertyInfoTest
     {
         private ClosingStructuresPlugin plugin;
         private PropertyInfo info;
@@ -54,7 +54,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ClosingStructuresFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(ClosingStructuresCalculationsContext), info.DataType);
             Assert.AreEqual(typeof(ClosingStructuresFailureMechanismProperties), info.PropertyObjectType);
         }
 
@@ -67,7 +67,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
