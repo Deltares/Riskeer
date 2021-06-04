@@ -501,7 +501,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             var assessmentSection = o as IAssessmentSection;
             var failureMechanism = o as MacroStabilityInwardsFailureMechanism;
 
-            if (o is MacroStabilityInwardsCalculationsContext failureMechanismContext)
+            if (o is FailureMechanismContext<MacroStabilityInwardsFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }

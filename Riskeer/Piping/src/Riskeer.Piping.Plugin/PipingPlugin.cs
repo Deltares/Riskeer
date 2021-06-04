@@ -661,7 +661,7 @@ namespace Riskeer.Piping.Plugin
             var assessmentSection = o as IAssessmentSection;
             var pipingFailureMechanism = o as PipingFailureMechanism;
 
-            if (o is PipingCalculationsContext context)
+            if (o is FailureMechanismContext<PipingFailureMechanism> context)
             {
                 pipingFailureMechanism = context.WrappedData;
             }

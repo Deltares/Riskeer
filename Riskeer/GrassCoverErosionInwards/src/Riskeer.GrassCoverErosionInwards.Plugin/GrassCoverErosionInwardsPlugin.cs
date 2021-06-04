@@ -403,7 +403,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         {
             var failureMechanism = removedData as GrassCoverErosionInwardsFailureMechanism;
 
-            if (removedData is GrassCoverErosionInwardsCalculationsContext failureMechanismContext)
+            if (removedData is FailureMechanismContext<GrassCoverErosionInwardsFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
