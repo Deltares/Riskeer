@@ -208,11 +208,9 @@ namespace Riskeer.HeightStructures.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<HeightStructuresCalculationsContext>(
-                FailureMechanismEnabledChildNodeObjects,
-                FailureMechanismDisabledChildNodeObjects,
-                FailureMechanismEnabledContextMenuStrip,
-                FailureMechanismDisabledContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<HeightStructuresCalculationsContext>(
+                CalculationsChildNodeObjects,
+                CalculationsContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<HeightStructuresFailurePathContext>(
                 FailurePathChildNodeObjects,
@@ -360,22 +358,22 @@ namespace Riskeer.HeightStructures.Plugin
 
         #region TreeNodeInfos
 
-        #region HeightStructuresFailureMechanismContext TreeNodeInfo
+        #region HeightStructuresCalculationsContext TreeNodeInfo
 
-        private static object[] FailureMechanismEnabledChildNodeObjects(HeightStructuresCalculationsContext context)
+        private static object[] CalculationsChildNodeObjects(HeightStructuresCalculationsContext context)
         {
             HeightStructuresFailureMechanism wrappedData = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
 
             return new object[]
             {
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetCalculationsInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
                 new HeightStructuresCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, assessmentSection),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetInputs(HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetCalculationsInputs(HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -398,17 +396,9 @@ namespace Riskeer.HeightStructures.Plugin
             };
         }
 
-        private static object[] FailureMechanismDisabledChildNodeObjects(HeightStructuresCalculationsContext context)
-        {
-            return new object[]
-            {
-                context.WrappedData.NotRelevantComments
-            };
-        }
-
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(HeightStructuresCalculationsContext context,
-                                                                         object parentData,
-                                                                         TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationsContextMenuStrip(HeightStructuresCalculationsContext context,
+                                                              object parentData,
+                                                              TreeViewControl treeViewControl)
         {
             IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations = context.WrappedData
                                                                                             .Calculations
@@ -419,8 +409,6 @@ namespace Riskeer.HeightStructures.Plugin
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             return builder.AddOpenItem()
-                          .AddSeparator()
-                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               context,
@@ -440,26 +428,6 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(HeightStructuresCalculationsContext context,
-                                                                          object parentData,
-                                                                          TreeViewControl treeViewControl)
-        {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
-
-            return builder.AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
-                          .AddSeparator()
-                          .AddCollapseAllItem()
-                          .AddExpandAllItem()
-                          .AddSeparator()
-                          .AddPropertiesItem()
-                          .Build();
-        }
-
-        private void RemoveAllViewsForItem(HeightStructuresCalculationsContext context)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
         private static string EnableValidateAndCalculateMenuItemForFailureMechanism(HeightStructuresCalculationsContext context)
