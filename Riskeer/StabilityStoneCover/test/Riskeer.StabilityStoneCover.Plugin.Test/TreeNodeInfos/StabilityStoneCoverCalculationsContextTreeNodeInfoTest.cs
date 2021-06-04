@@ -170,17 +170,14 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
-            Assert.AreEqual(3, inputsFolder.Contents.Count());
-            var failureMechanismSectionsContext = (StabilityStoneCoverFailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
-            Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
+            Assert.AreEqual(2, inputsFolder.Contents.Count());
 
-            var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents.ElementAt(1);
+            var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, profilesContext.WrappedData);
             Assert.AreSame(failureMechanism, profilesContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, profilesContext.ParentAssessmentSection);
 
-            var comment = (Comment) inputsFolder.Contents.ElementAt(2);
+            var comment = (Comment) inputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.InputComments, comment);
 
             var hydraulicBoundariesCalculationGroup = (StabilityStoneCoverWaveConditionsCalculationGroupContext) children[1];
