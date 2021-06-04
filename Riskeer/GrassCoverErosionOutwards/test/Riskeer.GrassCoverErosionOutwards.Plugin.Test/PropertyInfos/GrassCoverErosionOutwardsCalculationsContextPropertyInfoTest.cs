@@ -32,7 +32,7 @@ using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsFailureMechanismContextPropertyInfoTest
+    public class GrassCoverErosionOutwardsCalculationsContextPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -44,7 +44,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(GrassCoverErosionOutwardsFailureMechanismContext), info.DataType);
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsCalculationsContext), info.DataType);
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsFailureMechanismProperties), info.PropertyObjectType);
             }
         }
@@ -58,7 +58,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -77,7 +77,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 
         private static PropertyInfo GetInfo(GrassCoverErosionOutwardsPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(GrassCoverErosionOutwardsFailureMechanismContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(GrassCoverErosionOutwardsCalculationsContext));
         }
     }
 }

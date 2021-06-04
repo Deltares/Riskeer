@@ -29,11 +29,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for the failure path of <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailurePathContext
-        : FailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism>
+    public class GrassCoverErosionOutwardsFailurePathContext : FailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismContext"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailurePathContext"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> 
         /// instance wrapped by this context object.</param>

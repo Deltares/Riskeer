@@ -78,7 +78,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<GrassCoverErosionOutwardsFailureMechanismContext, GrassCoverErosionOutwardsFailureMechanismProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsCalculationsContext, GrassCoverErosionOutwardsFailureMechanismProperties>
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismProperties(
                     context.WrappedData,
@@ -149,7 +149,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<GrassCoverErosionOutwardsFailureMechanismContext, GrassCoverErosionOutwardsFailureMechanismView>
+            yield return new ViewInfo<GrassCoverErosionOutwardsCalculationsContext, GrassCoverErosionOutwardsFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -225,7 +225,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverErosionOutwardsFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverErosionOutwardsCalculationsContext>(
                 FailureMechanismEnabledChildNodeObjects,
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
@@ -454,7 +454,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                                                   .OfType<GrassCoverErosionOutwardsFailureMechanism>()
                                                                                                   .Single();
 
-            var failureMechanismContext = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanismContext;
+            var failureMechanismContext = dataToCloseFor as GrassCoverErosionOutwardsCalculationsContext;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanism;
 
@@ -477,10 +477,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         #region GrassCoverErosionOutwardsFailureMechanismContext TreeNodeInfo
 
-        private static object[] FailureMechanismEnabledChildNodeObjects(GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext)
+        private static object[] FailureMechanismEnabledChildNodeObjects(GrassCoverErosionOutwardsCalculationsContext context)
         {
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = failureMechanismContext.WrappedData;
-            IAssessmentSection assessmentSection = failureMechanismContext.Parent;
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = context.WrappedData;
+            IAssessmentSection assessmentSection = context.Parent;
 
             return new object[]
             {
@@ -490,11 +490,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             };
         }
 
-        private static object[] FailureMechanismDisabledChildNodeObjects(GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext)
+        private static object[] FailureMechanismDisabledChildNodeObjects(GrassCoverErosionOutwardsCalculationsContext context)
         {
             return new object[]
             {
-                failureMechanismContext.WrappedData.NotRelevantComments
+                context.WrappedData.NotRelevantComments
             };
         }
 
@@ -519,13 +519,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext,
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(GrassCoverErosionOutwardsCalculationsContext context,
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
-            IAssessmentSection assessmentSection = failureMechanismContext.Parent;
+            IAssessmentSection assessmentSection = context.Parent;
             var calculateAllItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
                 RiskeerCommonFormsResources.Calculate_All_ToolTip,
@@ -535,7 +535,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                     ActivityProgressDialogRunner.Run(
                         Gui.MainWindow,
                         GrassCoverErosionOutwardsCalculationActivityFactory
-                            .CreateCalculationActivities(failureMechanismContext.WrappedData, assessmentSection));
+                            .CreateCalculationActivities(context.WrappedData, assessmentSection));
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection,
@@ -543,7 +543,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
+                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCustomItem(calculateAllItem)
                           .AddSeparator()
@@ -554,13 +554,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                           .Build();
         }
 
-        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(GrassCoverErosionOutwardsFailureMechanismContext grassCoverErosionOutwardsFailureMechanismContext,
+        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(GrassCoverErosionOutwardsCalculationsContext context,
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(grassCoverErosionOutwardsFailureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionOutwardsFailureMechanismContext, RemoveAllViewsForItem)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -569,9 +569,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext)
+        private void RemoveAllViewsForItem(GrassCoverErosionOutwardsCalculationsContext context)
         {
-            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
+            Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
         private static object[] GetHydraulicBoundaryDatabaseContextChildNodeObjects(GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext context)

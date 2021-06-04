@@ -71,7 +71,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(GrassCoverErosionOutwardsFailureMechanismContext),
+                    typeof(GrassCoverErosionOutwardsCalculationsContext),
                     typeof(GrassCoverErosionOutwardsFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
@@ -111,7 +111,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(13, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsCalculationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsFailurePathContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext)));
@@ -141,7 +141,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(GrassCoverErosionOutwardsFailureMechanismContext),
+                    typeof(GrassCoverErosionOutwardsCalculationsContext),
                     typeof(GrassCoverErosionOutwardsFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(

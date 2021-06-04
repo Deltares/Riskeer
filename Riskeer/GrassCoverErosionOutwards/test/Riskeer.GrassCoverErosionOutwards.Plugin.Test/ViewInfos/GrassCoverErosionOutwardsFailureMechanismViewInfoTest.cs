@@ -60,22 +60,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionOutwardsFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(GrassCoverErosionOutwardsFailureMechanismContext), info.ViewDataType);
+            Assert.AreEqual(typeof(GrassCoverErosionOutwardsCalculationsContext), info.DataType);
+            Assert.AreEqual(typeof(GrassCoverErosionOutwardsCalculationsContext), info.ViewDataType);
         }
 
         [Test]
-        public void GetViewName_WithGrassCoverErosionOutwardsFailureMechanismContext_ReturnsNameOfFailureMechanism()
+        public void GetViewName_WithContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var grassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            string viewName = info.GetViewName(null, grassCoverErosionOutwardsFailureMechanismContext);
+            string viewName = info.GetViewName(null, context);
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, viewName);
@@ -179,7 +179,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 IsRelevant = isRelevant
             };
 
-            var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -196,7 +196,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);

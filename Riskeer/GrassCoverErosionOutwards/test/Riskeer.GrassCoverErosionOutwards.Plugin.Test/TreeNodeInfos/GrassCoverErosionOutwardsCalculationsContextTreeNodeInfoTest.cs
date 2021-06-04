@@ -60,7 +60,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsFailureMechanismContextTreeNodeInfoTest
+    public class GrassCoverErosionOutwardsCalculationsContextTreeNodeInfoTest
     {
         private const int contextMenuCalculateAllIndex = 4;
         private const int contextMenuRelevancyIndexWhenRelevant = 2;
@@ -77,7 +77,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new GrassCoverErosionOutwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionOutwardsFailureMechanismContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionOutwardsCalculationsContext));
         }
 
         [TearDown]
@@ -122,11 +122,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism,
-                                                                                               assessmentSection);
+            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            string nodeText = info.Text(failureMechanismContext);
+            string nodeText = info.Text(context);
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, nodeText);
@@ -143,11 +142,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 IsRelevant = true
             };
-            var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism,
-                                                                                               assessmentSection);
+            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            Color foreColor = info.ForeColor(failureMechanismContext);
+            Color foreColor = info.ForeColor(context);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), foreColor);
@@ -164,11 +162,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 IsRelevant = false
             };
-            var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism,
-                                                                                               assessmentSection);
+            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            Color foreColor = info.ForeColor(failureMechanismContext);
+            Color foreColor = info.ForeColor(context);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), foreColor);
@@ -182,11 +179,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism,
-                                                                                               assessmentSection);
+            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            Image icon = info.Image(failureMechanismContext);
+            Image icon = info.Image(context);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, icon);
@@ -201,11 +197,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 IsRelevant = true
             };
-            var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism,
-                                                                                               assessmentSection);
+            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
             Assert.AreEqual(3, children.Length);
@@ -269,11 +264,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 IsRelevant = false
             };
-            var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism,
-                                                                                               assessmentSection);
+            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
             Assert.AreEqual(1, children.Length);
@@ -292,8 +286,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     IsRelevant = true
                 };
                 var assessmentSection = new AssessmentSectionStub();
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism,
-                                                                                                   assessmentSection);
+                var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -312,13 +305,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 }
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                info.ContextMenuStrip(context, null, treeViewControl);
             }
 
             // Assert
@@ -336,7 +329,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     IsRelevant = false
                 };
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -351,13 +344,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 }
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
+                info.ContextMenuStrip(context, null, treeViewControl);
             }
 
             // Assert
@@ -380,7 +373,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
-            var nodeData = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -416,22 +409,21 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.Attach(failureMechanismObserver);
 
                 var assessmentSection = new AssessmentSectionStub();
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism,
-                                                                                                   assessmentSection);
+                var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
                 var viewCommands = mocks.StrictMock<IViewCommands>();
-                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
@@ -458,22 +450,21 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.Attach(failureMechanismObserver);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism,
-                                                                                                   assessmentSection);
+                var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
                 var viewCommands = mocks.StrictMock<IViewCommands>();
-                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
+                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
                     contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
@@ -497,8 +488,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 hydraulicBoundaryLocation
             });
 
-            var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism,
-                                                                               assessmentSection);
+            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -552,8 +542,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
 
-            var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism,
-                                                                               assessmentSection);
+            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
