@@ -143,6 +143,10 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<StabilityPointStructuresFailurePathContext>(
+                FailurePathChildNodeObjects,
+                FailurePathContextMenuStrip);
+
             yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -474,6 +478,60 @@ namespace Riskeer.StabilityPointStructures.Plugin
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
+        }
+
+        #endregion
+
+        #region StabilityPointStructuresFailurePathContext TreeNodeInfo
+
+        private static object[] FailurePathChildNodeObjects(StabilityPointStructuresFailurePathContext context)
+        {
+            StabilityPointStructuresFailureMechanism failureMechanism = context.WrappedData;
+            IAssessmentSection assessmentSection = context.Parent;
+
+            return new object[]
+            {
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetFailurePathInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                                       GetFailurePathOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+            };
+        }
+
+        private static IEnumerable<object> GetFailurePathInputs(StabilityPointStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new StabilityPointStructuresFailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                failureMechanism.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetFailurePathOutputs(StabilityPointStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
+                new StabilityPointStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
+                new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                failureMechanism.OutputComments
+            };
+        }
+
+        private ContextMenuStrip FailurePathContextMenuStrip(StabilityPointStructuresFailurePathContext context,
+                                                             object parentData,
+                                                             TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         #endregion
