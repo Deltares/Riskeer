@@ -229,7 +229,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedCalculationsContext_ReturnsFalse()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -237,10 +237,10 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
 
             using (var view = new StabilityPointStructuresCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
+                var context = new StabilityPointStructuresCalculationsContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -248,7 +248,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingToRemovedCalculationsContext_ReturnsTrue()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -256,10 +256,10 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
 
             using (var view = new StabilityPointStructuresCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
 
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsTrue(closeForData);

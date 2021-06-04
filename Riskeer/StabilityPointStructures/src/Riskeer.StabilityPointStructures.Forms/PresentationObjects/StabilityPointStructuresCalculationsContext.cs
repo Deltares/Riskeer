@@ -27,17 +27,18 @@ using Riskeer.StabilityPointStructures.Data;
 namespace Riskeer.StabilityPointStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for an instance of <see cref="StabilityPointStructuresFailureMechanism"/>.
+    /// Presentation object for calculations of <see cref="StabilityPointStructuresFailureMechanism"/>.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanismContext : FailureMechanismContext<StabilityPointStructuresFailureMechanism>
+    public class StabilityPointStructuresCalculationsContext : FailureMechanismContext<StabilityPointStructuresFailureMechanism>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StabilityPointStructuresFailureMechanismContext"/> class.
+        /// Creates a new instance of <see cref="StabilityPointStructuresCalculationsContext"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="StabilityPointStructuresFailureMechanism"/> instance wrapped by this context object.</param>
+        /// <param name="failureMechanism">The <see cref="StabilityPointStructuresFailureMechanism"/>
+        /// instance wrapped by this context object.</param>
         /// <param name="assessmentSection">The assessment section which the failure mechanism belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public StabilityPointStructuresFailureMechanismContext(StabilityPointStructuresFailureMechanism failureMechanism,
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public StabilityPointStructuresCalculationsContext(StabilityPointStructuresFailureMechanism failureMechanism,
                                                                IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
     }

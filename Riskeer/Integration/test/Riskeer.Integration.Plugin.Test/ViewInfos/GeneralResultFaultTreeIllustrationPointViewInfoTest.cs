@@ -275,7 +275,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
             {
-                return new StabilityPointStructuresFailureMechanismContext(
+                return new StabilityPointStructuresCalculationsContext(
                     new StabilityPointStructuresFailureMechanism
                     {
                         CalculationsGroup =

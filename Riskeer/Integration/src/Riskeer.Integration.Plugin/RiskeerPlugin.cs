@@ -182,7 +182,7 @@ namespace Riskeer.Integration.Plugin
             ),
             new FailureMechanismContextAssociation(
                 typeof(StabilityPointStructuresFailureMechanism),
-                (mechanism, assessmentSection) => new StabilityPointStructuresFailureMechanismContext(
+                (mechanism, assessmentSection) => new StabilityPointStructuresCalculationsContext(
                     (StabilityPointStructuresFailureMechanism) mechanism,
                     assessmentSection)
             )

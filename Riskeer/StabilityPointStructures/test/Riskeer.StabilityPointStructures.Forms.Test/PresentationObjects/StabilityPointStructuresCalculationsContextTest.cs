@@ -29,7 +29,7 @@ using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class StabilityPointStructuresFailureMechanismContextTest
+    public class StabilityPointStructuresCalculationsContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -42,7 +42,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<StabilityPointStructuresFailureMechanism>>(context);

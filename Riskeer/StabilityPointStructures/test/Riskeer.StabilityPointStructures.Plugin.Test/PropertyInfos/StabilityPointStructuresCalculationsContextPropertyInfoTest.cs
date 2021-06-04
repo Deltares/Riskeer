@@ -32,7 +32,7 @@ using Riskeer.StabilityPointStructures.Forms.PropertyClasses;
 namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class StabilityPointStructuresFailureMechanismContextPropertyInfoTest
+    public class StabilityPointStructuresCalculationsContextPropertyInfoTest
     {
         private StabilityPointStructuresPlugin plugin;
         private PropertyInfo info;
@@ -54,7 +54,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(StabilityPointStructuresFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(StabilityPointStructuresCalculationsContext), info.DataType);
             Assert.AreEqual(typeof(StabilityPointStructuresFailureMechanismProperties), info.PropertyObjectType);
         }
 
@@ -67,7 +67,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
