@@ -1814,7 +1814,8 @@ namespace Riskeer.Integration.Plugin
                 new GrassCoverErosionOutwardsFailurePathContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
                 new HeightStructuresFailurePathContext(assessmentSection.HeightStructures, assessmentSection),
                 new ClosingStructuresFailurePathContext(assessmentSection.ClosingStructures, assessmentSection),
-                new StabilityPointStructuresFailurePathContext(assessmentSection.StabilityPointStructures, assessmentSection)
+                new StabilityPointStructuresFailurePathContext(assessmentSection.StabilityPointStructures, assessmentSection),
+                new DuneErosionFailurePathContext(assessmentSection.DuneErosion, assessmentSection)
             };
         }
 

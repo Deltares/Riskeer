@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
@@ -170,7 +171,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual("Faalpaden", failurePathsFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.General, failurePathsFolder.Category);
 
-                Assert.AreEqual(9, failurePathsFolder.Contents.Count());
+                Assert.AreEqual(10, failurePathsFolder.Contents.Count());
                 var pipingFailurePathContext = (PipingFailurePathContext) failurePathsFolder.Contents.ElementAt(0);
                 Assert.AreSame(assessmentSection.Piping, pipingFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, pipingFailurePathContext.Parent);
@@ -206,6 +207,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var stabilityPointStructuresFailurePathContext = (StabilityPointStructuresFailurePathContext) failurePathsFolder.Contents.ElementAt(8);
                 Assert.AreSame(assessmentSection.StabilityPointStructures, stabilityPointStructuresFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, stabilityPointStructuresFailurePathContext.Parent);
+
+                var duneErosionFailurePathContext = (DuneErosionFailurePathContext) failurePathsFolder.Contents.ElementAt(9);
+                Assert.AreSame(assessmentSection.DuneErosion, duneErosionFailurePathContext.WrappedData);
+                Assert.AreSame(assessmentSection, duneErosionFailurePathContext.Parent);
 
                 var assemblyResultsContext = (AssemblyResultsContext) objects[1];
                 Assert.AreSame(assessmentSection, assemblyResultsContext.WrappedData);
