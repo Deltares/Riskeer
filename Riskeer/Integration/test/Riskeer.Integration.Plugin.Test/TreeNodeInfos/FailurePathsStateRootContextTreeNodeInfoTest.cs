@@ -32,6 +32,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
@@ -167,7 +168,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual("Faalpaden", failurePathsFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.General, failurePathsFolder.Category);
 
-                Assert.AreEqual(6, failurePathsFolder.Contents.Count());
+                Assert.AreEqual(7, failurePathsFolder.Contents.Count());
                 var pipingFailurePathContext = (PipingFailurePathContext) failurePathsFolder.Contents.ElementAt(0);
                 Assert.AreSame(assessmentSection.Piping, pipingFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, pipingFailurePathContext.Parent);
@@ -191,6 +192,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var grassCoverErosionOutwardsFailurePathContext = (GrassCoverErosionOutwardsFailurePathContext) failurePathsFolder.Contents.ElementAt(5);
                 Assert.AreSame(assessmentSection.GrassCoverErosionOutwards, grassCoverErosionOutwardsFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, grassCoverErosionOutwardsFailurePathContext.Parent);
+
+                var heightStructuresFailurePathContext = (HeightStructuresFailurePathContext) failurePathsFolder.Contents.ElementAt(6);
+                Assert.AreSame(assessmentSection.HeightStructures, heightStructuresFailurePathContext.WrappedData);
+                Assert.AreSame(assessmentSection, heightStructuresFailurePathContext.Parent);
 
                 var assemblyResultsContext = (AssemblyResultsContext) objects[1];
                 Assert.AreSame(assessmentSection, assemblyResultsContext.WrappedData);
