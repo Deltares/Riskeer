@@ -298,9 +298,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetCalculationsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
                 new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup, null,
-                                                                                failureMechanism, assessmentSection),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+                                                                                failureMechanism, assessmentSection)
             };
         }
 
@@ -310,19 +308,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             {
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 failureMechanism.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
-                                                      IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralWaveImpactAsphaltCoverInput.GetN(
-                                                                  assessmentSection.ReferenceLine.Length)),
-                new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism),
-                failureMechanism.OutputComments
             };
         }
 
