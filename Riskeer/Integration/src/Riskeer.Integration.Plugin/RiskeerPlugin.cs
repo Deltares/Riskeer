@@ -71,9 +71,7 @@ using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Plugin.Handlers;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone;
@@ -102,7 +100,6 @@ using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
-using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using CoreGuiResources = Core.Gui.Properties.Resources;
 using FontFamily = System.Windows.Media.FontFamily;
@@ -130,12 +127,6 @@ namespace Riskeer.Integration.Plugin
 
         private static readonly IEnumerable<FailureMechanismContextAssociation> failureMechanismAssociations = new[]
         {
-            new FailureMechanismContextAssociation(
-                typeof(HeightStructuresFailureMechanism),
-                (mechanism, assessmentSection) => new HeightStructuresCalculationsContext(
-                    (HeightStructuresFailureMechanism) mechanism,
-                    assessmentSection)
-            ),
             new FailureMechanismContextAssociation(
                 typeof(DuneErosionFailureMechanism),
                 (mechanism, assessmentSection) => new DuneErosionFailureMechanismContext(
@@ -1714,8 +1705,6 @@ namespace Riskeer.Integration.Plugin
 
             var failureMechanisms = new IFailureMechanism[]
             {
-                assessmentSection.GrassCoverErosionOutwards,
-                assessmentSection.HeightStructures,
                 assessmentSection.ClosingStructures,
                 assessmentSection.StabilityPointStructures,
                 assessmentSection.DuneErosion
@@ -1729,7 +1718,8 @@ namespace Riskeer.Integration.Plugin
                 new MacroStabilityInwardsCalculationsContext(assessmentSection.MacroStabilityInwards, assessmentSection),
                 new StabilityStoneCoverCalculationsContext(assessmentSection.StabilityStoneCover, assessmentSection),
                 new WaveImpactAsphaltCoverCalculationsContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
-                new GrassCoverErosionOutwardsCalculationsContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection)
+                new GrassCoverErosionOutwardsCalculationsContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
+                new HeightStructuresCalculationsContext(assessmentSection.HeightStructures, assessmentSection)
             };
 
             childNodes.AddRange(failureMechanisms.Select(failureMechanism => failureMechanismAssociations
