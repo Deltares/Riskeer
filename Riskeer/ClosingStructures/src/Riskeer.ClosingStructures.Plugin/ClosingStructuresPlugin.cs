@@ -319,7 +319,7 @@ namespace Riskeer.ClosingStructures.Plugin
         {
             var failureMechanism = removedData as ClosingStructuresFailureMechanism;
 
-            if (removedData is ClosingStructuresFailureMechanismContext failureMechanismContext)
+            if (removedData is FailureMechanismContext<ClosingStructuresFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }

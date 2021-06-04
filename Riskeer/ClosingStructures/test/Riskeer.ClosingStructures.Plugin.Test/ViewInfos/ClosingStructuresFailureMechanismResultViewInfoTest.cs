@@ -225,19 +225,19 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingToRemovedFailurePathContext_ReturnsTrue()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
 
             using (var view = new ClosingStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -247,20 +247,19 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedFailurePathContext_ReturnsFalse()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var context = new ClosingStructuresFailurePathContext(new ClosingStructuresFailureMechanism(), assessmentSection);
             var failureMechanism = new ClosingStructuresFailureMechanism();
+            
             using (var view = new ClosingStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
-                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(),
-                                                                                           assessmentSection);
-
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsFalse(closeForData);
