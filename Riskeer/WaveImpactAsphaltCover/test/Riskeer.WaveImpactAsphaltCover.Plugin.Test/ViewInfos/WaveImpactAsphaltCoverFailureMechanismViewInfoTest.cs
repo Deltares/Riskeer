@@ -60,22 +60,22 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismContext), info.ViewDataType);
+            Assert.AreEqual(typeof(WaveImpactAsphaltCoverCalculationsContext), info.DataType);
+            Assert.AreEqual(typeof(WaveImpactAsphaltCoverCalculationsContext), info.ViewDataType);
         }
 
         [Test]
-        public void GetViewName_WithWaveImpactAsphaltCoverFailureMechanismContext_ReturnsNameOfFailureMechanism()
+        public void GetViewName_WithContext_ReturnsNameOfFailureMechanism()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var waveImpactAsphaltCoverFailureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            string viewName = info.GetViewName(null, waveImpactAsphaltCoverFailureMechanismContext);
+            string viewName = info.GetViewName(null, context);
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, viewName);
@@ -181,7 +181,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 IsRelevant = isRelevant
             };
 
-            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -198,7 +198,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);

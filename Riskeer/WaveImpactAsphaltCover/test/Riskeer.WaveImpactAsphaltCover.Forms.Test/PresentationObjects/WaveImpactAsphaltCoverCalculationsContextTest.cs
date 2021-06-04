@@ -19,25 +19,35 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 
-namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 {
-    /// <summary>
-    /// This class is a presentation object for an instance of <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
-    /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanismContext : FailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism>
+    [TestFixture]
+    public class WaveImpactAsphaltCoverCalculationsContextTest
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WaveImpactAsphaltCoverFailureMechanismContext"/> class.
-        /// </summary>
-        /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
-        /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverFailureMechanismContext(WaveImpactAsphaltCoverFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
-            base(wrappedFailureMechanism, parent) {}
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            // Call
+            var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism>>(context);
+            Assert.AreSame(failureMechanism, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.Parent);
+        }
     }
 }

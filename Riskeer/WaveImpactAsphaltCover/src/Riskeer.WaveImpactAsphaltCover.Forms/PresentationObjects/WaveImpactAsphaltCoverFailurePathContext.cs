@@ -32,7 +32,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects
     public class WaveImpactAsphaltCoverFailurePathContext : FailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismContext"/>.
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailurePathContext"/>.
         /// </summary>
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism"/>.</param>

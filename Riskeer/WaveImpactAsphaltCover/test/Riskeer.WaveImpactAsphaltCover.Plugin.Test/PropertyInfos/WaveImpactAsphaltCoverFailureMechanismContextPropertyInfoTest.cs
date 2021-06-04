@@ -44,7 +44,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismContext), info.DataType);
+                Assert.AreEqual(typeof(WaveImpactAsphaltCoverCalculationsContext), info.DataType);
                 Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismProperties), info.PropertyObjectType);
             }
         }
@@ -58,7 +58,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
@@ -77,7 +77,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
 
         private static PropertyInfo GetInfo(WaveImpactAsphaltCoverPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(WaveImpactAsphaltCoverFailureMechanismContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(WaveImpactAsphaltCoverCalculationsContext));
         }
     }
 }

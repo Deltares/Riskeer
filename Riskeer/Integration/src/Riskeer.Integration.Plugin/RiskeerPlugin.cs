@@ -186,7 +186,7 @@ namespace Riskeer.Integration.Plugin
             ),
             new FailureMechanismContextAssociation(
                 typeof(WaveImpactAsphaltCoverFailureMechanism),
-                (mechanism, assessmentSection) => new WaveImpactAsphaltCoverFailureMechanismContext(
+                (mechanism, assessmentSection) => new WaveImpactAsphaltCoverCalculationsContext(
                     (WaveImpactAsphaltCoverFailureMechanism) mechanism,
                     assessmentSection)
             ),

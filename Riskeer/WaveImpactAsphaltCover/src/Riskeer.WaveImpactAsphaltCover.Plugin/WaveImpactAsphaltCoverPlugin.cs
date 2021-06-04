@@ -68,7 +68,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<WaveImpactAsphaltCoverFailureMechanismContext, WaveImpactAsphaltCoverFailureMechanismProperties>
+            yield return new PropertyInfo<WaveImpactAsphaltCoverCalculationsContext, WaveImpactAsphaltCoverFailureMechanismProperties>
             {
                 CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismProperties(context.WrappedData, context.Parent)
             };
@@ -85,7 +85,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<WaveImpactAsphaltCoverFailureMechanismContext, WaveImpactAsphaltCoverFailureMechanismView>
+            yield return new ViewInfo<WaveImpactAsphaltCoverCalculationsContext, WaveImpactAsphaltCoverFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -136,7 +136,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<WaveImpactAsphaltCoverFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<WaveImpactAsphaltCoverCalculationsContext>(
                 FailureMechanismEnabledChildNodeObjects,
                 FailureMechanismDisabledChildNodeObjects,
                 FailureMechanismEnabledContextMenuStrip,
@@ -290,10 +290,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         #region WaveImpactAsphaltCoverFailureMechanismContext TreeNodeInfo
 
-        private static object[] FailureMechanismEnabledChildNodeObjects(WaveImpactAsphaltCoverFailureMechanismContext failureMechanismContext)
+        private static object[] FailureMechanismEnabledChildNodeObjects(WaveImpactAsphaltCoverCalculationsContext context)
         {
-            WaveImpactAsphaltCoverFailureMechanism wrappedData = failureMechanismContext.WrappedData;
-            IAssessmentSection assessmentSection = failureMechanismContext.Parent;
+            WaveImpactAsphaltCoverFailureMechanism wrappedData = context.WrappedData;
+            IAssessmentSection assessmentSection = context.Parent;
 
             return new object[]
             {
@@ -303,11 +303,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             };
         }
 
-        private static object[] FailureMechanismDisabledChildNodeObjects(WaveImpactAsphaltCoverFailureMechanismContext failureMechanismContext)
+        private static object[] FailureMechanismDisabledChildNodeObjects(WaveImpactAsphaltCoverCalculationsContext context)
         {
             return new object[]
             {
-                failureMechanismContext.WrappedData.NotRelevantComments
+                context.WrappedData.NotRelevantComments
             };
         }
 
@@ -334,18 +334,18 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(WaveImpactAsphaltCoverFailureMechanismContext failureMechanismContext,
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(WaveImpactAsphaltCoverCalculationsContext context,
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
+                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddPerformAllCalculationsInFailureMechanismItem(
-                              failureMechanismContext,
+                              context,
                               CalculateAllInFailureMechanism,
                               EnableValidateAndCalculateMenuItemForFailureMechanism)
                           .AddSeparator()
@@ -356,13 +356,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                           .Build();
         }
 
-        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(WaveImpactAsphaltCoverFailureMechanismContext failureMechanismContext,
+        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(WaveImpactAsphaltCoverCalculationsContext context,
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -371,17 +371,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(WaveImpactAsphaltCoverFailureMechanismContext failureMechanismContext)
+        private void RemoveAllViewsForItem(WaveImpactAsphaltCoverCalculationsContext context)
         {
-            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
+            Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
-        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(WaveImpactAsphaltCoverFailureMechanismContext context)
+        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(WaveImpactAsphaltCoverCalculationsContext context)
         {
             return EnableValidateAndCalculateMenuItem(context.Parent);
         }
 
-        private void CalculateAllInFailureMechanism(WaveImpactAsphaltCoverFailureMechanismContext context)
+        private void CalculateAllInFailureMechanism(WaveImpactAsphaltCoverCalculationsContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,

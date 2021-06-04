@@ -67,7 +67,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(WaveImpactAsphaltCoverFailureMechanismContext),
+                    typeof(WaveImpactAsphaltCoverCalculationsContext),
                     typeof(WaveImpactAsphaltCoverFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
@@ -96,7 +96,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(WaveImpactAsphaltCoverFailureMechanismContext),
+                    typeof(WaveImpactAsphaltCoverCalculationsContext),
                     typeof(WaveImpactAsphaltCoverFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
@@ -124,7 +124,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(8, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverCalculationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverFailurePathContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)));
