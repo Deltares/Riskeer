@@ -101,7 +101,6 @@ using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
-using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -171,12 +170,6 @@ namespace Riskeer.Integration.Plugin
                 typeof(PipingStructureFailureMechanism),
                 (mechanism, assessmentSection) => new PipingStructureFailureMechanismContext(
                     (PipingStructureFailureMechanism) mechanism,
-                    assessmentSection)
-            ),
-            new FailureMechanismContextAssociation(
-                typeof(StabilityStoneCoverFailureMechanism),
-                (mechanism, assessmentSection) => new StabilityStoneCoverCalculationsContext(
-                    (StabilityStoneCoverFailureMechanism) mechanism,
                     assessmentSection)
             ),
             new FailureMechanismContextAssociation(
@@ -458,10 +451,7 @@ namespace Riskeer.Integration.Plugin
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
                                                                                  context.CategoryBoundaryName),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                }
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
             yield return new ViewInfo<WaveHeightCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
@@ -475,10 +465,7 @@ namespace Riskeer.Integration.Plugin
                                                                            context.AssessmentSection,
                                                                            context.GetNormFunc,
                                                                            context.CategoryBoundaryName),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                }
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
             yield return new ViewInfo<AssessmentSectionStateRootContext, AssessmentSectionReferenceLineView>
@@ -1739,7 +1726,6 @@ namespace Riskeer.Integration.Plugin
 
             var failureMechanisms = new IFailureMechanism[]
             {
-                assessmentSection.StabilityStoneCover,
                 assessmentSection.WaveImpactAsphaltCover,
                 assessmentSection.GrassCoverErosionOutwards,
                 assessmentSection.HeightStructures,
@@ -1753,7 +1739,8 @@ namespace Riskeer.Integration.Plugin
                 new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
                 new PipingCalculationsContext(assessmentSection.Piping, assessmentSection),
                 new GrassCoverErosionInwardsCalculationsContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
-                new MacroStabilityInwardsCalculationsContext(assessmentSection.MacroStabilityInwards, assessmentSection)
+                new MacroStabilityInwardsCalculationsContext(assessmentSection.MacroStabilityInwards, assessmentSection),
+                new StabilityStoneCoverCalculationsContext(assessmentSection.StabilityStoneCover, assessmentSection)
             };
 
             childNodes.AddRange(failureMechanisms.Select(failureMechanism => failureMechanismAssociations
@@ -1770,10 +1757,7 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.Calculate_All,
                 Resources.AssessmentSection_Calculate_All_ToolTip,
                 RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) =>
-                {
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData.WrappedData));
-                });
+                (sender, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData.WrappedData)); });
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
