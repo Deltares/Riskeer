@@ -37,7 +37,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityStoneCoverFailurePathContext(StabilityStoneCoverFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
-            base(wrappedFailureMechanism, parent) {}
+        public StabilityStoneCoverFailurePathContext(StabilityStoneCoverFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) 
+            : base(wrappedFailureMechanism, parent) {}
     }
 }
