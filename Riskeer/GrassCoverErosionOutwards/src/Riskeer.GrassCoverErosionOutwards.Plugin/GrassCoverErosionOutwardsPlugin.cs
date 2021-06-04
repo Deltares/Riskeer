@@ -225,11 +225,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverErosionOutwardsCalculationsContext>(
-                FailureMechanismEnabledChildNodeObjects,
-                FailureMechanismDisabledChildNodeObjects,
-                FailureMechanismEnabledContextMenuStrip,
-                FailureMechanismDisabledContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<GrassCoverErosionOutwardsCalculationsContext>(
+                CalculationsChildNodeObjects,
+                CalculationsContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<GrassCoverErosionOutwardsFailurePathContext>(
                 FailurePathChildNodeObjects,
@@ -475,30 +473,25 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         #region TreeNodeInfos
 
-        #region GrassCoverErosionOutwardsFailureMechanismContext TreeNodeInfo
+        #region GrassCoverErosionOutwardsCalculationsContext TreeNodeInfo
 
-        private static object[] FailureMechanismEnabledChildNodeObjects(GrassCoverErosionOutwardsCalculationsContext context)
+        private static object[] CalculationsChildNodeObjects(GrassCoverErosionOutwardsCalculationsContext context)
         {
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
 
             return new object[]
             {
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
-                new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetCalculationsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
+                                                                              failureMechanism, assessmentSection),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                                       GetOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
-        private static object[] FailureMechanismDisabledChildNodeObjects(GrassCoverErosionOutwardsCalculationsContext context)
-        {
-            return new object[]
-            {
-                context.WrappedData.NotRelevantComments
-            };
-        }
-
-        private static IEnumerable<object> GetInputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetCalculationsInputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -519,9 +512,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(GrassCoverErosionOutwardsCalculationsContext context,
-                                                                         object parentData,
-                                                                         TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationsContextMenuStrip(GrassCoverErosionOutwardsCalculationsContext context,
+                                                              object parentData,
+                                                              TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -543,8 +536,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
-                          .AddSeparator()
                           .AddCustomItem(calculateAllItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
@@ -552,26 +543,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(GrassCoverErosionOutwardsCalculationsContext context,
-                                                                          object parentData,
-                                                                          TreeViewControl treeViewControl)
-        {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
-
-            return builder.AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
-                          .AddSeparator()
-                          .AddCollapseAllItem()
-                          .AddExpandAllItem()
-                          .AddSeparator()
-                          .AddPropertiesItem()
-                          .Build();
-        }
-
-        private void RemoveAllViewsForItem(GrassCoverErosionOutwardsCalculationsContext context)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
         private static object[] GetHydraulicBoundaryDatabaseContextChildNodeObjects(GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext context)

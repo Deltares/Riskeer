@@ -25,11 +25,9 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Gui;
-using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.MainWindow;
 using Core.Gui.Forms.ViewHost;
@@ -62,9 +60,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionOutwardsCalculationsContextTreeNodeInfoTest
     {
-        private const int contextMenuCalculateAllIndex = 4;
-        private const int contextMenuRelevancyIndexWhenRelevant = 2;
-        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
+        private const int contextMenuCalculateAllIndex = 2;
         private MockRepository mocks;
         private GrassCoverErosionOutwardsPlugin plugin;
         private TreeNodeInfo info;
@@ -115,7 +111,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnName()
+        public void Text_WithContext_ReturnName()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -132,43 +128,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_FailureMechanismIsRelevant_ReturnControlText()
+        public void ForeColor_Always_ReturnControlText()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                IsRelevant = true
-            };
-            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
-
+            
             // Call
-            Color foreColor = info.ForeColor(context);
+            Color foreColor = info.ForeColor(null);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), foreColor);
-        }
-
-        [Test]
-        public void ForeColor_FailureMechanismIsNotRelevant_ReturnGrayText()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                IsRelevant = false
-            };
-            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
-
-            // Call
-            Color foreColor = info.ForeColor(context);
-
-            // Assert
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), foreColor);
         }
 
         [Test]
@@ -189,14 +158,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
+        public void ChildNodeObjects_WithContext_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                IsRelevant = true
-            };
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
@@ -254,37 +220,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismNotRelevantComments()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                IsRelevant = false
-            };
-            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
-
-            // Call
-            object[] children = info.ChildNodeObjects(context).ToArray();
-
-            // Assert
-            Assert.AreEqual(1, children.Length);
-            var comment = (Comment) children[0];
-            Assert.AreSame(failureMechanism.NotRelevantComments, comment);
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    IsRelevant = true
-                };
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
                 var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
 
@@ -293,47 +234,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
-                }
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
-            }
-
-            // Assert
-            // Assert expectancies are called in TearDown()
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevant_CallsContextMenuBuilderMethods()
-        {
-            // Setup
-            var treeViewControl = new TreeViewControl();
-            {
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    IsRelevant = false
-                };
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                using (mocks.Ordered())
-                {
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
@@ -392,85 +292,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                   "Alles be&rekenen",
                                                                   "Voer alle berekeningen binnen dit toetsspoor uit.",
                                                                   RiskeerCommonFormsResources.CalculateAllIcon);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevantAndRemovesAllViewsForItem()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var failureMechanismObserver = mocks.Stub<IObserver>();
-                failureMechanismObserver.Expect(o => o.UpdateObserver());
-
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                failureMechanism.Attach(failureMechanismObserver);
-
-                var assessmentSection = new AssessmentSectionStub();
-                var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
-
-                var viewCommands = mocks.StrictMock<IViewCommands>();
-                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
-
-                    // Assert
-                    Assert.IsFalse(failureMechanism.IsRelevant);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevantAndRemovesAllViewsForItem()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var failureMechanismObserver = mocks.Stub<IObserver>();
-                failureMechanismObserver.Expect(o => o.UpdateObserver());
-
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    IsRelevant = false
-                };
-                failureMechanism.Attach(failureMechanismObserver);
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
-
-                var viewCommands = mocks.StrictMock<IViewCommands>();
-                viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
-
-                    // Assert
-                    Assert.IsTrue(failureMechanism.IsRelevant);
                 }
             }
         }
