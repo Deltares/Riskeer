@@ -1809,7 +1809,8 @@ namespace Riskeer.Integration.Plugin
                 new PipingFailurePathContext(assessmentSection.Piping, assessmentSection),
                 new GrassCoverErosionInwardsFailurePathContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
                 new MacroStabilityInwardsFailurePathContext(assessmentSection.MacroStabilityInwards, assessmentSection),
-                new StabilityStoneCoverFailurePathContext(assessmentSection.StabilityStoneCover, assessmentSection)
+                new StabilityStoneCoverFailurePathContext(assessmentSection.StabilityStoneCover, assessmentSection),
+                new WaveImpactAsphaltCoverFailurePathContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection)
             };
         }
 
