@@ -273,9 +273,7 @@ namespace Riskeer.DuneErosion.Plugin
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetCalculationsInputs(wrappedData), TreeFolderCategory.Input),
-                new DuneLocationCalculationsGroupContext(context.WrappedData.DuneLocations, context.WrappedData, assessmentSection),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
+                new DuneLocationCalculationsGroupContext(context.WrappedData.DuneLocations, context.WrappedData, assessmentSection)
             };
         }
 
@@ -284,17 +282,6 @@ namespace Riskeer.DuneErosion.Plugin
             return new object[]
             {
                 failureMechanism.InputComments
-            };
-        }
-
-        private static IEnumerable<object> GetOutputs(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
-                new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>(
-                    failureMechanism.SectionResults, failureMechanism),
-                failureMechanism.OutputComments
             };
         }
 
