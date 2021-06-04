@@ -100,8 +100,9 @@ namespace Riskeer.DuneErosion.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(4, treeNodeInfos.Length);
+                Assert.AreEqual(5, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneErosionFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneErosionFailurePathContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneLocationCalculationsGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneLocationCalculationsContext)));

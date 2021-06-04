@@ -89,6 +89,10 @@ namespace Riskeer.DuneErosion.Plugin
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<DuneErosionFailurePathContext>(
+                FailurePathChildNodeObjects,
+                FailurePathContextMenuStrip);
+
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -342,6 +346,59 @@ namespace Riskeer.DuneErosion.Plugin
         private void RemoveAllViewsForItem(DuneErosionFailureMechanismContext failureMechanismContext)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
+        }
+
+        #endregion
+
+        #region DuneErosionFailurePathContext TreeNodeInfo
+
+        private static object[] FailurePathChildNodeObjects(DuneErosionFailurePathContext context)
+        {
+            DuneErosionFailureMechanism failureMechanism = context.WrappedData;
+            IAssessmentSection assessmentSection = context.Parent;
+
+            return new object[]
+            {
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetFailurePathInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                                       GetFailurePathOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+            };
+        }
+
+        private static IEnumerable<object> GetFailurePathInputs(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new DuneErosionFailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                failureMechanism.InputComments
+            };
+        }
+
+        private static IEnumerable<object> GetFailurePathOutputs(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            return new object[]
+            {
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
+                new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>(
+                    failureMechanism.SectionResults, failureMechanism),
+                failureMechanism.OutputComments
+            };
+        }
+
+        private ContextMenuStrip FailurePathContextMenuStrip(DuneErosionFailurePathContext context,
+                                                             object parentData,
+                                                             TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         #endregion
