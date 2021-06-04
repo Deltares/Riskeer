@@ -317,7 +317,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
         {
             var failureMechanism = removedData as StabilityPointStructuresFailureMechanism;
 
-            if (removedData is StabilityPointStructuresFailureMechanismContext failureMechanismContext)
+            if (removedData is FailureMechanismContext<StabilityPointStructuresFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
