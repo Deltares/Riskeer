@@ -96,7 +96,6 @@ using Riskeer.Integration.Service;
 using Riskeer.Integration.Service.Comparers;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects;
-using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -178,12 +177,6 @@ namespace Riskeer.Integration.Plugin
                 typeof(MacroStabilityOutwardsFailureMechanism),
                 (mechanism, assessmentSection) => new MacroStabilityOutwardsFailureMechanismContext(
                     (MacroStabilityOutwardsFailureMechanism) mechanism,
-                    assessmentSection)
-            ),
-            new FailureMechanismContextAssociation(
-                typeof(StabilityPointStructuresFailureMechanism),
-                (mechanism, assessmentSection) => new StabilityPointStructuresCalculationsContext(
-                    (StabilityPointStructuresFailureMechanism) mechanism,
                     assessmentSection)
             )
         };
@@ -1698,7 +1691,6 @@ namespace Riskeer.Integration.Plugin
 
             var failureMechanisms = new IFailureMechanism[]
             {
-                assessmentSection.StabilityPointStructures,
                 assessmentSection.DuneErosion
             };
 
@@ -1712,7 +1704,8 @@ namespace Riskeer.Integration.Plugin
                 new WaveImpactAsphaltCoverCalculationsContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
                 new GrassCoverErosionOutwardsCalculationsContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
                 new HeightStructuresCalculationsContext(assessmentSection.HeightStructures, assessmentSection),
-                new ClosingStructuresCalculationsContext(assessmentSection.ClosingStructures, assessmentSection)
+                new ClosingStructuresCalculationsContext(assessmentSection.ClosingStructures, assessmentSection),
+                new StabilityPointStructuresCalculationsContext(assessmentSection.StabilityPointStructures, assessmentSection)
             };
 
             childNodes.AddRange(failureMechanisms.Select(failureMechanism => failureMechanismAssociations
