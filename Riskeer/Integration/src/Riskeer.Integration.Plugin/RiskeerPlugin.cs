@@ -120,62 +120,6 @@ namespace Riskeer.Integration.Plugin
             new Uri($"{PackUriHelper.UriSchemePack}://application:,,,/Riskeer.Integration.Plugin;component/Resources/"),
             "./#Symbols");
 
-        #region Failure mechanism associations
-
-        private static readonly IEnumerable<FailureMechanismContextAssociation> failureMechanismAssociations = new[]
-        {
-            new FailureMechanismContextAssociation(
-                typeof(GrassCoverSlipOffInwardsFailureMechanism),
-                (mechanism, assessmentSection) => new GrassCoverSlipOffInwardsFailureMechanismContext(
-                    (GrassCoverSlipOffInwardsFailureMechanism) mechanism,
-                    assessmentSection)
-            ),
-            new FailureMechanismContextAssociation(
-                typeof(GrassCoverSlipOffOutwardsFailureMechanism),
-                (mechanism, assessmentSection) => new GrassCoverSlipOffOutwardsFailureMechanismContext(
-                    (GrassCoverSlipOffOutwardsFailureMechanism) mechanism,
-                    assessmentSection)
-            ),
-            new FailureMechanismContextAssociation(
-                typeof(MicrostabilityFailureMechanism),
-                (mechanism, assessmentSection) => new MicrostabilityFailureMechanismContext(
-                    (MicrostabilityFailureMechanism) mechanism,
-                    assessmentSection)
-            ),
-            new FailureMechanismContextAssociation(
-                typeof(PipingStructureFailureMechanism),
-                (mechanism, assessmentSection) => new PipingStructureFailureMechanismContext(
-                    (PipingStructureFailureMechanism) mechanism,
-                    assessmentSection)
-            ),
-            new FailureMechanismContextAssociation(
-                typeof(TechnicalInnovationFailureMechanism),
-                (mechanism, assessmentSection) => new TechnicalInnovationFailureMechanismContext(
-                    (TechnicalInnovationFailureMechanism) mechanism,
-                    assessmentSection)
-            ),
-            new FailureMechanismContextAssociation(
-                typeof(StrengthStabilityLengthwiseConstructionFailureMechanism),
-                (mechanism, assessmentSection) => new StrengthStabilityLengthwiseConstructionFailureMechanismContext(
-                    (StrengthStabilityLengthwiseConstructionFailureMechanism) mechanism,
-                    assessmentSection)
-            ),
-            new FailureMechanismContextAssociation(
-                typeof(WaterPressureAsphaltCoverFailureMechanism),
-                (mechanism, assessmentSection) => new WaterPressureAsphaltCoverFailureMechanismContext(
-                    (WaterPressureAsphaltCoverFailureMechanism) mechanism,
-                    assessmentSection)
-            ),
-            new FailureMechanismContextAssociation(
-                typeof(MacroStabilityOutwardsFailureMechanism),
-                (mechanism, assessmentSection) => new MacroStabilityOutwardsFailureMechanismContext(
-                    (MacroStabilityOutwardsFailureMechanism) mechanism,
-                    assessmentSection)
-            )
-        };
-
-        #endregion
-
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
         private AssessmentSectionMerger assessmentSectionMerger;
 
@@ -1260,28 +1204,6 @@ namespace Riskeer.Integration.Plugin
         }
 
         #endregion
-
-        private class FailureMechanismContextAssociation
-        {
-            private readonly Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext;
-            private readonly Type failureMechanismType;
-
-            public FailureMechanismContextAssociation(Type failureMechanismType, Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext)
-            {
-                this.createFailureMechanismContext = createFailureMechanismContext;
-                this.failureMechanismType = failureMechanismType;
-            }
-
-            public bool Match(IFailureMechanism failureMechanism)
-            {
-                return failureMechanism.GetType() == failureMechanismType;
-            }
-
-            public object Create(IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            {
-                return createFailureMechanismContext(failureMechanism, assessmentSection);
-            }
-        }
 
         #region ViewInfos
 
