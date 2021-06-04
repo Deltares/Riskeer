@@ -140,7 +140,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
-            Assert.AreEqual(3, children.Length);
+            Assert.AreEqual(2, children.Length);
 
             var inputsFolder = (CategoryTreeFolder) children[0];
             Assert.AreEqual("Invoer", inputsFolder.Name);
@@ -164,36 +164,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.CalculationsGroup, calculationsFolder.WrappedData);
             Assert.IsNull(calculationsFolder.Parent);
             Assert.AreSame(failureMechanism, calculationsFolder.FailureMechanism);
-
-            var outputsFolder = (CategoryTreeFolder) children[2];
-            Assert.AreEqual("Oordeel", outputsFolder.Name);
-            Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
-
-            Assert.AreEqual(4, outputsFolder.Contents.Count());
-            var failureMechanismAssemblyCategoriesContext = (FailureMechanismAssemblyCategoriesContext) outputsFolder.Contents.ElementAt(0);
-            Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
-
-                failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
-                Assert.AreEqual(failureMechanism.GeneralInput.N, calculator.AssemblyCategoriesInput.N);
-            }
-
-            var scenariosContext = (HeightStructuresScenariosContext) outputsFolder.Contents.ElementAt(1);
-            Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
-            Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
-
-            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(2);
-            Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-            Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
-
-            var outputComment = (Comment) outputsFolder.Contents.ElementAt(3);
-            Assert.AreSame(failureMechanism.OutputComments, outputComment);
         }
 
         [Test]
