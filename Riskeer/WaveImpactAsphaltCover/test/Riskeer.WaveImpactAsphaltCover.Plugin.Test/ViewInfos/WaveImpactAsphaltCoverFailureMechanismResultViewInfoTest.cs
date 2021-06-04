@@ -216,20 +216,19 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingToRemovedFailurePathContext_ReturnsTrue()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism,
-                                                                                            assessmentSection);
-
             mocks.ReplayAll();
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var context = new WaveImpactAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
 
             using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -239,20 +238,21 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedFailurePathContext_ReturnsFalse()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(),
-                                                                                            assessmentSection);
             mocks.ReplayAll();
+
+            var context = new WaveImpactAsphaltCoverFailurePathContext(
+                new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsFalse(closeForData);
