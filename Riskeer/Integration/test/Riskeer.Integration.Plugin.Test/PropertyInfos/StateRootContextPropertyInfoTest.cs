@@ -34,7 +34,7 @@ using Riskeer.Integration.Forms.PropertyClasses;
 namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class AssessmentSectionStateRootContextPropertyInfoTest
+    public class StateRootContextPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -46,7 +46,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(AssessmentSectionStateRootContext), info.DataType);
+                Assert.AreEqual(typeof(StateRootContext), info.DataType);
                 Assert.AreEqual(typeof(AssessmentSectionProperties), info.PropertyObjectType);
             }
         }
@@ -68,7 +68,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             {
                 plugin.Gui = gui;
 
-                var context = new AssessmentSectionStateRootContext(assessmentSection);
+                var context = new TestStateRootContext(assessmentSection);
 
                 PropertyInfo info = GetInfo(plugin);
 
@@ -86,6 +86,11 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         private static PropertyInfo GetInfo(RiskeerPlugin plugin)
         {
             return plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(AssessmentSectionProperties));
+        }
+        
+        private class TestStateRootContext : StateRootContext
+        {
+            public TestStateRootContext(AssessmentSection wrappedData) : base(wrappedData) {}
         }
     }
 }

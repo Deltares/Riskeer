@@ -245,7 +245,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(AssessmentSectionStateRootContext),
+                    typeof(StateRootContext),
                     typeof(AssessmentSectionProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
