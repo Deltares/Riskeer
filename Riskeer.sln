@@ -1726,6 +1726,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Gui.TestUtil", "Core\G
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Riskeer.API", "Application\Riskeer\src\Application.Riskeer.API\Application.Riskeer.API.csproj", "{35B774C4-C690-4547-AC43-6D7C0C4BF5FD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -3506,6 +3511,12 @@ Global
 		{073EE964-974D-442E-801F-F4FCD6D303F5}.Release|x86.Build.0 = Release|x86
 		{073EE964-974D-442E-801F-F4FCD6D303F5}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{073EE964-974D-442E-801F-F4FCD6D303F5}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{35B774C4-C690-4547-AC43-6D7C0C4BF5FD}.Debug|x86.ActiveCfg = Debug|x86
+		{35B774C4-C690-4547-AC43-6D7C0C4BF5FD}.Debug|x86.Build.0 = Debug|x86
+		{35B774C4-C690-4547-AC43-6D7C0C4BF5FD}.Release|x86.ActiveCfg = Release|x86
+		{35B774C4-C690-4547-AC43-6D7C0C4BF5FD}.Release|x86.Build.0 = Release|x86
+		{35B774C4-C690-4547-AC43-6D7C0C4BF5FD}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{35B774C4-C690-4547-AC43-6D7C0C4BF5FD}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3879,6 +3890,7 @@ Global
 		{FE63A65E-C5AF-456D-A786-912F9B7E26A1} = {8BE49C65-DD09-4890-82B1-5216BF13E757}
 		{D0C7032E-5730-46D1-A06F-7C4F06BA590A} = {F73AF5D7-DDD9-4A48-A171-037817B59056}
 		{073EE964-974D-442E-801F-F4FCD6D303F5} = {F73AF5D7-DDD9-4A48-A171-037817B59056}
+		{35B774C4-C690-4547-AC43-6D7C0C4BF5FD} = {39EB5D07-C076-484C-9621-B34C4E5BF64C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {039D31AA-B517-4354-B8CD-0B2B826D0B1F}
