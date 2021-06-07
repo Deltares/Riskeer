@@ -73,8 +73,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         /// <param name="handler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingCalculationsProperties(PipingFailureMechanism data,
-                                                IAssessmentSection assessmentSection,
-                                                IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> handler)
+                                            IAssessmentSection assessmentSection,
+                                            IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> handler)
         {
             if (data == null)
             {
@@ -98,7 +98,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         #region Heave
 
-        [DynamicVisible]
         [PropertyOrder(criticalHeaveGradientPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Heave))]
@@ -114,17 +113,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         }
 
         #endregion
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
-            {
-                return false;
-            }
-
-            return true;
-        }
 
         private void ChangePropertyValueAndNotifyAffectedObjects<TValue>(
             SetFailureMechanismPropertyValueDelegate<PipingFailureMechanism, TValue> setPropertyValue,
@@ -144,26 +132,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             {
                 affectedObject.NotifyObservers();
             }
-        }
-
-        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
-        {
-            return nameof(Contribution).Equals(propertyName)
-                   || nameof(CriticalHeaveGradient).Equals(propertyName)
-                   || nameof(WaterVolumetricWeight).Equals(propertyName)
-                   || nameof(A).Equals(propertyName)
-                   || nameof(B).Equals(propertyName)
-                   || nameof(SectionLength).Equals(propertyName)
-                   || nameof(N).Equals(propertyName)
-                   || nameof(SandParticlesVolumicWeight).Equals(propertyName)
-                   || nameof(WhitesDragCoefficient).Equals(propertyName)
-                   || nameof(BeddingAngle).Equals(propertyName)
-                   || nameof(WaterKinematicViscosity).Equals(propertyName)
-                   || nameof(Gravity).Equals(propertyName)
-                   || nameof(MeanDiameter70).Equals(propertyName)
-                   || nameof(SellmeijerReductionFactor).Equals(propertyName)
-                   || nameof(UpliftModelFactor).Equals(propertyName)
-                   || nameof(SellmeijerModelFactor).Equals(propertyName);
         }
 
         #region General
@@ -204,7 +172,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(contributionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
@@ -217,7 +184,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(waterVolumetricWeightPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WaterVolumetricWeight_DisplayName))]
@@ -238,7 +204,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         #region Length effect parameters
 
-        [DynamicVisible]
         [PropertyOrder(aPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_DisplayName))]
@@ -256,7 +221,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(bPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_DisplayName))]
@@ -269,7 +233,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(sectionLengthPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
@@ -282,7 +245,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(nPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
@@ -300,7 +262,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         #region Sellmeijer
 
-        [DynamicVisible]
         [PropertyOrder(sandParticlesVolumetricWeightPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SandParticlesVolumicWeight_DisplayName))]
@@ -313,7 +274,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(whitesDragCoefficientPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_WhitesDragCoefficient_DisplayName))]
@@ -326,7 +286,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(beddingAnglePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_BeddingAngle_DisplayName))]
@@ -339,7 +298,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(waterKinematicViscosityPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_WaterKinematicViscosity_DisplayName))]
@@ -352,7 +310,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(gravityPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.GravitationalAcceleration_DisplayName))]
@@ -365,7 +322,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(meanDiameter70PropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_MeanDiameter70_DisplayName))]
@@ -378,7 +334,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(sellMeijerReductionFactorPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerReductionFactor_DisplayName))]
@@ -395,7 +350,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         #region Model factors
 
-        [DynamicVisible]
         [PropertyOrder(upLiftModelFactorPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
@@ -410,7 +364,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(sellMeijerModelFactorPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
