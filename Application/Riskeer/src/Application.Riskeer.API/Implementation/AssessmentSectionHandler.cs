@@ -163,13 +163,13 @@ namespace Application.Riskeer.API.Implementation
             throw new NotImplementedException();
         }
 
-        private void AddHydraulicBoundaryDatabaseToDataModel(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
+        /*private void AddHydraulicBoundaryDatabaseToDataModel(ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase,
                                                              ReadHydraulicLocationConfigurationDatabase readHydraulicLocationConfigurationDatabase,
                                                              IEnumerable<long> excludedLocationIds)
         {
             changedObservables.AddRange(updateHandler.Update(ImportTarget, readHydraulicBoundaryDatabase, readHydraulicLocationConfigurationDatabase,
                                                              excludedLocationIds, FilePath, GetHlcdFilePath()));
-        }
+        }*/
 
         private ReadResult<IEnumerable<long>> ReadExcludedLocations(string filePath)
         {
