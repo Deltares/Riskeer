@@ -353,7 +353,10 @@ namespace Riskeer.Integration.Plugin
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
                                                                                  context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
 
             yield return new ViewInfo<WaveHeightCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
@@ -367,7 +370,10 @@ namespace Riskeer.Integration.Plugin
                                                                            context.AssessmentSection,
                                                                            context.GetNormFunc,
                                                                            context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
 
             yield return new ViewInfo<AssessmentSectionStateRootContext, AssessmentSectionReferenceLineView>
@@ -1627,7 +1633,10 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.Calculate_All,
                 Resources.AssessmentSection_Calculate_All_ToolTip,
                 RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData.WrappedData)); });
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData.WrappedData));
+                });
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
