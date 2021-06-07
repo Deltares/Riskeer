@@ -46,22 +46,21 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
-        private const int isRelevantPropertyIndex = 4;
-        private const int waterVolumetricWeightPropertyIndex = 5;
-        private const int upLiftModelFactorPropertyIndex = 6;
-        private const int sellMeijerModelFactorPropertyIndex = 7;
-        private const int aPropertyIndex = 8;
-        private const int bPropertyIndex = 9;
-        private const int sectionLengthPropertyIndex = 10;
-        private const int nPropertyIndex = 11;
-        private const int criticalHeaveGradientPropertyIndex = 12;
-        private const int sandParticlesVolumetricWeightPropertyIndex = 13;
-        private const int whitesDragCoefficientPropertyIndex = 14;
-        private const int beddingAnglePropertyIndex = 15;
-        private const int waterKinematicViscosityPropertyIndex = 16;
-        private const int gravityPropertyIndex = 17;
-        private const int meanDiameter70PropertyIndex = 18;
-        private const int sellMeijerReductionFactorPropertyIndex = 19;
+        private const int waterVolumetricWeightPropertyIndex = 4;
+        private const int upLiftModelFactorPropertyIndex = 5;
+        private const int sellMeijerModelFactorPropertyIndex = 6;
+        private const int aPropertyIndex = 7;
+        private const int bPropertyIndex = 8;
+        private const int sectionLengthPropertyIndex = 9;
+        private const int nPropertyIndex = 10;
+        private const int criticalHeaveGradientPropertyIndex = 11;
+        private const int sandParticlesVolumetricWeightPropertyIndex = 12;
+        private const int whitesDragCoefficientPropertyIndex = 13;
+        private const int beddingAnglePropertyIndex = 14;
+        private const int waterKinematicViscosityPropertyIndex = 15;
+        private const int gravityPropertyIndex = 16;
+        private const int meanDiameter70PropertyIndex = 17;
+        private const int sellMeijerReductionFactorPropertyIndex = 18;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -140,7 +139,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-            Assert.AreEqual(isRelevant, properties.IsRelevant);
 
             GeneralPipingInput generalInput = failureMechanism.GeneralInput;
 
@@ -202,7 +200,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(20, dynamicProperties.Count);
+            Assert.AreEqual(19, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string heaveCategory = "Heave";
@@ -236,13 +234,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Faalkansbijdrage [%]",
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
-                                                                            true);
-
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
-                                                                            generalCategory,
-                                                                            "Is relevant",
-                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
             PropertyDescriptor volumicWeightOfWaterProperty = dynamicProperties[waterVolumetricWeightPropertyIndex];
@@ -349,60 +340,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             sellmeijerCategory,
                                                                             "Reductiefactor Sellmeijer [-]",
                                                                             "Reductiefactor Sellmeijer.",
-                                                                            true);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism
-            {
-                IsRelevant = false
-            };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
-            mocks.ReplayAll();
-
-            // Call
-            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, handler);
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
-
-            const string generalCategory = "Algemeen";
-
-            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
-                                                                            generalCategory,
-                                                                            "Naam",
-                                                                            "De naam van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
-                                                                            generalCategory,
-                                                                            "Label",
-                                                                            "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
-                                                                            true);
-
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
-                                                                            generalCategory,
-                                                                            "Is relevant",
-                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
             mocks.VerifyAll();
@@ -562,7 +499,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.CriticalHeaveGradient)));
