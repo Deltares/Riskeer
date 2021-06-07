@@ -19,10 +19,10 @@
     <WixVariable Id="WixUIBannerBmp" Value="Banner_493x77.bmp" />
     <WixVariable Id="WixUIDialogBmp" Value="Start_493x312.bmp" />
 
-    <!-- Requirement: .Net framework 4.5 installed on machine -->
-    <PropertyRef Id="NETFRAMEWORK45" />
-    <Condition Message="!(loc.NetFramework45Required)">
-      <![CDATA[Installed OR NETFRAMEWORK45]]>
+    <!-- Requirement: .Net framework 4.6.1 installed on machine -->
+    <PropertyRef Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED" />
+    <Condition Message="!(loc.NetFramework461Required)">
+      <![CDATA[Installed OR WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED]]>
     </Condition>
 
     <!-- Request the common documents folder path -->
