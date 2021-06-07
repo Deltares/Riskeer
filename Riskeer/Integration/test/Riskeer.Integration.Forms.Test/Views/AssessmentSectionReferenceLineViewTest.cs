@@ -64,6 +64,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual(1, view.Controls.Count);
             Assert.IsInstanceOf<RiskeerMapControl>(view.Controls[0]);
             Assert.AreSame(view.Map, ((RiskeerMapControl) view.Controls[0]).MapControl);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
             Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
             AssertEmptyMapData(view.Map.Data);
         }

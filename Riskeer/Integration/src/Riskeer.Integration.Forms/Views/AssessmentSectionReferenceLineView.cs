@@ -63,14 +63,14 @@ namespace Riskeer.Integration.Forms.Views
             MapDataCollection.Add(referenceLineMapData);
         }
 
-        public object Data { get; set; }
-
-        public IMapControl Map => riskeerMapControl.MapControl;
-
         /// <summary>
         /// Gets the <see cref="IAssessmentSection"/>.
         /// </summary>
-        protected IAssessmentSection AssessmentSection { get; }
+        public IAssessmentSection AssessmentSection { get; }
+
+        public object Data { get; set; }
+
+        public IMapControl Map => riskeerMapControl.MapControl;
 
         /// <summary>
         /// Gets the <see cref="MapDataCollection"/>.

@@ -380,21 +380,24 @@ namespace Riskeer.Integration.Plugin
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
                 Image = RiskeerFormsResources.Map,
-                CreateInstance = context => new AssessmentSectionReferenceLineView(context.WrappedData)
+                CreateInstance = context => new AssessmentSectionReferenceLineView(context.WrappedData),
+                CloseForData = CloseAssessmentSectionViewForData
             };
 
             yield return new ViewInfo<FailurePathsStateRootContext, AssessmentSectionExtendedView>
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
                 Image = RiskeerFormsResources.Map,
-                CreateInstance = context => new AssessmentSectionExtendedView(context.WrappedData)
+                CreateInstance = context => new AssessmentSectionExtendedView(context.WrappedData),
+                CloseForData = CloseAssessmentSectionViewForData
             };
 
             yield return new ViewInfo<CalculationsStateRootContext, AssessmentSectionReferenceLineView>
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
                 Image = RiskeerFormsResources.Map,
-                CreateInstance = context => new AssessmentSectionReferenceLineView(context.WrappedData)
+                CreateInstance = context => new AssessmentSectionReferenceLineView(context.WrappedData),
+                CloseForData = CloseAssessmentSectionViewForData
             };
 
             yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<MacroStabilityOutwardsFailureMechanismContext, MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>(
@@ -1329,6 +1332,15 @@ namespace Riskeer.Integration.Plugin
 
             return failureMechanism is IHasSectionResults<FailureMechanismSectionResult> failureMechanismWithSectionResults
                    && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanismWithSectionResults.SectionResults);
+        }
+
+        #endregion
+
+        #region StateRoot ViewInfo
+
+        private static bool CloseAssessmentSectionViewForData(AssessmentSectionReferenceLineView view, object o)
+        {
+            return ReferenceEquals(view.AssessmentSection, o);
         }
 
         #endregion
