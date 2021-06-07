@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.Views;
@@ -91,6 +92,39 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<AssessmentSectionReferenceLineView>(view);
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
+        {
+            // Setup
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+
+            var view = new AssessmentSectionReferenceLineView(assessmentSection);
+
+            // Call
+            bool closeForData = info.CloseForData(view, assessmentSection);
+
+            // Assert
+            Assert.IsTrue(closeForData);
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
+        {
+            // Setup
+            var random = new Random(21);
+            var assessmentSection1 = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            var assessmentSection2 = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+
+            var view = new AssessmentSectionReferenceLineView(assessmentSection1);
+
+            // Call
+            bool closeForData = info.CloseForData(view, assessmentSection2);
+
+            // Assert
+            Assert.IsFalse(closeForData);
         }
     }
 }
