@@ -22,13 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Settings;
@@ -42,6 +42,7 @@ using Core.Gui.Forms.MessageWindow;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Selection;
 using Core.Gui.Settings;
+using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Forms.MainWindow
 {
@@ -167,6 +168,8 @@ namespace Core.Gui.Forms.MainWindow
         public IView PropertyGrid => propertyGrid;
 
         public IntPtr Handle => windowInteropHelper.Handle;
+
+        public Icon ApplicationIcon => gui.FixedSettings.ApplicationIcon;
 
         public bool InvokeRequired => !Dispatcher.CheckAccess();
 
@@ -407,7 +410,7 @@ namespace Core.Gui.Forms.MainWindow
             commands.StorageCommands.CreateNewProject(() => settings.FixedSettings.OnCreateNewProjectFunc(gui));
             CloseBackstage();
         }
-        
+
         private void OnSaveProject(object obj)
         {
             if (commands.StorageCommands.SaveProject())

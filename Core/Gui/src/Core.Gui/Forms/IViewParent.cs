@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -19,23 +19,19 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Controls.Views;
+using System.Drawing;
+using System.Windows.Forms;
 
-namespace Core.Gui.Forms.MainWindow
+namespace Core.Gui.Forms
 {
     /// <summary>
-    /// Interface for the main user interface window of the application.
+    /// Interface for defining the view parent.
     /// </summary>
-    public interface IMainWindow : IViewParent
+    public interface IViewParent : IWin32Window
     {
         /// <summary>
-        /// Gets the property grid tool window.
+        /// Gets the icon of the application.
         /// </summary>
-        IView PropertyGrid { get; }
-
-        /// <summary>
-        /// Initializes and shows the property grid tool window.
-        /// </summary>
-        void InitPropertiesWindowOrBringToFront();
+        Icon ApplicationIcon { get; }
     }
 }
