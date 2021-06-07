@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using Core.Common.Base.Data;
 using Core.Gui.Forms.ViewHost;
 
@@ -34,6 +35,11 @@ namespace Core.Gui.Settings
         /// Gets or sets the name of the application.
         /// </summary>
         public string ApplicationName { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the icon of the application.
+        /// </summary>
+        public Icon ApplicationIcon { get; set; }
         
         /// <summary>
         /// Gets or sets the header of the support text.
