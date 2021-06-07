@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Windows.Forms;
 using Core.Common.Base.Service;
 
 namespace Core.Gui.Forms.ProgressDialog
@@ -35,7 +34,7 @@ namespace Core.Gui.Forms.ProgressDialog
         /// </summary>
         /// <param name="dialogParent">The dialog parent for which the progress dialog should be shown on top.</param>
         /// <param name="activity">The activity to be executed.</param>
-        public static void Run(IWin32Window dialogParent, Activity activity)
+        public static void Run(IViewParent dialogParent, Activity activity)
         {
             Run(dialogParent, new[]
             {
@@ -49,7 +48,7 @@ namespace Core.Gui.Forms.ProgressDialog
         /// <typeparam name="TActivity">The activity type.</typeparam>
         /// <param name="dialogParent">The dialog parent for which the progress dialog should be shown on top.</param>
         /// <param name="activities">The activities to be executed.</param>
-        public static void Run<TActivity>(IWin32Window dialogParent, IEnumerable<TActivity> activities)
+        public static void Run<TActivity>(IViewParent dialogParent, IEnumerable<TActivity> activities)
             where TActivity : Activity
         {
             using (var activityProgressDialog = new ActivityProgressDialog(dialogParent, activities))

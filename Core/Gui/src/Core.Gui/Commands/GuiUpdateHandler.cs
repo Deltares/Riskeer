@@ -43,7 +43,7 @@ namespace Core.Gui.Commands
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiUpdateHandler));
 
-        private readonly IWin32Window dialogParent;
+        private readonly IViewParent dialogParent;
         private readonly IEnumerable<UpdateInfo> updateInfos;
         private readonly IInquiryHelper inquiryHelper;
 
@@ -54,7 +54,7 @@ namespace Core.Gui.Commands
         /// <param name="updateInfos">An enumeration of <see cref="UpdateInfo"/>.</param>
         /// <param name="inquiryHelper">Helper responsible for performing information inquiries.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GuiUpdateHandler(IWin32Window dialogParent, IEnumerable<UpdateInfo> updateInfos, IInquiryHelper inquiryHelper)
+        public GuiUpdateHandler(IViewParent dialogParent, IEnumerable<UpdateInfo> updateInfos, IInquiryHelper inquiryHelper)
         {
             if (dialogParent == null)
             {

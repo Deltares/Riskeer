@@ -42,7 +42,7 @@ namespace Core.Gui.Commands
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiImportHandler));
 
-        private readonly IWin32Window dialogParent;
+        private readonly IViewParent dialogParent;
         private readonly IEnumerable<ImportInfo> importInfos;
         private readonly IInquiryHelper inquiryHelper;
 
@@ -53,7 +53,7 @@ namespace Core.Gui.Commands
         /// <param name="importInfos">An enumeration of <see cref="ImportInfo"/>.</param>
         /// <param name="inquiryHelper">Helper responsible for performing information inquiries.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GuiImportHandler(IWin32Window dialogParent, IEnumerable<ImportInfo> importInfos, IInquiryHelper inquiryHelper)
+        public GuiImportHandler(IViewParent dialogParent, IEnumerable<ImportInfo> importInfos, IInquiryHelper inquiryHelper)
         {
             if (dialogParent == null)
             {

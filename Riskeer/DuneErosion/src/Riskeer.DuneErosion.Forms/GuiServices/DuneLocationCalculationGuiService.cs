@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+using Core.Gui.Forms;
 using Core.Gui.Forms.ProgressDialog;
 using log4net;
 using Riskeer.Common.Data.AssessmentSection;
@@ -40,14 +40,14 @@ namespace Riskeer.DuneErosion.Forms.GuiServices
     public class DuneLocationCalculationGuiService
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(DuneLocationCalculationGuiService));
-        private readonly IWin32Window viewParent;
+        private readonly IViewParent viewParent;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DuneLocationCalculationGuiService"/> class.
         /// </summary>
         /// <param name="viewParent">The parent of the view.</param>
         /// <exception cref="ArgumentNullException">Thrown when the input parameter is <c>null</c>.</exception>
-        public DuneLocationCalculationGuiService(IWin32Window viewParent)
+        public DuneLocationCalculationGuiService(IViewParent viewParent)
         {
             if (viewParent == null)
             {
