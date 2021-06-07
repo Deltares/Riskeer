@@ -93,7 +93,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Assert
             Assert.IsInstanceOf<AssessmentSectionReferenceLineView>(view);
         }
-        
+
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
