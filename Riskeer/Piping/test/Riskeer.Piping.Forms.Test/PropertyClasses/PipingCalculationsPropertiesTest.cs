@@ -182,13 +182,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_Always_ReturnsExpectedPropertyAttributeValues()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism
-            {
-                IsRelevant = true
-            };
+            var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
