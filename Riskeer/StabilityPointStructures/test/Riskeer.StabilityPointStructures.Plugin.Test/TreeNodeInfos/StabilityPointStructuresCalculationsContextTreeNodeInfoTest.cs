@@ -50,6 +50,7 @@ using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
+using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
@@ -420,7 +421,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
         {
             // Setup
-            var mainWindow = mocksRepository.Stub<IMainWindow>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
@@ -463,6 +463,10 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
             {
+                var mainWindow = mocksRepository.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+
                 var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
