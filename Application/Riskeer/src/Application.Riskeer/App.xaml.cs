@@ -57,6 +57,7 @@ using Riskeer.StabilityPointStructures.Plugin;
 using Riskeer.StabilityStoneCover.Plugin;
 using Riskeer.Storage.Core;
 using Riskeer.WaveImpactAsphaltCover.Plugin;
+using ApplicationResources = Application.Riskeer.Properties.Resources;
 using CoreGuiResources = Core.Gui.Properties.Resources;
 using MessageBox = System.Windows.MessageBox;
 
@@ -124,6 +125,7 @@ namespace Application.Riskeer
             var settings = new GuiCoreSettings
             {
                 ApplicationName = "Riskeer",
+                ApplicationIcon = ApplicationResources.Riskeer,
                 SupportHeader = CoreGuiResources.HelpdeskWater_DisplayName,
                 SupportText = CoreGuiResources.HelpdeskWater_Description,
                 SupportWebsiteAddressUrl = "https://www.helpdeskwater.nl/onderwerpen/applicaties-modellen/applicaties-per/omgevings/omgevings/riskeer/",
