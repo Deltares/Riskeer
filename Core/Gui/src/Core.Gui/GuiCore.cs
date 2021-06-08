@@ -347,8 +347,6 @@ namespace Core.Gui
             projectObserver.Observable = newProject;
             UpdateProjectData();
             mainWindow.UpdateProjectExplorer();
-
-            FixedSettings.AfterProjectOpenedAction?.Invoke(newProject, DocumentViewController);
         }
 
         private void ApplicationBeforeProjectOpened(IProject oldProject)

@@ -30,7 +30,6 @@ using Core.Common.Base.IO;
 using Core.Common.Base.TestUtil.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
-using Core.Gui.Forms.ViewHost;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -260,7 +259,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = null;
-            
+
             // Call
             void Call() => assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile();
 
@@ -296,7 +295,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = null;
-            
+
             // Call
             void Call() => assessmentSection = assessmentSectionFromFileHandler.GetAssessmentSectionFromFile();
 
@@ -346,66 +345,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var exception = Assert.Throws<CriticalFileValidationException>(Call);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<ArgumentOutOfRangeException>(exception.InnerException);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void DoPostHandleActions_ProjectNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var viewController = mockRepository.Stub<IDocumentViewController>();
-            mockRepository.ReplayAll();
-            
-            // Call
-            void Call() => AssessmentSectionFromFileHandler.DoPostHandleActions(null, viewController);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("project", exception.ParamName);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void DoPostHandleActions_ViewControllerNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var project = mockRepository.Stub<IProject>();
-            mockRepository.ReplayAll();
-            
-            // Call
-            void Call() => AssessmentSectionFromFileHandler.DoPostHandleActions(project, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("viewController", exception.ParamName);
-            mockRepository.VerifyAll();
-        }
-        
-        [Test]
-        public void DoPostHandleActions_WithAssessmentSection_OpensViewForAssessmentSection()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            
-            var mockRepository = new MockRepository();
-            var viewController = mockRepository.StrictMock<IDocumentViewController>();
-            viewController.Expect(dvc => dvc.OpenViewForData(assessmentSection)).Return(true);
-            mockRepository.ReplayAll();
-
-            var project = new RiskeerProject
-            {
-                AssessmentSections =
-                {
-                    assessmentSection
-                }
-            };
-
-            // Call
-            AssessmentSectionFromFileHandler.DoPostHandleActions(project, viewController);
-            
-            // Assert
             mockRepository.VerifyAll();
         }
 

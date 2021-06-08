@@ -27,7 +27,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
-using Core.Gui.Forms.ViewHost;
 using log4net;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
@@ -98,27 +97,6 @@ namespace Riskeer.Integration.Plugin.Handlers
             return GetAssessmentSectionFromDialog();
         }
         
-        /// <summary>
-        /// Performs the post actions.
-        /// </summary>
-        /// <param name="project">The <see cref="IProject"/> to do the actions for.</param>
-        /// <param name="viewController">The document view controller.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void DoPostHandleActions(IProject project, IDocumentViewController viewController)
-        {
-            if (project == null)
-            {
-                throw new ArgumentNullException(nameof(project));
-            }
-
-            if (viewController == null)
-            {
-                throw new ArgumentNullException(nameof(viewController));
-            }
-
-            viewController.OpenViewForData(((RiskeerProject) project).AssessmentSections.First());
-        }
-
         private static void SetFailureMechanismsValueN(AssessmentSection assessmentSection, int n)
         {
             var roundedN = (RoundedDouble) n;
