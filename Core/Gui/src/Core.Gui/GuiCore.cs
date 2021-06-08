@@ -27,6 +27,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
@@ -49,13 +50,12 @@ using Core.Gui.Settings;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
-using Application = System.Windows.Application;
 using WindowsApplication = System.Windows.Forms.Application;
 
 namespace Core.Gui
 {
     /// <summary>
-    /// Gui class provides graphical user functionality for the application.
+    /// Gui class that provides graphical user functionality for the application.
     /// </summary>
     public class GuiCore : IGui
     {
@@ -82,10 +82,10 @@ namespace Core.Gui
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GuiCore(IMainWindow mainWindow, IStoreProject projectStore, IMigrateProject projectMigrator, IProjectFactory projectFactory, GuiCoreSettings fixedSettings)
         {
-            // error detection code, make sure we use only a single instance of GuiCore at a time
+            // Error detection code, make sure we use only a single instance of GuiCore at a time
             if (isAlreadyRunningInstanceOfIGui)
             {
-                isAlreadyRunningInstanceOfIGui = false; // reset to that the consecutive creations won't fail.
+                isAlreadyRunningInstanceOfIGui = false; // Reset so that the consecutive creations won't fail
                 throw new InvalidOperationException(
                     string.Format(CultureInfo.CurrentCulture,
                                   Resources.GuiCore_Only_a_single_instance_of_Riskeer_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0,
@@ -159,7 +159,7 @@ namespace Core.Gui
         /// Runs the user interface, causing all user interface components to initialize, 
         /// loading plugins, opening a saved project and displaying the main window.
         /// </summary>
-        /// <param name="projectPath">Path to the project to be opened. (optional)</param>
+        /// <param name="projectPath">Optional: path to the project to be opened.</param>
         public void Run(string projectPath = null)
         {
             DateTime startTime = DateTime.Now;
@@ -191,13 +191,12 @@ namespace Core.Gui
         {
             if (isExiting)
             {
-                return; //already got here before
+                return;
             }
 
-            // Store project?
+            // Store project or handle cancel action by the user
             if (!StorageCommands.HandleUnsavedChanges())
             {
-                // User pressed cancel
                 return;
             }
 
@@ -235,12 +234,9 @@ namespace Core.Gui
             {
                 projectObserver.Dispose();
 
-                if (Plugins != null)
+                foreach (PluginBase plugin in Plugins.ToArray())
                 {
-                    foreach (PluginBase plugin in Plugins.ToArray())
-                    {
-                        DeactivatePlugin(plugin);
-                    }
+                    DeactivatePlugin(plugin);
                 }
 
                 isExiting = true;
@@ -276,7 +272,6 @@ namespace Core.Gui
                 MessageWindowLogAppender.Instance.MessageWindow = null;
 
                 RemoveLogging();
-                Plugins = null;
             }
 
             #region Prevent nasty Windows.Forms memory leak (keeps references to databinding objects / controls
@@ -363,7 +358,6 @@ namespace Core.Gui
 
         private static void ConfigureLogging()
         {
-            // configure logging
             Logger rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
 
             if (!rootLogger.Appenders.Cast<IAppender>().Any(a => a is MessageWindowLogAppender))
@@ -417,7 +411,7 @@ namespace Core.Gui
                     return;
                 }
 
-                e.Cancel = true; //cancel closing: let Exit handle it
+                e.Cancel = true; // Handle exit manually
                 ExitApplication();
             };
         }
@@ -456,13 +450,13 @@ namespace Core.Gui
 
                 Selection = null;
             }
-            
+
             if (!mainWindow.IsWindowDisposed)
             {
                 mainWindow.ValidateItems();
             }
         }
-        
+
         private void OnActiveViewChanged(object sender, ViewChangeEventArgs e)
         {
             if (HandleActivatingCurrentSelectionProvidingDocumentView(e.View))
@@ -658,7 +652,7 @@ namespace Core.Gui
 
         #region Implementation: IPluginHost
 
-        public List<PluginBase> Plugins { get; private set; }
+        public List<PluginBase> Plugins { get; }
 
         public IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
