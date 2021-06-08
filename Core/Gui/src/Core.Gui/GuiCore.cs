@@ -622,23 +622,11 @@ namespace Core.Gui
         private readonly GuiExportHandler exportCommandHandler;
         private readonly GuiUpdateHandler updateCommandHandler;
 
-        public IApplicationFeatureCommands ApplicationCommands
-        {
-            get
-            {
-                return applicationFeatureCommands;
-            }
-        }
+        public IApplicationFeatureCommands ApplicationCommands => applicationFeatureCommands;
 
         public IStorageCommands StorageCommands { get; }
 
-        public IViewCommands ViewCommands
-        {
-            get
-            {
-                return viewCommandHandler;
-            }
-        }
+        public IViewCommands ViewCommands => viewCommandHandler;
 
         #endregion
 
@@ -687,10 +675,7 @@ namespace Core.Gui
 
         public IMainWindow MainWindow
         {
-            get
-            {
-                return mainWindow;
-            }
+            get => mainWindow;
             private set
             {
                 mainWindow = (MainWindow) value;
