@@ -320,7 +320,7 @@ namespace Core.Gui.Test
             gui.Dispose();
 
             // Assert
-            Assert.IsNull(gui.Plugins);
+            CollectionAssert.IsEmpty(gui.Plugins);
             mocks.VerifyAll();
         }
 
@@ -346,7 +346,7 @@ namespace Core.Gui.Test
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, "Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.", 1);
-            Assert.IsNull(gui.Plugins);
+            CollectionAssert.IsEmpty(gui.Plugins);
             mocks.VerifyAll();
         }
 
