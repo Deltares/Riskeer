@@ -31,7 +31,6 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
-using Core.Common.Util.Extensions;
 using Core.Common.Util.Settings;
 using Core.Components.Chart.Forms;
 using Core.Components.Gis.Forms;
@@ -329,6 +328,8 @@ namespace Core.Gui.Forms.MainWindow
 
             gui.DocumentViewController.CloseAllViews();
 
+            gui.DocumentViewController.OpenViewForData(stateToggleButtonLookup[clickedStateToggleButton](gui.Project));
+            
             UpdateProjectExplorer();
         }
 
@@ -336,9 +337,10 @@ namespace Core.Gui.Forms.MainWindow
         {
             if (stateToggleButtonLookup.Any())
             {
-                stateToggleButtonLookup.Keys.ForEachElementDo(stb => stb.IsChecked = false);
+                ToggleButton firstStateToggleButton = stateToggleButtonLookup.First().Key;
 
-                HandleStateButtonClick(stateToggleButtonLookup.First().Key);
+                firstStateToggleButton.IsChecked = true;
+                HandleStateButtonClick(firstStateToggleButton);
             }
         }
 
