@@ -27,13 +27,13 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.TestUtil;
+using Core.Common.Util;
 using Core.Gui;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.MainWindow;
 using Core.Gui.TestUtil.ContextMenu;
-using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -48,6 +48,7 @@ using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
@@ -519,9 +520,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
+
+                    var mainWindow = mockRepository.Stub<IMainWindow>();
+                    mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                    mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+
                     var gui = mockRepository.Stub<IGui>();
+                    gui.Stub(g => g.MainWindow).Return(mainWindow);
                     gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                    gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                    gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                     var waveHeightCalculator = new TestWaveHeightCalculator
                     {
@@ -583,9 +590,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var mainWindow = mockRepository.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+
                 var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
 
                 var waveHeightCalculator = new TestWaveHeightCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
@@ -655,9 +666,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var mainWindow = mockRepository.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+
                 var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                 var waveHeightCalculator = new TestWaveHeightCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
@@ -726,9 +742,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var mainWindow = mockRepository.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+
                 var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                 var waveHeightCalculator = new TestWaveHeightCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
