@@ -31,6 +31,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
+using Core.Common.Util.Extensions;
 using Core.Common.Util.Settings;
 using Core.Components.Chart.Forms;
 using Core.Components.Gis.Forms;
@@ -307,13 +308,6 @@ namespace Core.Gui.Forms.MainWindow
             MainButtonStackPanel.Children.Insert(MainButtonStackPanel.Children.Count - 1, stateToggleButton);
 
             stateToggleButtonLookup.Add(stateToggleButton, getRootData);
-
-            if (stateToggleButtonLookup.Count == 1)
-            {
-                stateToggleButton.IsChecked = true;
-
-                UpdateProjectExplorer();
-            }
         }
 
         private void HandleStateButtonClick(ToggleButton clickedStateToggleButton)
@@ -336,6 +330,16 @@ namespace Core.Gui.Forms.MainWindow
             gui.DocumentViewController.CloseAllViews();
 
             UpdateProjectExplorer();
+        }
+
+        private void ResetState()
+        {
+            if (stateToggleButtonLookup.Any())
+            {
+                stateToggleButtonLookup.Keys.ForEachElementDo(stb => stb.IsChecked = false);
+
+                HandleStateButtonClick(stateToggleButtonLookup.First().Key);
+            }
         }
 
         #region Commands
@@ -408,6 +412,7 @@ namespace Core.Gui.Forms.MainWindow
         private void OnNewProject(object obj)
         {
             commands.StorageCommands.CreateNewProject(() => settings.FixedSettings.OnCreateNewProjectFunc(gui));
+            ResetState();
             CloseBackstage();
         }
 
@@ -433,6 +438,7 @@ namespace Core.Gui.Forms.MainWindow
             if (!string.IsNullOrEmpty(projectPath))
             {
                 commands.StorageCommands.OpenExistingProject(projectPath);
+                ResetState();
                 CloseBackstage();
             }
         }
