@@ -53,6 +53,7 @@ using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using GrassCoverErosionInwardsPluginResources = Riskeer.GrassCoverErosionInwards.Plugin.Properties.Resources;
 
@@ -1570,6 +1571,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mainWindow = mocks.Stub<IMainWindow>();
+            mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+            mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
