@@ -1336,7 +1336,7 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region StateRoot ViewInfo
+        #region StateRootContext ViewInfo
 
         private static bool CloseAssessmentSectionViewForData(AssessmentSectionReferenceLineView view, object o)
         {
@@ -1548,7 +1548,7 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region StateRoot TreeNodeInfo
+        #region StateRootContext TreeNodeInfo
 
         private static TreeNodeInfo<TContext> CreateStateRootTreeNodeInfo<TContext>(
             Func<TContext, object[]> childNodeObjectsFunc,
