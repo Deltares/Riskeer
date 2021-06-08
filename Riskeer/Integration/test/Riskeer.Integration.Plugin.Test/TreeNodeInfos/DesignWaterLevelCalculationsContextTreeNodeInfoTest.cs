@@ -50,6 +50,7 @@ using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Integration.Data;
+using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
@@ -509,11 +510,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var mainWindow = mockRepository.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+
                 var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
                 gui.Stub(g => g.ViewCommands).Return(mockRepository.Stub<IViewCommands>());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
@@ -595,11 +600,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var mainWindow = mockRepository.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+
                 var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
                 gui.Stub(g => g.ViewCommands).Return(mockRepository.Stub<IViewCommands>());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
@@ -680,11 +689,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var mainWindow = mockRepository.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+
                 var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
                 gui.Stub(g => g.ViewCommands).Return(mockRepository.Stub<IViewCommands>());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
@@ -759,11 +772,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var mainWindow = mockRepository.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+
                 var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
                 gui.Stub(g => g.ViewCommands).Return(mockRepository.Stub<IViewCommands>());
                 gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
