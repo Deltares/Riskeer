@@ -24,9 +24,9 @@ using System.Windows.Forms;
 using Core.Common.Base.Service;
 using Core.Common.Controls.Dialogs;
 using Core.Gui.Forms.ProgressDialog;
+using Core.Gui.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace Core.Gui.Test.Forms.ProgressDialog
 {
@@ -34,16 +34,11 @@ namespace Core.Gui.Test.Forms.ProgressDialog
     public class ActivityProgressDialogTest : NUnitFormTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValue()
+        public void Constructor_ExpectedValue()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var window = mocks.Stub<IWin32Window>();
-
-            mocks.ReplayAll();
-
             // Call
-            using (var dialog = new ActivityProgressDialog(window, Enumerable.Empty<Activity>()))
+            using (var viewParent = new TestViewParentForm())
+            using (var dialog = new ActivityProgressDialog(viewParent, Enumerable.Empty<Activity>()))
             {
                 // Assert
                 Assert.IsInstanceOf<DialogBase>(dialog);
@@ -59,19 +54,12 @@ namespace Core.Gui.Test.Forms.ProgressDialog
                 Assert.IsFalse(dialog.MinimizeBox);
                 Assert.IsNull(dialog.CancelButton);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ShowDialog_ActivityProgressDialog_MinimumSizeSet()
         {
             // Setup
-            var mocks = new MockRepository();
-            var window = mocks.Stub<IWin32Window>();
-
-            mocks.ReplayAll();
-
             DialogBoxHandler = (name, wnd) =>
             {
                 var openedDialog = new FormTester(name);
@@ -79,7 +67,8 @@ namespace Core.Gui.Test.Forms.ProgressDialog
                 openedDialog.Close();
             };
 
-            using (var dialog = new ActivityProgressDialog(window, Enumerable.Empty<Activity>()))
+            using (var viewParent = new TestViewParentForm())
+            using (var dialog = new ActivityProgressDialog(viewParent, Enumerable.Empty<Activity>()))
             {
                 // Call
                 dialog.ShowDialog();
@@ -88,8 +77,6 @@ namespace Core.Gui.Test.Forms.ProgressDialog
                 Assert.AreEqual(520, dialog.MinimumSize.Width);
                 Assert.AreEqual(150, dialog.MinimumSize.Height);
             }
-
-            mocks.VerifyAll();
         }
     }
 }

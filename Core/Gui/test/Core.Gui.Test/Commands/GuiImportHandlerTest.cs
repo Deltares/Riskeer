@@ -28,9 +28,10 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Commands;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
+using Core.Gui.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -62,12 +63,12 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.Stub<IWin32Window>();
+            var viewParent = mockRepository.Stub<IViewParent>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
             // Call
-            void Call() => new GuiImportHandler(mainWindow, null, inquiryHelper);
+            void Call() => new GuiImportHandler(viewParent, null, inquiryHelper);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -80,11 +81,11 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.Stub<IWin32Window>();
+            var viewParent = mockRepository.Stub<IViewParent>();
             mockRepository.ReplayAll();
 
             // Call
-            void Call() => new GuiImportHandler(mainWindow, Enumerable.Empty<ImportInfo>(), null);
+            void Call() => new GuiImportHandler(viewParent, Enumerable.Empty<ImportInfo>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -97,7 +98,7 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
+            var dialogParent = mocks.Stub<IViewParent>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -119,7 +120,7 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
+            var dialogParent = mocks.Stub<IViewParent>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -138,7 +139,7 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
+            var dialogParent = mocks.Stub<IViewParent>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -161,7 +162,7 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
+            var dialogParent = mocks.Stub<IViewParent>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -219,7 +220,7 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
+            var dialogParent = mocks.Stub<IViewParent>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -266,7 +267,7 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.Stub<IMainWindow>();
+            var dialogParent = mockRepository.Stub<IViewParent>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
@@ -281,7 +282,7 @@ namespace Core.Gui.Test.Commands
                 messageBox.ClickOk();
             };
 
-            var importHandler = new GuiImportHandler(mainWindow, Enumerable.Empty<ImportInfo>(), inquiryHelper);
+            var importHandler = new GuiImportHandler(dialogParent, Enumerable.Empty<ImportInfo>(), inquiryHelper);
 
             // Call
             importHandler.ImportOn(3, Enumerable.Empty<ImportInfo>());
@@ -315,7 +316,7 @@ namespace Core.Gui.Test.Commands
                 // Activity closes itself
             };
 
-            using (var form = new Form())
+            using (var form = new TestViewParentForm())
             {
                 var supportedImportInfo = new ImportInfo<object>
                 {
@@ -373,7 +374,7 @@ namespace Core.Gui.Test.Commands
 
             var isVerifyUpdatedCalled = false;
 
-            using (var form = new Form())
+            using (var form = new TestViewParentForm())
             {
                 var supportedImportInfo = new ImportInfo<object>
                 {
@@ -418,7 +419,7 @@ namespace Core.Gui.Test.Commands
             var fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
 
-            using (var form = new Form())
+            using (var form = new TestViewParentForm())
             {
                 var supportedImportInfo = new ImportInfo<object>
                 {
@@ -479,7 +480,7 @@ namespace Core.Gui.Test.Commands
                 }
             };
 
-            using (var form = new Form())
+            using (var form = new TestViewParentForm())
             {
                 var importHandler = new GuiImportHandler(form, Enumerable.Empty<ImportInfo>(), inquiryHelper);
 
