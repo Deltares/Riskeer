@@ -73,8 +73,6 @@ All rights reserved.
         <Setter Property="GlowBrush" Value="{StaticResource WindowGlowBrush}" />
         <Setter Property="OverlayBrush" Value="{StaticResource WindowOverlayBrush}" />
         <Setter Property="WindowTitleBrush" Value="{StaticResource DeltaresBlueBrush}" />
-        <Setter Property="Title" Value="Riskeer" />
-        <Setter Property="Icon" Value="../Resources/Riskeer.ico" />
         <Setter Property="TitleAlignment" Value="Center"/>
         <Setter Property="ShowIconOnTitleBar" Value="False" />
         <Setter Property="Height" Value="350" />

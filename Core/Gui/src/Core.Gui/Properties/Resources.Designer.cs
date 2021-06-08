@@ -2294,16 +2294,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        public static System.Drawing.Icon Riskeer {
-            get {
-                object obj = ResourceManager.GetObject("Riskeer", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Opslaan als.
         /// </summary>
         public static string SaveFileDialog_Title {

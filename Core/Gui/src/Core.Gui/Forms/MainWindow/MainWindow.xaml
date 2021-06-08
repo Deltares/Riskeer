@@ -35,7 +35,6 @@ All rights reserved.
                    MinWidth="1366"
                    MinHeight="768"
                    x:Name="Window"
-                   Icon="/Core.Gui;component\Resources/Riskeer.ico"
                    ResizeMode="CanResizeWithGrip"
                    FlowDirection="LeftToRight"
                    Loaded="MainWindow_OnLoaded">
