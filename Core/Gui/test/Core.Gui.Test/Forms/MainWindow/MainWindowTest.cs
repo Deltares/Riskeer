@@ -54,6 +54,7 @@ using DotSpatial.Data;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 
 namespace Core.Gui.Test.Forms.MainWindow
 {
@@ -1218,8 +1219,13 @@ namespace Core.Gui.Test.Forms.MainWindow
                     };
                 };
 
+                var guiCoreSettings = new GuiCoreSettings
+                {
+                    ApplicationIcon = CoreGuiTestUtilResources.TestIcon
+                };
+
                 using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-                using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+                using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
                 {
                     gui.Plugins.Add(new TestPlugin());
                     gui.Run();
@@ -1282,8 +1288,13 @@ namespace Core.Gui.Test.Forms.MainWindow
                     };
                 };
 
+                var guiCoreSettings = new GuiCoreSettings
+                {
+                    ApplicationIcon = CoreGuiTestUtilResources.TestIcon
+                };
+
                 using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-                using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+                using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
                 {
                     gui.Plugins.Add(new TestPlugin());
                     gui.Run();
@@ -1342,8 +1353,13 @@ namespace Core.Gui.Test.Forms.MainWindow
                 };
             };
 
+            var guiCoreSettings = new GuiCoreSettings
+            {
+                ApplicationIcon = CoreGuiTestUtilResources.TestIcon
+            };
+
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
             {
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();

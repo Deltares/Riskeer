@@ -51,6 +51,7 @@ using log4net.Repository.Hierarchy;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Xceed.Wpf.AvalonDock.Layout;
+using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 
 namespace Core.Gui.Test
 {
@@ -620,13 +621,14 @@ namespace Core.Gui.Test
 
             project.Name = fileName;
 
-            var fixedSettings = new GuiCoreSettings
+            var guiCoreSettings = new GuiCoreSettings
             {
-                ApplicationName = "<main window title part>"
+                ApplicationName = "<main window title part>",
+                ApplicationIcon = CoreGuiTestUtilResources.TestIcon
             };
 
             using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
             {
                 gui.Plugins.Add(new TestPlugin(new[]
                 {
@@ -647,7 +649,7 @@ namespace Core.Gui.Test
                 Assert.AreSame(project, gui.Project);
                 Assert.AreEqual(fileName, gui.Project.Name);
 
-                var expectedTitle = $"{fileName} - {fixedSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
+                var expectedTitle = $"{fileName} - {guiCoreSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
                 Assert.AreSame(gui.Project, mainWindow.ProjectExplorer.Data);
             }
@@ -748,10 +750,13 @@ namespace Core.Gui.Test
             var projectFactory = mocks.Stub<IProjectFactory>();
             mocks.ReplayAll();
 
-            var fixedSettings = new GuiCoreSettings();
+            var guiCoreSettings = new GuiCoreSettings
+            {
+                ApplicationIcon = CoreGuiTestUtilResources.TestIcon
+            };
 
             using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
             {
                 gui.Plugins.Add(new TestPlugin());
 
@@ -792,10 +797,13 @@ namespace Core.Gui.Test
             var projectFactory = mocks.Stub<IProjectFactory>();
             mocks.ReplayAll();
 
-            var fixedSettings = new GuiCoreSettings();
+            var guiCoreSettings = new GuiCoreSettings
+            {
+                ApplicationIcon = CoreGuiTestUtilResources.TestIcon
+            };
 
             using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
             {
                 gui.Plugins.Add(new TestPlugin());
 
