@@ -329,7 +329,7 @@ namespace Core.Gui.Forms.MainWindow
             gui.DocumentViewController.CloseAllViews();
 
             gui.DocumentViewController.OpenViewForData(stateToggleButtonLookup[clickedStateToggleButton](gui.Project));
-            
+
             UpdateProjectExplorer();
         }
 
