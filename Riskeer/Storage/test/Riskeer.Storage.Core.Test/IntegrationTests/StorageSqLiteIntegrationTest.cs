@@ -67,6 +67,7 @@ using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
+using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 
 namespace Riskeer.Storage.Core.Test.IntegrationTests
 {
@@ -187,7 +188,12 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             SqLiteDatabaseHelper.CreateValidProjectDatabase(projectFilePath, fullProject);
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
+            var guiCoreSettings = new GuiCoreSettings
+            {
+                ApplicationIcon = CoreGuiTestUtilResources.TestIcon
+            };
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), guiCoreSettings))
             {
                 gui.Plugins.Add(new TestPlugin());
 
