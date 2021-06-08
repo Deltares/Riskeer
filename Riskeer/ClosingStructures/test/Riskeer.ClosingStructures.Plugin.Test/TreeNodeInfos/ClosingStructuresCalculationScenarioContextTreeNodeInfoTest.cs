@@ -49,6 +49,7 @@ using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
@@ -929,6 +930,9 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Given
             var mainWindow = mocks.Stub<IMainWindow>();
+            mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+            mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+            
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
