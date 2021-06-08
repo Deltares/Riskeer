@@ -146,31 +146,6 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Constructor_ProjectMigratorNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            IProjectFactory projectFactory = CreateProjectFactory(mocks);
-            mocks.ReplayAll();
-
-            var guiCoreSettings = new GuiCoreSettings();
-
-            using (var mainWindow = new MainWindow())
-            {
-                // Call
-                void Call() => new GuiCore(mainWindow, projectStore, null, projectFactory, guiCoreSettings);
-
-                // Assert
-                var exception = Assert.Throws<ArgumentNullException>(Call);
-                Assert.AreEqual("projectMigrator", exception.ParamName);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
         public void Constructor_ProjectStoreNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -189,6 +164,31 @@ namespace Core.Gui.Test
                 // Assert
                 var exception = Assert.Throws<ArgumentNullException>(Call);
                 Assert.AreEqual("projectStore", exception.ParamName);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void Constructor_ProjectMigratorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
+            mocks.ReplayAll();
+
+            var guiCoreSettings = new GuiCoreSettings();
+
+            using (var mainWindow = new MainWindow())
+            {
+                // Call
+                void Call() => new GuiCore(mainWindow, projectStore, null, projectFactory, guiCoreSettings);
+
+                // Assert
+                var exception = Assert.Throws<ArgumentNullException>(Call);
+                Assert.AreEqual("projectMigrator", exception.ParamName);
             }
 
             mocks.VerifyAll();
@@ -301,7 +301,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Dispose_PluginsAdded_PluginsDisabledAndRemovedAndDisposed()
+        public void Dispose_WithPlugin_PluginRemoved()
         {
             // Setup
             var mocks = new MockRepository();
@@ -326,7 +326,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Dispose_PluginAddedButThrowsExceptionDuringDeactivation_LogErrorAndStillDisposeAndRemove()
+        public void Dispose_WithPluginThatThrowsExceptionDuringDeactivation_LogsErrorAndPluginRemoved()
         {
             // Setup
             var mocks = new MockRepository();
@@ -352,7 +352,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Dispose_HasSelection_ClearSelection()
+        public void Dispose_HasSelection_SelectionCleared()
         {
             // Setup
             var mocks = new MockRepository();
@@ -376,7 +376,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Dispose_HasMainWindow_DisposeOfMainWindow()
+        public void Dispose_HasMainWindow_MainWindowDisposed()
         {
             // Setup
             var mocks = new MockRepository();
@@ -402,7 +402,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Dispose_HasInitializedMessageWindowForLogAppender_ClearMessageWindow()
+        public void Dispose_HasInitializedMessageWindowForLogAppender_MessageWindowCleared()
         {
             // Setup
             var mocks = new MockRepository();
@@ -422,7 +422,7 @@ namespace Core.Gui.Test
                 gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                // Precondition:
+                // Precondition
                 Assert.IsNotNull(MessageWindowLogAppender.Instance.MessageWindow);
                 Assert.IsNotNull(messageWindowLogAppender.MessageWindow);
 
@@ -505,7 +505,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_NoMessageWindowLogAppender_AddNewLogAppender()
+        public void Run_NoMessageWindowLogAppender_AddsNewLogAppender()
         {
             // Setup
             var mocks = new MockRepository();
@@ -689,7 +689,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_LoadingFromOutdatedAndShouldMigrateThrowsArgumentException_LogError()
+        public void Run_LoadingFromOutdatedFileAndShouldMigrateThrowsArgumentException_LogsError()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -728,7 +728,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_LoadingFromOutdatedAndMigrateThrowsArgumentException_LogError()
+        public void Run_LoadingFromOutdatedFileAndMigrateThrowsArgumentException_LogsError()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -776,7 +776,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_LoadingFromFileThrowsStorageException_LogError()
+        public void Run_LoadingFromFileThrowsStorageException_LogsError()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -878,7 +878,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_WithPluginThatThrowsExceptionWhenActivated_DeactivateAndDisposePlugin()
+        public void Run_WithPluginThatThrowsExceptionWhenActivated_PluginDeactivatedAndDisposed()
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
@@ -912,7 +912,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_WithPluginThatThrowsExceptionWhenActivatedAndDeactivated_LogErrorForDeactivatingThenDispose()
+        public void Run_WithPluginThatThrowsExceptionWhenActivatedAndDeactivated_LogsErrorForDeactivatingThenDisposed()
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
@@ -950,7 +950,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Run_InitializesViewController()
+        public void Run_InitializesViewHost()
         {
             // Setup
             var mocks = new MockRepository();
@@ -985,7 +985,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GetAllDataWithViewDefinitionsRecursively_DataHasNoViewDefinitions_ReturnEmpty()
+        public void GetAllDataWithViewDefinitionsRecursively_DataHasNoViewDefinitions_ReturnsEmptyCollection()
         {
             // Setup
             var mocks = new MockRepository();
@@ -1010,7 +1010,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GetAllDataWithViewDefinitionsRecursively_MultiplePluginsHaveViewDefinitionsForRoot_ReturnRootObject()
+        public void GetAllDataWithViewDefinitionsRecursively_MultiplePluginsHaveViewDefinitionsForRoot_ReturnsRoot()
         {
             // Setup
             var rootData = new object();
@@ -1059,7 +1059,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GetAllDataWithViewDefinitionsRecursively_MultiplePluginsHaveViewDefinitionsForRootAndChild_ReturnRootAndChild()
+        public void GetAllDataWithViewDefinitionsRecursively_MultiplePluginsHaveViewDefinitionsForRootAndChild_ReturnsRootAndChild()
         {
             // Setup
             object rootData = 1;
@@ -1121,7 +1121,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GetTreeNodeInfos_NoPluginsConfigured_EmptyList()
+        public void GetTreeNodeInfos_NoPluginsConfigured_ReturnsEmptyCollection()
         {
             // Setup
             var mocks = new MockRepository();
@@ -1263,7 +1263,7 @@ namespace Core.Gui.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void SetProject_SetNewValue_FireProjectOpenedEvents()
+        public void SetProject_SetNewValue_FiresProjectOpenedEvents()
         {
             // Setup
             var mocks = new MockRepository();
