@@ -133,6 +133,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             {
+                // Call
                 mainWindow.SetGui(gui);
 
                 // Assert
@@ -339,7 +340,7 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        public void InitPropertiesWindowOrBringToFront_GuiSet_InitializePropertyGrid()
+        public void InitPropertiesWindowOrBringToFront_GuiSet_PropertyGridViewInitialized()
         {
             // Setup
             var selectedObject = new object();
@@ -433,7 +434,7 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        public void InitializeToolWindows_GuiSet_InitializeToolWindows()
+        public void InitializeToolWindows_GuiSet_ToolWindowsInitialized()
         {
             // Setup
             var selectedObject = new object();
@@ -498,9 +499,8 @@ namespace Core.Gui.Test.Forms.MainWindow
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenMainWindow_WhenToggleProjectExplorerCalled_ThenProjectExploreToggled(bool initiallyAdded)
+        public void GivenMainWindow_WhenToggleProjectExplorerCalled_ThenProjectExplorerToggled(bool initiallyAdded)
         {
-            // When & Then
             ToggleToolViewAndAssert(window => window.ProjectExplorer, window => window.ToggleProjectExplorerCommand, initiallyAdded);
         }
 
@@ -509,7 +509,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         [TestCase(false)]
         public void GivenMainWindow_WhenTogglePropertyGridViewCalled_ThenPropertyGridViewToggled(bool initiallyAdded)
         {
-            // When & Then
             ToggleToolViewAndAssert(window => window.PropertyGrid, window => window.TogglePropertyGridViewCommand, initiallyAdded);
         }
 
@@ -518,7 +517,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         [TestCase(false)]
         public void GivenMainWindow_WhenToggleMessageWindowCalled_ThenMessageWindowToggled(bool initiallyAdded)
         {
-            // When & Then
             ToggleToolViewAndAssert(window => window.MessageWindow, window => window.ToggleMessageWindowCommand, initiallyAdded);
         }
 
@@ -527,7 +525,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         [TestCase(false)]
         public void GivenMainWindow_WhenToggleMapLegendViewCalled_ThenMapLegendViewToggled(bool initiallyAdded)
         {
-            // When & Then
             ToggleToolViewAndAssert(window => window.MapLegendView, window => window.ToggleMapLegendViewCommand, initiallyAdded);
         }
 
@@ -536,7 +533,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         [TestCase(false)]
         public void GivenMainWindow_WhenToggleChartLegendViewCalled_ThenChartLegendViewToggled(bool initiallyAdded)
         {
-            // When & Then
             ToggleToolViewAndAssert(window => window.ChartLegendView, window => window.ToggleChartLegendViewCommand, initiallyAdded);
         }
 
