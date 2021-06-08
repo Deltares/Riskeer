@@ -29,6 +29,7 @@
     <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration\Riskeer.Migration.csproj" />
     <ProjectReference Include="..\..\..\..\Riskeer\Migration\test\Riskeer.Migration.Core.TestUtil\Riskeer.Migration.Core.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\..\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.Storage.Core.csproj" />
+    <ProjectReference Include="..\..\src\Application.Riskeer\Application.Riskeer.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MahApps.Metro">

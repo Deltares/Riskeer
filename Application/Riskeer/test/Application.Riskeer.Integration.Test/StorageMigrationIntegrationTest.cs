@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using System.Threading;
+using Application.Riskeer.Properties;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Forms.MainWindow;
@@ -62,8 +63,12 @@ namespace Application.Riskeer.Integration.Test
             mocks.ReplayAll();
 
             var projectMigrator = new ProjectMigrator(inquiryHelper);
+            var guiCoreSettings = new GuiCoreSettings
+            {
+                 ApplicationIcon = Resources.Riskeer
+            };
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), guiCoreSettings))
             {
                 gui.Plugins.Add(new TestPlugin());
 
@@ -103,8 +108,12 @@ namespace Application.Riskeer.Integration.Test
             mocks.ReplayAll();
 
             var projectMigrator = new ProjectMigrator(inquiryHelper);
+            var guiCoreSettings = new GuiCoreSettings
+            {
+                ApplicationIcon = Resources.Riskeer
+            };
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), guiCoreSettings))
             {
                 gui.Plugins.Add(new TestPlugin());
 
