@@ -601,10 +601,7 @@ namespace Core.Gui
 
         public object Selection
         {
-            get
-            {
-                return selection;
-            }
+            get => selection;
             set
             {
                 if (selection == value)
@@ -614,19 +611,9 @@ namespace Core.Gui
 
                 selection = value;
 
-                if (mainWindow == null)
-                {
-                    return;
-                }
-
-                if (mainWindow.PropertyGrid != null)
+                if (mainWindow?.PropertyGrid != null)
                 {
                     mainWindow.PropertyGrid.Data = selection;
-                }
-
-                if (!isExiting && !mainWindow.IsWindowDisposed)
-                {
-                    mainWindow.ValidateItems();
                 }
             }
         }
