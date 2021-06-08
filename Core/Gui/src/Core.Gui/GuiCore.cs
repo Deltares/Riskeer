@@ -253,8 +253,6 @@ namespace Core.Gui
                 {
                     ViewHost.Dispose();
                     ViewHost.ViewClosed -= OnViewClosed;
-                    ViewHost.ViewClosed -= OnActiveDocumentViewChanged;
-                    ViewHost.ActiveDocumentViewChanged -= OnActiveDocumentViewChanged;
                     ViewHost.ActiveViewChanged -= OnActiveViewChanged;
                 }
 
@@ -430,8 +428,6 @@ namespace Core.Gui
 
             ViewHost = mainWindow.ViewHost;
             ViewHost.ViewClosed += OnViewClosed;
-            ViewHost.ViewClosed += OnActiveDocumentViewChanged;
-            ViewHost.ActiveDocumentViewChanged += OnActiveDocumentViewChanged;
             ViewHost.ActiveViewChanged += OnActiveViewChanged;
 
             DocumentViewController = new DocumentViewController(ViewHost, Plugins.SelectMany(p => p.GetViewInfos()), mainWindow);
@@ -460,16 +456,13 @@ namespace Core.Gui
 
                 Selection = null;
             }
-        }
-
-        private void OnActiveDocumentViewChanged(object sender, EventArgs e)
-        {
-            if (mainWindow != null && !mainWindow.IsWindowDisposed)
+            
+            if (!mainWindow.IsWindowDisposed)
             {
                 mainWindow.ValidateItems();
             }
         }
-
+        
         private void OnActiveViewChanged(object sender, ViewChangeEventArgs e)
         {
             if (HandleActivatingCurrentSelectionProvidingDocumentView(e.View))
