@@ -36,7 +36,7 @@ using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailureMechanismPropertiesTest
+    public class MacroStabilityInwardsCalculationsPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -59,7 +59,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            void Call() => new MacroStabilityInwardsFailureMechanismProperties(null, assessmentSection);
+            void Call() => new MacroStabilityInwardsCalculationsProperties(null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -71,7 +71,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new MacroStabilityInwardsFailureMechanismProperties(new MacroStabilityInwardsFailureMechanism(), null);
+            void Call() => new MacroStabilityInwardsCalculationsProperties(new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -95,7 +95,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsCalculationsProperties(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsFailureMechanism>>(properties);
@@ -135,7 +135,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsCalculationsProperties(failureMechanism, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -237,7 +237,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsCalculationsProperties(failureMechanism, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -292,7 +292,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsCalculationsProperties(failureMechanism, assessmentSection);
 
             // Call
             TestDelegate call = () => properties.A = value;
@@ -321,7 +321,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsCalculationsProperties(failureMechanism, assessmentSection);
 
             // Call
             properties.A = value;
@@ -345,7 +345,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             {
                 IsRelevant = isRelevant
             };
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsCalculationsProperties(failureMechanism, assessmentSection);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));

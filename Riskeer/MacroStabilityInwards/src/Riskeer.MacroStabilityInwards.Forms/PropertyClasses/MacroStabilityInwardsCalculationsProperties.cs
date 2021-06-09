@@ -33,9 +33,9 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="MacroStabilityInwardsFailureMechanism"/> properties panel.
+    /// Calculation related ViewModel of <see cref="MacroStabilityInwardsFailureMechanism"/> for properties panel.
     /// </summary>
-    public class MacroStabilityInwardsFailureMechanismProperties : ObjectProperties<MacroStabilityInwardsFailureMechanism>
+    public class MacroStabilityInwardsCalculationsProperties : ObjectProperties<MacroStabilityInwardsFailureMechanism>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -51,12 +51,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="assessmentSection">The assessment section the data belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsFailureMechanismProperties(MacroStabilityInwardsFailureMechanism data, IAssessmentSection assessmentSection)
+        public MacroStabilityInwardsCalculationsProperties(MacroStabilityInwardsFailureMechanism data, IAssessmentSection assessmentSection)
         {
             if (data == null)
             {

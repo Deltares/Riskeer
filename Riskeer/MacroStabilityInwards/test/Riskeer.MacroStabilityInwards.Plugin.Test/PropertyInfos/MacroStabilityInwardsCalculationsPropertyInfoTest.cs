@@ -32,7 +32,7 @@ using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailureMechanismPropertyInfoTest
+    public class MacroStabilityInwardsCalculationsPropertyInfoTest
     {
         private MacroStabilityInwardsPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(MacroStabilityInwardsFailureMechanismProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(MacroStabilityInwardsCalculationsProperties));
         }
 
         [TearDown]
@@ -55,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(MacroStabilityInwardsCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsCalculationsProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityInwardsFailureMechanismProperties>(objectProperties);
+            Assert.IsInstanceOf<MacroStabilityInwardsCalculationsProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
             mocks.VerifyAll();
         }
