@@ -554,8 +554,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
-
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -793,7 +791,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -831,7 +828,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -869,7 +865,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -911,7 +906,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -951,7 +945,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -993,7 +986,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -1031,7 +1023,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -1073,7 +1064,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -1113,7 +1103,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -1157,7 +1146,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -1224,7 +1212,6 @@ namespace Core.Gui.Test.Forms.MainWindow
                 using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
                 using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
                 {
-                    gui.Plugins.Add(new TestPlugin());
                     gui.Run();
 
                     mainWindow.SetGui(gui);
@@ -1293,7 +1280,6 @@ namespace Core.Gui.Test.Forms.MainWindow
                 using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
                 using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
                 {
-                    gui.Plugins.Add(new TestPlugin());
                     gui.Run();
 
                     mainWindow.SetGui(gui);
@@ -1358,7 +1344,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -1396,7 +1381,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -1428,7 +1412,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -1464,7 +1447,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);
@@ -1504,7 +1486,6 @@ namespace Core.Gui.Test.Forms.MainWindow
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 mainWindow.SetGui(gui);

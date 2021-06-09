@@ -408,7 +408,6 @@ namespace Core.Gui.Test
             try
             {
                 var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 // Precondition
@@ -444,7 +443,6 @@ namespace Core.Gui.Test
             using (var toolView = new TestView())
             {
                 var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 gui.ViewHost.AddToolView(toolView, ToolViewLocation.Left, string.Empty);
@@ -473,7 +471,6 @@ namespace Core.Gui.Test
             using (var documentView = new TestView())
             {
                 var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 gui.ViewHost.AddDocumentView(documentView);
@@ -508,8 +505,6 @@ namespace Core.Gui.Test
             {
                 using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
                 {
-                    gui.Plugins.Add(new TestPlugin());
-
                     // Call
                     gui.Run();
 
@@ -557,8 +552,6 @@ namespace Core.Gui.Test
             {
                 using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
                 {
-                    gui.Plugins.Add(new TestPlugin());
-
                     // Call
                     gui.Run();
 
@@ -658,8 +651,6 @@ namespace Core.Gui.Test
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
-
                 // Call
                 gui.Run(testFile);
 
@@ -694,8 +685,6 @@ namespace Core.Gui.Test
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
-                gui.Plugins.Add(new TestPlugin());
-
                 // Call
                 void Call() => gui.Run(testFile);
 
@@ -738,8 +727,6 @@ namespace Core.Gui.Test
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
             {
-                gui.Plugins.Add(new TestPlugin());
-
                 // Call
                 void Call() => gui.Run(testFile);
 
@@ -784,8 +771,6 @@ namespace Core.Gui.Test
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
             {
-                gui.Plugins.Add(new TestPlugin());
-
                 // Call
                 void Call() => gui.Run(testFile);
 
@@ -823,8 +808,6 @@ namespace Core.Gui.Test
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
-                gui.Plugins.Add(new TestPlugin());
-
                 // Call
                 gui.Run(path);
 
@@ -943,8 +926,6 @@ namespace Core.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
-
                 // Call
                 gui.Run();
 
@@ -1213,7 +1194,6 @@ namespace Core.Gui.Test
             using (var treeView = new TreeViewControl())
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 // Call
@@ -1287,7 +1267,6 @@ namespace Core.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
 
@@ -1318,7 +1297,6 @@ namespace Core.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
 
@@ -1348,7 +1326,6 @@ namespace Core.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
                 SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
@@ -1380,7 +1357,6 @@ namespace Core.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
                 SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
@@ -1414,7 +1390,6 @@ namespace Core.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(testView);
 
@@ -1445,7 +1420,6 @@ namespace Core.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(testView);
 
@@ -1475,7 +1449,6 @@ namespace Core.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
                 SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
@@ -1506,7 +1479,6 @@ namespace Core.Gui.Test
             var selectionProvider = new TestSelectionProvider();
 
             var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
-            gui.Plugins.Add(new TestPlugin());
             gui.Run();
             gui.ViewHost.AddDocumentView(selectionProvider);
             SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);

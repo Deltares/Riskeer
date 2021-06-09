@@ -30,7 +30,6 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Forms.MainWindow;
 using Core.Gui.Settings;
-using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
@@ -195,8 +194,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), guiCoreSettings))
             {
-                gui.Plugins.Add(new TestPlugin());
-
                 // When
                 void Action() => gui.Run(projectFilePath);
 
