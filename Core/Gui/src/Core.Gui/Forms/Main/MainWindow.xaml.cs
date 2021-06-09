@@ -692,24 +692,22 @@ namespace Core.Gui.Forms.Main
 
         private void UpdateComponentsForMapView(IMapView mapView)
         {
-            if (MapLegendView == null)
-            {
-                return;
-            }
-
             currentMapView = mapView;
-            MapLegendView.MapControl = mapView?.Map;
+
+            if (MapLegendView != null)
+            {
+                MapLegendView.MapControl = mapView?.Map;
+            }
         }
 
         private void UpdateComponentsForChartView(IChartView chartView)
         {
-            if (ChartLegendView == null)
-            {
-                return;
-            }
-
             currentChartView = chartView;
-            ChartLegendView.ChartControl = chartView?.Chart;
+
+            if (ChartLegendView != null)
+            {
+                ChartLegendView.ChartControl = chartView?.Chart;
+            }
         }
 
         #endregion
