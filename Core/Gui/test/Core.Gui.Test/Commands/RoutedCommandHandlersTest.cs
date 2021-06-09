@@ -61,8 +61,7 @@ namespace Core.Gui.Test.Commands
         }
 
         [Test]
-        public void
-            GivenHandlersFromFrameworkElement_WhenRoutedCommandHandlerAdded_ThenPropertiesRegisteredAsCommandBindingToFrameworkElement()
+        public void GivenHandlersFromFrameworkElement_WhenRoutedCommandHandlerAdded_ThenPropertiesRegisteredAsCommandBindingToFrameworkElement()
         {
             // Given
             var frameworkElement = new FrameworkElement();

@@ -36,7 +36,7 @@ namespace Core.Gui.Test.Forms.Backstage
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const string applicationName = "Riskeer";
+            const string applicationName = "Test application";
             const string version = "1.0";
 
             // Call

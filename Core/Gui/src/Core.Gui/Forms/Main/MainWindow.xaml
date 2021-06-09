@@ -87,7 +87,7 @@ All rights reserved.
             </Style>
 
             <Style x:Key="ViewStateBarToggleButtonStyle" TargetType="{x:Type ToggleButton}"
-                   BasedOn="{StaticResource RiskeerToggleButtonStyle}">
+                   BasedOn="{StaticResource DeltaresToggleButtonStyle}">
                 <Setter Property="Height" Value="30"/>
                 <Setter Property="Width" Value="30"/>
             </Style>

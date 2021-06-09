@@ -38,7 +38,7 @@ All rights reserved.
         <Setter Property="FontSize" Value="32" />
     </Style>
 
-    <Style x:Key="RiskeerButtonStyle" TargetType="{x:Type ButtonBase}">
+    <Style x:Key="DeltaresButtonStyle" TargetType="{x:Type ButtonBase}">
         <Setter Property="Background" Value="{StaticResource DeltaresBlueBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Margin" Value="0" />
@@ -102,13 +102,13 @@ All rights reserved.
     </Style>
 
     <Style x:Key="ViewStateBarButtonStyle" TargetType="{x:Type ButtonBase}"
-           BasedOn="{StaticResource RiskeerButtonStyle}">
+           BasedOn="{StaticResource DeltaresButtonStyle}">
         <Setter Property="Width" Value="30"/>
         <Setter Property="Height" Value="30"/>
     </Style>
 
-    <Style x:Key="RiskeerToggleButtonStyle" TargetType="{x:Type ToggleButton}"
-           BasedOn="{StaticResource RiskeerButtonStyle}">
+    <Style x:Key="DeltaresToggleButtonStyle" TargetType="{x:Type ToggleButton}"
+           BasedOn="{StaticResource DeltaresButtonStyle}">
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Background" Value="{StaticResource DeltaresDarkerBlueBrush}" />

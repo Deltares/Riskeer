@@ -348,7 +348,7 @@ namespace Core.Gui.Forms.Main
         #region Commands
 
         /// <summary>
-        /// Gets the command to start a new project.
+        /// Gets the command to create a new project.
         /// </summary>
         public ICommand NewProjectCommand { get; private set; }
 

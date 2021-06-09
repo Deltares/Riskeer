@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Gui.Forms.Backstage;
@@ -45,6 +46,34 @@ namespace Core.Gui.Test.Forms.Backstage
         }
 
         [Test]
+        public void GivenViewModelWithProject_WhenSettingProjectDescription_ThenExpectedValueAndPropertyChangedEventFired()
+        {
+            // Given
+            const string description = "new description";
+            
+            var mocks = new MockRepository();
+            var project = mocks.Stub<IProject>();
+            mocks.ReplayAll();
+            
+            var viewModel = new InfoViewModel();
+            viewModel.SetProject(project);
+
+            var propertyNames = new List<string>();
+            viewModel.PropertyChanged += (sender, args) => { propertyNames.Add(args.PropertyName); };
+
+            // When
+            viewModel.ProjectDescription = description;
+
+            // Then
+            Assert.AreEqual(description, viewModel.ProjectDescription);
+            CollectionAssert.AreEqual(new[]
+            {
+                nameof(viewModel.ProjectDescription)
+            }, propertyNames);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void SetProject_ProjectNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -59,7 +88,7 @@ namespace Core.Gui.Test.Forms.Backstage
         }
 
         [Test]
-        public void SetProject_WithProject_ExpectedValues()
+        public void SetProject_WithProject_ExpectedValuesAndPropertyChangedEventsFired()
         {
             // Setup
             var mocks = new MockRepository();
@@ -71,12 +100,20 @@ namespace Core.Gui.Test.Forms.Backstage
 
             var viewModel = new InfoViewModel();
 
+            var propertyNames = new List<string>();
+            viewModel.PropertyChanged += (sender, args) => { propertyNames.Add(args.PropertyName); };
+
             // Call
             viewModel.SetProject(project);
 
             // Assert
             Assert.AreEqual(project.Name, viewModel.ProjectName);
             Assert.AreEqual(project.Description, viewModel.ProjectDescription);
+            CollectionAssert.AreEqual(new[]
+            {
+                nameof(viewModel.ProjectName),
+                nameof(viewModel.ProjectDescription)
+            }, propertyNames);
             mocks.VerifyAll();
         }
     }
