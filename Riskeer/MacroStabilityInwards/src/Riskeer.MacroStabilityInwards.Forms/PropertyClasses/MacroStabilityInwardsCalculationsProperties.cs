@@ -41,13 +41,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
-        private const int isRelevantPropertyIndex = 5;
-        private const int waterVolumetricWeightPropertyIndex = 6;
-        private const int modelFactorPropertyIndex = 7;
-        private const int aPropertyIndex = 8;
-        private const int bPropertyIndex = 9;
-        private const int sectionLengthPropertyIndex = 10;
-        private const int nPropertyIndex = 11;
+        private const int waterVolumetricWeightPropertyIndex = 5;
+        private const int modelFactorPropertyIndex = 6;
+        private const int aPropertyIndex = 7;
+        private const int bPropertyIndex = 8;
+        private const int sectionLengthPropertyIndex = 9;
+        private const int nPropertyIndex = 10;
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
@@ -74,7 +73,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 
         #region Model settings
 
-        [DynamicVisible]
         [PropertyOrder(modelFactorPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsFailureMechanismProperties_ModelFactor_DisplayName))]
@@ -88,23 +86,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         #endregion
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            return data.IsRelevant || !ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName);
-        }
-
-        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
-        {
-            return nameof(Contribution).Equals(propertyName)
-                   || nameof(A).Equals(propertyName)
-                   || nameof(B).Equals(propertyName)
-                   || nameof(SectionLength).Equals(propertyName)
-                   || nameof(N).Equals(propertyName)
-                   || nameof(ModelFactor).Equals(propertyName)
-                   || nameof(WaterVolumetricWeight).Equals(propertyName);
-        }
 
         #region General
 
@@ -144,7 +125,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(contributionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
@@ -157,19 +137,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(isRelevantPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_Description))]
-        public bool IsRelevant
-        {
-            get
-            {
-                return data.IsRelevant;
-            }
-        }
-
-        [DynamicVisible]
         [PropertyOrder(waterVolumetricWeightPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WaterVolumetricWeight_DisplayName))]
@@ -186,7 +153,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 
         #region Length effect parameters
 
-        [DynamicVisible]
         [PropertyOrder(aPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_DisplayName))]
@@ -204,7 +170,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(bPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_DisplayName))]
@@ -217,7 +182,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(sectionLengthPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
@@ -230,7 +194,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(nPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
