@@ -64,8 +64,8 @@ namespace Core.Gui.Test.Forms.Backstage
             Assert.AreEqual(operatingSystemManagementObject["Caption"], viewModel.WindowsEdition);
             Assert.AreEqual(operatingSystemManagementObject["BuildNumber"], viewModel.WindowsBuild);
             Assert.AreEqual(processorManagementObject["Name"], viewModel.Processor);
-            Assert.AreEqual(installedRam, viewModel.InstalledRam);
-            Assert.AreEqual(GetResolution(), viewModel.Resolution);
+            Assert.AreEqual(installedRam, AboutViewModel.InstalledRam);
+            Assert.AreEqual(GetResolution(), AboutViewModel.Resolution);
         }
 
         private static string GetResolution()

@@ -114,12 +114,12 @@ All rights reserved.
 
                     <TextBlock Text="{x:Static properties:Resources.RAM_DisplayName}"
                                Grid.Column="0" Grid.Row="7" />
-                    <TextBlock Text="{Binding InstalledRam}"
+                    <TextBlock Text="{x:Static backstage:AboutViewModel.InstalledRam}"
                                Grid.Column="1" Grid.Row="7" />
 
                     <TextBlock Text="{x:Static properties:Resources.ScreenResolution_DisplayName}"
                                Grid.Column="0" Grid.Row="8" />
-                    <TextBlock Text="{Binding Resolution}"
+                    <TextBlock Text="{x:Static backstage:AboutViewModel.Resolution}"
                                Grid.Column="1" Grid.Row="8" />
                 </Grid>
             </StackPanel>

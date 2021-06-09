@@ -75,7 +75,7 @@ namespace Core.Gui.Forms.Backstage
         /// <summary>
         /// Gets the amount of installed RAM.
         /// </summary>
-        public string InstalledRam
+        public static string InstalledRam
         {
             get
             {
@@ -90,7 +90,7 @@ namespace Core.Gui.Forms.Backstage
         /// <summary>
         /// Gets the primary display resolution.
         /// </summary>
-        public string Resolution =>
+        public static string Resolution =>
             $"{SystemParameters.PrimaryScreenWidth.ToString(CultureInfo.InvariantCulture)} " +
             $"x {SystemParameters.PrimaryScreenHeight.ToString(CultureInfo.InvariantCulture)}";
 
