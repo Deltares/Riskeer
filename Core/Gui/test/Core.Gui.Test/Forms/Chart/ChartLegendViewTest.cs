@@ -45,9 +45,10 @@ namespace Core.Gui.Test.Forms.Chart
         public void Constructor_WithoutContextMenuBuilderProvider_CreatesUserControl()
         {
             // Call 
-            var exception = Assert.Throws<ArgumentNullException>(() => new ChartLegendView(null));
+            void Call() => new ChartLegendView(null);
 
             // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("contextMenuBuilderProvider", exception.ParamName);
         }
 
@@ -126,10 +127,10 @@ namespace Core.Gui.Test.Forms.Chart
             using (var view = new ChartLegendView(menuBuilderProvider))
             {
                 // Call
-                TestDelegate test = () => view.Data = new object();
+                void Call() => view.Data = new object();
 
                 // Assert
-                Assert.Throws<InvalidCastException>(test);
+                Assert.Throws<InvalidCastException>(Call);
             }
 
             mocks.VerifyAll();

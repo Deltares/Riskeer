@@ -178,7 +178,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         {
             // Setup
             var mocks = new MockRepository();
-
             var viewHost = mocks.Stub<IViewHost>();
             viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
 
@@ -209,7 +208,6 @@ namespace Core.Gui.Test.Forms.MainWindow
         {
             // Setup
             var mocks = new MockRepository();
-
             var viewHost = mocks.Stub<IViewHost>();
             viewHost.Stub(vm => vm.ToolViews).Return(new IView[0]);
 
@@ -345,12 +343,10 @@ namespace Core.Gui.Test.Forms.MainWindow
         {
             // Setup
             var selectedObject = new object();
+            var viewHost = new AvalonDockViewHost();
 
             var mocks = new MockRepository();
             var selectedObjectProperties = mocks.Stub<IObjectProperties>();
-
-            var viewHost = new AvalonDockViewHost();
-
             var propertyResolver = mocks.Stub<IPropertyResolver>();
             propertyResolver.Expect(r => r.GetObjectProperties(selectedObject))
                             .Return(selectedObjectProperties);
@@ -384,10 +380,10 @@ namespace Core.Gui.Test.Forms.MainWindow
         {
             // Setup
             var selectedObject = new object();
+            var viewHost = new AvalonDockViewHost();
 
             var mocks = new MockRepository();
             var selectedObjectProperties = mocks.Stub<IObjectProperties>();
-            var viewHost = new AvalonDockViewHost();
             var propertyResolver = mocks.Stub<IPropertyResolver>();
             propertyResolver.Expect(r => r.GetObjectProperties(selectedObject))
                             .Return(selectedObjectProperties)
@@ -799,7 +795,6 @@ namespace Core.Gui.Test.Forms.MainWindow
                 var testMapView = new TestMapView();
                 var map = (DotSpatialMap) ((MapControl) testMapView.Map).Controls[0].Controls[1];
 
-                // Precondition
                 Extent initialExtents = map.ViewExtents;
 
                 // When
