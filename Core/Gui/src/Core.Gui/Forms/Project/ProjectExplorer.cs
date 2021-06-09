@@ -28,7 +28,7 @@ using Core.Common.Util.Events;
 using Core.Gui.Commands;
 using Core.Gui.Properties;
 
-namespace Core.Gui.Forms.ProjectExplorer
+namespace Core.Gui.Forms.Project
 {
     /// <summary>
     /// This class describes a Project Explorer, which can be used to navigate and open views for elements

@@ -42,6 +42,7 @@ using Core.Gui.Forms.Chart;
 using Core.Gui.Forms.Log;
 using Core.Gui.Forms.Main;
 using Core.Gui.Forms.Map;
+using Core.Gui.Forms.Project;
 using Core.Gui.Forms.PropertyGridView;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
@@ -471,7 +472,7 @@ namespace Core.Gui.Test.Forms.Main
                 mainWindow.InitializeToolWindows();
 
                 // Assert
-                Assert.IsInstanceOf<Gui.Forms.ProjectExplorer.ProjectExplorer>(mainWindow.ProjectExplorer);
+                Assert.IsInstanceOf<ProjectExplorer>(mainWindow.ProjectExplorer);
                 Assert.IsNull(mainWindow.ProjectExplorer.Data);
 
                 Assert.IsInstanceOf<Gui.Forms.PropertyGridView.PropertyGridView>(mainWindow.PropertyGrid);

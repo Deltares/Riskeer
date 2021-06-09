@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Core.Gui.Forms.ProjectExplorer
+namespace Core.Gui.Forms.Project
 {
     partial class ProjectExplorer
     {

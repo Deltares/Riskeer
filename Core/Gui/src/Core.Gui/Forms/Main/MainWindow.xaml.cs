@@ -39,6 +39,7 @@ using Core.Gui.Forms.Backstage;
 using Core.Gui.Forms.Chart;
 using Core.Gui.Forms.Log;
 using Core.Gui.Forms.Map;
+using Core.Gui.Forms.Project;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Selection;
 using Core.Gui.Settings;
@@ -146,9 +147,9 @@ namespace Core.Gui.Forms.Main
         }
 
         /// <summary>
-        /// Gets the <see cref="Core.Gui.Forms.ProjectExplorer.ProjectExplorer"/>.
+        /// Gets the <see cref="Project.ProjectExplorer"/>.
         /// </summary>
-        public ProjectExplorer.ProjectExplorer ProjectExplorer { get; private set; }
+        public ProjectExplorer ProjectExplorer { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="Log.MessageWindow"/>.
@@ -569,7 +570,7 @@ namespace Core.Gui.Forms.Main
 
         private void InitProjectExplorerWindow()
         {
-            ProjectExplorer = new ProjectExplorer.ProjectExplorer(gui.ViewCommands, gui.GetTreeNodeInfos());
+            ProjectExplorer = new ProjectExplorer(gui.ViewCommands, gui.GetTreeNodeInfos());
 
             viewController.ViewHost.AddToolView(ProjectExplorer, ToolViewLocation.Left, "\uE907");
 

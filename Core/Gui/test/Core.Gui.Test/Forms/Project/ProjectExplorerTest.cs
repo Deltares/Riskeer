@@ -30,11 +30,12 @@ using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Gui.Commands;
+using Core.Gui.Forms.Project;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Gui.Test.Forms.ProjectExplorer
+namespace Core.Gui.Test.Forms.Project
 {
     [TestFixture]
     public class ProjectExplorerTest : NUnitFormTest
@@ -43,7 +44,7 @@ namespace Core.Gui.Test.Forms.ProjectExplorer
         public void Constructor_ViewCommandsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new Gui.Forms.ProjectExplorer.ProjectExplorer(null, Enumerable.Empty<TreeNodeInfo>());
+            void Call() => new ProjectExplorer(null, Enumerable.Empty<TreeNodeInfo>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -59,7 +60,7 @@ namespace Core.Gui.Test.Forms.ProjectExplorer
             mocks.ReplayAll();
 
             // Call
-            void Call() => new Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, null);
+            void Call() => new ProjectExplorer(viewCommands, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -76,7 +77,7 @@ namespace Core.Gui.Test.Forms.ProjectExplorer
             mocks.ReplayAll();
 
             // Call
-            using (var explorer = new Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, Enumerable.Empty<TreeNodeInfo>()))
+            using (var explorer = new ProjectExplorer(viewCommands, Enumerable.Empty<TreeNodeInfo>()))
             {
                 // Assert
                 Assert.IsInstanceOf<IView>(explorer);
@@ -104,7 +105,7 @@ namespace Core.Gui.Test.Forms.ProjectExplorer
                 }
             };
 
-            using (var explorer = new Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos))
+            using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos))
             {
                 var treeViewControl = TypeUtils.GetField<TreeViewControl>(explorer, "treeViewControl");
 
@@ -143,7 +144,7 @@ namespace Core.Gui.Test.Forms.ProjectExplorer
                 messageBox.ClickOk();
             };
 
-            using (var explorer = new Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos)
+            using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos)
             {
                 Data = project
             })
@@ -188,7 +189,7 @@ namespace Core.Gui.Test.Forms.ProjectExplorer
                 }
             };
 
-            using (var explorer = new Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos)
+            using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos)
             {
                 Data = project
             })
@@ -233,7 +234,7 @@ namespace Core.Gui.Test.Forms.ProjectExplorer
                 }
             };
 
-            using (var explorer = new Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos)
+            using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos)
             {
                 Data = project
             })
@@ -292,7 +293,7 @@ namespace Core.Gui.Test.Forms.ProjectExplorer
                 }
             };
 
-            using (var explorer = new Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, treeNodeInfos)
+            using (var explorer = new ProjectExplorer(viewCommands, treeNodeInfos)
             {
                 Data = project
             })
