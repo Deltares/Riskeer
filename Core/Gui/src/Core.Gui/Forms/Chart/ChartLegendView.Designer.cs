@@ -53,7 +53,7 @@ namespace Core.Gui.Forms.Chart
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChartLegendView));
-            this.treeViewControl = new TreeViewControl();
+            this.treeViewControl = new Core.Common.Controls.TreeView.TreeViewControl();
             this.SuspendLayout();
             // 
             // treeViewControl
