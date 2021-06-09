@@ -58,11 +58,11 @@ namespace Core.Gui.Commands
         }
 
         /// <summary>
-        /// Registers this handler to respond to the registered RoutedCommand for the
+        /// Registers this handler to respond to the registered <see cref="RoutedCommand"/> for the
         /// given element.
         /// </summary>
         /// <param name="owner"> The element for which we should register the command
-        /// binding for the current routed command. </param>
+        /// binding for the current routed command.</param>
         internal void Register(FrameworkElement owner)
         {
             var binding = new CommandBinding(RoutedCommand, HandleExecute, HandleCanExecute);
@@ -73,7 +73,7 @@ namespace Core.Gui.Commands
         /// Executes <see cref="ICommand.CanExecute(object)"/> with the 
         /// <see cref="CanExecuteRoutedEventArgs.Parameter"/> from <paramref name="e"/>.
         /// </summary>
-        /// <param name="sender">The owner of the routed command.</param>
+        /// <param name="sender">The owner of the <see cref="RoutedCommand"/>.</param>
         /// <param name="e">The event arguments given by the routed event.</param>
         private void HandleCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
