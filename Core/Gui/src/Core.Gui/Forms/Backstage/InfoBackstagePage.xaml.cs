@@ -19,14 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Windows.Controls;
-
 namespace Core.Gui.Forms.Backstage
 {
     /// <summary>
     /// Interaction logic for <see cref="InfoBackstagePage"/>.
     /// </summary>
-    public partial class InfoBackstagePage : UserControl
+    public partial class InfoBackstagePage
     {
         /// <summary>
         /// Creates a new instance of <see cref="InfoBackstagePage"/>.
