@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Core.Gui.Forms.MessageWindow
+namespace Core.Gui.Forms.Log
 {
     partial class MessageWindowDialog
     {

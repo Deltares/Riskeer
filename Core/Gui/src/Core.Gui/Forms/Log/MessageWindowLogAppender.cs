@@ -28,7 +28,7 @@ using log4net.Appender;
 using log4net.Core;
 using log4net.Util;
 
-namespace Core.Gui.Forms.MessageWindow
+namespace Core.Gui.Forms.Log
 {
     /// <summary>
     /// A log-appender for Log4Net that is able to forward received messages to a <see cref="IMessageWindow"/>

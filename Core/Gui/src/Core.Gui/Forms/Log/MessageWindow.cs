@@ -30,7 +30,7 @@ using Core.Gui.Clipboard;
 using Core.Gui.Properties;
 using log4net.Core;
 
-namespace Core.Gui.Forms.MessageWindow
+namespace Core.Gui.Forms.Log
 {
     /// <summary>
     /// Class that receives messages from <see cref="MessageWindowLogAppender"/> to be displayed

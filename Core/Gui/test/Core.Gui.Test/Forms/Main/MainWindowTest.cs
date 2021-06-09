@@ -39,9 +39,9 @@ using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Forms;
 using Core.Gui.Commands;
 using Core.Gui.Forms.Chart;
+using Core.Gui.Forms.Log;
 using Core.Gui.Forms.Main;
 using Core.Gui.Forms.Map;
-using Core.Gui.Forms.MessageWindow;
 using Core.Gui.Forms.PropertyGridView;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
@@ -478,7 +478,7 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.AreEqual("Eigenschappen", mainWindow.PropertyGrid.Text);
                 Assert.AreEqual(selectedObject, mainWindow.PropertyGrid.Data);
 
-                Assert.IsInstanceOf<Gui.Forms.MessageWindow.MessageWindow>(mainWindow.MessageWindow);
+                Assert.IsInstanceOf<MessageWindow>(mainWindow.MessageWindow);
                 Assert.AreEqual("Berichten", mainWindow.MessageWindow.Text);
 
                 Assert.IsInstanceOf<MapLegendView>(mainWindow.MapLegendView);

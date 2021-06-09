@@ -23,41 +23,41 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 using Core.Gui.Clipboard;
+using Core.Gui.Forms.Log;
 using Core.Gui.TestUtil.Clipboard;
 using log4net.Core;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using GuiFormsMessageWindow = Core.Gui.Forms.MessageWindow;
 
-namespace Core.Gui.Test.Forms.MessageWindow
+namespace Core.Gui.Test.Forms.Log
 {
     [TestFixture]
     public class MessageWindowTest : NUnitFormTest
     {
-        private GuiFormsMessageWindow.MessageWindowLogAppender originalValue;
+        private MessageWindowLogAppender originalValue;
 
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var logAppender = new GuiFormsMessageWindow.MessageWindowLogAppender();
+            var logAppender = new MessageWindowLogAppender();
 
             // Precondition
-            Assert.AreSame(logAppender, GuiFormsMessageWindow.MessageWindowLogAppender.Instance);
+            Assert.AreSame(logAppender, MessageWindowLogAppender.Instance);
 
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             mocks.ReplayAll();
 
             // Call
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(dialogParent))
+            using (MessageWindow messageWindow = ShowMessageWindow(dialogParent))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(messageWindow);
-                Assert.IsInstanceOf<GuiFormsMessageWindow.IMessageWindow>(messageWindow);
+                Assert.IsInstanceOf<IMessageWindow>(messageWindow);
                 Assert.IsInstanceOf<DataTable>(messageWindow.Data);
-                Assert.AreSame(messageWindow, GuiFormsMessageWindow.MessageWindowLogAppender.Instance.MessageWindow);
+                Assert.AreSame(messageWindow, MessageWindowLogAppender.Instance.MessageWindow);
             }
 
             mocks.VerifyAll();
@@ -68,7 +68,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
         {
             // Setup
             using (var form = new Form())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 form.Controls.Add(messageWindow);
 
@@ -84,7 +84,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
         public void AddMessage_LevelIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 // Call
                 TestDelegate call = () => messageWindow.AddMessage(null, new DateTime(),
@@ -101,7 +101,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
         {
             // Given
             using (var form = new Form())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -132,7 +132,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
         {
             // Setup
             using (var form = new Form())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -158,7 +158,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
             const string detailedMessage = "TestDetailedMessage";
 
             using (var form = new Form())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(dialogParent))
+            using (MessageWindow messageWindow = ShowMessageWindow(dialogParent))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -194,7 +194,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
         {
             // Setup
             using (var form = new Form())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -219,7 +219,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
             const string detailedMessage = "TestDetailedMessage";
 
             using (var form = new Form())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(dialogParent))
+            using (MessageWindow messageWindow = ShowMessageWindow(dialogParent))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -257,7 +257,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
         {
             // Setup
             using (var form = new Form())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -287,7 +287,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
         {
             // Setup
             using (var form = new Form())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -316,7 +316,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
             const string detailedMessage = "TestDetailedMessage";
 
             using (var form = new Form())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(dialogParent))
+            using (MessageWindow messageWindow = ShowMessageWindow(dialogParent))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -355,7 +355,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
         {
             // Setup
             using (var form = new Form())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -380,7 +380,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
             const string detailedMessage = "TestDetailedMessage";
 
             using (var form = new Form())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(dialogParent))
+            using (MessageWindow messageWindow = ShowMessageWindow(dialogParent))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -417,7 +417,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
         {
             // Setup
             using (var form = new Form())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -442,7 +442,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
             // Setup
             using (var form = new Form())
             using (new ClipboardConfig())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -468,7 +468,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
         {
             // Setup
             using (var form = new Form())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -497,7 +497,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
         {
             // Setup
             using (var form = new Form())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -525,7 +525,7 @@ namespace Core.Gui.Test.Forms.MessageWindow
         {
             // Setup
             using (var form = new Form())
-            using (GuiFormsMessageWindow.MessageWindow messageWindow = ShowMessageWindow(null))
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 form.Controls.Add(messageWindow);
                 form.Show();
@@ -550,16 +550,16 @@ namespace Core.Gui.Test.Forms.MessageWindow
 
         public override void Setup()
         {
-            originalValue = GuiFormsMessageWindow.MessageWindowLogAppender.Instance;
+            originalValue = MessageWindowLogAppender.Instance;
         }
 
         public override void TearDown()
         {
             base.TearDown();
-            GuiFormsMessageWindow.MessageWindowLogAppender.Instance = originalValue;
+            MessageWindowLogAppender.Instance = originalValue;
         }
 
-        private static void AddMessages(GuiFormsMessageWindow.MessageWindow messageWindow)
+        private static void AddMessages(MessageWindow messageWindow)
         {
             messageWindow.AddMessage(Level.Info, new DateTime(), "Info message");
             messageWindow.AddMessage(Level.Warn, new DateTime(), "Warn message");
@@ -567,14 +567,14 @@ namespace Core.Gui.Test.Forms.MessageWindow
             messageWindow.Refresh();
         }
 
-        private GuiFormsMessageWindow.MessageWindow ShowMessageWindow(IWin32Window dialogParent)
+        private MessageWindow ShowMessageWindow(IWin32Window dialogParent)
         {
-            var logAppender = new GuiFormsMessageWindow.MessageWindowLogAppender();
+            var logAppender = new MessageWindowLogAppender();
 
             // Precondition
-            Assert.AreSame(logAppender, GuiFormsMessageWindow.MessageWindowLogAppender.Instance);
+            Assert.AreSame(logAppender, MessageWindowLogAppender.Instance);
 
-            return new GuiFormsMessageWindow.MessageWindow(dialogParent);
+            return new MessageWindow(dialogParent);
         }
     }
 }

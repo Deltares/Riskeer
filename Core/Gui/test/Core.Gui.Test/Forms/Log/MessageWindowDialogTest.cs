@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System.Windows.Forms;
-using Core.Gui.Forms.MessageWindow;
+using Core.Gui.Forms.Log;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Gui.Test.Forms.MessageWindow
+namespace Core.Gui.Test.Forms.Log
 {
     [TestFixture]
     public class MessageWindowDialogTest

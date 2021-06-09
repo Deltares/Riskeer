@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -19,24 +19,32 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Controls.Views;
-using log4net.Core;
+using System.Windows.Forms;
+using Core.Common.Controls.Dialogs;
+using Core.Gui.Properties;
 
-namespace Core.Gui.Forms.MessageWindow
+namespace Core.Gui.Forms.Log
 {
     /// <summary>
-    /// Interface declaring the members for a view that can show log messages.
+    /// Dialog for showing a particular message.
     /// </summary>
-    public interface IMessageWindow : IView
+    public partial class MessageWindowDialog : DialogBase
     {
         /// <summary>
-        /// Adds a logging message to the view.
+        /// Constructs a new <see cref="MessageWindowDialog"/>.
         /// </summary>
-        /// <param name="level">Type of logging message.</param>
-        /// <param name="time">Time when the message was logged.</param>
-        /// <param name="message">The message text.</param>
-        /// <exception cref="ArgumentNullException">Throw when <paramref name="level"/> is <c>null</c>.</exception>
-        void AddMessage(Level level, DateTime time, string message);
+        /// <param name="dialogParent">The owner of the dialog, for which this should show on top.</param>
+        /// <param name="text">The text to show in the dialog.</param>
+        public MessageWindowDialog(IWin32Window dialogParent, string text) : base(dialogParent, Resources.application_import_blue1, 200, 150)
+        {
+            InitializeComponent();
+
+            textBox.Text = text;
+        }
+
+        protected override Button GetCancelButton()
+        {
+            return buttonHidden;
+        }
     }
 }

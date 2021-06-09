@@ -132,6 +132,12 @@
     <Compile Update="Forms\Chart\ChartLegendView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Forms\Log\MessageWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Forms\Log\MessageWindowDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">

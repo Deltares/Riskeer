@@ -21,7 +21,7 @@
 
 using System.Windows.Forms;
 
-namespace Core.Gui.Forms.MessageWindow
+namespace Core.Gui.Forms.Log
 {
     partial class MessageWindow
     {

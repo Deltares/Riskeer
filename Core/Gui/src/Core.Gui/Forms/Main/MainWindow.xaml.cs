@@ -37,8 +37,8 @@ using Core.Components.Gis.Forms;
 using Core.Gui.Commands;
 using Core.Gui.Forms.Backstage;
 using Core.Gui.Forms.Chart;
+using Core.Gui.Forms.Log;
 using Core.Gui.Forms.Map;
-using Core.Gui.Forms.MessageWindow;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Selection;
 using Core.Gui.Settings;
@@ -151,7 +151,7 @@ namespace Core.Gui.Forms.Main
         public ProjectExplorer.ProjectExplorer ProjectExplorer { get; private set; }
 
         /// <summary>
-        /// Gets the <see cref="Core.Gui.Forms.MessageWindow.MessageWindow"/>.
+        /// Gets the <see cref="Log.MessageWindow"/>.
         /// </summary>
         public IMessageWindow MessageWindow { get; private set; }
 
@@ -578,7 +578,7 @@ namespace Core.Gui.Forms.Main
 
         private void InitMessagesWindow()
         {
-            MessageWindow = new MessageWindow.MessageWindow(this)
+            MessageWindow = new MessageWindow(this)
             {
                 Text = Properties.Resources.Messages
             };
