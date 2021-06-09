@@ -35,8 +35,7 @@ namespace Core.Gui.Forms.Backstage
         /// Creates a new instance of <see cref="SupportViewModel"/>.
         /// </summary>
         /// <param name="settings">The application settings.</param>
-        /// <exception cref="ArgumentNullException">Thrown when
-        /// <paramref name="settings"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="settings"/> is <c>null</c>.</exception>
         public SupportViewModel(GuiCoreSettings settings)
         {
             if (settings == null)

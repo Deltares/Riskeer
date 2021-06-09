@@ -48,8 +48,7 @@ namespace Core.Gui.Forms.Backstage
         /// </summary>
         /// <param name="settings">The application settings.</param>
         /// <param name="version">The application version.</param>
-        /// <exception cref="ArgumentNullException">Thrown when
-        /// <paramref name="settings"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="settings"/> is <c>null</c>.</exception>
         public BackstageViewModel(GuiCoreSettings settings, string version)
         {
             if (settings == null)

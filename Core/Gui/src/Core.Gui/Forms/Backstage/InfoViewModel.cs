@@ -36,17 +36,9 @@ namespace Core.Gui.Forms.Backstage
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Gets or sets the name of the project.
+        /// Gets the name of the project.
         /// </summary>
-        public string ProjectName
-        {
-            get => project?.Name;
-            set
-            {
-                project.Name = value;
-                OnPropertyChanged(nameof(ProjectName));
-            }
-        }
+        public string ProjectName => project?.Name;
 
         /// <summary>
         /// Gets or sets the description of the project.
@@ -66,7 +58,7 @@ namespace Core.Gui.Forms.Backstage
         /// </summary>
         /// <param name="projectToSet">The project to set.</param>
         /// <exception cref="ArgumentNullException">Thrown when<paramref name="projectToSet"/>
-        /// is <c>null</c></exception>
+        /// is <c>null</c>.</exception>
         public void SetProject(IProject projectToSet)
         {
             if (projectToSet == null)
