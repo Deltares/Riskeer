@@ -21,7 +21,7 @@
 
 using Core.Gui.Commands;
 using Core.Gui.Forms.Main;
-using Core.Gui.Forms.PropertyGridView;
+using Core.Gui.Forms.PropertyView;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;

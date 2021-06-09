@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Storage;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.PropertyGridView;
+using Core.Gui.Forms.PropertyView;
 using Core.Gui.PropertyBag;
 using Core.Gui.Selection;
 using Core.Gui.Settings;

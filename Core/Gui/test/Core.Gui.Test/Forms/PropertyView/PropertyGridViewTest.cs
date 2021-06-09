@@ -24,12 +24,12 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
-using Core.Gui.Forms.PropertyGridView;
+using Core.Gui.Forms.PropertyView;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Gui.Test.Forms.PropertyGridView
+namespace Core.Gui.Test.Forms.PropertyView
 {
     [TestFixture]
     public class PropertyGridViewTest
@@ -38,7 +38,7 @@ namespace Core.Gui.Test.Forms.PropertyGridView
         public void Constructor_PropertyResolverIsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new Gui.Forms.PropertyGridView.PropertyGridView(null);
+            void Call() => new PropertyGridView(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -54,7 +54,7 @@ namespace Core.Gui.Test.Forms.PropertyGridView
             mockRepository.ReplayAll();
 
             // Call
-            using (var propertyGridView = new Gui.Forms.PropertyGridView.PropertyGridView(propertyResolver))
+            using (var propertyGridView = new PropertyGridView(propertyResolver))
             {
                 // Assert
                 Assert.IsInstanceOf<PropertyGrid>(propertyGridView);
@@ -80,7 +80,7 @@ namespace Core.Gui.Test.Forms.PropertyGridView
             mockRepository.ReplayAll();
 
             using (var form = new Form())
-            using (var propertyGridView = new Gui.Forms.PropertyGridView.PropertyGridView(propertyResolver))
+            using (var propertyGridView = new PropertyGridView(propertyResolver))
             {
                 form.Controls.Add(propertyGridView);
 
@@ -381,7 +381,7 @@ namespace Core.Gui.Test.Forms.PropertyGridView
             // Call
             TestDelegate call = () =>
             {
-                using (var control = new Gui.Forms.PropertyGridView.PropertyGridView(propertyResolver))
+                using (var control = new PropertyGridView(propertyResolver))
                 {
                     control.Dispose();
                 }
@@ -392,7 +392,7 @@ namespace Core.Gui.Test.Forms.PropertyGridView
             mockRepository.VerifyAll();
         }
 
-        private class TestGuiPropertyGridView : Gui.Forms.PropertyGridView.PropertyGridView
+        private class TestGuiPropertyGridView : PropertyGridView
         {
             public TestGuiPropertyGridView(IPropertyResolver propertyResolver) : base(propertyResolver) {}
 

@@ -40,6 +40,7 @@ using Core.Gui.Forms.Chart;
 using Core.Gui.Forms.Log;
 using Core.Gui.Forms.Map;
 using Core.Gui.Forms.Project;
+using Core.Gui.Forms.PropertyView;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Selection;
 using Core.Gui.Settings;
@@ -67,7 +68,7 @@ namespace Core.Gui.Forms.Main
 
         private IGui gui;
 
-        private PropertyGridView.PropertyGridView propertyGrid;
+        private PropertyGridView propertyGrid;
         private IMapView currentMapView;
         private IChartView currentChartView;
 
@@ -545,7 +546,7 @@ namespace Core.Gui.Forms.Main
 
             if (propertyGrid == null)
             {
-                propertyGrid = new PropertyGridView.PropertyGridView(gui.PropertyResolver)
+                propertyGrid = new PropertyGridView(gui.PropertyResolver)
                 {
                     Text = Properties.Resources.Properties_DisplayName,
                     Data = applicationSelection.Selection

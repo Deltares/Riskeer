@@ -138,6 +138,9 @@
     <Compile Update="Forms\Project\ProjectExplorer.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Forms\PropertyView\PropertyGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">

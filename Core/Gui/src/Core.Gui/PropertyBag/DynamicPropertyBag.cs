@@ -25,7 +25,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Core.Gui.Attributes;
-using Core.Gui.Forms.PropertyGridView;
+using Core.Gui.Forms.PropertyView;
 
 namespace Core.Gui.PropertyBag
 {

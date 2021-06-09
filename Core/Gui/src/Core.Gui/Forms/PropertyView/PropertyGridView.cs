@@ -30,7 +30,7 @@ using Core.Common.Controls.Views;
 using Core.Gui.Properties;
 using Core.Gui.PropertyBag;
 
-namespace Core.Gui.Forms.PropertyGridView
+namespace Core.Gui.Forms.PropertyView
 {
     /// <summary>
     /// View for displaying the properties of an data object.

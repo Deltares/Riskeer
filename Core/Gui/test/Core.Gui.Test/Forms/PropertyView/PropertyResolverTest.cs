@@ -22,12 +22,12 @@
 using System;
 using System.Linq;
 using Core.Common.TestUtil;
-using Core.Gui.Forms.PropertyGridView;
+using Core.Gui.Forms.PropertyView;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
 
-namespace Core.Gui.Test.Forms.PropertyGridView
+namespace Core.Gui.Test.Forms.PropertyView
 {
     [TestFixture]
     public class PropertyResolverTest

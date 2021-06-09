@@ -26,7 +26,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Gui.Forms.Main;
-using Core.Gui.Forms.PropertyGridView;
+using Core.Gui.Forms.PropertyView;
 using Core.Gui.Properties;
 using log4net;
 using log4net.Appender;

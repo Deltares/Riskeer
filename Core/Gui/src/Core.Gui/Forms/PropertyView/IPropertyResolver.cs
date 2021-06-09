@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Core.Gui.Forms.PropertyGridView
+namespace Core.Gui.Forms.PropertyView
 {
     /// <summary>
     /// Interface for an object that is used to retrieve property objects corresponding to a data-object.

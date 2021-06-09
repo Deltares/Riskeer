@@ -27,7 +27,7 @@ using Core.Gui.Plugin;
 using Core.Gui.Properties;
 using Core.Gui.PropertyBag;
 
-namespace Core.Gui.Forms.PropertyGridView
+namespace Core.Gui.Forms.PropertyView
 {
     /// <summary>
     /// Class responsible for finding the <see cref="IObjectProperties"/> that has been
