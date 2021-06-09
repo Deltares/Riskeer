@@ -326,7 +326,7 @@ namespace Core.Gui.Test.Forms.MainWindow
         }
 
         [Test]
-        public void InitPropertiesWindowOrBringToFront_GuiNotSet_ThrowInvalidOperationException()
+        public void InitPropertiesWindowOrBringToFront_GuiNotSet_ThrowsInvalidOperationException()
         {
             // Setup
             using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
@@ -335,7 +335,8 @@ namespace Core.Gui.Test.Forms.MainWindow
                 void Call() => mainWindow.InitPropertiesWindowOrBringToFront();
 
                 // Assert
-                Assert.Throws<InvalidOperationException>(Call);
+                var exception = Assert.Throws<InvalidOperationException>(Call);
+                Assert.AreEqual("Must call 'SetGui' before calling 'InitPropertiesWindowOrBringToFront'.", exception.Message);
             }
         }
 

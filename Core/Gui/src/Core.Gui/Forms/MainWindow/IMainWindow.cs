@@ -34,7 +34,7 @@ namespace Core.Gui.Forms.MainWindow
         IView PropertyGrid { get; }
 
         /// <summary>
-        /// Initializes and shows the property grid tool window.
+        /// Initializes and/or shows the property grid tool window.
         /// </summary>
         void InitPropertiesWindowOrBringToFront();
     }

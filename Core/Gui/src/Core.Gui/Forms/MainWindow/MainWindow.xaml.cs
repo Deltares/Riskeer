@@ -533,17 +533,14 @@ namespace Core.Gui.Forms.MainWindow
 
         #region ToolWindows
 
-        /// <summary>
-        /// Initializes and shows the property grid tool window.
-        /// </summary>
-        /// <exception cref="InvalidOperationException">
-        /// When a <see cref="IGui"/> hasn't been set with <see cref="SetGui"/>.
-        /// </exception>
+        /// <inheritdoc/>
+        /// <exception cref="InvalidOperationException">Thrown when an <see cref="IGui"/>
+        /// hasn't been set with <see cref="SetGui"/>.</exception>
         public void InitPropertiesWindowOrBringToFront()
         {
             if (gui == null)
             {
-                throw new InvalidOperationException("Must call 'SetGui(IGui)' before calling 'InitPropertiesWindowAndActivate'.");
+                throw new InvalidOperationException($"Must call '{nameof(SetGui)}' before calling '{nameof(InitPropertiesWindowOrBringToFront)}'.");
             }
 
             if (propertyGrid == null)
