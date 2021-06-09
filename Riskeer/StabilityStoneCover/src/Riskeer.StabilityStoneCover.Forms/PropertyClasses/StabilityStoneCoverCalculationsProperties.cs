@@ -33,9 +33,9 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="StabilityStoneCoverFailureMechanism"/> for properties panel.
+    /// Calculation related ViewModel of <see cref="StabilityStoneCoverFailureMechanism"/> for properties panel.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanismProperties : ObjectProperties<StabilityStoneCoverFailureMechanism>
+    public class StabilityStoneCoverCalculationsProperties : ObjectProperties<StabilityStoneCoverFailureMechanism>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -47,11 +47,11 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
         private const int nPropertyIndex = 8;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="StabilityStoneCoverCalculationsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public StabilityStoneCoverFailureMechanismProperties(StabilityStoneCoverFailureMechanism data)
+        public StabilityStoneCoverCalculationsProperties(StabilityStoneCoverFailureMechanism data)
         {
             if (data == null)
             {
