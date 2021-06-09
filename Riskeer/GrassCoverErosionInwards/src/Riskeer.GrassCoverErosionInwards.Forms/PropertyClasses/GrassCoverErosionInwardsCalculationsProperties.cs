@@ -35,7 +35,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="GrassCoverErosionInwardsFailureMechanism"/> for properties panel.
+    /// Calculation related ViewModel of <see cref="GrassCoverErosionInwardsFailureMechanism"/> for properties panel.
     /// </summary>
     public class GrassCoverErosionInwardsCalculationsProperties : ObjectProperties<GrassCoverErosionInwardsFailureMechanism>
     {
