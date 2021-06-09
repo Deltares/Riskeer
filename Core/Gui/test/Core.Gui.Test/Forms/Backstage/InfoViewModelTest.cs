@@ -49,7 +49,7 @@ namespace Core.Gui.Test.Forms.Backstage
         {
             // Setup
             var viewModel = new InfoViewModel();
-            
+
             // Call
             void Call() => viewModel.SetProject(null);
 
@@ -68,9 +68,9 @@ namespace Core.Gui.Test.Forms.Backstage
 
             project.Name = "Test";
             project.Description = "Test description";
-            
+
             var viewModel = new InfoViewModel();
-            
+
             // Call
             viewModel.SetProject(project);
 

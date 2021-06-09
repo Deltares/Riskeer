@@ -74,6 +74,8 @@ namespace Core.Gui.Forms.ProjectExplorer
             BindTreeInteractionEvents();
         }
 
+        public object Selection => treeViewControl.SelectedData;
+
         public object Data
         {
             get => treeViewControl.Data;
@@ -85,8 +87,6 @@ namespace Core.Gui.Forms.ProjectExplorer
                 }
             }
         }
-
-        public object Selection => treeViewControl.SelectedData;
 
         private void BindTreeInteractionEvents()
         {

@@ -33,7 +33,7 @@ namespace Core.Gui.Test.Forms.ViewHost
         {
             // Setup
             const string symbol = "123";
-            
+
             // Call
             var layoutAnchorable = new CustomLayoutAnchorable
             {

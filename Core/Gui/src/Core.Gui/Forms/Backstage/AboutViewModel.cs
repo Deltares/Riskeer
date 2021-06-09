@@ -41,7 +41,7 @@ namespace Core.Gui.Forms.Backstage
         {
             ApplicationName = applicationName;
             Version = version;
-            
+
             WindowsEdition = (string) GetOperatingSystemValue("Caption");
             WindowsBuild = (string) GetOperatingSystemValue("BuildNumber");
             Processor = (string) GetProcessorValue("Name");

@@ -509,7 +509,7 @@ namespace Core.Gui.Test.Forms.ViewHost
         {
             // Setup
             const string symbol = "123";
-            
+
             var testView = new TestView();
             IEnumerable<ToolViewLocation> otherToolViewLocations = Enum.GetValues(typeof(ToolViewLocation))
                                                                        .Cast<ToolViewLocation>()

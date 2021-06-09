@@ -38,7 +38,7 @@ namespace Core.Gui.Test.Forms.Backstage
             // Setup
             const string applicationName = "Riskeer";
             const string version = "1.0";
-            
+
             // Call
             var viewModel = new AboutViewModel(applicationName, version);
 
@@ -46,7 +46,7 @@ namespace Core.Gui.Test.Forms.Backstage
             Assert.IsInstanceOf<IBackstagePageViewModel>(viewModel);
             Assert.AreEqual(applicationName, viewModel.ApplicationName);
             Assert.AreEqual(version, viewModel.Version);
-            
+
             ManagementObject processorManagementObject =
                 new ManagementObjectSearcher("select * from Win32_Processor")
                     .Get()
@@ -58,9 +58,9 @@ namespace Core.Gui.Test.Forms.Backstage
                     .Get()
                     .Cast<ManagementObject>()
                     .First();
-            
+
             var installedRam = $"{Math.Round(GetInstalledRam(), 2).ToString(CultureInfo.InvariantCulture)} GB";
-            
+
             Assert.AreEqual(operatingSystemManagementObject["Caption"], viewModel.WindowsEdition);
             Assert.AreEqual(operatingSystemManagementObject["BuildNumber"], viewModel.WindowsBuild);
             Assert.AreEqual(processorManagementObject["Name"], viewModel.Processor);
@@ -70,8 +70,8 @@ namespace Core.Gui.Test.Forms.Backstage
 
         private static string GetResolution()
         {
-            return  $"{SystemParameters.PrimaryScreenWidth.ToString(CultureInfo.InvariantCulture)} " +
-                    $"x {SystemParameters.PrimaryScreenHeight.ToString(CultureInfo.InvariantCulture)}";
+            return $"{SystemParameters.PrimaryScreenWidth.ToString(CultureInfo.InvariantCulture)} " +
+                   $"x {SystemParameters.PrimaryScreenHeight.ToString(CultureInfo.InvariantCulture)}";
         }
 
         private static double GetInstalledRam()
@@ -81,7 +81,7 @@ namespace Core.Gui.Test.Forms.Backstage
                     .Get()
                     .Cast<ManagementObject>()
                     .First();
-            
+
             const double kilobyteDivider = 1024.0;
             const double gigabyteDivider = kilobyteDivider * kilobyteDivider * kilobyteDivider;
             return (ulong) computerSystemManagementObject["TotalPhysicalMemory"] / gigabyteDivider;

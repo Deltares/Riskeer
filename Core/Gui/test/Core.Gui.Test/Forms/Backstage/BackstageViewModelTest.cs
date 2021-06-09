@@ -42,7 +42,7 @@ namespace Core.Gui.Test.Forms.Backstage
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("settings", exception.ParamName);
         }
-        
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -54,7 +54,7 @@ namespace Core.Gui.Test.Forms.Backstage
                 SupportText = "Some text"
             };
             const string version = "1.0";
-            
+
             // Call
             var viewModel = new BackstageViewModel(settings, version);
 
@@ -63,11 +63,11 @@ namespace Core.Gui.Test.Forms.Backstage
 
             Assert.IsNotNull(viewModel.InfoViewModel);
             Assert.IsNull(viewModel.InfoViewModel.ProjectName);
-            
+
             Assert.IsNotNull(viewModel.AboutViewModel);
             Assert.AreEqual(settings.ApplicationName, viewModel.AboutViewModel.ApplicationName);
             Assert.AreEqual(version, viewModel.AboutViewModel.Version);
-            
+
             Assert.IsNotNull(viewModel.SupportViewModel);
             Assert.AreEqual(settings.SupportHeader, viewModel.SupportViewModel.SupportHeader);
             Assert.AreEqual(settings.SupportText, viewModel.SupportViewModel.SupportText);

@@ -79,7 +79,7 @@ namespace Core.Gui.Forms.Chart
             }
         }
 
-        public object Selection => treeViewControl.SelectedData is ChartDataContext chartDataContext 
+        public object Selection => treeViewControl.SelectedData is ChartDataContext chartDataContext
                                        ? chartDataContext.WrappedData
                                        : treeViewControl.SelectedData;
 

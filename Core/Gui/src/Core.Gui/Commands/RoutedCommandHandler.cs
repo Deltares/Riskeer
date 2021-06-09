@@ -24,7 +24,7 @@ using System.Windows.Input;
 
 namespace Core.Gui.Commands
 {
-     /// <summary>
+    /// <summary>
     /// Allows for binding of <see cref="RoutedCommand"/> to the execution of a <see cref="ICommand"/>.
     /// </summary>
     public class RoutedCommandHandler : Freezable

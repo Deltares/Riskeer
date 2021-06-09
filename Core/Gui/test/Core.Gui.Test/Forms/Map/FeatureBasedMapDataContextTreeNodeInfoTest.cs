@@ -215,7 +215,7 @@ namespace Core.Gui.Test.Forms.Map
 
             MapDataCollectionContext rootCollectionContext = GetContext(mapDataCollection);
             MapDataCollectionContext nestedCollectionContext = GetContext(nestedMapDataCollection, rootCollectionContext);
-            FeatureBasedMapDataContext featureBasedMapDataContext = GetContext((FeatureBasedMapData) featureBasedMapData, nestedCollectionContext);
+            FeatureBasedMapDataContext featureBasedMapDataContext = GetContext(featureBasedMapData, nestedCollectionContext);
 
             nestedMapDataCollection.Attach(collectionObserver);
             mapDataCollection.Attach(parentCollectionObserver);

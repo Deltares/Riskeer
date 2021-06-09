@@ -43,23 +43,23 @@ namespace Core.Gui.Test.Plugin.Chart
             PluginTestHelper.AssertPropertyInfoDefined(
                 propertyInfos, typeof(ChartDataCollection),
                 typeof(ChartDataCollectionProperties));
-            
+
             PluginTestHelper.AssertPropertyInfoDefined(
                 propertyInfos, typeof(ChartLineData),
                 typeof(ChartLineDataProperties));
-            
+
             PluginTestHelper.AssertPropertyInfoDefined(
                 propertyInfos, typeof(ChartAreaData),
                 typeof(ChartAreaDataProperties));
-            
+
             PluginTestHelper.AssertPropertyInfoDefined(
                 propertyInfos, typeof(ChartMultipleAreaData),
                 typeof(ChartMultipleAreaDataProperties));
-            
+
             PluginTestHelper.AssertPropertyInfoDefined(
                 propertyInfos, typeof(ChartMultipleLineData),
                 typeof(ChartMultipleLineDataProperties));
-            
+
             PluginTestHelper.AssertPropertyInfoDefined(
                 propertyInfos, typeof(ChartPointData),
                 typeof(ChartPointDataProperties));
