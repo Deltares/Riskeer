@@ -21,10 +21,12 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
 
@@ -36,17 +38,20 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
-        private const int blocksPropertyIndex = 3;
-        private const int columnsPropertyIndex = 4;
+        private const int contributionPropertyIndex = 3;
+        private const int isRelevantPropertyIndex = 4;
+        private const int blocksPropertyIndex = 5;
+        private const int columnsPropertyIndex = 6;
+        private const int nPropertyIndex = 7;
 
         [Test]
         public void Constructor_DataIsNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new StabilityStoneCoverCalculationsProperties(null);
+            TestDelegate test = () => new StabilityStoneCoverCalculationsProperties(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("data", paramName);
         }
 
@@ -54,7 +59,16 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         public void Constructor_WithData_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var random = new Random(39);
+            bool isRelevant = random.NextBoolean();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                IsRelevant = isRelevant,
+                GeneralInput =
+                {
+                    N = random.NextRoundedDouble(1.0, 20.0)
+                }
+            };
 
             // Call
             var properties = new StabilityStoneCoverCalculationsProperties(failureMechanism);
@@ -70,27 +84,50 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
+            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
+            Assert.AreEqual(isRelevant, properties.IsRelevant);
 
             GeneralStabilityStoneCoverWaveConditionsInput generalInput = failureMechanism.GeneralInput;
             Assert.AreSame(generalInput.GeneralBlocksWaveConditionsInput, properties.Blocks.Data);
             Assert.AreSame(generalInput.GeneralColumnsWaveConditionsInput, properties.Columns.Data);
+            Assert.AreEqual(generalInput.N, properties.N);
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
+        public void N_NewValue_GeneralInputUpdated()
         {
             // Setup
+            var random = new Random(39);
+            RoundedDouble newN = random.NextRoundedDouble(1.0, 20.0);
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var properties = new StabilityStoneCoverCalculationsProperties(failureMechanism);
+
+            // Call
+            properties.N = newN;
+
+            // Assert
+            Assert.AreEqual(newN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+        }
+
+        [Test]
+        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                IsRelevant = true
+            };
 
             // Call
             var properties = new StabilityStoneCoverCalculationsProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string modelSettingsCateogry = "Modelinstellingen";
+            const string lengthEffectCategory = "Lengte-effect parameters";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -113,6 +150,20 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
+            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
+                                                                            generalCategory,
+                                                                            "Faalkansbijdrage [%]",
+                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            true);
+
             PropertyDescriptor blocksProperty = dynamicProperties[blocksPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(blocksProperty,
                                                                             modelSettingsCateogry,
@@ -126,6 +177,85 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
                                                                             "Zuilen",
                                                                             "De modelinstellingen voor het berekenen van golfcondities voor zuilen.",
                                                                             true);
+
+            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
+                                                                            lengthEffectCategory,
+                                                                            "N [-]",
+                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
+        }
+
+        [Test]
+        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                IsRelevant = false
+            };
+
+            // Call
+            var properties = new StabilityStoneCoverCalculationsProperties(failureMechanism);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(4, dynamicProperties.Count);
+
+            const string generalCategory = "Algemeen";
+
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
+                                                                            generalCategory,
+                                                                            "Groep",
+                                                                            "De groep waar het toetsspoor toe behoort.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            true);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
+            var properties = new StabilityStoneCoverCalculationsProperties(failureMechanism);
+
+            // Call & Assert
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Blocks)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Columns)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }
