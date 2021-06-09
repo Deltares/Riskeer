@@ -36,7 +36,7 @@ using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses;
 namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismPropertiesTest
+    public class GrassCoverErosionInwardsCalculationsPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -64,7 +64,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsFailureMechanismProperties(null, handler);
+            TestDelegate test = () => new GrassCoverErosionInwardsCalculationsProperties(null, handler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -76,7 +76,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_ChangeHandlerIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsFailureMechanismProperties(
+            TestDelegate test = () => new GrassCoverErosionInwardsCalculationsProperties(
                 new GrassCoverErosionInwardsFailureMechanism(), null);
 
             // Assert
@@ -99,7 +99,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(
+            var properties = new GrassCoverErosionInwardsCalculationsProperties(
                 failureMechanism,
                 handler);
 
@@ -141,7 +141,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(
+            var properties = new GrassCoverErosionInwardsCalculationsProperties(
                 failureMechanism,
                 handler);
 
@@ -242,7 +242,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(
+            var properties = new GrassCoverErosionInwardsCalculationsProperties(
                 failureMechanism,
                 handler);
 
@@ -303,7 +303,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(
+            var properties = new GrassCoverErosionInwardsCalculationsProperties(
                 failureMechanism,
                 changeHandler);
 
@@ -337,7 +337,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(
+            var properties = new GrassCoverErosionInwardsCalculationsProperties(
                 failureMechanism,
                 changeHandler);
 
@@ -364,7 +364,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 IsRelevant = isRelevant
             };
 
-            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new GrassCoverErosionInwardsCalculationsProperties(failureMechanism, changeHandler);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));

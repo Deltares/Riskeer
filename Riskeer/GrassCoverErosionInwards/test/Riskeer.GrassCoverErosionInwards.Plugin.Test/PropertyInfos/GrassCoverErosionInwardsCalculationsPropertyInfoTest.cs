@@ -32,7 +32,7 @@ using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses;
 namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismPropertyInfoTest
+    public class GrassCoverErosionInwardsCalculationsPropertyInfoTest
     {
         private GrassCoverErosionInwardsPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(GrassCoverErosionInwardsFailureMechanismProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(GrassCoverErosionInwardsCalculationsProperties));
         }
 
         [TearDown]
@@ -55,7 +55,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculationsProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismProperties>(objectProperties);
+            Assert.IsInstanceOf<GrassCoverErosionInwardsCalculationsProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
             mocks.VerifyAll();
         }
