@@ -72,9 +72,9 @@ namespace Core.Gui.Test.Forms.Backstage
             Assert.AreEqual(settings.SupportHeader, viewModel.SupportViewModel.SupportHeader);
             Assert.AreEqual(settings.SupportText, viewModel.SupportViewModel.SupportText);
 
-            Assert.IsNotNull(viewModel.OpenHelpdeskWaterWebsiteCommand);
-            Assert.IsNotNull(viewModel.CallHelpdeskWaterSupportCommand);
-            Assert.IsNotNull(viewModel.EmailHelpdeskWaterSupportCommand);
+            Assert.IsNotNull(viewModel.OpenSupportDeskWebsiteCommand);
+            Assert.IsNotNull(viewModel.OpenCallSupportDeskWebsiteCommand);
+            Assert.IsNotNull(viewModel.OpenEmailSupportDeskWebsiteCommand);
             Assert.IsNotNull(viewModel.OpenUserManualCommand);
             Assert.IsNotNull(viewModel.SetSelectedViewModelCommand);
 

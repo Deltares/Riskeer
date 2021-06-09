@@ -358,7 +358,7 @@ namespace Core.Gui.Forms.Main
         public ICommand SaveProjectCommand { get; }
 
         /// <summary>
-        /// Gets the command to save a project as.
+        /// Gets the command to save a project at a new location.
         /// </summary>
         public ICommand SaveProjectAsCommand { get; }
 

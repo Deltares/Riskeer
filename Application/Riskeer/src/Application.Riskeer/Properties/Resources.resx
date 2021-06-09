@@ -121,4 +121,21 @@
   <data name="Riskeer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Riskeer.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="HelpdeskWater_DisplayName" xml:space="preserve">
+    <value>Helpdesk Water</value>
+  </data>
+  <data name="HelpdeskWater_Description" xml:space="preserve">
+    <value>De Helpdesk Water is gehuisvest bij de Rijkswaterstaat Water, Verkeer en Leefomgeving (RWS WVL). De helpdesk richt zich op het ontsluiten van kennis die aanwezig is binnen de werkvelden waterbeleid en waterbeheer in de breedste zin.
+
+Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel binnen Rijkswaterstaat als daar buiten. Op deze manier kan de helpdesk uw vragen snel en efficiënt beantwoorden, waarbij optimaal gebruik wordt gemaakt van de beschikbare kennis.</value>
+  </data>
+  <data name="App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first" xml:space="preserve">
+    <value>Kan niet meerdere instanties van Riskeer starten. Sluit eerst de andere instantie.</value>
+  </data>
+  <data name="App_Unhandled_exception" xml:space="preserve">
+    <value>Onbekende kritieke fout opgetreden.</value>
+  </data>
+  <data name="App_Starting_Riskeer_version_0_by_user_0" xml:space="preserve">
+    <value>Riskeer versie {0} wordt gestart door {1}...</value>
+  </data>
 </root>

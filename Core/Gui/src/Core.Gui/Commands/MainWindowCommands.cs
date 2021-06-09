@@ -39,7 +39,7 @@ namespace Core.Gui.Commands
         public static readonly ICommand SaveProjectCommand = new RoutedCommand();
 
         /// <summary>
-        /// The command for saving the project as.
+        /// The command for saving the project at a new location.
         /// </summary>
         public static readonly ICommand SaveProjectAsCommand = new RoutedCommand();
 
@@ -69,18 +69,18 @@ namespace Core.Gui.Commands
         public static readonly ICommand OpenUserManualCommand = new RoutedCommand();
 
         /// <summary>
-        /// The command for opening the helpdesk water website.
+        /// The command for opening the support desk website.
         /// </summary>
-        public static readonly ICommand OpenHelpdeskWaterWebsiteCommand = new RoutedCommand();
+        public static readonly ICommand OpenSupportDeskWebsiteCommand = new RoutedCommand();
 
         /// <summary>
-        /// The command for opening the helpdesk water call information website.
+        /// The command for opening the support desk call information website.
         /// </summary>
-        public static readonly ICommand CallHelpdeskWaterWebsiteCommand = new RoutedCommand();
+        public static readonly ICommand OpenCallSupportDeskWebsiteCommand = new RoutedCommand();
 
         /// <summary>
-        /// The command for opening the helpdesk water email information website.
+        /// The command for opening the support desk email information website.
         /// </summary>
-        public static readonly ICommand EmailHelpdeskWaterWebsiteCommand = new RoutedCommand();
+        public static readonly ICommand OpenEmailSupportDeskWebsiteCommand = new RoutedCommand();
     }
 }

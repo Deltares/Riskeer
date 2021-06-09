@@ -131,21 +131,21 @@ All rights reserved.
                 <StackPanel Orientation="Horizontal">
                     <Button Style="{StaticResource BackstageBigButtonStyle}"
                             Tag="{x:Static properties:Resources.VisitWebsite_DisplayName}"
-                            Command="{x:Static commands:MainWindowCommands.OpenHelpdeskWaterWebsiteCommand}">
+                            Command="{x:Static commands:MainWindowCommands.OpenSupportDeskWebsiteCommand}">
                         <TextBlock Style="{StaticResource BigButtonIconStyle}"
                                    Text="&#xE904;"/>
                     </Button>
 
                     <Button Style="{StaticResource BackstageBigButtonStyle}"
                             Tag="{x:Static properties:Resources.CallSupport_DisplayName}"
-                            Command="{x:Static commands:MainWindowCommands.CallHelpdeskWaterWebsiteCommand}">
+                            Command="{x:Static commands:MainWindowCommands.OpenCallSupportDeskWebsiteCommand}">
                         <TextBlock Style="{StaticResource BigButtonIconStyle}"
                                    Text="&#xE905;"/>
                     </Button>
     
                     <Button Style="{StaticResource BackstageBigButtonStyle}"
                             Tag="{x:Static properties:Resources.EmailSupport_DisplayName}"
-                            Command="{x:Static commands:MainWindowCommands.EmailHelpdeskWaterWebsiteCommand}">
+                            Command="{x:Static commands:MainWindowCommands.OpenEmailSupportDeskWebsiteCommand}">
                         <TextBlock Style="{StaticResource BigButtonIconStyle}"
                                    Text="&#xE906;"/>
                     </Button>

@@ -63,9 +63,9 @@ namespace Core.Gui.Forms.Backstage
             AboutViewModel = new AboutViewModel(settings.ApplicationName, version);
             SupportViewModel = new SupportViewModel(settings);
 
-            OpenHelpdeskWaterWebsiteCommand = new RelayCommand(OnOpenHelpdeskWaterWebsite);
-            EmailHelpdeskWaterSupportCommand = new RelayCommand(OnEmailHelpdeskWaterSupport);
-            CallHelpdeskWaterSupportCommand = new RelayCommand(OnCallHelpdeskWaterSupport);
+            OpenSupportDeskWebsiteCommand = new RelayCommand(OnOpenSupportDeskWebsite);
+            OpenEmailSupportDeskWebsiteCommand = new RelayCommand(OnOpenEmailSupportDeskWebsite);
+            OpenCallSupportDeskWebsiteCommand = new RelayCommand(OnOpenCallSupportDeskWebsite);
             OpenUserManualCommand = new RelayCommand(OnOpenUserManual, CanOpenUserManual);
             SetSelectedViewModelCommand = new RelayCommand(OnSetCurrentViewModel);
 
@@ -73,19 +73,19 @@ namespace Core.Gui.Forms.Backstage
         }
 
         /// <summary>
-        /// Gets the open Helpdesk water website command.
+        /// Gets command for opening the support desk website.
         /// </summary>
-        public ICommand OpenHelpdeskWaterWebsiteCommand { get; }
+        public ICommand OpenSupportDeskWebsiteCommand { get; }
 
         /// <summary>
-        /// Gets the open Helpdesk Water support command.
+        /// Gets command for opening the support desk email information website.
         /// </summary>
-        public ICommand EmailHelpdeskWaterSupportCommand { get; }
+        public ICommand OpenEmailSupportDeskWebsiteCommand { get; }
 
         /// <summary>
-        /// Gets the call Helpdesk Water support command.
+        /// Gets command for opening the support desk call information website.
         /// </summary>
-        public ICommand CallHelpdeskWaterSupportCommand { get; }
+        public ICommand OpenCallSupportDeskWebsiteCommand { get; }
 
         /// <summary>
         /// Gets the command to open the user manual.
@@ -186,17 +186,17 @@ namespace Core.Gui.Forms.Backstage
             SupportSelected = selectedViewModel is SupportViewModel;
         }
 
-        private void OnOpenHelpdeskWaterWebsite(object obj)
+        private void OnOpenSupportDeskWebsite(object obj)
         {
             Process.Start(settings.SupportWebsiteAddressUrl);
         }
 
-        private void OnEmailHelpdeskWaterSupport(object obj)
+        private void OnOpenEmailSupportDeskWebsite(object obj)
         {
             Process.Start(settings.SupportEmailAddressUrl);
         }
 
-        private void OnCallHelpdeskWaterSupport(object obj)
+        private void OnOpenCallSupportDeskWebsite(object obj)
         {
             Process.Start(settings.SupportPhoneNumberUrl);
         }
