@@ -854,10 +854,7 @@ namespace Core.Gui.Test
             plugin.Stub(p => p.GetStateInfos()).Return(Enumerable.Empty<StateInfo>());
             plugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
             plugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
-            plugin.Stub(p => p.GetTreeNodeInfos()).Return(new TreeNodeInfo[]
-            {
-                new TreeNodeInfo<IProject>()
-            });
+            plugin.Stub(p => p.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
             plugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
             plugin.Expect(p => p.Deactivate());
             plugin.Expect(p => p.Dispose());
@@ -887,10 +884,7 @@ namespace Core.Gui.Test
             plugin.Stub(p => p.GetStateInfos()).Return(Enumerable.Empty<StateInfo>());
             plugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
             plugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
-            plugin.Stub(p => p.GetTreeNodeInfos()).Return(new TreeNodeInfo[]
-            {
-                new TreeNodeInfo<IProject>()
-            });
+            plugin.Stub(p => p.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
             plugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
             plugin.Stub(p => p.Deactivate()).Throw(new Exception("MORE ERROR!"));
             plugin.Expect(p => p.Dispose());

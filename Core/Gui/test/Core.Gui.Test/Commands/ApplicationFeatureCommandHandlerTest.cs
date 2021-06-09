@@ -32,7 +32,7 @@ namespace Core.Gui.Test.Commands
     public class ApplicationFeatureCommandHandlerTest
     {
         [Test]
-        public void ShowPropertiesFor_InitializeAndShowPropertyGrid()
+        public void ShowPropertiesFor_Always_PropertiesInitializedOrBroughtToFront()
         {
             // Setup
             var mocks = new MockRepository();
