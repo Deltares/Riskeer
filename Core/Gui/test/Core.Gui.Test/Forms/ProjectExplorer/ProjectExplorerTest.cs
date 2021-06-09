@@ -26,10 +26,10 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
+using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Gui.Commands;
-using Core.Gui.Forms.ProjectExplorer;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -79,7 +79,7 @@ namespace Core.Gui.Test.Forms.ProjectExplorer
             using (var explorer = new Gui.Forms.ProjectExplorer.ProjectExplorer(viewCommands, Enumerable.Empty<TreeNodeInfo>()))
             {
                 // Assert
-                Assert.IsInstanceOf<IProjectExplorer>(explorer);
+                Assert.IsInstanceOf<IView>(explorer);
                 Assert.IsInstanceOf<UserControl>(explorer);
                 Assert.IsNull(explorer.Data);
             }

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
+using Core.Common.Controls.Views;
 using Core.Common.Util.Events;
 using Core.Gui.Commands;
 using Core.Gui.Properties;
@@ -33,7 +34,7 @@ namespace Core.Gui.Forms.ProjectExplorer
     /// This class describes a Project Explorer, which can be used to navigate and open views for elements
     /// in the project.
     /// </summary>
-    public sealed partial class ProjectExplorer : UserControl, IProjectExplorer
+    public sealed partial class ProjectExplorer : UserControl, IView
     {
         private readonly IViewCommands viewCommands;
 
