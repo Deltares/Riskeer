@@ -78,7 +78,7 @@ namespace Core.Gui.Forms.MainWindow
             InitializeComponent();
 
             windowInteropHelper = new WindowInteropHelper(this);
-            Name = "RiskeerMainWindow";
+            Name = "MainWindow";
 
             SaveProjectCommand = new RelayCommand(OnSaveProject);
             SaveProjectAsCommand = new RelayCommand(OnSaveProjectAs);
@@ -151,7 +151,7 @@ namespace Core.Gui.Forms.MainWindow
         public ProjectExplorer.ProjectExplorer ProjectExplorer { get; private set; }
 
         /// <summary>
-        /// Gets the log messages tool window.
+        /// Gets the <see cref="Core.Gui.Forms.MessageWindow.MessageWindow"/>.
         /// </summary>
         public IMessageWindow MessageWindow { get; private set; }
 
@@ -220,9 +220,8 @@ namespace Core.Gui.Forms.MainWindow
         /// <summary>
         /// Initializes and shows all the tool windows.
         /// </summary>
-        /// <exception cref="InvalidOperationException">
-        /// When a <see cref="IGui"/> hasn't been set with <see cref="SetGui"/>.
-        /// </exception>
+        /// <exception cref="InvalidOperationException">Thrown when an <see cref="IGui"/>
+        /// hasn't been set with <see cref="SetGui"/>.</exception>
         public void InitializeToolWindows()
         {
             if (gui == null)
@@ -561,14 +560,11 @@ namespace Core.Gui.Forms.MainWindow
 
         private void UpdateToolWindowButtonState()
         {
-            if (viewController.ViewHost != null)
-            {
-                ButtonShowProjectExplorer.IsChecked = viewController.ViewHost.ToolViews.Contains(ProjectExplorer);
-                ButtonShowMessages.IsChecked = viewController.ViewHost.ToolViews.Contains(MessageWindow);
-                ButtonShowProperties.IsChecked = viewController.ViewHost.ToolViews.Contains(PropertyGrid);
-                ButtonShowMapLegendView.IsChecked = viewController.ViewHost.ToolViews.Contains(MapLegendView);
-                ButtonShowChartLegendView.IsChecked = viewController.ViewHost.ToolViews.Contains(ChartLegendView);
-            }
+            ButtonShowProjectExplorer.IsChecked = viewController.ViewHost.ToolViews.Contains(ProjectExplorer);
+            ButtonShowMessages.IsChecked = viewController.ViewHost.ToolViews.Contains(MessageWindow);
+            ButtonShowProperties.IsChecked = viewController.ViewHost.ToolViews.Contains(PropertyGrid);
+            ButtonShowMapLegendView.IsChecked = viewController.ViewHost.ToolViews.Contains(MapLegendView);
+            ButtonShowChartLegendView.IsChecked = viewController.ViewHost.ToolViews.Contains(ChartLegendView);
         }
 
         private void InitProjectExplorerWindow()
@@ -617,11 +613,9 @@ namespace Core.Gui.Forms.MainWindow
             var mapView = e.View as IMapView;
             mapView?.Map.ZoomToVisibleLayers();
             UpdateComponentsForMapView(mapView);
-            currentMapView = mapView;
 
             var chartView = e.View as IChartView;
             UpdateComponentsForChartView(chartView);
-            currentChartView = chartView;
 
             if (e.View is MapLegendView || e.View is ChartLegendView)
             {

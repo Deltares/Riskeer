@@ -66,6 +66,9 @@ namespace Core.Gui.Forms.Chart
             treeViewControl.SelectedDataChanged += TreeViewControlSelectedDataChanged;
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="IChartControl"/>.
+        /// </summary>
         public IChartControl ChartControl
         {
             private get
