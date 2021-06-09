@@ -33,7 +33,7 @@ namespace Core.Gui.Plugin.Chart
         /// <summary>
         /// Creates the <see cref="PropertyInfo"/> objects.
         /// </summary>
-        /// <returns>The creates <see cref="PropertyInfo"/> objects.</returns>
+        /// <returns>The created <see cref="PropertyInfo"/> objects.</returns>
         public static IEnumerable<PropertyInfo> Create()
         {
             yield return new PropertyInfo<ChartDataCollection, ChartDataCollectionProperties>();
