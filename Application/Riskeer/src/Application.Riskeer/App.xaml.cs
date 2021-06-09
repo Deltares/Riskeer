@@ -36,7 +36,6 @@ using System.Windows.Forms;
 using Core.Common.Util;
 using Core.Common.Util.Settings;
 using Core.Gui;
-using Core.Gui.Appenders;
 using Core.Gui.Forms.MainWindow;
 using Core.Gui.Helpers;
 using Core.Gui.Settings;
@@ -239,9 +238,7 @@ namespace Application.Riskeer
         }
 
         /// <summary>
-        /// <code>app.config</code> has been configured to use <see cref="RiskeerUserDataFolderConverter"/>
-        /// to write log files to the Riskeer user data folder. This method deletes the old log files
-        /// that have been written there.
+        /// Delete the old log files.
         /// </summary>
         private static void DeleteOldLogFiles()
         {
