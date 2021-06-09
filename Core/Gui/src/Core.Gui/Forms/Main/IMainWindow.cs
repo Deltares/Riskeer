@@ -21,7 +21,7 @@
 
 using Core.Common.Controls.Views;
 
-namespace Core.Gui.Forms.MainWindow
+namespace Core.Gui.Forms.Main
 {
     /// <summary>
     /// Interface for the main user interface window of the application.

@@ -44,7 +44,7 @@ using Core.Gui.Selection;
 using Core.Gui.Settings;
 using FontFamily = System.Windows.Media.FontFamily;
 
-namespace Core.Gui.Forms.MainWindow
+namespace Core.Gui.Forms.Main
 {
     /// <summary>
     /// Main user interface of the application.

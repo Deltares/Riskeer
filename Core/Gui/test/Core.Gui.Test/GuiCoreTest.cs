@@ -36,7 +36,7 @@ using Core.Common.Util.Settings;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Chart;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Forms.Map;
 using Core.Gui.Forms.MessageWindow;
 using Core.Gui.Forms.ProjectExplorer;

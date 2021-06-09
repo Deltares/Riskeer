@@ -28,7 +28,7 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Util;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ProgressDialog;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;

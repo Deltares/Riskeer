@@ -30,7 +30,7 @@ using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.Settings;
 using Core.Gui.TestUtil;

@@ -28,7 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using Core.Gui;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Settings;
 using NUnit.Framework;
 using Rhino.Mocks;

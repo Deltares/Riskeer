@@ -27,7 +27,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;

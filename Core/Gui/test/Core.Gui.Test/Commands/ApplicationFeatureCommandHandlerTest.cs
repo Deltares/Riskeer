@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Core.Gui.Commands;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Forms.PropertyGridView;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;

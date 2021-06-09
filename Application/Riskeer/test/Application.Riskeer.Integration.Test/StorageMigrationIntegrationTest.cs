@@ -25,7 +25,7 @@ using System.Threading;
 using Application.Riskeer.Properties;
 using Core.Common.TestUtil;
 using Core.Gui;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Helpers;
 using Core.Gui.Settings;
 using NUnit.Framework;

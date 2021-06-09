@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Gui;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;

@@ -34,7 +34,7 @@ using Core.Common.Util.Extensions;
 using Core.Components.Gis.Data;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ProgressDialog;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;

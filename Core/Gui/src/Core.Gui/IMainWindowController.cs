@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 
 namespace Core.Gui
 {

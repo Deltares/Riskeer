@@ -36,7 +36,7 @@ using System.Windows.Forms;
 using Core.Common.Util;
 using Core.Common.Util.Settings;
 using Core.Gui;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Helpers;
 using Core.Gui.Settings;
 using log4net;

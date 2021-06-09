@@ -39,7 +39,7 @@ using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Forms;
 using Core.Gui.Commands;
 using Core.Gui.Forms.Chart;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Forms.Map;
 using Core.Gui.Forms.MessageWindow;
 using Core.Gui.Forms.PropertyGridView;
@@ -56,7 +56,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 
-namespace Core.Gui.Test.Forms.MainWindow
+namespace Core.Gui.Test.Forms.Main
 {
     [TestFixture]
     [Apartment(ApartmentState.STA)]
@@ -82,7 +82,7 @@ namespace Core.Gui.Test.Forms.MainWindow
         public void Constructor_ExpectedValues()
         {
             // Call
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             {
                 // Assert
                 Assert.IsInstanceOf<IMainWindow>(mainWindow);
@@ -131,7 +131,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             {
                 // Call
                 mainWindow.SetGui(gui);
@@ -147,7 +147,7 @@ namespace Core.Gui.Test.Forms.MainWindow
         public void Dispose_SetIsWindowDisposedTrue()
         {
             // Setup
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             {
                 // Call
                 mainWindow.Dispose();
@@ -163,7 +163,7 @@ namespace Core.Gui.Test.Forms.MainWindow
         public void Visible_SettingValueWithoutHavingSetGui_ThrowInvalidOperationException(bool newVisibleValue)
         {
             // Setup
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             {
                 // Call
                 void Call() => mainWindow.Visible = newVisibleValue;
@@ -187,7 +187,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             gui.Stub(g => g.ViewHost).Return(viewHost);
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);
 
@@ -217,7 +217,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             gui.Stub(g => g.ViewHost).Return(viewHost);
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);
                 mainWindow.Visible = true;
@@ -238,7 +238,7 @@ namespace Core.Gui.Test.Forms.MainWindow
         public void SubscribeToGui_NoGuiSet_DoNothing()
         {
             // Setup
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             {
                 // Call
                 void Call() => mainWindow.SubscribeToGui();
@@ -264,7 +264,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);
 
@@ -280,7 +280,7 @@ namespace Core.Gui.Test.Forms.MainWindow
         public void UnsubscribeFromGui_NoGuiSet_DoNothing()
         {
             // Setup
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             {
                 // Call
                 void Call() => mainWindow.UnsubscribeFromGui();
@@ -310,7 +310,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);
                 mainWindow.SubscribeToGui();
@@ -327,7 +327,7 @@ namespace Core.Gui.Test.Forms.MainWindow
         public void InitPropertiesWindowOrBringToFront_GuiNotSet_ThrowsInvalidOperationException()
         {
             // Setup
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             {
                 // Call
                 void Call() => mainWindow.InitPropertiesWindowOrBringToFront();
@@ -358,7 +358,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);
 
@@ -396,7 +396,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             gui.Stub(g => g.FixedSettings).Return(new GuiCoreSettings());
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);
                 mainWindow.InitPropertiesWindowOrBringToFront();
@@ -420,7 +420,7 @@ namespace Core.Gui.Test.Forms.MainWindow
         public void InitializeToolWindows_GuiNotSet_ThrowInvalidOperationException()
         {
             // Setup
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             {
                 // Call
                 void Call() => mainWindow.InitializeToolWindows();
@@ -463,7 +463,7 @@ namespace Core.Gui.Test.Forms.MainWindow
 
             gui.Selection = selectedObject;
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             {
                 mainWindow.SetGui(gui);
 
@@ -547,7 +547,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(project);
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
@@ -578,7 +578,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(project);
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new TestPlugin(new[]
@@ -615,7 +615,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(project);
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new TestPlugin(new[]
@@ -654,7 +654,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(project1);
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new TestPlugin());
@@ -695,7 +695,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(project1);
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new TestPlugin(new[]
@@ -740,7 +740,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(project1);
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.Add(new TestPlugin(new[]
@@ -784,7 +784,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
@@ -820,7 +820,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
@@ -857,7 +857,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
@@ -898,7 +898,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
@@ -937,7 +937,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
@@ -978,7 +978,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
@@ -1015,7 +1015,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
@@ -1056,7 +1056,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
@@ -1095,7 +1095,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
@@ -1138,7 +1138,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
@@ -1204,7 +1204,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                     ApplicationIcon = CoreGuiTestUtilResources.TestIcon
                 };
 
-                using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+                using (var mainWindow = new MainWindow())
                 using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
                 {
                     gui.Run();
@@ -1272,7 +1272,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                     ApplicationIcon = CoreGuiTestUtilResources.TestIcon
                 };
 
-                using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+                using (var mainWindow = new MainWindow())
                 using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
                 {
                     gui.Run();
@@ -1336,7 +1336,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                 ApplicationIcon = CoreGuiTestUtilResources.TestIcon
             };
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
             {
                 gui.Run();
@@ -1373,7 +1373,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(project);
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
@@ -1404,7 +1404,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(project);
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
@@ -1439,7 +1439,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(project);
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
@@ -1464,8 +1464,8 @@ namespace Core.Gui.Test.Forms.MainWindow
             mocks.VerifyAll();
         }
 
-        private static void ToggleToolViewAndAssert(Func<Gui.Forms.MainWindow.MainWindow, IView> getToolViewFunc,
-                                                    Func<Gui.Forms.MainWindow.MainWindow, ICommand> getCommandFunc,
+        private static void ToggleToolViewAndAssert(Func<MainWindow, IView> getToolViewFunc,
+                                                    Func<MainWindow, ICommand> getCommandFunc,
                                                     bool initiallyAdded)
         {
             // Given
@@ -1478,7 +1478,7 @@ namespace Core.Gui.Test.Forms.MainWindow
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
-            using (var mainWindow = new Gui.Forms.MainWindow.MainWindow())
+            using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
@@ -1519,7 +1519,7 @@ namespace Core.Gui.Test.Forms.MainWindow
             }
         }
 
-        private static void AssertVisibility(Gui.Forms.MainWindow.MainWindow mainWindow, bool backStageVisible)
+        private static void AssertVisibility(MainWindow mainWindow, bool backStageVisible)
         {
             if (backStageVisible)
             {

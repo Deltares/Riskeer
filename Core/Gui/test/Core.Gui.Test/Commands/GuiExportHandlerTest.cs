@@ -30,7 +30,7 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Gui.Commands;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.Properties;
 using NUnit.Extensions.Forms;

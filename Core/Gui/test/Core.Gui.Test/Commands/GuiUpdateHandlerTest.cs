@@ -27,7 +27,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Commands;
 using Core.Gui.Forms;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
 using Core.Gui.TestUtil;
