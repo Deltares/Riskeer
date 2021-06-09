@@ -23,7 +23,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using CoreCommonGuiResources = Core.Gui.Properties.Resources;
+using Core.Gui.Properties;
 
 namespace Core.Gui.Attributes
 {
@@ -67,7 +67,7 @@ namespace Core.Gui.Attributes
             if (methodInfo.ReturnType != typeof(bool))
             {
                 string message = string.Format(CultureInfo.CurrentCulture,
-                                               CoreCommonGuiResources.DynamicVisibleValidationMethod_must_return_bool_on_Class_0_,
+                                               Resources.DynamicVisibleValidationMethod_must_return_bool_on_Class_0_,
                                                methodInfo.DeclaringType);
                 throw new MissingMethodException(message);
             }
@@ -76,7 +76,7 @@ namespace Core.Gui.Attributes
             if (parameterInfos.Length != 1)
             {
                 string message = string.Format(CultureInfo.CurrentCulture,
-                                               CoreCommonGuiResources.DynamicVisibleValidationMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_,
+                                               Resources.DynamicVisibleValidationMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_,
                                                methodInfo.DeclaringType);
                 throw new MissingMethodException(message);
             }
@@ -84,7 +84,7 @@ namespace Core.Gui.Attributes
             if (parameterInfos[0].ParameterType != typeof(string))
             {
                 string message = string.Format(CultureInfo.CurrentCulture,
-                                               CoreCommonGuiResources.DynamicVisibleValidationMethod_must_have_string_argument_on_Class_0_,
+                                               Resources.DynamicVisibleValidationMethod_must_have_string_argument_on_Class_0_,
                                                methodInfo.DeclaringType);
                 throw new MissingMethodException(message);
             }
@@ -99,7 +99,7 @@ namespace Core.Gui.Attributes
             if (validationMethods.Length == 0)
             {
                 string message = string.Format(CultureInfo.CurrentCulture,
-                                               CoreCommonGuiResources.DynamicVisibleValidationMethod_not_found_or_not_public_on_Class_0_,
+                                               Resources.DynamicVisibleValidationMethod_not_found_or_not_public_on_Class_0_,
                                                obj.GetType());
                 throw new MissingMethodException(message);
             }
@@ -107,7 +107,7 @@ namespace Core.Gui.Attributes
             if (validationMethods.Length > 1)
             {
                 string message = string.Format(CultureInfo.CurrentCulture,
-                                               CoreCommonGuiResources.DynamicVisibleValidationMethod_only_one_allowed_per_Class_0_,
+                                               Resources.DynamicVisibleValidationMethod_only_one_allowed_per_Class_0_,
                                                obj.GetType());
                 throw new MissingMethodException(message);
             }
