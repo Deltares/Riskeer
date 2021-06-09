@@ -2357,7 +2357,7 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opslaan Als.
+        ///   Looks up a localized string similar to Opslaan als.
         /// </summary>
         public static string SaveProjectAs_DisplayName {
             get {
