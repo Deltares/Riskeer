@@ -80,6 +80,21 @@ namespace Core.Gui.Test.Forms.Chart
             }
         }
 
+        private static IEnumerable<ChartData> DragChartData
+        {
+            get
+            {
+                return new ChartData[]
+                {
+                    new ChartPointData("test"),
+                    new ChartLineData("test"),
+                    new ChartAreaData("test"),
+                    new ChartMultipleLineData("test"),
+                    new ChartDataCollection("test")
+                };
+            }
+        }
+
         private static IEnumerable<TestCaseData> IsCheckedChartData
         {
             get
@@ -227,7 +242,7 @@ namespace Core.Gui.Test.Forms.Chart
         }
 
         [Test]
-        [TestCaseSource(nameof(NoChartDataCollection))]
+        [TestCaseSource(nameof(DragChartData))]
         public void CanDrag_WrappedDataOtherThanChartMultipleAreaData_ReturnsTrue(ChartData chartData)
         {
             // Setup
