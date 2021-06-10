@@ -24,6 +24,7 @@ using System.Globalization;
 using System.Linq;
 using System.Management;
 using System.Windows;
+using Core.Gui.Properties;
 
 namespace Core.Gui.Forms.Backstage
 {
@@ -42,9 +43,12 @@ namespace Core.Gui.Forms.Backstage
             ApplicationName = applicationName;
             Version = version;
 
-            WindowsEdition = (string) GetOperatingSystemValue("Caption");
-            WindowsBuild = (string) GetOperatingSystemValue("BuildNumber");
-            Processor = (string) GetProcessorValue("Name");
+            WindowsEdition = (string) GetManagementObjectProperty("Win32_OperatingSystem", "Caption")
+                             ?? Resources.AboutViewModel_Unknown_value;
+            WindowsBuild = (string) GetManagementObjectProperty("Win32_OperatingSystem", "BuildNumber")
+                           ?? Resources.AboutViewModel_Unknown_value;
+            Processor = (string) GetManagementObjectProperty("Win32_Processor", "Name")
+                        ?? Resources.AboutViewModel_Unknown_value;
         }
 
         /// <summary>
@@ -81,9 +85,13 @@ namespace Core.Gui.Forms.Backstage
             {
                 const double kilobyteDivider = 1024.0;
                 const double gigabyteDivider = kilobyteDivider * kilobyteDivider * kilobyteDivider;
-                double installedRam = (ulong) GetComputerSystemValue("TotalPhysicalMemory") / gigabyteDivider;
+                object totalPhysicalMemory = GetManagementObjectProperty("Win32_ComputerSystem", "TotalPhysicalMemory");
 
-                return $"{Math.Round(installedRam, 2).ToString(CultureInfo.InvariantCulture)} GB";
+                return totalPhysicalMemory != null
+                           ? string.Format(Resources.AboutViewModel_InstalledRam_0_GB,
+                                           Math.Round((ulong) totalPhysicalMemory / gigabyteDivider, 2)
+                                               .ToString(CultureInfo.InvariantCulture))
+                           : Resources.AboutViewModel_Unknown_value;
             }
         }
 
@@ -94,34 +102,21 @@ namespace Core.Gui.Forms.Backstage
             $"{SystemParameters.PrimaryScreenWidth.ToString(CultureInfo.InvariantCulture)} " +
             $"x {SystemParameters.PrimaryScreenHeight.ToString(CultureInfo.InvariantCulture)}";
 
-        private static object GetOperatingSystemValue(string propertyName)
+        private static object GetManagementObjectProperty(string managementObjectName, string propertyName)
         {
-            ManagementObject managementObject =
-                new ManagementObjectSearcher("select * from Win32_OperatingSystem")
-                    .Get()
-                    .Cast<ManagementObject>()
-                    .First();
-            return managementObject[propertyName];
-        }
-
-        private static object GetProcessorValue(string propertyName)
-        {
-            ManagementObject managementObject =
-                new ManagementObjectSearcher("select * from Win32_Processor")
-                    .Get()
-                    .Cast<ManagementObject>()
-                    .First();
-            return managementObject[propertyName];
-        }
-
-        private static object GetComputerSystemValue(string propertyName)
-        {
-            ManagementObject managementObject =
-                new ManagementObjectSearcher("select * from Win32_ComputerSystem")
-                    .Get()
-                    .Cast<ManagementObject>()
-                    .First();
-            return managementObject[propertyName];
+            try
+            {
+                ManagementObject managementObject =
+                    new ManagementObjectSearcher($"select * from {managementObjectName}")
+                        .Get()
+                        .Cast<ManagementObject>()
+                        .FirstOrDefault();
+                return managementObject?[propertyName];
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

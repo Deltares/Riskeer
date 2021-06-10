@@ -934,4 +934,10 @@
   <data name="Description_DisplayName" xml:space="preserve">
     <value>Omschrijving</value>
   </data>
+  <data name="AboutViewModel_InstalledRam_0_GB" xml:space="preserve">
+    <value>{0} GB</value>
+  </data>
+  <data name="AboutViewModel_Unknown_value" xml:space="preserve">
+    <value>-</value>
+  </data>
 </root>

@@ -91,6 +91,24 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} GB.
+        /// </summary>
+        public static string AboutViewModel_InstalledRam_0_GB {
+            get {
+                return ResourceManager.GetString("AboutViewModel_InstalledRam_0_GB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -.
+        /// </summary>
+        public static string AboutViewModel_Unknown_value {
+            get {
+                return ResourceManager.GetString("AboutViewModel_Unknown_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bezig met het afronden van huidige taak, daarna annuleren....
         /// </summary>
         public static string ActivityProgressDialog_CancelActivities_Quit_after_finishing_current_activity {
