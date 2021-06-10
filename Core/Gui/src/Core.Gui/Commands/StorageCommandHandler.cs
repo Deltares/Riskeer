@@ -56,7 +56,7 @@ namespace Core.Gui.Commands
         /// <param name="projectFactory">The factory to use when creating new projects.</param>
         /// <param name="projectOwner">The class owning the application project.</param>
         /// <param name="inquiryHelper">The object facilitating user interaction.</param>
-        /// <param name="mainWindowController">The object owning the parent Controller for UI.</param>
+        /// <param name="mainWindowController">The object owning the parent controller for UI.</param>
         public StorageCommandHandler(IStoreProject projectStorage, IMigrateProject projectMigrator,
                                      IProjectFactory projectFactory, IProjectOwner projectOwner,
                                      IInquiryHelper inquiryHelper, IMainWindowController mainWindowController)

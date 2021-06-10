@@ -35,7 +35,7 @@ namespace Core.Common.Base.Data
         /// when the project is created.</param>
         /// <returns>An empty <see cref="IProject"/> object.</returns>
         /// <exception cref="ProjectFactoryException">Thrown when something
-        /// went wrong while creating an <see cref="IProject"/> object.</exception>
+        /// went wrong while creating the <see cref="IProject"/> object.</exception>
         IProject CreateNewProject(Func<object> onCreateNewProjectFunc);
     }
 }

@@ -29,10 +29,6 @@
     <None Include="Resources\table-export.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\IconButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Forms\Backstage\AboutBackstagePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -78,7 +74,6 @@
     <Resource Include="Resources\Paste.png" />
     <Resource Include="Resources\PasteLarge.png" />
     <Resource Include="Resources\PropertiesHS.png" />
-    <Resource Include="Resources\SplashScreenBackground.png" />
     <Resource Include="Style\Symbols\Symbols.ttf" />
   </ItemGroup>
   <ItemGroup>
