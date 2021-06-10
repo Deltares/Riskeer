@@ -31,6 +31,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
+using Core.Common.Util.Extensions;
 using Core.Common.Util.Settings;
 using Core.Components.Chart.Forms;
 using Core.Components.Gis.Forms;
@@ -294,6 +295,7 @@ namespace Core.Gui.Forms.Main
             var stateToggleButton = new ToggleButton
             {
                 Tag = text,
+                IsEnabled = false,
                 Style = (Style) FindResource("MainButtonBarToggleButtonStyle"),
                 Content = new TextBlock
                 {
@@ -334,13 +336,36 @@ namespace Core.Gui.Forms.Main
             UpdateProjectExplorer();
         }
 
-        private void ResetState()
+        public void ResetState()
         {
-            if (stateToggleButtonLookup.Any())
+            if (!stateToggleButtonLookup.Any())
             {
+                return;
+            }
+            
+            if (gui.Project == null)
+            {
+                stateToggleButtonLookup.Keys.ForEachElementDo(stb =>
+                {
+                    stb.IsChecked = false;
+                    stb.IsEnabled = false;
+                });
+
+                gui.DocumentViewController.CloseAllViews();
+                
+                UpdateProjectExplorer();
+            }
+            else
+            {
+                stateToggleButtonLookup.Keys.ForEachElementDo(stb =>
+                {
+                    stb.IsEnabled = true;
+                });
+
                 ToggleButton firstStateToggleButton = stateToggleButtonLookup.First().Key;
 
                 firstStateToggleButton.IsChecked = true;
+
                 HandleStateButtonClick(firstStateToggleButton);
             }
         }
