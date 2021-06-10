@@ -34,7 +34,7 @@ namespace Core.Gui.Forms.Project
     /// This class describes a Project Explorer, which can be used to navigate and open views for elements
     /// in the project.
     /// </summary>
-    public sealed partial class ProjectExplorer : UserControl, IView
+    public sealed partial class ProjectExplorer : UserControl, IView, ISelectionProvider
     {
         private readonly IViewCommands viewCommands;
 

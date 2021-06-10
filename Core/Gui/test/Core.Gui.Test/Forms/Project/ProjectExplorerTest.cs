@@ -81,6 +81,7 @@ namespace Core.Gui.Test.Forms.Project
             {
                 // Assert
                 Assert.IsInstanceOf<IView>(explorer);
+                Assert.IsInstanceOf<ISelectionProvider>(explorer);
                 Assert.IsInstanceOf<UserControl>(explorer);
                 Assert.IsNull(explorer.Data);
             }
