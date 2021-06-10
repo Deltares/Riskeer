@@ -249,23 +249,6 @@ namespace Core.Gui.Forms.Main
             UpdateToolWindowButtonState();
         }
 
-        /// <summary>
-        /// Updates the data of the <see cref="ProjectExplorer"/>.
-        /// </summary>
-        public void UpdateProjectExplorer()
-        {
-            if (ProjectExplorer == null)
-            {
-                return;
-            }
-
-            ToggleButton checkedStateToggleButton = stateToggleButtonLookup.Keys.FirstOrDefault(stb => stb.IsChecked.HasValue && stb.IsChecked.Value);
-
-            ProjectExplorer.Data = checkedStateToggleButton != null
-                                       ? stateToggleButtonLookup[checkedStateToggleButton](gui.Project)
-                                       : null;
-        }
-
         public void Dispose()
         {
             Dispose(true);
@@ -290,6 +273,8 @@ namespace Core.Gui.Forms.Main
             applicationSelection = null;
         }
 
+        #region State
+
         internal void AddStateButton(string text, string symbol, FontFamily fontFamily, Func<IProject, object> getRootData)
         {
             var stateToggleButton = new ToggleButton
@@ -310,6 +295,37 @@ namespace Core.Gui.Forms.Main
             MainButtonStackPanel.Children.Insert(MainButtonStackPanel.Children.Count - 1, stateToggleButton);
 
             stateToggleButtonLookup.Add(stateToggleButton, getRootData);
+        }
+
+        internal void ResetState()
+        {
+            if (!stateToggleButtonLookup.Any())
+            {
+                return;
+            }
+
+            if (gui.Project == null)
+            {
+                stateToggleButtonLookup.Keys.ForEachElementDo(stb =>
+                {
+                    stb.IsChecked = false;
+                    stb.IsEnabled = false;
+                });
+
+                gui.DocumentViewController.CloseAllViews();
+
+                UpdateProjectExplorer();
+            }
+            else
+            {
+                stateToggleButtonLookup.Keys.ForEachElementDo(stb => { stb.IsEnabled = true; });
+
+                ToggleButton firstStateToggleButton = stateToggleButtonLookup.First().Key;
+
+                firstStateToggleButton.IsChecked = true;
+
+                HandleStateButtonClick(firstStateToggleButton);
+            }
         }
 
         private void HandleStateButtonClick(ToggleButton clickedStateToggleButton)
@@ -336,39 +352,7 @@ namespace Core.Gui.Forms.Main
             UpdateProjectExplorer();
         }
 
-        public void ResetState()
-        {
-            if (!stateToggleButtonLookup.Any())
-            {
-                return;
-            }
-            
-            if (gui.Project == null)
-            {
-                stateToggleButtonLookup.Keys.ForEachElementDo(stb =>
-                {
-                    stb.IsChecked = false;
-                    stb.IsEnabled = false;
-                });
-
-                gui.DocumentViewController.CloseAllViews();
-                
-                UpdateProjectExplorer();
-            }
-            else
-            {
-                stateToggleButtonLookup.Keys.ForEachElementDo(stb =>
-                {
-                    stb.IsEnabled = true;
-                });
-
-                ToggleButton firstStateToggleButton = stateToggleButtonLookup.First().Key;
-
-                firstStateToggleButton.IsChecked = true;
-
-                HandleStateButtonClick(firstStateToggleButton);
-            }
-        }
+        #endregion
 
         #region Commands
 
@@ -601,6 +585,20 @@ namespace Core.Gui.Forms.Main
             viewController.ViewHost.AddToolView(ProjectExplorer, ToolViewLocation.Left, "\uE907");
 
             UpdateProjectExplorer();
+        }
+
+        private void UpdateProjectExplorer()
+        {
+            if (ProjectExplorer == null)
+            {
+                return;
+            }
+
+            ToggleButton checkedStateToggleButton = stateToggleButtonLookup.Keys.FirstOrDefault(stb => stb.IsChecked.HasValue && stb.IsChecked.Value);
+
+            ProjectExplorer.Data = checkedStateToggleButton != null
+                                       ? stateToggleButtonLookup[checkedStateToggleButton](gui.Project)
+                                       : null;
         }
 
         private void InitMessagesWindow()

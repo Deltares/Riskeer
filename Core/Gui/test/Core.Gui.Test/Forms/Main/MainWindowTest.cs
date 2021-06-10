@@ -535,7 +535,7 @@ namespace Core.Gui.Test.Forms.Main
         }
 
         [Test]
-        public void GivenGuiWithProjectExplorerAndNoStateInfos_WhenInitializeToolWindows_ThenNoDataSetOnProjectExplorer()
+        public void GivenGuiWithProjectExplorerAndNoStateInfos_WhenProjectSet_ThenNoDataSetOnProjectExplorer()
         {
             // Given
             var mocks = new MockRepository();
@@ -543,9 +543,6 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
-                          .Return(project);
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
@@ -556,7 +553,7 @@ namespace Core.Gui.Test.Forms.Main
                 mainWindow.SetGui(gui);
 
                 // When
-                mainWindow.InitializeToolWindows();
+                gui.SetProject(project, null);
 
                 // Then
                 Assert.IsNull(mainWindow.ProjectExplorer.Data);
@@ -566,7 +563,7 @@ namespace Core.Gui.Test.Forms.Main
         }
 
         [Test]
-        public void GivenGuiWithProjectExplorerAndSingleStateInfo_WhenInitializeToolWindows_ThenExpectedDataSetOnProjectExplorer()
+        public void GivenGuiWithProjectExplorerAndSingleStateInfo_WhenProjectSet_ThenExpectedDataSetOnProjectExplorer()
         {
             // Given
             var mocks = new MockRepository();
@@ -574,9 +571,6 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
-                          .Return(project);
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
@@ -590,10 +584,9 @@ namespace Core.Gui.Test.Forms.Main
                 gui.Run();
 
                 mainWindow.SetGui(gui);
-                gui.SetProject(project, null);
 
                 // When
-                mainWindow.InitializeToolWindows();
+                gui.SetProject(project, null);
 
                 // Then
                 Assert.AreSame(project, mainWindow.ProjectExplorer.Data);
@@ -603,7 +596,7 @@ namespace Core.Gui.Test.Forms.Main
         }
 
         [Test]
-        public void GivenGuiWithProjectExplorerAndMultipleStateInfos_WhenInitializeToolWindows_ThenExpectedDataSetOnProjectExplorer()
+        public void GivenGuiWithProjectExplorerAndMultipleStateInfos_WhenProjectSet_ThenExpectedDataSetOnProjectExplorer()
         {
             // Given
             var mocks = new MockRepository();
@@ -611,9 +604,6 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
-                          .Return(project);
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
@@ -628,145 +618,12 @@ namespace Core.Gui.Test.Forms.Main
                 gui.Run();
 
                 mainWindow.SetGui(gui);
-                gui.SetProject(project, null);
 
                 // When
-                mainWindow.InitializeToolWindows();
+                gui.SetProject(project, null);
 
                 // Then
                 Assert.AreSame(project, mainWindow.ProjectExplorer.Data);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenGuiWithProjectExplorerAndNoStateInfos_WhenUpdateProjectExplorer_ThenNoDataSetOnProjectExplorer()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var project1 = mocks.Stub<IProject>();
-            var project2 = mocks.Stub<IProject>();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
-                          .Return(project1);
-            mocks.ReplayAll();
-
-            using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                gui.Plugins.Add(new TestPlugin());
-
-                gui.Run();
-
-                mainWindow.SetGui(gui);
-                mainWindow.InitializeToolWindows();
-
-                // Precondition
-                Assert.IsNotNull(mainWindow.ProjectExplorer);
-                Assert.IsNull(mainWindow.ProjectExplorer.Data);
-
-                gui.SetProject(project2, string.Empty);
-
-                // When
-                mainWindow.UpdateProjectExplorer();
-
-                // Then
-                Assert.IsNull(mainWindow.ProjectExplorer.Data);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenGuiWithProjectExplorerAndSingleStateInfo_WhenUpdateProjectExplorer_ThenExpectedDataSetOnProjectExplorer()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var project1 = mocks.Stub<IProject>();
-            var project2 = mocks.Stub<IProject>();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
-                          .Return(project1);
-            mocks.ReplayAll();
-
-            using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                gui.Plugins.Add(new TestPlugin(new[]
-                {
-                    new StateInfo("Name", "Symbol", new FontFamily(), p => p)
-                }));
-
-                gui.Run();
-
-                mainWindow.SetGui(gui);
-                mainWindow.InitializeToolWindows();
-                gui.SetProject(project1, null);
-
-                // Precondition
-                Assert.IsNotNull(mainWindow.ProjectExplorer);
-                Assert.AreSame(project1, mainWindow.ProjectExplorer.Data);
-
-                gui.SetProject(project2, string.Empty);
-
-                // When
-                mainWindow.UpdateProjectExplorer();
-
-                // Then
-                Assert.AreSame(project2, mainWindow.ProjectExplorer.Data);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenGuiWithProjectExplorerAndMultipleStateInfos_WhenUpdateProjectExplorer_ThenExpectedDataSetOnProjectExplorer()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var project1 = mocks.Stub<IProject>();
-            var project2 = mocks.Stub<IProject>();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
-                          .Return(project1);
-            mocks.ReplayAll();
-
-            using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                gui.Plugins.Add(new TestPlugin(new[]
-                {
-                    new StateInfo("Name", "Symbol", new FontFamily(), p => p),
-                    new StateInfo("Name", "Symbol", new FontFamily(), p => new object())
-                }));
-
-                gui.Run();
-
-                mainWindow.SetGui(gui);
-                mainWindow.InitializeToolWindows();
-                gui.SetProject(project1, null);
-
-                // Precondition
-                Assert.IsNotNull(mainWindow.ProjectExplorer);
-                Assert.AreSame(project1, mainWindow.ProjectExplorer.Data);
-
-                gui.SetProject(project2, string.Empty);
-
-                // When
-                mainWindow.UpdateProjectExplorer();
-
-                // Then
-                Assert.AreSame(project2, mainWindow.ProjectExplorer.Data);
             }
 
             mocks.VerifyAll();
