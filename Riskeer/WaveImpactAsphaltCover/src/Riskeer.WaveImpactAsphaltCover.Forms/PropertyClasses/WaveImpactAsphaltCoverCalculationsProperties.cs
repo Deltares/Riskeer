@@ -35,7 +35,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="WaveImpactAsphaltCoverFailureMechanism"/> for properties panel.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanismProperties : ObjectProperties<WaveImpactAsphaltCoverFailureMechanism>
+    public class WaveImpactAsphaltCoverCalculationsProperties : ObjectProperties<WaveImpactAsphaltCoverFailureMechanism>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -51,12 +51,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverCalculationsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="assessmentSection">The assessment section the data belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverFailureMechanismProperties(WaveImpactAsphaltCoverFailureMechanism data, IAssessmentSection assessmentSection)
+        public WaveImpactAsphaltCoverCalculationsProperties(WaveImpactAsphaltCoverFailureMechanism data, IAssessmentSection assessmentSection)
         {
             if (data == null)
             {

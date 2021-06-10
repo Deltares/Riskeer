@@ -36,7 +36,7 @@ using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverFailureMechanismPropertiesTest
+    public class WaveImpactAsphaltCoverCalculationsPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -59,7 +59,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverFailureMechanismProperties(null, assessmentSection);
+            TestDelegate test = () => new WaveImpactAsphaltCoverCalculationsProperties(null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -71,7 +71,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism(), null);
+            TestDelegate call = () => new WaveImpactAsphaltCoverCalculationsProperties(new WaveImpactAsphaltCoverFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -95,7 +95,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new WaveImpactAsphaltCoverCalculationsProperties(failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreSame(failureMechanism, properties.Data);
@@ -134,7 +134,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(
+            var properties = new WaveImpactAsphaltCoverCalculationsProperties(
                 new WaveImpactAsphaltCoverFailureMechanism
                 {
                     IsRelevant = true
@@ -236,7 +236,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(
+            var properties = new WaveImpactAsphaltCoverCalculationsProperties(
                 new WaveImpactAsphaltCoverFailureMechanism
                 {
                     IsRelevant = false
@@ -297,7 +297,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new WaveImpactAsphaltCoverCalculationsProperties(failureMechanism, assessmentSection);
 
             // Call
             TestDelegate call = () => properties.DeltaL = (RoundedDouble) value;
@@ -325,7 +325,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new WaveImpactAsphaltCoverCalculationsProperties(failureMechanism, assessmentSection);
 
             // Call
             properties.DeltaL = (RoundedDouble) value;
@@ -347,7 +347,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(
+            var properties = new WaveImpactAsphaltCoverCalculationsProperties(
                 new WaveImpactAsphaltCoverFailureMechanism
                 {
                     IsRelevant = isRelevant

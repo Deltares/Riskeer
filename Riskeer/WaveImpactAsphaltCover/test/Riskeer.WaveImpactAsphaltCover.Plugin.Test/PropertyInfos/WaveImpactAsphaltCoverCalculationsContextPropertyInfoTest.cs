@@ -32,7 +32,7 @@ using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverFailureMechanismContextPropertyInfoTest
+    public class WaveImpactAsphaltCoverCalculationsContextPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -45,7 +45,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.AreEqual(typeof(WaveImpactAsphaltCoverCalculationsContext), info.DataType);
-                Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(WaveImpactAsphaltCoverCalculationsProperties), info.PropertyObjectType);
             }
         }
 
@@ -68,7 +68,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismProperties>(objectProperties);
+                Assert.IsInstanceOf<WaveImpactAsphaltCoverCalculationsProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
 
