@@ -590,8 +590,7 @@ namespace Core.Gui.Test
             var project = mocks.Stub<IProject>();
             projectStore.Expect(ps => ps.LoadProject(testFile)).Return(project);
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(project);
             mocks.ReplayAll();
 
@@ -1502,8 +1501,7 @@ namespace Core.Gui.Test
         private static IProjectFactory CreateProjectFactory(MockRepository mocks)
         {
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(mocks.Stub<IProject>());
 
             return projectFactory;

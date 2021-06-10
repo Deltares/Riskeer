@@ -135,8 +135,10 @@ namespace Application.Riskeer
 
             var mainWindow = new MainWindow();
             var projectMigrator = new ProjectMigrator(new DialogBasedInquiryHelper(mainWindow));
+            var assessmentSectionFromFileHandler = new AssessmentSectionFromFileHandler(mainWindow);
+            var projectFactory = new RiskeerProjectFactory(() => assessmentSectionFromFileHandler.GetAssessmentSectionFromFile());
 
-            gui = new GuiCore(mainWindow, new StorageSqLite(), projectMigrator, new RiskeerProjectFactory(), settings)
+            gui = new GuiCore(mainWindow, new StorageSqLite(), projectMigrator, projectFactory, settings)
             {
                 Plugins =
                 {

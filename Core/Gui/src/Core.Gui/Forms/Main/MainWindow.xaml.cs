@@ -423,7 +423,7 @@ namespace Core.Gui.Forms.Main
 
         private void OnNewProject(object obj)
         {
-            commands.StorageCommands.CreateNewProject(() => settings.FixedSettings.OnCreateNewProjectFunc(gui));
+            commands.StorageCommands.CreateNewProject();
             CloseBackstage();
         }
 

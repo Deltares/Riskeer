@@ -67,7 +67,7 @@ namespace Application.Riskeer.Integration.Test
                  ApplicationIcon = Resources.Riskeer
             };
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), guiCoreSettings))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), guiCoreSettings))
             {
                 // When
                 gui.Run(targetFilePath);
@@ -110,7 +110,7 @@ namespace Application.Riskeer.Integration.Test
                 ApplicationIcon = Resources.Riskeer
             };
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), guiCoreSettings))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), guiCoreSettings))
             {
 
                 // When
@@ -144,7 +144,7 @@ namespace Application.Riskeer.Integration.Test
 
             var projectMigrator = new ProjectMigrator(inquiryHelper);
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 // When
                 gui.Run(sourceFilePath);

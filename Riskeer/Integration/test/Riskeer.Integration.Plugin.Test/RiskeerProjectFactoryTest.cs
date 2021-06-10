@@ -33,28 +33,24 @@ namespace Riskeer.Integration.Plugin.Test
     public class RiskeerProjectFactoryTest
     {
         [Test]
-        public void CreateNewProject_OnCreateNewProjectFuncNull_ThrowsArgumentNullException()
+        public void Constructor_CreateAssessmentSectionFuncNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var projectFactory = new RiskeerProjectFactory();
-
             // Call
-            void Call() => projectFactory.CreateNewProject(null);
+            void Call() => new RiskeerProjectFactory(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("onCreateNewProjectFunc", exception.ParamName);
+            Assert.AreEqual("createAssessmentSectionFunc", exception.ParamName);
         }
-
         [Test]
-        public void CreateNewProject_WithOnCreateNewProjectFuncReturnAssessmentSection_ReturnsNewRiskeerProject()
+        public void CreateNewProject_WithCreateAssessmentSectionFuncReturnAssessmentSection_ReturnsNewRiskeerProject()
         {
             // Setup
-            var projectFactory = new RiskeerProjectFactory();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var projectFactory = new RiskeerProjectFactory(() => assessmentSection);
 
             // Call
-            IProject project = projectFactory.CreateNewProject(() => assessmentSection);
+            IProject project = projectFactory.CreateNewProject();
 
             // Assert
             Assert.IsInstanceOf<RiskeerProject>(project);
@@ -66,27 +62,27 @@ namespace Riskeer.Integration.Plugin.Test
         }
 
         [Test]
-        public void CreateNewProject_WithOnCreateNewProjectFuncReturnNull_ReturnsNull()
+        public void CreateNewProject_WithCreateAssessmentSectionFuncReturnNull_ReturnsNull()
         {
             // Setup
-            var projectFactory = new RiskeerProjectFactory();
+            var projectFactory = new RiskeerProjectFactory(() => null);
 
             // Call
-            IProject project = projectFactory.CreateNewProject(() => null);
+            IProject project = projectFactory.CreateNewProject();
 
             // Assert
             Assert.IsNull(project);
         }
 
         [Test]
-        public void CreateNewProject_WithOnCreateNewProjectFuncThrowsException_ThrowsException()
+        public void CreateNewProject_WithCreateAssessmentSectionFuncThrowsException_ThrowsException()
         {
             // Setup
-            var projectFactory = new RiskeerProjectFactory();
             const string expectedMessage = "Exception message test";
+            var projectFactory = new RiskeerProjectFactory(() => throw new Exception(expectedMessage));
 
             // Call
-            void Call() => projectFactory.CreateNewProject(() => throw new Exception(expectedMessage));
+            void Call() => projectFactory.CreateNewProject();
 
             // Assert
             var exception = Assert.Throws<Exception>(Call);
@@ -94,14 +90,14 @@ namespace Riskeer.Integration.Plugin.Test
         }
 
         [Test]
-        public void CreateNewProject_WithOnCreateNewProjectFuncThrowsCriticalFileReadException_ThrowsProjectFactoryException()
+        public void CreateNewProject_WithCreateAssessmentSectionFuncThrowsCriticalFileReadException_ThrowsProjectFactoryException()
         {
             // Setup
-            var projectFactory = new RiskeerProjectFactory();
             const string expectedMessage = "Exception message test";
+            var projectFactory = new RiskeerProjectFactory(() => throw new CriticalFileReadException(expectedMessage));
 
             // Call
-            void Call() => projectFactory.CreateNewProject(() => throw new CriticalFileReadException(expectedMessage));
+            void Call() => projectFactory.CreateNewProject();
 
             // Assert
             var exception = Assert.Throws<ProjectFactoryException>(Call);
@@ -110,14 +106,14 @@ namespace Riskeer.Integration.Plugin.Test
         }
 
         [Test]
-        public void CreateNewProject_WithOnCreateNewProjectFuncThrowsCriticalFileValidationException_ThrowsProjectFactoryException()
+        public void CreateNewProject_WithCreateAssessmentSectionFuncThrowsCriticalFileValidationException_ThrowsProjectFactoryException()
         {
             // Setup
-            var projectFactory = new RiskeerProjectFactory();
             const string expectedMessage = "Exception message test";
+            var projectFactory = new RiskeerProjectFactory(() => throw new CriticalFileValidationException(expectedMessage));
 
             // Call
-            void Call() => projectFactory.CreateNewProject(() => throw new CriticalFileValidationException(expectedMessage));
+            void Call() => projectFactory.CreateNewProject();
 
             // Assert
             var exception = Assert.Throws<ProjectFactoryException>(Call);

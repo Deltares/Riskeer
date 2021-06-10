@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Plugin.Test
             var projectMigrator = mocks.Stub<IMigrateProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
                 gui.Run();
@@ -125,7 +125,7 @@ namespace Riskeer.Integration.Plugin.Test
             string testDataDir = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
             string testFilePath = Path.Combine(testDataDir, "complete.sqlite");
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
                 gui.Run();
@@ -168,7 +168,7 @@ namespace Riskeer.Integration.Plugin.Test
             var projectMigrator = mocks.Stub<IMigrateProject>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
                 SetPlugins(gui);
                 gui.Run();

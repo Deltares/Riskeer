@@ -192,7 +192,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 ApplicationIcon = CoreGuiTestUtilResources.TestIcon
             };
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), guiCoreSettings))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), guiCoreSettings))
             {
                 // When
                 void Action() => gui.Run(projectFilePath);

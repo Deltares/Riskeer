@@ -638,8 +638,7 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
@@ -674,8 +673,7 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
@@ -711,8 +709,7 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
@@ -752,8 +749,7 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
@@ -791,8 +787,7 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
@@ -832,8 +827,7 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
@@ -869,8 +863,7 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
@@ -910,8 +903,7 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
@@ -949,8 +941,7 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
@@ -992,8 +983,7 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
-            projectFactory.Expect(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Expect(pf => pf.CreateNewProject())
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
@@ -1042,8 +1032,7 @@ namespace Core.Gui.Test.Forms.Main
 
                 var projectMigrator = mocks.Stub<IMigrateProject>();
                 var projectFactory = mocks.Stub<IProjectFactory>();
-                projectFactory.Stub(pf => pf.CreateNewProject(null))
-                              .IgnoreArguments()
+                projectFactory.Stub(pf => pf.CreateNewProject())
                               .Return(project);
                 mocks.ReplayAll();
 
@@ -1110,8 +1099,7 @@ namespace Core.Gui.Test.Forms.Main
 
                 var projectMigrator = mocks.Stub<IMigrateProject>();
                 var projectFactory = mocks.Stub<IProjectFactory>();
-                projectFactory.Stub(pf => pf.CreateNewProject(null))
-                              .IgnoreArguments()
+                projectFactory.Stub(pf => pf.CreateNewProject())
                               .Return(project);
                 mocks.ReplayAll();
 
@@ -1174,8 +1162,7 @@ namespace Core.Gui.Test.Forms.Main
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(project);
             mocks.ReplayAll();
 
@@ -1227,8 +1214,7 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(project);
             mocks.ReplayAll();
 
@@ -1258,8 +1244,7 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(project);
             mocks.ReplayAll();
 
@@ -1293,8 +1278,7 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(project);
             mocks.ReplayAll();
 
@@ -1332,8 +1316,7 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject(null))
-                          .IgnoreArguments()
+            projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 

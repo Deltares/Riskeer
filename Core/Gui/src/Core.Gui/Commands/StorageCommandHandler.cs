@@ -102,7 +102,7 @@ namespace Core.Gui.Commands
             return unsavedChangesHandled;
         }
 
-        public void CreateNewProject(Func<object> onCreateNewProjectFunc)
+        public void CreateNewProject()
         {
             if (!HandleUnsavedChanges())
             {
@@ -115,7 +115,7 @@ namespace Core.Gui.Commands
             IProject newProject;
             try
             {
-                newProject = projectFactory.CreateNewProject(onCreateNewProjectFunc);
+                newProject = projectFactory.CreateNewProject();
             }
             catch (ProjectFactoryException e)
             {

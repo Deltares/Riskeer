@@ -32,39 +32,53 @@ namespace Riskeer.Integration.Plugin
     /// </summary>
     public class RiskeerProjectFactory : IProjectFactory
     {
+        private readonly Func<AssessmentSection> createAssessmentSectionFunc;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="RiskeerProjectFactory"/>.
+        /// </summary>
+        /// <param name="createAssessmentSectionFunc">The <see cref="Func{TResult}"/>
+        /// to create an <see cref="AssessmentSection"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="createAssessmentSectionFunc"/>
+        /// is <c>null</c>.</exception>
+        public RiskeerProjectFactory(Func<AssessmentSection> createAssessmentSectionFunc)
+        {
+            if (createAssessmentSectionFunc == null)
+            {
+                throw new ArgumentNullException(nameof(createAssessmentSectionFunc));
+            }
+
+            this.createAssessmentSectionFunc = createAssessmentSectionFunc;
+        }
+
         /// <inheritdoc />
         /// <returns>A <see cref="RiskeerProject"/>; or <c>null</c> when there
         /// is no <see cref="AssessmentSection"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when
-        /// <paramref name="onCreateNewProjectFunc"/> is <c>null</c>.</exception>
-        public IProject CreateNewProject(Func<object> onCreateNewProjectFunc)
+        public IProject CreateNewProject()
         {
-            if (onCreateNewProjectFunc == null)
-            {
-                throw new ArgumentNullException(nameof(onCreateNewProjectFunc));
-            }
+            AssessmentSection assessmentSection;
 
             try
             {
-                var assessmentSection = (AssessmentSection) onCreateNewProjectFunc();
-                
-                if (assessmentSection == null)
-                {
-                    return null;
-                }
-
-                return new RiskeerProject
-                {
-                    AssessmentSections =
-                    {
-                        assessmentSection
-                    }
-                };
+                assessmentSection = createAssessmentSectionFunc();
             }
             catch (Exception e) when (e is CriticalFileReadException || e is CriticalFileValidationException)
             {
                 throw new ProjectFactoryException(e.Message, e);
             }
+
+            if (assessmentSection == null)
+            {
+                return null;
+            }
+
+            return new RiskeerProject
+            {
+                AssessmentSections =
+                {
+                    assessmentSection
+                }
+            };
         }
     }
 }
