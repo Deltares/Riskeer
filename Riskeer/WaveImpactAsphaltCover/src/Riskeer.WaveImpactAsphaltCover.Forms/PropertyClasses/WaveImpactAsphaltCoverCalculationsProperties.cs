@@ -31,7 +31,7 @@ using RiskeerRevetmentFormsResources = Riskeer.Revetment.Forms.Properties.Resour
 namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="WaveImpactAsphaltCoverFailureMechanism"/> for properties panel.
+    /// Calculation related ViewModel of <see cref="WaveImpactAsphaltCoverFailureMechanism"/> for properties panel.
     /// </summary>
     public class WaveImpactAsphaltCoverCalculationsProperties : ObjectProperties<WaveImpactAsphaltCoverFailureMechanism>
     {
