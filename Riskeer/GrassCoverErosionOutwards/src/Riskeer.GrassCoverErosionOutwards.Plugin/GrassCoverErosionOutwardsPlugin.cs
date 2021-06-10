@@ -78,9 +78,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<GrassCoverErosionOutwardsCalculationsContext, GrassCoverErosionOutwardsFailureMechanismProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsCalculationsContext, GrassCoverErosionOutwardsCalculationsProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismProperties(
+                CreateInstance = context => new GrassCoverErosionOutwardsCalculationsProperties(
                     context.WrappedData,
                     new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler())
             };

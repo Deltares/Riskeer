@@ -41,7 +41,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         private readonly GrassCoverErosionOutwardsWaveConditionsInput input;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsOutputProperties"/>.
         /// </summary>
         /// <param name="output">The data to show.</param>
         /// <param name="input">The input belonging to the output.</param>

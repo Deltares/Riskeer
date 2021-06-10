@@ -38,7 +38,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailureMechanismProperties : ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>
+    public class GrassCoverErosionOutwardsCalculationsProperties : ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -53,12 +53,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> propertyChangeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsCalculationsProperties"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the properties for.</param>
         /// <param name="handler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsFailureMechanismProperties(
+        public GrassCoverErosionOutwardsCalculationsProperties(
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,
             IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> handler)
         {

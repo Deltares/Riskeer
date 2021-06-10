@@ -142,7 +142,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionOutwardsCalculationsContext),
-                    typeof(GrassCoverErosionOutwardsFailureMechanismProperties));
+                    typeof(GrassCoverErosionOutwardsCalculationsProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

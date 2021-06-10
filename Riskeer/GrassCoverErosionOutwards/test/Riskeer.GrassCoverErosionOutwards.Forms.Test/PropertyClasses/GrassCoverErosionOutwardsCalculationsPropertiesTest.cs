@@ -36,7 +36,7 @@ using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsFailureMechanismPropertiesTest
+    public class GrassCoverErosionOutwardsCalculationsPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -57,7 +57,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsFailureMechanismProperties(null, changeHandler);
+            TestDelegate test = () => new GrassCoverErosionOutwardsCalculationsProperties(null, changeHandler);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -68,7 +68,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void Constructor_WithoutChangeHandler_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsFailureMechanismProperties(new GrassCoverErosionOutwardsFailureMechanism(), null);
+            TestDelegate test = () => new GrassCoverErosionOutwardsCalculationsProperties(new GrassCoverErosionOutwardsFailureMechanism(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -91,7 +91,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new GrassCoverErosionOutwardsCalculationsProperties(failureMechanism, changeHandler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>>(properties);
@@ -117,7 +117,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(
+            var properties = new GrassCoverErosionOutwardsCalculationsProperties(
                 new GrassCoverErosionOutwardsFailureMechanism
                 {
                     IsRelevant = true
@@ -205,7 +205,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(
+            var properties = new GrassCoverErosionOutwardsCalculationsProperties(
                 new GrassCoverErosionOutwardsFailureMechanism
                 {
                     IsRelevant = false
@@ -269,7 +269,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new GrassCoverErosionOutwardsCalculationsProperties(failureMechanism, changeHandler);
 
             // Call
             TestDelegate test = () => properties.N = (RoundedDouble) newN;
@@ -301,7 +301,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new GrassCoverErosionOutwardsCalculationsProperties(failureMechanism, changeHandler);
 
             // Call
             properties.N = (RoundedDouble) newN;
@@ -322,7 +322,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
             mocks.ReplayAll();
 
-            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(
+            var properties = new GrassCoverErosionOutwardsCalculationsProperties(
                 new GrassCoverErosionOutwardsFailureMechanism
                 {
                     IsRelevant = isRelevant
