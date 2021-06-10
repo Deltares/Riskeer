@@ -41,13 +41,12 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
-        private const int isRelevantPropertyIndex = 5;
-        private const int gravitationalAccelerationPropertyIndex = 6;
-        private const int nPropertyIndex = 7;
-        private const int modelFactorStorageVolumePropertyIndex = 8;
-        private const int modelFactorCollisionLoadPropertyIndex = 9;
-        private const int modelFactorLoadEffectPropertyIndex = 10;
-        private const int modelFactorLongThresholdPropertyIndex = 11;
+        private const int gravitationalAccelerationPropertyIndex = 5;
+        private const int nPropertyIndex = 6;
+        private const int modelFactorStorageVolumePropertyIndex = 7;
+        private const int modelFactorCollisionLoadPropertyIndex = 8;
+        private const int modelFactorLoadEffectPropertyIndex = 9;
+        private const int modelFactorLongThresholdPropertyIndex = 10;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresCalculationsProperties"/>.
@@ -67,7 +66,6 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         #region Length effect parameters
 
-        [DynamicVisible]
         [PropertyOrder(nPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
@@ -86,23 +84,6 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         }
 
         #endregion
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            return data.IsRelevant || !ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName);
-        }
-
-        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
-        {
-            return nameof(Contribution).Equals(propertyName)
-                   || nameof(N).Equals(propertyName)
-                   || nameof(GravitationalAcceleration).Equals(propertyName)
-                   || nameof(ModelFactorStorageVolume).Equals(propertyName)
-                   || nameof(ModelFactorCollisionLoad).Equals(propertyName)
-                   || nameof(ModelFactorLoadEffect).Equals(propertyName)
-                   || nameof(ModelFactorLongThreshold).Equals(propertyName);
-        }
 
         #region General
 
@@ -142,7 +123,6 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(contributionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
@@ -155,19 +135,6 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(isRelevantPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_Description))]
-        public bool IsRelevant
-        {
-            get
-            {
-                return data.IsRelevant;
-            }
-        }
-
-        [DynamicVisible]
         [PropertyOrder(gravitationalAccelerationPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.GravitationalAcceleration_DisplayName))]
@@ -184,7 +151,6 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 
         #region Model settings
 
-        [DynamicVisible]
         [PropertyOrder(modelFactorStorageVolumePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
@@ -198,7 +164,6 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(modelFactorCollisionLoadPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
@@ -212,7 +177,6 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(modelFactorLoadEffectPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
@@ -226,7 +190,6 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(modelFactorLongThresholdPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
