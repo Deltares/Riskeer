@@ -33,26 +33,25 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.DuneErosion.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="DuneErosionFailureMechanism"/> for properties panel.
+    /// Calculation related ViewModel of <see cref="DuneErosionFailureMechanism"/> for properties panel.
     /// </summary>
-    public class DuneErosionFailureMechanismProperties : ObjectProperties<DuneErosionFailureMechanism>
+    public class DuneErosionCalculationsProperties : ObjectProperties<DuneErosionFailureMechanism>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
-        private const int isRelevantPropertyIndex = 5;
-        private const int nPropertyIndex = 6;
+        private const int nPropertyIndex = 5;
         private readonly IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> propertyChangeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="DuneErosionFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="DuneErosionCalculationsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="propertyChangeHandler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public DuneErosionFailureMechanismProperties(DuneErosionFailureMechanism data,
-                                                     IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> propertyChangeHandler)
+        public DuneErosionCalculationsProperties(DuneErosionFailureMechanism data,
+                                                 IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> propertyChangeHandler)
         {
             if (data == null)
             {
@@ -70,7 +69,6 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
 
         #region Length effect parameters
 
-        [DynamicVisible]
         [PropertyOrder(nPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
@@ -94,28 +92,12 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
 
         #endregion
 
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
         private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
             foreach (IObservable affectedObject in affectedObjects)
             {
                 affectedObject.NotifyObservers();
             }
-        }
-
-        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
-        {
-            return nameof(Contribution).Equals(propertyName) || nameof(N).Equals(propertyName);
         }
 
         #region General
@@ -156,7 +138,6 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(contributionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
@@ -166,18 +147,6 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
             get
             {
                 return data.Contribution;
-            }
-        }
-
-        [PropertyOrder(isRelevantPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_Description))]
-        public bool IsRelevant
-        {
-            get
-            {
-                return data.IsRelevant;
             }
         }
 

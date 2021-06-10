@@ -37,32 +37,26 @@ using Riskeer.DuneErosion.Forms.PropertyClasses;
 namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class DuneErosionFailureMechanismPropertiesTest
+    public class DuneErosionCalculationsPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
-        private const int isRelevantPropertyIndex = 4;
-        private const int nPropertyIndex = 5;
+        private const int nPropertyIndex = 4;
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_ExpectedValues(bool isRelevant)
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
             var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
             mocks.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                IsRelevant = isRelevant
-            };
+            var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var properties = new DuneErosionFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new DuneErosionCalculationsProperties(failureMechanism, changeHandler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<DuneErosionFailureMechanism>>(properties);
@@ -71,14 +65,13 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-            Assert.AreEqual(isRelevant, properties.IsRelevant);
 
             Assert.AreEqual(failureMechanism.GeneralInput.N, properties.N);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_DataIsNull_ThrowArgumentNullException()
+        public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -86,10 +79,10 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new DuneErosionFailureMechanismProperties(null, changeHandler);
+            void Call() => new DuneErosionCalculationsProperties(null, changeHandler);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("data", paramName);
             mocks.VerifyAll();
         }
@@ -101,32 +94,29 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            TestDelegate call = () => new DuneErosionFailureMechanismProperties(failureMechanism, null);
+            void Call() => new DuneErosionCalculationsProperties(failureMechanism, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("propertyChangeHandler", paramName);
         }
 
         [Test]
-        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributeValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
             var mocks = new MockRepository();
             var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
             mocks.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                IsRelevant = true
-            };
+            var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var properties = new DuneErosionFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new DuneErosionCalculationsProperties(failureMechanism, changeHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(6, dynamicProperties.Count);
+            Assert.AreEqual(5, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectParameterCategory = "Lengte-effect parameters";
@@ -159,70 +149,11 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
-                                                                            generalCategory,
-                                                                            "Is relevant",
-                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                            true);
-
             PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             lengthEffectParameterCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributeValues()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                IsRelevant = false
-            };
-
-            // Call
-            var properties = new DuneErosionFailureMechanismProperties(failureMechanism, changeHandler);
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
-
-            const string generalCategory = "Algemeen";
-
-            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
-                                                                            generalCategory,
-                                                                            "Naam",
-                                                                            "De naam van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
-                                                                            generalCategory,
-                                                                            "Label",
-                                                                            "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
-                                                                            true);
-
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
-                                                                            generalCategory,
-                                                                            "Is relevant",
-                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                            true);
             mocks.VerifyAll();
         }
 
@@ -247,14 +178,14 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new DuneErosionFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new DuneErosionCalculationsProperties(failureMechanism, changeHandler);
 
             // Call
-            TestDelegate test = () => properties.N = (RoundedDouble) newN;
+            void Call() => properties.N = (RoundedDouble) newN;
 
             // Assert
             const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }
@@ -280,7 +211,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new DuneErosionFailureMechanismProperties(failureMechanism, changeHandler);
+            var properties = new DuneErosionCalculationsProperties(failureMechanism, changeHandler);
 
             // Call
             properties.N = (RoundedDouble) newN;
@@ -289,37 +220,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(newN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
             Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
-            mocks.ReplayAll();
-
-            var properties = new DuneErosionFailureMechanismProperties(
-                new DuneErosionFailureMechanism
-                {
-                    IsRelevant = isRelevant
-                },
-                changeHandler);
-
-            // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
-
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
-
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
-
-            mocks.VerifyAll();
         }
     }
 }
