@@ -44,11 +44,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
-        private const int isRelevantPropertyIndex = 5;
-        private const int nPropertyIndex = 6;
-        private const int waveRunUpPropertyIndex = 7;
-        private const int waveImpactPropertyIndex = 8;
-        private const int tailorMadeWaveImpactPropertyIndex = 9;
+        private const int nPropertyIndex = 5;
+        private const int waveRunUpPropertyIndex = 6;
+        private const int waveImpactPropertyIndex = 7;
+        private const int tailorMadeWaveImpactPropertyIndex = 8;
 
         private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> propertyChangeHandler;
 
@@ -78,7 +77,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
 
         #region Length effect parameters
 
-        [DynamicVisible]
         [PropertyOrder(nPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
@@ -102,32 +100,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
 
         #endregion
 
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
         private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
             foreach (IObservable affectedObject in affectedObjects)
             {
                 affectedObject.NotifyObservers();
             }
-        }
-
-        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
-        {
-            return nameof(Contribution).Equals(propertyName)
-                   || nameof(WaveRunUp).Equals(propertyName)
-                   || nameof(WaveImpact).Equals(propertyName)
-                   || nameof(TailorMadeWaveImpact).Equals(propertyName)
-                   || nameof(N).Equals(propertyName);
         }
 
         #region General
@@ -168,7 +146,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(contributionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
@@ -181,23 +158,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(isRelevantPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_Description))]
-        public bool IsRelevant
-        {
-            get
-            {
-                return data.IsRelevant;
-            }
-        }
-
         #endregion
 
         #region Model settings
 
-        [DynamicVisible]
         [PropertyOrder(waveRunUpPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
@@ -214,7 +178,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(waveImpactPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
@@ -231,7 +194,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(tailorMadeWaveImpactPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]

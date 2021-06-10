@@ -42,11 +42,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
-        private const int isRelevantPropertyIndex = 4;
-        private const int nPropertyIndex = 5;
-        private const int waveRunUpPropertyIndex = 6;
-        private const int waveImpactPropertyIndex = 7;
-        private const int tailorMadeWaveImpactPropertyIndex = 8;
+        private const int nPropertyIndex = 4;
+        private const int waveRunUpPropertyIndex = 5;
+        private const int waveImpactPropertyIndex = 6;
+        private const int tailorMadeWaveImpactPropertyIndex = 7;
 
         [Test]
         public void Constructor_WithoutFailureMechanism_ThrowsArgumentNullException()
@@ -57,10 +56,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsCalculationsProperties(null, changeHandler);
+            void Call() => new GrassCoverErosionOutwardsCalculationsProperties(null, changeHandler);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -68,27 +67,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void Constructor_WithoutChangeHandler_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsCalculationsProperties(new GrassCoverErosionOutwardsFailureMechanism(), null);
+            void Call() => new GrassCoverErosionOutwardsCalculationsProperties(new GrassCoverErosionOutwardsFailureMechanism(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("handler", paramName);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_WithFailureMechanism_ExpectedValues(bool isRelevant)
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mockRepository = new MockRepository();
             var changeHandler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                IsRelevant = isRelevant
-            };
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
             var properties = new GrassCoverErosionOutwardsCalculationsProperties(failureMechanism, changeHandler);
@@ -100,7 +94,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-            Assert.AreEqual(isRelevant, properties.IsRelevant);
 
             GeneralGrassCoverErosionOutwardsInput generalInput = failureMechanism.GeneralInput;
             Assert.AreSame(generalInput.GeneralWaveRunUpWaveConditionsInput, properties.WaveRunUp.Data);
@@ -109,7 +102,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -126,7 +119,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(9, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string modelSettingsCategory = "Modelinstellingen";
@@ -157,13 +150,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Faalkansbijdrage [%]",
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
-                                                                            true);
-
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
-                                                                            generalCategory,
-                                                                            "Is relevant",
-                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
             PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
@@ -197,59 +183,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var changeHandler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
-            mockRepository.ReplayAll();
-
-            // Call
-            var properties = new GrassCoverErosionOutwardsCalculationsProperties(
-                new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    IsRelevant = false
-                },
-                changeHandler);
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
-
-            const string generalCategory = "Algemeen";
-
-            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
-                                                                            generalCategory,
-                                                                            "Naam",
-                                                                            "De naam van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
-                                                                            generalCategory,
-                                                                            "Label",
-                                                                            "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
-                                                                            true);
-
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
-                                                                            generalCategory,
-                                                                            "Is relevant",
-                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                            true);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         [TestCase(0.0)]
         [TestCase(-1.0)]
         [TestCase(-20.0)]
@@ -272,10 +205,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionOutwardsCalculationsProperties(failureMechanism, changeHandler);
 
             // Call
-            TestDelegate test = () => properties.N = (RoundedDouble) newN;
+            void Call() => properties.N = (RoundedDouble) newN;
 
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(test);
+            Assert.Throws<ArgumentOutOfRangeException>(Call);
             Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
         }
@@ -310,40 +243,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(newN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
             Assert.IsTrue(changeHandler.Called);
             mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
-            mocks.ReplayAll();
-
-            var properties = new GrassCoverErosionOutwardsCalculationsProperties(
-                new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    IsRelevant = isRelevant
-                },
-                changeHandler);
-
-            // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
-
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.WaveRunUp)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.WaveImpact)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.TailorMadeWaveImpact)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
-
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
-
-            mocks.VerifyAll();
         }
     }
 }
