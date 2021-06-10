@@ -70,9 +70,9 @@ namespace Riskeer.HeightStructures.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<HeightStructuresCalculationsContext, HeightStructuresFailureMechanismProperties>
+            yield return new PropertyInfo<HeightStructuresCalculationsContext, HeightStructuresCalculationsProperties>
             {
-                CreateInstance = context => new HeightStructuresFailureMechanismProperties(context.WrappedData)
+                CreateInstance = context => new HeightStructuresCalculationsProperties(context.WrappedData)
             };
             yield return new PropertyInfo<HeightStructure, HeightStructureProperties>();
             yield return new PropertyInfo<HeightStructuresContext, StructureCollectionProperties<HeightStructure>>

@@ -35,42 +35,36 @@ using Riskeer.HeightStructures.Forms.PropertyClasses;
 namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class HeightStructuresFailureMechanismPropertiesTest
+    public class HeightStructuresCalculationsPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
-        private const int isRelevantPropertyIndex = 4;
-        private const int gravitationalAccelerationPropertyIndex = 5;
-        private const int nPropertyIndex = 6;
-        private const int modelFactorOvertoppingFlowPropertyIndex = 7;
-        private const int modelFactorStorageVolumePropertyIndex = 8;
+        private const int gravitationalAccelerationPropertyIndex = 4;
+        private const int nPropertyIndex = 5;
+        private const int modelFactorOvertoppingFlowPropertyIndex = 6;
+        private const int modelFactorStorageVolumePropertyIndex = 7;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new HeightStructuresFailureMechanismProperties(null);
+            void Call() => new HeightStructuresCalculationsProperties(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("data", paramName);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_ValidValues_ExpectedValues(bool isRelevant)
+        public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism
-            {
-                IsRelevant = isRelevant
-            };
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism);
+            var properties = new HeightStructuresCalculationsProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HeightStructuresFailureMechanism>>(properties);
@@ -79,7 +73,6 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-            Assert.AreEqual(isRelevant, properties.IsRelevant);
 
             GeneralHeightStructuresInput generalInput = failureMechanism.GeneralInput;
             Assert.AreEqual(generalInput.N, properties.N);
@@ -92,14 +85,10 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Call
-            var properties = new HeightStructuresFailureMechanismProperties(
-                new HeightStructuresFailureMechanism
-                {
-                    IsRelevant = true
-                });
+            var properties = new HeightStructuresCalculationsProperties(new HeightStructuresFailureMechanism());
 
             // Assert
             const string generalCategory = "Algemeen";
@@ -107,7 +96,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(9, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -135,13 +124,6 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Faalkansbijdrage [%]",
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
-                                                                            true);
-
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
-                                                                            generalCategory,
-                                                                            "Is relevant",
-                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
             PropertyDescriptor gravitationalAccelerationProperty = dynamicProperties[gravitationalAccelerationPropertyIndex];
@@ -175,51 +157,6 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
-        {
-            // Call
-            var properties = new HeightStructuresFailureMechanismProperties(
-                new HeightStructuresFailureMechanism
-                {
-                    IsRelevant = false
-                });
-
-            // Assert
-            const string generalCategory = "Algemeen";
-
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
-
-            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
-                                                                            generalCategory,
-                                                                            "Naam",
-                                                                            "De naam van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
-                                                                            generalCategory,
-                                                                            "Label",
-                                                                            "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
-                                                                            true);
-
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
-                                                                            generalCategory,
-                                                                            "Is relevant",
-                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                            true);
-        }
-
-        [Test]
         [SetCulture("nl-NL")]
         [TestCase(0.0)]
         [TestCase(-1.0)]
@@ -234,7 +171,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism);
+            var properties = new HeightStructuresCalculationsProperties(failureMechanism);
 
             // Call
             TestDelegate test = () => properties.N = (RoundedDouble) value;
@@ -260,7 +197,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism);
+            var properties = new HeightStructuresCalculationsProperties(failureMechanism);
 
             // Call
             properties.N = (RoundedDouble) value;
@@ -268,33 +205,6 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(value, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
             mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
-        {
-            // Setup
-            var properties = new HeightStructuresFailureMechanismProperties(
-                new HeightStructuresFailureMechanism
-                {
-                    IsRelevant = isRelevant
-                });
-
-            // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
-
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.GravitationalAcceleration)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorOvertoppingFlow)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));
-
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }

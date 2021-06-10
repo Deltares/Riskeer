@@ -32,7 +32,7 @@ using Riskeer.HeightStructures.Forms.PropertyClasses;
 namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class HeightStructuresCalculationsContextPropertyInfoTest
+    public class HeightStructuresCalculationsPropertyInfoTest
     {
         private HeightStructuresPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new HeightStructuresPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(HeightStructuresFailureMechanismProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(HeightStructuresCalculationsProperties));
         }
 
         [TearDown]
@@ -55,7 +55,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(HeightStructuresCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(HeightStructuresFailureMechanismProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(HeightStructuresCalculationsProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<HeightStructuresFailureMechanismProperties>(objectProperties);
+            Assert.IsInstanceOf<HeightStructuresCalculationsProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
 
             mocks.VerifyAll();

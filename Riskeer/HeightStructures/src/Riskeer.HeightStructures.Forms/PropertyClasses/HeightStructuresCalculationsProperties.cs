@@ -34,25 +34,24 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HeightStructuresFailureMechanism"/> for properties panel.
     /// </summary>
-    public class HeightStructuresFailureMechanismProperties : ObjectProperties<HeightStructuresFailureMechanism>
+    public class HeightStructuresCalculationsProperties : ObjectProperties<HeightStructuresFailureMechanism>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
-        private const int isRelevantPropertyIndex = 5;
-        private const int gravitationalAccelerationPropertyIndex = 6;
-        private const int nPropertyIndex = 7;
-        private const int modelFactorOvertoppingFlowPropertyIndex = 8;
-        private const int modelFactorStorageVolumePropertyIndex = 9;
+        private const int gravitationalAccelerationPropertyIndex = 5;
+        private const int nPropertyIndex = 6;
+        private const int modelFactorOvertoppingFlowPropertyIndex = 7;
+        private const int modelFactorStorageVolumePropertyIndex = 8;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HeightStructuresFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="HeightStructuresCalculationsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/>
         /// is <c>null</c>.</exception>
-        public HeightStructuresFailureMechanismProperties(HeightStructuresFailureMechanism data)
+        public HeightStructuresCalculationsProperties(HeightStructuresFailureMechanism data)
         {
             if (data == null)
             {
@@ -64,7 +63,6 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
 
         #region Length effect parameters
 
-        [DynamicVisible]
         [PropertyOrder(nPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
@@ -83,21 +81,6 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
         }
 
         #endregion
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            return data.IsRelevant || !ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName);
-        }
-
-        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
-        {
-            return nameof(Contribution).Equals(propertyName)
-                   || nameof(N).Equals(propertyName)
-                   || nameof(GravitationalAcceleration).Equals(propertyName)
-                   || nameof(ModelFactorOvertoppingFlow).Equals(propertyName)
-                   || nameof(ModelFactorStorageVolume).Equals(propertyName);
-        }
 
         #region General
 
@@ -137,7 +120,6 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(contributionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
@@ -150,19 +132,6 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(isRelevantPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_Description))]
-        public bool IsRelevant
-        {
-            get
-            {
-                return data.IsRelevant;
-            }
-        }
-
-        [DynamicVisible]
         [PropertyOrder(gravitationalAccelerationPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.GravitationalAcceleration_DisplayName))]
@@ -179,7 +148,6 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
 
         #region Model settings
 
-        [DynamicVisible]
         [PropertyOrder(modelFactorOvertoppingFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
@@ -193,7 +161,6 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(modelFactorStorageVolumePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]

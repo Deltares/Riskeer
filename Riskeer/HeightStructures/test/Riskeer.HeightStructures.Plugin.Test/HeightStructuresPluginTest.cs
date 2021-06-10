@@ -67,7 +67,7 @@ namespace Riskeer.HeightStructures.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(HeightStructuresCalculationsContext),
-                    typeof(HeightStructuresFailureMechanismProperties));
+                    typeof(HeightStructuresCalculationsProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
