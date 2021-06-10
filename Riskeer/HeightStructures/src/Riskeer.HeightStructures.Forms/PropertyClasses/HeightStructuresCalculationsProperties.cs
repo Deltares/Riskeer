@@ -32,7 +32,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.HeightStructures.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HeightStructuresFailureMechanism"/> for properties panel.
+    /// Calculation related ViewModel of <see cref="HeightStructuresFailureMechanism"/> for properties panel.
     /// </summary>
     public class HeightStructuresCalculationsProperties : ObjectProperties<HeightStructuresFailureMechanism>
     {
