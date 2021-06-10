@@ -35,7 +35,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="ClosingStructuresFailureMechanism"/> for properties panel.
     /// </summary>
-    public class ClosingStructuresFailureMechanismProperties : ObjectProperties<ClosingStructuresFailureMechanism>
+    public class ClosingStructuresCalculationsProperties : ObjectProperties<ClosingStructuresFailureMechanism>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -54,12 +54,12 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         private const int modelFactorInflowVolumePropertyIndex = 13;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="ClosingStructuresCalculationsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/>
         /// is <c>null</c>.</exception>
-        public ClosingStructuresFailureMechanismProperties(ClosingStructuresFailureMechanism data)
+        public ClosingStructuresCalculationsProperties(ClosingStructuresFailureMechanism data)
         {
             if (data == null)
             {

@@ -34,7 +34,7 @@ using Riskeer.Common.Data.TestUtil;
 namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class ClosingStructuresFailureMechanismPropertiesTest
+    public class ClosingStructuresCalculationsPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -56,7 +56,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ClosingStructuresFailureMechanismProperties(null);
+            TestDelegate test = () => new ClosingStructuresCalculationsProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -75,7 +75,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism);
+            var properties = new ClosingStructuresCalculationsProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<ClosingStructuresFailureMechanism>>(properties);
@@ -108,7 +108,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var properties = new ClosingStructuresFailureMechanismProperties(
+            var properties = new ClosingStructuresCalculationsProperties(
                 new ClosingStructuresFailureMechanism
                 {
                     IsRelevant = true
@@ -220,7 +220,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var properties = new ClosingStructuresFailureMechanismProperties(
+            var properties = new ClosingStructuresCalculationsProperties(
                 new ClosingStructuresFailureMechanism
                 {
                     IsRelevant = false
@@ -276,7 +276,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism);
+            var properties = new ClosingStructuresCalculationsProperties(failureMechanism);
 
             // Call
             TestDelegate test = () => properties.N2A = value;
@@ -303,7 +303,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism);
+            var properties = new ClosingStructuresCalculationsProperties(failureMechanism);
 
             // Call
             properties.N2A = value;
@@ -319,7 +319,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
         {
             // Setup
-            var properties = new ClosingStructuresFailureMechanismProperties(
+            var properties = new ClosingStructuresCalculationsProperties(
                 new ClosingStructuresFailureMechanism
                 {
                     IsRelevant = isRelevant

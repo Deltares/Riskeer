@@ -32,7 +32,7 @@ using Riskeer.Common.Data.AssessmentSection;
 namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class ClosingStructuresCalculationsContextPropertyInfoTest
+    public class ClosingStructuresCalculationsPropertyInfoTest
     {
         private ClosingStructuresPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new ClosingStructuresPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(ClosingStructuresFailureMechanismProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(ClosingStructuresCalculationsProperties));
         }
 
         [TearDown]
@@ -55,7 +55,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(ClosingStructuresCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(ClosingStructuresFailureMechanismProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(ClosingStructuresCalculationsProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<ClosingStructuresFailureMechanismProperties>(objectProperties);
+            Assert.IsInstanceOf<ClosingStructuresCalculationsProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
 
             mocks.VerifyAll();
