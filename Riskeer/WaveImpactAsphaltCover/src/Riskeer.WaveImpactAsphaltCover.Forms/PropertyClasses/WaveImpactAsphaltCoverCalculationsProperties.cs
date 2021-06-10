@@ -24,9 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.WaveImpactAsphaltCover.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerRevetmentFormsResources = Riskeer.Revetment.Forms.Properties.Resources;
 
@@ -40,58 +38,23 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
-        private const int contributionPropertyIndex = 4;
-        private const int isRelevantPropertyIndex = 5;
-        private const int sectionLengthPropertyIndex = 6;
-        private const int deltaLPropertyIndex = 7;
-        private const int nPropertyIndex = 8;
-        private const int aPropertyIndex = 9;
-        private const int bPropertyIndex = 10;
-        private const int cPropertyIndex = 11;
-        private readonly IAssessmentSection assessmentSection;
+        private const int aPropertyIndex = 4;
+        private const int bPropertyIndex = 5;
+        private const int cPropertyIndex = 6;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverCalculationsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="assessmentSection">The assessment section the data belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverCalculationsProperties(WaveImpactAsphaltCoverFailureMechanism data, IAssessmentSection assessmentSection)
+        public WaveImpactAsphaltCoverCalculationsProperties(WaveImpactAsphaltCoverFailureMechanism data)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
 
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             Data = data;
-            this.assessmentSection = assessmentSection;
-        }
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
-        {
-            return nameof(Contribution).Equals(propertyName)
-                   || nameof(A).Equals(propertyName)
-                   || nameof(B).Equals(propertyName)
-                   || nameof(C).Equals(propertyName)
-                   || nameof(SectionLength).Equals(propertyName)
-                   || nameof(DeltaL).Equals(propertyName)
-                   || nameof(N).Equals(propertyName);
         }
 
         #region General
@@ -132,84 +95,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
-        [PropertyOrder(contributionPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
-        public double Contribution
-        {
-            get
-            {
-                return data.Contribution;
-            }
-        }
-
-        [PropertyOrder(isRelevantPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_Description))]
-        public bool IsRelevant
-        {
-            get
-            {
-                return data.IsRelevant;
-            }
-        }
-
-        #endregion
-
-        #region Length effect parameters
-
-        [DynamicVisible]
-        [PropertyOrder(sectionLengthPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_Description))]
-        public RoundedDouble SectionLength
-        {
-            get
-            {
-                return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(deltaLPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveImpactAsphaltCoverFailureMechanismProperties_DeltaL_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveImpactAsphaltCoverFailureMechanismProperties_DeltaL_Description))]
-        public RoundedDouble DeltaL
-        {
-            get
-            {
-                return data.GeneralWaveImpactAsphaltCoverInput.DeltaL;
-            }
-            set
-            {
-                data.GeneralWaveImpactAsphaltCoverInput.DeltaL = value;
-                data.NotifyObservers();
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(nPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_Description))]
-        public RoundedDouble N
-        {
-            get
-            {
-                return new RoundedDouble(2, data.GeneralWaveImpactAsphaltCoverInput.GetN(assessmentSection.ReferenceLine.Length));
-            }
-        }
-
         #endregion
 
         #region Model settings
 
-        [DynamicVisible]
         [PropertyOrder(aPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RiskeerRevetmentFormsResources), nameof(RiskeerRevetmentFormsResources.GeneralWaveConditionsInput_A_DisplayName))]
@@ -222,7 +111,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(bPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RiskeerRevetmentFormsResources), nameof(RiskeerRevetmentFormsResources.GeneralWaveConditionsInput_B_DisplayName))]
@@ -235,7 +123,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(cPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RiskeerRevetmentFormsResources), nameof(RiskeerRevetmentFormsResources.GeneralWaveConditionsInput_C_DisplayName))]

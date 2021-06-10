@@ -70,7 +70,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         {
             yield return new PropertyInfo<WaveImpactAsphaltCoverCalculationsContext, WaveImpactAsphaltCoverCalculationsProperties>
             {
-                CreateInstance = context => new WaveImpactAsphaltCoverCalculationsProperties(context.WrappedData, context.Parent)
+                CreateInstance = context => new WaveImpactAsphaltCoverCalculationsProperties(context.WrappedData)
             };
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsOutput, WaveImpactAsphaltCoverWaveConditionsOutputProperties>();
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsInputContext, WaveImpactAsphaltCoverWaveConditionsInputContextProperties>
