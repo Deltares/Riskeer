@@ -32,7 +32,7 @@ using Riskeer.StabilityPointStructures.Forms.PropertyClasses;
 namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class StabilityPointStructuresCalculationsContextPropertyInfoTest
+    public class StabilityPointStructuresCalculationsPropertyInfoTest
     {
         private StabilityPointStructuresPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new StabilityPointStructuresPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(StabilityPointStructuresFailureMechanismProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(StabilityPointStructuresCalculationsProperties));
         }
 
         [TearDown]
@@ -55,7 +55,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(StabilityPointStructuresCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(StabilityPointStructuresFailureMechanismProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(StabilityPointStructuresCalculationsProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<StabilityPointStructuresFailureMechanismProperties>(objectProperties);
+            Assert.IsInstanceOf<StabilityPointStructuresCalculationsProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
 
             mocks.VerifyAll();

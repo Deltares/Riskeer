@@ -69,9 +69,9 @@ namespace Riskeer.StabilityPointStructures.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<StabilityPointStructuresCalculationsContext, StabilityPointStructuresFailureMechanismProperties>
+            yield return new PropertyInfo<StabilityPointStructuresCalculationsContext, StabilityPointStructuresCalculationsProperties>
             {
-                CreateInstance = context => new StabilityPointStructuresFailureMechanismProperties(context.WrappedData)
+                CreateInstance = context => new StabilityPointStructuresCalculationsProperties(context.WrappedData)
             };
             yield return new PropertyInfo<StabilityPointStructure, StabilityPointStructureProperties>();
             yield return new PropertyInfo<StabilityPointStructuresInputContext, StabilityPointStructuresInputContextProperties>

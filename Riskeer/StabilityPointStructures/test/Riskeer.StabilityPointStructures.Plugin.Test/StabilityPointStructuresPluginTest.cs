@@ -67,7 +67,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityPointStructuresCalculationsContext),
-                    typeof(StabilityPointStructuresFailureMechanismProperties));
+                    typeof(StabilityPointStructuresCalculationsProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

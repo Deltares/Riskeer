@@ -35,7 +35,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="StabilityPointStructuresFailureMechanism"/> for properties panel.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanismProperties : ObjectProperties<StabilityPointStructuresFailureMechanism>
+    public class StabilityPointStructuresCalculationsProperties : ObjectProperties<StabilityPointStructuresFailureMechanism>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -50,12 +50,12 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         private const int modelFactorLongThresholdPropertyIndex = 11;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="StabilityPointStructuresCalculationsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/>
         /// is <c>null</c>.</exception>
-        public StabilityPointStructuresFailureMechanismProperties(StabilityPointStructuresFailureMechanism data)
+        public StabilityPointStructuresCalculationsProperties(StabilityPointStructuresFailureMechanism data)
         {
             if (data == null)
             {

@@ -35,7 +35,7 @@ using Riskeer.StabilityPointStructures.Forms.PropertyClasses;
 namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class StabilityPointStructuresFailureMechanismPropertiesTest
+    public class StabilityPointStructuresCalculationsPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -53,7 +53,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         public void Constructor_DataIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StabilityPointStructuresFailureMechanismProperties(null);
+            TestDelegate test = () => new StabilityPointStructuresCalculationsProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -72,7 +72,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
+            var properties = new StabilityPointStructuresCalculationsProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<StabilityPointStructuresFailureMechanism>>(properties);
@@ -106,7 +106,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
+            var properties = new StabilityPointStructuresCalculationsProperties(failureMechanism);
 
             // Assert
             const string generalCategory = "Algemeen";
@@ -207,7 +207,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
+            var properties = new StabilityPointStructuresCalculationsProperties(failureMechanism);
 
             // Assert
             const string generalCategory = "Algemeen";
@@ -259,7 +259,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
+            var properties = new StabilityPointStructuresCalculationsProperties(failureMechanism);
 
             // Call
             TestDelegate test = () => properties.N = (RoundedDouble) value;
@@ -285,7 +285,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
+            var properties = new StabilityPointStructuresCalculationsProperties(failureMechanism);
 
             // Call
             properties.N = (RoundedDouble) value;
@@ -301,7 +301,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
         {
             // Setup
-            var properties = new StabilityPointStructuresFailureMechanismProperties(
+            var properties = new StabilityPointStructuresCalculationsProperties(
                 new StabilityPointStructuresFailureMechanism
                 {
                     IsRelevant = isRelevant
