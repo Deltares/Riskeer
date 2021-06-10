@@ -216,11 +216,11 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             var properties = new ClosingStructuresCalculationsProperties(failureMechanism);
 
             // Call
-            TestDelegate test = () => properties.N2A = value;
+            void Call() => properties.N2A = value;
 
             // Assert
             const string expectedMessage = "De waarde voor 'N2A' moet in het bereik [0, 40] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             mockRepository.VerifyAll();
         }
 
