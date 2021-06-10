@@ -41,17 +41,16 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
-        private const int isRelevantPropertyIndex = 5;
-        private const int gravitationalAccelerationPropertyIndex = 6;
+        private const int gravitationalAccelerationPropertyIndex = 5;
 
-        private const int cPropertyIndex = 7;
-        private const int n2APropertyIndex = 8;
-        private const int nPropertyIndex = 9;
+        private const int cPropertyIndex = 6;
+        private const int n2APropertyIndex = 7;
+        private const int nPropertyIndex = 8;
 
-        private const int modelFactorOvertoppingFlowPropertyIndex = 10;
-        private const int modelFactorStorageVolumePropertyIndex = 11;
-        private const int modelFactorLongThresholdPropertyIndex = 12;
-        private const int modelFactorInflowVolumePropertyIndex = 13;
+        private const int modelFactorOvertoppingFlowPropertyIndex = 9;
+        private const int modelFactorStorageVolumePropertyIndex = 10;
+        private const int modelFactorLongThresholdPropertyIndex = 11;
+        private const int modelFactorInflowVolumePropertyIndex = 12;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationsProperties"/>.
@@ -69,28 +68,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             Data = data;
         }
 
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            return data.IsRelevant || !ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName);
-        }
-
-        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
-        {
-            return nameof(Contribution).Equals(propertyName)
-                   || nameof(GravitationalAcceleration).Equals(propertyName)
-                   || nameof(ModelFactorOvertoppingFlow).Equals(propertyName)
-                   || nameof(ModelFactorStorageVolume).Equals(propertyName)
-                   || nameof(ModelFactorLongThreshold).Equals(propertyName)
-                   || nameof(ModelFactorInflowVolume).Equals(propertyName)
-                   || nameof(C).Equals(propertyName)
-                   || nameof(N2A).Equals(propertyName)
-                   || nameof(N).Equals(propertyName);
-        }
-
         #region Length effect parameters
 
-        [DynamicVisible]
         [PropertyOrder(cPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_C_DisplayName))]
@@ -103,7 +82,6 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(n2APropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_N2A_DisplayName))]
@@ -121,7 +99,6 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(nPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
@@ -174,7 +151,6 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(contributionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
@@ -187,19 +163,6 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(isRelevantPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_Description))]
-        public bool IsRelevant
-        {
-            get
-            {
-                return data.IsRelevant;
-            }
-        }
-
-        [DynamicVisible]
         [PropertyOrder(gravitationalAccelerationPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.GravitationalAcceleration_DisplayName))]
@@ -216,7 +179,6 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
 
         #region Model settings
 
-        [DynamicVisible]
         [PropertyOrder(modelFactorOvertoppingFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
@@ -230,7 +192,6 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(modelFactorStorageVolumePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
@@ -244,7 +205,6 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(modelFactorLongThresholdPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
@@ -258,7 +218,6 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(modelFactorInflowVolumePropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.StructuresInputFailureMechanismContext_ModelFactorInflowVolume_DisplayName))]

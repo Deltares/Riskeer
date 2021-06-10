@@ -40,39 +40,33 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
-        private const int isRelevantPropertyIndex = 4;
-        private const int gravitationalAccelerationPropertyIndex = 5;
+        private const int gravitationalAccelerationPropertyIndex = 4;
 
-        private const int cPropertyIndex = 6;
-        private const int n2APropertyIndex = 7;
-        private const int nPropertyIndex = 8;
+        private const int cPropertyIndex = 5;
+        private const int n2APropertyIndex = 6;
+        private const int nPropertyIndex = 7;
 
-        private const int modelFactorOvertoppingFlowPropertyIndex = 9;
-        private const int modelFactorStorageVolumePropertyIndex = 10;
-        private const int modelFactorLongThresholdPropertyIndex = 11;
-        private const int modelFactorInflowVolumePropertyIndex = 12;
+        private const int modelFactorOvertoppingFlowPropertyIndex = 8;
+        private const int modelFactorStorageVolumePropertyIndex = 9;
+        private const int modelFactorLongThresholdPropertyIndex = 10;
+        private const int modelFactorInflowVolumePropertyIndex = 11;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ClosingStructuresCalculationsProperties(null);
+            void Call() => new ClosingStructuresCalculationsProperties(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("data", paramName);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_ValidValues_ExpectedValues(bool isRelevant)
+        public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism
-            {
-                IsRelevant = isRelevant
-            };
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
             var properties = new ClosingStructuresCalculationsProperties(failureMechanism);
@@ -84,7 +78,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-            Assert.AreEqual(isRelevant, properties.IsRelevant);
 
             GeneralClosingStructuresInput generalInput = failureMechanism.GeneralInput;
             Assert.AreEqual(generalInput.GravitationalAcceleration,
@@ -105,14 +98,10 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Call
-            var properties = new ClosingStructuresCalculationsProperties(
-                new ClosingStructuresFailureMechanism
-                {
-                    IsRelevant = true
-                });
+            var properties = new ClosingStructuresCalculationsProperties(new ClosingStructuresFailureMechanism());
 
             // Assert
             const string generalCategory = "Algemeen";
@@ -120,7 +109,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(13, dynamicProperties.Count);
+            Assert.AreEqual(12, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -148,13 +137,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Faalkansbijdrage [%]",
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
-                                                                            true);
-
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
-                                                                            generalCategory,
-                                                                            "Is relevant",
-                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
             PropertyDescriptor gravitationalAccelerationProperty = dynamicProperties[gravitationalAccelerationPropertyIndex];
@@ -217,51 +199,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
-        {
-            // Call
-            var properties = new ClosingStructuresCalculationsProperties(
-                new ClosingStructuresFailureMechanism
-                {
-                    IsRelevant = false
-                });
-
-            // Assert
-            const string generalCategory = "Algemeen";
-
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
-
-            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
-                                                                            generalCategory,
-                                                                            "Naam",
-                                                                            "De naam van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
-                                                                            generalCategory,
-                                                                            "Label",
-                                                                            "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
-                                                                            true);
-
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
-                                                                            generalCategory,
-                                                                            "Is relevant",
-                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                            true);
-        }
-
-        [Test]
         [TestCase(-10)]
         [TestCase(-1)]
         [TestCase(41)]
@@ -311,37 +248,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(value, failureMechanism.GeneralInput.N2A);
             mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
-        {
-            // Setup
-            var properties = new ClosingStructuresCalculationsProperties(
-                new ClosingStructuresFailureMechanism
-                {
-                    IsRelevant = isRelevant
-                });
-
-            // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
-
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.C)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N2A)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.GravitationalAcceleration)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorOvertoppingFlow)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorStorageVolume)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorLongThreshold)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactorInflowVolume)));
-
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }
