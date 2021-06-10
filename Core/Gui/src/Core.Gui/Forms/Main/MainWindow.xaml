@@ -32,12 +32,12 @@ All rights reserved.
                    xmlns:commands="clr-namespace:Core.Gui.Commands"
                    mc:Ignorable="d" 
                    Title="MainWindow"
-                   MinWidth="1366"
-                   MinHeight="768"
+                   Width="1366"
+                   Height="768"
                    x:Name="Window"
                    ResizeMode="CanResizeWithGrip"
                    FlowDirection="LeftToRight"
-                   Loaded="MainWindow_OnLoaded">
+                   WindowState="Maximized">
     
     <commands:RoutedCommandHandlers.Commands>
         <commands:RoutedCommandHandler RoutedCommand="{x:Static commands:MainWindowCommands.NewProjectCommand}"

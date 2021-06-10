@@ -628,11 +628,6 @@ namespace Core.Gui.Forms.Main
 
         #region Events
 
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Maximized;
-        }
-
         private void OnViewOpened(object sender, ViewChangeEventArgs e)
         {
             var mapView = e.View as IMapView;

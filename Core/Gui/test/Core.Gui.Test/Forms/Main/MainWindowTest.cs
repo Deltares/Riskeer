@@ -102,6 +102,7 @@ namespace Core.Gui.Test.Forms.Main
                                "'mainWindow' instance on same thread as test, therefore invocation not required.");
 
                 Assert.AreEqual("MainWindow", mainWindow.Title);
+                Assert.AreEqual(WindowState.Maximized, mainWindow.WindowState);
                 Assert.AreEqual(ResizeMode.CanResizeWithGrip, mainWindow.ResizeMode);
                 Assert.AreEqual(FlowDirection.LeftToRight, mainWindow.FlowDirection);
                 Assert.AreEqual("MainWindow", mainWindow.Name);
