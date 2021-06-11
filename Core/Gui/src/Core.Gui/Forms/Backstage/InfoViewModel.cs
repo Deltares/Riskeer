@@ -61,11 +61,6 @@ namespace Core.Gui.Forms.Backstage
         /// is <c>null</c>.</exception>
         public void SetProject(IProject projectToSet)
         {
-            if (projectToSet == null)
-            {
-                throw new ArgumentNullException(nameof(projectToSet));
-            }
-
             project = projectToSet;
             OnPropertyChanged(nameof(ProjectName));
             OnPropertyChanged(nameof(ProjectDescription));

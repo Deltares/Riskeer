@@ -64,6 +64,7 @@ namespace Core.Gui
         private static bool isAlreadyRunningInstanceOfIGui;
         private static string instanceCreationStackTrace;
 
+        private readonly string applicationTitle;
         private readonly Observer projectObserver;
         private ISelectionProvider currentSelectionProvider;
 
@@ -143,6 +144,12 @@ namespace Core.Gui
             ProjectOpened += ApplicationProjectOpened;
             BeforeProjectOpened += ApplicationBeforeProjectOpened;
             projectObserver = new Observer(UpdateProjectData);
+
+            applicationTitle = string.Format(CultureInfo.CurrentCulture, "{0} {1}",
+                                             FixedSettings.ApplicationName,
+                                             SettingsHelper.Instance.ApplicationVersion);
+
+            SetTitle();
         }
 
         public IPropertyResolver PropertyResolver { get; private set; }
@@ -534,6 +541,14 @@ namespace Core.Gui
             }
         }
 
+        private void SetTitle()
+        {
+            mainWindow.Title = Project != null
+                                   ? string.Format(CultureInfo.CurrentCulture,
+                                                   "{0} - {1}", Project.Name, applicationTitle)
+                                   : applicationTitle;
+        }
+
         ~GuiCore()
         {
             Dispose(false);
@@ -549,17 +564,9 @@ namespace Core.Gui
 
         public IProject Project
         {
-            get
-            {
-                return project;
-            }
+            get => project;
             private set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException(nameof(value), @"There should always be a project.");
-                }
-
                 if (!ReferenceEquals(project, value))
                 {
                     OnBeforeProjectOpened();
@@ -684,12 +691,7 @@ namespace Core.Gui
 
         private void UpdateProjectData()
         {
-            mainWindow.Title = string.Format(CultureInfo.CurrentCulture,
-                                             "{0} - {1} {2}",
-                                             Project.Name,
-                                             FixedSettings.ApplicationName,
-                                             SettingsHelper.Instance.ApplicationVersion);
-
+            SetTitle();
             mainWindow.BackstageViewModel.InfoViewModel.SetProject(project);
         }
 

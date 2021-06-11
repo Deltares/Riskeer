@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Data;
@@ -50,11 +49,11 @@ namespace Core.Gui.Test.Forms.Backstage
         {
             // Given
             const string description = "new description";
-            
+
             var mocks = new MockRepository();
             var project = mocks.Stub<IProject>();
             mocks.ReplayAll();
-            
+
             var viewModel = new InfoViewModel();
             viewModel.SetProject(project);
 
@@ -74,17 +73,25 @@ namespace Core.Gui.Test.Forms.Backstage
         }
 
         [Test]
-        public void SetProject_ProjectNull_ThrowsArgumentNullException()
+        public void SetProject_ProjectNull_ExpectedValuesAndPropertyChangedEventsFired()
         {
             // Setup
             var viewModel = new InfoViewModel();
 
+            var propertyNames = new List<string>();
+            viewModel.PropertyChanged += (sender, args) => { propertyNames.Add(args.PropertyName); };
+
             // Call
-            void Call() => viewModel.SetProject(null);
+            viewModel.SetProject(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("projectToSet", exception.ParamName);
+            Assert.IsNull(viewModel.ProjectName);
+            Assert.IsNull(viewModel.ProjectDescription);
+            CollectionAssert.AreEqual(new[]
+            {
+                nameof(viewModel.ProjectName),
+                nameof(viewModel.ProjectDescription)
+            }, propertyNames);
         }
 
         [Test]

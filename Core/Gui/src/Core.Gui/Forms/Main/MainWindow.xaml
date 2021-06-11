@@ -31,7 +31,6 @@ All rights reserved.
                    xmlns:backstage="clr-namespace:Core.Gui.Forms.Backstage"
                    xmlns:commands="clr-namespace:Core.Gui.Commands"
                    mc:Ignorable="d" 
-                   Title="MainWindow"
                    Width="1366"
                    Height="768"
                    x:Name="Window"

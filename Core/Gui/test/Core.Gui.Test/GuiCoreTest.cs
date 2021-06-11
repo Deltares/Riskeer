@@ -114,6 +114,8 @@ namespace Core.Gui.Test
                 CollectionAssert.IsEmpty(gui.Plugins);
 
                 Assert.AreEqual(mainWindow, gui.MainWindow);
+                var expectedTitle = $"{guiCoreSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
+                Assert.AreEqual(expectedTitle, mainWindow.Title);
 
                 Assert.AreSame(ViewPropertyEditor.ViewCommands, gui.ViewCommands);
 
@@ -262,32 +264,6 @@ namespace Core.Gui.Test
 
                 // Assert
                 Assert.Throws<InvalidOperationException>(Call);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void SetProject_SetNull_ThrowsArgumentNullException()
-        {
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var plugin = mocks.Stub<PluginBase>();
-            plugin.Expect(p => p.Deactivate());
-            plugin.Expect(p => p.Dispose());
-            IProjectFactory projectFactory = CreateProjectFactory(mocks);
-            mocks.ReplayAll();
-
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                gui.Plugins.Add(plugin);
-
-                // Call
-                void Call() => gui.SetProject(null, null);
-
-                // Assert
-                Assert.Throws<ArgumentNullException>(Call);
             }
 
             mocks.VerifyAll();
@@ -1210,9 +1186,9 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        public void SetProject_SetNewValue_FiresProjectOpenedEvents()
+        public void GivenGuiWithoutSetProject_WhenSettingNewProject_ThenProjectOpenedEventsFired()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var storeProject = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
@@ -1235,10 +1211,85 @@ namespace Core.Gui.Test
                     openedCallCount++;
                 };
 
-                // Call
+                // When
                 gui.SetProject(newProject, null);
 
-                // Assert
+                // Then
+                Assert.AreEqual(1, openedCallCount);
+                Assert.AreEqual(1, beforeOpenCallCount);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGuiWithoutSetProject_WhenSettingNewProjectToNull_ThenNothingHappens()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var storeProject = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), storeProject, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                var openedCallCount = 0;
+                var beforeOpenCallCount = 0;
+                gui.BeforeProjectOpened += project =>
+                {
+                    Assert.IsNull(project);
+                    beforeOpenCallCount++;
+                };
+                gui.ProjectOpened += project =>
+                {
+                    Assert.IsNull(project);
+                    openedCallCount++;
+                };
+
+                // When
+                gui.SetProject(null, null);
+
+                // Then
+                Assert.AreEqual(0, openedCallCount);
+                Assert.AreEqual(0, beforeOpenCallCount);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGuiWithSetProject_WhenSettingNewProjectToNull_ThenProjectOpenedEventsFired()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var storeProject = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            var originalProject = mocks.Stub<IProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), storeProject, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.SetProject(originalProject, null);
+                
+                var openedCallCount = 0;
+                var beforeOpenCallCount = 0;
+                gui.BeforeProjectOpened += project =>
+                {
+                    Assert.AreSame(originalProject, project);
+                    beforeOpenCallCount++;
+                };
+                gui.ProjectOpened += project =>
+                {
+                    Assert.IsNull(project);
+                    openedCallCount++;
+                };
+
+                // When
+                gui.SetProject(null, null);
+
+                // Then
                 Assert.AreEqual(1, openedCallCount);
                 Assert.AreEqual(1, beforeOpenCallCount);
             }
