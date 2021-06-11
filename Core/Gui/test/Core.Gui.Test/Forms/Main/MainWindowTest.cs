@@ -107,7 +107,7 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.AreEqual(FlowDirection.LeftToRight, mainWindow.FlowDirection);
                 Assert.AreEqual("MainWindow", mainWindow.Name);
 
-                Assert.IsNull(mainWindow.NewProjectCommand);
+                Assert.IsNotNull(mainWindow.NewProjectCommand);
                 Assert.IsNotNull(mainWindow.SaveProjectCommand);
                 Assert.IsNotNull(mainWindow.SaveProjectAsCommand);
                 Assert.IsNotNull(mainWindow.OpenProjectCommand);
@@ -140,7 +140,6 @@ namespace Core.Gui.Test.Forms.Main
 
                 // Assert
                 Assert.IsNotNull(mainWindow.BackstageViewModel);
-                Assert.IsNotNull(mainWindow.NewProjectCommand);
                 mocks.VerifyAll();
             }
         }

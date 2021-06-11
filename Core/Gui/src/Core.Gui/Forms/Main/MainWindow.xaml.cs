@@ -83,6 +83,7 @@ namespace Core.Gui.Forms.Main
             windowInteropHelper = new WindowInteropHelper(this);
             Name = "MainWindow";
 
+            NewProjectCommand = new RelayCommand(OnNewProject);
             SaveProjectCommand = new RelayCommand(OnSaveProject);
             SaveProjectAsCommand = new RelayCommand(OnSaveProjectAs);
             OpenProjectCommand = new RelayCommand(OnOpenProject);
@@ -188,7 +189,6 @@ namespace Core.Gui.Forms.Main
             commands = gui;
             applicationSelection = gui;
 
-            NewProjectCommand = new RelayCommand(OnNewProject);
             BackstageViewModel = new BackstageViewModel(settings.FixedSettings, SettingsHelper.Instance.ApplicationVersion);
         }
 
@@ -359,7 +359,7 @@ namespace Core.Gui.Forms.Main
         /// <summary>
         /// Gets the command to create a new project.
         /// </summary>
-        public ICommand NewProjectCommand { get; private set; }
+        public ICommand NewProjectCommand { get; }
 
         /// <summary>
         /// Gets the command to save a project.
