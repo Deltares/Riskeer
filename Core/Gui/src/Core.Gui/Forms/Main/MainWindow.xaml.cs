@@ -424,7 +424,6 @@ namespace Core.Gui.Forms.Main
         private void OnNewProject(object obj)
         {
             commands.StorageCommands.CreateNewProject(() => settings.FixedSettings.OnCreateNewProjectFunc(gui));
-            ResetState();
             CloseBackstage();
         }
 
@@ -450,7 +449,6 @@ namespace Core.Gui.Forms.Main
             if (!string.IsNullOrEmpty(projectPath))
             {
                 commands.StorageCommands.OpenExistingProject(projectPath);
-                ResetState();
                 CloseBackstage();
             }
         }
