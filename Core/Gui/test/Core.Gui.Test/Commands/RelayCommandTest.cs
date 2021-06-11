@@ -54,7 +54,7 @@ namespace Core.Gui.Test.Commands
         }
 
         [Test]
-        public void GivenRelayCommandWithoutCanExecuteFunction_ThenArgumentNullExceptionIsThrown()
+        public void WhenCreatingRelayCommandWithoutCanExecuteFunction_ThenArgumentNullExceptionIsThrown()
         {
             // When
             void Call() => new RelayCommand(p => {}, null);

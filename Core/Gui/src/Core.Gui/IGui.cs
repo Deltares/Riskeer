@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base.Storage;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.PropertyGridView;
+using Core.Gui.Forms.PropertyView;
 using Core.Gui.PropertyBag;
 using Core.Gui.Selection;
 using Core.Gui.Settings;
@@ -31,7 +31,7 @@ using Core.Gui.Settings;
 namespace Core.Gui
 {
     /// <summary>
-    /// Provides graphical user interface logic required to work with an application.
+    /// Provides the graphical user interface logic required to work with an application.
     /// </summary>
     public interface IGui : ICommandsOwner, ISettingsOwner, IProjectOwner,
                             IApplicationSelection, IViewController, IContextMenuBuilderProvider,
@@ -39,12 +39,12 @@ namespace Core.Gui
     {
         /// <summary>
         /// Gets the object responsible for retrieving the <see cref="ObjectProperties{T}"/>
-        /// instance for a given data object for the application to use.
+        /// instance for a given data object.
         /// </summary>
         IPropertyResolver PropertyResolver { get; }
 
         /// <summary>
-        /// Gets the object responsible for perform storage actions.
+        /// Gets the object responsible for performing storage actions.
         /// </summary>
         IStoreProject ProjectStore { get; }
 

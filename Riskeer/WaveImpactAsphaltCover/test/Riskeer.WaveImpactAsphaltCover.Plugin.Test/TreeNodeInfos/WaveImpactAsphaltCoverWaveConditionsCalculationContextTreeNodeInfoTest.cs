@@ -32,7 +32,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -50,6 +50,7 @@ using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Revetment.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
@@ -1476,7 +1477,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
-                var mainWindow = mocks.Stub<IMainWindow>();
                 var menuBuilder = new ContextMenuBuilder(appFeatureCommandHandler,
                                                          importHandler,
                                                          exportHandler,
@@ -1487,6 +1487,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
                 calculation.Attach(observer);
+
+                var mainWindow = mocks.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);

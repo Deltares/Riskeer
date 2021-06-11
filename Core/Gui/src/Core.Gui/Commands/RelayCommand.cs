@@ -49,8 +49,8 @@ namespace Core.Gui.Commands
         /// Creates a new instance of <see cref="RelayCommand"/>.
         /// </summary>
         /// <param name="action">The action to execute.</param>
-        /// <param name="canExecute">The function that determines whether command can execute.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="action"/> is <c>null</c>.</exception>
+        /// <param name="canExecute">The function that determines whether the command can execute.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public RelayCommand(Action<object> action, Func<object, bool> canExecute)
         {
             if (action == null)

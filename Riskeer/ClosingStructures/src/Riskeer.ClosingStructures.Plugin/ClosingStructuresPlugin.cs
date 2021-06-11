@@ -69,9 +69,9 @@ namespace Riskeer.ClosingStructures.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<ClosingStructuresCalculationsContext, ClosingStructuresFailureMechanismProperties>
+            yield return new PropertyInfo<ClosingStructuresCalculationsContext, ClosingStructuresCalculationsProperties>
             {
-                CreateInstance = context => new ClosingStructuresFailureMechanismProperties(context.WrappedData)
+                CreateInstance = context => new ClosingStructuresCalculationsProperties(context.WrappedData)
             };
             yield return new PropertyInfo<ClosingStructure, ClosingStructureProperties>();
             yield return new PropertyInfo<ClosingStructuresContext, StructureCollectionProperties<ClosingStructure>>

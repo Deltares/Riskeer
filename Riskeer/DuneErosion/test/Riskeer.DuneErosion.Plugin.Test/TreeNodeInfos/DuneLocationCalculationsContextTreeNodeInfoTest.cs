@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -32,7 +33,7 @@ using Core.Common.Util;
 using Core.Common.Util.Extensions;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -47,6 +48,7 @@ using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
@@ -392,6 +394,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 var builder = new CustomItemsOnlyContextMenuBuilder();
 
                 var mainWindow = mocks.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+                
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
@@ -491,9 +496,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var mainWindow = mocks.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+                
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
 
                 var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
@@ -578,9 +587,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var mainWindow = mocks.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+                
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
 
                 var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
@@ -664,9 +677,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var mainWindow = mocks.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+                
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
 
                 var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();

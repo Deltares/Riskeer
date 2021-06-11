@@ -29,7 +29,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil.ContextMenu;
 using log4net.Core;
 using NUnit.Extensions.Forms;
@@ -46,6 +46,7 @@ using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Riskeer.MacroStabilityInwards.Primitives;
+using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
@@ -430,11 +431,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                              failureMechanism,
                                                                                              assessmentSection);
 
-                var mainWindow = mocks.DynamicMock<IMainWindow>();
+                var mainWindow = mocks.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
@@ -545,11 +548,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                                                                                              failureMechanism,
                                                                                              assessmentSection);
 
-                var mainWindow = mocks.DynamicMock<IMainWindow>();
+                var mainWindow = mocks.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());

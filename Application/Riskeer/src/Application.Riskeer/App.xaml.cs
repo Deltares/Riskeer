@@ -36,8 +36,7 @@ using System.Windows.Forms;
 using Core.Common.Util;
 using Core.Common.Util.Settings;
 using Core.Gui;
-using Core.Gui.Appenders;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Helpers;
 using Core.Gui.Settings;
 using log4net;
@@ -57,7 +56,7 @@ using Riskeer.StabilityPointStructures.Plugin;
 using Riskeer.StabilityStoneCover.Plugin;
 using Riskeer.Storage.Core;
 using Riskeer.WaveImpactAsphaltCover.Plugin;
-using CoreGuiResources = Core.Gui.Properties.Resources;
+using ApplicationResources = Application.Riskeer.Properties.Resources;
 using MessageBox = System.Windows.MessageBox;
 
 namespace Application.Riskeer
@@ -94,7 +93,7 @@ namespace Application.Riskeer
             SetLanguage();
 
             string userDisplay = UserDisplay();
-            log.Info(string.Format(CoreGuiResources.App_Starting_Riskeer_version_0_by_user_0,
+            log.Info(string.Format(ApplicationResources.App_Starting_Riskeer_version_0_by_user_0,
                                    SettingsHelper.Instance.ApplicationVersion,
                                    userDisplay));
         }
@@ -112,7 +111,7 @@ namespace Application.Riskeer
             WaitForPreviousInstanceToExit();
             if (IsNotFirstInstance())
             {
-                MessageBox.Show(CoreGuiResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first);
+                MessageBox.Show(ApplicationResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first);
                 Shutdown(1);
                 return;
             }
@@ -124,16 +123,16 @@ namespace Application.Riskeer
             var settings = new GuiCoreSettings
             {
                 ApplicationName = "Riskeer",
-                SupportHeader = CoreGuiResources.HelpdeskWater_DisplayName,
-                SupportText = CoreGuiResources.HelpdeskWater_Description,
+                ApplicationIcon = ApplicationResources.Riskeer,
+                SupportHeader = ApplicationResources.HelpdeskWater_DisplayName,
+                SupportText = ApplicationResources.HelpdeskWater_Description,
                 SupportWebsiteAddressUrl = "https://www.helpdeskwater.nl/onderwerpen/applicaties-modellen/applicaties-per/omgevings/omgevings/riskeer/",
                 SupportEmailAddressUrl = "https://www.helpdeskwater.nl/onderwerpen/applicaties-modellen/applicaties-per/omgevings/omgevings/riskeer/contact/vraag-ringtoets/",
                 SupportPhoneNumberUrl = "https://www.helpdeskwater.nl/secundaire-navigatie/contact/",
                 ManualFilePath = "Gebruikershandleiding Riskeer 21.1.1.pdf",
-                OnCreateNewProjectFunc = g => new AssessmentSectionFromFileHandler(g.MainWindow).GetAssessmentSectionFromFile(),
-                AfterProjectOpenedAction = AssessmentSectionFromFileHandler.DoPostHandleActions
+                OnCreateNewProjectFunc = g => new AssessmentSectionFromFileHandler(g.MainWindow).GetAssessmentSectionFromFile()
             };
-            
+
             var mainWindow = new MainWindow();
             var projectMigrator = new ProjectMigrator(new DialogBasedInquiryHelper(mainWindow));
 
@@ -183,7 +182,7 @@ namespace Application.Riskeer
 
         private void AppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Exception exception = e.ExceptionObject as Exception ?? new Exception(CoreGuiResources.App_Unhandled_exception);
+            Exception exception = e.ExceptionObject as Exception ?? new Exception(ApplicationResources.App_Unhandled_exception);
 
             HandleExceptionOnMainThread(exception);
         }
@@ -210,7 +209,7 @@ namespace Application.Riskeer
 
         private void HandleException(Exception exception)
         {
-            log.Error(CoreGuiResources.App_Unhandled_exception, exception);
+            log.Error(ApplicationResources.App_Unhandled_exception, exception);
 
             if (gui?.MainWindow != null)
             {
@@ -238,9 +237,7 @@ namespace Application.Riskeer
         }
 
         /// <summary>
-        /// <code>app.config</code> has been configured to use <see cref="RiskeerUserDataFolderConverter"/>
-        /// to write log files to the Riskeer user data folder. This method deletes the old log files
-        /// that have been written there.
+        /// Delete the old log files.
         /// </summary>
         private static void DeleteOldLogFiles()
         {

@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Gui;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;

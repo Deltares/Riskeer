@@ -49,7 +49,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Forms\MainWindow\MainWindow.xaml">
+    <Page Include="Forms\Main\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -78,7 +78,6 @@
     <Resource Include="Resources\Paste.png" />
     <Resource Include="Resources\PasteLarge.png" />
     <Resource Include="Resources\PropertiesHS.png" />
-    <Resource Include="Resources\Riskeer.ico" />
     <Resource Include="Resources\SplashScreenBackground.png" />
     <Resource Include="Style\Symbols\Symbols.ttf" />
   </ItemGroup>
@@ -124,14 +123,23 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Forms\ProjectExplorer\ProjectExplorer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Update="Forms\Map\MapLegendView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Forms\Chart\ChartLegendView.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Forms\Log\MessageWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Forms\Log\MessageWindowDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Project\ProjectExplorer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Forms\PropertyView\PropertyGridView.cs">
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

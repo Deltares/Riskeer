@@ -31,7 +31,7 @@ using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
@@ -52,6 +52,7 @@ using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Revetment.Data;
+using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
@@ -360,8 +361,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var mainWindow = mockRepository.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+
                 var gui = mockRepository.Stub<IGui>();
-                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());

@@ -24,7 +24,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Gui;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
@@ -72,7 +72,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(MacroStabilityInwardsCalculationsContext),
-                    typeof(MacroStabilityInwardsFailureMechanismProperties));
+                    typeof(MacroStabilityInwardsCalculationsProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

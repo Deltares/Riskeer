@@ -29,7 +29,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -49,6 +49,7 @@ using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
@@ -1054,7 +1055,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void GivenValidCalculation_WhenCalculatingFromContextMenu_ThenOutputSetLogMessagesAddedAndUpdateObserver()
         {
             // Given
-            var mainWindow = mocks.DynamicMock<IMainWindow>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
@@ -1091,6 +1091,10 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var mainWindow = mocks.Stub<IMainWindow>();
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mainWindow);

@@ -26,8 +26,8 @@ using System.Windows;
 namespace Core.Gui.Commands
 {
     /// <summary>
-    ///  Holds a collection of <see cref="RoutedCommandHandler"/> that should be
-    ///  turned into CommandBindings.
+    /// Holds a collection of <see cref="RoutedCommandHandler"/> that should be
+    /// turned into command bindings.
     /// </summary>
     public class RoutedCommandHandlers : FreezableCollection<RoutedCommandHandler>
     {
@@ -42,7 +42,7 @@ namespace Core.Gui.Commands
         /// <summary>
         /// Creates a new instance of <see cref="RoutedCommandHandlers"/>.
         /// </summary>
-        /// <param name="owner"> The element for which this collection is created. </param>
+        /// <param name="owner">The element for which this collection is created.</param>
         private RoutedCommandHandlers(FrameworkElement owner)
         {
             this.owner = owner;
@@ -51,8 +51,8 @@ namespace Core.Gui.Commands
         }
 
         /// <summary>
-        /// Gets the collection of RoutedCommandHandler for a given element, creating
-        ///  it if it doesn't already exist.
+        /// Gets the collection of <see cref="RoutedCommandHandler"/> for a given element, creating
+        /// it if it doesn't already exist.
         /// </summary>
         /// <param name="element">The element to which <see cref="RoutedCommandHandlers"/>
         /// was added.</param>

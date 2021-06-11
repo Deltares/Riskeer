@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using Core.Common.Base.Storage;
+using Core.Gui.Forms;
 using Core.Gui.Forms.ProgressDialog;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
@@ -35,7 +35,7 @@ namespace Riskeer.Integration.Plugin.Merge
     /// </summary>
     public class AssessmentSectionProvider : IAssessmentSectionProvider
     {
-        private readonly IWin32Window viewParent;
+        private readonly IViewParent viewParent;
         private readonly IStoreProject projectStorage;
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Riskeer.Integration.Plugin.Merge
         /// /// <param name="projectStorage">Class responsible for loading the project.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public AssessmentSectionProvider(IWin32Window viewParent, IStoreProject projectStorage)
+        public AssessmentSectionProvider(IViewParent viewParent, IStoreProject projectStorage)
         {
             if (viewParent == null)
             {

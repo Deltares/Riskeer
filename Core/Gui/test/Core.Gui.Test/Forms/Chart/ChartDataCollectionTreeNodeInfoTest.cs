@@ -98,7 +98,7 @@ namespace Core.Gui.Test.Forms.Chart
         }
 
         [Test]
-        public void Text_Always_ReturnsNameFromChartData()
+        public void Text_WithData_ReturnsNameFromChartData()
         {
             // Setup
             var chartDataCollection = new ChartDataCollection("test data");
@@ -113,18 +113,15 @@ namespace Core.Gui.Test.Forms.Chart
         [Test]
         public void Image_Always_ReturnsSetImage()
         {
-            // Setup
-            var chartDataCollection = new ChartDataCollection("test data");
-
             // Call
-            Image image = info.Image(chartDataCollection);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.folder, image);
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnsChildrenWithContextAndDataReversed()
+        public void ChildNodeObjects_WithData_ReturnsChildrenWithContextAndDataReversed()
         {
             // Setup
             var chartData1 = new TestChartData();
@@ -255,8 +252,6 @@ namespace Core.Gui.Test.Forms.Chart
                 // Assert
                 int reversedIndex = 2 - position;
                 Assert.AreSame(context1.WrappedData, chartDataCollection.Collection.ElementAt(reversedIndex));
-
-                mocks.VerifyAll();
             }
         }
 
@@ -292,12 +287,10 @@ namespace Core.Gui.Test.Forms.Chart
             using (var treeViewControl = new TreeViewControl())
             {
                 // Call
-                TestDelegate test = () => info.OnDrop(context1, chartDataCollection, chartDataCollection, position, treeViewControl);
+                void Call() => info.OnDrop(context1, chartDataCollection, chartDataCollection, position, treeViewControl);
 
                 // Assert
-                Assert.Throws<ArgumentOutOfRangeException>(test);
-
-                mocks.VerifyAll(); // Expect no update observer.
+                Assert.Throws<ArgumentOutOfRangeException>(Call);
             }
         }
 
@@ -309,7 +302,6 @@ namespace Core.Gui.Test.Forms.Chart
 
             using (var treeViewControl = new TreeViewControl())
             {
-                // Call
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
                 {
@@ -414,7 +406,6 @@ namespace Core.Gui.Test.Forms.Chart
             var chartDataCollection = new ChartDataCollection("test data");
             chartDataCollection.Add(chartPointData);
 
-            // Call
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(chartDataCollection, null, null))
             {
                 // Assert
@@ -450,7 +441,6 @@ namespace Core.Gui.Test.Forms.Chart
 
             chartLegendView.ChartControl = chartControl;
 
-            // Call
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(chartDataCollection, null, null))
             {
                 // Call
@@ -473,14 +463,13 @@ namespace Core.Gui.Test.Forms.Chart
             var chartDataCollection = new ChartDataCollection("test data");
             chartDataCollection.Add(lineData);
 
-            // Call
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(chartDataCollection, null, null))
             {
                 // Call
-                TestDelegate call = () => contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
+                void Call() => contextMenu.Items[contextMenuZoomToAllIndex].PerformClick();
 
                 // Assert
-                Assert.DoesNotThrow(call);
+                Assert.DoesNotThrow(Call);
             }
         }
 

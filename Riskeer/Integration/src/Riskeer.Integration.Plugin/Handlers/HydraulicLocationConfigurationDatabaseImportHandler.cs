@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Windows.Forms;
 using Core.Common.Base.Service;
+using Core.Gui.Forms;
 using Core.Gui.Forms.ProgressDialog;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Forms.PropertyClasses;
@@ -36,7 +36,7 @@ namespace Riskeer.Integration.Plugin.Handlers
     /// </summary>
     public class HydraulicLocationConfigurationDatabaseImportHandler : IHydraulicLocationConfigurationDatabaseImportHandler
     {
-        private readonly IWin32Window viewParent;
+        private readonly IViewParent viewParent;
         private readonly IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler;
         private readonly HydraulicBoundaryDatabase hydraulicBoundaryDatabase;
 
@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// <param name="updateHandler">The object responsible for updating the <see cref="HydraulicLocationConfigurationSettings"/>.</param>
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to import the data to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
-        public HydraulicLocationConfigurationDatabaseImportHandler(IWin32Window viewParent,
+        public HydraulicLocationConfigurationDatabaseImportHandler(IViewParent viewParent,
                                                                    IHydraulicLocationConfigurationDatabaseUpdateHandler updateHandler,
                                                                    HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {

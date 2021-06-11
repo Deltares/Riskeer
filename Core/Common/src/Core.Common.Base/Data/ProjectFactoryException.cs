@@ -10,12 +10,12 @@ namespace Core.Common.Base.Data
     public class ProjectFactoryException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectFactoryException"/> class.
+        /// Creates a new instance of <see cref="ProjectFactoryException"/>.
         /// </summary>
         public ProjectFactoryException() {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectFactoryException"/> class 
+        /// Creates a new instance of <see cref="ProjectFactoryException"/> 
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
@@ -23,7 +23,7 @@ namespace Core.Common.Base.Data
             : base(message) {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectFactoryException"/> class with a specified error message 
+        /// Creates a new instance of <see cref="ProjectFactoryException"/> with a specified error message 
         /// and a reference to the inner exception that is the cause of this exception.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
@@ -32,7 +32,7 @@ namespace Core.Common.Base.Data
         public ProjectFactoryException(string message, Exception innerException) : base(message, innerException) {}
 
         /// <summary>
-        /// Initializes a new instance of <see cref="ProjectFactoryException"/> with
+        /// Creates a new instance of <see cref="ProjectFactoryException"/> with
         /// serialized data.</summary>
         /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
         /// object data about the exception being thrown.</param>

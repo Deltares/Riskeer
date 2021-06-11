@@ -71,8 +71,7 @@ namespace Core.Gui.Forms.Map
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="IMapControl"/> for which this legend view is configured
-        /// to show the internal map data for.
+        /// Gets or sets the <see cref="IMapControl"/>.
         /// </summary>
         public IMapControl MapControl
         {

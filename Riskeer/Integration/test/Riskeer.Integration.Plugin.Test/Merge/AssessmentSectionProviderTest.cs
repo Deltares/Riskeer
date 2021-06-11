@@ -23,9 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
+using Core.Gui.Forms;
+using Core.Gui.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -45,7 +46,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IWin32Window>();
+            var viewParent = mocks.Stub<IViewParent>();
             var projectStorage = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
@@ -78,7 +79,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IWin32Window>();
+            var viewParent = mocks.Stub<IViewParent>();
             mocks.ReplayAll();
 
             // Call
@@ -94,7 +95,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IWin32Window>();
+            var viewParent = mocks.Stub<IViewParent>();
             var projectStorage = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
@@ -114,22 +115,25 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IWin32Window>();
             var projectStorage = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            var provider = new AssessmentSectionProvider(viewParent, projectStorage);
-
-            DialogBoxHandler = (name, wnd) =>
+            using (var viewParent = new TestViewParentForm())
             {
-                // Expect an activity dialog which is automatically closed
-            };
+                var provider = new AssessmentSectionProvider(viewParent, projectStorage);
 
-            // Call
-            void Call() => provider.GetAssessmentSections("filePath");
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    // Expect an activity dialog which is automatically closed
+                };
 
-            // Assert
-            Assert.Throws<AssessmentSectionProviderException>(Call);
+                // Call
+                void Call() => provider.GetAssessmentSections("filePath");
+
+                // Assert
+                Assert.Throws<AssessmentSectionProviderException>(Call);
+            }
+
             mocks.VerifyAll();
         }
 
@@ -137,24 +141,22 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         public void GetAssessmentSections_ValidFilePath_ReturnsAssessmentSections()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
-
-            var provider = new AssessmentSectionProvider(viewParent, new StorageSqLite());
-            string filePath = Path.Combine(testDataPath, "project.risk");
-
-            DialogBoxHandler = (name, wnd) =>
+            using (var viewParent = new TestViewParentForm())
             {
-                // Expect an activity dialog which is automatically closed
-            };
+                var provider = new AssessmentSectionProvider(viewParent, new StorageSqLite());
+                string filePath = Path.Combine(testDataPath, "project.risk");
 
-            // Call
-            IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(filePath);
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    // Expect an activity dialog which is automatically closed
+                };
 
-            // Assert
-            Assert.AreEqual(1, assessmentSections.Count());
-            mocks.VerifyAll();
+                // Call
+                IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(filePath);
+
+                // Assert
+                Assert.AreEqual(1, assessmentSections.Count());
+            }
         }
     }
 }

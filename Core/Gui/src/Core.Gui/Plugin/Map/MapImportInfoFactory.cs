@@ -36,7 +36,7 @@ namespace Core.Gui.Plugin.Map
         /// <summary>
         /// Creates the <see cref="ImportInfo"/> objects.
         /// </summary>
-        /// <returns>The creates <see cref="ImportInfo"/> objects.</returns>
+        /// <returns>The created <see cref="ImportInfo"/> objects.</returns>
         public static IEnumerable<ImportInfo> Create()
         {
             yield return new ImportInfo<MapDataCollectionContext>

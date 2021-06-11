@@ -53,7 +53,7 @@ namespace Core.Gui.Forms.ViewHost
         /// Closes all views.
         /// </summary>
         void CloseAllViews();
-        
+
         /// <summary>
         /// Closes all views for <paramref name="data"/>.
         /// </summary>

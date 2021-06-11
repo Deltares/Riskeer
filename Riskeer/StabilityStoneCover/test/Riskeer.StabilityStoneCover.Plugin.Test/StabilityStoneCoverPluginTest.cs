@@ -23,7 +23,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Gui;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
@@ -55,7 +55,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityStoneCoverCalculationsContext),
-                    typeof(StabilityStoneCoverFailureMechanismProperties));
+                    typeof(StabilityStoneCoverCalculationsProperties));
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityStoneCoverWaveConditionsOutputContext),

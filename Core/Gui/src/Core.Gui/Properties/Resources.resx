@@ -123,15 +123,9 @@
   <data name="NewProject_DisplayName" xml:space="preserve">
     <value>Nieuw</value>
   </data>
-  <data name="App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first" xml:space="preserve">
-    <value>Kan niet meerdere instanties van Riskeer starten. Sluit eerst de andere instantie.</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="App_Unhandled_exception" xml:space="preserve">
-    <value>Onbekende kritieke fout opgetreden.</value>
   </data>
   <data name="SaveProject_DisplayName" xml:space="preserve">
     <value>Opslaan</value>
@@ -164,13 +158,10 @@
     <value>..\Resources\PropertiesHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SaveProjectAs_DisplayName" xml:space="preserve">
-    <value>Opslaan Als</value>
+    <value>Opslaan als</value>
   </data>
   <data name="SelectViewDialog_listBox_DrawItem_Default" xml:space="preserve">
     <value>- (Standaard)</value>
-  </data>
-  <data name="App_Starting_Riskeer_version_0_by_user_0" xml:space="preserve">
-    <value>Riskeer versie {0} wordt gestart door {1}...</value>
   </data>
   <data name="ViewStateBar_Messages_ToolTip" xml:space="preserve">
     <value>Berichten</value>
@@ -546,9 +537,6 @@
   </data>
   <data name="GetItemName_Name_0_FileExtension_1" xml:space="preserve">
     <value>{0} (*.{1})</value>
-  </data>
-  <data name="Riskeer" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Riskeer.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GuiExportHandler_ExportItemUsingDialog_Data_exported_to_File_0" xml:space="preserve">
     <value>Gegevens zijn geëxporteerd naar bestand '{0}'.</value>
@@ -934,14 +922,6 @@
   <data name="SupportBackstagePage_WeCanHelp_Description" xml:space="preserve">
     <value>Heeft u problemen in het gebruik van de software? Neem dan contact op.</value>
   </data>
-  <data name="HelpdeskWater_DisplayName" xml:space="preserve">
-    <value>Helpdesk Water</value>
-  </data>
-  <data name="HelpdeskWater_Description" xml:space="preserve">
-    <value>De Helpdesk Water is gehuisvest bij de Rijkswaterstaat Water, Verkeer en Leefomgeving (RWS WVL). De helpdesk richt zich op het ontsluiten van kennis die aanwezig is binnen de werkvelden waterbeleid en waterbeheer in de breedste zin.
-
-Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel binnen Rijkswaterstaat als daar buiten. Op deze manier kan de helpdesk uw vragen snel en efficiënt beantwoorden, waarbij optimaal gebruik wordt gemaakt van de beschikbare kennis.</value>
-  </data>
   <data name="VisitWebsite_DisplayName" xml:space="preserve">
     <value>Bezoek website</value>
   </data>
@@ -953,5 +933,11 @@ Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel bin
   </data>
   <data name="Description_DisplayName" xml:space="preserve">
     <value>Omschrijving</value>
+  </data>
+  <data name="AboutViewModel_InstalledRam_0_GB" xml:space="preserve">
+    <value>{0} GB</value>
+  </data>
+  <data name="AboutViewModel_Unknown_value" xml:space="preserve">
+    <value>-</value>
   </data>
 </root>

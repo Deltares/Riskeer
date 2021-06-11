@@ -22,8 +22,9 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.TestUtil;
+using Core.Gui.Forms;
+using Core.Gui.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -45,49 +46,49 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
-        public void Constructor_MainWindowNull_ThrowsArgumentNullException()
+        public void Constructor_ViewParentNull_ThrowsArgumentNullException()
         {
-            // Setup & Call
-            TestDelegate test = () => new HydraulicBoundaryLocationCalculationGuiService(null);
+            // Call
+            void Call() => new HydraulicBoundaryLocationCalculationGuiService(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            const string expectedParamName = "viewParent";
-            Assert.AreEqual(expectedParamName, paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("viewParent", exception.ParamName);
         }
 
         [Test]
-        public void Constructor_DefaultValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
-            using (var viewParent = new Form())
-            {
-                // Call
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+            var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IViewParent>();
+            mocks.ReplayAll();
 
-                // Assert
-                Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationGuiService>(guiService);
-            }
+            // Call
+            var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+
+            // Assert
+            Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationGuiService>(guiService);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CalculateDesignWaterLevels_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            using (var viewParent = new Form())
-            {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+            var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IViewParent>();
+            mocks.ReplayAll();
 
-                // Call
-                TestDelegate test = () => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
-                                                                                null,
-                                                                                0.01,
-                                                                                "A");
+            var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
-                // Assert
-                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-                Assert.AreEqual("assessmentSection", paramName);
-            }
+            // Call
+            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, 0.01, "A");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -95,24 +96,18 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         {
             // Setup
             var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IViewParent>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (var viewParent = new Form())
-            {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+            var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
-                // Call
-                TestDelegate test = () => guiService.CalculateDesignWaterLevels(null,
-                                                                                assessmentSection,
-                                                                                0.01,
-                                                                                "A");
+            // Call
+            void Call() => guiService.CalculateDesignWaterLevels(null, assessmentSection, 0.01, "A");
 
-                // Assert
-                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-                Assert.AreEqual("calculations", paramName);
-            }
-
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculations", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -121,30 +116,25 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         {
             // Setup
             var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IViewParent>();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = "Does not exist";
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            using (var viewParent = new Form())
+            var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+
+            // Call
+            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "A");
+
+            // Assert
+            TestHelper.AssertLogMessages(Call, messages =>
             {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-                // Call
-                Action call = () => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
-                                                                          assessmentSection,
-                                                                          0.01,
-                                                                          "A");
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    string[] msgs = messages.ToArray();
-                    Assert.AreEqual(1, msgs.Length);
-                    StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
-                });
-            }
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(1, msgs.Length);
+                StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
+            });
 
             mocks.VerifyAll();
         }
@@ -154,25 +144,20 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         {
             // Setup
             var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IViewParent>();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            using (var viewParent = new Form())
-            {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+            var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
-                // Call
-                Action call = () => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
-                                                                          assessmentSection,
-                                                                          1.0,
-                                                                          "A");
+            // Call
+            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 1.0, "A");
 
-                // Assert
-                TestHelper.AssertLogMessageIsGenerated(call, "Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.");
-            }
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(Call, "Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.");
 
             mocks.VerifyAll();
         }
@@ -193,18 +178,15 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                 // Expect an activity dialog which is automatically closed
             };
 
-            using (var viewParent = new Form())
+            using (var viewParent = new TestViewParentForm())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
-                                                                          assessmentSection,
-                                                                          0.01,
-                                                                          "A");
+                void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "A");
 
                 // Assert
-                TestHelper.AssertLogMessagesCount(call, 0);
+                TestHelper.AssertLogMessagesCount(Call, 0);
             }
 
             mocks.VerifyAll();
@@ -217,10 +199,10 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             const string hydraulicLocationName = "name";
             const string categoryBoundaryName = "A";
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
@@ -229,7 +211,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(new TestDesignWaterLevelCalculator());
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
@@ -239,22 +221,20 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                 // Expect an activity dialog which is automatically closed
             };
 
-            using (var viewParent = new Form())
+            using (var viewParent = new TestViewParentForm())
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateDesignWaterLevels(new[]
-                                                                          {
-                                                                              new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(hydraulicLocationName))
-                                                                          },
-                                                                          assessmentSection,
-                                                                          0.01,
-                                                                          categoryBoundaryName);
+                void Call() =>
+                    guiService.CalculateDesignWaterLevels(new[]
+                    {
+                        new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(hydraulicLocationName))
+                    }, assessmentSection, 0.01, categoryBoundaryName);
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
@@ -270,27 +250,26 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                 });
             }
 
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CalculateWaveHeights_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            using (var viewParent = new Form())
-            {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+            var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IViewParent>();
+            mocks.ReplayAll();
 
-                // Call
-                TestDelegate test = () => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
-                                                                          null,
-                                                                          0.01,
-                                                                          "A");
+            var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
-                // Assert
-                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-                Assert.AreEqual("assessmentSection", paramName);
-            }
+            // Call
+            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, 0.01, "A");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -298,24 +277,18 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         {
             // Setup
             var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IViewParent>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (var viewParent = new Form())
-            {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+            var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
-                // Call
-                TestDelegate test = () => guiService.CalculateWaveHeights(null,
-                                                                          assessmentSection,
-                                                                          0.01,
-                                                                          "A");
+            // Call
+            void Call() => guiService.CalculateWaveHeights(null, assessmentSection, 0.01, "A");
 
-                // Assert
-                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-                Assert.AreEqual("calculations", paramName);
-            }
-
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculations", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -324,31 +297,25 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         {
             // Setup
             var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IViewParent>();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = "Does not exist";
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            using (var viewParent = new Form())
+            var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+
+            // Call
+            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "A");
+
+            // Assert
+            TestHelper.AssertLogMessages(Call, messages =>
             {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-                // Call
-                Action call = () => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
-                                                                    assessmentSection,
-                                                                    0.01,
-                                                                    "A");
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    string[] msgs = messages.ToArray();
-                    Assert.AreEqual(1, msgs.Length);
-                    StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
-                });
-            }
-
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(1, msgs.Length);
+                StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
+            });
             mocks.VerifyAll();
         }
 
@@ -357,26 +324,20 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         {
             // Setup
             var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IViewParent>();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            using (var viewParent = new Form())
-            {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+            var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
-                // Call
-                Action call = () => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
-                                                                    assessmentSection,
-                                                                    1.0,
-                                                                    "A");
+            // Call
+            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 1.0, "A");
 
-                // Assert
-                TestHelper.AssertLogMessageIsGenerated(call, "Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.");
-            }
-
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(Call, "Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.");
             mocks.VerifyAll();
         }
 
@@ -396,18 +357,15 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                 // Expect an activity dialog which is automatically closed
             };
 
-            using (var viewParent = new Form())
+            using (var viewParent = new TestViewParentForm())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
-                                                                    assessmentSection,
-                                                                    0.01,
-                                                                    "A");
+                void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "A");
 
                 // Assert
-                TestHelper.AssertLogMessagesCount(call, 0);
+                TestHelper.AssertLogMessagesCount(Call, 0);
             }
 
             mocks.VerifyAll();
@@ -420,10 +378,10 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             const string hydraulicLocationName = "name";
             const string categoryBoundaryName = "A";
 
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
@@ -432,7 +390,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(new TestWaveHeightCalculator());
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
             assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
@@ -442,22 +400,20 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                 // Expect an activity dialog which is automatically closed
             };
 
-            using (var viewParent = new Form())
+            using (var viewParent = new TestViewParentForm())
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateWaveHeights(new[]
-                                                                    {
-                                                                        new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(hydraulicLocationName))
-                                                                    },
-                                                                    assessmentSection,
-                                                                    0.01,
-                                                                    categoryBoundaryName);
+                void Call() =>
+                    guiService.CalculateWaveHeights(new[]
+                    {
+                        new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(hydraulicLocationName))
+                    }, assessmentSection, 0.01, categoryBoundaryName);
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
@@ -473,7 +429,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                 });
             }
 
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         private static string GetWaveHeightCalculationActivityDescription(string locationName, string categoryBoundaryName)

@@ -53,10 +53,10 @@ namespace Core.Gui.Test.PresentationObjects.Chart
         public void Constructor_ParentChartDataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ChartDataContext(new TestChartData(), null);
+            void Call() => new ChartDataContext(new TestChartData(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("parentChartData", exception.ParamName);
         }
     }

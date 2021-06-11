@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Controls.TreeView;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
 using NUnit.Framework;

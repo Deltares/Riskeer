@@ -88,7 +88,7 @@ namespace Riskeer.Piping.Plugin
             yield return new PropertyInfo<PipingCalculationsContext, PipingCalculationsProperties>
             {
                 CreateInstance = context => new PipingCalculationsProperties(context.WrappedData, context.Parent,
-                                                                                 new FailureMechanismPropertyChangeHandler<PipingFailureMechanism>())
+                                                                             new FailureMechanismPropertyChangeHandler<PipingFailureMechanism>())
             };
             yield return new PropertyInfo<SemiProbabilisticPipingInputContext, SemiProbabilisticPipingInputContextProperties>
             {
@@ -795,7 +795,7 @@ namespace Riskeer.Piping.Plugin
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetCalculationsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
-                new PipingCalculationGroupContext(failureMechanism.CalculationsGroup, null,failureMechanism.SurfaceLines,
+                new PipingCalculationGroupContext(failureMechanism.CalculationsGroup, null, failureMechanism.SurfaceLines,
                                                   failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection)
             };
         }

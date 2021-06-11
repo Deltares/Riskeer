@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+using Core.Gui.Forms;
 using Core.Gui.Forms.ProgressDialog;
 using log4net;
 using Riskeer.Common.Data.AssessmentSection;
@@ -38,14 +38,14 @@ namespace Riskeer.Common.Forms.GuiServices
     public class HydraulicBoundaryLocationCalculationGuiService : IHydraulicBoundaryLocationCalculationGuiService
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationGuiService));
-        private readonly IWin32Window viewParent;
+        private readonly IViewParent viewParent;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HydraulicBoundaryLocationCalculationGuiService"/> class.
         /// </summary>
         /// <param name="viewParent">The parent of the view.</param>
         /// <exception cref="ArgumentNullException">Thrown when the input parameter is <c>null</c>.</exception>
-        public HydraulicBoundaryLocationCalculationGuiService(IWin32Window viewParent)
+        public HydraulicBoundaryLocationCalculationGuiService(IViewParent viewParent)
         {
             if (viewParent == null)
             {

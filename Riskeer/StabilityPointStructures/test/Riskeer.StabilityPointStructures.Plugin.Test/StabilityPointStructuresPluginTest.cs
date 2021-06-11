@@ -23,7 +23,7 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Gui;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
@@ -67,7 +67,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityPointStructuresCalculationsContext),
-                    typeof(StabilityPointStructuresFailureMechanismProperties));
+                    typeof(StabilityPointStructuresCalculationsProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

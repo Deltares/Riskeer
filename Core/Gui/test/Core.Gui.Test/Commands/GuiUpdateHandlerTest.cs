@@ -26,9 +26,11 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.Commands;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms;
+using Core.Gui.Forms.Main;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
+using Core.Gui.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -39,7 +41,7 @@ namespace Core.Gui.Test.Commands
     public class GuiUpdateHandlerTest : NUnitFormTest
     {
         [Test]
-        public void Constructor_WithoutDialogParent_ThrowsArgumentNullException()
+        public void Constructor_DialogParentNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -47,46 +49,46 @@ namespace Core.Gui.Test.Commands
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiUpdateHandler(null, Enumerable.Empty<UpdateInfo>(), inquiryHelper);
+            void Call() => new GuiUpdateHandler(null, Enumerable.Empty<UpdateInfo>(), inquiryHelper);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("dialogParent", paramName);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithoutUpdateInfos_ThrowsArgumentNullException()
+        public void Constructor_UpdateInfosNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.Stub<IWin32Window>();
+            var viewParent = mockRepository.Stub<IViewParent>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiUpdateHandler(mainWindow, null, inquiryHelper);
+            void Call() => new GuiUpdateHandler(viewParent, null, inquiryHelper);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("updateInfos", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("updateInfos", exception.ParamName);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Constructor_WithoutInquiryHelper_ThrowsArgumentNullException()
+        public void Constructor_InquiryHelperNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var mainWindow = mockRepository.Stub<IWin32Window>();
+            var viewParent = mockRepository.Stub<IViewParent>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GuiUpdateHandler(mainWindow, Enumerable.Empty<UpdateInfo>(), null);
+            void Call() => new GuiUpdateHandler(viewParent, Enumerable.Empty<UpdateInfo>(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("inquiryHelper", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("inquiryHelper", exception.ParamName);
             mockRepository.VerifyAll();
         }
 
@@ -95,7 +97,7 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
+            var dialogParent = mocks.Stub<IViewParent>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -116,7 +118,7 @@ namespace Core.Gui.Test.Commands
             var target = new object();
 
             var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
+            var dialogParent = mocks.Stub<IViewParent>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -139,7 +141,7 @@ namespace Core.Gui.Test.Commands
             // Setup
             var target = new object();
             var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
+            var dialogParent = mocks.Stub<IViewParent>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -165,7 +167,7 @@ namespace Core.Gui.Test.Commands
             // Setup
             var target = new object();
             var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
+            var dialogParent = mocks.Stub<IViewParent>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -195,7 +197,7 @@ namespace Core.Gui.Test.Commands
             // Setup
             var target = new object();
             var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
+            var dialogParent = mocks.Stub<IViewParent>();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
@@ -307,7 +309,7 @@ namespace Core.Gui.Test.Commands
                 // Activity closes itself
             };
 
-            using (var form = new Form())
+            using (var form = new TestViewParentForm())
             {
                 var updateHandler = new GuiUpdateHandler(form, new UpdateInfo[]
                 {
@@ -356,37 +358,34 @@ namespace Core.Gui.Test.Commands
             var targetObject = new object();
 
             var mockRepository = new MockRepository();
+            var viewParent = mockRepository.Stub<IViewParent>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             inquiryHelper.Stub(ih => ih.GetSourceFileLocation(generator.Filter)).Return(null);
             var fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
 
-            using (var form = new Form())
+            var updateHandler = new GuiUpdateHandler(viewParent, new UpdateInfo[]
             {
-                var updateHandler = new GuiUpdateHandler(form, new UpdateInfo[]
+                new UpdateInfo<object>
                 {
-                    new UpdateInfo<object>
+                    CreateFileImporter = (o, s) =>
                     {
-                        CreateFileImporter = (o, s) =>
-                        {
-                            Assert.Fail("CreateFileImporter is not expected to be called when no file path is chosen.");
-                            return fileImporter;
-                        },
-                        FileFilterGenerator = generator,
-                        VerifyUpdates = o => true
-                    }
-                }, inquiryHelper);
+                        Assert.Fail("CreateFileImporter is not expected to be called when no file path is chosen.");
+                        return fileImporter;
+                    },
+                    FileFilterGenerator = generator,
+                    VerifyUpdates = o => true
+                }
+            }, inquiryHelper);
 
-                // Call
-                Action call = () => updateHandler.UpdateOn(targetObject);
+            // Call
+            Action call = () => updateHandler.UpdateOn(targetObject);
 
-                // Assert
-                const string expectedLogMessage = "Bijwerken van gegevens is geannuleerd.";
-                Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage,
-                                                                                          LogLevelConstant.Info);
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel);
-            }
-
+            // Assert
+            const string expectedLogMessage = "Bijwerken van gegevens is geannuleerd.";
+            Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage,
+                                                                                      LogLevelConstant.Info);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel);
             mockRepository.VerifyAll();
         }
 
@@ -398,39 +397,36 @@ namespace Core.Gui.Test.Commands
             var targetObject = new object();
 
             var mockRepository = new MockRepository();
+            var viewParent = mockRepository.Stub<IViewParent>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             inquiryHelper.Stub(ih => ih.GetSourceFileLocation(generator.Filter)).Return(null);
             var fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
 
             const string currentPath = "FilePath/to/Update";
-            using (var form = new Form())
+            var updateHandler = new GuiUpdateHandler(viewParent, new UpdateInfo[]
             {
-                var updateHandler = new GuiUpdateHandler(form, new UpdateInfo[]
+                new UpdateInfo<object>
                 {
-                    new UpdateInfo<object>
+                    CreateFileImporter = (o, s) =>
                     {
-                        CreateFileImporter = (o, s) =>
-                        {
-                            Assert.Fail("CreateFileImporter is not expected to be called when no file path is chosen.");
-                            return fileImporter;
-                        },
-                        FileFilterGenerator = generator,
-                        VerifyUpdates = o => true,
-                        CurrentPath = o => currentPath
-                    }
-                }, inquiryHelper);
+                        Assert.Fail("CreateFileImporter is not expected to be called when no file path is chosen.");
+                        return fileImporter;
+                    },
+                    FileFilterGenerator = generator,
+                    VerifyUpdates = o => true,
+                    CurrentPath = o => currentPath
+                }
+            }, inquiryHelper);
 
-                // Call
-                Action call = () => updateHandler.UpdateOn(targetObject);
+            // Call
+            Action call = () => updateHandler.UpdateOn(targetObject);
 
-                // Assert
-                string expectedLogMessage = $"Bijwerken van gegevens in '{currentPath}' is geannuleerd.";
-                Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage,
-                                                                                          LogLevelConstant.Info);
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel);
-            }
-
+            // Assert
+            string expectedLogMessage = $"Bijwerken van gegevens in '{currentPath}' is geannuleerd.";
+            Tuple<string, LogLevelConstant> expectedLogMessageAndLevel = Tuple.Create(expectedLogMessage,
+                                                                                      LogLevelConstant.Info);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessageAndLevel);
             mockRepository.VerifyAll();
         }
 
@@ -441,6 +437,7 @@ namespace Core.Gui.Test.Commands
             var generator = new FileFilterGenerator();
             var targetObject = new object();
             var mockRepository = new MockRepository();
+            var viewParent = mockRepository.Stub<IViewParent>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             inquiryHelper.Stub(ih => ih.GetSourceFileLocation(generator.Filter)).Return("/some/path");
             var fileImporter = mockRepository.Stub<IFileImporter>();
@@ -448,30 +445,27 @@ namespace Core.Gui.Test.Commands
 
             var isVerifyUpdatedCalled = false;
 
-            using (var form = new Form())
+            var updateHandler = new GuiUpdateHandler(viewParent, new UpdateInfo[]
             {
-                var updateHandler = new GuiUpdateHandler(form, new UpdateInfo[]
+                new UpdateInfo<object>
                 {
-                    new UpdateInfo<object>
+                    CreateFileImporter = (o, s) =>
                     {
-                        CreateFileImporter = (o, s) =>
-                        {
-                            Assert.Fail("CreateFileImporter is not expected to be called when VerifyUpdates function returns false.");
-                            return fileImporter;
-                        },
-                        FileFilterGenerator = generator,
-                        VerifyUpdates = o =>
-                        {
-                            Assert.AreSame(o, targetObject);
-                            isVerifyUpdatedCalled = true;
-                            return false;
-                        }
+                        Assert.Fail("CreateFileImporter is not expected to be called when VerifyUpdates function returns false.");
+                        return fileImporter;
+                    },
+                    FileFilterGenerator = generator,
+                    VerifyUpdates = o =>
+                    {
+                        Assert.AreSame(o, targetObject);
+                        isVerifyUpdatedCalled = true;
+                        return false;
                     }
-                }, inquiryHelper);
+                }
+            }, inquiryHelper);
 
-                // Call
-                updateHandler.UpdateOn(targetObject);
-            }
+            // Call
+            updateHandler.UpdateOn(targetObject);
 
             // Assert
             Assert.IsTrue(isVerifyUpdatedCalled);
@@ -494,6 +488,7 @@ namespace Core.Gui.Test.Commands
             };
 
             var mockRepository = new MockRepository();
+            var viewParent = mockRepository.Stub<IViewParent>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
@@ -508,17 +503,14 @@ namespace Core.Gui.Test.Commands
                 }
             };
 
-            using (var form = new Form())
+            var updateHandler = new GuiUpdateHandler(viewParent, new UpdateInfo[]
             {
-                var updateHandler = new GuiUpdateHandler(form, new UpdateInfo[]
-                {
-                    updateInfoA,
-                    updateInfoB
-                }, inquiryHelper);
+                updateInfoA,
+                updateInfoB
+            }, inquiryHelper);
 
-                // Call
-                updateHandler.UpdateOn(new object());
-            }
+            // Call
+            updateHandler.UpdateOn(new object());
 
             // Assert
             Assert.AreEqual(2, listViewItems.Length);

@@ -20,8 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
-using Core.Gui.Forms.ViewHost;
+using System.Drawing;
 
 namespace Core.Gui.Settings
 {
@@ -34,22 +33,27 @@ namespace Core.Gui.Settings
         /// Gets or sets the name of the application.
         /// </summary>
         public string ApplicationName { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the icon of the application.
+        /// </summary>
+        public Icon ApplicationIcon { get; set; }
+
         /// <summary>
         /// Gets or sets the header of the support text.
         /// </summary>
         public string SupportHeader { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the support text.
         /// </summary>
         public string SupportText { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the support website address url.
         /// </summary>
         public string SupportWebsiteAddressUrl { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the support email address url.
         /// </summary>
@@ -66,15 +70,9 @@ namespace Core.Gui.Settings
         public string ManualFilePath { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="Func{TIn, TResult}"/> that should be executed
+        /// Gets or sets the <see cref="Func{T,TResult}"/> that should be executed
         /// when a new project is created.
         /// </summary>
         public Func<IGui, object> OnCreateNewProjectFunc { get; set; }
-        
-        /// <summary>
-        /// Gets or sets the <see cref="Action"/> that should be executed
-        /// after a project is opened.
-        /// </summary>
-        public Action<IProject, IDocumentViewController> AfterProjectOpenedAction { get; set; }
     }
 }

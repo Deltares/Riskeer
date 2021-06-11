@@ -31,7 +31,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -52,6 +52,7 @@ using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
@@ -965,6 +966,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mainWindow = mocks.Stub<IMainWindow>();
+            mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+            mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new TestClosingStructuresFailureMechanism();

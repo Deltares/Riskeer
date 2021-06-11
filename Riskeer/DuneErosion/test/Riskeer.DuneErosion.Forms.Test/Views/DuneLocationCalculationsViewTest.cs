@@ -31,6 +31,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
+using Core.Gui.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -480,7 +481,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
                 var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
-                using (var viewParent = new Form())
+                using (var viewParent = new TestViewParentForm())
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);
@@ -540,7 +541,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
                 var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
-                using (var viewParent = new Form())
+                using (var viewParent = new TestViewParentForm())
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);
@@ -668,7 +669,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
                 var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
-                using (var viewParent = new Form())
+                using (var viewParent = new TestViewParentForm())
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);
@@ -738,7 +739,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
                 var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
-                using (var viewParent = new Form())
+                using (var viewParent = new TestViewParentForm())
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);
@@ -808,7 +809,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
                 var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
-                using (var viewParent = new Form())
+                using (var viewParent = new TestViewParentForm())
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);

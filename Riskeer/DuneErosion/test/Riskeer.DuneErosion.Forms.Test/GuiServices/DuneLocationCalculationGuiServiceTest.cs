@@ -22,8 +22,9 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.TestUtil;
+using Core.Gui.Forms;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -50,10 +51,10 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
         public void Constructor_ViewParentNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new DuneLocationCalculationGuiService(null);
+            void Call() => new DuneLocationCalculationGuiService(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("viewParent", exception.ParamName);
         }
 
@@ -61,46 +62,39 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
         public void Calculate_CalculationsNull_ThrowArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IViewParent>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
 
-            using (var viewParent = new Form())
-            {
-                var guiService = new DuneLocationCalculationGuiService(viewParent);
+            var guiService = new DuneLocationCalculationGuiService(viewParent);
 
-                // Call
-                TestDelegate test = () => guiService.Calculate(null,
-                                                               assessmentSection,
-                                                               1.0 / 30000,
-                                                               "A");
+            // Call
+            void Call() => guiService.Calculate(null, assessmentSection, 1.0 / 30000, "A");
 
-                // Assert
-                var exception = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("calculations", exception.ParamName);
-            }
-
-            mockRepository.VerifyAll();
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculations", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Calculate_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Setup
-            using (var viewParent = new Form())
-            {
-                var guiService = new DuneLocationCalculationGuiService(viewParent);
+            var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IViewParent>();
+            mocks.ReplayAll();
 
-                // Call
-                TestDelegate test = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
-                                                               null,
-                                                               1.0 / 30000,
-                                                               "A");
+            var guiService = new DuneLocationCalculationGuiService(viewParent);
 
-                // Assert
-                var exception = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("assessmentSection", exception.ParamName);
-            }
+            // Call
+            void Call() => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(), null, 1.0 / 30000, "A");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -112,32 +106,27 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                 FilePath = "Does not exist"
             };
 
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IViewParent>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
                              .Return(hydraulicBoundaryDatabase);
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
-            using (var viewParent = new Form())
+            var guiService = new DuneLocationCalculationGuiService(viewParent);
+
+            // Call
+            void Call() => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(), assessmentSection, 1.0 / 30000, "A");
+
+            // Assert
+            TestHelper.AssertLogMessages(Call, messages =>
             {
-                var guiService = new DuneLocationCalculationGuiService(viewParent);
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(1, msgs.Length);
+                StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
+            });
 
-                // Call
-                Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
-                                                         assessmentSection,
-                                                         1.0 / 30000,
-                                                         "A");
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    string[] msgs = messages.ToArray();
-                    Assert.AreEqual(1, msgs.Length);
-                    StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
-                });
-            }
-
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -150,27 +139,21 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IViewParent>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
                              .Return(hydraulicBoundaryDatabase);
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
-            using (var viewParent = new Form())
-            {
-                var guiService = new DuneLocationCalculationGuiService(viewParent);
+            var guiService = new DuneLocationCalculationGuiService(viewParent);
 
-                // Call
-                Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
-                                                         assessmentSection,
-                                                         1.0,
-                                                         "A");
+            // Call
+            void Call() => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(), assessmentSection, 1.0, "A");
 
-                // Assert
-                TestHelper.AssertLogMessageIsGenerated(call, "Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.");
-            }
-
-            mockRepository.VerifyAll();
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(Call, "Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.");
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -183,27 +166,24 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
                              .Return(hydraulicBoundaryDatabase);
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
-            using (var viewParent = new Form())
+            using (var viewParent = new TestViewParentForm())
             {
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
-                                                         assessmentSection,
-                                                         0.01,
-                                                         "A");
+                void Call() => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(), assessmentSection, 0.01, "A");
 
                 // Assert
-                TestHelper.AssertLogMessagesCount(call, 0);
+                TestHelper.AssertLogMessagesCount(Call, 0);
             }
 
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -225,9 +205,8 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             const string categoryBoundaryName = "A";
             const string duneLocationName = "duneLocationName";
 
-            var mockRepository = new MockRepository();
-            var viewParent = mockRepository.Stub<IWin32Window>();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var mocks = new MockRepository();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                              .WhenCalled(invocation =>
                              {
@@ -236,26 +215,25 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(new TestDunesBoundaryConditionsCalculator());
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
                              .Return(hydraulicBoundaryDatabase);
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
+            using (var viewParent = new TestViewParentForm())
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.Calculate(new[]
-                                                         {
-                                                             new DuneLocationCalculation(new TestDuneLocation(duneLocationName))
-                                                         },
-                                                         assessmentSection,
-                                                         1.0 / 30000,
-                                                         categoryBoundaryName);
+                void Call() =>
+                    guiService.Calculate(new[]
+                    {
+                        new DuneLocationCalculation(new TestDuneLocation(duneLocationName))
+                    }, assessmentSection, 1.0 / 30000, categoryBoundaryName);
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
@@ -270,7 +248,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                 });
             }
 
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
     }
 }

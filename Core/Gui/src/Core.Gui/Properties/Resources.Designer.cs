@@ -91,6 +91,24 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} GB.
+        /// </summary>
+        public static string AboutViewModel_InstalledRam_0_GB {
+            get {
+                return ResourceManager.GetString("AboutViewModel_InstalledRam_0_GB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -.
+        /// </summary>
+        public static string AboutViewModel_Unknown_value {
+            get {
+                return ResourceManager.GetString("AboutViewModel_Unknown_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bezig met het afronden van huidige taak, daarna annuleren....
         /// </summary>
         public static string ActivityProgressDialog_CancelActivities_Quit_after_finishing_current_activity {
@@ -105,34 +123,6 @@ namespace Core.Gui.Properties {
         public static string ActivityProgressDialog_OnShown_Executing_step_0_of_1 {
             get {
                 return ResourceManager.GetString("ActivityProgressDialog_OnShown_Executing_step_0_of_1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan niet meerdere instanties van Riskeer starten. Sluit eerst de andere instantie..
-        /// </summary>
-        public static string App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first {
-            get {
-                return ResourceManager.GetString("App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_" +
-                        "close_the_other_instance_first", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Riskeer versie {0} wordt gestart door {1}....
-        /// </summary>
-        public static string App_Starting_Riskeer_version_0_by_user_0 {
-            get {
-                return ResourceManager.GetString("App_Starting_Riskeer_version_0_by_user_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Onbekende kritieke fout opgetreden..
-        /// </summary>
-        public static string App_Unhandled_exception {
-            get {
-                return ResourceManager.GetString("App_Unhandled_exception", resourceCulture);
             }
         }
         
@@ -1477,26 +1467,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De Helpdesk Water is gehuisvest bij de Rijkswaterstaat Water, Verkeer en Leefomgeving (RWS WVL). De helpdesk richt zich op het ontsluiten van kennis die aanwezig is binnen de werkvelden waterbeleid en waterbeheer in de breedste zin.
-        ///
-        ///Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel binnen Rijkswaterstaat als daar buiten. Op deze manier kan de helpdesk uw vragen snel en efficiënt beantwoorden, waarbij optimaal gebruik wordt gemaakt van de beschikbare kennis..
-        /// </summary>
-        public static string HelpdeskWater_Description {
-            get {
-                return ResourceManager.GetString("HelpdeskWater_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Helpdesk Water.
-        /// </summary>
-        public static string HelpdeskWater_DisplayName {
-            get {
-                return ResourceManager.GetString("HelpdeskWater_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap icon_clear_all_messages {
@@ -2294,16 +2264,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        public static System.Drawing.Icon Riskeer {
-            get {
-                object obj = ResourceManager.GetObject("Riskeer", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Opslaan als.
         /// </summary>
         public static string SaveFileDialog_Title {
@@ -2367,7 +2327,7 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opslaan Als.
+        ///   Looks up a localized string similar to Opslaan als.
         /// </summary>
         public static string SaveProjectAs_DisplayName {
             get {

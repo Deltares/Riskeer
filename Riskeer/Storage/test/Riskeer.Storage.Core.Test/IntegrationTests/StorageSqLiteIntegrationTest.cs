@@ -28,9 +28,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using Core.Gui;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Settings;
-using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
@@ -67,6 +66,7 @@ using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
+using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 
 namespace Riskeer.Storage.Core.Test.IntegrationTests
 {
@@ -187,10 +187,13 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             SqLiteDatabaseHelper.CreateValidProjectDatabase(projectFilePath, fullProject);
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
+            var guiCoreSettings = new GuiCoreSettings
             {
-                gui.Plugins.Add(new TestPlugin());
+                ApplicationIcon = CoreGuiTestUtilResources.TestIcon
+            };
 
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), guiCoreSettings))
+            {
                 // When
                 void Action() => gui.Run(projectFilePath);
 

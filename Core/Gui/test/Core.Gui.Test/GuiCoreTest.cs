@@ -36,11 +36,11 @@ using Core.Common.Util.Settings;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Chart;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Log;
+using Core.Gui.Forms.Main;
 using Core.Gui.Forms.Map;
-using Core.Gui.Forms.MessageWindow;
-using Core.Gui.Forms.ProjectExplorer;
-using Core.Gui.Forms.PropertyGridView;
+using Core.Gui.Forms.Project;
+using Core.Gui.Forms.PropertyView;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using Core.Gui.Settings;
@@ -51,10 +51,12 @@ using log4net.Repository.Hierarchy;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Xceed.Wpf.AvalonDock.Layout;
+using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 
 namespace Core.Gui.Test
 {
     [TestFixture]
+    [Apartment(ApartmentState.STA)]
     public class GuiCoreTest
     {
         private MessageWindowLogAppender originalMessageWindowLogAppender;
@@ -77,7 +79,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Constructor_ValidArguments_ExpectedValues()
         {
             // Setup
@@ -123,7 +124,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Constructor_MainWindowNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -145,32 +145,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Constructor_ProjectMigratorNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            IProjectFactory projectFactory = CreateProjectFactory(mocks);
-            mocks.ReplayAll();
-
-            var guiCoreSettings = new GuiCoreSettings();
-
-            using (var mainWindow = new MainWindow())
-            {
-                // Call
-                void Call() => new GuiCore(mainWindow, projectStore, null, projectFactory, guiCoreSettings);
-
-                // Assert
-                var exception = Assert.Throws<ArgumentNullException>(Call);
-                Assert.AreEqual("projectMigrator", exception.ParamName);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
         public void Constructor_ProjectStoreNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -195,7 +169,30 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
+        public void Constructor_ProjectMigratorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            IProjectFactory projectFactory = CreateProjectFactory(mocks);
+            mocks.ReplayAll();
+
+            var guiCoreSettings = new GuiCoreSettings();
+
+            using (var mainWindow = new MainWindow())
+            {
+                // Call
+                void Call() => new GuiCore(mainWindow, projectStore, null, projectFactory, guiCoreSettings);
+
+                // Assert
+                var exception = Assert.Throws<ArgumentNullException>(Call);
+                Assert.AreEqual("projectMigrator", exception.ParamName);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Constructor_ProjectFactoryNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -220,7 +217,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Constructor_FixedSettingsNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -244,7 +240,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Constructor_ConstructedAfterAnotherInstanceHasBeenCreated_ThrowsInvalidOperationException()
         {
             // Setup
@@ -273,7 +268,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void SetProject_SetNull_ThrowsArgumentNullException()
         {
             var mocks = new MockRepository();
@@ -300,8 +294,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Dispose_PluginsAdded_PluginsDisabledAndRemovedAndDisposed()
+        public void Dispose_WithPlugin_PluginRemoved()
         {
             // Setup
             var mocks = new MockRepository();
@@ -320,13 +313,12 @@ namespace Core.Gui.Test
             gui.Dispose();
 
             // Assert
-            Assert.IsNull(gui.Plugins);
+            CollectionAssert.IsEmpty(gui.Plugins);
             mocks.VerifyAll();
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Dispose_PluginAddedButThrowsExceptionDuringDeactivation_LogErrorAndStillDisposeAndRemove()
+        public void Dispose_WithPluginThatThrowsExceptionDuringDeactivation_LogsErrorAndPluginRemoved()
         {
             // Setup
             var mocks = new MockRepository();
@@ -346,13 +338,12 @@ namespace Core.Gui.Test
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, "Kritieke fout opgetreden tijdens deactivering van de grafische interface plugin.", 1);
-            Assert.IsNull(gui.Plugins);
+            CollectionAssert.IsEmpty(gui.Plugins);
             mocks.VerifyAll();
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Dispose_HasSelection_ClearSelection()
+        public void Dispose_HasSelection_SelectionCleared()
         {
             // Setup
             var mocks = new MockRepository();
@@ -375,8 +366,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Dispose_HasMainWindow_DisposeOfMainWindow()
+        public void Dispose_HasMainWindow_MainWindowDisposed()
         {
             // Setup
             var mocks = new MockRepository();
@@ -401,8 +391,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Dispose_HasInitializedMessageWindowForLogAppender_ClearMessageWindow()
+        public void Dispose_HasInitializedMessageWindowForLogAppender_MessageWindowCleared()
         {
             // Setup
             var mocks = new MockRepository();
@@ -419,10 +408,9 @@ namespace Core.Gui.Test
             try
             {
                 var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
-                // Precondition:
+                // Precondition
                 Assert.IsNotNull(MessageWindowLogAppender.Instance.MessageWindow);
                 Assert.IsNotNull(messageWindowLogAppender.MessageWindow);
 
@@ -443,7 +431,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Dispose_HasOpenedToolView_ToolViewsClearedAndViewsDisposed()
         {
             // Setup
@@ -456,7 +443,6 @@ namespace Core.Gui.Test
             using (var toolView = new TestView())
             {
                 var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 gui.ViewHost.AddToolView(toolView, ToolViewLocation.Left, string.Empty);
@@ -473,7 +459,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Dispose_HasOpenedDocumentView_DocumentViewsClearedAndViewsDisposed()
         {
             // Setup
@@ -486,7 +471,6 @@ namespace Core.Gui.Test
             using (var documentView = new TestView())
             {
                 var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 gui.ViewHost.AddDocumentView(documentView);
@@ -504,8 +488,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Run_NoMessageWindowLogAppender_AddNewLogAppender()
+        public void Run_NoMessageWindowLogAppender_AddsNewLogAppender()
         {
             // Setup
             var mocks = new MockRepository();
@@ -522,8 +505,6 @@ namespace Core.Gui.Test
             {
                 using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
                 {
-                    gui.Plugins.Add(new TestPlugin());
-
                     // Call
                     gui.Run();
 
@@ -550,7 +531,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Run_AlreadyHasMessageWindowLogAppender_NoChangesToLogAppenders()
         {
             // Setup
@@ -572,8 +552,6 @@ namespace Core.Gui.Test
             {
                 using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
                 {
-                    gui.Plugins.Add(new TestPlugin());
-
                     // Call
                     gui.Run();
 
@@ -599,7 +577,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Run_WithFile_LoadProjectFromFile()
         {
             // Setup
@@ -620,13 +597,14 @@ namespace Core.Gui.Test
 
             project.Name = fileName;
 
-            var fixedSettings = new GuiCoreSettings
+            var guiCoreSettings = new GuiCoreSettings
             {
-                ApplicationName = "<main window title part>"
+                ApplicationName = "<main window title part>",
+                ApplicationIcon = CoreGuiTestUtilResources.TestIcon
             };
 
             using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
             {
                 gui.Plugins.Add(new TestPlugin(new[]
                 {
@@ -647,7 +625,7 @@ namespace Core.Gui.Test
                 Assert.AreSame(project, gui.Project);
                 Assert.AreEqual(fileName, gui.Project.Name);
 
-                var expectedTitle = $"{fileName} - {fixedSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
+                var expectedTitle = $"{fileName} - {guiCoreSettings.ApplicationName} {SettingsHelper.Instance.ApplicationVersion}";
                 Assert.AreEqual(expectedTitle, mainWindow.Title);
                 Assert.AreSame(gui.Project, mainWindow.ProjectExplorer.Data);
             }
@@ -656,7 +634,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Run_LoadingFromOutdatedFileAndMigrationCancelled_NoProjectSet()
         {
             // Setup
@@ -674,8 +651,6 @@ namespace Core.Gui.Test
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
-
                 // Call
                 gui.Run(testFile);
 
@@ -688,8 +663,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Run_LoadingFromOutdatedAndShouldMigrateThrowsArgumentException_LogError()
+        public void Run_LoadingFromOutdatedFileAndShouldMigrateThrowsArgumentException_LogsError()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -711,8 +685,6 @@ namespace Core.Gui.Test
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
-                gui.Plugins.Add(new TestPlugin());
-
                 // Call
                 void Call() => gui.Run(testFile);
 
@@ -727,8 +699,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Run_LoadingFromOutdatedAndMigrateThrowsArgumentException_LogError()
+        public void Run_LoadingFromOutdatedFileAndMigrateThrowsArgumentException_LogsError()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -748,13 +719,14 @@ namespace Core.Gui.Test
             var projectFactory = mocks.Stub<IProjectFactory>();
             mocks.ReplayAll();
 
-            var fixedSettings = new GuiCoreSettings();
+            var guiCoreSettings = new GuiCoreSettings
+            {
+                ApplicationIcon = CoreGuiTestUtilResources.TestIcon
+            };
 
             using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
             {
-                gui.Plugins.Add(new TestPlugin());
-
                 // Call
                 void Call() => gui.Run(testFile);
 
@@ -775,8 +747,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Run_LoadingFromFileThrowsStorageException_LogError()
+        public void Run_LoadingFromFileThrowsStorageException_LogsError()
         {
             // Setup
             const string fileName = "SomeFile";
@@ -792,13 +763,14 @@ namespace Core.Gui.Test
             var projectFactory = mocks.Stub<IProjectFactory>();
             mocks.ReplayAll();
 
-            var fixedSettings = new GuiCoreSettings();
+            var guiCoreSettings = new GuiCoreSettings
+            {
+                ApplicationIcon = CoreGuiTestUtilResources.TestIcon
+            };
 
             using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
             {
-                gui.Plugins.Add(new TestPlugin());
-
                 // Call
                 void Call() => gui.Run(testFile);
 
@@ -822,7 +794,6 @@ namespace Core.Gui.Test
         [TestCase("")]
         [TestCase("     ")]
         [TestCase(null)]
-        [Apartment(ApartmentState.STA)]
         public void Run_WithoutFile_NoProjectSet(string path)
         {
             // Setup
@@ -837,8 +808,6 @@ namespace Core.Gui.Test
             using (var mainWindow = new MainWindow())
             using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, fixedSettings))
             {
-                gui.Plugins.Add(new TestPlugin());
-
                 // Call
                 gui.Run(path);
 
@@ -851,7 +820,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Run_WithPlugins_SetGuiAndActivatePlugins()
         {
             var mocks = new MockRepository();
@@ -877,8 +845,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Run_WithPluginThatThrowsExceptionWhenActivated_DeactivateAndDisposePlugin()
+        public void Run_WithPluginThatThrowsExceptionWhenActivated_PluginDeactivatedAndDisposed()
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
@@ -887,10 +854,7 @@ namespace Core.Gui.Test
             plugin.Stub(p => p.GetStateInfos()).Return(Enumerable.Empty<StateInfo>());
             plugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
             plugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
-            plugin.Stub(p => p.GetTreeNodeInfos()).Return(new TreeNodeInfo[]
-            {
-                new TreeNodeInfo<IProject>()
-            });
+            plugin.Stub(p => p.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
             plugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
             plugin.Expect(p => p.Deactivate());
             plugin.Expect(p => p.Dispose());
@@ -911,8 +875,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Run_WithPluginThatThrowsExceptionWhenActivatedAndDeactivated_LogErrorForDeactivatingThenDispose()
+        public void Run_WithPluginThatThrowsExceptionWhenActivatedAndDeactivated_LogsErrorForDeactivatingThenDisposed()
         {
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
@@ -921,10 +884,7 @@ namespace Core.Gui.Test
             plugin.Stub(p => p.GetStateInfos()).Return(Enumerable.Empty<StateInfo>());
             plugin.Stub(p => p.GetViewInfos()).Return(Enumerable.Empty<ViewInfo>());
             plugin.Stub(p => p.GetPropertyInfos()).Return(Enumerable.Empty<PropertyInfo>());
-            plugin.Stub(p => p.GetTreeNodeInfos()).Return(new TreeNodeInfo[]
-            {
-                new TreeNodeInfo<IProject>()
-            });
+            plugin.Stub(p => p.GetTreeNodeInfos()).Return(Enumerable.Empty<TreeNodeInfo>());
             plugin.Stub(p => p.Activate()).Throw(new Exception("ERROR!"));
             plugin.Stub(p => p.Deactivate()).Throw(new Exception("MORE ERROR!"));
             plugin.Expect(p => p.Dispose());
@@ -949,8 +909,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Run_InitializesViewController()
+        public void Run_InitializesViewHost()
         {
             // Setup
             var mocks = new MockRepository();
@@ -961,8 +920,6 @@ namespace Core.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
-
                 // Call
                 gui.Run();
 
@@ -984,8 +941,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GetAllDataWithViewDefinitionsRecursively_DataHasNoViewDefinitions_ReturnEmpty()
+        public void GetAllDataWithViewDefinitionsRecursively_DataHasNoViewDefinitions_ReturnsEmptyCollection()
         {
             // Setup
             var mocks = new MockRepository();
@@ -1009,8 +965,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GetAllDataWithViewDefinitionsRecursively_MultiplePluginsHaveViewDefinitionsForRoot_ReturnRootObject()
+        public void GetAllDataWithViewDefinitionsRecursively_MultiplePluginsHaveViewDefinitionsForRoot_ReturnsRoot()
         {
             // Setup
             var rootData = new object();
@@ -1058,8 +1013,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GetAllDataWithViewDefinitionsRecursively_MultiplePluginsHaveViewDefinitionsForRootAndChild_ReturnRootAndChild()
+        public void GetAllDataWithViewDefinitionsRecursively_MultiplePluginsHaveViewDefinitionsForRootAndChild_ReturnsRootAndChild()
         {
             // Setup
             object rootData = 1;
@@ -1120,8 +1074,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GetTreeNodeInfos_NoPluginsConfigured_EmptyList()
+        public void GetTreeNodeInfos_NoPluginsConfigured_ReturnsEmptyCollection()
         {
             // Setup
             var mocks = new MockRepository();
@@ -1143,7 +1096,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GetTreeNodeInfos_MultiplePluginsConfigured_RetrievesTreeNodeInfosFromPlugins()
         {
             // Setup
@@ -1200,7 +1152,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Get_GuiHasNotRunYet_ThrowsInvalidOperationException()
         {
             // Setup
@@ -1225,7 +1176,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void Get_GuiIsRunning_ReturnsContextMenuBuilder()
         {
             // Setup
@@ -1238,7 +1188,6 @@ namespace Core.Gui.Test
             using (var treeView = new TreeViewControl())
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
 
                 // Call
@@ -1262,8 +1211,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void SetProject_SetNewValue_FireProjectOpenedEvents()
+        public void SetProject_SetNewValue_FiresProjectOpenedEvents()
         {
             // Setup
             var mocks = new MockRepository();
@@ -1300,7 +1248,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithoutSelection_WhenSelectionProviderSetAsActiveView_ThenSelectionSynced()
         {
             // Given
@@ -1314,7 +1261,6 @@ namespace Core.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
 
@@ -1332,7 +1278,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithRandomSelection_WhenSelectionProviderSetAsActiveView_ThenSelectionSynced()
         {
             // Given
@@ -1346,7 +1291,6 @@ namespace Core.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
 
@@ -1363,7 +1307,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithRandomSelection_WhenSelectionChangedOnActiveSelectionProvider_ThenSelectionSynced()
         {
             // Given
@@ -1377,7 +1320,6 @@ namespace Core.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
                 SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
@@ -1395,7 +1337,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithRandomSelection_WhenSelectionChangedOnRemovedSelectionProvider_ThenSelectionNoLongerSynced()
         {
             // Given
@@ -1410,7 +1351,6 @@ namespace Core.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
                 SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
@@ -1430,7 +1370,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithRandomSelection_WhenNonSelectionProviderSetAsActiveView_ThenSelectionPreserved()
         {
             // Given
@@ -1445,7 +1384,6 @@ namespace Core.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(testView);
 
@@ -1462,7 +1400,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithRandomSelection_WhenSelectionProviderRemoved_ThenSelectionPreserved()
         {
             // Given
@@ -1477,7 +1414,6 @@ namespace Core.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(testView);
 
@@ -1494,7 +1430,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithSelectionFromSelectionProvider_WhenSelectionProviderRemoved_ThenSelectionCleared()
         {
             // Given
@@ -1508,7 +1443,6 @@ namespace Core.Gui.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
-                gui.Plugins.Add(new TestPlugin());
                 gui.Run();
                 gui.ViewHost.AddDocumentView(selectionProvider);
                 SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
@@ -1527,7 +1461,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenGuiWithRandomSelection_WhenGuiDisposed_ThenSelectionNoLongerSynced()
         {
             // Given
@@ -1540,7 +1473,6 @@ namespace Core.Gui.Test
             var selectionProvider = new TestSelectionProvider();
 
             var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
-            gui.Plugins.Add(new TestPlugin());
             gui.Run();
             gui.ViewHost.AddDocumentView(selectionProvider);
             SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);

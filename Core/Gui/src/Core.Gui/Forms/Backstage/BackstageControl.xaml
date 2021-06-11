@@ -41,7 +41,7 @@ All rights reserved.
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="BackstageButtonStyle" TargetType="{x:Type ButtonBase}"
-                   BasedOn="{StaticResource RiskeerButtonStyle}">
+                   BasedOn="{StaticResource DeltaresButtonStyle}">
                 <Setter Property="Height" Value="38" />
                 <Setter Property="Width" Value="139" />
                 <Setter Property="HorizontalAlignment" Value="Left" />

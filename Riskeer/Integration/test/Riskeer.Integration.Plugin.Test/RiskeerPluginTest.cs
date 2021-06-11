@@ -30,14 +30,13 @@ using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
 using Core.Gui.Settings;
 using Core.Gui.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.ClosingStructures.Plugin;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -51,10 +50,6 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.Views;
-using Riskeer.DuneErosion.Plugin;
-using Riskeer.GrassCoverErosionInwards.Plugin;
-using Riskeer.GrassCoverErosionOutwards.Plugin;
-using Riskeer.HeightStructures.Plugin;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
@@ -64,11 +59,6 @@ using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 using Riskeer.Integration.Forms.Views;
 using Riskeer.Integration.Forms.Views.SectionResultViews;
-using Riskeer.MacroStabilityInwards.Plugin;
-using Riskeer.Piping.Plugin;
-using Riskeer.StabilityPointStructures.Plugin;
-using Riskeer.StabilityStoneCover.Plugin;
-using Riskeer.WaveImpactAsphaltCover.Plugin;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test
@@ -437,12 +427,12 @@ namespace Riskeer.Integration.Plugin.Test
                     viewInfos,
                     typeof(AssessmentSectionStateRootContext),
                     typeof(AssessmentSectionReferenceLineView));
-                
+
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(CalculationsStateRootContext),
                     typeof(AssessmentSectionReferenceLineView));
-                
+
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailurePathsStateRootContext),
@@ -771,17 +761,7 @@ namespace Riskeer.Integration.Plugin.Test
         {
             gui.Plugins.AddRange(new PluginBase[]
             {
-                new RiskeerPlugin(),
-                new ClosingStructuresPlugin(),
-                new StabilityPointStructuresPlugin(),
-                new WaveImpactAsphaltCoverPlugin(),
-                new GrassCoverErosionInwardsPlugin(),
-                new GrassCoverErosionOutwardsPlugin(),
-                new PipingPlugin(),
-                new HeightStructuresPlugin(),
-                new StabilityStoneCoverPlugin(),
-                new DuneErosionPlugin(),
-                new MacroStabilityInwardsPlugin()
+                new RiskeerPlugin()
             });
         }
     }

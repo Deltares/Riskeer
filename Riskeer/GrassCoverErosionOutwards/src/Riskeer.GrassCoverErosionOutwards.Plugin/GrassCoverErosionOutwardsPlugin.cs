@@ -28,7 +28,7 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Util;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.MainWindow;
+using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ProgressDialog;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
@@ -78,9 +78,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<GrassCoverErosionOutwardsCalculationsContext, GrassCoverErosionOutwardsFailureMechanismProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsCalculationsContext, GrassCoverErosionOutwardsCalculationsProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismProperties(
+                CreateInstance = context => new GrassCoverErosionOutwardsCalculationsProperties(
                     context.WrappedData,
                     new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler())
             };

@@ -42,19 +42,19 @@ namespace Core.Gui.Test.Forms.Backstage
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("settings", exception.ParamName);
         }
-        
+
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
             var settings = new GuiCoreSettings
             {
-                ApplicationName = "Riskeer",
+                ApplicationName = "Test application",
                 SupportHeader = "Support",
                 SupportText = "Some text"
             };
             const string version = "1.0";
-            
+
             // Call
             var viewModel = new BackstageViewModel(settings, version);
 
@@ -63,18 +63,18 @@ namespace Core.Gui.Test.Forms.Backstage
 
             Assert.IsNotNull(viewModel.InfoViewModel);
             Assert.IsNull(viewModel.InfoViewModel.ProjectName);
-            
+
             Assert.IsNotNull(viewModel.AboutViewModel);
             Assert.AreEqual(settings.ApplicationName, viewModel.AboutViewModel.ApplicationName);
             Assert.AreEqual(version, viewModel.AboutViewModel.Version);
-            
+
             Assert.IsNotNull(viewModel.SupportViewModel);
             Assert.AreEqual(settings.SupportHeader, viewModel.SupportViewModel.SupportHeader);
             Assert.AreEqual(settings.SupportText, viewModel.SupportViewModel.SupportText);
 
-            Assert.IsNotNull(viewModel.OpenHelpdeskWaterWebsiteCommand);
-            Assert.IsNotNull(viewModel.CallHelpdeskWaterSupportCommand);
-            Assert.IsNotNull(viewModel.EmailHelpdeskWaterSupportCommand);
+            Assert.IsNotNull(viewModel.OpenSupportDeskWebsiteCommand);
+            Assert.IsNotNull(viewModel.OpenCallSupportDeskWebsiteCommand);
+            Assert.IsNotNull(viewModel.OpenEmailSupportDeskWebsiteCommand);
             Assert.IsNotNull(viewModel.OpenUserManualCommand);
             Assert.IsNotNull(viewModel.SetSelectedViewModelCommand);
 
@@ -86,7 +86,7 @@ namespace Core.Gui.Test.Forms.Backstage
 
         [Test]
         [TestCaseSource(nameof(GetBackstagePageViewModels))]
-        public void GivenViewModel_WhenExecutingSetSelectedViewModelCommand_ThenExpectedValuesSet(
+        public void GivenViewModel_WhenExecutingSetSelectedViewModelCommand_ThenExpectedValuesSetAndPropertyChangedEventsFired(
             Func<BackstageViewModel, IBackstagePageViewModel> getBackstagePageViewModelFunc,
             bool infoSelected, bool openSelected, bool aboutSelected)
         {
@@ -99,14 +99,24 @@ namespace Core.Gui.Test.Forms.Backstage
                 viewModel.SelectedViewModel = viewModel.AboutViewModel;
             }
 
+            var propertyNames = new List<string>();
+            viewModel.PropertyChanged += (sender, args) => { propertyNames.Add(args.PropertyName); };
+
             // When
             viewModel.SetSelectedViewModelCommand.Execute(backstagePageViewModel);
 
-            // Assert
+            // Then
             Assert.AreSame(backstagePageViewModel, viewModel.SelectedViewModel);
             Assert.AreEqual(infoSelected, viewModel.InfoSelected);
             Assert.AreEqual(aboutSelected, viewModel.AboutSelected);
             Assert.AreEqual(openSelected, viewModel.SupportSelected);
+            CollectionAssert.AreEqual(new[]
+            {
+                nameof(viewModel.SelectedViewModel),
+                nameof(viewModel.InfoSelected),
+                nameof(viewModel.AboutSelected),
+                nameof(viewModel.SupportSelected)
+            }, propertyNames);
         }
 
         [Test]
@@ -127,14 +137,18 @@ namespace Core.Gui.Test.Forms.Backstage
             Assert.AreEqual(aboutSelected, viewModel.AboutSelected);
             Assert.AreEqual(openSelected, viewModel.SupportSelected);
 
+            var propertyChangedCount = 0;
+            viewModel.PropertyChanged += (sender, args) => propertyChangedCount++;
+
             // When
             viewModel.SetSelectedViewModelCommand.Execute(backstagePageViewModel);
 
-            // Assert
+            // Then
             Assert.AreSame(backstagePageViewModel, viewModel.SelectedViewModel);
             Assert.AreEqual(infoSelected, viewModel.InfoSelected);
             Assert.AreEqual(aboutSelected, viewModel.AboutSelected);
             Assert.AreEqual(openSelected, viewModel.SupportSelected);
+            Assert.AreEqual(0, propertyChangedCount);
         }
 
         [Test]

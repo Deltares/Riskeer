@@ -45,12 +45,12 @@ namespace Core.Gui.Plugin
             {
                 throw new ArgumentNullException(nameof(fontFamily));
             }
-            
+
             if (getRootData == null)
             {
                 throw new ArgumentNullException(nameof(getRootData));
             }
-            
+
             Name = name;
             Symbol = symbol;
             FontFamily = fontFamily;

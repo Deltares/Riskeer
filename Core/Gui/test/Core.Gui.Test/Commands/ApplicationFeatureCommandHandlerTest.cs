@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using Core.Gui.Commands;
-using Core.Gui.Forms.MainWindow;
-using Core.Gui.Forms.PropertyGridView;
+using Core.Gui.Forms.Main;
+using Core.Gui.Forms.PropertyView;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -32,7 +32,7 @@ namespace Core.Gui.Test.Commands
     public class ApplicationFeatureCommandHandlerTest
     {
         [Test]
-        public void ShowPropertiesFor_InitializeAndShowPropertyGrid()
+        public void ShowPropertiesFor_Always_PropertiesInitializedOrBroughtToFront()
         {
             // Setup
             var mocks = new MockRepository();

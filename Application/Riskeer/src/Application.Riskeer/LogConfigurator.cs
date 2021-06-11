@@ -22,7 +22,7 @@
 using System;
 using System.IO;
 using Core.Common.Util.Settings;
-using Core.Gui.Forms.MessageWindow;
+using Core.Gui.Forms.Log;
 using log4net;
 using log4net.Appender;
 using log4net.Core;
