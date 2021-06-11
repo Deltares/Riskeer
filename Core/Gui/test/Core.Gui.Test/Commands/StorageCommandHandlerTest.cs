@@ -53,14 +53,14 @@ namespace Core.Gui.Test.Commands
 
             var projectStorage = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
+            var projectOwner = mocks.StrictMock<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(oldProject);
             projectOwner.Stub(po => po.ProjectFilePath).Return(savedProjectPath);
+            projectOwner.Expect(po => po.SetProject(newProject, null));
 
             var projectFactory = mocks.Stub<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject())
                           .Return(newProject);
-            projectOwner.Expect(po => po.SetProject(newProject, null));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             var mainWindowController = mocks.Stub<IMainWindowController>();
@@ -90,12 +90,15 @@ namespace Core.Gui.Test.Commands
         }
 
         [Test]
-        public void CreateNewProject_ProjectFactoryReturnsNull_LogsMessage()
+        public void CreateNewProject_ProjectFactoryReturnsNull_LogsMessageAndProjectSetToNull()
         {
             // Setup
             var projectStorage = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
+            var projectOwner = mocks.StrictMock<IProjectOwner>();
+            projectOwner.Stub(po => po.Project).Return(mocks.Stub<IProject>());
+            projectOwner.Stub(po => po.ProjectFilePath).Return(null);
+            projectOwner.Expect(po => po.SetProject(null, null));
 
             var projectFactory = mocks.StrictMock<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject())
@@ -129,14 +132,17 @@ namespace Core.Gui.Test.Commands
         }
 
         [Test]
-        public void CreateNewProject_ProjectFactoryThrowsProjectFactoryException_LogsMessage()
+        public void CreateNewProject_ProjectFactoryThrowsProjectFactoryException_LogsMessageAndProjectSetToNull()
         {
             // Setup
             const string expectedExceptionMessage = "Error message";
 
             var projectStorage = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectOwner = mocks.Stub<IProjectOwner>();
+            var projectOwner = mocks.StrictMock<IProjectOwner>();
+            projectOwner.Stub(po => po.Project).Return(mocks.Stub<IProject>());
+            projectOwner.Stub(po => po.ProjectFilePath).Return(null);
+            projectOwner.Expect(po => po.SetProject(null, null));
 
             var projectFactory = mocks.StrictMock<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject())

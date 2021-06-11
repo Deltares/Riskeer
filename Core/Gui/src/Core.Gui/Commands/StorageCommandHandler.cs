@@ -111,8 +111,9 @@ namespace Core.Gui.Commands
             }
 
             log.Info(Resources.Creating_new_project_started);
+            var errorOccurred = false;
+            IProject newProject = null;
 
-            IProject newProject;
             try
             {
                 newProject = projectFactory.CreateNewProject();
@@ -121,17 +122,20 @@ namespace Core.Gui.Commands
             {
                 log.Error(e.Message);
                 log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_failed);
-                return;
+                errorOccurred = true;
             }
 
-            if (newProject == null)
+            if (newProject == null && !errorOccurred)
             {
                 log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_canceled);
-                return;
             }
 
             projectOwner.SetProject(newProject, null);
-            log.Info(Resources.Creating_new_project_successful);
+
+            if (newProject != null)
+            {
+                log.Info(Resources.Creating_new_project_successful);
+            }
         }
 
         public string GetExistingProjectFilePath()
