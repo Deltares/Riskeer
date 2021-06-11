@@ -68,11 +68,5 @@ namespace Core.Gui.Settings
         /// Gets or sets the path of the manual file.
         /// </summary>
         public string ManualFilePath { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="Func{T,TResult}"/> that should be executed
-        /// when a new project is created.
-        /// </summary>
-        public Func<IGui, object> OnCreateNewProjectFunc { get; set; }
     }
 }
