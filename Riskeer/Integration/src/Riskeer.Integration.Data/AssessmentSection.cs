@@ -87,7 +87,7 @@ namespace Riskeer.Integration.Data
         /// <param name="composition">The composition of the assessment section, e.g. what
         /// type of elements can be found within the assessment section.</param>
         /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
-        /// <param name="signalingNorm">The signaling norm which of the assessment section.</param>
+        /// <param name="signalingNorm">The signaling norm of the assessment section.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>

@@ -141,7 +141,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// set to <see cref="AssessmentSectionComposition.Dike"/>.
         /// </summary>
         /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
-        /// <param name="signalingNorm">The signaling norm which of the assessment section.</param>
+        /// <param name="signalingNorm">The signaling norm of the assessment section.</param>
         /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
         /// <list type="bullet">
@@ -160,7 +160,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// set to <see cref="AssessmentSectionComposition.Dike"/>.
         /// </summary>
         /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
-        /// <param name="signalingNorm">The signaling norm which of the assessment section.</param>
+        /// <param name="signalingNorm">The signaling norm of the assessment section.</param>
         /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
@@ -182,7 +182,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// set to <see cref="AssessmentSectionComposition.Dune"/>.
         /// </summary>
         /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
-        /// <param name="signalingNorm">The signaling norm which of the assessment section.</param>
+        /// <param name="signalingNorm">The signaling norm of the assessment section.</param>
         /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// </summary>
         /// <param name="selectedItem">The selected <see cref="ReferenceLineMeta"/>.</param>
         /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
-        /// <param name="signalingNorm">The signaling norm which of the assessment section.</param>
+        /// <param name="signalingNorm">The signaling norm of the assessment section.</param>
         /// <param name="normativeNorm">The norm type of the assessment section.</param>
         /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
@@ -261,7 +261,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// </summary>
         /// <param name="selectedItem">The selected <see cref="ReferenceLineMeta"/>.</param>
         /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
-        /// <param name="signalingNorm">The signaling norm which of the assessment section.</param>
+        /// <param name="signalingNorm">The signaling norm of the assessment section.</param>
         /// <param name="normativeNorm">The norm type of the assessment section.</param>
         /// <returns>The created <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="CriticalFileValidationException">Thrown when:
