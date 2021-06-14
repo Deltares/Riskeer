@@ -32,7 +32,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Util;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Plugin;
 using Riskeer.Migration;
 using Riskeer.Migration.Core;
 using Riskeer.Migration.Core.TestUtil;

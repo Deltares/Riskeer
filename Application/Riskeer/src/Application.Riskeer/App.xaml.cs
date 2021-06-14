@@ -46,6 +46,7 @@ using Riskeer.DuneErosion.Plugin;
 using Riskeer.GrassCoverErosionInwards.Plugin;
 using Riskeer.GrassCoverErosionOutwards.Plugin;
 using Riskeer.HeightStructures.Plugin;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms;
 using Riskeer.Integration.Plugin;
 using Riskeer.Integration.Plugin.Handlers;

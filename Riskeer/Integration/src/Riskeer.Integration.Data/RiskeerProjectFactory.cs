@@ -21,11 +21,8 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.IO;
-using Riskeer.Common.IO.Exceptions;
-using Riskeer.Integration.Data;
 
-namespace Riskeer.Integration.Plugin
+namespace Riskeer.Integration.Data
 {
     /// <summary>
     /// Factory to create instances of <see cref="RiskeerProject"/>.
@@ -62,7 +59,7 @@ namespace Riskeer.Integration.Plugin
             {
                 assessmentSection = createAssessmentSectionFunc();
             }
-            catch (Exception e) when (e is CriticalFileReadException || e is CriticalFileValidationException)
+            catch (Exception e)
             {
                 throw new ProjectFactoryException(e.Message, e);
             }

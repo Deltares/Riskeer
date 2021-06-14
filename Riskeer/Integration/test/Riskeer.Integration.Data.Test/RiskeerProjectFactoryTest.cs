@@ -21,13 +21,10 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.IO;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.IO.Exceptions;
-using Riskeer.Integration.Data;
 
-namespace Riskeer.Integration.Plugin.Test
+namespace Riskeer.Integration.Data.Test
 {
     [TestFixture]
     public class RiskeerProjectFactoryTest
@@ -80,37 +77,6 @@ namespace Riskeer.Integration.Plugin.Test
             // Setup
             const string expectedMessage = "Exception message test";
             var projectFactory = new RiskeerProjectFactory(() => throw new Exception(expectedMessage));
-
-            // Call
-            void Call() => projectFactory.CreateNewProject();
-
-            // Assert
-            var exception = Assert.Throws<Exception>(Call);
-            Assert.AreEqual(expectedMessage, exception.Message);
-        }
-
-        [Test]
-        public void CreateNewProject_WithCreateAssessmentSectionFuncThrowsCriticalFileReadException_ThrowsProjectFactoryException()
-        {
-            // Setup
-            const string expectedMessage = "Exception message test";
-            var projectFactory = new RiskeerProjectFactory(() => throw new CriticalFileReadException(expectedMessage));
-
-            // Call
-            void Call() => projectFactory.CreateNewProject();
-
-            // Assert
-            var exception = Assert.Throws<ProjectFactoryException>(Call);
-            Assert.AreEqual(expectedMessage, exception.Message);
-            Assert.IsInstanceOf<Exception>(exception.InnerException);
-        }
-
-        [Test]
-        public void CreateNewProject_WithCreateAssessmentSectionFuncThrowsCriticalFileValidationException_ThrowsProjectFactoryException()
-        {
-            // Setup
-            const string expectedMessage = "Exception message test";
-            var projectFactory = new RiskeerProjectFactory(() => throw new CriticalFileValidationException(expectedMessage));
 
             // Call
             void Call() => projectFactory.CreateNewProject();
