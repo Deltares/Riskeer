@@ -164,6 +164,7 @@ namespace Core.Gui.Commands
             catch (Exception e) when (e is ArgumentException || e is CriticalFileReadException || e is StorageValidationException)
             {
                 log.Error(e.Message, e);
+                projectOwner.SetProject(null, null);
                 return false;
             }
         }

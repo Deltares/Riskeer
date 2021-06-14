@@ -107,6 +107,9 @@ namespace Core.Gui
                 case ActivityState.Executed:
                     InitializeSuccessfulOpenedProject();
                     break;
+                case ActivityState.Failed:
+                    projectOwner.SetProject(null, null);
+                    break;
                 case ActivityState.Canceled:
                     ClearOpenedProject();
                     break;

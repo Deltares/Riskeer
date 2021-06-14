@@ -449,7 +449,7 @@ namespace Core.Gui.Test.Commands
 
         [Test]
         [TestCaseSource(nameof(GetExceptions))]
-        public void OpenExistingProject_ShouldMigrateThrowsException_LogFailureAndCreateNewProjectAndReturnsFalse(Exception exception, string errorMessage)
+        public void OpenExistingProject_ShouldMigrateThrowsException_LogFailureAndSetNullProjectAndReturnsFalse(Exception exception, string errorMessage)
         {
             // Setup
             const string pathToSomeValidFile = " ";
@@ -467,7 +467,7 @@ namespace Core.Gui.Test.Commands
 
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            projectOwner.Stub(po => po.SetProject(project, null));
+            projectOwner.Expect(po => po.SetProject(null, null));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             var mainWindowController = mocks.Stub<IMainWindowController>();
@@ -492,7 +492,7 @@ namespace Core.Gui.Test.Commands
         }
 
         [Test]
-        public void OpenExistingProject_ShouldMigrateYesAndDetermineMigrationLocationThrowsArgumentException_LogFailureAndReturnsFalse()
+        public void OpenExistingProject_ShouldMigrateYesAndDetermineMigrationLocationThrowsArgumentException_LogFailureAndSetProjectNullAndReturnsFalse()
         {
             // Setup
             const string errorMessage = "I am an error message.";
@@ -510,6 +510,7 @@ namespace Core.Gui.Test.Commands
 
             var projectFactory = mocks.StrictMock<IProjectFactory>();
             var projectOwner = mocks.StrictMock<IProjectOwner>();
+            projectOwner.Expect(po => po.SetProject(null, null));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             var mainWindowController = mocks.Stub<IMainWindowController>();
@@ -534,7 +535,7 @@ namespace Core.Gui.Test.Commands
         }
 
         [Test]
-        public void OpenExistingProject_ShouldMigrateTrueAndMigrateThrowsArgumentException_LogFailureAndReturnsFalse()
+        public void OpenExistingProject_ShouldMigrateTrueAndMigrateThrowsArgumentException_LogFailureAndSetProjectNullAndReturnsFalse()
         {
             // Setup
             const string errorMessage = "I am an error message.";
@@ -560,6 +561,7 @@ namespace Core.Gui.Test.Commands
 
             var projectFactory = mocks.StrictMock<IProjectFactory>();
             var projectOwner = mocks.StrictMock<IProjectOwner>();
+            projectOwner.Expect(po => po.SetProject(null, null));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
@@ -588,7 +590,7 @@ namespace Core.Gui.Test.Commands
         }
 
         [Test]
-        public void OpenExistingProject_LoadingProjectThrowsStorageException_LogFailureCreateNewProjectAndReturnFalse()
+        public void OpenExistingProject_LoadingProjectThrowsStorageException_LogFailureSetNullProjectAndReturnFalse()
         {
             // Setup
             const string pathToSomeInvalidFile = "<path to some invalid file>";
@@ -608,7 +610,7 @@ namespace Core.Gui.Test.Commands
 
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            projectOwner.Stub(po => po.SetProject(project, null));
+            projectOwner.Expect(po => po.SetProject(null, null));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             var mainWindow = mocks.Stub<IMainWindow>();
@@ -649,7 +651,7 @@ namespace Core.Gui.Test.Commands
         }
 
         [Test]
-        public void OpenExistingProject_LoadingNull_LogFailureCreateNewProjectAndReturnFalse()
+        public void OpenExistingProject_LoadingNull_LogFailureSetNullProjectAndReturnFalse()
         {
             // Setup
             const string pathToSomeInvalidFile = "<path to some invalid file>";
@@ -667,7 +669,7 @@ namespace Core.Gui.Test.Commands
 
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            projectOwner.Stub(po => po.SetProject(project, null));
+            projectOwner.Expect(po => po.SetProject(null, null));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             var mainWindow = mocks.Stub<IMainWindow>();

@@ -710,7 +710,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        public void GivenOpenProjectActivityAndFailedDueToNoProject_WhenFinishingOpenProjectActivity_ThenMessageLogged()
+        public void GivenOpenProjectActivityAndFailedDueToNoProject_WhenFinishingOpenProjectActivity_ThenProjectSetToNullAndMessageLogged()
         {
             // Given
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
@@ -722,6 +722,7 @@ namespace Core.Gui.Test
 
             var projectFactory = mocks.Stub<IProjectFactory>();
             var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Expect(po => po.SetProject(null, null));
             mocks.ReplayAll();
 
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
@@ -758,7 +759,7 @@ namespace Core.Gui.Test
 
         [Test]
         [TestCaseSource(nameof(ExceptionCases))]
-        public void GivenOpenProjectActivityFailedDueToException_WhenFinishingOpenProjectActivity_ThenProjectOwnerHasNewEmptyProjectWithLogMessage(Exception exceptionToThrow)
+        public void GivenOpenProjectActivityFailedDueToException_WhenFinishingOpenProjectActivity_ThenProjectOwnerHasNullProjectWithLogMessage(Exception exceptionToThrow)
         {
             // Given
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
@@ -770,6 +771,7 @@ namespace Core.Gui.Test
 
             var projectFactory = mocks.StrictMock<IProjectFactory>();
             var projectOwner = mocks.StrictMock<IProjectOwner>();
+            projectOwner.Expect(po => po.SetProject(null, null));
             mocks.ReplayAll();
 
             var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
@@ -963,6 +965,54 @@ namespace Core.Gui.Test
 
             mocks.VerifyAll();
         }
+        
+         [Test]
+        public void Finish_ProjectMigrationFailed_ProjectSetToNull()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            var projectOwner = mocks.Stub<IProjectOwner>();
+            projectOwner.Expect(po => po.SetProject(null, null));
+            var storeProject = mocks.Stub<IStoreProject>();
+            var migrateProject = mocks.Stub<IMigrateProject>();
+            migrateProject.Stub(pm => pm.Migrate(null, null))
+                          .IgnoreArguments()
+                          .Throw(new ArgumentException());
+            mocks.ReplayAll();
+
+            var openProjectProperties = new OpenProjectActivity.OpenProjectConstructionProperties
+            {
+                FilePath = "",
+                ProjectFactory = projectFactory,
+                ProjectOwner = projectOwner,
+                ProjectStorage = storeProject
+            };
+            var migrateProjectProperties = new OpenProjectActivity.ProjectMigrationConstructionProperties
+            {
+                MigrationFilePath = "",
+                Migrator = migrateProject
+            };
+
+            var activity = new OpenProjectActivity(openProjectProperties,
+                                                   migrateProjectProperties);
+            activity.Run();
+
+            // Precondition
+            Assert.AreEqual(ActivityState.Failed, activity.State);
+
+            activity.ProgressChanged += (sender, args) =>
+            {
+                Assert.AreSame(activity, sender);
+                Assert.AreEqual(EventArgs.Empty, args);
+            };
+
+            // Call
+            activity.Finish();
+
+            // Assert
+            mocks.VerifyAll();
+        }
 
         [Test]
         [TestCase(true)]
@@ -1006,7 +1056,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        public void GivenActivityMigratinProject_WhenCancellingAndMigrationThrowsException_DoNotLoadProject()
+        public void GivenActivityMigrationProject_WhenCancellingAndMigrationThrowsException_DoNotLoadProject()
         {
             // Setup
             var mocks = new MockRepository();
