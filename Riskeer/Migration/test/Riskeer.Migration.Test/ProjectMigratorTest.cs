@@ -127,7 +127,7 @@ namespace Riskeer.Migration.Test
         }
 
         [Test]
-        public void ShouldMigrate_OutdatedProjectUnsupported_ReturnsAbortedAndGeneratesLogMessages()
+        public void ShouldMigrate_OutdatedProjectUnsupported_ReturnsFailedAndGeneratesLogMessages()
         {
             // Setup
             var mocks = new MockRepository();
@@ -147,7 +147,7 @@ namespace Riskeer.Migration.Test
             // Assert
             var expectedMessage = $"Het migreren van een projectbestand met versie '{fileVersion}' naar versie '{currentDatabaseVersion}' is niet ondersteund.";
             TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);
-            Assert.AreEqual(MigrationRequired.Aborted, shouldMigrate);
+            Assert.AreEqual(MigrationRequired.Failed, shouldMigrate);
 
             mocks.VerifyAll();
         }

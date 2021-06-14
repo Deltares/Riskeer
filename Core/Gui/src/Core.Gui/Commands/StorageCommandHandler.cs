@@ -111,30 +111,25 @@ namespace Core.Gui.Commands
             }
 
             log.Info(Resources.Creating_new_project_started);
-            var errorOccurred = false;
-            IProject newProject = null;
 
             try
             {
-                newProject = projectFactory.CreateNewProject();
+                IProject newProject = projectFactory.CreateNewProject();
+                
+                if (newProject == null)
+                {
+                    log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_canceled);
+                    return;
+                }
+
+                projectOwner.SetProject(newProject, null);
+                log.Info(Resources.Creating_new_project_successful);
             }
             catch (ProjectFactoryException e)
             {
                 log.Error(e.Message);
+                projectOwner.SetProject(null, null);
                 log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_failed);
-                errorOccurred = true;
-            }
-
-            if (newProject == null && !errorOccurred)
-            {
-                log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_canceled);
-            }
-
-            projectOwner.SetProject(newProject, null);
-
-            if (newProject != null)
-            {
-                log.Info(Resources.Creating_new_project_successful);
             }
         }
 
@@ -217,8 +212,16 @@ namespace Core.Gui.Commands
         /// is not a valid project file.</exception>
         private bool OpenExistingProjectCore(string filePath)
         {
-            OpenProjectActivity.ProjectMigrationConstructionProperties migrationProperties;
-            if (PrepareProjectMigration(filePath, out migrationProperties) == MigrationRequired.Aborted)
+            MigrationRequired migrationRequired = PrepareProjectMigration(
+                filePath, out OpenProjectActivity.ProjectMigrationConstructionProperties migrationProperties);
+
+            if (migrationRequired == MigrationRequired.Failed)
+            {
+                projectOwner.SetProject(null, null);
+                return false;
+            }
+
+            if (migrationRequired == MigrationRequired.Aborted)
             {
                 return false;
             }

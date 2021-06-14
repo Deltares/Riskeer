@@ -96,7 +96,7 @@ namespace Riskeer.Migration
                 string errorMessage = string.Format(MigrationCoreStorageResources.Migrate_From_Version_0_To_Version_1_Not_Supported,
                                                     version, currentDatabaseVersion);
                 log.Error(errorMessage);
-                return MigrationRequired.Aborted;
+                return MigrationRequired.Failed;
             }
 
             string query = string.Format(Resources.ProjectMigrator_Migrate_Outdated_project_file_update_to_current_version_0_inquire,

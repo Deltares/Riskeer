@@ -449,8 +449,8 @@ namespace Core.Gui.Forms.Main
             if (!string.IsNullOrEmpty(projectPath))
             {
                 commands.StorageCommands.OpenExistingProject(projectPath);
-                CloseBackstage();
             }
+            CloseBackstage();
         }
 
         private void CloseBackstage()

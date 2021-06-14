@@ -98,7 +98,6 @@ namespace Core.Gui.Test.Commands
             var projectOwner = mocks.StrictMock<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(mocks.Stub<IProject>());
             projectOwner.Stub(po => po.ProjectFilePath).Return(null);
-            projectOwner.Expect(po => po.SetProject(null, null));
 
             var projectFactory = mocks.StrictMock<IProjectFactory>();
             projectFactory.Stub(pf => pf.CreateNewProject())
@@ -377,8 +376,51 @@ namespace Core.Gui.Test.Commands
 
             var projectOwner = mocks.StrictMock<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
-            projectOwner.Expect(po => po.SetProject(project, null))
+            projectOwner.Expect(po => po.SetProject(null, null))
+                        .IgnoreArguments()
                         .Repeat.Never();
+
+            var inquiryHelper = mocks.Stub<IInquiryHelper>();
+            var mainWindowController = mocks.Stub<IMainWindowController>();
+            mocks.ReplayAll();
+
+            var storageCommandHandler = new StorageCommandHandler(
+                projectStorage,
+                projectMigrator,
+                projectFactory,
+                projectOwner,
+                inquiryHelper,
+                mainWindowController);
+
+            // Call
+            bool result = storageCommandHandler.OpenExistingProject(pathToSomeValidFile);
+
+            // Assert
+            Assert.IsFalse(result);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void OpenExistingProject_ShouldMigrateFailed_SetProjectNullAndReturnsFalse()
+        {
+            // Setup
+            const string fileName = "newProject";
+            var pathToSomeValidFile = $"C://folder/directory/{fileName}.rtd";
+
+            var projectStorage = mocks.StrictMock<IStoreProject>();
+
+            var projectMigrator = mocks.StrictMock<IMigrateProject>();
+            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationRequired.Failed);
+
+            var project = mocks.Stub<IProject>();
+            var projectFactory = mocks.StrictMock<IProjectFactory>();
+            projectFactory.Expect(pf => pf.CreateNewProject())
+                          .Return(project)
+                          .Repeat.Never();
+
+            var projectOwner = mocks.StrictMock<IProjectOwner>();
+            projectOwner.Stub(po => po.Project).Return(project);
+            projectOwner.Expect(po => po.SetProject(null, null));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             var mainWindowController = mocks.Stub<IMainWindowController>();
@@ -418,9 +460,6 @@ namespace Core.Gui.Test.Commands
 
             var project = mocks.Stub<IProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
-            projectFactory.Expect(pf => pf.CreateNewProject())
-                          .Return(project)
-                          .Repeat.Never();
 
             var projectOwner = mocks.StrictMock<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
