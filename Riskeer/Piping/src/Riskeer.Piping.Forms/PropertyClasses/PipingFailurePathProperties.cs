@@ -39,7 +39,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
     /// <summary>
     /// Calculation related ViewModel of <see cref="PipingFailureMechanism"/> for properties panel.
     /// </summary>
-    public class PipingCalculationsProperties : PipingFailureMechanismProperties
+    public class PipingFailurePathProperties : PipingFailureMechanismProperties
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -71,9 +71,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         /// <param name="assessmentSection">The assessment section the data belongs to.</param>
         /// <param name="handler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingCalculationsProperties(PipingFailureMechanism data,
-                                            IAssessmentSection assessmentSection,
-                                            IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> handler) : base(data, assessmentSection, handler)
+        public PipingFailurePathProperties(PipingFailureMechanism data,
+                                           IAssessmentSection assessmentSection,
+                                           IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> handler) : base(data, assessmentSection, handler)
         {
             if (data == null)
             {
