@@ -31,7 +31,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// Calculation related ViewModel of <see cref="PipingFailureMechanism"/> for properties panel.
+    /// Failure path related ViewModel of <see cref="PipingFailureMechanism"/> for properties panel.
     /// </summary>
     public class PipingFailurePathProperties : PipingFailureMechanismProperties
     {

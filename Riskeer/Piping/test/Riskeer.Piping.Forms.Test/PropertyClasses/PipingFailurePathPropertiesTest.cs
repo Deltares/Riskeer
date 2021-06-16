@@ -48,38 +48,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         private const int nPropertyIndex = 8;
 
         [Test]
-        public void Constructor_DataNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new PipingFailurePathProperties(null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("data", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new PipingFailurePathProperties(new PipingFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Constructor_ExpectedValues(bool isRelevant)

@@ -62,40 +62,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         private const int sellMeijerReductionFactorPropertyIndex = 18;
 
         [Test]
-        public void Constructor_DataNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new PipingCalculationsProperties(null, assessmentSection, handler);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("data", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new PipingCalculationsProperties(new PipingFailureMechanism(), null, handler);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ChangeHandlerNull_ThrowArgumentNullException()
         {
             // Setup
