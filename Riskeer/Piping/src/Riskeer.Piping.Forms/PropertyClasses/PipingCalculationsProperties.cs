@@ -27,7 +27,6 @@ using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
@@ -61,7 +60,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         private const int meanDiameter70PropertyIndex = 18;
         private const int sellMeijerReductionFactorPropertyIndex = 19;
 
-        private readonly IAssessmentSection assessmentSection;
         private readonly IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> propertyChangeHandler;
 
         /// <summary>
@@ -73,25 +71,24 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingCalculationsProperties(PipingFailureMechanism data,
                                             IAssessmentSection assessmentSection,
-                                            IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> handler) : base(data, assessmentSection, handler)
+                                            IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> handler) : base(data, new ConstructionProperties
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
+            NamePropertyIndex = namePropertyIndex,
+            CodePropertyIndex = codePropertyIndex,
+            GroupPropertyIndex = groupPropertyIndex,
+            ContributionPropertyIndex = contributionPropertyIndex,
+            APropertyIndex = aPropertyIndex,
+            BPropertyIndex = bPropertyIndex,
+            SectionLengthPropertyIndex = sectionLengthPropertyIndex,
+            NPropertyIndex = nPropertyIndex
+        }, assessmentSection)
+        {
             if (handler == null)
             {
                 throw new ArgumentNullException(nameof(handler));
             }
 
             Data = data;
-            this.assessmentSection = assessmentSection;
             propertyChangeHandler = handler;
         }
 
@@ -108,6 +105,26 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             {
                 return new LogNormalDistributionDesignVariableProperties(
                     SemiProbabilisticPipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(data.GeneralInput));
+            }
+        }
+
+        #endregion
+
+        #region General
+
+        [PropertyOrder(waterVolumetricWeightPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WaterVolumetricWeight_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WaterVolumetricWeight_Description))]
+        public RoundedDouble WaterVolumetricWeight
+        {
+            get
+            {
+                return data.GeneralInput.WaterVolumetricWeight;
+            }
+            set
+            {
+                ChangePropertyValueAndNotifyAffectedObjects((f, v) => f.GeneralInput.WaterVolumetricWeight = v, value);
             }
         }
 
@@ -132,132 +149,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
                 affectedObject.NotifyObservers();
             }
         }
-
-        #region General
-
-        [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Name_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Name_Description))]
-        public string Name
-        {
-            get
-            {
-                return data.Name;
-            }
-        }
-
-        [PropertyOrder(codePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Code_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Code_Description))]
-        public string Code
-        {
-            get
-            {
-                return data.Code;
-            }
-        }
-
-        [PropertyOrder(groupPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_Description))]
-        public int Group
-        {
-            get
-            {
-                return data.Group;
-            }
-        }
-
-        [PropertyOrder(contributionPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
-        public double Contribution
-        {
-            get
-            {
-                return data.Contribution;
-            }
-        }
-
-        [PropertyOrder(waterVolumetricWeightPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WaterVolumetricWeight_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WaterVolumetricWeight_Description))]
-        public RoundedDouble WaterVolumetricWeight
-        {
-            get
-            {
-                return data.GeneralInput.WaterVolumetricWeight;
-            }
-            set
-            {
-                ChangePropertyValueAndNotifyAffectedObjects((f, v) => f.GeneralInput.WaterVolumetricWeight = v, value);
-            }
-        }
-
-        #endregion
-
-        #region Length effect parameters
-
-        [PropertyOrder(aPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_Description))]
-        public double A
-        {
-            get
-            {
-                return data.PipingProbabilityAssessmentInput.A;
-            }
-            set
-            {
-                data.PipingProbabilityAssessmentInput.A = value;
-                data.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(bPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_Description))]
-        public double B
-        {
-            get
-            {
-                return data.PipingProbabilityAssessmentInput.B;
-            }
-        }
-
-        [PropertyOrder(sectionLengthPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_Description))]
-        public RoundedDouble SectionLength
-        {
-            get
-            {
-                return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
-            }
-        }
-
-        [PropertyOrder(nPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_Description))]
-        public RoundedDouble N
-        {
-            get
-            {
-                PipingProbabilityAssessmentInput probabilityAssessmentInput = data.PipingProbabilityAssessmentInput;
-                return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
-            }
-        }
-
-        #endregion
 
         #region Sellmeijer
 

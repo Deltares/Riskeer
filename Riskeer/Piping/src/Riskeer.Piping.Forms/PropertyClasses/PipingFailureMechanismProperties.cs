@@ -21,18 +21,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Probability;
-using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
-using Riskeer.Piping.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.PropertyClasses
@@ -42,44 +37,29 @@ namespace Riskeer.Piping.Forms.PropertyClasses
     /// </summary>
     public class PipingFailureMechanismProperties : ObjectProperties<PipingFailureMechanism>
     {
-        private const int namePropertyIndex = 1;
-        private const int codePropertyIndex = 2;
-        private const int groupPropertyIndex = 3;
-        private const int contributionPropertyIndex = 4;
-        private const int isRelevantPropertyIndex = 5;
-        private const int waterVolumetricWeightPropertyIndex = 6;
-        private const int upLiftModelFactorPropertyIndex = 7;
-        private const int sellMeijerModelFactorPropertyIndex = 8;
-        private const int aPropertyIndex = 9;
-        private const int bPropertyIndex = 10;
-        private const int sectionLengthPropertyIndex = 11;
-        private const int nPropertyIndex = 12;
-        private const int criticalHeaveGradientPropertyIndex = 13;
-        private const int sandParticlesVolumetricWeightPropertyIndex = 14;
-        private const int whitesDragCoefficientPropertyIndex = 15;
-        private const int beddingAnglePropertyIndex = 16;
-        private const int waterKinematicViscosityPropertyIndex = 17;
-        private const int gravityPropertyIndex = 18;
-        private const int meanDiameter70PropertyIndex = 19;
-        private const int sellMeijerReductionFactorPropertyIndex = 20;
+        private readonly Dictionary<string, int> propertyIndexLookup;
 
         private readonly IAssessmentSection assessmentSection;
-        private readonly IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of <see cref="PipingFailureMechanismProperties"/>.</param>
         /// <param name="assessmentSection">The assessment section the data belongs to.</param>
-        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingFailureMechanismProperties(PipingFailureMechanism data,
-                                                IAssessmentSection assessmentSection,
-                                                IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> handler)
+                                                ConstructionProperties constructionProperties,
+                                                IAssessmentSection assessmentSection)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
+            }
+
+            if (constructionProperties == null)
+            {
+                throw new ArgumentNullException(nameof(constructionProperties));
             }
 
             if (assessmentSection == null)
@@ -87,89 +67,103 @@ namespace Riskeer.Piping.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (handler == null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-
             Data = data;
             this.assessmentSection = assessmentSection;
-            propertyChangeHandler = handler;
-        }
 
-        #region Heave
-
-        [DynamicVisible]
-        [PropertyOrder(criticalHeaveGradientPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Heave))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_CriticalHeaveGradient_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_CriticalHeaveGradient_Description))]
-        public LogNormalDistributionDesignVariableProperties CriticalHeaveGradient
-        {
-            get
+            propertyIndexLookup = new Dictionary<string, int>
             {
-                return new LogNormalDistributionDesignVariableProperties(
-                    SemiProbabilisticPipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(data.GeneralInput));
-            }
+                {
+                    nameof(Name), constructionProperties.NamePropertyIndex
+                },
+                {
+                    nameof(Code), constructionProperties.CodePropertyIndex
+                },
+                {
+                    nameof(Group), constructionProperties.GroupPropertyIndex
+                },
+                {
+                    nameof(Contribution), constructionProperties.ContributionPropertyIndex
+                },
+                {
+                    nameof(A), constructionProperties.APropertyIndex
+                },
+                {
+                    nameof(B), constructionProperties.BPropertyIndex
+                },
+                {
+                    nameof(SectionLength), constructionProperties.SectionLengthPropertyIndex
+                },
+                {
+                    nameof(N), constructionProperties.NPropertyIndex
+                }
+            };
         }
 
-        #endregion
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
+        [DynamicPropertyOrderEvaluationMethod]
+        public int DynamicPropertyOrderEvaluationMethod(string propertyName)
         {
-            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
-            {
-                return false;
-            }
+            propertyIndexLookup.TryGetValue(propertyName, out int propertyIndex);
 
-            return true;
+            return propertyIndex;
         }
 
-        private void ChangePropertyValueAndNotifyAffectedObjects<TValue>(
-            SetFailureMechanismPropertyValueDelegate<PipingFailureMechanism, TValue> setPropertyValue,
-            TValue value)
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="PipingFailureMechanismProperties"/>.
+        /// </summary>
+        public class ConstructionProperties
         {
-            IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
-                data,
-                value,
-                setPropertyValue);
+            #region General
 
-            NotifyAffectedObjects(affectedObjects);
-        }
+            /// <summary>
+            /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.Name"/>.
+            /// </summary>
+            public int NamePropertyIndex { get; set; }
 
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
-        }
+            /// <summary>
+            /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.Code"/>.
+            /// </summary>
+            public int CodePropertyIndex { get; set; }
 
-        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
-        {
-            return nameof(Contribution).Equals(propertyName)
-                   || nameof(CriticalHeaveGradient).Equals(propertyName)
-                   || nameof(WaterVolumetricWeight).Equals(propertyName)
-                   || nameof(A).Equals(propertyName)
-                   || nameof(B).Equals(propertyName)
-                   || nameof(SectionLength).Equals(propertyName)
-                   || nameof(N).Equals(propertyName)
-                   || nameof(SandParticlesVolumicWeight).Equals(propertyName)
-                   || nameof(WhitesDragCoefficient).Equals(propertyName)
-                   || nameof(BeddingAngle).Equals(propertyName)
-                   || nameof(WaterKinematicViscosity).Equals(propertyName)
-                   || nameof(Gravity).Equals(propertyName)
-                   || nameof(MeanDiameter70).Equals(propertyName)
-                   || nameof(SellmeijerReductionFactor).Equals(propertyName)
-                   || nameof(UpliftModelFactor).Equals(propertyName)
-                   || nameof(SellmeijerModelFactor).Equals(propertyName);
+            /// <summary>
+            /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.Group"/>.
+            /// </summary>
+            public int GroupPropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.Contribution"/>.
+            /// </summary>
+            public int ContributionPropertyIndex { get; set; }
+
+            #endregion
+
+            # region Length effect parameters
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.A"/>.
+            /// </summary>
+            public int APropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.B"/>.
+            /// </summary>
+            public int BPropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.SectionLength"/>.
+            /// </summary>
+            public int SectionLengthPropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.N"/>.
+            /// </summary>
+            public int NPropertyIndex { get; set; }
+
+            # endregion
         }
 
         #region General
 
-        [PropertyOrder(namePropertyIndex)]
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Name_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Name_Description))]
@@ -181,7 +175,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(codePropertyIndex)]
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Code_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Code_Description))]
@@ -193,7 +187,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(groupPropertyIndex)]
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_Description))]
@@ -205,12 +199,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
-        [PropertyOrder(contributionPropertyIndex)]
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
-        public double Contribution
+        public virtual double Contribution
         {
             get
             {
@@ -218,45 +211,15 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(isRelevantPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_Description))]
-        public bool IsRelevant
-        {
-            get
-            {
-                return data.IsRelevant;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(waterVolumetricWeightPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WaterVolumetricWeight_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WaterVolumetricWeight_Description))]
-        public RoundedDouble WaterVolumetricWeight
-        {
-            get
-            {
-                return data.GeneralInput.WaterVolumetricWeight;
-            }
-            set
-            {
-                ChangePropertyValueAndNotifyAffectedObjects((f, v) => f.GeneralInput.WaterVolumetricWeight = v, value);
-            }
-        }
-
         #endregion
 
         #region Length effect parameters
 
-        [DynamicVisible]
-        [PropertyOrder(aPropertyIndex)]
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_Description))]
-        public double A
+        public virtual double A
         {
             get
             {
@@ -269,12 +232,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
-        [PropertyOrder(bPropertyIndex)]
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_Description))]
-        public double B
+        public virtual double B
         {
             get
             {
@@ -282,12 +244,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
-        [PropertyOrder(sectionLengthPropertyIndex)]
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_Description))]
-        public RoundedDouble SectionLength
+        public virtual RoundedDouble SectionLength
         {
             get
             {
@@ -295,146 +256,16 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
-        [PropertyOrder(nPropertyIndex)]
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_Description))]
-        public RoundedDouble N
+        public virtual RoundedDouble N
         {
             get
             {
                 PipingProbabilityAssessmentInput probabilityAssessmentInput = data.PipingProbabilityAssessmentInput;
                 return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
-            }
-        }
-
-        #endregion
-
-        #region Sellmeijer
-
-        [DynamicVisible]
-        [PropertyOrder(sandParticlesVolumetricWeightPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SandParticlesVolumicWeight_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_SandParticlesVolumicWeight_Description))]
-        public RoundedDouble SandParticlesVolumicWeight
-        {
-            get
-            {
-                return data.GeneralInput.SandParticlesVolumicWeight;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(whitesDragCoefficientPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_WhitesDragCoefficient_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_WhitesDragCoefficient_Description))]
-        public double WhitesDragCoefficient
-        {
-            get
-            {
-                return data.GeneralInput.WhitesDragCoefficient;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(beddingAnglePropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_BeddingAngle_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_BeddingAngle_Description))]
-        public double BeddingAngle
-        {
-            get
-            {
-                return data.GeneralInput.BeddingAngle;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(waterKinematicViscosityPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_WaterKinematicViscosity_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_WaterKinematicViscosity_Description))]
-        public double WaterKinematicViscosity
-        {
-            get
-            {
-                return data.GeneralInput.WaterKinematicViscosity;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(gravityPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.GravitationalAcceleration_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.GravitationalAcceleration_Description))]
-        public double Gravity
-        {
-            get
-            {
-                return data.GeneralInput.Gravity;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(meanDiameter70PropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_MeanDiameter70_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_MeanDiameter70_Description))]
-        public double MeanDiameter70
-        {
-            get
-            {
-                return data.GeneralInput.MeanDiameter70;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(sellMeijerReductionFactorPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerReductionFactor_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerReductionFactor_Description))]
-        public double SellmeijerReductionFactor
-        {
-            get
-            {
-                return data.GeneralInput.SellmeijerReductionFactor;
-            }
-        }
-
-        #endregion
-
-        #region Model factors
-
-        [DynamicVisible]
-        [PropertyOrder(upLiftModelFactorPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_UpliftModelFactor_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_UpliftModelFactor_Description))]
-        public LogNormalDistributionDesignVariableProperties UpliftModelFactor
-        {
-            get
-            {
-                return new LogNormalDistributionDesignVariableProperties(
-                    SemiProbabilisticPipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(data.GeneralInput));
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(sellMeijerModelFactorPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerModelFactor_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerModelFactor_Description))]
-        public LogNormalDistributionDesignVariableProperties SellmeijerModelFactor
-        {
-            get
-            {
-                return new LogNormalDistributionDesignVariableProperties(
-                    SemiProbabilisticPipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(data.GeneralInput));
             }
         }
 

@@ -24,7 +24,6 @@ using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -129,7 +128,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, handler);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<PipingFailureMechanism>>(properties);
+            Assert.IsInstanceOf<PipingFailureMechanismProperties>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
