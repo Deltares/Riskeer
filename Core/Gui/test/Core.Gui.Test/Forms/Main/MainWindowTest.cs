@@ -637,8 +637,6 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
@@ -672,8 +670,6 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
@@ -708,8 +704,6 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
@@ -748,8 +742,6 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
@@ -786,8 +778,6 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
@@ -826,8 +816,6 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
@@ -862,8 +850,6 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
@@ -902,8 +888,6 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
@@ -940,8 +924,6 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
@@ -1031,8 +1013,6 @@ namespace Core.Gui.Test.Forms.Main
 
                 var projectMigrator = mocks.Stub<IMigrateProject>();
                 var projectFactory = mocks.Stub<IProjectFactory>();
-                projectFactory.Stub(pf => pf.CreateNewProject())
-                              .Return(project);
                 mocks.ReplayAll();
 
                 DialogBoxHandler = (s, hWnd) =>
@@ -1098,8 +1078,6 @@ namespace Core.Gui.Test.Forms.Main
 
                 var projectMigrator = mocks.Stub<IMigrateProject>();
                 var projectFactory = mocks.Stub<IProjectFactory>();
-                projectFactory.Stub(pf => pf.CreateNewProject())
-                              .Return(project);
                 mocks.ReplayAll();
 
                 DialogBoxHandler = (s, hWnd) =>
@@ -1153,7 +1131,6 @@ namespace Core.Gui.Test.Forms.Main
             string filePath = Path.Combine(directoryPath, nameof(MainWindowTest), "Project.risk");
 
             var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
 
             var projectStore = mocks.StrictMock<IStoreProject>();
             projectStore.Expect(ps => ps.LoadProject(filePath));
@@ -1161,8 +1138,6 @@ namespace Core.Gui.Test.Forms.Main
 
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(project);
             mocks.ReplayAll();
 
             DialogBoxHandler = (s, hWnd) =>
@@ -1209,12 +1184,9 @@ namespace Core.Gui.Test.Forms.Main
         {
             // Given
             var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(project);
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
@@ -1239,12 +1211,9 @@ namespace Core.Gui.Test.Forms.Main
         {
             // Given
             var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(project);
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
@@ -1273,12 +1242,9 @@ namespace Core.Gui.Test.Forms.Main
         {
             // Given
             var mocks = new MockRepository();
-            var project = mocks.Stub<IProject>();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(project);
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
@@ -1315,8 +1281,6 @@ namespace Core.Gui.Test.Forms.Main
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(mocks.Stub<IProject>());
             mocks.ReplayAll();
 
             using (var mainWindow = new MainWindow())
