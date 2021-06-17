@@ -52,17 +52,18 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         /// <param name="assessmentSection">The assessment section the data belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingFailurePathProperties(PipingFailureMechanism data,
-                                           IAssessmentSection assessmentSection) : base(data, new ConstructionProperties
-        {
-            NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex,
-            ContributionPropertyIndex = contributionPropertyIndex,
-            APropertyIndex = aPropertyIndex,
-            BPropertyIndex = bPropertyIndex,
-            SectionLengthPropertyIndex = sectionLengthPropertyIndex,
-            NPropertyIndex = nPropertyIndex
-        }, assessmentSection) {}
+                                           IAssessmentSection assessmentSection) :
+            base(data, new ConstructionProperties
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex,
+                GroupPropertyIndex = groupPropertyIndex,
+                ContributionPropertyIndex = contributionPropertyIndex,
+                APropertyIndex = aPropertyIndex,
+                BPropertyIndex = bPropertyIndex,
+                SectionLengthPropertyIndex = sectionLengthPropertyIndex,
+                NPropertyIndex = nPropertyIndex
+            }, assessmentSection) {}
 
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)

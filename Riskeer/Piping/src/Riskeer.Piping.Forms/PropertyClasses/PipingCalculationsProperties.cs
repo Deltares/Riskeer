@@ -71,17 +71,18 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingCalculationsProperties(PipingFailureMechanism data,
                                             IAssessmentSection assessmentSection,
-                                            IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> handler) : base(data, new ConstructionProperties
-        {
-            NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex,
-            ContributionPropertyIndex = contributionPropertyIndex,
-            APropertyIndex = aPropertyIndex,
-            BPropertyIndex = bPropertyIndex,
-            SectionLengthPropertyIndex = sectionLengthPropertyIndex,
-            NPropertyIndex = nPropertyIndex
-        }, assessmentSection)
+                                            IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> handler) :
+            base(data, new ConstructionProperties
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex,
+                GroupPropertyIndex = groupPropertyIndex,
+                ContributionPropertyIndex = contributionPropertyIndex,
+                APropertyIndex = aPropertyIndex,
+                BPropertyIndex = bPropertyIndex,
+                SectionLengthPropertyIndex = sectionLengthPropertyIndex,
+                NPropertyIndex = nPropertyIndex
+            }, assessmentSection)
         {
             if (handler == null)
             {
