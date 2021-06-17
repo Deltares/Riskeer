@@ -501,9 +501,6 @@ namespace Core.Gui.Test.Commands
 
             var project = mocks.Stub<IProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(project);
-
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             projectOwner.Expect(po => po.SetProject(null, null));
@@ -644,9 +641,6 @@ namespace Core.Gui.Test.Commands
             projectMigrator.Stub(m => m.ShouldMigrate(pathToSomeInvalidFile)).Return(MigrationRequired.No);
 
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(project);
-
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             projectOwner.Expect(po => po.SetProject(null, null));
@@ -703,9 +697,6 @@ namespace Core.Gui.Test.Commands
             var projectMigrator = mocks.Stub<IMigrateProject>();
 
             var projectFactory = mocks.Stub<IProjectFactory>();
-            projectFactory.Stub(pf => pf.CreateNewProject())
-                          .Return(project);
-
             var projectOwner = mocks.Stub<IProjectOwner>();
             projectOwner.Stub(po => po.Project).Return(project);
             projectOwner.Expect(po => po.SetProject(null, null));
