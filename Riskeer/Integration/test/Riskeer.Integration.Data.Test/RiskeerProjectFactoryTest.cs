@@ -39,6 +39,7 @@ namespace Riskeer.Integration.Data.Test
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("createAssessmentSectionFunc", exception.ParamName);
         }
+
         [Test]
         public void CreateNewProject_WithCreateAssessmentSectionFuncReturnAssessmentSection_ReturnsNewRiskeerProject()
         {

@@ -127,7 +127,7 @@ namespace Riskeer.Migration.Test
         }
 
         [Test]
-        public void ShouldMigrate_OutdatedProjectUnsupported_ReturnsFailedAndGeneratesLogMessages()
+        public void ShouldMigrate_OutdatedProjectUnsupported_ReturnsNotSupportedAndGeneratesLogMessages()
         {
             // Setup
             var mocks = new MockRepository();
