@@ -105,7 +105,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             return propertyIndex;
         }
 
-        protected IAssessmentSection AssessmentSection { get; set; }
+        protected IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="PipingFailureMechanismProperties"/>.
