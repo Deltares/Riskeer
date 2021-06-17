@@ -88,7 +88,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(handler));
             }
 
-            Data = data;
             propertyChangeHandler = handler;
         }
 

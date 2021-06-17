@@ -45,8 +45,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         private const int sectionLengthPropertyIndex = 8;
         private const int nPropertyIndex = 9;
 
-        private readonly IAssessmentSection assessmentSection;
-
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailurePathProperties"/>.
         /// </summary>
@@ -64,11 +62,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             BPropertyIndex = bPropertyIndex,
             SectionLengthPropertyIndex = sectionLengthPropertyIndex,
             NPropertyIndex = nPropertyIndex
-        }, assessmentSection)
-        {
-            this.assessmentSection = assessmentSection;
-            Data = data;
-        }
+        }, assessmentSection) {}
 
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
@@ -157,7 +151,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
+                return new RoundedDouble(2, AssessmentSection.ReferenceLine.Length);
             }
         }
 
@@ -170,7 +164,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             get
             {
                 PipingProbabilityAssessmentInput probabilityAssessmentInput = data.PipingProbabilityAssessmentInput;
-                return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
+                return new RoundedDouble(2, probabilityAssessmentInput.GetN(AssessmentSection.ReferenceLine.Length));
             }
         }
 

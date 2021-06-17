@@ -39,8 +39,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 
-        private readonly IAssessmentSection assessmentSection;
-
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismProperties"/>.
         /// </summary>
@@ -68,7 +66,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
 
             Data = data;
-            this.assessmentSection = assessmentSection;
+            AssessmentSection = assessmentSection;
 
             propertyIndexLookup = new Dictionary<string, int>
             {
@@ -106,6 +104,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
             return propertyIndex;
         }
+
+        protected IAssessmentSection AssessmentSection { get; set; }
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="PipingFailureMechanismProperties"/>.
@@ -252,7 +252,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
+                return new RoundedDouble(2, AssessmentSection.ReferenceLine.Length);
             }
         }
 
@@ -265,7 +265,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             get
             {
                 PipingProbabilityAssessmentInput probabilityAssessmentInput = data.PipingProbabilityAssessmentInput;
-                return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
+                return new RoundedDouble(2, probabilityAssessmentInput.GetN(AssessmentSection.ReferenceLine.Length));
             }
         }
 
