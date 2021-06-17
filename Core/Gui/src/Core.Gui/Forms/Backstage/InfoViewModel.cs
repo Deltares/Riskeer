@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Core.Common.Base.Data;
@@ -57,8 +56,6 @@ namespace Core.Gui.Forms.Backstage
         /// Sets the project.
         /// </summary>
         /// <param name="projectToSet">The project to set.</param>
-        /// <exception cref="ArgumentNullException">Thrown when<paramref name="projectToSet"/>
-        /// is <c>null</c>.</exception>
         public void SetProject(IProject projectToSet)
         {
             project = projectToSet;

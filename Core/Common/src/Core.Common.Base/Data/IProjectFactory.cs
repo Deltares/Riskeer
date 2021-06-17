@@ -29,7 +29,7 @@ namespace Core.Common.Base.Data
         /// <summary>
         /// Creates a new instance of <see cref="IProject"/>.
         /// </summary>
-        /// <returns>An empty <see cref="IProject"/> object.</returns>
+        /// <returns>A new <see cref="IProject"/> object.</returns>
         /// <exception cref="ProjectFactoryException">Thrown when something
         /// went wrong while creating the <see cref="IProject"/> object.</exception>
         IProject CreateNewProject();
