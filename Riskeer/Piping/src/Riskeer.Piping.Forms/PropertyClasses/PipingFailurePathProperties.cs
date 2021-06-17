@@ -48,7 +48,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingCalculationsProperties"/>.
+        /// Creates a new instance of <see cref="PipingFailurePathProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="assessmentSection">The assessment section the data belongs to.</param>
