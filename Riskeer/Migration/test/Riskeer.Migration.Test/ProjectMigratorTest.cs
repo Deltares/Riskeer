@@ -147,7 +147,7 @@ namespace Riskeer.Migration.Test
             // Assert
             var expectedMessage = $"Het migreren van een projectbestand met versie '{fileVersion}' naar versie '{currentDatabaseVersion}' is niet ondersteund.";
             TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);
-            Assert.AreEqual(MigrationRequired.Failed, shouldMigrate);
+            Assert.AreEqual(MigrationRequired.NotSupported, shouldMigrate);
 
             mocks.VerifyAll();
         }

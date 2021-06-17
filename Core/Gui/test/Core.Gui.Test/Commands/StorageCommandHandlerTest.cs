@@ -401,7 +401,7 @@ namespace Core.Gui.Test.Commands
         }
 
         [Test]
-        public void OpenExistingProject_ShouldMigrateFailed_SetProjectNullAndReturnsFalse()
+        public void OpenExistingProject_MigrationNotSupported_SetProjectNullAndReturnsFalse()
         {
             // Setup
             const string fileName = "newProject";
@@ -410,7 +410,7 @@ namespace Core.Gui.Test.Commands
             var projectStorage = mocks.StrictMock<IStoreProject>();
 
             var projectMigrator = mocks.StrictMock<IMigrateProject>();
-            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationRequired.Failed);
+            projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationRequired.NotSupported);
 
             var project = mocks.Stub<IProject>();
             var projectFactory = mocks.StrictMock<IProjectFactory>();

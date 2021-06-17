@@ -42,8 +42,8 @@ namespace Core.Common.Base.Storage
         Aborted,
         
         /// <summary>
-        /// Migration workflow failed.
+        /// Migration workflow not supported.
         /// </summary>
-        Failed
+        NotSupported
     }
 }

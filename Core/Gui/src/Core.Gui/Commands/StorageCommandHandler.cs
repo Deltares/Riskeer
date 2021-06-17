@@ -215,7 +215,7 @@ namespace Core.Gui.Commands
             MigrationRequired migrationRequired = PrepareProjectMigration(
                 filePath, out OpenProjectActivity.ProjectMigrationConstructionProperties migrationProperties);
 
-            if (migrationRequired == MigrationRequired.Failed)
+            if (migrationRequired == MigrationRequired.NotSupported)
             {
                 projectOwner.SetProject(null, null);
                 return false;
