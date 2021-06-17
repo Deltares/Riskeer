@@ -47,6 +47,11 @@ namespace Core.Gui.Forms.Backstage
             get => project?.Description;
             set
             {
+                if (project == null)
+                {
+                    return;
+                }
+
                 project.Description = value;
                 OnPropertyChanged(nameof(ProjectDescription));
             }

@@ -73,6 +73,29 @@ namespace Core.Gui.Test.Forms.Backstage
         }
 
         [Test]
+        public void GivenViewModelWithoutProject_WhenSettingProjectDescription_ThenExpectedValueAndNoPropertyChangedEventFired()
+        {
+            // Given
+            const string description = "new description";
+
+            var mocks = new MockRepository();
+            mocks.ReplayAll();
+
+            var viewModel = new InfoViewModel();
+
+            var propertyNames = new List<string>();
+            viewModel.PropertyChanged += (sender, args) => { propertyNames.Add(args.PropertyName); };
+
+            // When
+            viewModel.ProjectDescription = description;
+
+            // Then
+            Assert.IsNull(viewModel.ProjectDescription);
+            CollectionAssert.IsEmpty(propertyNames);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void SetProject_ProjectNull_ExpectedValuesAndPropertyChangedEventsFired()
         {
             // Setup
