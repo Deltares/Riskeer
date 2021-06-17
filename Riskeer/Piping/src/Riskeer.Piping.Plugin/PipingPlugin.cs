@@ -90,6 +90,10 @@ namespace Riskeer.Piping.Plugin
                 CreateInstance = context => new PipingCalculationsProperties(context.WrappedData, context.Parent,
                                                                              new FailureMechanismPropertyChangeHandler<PipingFailureMechanism>())
             };
+            yield return new PropertyInfo<PipingFailurePathContext, PipingFailurePathProperties>
+            {
+                CreateInstance = context => new PipingFailurePathProperties(context.WrappedData, context.Parent)
+            };
             yield return new PropertyInfo<SemiProbabilisticPipingInputContext, SemiProbabilisticPipingInputContextProperties>
             {
                 CreateInstance = context => new SemiProbabilisticPipingInputContextProperties(context,
