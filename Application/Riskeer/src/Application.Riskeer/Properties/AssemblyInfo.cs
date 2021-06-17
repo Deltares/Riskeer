@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Riskeer")]
 [assembly: AssemblyProduct("Riskeer")]
-[assembly: InternalsVisibleTo("Application.Riskeer.Integration.Test")]

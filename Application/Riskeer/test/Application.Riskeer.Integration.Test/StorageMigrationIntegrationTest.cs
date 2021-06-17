@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.IO;
 using System.Threading;
-using Application.Riskeer.Properties;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Forms.Main;
@@ -63,7 +63,7 @@ namespace Application.Riskeer.Integration.Test
             var projectMigrator = new ProjectMigrator(inquiryHelper);
             var guiCoreSettings = new GuiCoreSettings
             {
-                 ApplicationIcon = Resources.Riskeer
+                 ApplicationIcon = SystemIcons.Application
             };
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), guiCoreSettings))
@@ -106,7 +106,7 @@ namespace Application.Riskeer.Integration.Test
             var projectMigrator = new ProjectMigrator(inquiryHelper);
             var guiCoreSettings = new GuiCoreSettings
             {
-                ApplicationIcon = Resources.Riskeer
+                ApplicationIcon = SystemIcons.Application
             };
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), guiCoreSettings))
