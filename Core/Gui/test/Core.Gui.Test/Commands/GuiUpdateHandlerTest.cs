@@ -62,12 +62,12 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var viewParent = mockRepository.Stub<IViewParent>();
+            var dialogParent = mockRepository.Stub<IViewParent>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
             // Call
-            void Call() => new GuiUpdateHandler(viewParent, null, inquiryHelper);
+            void Call() => new GuiUpdateHandler(dialogParent, null, inquiryHelper);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -80,11 +80,11 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var viewParent = mockRepository.Stub<IViewParent>();
+            var dialogParent = mockRepository.Stub<IViewParent>();
             mockRepository.ReplayAll();
 
             // Call
-            void Call() => new GuiUpdateHandler(viewParent, Enumerable.Empty<UpdateInfo>(), null);
+            void Call() => new GuiUpdateHandler(dialogParent, Enumerable.Empty<UpdateInfo>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -358,13 +358,13 @@ namespace Core.Gui.Test.Commands
             var targetObject = new object();
 
             var mockRepository = new MockRepository();
-            var viewParent = mockRepository.Stub<IViewParent>();
+            var dialogParent = mockRepository.Stub<IViewParent>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             inquiryHelper.Stub(ih => ih.GetSourceFileLocation(generator.Filter)).Return(null);
             var fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
 
-            var updateHandler = new GuiUpdateHandler(viewParent, new UpdateInfo[]
+            var updateHandler = new GuiUpdateHandler(dialogParent, new UpdateInfo[]
             {
                 new UpdateInfo<object>
                 {
@@ -397,14 +397,14 @@ namespace Core.Gui.Test.Commands
             var targetObject = new object();
 
             var mockRepository = new MockRepository();
-            var viewParent = mockRepository.Stub<IViewParent>();
+            var dialogParent = mockRepository.Stub<IViewParent>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             inquiryHelper.Stub(ih => ih.GetSourceFileLocation(generator.Filter)).Return(null);
             var fileImporter = mockRepository.Stub<IFileImporter>();
             mockRepository.ReplayAll();
 
             const string currentPath = "FilePath/to/Update";
-            var updateHandler = new GuiUpdateHandler(viewParent, new UpdateInfo[]
+            var updateHandler = new GuiUpdateHandler(dialogParent, new UpdateInfo[]
             {
                 new UpdateInfo<object>
                 {
@@ -437,7 +437,7 @@ namespace Core.Gui.Test.Commands
             var generator = new FileFilterGenerator();
             var targetObject = new object();
             var mockRepository = new MockRepository();
-            var viewParent = mockRepository.Stub<IViewParent>();
+            var dialogParent = mockRepository.Stub<IViewParent>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             inquiryHelper.Stub(ih => ih.GetSourceFileLocation(generator.Filter)).Return("/some/path");
             var fileImporter = mockRepository.Stub<IFileImporter>();
@@ -445,7 +445,7 @@ namespace Core.Gui.Test.Commands
 
             var isVerifyUpdatedCalled = false;
 
-            var updateHandler = new GuiUpdateHandler(viewParent, new UpdateInfo[]
+            var updateHandler = new GuiUpdateHandler(dialogParent, new UpdateInfo[]
             {
                 new UpdateInfo<object>
                 {
@@ -488,7 +488,7 @@ namespace Core.Gui.Test.Commands
             };
 
             var mockRepository = new MockRepository();
-            var viewParent = mockRepository.Stub<IViewParent>();
+            var dialogParent = mockRepository.Stub<IViewParent>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
@@ -503,7 +503,7 @@ namespace Core.Gui.Test.Commands
                 }
             };
 
-            var updateHandler = new GuiUpdateHandler(viewParent, new UpdateInfo[]
+            var updateHandler = new GuiUpdateHandler(dialogParent, new UpdateInfo[]
             {
                 updateInfoA,
                 updateInfoB

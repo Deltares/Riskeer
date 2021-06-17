@@ -63,12 +63,12 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var viewParent = mockRepository.Stub<IViewParent>();
+            var dialogParent = mockRepository.Stub<IViewParent>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
             // Call
-            void Call() => new GuiImportHandler(viewParent, null, inquiryHelper);
+            void Call() => new GuiImportHandler(dialogParent, null, inquiryHelper);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -81,11 +81,11 @@ namespace Core.Gui.Test.Commands
         {
             // Setup
             var mockRepository = new MockRepository();
-            var viewParent = mockRepository.Stub<IViewParent>();
+            var dialogParent = mockRepository.Stub<IViewParent>();
             mockRepository.ReplayAll();
 
             // Call
-            void Call() => new GuiImportHandler(viewParent, Enumerable.Empty<ImportInfo>(), null);
+            void Call() => new GuiImportHandler(dialogParent, Enumerable.Empty<ImportInfo>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
