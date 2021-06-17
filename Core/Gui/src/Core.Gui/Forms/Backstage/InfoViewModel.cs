@@ -58,6 +58,11 @@ namespace Core.Gui.Forms.Backstage
         }
 
         /// <summary>
+        /// Gets whether <see cref="ProjectDescription"/> should be editable.
+        /// </summary>
+        public bool ProjectDescriptionEditable => project != null;
+
+        /// <summary>
         /// Sets the project.
         /// </summary>
         /// <param name="projectToSet">The project to set.</param>
@@ -66,6 +71,7 @@ namespace Core.Gui.Forms.Backstage
             project = projectToSet;
             OnPropertyChanged(nameof(ProjectName));
             OnPropertyChanged(nameof(ProjectDescription));
+            OnPropertyChanged(nameof(ProjectDescriptionEditable));
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

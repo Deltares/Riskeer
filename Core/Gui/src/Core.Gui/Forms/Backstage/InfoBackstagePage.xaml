@@ -110,6 +110,7 @@ All rights reserved.
                 <TextBlock Text="{x:Static properties:Resources.Description_DisplayName}"
                            Grid.Row="2" Grid.Column="0" />
                 <TextBox Text="{Binding ProjectDescription}"
+                         IsEnabled="{Binding ProjectDescriptionEditable}"
                          Grid.Row="2" Grid.Column="1"
                          TextWrapping="Wrap"
                          VerticalScrollBarVisibility="Visible"/>

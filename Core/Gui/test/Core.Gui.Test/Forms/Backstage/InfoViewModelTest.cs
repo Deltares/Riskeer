@@ -42,6 +42,7 @@ namespace Core.Gui.Test.Forms.Backstage
             Assert.IsInstanceOf<INotifyPropertyChanged>(viewModel);
             Assert.IsNull(viewModel.ProjectName);
             Assert.IsNull(viewModel.ProjectDescription);
+            Assert.IsFalse(viewModel.ProjectDescriptionEditable);
         }
 
         [Test]
@@ -110,10 +111,12 @@ namespace Core.Gui.Test.Forms.Backstage
             // Assert
             Assert.IsNull(viewModel.ProjectName);
             Assert.IsNull(viewModel.ProjectDescription);
+            Assert.IsFalse(viewModel.ProjectDescriptionEditable);
             CollectionAssert.AreEqual(new[]
             {
                 nameof(viewModel.ProjectName),
-                nameof(viewModel.ProjectDescription)
+                nameof(viewModel.ProjectDescription),
+                nameof(viewModel.ProjectDescriptionEditable)
             }, propertyNames);
         }
 
@@ -139,10 +142,12 @@ namespace Core.Gui.Test.Forms.Backstage
             // Assert
             Assert.AreEqual(project.Name, viewModel.ProjectName);
             Assert.AreEqual(project.Description, viewModel.ProjectDescription);
+            Assert.IsTrue(viewModel.ProjectDescriptionEditable);
             CollectionAssert.AreEqual(new[]
             {
                 nameof(viewModel.ProjectName),
-                nameof(viewModel.ProjectDescription)
+                nameof(viewModel.ProjectDescription),
+                nameof(viewModel.ProjectDescriptionEditable)
             }, propertyNames);
             mocks.VerifyAll();
         }
