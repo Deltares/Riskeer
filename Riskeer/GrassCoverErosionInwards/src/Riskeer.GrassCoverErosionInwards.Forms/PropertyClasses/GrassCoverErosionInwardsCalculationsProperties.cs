@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
-using Core.Gui.PropertyBag;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.Properties;
@@ -37,7 +36,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
     /// <summary>
     /// Calculation related ViewModel of <see cref="GrassCoverErosionInwardsFailureMechanism"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculationsProperties : ObjectProperties<GrassCoverErosionInwardsFailureMechanism>
+    public class GrassCoverErosionInwardsCalculationsProperties : GrassCoverErosionInwardsFailureMechanismProperties
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -58,7 +57,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsCalculationsProperties(
             GrassCoverErosionInwardsFailureMechanism data,
-            IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> handler)
+            IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> handler) : base(data, new ConstructionProperties
+        {
+            NamePropertyIndex = namePropertyIndex,
+            CodePropertyIndex = codePropertyIndex,
+            GroupPropertyIndex = groupPropertyIndex,
+            ContributionPropertyIndex = contributionPropertyIndex,
+            NPropertyIndex = nPropertyIndex
+        }, handler )
         {
             if (data == null)
             {
@@ -74,31 +80,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             propertyChangeHandler = handler;
         }
 
-        #region Length effect parameters
-
-        [PropertyOrder(nPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
-        public RoundedDouble N
-        {
-            get
-            {
-                return data.GeneralInput.N;
-            }
-            set
-            {
-                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
-                    data,
-                    value,
-                    (f, v) => f.GeneralInput.N = v);
-
-                NotifyAffectedObjects(affectedObjects);
-            }
-        }
-
-        #endregion
-
         private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
             foreach (IObservable affectedObject in affectedObjects)
@@ -109,47 +90,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
         #region General
 
-        [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Name_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Name_Description))]
-        public string Name
-        {
-            get
-            {
-                return data.Name;
-            }
-        }
-
-        [PropertyOrder(codePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Code_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Code_Description))]
-        public string Code
-        {
-            get
-            {
-                return data.Code;
-            }
-        }
-
-        [PropertyOrder(groupPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_Description))]
-        public int Group
-        {
-            get
-            {
-                return data.Group;
-            }
-        }
-
         [PropertyOrder(contributionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
-        public double Contribution
+        public override double Contribution
         {
             get
             {
@@ -210,6 +155,31 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             get
             {
                 return new TruncatedNormalDistributionProperties(data.GeneralInput.FshallowModelFactor);
+            }
+        }
+
+        #endregion
+        
+        #region Length effect parameters
+
+        [PropertyOrder(nPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
+        public override RoundedDouble N
+        {
+            get
+            {
+                return data.GeneralInput.N;
+            }
+            set
+            {
+                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                    data,
+                    value,
+                    (f, v) => f.GeneralInput.N = v);
+
+                NotifyAffectedObjects(affectedObjects);
             }
         }
 
