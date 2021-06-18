@@ -32,6 +32,7 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
+using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using log4net.Core;
 using NUnit.Extensions.Forms;
@@ -52,7 +53,6 @@ using Riskeer.Piping.Data.TestUtil.Probabilistic;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Primitives;
-using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
@@ -881,9 +881,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                                                                                                          failureMechanism,
                                                                                                          assessmentSection);
 
-                var mainWindow = mocks.Stub<IMainWindow>();
-                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
-                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
@@ -1002,9 +1000,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
                                                                                                          failureMechanism,
                                                                                                          assessmentSection);
 
-                var mainWindow = mocks.Stub<IMainWindow>();
-                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
-                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.MainWindow).Return(mainWindow);

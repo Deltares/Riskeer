@@ -30,6 +30,7 @@ using Core.Gui;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
+using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -45,7 +46,6 @@ using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using CoreGuiResources = Core.Gui.Properties.Resources;
-using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
@@ -576,9 +576,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var mainWindow = mocks.Stub<IMainWindow>();
-                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
-                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
