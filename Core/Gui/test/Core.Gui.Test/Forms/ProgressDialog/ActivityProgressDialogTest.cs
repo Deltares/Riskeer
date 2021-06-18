@@ -37,8 +37,8 @@ namespace Core.Gui.Test.Forms.ProgressDialog
         public void Constructor_ExpectedValue()
         {
             // Call
-            using (var viewParent = new TestViewParentForm())
-            using (var dialog = new ActivityProgressDialog(viewParent, Enumerable.Empty<Activity>()))
+            using (var dialogParent = new TestViewParentForm())
+            using (var dialog = new ActivityProgressDialog(dialogParent, Enumerable.Empty<Activity>()))
             {
                 // Assert
                 Assert.IsInstanceOf<DialogBase>(dialog);
@@ -67,8 +67,8 @@ namespace Core.Gui.Test.Forms.ProgressDialog
                 openedDialog.Close();
             };
 
-            using (var viewParent = new TestViewParentForm())
-            using (var dialog = new ActivityProgressDialog(viewParent, Enumerable.Empty<Activity>()))
+            using (var dialogParent = new TestViewParentForm())
+            using (var dialog = new ActivityProgressDialog(dialogParent, Enumerable.Empty<Activity>()))
             {
                 // Call
                 dialog.ShowDialog();

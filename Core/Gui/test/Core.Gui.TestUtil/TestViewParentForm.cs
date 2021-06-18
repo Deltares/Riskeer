@@ -27,7 +27,7 @@ using Core.Gui.Properties;
 namespace Core.Gui.TestUtil
 {
     /// <summary>
-    /// <see cref="IViewParent"/> <see cref="Form"/> that can be used in tests.
+    /// <see cref="Form"/> based implementation of <see cref="IViewParent"/> that can be used in tests.
     /// </summary>
     public class TestViewParentForm : Form, IViewParent
     {
