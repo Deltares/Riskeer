@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
@@ -30,10 +31,10 @@ using Core.Gui.Commands;
 using Core.Gui.Forms.Main;
 using Core.Gui.Helpers;
 using Core.Gui.Selection;
+using Core.Gui.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 
 namespace Core.Gui.Test.Commands
 {
@@ -201,9 +202,7 @@ namespace Core.Gui.Test.Commands
 
                 var inquiryHelper = mocks.Stub<IInquiryHelper>();
 
-                var mainWindow = mocks.Stub<IMainWindow>();
-                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
-                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
                 var mainWindowController = mocks.Stub<IMainWindowController>();
                 mainWindowController.Stub(mwc => mwc.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
@@ -262,9 +261,7 @@ namespace Core.Gui.Test.Commands
 
                 var inquiryHelper = mocks.Stub<IInquiryHelper>();
 
-                var mainWindow = mocks.Stub<IMainWindow>();
-                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
-                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
                 var mainWindowController = mocks.Stub<IMainWindowController>();
                 mainWindowController.Stub(mwc => mwc.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
@@ -316,7 +313,7 @@ namespace Core.Gui.Test.Commands
                 projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationRequired.Yes);
                 projectMigrator.Expect(pm => pm.DetermineMigrationLocation(pathToSomeValidFile)).Return(pathToMigratedFile);
                 mainWindowController.Stub(mwc => mwc.MainWindow).Return(mainWindow);
-                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(SystemIcons.Application);
                 mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
                 projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile, pathToMigratedFile)).Return(true);
             }
@@ -589,7 +586,7 @@ namespace Core.Gui.Test.Commands
                 projectMigrator.Expect(pm => pm.ShouldMigrate(pathToSomeValidFile)).Return(MigrationRequired.Yes);
                 projectMigrator.Expect(pm => pm.DetermineMigrationLocation(pathToSomeValidFile)).Return(pathToMigratedFile);
                 mainWindowController.Stub(mwc => mwc.MainWindow).Return(mainWindow);
-                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
+                mainWindow.Stub(mw => mw.ApplicationIcon).Return(SystemIcons.Application);
                 mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
                 projectMigrator.Expect(pm => pm.Migrate(pathToSomeValidFile, pathToMigratedFile))
                                .Throw(new ArgumentException(errorMessage));
@@ -646,9 +643,7 @@ namespace Core.Gui.Test.Commands
             projectOwner.Expect(po => po.SetProject(null, null));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
-            mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
             var mainWindowController = mocks.Stub<IMainWindowController>();
             mainWindowController.Stub(mwc => mwc.MainWindow).Return(mainWindow);
             mocks.ReplayAll();
@@ -702,9 +697,7 @@ namespace Core.Gui.Test.Commands
             projectOwner.Expect(po => po.SetProject(null, null));
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
-            var mainWindow = mocks.Stub<IMainWindow>();
-            mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
-            mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
             var mainWindowController = mocks.Stub<IMainWindowController>();
             mainWindowController.Stub(mwc => mwc.MainWindow).Return(mainWindow);
             mocks.ReplayAll();
@@ -759,9 +752,7 @@ namespace Core.Gui.Test.Commands
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
 
-            var mainWindow = mocks.Stub<IMainWindow>();
-            mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
-            mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
 
             var mainWindowController = mocks.Stub<IMainWindowController>();
             mainWindowController.Stub(mwc => mwc.MainWindow).Return(mainWindow);
@@ -823,9 +814,7 @@ namespace Core.Gui.Test.Commands
 
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
 
-            var mainWindow = mocks.Stub<IMainWindow>();
-            mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
-            mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
 
             var mainWindowController = mocks.Stub<IMainWindowController>();
             mainWindowController.Stub(mwc => mwc.MainWindow).Return(mainWindow);
@@ -1123,9 +1112,7 @@ namespace Core.Gui.Test.Commands
                                                                        $"Sla wijzigingen in het project op: {projectName}?"))
                              .Return(OptionalStepResult.PerformOptionalStep);
 
-                var mainWindow = mocks.Stub<IMainWindow>();
-                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
-                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
                 var mainWindowController = mocks.Stub<IMainWindowController>();
                 mainWindowController.Stub(mwc => mwc.MainWindow).Return(mainWindow);
                 mocks.ReplayAll();
@@ -1193,9 +1180,7 @@ namespace Core.Gui.Test.Commands
             inquiryHelper.Expect(h => h.GetTargetFileLocation(fileFilter, projectName))
                          .Return(someValidFilePath);
 
-            var mainWindow = mocks.Stub<IMainWindow>();
-            mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
-            mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+            IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
             var mainWindowController = mocks.Stub<IMainWindowController>();
             mainWindowController.Stub(mwc => mwc.MainWindow).Return(mainWindow);
             mocks.ReplayAll();
