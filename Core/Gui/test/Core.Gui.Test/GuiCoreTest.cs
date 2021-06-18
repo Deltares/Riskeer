@@ -22,11 +22,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
-using System.Windows.Media;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
@@ -51,7 +51,7 @@ using log4net.Repository.Hierarchy;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Xceed.Wpf.AvalonDock.Layout;
-using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
+using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Test
 {
@@ -573,7 +573,7 @@ namespace Core.Gui.Test
             var guiCoreSettings = new GuiCoreSettings
             {
                 ApplicationName = "<main window title part>",
-                ApplicationIcon = CoreGuiTestUtilResources.TestIcon
+                ApplicationIcon = SystemIcons.Application
             };
 
             using (var mainWindow = new MainWindow())
@@ -694,7 +694,7 @@ namespace Core.Gui.Test
 
             var guiCoreSettings = new GuiCoreSettings
             {
-                ApplicationIcon = CoreGuiTestUtilResources.TestIcon
+                ApplicationIcon = SystemIcons.Application
             };
 
             using (var mainWindow = new MainWindow())
@@ -738,7 +738,7 @@ namespace Core.Gui.Test
 
             var guiCoreSettings = new GuiCoreSettings
             {
-                ApplicationIcon = CoreGuiTestUtilResources.TestIcon
+                ApplicationIcon = SystemIcons.Application
             };
 
             using (var mainWindow = new MainWindow())

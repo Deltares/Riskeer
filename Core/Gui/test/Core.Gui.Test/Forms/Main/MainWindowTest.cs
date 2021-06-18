@@ -22,12 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
@@ -55,7 +55,7 @@ using DotSpatial.Data;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
+using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Test.Forms.Main
 {
@@ -1028,7 +1028,7 @@ namespace Core.Gui.Test.Forms.Main
 
                 var guiCoreSettings = new GuiCoreSettings
                 {
-                    ApplicationIcon = CoreGuiTestUtilResources.TestIcon
+                    ApplicationIcon = SystemIcons.Application
                 };
 
                 using (var mainWindow = new MainWindow())
@@ -1093,7 +1093,7 @@ namespace Core.Gui.Test.Forms.Main
 
                 var guiCoreSettings = new GuiCoreSettings
                 {
-                    ApplicationIcon = CoreGuiTestUtilResources.TestIcon
+                    ApplicationIcon = SystemIcons.Application
                 };
 
                 using (var mainWindow = new MainWindow())
@@ -1153,7 +1153,7 @@ namespace Core.Gui.Test.Forms.Main
 
             var guiCoreSettings = new GuiCoreSettings
             {
-                ApplicationIcon = CoreGuiTestUtilResources.TestIcon
+                ApplicationIcon = SystemIcons.Application
             };
 
             using (var mainWindow = new MainWindow())
