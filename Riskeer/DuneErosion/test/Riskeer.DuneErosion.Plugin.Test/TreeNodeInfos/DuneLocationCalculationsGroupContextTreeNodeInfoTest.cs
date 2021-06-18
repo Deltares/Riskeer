@@ -31,6 +31,7 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
+using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -45,7 +46,6 @@ using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
-using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
@@ -434,9 +434,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var mainWindow = mocks.Stub<IMainWindow>();
-                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
-                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
                 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.MainWindow).Return(mainWindow);

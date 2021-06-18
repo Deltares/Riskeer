@@ -35,6 +35,7 @@ using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
+using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -50,7 +51,6 @@ using Riskeer.HydraRing.Calculation.Calculator;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
-using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
@@ -453,9 +453,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var mainWindow = mockRepository.Stub<IMainWindow>();
-                mainWindow.Stub(mw => mw.ApplicationIcon).Return(CoreGuiTestUtilResources.TestIcon);
-                mainWindow.Stub(mw => mw.Handle).Return(IntPtr.Zero);
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mockRepository);
 
                 var gui = mockRepository.Stub<IGui>();
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
