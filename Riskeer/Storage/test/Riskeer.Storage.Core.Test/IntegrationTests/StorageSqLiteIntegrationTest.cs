@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -65,7 +66,6 @@ using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using CoreGuiTestUtilResources = Core.Gui.TestUtil.Properties.Resources;
 
 namespace Riskeer.Storage.Core.Test.IntegrationTests
 {
@@ -188,7 +188,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             var guiCoreSettings = new GuiCoreSettings
             {
-                ApplicationIcon = CoreGuiTestUtilResources.TestIcon
+                ApplicationIcon = SystemIcons.Application
             };
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), guiCoreSettings))
