@@ -75,6 +75,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("handler", exception.ParamName);
+            
             mocks.VerifyAll();
         }
 
@@ -138,6 +139,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(assessmentSection.ReferenceLine.Length,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
+            
             mocks.VerifyAll();
         }
 
@@ -328,6 +330,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Assert
             const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+            
             mocks.VerifyAll();
         }
 
@@ -357,6 +360,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.PipingProbabilityAssessmentInput.A);
+            
             mocks.VerifyAll();
         }
 
@@ -396,6 +400,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             const string expectedMessage = "De waarde moet binnen het bereik [0,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(changeHandler.Called);
+            
             mocks.VerifyAll(); // Does not expect notify observers.
         }
 
@@ -432,6 +437,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(value, failureMechanism.GeneralInput.WaterVolumetricWeight,
                             failureMechanism.GeneralInput.WaterVolumetricWeight.GetAccuracy());
             Assert.IsTrue(changeHandler.Called);
+            
             mocks.VerifyAll();
         }
     }

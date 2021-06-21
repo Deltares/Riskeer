@@ -61,6 +61,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
+            
             mocks.VerifyAll();
         }
 
@@ -78,6 +79,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("constructionProperties", exception.ParamName);
+            
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -263,6 +266,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.PipingProbabilityAssessmentInput.A);
+            
             mocks.VerifyAll();
         }
     }

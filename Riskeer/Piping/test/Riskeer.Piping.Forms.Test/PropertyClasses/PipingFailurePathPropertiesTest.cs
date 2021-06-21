@@ -85,6 +85,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(assessmentSection.ReferenceLine.Length,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
+            
             mocks.VerifyAll();
         }
 
@@ -282,6 +283,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.PipingProbabilityAssessmentInput.A);
+            
             mocks.VerifyAll();
         }
 
