@@ -95,15 +95,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_ExpectedValues(bool isRelevant)
+        public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism
-            {
-                IsRelevant = isRelevant
-            };
+            var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
