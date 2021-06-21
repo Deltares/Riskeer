@@ -44,6 +44,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int contributionPropertyIndex = 3;
         private const int isRelevantPropertyIndex = 4;
         private const int nPropertyIndex = 5;
+        private MockRepository mocks;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mocks = new MockRepository();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            mocks.VerifyAll();
+        }
 
         [Test]
         [TestCase(true)]
@@ -56,7 +69,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 IsRelevant = isRelevant
             };
 
-            var mocks = new MockRepository();
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
             mocks.ReplayAll();
 
@@ -76,8 +88,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.N,
                             properties.N,
                             properties.N.GetAccuracy());
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -89,7 +99,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 IsRelevant = true
             };
 
-            var mocks = new MockRepository();
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
             mocks.ReplayAll();
 
@@ -143,8 +152,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             lengthEffectCategory,
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).");
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -156,7 +163,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 IsRelevant = false
             };
 
-            var mocks = new MockRepository();
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
             mocks.ReplayAll();
 
@@ -196,8 +202,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -208,9 +212,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observable = mockRepository.StrictMock<IObservable>();
-            mockRepository.ReplayAll();
+            var observable = mocks.StrictMock<IObservable>();
+            mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var handler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionInwardsFailureMechanism, RoundedDouble>(
@@ -230,7 +233,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(handler.Called);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -240,10 +242,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void N_SetValidValue_UpdateDataAndNotifyObservers(double newN)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observable = mockRepository.StrictMock<IObservable>();
+            var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var handler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionInwardsFailureMechanism, RoundedDouble>(
@@ -262,7 +263,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(newN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
             Assert.IsTrue(handler.Called);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -271,7 +271,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
         {
             // Setup
-            var mocks = new MockRepository();
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
             mocks.ReplayAll();
 
@@ -291,8 +290,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
-
-            mocks.VerifyAll();
         }
     }
 }
