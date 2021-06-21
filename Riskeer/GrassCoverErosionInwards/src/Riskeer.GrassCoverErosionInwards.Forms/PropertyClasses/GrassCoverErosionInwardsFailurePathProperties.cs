@@ -43,8 +43,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int isRelevantPropertyIndex = 5;
         private const int nPropertyIndex = 6;
 
-        private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> propertyChangeHandler;
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailurePathProperties"/>.
         /// </summary>
@@ -53,37 +51,23 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailurePathProperties(
             GrassCoverErosionInwardsFailureMechanism data,
-            IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> handler) : 
+            IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> handler) :
             base(data, new ConstructionProperties
-        {
-            NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex,
-            ContributionPropertyIndex = contributionPropertyIndex,
-            NPropertyIndex = nPropertyIndex
-        }, handler)
-        {
-            if (data == null)
             {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (handler == null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-
-            Data = data;
-            propertyChangeHandler = handler;
-        }
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex,
+                GroupPropertyIndex = groupPropertyIndex,
+                ContributionPropertyIndex = contributionPropertyIndex,
+                NPropertyIndex = nPropertyIndex
+            }, handler) {}
 
         #region Length effect parameters
 
         [DynamicVisible]
         [PropertyOrder(nPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_Description))]
         public override RoundedDouble N
         {
             get
@@ -92,7 +76,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                IEnumerable<IObservable> affectedObjects = PropertyChangeHandler.SetPropertyValueAfterConfirmation(
                     data,
                     value,
                     (f, v) => f.GeneralInput.N = v);
@@ -156,6 +140,5 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         #endregion
-
     }
 }

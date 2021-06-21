@@ -47,7 +47,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int fbFactorPropertyIndex = 7;
         private const int fnFactorPropertyIndex = 8;
         private const int fshallowModelFactorPropertyIndex = 9;
-        private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationsProperties"/>.
@@ -64,29 +63,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             GroupPropertyIndex = groupPropertyIndex,
             ContributionPropertyIndex = contributionPropertyIndex,
             NPropertyIndex = nPropertyIndex
-        }, handler )
-        {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (handler == null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-
-            Data = data;
-            propertyChangeHandler = handler;
-        }
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
-        }
+        }, handler) {}
 
         #region General
 
@@ -103,6 +80,39 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         #endregion
+
+        #region Length effect parameters
+
+        [PropertyOrder(nPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
+        public override RoundedDouble N
+        {
+            get
+            {
+                return data.GeneralInput.N;
+            }
+            set
+            {
+                IEnumerable<IObservable> affectedObjects = PropertyChangeHandler.SetPropertyValueAfterConfirmation(
+                    data,
+                    value,
+                    (f, v) => f.GeneralInput.N = v);
+
+                NotifyAffectedObjects(affectedObjects);
+            }
+        }
+
+        #endregion
+
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
+        {
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
 
         #region Model settings
 
@@ -155,31 +165,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             get
             {
                 return new TruncatedNormalDistributionProperties(data.GeneralInput.FshallowModelFactor);
-            }
-        }
-
-        #endregion
-        
-        #region Length effect parameters
-
-        [PropertyOrder(nPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
-        public override RoundedDouble N
-        {
-            get
-            {
-                return data.GeneralInput.N;
-            }
-            set
-            {
-                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
-                    data,
-                    value,
-                    (f, v) => f.GeneralInput.N = v);
-
-                NotifyAffectedObjects(affectedObjects);
             }
         }
 
