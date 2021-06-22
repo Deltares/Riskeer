@@ -38,14 +38,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
     [TestFixture]
     public class PipingFailureMechanismPropertiesTest
     {
-        private const int namePropertyIndex = 0;
-        private const int codePropertyIndex = 1;
-        private const int groupPropertyIndex = 2;
-        private const int contributionPropertyIndex = 3;
-        private const int aPropertyIndex = 4;
-        private const int bPropertyIndex = 5;
-        private const int sectionLengthPropertyIndex = 6;
-        private const int nPropertyIndex = 7;
+        private const int namePropertyIndex = 7;
+        private const int codePropertyIndex = 6;
+        private const int groupPropertyIndex = 5;
+        private const int contributionPropertyIndex = 4;
+        private const int aPropertyIndex = 3;
+        private const int bPropertyIndex = 2;
+        private const int sectionLengthPropertyIndex = 1;
+        private const int nPropertyIndex = 0;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -61,7 +61,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
-            
+
             mocks.VerifyAll();
         }
 
@@ -79,7 +79,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("constructionProperties", exception.ParamName);
-            
+
             mocks.VerifyAll();
         }
 
@@ -141,7 +141,17 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new PipingFailureMechanismProperties(failureMechanism, new PipingFailureMechanismProperties.ConstructionProperties(), assessmentSection);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, new PipingFailureMechanismProperties.ConstructionProperties
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex,
+                GroupPropertyIndex = groupPropertyIndex,
+                ContributionPropertyIndex = contributionPropertyIndex,
+                APropertyIndex = aPropertyIndex,
+                BPropertyIndex = bPropertyIndex,
+                SectionLengthPropertyIndex = sectionLengthPropertyIndex,
+                NPropertyIndex = nPropertyIndex
+            }, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -233,6 +243,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Assert
             const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+
             mocks.VerifyAll();
         }
 
@@ -261,7 +272,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.PipingProbabilityAssessmentInput.A);
-            
+
             mocks.VerifyAll();
         }
     }
