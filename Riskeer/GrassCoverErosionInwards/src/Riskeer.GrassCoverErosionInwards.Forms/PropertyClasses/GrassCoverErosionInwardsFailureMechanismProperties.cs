@@ -136,14 +136,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
             #endregion
             
-            # region Length effect parameters
+            #region Length effect parameters
 
             /// <summary>
             /// Gets or sets the property index for <see cref="GrassCoverErosionInwardsFailureMechanismProperties.N"/>.
             /// </summary>
             public int NPropertyIndex { get; set; }
 
-            # endregion
+            #endregion
         }
 
         #region General
