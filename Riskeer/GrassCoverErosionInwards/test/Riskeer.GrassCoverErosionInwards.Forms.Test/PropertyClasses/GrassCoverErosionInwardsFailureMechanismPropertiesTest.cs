@@ -39,11 +39,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismPropertiesTest
     {
-        private const int namePropertyIndex = 0;
-        private const int codePropertyIndex = 1;
+        private const int namePropertyIndex = 4;
+        private const int codePropertyIndex = 3;
         private const int groupPropertyIndex = 2;
-        private const int contributionPropertyIndex = 3;
-        private const int nPropertyIndex = 4;
+        private const int contributionPropertyIndex = 1;
+        private const int nPropertyIndex = 0;
         private MockRepository mocks;
 
         [SetUp]
@@ -65,6 +65,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
+
             mocks.VerifyAll();
         }
 
@@ -131,7 +132,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(failureMechanism, new GrassCoverErosionInwardsFailureMechanismProperties.ConstructionProperties(), handler);
+            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(failureMechanism, new GrassCoverErosionInwardsFailureMechanismProperties.ConstructionProperties
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex,
+                GroupPropertyIndex = groupPropertyIndex,
+                ContributionPropertyIndex = contributionPropertyIndex,
+                NPropertyIndex = nPropertyIndex
+            }, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

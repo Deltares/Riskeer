@@ -117,7 +117,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             Assert.AreEqual(generalInput.FshallowModelFactor.Mean, properties.FshallowModelFactor.Mean);
             Assert.AreEqual(generalInput.FshallowModelFactor.StandardDeviation, properties.FshallowModelFactor.StandardDeviation);
-            
+
             mocks.VerifyAll();
         }
 
@@ -243,7 +243,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(changeHandler.Called);
-            
+
             mocks.VerifyAll();
         }
 
@@ -277,7 +277,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(newN, failureMechanism.GeneralInput.N);
             Assert.IsTrue(changeHandler.Called);
-            
+
             mocks.VerifyAll();
         }
     }
