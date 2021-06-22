@@ -105,6 +105,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             return propertyIndex;
         }
 
+        /// <summary>
+        /// Gets the <see cref="IAssessmentSection"/>.
+        /// </summary>
         protected IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
