@@ -136,7 +136,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
             #endregion
 
-            # region Length effect parameters
+            #region Length effect parameters
 
             /// <summary>
             /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.A"/>.
@@ -158,7 +158,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             /// </summary>
             public int NPropertyIndex { get; set; }
 
-            # endregion
+            #endregion
         }
 
         #region General
