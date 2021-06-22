@@ -61,32 +61,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
                 NPropertyIndex = nPropertyIndex
             }, handler) {}
 
-        #region Length effect parameters
-
-        [DynamicVisible]
-        [PropertyOrder(nPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_Description))]
-        public override RoundedDouble N
-        {
-            get
-            {
-                return data.GeneralInput.N;
-            }
-            set
-            {
-                IEnumerable<IObservable> affectedObjects = PropertyChangeHandler.SetPropertyValueAfterConfirmation(
-                    data,
-                    value,
-                    (f, v) => f.GeneralInput.N = v);
-
-                NotifyAffectedObjects(affectedObjects);
-            }
-        }
-
-        #endregion
-
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
@@ -136,6 +110,32 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             get
             {
                 return data.IsRelevant;
+            }
+        }
+
+        #endregion
+        
+        #region Length effect parameters
+
+        [DynamicVisible]
+        [PropertyOrder(nPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_Description))]
+        public override RoundedDouble N
+        {
+            get
+            {
+                return data.GeneralInput.N;
+            }
+            set
+            {
+                IEnumerable<IObservable> affectedObjects = PropertyChangeHandler.SetPropertyValueAfterConfirmation(
+                    data,
+                    value,
+                    (f, v) => f.GeneralInput.N = v);
+
+                NotifyAffectedObjects(affectedObjects);
             }
         }
 

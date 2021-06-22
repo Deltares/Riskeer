@@ -80,7 +80,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         #endregion
-
+        
         #region Length effect parameters
 
         [PropertyOrder(nPropertyIndex)]
