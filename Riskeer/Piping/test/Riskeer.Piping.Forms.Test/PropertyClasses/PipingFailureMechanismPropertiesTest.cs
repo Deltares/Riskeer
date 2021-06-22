@@ -98,12 +98,12 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
+            
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
             var properties = new PipingFailureMechanismProperties(failureMechanism, new PipingFailureMechanismProperties.ConstructionProperties(), assessmentSection);
@@ -134,11 +134,12 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
+            
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
             var properties = new PipingFailureMechanismProperties(failureMechanism, new PipingFailureMechanismProperties.ConstructionProperties

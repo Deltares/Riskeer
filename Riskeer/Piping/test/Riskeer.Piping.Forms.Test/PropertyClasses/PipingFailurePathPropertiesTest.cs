@@ -46,6 +46,19 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         private const int bPropertyIndex = 6;
         private const int sectionLengthPropertyIndex = 7;
         private const int nPropertyIndex = 8;
+        private MockRepository mocks;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mocks = new MockRepository();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            mocks.VerifyAll();
+        }
 
         [Test]
         [TestCase(true)]
@@ -53,15 +66,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues(bool isRelevant)
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
+            mocks.ReplayAll();
+
             var failureMechanism = new PipingFailureMechanism
             {
                 IsRelevant = isRelevant
             };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
 
             // Call
             var properties = new PipingFailurePathProperties(failureMechanism, assessmentSection);
@@ -85,22 +97,19 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(assessmentSection.ReferenceLine.Length,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
-            
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new PipingFailureMechanism
             {
                 IsRelevant = true
             };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
 
             // Call
             var properties = new PipingFailurePathProperties(failureMechanism, assessmentSection);
@@ -173,22 +182,19 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new PipingFailureMechanism
             {
                 IsRelevant = false
             };
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
 
             // Call
             var properties = new PipingFailurePathProperties(failureMechanism, assessmentSection);
@@ -226,8 +232,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -239,7 +243,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void A_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
@@ -255,7 +258,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Assert
             const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -267,7 +269,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void A_SetValidValue_SetsValueAndUpdatesObservers(double value)
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -283,8 +284,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.PipingProbabilityAssessmentInput.A);
-            
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -293,7 +292,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -301,6 +299,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             {
                 IsRelevant = isRelevant
             };
+
             var properties = new PipingFailurePathProperties(pipingFailureMechanism, assessmentSection);
 
             // Assert
@@ -316,8 +315,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
-
-            mocks.VerifyAll();
         }
     }
 }
