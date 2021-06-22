@@ -39,7 +39,7 @@ namespace Core.Gui.Commands
             new PropertyMetadata(default(ICommand)));
 
         /// <summary>
-        /// Gets or sets the command that should be executed when the RoutedCommand fires.
+        /// Gets or sets the command that should be executed when the <see cref="RoutedCommand"/> fires.
         /// </summary>
         public ICommand Command
         {
@@ -57,36 +57,18 @@ namespace Core.Gui.Commands
             return new RoutedCommandHandler();
         }
 
-        /// <summary>
-        /// Registers this handler to respond to the registered <see cref="RoutedCommand"/> for the
-        /// given element.
-        /// </summary>
-        /// <param name="owner"> The element for which we should register the command
-        /// binding for the current routed command.</param>
         internal void Register(FrameworkElement owner)
         {
             var binding = new CommandBinding(RoutedCommand, HandleExecute, HandleCanExecute);
             owner.CommandBindings.Add(binding);
         }
 
-        /// <summary>
-        /// Executes <see cref="ICommand.CanExecute(object)"/> with the 
-        /// <see cref="CanExecuteRoutedEventArgs.Parameter"/> from <paramref name="e"/>.
-        /// </summary>
-        /// <param name="sender">The owner of the <see cref="RoutedCommand"/>.</param>
-        /// <param name="e">The event arguments given by the routed event.</param>
         private void HandleCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = Command?.CanExecute(e.Parameter) == true;
             e.Handled = true;
         }
 
-        /// <summary>
-        /// Executes <see cref="ICommand.Execute(object)"/> with the 
-        /// <see cref="ExecutedRoutedEventArgs.Parameter"/> from <paramref name="e"/>.
-        /// </summary>
-        /// <param name="sender">The owner of the routed command.</param>
-        /// <param name="e">The event arguments given by the routed event.</param>
         private void HandleExecute(object sender, ExecutedRoutedEventArgs e)
         {
             Command?.Execute(e.Parameter);

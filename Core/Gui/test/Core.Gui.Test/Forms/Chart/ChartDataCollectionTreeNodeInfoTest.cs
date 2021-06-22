@@ -406,6 +406,7 @@ namespace Core.Gui.Test.Forms.Chart
             var chartDataCollection = new ChartDataCollection("test data");
             chartDataCollection.Add(chartPointData);
 
+            // Call
             using (ContextMenuStrip contextMenu = info.ContextMenuStrip(chartDataCollection, null, null))
             {
                 // Assert

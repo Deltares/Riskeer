@@ -239,7 +239,7 @@ namespace Application.Riskeer
         }
 
         /// <summary>
-        /// Delete the old log files.
+        /// Deletes the old log files.
         /// </summary>
         private static void DeleteOldLogFiles()
         {
