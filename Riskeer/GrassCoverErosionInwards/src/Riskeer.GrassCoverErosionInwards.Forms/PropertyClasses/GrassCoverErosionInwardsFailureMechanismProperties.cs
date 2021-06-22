@@ -122,6 +122,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             return propertyIndex;
         }
 
+        /// <summary>
+        /// Gets the <see cref="IFailureMechanismPropertyChangeHandler{GrassCoverErosionInwardsFailureMechanism}"/>.
+        /// </summary>
         protected IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> PropertyChangeHandler { get; }
 
         private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
