@@ -85,7 +85,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_HandlerNull_ThrowsArgumentNullException()
+        public void Constructor_ChangeHandlerNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => new GrassCoverErosionInwardsFailureMechanismProperties(new GrassCoverErosionInwardsFailureMechanism(), new GrassCoverErosionInwardsFailureMechanismProperties.ConstructionProperties(), null);
@@ -222,7 +222,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
         [Test]
         [TestCase(1.0)]
+        [TestCase(1.0000001)]        
         [TestCase(10.0)]
+        [TestCase(19.9999999)]        
         [TestCase(20.0)]
         public void N_SetValidValue_UpdateDataAndNotifyObservers(double newN)
         {

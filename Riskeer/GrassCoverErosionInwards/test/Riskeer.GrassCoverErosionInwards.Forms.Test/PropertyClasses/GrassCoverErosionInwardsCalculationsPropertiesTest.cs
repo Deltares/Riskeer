@@ -56,33 +56,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_DataIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new GrassCoverErosionInwardsCalculationsProperties(null, handler);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("data", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_ChangeHandlerIsNull_ThrowArgumentNullException()
-        {
-            // Call
-            void Call() => new GrassCoverErosionInwardsCalculationsProperties(new GrassCoverErosionInwardsFailureMechanism(), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("handler", paramName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -102,8 +75,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
 
-            var generalInput = new GeneralGrassCoverErosionInwardsInput();
+            GeneralGrassCoverErosionInwardsInput generalInput = failureMechanism.GeneralInput;
 
+            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
             Assert.AreEqual(generalInput.N, properties.N, properties.N.GetAccuracy());
 
             Assert.AreEqual(generalInput.FbFactor.Mean, properties.FbFactor.Mean);
@@ -224,6 +198,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionInwardsFailureMechanism, double>(
                 failureMechanism,
                 newN,
@@ -249,7 +224,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
         [Test]
         [TestCase(1.0)]
+        [TestCase(1.0000001)]        
         [TestCase(10.0)]
+        [TestCase(19.9999999)]        
         [TestCase(20.0)]
         public void N_SetValidValue_UpdateDataAndNotifyObservers(double newN)
         {
@@ -259,6 +236,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionInwardsFailureMechanism, double>(
                 failureMechanism,
                 newN,

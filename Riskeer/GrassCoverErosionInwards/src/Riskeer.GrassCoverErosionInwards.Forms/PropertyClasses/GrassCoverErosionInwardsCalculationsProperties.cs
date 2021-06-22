@@ -53,7 +53,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="handler">Handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsCalculationsProperties(
             GrassCoverErosionInwardsFailureMechanism data,
             IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> handler) : base(data, new ConstructionProperties
