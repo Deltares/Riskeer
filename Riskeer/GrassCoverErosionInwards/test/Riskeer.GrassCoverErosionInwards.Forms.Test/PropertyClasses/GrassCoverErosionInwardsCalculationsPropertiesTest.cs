@@ -70,6 +70,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 handler);
 
             // Assert
+            Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismProperties>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
