@@ -237,9 +237,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
         [Test]
         [TestCase(1.0)]
-        [TestCase(1.0000001)]        
         [TestCase(10.0)]
-        [TestCase(19.9999999)]        
         [TestCase(20.0)]
         public void N_SetValidValue_UpdateDataAndNotifyObservers(double newN)
         {
