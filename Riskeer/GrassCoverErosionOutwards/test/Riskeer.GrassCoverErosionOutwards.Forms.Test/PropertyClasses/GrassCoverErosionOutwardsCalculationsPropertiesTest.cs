@@ -110,12 +110,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new GrassCoverErosionOutwardsCalculationsProperties(
-                new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    IsRelevant = true
-                },
-                changeHandler);
+            var properties = new GrassCoverErosionOutwardsCalculationsProperties(new GrassCoverErosionOutwardsFailureMechanism(), changeHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
