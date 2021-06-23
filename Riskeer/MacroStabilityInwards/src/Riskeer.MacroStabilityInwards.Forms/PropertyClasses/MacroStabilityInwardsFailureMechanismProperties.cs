@@ -38,6 +38,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
     public class MacroStabilityInwardsFailureMechanismProperties : ObjectProperties<MacroStabilityInwardsFailureMechanism>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismProperties"/>.
@@ -66,7 +67,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
 
             Data = data;
-            AssessmentSection = assessmentSection;
+            this.assessmentSection = assessmentSection;
 
             propertyIndexLookup = new Dictionary<string, int>
             {
@@ -104,11 +105,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 
             return propertyIndex;
         }
-
-        /// <summary>
-        /// Gets the <see cref="IAssessmentSection"/>.
-        /// </summary>
-        protected IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="MacroStabilityInwardsFailureMechanismProperties"/>.
@@ -255,7 +251,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return new RoundedDouble(2, AssessmentSection.ReferenceLine.Length);
+                return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
             }
         }
 
@@ -268,7 +264,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = data.MacroStabilityInwardsProbabilityAssessmentInput;
-                return new RoundedDouble(2, probabilityAssessmentInput.GetN(AssessmentSection.ReferenceLine.Length));
+                return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
             }
         }
 
