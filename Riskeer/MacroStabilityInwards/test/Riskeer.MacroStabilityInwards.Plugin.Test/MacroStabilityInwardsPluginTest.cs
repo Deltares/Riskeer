@@ -67,12 +67,17 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(9, propertyInfos.Length);
+                Assert.AreEqual(10, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(MacroStabilityInwardsCalculationsContext),
                     typeof(MacroStabilityInwardsCalculationsProperties));
+                
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(MacroStabilityInwardsFailurePathContext),
+                    typeof(MacroStabilityInwardsFailurePathProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

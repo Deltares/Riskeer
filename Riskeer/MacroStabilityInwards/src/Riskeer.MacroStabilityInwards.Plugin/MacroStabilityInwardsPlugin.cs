@@ -78,6 +78,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 CreateInstance = context => new MacroStabilityInwardsCalculationsProperties(context.WrappedData, context.Parent)
             };
+            yield return new PropertyInfo<MacroStabilityInwardsFailurePathContext, MacroStabilityInwardsFailurePathProperties>
+            {
+                CreateInstance = context => new MacroStabilityInwardsFailurePathProperties(context.WrappedData, context.Parent)
+            };
             yield return new PropertyInfo<MacroStabilityInwardsInputContext, MacroStabilityInwardsInputContextProperties>
             {
                 CreateInstance = context => new MacroStabilityInwardsInputContextProperties(context,
