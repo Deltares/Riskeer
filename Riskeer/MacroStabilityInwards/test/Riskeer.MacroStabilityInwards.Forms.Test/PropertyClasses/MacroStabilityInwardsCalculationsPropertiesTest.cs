@@ -72,6 +72,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             GeneralMacroStabilityInwardsInput generalInput = failureMechanism.GeneralInput;
 
             Assert.AreEqual(generalInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
+            Assert.AreEqual(generalInput.ModelFactor, properties.ModelFactor);
 
             MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
             Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
