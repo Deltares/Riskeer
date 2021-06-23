@@ -46,7 +46,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         private const int nPropertyIndex = 9;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsFailurePathProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="assessmentSection">The assessment section the data belongs to.</param>
