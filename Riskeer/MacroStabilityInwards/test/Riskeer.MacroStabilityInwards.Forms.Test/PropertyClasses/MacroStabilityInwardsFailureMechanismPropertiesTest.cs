@@ -102,7 +102,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
-            
+
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
@@ -138,7 +138,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
-            
+
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
