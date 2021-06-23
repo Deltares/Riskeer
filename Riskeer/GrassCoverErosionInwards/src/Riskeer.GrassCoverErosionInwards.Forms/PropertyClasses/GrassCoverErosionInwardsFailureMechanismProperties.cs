@@ -38,6 +38,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
     public class GrassCoverErosionInwardsFailureMechanismProperties : ObjectProperties<GrassCoverErosionInwardsFailureMechanism>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
+        private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismProperties"/>.
@@ -67,7 +68,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
 
             Data = data;
-            PropertyChangeHandler = handler;
+            propertyChangeHandler = handler;
 
             propertyIndexLookup = new Dictionary<string, int>
             {
@@ -103,7 +104,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                IEnumerable<IObservable> affectedObjects = PropertyChangeHandler.SetPropertyValueAfterConfirmation(
+                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
                     data,
                     value,
                     (f, v) => f.GeneralInput.N = v);
@@ -121,11 +122,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
             return propertyIndex;
         }
-
-        /// <summary>
-        /// Gets the <see cref="IFailureMechanismPropertyChangeHandler{GrassCoverErosionInwardsFailureMechanism}"/>.
-        /// </summary>
-        protected IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> PropertyChangeHandler { get; }
 
         private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
