@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.TestUtil;
-using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -50,34 +49,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         private const int nPropertyIndex = 9;
 
         [Test]
-        public void Constructor_DataNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new MacroStabilityInwardsCalculationsProperties(null, assessmentSection);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("data", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
-        {
-            // Call
-            void Call() => new MacroStabilityInwardsCalculationsProperties(new MacroStabilityInwardsFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -92,11 +63,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new MacroStabilityInwardsCalculationsProperties(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsFailureMechanism>>(properties);
+            Assert.IsInstanceOf<MacroStabilityInwardsFailureMechanismProperties>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
+
+            GeneralMacroStabilityInwardsInput generalInput = failureMechanism.GeneralInput;
+
+            Assert.AreEqual(generalInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
 
             MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
             Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
@@ -109,8 +84,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(assessmentSection.ReferenceLine.Length,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
-            Assert.AreEqual(failureMechanism.GeneralInput.ModelFactor, properties.ModelFactor);
-            Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
+
             mocks.VerifyAll();
         }
 
@@ -132,8 +106,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(10, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
+            const string modelFactorCategory = "Modelinstellingen";
             const string lengthEffectCategory = "Lengte-effect parameters";
-            const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -163,8 +137,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
-            PropertyDescriptor waterVolumetricWeightProperty = dynamicProperties[waterVolumetricWeightPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waterVolumetricWeightProperty,
+            PropertyDescriptor volumicWeightOfWaterProperty = dynamicProperties[waterVolumetricWeightPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(volumicWeightOfWaterProperty,
                                                                             generalCategory,
                                                                             "Volumiek gewicht van water [kN/m³]",
                                                                             "Volumiek gewicht van water.",
@@ -172,7 +146,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor modelFactorProperty = dynamicProperties[modelFactorPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorProperty,
-                                                                            modelSettingsCategory,
+                                                                            modelFactorCategory,
                                                                             "Modelfactor [-]",
                                                                             "Modelfactor die wordt gebruikt bij de berekening van de benaderde faalkans op basis van de berekende stabiliteitsfactor.",
                                                                             true);
@@ -203,6 +177,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
+
             mocks.VerifyAll();
         }
 
@@ -231,6 +206,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+
             mocks.VerifyAll();
         }
 
@@ -259,6 +235,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A);
+
             mocks.VerifyAll();
         }
     }

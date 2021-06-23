@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
@@ -27,7 +28,6 @@ using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Probability;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.MacroStabilityInwards.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
@@ -37,30 +37,27 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
     /// </summary>
     public class MacroStabilityInwardsFailureMechanismProperties : ObjectProperties<MacroStabilityInwardsFailureMechanism>
     {
-        private const int namePropertyIndex = 1;
-        private const int codePropertyIndex = 2;
-        private const int groupPropertyIndex = 3;
-        private const int contributionPropertyIndex = 4;
-        private const int isRelevantPropertyIndex = 5;
-        private const int waterVolumetricWeightPropertyIndex = 6;
-        private const int modelFactorPropertyIndex = 7;
-        private const int aPropertyIndex = 8;
-        private const int bPropertyIndex = 9;
-        private const int sectionLengthPropertyIndex = 10;
-        private const int nPropertyIndex = 11;
-        private readonly IAssessmentSection assessmentSection;
+        private readonly Dictionary<string, int> propertyIndexLookup;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of <see cref="MacroStabilityInwardsFailureMechanismProperties"/>.</param>
         /// <param name="assessmentSection">The assessment section the data belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsFailureMechanismProperties(MacroStabilityInwardsFailureMechanism data, IAssessmentSection assessmentSection)
+        public MacroStabilityInwardsFailureMechanismProperties(MacroStabilityInwardsFailureMechanism data,
+                                                               ConstructionProperties constructionProperties,
+                                                               IAssessmentSection assessmentSection)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
+            }
+
+            if (constructionProperties == null)
+            {
+                throw new ArgumentNullException(nameof(constructionProperties));
             }
 
             if (assessmentSection == null)
@@ -69,46 +66,107 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
 
             Data = data;
-            this.assessmentSection = assessmentSection;
-        }
+            AssessmentSection = assessmentSection;
 
-        #region Model settings
-
-        [DynamicVisible]
-        [PropertyOrder(modelFactorPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsFailureMechanismProperties_ModelFactor_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsFailureMechanismProperties_ModelFactor_Description))]
-        public double ModelFactor
-        {
-            get
+            propertyIndexLookup = new Dictionary<string, int>
             {
-                return data.GeneralInput.ModelFactor;
-            }
+                {
+                    nameof(Name), constructionProperties.NamePropertyIndex
+                },
+                {
+                    nameof(Code), constructionProperties.CodePropertyIndex
+                },
+                {
+                    nameof(Group), constructionProperties.GroupPropertyIndex
+                },
+                {
+                    nameof(Contribution), constructionProperties.ContributionPropertyIndex
+                },
+                {
+                    nameof(A), constructionProperties.APropertyIndex
+                },
+                {
+                    nameof(B), constructionProperties.BPropertyIndex
+                },
+                {
+                    nameof(SectionLength), constructionProperties.SectionLengthPropertyIndex
+                },
+                {
+                    nameof(N), constructionProperties.NPropertyIndex
+                }
+            };
         }
 
-        #endregion
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
+        [DynamicPropertyOrderEvaluationMethod]
+        public int DynamicPropertyOrderEvaluationMethod(string propertyName)
         {
-            return data.IsRelevant || !ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName);
+            propertyIndexLookup.TryGetValue(propertyName, out int propertyIndex);
+
+            return propertyIndex;
         }
 
-        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
+        /// <summary>
+        /// Gets the <see cref="IAssessmentSection"/>.
+        /// </summary>
+        protected IAssessmentSection AssessmentSection { get; }
+
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="MacroStabilityInwardsFailureMechanismProperties"/>.
+        /// </summary>
+        public class ConstructionProperties
         {
-            return nameof(Contribution).Equals(propertyName)
-                   || nameof(A).Equals(propertyName)
-                   || nameof(B).Equals(propertyName)
-                   || nameof(SectionLength).Equals(propertyName)
-                   || nameof(N).Equals(propertyName)
-                   || nameof(ModelFactor).Equals(propertyName)
-                   || nameof(WaterVolumetricWeight).Equals(propertyName);
+            #region General
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismProperties.Name"/>.
+            /// </summary>
+            public int NamePropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismProperties.Code"/>.
+            /// </summary>
+            public int CodePropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismProperties.Group"/>.
+            /// </summary>
+            public int GroupPropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismProperties.Contribution"/>.
+            /// </summary>
+            public int ContributionPropertyIndex { get; set; }
+
+            #endregion
+
+            #region Length effect parameters
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismProperties.A"/>.
+            /// </summary>
+            public int APropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismProperties.B"/>.
+            /// </summary>
+            public int BPropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismProperties.SectionLength"/>.
+            /// </summary>
+            public int SectionLengthPropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismProperties.N"/>.
+            /// </summary>
+            public int NPropertyIndex { get; set; }
+
+            #endregion
         }
 
         #region General
 
-        [PropertyOrder(namePropertyIndex)]
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Name_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Name_Description))]
@@ -120,7 +178,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(codePropertyIndex)]
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Code_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Code_Description))]
@@ -132,7 +190,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(groupPropertyIndex)]
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_Description))]
@@ -144,12 +202,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
-        [PropertyOrder(contributionPropertyIndex)]
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
-        public double Contribution
+        public virtual double Contribution
         {
             get
             {
@@ -157,41 +214,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(isRelevantPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_Description))]
-        public bool IsRelevant
-        {
-            get
-            {
-                return data.IsRelevant;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(waterVolumetricWeightPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WaterVolumetricWeight_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.WaterVolumetricWeight_Description))]
-        public double WaterVolumetricWeight
-        {
-            get
-            {
-                return data.GeneralInput.WaterVolumetricWeight;
-            }
-        }
-
         #endregion
 
         #region Length effect parameters
 
-        [DynamicVisible]
-        [PropertyOrder(aPropertyIndex)]
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_Description))]
-        public double A
+        public virtual double A
         {
             get
             {
@@ -204,12 +235,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
-        [PropertyOrder(bPropertyIndex)]
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_Description))]
-        public double B
+        public virtual double B
         {
             get
             {
@@ -217,30 +247,28 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
-        [PropertyOrder(sectionLengthPropertyIndex)]
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_Description))]
-        public RoundedDouble SectionLength
+        public virtual RoundedDouble SectionLength
         {
             get
             {
-                return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
+                return new RoundedDouble(2, AssessmentSection.ReferenceLine.Length);
             }
         }
 
-        [DynamicVisible]
-        [PropertyOrder(nPropertyIndex)]
+        [DynamicPropertyOrder]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_Description))]
-        public RoundedDouble N
+        public virtual RoundedDouble N
         {
             get
             {
                 MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = data.MacroStabilityInwardsProbabilityAssessmentInput;
-                return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
+                return new RoundedDouble(2, probabilityAssessmentInput.GetN(AssessmentSection.ReferenceLine.Length));
             }
         }
 

@@ -38,17 +38,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismPropertiesTest
     {
-        private const int namePropertyIndex = 0;
-        private const int codePropertyIndex = 1;
-        private const int groupPropertyIndex = 2;
-        private const int contributionPropertyIndex = 3;
-        private const int isRelevantPropertyIndex = 4;
-        private const int waterVolumetricWeightPropertyIndex = 5;
-        private const int modelFactorPropertyIndex = 6;
-        private const int aPropertyIndex = 7;
-        private const int bPropertyIndex = 8;
-        private const int sectionLengthPropertyIndex = 9;
-        private const int nPropertyIndex = 10;
+        private const int namePropertyIndex = 7;
+        private const int codePropertyIndex = 6;
+        private const int groupPropertyIndex = 5;
+        private const int contributionPropertyIndex = 4;
+        private const int aPropertyIndex = 3;
+        private const int bPropertyIndex = 2;
+        private const int sectionLengthPropertyIndex = 1;
+        private const int nPropertyIndex = 0;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -59,19 +56,38 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            void Call() => new MacroStabilityInwardsFailureMechanismProperties(null, assessmentSection);
+            void Call() => new MacroStabilityInwardsFailureMechanismProperties(null, new MacroStabilityInwardsFailureMechanismProperties.ConstructionProperties(), assessmentSection);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("data", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("data", exception.ParamName);
+
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new MacroStabilityInwardsFailureMechanismProperties(new MacroStabilityInwardsFailureMechanism(), null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("constructionProperties", exception.ParamName);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new MacroStabilityInwardsFailureMechanismProperties(new MacroStabilityInwardsFailureMechanism(), null);
+            void Call() => new MacroStabilityInwardsFailureMechanismProperties(new MacroStabilityInwardsFailureMechanism(), new MacroStabilityInwardsFailureMechanismProperties.ConstructionProperties(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -79,23 +95,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_ExpectedValues(bool isRelevant)
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism
-            {
-                IsRelevant = isRelevant
-            };
+            
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, new MacroStabilityInwardsFailureMechanismProperties.ConstructionProperties(), assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsFailureMechanism>>(properties);
@@ -103,7 +114,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-            Assert.AreEqual(isRelevant, properties.IsRelevant);
 
             MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
             Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
@@ -116,34 +126,40 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(assessmentSection.ReferenceLine.Length,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
-            Assert.AreEqual(failureMechanism.GeneralInput.ModelFactor, properties.ModelFactor);
-            Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
+
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism
-            {
-                IsRelevant = true
-            };
+            
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, new MacroStabilityInwardsFailureMechanismProperties.ConstructionProperties
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex,
+                GroupPropertyIndex = groupPropertyIndex,
+                ContributionPropertyIndex = contributionPropertyIndex,
+                APropertyIndex = aPropertyIndex,
+                BPropertyIndex = bPropertyIndex,
+                SectionLengthPropertyIndex = sectionLengthPropertyIndex,
+                NPropertyIndex = nPropertyIndex
+            }, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(11, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect parameters";
-            const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -173,27 +189,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
-                                                                            generalCategory,
-                                                                            "Is relevant",
-                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                            true);
-
-            PropertyDescriptor waterVolumetricWeightProperty = dynamicProperties[waterVolumetricWeightPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waterVolumetricWeightProperty,
-                                                                            generalCategory,
-                                                                            "Volumiek gewicht van water [kN/m³]",
-                                                                            "Volumiek gewicht van water.",
-                                                                            true);
-
-            PropertyDescriptor modelFactorProperty = dynamicProperties[modelFactorPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorProperty,
-                                                                            modelSettingsCategory,
-                                                                            "Modelfactor [-]",
-                                                                            "Modelfactor die wordt gebruikt bij de berekening van de benaderde faalkans op basis van de berekende stabiliteitsfactor.",
-                                                                            true);
-
             PropertyDescriptor aProperty = dynamicProperties[aPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
                                                                             lengthEffectCategory,
@@ -220,58 +215,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
-            mocks.VerifyAll();
-        }
 
-        [Test]
-        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism
-            {
-                IsRelevant = false
-            };
-
-            // Call
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
-
-            const string generalCategory = "Algemeen";
-
-            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
-                                                                            generalCategory,
-                                                                            "Naam",
-                                                                            "De naam van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
-                                                                            generalCategory,
-                                                                            "Label",
-                                                                            "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
-                                                                            true);
-
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
-                                                                            generalCategory,
-                                                                            "Is relevant",
-                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                            true);
             mocks.VerifyAll();
         }
 
@@ -292,14 +236,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, new MacroStabilityInwardsFailureMechanismProperties.ConstructionProperties(), assessmentSection);
 
             // Call
-            TestDelegate call = () => properties.A = value;
+            void Call() => properties.A = value;
 
             // Assert
             const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+
             mocks.VerifyAll();
         }
 
@@ -321,47 +266,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, new MacroStabilityInwardsFailureMechanismProperties.ConstructionProperties(), assessmentSection);
 
             // Call
             properties.A = value;
 
             // Assert
             Assert.AreEqual(value, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A);
-            mocks.VerifyAll();
-        }
 
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism
-            {
-                IsRelevant = isRelevant
-            };
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, assessmentSection);
-
-            // Call & Assert
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
-
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.A)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.SectionLength)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactor)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.WaterVolumetricWeight)));
-
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
             mocks.VerifyAll();
         }
     }
