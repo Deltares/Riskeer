@@ -41,7 +41,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="constructionProperties">The property values required to create an instance of <see cref="StabilityStoneCoverFailureMechanismProperties"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public StabilityStoneCoverFailureMechanismProperties(StabilityStoneCoverFailureMechanism data, ConstructionProperties constructionProperties)
         {
             if (data == null)
