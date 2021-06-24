@@ -63,12 +63,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, propertyInfos.Length);
+                Assert.AreEqual(4, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveImpactAsphaltCoverCalculationsContext),
                     typeof(WaveImpactAsphaltCoverCalculationsProperties));
+                
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(WaveImpactAsphaltCoverFailurePathContext),
+                    typeof(WaveImpactAsphaltCoverFailurePathProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
