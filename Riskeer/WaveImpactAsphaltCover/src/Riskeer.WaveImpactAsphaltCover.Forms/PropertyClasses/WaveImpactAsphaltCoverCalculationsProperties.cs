@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
-using Core.Gui.PropertyBag;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerRevetmentFormsResources = Riskeer.Revetment.Forms.Properties.Resources;
@@ -33,7 +32,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
     /// <summary>
     /// Calculation related ViewModel of <see cref="WaveImpactAsphaltCoverFailureMechanism"/> for properties panel.
     /// </summary>
-    public class WaveImpactAsphaltCoverCalculationsProperties : ObjectProperties<WaveImpactAsphaltCoverFailureMechanism>
+    public class WaveImpactAsphaltCoverCalculationsProperties : WaveImpactAsphaltCoverFailureMechanismProperties
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -48,55 +47,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/>
         /// is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverCalculationsProperties(WaveImpactAsphaltCoverFailureMechanism data)
+        public WaveImpactAsphaltCoverCalculationsProperties(WaveImpactAsphaltCoverFailureMechanism data) : base(data, new ConstructionProperties()
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            Data = data;
-        }
-
-        #region General
-
-        [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Name_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Name_Description))]
-        public string Name
-        {
-            get
-            {
-                return data.Name;
-            }
-        }
-
-        [PropertyOrder(codePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Code_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Code_Description))]
-        public string Code
-        {
-            get
-            {
-                return data.Code;
-            }
-        }
-
-        [PropertyOrder(groupPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_Description))]
-        public int Group
-        {
-            get
-            {
-                return data.Group;
-            }
-        }
-
-        #endregion
+            NamePropertyIndex = namePropertyIndex,
+            CodePropertyIndex = codePropertyIndex,
+            GroupPropertyIndex = groupPropertyIndex
+        }) {}
 
         #region Model settings
 
