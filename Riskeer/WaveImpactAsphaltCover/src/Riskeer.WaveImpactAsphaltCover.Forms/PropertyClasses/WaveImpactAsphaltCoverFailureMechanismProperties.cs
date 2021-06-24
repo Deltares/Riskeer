@@ -49,6 +49,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(data));
             }
 
+            if (constructionProperties == null)
+            {
+                throw new ArgumentNullException(nameof(constructionProperties));
+            }
+
             Data = data;
 
             propertyIndexLookup = new Dictionary<string, int>

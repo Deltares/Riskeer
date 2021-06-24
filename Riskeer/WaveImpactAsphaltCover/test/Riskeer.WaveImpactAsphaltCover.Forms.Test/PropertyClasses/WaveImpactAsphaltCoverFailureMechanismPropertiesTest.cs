@@ -21,29 +21,26 @@
 
 using System;
 using System.ComponentModel;
+using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Riskeer.Revetment.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 
 namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverCalculationsPropertiesTest
+    public class WaveImpactAsphaltCoverFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
-        private const int aPropertyIndex = 3;
-        private const int bPropertyIndex = 4;
-        private const int cPropertyIndex = 5;
 
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new WaveImpactAsphaltCoverCalculationsProperties(null);
+            void Call() => new WaveImpactAsphaltCoverFailureMechanismProperties(null, new WaveImpactAsphaltCoverFailureMechanismProperties.ConstructionProperties());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -51,39 +48,44 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("constructionProperties", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithData_ExpectedValues()
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            var properties = new WaveImpactAsphaltCoverCalculationsProperties(failureMechanism);
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, new WaveImpactAsphaltCoverFailureMechanismProperties.ConstructionProperties());
 
             // Assert
-            Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismProperties>(properties);            
+            Assert.IsInstanceOf<ObjectProperties<WaveImpactAsphaltCoverFailureMechanism>>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
-
-            GeneralWaveConditionsInput generalWaveConditionsInput = failureMechanism.GeneralInput;
-            Assert.AreEqual(generalWaveConditionsInput.A, properties.A);
-            Assert.AreEqual(generalWaveConditionsInput.B, properties.B);
-            Assert.AreEqual(generalWaveConditionsInput.C, properties.C);
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Call
-            var properties = new WaveImpactAsphaltCoverCalculationsProperties(new WaveImpactAsphaltCoverFailureMechanism());
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism(), new WaveImpactAsphaltCoverFailureMechanismProperties.ConstructionProperties());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(6, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
-            const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -104,27 +106,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Groep",
                                                                             "De groep waar het toetsspoor toe behoort.",
-                                                                            true);
-
-            PropertyDescriptor aProperty = dynamicProperties[aPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
-                                                                            modelSettingsCategory,
-                                                                            "a",
-                                                                            "De waarde van de parameter 'a' in de berekening voor golfcondities.",
-                                                                            true);
-
-            PropertyDescriptor bProperty = dynamicProperties[bPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
-                                                                            modelSettingsCategory,
-                                                                            "b",
-                                                                            "De waarde van de parameter 'b' in de berekening voor golfcondities.",
-                                                                            true);
-
-            PropertyDescriptor cProperty = dynamicProperties[cPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(cProperty,
-                                                                            modelSettingsCategory,
-                                                                            "c",
-                                                                            "De waarde van de parameter 'c' in de berekening voor golfcondities.",
                                                                             true);
         }
     }

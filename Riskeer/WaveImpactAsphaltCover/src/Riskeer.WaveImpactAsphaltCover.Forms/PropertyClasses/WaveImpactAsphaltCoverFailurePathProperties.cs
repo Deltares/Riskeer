@@ -47,8 +47,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="assessmentSection"></param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverFailurePathProperties(WaveImpactAsphaltCoverFailureMechanism data, IAssessmentSection assessmentSection) : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
@@ -56,6 +55,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
             GroupPropertyIndex = groupPropertyIndex
         })
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             this.assessmentSection = assessmentSection;
         }
 

@@ -1,0 +1,221 @@
+﻿using System;
+using System.ComponentModel;
+using Core.Common.Base;
+using Core.Common.Base.Data;
+using Core.Common.TestUtil;
+using Core.Gui.TestUtil;
+using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.WaveImpactAsphaltCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
+
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
+{
+    public class WaveImpactAsphaltCoverFailurePathPropertiesTest
+    {
+        private const int namePropertyIndex = 0;
+        private const int codePropertyIndex = 1;
+        private const int groupPropertyIndex = 2;
+        private const int contributionPropertyIndex = 3;
+        private const int sectionLengthPropertyIndex = 4;
+        private const int deltaLPropertyIndex = 5;
+        private const int nPropertyIndex = 6;
+        private MockRepository mocks;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mocks = new MockRepository();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_DataNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new WaveImpactAsphaltCoverFailurePathProperties(null, assessmentSection);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("data", paramName);
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new WaveImpactAsphaltCoverFailurePathProperties(new WaveImpactAsphaltCoverFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
+            mocks.ReplayAll();
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            // Call
+            var properties = new WaveImpactAsphaltCoverFailurePathProperties(failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismProperties>(properties);
+            Assert.AreSame(failureMechanism, properties.Data);
+            Assert.AreEqual(failureMechanism.Name, properties.Name);
+            Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreEqual(failureMechanism.Group, properties.Group);
+            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
+
+            Assert.AreEqual(2, properties.SectionLength.NumberOfDecimalPlaces);
+            Assert.AreEqual(assessmentSection.ReferenceLine.Length,
+                            properties.SectionLength,
+                            properties.SectionLength.GetAccuracy());
+
+            GeneralWaveImpactAsphaltCoverInput generalWaveImpactAsphaltCoverInput = failureMechanism.GeneralWaveImpactAsphaltCoverInput;
+            Assert.AreEqual(2, properties.DeltaL.NumberOfDecimalPlaces);
+            Assert.AreEqual(generalWaveImpactAsphaltCoverInput.DeltaL,
+                            properties.DeltaL,
+                            properties.DeltaL.GetAccuracy());
+
+            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(generalWaveImpactAsphaltCoverInput.GetN(assessmentSection.ReferenceLine.Length),
+                            properties.N,
+                            properties.N.GetAccuracy());
+        }
+
+        [Test]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            var properties = new WaveImpactAsphaltCoverFailurePathProperties(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(7, dynamicProperties.Count);
+
+            const string generalCategory = "Algemeen";
+            const string lengthEffectCategory = "Lengte-effect parameters";
+
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
+                                                                            generalCategory,
+                                                                            "Groep",
+                                                                            "De groep waar het toetsspoor toe behoort.",
+                                                                            true);
+
+            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
+                                                                            generalCategory,
+                                                                            "Faalkansbijdrage [%]",
+                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
+                                                                            true);
+
+            PropertyDescriptor sectionLength = dynamicProperties[sectionLengthPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionLength,
+                                                                            lengthEffectCategory,
+                                                                            "Lengte* [m]",
+                                                                            "Totale lengte van het traject in meters (afgerond).",
+                                                                            true);
+
+            PropertyDescriptor deltaLProperty = dynamicProperties[deltaLPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(deltaLProperty,
+                                                                            lengthEffectCategory,
+                                                                            "ΔL [m]",
+                                                                            "Lengte van onafhankelijke dijkstrekkingen voor dit toetsspoor.");
+
+            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
+                                                                            lengthEffectCategory,
+                                                                            "N* [-]",
+                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect " +
+                                                                            "mee te nemen in de beoordeling (afgerond).",
+                                                                            true);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(0.0)]
+        [TestCase(-1.0)]
+        [TestCase(-20.0)]
+        public void DeltaL_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var properties = new WaveImpactAsphaltCoverFailurePathProperties(
+                failureMechanism,
+                assessmentSection);
+
+            // Call
+            void Call() => properties.DeltaL = (RoundedDouble) newN;
+
+            // Assert
+            const string expectedMessage = "De waarde voor 'ΔL' moet groter zijn dan 0.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(1.0)]
+        [TestCase(10.0)]
+        [TestCase(20.0)]
+        public void DeltaL_SetValidValue_UpdateDataAndNotifyObservers(double newN)
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.Attach(observer);
+
+            var properties = new WaveImpactAsphaltCoverFailurePathProperties(
+                failureMechanism,
+                assessmentSection);
+
+            // Call
+            properties.DeltaL = (RoundedDouble) newN;
+
+            // Assert
+            Assert.AreEqual(newN, failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL);
+        }
+    }
+}
