@@ -40,13 +40,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
         private const int nPropertyIndex = 4;
-        private MockRepository mocks;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-        }
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -127,7 +120,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         [TestCase(0.0)]
         [TestCase(-1.0)]
         [TestCase(-20.0)]
-        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
+        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeException(double newN)
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
@@ -149,6 +142,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         public void N_SetValidValue_UpdateDataAndNotifyObservers(double newN)
         {
             // Setup
+            var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();

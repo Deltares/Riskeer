@@ -19,10 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
-using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.StabilityStoneCover.Data;
@@ -40,18 +38,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         private const int columnsPropertyIndex = 4;
 
         [Test]
-        public void Constructor_DataIsNull_ThrowArgumentNullException()
-        {
-            // Call
-            void Call() => new StabilityStoneCoverCalculationsProperties(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("data", paramName);
-        }
-
-        [Test]
-        public void Constructor_WithData_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
@@ -60,7 +47,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             var properties = new StabilityStoneCoverCalculationsProperties(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StabilityStoneCoverFailureMechanism>>(properties);
+            Assert.IsInstanceOf<StabilityStoneCoverFailureMechanismProperties>(properties);
             TestHelper.AssertTypeConverter<StabilityStoneCoverCalculationsProperties, ExpandableObjectConverter>(
                 nameof(StabilityStoneCoverCalculationsProperties.Columns));
             TestHelper.AssertTypeConverter<StabilityStoneCoverCalculationsProperties, ExpandableObjectConverter>(

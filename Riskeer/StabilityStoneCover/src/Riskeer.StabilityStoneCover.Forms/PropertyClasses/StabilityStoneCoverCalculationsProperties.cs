@@ -51,15 +51,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
             NamePropertyIndex = namePropertyIndex,
             CodePropertyIndex = codePropertyIndex,
             GroupPropertyIndex = groupPropertyIndex
-        })
-        {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            Data = data;
-        }
+        }) {}
 
         #region Model settings
 

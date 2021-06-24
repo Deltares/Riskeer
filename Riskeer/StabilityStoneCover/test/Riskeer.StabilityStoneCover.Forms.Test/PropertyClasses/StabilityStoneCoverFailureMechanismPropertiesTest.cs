@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
@@ -63,16 +62,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var random = new Random(39);
-            bool isRelevant = random.NextBoolean();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                IsRelevant = isRelevant,
-                GeneralInput =
-                {
-                    N = random.NextRoundedDouble(1.0, 20.0)
-                }
-            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
             var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism, new StabilityStoneCoverFailureMechanismProperties.ConstructionProperties());
@@ -90,10 +80,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                IsRelevant = true
-            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
             var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism, new StabilityStoneCoverFailureMechanismProperties.ConstructionProperties
