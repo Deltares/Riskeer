@@ -72,6 +72,10 @@ namespace Riskeer.StabilityStoneCover.Plugin
             {
                 CreateInstance = context => new StabilityStoneCoverCalculationsProperties(context.WrappedData)
             };
+            yield return new PropertyInfo<StabilityStoneCoverFailurePathContext, StabilityStoneCoverFailurePathProperties>
+            {
+                CreateInstance = context => new StabilityStoneCoverFailurePathProperties(context.WrappedData)
+            };
             yield return new PropertyInfo<StabilityStoneCoverWaveConditionsOutputContext, StabilityStoneCoverWaveConditionsOutputProperties>
             {
                 CreateInstance = context => new StabilityStoneCoverWaveConditionsOutputProperties(context.WrappedData, context.Input)
