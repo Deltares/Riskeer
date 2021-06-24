@@ -74,6 +74,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
             set
             {
                 data.GeneralInput.N = value;
+                data.NotifyObservers();
             }
         }
 
@@ -94,6 +95,5 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
         }
 
         #endregion
-
     }
 }

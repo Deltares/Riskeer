@@ -28,7 +28,6 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
 
@@ -131,17 +130,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
         {
             // Setup
-            var observable = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var handler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<StabilityStoneCoverFailureMechanism, RoundedDouble>(
-                failureMechanism,
-                (RoundedDouble) newN,
-                new[]
-                {
-                    observable
-                });
 
             var properties = new StabilityStoneCoverFailurePathProperties(failureMechanism);
 
@@ -151,9 +140,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             // Assert
             const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-            Assert.IsTrue(handler.Called);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -163,18 +149,12 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         public void N_SetValidValue_UpdateDataAndNotifyObservers(double newN)
         {
             // Setup
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var handler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<StabilityStoneCoverFailureMechanism, RoundedDouble>(
-                failureMechanism,
-                (RoundedDouble) newN,
-                new[]
-                {
-                    observable
-                });
+            failureMechanism.Attach(observer);
 
             var properties = new StabilityStoneCoverFailurePathProperties(failureMechanism);
 
@@ -183,7 +163,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
-            Assert.IsTrue(handler.Called);
 
             mocks.VerifyAll();
         }
