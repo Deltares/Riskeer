@@ -54,11 +54,11 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.Cancel = new System.Windows.Forms.Button();
             this.Ok = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.LowLimitValueRadioButton = new System.Windows.Forms.RadioButton();
-            this.SignallingValueRadioButton = new System.Windows.Forms.RadioButton();
-            this.ReferenceLineMetaDataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.SelectAssessmentSectionLabel = new System.Windows.Forms.Label();
+            this.ReferenceLineMetaDataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.SignallingValueRadioButton = new System.Windows.Forms.RadioButton();
+            this.LowLimitValueRadioButton = new System.Windows.Forms.RadioButton();
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -96,11 +96,25 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
-            // LowLimitValueRadioButton
+            // SelectAssessmentSectionLabel
             // 
-            resources.ApplyResources(this.LowLimitValueRadioButton, "LowLimitValueRadioButton");
-            this.LowLimitValueRadioButton.Name = "LowLimitValueRadioButton";
-            this.LowLimitValueRadioButton.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.SelectAssessmentSectionLabel, "SelectAssessmentSectionLabel");
+            this.SelectAssessmentSectionLabel.Name = "SelectAssessmentSectionLabel";
+            // 
+            // ReferenceLineMetaDataGridViewControl
+            // 
+            resources.ApplyResources(this.ReferenceLineMetaDataGridViewControl, "ReferenceLineMetaDataGridViewControl");
+            this.ReferenceLineMetaDataGridViewControl.MultiSelect = false;
+            this.ReferenceLineMetaDataGridViewControl.Name = "ReferenceLineMetaDataGridViewControl";
+            this.ReferenceLineMetaDataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            // 
+            // groupBox1
+            // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.SignallingValueRadioButton);
+            this.groupBox1.Controls.Add(this.LowLimitValueRadioButton);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
             // 
             // SignallingValueRadioButton
             // 
@@ -110,25 +124,11 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.SignallingValueRadioButton.TabStop = true;
             this.SignallingValueRadioButton.UseVisualStyleBackColor = true;
             // 
-            // ReferenceLineMetaDataGridViewControl
+            // LowLimitValueRadioButton
             // 
-            resources.ApplyResources(this.ReferenceLineMetaDataGridViewControl, "ReferenceLineMetaDataGridViewControl");
-            this.ReferenceLineMetaDataGridViewControl.MultiSelect = false;
-            this.ReferenceLineMetaDataGridViewControl.Name = "ReferenceLineMetaDataGridViewControl";
-            this.ReferenceLineMetaDataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            // 
-            // SelectAssessmentSectionLabel
-            // 
-            resources.ApplyResources(this.SelectAssessmentSectionLabel, "SelectAssessmentSectionLabel");
-            this.SelectAssessmentSectionLabel.Name = "SelectAssessmentSectionLabel";
-            // 
-            // groupBox1
-            // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Controls.Add(this.SignallingValueRadioButton);
-            this.groupBox1.Controls.Add(this.LowLimitValueRadioButton);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
+            resources.ApplyResources(this.LowLimitValueRadioButton, "LowLimitValueRadioButton");
+            this.LowLimitValueRadioButton.Name = "LowLimitValueRadioButton";
+            this.LowLimitValueRadioButton.UseVisualStyleBackColor = true;
             // 
             // ReferenceLineMetaSelectionDialog
             // 
