@@ -46,6 +46,7 @@ using Core.Gui.Forms.ViewHost;
 using Core.Gui.Selection;
 using Core.Gui.Settings;
 using FontFamily = System.Windows.Media.FontFamily;
+using UserControl = System.Windows.Forms.UserControl;
 
 namespace Core.Gui.Forms.Main
 {
@@ -627,10 +628,18 @@ namespace Core.Gui.Forms.Main
         private void OnViewOpened(object sender, ViewChangeEventArgs e)
         {
             var mapView = e.View as IMapView;
-            mapView?.Map.ZoomToVisibleLayers();
-            UpdateComponentsForMapView(mapView);
+            if (mapView != null && e.View is UserControl mapUserControl)
+            {
+                mapUserControl.VisibleChanged += MapViewVisibleChanged;
+            }
 
             var chartView = e.View as IChartView;
+            if (chartView != null && e.View is UserControl chartUserControl)
+            {
+                chartUserControl.VisibleChanged += ChartViewVisibleChanged;
+            }
+
+            UpdateComponentsForMapView(mapView);
             UpdateComponentsForChartView(chartView);
 
             if (e.View is MapLegendView || e.View is ChartLegendView)
@@ -639,6 +648,35 @@ namespace Core.Gui.Forms.Main
             }
 
             UpdateToolWindowButtonState();
+        }
+
+        /// <summary>
+        /// Fix for getting around the latency within AvalonDock; ensure any opened map view is zoomed to its extents, but first wait until it is completely visible.
+        /// </summary>
+        private static void MapViewVisibleChanged(object sender, EventArgs e)
+        {
+            var control = (UserControl) sender;
+            if (control.Width != 0.0 && control.Height != 0.0)
+            {
+                ((IMapView) control).Map.ZoomToVisibleLayers();
+
+                control.VisibleChanged -= MapViewVisibleChanged;
+            }
+        }
+
+        /// <summary>
+        /// Fix for getting around the latency within AvalonDock; ensure any opened chart view is zoomed to its extents, but first wait until it is completely visible.
+        /// </summary>
+        private static void ChartViewVisibleChanged(object sender, EventArgs e)
+        {
+            var control = (UserControl) sender;
+            if (control.Width != 0.0 && control.Height != 0.0)
+            {
+                IChartControl chartControl = ((IChartView) control).Chart;
+                chartControl.ZoomToVisibleSeries(chartControl.Data);
+
+                control.VisibleChanged -= ChartViewVisibleChanged;
+            }
         }
 
         private void OnViewBroughtToFront(object sender, ViewChangeEventArgs e)
