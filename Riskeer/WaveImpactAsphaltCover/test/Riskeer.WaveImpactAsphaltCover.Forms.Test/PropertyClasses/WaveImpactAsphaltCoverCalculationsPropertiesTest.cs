@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
@@ -40,17 +39,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         private const int cPropertyIndex = 5;
 
         [Test]
-        public void Constructor_DataNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new WaveImpactAsphaltCoverCalculationsProperties(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("data", paramName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -60,7 +48,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var properties = new WaveImpactAsphaltCoverCalculationsProperties(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismProperties>(properties);            
+            Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismProperties>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);

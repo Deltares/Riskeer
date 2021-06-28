@@ -32,9 +32,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismPropertiesTest
     {
-        private const int namePropertyIndex = 0;
+        private const int namePropertyIndex = 2;
         private const int codePropertyIndex = 1;
-        private const int groupPropertyIndex = 2;
+        private const int groupPropertyIndex = 0;
 
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
@@ -59,7 +59,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithData_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -79,7 +79,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Call
-            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism(), new WaveImpactAsphaltCoverFailureMechanismProperties.ConstructionProperties());
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism(), new WaveImpactAsphaltCoverFailureMechanismProperties.ConstructionProperties
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex,
+                GroupPropertyIndex = groupPropertyIndex
+            });
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
