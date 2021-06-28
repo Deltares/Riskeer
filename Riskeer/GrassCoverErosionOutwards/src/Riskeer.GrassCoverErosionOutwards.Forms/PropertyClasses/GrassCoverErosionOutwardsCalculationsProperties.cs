@@ -20,13 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
-using Core.Gui.PropertyBag;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.Properties;
@@ -38,7 +34,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// <summary>
     /// Calculation related ViewModel of <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionOutwardsCalculationsProperties : ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>
+    public class GrassCoverErosionOutwardsCalculationsProperties : GrassCoverErosionOutwardsFailureMechanismProperties
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -49,116 +45,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         private const int waveImpactPropertyIndex = 7;
         private const int tailorMadeWaveImpactPropertyIndex = 8;
 
-        private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> propertyChangeHandler;
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsCalculationsProperties"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to show the properties for.</param>
+        /// <param name="data">The instance to show the properties of.</param>
         /// <param name="handler">Handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsCalculationsProperties(
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-            IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> handler)
+            GrassCoverErosionOutwardsFailureMechanism data,
+            IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> handler) : base(data, new ConstructionProperties
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (handler == null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-
-            Data = failureMechanism;
-            propertyChangeHandler = handler;
-        }
-
-        #region Length effect parameters
-
-        [PropertyOrder(nPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
-        public RoundedDouble N
-        {
-            get
-            {
-                return data.GeneralInput.N;
-            }
-            set
-            {
-                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
-                    data,
-                    value,
-                    (f, v) => f.GeneralInput.N = v);
-
-                NotifyAffectedObjects(affectedObjects);
-            }
-        }
-
-        #endregion
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
-        }
-
-        #region General
-
-        [PropertyOrder(namePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Name_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Name_Description))]
-        public string Name
-        {
-            get
-            {
-                return data.Name;
-            }
-        }
-
-        [PropertyOrder(codePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Code_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Code_Description))]
-        public string Code
-        {
-            get
-            {
-                return data.Code;
-            }
-        }
-
-        [PropertyOrder(groupPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_Description))]
-        public int Group
-        {
-            get
-            {
-                return data.Group;
-            }
-        }
-
-        [PropertyOrder(contributionPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
-        public double Contribution
-        {
-            get
-            {
-                return data.Contribution;
-            }
-        }
-
-        #endregion
+            NamePropertyIndex = namePropertyIndex,
+            CodePropertyIndex = codePropertyIndex,
+            GroupPropertyIndex = groupPropertyIndex,
+            ContributionPropertyIndex = contributionPropertyIndex,
+            NPropertyIndex = nPropertyIndex
+        }, handler) {}
 
         #region Model settings
 

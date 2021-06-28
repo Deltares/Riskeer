@@ -137,13 +137,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(7, propertyInfos.Length);
+                Assert.AreEqual(8, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionOutwardsCalculationsContext),
                     typeof(GrassCoverErosionOutwardsCalculationsProperties));
 
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(GrassCoverErosionOutwardsFailurePathContext),
+                    typeof(GrassCoverErosionOutwardsFailurePathProperties));
+                
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext),

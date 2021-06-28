@@ -28,6 +28,7 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -36,16 +37,13 @@ using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsCalculationsPropertiesTest
+    public class GrassCoverErosionOutwardsFailureMechanismPropertiesTest
     {
-        private const int namePropertyIndex = 0;
-        private const int codePropertyIndex = 1;
+        private const int namePropertyIndex = 4;
+        private const int codePropertyIndex = 3;
         private const int groupPropertyIndex = 2;
-        private const int contributionPropertyIndex = 3;
-        private const int nPropertyIndex = 4;
-        private const int waveRunUpPropertyIndex = 5;
-        private const int waveImpactPropertyIndex = 6;
-        private const int tailorMadeWaveImpactPropertyIndex = 7;
+        private const int contributionPropertyIndex = 1;
+        private const int nPropertyIndex = 0;
         private MockRepository mocks;
 
         [SetUp]
@@ -54,56 +52,101 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             mocks = new MockRepository();
         }
 
-        [TearDown]
-        public void TearDown()
+        [Test]
+        public void Constructor_DataNull_ThrowArgumentNullException()
         {
+            // Setup
+            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new GrassCoverErosionOutwardsFailureMechanismProperties(null, new GrassCoverErosionOutwardsFailureMechanismProperties.ConstructionProperties(), handler);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("data", exception.ParamName);
+
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new GrassCoverErosionOutwardsFailureMechanismProperties(new GrassCoverErosionOutwardsFailureMechanism(), null, handler);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("constructionProperties", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ChangeHandlerNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new GrassCoverErosionOutwardsFailureMechanismProperties(new GrassCoverErosionOutwardsFailureMechanism(), new GrassCoverErosionOutwardsFailureMechanismProperties.ConstructionProperties(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("handler", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var changeHandler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
-            mockRepository.ReplayAll();
+            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
+            mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var properties = new GrassCoverErosionOutwardsCalculationsProperties(failureMechanism, changeHandler);
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, new GrassCoverErosionOutwardsFailureMechanismProperties.ConstructionProperties(), handler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>>(properties);
-            Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
 
-            GeneralGrassCoverErosionOutwardsInput generalInput = failureMechanism.GeneralInput;
-            Assert.AreSame(generalInput.GeneralWaveRunUpWaveConditionsInput, properties.WaveRunUp.Data);
-            Assert.AreSame(generalInput.GeneralWaveImpactWaveConditionsInput, properties.WaveImpact.Data);
-            Assert.AreSame(generalInput.GeneralTailorMadeWaveImpactWaveConditionsInput, properties.TailorMadeWaveImpact.Data);
+            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(failureMechanism.GeneralInput.N,
+                            properties.N,
+                            properties.N.GetAccuracy());
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var changeHandler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
-            mockRepository.ReplayAll();
+            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var properties = new GrassCoverErosionOutwardsCalculationsProperties(new GrassCoverErosionOutwardsFailureMechanism(), changeHandler);
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism, new GrassCoverErosionOutwardsFailureMechanismProperties.ConstructionProperties
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex,
+                GroupPropertyIndex = groupPropertyIndex,
+                ContributionPropertyIndex = contributionPropertyIndex,
+                NPropertyIndex = nPropertyIndex
+            }, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(5, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
-            const string modelSettingsCategory = "Modelinstellingen";
+            const string lengthEffectCategory = "Lengte-effect parameters";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -112,8 +155,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "De naam van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+            PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
@@ -135,33 +178,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
-                                                                            "Lengte-effect parameters",
+                                                                            lengthEffectCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
 
-            PropertyDescriptor waveRunUpProperty = dynamicProperties[waveRunUpPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(waveRunUpProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveRunUpProperty,
-                                                                            modelSettingsCategory,
-                                                                            "Golfoploop",
-                                                                            "De modelinstellingen voor het berekenen van golfcondities voor golfoploop.",
-                                                                            true);
-
-            PropertyDescriptor waveImpactProperty = dynamicProperties[waveImpactPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(waveImpactProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveImpactProperty,
-                                                                            modelSettingsCategory,
-                                                                            "Golfklap",
-                                                                            "De modelinstellingen voor het berekenen van golfcondities voor golfklap zonder invloed van de golfinvalshoek.",
-                                                                            true);
-
-            PropertyDescriptor tailorMadeWaveImpactProperty = dynamicProperties[tailorMadeWaveImpactPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(tailorMadeWaveImpactProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(tailorMadeWaveImpactProperty,
-                                                                            modelSettingsCategory,
-                                                                            "Golfklap voor toets op maat",
-                                                                            "De modelinstellingen voor het berekenen van golfcondities voor golfklap met invloed van de golfinvalshoek, voor toets op maat.",
-                                                                            true);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -176,7 +197,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionOutwardsFailureMechanism, double>(
                 failureMechanism,
                 newN,
@@ -196,6 +216,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(changeHandler.Called);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -210,7 +232,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
             var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionOutwardsFailureMechanism, double>(
                 failureMechanism,
                 newN,
@@ -229,6 +250,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(newN, failureMechanism.GeneralInput.N);
             Assert.IsTrue(changeHandler.Called);
+
+            mocks.VerifyAll();
         }
     }
 }

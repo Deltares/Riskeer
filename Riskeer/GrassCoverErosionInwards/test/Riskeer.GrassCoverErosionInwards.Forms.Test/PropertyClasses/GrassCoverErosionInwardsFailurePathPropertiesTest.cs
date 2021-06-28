@@ -87,10 +87,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
             mocks.ReplayAll();
+            
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
             var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism, handler);

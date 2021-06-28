@@ -54,6 +54,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             mocks = new MockRepository();
         }
+        
+        [TearDown]
+        public void TearDown()
+        {
+            mocks.VerifyAll();
+        }
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -92,8 +98,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             Assert.AreEqual(generalInput.FshallowModelFactor.Mean, properties.FshallowModelFactor.Mean);
             Assert.AreEqual(generalInput.FshallowModelFactor.StandardDeviation, properties.FshallowModelFactor.StandardDeviation);
-
-            mocks.VerifyAll();
         }
 
         [Test]
