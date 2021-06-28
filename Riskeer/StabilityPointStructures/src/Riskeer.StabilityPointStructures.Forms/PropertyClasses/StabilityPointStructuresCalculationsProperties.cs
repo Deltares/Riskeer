@@ -33,7 +33,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="StabilityPointStructuresFailureMechanism"/> for properties panel.
+    /// Calculation related ViewModel of <see cref="StabilityPointStructuresFailureMechanism"/> for properties panel.
     /// </summary>
     public class StabilityPointStructuresCalculationsProperties : ObjectProperties<StabilityPointStructuresFailureMechanism>
     {
