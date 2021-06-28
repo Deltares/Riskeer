@@ -30,17 +30,19 @@ using RiskeerRevetmentFormsResources = Riskeer.Revetment.Forms.Properties.Resour
 
 namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
 {
+    /// <summary>
+    /// ViewModel of <see cref="WaveImpactAsphaltCoverFailureMechanismProperties"/> for properties panel.
+    /// </summary>
     public class WaveImpactAsphaltCoverFailureMechanismProperties : ObjectProperties<WaveImpactAsphaltCoverFailureMechanism>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverCalculationsProperties"/>.
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="constructionProperties">The property values required to create an instance of <see cref="WaveImpactAsphaltCoverFailureMechanismProperties"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverFailureMechanismProperties(WaveImpactAsphaltCoverFailureMechanism data,
                                                                 ConstructionProperties constructionProperties)
         {
