@@ -24,7 +24,6 @@ using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -34,17 +33,13 @@ using Riskeer.HeightStructures.Forms.PropertyClasses;
 
 namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
 {
-    [TestFixture]
-    public class HeightStructuresCalculationsPropertiesTest
+    public class HeightStructuresFailurePathPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
-        private const int gravitationalAccelerationPropertyIndex = 4;
-        private const int nPropertyIndex = 5;
-        private const int modelFactorOvertoppingFlowPropertyIndex = 6;
-        private const int modelFactorStorageVolumePropertyIndex = 7;
+        private const int nPropertyIndex = 4;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -53,39 +48,37 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            var properties = new HeightStructuresCalculationsProperties(failureMechanism);
+            var properties = new HeightStructuresFailurePathProperties(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<HeightStructuresFailureMechanism>>(properties);
-            Assert.AreSame(failureMechanism, properties.Data);
+            Assert.IsInstanceOf<HeightStructuresFailureMechanismProperties>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
 
             GeneralHeightStructuresInput generalInput = failureMechanism.GeneralInput;
-            Assert.AreEqual(generalInput.N, properties.N);
-            Assert.AreEqual(generalInput.GravitationalAcceleration, properties.GravitationalAcceleration);
-            Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.Mean, properties.ModelFactorOvertoppingFlow.Mean);
-            Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.StandardDeviation, properties.ModelFactorOvertoppingFlow.StandardDeviation);
-
-            Assert.AreEqual(generalInput.ModelFactorStorageVolume.Mean, properties.ModelFactorStorageVolume.Mean);
-            Assert.AreEqual(generalInput.ModelFactorStorageVolume.StandardDeviation, properties.ModelFactorStorageVolume.StandardDeviation);
+            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(generalInput.N,
+                            properties.N,
+                            properties.N.GetAccuracy());
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
             // Call
-            var properties = new HeightStructuresCalculationsProperties(new HeightStructuresFailureMechanism());
+            var properties = new HeightStructuresFailurePathProperties(failureMechanism);
 
             // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(5, dynamicProperties.Count);
+
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect parameters";
-            const string modelSettingsCategory = "Modelinstellingen";
-
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(8, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -94,8 +87,8 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
                                                                             "De naam van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+            PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
@@ -115,34 +108,11 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
-            PropertyDescriptor gravitationalAccelerationProperty = dynamicProperties[gravitationalAccelerationPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(gravitationalAccelerationProperty,
-                                                                            generalCategory,
-                                                                            "Valversnelling [m/s²]",
-                                                                            "Valversnelling.",
-                                                                            true);
-
             PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             lengthEffectCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
-
-            PropertyDescriptor modelFactorOvertoppingFlowProperty = dynamicProperties[modelFactorOvertoppingFlowPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorOvertoppingFlowProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorOvertoppingFlowProperty,
-                                                                            modelSettingsCategory,
-                                                                            "Modelfactor overslagdebiet [-]",
-                                                                            "Modelfactor voor het overslagdebiet.",
-                                                                            true);
-
-            PropertyDescriptor modelFactorStorageVolumeProperty = dynamicProperties[modelFactorStorageVolumePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorStorageVolumeProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorStorageVolumeProperty,
-                                                                            modelSettingsCategory,
-                                                                            "Modelfactor kombergend vermogen [-]",
-                                                                            "Modelfactor kombergend vermogen.",
-                                                                            true);
         }
 
         [Test]

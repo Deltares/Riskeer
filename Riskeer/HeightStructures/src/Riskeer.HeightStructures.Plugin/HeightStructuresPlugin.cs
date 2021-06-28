@@ -74,6 +74,10 @@ namespace Riskeer.HeightStructures.Plugin
             {
                 CreateInstance = context => new HeightStructuresCalculationsProperties(context.WrappedData)
             };
+            yield return new PropertyInfo<HeightStructuresFailurePathContext, HeightStructuresFailurePathProperties>
+            {
+                CreateInstance = context => new HeightStructuresFailurePathProperties(context.WrappedData)
+            };
             yield return new PropertyInfo<HeightStructure, HeightStructureProperties>();
             yield return new PropertyInfo<HeightStructuresContext, StructureCollectionProperties<HeightStructure>>
             {
