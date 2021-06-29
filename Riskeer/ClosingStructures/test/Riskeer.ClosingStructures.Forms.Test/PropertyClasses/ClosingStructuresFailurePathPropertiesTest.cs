@@ -131,7 +131,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-20)]
         [TestCase(41)]
