@@ -82,7 +82,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("constructionProperties", exception.ParamName);
-            
+
             mocks.VerifyAll();
         }
 
@@ -207,9 +207,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new GrassCoverErosionOutwardsCalculationsProperties(
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(
                 failureMechanism,
-                changeHandler);
+                new GrassCoverErosionOutwardsFailureMechanismProperties.ConstructionProperties(), changeHandler);
 
             // Call
             void Call() => properties.N = (RoundedDouble) newN;
@@ -242,9 +242,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new GrassCoverErosionOutwardsCalculationsProperties(
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(
                 failureMechanism,
-                changeHandler);
+                new GrassCoverErosionOutwardsFailureMechanismProperties.ConstructionProperties(), changeHandler);
 
             // Call
             properties.N = (RoundedDouble) newN;
