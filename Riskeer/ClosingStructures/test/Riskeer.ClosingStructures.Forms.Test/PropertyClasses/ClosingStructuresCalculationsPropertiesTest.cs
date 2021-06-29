@@ -198,29 +198,23 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(-10)]
+        [SetCulture("nl-NL")]
         [TestCase(-1)]
+        [TestCase(-20)]
         [TestCase(41)]
-        [TestCase(141)]
-        public void N2A_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(int value)
+        public void N2A_SetInvalidValue_ThrowsArgumentOutOfRangeException(int newN)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            mockRepository.ReplayAll();
-
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.Attach(observer);
 
-            var properties = new ClosingStructuresCalculationsProperties(failureMechanism);
+            var properties = new ClosingStructuresFailurePathProperties(failureMechanism);
 
             // Call
-            void Call() => properties.N2A = value;
+            void Call() => properties.N2A = newN;
 
             // Assert
             const string expectedMessage = "De waarde voor 'N2A' moet in het bereik [0, 40] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-            mockRepository.VerifyAll();
         }
 
         [Test]
