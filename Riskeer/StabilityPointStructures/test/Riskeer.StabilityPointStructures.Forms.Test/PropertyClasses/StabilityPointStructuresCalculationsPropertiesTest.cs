@@ -185,15 +185,10 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         [TestCase(0.0)]
         [TestCase(-1.0)]
         [TestCase(-20.0)]
-        public void N_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
+        public void N_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            mockRepository.ReplayAll();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.Attach(observer);
 
             var properties = new StabilityPointStructuresCalculationsProperties(failureMechanism);
 
@@ -203,7 +198,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             // Assert
             const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -228,6 +222,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+            
             mockRepository.VerifyAll();
         }
     }
