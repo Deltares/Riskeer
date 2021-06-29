@@ -154,7 +154,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var properties = new HeightStructuresFailurePathProperties(failureMechanism);
+            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, new HeightStructuresFailureMechanismProperties.ConstructionProperties());
 
             // Call
             void Call() => properties.N = (RoundedDouble) newN;
@@ -179,7 +179,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new HeightStructuresFailurePathProperties(failureMechanism);
+            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, new HeightStructuresFailureMechanismProperties.ConstructionProperties());
 
             // Call
             properties.N = (RoundedDouble) newN;
