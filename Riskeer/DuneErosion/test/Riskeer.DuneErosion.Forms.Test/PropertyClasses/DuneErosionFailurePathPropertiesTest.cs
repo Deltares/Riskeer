@@ -36,7 +36,7 @@ using Riskeer.DuneErosion.Forms.PropertyClasses;
 namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class DuneErosionCalculationsPropertiesTest
+    public class DuneErosionFailurePathPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -67,7 +67,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var properties = new DuneErosionCalculationsProperties(failureMechanism, changeHandler);
+            var properties = new DuneErosionFailurePathProperties(failureMechanism, changeHandler);
 
             // Assert
             Assert.IsInstanceOf<DuneErosionFailureMechanismProperties>(properties);
@@ -90,7 +90,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var properties = new DuneErosionCalculationsProperties(failureMechanism, changeHandler);
+            var properties = new DuneErosionFailurePathProperties(failureMechanism, changeHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -154,7 +154,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new DuneErosionCalculationsProperties(failureMechanism, changeHandler);
+            var properties = new DuneErosionFailurePathProperties(failureMechanism, changeHandler);
 
             // Call
             void Call() => properties.N = (RoundedDouble) newN;
@@ -185,7 +185,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new DuneErosionCalculationsProperties(failureMechanism, changeHandler);
+            var properties = new DuneErosionFailurePathProperties(failureMechanism, changeHandler);
 
             // Call
             properties.N = (RoundedDouble) newN;

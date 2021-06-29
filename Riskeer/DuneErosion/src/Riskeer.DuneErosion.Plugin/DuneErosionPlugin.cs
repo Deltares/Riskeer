@@ -69,6 +69,12 @@ namespace Riskeer.DuneErosion.Plugin
                 CreateInstance = context => new DuneErosionCalculationsProperties(context.WrappedData,
                                                                                       new DuneErosionFailureMechanismPropertyChangeHandler())
             };
+            
+            yield return new PropertyInfo<DuneErosionFailurePathContext, DuneErosionFailurePathProperties>
+            {
+                CreateInstance = context => new DuneErosionFailurePathProperties(context.WrappedData,
+                                                                                 new DuneErosionFailureMechanismPropertyChangeHandler())
+            };
 
             yield return new PropertyInfo<DuneLocationCalculationsContext, DuneLocationCalculationsProperties>
             {

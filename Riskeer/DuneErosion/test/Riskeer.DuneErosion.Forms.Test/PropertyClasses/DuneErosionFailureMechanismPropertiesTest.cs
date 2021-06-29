@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
+using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -36,7 +37,7 @@ using Riskeer.DuneErosion.Forms.PropertyClasses;
 namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class DuneErosionCalculationsPropertiesTest
+    public class DuneErosionFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -58,6 +59,52 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void Constructor_DataNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new DuneErosionFailureMechanismProperties(null, new DuneErosionFailureMechanismProperties.ConstructionProperties(), changeHandler);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("data", paramName);
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            // Call
+            void Call() => new DuneErosionFailureMechanismProperties(failureMechanism, null, changeHandler);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("constructionProperties", paramName);
+        }
+
+        [Test]
+        public void Constructor_PropertyChangeHandlerNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            // Call
+            void Call() => new DuneErosionFailureMechanismProperties(failureMechanism, new DuneErosionFailureMechanismProperties.ConstructionProperties(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("handler", paramName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -67,10 +114,10 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var properties = new DuneErosionCalculationsProperties(failureMechanism, changeHandler);
+            var properties = new DuneErosionFailureMechanismProperties(failureMechanism, new DuneErosionFailureMechanismProperties.ConstructionProperties(), changeHandler);
 
             // Assert
-            Assert.IsInstanceOf<DuneErosionFailureMechanismProperties>(properties);
+            Assert.IsInstanceOf<ObjectProperties<DuneErosionFailureMechanism>>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
@@ -84,13 +131,20 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
+            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var properties = new DuneErosionCalculationsProperties(failureMechanism, changeHandler);
+            var properties = new DuneErosionFailureMechanismProperties(failureMechanism, new DuneErosionFailureMechanismProperties.ConstructionProperties
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex,
+                GroupPropertyIndex = groupPropertyIndex,
+                ContributionPropertyIndex = contributionPropertyIndex,
+                NPropertyIndex = nPropertyIndex
+            }, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -154,7 +208,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new DuneErosionCalculationsProperties(failureMechanism, changeHandler);
+            var properties = new DuneErosionFailureMechanismProperties(failureMechanism, new DuneErosionFailureMechanismProperties.ConstructionProperties(), changeHandler);
 
             // Call
             void Call() => properties.N = (RoundedDouble) newN;
@@ -185,7 +239,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new DuneErosionCalculationsProperties(failureMechanism, changeHandler);
+            var properties = new DuneErosionFailureMechanismProperties(failureMechanism, new DuneErosionFailureMechanismProperties.ConstructionProperties(), changeHandler);
 
             // Call
             properties.N = (RoundedDouble) newN;
