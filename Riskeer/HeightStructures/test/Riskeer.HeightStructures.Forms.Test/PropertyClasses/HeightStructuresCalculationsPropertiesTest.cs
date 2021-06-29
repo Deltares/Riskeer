@@ -66,6 +66,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             GeneralHeightStructuresInput generalInput = failureMechanism.GeneralInput;
             Assert.AreEqual(generalInput.N, properties.N);
             Assert.AreEqual(generalInput.GravitationalAcceleration, properties.GravitationalAcceleration);
+            
             Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.Mean, properties.ModelFactorOvertoppingFlow.Mean);
             Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.StandardDeviation, properties.ModelFactorOvertoppingFlow.StandardDeviation);
 
