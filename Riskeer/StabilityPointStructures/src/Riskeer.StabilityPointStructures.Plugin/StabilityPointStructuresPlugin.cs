@@ -73,6 +73,10 @@ namespace Riskeer.StabilityPointStructures.Plugin
             {
                 CreateInstance = context => new StabilityPointStructuresCalculationsProperties(context.WrappedData)
             };
+            yield return new PropertyInfo<StabilityPointStructuresFailurePathContext, StabilityPointStructuresFailurePathProperties>
+            {
+                CreateInstance = context => new StabilityPointStructuresFailurePathProperties(context.WrappedData)
+            };
             yield return new PropertyInfo<StabilityPointStructure, StabilityPointStructureProperties>();
             yield return new PropertyInfo<StabilityPointStructuresInputContext, StabilityPointStructuresInputContextProperties>
             {
