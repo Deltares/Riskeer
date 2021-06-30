@@ -166,11 +166,12 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         [TestCase(-1)]
         [TestCase(-20)]
         [TestCase(41)]
-        public void N2A_SetInvalidValue_ThrowsArgumentOutOfRangeException(int newN)
+        public void N2A_SetInvalidValue_ThrowsArgumentOutOfRangeException(int newN2A)
         {
             // Setup
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.Attach(observer);
@@ -178,7 +179,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, new ClosingStructuresFailureMechanismProperties.ConstructionProperties());
 
             // Call
-            void Call() => properties.N2A = newN;
+            void Call() => properties.N2A = newN2A;
 
             // Assert
             const string expectedMessage = "De waarde voor 'N2A' moet in het bereik [0, 40] liggen.";
@@ -191,7 +192,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         [TestCase(1)]
         [TestCase(10)]
         [TestCase(20)]
-        public void N2A_SetValidValue_UpdateDataAndNotifyObservers(int newN)
+        public void N2A_SetValidValue_UpdateDataAndNotifyObservers(int newN2A)
         {
             // Setup
             var mocks = new MockRepository();
@@ -205,10 +206,10 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, new ClosingStructuresFailureMechanismProperties.ConstructionProperties());
 
             // Call
-            properties.N2A = newN;
+            properties.N2A = newN2A;
 
             // Assert
-            Assert.AreEqual(newN, failureMechanism.GeneralInput.N2A, failureMechanism.GeneralInput.N2A);
+            Assert.AreEqual(newN2A, failureMechanism.GeneralInput.N2A, failureMechanism.GeneralInput.N2A);
 
             mocks.VerifyAll();
         }
