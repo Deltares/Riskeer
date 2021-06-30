@@ -154,6 +154,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.Attach(observer);
