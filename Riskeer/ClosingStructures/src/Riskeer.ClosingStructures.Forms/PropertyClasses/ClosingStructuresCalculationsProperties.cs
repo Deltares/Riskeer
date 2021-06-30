@@ -65,15 +65,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             CPropertyIndex = cPropertyIndex,
             N2APropertyIndex = n2APropertyIndex,
             NPropertyIndex = nPropertyIndex
-        })
-        {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            Data = data;
-        }
+        }) {}
 
         #region General
 
