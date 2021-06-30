@@ -60,12 +60,24 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         private const int gravityPropertyIndex = 16;
         private const int meanDiameter70PropertyIndex = 17;
         private const int sellMeijerReductionFactorPropertyIndex = 18;
+        private MockRepository mocks;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mocks = new MockRepository();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            mocks.VerifyAll();
+        }
 
         [Test]
         public void Constructor_ChangeHandlerNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -75,15 +87,12 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("handler", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
@@ -139,15 +148,12 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(assessmentSection.ReferenceLine.Length,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
             mocks.ReplayAll();
@@ -300,68 +306,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             "Reductiefactor Sellmeijer [-]",
                                                                             "Reductiefactor Sellmeijer.",
                                                                             true);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-1)]
-        [TestCase(-0.1)]
-        [TestCase(1.1)]
-        [TestCase(8)]
-        public void A_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, changeHandler);
-
-            // Call
-            void Call() => properties.A = value;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(0.1)]
-        [TestCase(1)]
-        [TestCase(0.0000001)]
-        [TestCase(0.9999999)]
-        public void A_SetValidValue_SetsValueAndUpdatesObservers(double value)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, changeHandler);
-
-            // Call
-            properties.A = value;
-
-            // Assert
-            Assert.AreEqual(value, failureMechanism.PipingProbabilityAssessmentInput.A);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -374,7 +318,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void WaterVolumetricWeight_SetInvalidValue_ThrowArgumentExceptionAndDoesNotUpdateObservers(double value)
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observable = mocks.StrictMock<IObservable>();
             mocks.ReplayAll();
@@ -400,8 +343,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             const string expectedMessage = "De waarde moet binnen het bereik [0,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(changeHandler.Called);
-
-            mocks.VerifyAll(); // Does not expect notify observers.
         }
 
         [Test]
@@ -411,7 +352,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void WaterVolumetricWeight_SetValidValue_SetsValueRoundedAndUpdatesObservers(double value)
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
@@ -437,8 +377,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(value, failureMechanism.GeneralInput.WaterVolumetricWeight,
                             failureMechanism.GeneralInput.WaterVolumetricWeight.GetAccuracy());
             Assert.IsTrue(changeHandler.Called);
-
-            mocks.VerifyAll();
         }
     }
 }
