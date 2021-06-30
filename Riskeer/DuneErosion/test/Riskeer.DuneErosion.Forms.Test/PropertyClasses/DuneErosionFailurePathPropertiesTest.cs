@@ -19,17 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
-using Core.Common.Base;
-using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.Common.Forms.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
 
@@ -132,67 +126,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                                             lengthEffectParameterCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(0.0)]
-        [TestCase(-1.0)]
-        [TestCase(-20.0)]
-        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
-        {
-            // Setup
-            var observable = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new DuneErosionFailureMechanism();
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<DuneErosionFailureMechanism, RoundedDouble>(
-                failureMechanism,
-                (RoundedDouble) newN,
-                new[]
-                {
-                    observable
-                });
-
-            var properties = new DuneErosionFailurePathProperties(failureMechanism, changeHandler);
-
-            // Call
-            void Call() => properties.N = (RoundedDouble) newN;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-            Assert.IsTrue(changeHandler.Called);
-        }
-
-        [Test]
-        [TestCase(1)]
-        [TestCase(10)]
-        [TestCase(20)]
-        public void N_SetValidValue_UpdateDataAndNotifyObservers(double newN)
-        {
-            // Setup
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
-            var failureMechanism = new DuneErosionFailureMechanism();
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<DuneErosionFailureMechanism, RoundedDouble>(
-                failureMechanism,
-                (RoundedDouble) newN,
-                new[]
-                {
-                    observable
-                });
-
-            var properties = new DuneErosionFailurePathProperties(failureMechanism, changeHandler);
-
-            // Call
-            properties.N = (RoundedDouble) newN;
-
-            // Assert
-            Assert.AreEqual(newN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
-            Assert.IsTrue(changeHandler.Called);
         }
     }
 }
