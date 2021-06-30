@@ -199,7 +199,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionOutwardsFailureMechanism, double>(
+            var handler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionOutwardsFailureMechanism, double>(
                 failureMechanism,
                 newN,
                 new[]
@@ -209,7 +209,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(
                 failureMechanism,
-                new GrassCoverErosionOutwardsFailureMechanismProperties.ConstructionProperties(), changeHandler);
+                new GrassCoverErosionOutwardsFailureMechanismProperties.ConstructionProperties(), handler);
 
             // Call
             void Call() => properties.N = (RoundedDouble) newN;
@@ -217,7 +217,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Assert
             const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-            Assert.IsTrue(changeHandler.Called);
+            Assert.IsTrue(handler.Called);
 
             mocks.VerifyAll();
         }
@@ -234,7 +234,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionOutwardsFailureMechanism, double>(
+            var handler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionOutwardsFailureMechanism, double>(
                 failureMechanism,
                 newN,
                 new[]
@@ -244,14 +244,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(
                 failureMechanism,
-                new GrassCoverErosionOutwardsFailureMechanismProperties.ConstructionProperties(), changeHandler);
+                new GrassCoverErosionOutwardsFailureMechanismProperties.ConstructionProperties(), handler);
 
             // Call
             properties.N = (RoundedDouble) newN;
 
             // Assert
             Assert.AreEqual(newN, failureMechanism.GeneralInput.N);
-            Assert.IsTrue(changeHandler.Called);
+            Assert.IsTrue(handler.Called);
 
             mocks.VerifyAll();
         }

@@ -19,17 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
-using Core.Common.Base;
-using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.Common.Forms.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
 
@@ -162,73 +157,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Golfklap voor toets op maat",
                                                                             "De modelinstellingen voor het berekenen van golfcondities voor golfklap met invloed van de golfinvalshoek, voor toets op maat.",
                                                                             true);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(0.0)]
-        [TestCase(-1.0)]
-        [TestCase(-20.0)]
-        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
-        {
-            // Setup
-            var observable = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionOutwardsFailureMechanism, double>(
-                failureMechanism,
-                newN,
-                new[]
-                {
-                    observable
-                });
-
-            var properties = new GrassCoverErosionOutwardsCalculationsProperties(
-                failureMechanism,
-                changeHandler);
-
-            // Call
-            void Call() => properties.N = (RoundedDouble) newN;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-            Assert.IsTrue(changeHandler.Called);
-        }
-
-        [Test]
-        [TestCase(1.0)]
-        [TestCase(10.0)]
-        [TestCase(20.0)]
-        public void N_SetValidValue_UpdateDataAndNotifyObservers(double newN)
-        {
-            // Setup
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionOutwardsFailureMechanism, double>(
-                failureMechanism,
-                newN,
-                new[]
-                {
-                    observable
-                });
-
-            var properties = new GrassCoverErosionOutwardsCalculationsProperties(
-                failureMechanism,
-                changeHandler);
-
-            // Call
-            properties.N = (RoundedDouble) newN;
-
-            // Assert
-            Assert.AreEqual(newN, failureMechanism.GeneralInput.N);
-            Assert.IsTrue(changeHandler.Called);
         }
     }
 }
