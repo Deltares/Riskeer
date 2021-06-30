@@ -154,6 +154,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.Attach(observer);
