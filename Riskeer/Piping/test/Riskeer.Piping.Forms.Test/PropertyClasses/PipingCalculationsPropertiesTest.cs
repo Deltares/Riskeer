@@ -325,7 +325,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var failureMechanism = new PipingFailureMechanism();
             var roundedValue = (RoundedDouble) value;
 
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<PipingFailureMechanism, RoundedDouble>(
+            var handler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<PipingFailureMechanism, RoundedDouble>(
                 failureMechanism,
                 roundedValue,
                 new[]
@@ -333,7 +333,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, changeHandler);
+            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, handler);
 
             // Call            
             void Call() => properties.WaterVolumetricWeight = roundedValue;
@@ -342,7 +342,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             const string expectedMessage = "De waarde moet binnen het bereik [0,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-            Assert.IsTrue(changeHandler.Called);
+            Assert.IsTrue(handler.Called);
         }
 
         [Test]
@@ -360,7 +360,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var failureMechanism = new PipingFailureMechanism();
             var roundedValue = (RoundedDouble) value;
 
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<PipingFailureMechanism, RoundedDouble>(
+            var handler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<PipingFailureMechanism, RoundedDouble>(
                 failureMechanism,
                 roundedValue,
                 new[]
@@ -368,7 +368,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, changeHandler);
+            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, handler);
 
             // Call            
             properties.WaterVolumetricWeight = roundedValue;
@@ -376,7 +376,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(value, failureMechanism.GeneralInput.WaterVolumetricWeight,
                             failureMechanism.GeneralInput.WaterVolumetricWeight.GetAccuracy());
-            Assert.IsTrue(changeHandler.Called);
+            Assert.IsTrue(handler.Called);
         }
     }
 }
