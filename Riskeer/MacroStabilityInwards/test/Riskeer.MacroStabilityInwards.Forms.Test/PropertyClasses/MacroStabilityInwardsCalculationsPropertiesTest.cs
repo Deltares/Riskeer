@@ -19,10 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
-using Core.Common.Base;
-using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -178,64 +175,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-1)]
-        [TestCase(-0.1)]
-        [TestCase(1.1)]
-        [TestCase(8)]
-        public void A_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new MacroStabilityInwardsCalculationsProperties(failureMechanism, assessmentSection);
-
-            // Call
-            void Call() => properties.A = value;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(0.1)]
-        [TestCase(1)]
-        [TestCase(0.0000001)]
-        [TestCase(0.9999999)]
-        public void A_SetValidValue_SetsValueAndUpdatesObservers(double value)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new MacroStabilityInwardsCalculationsProperties(failureMechanism, assessmentSection);
-
-            // Call
-            properties.A = value;
-
-            // Assert
-            Assert.AreEqual(value, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A);
 
             mocks.VerifyAll();
         }
