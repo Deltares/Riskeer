@@ -169,7 +169,11 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         public void N2A_SetInvalidValue_ThrowsArgumentOutOfRangeException(int newN)
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+
             var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.Attach(observer);
 
             var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, new ClosingStructuresFailureMechanismProperties.ConstructionProperties());
 
@@ -179,6 +183,8 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             // Assert
             const string expectedMessage = "De waarde voor 'N2A' moet in het bereik [0, 40] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+
+            mocks.VerifyAll();
         }
 
         [Test]

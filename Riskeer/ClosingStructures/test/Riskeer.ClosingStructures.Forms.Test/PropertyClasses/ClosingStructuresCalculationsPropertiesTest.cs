@@ -21,11 +21,8 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base;
-using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PropertyClasses;
 using Riskeer.Common.Data.TestUtil;
@@ -195,52 +192,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor instromend volume [-]",
                                                                             "Modelfactor instromend volume.",
                                                                             true);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-1)]
-        [TestCase(-20)]
-        [TestCase(41)]
-        public void N2A_SetInvalidValue_ThrowsArgumentOutOfRangeException(int newN)
-        {
-            // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            var properties = new ClosingStructuresFailurePathProperties(failureMechanism);
-
-            // Call
-            void Call() => properties.N2A = newN;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'N2A' moet in het bereik [0, 40] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(5)]
-        [TestCase(21)]
-        [TestCase(40)]
-        public void N2A_SetValidValue_UpdateDataAndNotifyObservers(int value)
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new ClosingStructuresCalculationsProperties(failureMechanism);
-
-            // Call
-            properties.N2A = value;
-
-            // Assert
-            Assert.AreEqual(value, failureMechanism.GeneralInput.N2A);
-            mockRepository.VerifyAll();
         }
     }
 }
