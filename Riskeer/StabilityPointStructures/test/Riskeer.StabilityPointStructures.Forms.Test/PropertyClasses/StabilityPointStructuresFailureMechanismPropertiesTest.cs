@@ -152,7 +152,11 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         public void N_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.Attach(observer);
 
             var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, new StabilityPointStructuresFailureMechanismProperties.ConstructionProperties());
 
@@ -162,6 +166,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             // Assert
             const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -171,10 +177,10 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         public void N_SetValidValue_UpdateDataAndNotifyObservers(double value)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
+            mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.Attach(observer);
@@ -187,7 +193,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(value, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
 
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
     }
 }

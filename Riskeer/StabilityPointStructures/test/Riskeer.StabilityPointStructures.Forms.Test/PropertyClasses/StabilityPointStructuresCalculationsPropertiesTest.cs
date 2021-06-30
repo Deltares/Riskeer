@@ -21,14 +21,9 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base;
-using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PropertyClasses;
 
@@ -178,52 +173,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor lange overlaat [-]",
                                                                             "Modelfactor voor een lange overlaat.",
                                                                             true);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(0.0)]
-        [TestCase(-1.0)]
-        [TestCase(-20.0)]
-        public void N_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var properties = new StabilityPointStructuresCalculationsProperties(failureMechanism);
-
-            // Call
-            void Call() => properties.N = (RoundedDouble) value;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-        }
-
-        [Test]
-        [TestCase(1.0)]
-        [TestCase(10.0)]
-        [TestCase(20.0)]
-        public void N_SetValidValue_UpdateDataAndNotifyObservers(double value)
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new StabilityPointStructuresCalculationsProperties(failureMechanism);
-
-            // Call
-            properties.N = (RoundedDouble) value;
-
-            // Assert
-            Assert.AreEqual(value, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
-            
-            mockRepository.VerifyAll();
         }
     }
 }
