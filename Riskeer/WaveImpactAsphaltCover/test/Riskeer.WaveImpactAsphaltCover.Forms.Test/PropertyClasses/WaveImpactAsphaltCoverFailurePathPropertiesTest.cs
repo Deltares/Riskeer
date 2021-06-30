@@ -182,9 +182,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.Attach(observer);
 
             var properties = new WaveImpactAsphaltCoverFailurePathProperties(
                 failureMechanism,
