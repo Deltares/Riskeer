@@ -166,7 +166,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         [TestCase(-1)]
         [TestCase(-20)]
         [TestCase(41)]
-        public void N2A_SetInvalidValue_ThrowsArgumentOutOfRangeException(int newN2A)
+        public void N2A_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(int newN2A)
         {
             // Setup
             var mocks = new MockRepository();
