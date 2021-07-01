@@ -149,7 +149,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         [TestCase(0.0)]
         [TestCase(-1.0)]
         [TestCase(-20.0)]
-        public void N_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
+        public void N_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
         {
             // Setup
             var mocks = new MockRepository();
