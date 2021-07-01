@@ -52,6 +52,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mocks = new MockRepository();
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
@@ -65,8 +71,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -82,8 +86,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("constructionProperties", exception.ParamName);
-            
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -120,8 +122,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.GeneralInput.N,
                             properties.N,
                             properties.N.GetAccuracy());
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -183,8 +183,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             lengthEffectCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -218,8 +216,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(changeHandler.Called);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -252,8 +248,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(newN, failureMechanism.GeneralInput.N);
             Assert.IsTrue(changeHandler.Called);
-
-            mocks.VerifyAll();
         }
     }
 }
