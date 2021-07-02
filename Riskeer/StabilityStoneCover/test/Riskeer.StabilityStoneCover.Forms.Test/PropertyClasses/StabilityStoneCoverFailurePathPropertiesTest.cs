@@ -120,10 +120,15 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         [TestCase(0.0)]
         [TestCase(-1.0)]
         [TestCase(-20.0)]
-        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeException(double newN)
+        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
         {
             // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.Attach(observer);
 
             var properties = new StabilityStoneCoverFailurePathProperties(failureMechanism);
 
@@ -133,6 +138,8 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             // Assert
             const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+
+            mocks.VerifyAll();
         }
 
         [Test]
