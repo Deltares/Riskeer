@@ -46,7 +46,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         private const int contributionPropertyIndex = 4;
         private const int waterVolumetricWeightPropertyIndex = 5;
         private const int upLiftModelFactorPropertyIndex = 6;
-        private const int sellMeijerModelFactorPropertyIndex = 7;
+        private const int sellmeijerModelFactorPropertyIndex = 7;
         private const int aPropertyIndex = 8;
         private const int bPropertyIndex = 9;
         private const int sectionLengthPropertyIndex = 10;
@@ -58,7 +58,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         private const int waterKinematicViscosityPropertyIndex = 16;
         private const int gravityPropertyIndex = 17;
         private const int meanDiameter70PropertyIndex = 18;
-        private const int sellMeijerReductionFactorPropertyIndex = 19;
+        private const int sellmeijerReductionFactorPropertyIndex = 19;
 
         private readonly IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> propertyChangeHandler;
 
@@ -123,23 +123,16 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
             set
             {
-                ChangePropertyValueAndNotifyAffectedObjects((f, v) => f.GeneralInput.WaterVolumetricWeight = v, value);
+                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                    data,
+                    value,
+                    (f, v) => f.GeneralInput.WaterVolumetricWeight = v);
+
+                NotifyAffectedObjects(affectedObjects);
             }
         }
 
         #endregion
-
-        private void ChangePropertyValueAndNotifyAffectedObjects<TValue>(
-            SetFailureMechanismPropertyValueDelegate<PipingFailureMechanism, TValue> setPropertyValue,
-            TValue value)
-        {
-            IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
-                data,
-                value,
-                setPropertyValue);
-
-            NotifyAffectedObjects(affectedObjects);
-        }
 
         private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
         {
@@ -223,7 +216,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(sellMeijerReductionFactorPropertyIndex)]
+        [PropertyOrder(sellmeijerReductionFactorPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerReductionFactor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerReductionFactor_Description))]
@@ -253,7 +246,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(sellMeijerModelFactorPropertyIndex)]
+        [PropertyOrder(sellmeijerModelFactorPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerModelFactor_DisplayName))]

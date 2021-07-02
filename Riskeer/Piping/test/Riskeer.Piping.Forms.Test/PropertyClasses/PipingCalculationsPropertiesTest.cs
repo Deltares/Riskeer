@@ -47,7 +47,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         private const int contributionPropertyIndex = 3;
         private const int waterVolumetricWeightPropertyIndex = 4;
         private const int upLiftModelFactorPropertyIndex = 5;
-        private const int sellMeijerModelFactorPropertyIndex = 6;
+        private const int sellmeijerModelFactorPropertyIndex = 6;
         private const int aPropertyIndex = 7;
         private const int bPropertyIndex = 8;
         private const int sectionLengthPropertyIndex = 9;
@@ -59,7 +59,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         private const int waterKinematicViscosityPropertyIndex = 15;
         private const int gravityPropertyIndex = 16;
         private const int meanDiameter70PropertyIndex = 17;
-        private const int sellMeijerReductionFactorPropertyIndex = 18;
+        private const int sellmeijerReductionFactorPropertyIndex = 18;
         private MockRepository mocks;
 
         [SetUp]
@@ -215,7 +215,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             "Rekenwaarde om de onzekerheid in het model van opbarsten in rekening te brengen.",
                                                                             true);
 
-            PropertyDescriptor sellmeijerModelFactorProperty = dynamicProperties[sellMeijerModelFactorPropertyIndex];
+            PropertyDescriptor sellmeijerModelFactorProperty = dynamicProperties[sellmeijerModelFactorPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(sellmeijerModelFactorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sellmeijerModelFactorProperty,
                                                                             modelFactorCategory,
@@ -300,7 +300,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             "Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop de formule van Sellmeijer is gefit.",
                                                                             true);
 
-            PropertyDescriptor reductionFactorSellmeijerProperty = dynamicProperties[sellMeijerReductionFactorPropertyIndex];
+            PropertyDescriptor reductionFactorSellmeijerProperty = dynamicProperties[sellmeijerReductionFactorPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(reductionFactorSellmeijerProperty,
                                                                             sellmeijerCategory,
                                                                             "Reductiefactor Sellmeijer [-]",
@@ -339,7 +339,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             void Call() => properties.WaterVolumetricWeight = roundedValue;
 
             // Assert
-
             const string expectedMessage = "De waarde moet binnen het bereik [0,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(handler.Called);

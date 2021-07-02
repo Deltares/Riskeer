@@ -33,7 +33,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
 {
     /// <summary>
-    /// ViewModel of <see cref="IFailureMechanism"/> properties panel.
+    /// ViewModel of <see cref="IFailureMechanism"/> for properties panel.
     /// </summary>
     public class StandAloneFailureMechanismProperties : ObjectProperties<IFailureMechanism>
     {

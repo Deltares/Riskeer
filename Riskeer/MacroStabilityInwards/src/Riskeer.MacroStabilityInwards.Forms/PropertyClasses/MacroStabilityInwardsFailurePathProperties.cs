@@ -27,7 +27,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// Failure path related ViewModel of <see cref="MacroStabilityInwardsFailureMechanism"/> properties panel.
+    /// Failure path related ViewModel of <see cref="MacroStabilityInwardsFailureMechanism"/> for properties panel.
     /// </summary>
     public class MacroStabilityInwardsFailurePathProperties : MacroStabilityInwardsFailureMechanismProperties
     {

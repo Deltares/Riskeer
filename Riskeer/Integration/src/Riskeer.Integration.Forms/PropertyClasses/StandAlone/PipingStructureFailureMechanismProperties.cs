@@ -30,7 +30,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
 {
     /// <summary>
-    /// ViewModel of <see cref="PipingStructureFailureMechanism"/> properties panel.
+    /// ViewModel of <see cref="PipingStructureFailureMechanism"/> for properties panel.
     /// </summary>
     public class PipingStructureFailureMechanismProperties : ObjectProperties<PipingStructureFailureMechanism>
     {
