@@ -48,13 +48,7 @@ namespace Riskeer.Piping.Forms.Views
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailurePathView(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection) : base(failureMechanism, assessmentSection)
-        {
-            CreateObservers();
-
-            CreateMapData();
-            SetAllMapDataFeatures();
-        }
+        public PipingFailurePathView(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection) : base(failureMechanism, assessmentSection) {}
 
         protected override void Dispose(bool disposing)
         {
@@ -63,8 +57,10 @@ namespace Riskeer.Piping.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void CreateMapData()
+        protected override void CreateMapData()
         {
+            base.CreateMapData();
+
             MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
             tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
             detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
@@ -78,17 +74,35 @@ namespace Riskeer.Piping.Forms.Views
             MapDataCollection.Insert(4, assemblyMapDataCollection);
         }
 
-        private void CreateObservers()
+        protected override void CreateObservers()
         {
+            base.CreateObservers();
+
             sectionResultObserver = new RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionResult>, PipingFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
             {
                 Observable = FailureMechanism.SectionResults
             };
         }
 
-        private void SetAllMapDataFeatures()
+        protected override void SetAllMapDataFeatures()
         {
+            base.SetAllMapDataFeatures();
+
             SetAssemblyMapData();
+        }
+
+        protected override void UpdateSemiProbabilisticCalculationsMapData()
+        {
+            base.UpdateSemiProbabilisticCalculationsMapData();
+
+            UpdateAssemblyMapData();
+        }
+
+        protected override void UpdateFailureMechanismMapData()
+        {
+            base.UpdateFailureMechanismMapData();
+
+            UpdateAssemblyMapData();
         }
 
         #region Assembly MapData
