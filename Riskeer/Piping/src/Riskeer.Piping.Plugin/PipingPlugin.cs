@@ -253,6 +253,15 @@ namespace Riskeer.Piping.Plugin
                 CreateInstance = context => new PipingFailureMechanismView(context.WrappedData, context.Parent)
             };
 
+            yield return new ViewInfo<PipingFailurePathContext, PipingFailurePathView>
+            {
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
+                CloseForData = ClosePipingFailureMechanismViewForData,
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                CreateInstance = context => new PipingFailurePathView(context.WrappedData, context.Parent)
+            };
+
             yield return new ViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>,
                 IObservableEnumerable<PipingFailureMechanismSectionResult>,

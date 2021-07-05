@@ -188,12 +188,17 @@ namespace Riskeer.Piping.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(11, viewInfos.Length);
+                Assert.AreEqual(12, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(PipingCalculationsContext),
                     typeof(PipingFailureMechanismView));
+                
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(PipingFailurePathContext),
+                    typeof(PipingFailurePathView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

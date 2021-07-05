@@ -47,7 +47,6 @@ namespace Riskeer.Piping.Forms.Views
     /// </summary>
     public partial class PipingFailureMechanismView : UserControl, IMapView
     {
-        private MapDataCollection mapDataCollection;
         private MapLineData referenceLineMapData;
         private MapLineData stochasticSoilModelsMapData;
         private MapLineData surfaceLinesMapData;
@@ -58,11 +57,6 @@ namespace Riskeer.Piping.Forms.Views
         private MapLineData sectionsMapData;
         private MapPointData sectionsStartPointMapData;
         private MapPointData sectionsEndPointMapData;
-
-        private MapLineData simpleAssemblyMapData;
-        private MapLineData detailedAssemblyMapData;
-        private MapLineData tailorMadeAssemblyMapData;
-        private MapLineData combinedAssemblyMapData;
 
         private Observer failureMechanismObserver;
         private Observer hydraulicBoundaryLocationsObserver;
@@ -85,7 +79,6 @@ namespace Riskeer.Piping.Forms.Views
         private RecursiveObserver<CalculationGroup, SemiProbabilisticPipingCalculationScenario> semiProbabilisticCalculationObserver;
         private RecursiveObserver<CalculationGroup, ProbabilisticPipingCalculationScenario> probabilisticCalculationObserver;
         private RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine> surfaceLineObserver;
-        private RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionResult>, PipingFailureMechanismSectionResult> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismView"/>.
@@ -114,7 +107,6 @@ namespace Riskeer.Piping.Forms.Views
 
             CreateMapData();
             SetAllMapDataFeatures();
-            riskeerMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
         }
 
         /// <summary>
@@ -135,6 +127,15 @@ namespace Riskeer.Piping.Forms.Views
             {
                 return riskeerMapControl.MapControl;
             }
+        }
+
+        protected MapDataCollection MapDataCollection { get; set; }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            riskeerMapControl.SetAllData(MapDataCollection, AssessmentSection.BackgroundData);
         }
 
         protected override void Dispose(bool disposing)
@@ -159,7 +160,6 @@ namespace Riskeer.Piping.Forms.Views
             probabilisticCalculationObserver.Dispose();
             surfaceLinesObserver.Dispose();
             surfaceLineObserver.Dispose();
-            sectionResultObserver.Dispose();
 
             if (disposing)
             {
@@ -171,7 +171,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private void CreateMapData()
         {
-            mapDataCollection = new MapDataCollection(PipingDataResources.PipingFailureMechanism_DisplayName);
+            MapDataCollection = new MapDataCollection(PipingDataResources.PipingFailureMechanism_DisplayName);
             referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             stochasticSoilModelsMapData = RiskeerMapDataFactory.CreateStochasticSoilModelsMapData();
@@ -184,30 +184,18 @@ namespace Riskeer.Piping.Forms.Views
             sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
-            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
-            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
-
-            mapDataCollection.Add(referenceLineMapData);
-            mapDataCollection.Add(stochasticSoilModelsMapData);
-            mapDataCollection.Add(surfaceLinesMapData);
+            MapDataCollection.Add(referenceLineMapData);
+            MapDataCollection.Add(stochasticSoilModelsMapData);
+            MapDataCollection.Add(surfaceLinesMapData);
 
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);
             sectionsMapDataCollection.Add(sectionsEndPointMapData);
-            mapDataCollection.Add(sectionsMapDataCollection);
+            MapDataCollection.Add(sectionsMapDataCollection);
 
-            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
-            assemblyMapDataCollection.Add(detailedAssemblyMapData);
-            assemblyMapDataCollection.Add(simpleAssemblyMapData);
-            assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            mapDataCollection.Add(assemblyMapDataCollection);
-
-            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
-            mapDataCollection.Add(probabilisticCalculationsMapData);
-            mapDataCollection.Add(semiProbabilisticCalculationsMapData);
+            MapDataCollection.Add(hydraulicBoundaryLocationsMapData);
+            MapDataCollection.Add(probabilisticCalculationsMapData);
+            MapDataCollection.Add(semiProbabilisticCalculationsMapData);
         }
 
         private void CreateObservers()
@@ -284,11 +272,6 @@ namespace Riskeer.Piping.Forms.Views
             {
                 Observable = FailureMechanism.SurfaceLines
             };
-
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionResult>, PipingFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
-            {
-                Observable = FailureMechanism.SectionResults
-            };
         }
 
         private void SetAllMapDataFeatures()
@@ -301,30 +284,7 @@ namespace Riskeer.Piping.Forms.Views
             SetSectionsMapData();
             SetSurfaceLinesMapData();
             SetStochasticSoilModelsMapData();
-
-            SetAssemblyMapData();
         }
-
-        #region Assembly MapData
-
-        private void UpdateAssemblyMapData()
-        {
-            SetAssemblyMapData();
-            simpleAssemblyMapData.NotifyObservers();
-            detailedAssemblyMapData.NotifyObservers();
-            tailorMadeAssemblyMapData.NotifyObservers();
-            combinedAssemblyMapData.NotifyObservers();
-        }
-
-        private void SetAssemblyMapData()
-        {
-            simpleAssemblyMapData.Features = PipingAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(FailureMechanism);
-            detailedAssemblyMapData.Features = PipingAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(FailureMechanism, AssessmentSection);
-            tailorMadeAssemblyMapData.Features = PipingAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(FailureMechanism, AssessmentSection);
-            combinedAssemblyMapData.Features = PipingAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(FailureMechanism, AssessmentSection);
-        }
-
-        #endregion
 
         #region Calculations MapData
 
@@ -332,8 +292,6 @@ namespace Riskeer.Piping.Forms.Views
         {
             SetCalculationsMapData<SemiProbabilisticPipingCalculationScenario>(semiProbabilisticCalculationsMapData);
             semiProbabilisticCalculationsMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void UpdateProbabilisticCalculationsMapData()
@@ -391,8 +349,6 @@ namespace Riskeer.Piping.Forms.Views
             sectionsMapData.NotifyObservers();
             sectionsStartPointMapData.NotifyObservers();
             sectionsEndPointMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetSectionsMapData()
