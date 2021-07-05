@@ -102,14 +102,13 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new PipingFailureMechanism();
 
-            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, otherAssessmentSection);
+            var view = new PipingFailureMechanismView(failureMechanism, assessmentSection);
 
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
+            // Call
+            bool closeForData = info.CloseForData(view, otherAssessmentSection);
+
+            // Assert
+            Assert.IsFalse(closeForData);
 
             mocks.VerifyAll();
         }
@@ -121,14 +120,13 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new PipingFailureMechanism();
 
-            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, assessmentSection);
+            var view = new PipingFailureMechanismView(failureMechanism, assessmentSection);
 
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
+            // Call
+            bool closeForData = info.CloseForData(view, assessmentSection);
+
+            // Assert
+            Assert.IsTrue(closeForData);
         }
 
         [Test]
@@ -139,14 +137,13 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             var otherPipingFailureMechanism = new PipingFailureMechanism();
 
-            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, otherPipingFailureMechanism);
+            var view = new PipingFailureMechanismView(failureMechanism, assessmentSection);
 
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
+            // Call
+            bool closeForData = info.CloseForData(view, otherPipingFailureMechanism);
+
+            // Assert
+            Assert.IsFalse(closeForData);
         }
 
         [Test]
@@ -156,14 +153,13 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new PipingFailureMechanism();
 
-            using (var view = new PipingFailureMechanismView(failureMechanism, assessmentSection))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, failureMechanism);
+            var view = new PipingFailureMechanismView(failureMechanism, assessmentSection);
 
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
+            // Call
+            bool closeForData = info.CloseForData(view, failureMechanism);
+
+            // Assert
+            Assert.IsTrue(closeForData);
         }
 
         [Test]
