@@ -114,11 +114,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsNull(view.Data);
             Assert.AreSame(failureMechanism, view.FailureMechanism);
             Assert.AreSame(assessmentSection, view.AssessmentSection);
-
-            Assert.AreEqual(1, view.Controls.Count);
-            Assert.IsInstanceOf<RiskeerMapControl>(view.Controls[0]);
-            Assert.AreSame(view.Map, ((RiskeerMapControl) view.Controls[0]).MapControl);
-            Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
             AssertEmptyMapData(view.Map.Data);
         }
 
@@ -296,6 +291,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             testForm.Controls.Add(view);
             testForm.Show();
+
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             IEnumerable<MapData> sectionsCollection = ((MapDataCollection) map.Data.Collection.ElementAt(sectionsCollectionIndex)).Collection;

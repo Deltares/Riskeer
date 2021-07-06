@@ -319,6 +319,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             testForm.Controls.Add(view);
             testForm.Show();
+
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             var mocks = new MockRepository();
@@ -561,6 +562,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             testForm.Controls.Add(view);
             testForm.Show();
+
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             IEnumerable<MapData> sectionsCollection = ((MapDataCollection) map.Data.Collection.ElementAt(sectionsCollectionIndex)).Collection;
@@ -599,6 +601,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
+
             var view = new PipingFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
             testForm.Controls.Add(view);
@@ -637,6 +640,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
+
             var view = new PipingFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
             testForm.Controls.Add(view);
@@ -778,6 +782,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             testForm.Controls.Add(view);
             testForm.Show();
+
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(probabilisticCalculationsIndex);
@@ -883,6 +888,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             testForm.Controls.Add(view);
             testForm.Show();
+
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(probabilisticCalculationsIndex);
