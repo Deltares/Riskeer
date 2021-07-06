@@ -177,9 +177,9 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             // Assert
             Assert.IsInstanceOf<PipingFailurePathView>(view);
 
-            var failureMechanismView = (PipingFailurePathView) view;
-            Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
-            Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
+            var failurePathView = (PipingFailurePathView) view;
+            Assert.AreSame(failureMechanism, failurePathView.FailureMechanism);
+            Assert.AreSame(assessmentSection, failurePathView.AssessmentSection);
         }
     }
 }
