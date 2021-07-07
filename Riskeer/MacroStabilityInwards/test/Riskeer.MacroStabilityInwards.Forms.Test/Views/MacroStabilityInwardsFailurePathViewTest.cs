@@ -53,7 +53,7 @@ using Riskeer.MacroStabilityInwards.Primitives;
 namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailureMechanismViewTest
+    public class MacroStabilityInwardsFailurePathViewTest
     {
         private const int referenceLineIndex = 0;
         private const int stochasticSoilModelsIndex = 1;
@@ -98,36 +98,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new MacroStabilityInwardsFailureMechanismView(null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -135,7 +105,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection);
+            var view = new MacroStabilityInwardsFailurePathView(failureMechanism, assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -162,7 +132,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            var view = new MacroStabilityInwardsFailurePathView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -279,7 +249,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 calculator.CombinedAssemblyOutput = expectedCombinedAssembly;
 
                 // Call
-                var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection);
+                var view = new MacroStabilityInwardsFailurePathView(failureMechanism, assessmentSection);
 
                 testForm.Controls.Add(view);
                 testForm.Show();
@@ -324,7 +294,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
             });
 
-            var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            var view = new MacroStabilityInwardsFailurePathView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -367,7 +337,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 hydraulicBoundaryLocation
             });
 
-            var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            var view = new MacroStabilityInwardsFailurePathView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -409,7 +379,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            var view = new MacroStabilityInwardsFailurePathView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -451,7 +421,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            var view = new MacroStabilityInwardsFailurePathView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -488,7 +458,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            var view = new MacroStabilityInwardsFailurePathView(failureMechanism, new AssessmentSectionStub());
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -533,7 +503,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 surfaceLine
             }, "path");
 
-            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            var view = new MacroStabilityInwardsFailurePathView(failureMechanism, new AssessmentSectionStub());
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -566,7 +536,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            var view = new MacroStabilityInwardsFailurePathView(failureMechanism, new AssessmentSectionStub());
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -614,7 +584,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            var view = new MacroStabilityInwardsFailurePathView(failureMechanism, new AssessmentSectionStub());
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -663,7 +633,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
-            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            var view = new MacroStabilityInwardsFailurePathView(failureMechanism, new AssessmentSectionStub());
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -720,7 +690,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
-            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            var view = new MacroStabilityInwardsFailurePathView(failureMechanism, new AssessmentSectionStub());
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -774,7 +744,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
-            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            var view = new MacroStabilityInwardsFailurePathView(failureMechanism, new AssessmentSectionStub());
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -825,7 +795,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
                 calculator.CombinedAssemblyOutput = originalCombinedAssembly;
 
-                var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+                var view = new MacroStabilityInwardsFailurePathView(failureMechanism, new AssessmentSectionStub());
 
                 testForm.Controls.Add(view);
                 testForm.Show();
@@ -918,7 +888,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
                 calculator.CombinedAssemblyOutput = originalCombinedAssembly;
 
-                var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+                var view = new MacroStabilityInwardsFailurePathView(failureMechanism, new AssessmentSectionStub());
 
                 testForm.Controls.Add(view);
                 testForm.Show();
@@ -989,7 +959,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
                 calculator.CombinedAssemblyOutput = originalCombinedAssembly;
 
-                var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+                var view = new MacroStabilityInwardsFailurePathView(failureMechanism, new AssessmentSectionStub());
 
                 testForm.Controls.Add(view);
                 testForm.Show();
@@ -1050,7 +1020,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             var assessmentSection = new AssessmentSectionStub();
 
-            var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            var view = new MacroStabilityInwardsFailurePathView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();
