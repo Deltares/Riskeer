@@ -38,7 +38,6 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -69,9 +68,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         private const int simpleAssemblyIndex = 2;
         private const int combinedAssemblyIndex = 3;
 
-        private const int hydraulicBoundaryLocationsObserverIndex = 1;
-        private const int dikeProfilesObserverIndex = 2;
-        private const int foreshoreProfileObserverIndex = 3;
         private const int calculationObserverIndex = 4;
         private const int sectionsObserverIndex = 5;
         private const int sectionsStartPointObserverIndex = 6;
@@ -236,17 +232,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
                 List<MapData> mapDataList = mapData.Collection.ToList();
                 Assert.AreEqual(7, mapDataList.Count);
-                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
 
                 IEnumerable<MapData> sectionsCollection = ((MapDataCollection) mapDataList[sectionsCollectionIndex]).Collection;
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsIndex));
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsStartPointIndex));
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsEndPointIndex));
-
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
-                AssertDikeProfiles(failureMechanism.DikeProfiles, mapDataList[dikeProfilesIndex]);
-                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), mapDataList[foreshoreProfilesIndex]);
-                AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), mapDataList[calculationsIndex]);
 
                 MapDataTestHelper.AssertAssemblyMapDataCollection(expectedSimpleAssembly,
                                                                   expectedDetailedAssembly,
@@ -255,177 +245,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                                                                   (MapDataCollection) mapDataList[assemblyResultsIndex],
                                                                   failureMechanism);
             }
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
-            });
-
-            var view = new GrassCoverErosionInwardsFailurePathView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
-            testForm.Controls.Add(view);
-            testForm.Show();
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[hydraulicBoundaryLocationsObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-
-            // When
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0)
-            });
-            assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        [TestCaseSource(typeof(MapViewTestHelper), nameof(MapViewTestHelper.GetCalculationFuncs))]
-        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
-            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
-        {
-            // Given
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            });
-
-            var view = new GrassCoverErosionInwardsFailurePathView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
-            testForm.Controls.Add(view);
-            testForm.Show();
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[hydraulicBoundaryLocationsObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-
-            // When
-            HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
-            calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
-            calculation.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenViewWithAssessmentSectionData_WhenAssessmentSectionUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new List<Point2D>
-            {
-                new Point2D(1.0, 2.0),
-                new Point2D(2.0, 1.0)
-            });
-
-            var assessmentSection = new AssessmentSectionStub
-            {
-                ReferenceLine = referenceLine
-            };
-
-            var view = new GrassCoverErosionInwardsFailurePathView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
-            testForm.Controls.Add(view);
-            testForm.Show();
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            // Precondition
-            MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-
-            // When
-            assessmentSection.Name = "New name";
-            assessmentSection.NotifyObservers();
-
-            // Then
-            MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new List<Point2D>
-            {
-                new Point2D(1.0, 2.0),
-                new Point2D(2.0, 1.0)
-            });
-
-            var assessmentSection = new AssessmentSectionStub
-            {
-                ReferenceLine = referenceLine
-            };
-
-            var view = new GrassCoverErosionInwardsFailurePathView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
-            testForm.Controls.Add(view);
-            testForm.Show();
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            // Precondition
-            MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-
-            // When
-            referenceLine.SetGeometry(new List<Point2D>
-            {
-                new Point2D(2.0, 5.0),
-                new Point2D(4.0, 3.0)
-            });
-            referenceLine.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -473,134 +292,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
             MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
             MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenViewWithDikeProfilesData_WhenDikeProfilesUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.DikeProfiles.AddRange(new[]
-            {
-                DikeProfileTestFactory.CreateDikeProfile(string.Empty, "id1")
-            }, "path");
-
-            var view = new GrassCoverErosionInwardsFailurePathView(failureMechanism, new AssessmentSectionStub());
-
-            testForm.Controls.Add(view);
-            testForm.Show();
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            MapData dikeProfileData = map.Data.Collection.ElementAt(dikeProfilesIndex);
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[dikeProfilesObserverIndex].Expect(obs => obs.UpdateObserver());
-            observers[foreshoreProfileObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            // Precondition
-            AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
-
-            // When
-            failureMechanism.DikeProfiles.AddRange(new[]
-            {
-                DikeProfileTestFactory.CreateDikeProfile(string.Empty, "id2")
-            }, "path");
-            failureMechanism.DikeProfiles.NotifyObservers();
-
-            // Then
-            AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenViewWithDikeProfileData_WhenDikeProfileUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile(string.Empty, "id1");
-            failureMechanism.DikeProfiles.AddRange(new[]
-            {
-                dikeProfile
-            }, "path");
-
-            var view = new GrassCoverErosionInwardsFailurePathView(failureMechanism, new AssessmentSectionStub());
-
-            testForm.Controls.Add(view);
-            testForm.Show();
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            MapData dikeProfileData = map.Data.Collection.ElementAt(dikeProfilesIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[dikeProfilesObserverIndex].Expect(obs => obs.UpdateObserver());
-            observers[foreshoreProfileObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            // Precondition
-            AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
-
-            // When
-            DikeProfile dikeProfileToUpdateFrom = DikeProfileTestFactory.CreateDikeProfile("A new name", "id1");
-            dikeProfile.CopyProperties(dikeProfileToUpdateFrom);
-            dikeProfile.NotifyObservers();
-
-            // Then
-            AssertDikeProfiles(failureMechanism.DikeProfiles, dikeProfileData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenViewWithForeshoreProfileData_WhenForeshoreProfileUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }, "id1");
-            failureMechanism.DikeProfiles.AddRange(new[]
-            {
-                dikeProfile
-            }, "path");
-
-            var view = new GrassCoverErosionInwardsFailurePathView(failureMechanism, new AssessmentSectionStub());
-
-            testForm.Controls.Add(view);
-            testForm.Show();
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            MapData dikeProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[dikeProfilesObserverIndex].Expect(obs => obs.UpdateObserver());
-            observers[foreshoreProfileObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            // Precondition
-            MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), dikeProfileData);
-
-            // When
-            DikeProfile dikeProfileToUpdateFrom = DikeProfileTestFactory.CreateDikeProfile(new[]
-            {
-                new Point2D(2, 2),
-                new Point2D(3, 3)
-            }, "id1");
-            dikeProfile.CopyProperties(dikeProfileToUpdateFrom);
-            failureMechanism.DikeProfiles.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.DikeProfiles.Select(dp => dp.ForeshoreProfile), dikeProfileData);
             mocks.VerifyAll();
         }
 
@@ -1044,26 +735,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var actualCalculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
-        }
-
-        private static void AssertDikeProfiles(IEnumerable<DikeProfile> dikeProfiles, MapData mapData)
-        {
-            Assert.NotNull(dikeProfiles, "dikeProfiles should never be null.");
-
-            var dikeProfilesData = (MapLineData) mapData;
-            DikeProfile[] dikeProfileArray = dikeProfiles.ToArray();
-
-            Assert.IsInstanceOf<MapLineData>(mapData);
-            int dikeProfileCount = dikeProfileArray.Length;
-            Assert.AreEqual(dikeProfileCount, dikeProfilesData.Features.Count());
-
-            for (var i = 0; i < dikeProfileCount; i++)
-            {
-                MapGeometry profileDataA = dikeProfilesData.Features.ElementAt(i).MapGeometries.First();
-                CollectionAssert.AreEquivalent(dikeProfileArray[0].DikeGeometry, profileDataA.PointCollections.First());
-            }
-
-            Assert.AreEqual("Dijkprofielen", mapData.Name);
         }
 
         private static void AssertCalculationsMapData(IEnumerable<GrassCoverErosionInwardsCalculation> calculations, MapData mapData)
