@@ -87,11 +87,6 @@ namespace Riskeer.ClosingStructures.Forms.Views
             return FailureMechanism.ClosingStructures.Select(cs => cs.Location);
         }
 
-        protected override bool IsCalculationIntersectionWithReferenceLineInSection(StructuresCalculationScenario<ClosingStructuresInput> calculation, IEnumerable<Segment2D> lineSegments)
-        {
-            return calculation.IsStructureIntersectionWithReferenceLineInSection(lineSegments);
-        }
-
         protected override ClosingStructuresCalculationRow CreateRow(StructuresCalculationScenario<ClosingStructuresInput> calculation)
         {
             return new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));

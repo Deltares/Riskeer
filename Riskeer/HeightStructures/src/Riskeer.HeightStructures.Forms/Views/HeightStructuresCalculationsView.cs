@@ -87,11 +87,6 @@ namespace Riskeer.HeightStructures.Forms.Views
             return FailureMechanism.HeightStructures.Select(hs => hs.Location);
         }
 
-        protected override bool IsCalculationIntersectionWithReferenceLineInSection(StructuresCalculationScenario<HeightStructuresInput> calculation, IEnumerable<Segment2D> lineSegments)
-        {
-            return calculation.IsStructureIntersectionWithReferenceLineInSection(lineSegments);
-        }
-
         protected override HeightStructuresCalculationRow CreateRow(StructuresCalculationScenario<HeightStructuresInput> calculation)
         {
             return new HeightStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));

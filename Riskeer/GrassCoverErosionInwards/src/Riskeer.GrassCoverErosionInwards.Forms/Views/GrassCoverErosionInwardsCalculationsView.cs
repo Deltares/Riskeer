@@ -88,11 +88,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             return FailureMechanism.DikeProfiles.Select(dp => dp.WorldReferencePoint);
         }
 
-        protected override bool IsCalculationIntersectionWithReferenceLineInSection(GrassCoverErosionInwardsCalculationScenario calculation, IEnumerable<Segment2D> lineSegments)
-        {
-            return calculation.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments);
-        }
-
         protected override GrassCoverErosionInwardsCalculationRow CreateRow(GrassCoverErosionInwardsCalculationScenario calculation)
         {
             return new GrassCoverErosionInwardsCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));

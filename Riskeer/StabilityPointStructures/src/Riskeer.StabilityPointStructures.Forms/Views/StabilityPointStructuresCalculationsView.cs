@@ -87,11 +87,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
             return FailureMechanism.StabilityPointStructures.Select(sps => sps.Location);
         }
 
-        protected override bool IsCalculationIntersectionWithReferenceLineInSection(StructuresCalculationScenario<StabilityPointStructuresInput> calculation, IEnumerable<Segment2D> lineSegments)
-        {
-            return calculation.IsStructureIntersectionWithReferenceLineInSection(lineSegments);
-        }
-
         protected override StabilityPointStructuresCalculationRow CreateRow(StructuresCalculationScenario<StabilityPointStructuresInput> calculation)
         {
             return new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));

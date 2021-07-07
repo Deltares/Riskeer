@@ -175,15 +175,6 @@ namespace Riskeer.Common.Forms.Views
         protected abstract IEnumerable<Point2D> GetReferenceLocations();
 
         /// <summary>
-        /// Determines whether the <paramref name="calculation"/> intersects with a section.
-        /// </summary>
-        /// <param name="calculation">The calculation to check.</param>
-        /// <param name="lineSegments">The line segments of the section.</param>
-        /// <returns><c>true</c> when the <paramref name="calculation"/> intersects
-        /// with the <paramref name="lineSegments"/>; <c>false</c> otherwise.</returns>
-        protected abstract bool IsCalculationIntersectionWithReferenceLineInSection(TCalculation calculation, IEnumerable<Segment2D> lineSegments);
-
-        /// <summary>
         /// Creates a <see cref="TCalculationRow"/> with the given <paramref name="calculation"/>.
         /// </summary>
         /// <param name="calculation">The <see cref="TCalculation"/> to create the row for.</param>

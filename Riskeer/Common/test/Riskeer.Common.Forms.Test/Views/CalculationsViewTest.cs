@@ -247,11 +247,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 };
             }
 
-            protected override bool IsCalculationIntersectionWithReferenceLineInSection(TestCalculation calculation, IEnumerable<Segment2D> lineSegments)
-            {
-                return true;
-            }
-
             protected override bool CanGenerateCalculations()
             {
                 return CanGenerateCalculationState;

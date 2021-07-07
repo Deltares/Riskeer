@@ -119,11 +119,6 @@ namespace Riskeer.Piping.Forms.Views
             return FailureMechanism.SurfaceLines.Select(sl => sl.ReferenceLineIntersectionWorldPoint);
         }
 
-        protected override bool IsCalculationIntersectionWithReferenceLineInSection(IPipingCalculationScenario<PipingInput> calculation, IEnumerable<Segment2D> lineSegments)
-        {
-            return calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
-        }
-
         /// <inheritdoc/>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="calculation"/> is of a type that is not supported.</exception>
         protected override PipingCalculationRow CreateRow(IPipingCalculationScenario<PipingInput> calculation)

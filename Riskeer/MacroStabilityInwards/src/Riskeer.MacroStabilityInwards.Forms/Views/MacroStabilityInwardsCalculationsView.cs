@@ -95,11 +95,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             return FailureMechanism.SurfaceLines.Select(sl => sl.ReferenceLineIntersectionWorldPoint);
         }
 
-        protected override bool IsCalculationIntersectionWithReferenceLineInSection(MacroStabilityInwardsCalculationScenario calculation, IEnumerable<Segment2D> lineSegments)
-        {
-            return calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
-        }
-
         protected override MacroStabilityInwardsCalculationRow CreateRow(MacroStabilityInwardsCalculationScenario calculation)
         {
             return new MacroStabilityInwardsCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
