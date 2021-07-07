@@ -64,6 +64,11 @@ namespace Core.Gui.Settings
         public string SupportPhoneNumberUrl { get; set; }
 
         /// <summary>
+        /// Gets or sets the support phone number.
+        /// </summary>
+        public string SupportPhoneNumber { get; set; }
+
+        /// <summary>
         /// Gets or sets the path of the manual file.
         /// </summary>
         public string ManualFilePath { get; set; }

@@ -127,9 +127,10 @@ namespace Application.Riskeer
                 ApplicationIcon = ApplicationResources.Riskeer,
                 SupportHeader = ApplicationResources.HelpdeskWater_DisplayName,
                 SupportText = ApplicationResources.HelpdeskWater_Description,
-                SupportWebsiteAddressUrl = "https://www.helpdeskwater.nl/onderwerpen/applicaties-modellen/applicaties-per/omgevings/omgevings/riskeer/",
+                SupportWebsiteAddressUrl = "https://www.helpdeskwater.nl/",
                 SupportEmailAddressUrl = "https://www.helpdeskwater.nl/onderwerpen/applicaties-modellen/applicaties-per/omgevings/omgevings/riskeer/contact/vraag-ringtoets/",
                 SupportPhoneNumberUrl = "https://www.helpdeskwater.nl/secundaire-navigatie/contact/",
+                SupportPhoneNumber = "088-7977102",
                 ManualFilePath = "Gebruikershandleiding Riskeer 21.1.1.pdf"
             };
 
