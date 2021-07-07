@@ -21,11 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -50,9 +48,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private Observer failureMechanismObserver;
 
-        private RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput> calculationInputObserver;
-        private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-        private RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsCalculation> calculationObserver;
         private RecursiveObserver<IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>, GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResultObserver;
 
         /// <summary>
@@ -67,9 +62,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         protected override void Dispose(bool disposing)
         {
             failureMechanismObserver.Dispose();
-            calculationInputObserver.Dispose();
-            calculationGroupObserver.Dispose();
-            calculationObserver.Dispose();
             sectionResultObserver.Dispose();
 
             base.Dispose(disposing);
@@ -93,13 +85,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);
             sectionsMapDataCollection.Add(sectionsEndPointMapData);
-            MapDataCollection.Insert(4, sectionsMapDataCollection);
+            MapDataCollection.Insert(1, sectionsMapDataCollection);
 
             assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
             assemblyMapDataCollection.Add(detailedAssemblyMapData);
             assemblyMapDataCollection.Add(simpleAssemblyMapData);
             assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            MapDataCollection.Insert(5, assemblyMapDataCollection);
+            MapDataCollection.Insert(2, assemblyMapDataCollection);
         }
 
         protected override void CreateObservers()
@@ -109,21 +101,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             failureMechanismObserver = new Observer(UpdateFailureMechanismMapData)
             {
                 Observable = FailureMechanism
-            };
-
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput>(
-                UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<GrassCoverErosionInwardsCalculation>()
-                                                                                 .Select(pc => pc.InputParameters)))
-            {
-                Observable = FailureMechanism.CalculationsGroup
-            };
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateCalculationsMapData, pcg => pcg.Children)
-            {
-                Observable = FailureMechanism.CalculationsGroup
-            };
-            calculationObserver = new RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsCalculation>(UpdateCalculationsMapData, pcg => pcg.Children)
-            {
-                Observable = FailureMechanism.CalculationsGroup
             };
 
             sectionResultObserver = new RecursiveObserver<IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>,
