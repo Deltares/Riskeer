@@ -124,7 +124,7 @@ namespace Riskeer.Piping.Forms.Views
             }
         }
 
-        protected MapDataCollection MapDataCollection { get; set; }
+        protected MapDataCollection MapDataCollection { get; private set; }
 
         protected override void OnLoad(EventArgs e)
         {
