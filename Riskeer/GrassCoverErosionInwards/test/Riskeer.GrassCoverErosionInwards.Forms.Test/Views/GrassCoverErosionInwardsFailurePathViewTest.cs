@@ -68,14 +68,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         private const int simpleAssemblyIndex = 2;
         private const int combinedAssemblyIndex = 3;
 
-        private const int calculationObserverIndex = 4;
-        private const int sectionsObserverIndex = 5;
-        private const int sectionsStartPointObserverIndex = 6;
-        private const int sectionsEndPointObserverIndex = 7;
-        private const int simpleAssemblyObserverIndex = 8;
-        private const int detailedAssemblyObserverIndex = 9;
-        private const int tailorMadeAssemblyObserverIndex = 10;
-        private const int combinedAssemblyObserverIndex = 11;
+        private const int sectionsObserverIndex = 0;
+        private const int sectionsStartPointObserverIndex = 1;
+        private const int sectionsEndPointObserverIndex = 2;
+        private const int simpleAssemblyObserverIndex = 3;
+        private const int detailedAssemblyObserverIndex = 4;
+        private const int tailorMadeAssemblyObserverIndex = 5;
+        private const int combinedAssemblyObserverIndex = 6;
 
         private Form testForm;
 
@@ -329,7 +328,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
             var mocks = new MockRepository();
             IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
@@ -373,7 +371,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var mocks = new MockRepository();
             IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
@@ -417,7 +414,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var mocks = new MockRepository();
             IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
@@ -542,7 +538,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
                 observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
                 observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
                 observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
@@ -838,21 +833,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         {
             MapData[] mapDataArray = mapData.ToArray();
 
-            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
-
-            var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
-
-            var dikeProfilesObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[dikeProfilesIndex].Attach(dikeProfilesObserver);
-
-            var foreshoreProfilesObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[foreshoreProfilesIndex].Attach(foreshoreProfilesObserver);
-
-            var calculationsMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[calculationsIndex].Attach(calculationsMapDataObserver);
-
             MapData[] sectionsCollection = ((MapDataCollection) mapDataArray[sectionsCollectionIndex]).Collection.ToArray();
             var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
             sectionsCollection[sectionsIndex].Attach(sectionsMapDataObserver);
@@ -878,11 +858,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             return new[]
             {
-                referenceLineMapDataObserver,
-                hydraulicBoundaryLocationsMapDataObserver,
-                dikeProfilesObserver,
-                foreshoreProfilesObserver,
-                calculationsMapDataObserver,
                 sectionsMapDataObserver,
                 sectionsStartPointMapDataObserver,
                 sectionsEndPointMapDataObserver,
