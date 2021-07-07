@@ -55,5 +55,15 @@ namespace Core.Gui.Forms.Backstage
         /// Gets the support text.
         /// </summary>
         public string SupportText => settings.SupportText;
+
+        /// <summary>
+        /// Gets the support website address url.
+        /// </summary>
+        public string SupportWebsiteAddressUrl => settings.SupportWebsiteAddressUrl;
+
+        /// <summary>
+        /// Gets the support phone number.
+        /// </summary>
+        public string SupportPhoneNumber => settings.SupportPhoneNumber;
     }
 }

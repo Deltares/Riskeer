@@ -81,7 +81,7 @@ All rights reserved.
 
                     <TextBlock Style="{StaticResource Header2}"
                                Text="{x:Static properties:Resources.Application_DisplayName}"
-                               Grid.Column="0" Grid.Row="0"/>
+                               Grid.Column="0" Grid.Row="0" />
 
                     <TextBlock Text="{x:Static properties:Resources.Name_DisplayName}"
                                Grid.Column="0" Grid.Row="1" />

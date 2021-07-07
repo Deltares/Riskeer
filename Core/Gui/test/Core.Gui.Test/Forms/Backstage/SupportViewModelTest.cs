@@ -47,7 +47,9 @@ namespace Core.Gui.Test.Forms.Backstage
             var settings = new GuiCoreSettings
             {
                 SupportHeader = "Support",
-                SupportText = "Some text"
+                SupportText = "Some text",
+                SupportWebsiteAddressUrl = "www.test.nl",
+                SupportPhoneNumber = "012-3456789"
             };
 
             // Call
@@ -57,6 +59,8 @@ namespace Core.Gui.Test.Forms.Backstage
             Assert.IsInstanceOf<IBackstagePageViewModel>(viewModel);
             Assert.AreEqual(settings.SupportHeader, viewModel.SupportHeader);
             Assert.AreEqual(settings.SupportText, viewModel.SupportText);
+            Assert.AreEqual(settings.SupportWebsiteAddressUrl, viewModel.SupportWebsiteAddressUrl);
+            Assert.AreEqual(settings.SupportPhoneNumber, viewModel.SupportPhoneNumber);
         }
     }
 }

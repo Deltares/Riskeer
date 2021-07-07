@@ -235,15 +235,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bel helpdesk.
-        /// </summary>
-        public static string CallSupport_DisplayName {
-            get {
-                return ResourceManager.GetString("CallSupport_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Algemeen.
         /// </summary>
         public static string Categories_General {
@@ -654,6 +645,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contact.
+        /// </summary>
+        public static string Contact_DisplayName {
+            get {
+                return ResourceManager.GetString("Contact_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan geen instanties maken van de benodigde objecten..
         /// </summary>
         public static string ContextMenuBuilder_ContextMenuBuilder_Cannot_create_instances_of_factories {
@@ -927,15 +927,6 @@ namespace Core.Gui.Properties {
         public static string DynamicVisibleValidationMethod_only_one_allowed_per_Class_0_ {
             get {
                 return ResourceManager.GetString("DynamicVisibleValidationMethod_only_one_allowed_per_Class_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to E-mail helpdesk.
-        /// </summary>
-        public static string EmailSupport_DisplayName {
-            get {
-                return ResourceManager.GetString("EmailSupport_DisplayName", resourceCulture);
             }
         }
         
@@ -2043,6 +2034,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Telefoonnummer.
+        /// </summary>
+        public static string PhoneNumber_DisplayName {
+            get {
+                return ResourceManager.GetString("PhoneNumber_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De kleur van de symbolen waarmee deze categorie wordt weergegeven..
         /// </summary>
         public static string PointCategoryTheme_Color_Description {
@@ -2543,21 +2543,21 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bezoek website.
-        /// </summary>
-        public static string VisitWebsite_DisplayName {
-            get {
-                return ResourceManager.GetString("VisitWebsite_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon warning {
             get {
                 object obj = ResourceManager.GetObject("warning", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Website.
+        /// </summary>
+        public static string Website_DisplayName {
+            get {
+                return ResourceManager.GetString("Website_DisplayName", resourceCulture);
             }
         }
         

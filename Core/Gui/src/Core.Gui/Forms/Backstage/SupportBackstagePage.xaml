@@ -26,7 +26,6 @@ All rights reserved.
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:backstage="clr-namespace:Core.Gui.Forms.Backstage"
-                   xmlns:commands="clr-namespace:Core.Gui.Commands"
                    xmlns:properties="clr-namespace:Core.Gui.Properties"
                    mc:Ignorable="d"
                    d:DataContext="{d:DesignInstance IsDesignTimeCreatable=False, Type={x:Type backstage:SupportViewModel}}">
@@ -53,59 +52,6 @@ All rights reserved.
                 <Setter Property="VerticalAlignment" Value="Top" />
             </Style>
 
-            <Style x:Key="BigButtonIconStyle" TargetType="{x:Type TextBlock}">
-                <Setter Property="FontFamily" Value="{StaticResource Symbols}" />
-                <Setter Property="HorizontalAlignment" Value="Center" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="FontSize" Value="56" />
-            </Style>
-
-            <Style x:Key="BackstageBigButtonStyle" TargetType="{x:Type Button}">
-                <Setter Property="Margin" Value="0 0 4 4" />
-                <Setter Property="Foreground" Value="{StaticResource DeltaresBlueBrush}" />
-                <Setter Property="Background" Value="White" />
-                <Setter Property="Width" Value="110" />
-                <Setter Property="Height" Value="110" />
-                <Setter Property="BorderBrush" Value="{StaticResource WhiteOverlayBrush}" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border x:Name="Border" Background="{TemplateBinding Background}"
-                                    BorderThickness="1"
-                                    BorderBrush="{TemplateBinding BorderBrush}">
-                                <DockPanel Margin="8">
-                                    <TextBlock FontSize="13" DockPanel.Dock="Bottom" HorizontalAlignment="Center">
-                                        <ContentPresenter Content="{TemplateBinding Tag}" />
-                                    </TextBlock>
-                                    <TextBlock FontFamily="{StaticResource Symbols}"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center" FontSize="40">
-                                        <ContentPresenter />
-                                    </TextBlock>
-                                </DockPanel>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter Property="Foreground" Value="#5F000000" />
-                                    <Setter Property="BorderBrush" Value="#11FFFFFF" />
-                                </Trigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background"
-                                            Value="{StaticResource BackstageBigButtonMouseOverBrush}" />
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Background"
-                                            Value="{StaticResource BackstageBigButtonMouseDownBrush}" />
-                                    <Setter Property="BorderBrush"
-                                            TargetName="Border"
-                                            Value="{StaticResource BackstageBigButtonMouseDownBrush}" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -128,28 +74,32 @@ All rights reserved.
                            Text="{Binding SupportHeader}" />
                 <TextBlock Style="{StaticResource ExplanatoryTextBlockStyle}"
                            Text="{Binding SupportText}" />
-                <StackPanel Orientation="Horizontal">
-                    <Button Style="{StaticResource BackstageBigButtonStyle}"
-                            Tag="{x:Static properties:Resources.VisitWebsite_DisplayName}"
-                            Command="{x:Static commands:MainWindowCommands.OpenSupportDeskWebsiteCommand}">
-                        <TextBlock Style="{StaticResource BigButtonIconStyle}"
-                                   Text="&#xE904;"/>
-                    </Button>
 
-                    <Button Style="{StaticResource BackstageBigButtonStyle}"
-                            Tag="{x:Static properties:Resources.CallSupport_DisplayName}"
-                            Command="{x:Static commands:MainWindowCommands.OpenCallSupportDeskWebsiteCommand}">
-                        <TextBlock Style="{StaticResource BigButtonIconStyle}"
-                                   Text="&#xE905;"/>
-                    </Button>
-    
-                    <Button Style="{StaticResource BackstageBigButtonStyle}"
-                            Tag="{x:Static properties:Resources.EmailSupport_DisplayName}"
-                            Command="{x:Static commands:MainWindowCommands.OpenEmailSupportDeskWebsiteCommand}">
-                        <TextBlock Style="{StaticResource BigButtonIconStyle}"
-                                   Text="&#xE906;"/>
-                    </Button>
-                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*" />
+                        <ColumnDefinition Width="70*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45" />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Style="{StaticResource Header2}"
+                               Text="{x:Static properties:Resources.Contact_DisplayName}"
+                               Grid.Column="0" Grid.Row="0" />
+                    
+                    <TextBlock Text="{x:Static properties:Resources.Website_DisplayName}"
+                               Grid.Column="0" Grid.Row="1"/>
+                    <TextBlock Text="{Binding SupportWebsiteAddressUrl}"
+                               Grid.Column="1" Grid.Row="1"/>
+                    
+                    <TextBlock Text="{x:Static properties:Resources.PhoneNumber_DisplayName}"
+                               Grid.Column="0" Grid.Row="2"/>
+                    <TextBlock Text="{Binding SupportPhoneNumber}"
+                               Grid.Column="1" Grid.Row="2"/>
+                </Grid>
             </StackPanel>
             <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1 0 0 0" />
         </Grid>

@@ -66,9 +66,6 @@ All rights reserved.
 
     <SolidColorBrush x:Key="BackstageBackgroundColorBrush" Color="{StaticResource BackstageBackgroundColor}" />
 
-    <SolidColorBrush x:Key="BackstageBigButtonMouseDownBrush" Color="{StaticResource DeltaresBlue}" Opacity="0.1" />
-    <SolidColorBrush x:Key="BackstageBigButtonMouseOverBrush" Color="{StaticResource DeltaresBlue}" Opacity="0.1" />
-    
     <Style TargetType="{x:Type main:MainWindow}">
         <Setter Property="GlowBrush" Value="{StaticResource WindowGlowBrush}" />
         <Setter Property="OverlayBrush" Value="{StaticResource WindowOverlayBrush}" />

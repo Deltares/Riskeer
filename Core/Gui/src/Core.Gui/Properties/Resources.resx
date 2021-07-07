@@ -922,14 +922,11 @@
   <data name="SupportBackstagePage_WeCanHelp_Description" xml:space="preserve">
     <value>Heeft u problemen in het gebruik van de software? Neem dan contact op.</value>
   </data>
-  <data name="VisitWebsite_DisplayName" xml:space="preserve">
-    <value>Bezoek website</value>
+  <data name="Website_DisplayName" xml:space="preserve">
+    <value>Website</value>
   </data>
-  <data name="CallSupport_DisplayName" xml:space="preserve">
-    <value>Bel helpdesk</value>
-  </data>
-  <data name="EmailSupport_DisplayName" xml:space="preserve">
-    <value>E-mail helpdesk</value>
+  <data name="PhoneNumber_DisplayName" xml:space="preserve">
+    <value>Telefoonnummer</value>
   </data>
   <data name="Description_DisplayName" xml:space="preserve">
     <value>Omschrijving</value>
@@ -939,5 +936,8 @@
   </data>
   <data name="AboutViewModel_Unknown_value" xml:space="preserve">
     <value>-</value>
+  </data>
+  <data name="Contact_DisplayName" xml:space="preserve">
+    <value>Contact</value>
   </data>
 </root>
