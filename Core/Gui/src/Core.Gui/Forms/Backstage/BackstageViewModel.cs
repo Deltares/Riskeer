@@ -62,29 +62,11 @@ namespace Core.Gui.Forms.Backstage
             AboutViewModel = new AboutViewModel(settings.ApplicationName, version);
             SupportViewModel = new SupportViewModel(settings);
 
-            OpenSupportDeskWebsiteCommand = new RelayCommand(OnOpenSupportDeskWebsite);
-            OpenEmailSupportDeskWebsiteCommand = new RelayCommand(OnOpenEmailSupportDeskWebsite);
-            OpenCallSupportDeskWebsiteCommand = new RelayCommand(OnOpenCallSupportDeskWebsite);
             OpenUserManualCommand = new RelayCommand(OnOpenUserManual, CanOpenUserManual);
             SetSelectedViewModelCommand = new RelayCommand(OnSetCurrentViewModel);
 
             SelectedViewModel = InfoViewModel;
         }
-
-        /// <summary>
-        /// Gets command for opening the support desk website.
-        /// </summary>
-        public ICommand OpenSupportDeskWebsiteCommand { get; }
-
-        /// <summary>
-        /// Gets command for opening the support desk email information website.
-        /// </summary>
-        public ICommand OpenEmailSupportDeskWebsiteCommand { get; }
-
-        /// <summary>
-        /// Gets command for opening the support desk call information website.
-        /// </summary>
-        public ICommand OpenCallSupportDeskWebsiteCommand { get; }
 
         /// <summary>
         /// Gets the command to open the user manual.
@@ -183,21 +165,6 @@ namespace Core.Gui.Forms.Backstage
             InfoSelected = selectedViewModel is InfoViewModel;
             AboutSelected = selectedViewModel is AboutViewModel;
             SupportSelected = selectedViewModel is SupportViewModel;
-        }
-
-        private void OnOpenSupportDeskWebsite(object obj)
-        {
-            Process.Start(settings.SupportWebsiteAddressUrl);
-        }
-
-        private void OnOpenEmailSupportDeskWebsite(object obj)
-        {
-            Process.Start(settings.SupportEmailAddressUrl);
-        }
-
-        private void OnOpenCallSupportDeskWebsite(object obj)
-        {
-            Process.Start(settings.SupportPhoneNumberUrl);
         }
 
         private bool CanOpenUserManual(object obj)

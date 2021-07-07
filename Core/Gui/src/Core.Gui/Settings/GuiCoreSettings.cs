@@ -54,16 +54,6 @@ namespace Core.Gui.Settings
         public string SupportWebsiteAddressUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the support email address url.
-        /// </summary>
-        public string SupportEmailAddressUrl { get; set; }
-
-        /// <summary>
-        /// Gets or sets the support phone number url.
-        /// </summary>
-        public string SupportPhoneNumberUrl { get; set; }
-
-        /// <summary>
         /// Gets or sets the support phone number.
         /// </summary>
         public string SupportPhoneNumber { get; set; }
