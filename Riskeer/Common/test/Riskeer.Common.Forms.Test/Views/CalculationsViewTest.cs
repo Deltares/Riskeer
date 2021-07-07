@@ -33,7 +33,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.ChangeHandlers;
@@ -156,27 +155,6 @@ namespace Riskeer.Common.Forms.Test.Views
             });
         }
 
-        private static TestFailureMechanism ConfigureFailureMechanism()
-        {
-            var failureMechanism = new TestFailureMechanism();
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                new FailureMechanismSection("Section 1", new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(5.0, 0.0)
-                }),
-                new FailureMechanismSection("Section 2", new[]
-                {
-                    new Point2D(5.0, 0.0),
-                    new Point2D(10.0, 0.0)
-                })
-            });
-
-            return failureMechanism;
-        }
-
         private static CalculationGroup ConfigureCalculationGroup(IAssessmentSection assessmentSection)
         {
             return new CalculationGroup
@@ -208,9 +186,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
 
-            TestFailureMechanism failureMechanism = ConfigureFailureMechanism();
-
-            return ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), failureMechanism, assessmentSection);
+            return ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestFailureMechanism(), assessmentSection);
         }
 
         private TestCalculationsView ShowCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
@@ -391,27 +367,6 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_ListBoxCorrectlyInitialized()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            TestFailureMechanism failureMechanism = ConfigureFailureMechanism();
-
-            // Call
-            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), failureMechanism, assessmentSection);
-
-            var listBox = (ListBox) new ControlTester("listBox").TheObject;
-
-            // Assert
-            Assert.AreEqual(2, listBox.Items.Count);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Setup
@@ -420,10 +375,8 @@ namespace Riskeer.Common.Forms.Test.Views
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            TestFailureMechanism failureMechanism = ConfigureFailureMechanism();
-
             // Call
-            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), failureMechanism, assessmentSection);
+            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestFailureMechanism(), assessmentSection);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -464,7 +417,7 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), ConfigureFailureMechanism(), assessmentSection);
+            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestFailureMechanism(), assessmentSection);
 
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -476,51 +429,6 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[2].ToString());
             Assert.AreEqual("Location 1 (4 m)", hydraulicBoundaryLocationComboboxItems[3].ToString());
             Assert.AreEqual("Location 2 (5 m)", hydraulicBoundaryLocationComboboxItems[4].ToString());
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismWithSections_SectionsListBoxCorrectlyInitialized()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            var failureMechanism = new TestFailureMechanism();
-            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            });
-            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
-            {
-                new Point2D(10.0, 0.0),
-                new Point2D(15.0, 0.0)
-            });
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                failureMechanismSection1,
-                failureMechanismSection2,
-                failureMechanismSection3
-            });
-
-            // Call
-            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), failureMechanism, assessmentSection);
-
-            // Assert
-            var listBox = (ListBox) new ControlTester("listBox").TheObject;
-            Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
-            Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
-            Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
             mocks.VerifyAll();
         }
 
@@ -574,38 +482,6 @@ namespace Riskeer.Common.Forms.Test.Views
         #region Selection
 
         [Test]
-        public void CalculationsView_ChangingListBoxSelection_DataGridViewCorrectlySyncedAndSelectionChangedFired()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
-
-            var selectionChangedCount = 0;
-            calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
-
-            var listBox = (ListBox) new ControlTester("listBox").TheObject;
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            // Precondition
-            Assert.AreEqual(2, dataGridView.Rows.Count);
-            Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
-
-            // Call
-            listBox.SelectedIndex = 1;
-
-            // Assert
-            Assert.AreEqual(2, dataGridView.Rows.Count);
-            Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual(2, selectionChangedCount);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [Apartment(ApartmentState.STA)]
         public void CalculationsView_SelectingCellInRow_SelectionChangedFired()
         {
@@ -623,7 +499,7 @@ namespace Riskeer.Common.Forms.Test.Views
             dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
 
             // Call
-            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
+            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 1));
 
             // Assert
             Assert.AreEqual(1, selectionChangedCount);
@@ -677,63 +553,6 @@ namespace Riskeer.Common.Forms.Test.Views
         #region Observers
 
         [Test]
-        public void GivenCalculationsView_WhenSectionsAddedAndFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            var failureMechanism = new TestFailureMechanism();
-            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            });
-            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
-            {
-                new Point2D(10.0, 0.0),
-                new Point2D(15.0, 0.0)
-            });
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                failureMechanismSection1,
-                failureMechanismSection2
-            });
-
-            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), failureMechanism, assessmentSection);
-
-            var listBox = (ListBox) new ControlTester("listBox").TheObject;
-
-            // Precondition
-            Assert.AreEqual(2, listBox.Items.Count);
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                failureMechanismSection1,
-                failureMechanismSection2,
-                failureMechanismSection3
-            });
-
-            // When
-            failureMechanism.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
-            Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
-            Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void GivenCalculationsView_WhenHydraulicBoundaryDatabaseWithLocationsUpdatedAndNotified_ThenSelectableHydraulicBoundaryLocationsComboboxCorrectlyUpdated()
         {
             // Given
@@ -742,7 +561,7 @@ namespace Riskeer.Common.Forms.Test.Views
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), ConfigureFailureMechanism(), assessmentSection);
+            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestFailureMechanism(), assessmentSection);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
@@ -778,7 +597,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
 
-            ShowCalculationsView(calculationGroup, ConfigureFailureMechanism(), assessmentSection);
+            ShowCalculationsView(calculationGroup, new TestFailureMechanism(), assessmentSection);
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             var dataSourceUpdated = 0;
@@ -807,7 +626,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
 
-            ShowCalculationsView(calculationGroup, ConfigureFailureMechanism(), assessmentSection);
+            ShowCalculationsView(calculationGroup, new TestFailureMechanism(), assessmentSection);
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             var invalidated = 0;
@@ -835,7 +654,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
 
-            ShowCalculationsView(calculationGroup, ConfigureFailureMechanism(), assessmentSection);
+            ShowCalculationsView(calculationGroup, new TestFailureMechanism(), assessmentSection);
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             var dataSourceUpdated = 0;
@@ -913,7 +732,7 @@ namespace Riskeer.Common.Forms.Test.Views
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
 
             var calculationsView = new TestCalculationsViewWithColumnStateDefinitions(ConfigureCalculationGroup(assessmentSection),
-                                                                                      ConfigureFailureMechanism(),
+                                                                                      new TestFailureMechanism(),
                                                                                       assessmentSection,
                                                                                       initialReadOnlyState);
 
