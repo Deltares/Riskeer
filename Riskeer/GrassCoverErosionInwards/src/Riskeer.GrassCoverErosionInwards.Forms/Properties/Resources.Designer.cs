@@ -40,7 +40,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -267,16 +267,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         public static string DikeProfileCollection_SourcePath_Description {
             get {
                 return ResourceManager.GetString("DikeProfileCollection_SourcePath_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Als u het dijkprofiel van een berekening wijzigt kan de berekening in een ander vak komen te liggen..
-        /// </summary>
-        public static string GrassCoverErosionInwardsCalculationsView_AddWarningMessage_Calculation_can_change_section_when_DikeProfile_is_changed {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationsView_AddWarningMessage_Calculation_can_change" +
-                        "_section_when_DikeProfile_is_changed", resourceCulture);
             }
         }
         
