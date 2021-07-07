@@ -209,28 +209,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void DikeProfileChanged(object sender, EventArgs e)
         {
-            if (IsProfileInSelectedFailureMechanismSection())
-            {
-                UpdateHydraulicBoundaryLocationColumn();
-            }
-            else
-            {
-                UpdateDataGridViewDataSource(false);
-            }
+            UpdateHydraulicBoundaryLocationColumn();
         }
 
         private void UpdateHydraulicBoundaryLocationColumn()
         {
             PrefillComboBoxListItemsAtColumnLevel();
             UpdateComboBoxColumns();
-        }
-
-        private bool IsProfileInSelectedFailureMechanismSection()
-        {
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(SelectedFailureMechanismSection.Points);
-            GrassCoverErosionInwardsCalculationScenario calculation = ((GrassCoverErosionInwardsCalculationRow) DataGridViewControl.CurrentRow.DataBoundItem).Calculation;
-
-            return IsCalculationIntersectionWithReferenceLineInSection(calculation, lineSegments);
         }
 
         private void AddWarningMessage()
