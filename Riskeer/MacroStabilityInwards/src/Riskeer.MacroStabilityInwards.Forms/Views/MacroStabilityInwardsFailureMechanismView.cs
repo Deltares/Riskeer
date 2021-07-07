@@ -28,7 +28,6 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.Helpers;
@@ -51,16 +50,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private MapPointData hydraulicBoundaryLocationsMapData;
         private MapLineData calculationsMapData;
 
-        private MapLineData sectionsMapData;
-        private MapPointData sectionsStartPointMapData;
-        private MapPointData sectionsEndPointMapData;
-
-        private MapLineData simpleAssemblyMapData;
-        private MapLineData detailedAssemblyMapData;
-        private MapLineData tailorMadeAssemblyMapData;
-        private MapLineData combinedAssemblyMapData;
-
-        private Observer failureMechanismObserver;
         private Observer hydraulicBoundaryLocationsObserver;
         private Observer assessmentSectionObserver;
         private Observer referenceLineObserver;
@@ -79,7 +68,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario> calculationObserver;
         private RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine> surfaceLineObserver;
-        private RecursiveObserver<IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>, MacroStabilityInwardsFailureMechanismSectionResult> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismView"/>.
@@ -103,12 +91,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
-
-            CreateObservers();
-
-            CreateMapData();
-            SetAllMapDataFeatures();
-            riskeerMapControl.SetAllData(MapDataCollection, AssessmentSection.BackgroundData);
         }
 
         /// <summary>
@@ -136,9 +118,21 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// </summary>
         protected MapDataCollection MapDataCollection { get; private set; }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            CreateObservers();
+
+            CreateMapData();
+
+            SetAllMapDataFeatures();
+
+            riskeerMapControl.SetAllData(MapDataCollection, AssessmentSection.BackgroundData);
+
+            base.OnLoad(e);
+        }
+        
         protected override void Dispose(bool disposing)
         {
-            failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
             referenceLineObserver.Dispose();
             waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
@@ -156,7 +150,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             calculationObserver.Dispose();
             surfaceLinesObserver.Dispose();
             surfaceLineObserver.Dispose();
-            sectionResultObserver.Dispose();
 
             if (disposing)
             {
@@ -166,7 +159,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void CreateMapData()
+        protected virtual void CreateMapData()
         {
             MapDataCollection = new MapDataCollection(MacroStabilityInwardsDataResources.MacroStabilityInwardsFailureMechanism_DisplayName);
             referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
@@ -175,42 +168,16 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             surfaceLinesMapData = RiskeerMapDataFactory.CreateSurfaceLinesMapData();
             calculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData();
 
-            MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
-            sectionsMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
-            sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
-            sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
-
-            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
-            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
-
             MapDataCollection.Add(referenceLineMapData);
             MapDataCollection.Add(stochasticSoilModelsMapData);
             MapDataCollection.Add(surfaceLinesMapData);
-
-            sectionsMapDataCollection.Add(sectionsMapData);
-            sectionsMapDataCollection.Add(sectionsStartPointMapData);
-            sectionsMapDataCollection.Add(sectionsEndPointMapData);
-            MapDataCollection.Add(sectionsMapDataCollection);
-
-            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
-            assemblyMapDataCollection.Add(detailedAssemblyMapData);
-            assemblyMapDataCollection.Add(simpleAssemblyMapData);
-            assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            MapDataCollection.Add(assemblyMapDataCollection);
 
             MapDataCollection.Add(hydraulicBoundaryLocationsMapData);
             MapDataCollection.Add(calculationsMapData);
         }
 
-        private void CreateObservers()
+        protected virtual void CreateObservers()
         {
-            failureMechanismObserver = new Observer(UpdateFailureMechanismMapData)
-            {
-                Observable = FailureMechanism
-            };
             assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
             {
                 Observable = AssessmentSection
@@ -267,55 +234,24 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             {
                 Observable = FailureMechanism.SurfaceLines
             };
-
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>, MacroStabilityInwardsFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
-            {
-                Observable = FailureMechanism.SectionResults
-            };
         }
 
-        private void SetAllMapDataFeatures()
+        protected virtual void SetAllMapDataFeatures()
         {
             SetCalculationsMapData();
             SetHydraulicBoundaryLocationsMapData();
             SetReferenceLineMapData();
 
-            SetSectionsMapData();
             SetSurfaceLinesMapData();
             SetStochasticSoilModelsMapData();
-
-            SetAssemblyMapData();
         }
-
-        #region Assembly MapData
-
-        private void UpdateAssemblyMapData()
-        {
-            SetAssemblyMapData();
-            simpleAssemblyMapData.NotifyObservers();
-            detailedAssemblyMapData.NotifyObservers();
-            tailorMadeAssemblyMapData.NotifyObservers();
-            combinedAssemblyMapData.NotifyObservers();
-        }
-
-        private void SetAssemblyMapData()
-        {
-            simpleAssemblyMapData.Features = MacroStabilityInwardsAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(FailureMechanism);
-            detailedAssemblyMapData.Features = MacroStabilityInwardsAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(FailureMechanism, AssessmentSection);
-            tailorMadeAssemblyMapData.Features = MacroStabilityInwardsAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(FailureMechanism, AssessmentSection);
-            combinedAssemblyMapData.Features = MacroStabilityInwardsAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(FailureMechanism, AssessmentSection);
-        }
-
-        #endregion
 
         #region Calculations MapData
 
-        private void UpdateCalculationsMapData()
+        protected virtual void UpdateCalculationsMapData()
         {
             SetCalculationsMapData();
             calculationsMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetCalculationsMapData()
@@ -354,29 +290,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
             referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
-        }
-
-        #endregion
-
-        #region FailureMechanism MapData
-
-        private void UpdateFailureMechanismMapData()
-        {
-            SetSectionsMapData();
-            sectionsMapData.NotifyObservers();
-            sectionsStartPointMapData.NotifyObservers();
-            sectionsEndPointMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
-        }
-
-        private void SetSectionsMapData()
-        {
-            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
-
-            sectionsMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
-            sectionsStartPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
-            sectionsEndPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
         }
 
         #endregion

@@ -21,19 +21,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Factories;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.Factories;
-using Riskeer.MacroStabilityInwards.Primitives;
 using MacroStabilityInwardsDataResources = Riskeer.MacroStabilityInwards.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Views
@@ -43,13 +37,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     /// </summary>
     public class MacroStabilityInwardsFailurePathView : MacroStabilityInwardsFailureMechanismView
     {
-        private MapDataCollection mapDataCollection;
-        private MapLineData referenceLineMapData;
-        private MapLineData stochasticSoilModelsMapData;
-        private MapLineData surfaceLinesMapData;
-        private MapPointData hydraulicBoundaryLocationsMapData;
-        private MapLineData calculationsMapData;
-
         private MapLineData sectionsMapData;
         private MapPointData sectionsStartPointMapData;
         private MapPointData sectionsEndPointMapData;
@@ -60,28 +47,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private MapLineData combinedAssemblyMapData;
 
         private Observer failureMechanismObserver;
-        private Observer hydraulicBoundaryLocationsObserver;
-        private Observer assessmentSectionObserver;
-        private Observer referenceLineObserver;
-        private Observer surfaceLinesObserver;
-        private Observer stochasticSoilModelsObserver;
 
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNormObserver;
-        private RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput> calculationInputObserver;
-        private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-        private RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario> calculationObserver;
-        private RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine> surfaceLineObserver;
         private RecursiveObserver<IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>, MacroStabilityInwardsFailureMechanismSectionResult> sectionResultObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismView"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsFailurePathView"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
@@ -91,37 +61,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         protected override void Dispose(bool disposing)
         {
             failureMechanismObserver.Dispose();
-            assessmentSectionObserver.Dispose();
-            referenceLineObserver.Dispose();
-            waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
-            waterLevelCalculationsForSignalingNormObserver.Dispose();
-            waterLevelCalculationsForLowerLimitNormObserver.Dispose();
-            waterLevelCalculationsForFactorizedLowerLimitNormObserver.Dispose();
-            waveHeightCalculationsForFactorizedSignalingNormObserver.Dispose();
-            waveHeightCalculationsForSignalingNormObserver.Dispose();
-            waveHeightCalculationsForLowerLimitNormObserver.Dispose();
-            waveHeightCalculationsForFactorizedLowerLimitNormObserver.Dispose();
-            hydraulicBoundaryLocationsObserver.Dispose();
-            stochasticSoilModelsObserver.Dispose();
-            calculationInputObserver.Dispose();
-            calculationGroupObserver.Dispose();
-            calculationObserver.Dispose();
-            surfaceLinesObserver.Dispose();
-            surfaceLineObserver.Dispose();
             sectionResultObserver.Dispose();
 
             base.Dispose(disposing);
         }
 
-        private void CreateMapData()
+        protected override void CreateMapData()
         {
-            mapDataCollection = new MapDataCollection(MacroStabilityInwardsDataResources.MacroStabilityInwardsFailureMechanism_DisplayName);
-            referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
-            stochasticSoilModelsMapData = RiskeerMapDataFactory.CreateStochasticSoilModelsMapData();
-            surfaceLinesMapData = RiskeerMapDataFactory.CreateSurfaceLinesMapData();
-            calculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData();
-
+            base.CreateMapData();
+            
             MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
             sectionsMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
             sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
@@ -133,86 +81,25 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
             combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
 
-            mapDataCollection.Add(referenceLineMapData);
-            mapDataCollection.Add(stochasticSoilModelsMapData);
-            mapDataCollection.Add(surfaceLinesMapData);
-
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);
             sectionsMapDataCollection.Add(sectionsEndPointMapData);
-            mapDataCollection.Add(sectionsMapDataCollection);
+            MapDataCollection.Insert(3, sectionsMapDataCollection);
 
             assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
             assemblyMapDataCollection.Add(detailedAssemblyMapData);
             assemblyMapDataCollection.Add(simpleAssemblyMapData);
             assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            mapDataCollection.Add(assemblyMapDataCollection);
-
-            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
-            mapDataCollection.Add(calculationsMapData);
+            MapDataCollection.Insert(4, assemblyMapDataCollection);
         }
 
-        private void CreateObservers()
+        protected override void CreateObservers()
         {
+            base.CreateObservers();
+            
             failureMechanismObserver = new Observer(UpdateFailureMechanismMapData)
             {
                 Observable = FailureMechanism
-            };
-            assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
-            {
-                Observable = AssessmentSection
-            };
-            referenceLineObserver = new Observer(UpdateReferenceLineMapData)
-            {
-                Observable = AssessmentSection.ReferenceLine
-            };
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData)
-            {
-                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
-            };
-            surfaceLinesObserver = new Observer(UpdateSurfaceLinesMapData)
-            {
-                Observable = FailureMechanism.SurfaceLines
-            };
-            stochasticSoilModelsObserver = new Observer(UpdateStochasticSoilModelsMapData)
-            {
-                Observable = FailureMechanism.StochasticSoilModels
-            };
-
-            waterLevelCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput>(
-                UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<MacroStabilityInwardsCalculationScenario>().Select(pc => pc.InputParameters)))
-            {
-                Observable = FailureMechanism.CalculationsGroup
-            };
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateCalculationsMapData, pcg => pcg.Children)
-            {
-                Observable = FailureMechanism.CalculationsGroup
-            };
-            calculationObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario>(UpdateCalculationsMapData, pcg => pcg.Children)
-            {
-                Observable = FailureMechanism.CalculationsGroup
-            };
-
-            surfaceLineObserver = new RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine>(UpdateSurfaceLinesMapData, rpslc => rpslc)
-            {
-                Observable = FailureMechanism.SurfaceLines
             };
 
             sectionResultObserver = new RecursiveObserver<IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>, MacroStabilityInwardsFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
@@ -221,15 +108,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             };
         }
 
-        private void SetAllMapDataFeatures()
+        protected override void SetAllMapDataFeatures()
         {
-            SetCalculationsMapData();
-            SetHydraulicBoundaryLocationsMapData();
-            SetReferenceLineMapData();
+            base.SetAllMapDataFeatures();
 
             SetSectionsMapData();
-            SetSurfaceLinesMapData();
-            SetStochasticSoilModelsMapData();
 
             SetAssemblyMapData();
         }
@@ -257,54 +140,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         #region Calculations MapData
 
-        private void UpdateCalculationsMapData()
+        protected override void UpdateCalculationsMapData()
         {
-            SetCalculationsMapData();
-            calculationsMapData.NotifyObservers();
+            base.UpdateCalculationsMapData();
 
             UpdateAssemblyMapData();
         }
 
-        private void SetCalculationsMapData()
-        {
-            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations =
-                FailureMechanism.CalculationsGroup.GetCalculations().Cast<MacroStabilityInwardsCalculationScenario>();
-            calculationsMapData.Features = MacroStabilityInwardsMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
-        }
-
         #endregion
-
-        #region HydraulicBoundaryLocations MapData
-
-        private void UpdateHydraulicBoundaryLocationsMapData()
-        {
-            SetHydraulicBoundaryLocationsMapData();
-            hydraulicBoundaryLocationsMapData.NotifyObservers();
-        }
-
-        private void SetHydraulicBoundaryLocationsMapData()
-        {
-            hydraulicBoundaryLocationsMapData.Features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(AssessmentSection);
-        }
-
-        #endregion
-
-        #region AssessmentSection MapData
-
-        private void UpdateReferenceLineMapData()
-        {
-            SetReferenceLineMapData();
-            referenceLineMapData.NotifyObservers();
-        }
-
-        private void SetReferenceLineMapData()
-        {
-            ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
-            referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
-        }
-
-        #endregion
-
+        
         #region FailureMechanism MapData
 
         private void UpdateFailureMechanismMapData()
@@ -324,38 +168,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             sectionsMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
-        }
-
-        #endregion
-
-        #region SurfaceLines MapData
-
-        private void UpdateSurfaceLinesMapData()
-        {
-            SetSurfaceLinesMapData();
-            surfaceLinesMapData.NotifyObservers();
-        }
-
-        private void SetSurfaceLinesMapData()
-        {
-            MacroStabilityInwardsSurfaceLineCollection macroStabilityInwardsSurfaceLines = FailureMechanism.SurfaceLines;
-            surfaceLinesMapData.Features = MacroStabilityInwardsMapDataFeaturesFactory.CreateSurfaceLineFeatures(macroStabilityInwardsSurfaceLines.ToArray());
-        }
-
-        #endregion
-
-        #region StochasticSoilModels MapData
-
-        private void UpdateStochasticSoilModelsMapData()
-        {
-            SetStochasticSoilModelsMapData();
-            stochasticSoilModelsMapData.NotifyObservers();
-        }
-
-        private void SetStochasticSoilModelsMapData()
-        {
-            MacroStabilityInwardsStochasticSoilModelCollection stochasticSoilModels = FailureMechanism.StochasticSoilModels;
-            stochasticSoilModelsMapData.Features = MacroStabilityInwardsMapDataFeaturesFactory.CreateStochasticSoilModelFeatures(stochasticSoilModels.ToArray());
         }
 
         #endregion
