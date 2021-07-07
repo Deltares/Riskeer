@@ -112,6 +112,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets the <see cref="MapDataCollection"/>.
+        /// </summary>
         protected MapDataCollection MapDataCollection { get; private set; }
 
         protected override void OnLoad(EventArgs e)
