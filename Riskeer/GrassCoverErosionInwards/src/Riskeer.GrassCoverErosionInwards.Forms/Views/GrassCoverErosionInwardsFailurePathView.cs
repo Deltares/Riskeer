@@ -51,7 +51,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private RecursiveObserver<IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>, GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResultObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismView"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailurePathView"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
