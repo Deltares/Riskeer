@@ -190,6 +190,13 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
 
+            yield return new ViewInfo<GrassCoverErosionInwardsFailurePathContext, GrassCoverErosionInwardsFailurePathView>
+            {
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
+                CreateInstance = context => new GrassCoverErosionInwardsFailurePathView(context.WrappedData, context.Parent)
+            };
+
             yield return new ViewInfo<
                 GrassCoverErosionInwardsScenariosContext,
                 CalculationGroup,

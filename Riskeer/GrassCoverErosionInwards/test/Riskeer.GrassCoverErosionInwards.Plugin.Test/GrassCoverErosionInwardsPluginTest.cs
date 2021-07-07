@@ -68,7 +68,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test
                     propertyInfos,
                     typeof(GrassCoverErosionInwardsCalculationsContext),
                     typeof(GrassCoverErosionInwardsCalculationsProperties));
-                
+
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionInwardsFailurePathContext),
@@ -147,12 +147,17 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(8, viewInfos.Length);
+                Assert.AreEqual(9, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(GrassCoverErosionInwardsCalculationsContext),
                     typeof(GrassCoverErosionInwardsFailureMechanismView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(GrassCoverErosionInwardsFailurePathContext),
+                    typeof(GrassCoverErosionInwardsFailurePathView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
