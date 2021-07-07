@@ -518,33 +518,11 @@ namespace Riskeer.Common.Forms.Test.Views
 
             TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
-
             // Call
             object selection = calculationsView.Selection;
 
             // Assert
             Assert.IsInstanceOf<TestCalculationRow>(selection);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Selection_NothingSelected_ReturnsNull()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
-
-            // Call
-            object selection = calculationsView.Selection;
-
-            // Assert
-            Assert.IsNull(selection);
             mocks.VerifyAll();
         }
 
