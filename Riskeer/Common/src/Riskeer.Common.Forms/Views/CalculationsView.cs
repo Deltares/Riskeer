@@ -53,7 +53,6 @@ namespace Riskeer.Common.Forms.Views
         private int nameColumnIndex = -1;
         private int selectableHydraulicBoundaryLocationColumnIndex = -1;
 
-        private Observer failureMechanismObserver;
         private Observer hydraulicBoundaryLocationsObserver;
         private RecursiveObserver<CalculationGroup, TCalculationInput> inputObserver;
         private RecursiveObserver<CalculationGroup, TCalculation> calculationObserver;
@@ -95,10 +94,7 @@ namespace Riskeer.Common.Forms.Views
 
             InitializeComponent();
 
-            InitializeListBox();
             InitializeDataGridView();
-
-            UpdateSectionsListBox();
         }
 
         public object Selection
@@ -127,11 +123,6 @@ namespace Riskeer.Common.Forms.Views
         protected IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
-        /// Gets the selected failure mechanism section.
-        /// </summary>
-        protected FailureMechanismSection SelectedFailureMechanismSection => listBox.SelectedItem as FailureMechanismSection;
-
-        /// <summary>
         /// Gets an indicator whether the view is loaded.
         /// </summary>
         protected bool Loaded { get; private set; }
@@ -156,7 +147,6 @@ namespace Riskeer.Common.Forms.Views
             {
                 if (Loaded)
                 {
-                    failureMechanismObserver.Dispose();
                     inputObserver.Dispose();
                     calculationObserver.Dispose();
                     calculationGroupObserver.Dispose();
@@ -247,10 +237,6 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         protected virtual void InitializeObservers()
         {
-            failureMechanismObserver = new Observer(UpdateSectionsListBox)
-            {
-                Observable = FailureMechanism
-            };
             hydraulicBoundaryLocationsObserver = new Observer(() =>
             {
                 PrefillComboBoxListItemsAtColumnLevel();
@@ -340,18 +326,9 @@ namespace Riskeer.Common.Forms.Views
 
             dataSource?.ForEachElementDo(UnsubscribeFromCalculationRow);
 
-            if (!(listBox.SelectedItem is FailureMechanismSection failureMechanismSection))
-            {
-                dataSource = null;
-                DataGridViewControl.SetDataSource(null);
-                return;
-            }
-
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
             IEnumerable<TCalculation> calculations = calculationGroup
                                                      .GetCalculations()
-                                                     .OfType<TCalculation>()
-                                                     .Where(cs => IsCalculationIntersectionWithReferenceLineInSection(cs, lineSegments));
+                                                     .OfType<TCalculation>();
 
             PrefillComboBoxListItemsAtColumnLevel();
 
@@ -377,23 +354,6 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         /// <param name="calculationRow">The specific calculation row to unsubscribe from.</param>
         protected virtual void UnsubscribeFromCalculationRow(TCalculationRow calculationRow) {}
-
-        private void InitializeListBox()
-        {
-            listBox.DisplayMember = nameof(FailureMechanismSection.Name);
-            listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
-        }
-
-        private void UpdateSectionsListBox()
-        {
-            listBox.Items.Clear();
-
-            if (FailureMechanism.Sections.Any())
-            {
-                listBox.Items.AddRange(FailureMechanism.Sections.Cast<object>().ToArray());
-                listBox.SelectedItem = FailureMechanism.Sections.First();
-            }
-        }
 
         private void FormatGridWithColumnStateDefinitions()
         {
@@ -482,11 +442,6 @@ namespace Riskeer.Common.Forms.Views
         private void OnSelectionChanged()
         {
             SelectionChanged?.Invoke(this, new EventArgs());
-        }
-
-        private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
-        {
-            UpdateDataGridViewDataSource();
         }
 
         private void generateButton_Click(object sender, EventArgs e)
