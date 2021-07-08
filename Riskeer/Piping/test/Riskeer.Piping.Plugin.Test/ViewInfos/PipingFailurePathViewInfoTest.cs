@@ -102,14 +102,15 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
-            IView view = info.CreateInstance(context);
+            using (IView view = info.CreateInstance(context))
+            {
+                // Assert
+                Assert.IsInstanceOf<PipingFailurePathView>(view);
 
-            // Assert
-            Assert.IsInstanceOf<PipingFailurePathView>(view);
-
-            var failurePathView = (PipingFailurePathView) view;
-            Assert.AreSame(failureMechanism, failurePathView.FailureMechanism);
-            Assert.AreSame(assessmentSection, failurePathView.AssessmentSection);
+                var failurePathView = (PipingFailurePathView) view;
+                Assert.AreSame(failureMechanism, failurePathView.FailureMechanism);
+                Assert.AreSame(assessmentSection, failurePathView.AssessmentSection);
+            }
         }
     }
 }

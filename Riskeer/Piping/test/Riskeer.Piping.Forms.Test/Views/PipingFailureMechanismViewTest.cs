@@ -131,8 +131,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Call
             var view = new PipingFailureMechanismView(failureMechanism, assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             // Assert
             Assert.IsInstanceOf<UserControl>(view);
@@ -158,8 +157,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Call
             var view = new PipingFailureMechanismView(new PipingFailureMechanism(), assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             // Assert
             MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
@@ -278,8 +276,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 // Call
                 var view = new PipingFailureMechanismView(failureMechanism, assessmentSection);
 
-                testForm.Controls.Add(view);
-                testForm.Show();
+                ShowView(view);
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -317,8 +314,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var view = new PipingFailureMechanismView(new PipingFailureMechanism(), assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -360,8 +356,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var view = new PipingFailureMechanismView(new PipingFailureMechanism(), assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -403,8 +398,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var view = new PipingFailureMechanismView(new PipingFailureMechanism(), assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -445,8 +439,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var view = new PipingFailureMechanismView(new PipingFailureMechanism(), assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -482,8 +475,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var view = new PipingFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
             var surfaceLine = new PipingSurfaceLine(string.Empty);
@@ -527,8 +519,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var view = new PipingFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -560,8 +551,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var view = new PipingFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -604,8 +594,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var view = new PipingFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -643,8 +632,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var view = new PipingFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             var surfaceLineA = new PipingSurfaceLine(string.Empty);
@@ -727,8 +715,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var view = new PipingFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -780,8 +767,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var view = new PipingFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -833,8 +819,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var view = new PipingFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -886,8 +871,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var view = new PipingFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -924,8 +908,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var view = new PipingFailureMechanismView(new PipingFailureMechanism(), assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -992,6 +975,12 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var actualProbabilisticCalculationsData = (MapLineData) mapDataList[updatedProbabilisticCalculationsIndex];
             Assert.AreEqual("Probabilistische berekeningen", actualProbabilisticCalculationsData.Name);
+        }
+
+        private void ShowView(Control view)
+        {
+            testForm.Controls.Add(view);
+            testForm.Show();
         }
 
         private static void AssertSurfaceLinesMapData(IEnumerable<PipingSurfaceLine> surfaceLines, MapData mapData)
