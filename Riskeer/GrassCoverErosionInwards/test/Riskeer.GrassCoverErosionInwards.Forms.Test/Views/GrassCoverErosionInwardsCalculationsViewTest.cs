@@ -72,9 +72,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.AreEqual("Genereer &berekeningen...", button.Text);
-
-            var label = (Label) new ControlTester("warningText").TheObject;
-            Assert.AreEqual("Als u het dijkprofiel van een berekening wijzigt kan de berekening in een ander vak komen te liggen.", label.Text);
         }
 
         [Test]
@@ -710,39 +707,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Then
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             mocks.VerifyAll(); // No observer notified
-        }
-
-        [Test]
-        public void GivenCalculationsView_WhenSelectingProfileOutsideSection_ThenRowIsCorrectlyRemovedFromView()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
-            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
-            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            // Precondition
-            Assert.AreEqual(2, dataGridView.RowCount);
-            Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
-
-            // When
-            DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[dikeProfileColumnIndex];
-            dataGridView.CurrentCell = dataGridViewCell;
-            dataGridView.BeginEdit(false);
-            dataGridViewCell.Value = new DataGridViewComboBoxItemWrapper<DikeProfile>(
-                DikeProfileTestFactory.CreateDikeProfile(new Point2D(20.0, 0.0)));
-            dataGridView.EndEdit();
-
-            // Then
-            Assert.AreEqual(1, dataGridView.RowCount);
-            Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
         }
 
         [Test]

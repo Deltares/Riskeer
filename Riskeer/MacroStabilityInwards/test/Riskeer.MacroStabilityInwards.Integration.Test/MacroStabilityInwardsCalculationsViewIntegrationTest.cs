@@ -58,13 +58,11 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
                 form.Show();
 
                 // Obtain some relevant controls
-                var listBox = (ListBox) new ControlTester("listBox").TheObject;
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                // Import failure mechanism sections and ensure the listbox is updated
+                // Import failure mechanism sections
                 DataImportHelper.ImportReferenceLine(assessmentSection);
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
-                Assert.AreEqual(283, listBox.Items.Count);
 
                 // Import surface lines
                 DataImportHelper.ImportMacroStabilityInwardsSurfaceLines(assessmentSection);
@@ -74,25 +72,25 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
                 {
                     InputParameters =
                     {
-                        SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(sl => sl.Name == "PK001_0001")
+                        SurfaceLine = failureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001")
                     }
                 };
                 var calculation2 = new MacroStabilityInwardsCalculationScenario
                 {
                     InputParameters =
                     {
-                        SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(sl => sl.Name == "PK001_0001")
+                        SurfaceLine = failureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001")
                     }
                 };
 
-                // Add a calculation and ensure it is shown in the data grid view after selecting the corresponding dike section
-                assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(calculation1);
-                listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_22");
+                // Add a calculation and ensure it is shown in the data grid view
+                failureMechanism.CalculationsGroup.Children.Add(calculation1);
+                failureMechanism.CalculationsGroup.NotifyObservers();
                 Assert.AreEqual(1, dataGridView.Rows.Count);
 
                 // Import soil models and profiles and ensure the corresponding combobox items are updated
                 DataImportHelper.ImportMacroStabilityInwardsStochasticSoilModels(assessmentSection);
-                MacroStabilityInwardsStochasticSoilModelCollection stochasticSoilModelCollection = assessmentSection.MacroStabilityInwards.StochasticSoilModels;
+                MacroStabilityInwardsStochasticSoilModelCollection stochasticSoilModelCollection = failureMechanism.StochasticSoilModels;
                 calculation1.InputParameters.StochasticSoilModel = stochasticSoilModelCollection.First(sl => sl.Name == "PK001_0001_Stability");
                 Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items.Count);
                 Assert.AreEqual("PK001_0001_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
@@ -106,8 +104,8 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
 
                 // Add group and ensure the data grid view is not changed
                 var nestedCalculationGroup = new CalculationGroup();
-                assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(nestedCalculationGroup);
-                assessmentSection.MacroStabilityInwards.CalculationsGroup.NotifyObservers();
+                failureMechanism.CalculationsGroup.Children.Add(nestedCalculationGroup);
+                failureMechanism.CalculationsGroup.NotifyObservers();
                 Assert.AreEqual(1, dataGridView.Rows.Count);
 
                 // Add another, nested calculation and ensure the data grid view is updated
@@ -115,30 +113,19 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
                 nestedCalculationGroup.NotifyObservers();
                 Assert.AreEqual(2, dataGridView.Rows.Count);
 
-                // Add another, nested calculation without surface line and ensure the data grid view is updated when the surface line is set.
-                var calculation3 = new MacroStabilityInwardsCalculationScenario();
-                nestedCalculationGroup.Children.Add(calculation3);
-                nestedCalculationGroup.NotifyObservers();
-                Assert.AreEqual(2, dataGridView.Rows.Count);
-
-                calculation3.InputParameters.SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(sl => sl.Name == "PK001_0001");
-                calculation3.InputParameters.NotifyObservers();
-                Assert.AreEqual(3, dataGridView.Rows.Count);
-
                 // Change the name of the first calculation and ensure the data grid view is updated
                 calculation1.Name = "New name";
                 calculation1.NotifyObservers();
                 Assert.AreEqual("New name", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
 
                 // Add another calculation and assign all soil models
-                var calculation4 = new MacroStabilityInwardsCalculationScenario();
-                assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(calculation4);
-                assessmentSection.MacroStabilityInwards.CalculationsGroup.NotifyObservers();
-                calculation4.InputParameters.SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(sl => sl.Name == "PK001_0001");
-                calculation4.InputParameters.NotifyObservers();
-                Assert.AreEqual(4, dataGridView.Rows.Count);
+                var calculation3 = new MacroStabilityInwardsCalculationScenario();
+                failureMechanism.CalculationsGroup.Children.Add(calculation3);
+                failureMechanism.CalculationsGroup.NotifyObservers();
+                calculation3.InputParameters.SurfaceLine = failureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
+                calculation3.InputParameters.NotifyObservers();
+                Assert.AreEqual(3, dataGridView.Rows.Count);
 
-                listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_22");
                 calculation1.InputParameters.StochasticSoilModel = stochasticSoilModelCollection[0];
                 calculation1.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[0].StochasticSoilProfiles.First();
                 calculation1.InputParameters.NotifyObservers();
@@ -146,55 +133,36 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
                 Assert.AreEqual("W1-6_0_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
                 Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
 
-                listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_19");
-                calculation2.InputParameters.SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(sl => sl.Name == "PK001_0002");
+                calculation2.InputParameters.SurfaceLine = failureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0002");
                 calculation2.InputParameters.StochasticSoilModel = stochasticSoilModelCollection[1];
                 calculation2.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[1].StochasticSoilProfiles.First();
                 calculation2.InputParameters.NotifyObservers();
-                Assert.AreEqual("PK001_0002_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
-                Assert.AreEqual("W1-6_4_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+                Assert.AreEqual("PK001_0002_Stability", dataGridView.Rows[1].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
+                Assert.AreEqual("W1-6_4_1D1", dataGridView.Rows[1].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
 
-                listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_16");
-                calculation3.InputParameters.SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(sl => sl.Name == "PK001_0003");
+                calculation3.InputParameters.SurfaceLine = failureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0003");
                 calculation3.InputParameters.StochasticSoilModel = stochasticSoilModelCollection[2];
                 calculation3.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[2].StochasticSoilProfiles.First();
                 calculation3.InputParameters.NotifyObservers();
-                Assert.AreEqual("PK001_0003_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
-                Assert.AreEqual("W1-7_0_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
-
-                listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_8");
-                calculation4.InputParameters.SurfaceLine = assessmentSection.MacroStabilityInwards.SurfaceLines.First(sl => sl.Name == "PK001_0004");
-                calculation4.InputParameters.StochasticSoilModel = stochasticSoilModelCollection[3];
-                calculation4.InputParameters.StochasticSoilProfile = stochasticSoilModelCollection[3].StochasticSoilProfiles.First();
-                calculation4.InputParameters.NotifyObservers();
-                Assert.AreEqual("PK001_0004_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
-                Assert.AreEqual("W1-8_6_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+                Assert.AreEqual("PK001_0003_Stability", dataGridView.Rows[2].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
+                Assert.AreEqual("W1-7_0_1D1", dataGridView.Rows[2].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[2].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
 
                 // Update stochastic soil models
                 DataUpdateHelper.UpdateMacroStabilityInwardsStochasticSoilModels(assessmentSection);
 
-                listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_22");
                 Assert.AreEqual("PK001_0001_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
                 Assert.AreEqual("W1-6_0_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
                 Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
 
-                listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_19");
-                Assert.AreEqual("PK001_0002_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
-                Assert.AreEqual("W1-6_4_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+                Assert.AreEqual("PK001_0002_Stability", dataGridView.Rows[1].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
+                Assert.AreEqual("W1-6_4_1D1", dataGridView.Rows[1].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
 
-                listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_16");
-                Assert.AreEqual("PK001_0003_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
-                Assert.AreEqual("W1-7_0_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
-
-                listBox.SelectedItem = assessmentSection.MacroStabilityInwards.Sections.First(s => s.Name == "6-3_8");
-                Assert.AreEqual("PK001_0004_Stability", dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
-                Assert.AreEqual("W1-8_6_1D1", dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[0].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+                Assert.AreEqual("PK001_0003_Stability", dataGridView.Rows[2].Cells[stochasticSoilModelsColumnIndex].FormattedValue);
+                Assert.AreEqual("W1-7_0_1D1", dataGridView.Rows[2].Cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+                Assert.AreEqual(GetFormattedProbabilityValue(100), dataGridView.Rows[2].Cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
             }
         }
 

@@ -92,11 +92,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             var soilProfilesCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[stochasticSoilProfilesColumnIndex];
             DataGridViewComboBoxCell.ObjectCollection soilProfilesComboboxItems = soilProfilesCombobox.Items;
-            Assert.AreEqual(0, soilProfilesComboboxItems.Count); // Row dependent
+            Assert.AreEqual(1, soilProfilesComboboxItems.Count); // Row dependent
 
             var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
             DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
-            Assert.AreEqual(0, hydraulicBoundaryLocationComboboxItems.Count); // Row dependent
+            Assert.AreEqual(1, hydraulicBoundaryLocationComboboxItems.Count); // Row dependent
         }
 
         [Test]
@@ -519,64 +519,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(1, refreshed);
             var cell = (DataGridViewTextBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
             Assert.AreEqual(GetFormattedProbabilityValue(50), cell.FormattedValue);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenCalculationsViewWithCalculations_WhenSurfaceLineLocatedOutsideSectionAfterUpdateAndObserversNotified_ThenDataGridViewUpdated()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
-            CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
-
-            MacroStabilityInwardsCalculationsView view = ShowMacroStabilityInwardsCalculationsView(calculationGroup, failureMechanism, assessmentSection);
-
-            var calculation = (MacroStabilityInwardsCalculationScenario) calculationGroup.Children[0];
-
-            DataGridViewControl dataGridView = view.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
-            ListBox listBox = view.Controls.Find("listBox", true).OfType<ListBox>().First();
-
-            // Precondition
-            listBox.SelectedIndex = 0;
-            Assert.AreEqual(2, dataGridView.Rows.Count);
-            Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
-
-            listBox.SelectedIndex = 1;
-            Assert.AreEqual(1, dataGridView.Rows.Count);
-            Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-
-            MacroStabilityInwardsSurfaceLine surfaceLineToChange = calculation.InputParameters.SurfaceLine;
-            var updatedSurfaceLine = new MacroStabilityInwardsSurfaceLine(surfaceLineToChange.Name)
-            {
-                ReferenceLineIntersectionWorldPoint = new Point2D(9.0, 0.0)
-            };
-            updatedSurfaceLine.SetGeometry(new[]
-            {
-                new Point3D(9.0, 5.0, 0.0),
-                new Point3D(9.0, 0.0, 1.0),
-                new Point3D(9.0, -5.0, 0.0)
-            });
-
-            // When
-            surfaceLineToChange.CopyProperties(updatedSurfaceLine);
-            surfaceLineToChange.NotifyObservers();
-
-            // Then
-            listBox.SelectedIndex = 0;
-            Assert.AreEqual(1, dataGridView.Rows.Count);
-            Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-
-            listBox.SelectedIndex = 1;
-            Assert.AreEqual(2, dataGridView.Rows.Count);
-            Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
 
             mocks.VerifyAll();
         }
