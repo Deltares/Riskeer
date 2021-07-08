@@ -61,6 +61,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         private const int hydraulicBoundaryLocationsObserverIndex = 1;
         private const int dikeProfilesObserverIndex = 2;
         private const int foreshoreProfileObserverIndex = 3;
+        private const int calculationObserverIndex = 4;
 
         private Form testForm;
 
@@ -561,6 +562,132 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
+        public void GivenViewWithCalculationGroupData_WhenCalculationGroupUpdatedAndNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var calculationA = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.3, 1.3)),
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                }
+            };
+            var calculationB = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.5, 1.5)),
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                }
+            };
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+
+            var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+
+            testForm.Controls.Add(view);
+            testForm.Show();
+
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+
+            var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+            var mocks = new MockRepository();
+            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
+            mocks.ReplayAll();
+
+            // When
+            failureMechanism.CalculationsGroup.Children.Add(calculationB);
+            failureMechanism.CalculationsGroup.NotifyObservers();
+
+            // Then
+            AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenViewWithCalculationInputData_WhenCalculationInputUpdatedAndNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var calculationA = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.3, 1.3)),
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                }
+            };
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+
+            var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+
+            testForm.Controls.Add(view);
+            testForm.Show();
+
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+
+            var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+
+            var mocks = new MockRepository();
+            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
+            mocks.ReplayAll();
+
+            // When
+            calculationA.InputParameters.DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.5, 1.5));
+            calculationA.InputParameters.NotifyObservers();
+
+            // Then
+            AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenViewWithCalculationData_WhenCalculationUpdatedAndNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var calculationA = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.3, 1.3)),
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                }
+            };
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+
+            var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+
+            testForm.Controls.Add(view);
+            testForm.Show();
+
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+
+            var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+
+            var mocks = new MockRepository();
+            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
+            mocks.ReplayAll();
+
+            // When
+            calculationA.Name = "new name";
+            calculationA.NotifyObservers();
+
+            // Then 
+            AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(), calculationMapData);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
         public void NotifyObservers_DataUpdated_MapLayersSameOrder()
         {
             // Setup
@@ -691,7 +818,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var foreshoreProfilesMapData = (MapLineData) mapDataList[foreshoreProfilesIndex];
             var hydraulicBoundaryLocationsMapData = (MapPointData) mapDataList[hydraulicBoundaryLocationsIndex];
             var calculationsMapData = (MapLineData) mapDataList[calculationsIndex];
-            
+
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
             CollectionAssert.IsEmpty(dikeProfilesMapData.Features);
             CollectionAssert.IsEmpty(foreshoreProfilesMapData.Features);
