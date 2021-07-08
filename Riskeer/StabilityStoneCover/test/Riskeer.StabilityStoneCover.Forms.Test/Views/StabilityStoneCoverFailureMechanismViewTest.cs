@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -77,7 +78,22 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
         private const int tailorMadeAssemblyObserverIndex = 9;
         private const int combinedAssemblyObserverIndex = 10;
 
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+        
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -86,26 +102,28 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new StabilityStoneCoverFailureMechanismView(null, assessmentSection);
+            void Call() => new StabilityStoneCoverFailureMechanismView(null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), null);
+            void Call() => new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -113,8 +131,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection))
-            {
+            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection);
+            
+            testForm.Controls.Add(view);
+            testForm.Show();
+                
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IMapView>(view);
@@ -127,24 +148,29 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 Assert.AreSame(view.Map, ((RiskeerMapControl) view.Controls[0]).MapControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
                 AssertEmptyMapData(view.Map.Data);
-            }
+            
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
             // Call
-            using (var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection))
-            {
+            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
+            
+            testForm.Controls.Add(view);
+            testForm.Show();
+            
                 // Assert
                 MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
-            }
+            
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
@@ -234,8 +260,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = expectedCombinedAssemblyCategory;
 
                 // Call
-                using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection))
-                {
+                var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection);
+            
+                testForm.Controls.Add(view);
+                testForm.Show();
+                
                     IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                     // Assert
@@ -261,11 +290,12 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                                                                       expectedCombinedAssemblyCategory,
                                                                       (MapDataCollection) mapDataList[assemblyResultsIndex],
                                                                       failureMechanism);
-                }
+                
             }
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -275,8 +305,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
             });
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection))
-            {
+            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
+            
+            testForm.Controls.Add(view);
+            testForm.Show();
+            
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
@@ -299,10 +332,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
                 mocks.VerifyAll();
-            }
+            
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         [TestCaseSource(typeof(MapViewTestHelper), nameof(MapViewTestHelper.GetCalculationFuncs))]
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
             Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
@@ -315,8 +349,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 hydraulicBoundaryLocation
             });
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection))
-            {
+            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
+            
+            testForm.Controls.Add(view);
+            testForm.Show();
+            
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
@@ -337,10 +374,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
                 mocks.ReplayAll();
-            }
+            
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithAssessmentSectionData_WhenAssessmentSectionUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -355,8 +393,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection))
-            {
+            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
+            
+            testForm.Controls.Add(view);
+            testForm.Show();
+            
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
@@ -376,10 +417,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 // Then
                 MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
                 mocks.VerifyAll();
-            }
+            
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -394,8 +436,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection))
-            {
+            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
+            
+            testForm.Controls.Add(view);
+            testForm.Show();
+            
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
@@ -419,17 +464,21 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 // Then
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
                 mocks.VerifyAll();
-            }
+            
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithFailureMechanismSectionsData_WhenFailureMechanismSectionsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
-            {
+            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            
+            testForm.Controls.Add(view);
+            testForm.Show();
+            
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 IEnumerable<MapData> sectionsCollection = ((MapDataCollection) map.Data.Collection.ElementAt(sectionsCollectionIndex)).Collection;
@@ -464,10 +513,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
                 mocks.VerifyAll();
-            }
+            
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithForeshoreProfileData_WhenForeshoreProfileUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -483,8 +533,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 foreshoreProfile
             }, "path");
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
-            {
+            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            
+            testForm.Controls.Add(view);
+            testForm.Show();
+            
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
@@ -509,10 +562,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 // Then
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
                 mocks.VerifyAll();
-            }
+            
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithForeshoreProfilesData_WhenForeshoreProfilesUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -526,8 +580,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 })
             }, "path");
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
-            {
+            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            
+            testForm.Controls.Add(view);
+            testForm.Show();
+            
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
@@ -554,10 +611,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 // Then
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
                 mocks.VerifyAll();
-            }
+            
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithCalculationGroupData_WhenCalculationGroupUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -572,8 +630,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
-            {
+            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            
+            testForm.Controls.Add(view);
+            testForm.Show();
+            
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
@@ -606,10 +667,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>(), calculationMapData);
                 mocks.VerifyAll();
-            }
+            
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithCalculationInputData_WhenCalculationInputUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -624,8 +686,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
-            {
+            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            
+            testForm.Controls.Add(view);
+            testForm.Show();
+            
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
@@ -650,10 +715,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>(), calculationMapData);
                 mocks.VerifyAll();
-            }
+            
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithCalculationData_WhenCalculationUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -668,8 +734,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
-            {
+            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            
+            testForm.Controls.Add(view);
+            testForm.Show();
+            
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 var mocks = new MockRepository();
@@ -694,10 +763,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 // Then
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>(), calculationMapData);
                 mocks.VerifyAll();
-            }
+            
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithAssemblyData_WhenFailureMechanismNotified_ThenMapDataUpdated()
         {
             // Given
@@ -720,8 +790,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 calculator.TailorMadeAssemblyCategoryOutput = originalTailorMadeAssemblyCategory;
                 calculator.CombinedAssemblyCategoryOutput = originalCombinedAssemblyCategory;
 
-                using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
-                {
+                var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            
+                testForm.Controls.Add(view);
+                testForm.Show();
+                
                     IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                     var mocks = new MockRepository();
@@ -763,11 +836,12 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                                                                       assemblyMapData,
                                                                       failureMechanism);
                     mocks.VerifyAll();
-                }
+                
             }
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithAssemblyData_WhenCalculationNotified_ThenMapDataUpdated()
         {
             // Given
@@ -793,8 +867,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 calculator.TailorMadeAssemblyCategoryOutput = originalTailorMadeAssemblyCategory;
                 calculator.CombinedAssemblyCategoryOutput = originalCombinedAssemblyCategory;
 
-                using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
-                {
+                var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            
+                testForm.Controls.Add(view);
+                testForm.Show();
+                
                     IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                     var mocks = new MockRepository();
@@ -834,11 +911,12 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                                                                       assemblyMapData,
                                                                       failureMechanism);
                     mocks.VerifyAll();
-                }
+                
             }
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithAssemblyData_WhenFailureMechanismSectionResultNotified_ThenMapDataUpdated()
         {
             // Given
@@ -861,8 +939,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 calculator.TailorMadeAssemblyCategoryOutput = originalTailorMadeAssemblyCategory;
                 calculator.CombinedAssemblyCategoryOutput = originalCombinedAssemblyCategory;
 
-                using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
-                {
+                var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            
+                testForm.Controls.Add(view);
+                testForm.Show();
+                
                     IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                     var mocks = new MockRepository();
@@ -901,11 +982,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                                                                       assemblyMapData,
                                                                       failureMechanism);
                     mocks.VerifyAll();
-                }
             }
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void UpdateObserver_DataUpdated_MapLayersSameOrder()
         {
             // Setup
@@ -919,8 +1000,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            using (var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection))
-            {
+            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection);
+            
+            testForm.Controls.Add(view);
+            testForm.Show();
+            
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
                 MapDataCollection mapData = map.Data;
@@ -980,7 +1064,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 
                 var actualCalculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
                 Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
-            }
         }
 
         private static void AssertCalculationsMapData(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations, MapData mapData)
