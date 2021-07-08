@@ -21,7 +21,8 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Controls.Views;
+using System.Threading;
+using System.Windows.Forms;
 using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
@@ -93,6 +94,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void CreateInstance_WithContext_ReturnPipingFailureMechanismView()
         {
             // Setup
@@ -102,14 +104,15 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var context = new PipingCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
-            using (IView view = info.CreateInstance(context))
+            using (var testForm = new Form())
+            using (var view = info.CreateInstance(context) as PipingFailureMechanismView)
             {
-                // Assert
-                Assert.IsInstanceOf<PipingFailureMechanismView>(view);
+                testForm.Controls.Add(view);
+                testForm.Show();
 
-                var failureMechanismView = (PipingFailureMechanismView) view;
-                Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
-                Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
+                // Assert
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
             }
         }
     }
