@@ -92,52 +92,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSectionStub();
-            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            using (var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, otherAssessmentSection);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismRelevant(bool isRelevant)
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism
-            {
-                IsRelevant = isRelevant
-            };
-
-            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
-
-            // Call
-            bool result = info.AdditionalDataCheck(context);
-
-            // Assert
-            Assert.AreEqual(isRelevant, result);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void CreateInstance_WithContext_ReturnMacroStabilityInwardsFailureMechanismView()
         {
             // Setup
