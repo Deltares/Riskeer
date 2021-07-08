@@ -30,6 +30,7 @@ All rights reserved.
                    xmlns:viewHost="clr-namespace:Core.Gui.Forms.ViewHost"
                    xmlns:backstage="clr-namespace:Core.Gui.Forms.Backstage"
                    xmlns:commands="clr-namespace:Core.Gui.Commands"
+                   TitleCharacterCasing="Normal"
                    mc:Ignorable="d" 
                    Width="1366"
                    Height="768"
