@@ -46,7 +46,7 @@ using Core.Gui.Forms.ViewHost;
 using Core.Gui.Selection;
 using Core.Gui.Settings;
 using FontFamily = System.Windows.Media.FontFamily;
-using FormsControl = System.Windows.Forms.Control;
+using UserControl = System.Windows.Forms.UserControl;
 
 namespace Core.Gui.Forms.Main
 {
@@ -628,15 +628,15 @@ namespace Core.Gui.Forms.Main
         private void OnViewOpened(object sender, ViewChangeEventArgs e)
         {
             var mapView = e.View as IMapView;
-            if (mapView != null && e.View is FormsControl mapControl)
+            if (mapView != null && e.View is UserControl mapUserControl)
             {
-                mapControl.VisibleChanged += MapViewVisibleChanged;
+                mapUserControl.VisibleChanged += MapViewVisibleChanged;
             }
 
             var chartView = e.View as IChartView;
-            if (chartView != null && e.View is FormsControl chartControl)
+            if (chartView != null && e.View is UserControl chartUserControl)
             {
-                chartControl.VisibleChanged += ChartViewVisibleChanged;
+                chartUserControl.VisibleChanged += ChartViewVisibleChanged;
             }
 
             UpdateComponentsForMapView(mapView);
@@ -655,7 +655,7 @@ namespace Core.Gui.Forms.Main
         /// </summary>
         private static void MapViewVisibleChanged(object sender, EventArgs e)
         {
-            var control = (FormsControl) sender;
+            var control = (UserControl) sender;
             if (control.Width != 0.0 && control.Height != 0.0)
             {
                 ((IMapView) control).Map.ZoomToVisibleLayers();
@@ -669,7 +669,7 @@ namespace Core.Gui.Forms.Main
         /// </summary>
         private static void ChartViewVisibleChanged(object sender, EventArgs e)
         {
-            var control = (FormsControl) sender;
+            var control = (UserControl) sender;
             if (control.Width != 0.0 && control.Height != 0.0)
             {
                 IChartControl chartControl = ((IChartView) control).Chart;

@@ -654,12 +654,9 @@ namespace Core.Gui.Test.Forms.Main
 
                 // When
                 gui.ViewHost.AddDocumentView(testMapView);
-                
-                testMapView.VisibleChanged += (sender, args) =>
-                {
-                    // Then
-                    Assert.AreNotEqual(initialExtents, map.ViewExtents);
-                };
+
+                // Then
+                Assert.AreNotEqual(initialExtents, map.ViewExtents);
             }
 
             mocks.VerifyAll();
