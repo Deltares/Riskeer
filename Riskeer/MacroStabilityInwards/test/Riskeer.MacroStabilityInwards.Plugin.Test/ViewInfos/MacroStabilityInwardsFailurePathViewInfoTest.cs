@@ -21,7 +21,8 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Controls.Views;
+using System.Threading;
+using System.Windows.Forms;
 using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
@@ -92,6 +93,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void CreateInstance_WithContext_ReturnMacroStabilityInwardsFailurePathView()
         {
             // Setup
@@ -101,14 +103,16 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var context = new MacroStabilityInwardsFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
-            IView view = info.CreateInstance(context);
+            using (var testForm = new Form())
+            using (var view = info.CreateInstance(context) as MacroStabilityInwardsFailurePathView)
+            {
+                testForm.Controls.Add(view);
+                testForm.Show();
 
-            // Assert
-            Assert.IsInstanceOf<MacroStabilityInwardsFailurePathView>(view);
-
-            var failureMechanismView = (MacroStabilityInwardsFailurePathView) view;
-            Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
-            Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
+                // Assert
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
+            }
         }
     }
 }
