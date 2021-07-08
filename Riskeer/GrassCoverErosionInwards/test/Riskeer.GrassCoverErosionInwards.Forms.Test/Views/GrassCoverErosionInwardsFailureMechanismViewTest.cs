@@ -116,8 +116,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Call
             var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             // Assert
             Assert.IsInstanceOf<UserControl>(view);
@@ -143,8 +142,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Call
             var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             // Assert
             MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
@@ -241,8 +239,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 // Call
                 var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, assessmentSection);
 
-                testForm.Controls.Add(view);
-                testForm.Show();
+                ShowView(view);
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -274,8 +271,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -317,8 +313,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -361,8 +356,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -404,8 +398,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -445,8 +438,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -486,8 +478,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -530,8 +521,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -586,8 +576,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -625,8 +614,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -665,8 +653,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -701,8 +688,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
-            testForm.Controls.Add(view);
-            testForm.Show();
+            ShowView(view);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -757,6 +743,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var actualCalculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
+        }
+
+        private void ShowView(Control view)
+        {
+            testForm.Controls.Add(view);
+            testForm.Show();
         }
 
         private static void AssertDikeProfiles(IEnumerable<DikeProfile> dikeProfiles, MapData mapData)
