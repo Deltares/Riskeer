@@ -173,6 +173,9 @@ namespace Riskeer.Piping.Forms.Views
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Creates the map data.
+        /// </summary>
         protected virtual void CreateMapData()
         {
             MapDataCollection = new MapDataCollection(PipingDataResources.PipingFailureMechanism_DisplayName);
@@ -202,6 +205,9 @@ namespace Riskeer.Piping.Forms.Views
             MapDataCollection.Add(semiProbabilisticCalculationsMapData);
         }
 
+        /// <summary>
+        /// Creates the observers.
+        /// </summary>
         protected virtual void CreateObservers()
         {
             failureMechanismObserver = new Observer(UpdateFailureMechanismMapData)
@@ -278,6 +284,9 @@ namespace Riskeer.Piping.Forms.Views
             };
         }
 
+        /// <summary>
+        /// Sets all map data features.
+        /// </summary>
         protected virtual void SetAllMapDataFeatures()
         {
             SetCalculationsMapData<SemiProbabilisticPipingCalculationScenario>(semiProbabilisticCalculationsMapData);
@@ -292,6 +301,9 @@ namespace Riskeer.Piping.Forms.Views
 
         #region Calculations MapData
 
+        /// <summary>
+        /// Updates the semi probabilistic calculations map data.
+        /// </summary>
         protected virtual void UpdateSemiProbabilisticCalculationsMapData()
         {
             SetCalculationsMapData<SemiProbabilisticPipingCalculationScenario>(semiProbabilisticCalculationsMapData);
@@ -347,6 +359,9 @@ namespace Riskeer.Piping.Forms.Views
 
         #region FailureMechanism MapData
 
+        /// <summary>
+        /// Updates the failure mechanism related map data.
+        /// </summary>
         protected virtual void UpdateFailureMechanismMapData()
         {
             SetSectionsMapData();
