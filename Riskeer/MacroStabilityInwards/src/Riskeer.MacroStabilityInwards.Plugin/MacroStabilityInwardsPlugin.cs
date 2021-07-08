@@ -250,6 +250,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 CreateInstance = context => new MacroStabilityInwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
 
+            yield return new ViewInfo<MacroStabilityInwardsFailurePathContext, MacroStabilityInwardsFailurePathView>
+            {
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
+                CreateInstance = context => new MacroStabilityInwardsFailurePathView(context.WrappedData, context.Parent)
+            };
+
             yield return new ViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>,
                 IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>,
@@ -623,8 +630,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         }
 
         private ContextMenuStrip CalculationsContextMenuStrip(MacroStabilityInwardsCalculationsContext context,
-                                                                         object parentData,
-                                                                         TreeViewControl treeViewControl)
+                                                              object parentData,
+                                                              TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -660,7 +667,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         #endregion
 
-         #region MacroStabilityInwardsFailurePathContext TreeNodeInfo
+        #region MacroStabilityInwardsFailurePathContext TreeNodeInfo
 
         private static object[] FailurePathChildNodeObjects(MacroStabilityInwardsFailurePathContext context)
         {

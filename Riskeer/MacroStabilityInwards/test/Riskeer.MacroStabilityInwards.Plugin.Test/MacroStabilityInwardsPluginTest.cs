@@ -158,13 +158,18 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(7, viewInfos.Length);
+                Assert.AreEqual(8, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(MacroStabilityInwardsCalculationsContext),
                     typeof(MacroStabilityInwardsFailureMechanismView));
 
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(MacroStabilityInwardsFailurePathContext),
+                    typeof(MacroStabilityInwardsFailurePathView));
+                
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>),
