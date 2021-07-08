@@ -98,7 +98,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         public GrassCoverErosionInwardsFailureMechanism FailureMechanism { get; }
 
         /// <summary>
-        /// Gets the assessment section.
+        /// Gets the <see cref="IAssessmentSection"/>.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; }
 
@@ -157,6 +157,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Creates the map data.
+        /// </summary>
         protected virtual void CreateMapData()
         {
             MapDataCollection = new MapDataCollection(GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsFailureMechanism_DisplayName);
@@ -174,6 +177,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             MapDataCollection.Add(calculationsMapData);
         }
 
+        /// <summary>
+        /// Creates the observers.
+        /// </summary>        
         protected virtual void CreateObservers()
         {
             assessmentSectionObserver = new Observer(UpdateUpdateReferenceLineMapData)
@@ -230,6 +236,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             };
         }
 
+        /// <summary>
+        /// Sets all map data features.
+        /// </summary>        
         protected virtual void SetAllMapDataFeatures()
         {
             SetCalculationsMapData();
@@ -241,6 +250,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         #region Calculations MapData
 
+        /// <summary>
+        /// Updates the calculations map data.
+        /// </summary>
         protected virtual void UpdateCalculationsMapData()
         {
             SetCalculationsMapData();
