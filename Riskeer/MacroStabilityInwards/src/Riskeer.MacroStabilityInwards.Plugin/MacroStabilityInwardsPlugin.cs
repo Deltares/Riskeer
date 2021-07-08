@@ -245,8 +245,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                CloseForData = CloseFailureMechanismViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new MacroStabilityInwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
 
@@ -455,16 +453,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         }
 
         #region ViewInfos
-
-        private static bool CloseFailureMechanismViewForData(MacroStabilityInwardsFailureMechanismView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as MacroStabilityInwardsFailureMechanism;
-
-            return assessmentSection != null
-                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
-                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
-        }
 
         private static bool CloseFailureMechanismResultViewForData(MacroStabilityInwardsFailureMechanismResultView view, object o)
         {
