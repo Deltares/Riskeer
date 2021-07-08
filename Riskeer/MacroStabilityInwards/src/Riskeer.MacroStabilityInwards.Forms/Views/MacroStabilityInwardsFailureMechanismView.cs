@@ -130,7 +130,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             base.OnLoad(e);
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             assessmentSectionObserver.Dispose();
@@ -159,6 +159,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Creates the map data.
+        /// </summary>
         protected virtual void CreateMapData()
         {
             MapDataCollection = new MapDataCollection(MacroStabilityInwardsDataResources.MacroStabilityInwardsFailureMechanism_DisplayName);
@@ -176,6 +179,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             MapDataCollection.Add(calculationsMapData);
         }
 
+        /// <summary>
+        /// Creates the observers.
+        /// </summary>   
         protected virtual void CreateObservers()
         {
             assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
@@ -236,6 +242,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             };
         }
 
+        /// <summary>
+        /// Sets all map data features.
+        /// </summary>
         protected virtual void SetAllMapDataFeatures()
         {
             SetCalculationsMapData();
@@ -248,6 +257,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         #region Calculations MapData
 
+        /// <summary>
+        /// Updates the calculations map data.
+        /// </summary>
         protected virtual void UpdateCalculationsMapData()
         {
             SetCalculationsMapData();
