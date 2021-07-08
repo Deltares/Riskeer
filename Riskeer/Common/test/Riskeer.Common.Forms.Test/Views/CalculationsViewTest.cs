@@ -44,7 +44,7 @@ using Riskeer.Common.Forms.Views;
 namespace Riskeer.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class CalculationsViewTest : NUnitFormTest
+    public class CalculationsViewTest
     {
         private const int nameColumnIndex = 0;
         private const int selectableHydraulicBoundaryLocationsColumnIndex = 1;
@@ -129,17 +129,15 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        public override void Setup()
+        [SetUp]
+        public void SetUp()
         {
-            base.Setup();
-
             testForm = new Form();
         }
 
-        public override void TearDown()
+        [TearDown]
+        public void TearDown()
         {
-            base.TearDown();
-
             testForm.Dispose();
         }
 
@@ -496,10 +494,9 @@ namespace Riskeer.Common.Forms.Test.Views
             calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
 
             // Call
-            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(0, 1));
+            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[0];
 
             // Assert
             Assert.AreEqual(1, selectionChangedCount);
