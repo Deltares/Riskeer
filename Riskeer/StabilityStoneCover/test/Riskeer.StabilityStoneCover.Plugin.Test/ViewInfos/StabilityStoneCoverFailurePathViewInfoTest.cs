@@ -37,7 +37,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class StabilityStoneCoverFailureMechanismViewInfoTest
+    public class StabilityStoneCoverFailurePathViewInfoTest
     {
         private MockRepository mocks;
         private StabilityStoneCoverPlugin plugin;
@@ -48,7 +48,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new StabilityStoneCoverPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StabilityStoneCoverFailureMechanismView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StabilityStoneCoverFailurePathView));
         }
 
         [TearDown]
@@ -61,8 +61,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(StabilityStoneCoverCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(StabilityStoneCoverCalculationsContext), info.ViewDataType);
+            Assert.AreEqual(typeof(StabilityStoneCoverFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(StabilityStoneCoverFailurePathContext), info.ViewDataType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new StabilityStoneCoverCalculationsContext(stabilityStoneCoverFailureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverFailurePathContext(stabilityStoneCoverFailureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -94,18 +94,18 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void CreateInstance_WithContext_ReturnStabilityStoneCoverFailureMechanismView()
+        public void CreateInstance_WithContext_ReturnStabilityStoneCoverFailurePathView()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             using (var testForm = new Form())
             {
-                var view = info.CreateInstance(context) as StabilityStoneCoverFailureMechanismView;
+                var view = info.CreateInstance(context) as StabilityStoneCoverFailurePathView;
 
                 testForm.Controls.Add(view);
                 testForm.Show();

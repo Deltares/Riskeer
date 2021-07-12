@@ -81,12 +81,17 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, viewInfos.Length);
+                Assert.AreEqual(4, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(StabilityStoneCoverCalculationsContext),
                     typeof(StabilityStoneCoverFailureMechanismView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(StabilityStoneCoverFailurePathContext),
+                    typeof(StabilityStoneCoverFailurePathView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

@@ -49,16 +49,34 @@ using Riskeer.StabilityStoneCover.Forms.Views;
 namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 {
     [TestFixture]
-    public class StabilityStoneCoverFailureMechanismViewTest
+    public class StabilityStoneCoverFailurePathViewTest
     {
         private const int referenceLineIndex = 0;
-        private const int hydraulicBoundaryLocationsIndex = 1;
-        private const int foreshoreProfilesIndex = 2;
-        private const int calculationsIndex = 3;
+        private const int sectionsCollectionIndex = 1;
+        private const int assemblyResultsIndex = 2;
+        private const int hydraulicBoundaryLocationsIndex = 3;
+        private const int foreshoreProfilesIndex = 4;
+        private const int calculationsIndex = 5;
+
+        private const int sectionsIndex = 0;
+        private const int sectionsStartPointIndex = 1;
+        private const int sectionsEndPointIndex = 2;
+
+        private const int tailorMadeAssemblyIndex = 0;
+        private const int detailedAssemblyIndex = 1;
+        private const int simpleAssemblyIndex = 2;
+        private const int combinedAssemblyIndex = 3;
 
         private const int hydraulicBoundaryLocationsObserverIndex = 1;
         private const int foreshoreProfileObserverIndex = 2;
         private const int calculationObserverIndex = 3;
+        private const int sectionsObserverIndex = 4;
+        private const int sectionsStartPointObserverIndex = 5;
+        private const int sectionsEndPointObserverIndex = 6;
+        private const int simpleAssemblyObserverIndex = 7;
+        private const int detailedAssemblyObserverIndex = 8;
+        private const int tailorMadeAssemblyObserverIndex = 9;
+        private const int combinedAssemblyObserverIndex = 10;
 
         private Form testForm;
 
@@ -76,36 +94,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new StabilityStoneCoverFailureMechanismView(null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -113,7 +101,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection);
+            var view = new StabilityStoneCoverFailurePathView(failureMechanism, assessmentSection);
 
             ShowView(view);
 
@@ -129,22 +117,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             Assert.AreSame(view.Map, ((RiskeerMapControl) view.Controls[0]).MapControl);
             Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
             AssertEmptyMapData(view.Map.Data);
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
-
-            // Call
-            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
-
-            ShowView(view);
-
-            // Assert
-            MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
         }
 
         [Test]
@@ -238,7 +210,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = expectedCombinedAssemblyCategory;
 
                 // Call
-                var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection);
+                var view = new StabilityStoneCoverFailurePathView(failureMechanism, assessmentSection);
 
                 testForm.Controls.Add(view);
                 testForm.Show();
@@ -250,12 +222,24 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
                 List<MapData> mapDataList = mapData.Collection.ToList();
-                Assert.AreEqual(4, mapDataList.Count);
+                Assert.AreEqual(6, mapDataList.Count);
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
+
+                IEnumerable<MapData> sectionsCollection = ((MapDataCollection) mapDataList[sectionsCollectionIndex]).Collection;
+                MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsIndex));
+                MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsStartPointIndex));
+                MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsEndPointIndex));
 
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>(), mapDataList[calculationsIndex]);
+
+                MapDataTestHelper.AssertAssemblyMapDataCollection(expectedSimpleAssembly.Group,
+                                                                  expectedDetailedAssemblyCategory,
+                                                                  expectedTailorMadeAssemblyCategory,
+                                                                  expectedCombinedAssemblyCategory,
+                                                                  (MapDataCollection) mapDataList[assemblyResultsIndex],
+                                                                  failureMechanism);
             }
         }
 
@@ -270,7 +254,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
             });
 
-            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
+            var view = new StabilityStoneCoverFailurePathView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
 
             ShowView(view);
 
@@ -312,7 +296,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 hydraulicBoundaryLocation
             });
 
-            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
+            var view = new StabilityStoneCoverFailurePathView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
 
             ShowView(view);
 
@@ -354,7 +338,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
+            var view = new StabilityStoneCoverFailurePathView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
 
             ShowView(view);
 
@@ -395,7 +379,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
+            var view = new StabilityStoneCoverFailurePathView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
 
             ShowView(view);
 
@@ -426,6 +410,53 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
+        public void GivenViewWithFailureMechanismSectionsData_WhenFailureMechanismSectionsUpdatedAndNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            var view = new StabilityStoneCoverFailurePathView(failureMechanism, new AssessmentSectionStub());
+
+            ShowView(view);
+
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+
+            IEnumerable<MapData> sectionsCollection = ((MapDataCollection) map.Data.Collection.ElementAt(sectionsCollectionIndex)).Collection;
+            var sectionMapData = (MapLineData) sectionsCollection.ElementAt(sectionsIndex);
+            var sectionStartsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsStartPointIndex);
+            var sectionsEndsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsEndPointIndex);
+
+            var mocks = new MockRepository();
+            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+            observers[sectionsObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[sectionsStartPointObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[sectionsEndPointObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+            mocks.ReplayAll();
+
+            // When
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection(string.Empty, new[]
+                {
+                    new Point2D(1, 2),
+                    new Point2D(1, 2)
+                })
+            });
+            failureMechanism.NotifyObservers();
+
+            // Then
+            MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
+            MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
+            MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithForeshoreProfileData_WhenForeshoreProfileUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -441,7 +472,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 foreshoreProfile
             }, "path");
 
-            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            var view = new StabilityStoneCoverFailurePathView(failureMechanism, new AssessmentSectionStub());
 
             ShowView(view);
 
@@ -486,7 +517,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 })
             }, "path");
 
-            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            var view = new StabilityStoneCoverFailurePathView(failureMechanism, new AssessmentSectionStub());
 
             ShowView(view);
 
@@ -534,7 +565,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
 
-            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            var view = new StabilityStoneCoverFailurePathView(failureMechanism, new AssessmentSectionStub());
 
             ShowView(view);
 
@@ -543,6 +574,10 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var mocks = new MockRepository();
             IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
             observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
             mocks.ReplayAll();
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
@@ -584,7 +619,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
 
-            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            var view = new StabilityStoneCoverFailurePathView(failureMechanism, new AssessmentSectionStub());
 
             ShowView(view);
 
@@ -593,6 +628,10 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var mocks = new MockRepository();
             IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
             observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
             mocks.ReplayAll();
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
@@ -626,7 +665,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
 
-            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
+            var view = new StabilityStoneCoverFailurePathView(failureMechanism, new AssessmentSectionStub());
 
             ShowView(view);
 
@@ -635,6 +674,10 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var mocks = new MockRepository();
             IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
             observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+            observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
             mocks.ReplayAll();
 
             var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
@@ -654,10 +697,229 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
+        public void GivenViewWithAssemblyData_WhenFailureMechanismNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var random = new Random(39);
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
+
+            var originalSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var originalDetailedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var originalTailorMadeAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var originalCombinedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
+                calculator.DetailedAssessmentAssemblyGroupOutput = originalDetailedAssemblyCategory;
+                calculator.TailorMadeAssemblyCategoryOutput = originalTailorMadeAssemblyCategory;
+                calculator.CombinedAssemblyCategoryOutput = originalCombinedAssemblyCategory;
+
+                var view = new StabilityStoneCoverFailurePathView(failureMechanism, new AssessmentSectionStub());
+
+                testForm.Controls.Add(view);
+                testForm.Show();
+
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[sectionsObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsStartPointObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[sectionsEndPointObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                // Precondition
+                var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
+                MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly.Group,
+                                                                  originalDetailedAssemblyCategory,
+                                                                  originalTailorMadeAssemblyCategory,
+                                                                  originalCombinedAssemblyCategory,
+                                                                  assemblyMapData,
+                                                                  failureMechanism);
+
+                // When
+                var updatedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                var updatedDetailedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+                var updatedTailorMadeAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+                var updatedCombinedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+                calculator.SimpleAssessmentAssemblyOutput = updatedSimpleAssembly;
+                calculator.DetailedAssessmentAssemblyGroupOutput = updatedDetailedAssemblyCategory;
+                calculator.TailorMadeAssemblyCategoryOutput = updatedTailorMadeAssemblyCategory;
+                calculator.CombinedAssemblyCategoryOutput = updatedCombinedAssemblyCategory;
+                failureMechanism.NotifyObservers();
+
+                // Then
+                MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly.Group,
+                                                                  updatedDetailedAssemblyCategory,
+                                                                  updatedTailorMadeAssemblyCategory,
+                                                                  updatedCombinedAssemblyCategory,
+                                                                  assemblyMapData,
+                                                                  failureMechanism);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenViewWithAssemblyData_WhenCalculationNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var random = new Random(39);
+            var calculationA = new StabilityStoneCoverWaveConditionsCalculation();
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
+            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
+
+            var originalSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var originalDetailedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var originalTailorMadeAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var originalCombinedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
+                calculator.DetailedAssessmentAssemblyGroupOutput = originalDetailedAssemblyCategory;
+                calculator.TailorMadeAssemblyCategoryOutput = originalTailorMadeAssemblyCategory;
+                calculator.CombinedAssemblyCategoryOutput = originalCombinedAssemblyCategory;
+
+                var view = new StabilityStoneCoverFailurePathView(failureMechanism, new AssessmentSectionStub());
+
+                testForm.Controls.Add(view);
+                testForm.Show();
+
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                // Precondition
+                var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
+                MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly.Group,
+                                                                  originalDetailedAssemblyCategory,
+                                                                  originalTailorMadeAssemblyCategory,
+                                                                  originalCombinedAssemblyCategory,
+                                                                  assemblyMapData,
+                                                                  failureMechanism);
+
+                // When
+                var updatedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                var updatedDetailedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+                var updatedTailorMadeAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+                var updatedCombinedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+                calculator.SimpleAssessmentAssemblyOutput = updatedSimpleAssembly;
+                calculator.DetailedAssessmentAssemblyGroupOutput = updatedDetailedAssemblyCategory;
+                calculator.TailorMadeAssemblyCategoryOutput = updatedTailorMadeAssemblyCategory;
+                calculator.CombinedAssemblyCategoryOutput = updatedCombinedAssemblyCategory;
+                calculationA.NotifyObservers();
+
+                // Then
+                MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly.Group,
+                                                                  updatedDetailedAssemblyCategory,
+                                                                  updatedTailorMadeAssemblyCategory,
+                                                                  updatedCombinedAssemblyCategory,
+                                                                  assemblyMapData,
+                                                                  failureMechanism);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenViewWithAssemblyData_WhenFailureMechanismSectionResultNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var random = new Random(39);
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
+
+            var originalSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var originalDetailedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var originalTailorMadeAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var originalCombinedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
+                calculator.DetailedAssessmentAssemblyGroupOutput = originalDetailedAssemblyCategory;
+                calculator.TailorMadeAssemblyCategoryOutput = originalTailorMadeAssemblyCategory;
+                calculator.CombinedAssemblyCategoryOutput = originalCombinedAssemblyCategory;
+
+                var view = new StabilityStoneCoverFailurePathView(failureMechanism, new AssessmentSectionStub());
+
+                testForm.Controls.Add(view);
+                testForm.Show();
+
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+
+                var mocks = new MockRepository();
+                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
+                mocks.ReplayAll();
+
+                // Precondition
+                var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
+                MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly.Group,
+                                                                  originalDetailedAssemblyCategory,
+                                                                  originalTailorMadeAssemblyCategory,
+                                                                  originalCombinedAssemblyCategory,
+                                                                  assemblyMapData,
+                                                                  failureMechanism);
+
+                // When
+                var updatedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                var updatedDetailedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+                var updatedTailorMadeAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+                var updatedCombinedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+                calculator.SimpleAssessmentAssemblyOutput = updatedSimpleAssembly;
+                calculator.DetailedAssessmentAssemblyGroupOutput = updatedDetailedAssemblyCategory;
+                calculator.TailorMadeAssemblyCategoryOutput = updatedTailorMadeAssemblyCategory;
+                calculator.CombinedAssemblyCategoryOutput = updatedCombinedAssemblyCategory;
+                failureMechanism.SectionResults.First().NotifyObservers();
+
+                // Then
+                MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly.Group,
+                                                                  updatedDetailedAssemblyCategory,
+                                                                  updatedTailorMadeAssemblyCategory,
+                                                                  updatedCombinedAssemblyCategory,
+                                                                  assemblyMapData,
+                                                                  failureMechanism);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
         public void UpdateObserver_DataUpdated_MapLayersSameOrder()
         {
             // Setup
-            const int updatedReferenceLineLayerIndex = referenceLineIndex + 3;
+            const int updatedReferenceLineLayerIndex = referenceLineIndex + 5;
+            const int updatedSectionsCollectionLayerIndex = sectionsCollectionIndex - 1;
+            const int updatedAssemblyResultsCollectionIndex = assemblyResultsIndex - 1;
             const int updatedHydraulicLocationsLayerIndex = hydraulicBoundaryLocationsIndex - 1;
             const int updatedForeshoreProfilesLayerIndex = foreshoreProfilesIndex - 1;
             const int updatedCalculationsIndex = calculationsIndex - 1;
@@ -665,7 +927,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection);
+            var view = new StabilityStoneCoverFailurePathView(failureMechanism, assessmentSection);
 
             ShowView(view);
 
@@ -682,6 +944,12 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             // Precondition
             var referenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
             Assert.AreEqual("Referentielijn", referenceLineData.Name);
+
+            var sectionsData = (MapDataCollection) mapDataList[updatedSectionsCollectionLayerIndex];
+            Assert.AreEqual("Vakindeling", sectionsData.Name);
+
+            var assemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsCollectionIndex];
+            Assert.AreEqual("Toetsoordeel", assemblyResultsData.Name);
 
             var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
             Assert.AreEqual("Hydraulische belastingen", hydraulicLocationsData.Name);
@@ -707,6 +975,12 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             // Assert
             var actualReferenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
             Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
+
+            var actualSectionsData = (MapDataCollection) mapDataList[updatedSectionsCollectionLayerIndex];
+            Assert.AreEqual("Vakindeling", actualSectionsData.Name);
+
+            var actualAssemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsCollectionIndex];
+            Assert.AreEqual("Toetsoordeel", actualAssemblyResultsData.Name);
 
             var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
             Assert.AreEqual("Hydraulische belastingen", actualHydraulicLocationsData.Name);
@@ -754,7 +1028,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
-            Assert.AreEqual(4, mapDataList.Count);
+            Assert.AreEqual(6, mapDataList.Count);
 
             var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
             var foreshoreProfilesMapData = (MapLineData) mapDataList[foreshoreProfilesIndex];
@@ -770,6 +1044,43 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             Assert.AreEqual("Voorlandprofielen", foreshoreProfilesMapData.Name);
             Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
             Assert.AreEqual("Berekeningen", calculationsMapData.Name);
+
+            var sectionsMapDataCollection = (MapDataCollection) mapDataList[sectionsCollectionIndex];
+            Assert.AreEqual("Vakindeling", sectionsMapDataCollection.Name);
+            List<MapData> sectionsDataList = sectionsMapDataCollection.Collection.ToList();
+            Assert.AreEqual(3, sectionsDataList.Count);
+
+            var sectionsMapData = (MapLineData) sectionsDataList[sectionsIndex];
+            var sectionsStartPointMapData = (MapPointData) sectionsDataList[sectionsStartPointIndex];
+            var sectionsEndPointMapData = (MapPointData) sectionsDataList[sectionsEndPointIndex];
+
+            CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
+            CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
+            CollectionAssert.IsEmpty(sectionsMapData.Features);
+
+            Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
+            Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
+            Assert.AreEqual("Vakindeling", sectionsMapData.Name);
+
+            var assemblyResultsMapDataCollection = (MapDataCollection) mapDataList[assemblyResultsIndex];
+            Assert.AreEqual("Toetsoordeel", assemblyResultsMapDataCollection.Name);
+            List<MapData> assemblyMapDataList = assemblyResultsMapDataCollection.Collection.ToList();
+            Assert.AreEqual(4, assemblyMapDataList.Count);
+
+            var combinedAssemblyMapData = (MapLineData) assemblyMapDataList[combinedAssemblyIndex];
+            var simpleAssemblyMapData = (MapLineData) assemblyMapDataList[simpleAssemblyIndex];
+            var detailedAssemblyMapData = (MapLineData) assemblyMapDataList[detailedAssemblyIndex];
+            var tailorMadeAssemblyMapData = (MapLineData) assemblyMapDataList[tailorMadeAssemblyIndex];
+
+            CollectionAssert.IsEmpty(combinedAssemblyMapData.Features);
+            CollectionAssert.IsEmpty(simpleAssemblyMapData.Features);
+            CollectionAssert.IsEmpty(detailedAssemblyMapData.Features);
+            CollectionAssert.IsEmpty(tailorMadeAssemblyMapData.Features);
+
+            Assert.AreEqual("Gecombineerd toetsoordeel", combinedAssemblyMapData.Name);
+            Assert.AreEqual("Toetsoordeel eenvoudige toets", simpleAssemblyMapData.Name);
+            Assert.AreEqual("Toetsoordeel gedetailleerde toets", detailedAssemblyMapData.Name);
+            Assert.AreEqual("Toetsoordeel toets op maat", tailorMadeAssemblyMapData.Name);
         }
 
         /// <summary>
@@ -795,12 +1106,42 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var calculationsMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[calculationsIndex].Attach(calculationsMapDataObserver);
 
+            MapData[] sectionsCollection = ((MapDataCollection) mapDataArray[sectionsCollectionIndex]).Collection.ToArray();
+            var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
+            sectionsCollection[sectionsIndex].Attach(sectionsMapDataObserver);
+
+            var sectionsStartPointMapDataObserver = mocks.StrictMock<IObserver>();
+            sectionsCollection[sectionsStartPointIndex].Attach(sectionsStartPointMapDataObserver);
+
+            var sectionsEndPointMapDataObserver = mocks.StrictMock<IObserver>();
+            sectionsCollection[sectionsEndPointIndex].Attach(sectionsEndPointMapDataObserver);
+
+            MapData[] assemblyResultsCollection = ((MapDataCollection) mapDataArray[assemblyResultsIndex]).Collection.ToArray();
+            var simpleAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
+            assemblyResultsCollection[simpleAssemblyIndex].Attach(simpleAssemblyMapDataObserver);
+
+            var detailedAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
+            assemblyResultsCollection[detailedAssemblyIndex].Attach(detailedAssemblyMapDataObserver);
+
+            var tailorMadeAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
+            assemblyResultsCollection[tailorMadeAssemblyIndex].Attach(tailorMadeAssemblyMapDataObserver);
+
+            var combinedAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
+            assemblyResultsCollection[combinedAssemblyIndex].Attach(combinedAssemblyMapDataObserver);
+
             return new[]
             {
                 referenceLineMapDataObserver,
                 hydraulicBoundaryLocationsMapDataObserver,
                 foreshoreProfilesMapDataObserver,
-                calculationsMapDataObserver
+                calculationsMapDataObserver,
+                sectionsMapDataObserver,
+                sectionsStartPointMapDataObserver,
+                sectionsEndPointMapDataObserver,
+                simpleAssemblyMapDataObserver,
+                detailedAssemblyMapDataObserver,
+                tailorMadeAssemblyMapDataObserver,
+                combinedAssemblyMapDataObserver
             };
         }
     }

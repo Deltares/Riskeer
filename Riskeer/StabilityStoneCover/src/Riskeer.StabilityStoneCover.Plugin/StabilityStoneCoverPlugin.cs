@@ -101,6 +101,13 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 CreateInstance = context => new StabilityStoneCoverFailureMechanismView(context.WrappedData, context.Parent)
             };
 
+            yield return new ViewInfo<StabilityStoneCoverFailurePathContext, StabilityStoneCoverFailurePathView>
+            {
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
+                CreateInstance = context => new StabilityStoneCoverFailurePathView(context.WrappedData, context.Parent)
+            };
+
             yield return new ViewInfo<FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>,
                 IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult>,
                 StabilityStoneCoverResultView>
