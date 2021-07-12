@@ -159,8 +159,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                CloseForData = CloseGrassCoverErosionOutwardsFailureMechanismViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
             
