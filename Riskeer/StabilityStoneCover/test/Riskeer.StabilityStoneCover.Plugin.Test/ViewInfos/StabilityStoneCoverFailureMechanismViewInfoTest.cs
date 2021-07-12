@@ -102,9 +102,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 
             var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
 
-            // Call
             using (var testForm = new Form())
             {
+                // Call
                 var view = info.CreateInstance(context) as StabilityStoneCoverFailureMechanismView;
 
                 testForm.Controls.Add(view);

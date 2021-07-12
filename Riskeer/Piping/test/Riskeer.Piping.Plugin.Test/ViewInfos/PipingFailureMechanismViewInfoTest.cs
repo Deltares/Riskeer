@@ -103,9 +103,9 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             var context = new PipingCalculationsContext(failureMechanism, assessmentSection);
 
-            // Call
             using (var testForm = new Form())
             {
+                // Call
                 var view = info.CreateInstance(context) as PipingFailureMechanismView;
 
                 testForm.Controls.Add(view);
