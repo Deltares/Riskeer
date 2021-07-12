@@ -104,9 +104,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            var view = new PipingFailurePathView(failureMechanism, assessmentSection);
-
-            ShowView(view);
+            PipingFailurePathView view = CreateView(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<PipingFailureMechanismView>(view);
@@ -227,9 +225,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 calculator.CombinedAssemblyOutput = expectedCombinedAssembly;
 
                 // Call
-                var view = new PipingFailurePathView(failureMechanism, assessmentSection);
-
-                ShowView(view);
+                PipingFailurePathView view = CreateView(failureMechanism, assessmentSection);
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -268,9 +264,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Given
             var failureMechanism = new PipingFailureMechanism();
 
-            var view = new PipingFailurePathView(failureMechanism, new AssessmentSectionStub());
-
-            ShowView(view);
+            PipingFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -311,9 +305,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
-            var view = new PipingFailurePathView(failureMechanism, new AssessmentSectionStub());
 
-            ShowView(view);
+            PipingFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -397,9 +390,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
-            var view = new PipingFailurePathView(failureMechanism, new AssessmentSectionStub());
-
-            ShowView(view);
+            PipingFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -452,9 +443,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
-            var view = new PipingFailurePathView(failureMechanism, new AssessmentSectionStub());
-
-            ShowView(view);
+            PipingFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -501,10 +490,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
                 calculator.CombinedAssemblyOutput = originalCombinedAssembly;
 
-                var view = new PipingFailurePathView(failureMechanism, new AssessmentSectionStub());
-
-                testForm.Controls.Add(view);
-                testForm.Show();
+                PipingFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -594,10 +580,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
                 calculator.CombinedAssemblyOutput = originalCombinedAssembly;
 
-                var view = new PipingFailurePathView(failureMechanism, new AssessmentSectionStub());
-
-                testForm.Controls.Add(view);
-                testForm.Show();
+                PipingFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -664,10 +647,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
                 calculator.CombinedAssemblyOutput = originalCombinedAssembly;
 
-                var view = new PipingFailurePathView(failureMechanism, new AssessmentSectionStub());
-
-                testForm.Controls.Add(view);
-                testForm.Show();
+                PipingFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -726,9 +706,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var assessmentSection = new AssessmentSectionStub();
 
-            var view = new PipingFailurePathView(new PipingFailureMechanism(), assessmentSection);
-
-            ShowView(view);
+            PipingFailurePathView view = CreateView(new PipingFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -803,10 +781,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual("Probabilistische berekeningen", actualProbabilisticCalculationsData.Name);
         }
 
-        private void ShowView(Control view)
+        private PipingFailurePathView CreateView(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
+            var view = new PipingFailurePathView(failureMechanism, assessmentSection);
+
             testForm.Controls.Add(view);
             testForm.Show();
+
+            return view;
         }
 
         private static void AssertSurfaceLinesMapData(IEnumerable<PipingSurfaceLine> surfaceLines, MapData mapData)
