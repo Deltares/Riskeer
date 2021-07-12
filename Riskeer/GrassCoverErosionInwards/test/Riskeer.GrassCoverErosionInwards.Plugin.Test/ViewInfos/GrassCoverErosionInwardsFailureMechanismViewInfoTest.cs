@@ -104,8 +104,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             // Call
             using (var testForm = new Form())
-            using (var view = info.CreateInstance(context) as GrassCoverErosionInwardsFailureMechanismView)
             {
+                var view = info.CreateInstance(context) as GrassCoverErosionInwardsFailureMechanismView;
+
                 testForm.Controls.Add(view);
                 testForm.Show();
 
