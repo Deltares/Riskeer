@@ -630,39 +630,6 @@ namespace Core.Gui.Test.Forms.Main
         }
 
         [Test]
-        public void GivenGuiWithMapLegendView_WhenMapViewOpened_ThenMapZoomedToExtents()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
-            using (var mainWindow = new MainWindow())
-            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
-            {
-                gui.Run();
-
-                mainWindow.SetGui(gui);
-                mainWindow.InitializeToolWindows();
-
-                var testMapView = new TestMapView();
-                var map = (DotSpatialMap) ((MapControl) testMapView.Map).Controls[0].Controls[1];
-
-                Extent initialExtents = map.ViewExtents;
-
-                // When
-                gui.ViewHost.AddDocumentView(testMapView);
-
-                // Then
-                Assert.AreNotEqual(initialExtents, map.ViewExtents);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void GivenGuiWithMapLegendView_WhenMapViewAdded_ThenComponentsUpdated()
         {
             // Given

@@ -633,13 +633,9 @@ namespace Core.Gui.Forms.Main
                 mapUserControl.VisibleChanged += MapViewVisibleChanged;
             }
 
-            var chartView = e.View as IChartView;
-            if (chartView != null && e.View is UserControl chartUserControl)
-            {
-                chartUserControl.VisibleChanged += ChartViewVisibleChanged;
-            }
-
             UpdateComponentsForMapView(mapView);
+
+            var chartView = e.View as IChartView;
             UpdateComponentsForChartView(chartView);
 
             if (e.View is MapLegendView || e.View is ChartLegendView)
@@ -658,24 +654,10 @@ namespace Core.Gui.Forms.Main
             var control = (UserControl) sender;
             if (control.Width != 0.0 && control.Height != 0.0)
             {
-                ((IMapView) control).Map.ZoomToVisibleLayers();
+                IMapControl mapControl = ((IMapView) control).Map;
+                mapControl.ZoomToVisibleLayers();
 
                 control.VisibleChanged -= MapViewVisibleChanged;
-            }
-        }
-
-        /// <summary>
-        /// Fix for getting around the latency within AvalonDock; ensure any opened chart view is zoomed to its extents, but first wait until it is completely visible.
-        /// </summary>
-        private static void ChartViewVisibleChanged(object sender, EventArgs e)
-        {
-            var control = (UserControl) sender;
-            if (control.Width != 0.0 && control.Height != 0.0)
-            {
-                IChartControl chartControl = ((IChartView) control).Chart;
-                chartControl.ZoomToVisibleSeries(chartControl.Data);
-
-                control.VisibleChanged -= ChartViewVisibleChanged;
             }
         }
 
