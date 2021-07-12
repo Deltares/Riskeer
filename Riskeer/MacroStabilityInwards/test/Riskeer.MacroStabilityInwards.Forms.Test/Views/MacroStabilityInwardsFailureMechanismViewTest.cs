@@ -117,9 +117,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection);
-
-            ShowView(view);
+            MacroStabilityInwardsFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<UserControl>(view);
@@ -143,9 +141,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
-
-            ShowView(view);
+            MacroStabilityInwardsFailureMechanismView view = CreateView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             // Assert
             MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
@@ -259,9 +255,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 calculator.CombinedAssemblyOutput = expectedCombinedAssembly;
 
                 // Call
-                var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection);
-
-                ShowView(view);
+                MacroStabilityInwardsFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -291,10 +285,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
             });
 
-            var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
-
-            ShowView(view);
-
+            MacroStabilityInwardsFailureMechanismView view = CreateView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             var mocks = new MockRepository();
@@ -333,9 +324,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 hydraulicBoundaryLocation
             });
 
-            var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            MacroStabilityInwardsFailureMechanismView view = CreateView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
-            ShowView(view);
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             var mocks = new MockRepository();
@@ -374,9 +364,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
-
-            ShowView(view);
+            MacroStabilityInwardsFailureMechanismView view = CreateView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -415,9 +403,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
-
-            ShowView(view);
+            MacroStabilityInwardsFailureMechanismView view = CreateView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -451,9 +437,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
-
-            ShowView(view);
+            MacroStabilityInwardsFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -495,9 +479,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 surfaceLine
             }, "path");
 
-            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
-
-            ShowView(view);
+            MacroStabilityInwardsFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -527,9 +509,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
-
-            ShowView(view);
+            MacroStabilityInwardsFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -575,9 +555,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
-            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
-
-            ShowView(view);
+            MacroStabilityInwardsFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -627,9 +605,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
-            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
-
-            ShowView(view);
+            MacroStabilityInwardsFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -676,9 +652,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
-            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, new AssessmentSectionStub());
-
-            ShowView(view);
+            MacroStabilityInwardsFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -711,9 +685,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             var assessmentSection = new AssessmentSectionStub();
 
-            var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
-
-            ShowView(view);
+            MacroStabilityInwardsFailureMechanismView view = CreateView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -770,10 +742,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
         }
 
-        private void ShowView(Control view)
+        private MacroStabilityInwardsFailureMechanismView CreateView(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
+            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection);
+
             testForm.Controls.Add(view);
             testForm.Show();
+
+            return view;
         }
 
         private static void AssertSurfaceLinesMapData(IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines, MapData mapData)

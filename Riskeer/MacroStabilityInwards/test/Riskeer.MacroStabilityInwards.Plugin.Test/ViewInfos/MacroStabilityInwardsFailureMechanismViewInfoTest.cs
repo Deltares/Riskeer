@@ -104,8 +104,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             // Call
             using (var testForm = new Form())
-            using (var view = info.CreateInstance(context) as MacroStabilityInwardsFailureMechanismView)
             {
+                var view = info.CreateInstance(context) as MacroStabilityInwardsFailureMechanismView;
+
                 testForm.Controls.Add(view);
                 testForm.Show();
 
