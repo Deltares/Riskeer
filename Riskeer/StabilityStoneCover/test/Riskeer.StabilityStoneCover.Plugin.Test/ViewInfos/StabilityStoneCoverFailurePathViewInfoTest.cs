@@ -72,14 +72,14 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new StabilityStoneCoverFailurePathContext(stabilityStoneCoverFailureMechanism, assessmentSection);
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var context = new StabilityStoneCoverFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
 
             // Assert
-            Assert.AreEqual(stabilityStoneCoverFailureMechanism.Name, viewName);
+            Assert.AreEqual(failureMechanism.Name, viewName);
         }
 
         [Test]
