@@ -51,7 +51,7 @@ using Riskeer.HeightStructures.Forms.Views;
 namespace Riskeer.HeightStructures.Forms.Test.Views
 {
     [TestFixture]
-    public class HeightStructuresFailureMechanismViewTest
+    public class HeightStructuresFailurePathViewTest
     {
         private const int referenceLineIndex = 0;
         private const int sectionsCollectionIndex = 1;
@@ -97,34 +97,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new HeightStructuresFailureMechanismView(null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new HeightStructuresFailureMechanismView(new HeightStructuresFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         [Apartment(ApartmentState.STA)]
         public void Constructor_ExpectedValues()
         {
@@ -133,7 +105,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            HeightStructuresFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
+            HeightStructuresFailurePathView view = CreateView(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<UserControl>(view);
@@ -147,20 +119,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             Assert.AreSame(view.Map, ((RiskeerMapControl) view.Controls[0]).MapControl);
             Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
             AssertEmptyMapData(view.Map.Data);
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
-
-            // Call
-            HeightStructuresFailureMechanismView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
-
-            // Assert
-            MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
         }
 
         [Test]
@@ -254,7 +212,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 calculator.CombinedAssemblyOutput = expectedCombinedAssembly;
 
                 // Call
-                HeightStructuresFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
+                HeightStructuresFailurePathView view = CreateView(failureMechanism, assessmentSection);
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -297,7 +255,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
             });
 
-            HeightStructuresFailureMechanismView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
+            HeightStructuresFailurePathView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -337,7 +295,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 hydraulicBoundaryLocation
             });
 
-            HeightStructuresFailureMechanismView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
+            HeightStructuresFailurePathView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -377,7 +335,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            HeightStructuresFailureMechanismView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
+            HeightStructuresFailurePathView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -416,7 +374,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            HeightStructuresFailureMechanismView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
+            HeightStructuresFailurePathView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -450,7 +408,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Given
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            HeightStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
+            HeightStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -504,7 +462,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 foreshoreProfile
             }, "path");
 
-            HeightStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
+            HeightStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -547,7 +505,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 })
             }, "path");
 
-            HeightStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
+            HeightStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -589,7 +547,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 structure
             }, "path");
 
-            HeightStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
+            HeightStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -625,7 +583,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 new TestHeightStructure(new Point2D(0, 0), "Id1")
             }, "path");
 
-            HeightStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
+            HeightStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -670,7 +628,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
-            HeightStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
+            HeightStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -723,7 +681,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
-            HeightStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
+            HeightStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -775,7 +733,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
                 calculator.CombinedAssemblyOutput = originalCombinedAssembly;
 
-                HeightStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
+                HeightStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -848,7 +806,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
                 calculator.CombinedAssemblyOutput = originalCombinedAssembly;
 
-                HeightStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
+                HeightStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -916,7 +874,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
                 calculator.CombinedAssemblyOutput = originalCombinedAssembly;
 
-                HeightStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
+                HeightStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -974,7 +932,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             var assessmentSection = new AssessmentSectionStub();
 
-            HeightStructuresFailureMechanismView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
+            HeightStructuresFailurePathView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             MapDataCollection mapData = map.Data;
@@ -1042,9 +1000,9 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
         }
 
-        private HeightStructuresFailureMechanismView CreateView(HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private HeightStructuresFailurePathView CreateView(HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection);
+            var view = new HeightStructuresFailurePathView(failureMechanism, assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();
