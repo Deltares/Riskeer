@@ -105,8 +105,9 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             // Call
             using (var testForm = new Form())
-            using (var view = info.CreateInstance(context) as PipingFailurePathView)
             {
+                var view = info.CreateInstance(context) as PipingFailurePathView;
+
                 testForm.Controls.Add(view);
                 testForm.Show();
 
