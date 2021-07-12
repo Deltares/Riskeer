@@ -35,7 +35,6 @@ using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Components.Chart.Forms;
-using Core.Components.DotSpatial.Forms;
 using Core.Components.Gis.Forms;
 using Core.Gui.Commands;
 using Core.Gui.Forms.Chart;
@@ -51,7 +50,6 @@ using Core.Gui.Settings;
 using Core.Gui.Test.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.Map;
-using DotSpatial.Data;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -959,6 +957,76 @@ namespace Core.Gui.Test.Forms.Main
         }
 
         [Test]
+        public void GivenMainWindowWithoutGui_WhenSaveProjectCanExecuteIsCalled_ThenReturnsFalse()
+        {
+            // Given
+            using (var mainWindow = new MainWindow())
+            {
+                // When
+                bool canExecute = mainWindow.SaveProjectCommand.CanExecute(null);
+
+                // Then
+                Assert.IsFalse(canExecute);
+            }
+        }
+
+        [Test]
+        public void GivenMainWindowWithoutProject_WhenSaveProjectCanExecuteIsCalled_ThenReturnsFalse()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            mocks.ReplayAll();
+
+            using (var mainWindow = new MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+
+                // When
+                bool canExecute = mainWindow.SaveProjectCommand.CanExecute(null);
+
+                // Then
+                Assert.IsFalse(canExecute);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenMainWindowWithProject_WhenSaveProjectCanExecuteIsCalled_ThenReturnsTrue()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var project = mocks.Stub<IProject>();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            mocks.ReplayAll();
+
+            using (var mainWindow = new MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+                gui.SetProject(project, null);
+
+                // When
+                bool canExecute = mainWindow.SaveProjectCommand.CanExecute(null);
+
+                // Then
+                Assert.IsTrue(canExecute);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void GivenMainWindow_WhenSaveProjectIsCalled_ThenProjectSaved(bool backstageVisible)
@@ -1021,6 +1089,76 @@ namespace Core.Gui.Test.Forms.Main
 
                 mocks.VerifyAll();
             }
+        }
+
+        [Test]
+        public void GivenMainWindowWithoutGui_WhenSaveProjectAsCanExecuteIsCalled_ThenReturnsFalse()
+        {
+            // Given
+            using (var mainWindow = new MainWindow())
+            {
+                // When
+                bool canExecute = mainWindow.SaveProjectAsCommand.CanExecute(null);
+
+                // Then
+                Assert.IsFalse(canExecute);
+            }
+        }
+
+        [Test]
+        public void GivenMainWindowWithoutProject_WhenSaveProjectAsCanExecuteIsCalled_ThenReturnsFalse()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            mocks.ReplayAll();
+
+            using (var mainWindow = new MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+
+                // When
+                bool canExecute = mainWindow.SaveProjectAsCommand.CanExecute(null);
+
+                // Then
+                Assert.IsFalse(canExecute);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenMainWindowWithProject_WhenSaveProjectAsCanExecuteIsCalled_ThenReturnsTrue()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var project = mocks.Stub<IProject>();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            mocks.ReplayAll();
+
+            using (var mainWindow = new MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Run();
+
+                mainWindow.SetGui(gui);
+                gui.SetProject(project, null);
+
+                // When
+                bool canExecute = mainWindow.SaveProjectAsCommand.CanExecute(null);
+
+                // Then
+                Assert.IsTrue(canExecute);
+            }
+
+            mocks.VerifyAll();
         }
 
         [Test]

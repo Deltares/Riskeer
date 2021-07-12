@@ -85,8 +85,8 @@ namespace Core.Gui.Forms.Main
             Name = "MainWindow";
 
             NewProjectCommand = new RelayCommand(OnNewProject);
-            SaveProjectCommand = new RelayCommand(OnSaveProject);
-            SaveProjectAsCommand = new RelayCommand(OnSaveProjectAs);
+            SaveProjectCommand = new RelayCommand(OnSaveProject, CanExecuteSaveCommand);
+            SaveProjectAsCommand = new RelayCommand(OnSaveProjectAs, CanExecuteSaveCommand);
             OpenProjectCommand = new RelayCommand(OnOpenProject);
             CloseApplicationCommand = new RelayCommand(OnCloseApplication);
             CloseViewTabCommand = new RelayCommand(OnCloseViewTab, CanCloseViewTab);
@@ -426,6 +426,11 @@ namespace Core.Gui.Forms.Main
         {
             commands.StorageCommands.CreateNewProject();
             CloseBackstage();
+        }
+
+        private bool CanExecuteSaveCommand(object obj)
+        {
+            return gui?.Project != null;
         }
 
         private void OnSaveProject(object obj)
