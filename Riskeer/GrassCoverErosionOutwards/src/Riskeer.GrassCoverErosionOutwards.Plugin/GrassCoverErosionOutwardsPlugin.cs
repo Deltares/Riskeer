@@ -163,6 +163,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
+            
+            yield return new ViewInfo<GrassCoverErosionOutwardsFailurePathContext, GrassCoverErosionOutwardsFailurePathView>
+            {
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
+                CreateInstance = context => new GrassCoverErosionOutwardsFailurePathView(context.WrappedData, context.Parent)
+            };
 
             yield return new ViewInfo<
                 FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>,

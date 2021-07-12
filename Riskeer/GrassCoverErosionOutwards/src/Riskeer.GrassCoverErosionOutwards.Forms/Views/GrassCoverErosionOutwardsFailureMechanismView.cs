@@ -29,58 +29,43 @@ using Core.Components.Gis.Forms;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Revetment.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.Factories;
-using Riskeer.Revetment.Data;
 using GrassCoverErosionOutwardsDataResources = Riskeer.GrassCoverErosionOutwards.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
 {
     /// <summary>
-    /// This class is a view showing map data for a grass cover erosion outwards failure mechanism.
+    /// This class is a view showing map data for a stability stone cover failure mechanism.
     /// </summary>
     public partial class GrassCoverErosionOutwardsFailureMechanismView : UserControl, IMapView
     {
-        private MapDataCollection mapDataCollection;
         private MapLineData referenceLineMapData;
         private MapPointData hydraulicBoundaryLocationsMapData;
         private MapLineData foreshoreProfilesMapData;
         private MapLineData calculationsMapData;
 
-        private MapLineData sectionsMapData;
-        private MapPointData sectionsStartPointMapData;
-        private MapPointData sectionsEndPointMapData;
-
-        private MapLineData simpleAssemblyMapData;
-        private MapLineData detailedAssemblyMapData;
-        private MapLineData tailorMadeAssemblyMapData;
-        private MapLineData combinedAssemblyMapData;
-
-        private Observer failureMechanismObserver;
         private Observer assessmentSectionObserver;
         private Observer referenceLineObserver;
         private Observer hydraulicBoundaryLocationsObserver;
         private Observer foreshoreProfilesObserver;
 
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificFactorizedSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificLowerLimitNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForMechanismSpecificFactorizedSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForMechanismSpecificSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForMechanismSpecificLowerLimitNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNormObserver;
         private RecursiveObserver<CalculationGroup, WaveConditionsInput> calculationInputObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private RecursiveObserver<CalculationGroup, GrassCoverErosionOutwardsWaveConditionsCalculation> calculationObserver;
         private RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile> foreshoreProfileObserver;
-        private RecursiveObserver<IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>, GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismView"/>.
@@ -89,7 +74,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsFailureMechanismView(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                             IAssessmentSection assessmentSection)
+                                                       IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
             {
@@ -105,12 +90,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
 
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
-
-            CreateObservers();
-
-            CreateMapData();
-            SetMapDataFeatures();
-            riskeerMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
         }
 
         /// <summary>
@@ -133,19 +112,34 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets the <see cref="MapDataCollection"/>.
+        /// </summary>
+        protected MapDataCollection MapDataCollection { get; private set; }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            CreateObservers();
+
+            CreateMapData();
+
+            SetAllMapDataFeatures();
+
+            riskeerMapControl.SetAllData(MapDataCollection, AssessmentSection.BackgroundData);
+
+            base.OnLoad(e);
+        }
+
         protected override void Dispose(bool disposing)
         {
-            failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
             referenceLineObserver.Dispose();
-            waterLevelCalculationsForMechanismSpecificFactorizedSignalingNormObserver.Dispose();
-            waterLevelCalculationsForMechanismSpecificSignalingNormObserver.Dispose();
-            waterLevelCalculationsForMechanismSpecificLowerLimitNormObserver.Dispose();
+            waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
+            waterLevelCalculationsForSignalingNormObserver.Dispose();
             waterLevelCalculationsForLowerLimitNormObserver.Dispose();
             waterLevelCalculationsForFactorizedLowerLimitNormObserver.Dispose();
-            waveHeightCalculationsForMechanismSpecificFactorizedSignalingNormObserver.Dispose();
-            waveHeightCalculationsForMechanismSpecificSignalingNormObserver.Dispose();
-            waveHeightCalculationsForMechanismSpecificLowerLimitNormObserver.Dispose();
+            waveHeightCalculationsForFactorizedSignalingNormObserver.Dispose();
+            waveHeightCalculationsForSignalingNormObserver.Dispose();
             waveHeightCalculationsForLowerLimitNormObserver.Dispose();
             waveHeightCalculationsForFactorizedLowerLimitNormObserver.Dispose();
             hydraulicBoundaryLocationsObserver.Dispose();
@@ -154,7 +148,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
             calculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();
             calculationObserver.Dispose();
-            sectionResultObserver.Dispose();
 
             if (disposing)
             {
@@ -164,49 +157,29 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void CreateMapData()
+        /// <summary>
+        /// Creates the map data.
+        /// </summary>
+        protected virtual void CreateMapData()
         {
-            mapDataCollection = new MapDataCollection(GrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsFailureMechanism_DisplayName);
+            MapDataCollection = new MapDataCollection(GrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsFailureMechanism_DisplayName);
             referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             foreshoreProfilesMapData = RiskeerMapDataFactory.CreateForeshoreProfileMapData();
             calculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData();
 
-            MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
-            sectionsMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
-            sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
-            sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+            MapDataCollection.Add(referenceLineMapData);
 
-            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
-            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
-
-            mapDataCollection.Add(referenceLineMapData);
-
-            sectionsMapDataCollection.Add(sectionsMapData);
-            sectionsMapDataCollection.Add(sectionsStartPointMapData);
-            sectionsMapDataCollection.Add(sectionsEndPointMapData);
-            mapDataCollection.Add(sectionsMapDataCollection);
-
-            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
-            assemblyMapDataCollection.Add(detailedAssemblyMapData);
-            assemblyMapDataCollection.Add(simpleAssemblyMapData);
-            assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            mapDataCollection.Add(assemblyMapDataCollection);
-
-            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
-            mapDataCollection.Add(foreshoreProfilesMapData);
-            mapDataCollection.Add(calculationsMapData);
+            MapDataCollection.Add(hydraulicBoundaryLocationsMapData);
+            MapDataCollection.Add(foreshoreProfilesMapData);
+            MapDataCollection.Add(calculationsMapData);
         }
 
-        private void CreateObservers()
+        /// <summary>
+        /// Creates the observers.
+        /// </summary>        
+        protected virtual void CreateObservers()
         {
-            failureMechanismObserver = new Observer(UpdateFailureMechanismData)
-            {
-                Observable = FailureMechanism
-            };
             assessmentSectionObserver = new Observer(UpdateReferenceLineData)
             {
                 Observable = AssessmentSection
@@ -224,22 +197,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
                 Observable = FailureMechanism.ForeshoreProfiles
             };
 
-            waterLevelCalculationsForMechanismSpecificFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                FailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForMechanismSpecificSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                FailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForMechanismSpecificLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                FailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waterLevelCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                AssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waterLevelCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                AssessmentSection.WaterLevelCalculationsForSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
             waterLevelCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
                 AssessmentSection.WaterLevelCalculationsForLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
             waterLevelCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
                 AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForMechanismSpecificFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                FailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForMechanismSpecificSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                FailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForMechanismSpecificLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                FailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waveHeightCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                AssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waveHeightCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                AssessmentSection.WaveHeightCalculationsForSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
             waveHeightCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
                 AssessmentSection.WaveHeightCalculationsForLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
             waveHeightCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
@@ -263,53 +232,28 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
             {
                 Observable = FailureMechanism.ForeshoreProfiles
             };
-
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
-                GrassCoverErosionOutwardsFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
-            {
-                Observable = FailureMechanism.SectionResults
-            };
         }
 
-        private void SetMapDataFeatures()
+        /// <summary>
+        /// Sets all map data features.
+        /// </summary>        
+        protected virtual void SetAllMapDataFeatures()
         {
             SetReferenceLineMapData();
-            SetSectionsMapData();
             SetHydraulicBoundaryLocationsMapData();
             SetForeshoreProfilesMapData();
             SetCalculationsMapData();
-            SetAssemblyMapData();
         }
-
-        #region Assembly MapData
-
-        private void UpdateAssemblyMapData()
-        {
-            SetAssemblyMapData();
-            simpleAssemblyMapData.NotifyObservers();
-            detailedAssemblyMapData.NotifyObservers();
-            tailorMadeAssemblyMapData.NotifyObservers();
-            combinedAssemblyMapData.NotifyObservers();
-        }
-
-        private void SetAssemblyMapData()
-        {
-            simpleAssemblyMapData.Features = GrassCoverErosionOutwardsAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(FailureMechanism);
-            detailedAssemblyMapData.Features = GrassCoverErosionOutwardsAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(FailureMechanism);
-            tailorMadeAssemblyMapData.Features = GrassCoverErosionOutwardsAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(FailureMechanism);
-            combinedAssemblyMapData.Features = GrassCoverErosionOutwardsAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(FailureMechanism);
-        }
-
-        #endregion
 
         #region Calculations MapData
 
-        private void UpdateCalculationsMapData()
+        /// <summary>
+        /// Updates the calculations map data.
+        /// </summary>
+        protected virtual void UpdateCalculationsMapData()
         {
             SetCalculationsMapData();
             calculationsMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetCalculationsMapData()
@@ -331,7 +275,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
 
         private void SetHydraulicBoundaryLocationsMapData()
         {
-            hydraulicBoundaryLocationsMapData.Features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(AssessmentSection, FailureMechanism);
+            hydraulicBoundaryLocationsMapData.Features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(AssessmentSection);
         }
 
         #endregion
@@ -348,29 +292,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
         {
             ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
             referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
-        }
-
-        #endregion
-
-        #region FailureMechanism MapData
-
-        private void UpdateFailureMechanismData()
-        {
-            SetSectionsMapData();
-            sectionsMapData.NotifyObservers();
-            sectionsStartPointMapData.NotifyObservers();
-            sectionsEndPointMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
-        }
-
-        private void SetSectionsMapData()
-        {
-            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
-
-            sectionsMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
-            sectionsStartPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
-            sectionsEndPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
         }
 
         #endregion

@@ -37,7 +37,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsFailureMechanismViewInfoTest
+    public class GrassCoverErosionOutwardsFailurePathViewInfoTest
     {
         private MockRepository mocks;
         private GrassCoverErosionOutwardsPlugin plugin;
@@ -48,7 +48,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new GrassCoverErosionOutwardsPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverErosionOutwardsFailureMechanismView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverErosionOutwardsFailurePathView));
         }
 
         [TearDown]
@@ -61,8 +61,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionOutwardsCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(GrassCoverErosionOutwardsCalculationsContext), info.ViewDataType);
+            Assert.AreEqual(typeof(GrassCoverErosionOutwardsFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(GrassCoverErosionOutwardsFailurePathContext), info.ViewDataType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -94,18 +94,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void CreateInstance_WithContext_ReturnGrassCoverErosionOutwardsFailureMechanismView()
+        public void CreateInstance_WithContext_ReturnGrassCoverErosionOutwardsFailurePathView()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
             using (var testForm = new Form())
             {
                 // Call
-                var view = info.CreateInstance(context) as GrassCoverErosionOutwardsFailureMechanismView;
+                var view = info.CreateInstance(context) as GrassCoverErosionOutwardsFailurePathView;
 
                 testForm.Controls.Add(view);
                 testForm.Show();
