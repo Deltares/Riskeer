@@ -2435,7 +2435,7 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heeft u problemen in het gebruik van de software? Neem dan contact op..
+        ///   Looks up a localized string similar to Ervaart u problemen bij het gebruik van de software? Neem dan contact op..
         /// </summary>
         public static string SupportBackstagePage_WeCanHelp_Description {
             get {
