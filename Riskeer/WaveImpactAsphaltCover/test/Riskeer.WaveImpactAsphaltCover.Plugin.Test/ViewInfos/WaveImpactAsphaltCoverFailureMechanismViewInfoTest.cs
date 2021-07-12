@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.TestUtil;
 using Core.Gui.Plugin;
@@ -92,6 +93,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void CreateInstance_WithContext_ReturnWaveImpactAsphaltCoverFailureMechanismView()
         {
             // Setup
