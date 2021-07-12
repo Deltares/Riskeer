@@ -97,6 +97,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismView(context.WrappedData, context.Parent)
             };
+            
+            yield return new ViewInfo<WaveImpactAsphaltCoverFailurePathContext, WaveImpactAsphaltCoverFailurePathView>
+            {
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
+                CreateInstance = context => new WaveImpactAsphaltCoverFailurePathView(context.WrappedData, context.Parent)
+            };
 
             yield return new ViewInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
                 IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>,

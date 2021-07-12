@@ -97,12 +97,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, viewInfos.Length);
+                Assert.AreEqual(4, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(WaveImpactAsphaltCoverCalculationsContext),
                     typeof(WaveImpactAsphaltCoverFailureMechanismView));
+                
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(WaveImpactAsphaltCoverFailurePathContext),
+                    typeof(WaveImpactAsphaltCoverFailurePathView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
