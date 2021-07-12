@@ -113,9 +113,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection);
-
-            ShowView(view);
+            StabilityStoneCoverFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<UserControl>(view);
@@ -139,9 +137,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
             // Call
-            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
-
-            ShowView(view);
+            StabilityStoneCoverFailureMechanismView view = CreateView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
 
             // Assert
             MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
@@ -238,10 +234,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = expectedCombinedAssemblyCategory;
 
                 // Call
-                var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection);
-
-                testForm.Controls.Add(view);
-                testForm.Show();
+                StabilityStoneCoverFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -270,9 +263,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
             });
 
-            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
-
-            ShowView(view);
+            StabilityStoneCoverFailureMechanismView view = CreateView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -312,9 +303,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 hydraulicBoundaryLocation
             });
 
-            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
-
-            ShowView(view);
+            StabilityStoneCoverFailureMechanismView view = CreateView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -354,9 +343,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
-
-            ShowView(view);
+            StabilityStoneCoverFailureMechanismView view = CreateView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -395,9 +382,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            var view = new StabilityStoneCoverFailureMechanismView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
-
-            ShowView(view);
+            StabilityStoneCoverFailureMechanismView view = CreateView(new StabilityStoneCoverFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -441,9 +426,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 foreshoreProfile
             }, "path");
 
-            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
-
-            ShowView(view);
+            StabilityStoneCoverFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -486,9 +469,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 })
             }, "path");
 
-            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
-
-            ShowView(view);
+            StabilityStoneCoverFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -534,9 +515,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
 
-            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
-
-            ShowView(view);
+            StabilityStoneCoverFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -584,9 +563,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
 
-            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
-
-            ShowView(view);
+            StabilityStoneCoverFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -626,9 +603,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
 
-            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, new AssessmentSectionStub());
-
-            ShowView(view);
+            StabilityStoneCoverFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -665,9 +640,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection);
-
-            ShowView(view);
+            StabilityStoneCoverFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -718,10 +691,14 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
         }
 
-        private void ShowView(Control view)
+        private StabilityStoneCoverFailureMechanismView CreateView(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
+            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection);
+
             testForm.Controls.Add(view);
             testForm.Show();
+
+            return view;
         }
 
         private static void AssertCalculationsMapData(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations, MapData mapData)
