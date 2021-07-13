@@ -100,11 +100,9 @@ namespace Riskeer.StabilityPointStructures.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                CloseForData = CloseStabilityPointStructuresFailureMechanismViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new StabilityPointStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
-            
+
             yield return new ViewInfo<StabilityPointStructuresFailurePathContext, StabilityPointStructuresFailurePathView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
@@ -290,16 +288,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
         }
 
         #region ViewInfos
-
-        private static bool CloseStabilityPointStructuresFailureMechanismViewForData(StabilityPointStructuresFailureMechanismView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as StabilityPointStructuresFailureMechanism;
-
-            return assessmentSection != null
-                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
-                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
-        }
 
         private static bool CloseFailureMechanismResultViewForData(StabilityPointStructuresFailureMechanismResultView view, object viewData)
         {
