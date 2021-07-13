@@ -149,6 +149,13 @@ namespace Riskeer.DuneErosion.Plugin
                 CreateInstance = context => new DuneErosionFailureMechanismView(context.WrappedData, context.Parent),
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
             };
+            
+            yield return new ViewInfo<DuneErosionFailurePathContext, DuneErosionFailurePathView>
+            {
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
+                CreateInstance = context => new DuneErosionFailurePathView(context.WrappedData, context.Parent)
+            };
 
             yield return new ViewInfo<DuneLocationCalculationsContext, IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>
             {

@@ -123,7 +123,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, viewInfos.Length);
+                Assert.AreEqual(4, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -135,6 +135,11 @@ namespace Riskeer.DuneErosion.Plugin.Test
                     viewInfos,
                     typeof(DuneErosionCalculationsContext),
                     typeof(DuneErosionFailureMechanismView));
+                
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(DuneErosionFailurePathContext),
+                    typeof(DuneErosionFailurePathView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
