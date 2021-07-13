@@ -50,15 +50,6 @@ namespace Riskeer.HeightStructures.Forms.Views
         private MapPointData structuresMapData;
         private MapLineData calculationsMapData;
 
-        private MapLineData sectionsMapData;
-        private MapPointData sectionsStartPointMapData;
-        private MapPointData sectionsEndPointMapData;
-
-        private MapLineData simpleAssemblyMapData;
-        private MapLineData detailedAssemblyMapData;
-        private MapLineData tailorMadeAssemblyMapData;
-        private MapLineData combinedAssemblyMapData;
-
         private Observer assessmentSectionObserver;
         private Observer referenceLineObserver;
         private Observer hydraulicBoundaryLocationsObserver;
