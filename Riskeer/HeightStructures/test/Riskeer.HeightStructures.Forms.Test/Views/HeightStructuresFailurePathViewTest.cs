@@ -70,17 +70,13 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         private const int simpleAssemblyIndex = 2;
         private const int combinedAssemblyIndex = 3;
 
-        private const int hydraulicBoundaryLocationsObserverIndex = 1;
-        private const int foreshoreProfilesObserverIndex = 2;
-        private const int structuresObserverIndex = 3;
-        private const int calculationObserverIndex = 4;
-        private const int sectionsObserverIndex = 5;
-        private const int sectionsStartPointObserverIndex = 6;
-        private const int sectionsEndPointObserverIndex = 7;
-        private const int simpleAssemblyObserverIndex = 8;
-        private const int detailedAssemblyObserverIndex = 9;
-        private const int tailorMadeAssemblyObserverIndex = 10;
-        private const int combinedAssemblyObserverIndex = 11;
+        private const int sectionsObserverIndex = 0;
+        private const int sectionsStartPointObserverIndex = 1;
+        private const int sectionsEndPointObserverIndex = 2;
+        private const int simpleAssemblyObserverIndex = 3;
+        private const int detailedAssemblyObserverIndex = 4;
+        private const int tailorMadeAssemblyObserverIndex = 5;
+        private const int combinedAssemblyObserverIndex = 6;
 
         private Form testForm;
 
@@ -246,163 +242,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
-            });
-
-            HeightStructuresFailurePathView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[hydraulicBoundaryLocationsObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-
-            // When
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
-            });
-            assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        [TestCaseSource(typeof(MapViewTestHelper), nameof(MapViewTestHelper.GetCalculationFuncs))]
-        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
-            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
-        {
-            // Given
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            });
-
-            HeightStructuresFailurePathView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[hydraulicBoundaryLocationsObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-
-            // When
-            HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
-            calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
-            calculation.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenViewWithAssessmentSectionData_WhenAssessmentSectionUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new List<Point2D>
-            {
-                new Point2D(1.0, 2.0),
-                new Point2D(2.0, 1.0)
-            });
-            var assessmentSection = new AssessmentSectionStub
-            {
-                ReferenceLine = referenceLine
-            };
-
-            HeightStructuresFailurePathView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
-
-            // Precondition
-            MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-
-            // When
-            assessmentSection.Name = "New name";
-            assessmentSection.NotifyObservers();
-
-            // Then
-            MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new List<Point2D>
-            {
-                new Point2D(1.0, 2.0),
-                new Point2D(2.0, 1.0)
-            });
-            var assessmentSection = new AssessmentSectionStub
-            {
-                ReferenceLine = referenceLine
-            };
-
-            HeightStructuresFailurePathView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
-
-            // Precondition
-            MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-
-            // When
-            referenceLine.SetGeometry(new List<Point2D>
-            {
-                new Point2D(2.0, 5.0),
-                new Point2D(4.0, 3.0)
-            });
-            referenceLine.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenViewWithFailureMechanismSectionsData_WhenFailureMechanismSectionsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -448,171 +287,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenViewWithForeshoreProfileData_WhenForeshoreProfileUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var foreshoreProfile = new TestForeshoreProfile("originalProfile ID", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            });
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.ForeshoreProfiles.AddRange(new[]
-            {
-                foreshoreProfile
-            }, "path");
-
-            HeightStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[foreshoreProfilesObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
-
-            // Precondition
-            MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
-
-            // When
-            var foreshoreProfileToUpdateFrom = new TestForeshoreProfile("originalProfile ID", new[]
-            {
-                new Point2D(2, 2),
-                new Point2D(3, 3)
-            });
-            foreshoreProfile.CopyProperties(foreshoreProfileToUpdateFrom);
-            foreshoreProfile.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenViewWithForeshoreProfilesData_WhenForeshoreProfilesUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.ForeshoreProfiles.AddRange(new[]
-            {
-                new TestForeshoreProfile("originalProfile ID", new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(1, 1)
-                })
-            }, "path");
-
-            HeightStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[foreshoreProfilesObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
-
-            // Precondition
-            MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
-
-            // When
-            failureMechanism.ForeshoreProfiles.AddRange(new[]
-            {
-                new TestForeshoreProfile("newProfile ID", new[]
-                {
-                    new Point2D(2, 2),
-                    new Point2D(3, 3)
-                })
-            }, "path");
-            failureMechanism.ForeshoreProfiles.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenViewWithStructureData_WhenStructureUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var structure = new TestHeightStructure(new Point2D(0, 0), "Id");
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.HeightStructures.AddRange(new[]
-            {
-                structure
-            }, "path");
-
-            HeightStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[structuresObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
-
-            // Precondition
-            MapDataTestHelper.AssertStructuresMapData(failureMechanism.HeightStructures,
-                                                      structuresData);
-
-            // When
-            structure.CopyProperties(new TestHeightStructure(new Point2D(1, 1), "Id"));
-            structure.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertStructuresMapData(failureMechanism.HeightStructures,
-                                                      structuresData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenViewWithStructuresData_WhenStructuresUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.HeightStructures.AddRange(new[]
-            {
-                new TestHeightStructure(new Point2D(0, 0), "Id1")
-            }, "path");
-
-            HeightStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[structuresObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
-
-            // Precondition
-            MapDataTestHelper.AssertStructuresMapData(failureMechanism.HeightStructures,
-                                                      structuresData);
-
-            // When
-            failureMechanism.HeightStructures.AddRange(new[]
-            {
-                new TestHeightStructure(new Point2D(1, 1), "Id2")
-            }, "some path");
-            failureMechanism.HeightStructures.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertStructuresMapData(failureMechanism.HeightStructures,
-                                                      structuresData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenViewWithCalculationGroupData_WhenCalculationGroupUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -634,7 +308,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             var mocks = new MockRepository();
             IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
@@ -687,7 +360,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             var mocks = new MockRepository();
             IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
@@ -812,7 +484,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
                 observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
                 observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
                 observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
