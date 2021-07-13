@@ -67,9 +67,9 @@ namespace Riskeer.DuneErosion.Plugin
             yield return new PropertyInfo<DuneErosionCalculationsContext, DuneErosionCalculationsProperties>
             {
                 CreateInstance = context => new DuneErosionCalculationsProperties(context.WrappedData,
-                                                                                      new DuneErosionFailureMechanismPropertyChangeHandler())
+                                                                                  new DuneErosionFailureMechanismPropertyChangeHandler())
             };
-            
+
             yield return new PropertyInfo<DuneErosionFailurePathContext, DuneErosionFailurePathProperties>
             {
                 CreateInstance = context => new DuneErosionFailurePathProperties(context.WrappedData,
@@ -145,11 +145,9 @@ namespace Riskeer.DuneErosion.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                CloseForData = CloseFailureMechanismViewForData,
-                CreateInstance = context => new DuneErosionFailureMechanismView(context.WrappedData, context.Parent),
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant
+                CreateInstance = context => new DuneErosionFailureMechanismView(context.WrappedData, context.Parent)
             };
-            
+
             yield return new ViewInfo<DuneErosionFailurePathContext, DuneErosionFailurePathView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
@@ -169,7 +167,10 @@ namespace Riskeer.DuneErosion.Plugin
                                                                              context.AssessmentSection,
                                                                              context.GetNormFunc,
                                                                              context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = duneLocationCalculationGuiService; },
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = duneLocationCalculationGuiService;
+                },
                 AdditionalDataCheck = context => context.WrappedData.Any()
             };
         }
