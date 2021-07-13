@@ -37,7 +37,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class HeightStructuresFailureMechanismViewInfoTest
+    public class HeightStructuresFailurePathViewInfoTest
     {
         private MockRepository mocks;
         private HeightStructuresPlugin plugin;
@@ -48,7 +48,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new HeightStructuresPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(HeightStructuresFailureMechanismView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(HeightStructuresFailurePathView));
         }
 
         [TearDown]
@@ -61,8 +61,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(HeightStructuresCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(HeightStructuresCalculationsContext), info.ViewDataType);
+            Assert.AreEqual(typeof(HeightStructuresFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(HeightStructuresFailurePathContext), info.ViewDataType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -100,12 +100,12 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
 
             using (var testForm = new Form())
             {
                 // Call
-                var view = info.CreateInstance(context) as HeightStructuresFailureMechanismView;
+                var view = info.CreateInstance(context) as HeightStructuresFailurePathView;
 
                 testForm.Controls.Add(view);
                 testForm.Show();

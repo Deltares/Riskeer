@@ -169,6 +169,13 @@ namespace Riskeer.HeightStructures.Plugin
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new HeightStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
+            
+            yield return new ViewInfo<HeightStructuresFailurePathContext, HeightStructuresFailurePathView>
+            {
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
+                CreateInstance = context => new HeightStructuresFailurePathView(context.WrappedData, context.Parent)
+            };
 
             yield return new ViewInfo<
                 HeightStructuresScenariosContext,

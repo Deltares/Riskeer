@@ -129,12 +129,17 @@ namespace Riskeer.HeightStructures.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(4, viewInfos.Length);
+                Assert.AreEqual(5, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(HeightStructuresCalculationsContext),
                     typeof(HeightStructuresFailureMechanismView));
+                
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(HeightStructuresFailurePathContext),
+                    typeof(HeightStructuresFailurePathView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
