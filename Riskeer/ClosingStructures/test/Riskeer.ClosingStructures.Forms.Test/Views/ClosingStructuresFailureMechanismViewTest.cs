@@ -773,7 +773,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
         {
-            Assert.AreEqual("Kunstwerken - Hoogte kunstwerk", mapDataCollection.Name);
+            Assert.AreEqual("Kunstwerken - Betrouwbaarheid sluiting kunstwerk", mapDataCollection.Name);
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
