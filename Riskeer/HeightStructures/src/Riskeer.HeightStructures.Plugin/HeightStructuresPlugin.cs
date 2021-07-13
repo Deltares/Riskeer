@@ -167,8 +167,6 @@ namespace Riskeer.HeightStructures.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                CloseForData = CloseHeightStructuresFailureMechanismViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new HeightStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
 
@@ -288,16 +286,6 @@ namespace Riskeer.HeightStructures.Plugin
         }
 
         #region ViewInfos
-
-        private static bool CloseHeightStructuresFailureMechanismViewForData(HeightStructuresFailureMechanismView view, object data)
-        {
-            var assessmentSection = data as IAssessmentSection;
-            var failureMechanism = data as HeightStructuresFailureMechanism;
-
-            return assessmentSection != null
-                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
-                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
-        }
 
         private static bool CloseScenariosViewForData(HeightStructuresScenariosView view, object removedData)
         {
