@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
@@ -53,33 +54,29 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
     public class ClosingStructuresFailureMechanismViewTest
     {
         private const int referenceLineIndex = 0;
-        private const int sectionsCollectionIndex = 1;
-        private const int assemblyResultsIndex = 2;
-        private const int hydraulicBoundaryLocationsIndex = 3;
-        private const int foreshoreProfilesIndex = 4;
-        private const int structuresIndex = 5;
-        private const int calculationsIndex = 6;
-
-        private const int sectionsIndex = 0;
-        private const int sectionsStartPointIndex = 1;
-        private const int sectionsEndPointIndex = 2;
-
-        private const int tailorMadeAssemblyIndex = 0;
-        private const int detailedAssemblyIndex = 1;
-        private const int simpleAssemblyIndex = 2;
-        private const int combinedAssemblyIndex = 3;
+        private const int hydraulicBoundaryLocationsIndex = 1;
+        private const int foreshoreProfilesIndex = 2;
+        private const int structuresIndex = 3;
+        private const int calculationsIndex = 4;
 
         private const int hydraulicBoundaryLocationsObserverIndex = 1;
         private const int foreshoreProfilesObserverIndex = 2;
         private const int structuresObserverIndex = 3;
         private const int calculationObserverIndex = 4;
-        private const int sectionsObserverIndex = 5;
-        private const int sectionsStartPointObserverIndex = 6;
-        private const int sectionsEndPointObserverIndex = 7;
-        private const int simpleAssemblyObserverIndex = 8;
-        private const int detailedAssemblyObserverIndex = 9;
-        private const int tailorMadeAssemblyObserverIndex = 10;
-        private const int combinedAssemblyObserverIndex = 11;
+
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
@@ -90,10 +87,10 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ClosingStructuresFailureMechanismView(null, assessmentSection);
+            void Call() => new ClosingStructuresFailureMechanismView(null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -102,14 +99,15 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), null);
+            void Call() => new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -117,38 +115,38 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, assessmentSection))
-            {
-                // Assert
-                Assert.IsInstanceOf<UserControl>(view);
-                Assert.IsInstanceOf<IMapView>(view);
-                Assert.IsNull(view.Data);
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
+            ClosingStructuresFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
-                Assert.AreEqual(1, view.Controls.Count);
-                Assert.IsInstanceOf<RiskeerMapControl>(view.Controls[0]);
-                Assert.AreSame(view.Map, ((RiskeerMapControl) view.Controls[0]).MapControl);
-                Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
-                AssertEmptyMapData(view.Map.Data);
-            }
+            // Assert
+            Assert.IsInstanceOf<UserControl>(view);
+            Assert.IsInstanceOf<IMapView>(view);
+            Assert.IsNull(view.Data);
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
+
+            Assert.AreEqual(1, view.Controls.Count);
+            Assert.IsInstanceOf<RiskeerMapControl>(view.Controls[0]);
+            Assert.AreSame(view.Map, ((RiskeerMapControl) view.Controls[0]).MapControl);
+            Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
+            AssertEmptyMapData(view.Map.Data);
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void Constructor_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
             // Call
-            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), assessmentSection))
-            {
-                // Assert
-                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
-            }
+            ClosingStructuresFailureMechanismView view = CreateView(new ClosingStructuresFailureMechanism(), assessmentSection);
+
+            // Assert
+            MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
@@ -238,40 +236,28 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 calculator.CombinedAssemblyOutput = expectedCombinedAssembly;
 
                 // Call
-                using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, assessmentSection))
-                {
-                    IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+                ClosingStructuresFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
-                    // Assert
-                    MapDataCollection mapData = map.Data;
-                    Assert.IsInstanceOf<MapDataCollection>(mapData);
+                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-                    List<MapData> mapDataList = mapData.Collection.ToList();
-                    Assert.AreEqual(7, mapDataList.Count);
-                    MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
+                // Assert
+                MapDataCollection mapData = map.Data;
+                Assert.IsInstanceOf<MapDataCollection>(mapData);
 
-                    IEnumerable<MapData> sectionsCollection = ((MapDataCollection) mapDataList[sectionsCollectionIndex]).Collection;
-                    MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsIndex));
-                    MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsStartPointIndex));
-                    MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsEndPointIndex));
+                List<MapData> mapDataList = mapData.Collection.ToList();
+                Assert.AreEqual(5, mapDataList.Count);
+                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
 
-                    MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
-                    MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
-                    AssertCalculationsMapData(
-                        failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(),
-                        mapDataList[calculationsIndex]);
-
-                    MapDataTestHelper.AssertAssemblyMapDataCollection(expectedSimpleAssembly,
-                                                                      expectedDetailedAssembly,
-                                                                      expectedTailorMadeAssembly,
-                                                                      expectedCombinedAssembly,
-                                                                      (MapDataCollection) mapDataList[assemblyResultsIndex],
-                                                                      failureMechanism);
-                }
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
+                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
+                AssertCalculationsMapData(
+                    failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(),
+                    mapDataList[calculationsIndex]);
             }
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -281,34 +267,34 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
             });
 
-            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), assessmentSection))
+            ClosingStructuresFailureMechanismView view = CreateView(new ClosingStructuresFailureMechanism(), assessmentSection);
+
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+
+            var mocks = new MockRepository();
+            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+            observers[hydraulicBoundaryLocationsObserverIndex].Expect(obs => obs.UpdateObserver());
+            mocks.ReplayAll();
+
+            MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+
+            // Precondition
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+
+            // When
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+                new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
+            });
+            assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[hydraulicBoundaryLocationsObserverIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
-
-                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-
-                // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-
-                // When
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-                {
-                    new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
-                });
-                assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
-
-                // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-                mocks.VerifyAll();
-            }
+            // Then
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+            mocks.VerifyAll();
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         [TestCaseSource(typeof(MapViewTestHelper), nameof(MapViewTestHelper.GetCalculationFuncs))]
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
             Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
@@ -321,32 +307,32 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 hydraulicBoundaryLocation
             });
 
-            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), assessmentSection))
-            {
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+            ClosingStructuresFailureMechanismView view = CreateView(new ClosingStructuresFailureMechanism(), assessmentSection);
 
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[hydraulicBoundaryLocationsObserverIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-                MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
+            var mocks = new MockRepository();
+            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+            observers[hydraulicBoundaryLocationsObserverIndex].Expect(obs => obs.UpdateObserver());
+            mocks.ReplayAll();
 
-                // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+            MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
-                // When
-                HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
-                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
-                calculation.NotifyObservers();
+            // Precondition
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
 
-                // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-                mocks.VerifyAll();
-            }
+            // When
+            HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
+            calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
+            calculation.NotifyObservers();
+
+            // Then
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+            mocks.VerifyAll();
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithAssessmentSectionData_WhenAssessmentSectionUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -356,37 +342,36 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 new Point2D(1.0, 2.0),
                 new Point2D(2.0, 1.0)
             });
-
             var assessmentSection = new AssessmentSectionStub
             {
                 ReferenceLine = referenceLine
             };
 
-            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), assessmentSection))
-            {
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+            ClosingStructuresFailureMechanismView view = CreateView(new ClosingStructuresFailureMechanism(), assessmentSection);
 
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-                var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
+            var mocks = new MockRepository();
+            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+            mocks.ReplayAll();
 
-                // Precondition
-                MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
+            var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
 
-                // When
-                assessmentSection.Name = "New name";
-                assessmentSection.NotifyObservers();
+            // Precondition
+            MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
 
-                // Then
-                MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
-                mocks.VerifyAll();
-            }
+            // When
+            assessmentSection.Name = "New name";
+            assessmentSection.NotifyObservers();
+
+            // Then
+            MapFeaturesTestHelper.AssertReferenceLineMetaData(assessmentSection.ReferenceLine, assessmentSection, referenceLineMapData.Features);
+            mocks.VerifyAll();
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithReferenceLineData_WhenReferenceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -396,86 +381,40 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 new Point2D(1.0, 2.0),
                 new Point2D(2.0, 1.0)
             });
-
             var assessmentSection = new AssessmentSectionStub
             {
                 ReferenceLine = referenceLine
             };
 
-            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), assessmentSection))
+            ClosingStructuresFailureMechanismView view = CreateView(new ClosingStructuresFailureMechanism(), assessmentSection);
+
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+
+            var mocks = new MockRepository();
+            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+            observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
+            mocks.ReplayAll();
+
+            MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
+
+            // Precondition
+            MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+
+            // When
+            referenceLine.SetGeometry(new List<Point2D>
             {
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+                new Point2D(2.0, 5.0),
+                new Point2D(4.0, 3.0)
+            });
+            referenceLine.NotifyObservers();
 
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
-
-                MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
-
-                // Precondition
-                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-
-                // When
-                referenceLine.SetGeometry(new List<Point2D>
-                {
-                    new Point2D(2.0, 5.0),
-                    new Point2D(4.0, 3.0)
-                });
-                referenceLine.NotifyObservers();
-
-                // Then
-                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
-                mocks.VerifyAll();
-            }
+            // Then
+            MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenViewWithFailureMechanismSectionsData_WhenFailureMechanismSectionsUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
-            {
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-                IEnumerable<MapData> sectionsCollection = ((MapDataCollection) map.Data.Collection.ElementAt(sectionsCollectionIndex)).Collection;
-                var sectionMapData = (MapLineData) sectionsCollection.ElementAt(sectionsIndex);
-                var sectionStartsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsStartPointIndex);
-                var sectionsEndsMapData = (MapPointData) sectionsCollection.ElementAt(sectionsEndPointIndex);
-
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[sectionsObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsStartPointObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsEndPointObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
-
-                // When
-                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-                {
-                    new FailureMechanismSection(string.Empty, new[]
-                    {
-                        new Point2D(1, 2),
-                        new Point2D(1, 2)
-                    })
-                });
-                failureMechanism.NotifyObservers();
-
-                // Then
-                MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
-                MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
-                MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithForeshoreProfileData_WhenForeshoreProfileUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -490,36 +429,36 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 foreshoreProfile
             }, "path");
 
-            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
+            ClosingStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
+
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+
+            var mocks = new MockRepository();
+            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+            observers[foreshoreProfilesObserverIndex].Expect(obs => obs.UpdateObserver());
+            mocks.ReplayAll();
+
+            MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
+
+            // Precondition
+            MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+
+            // When
+            var foreshoreProfileToUpdateFrom = new TestForeshoreProfile("originalProfile ID", new[]
             {
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+                new Point2D(2, 2),
+                new Point2D(3, 3)
+            });
+            foreshoreProfile.CopyProperties(foreshoreProfileToUpdateFrom);
+            foreshoreProfile.NotifyObservers();
 
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[foreshoreProfilesObserverIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
-
-                MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
-
-                // Precondition
-                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
-
-                // When
-                var foreshoreProfileToUpdateFrom = new TestForeshoreProfile("originalProfile ID", new[]
-                {
-                    new Point2D(2, 2),
-                    new Point2D(3, 3)
-                });
-                foreshoreProfile.CopyProperties(foreshoreProfileToUpdateFrom);
-                foreshoreProfile.NotifyObservers();
-
-                // Then
-                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
-                mocks.VerifyAll();
-            }
+            // Then
+            MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+            mocks.VerifyAll();
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithForeshoreProfilesData_WhenForeshoreProfilesUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -533,38 +472,38 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 })
             }, "path");
 
-            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
+            ClosingStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
+
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+
+            var mocks = new MockRepository();
+            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+            observers[foreshoreProfilesObserverIndex].Expect(obs => obs.UpdateObserver());
+            mocks.ReplayAll();
+
+            MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
+
+            // Precondition
+            MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+
+            // When
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[foreshoreProfilesObserverIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
-
-                MapData foreshoreProfileData = map.Data.Collection.ElementAt(foreshoreProfilesIndex);
-
-                // Precondition
-                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
-
-                // When
-                failureMechanism.ForeshoreProfiles.AddRange(new[]
+                new TestForeshoreProfile("newProfile ID", new[]
                 {
-                    new TestForeshoreProfile("newProfile ID", new[]
-                    {
-                        new Point2D(2, 2),
-                        new Point2D(3, 3)
-                    })
-                }, "path");
-                failureMechanism.ForeshoreProfiles.NotifyObservers();
+                    new Point2D(2, 2),
+                    new Point2D(3, 3)
+                })
+            }, "path");
+            failureMechanism.ForeshoreProfiles.NotifyObservers();
 
-                // Then
-                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
-                mocks.VerifyAll();
-            }
+            // Then
+            MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, foreshoreProfileData);
+            mocks.VerifyAll();
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithStructureData_WhenStructureUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -575,33 +514,33 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 structure
             }, "path");
 
-            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
-            {
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+            ClosingStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[structuresObserverIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-                MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
+            var mocks = new MockRepository();
+            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+            observers[structuresObserverIndex].Expect(obs => obs.UpdateObserver());
+            mocks.ReplayAll();
 
-                // Precondition
-                MapDataTestHelper.AssertStructuresMapData(failureMechanism.ClosingStructures,
-                                                          structuresData);
+            MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
 
-                // When
-                structure.CopyProperties(new TestClosingStructure(new Point2D(1, 1), "Id"));
-                structure.NotifyObservers();
+            // Precondition
+            MapDataTestHelper.AssertStructuresMapData(failureMechanism.ClosingStructures,
+                                                      structuresData);
 
-                // Then
-                MapDataTestHelper.AssertStructuresMapData(failureMechanism.ClosingStructures,
-                                                          structuresData);
-                mocks.VerifyAll();
-            }
+            // When
+            structure.CopyProperties(new TestClosingStructure(new Point2D(1, 1), "Id"));
+            structure.NotifyObservers();
+
+            // Then
+            MapDataTestHelper.AssertStructuresMapData(failureMechanism.ClosingStructures,
+                                                      structuresData);
+            mocks.VerifyAll();
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithStructuresData_WhenStructuresUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -611,36 +550,36 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 new TestClosingStructure(new Point2D(0, 0), "Id1")
             }, "path");
 
-            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
+            ClosingStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
+
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+
+            var mocks = new MockRepository();
+            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+            observers[structuresObserverIndex].Expect(obs => obs.UpdateObserver());
+            mocks.ReplayAll();
+
+            MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
+
+            // Precondition
+            MapDataTestHelper.AssertStructuresMapData(failureMechanism.ClosingStructures,
+                                                      structuresData);
+
+            // When
+            failureMechanism.ClosingStructures.AddRange(new[]
             {
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+                new TestClosingStructure(new Point2D(1, 1), "Id2")
+            }, "some path");
+            failureMechanism.ClosingStructures.NotifyObservers();
 
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[structuresObserverIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
-
-                MapData structuresData = map.Data.Collection.ElementAt(structuresIndex);
-
-                // Precondition
-                MapDataTestHelper.AssertStructuresMapData(failureMechanism.ClosingStructures,
-                                                          structuresData);
-
-                // When
-                failureMechanism.ClosingStructures.AddRange(new[]
-                {
-                    new TestClosingStructure(new Point2D(1, 1), "Id2")
-                }, "some path");
-                failureMechanism.ClosingStructures.NotifyObservers();
-
-                // Then
-                MapDataTestHelper.AssertStructuresMapData(failureMechanism.ClosingStructures,
-                                                          structuresData);
-                mocks.VerifyAll();
-            }
+            // Then
+            MapDataTestHelper.AssertStructuresMapData(failureMechanism.ClosingStructures,
+                                                      structuresData);
+            mocks.VerifyAll();
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithCalculationGroupData_WhenCalculationGroupUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -656,45 +595,41 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
-            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
+            ClosingStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
+
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+
+            var mocks = new MockRepository();
+            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
+            mocks.ReplayAll();
+
+            var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+
+            // Precondition
+            AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(),
+                                      calculationMapData);
+
+            // When
+            var calculationB = new StructuresCalculation<ClosingStructuresInput>
             {
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
-
-                var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
-
-                // Precondition
-                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(),
-                                          calculationMapData);
-
-                // When
-                var calculationB = new StructuresCalculation<ClosingStructuresInput>
+                InputParameters =
                 {
-                    InputParameters =
-                    {
-                        HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6),
-                        Structure = new TestClosingStructure(new Point2D(2.7, 2.0))
-                    }
-                };
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 7.7, 12.6),
+                    Structure = new TestClosingStructure(new Point2D(2.7, 2.0))
+                }
+            };
 
-                failureMechanism.CalculationsGroup.Children.Add(calculationB);
-                failureMechanism.CalculationsGroup.NotifyObservers();
+            failureMechanism.CalculationsGroup.Children.Add(calculationB);
+            failureMechanism.CalculationsGroup.NotifyObservers();
 
-                // Then
-                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(), calculationMapData);
-                mocks.VerifyAll();
-            }
+            // Then
+            AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(), calculationMapData);
+            mocks.VerifyAll();
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenViewWithCalculationInputData_WhenCalculationInputUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
@@ -709,250 +644,36 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
-            using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
-            {
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+            ClosingStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-                var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
+            var mocks = new MockRepository();
+            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
+            observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
+            mocks.ReplayAll();
 
-                // Precondition
-                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(),
-                                          calculationMapData);
+            var calculationMapData = (MapLineData) map.Data.Collection.ElementAt(calculationsIndex);
 
-                // When
-                calculationA.InputParameters.Structure = new TestClosingStructure(new Point2D(2.7, 2.0));
-                calculationA.InputParameters.NotifyObservers();
+            // Precondition
+            AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(),
+                                      calculationMapData);
 
-                // Then
-                AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(), calculationMapData);
-                mocks.VerifyAll();
-            }
+            // When
+            calculationA.InputParameters.Structure = new TestClosingStructure(new Point2D(2.7, 2.0));
+            calculationA.InputParameters.NotifyObservers();
+
+            // Then
+            AssertCalculationsMapData(failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>(), calculationMapData);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenViewWithAssemblyData_WhenFailureMechanismNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var random = new Random(39);
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
-
-            var originalSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
-                calculator.DetailedAssessmentAssemblyOutput = originalDetailedAssembly;
-                calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
-                calculator.CombinedAssemblyOutput = originalCombinedAssembly;
-
-                using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
-                {
-                    IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-                    var mocks = new MockRepository();
-                    IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                    observers[sectionsObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[sectionsStartPointObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[sectionsEndPointObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    mocks.ReplayAll();
-
-                    // Precondition
-                    var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
-                    MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly,
-                                                                      originalDetailedAssembly,
-                                                                      originalTailorMadeAssembly,
-                                                                      originalCombinedAssembly,
-                                                                      assemblyMapData,
-                                                                      failureMechanism);
-
-                    // When
-                    var updatedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    var updatedDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    var updatedTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    var updatedCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    calculator.SimpleAssessmentAssemblyOutput = updatedSimpleAssembly;
-                    calculator.DetailedAssessmentAssemblyOutput = updatedDetailedAssembly;
-                    calculator.TailorMadeAssessmentAssemblyOutput = updatedTailorMadeAssembly;
-                    calculator.CombinedAssemblyOutput = updatedCombinedAssembly;
-                    failureMechanism.NotifyObservers();
-
-                    // Then
-                    MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly,
-                                                                      updatedDetailedAssembly,
-                                                                      updatedTailorMadeAssembly,
-                                                                      updatedCombinedAssembly,
-                                                                      assemblyMapData,
-                                                                      failureMechanism);
-                    mocks.VerifyAll();
-                }
-            }
-        }
-
-        [Test]
-        public void GivenViewWithAssemblyData_WhenCalculationNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var random = new Random(39);
-            var calculationA = new StructuresCalculationScenario<ClosingStructuresInput>();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(calculationA);
-            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
-
-            var originalSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
-                calculator.DetailedAssessmentAssemblyOutput = originalDetailedAssembly;
-                calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
-                calculator.CombinedAssemblyOutput = originalCombinedAssembly;
-
-                using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
-                {
-                    IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-                    var mocks = new MockRepository();
-                    IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                    observers[calculationObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    mocks.ReplayAll();
-
-                    // Precondition
-                    var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
-                    MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly,
-                                                                      originalDetailedAssembly,
-                                                                      originalTailorMadeAssembly,
-                                                                      originalCombinedAssembly,
-                                                                      assemblyMapData,
-                                                                      failureMechanism);
-
-                    // When
-                    var updatedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    var updatedDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    var updatedTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    var updatedCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    calculator.SimpleAssessmentAssemblyOutput = updatedSimpleAssembly;
-                    calculator.DetailedAssessmentAssemblyOutput = updatedDetailedAssembly;
-                    calculator.TailorMadeAssessmentAssemblyOutput = updatedTailorMadeAssembly;
-                    calculator.CombinedAssemblyOutput = updatedCombinedAssembly;
-                    calculationA.NotifyObservers();
-
-                    // Then
-                    MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly,
-                                                                      updatedDetailedAssembly,
-                                                                      updatedTailorMadeAssembly,
-                                                                      updatedCombinedAssembly,
-                                                                      assemblyMapData,
-                                                                      failureMechanism);
-                    mocks.VerifyAll();
-                }
-            }
-        }
-
-        [Test]
-        public void GivenViewWithAssemblyData_WhenFailureMechanismSectionResultNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var random = new Random(39);
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
-
-            var originalSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
-                calculator.DetailedAssessmentAssemblyOutput = originalDetailedAssembly;
-                calculator.TailorMadeAssessmentAssemblyOutput = originalTailorMadeAssembly;
-                calculator.CombinedAssemblyOutput = originalCombinedAssembly;
-
-                using (var view = new ClosingStructuresFailureMechanismView(failureMechanism, new AssessmentSectionStub()))
-                {
-                    IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-                    var mocks = new MockRepository();
-                    IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                    observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                    mocks.ReplayAll();
-
-                    // Precondition
-                    var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
-                    MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly,
-                                                                      originalDetailedAssembly,
-                                                                      originalTailorMadeAssembly,
-                                                                      originalCombinedAssembly,
-                                                                      assemblyMapData,
-                                                                      failureMechanism);
-
-                    // When
-                    var updatedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    var updatedDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    var updatedTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    var updatedCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                    calculator.SimpleAssessmentAssemblyOutput = updatedSimpleAssembly;
-                    calculator.DetailedAssessmentAssemblyOutput = updatedDetailedAssembly;
-                    calculator.TailorMadeAssessmentAssemblyOutput = updatedTailorMadeAssembly;
-                    calculator.CombinedAssemblyOutput = updatedCombinedAssembly;
-                    failureMechanism.SectionResults.First().NotifyObservers();
-
-                    // Then
-                    MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly,
-                                                                      updatedDetailedAssembly,
-                                                                      updatedTailorMadeAssembly,
-                                                                      updatedCombinedAssembly,
-                                                                      assemblyMapData,
-                                                                      failureMechanism);
-                    mocks.VerifyAll();
-                }
-            }
-        }
-
-        [Test]
+        [Apartment(ApartmentState.STA)]
         public void NotifyObservers_DataUpdated_MapLayersSameOrder()
         {
             // Setup
-            const int updatedReferenceLineLayerIndex = referenceLineIndex + 6;
-            const int updatedSectionCollectionIndex = sectionsCollectionIndex - 1;
-            const int updatedAssemblyResultsCollectionIndex = assemblyResultsIndex - 1;
+            const int updatedReferenceLineLayerIndex = referenceLineIndex + 4;
             const int updatedHydraulicLocationsLayerIndex = hydraulicBoundaryLocationsIndex - 1;
             const int updatedForeshoreProfilesLayerIndex = foreshoreProfilesIndex - 1;
             const int updatedStructuresLayerIndex = structuresIndex - 1;
@@ -960,74 +681,70 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             var assessmentSection = new AssessmentSectionStub();
 
-            using (var view = new ClosingStructuresFailureMechanismView(new ClosingStructuresFailureMechanism(), assessmentSection))
+            ClosingStructuresFailureMechanismView view = CreateView(new ClosingStructuresFailureMechanism(), assessmentSection);
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+
+            MapDataCollection mapData = map.Data;
+
+            var dataToMove = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
+            mapData.Remove(dataToMove);
+            mapData.Add(dataToMove);
+
+            List<MapData> mapDataList = mapData.Collection.ToList();
+
+            // Precondition
+            var referenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
+            Assert.AreEqual("Referentielijn", referenceLineData.Name);
+
+            var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
+            Assert.AreEqual("Hydraulische belastingen", hydraulicLocationsData.Name);
+
+            var foreshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
+            Assert.AreEqual("Voorlandprofielen", foreshoreProfilesData.Name);
+
+            var structuresData = (MapPointData) mapDataList[updatedStructuresLayerIndex];
+            Assert.AreEqual("Kunstwerken", structuresData.Name);
+
+            var calculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
+            Assert.AreEqual("Berekeningen", calculationsData.Name);
+
+            var points = new List<Point2D>
             {
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+                new Point2D(2.0, 5.0),
+                new Point2D(4.0, 3.0)
+            };
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(points);
+            assessmentSection.ReferenceLine = referenceLine;
 
-                MapDataCollection mapData = map.Data;
+            // Call
+            assessmentSection.NotifyObservers();
 
-                var dataToMove = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
-                mapData.Remove(dataToMove);
-                mapData.Add(dataToMove);
+            // Assert
+            var actualReferenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
+            Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
 
-                List<MapData> mapDataList = mapData.Collection.ToList();
+            var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
+            Assert.AreEqual("Hydraulische belastingen", actualHydraulicLocationsData.Name);
 
-                // Precondition
-                var referenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
-                Assert.AreEqual("Referentielijn", referenceLineData.Name);
+            var actualForeshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
+            Assert.AreEqual("Voorlandprofielen", actualForeshoreProfilesData.Name);
 
-                var sectionsData = (MapDataCollection) mapDataList[updatedSectionCollectionIndex];
-                Assert.AreEqual("Vakindeling", sectionsData.Name);
+            var actualStructuresData = (MapPointData) mapDataList[updatedStructuresLayerIndex];
+            Assert.AreEqual("Kunstwerken", actualStructuresData.Name);
 
-                var assemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsCollectionIndex];
-                Assert.AreEqual("Toetsoordeel", assemblyResultsData.Name);
+            var actualCalculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
+            Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
+        }
 
-                var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
-                Assert.AreEqual("Hydraulische belastingen", hydraulicLocationsData.Name);
+        private ClosingStructuresFailureMechanismView CreateView(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            var view = new ClosingStructuresFailureMechanismView(failureMechanism, assessmentSection);
 
-                var foreshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
-                Assert.AreEqual("Voorlandprofielen", foreshoreProfilesData.Name);
+            testForm.Controls.Add(view);
+            testForm.Show();
 
-                var structuresData = (MapPointData) mapDataList[updatedStructuresLayerIndex];
-                Assert.AreEqual("Kunstwerken", structuresData.Name);
-
-                var calculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
-                Assert.AreEqual("Berekeningen", calculationsData.Name);
-
-                var points = new List<Point2D>
-                {
-                    new Point2D(2.0, 5.0),
-                    new Point2D(4.0, 3.0)
-                };
-                var referenceLine = new ReferenceLine();
-                referenceLine.SetGeometry(points);
-                assessmentSection.ReferenceLine = referenceLine;
-
-                // Call
-                assessmentSection.NotifyObservers();
-
-                // Assert
-                var actualReferenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
-                Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
-
-                var actualSectionsData = (MapDataCollection) mapDataList[updatedSectionCollectionIndex];
-                Assert.AreEqual("Vakindeling", actualSectionsData.Name);
-
-                var actualAssemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsCollectionIndex];
-                Assert.AreEqual("Toetsoordeel", actualAssemblyResultsData.Name);
-
-                var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
-                Assert.AreEqual("Hydraulische belastingen", actualHydraulicLocationsData.Name);
-
-                var actualForeshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
-                Assert.AreEqual("Voorlandprofielen", actualForeshoreProfilesData.Name);
-
-                var actualStructuresData = (MapPointData) mapDataList[updatedStructuresLayerIndex];
-                Assert.AreEqual("Kunstwerken", actualStructuresData.Name);
-
-                var actualCalculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
-                Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
-            }
+            return view;
         }
 
         private static void AssertCalculationsMapData(IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations, MapData mapData)
@@ -1056,11 +773,11 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
         {
-            Assert.AreEqual("Kunstwerken - Betrouwbaarheid sluiting kunstwerk", mapDataCollection.Name);
+            Assert.AreEqual("Kunstwerken - Hoogte kunstwerk", mapDataCollection.Name);
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
-            Assert.AreEqual(7, mapDataList.Count);
+            Assert.AreEqual(5, mapDataList.Count);
 
             var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
             var foreshoreProfilesMapData = (MapLineData) mapDataList[foreshoreProfilesIndex];
@@ -1079,43 +796,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             Assert.AreEqual("Kunstwerken", structuresMapData.Name);
             Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
             Assert.AreEqual("Berekeningen", calculationsMapData.Name);
-
-            var sectionsMapDataCollection = (MapDataCollection) mapDataList[sectionsCollectionIndex];
-            Assert.AreEqual("Vakindeling", sectionsMapDataCollection.Name);
-            List<MapData> sectionsDataList = sectionsMapDataCollection.Collection.ToList();
-            Assert.AreEqual(3, sectionsDataList.Count);
-
-            var sectionsMapData = (MapLineData) sectionsDataList[sectionsIndex];
-            var sectionsStartPointMapData = (MapPointData) sectionsDataList[sectionsStartPointIndex];
-            var sectionsEndPointMapData = (MapPointData) sectionsDataList[sectionsEndPointIndex];
-
-            CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
-            CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
-            CollectionAssert.IsEmpty(sectionsMapData.Features);
-
-            Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
-            Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
-            Assert.AreEqual("Vakindeling", sectionsMapData.Name);
-
-            var assemblyResultsMapDataCollection = (MapDataCollection) mapDataList[assemblyResultsIndex];
-            Assert.AreEqual("Toetsoordeel", assemblyResultsMapDataCollection.Name);
-            List<MapData> assemblyMapDataList = assemblyResultsMapDataCollection.Collection.ToList();
-            Assert.AreEqual(4, assemblyMapDataList.Count);
-
-            var combinedAssemblyMapData = (MapLineData) assemblyMapDataList[combinedAssemblyIndex];
-            var simpleAssemblyMapData = (MapLineData) assemblyMapDataList[simpleAssemblyIndex];
-            var detailedAssemblyMapData = (MapLineData) assemblyMapDataList[detailedAssemblyIndex];
-            var tailorMadeAssemblyMapData = (MapLineData) assemblyMapDataList[tailorMadeAssemblyIndex];
-
-            CollectionAssert.IsEmpty(combinedAssemblyMapData.Features);
-            CollectionAssert.IsEmpty(simpleAssemblyMapData.Features);
-            CollectionAssert.IsEmpty(detailedAssemblyMapData.Features);
-            CollectionAssert.IsEmpty(tailorMadeAssemblyMapData.Features);
-
-            Assert.AreEqual("Gecombineerd toetsoordeel", combinedAssemblyMapData.Name);
-            Assert.AreEqual("Toetsoordeel eenvoudige toets", simpleAssemblyMapData.Name);
-            Assert.AreEqual("Toetsoordeel gedetailleerde toets", detailedAssemblyMapData.Name);
-            Assert.AreEqual("Toetsoordeel toets op maat", tailorMadeAssemblyMapData.Name);
         }
 
         /// <summary>
@@ -1144,43 +824,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var calculationsMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[calculationsIndex].Attach(calculationsMapDataObserver);
 
-            MapData[] sectionsCollection = ((MapDataCollection) mapDataArray[sectionsCollectionIndex]).Collection.ToArray();
-            var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
-            sectionsCollection[sectionsIndex].Attach(sectionsMapDataObserver);
-
-            var sectionsStartPointMapDataObserver = mocks.StrictMock<IObserver>();
-            sectionsCollection[sectionsStartPointIndex].Attach(sectionsStartPointMapDataObserver);
-
-            var sectionsEndPointMapDataObserver = mocks.StrictMock<IObserver>();
-            sectionsCollection[sectionsEndPointIndex].Attach(sectionsEndPointMapDataObserver);
-
-            MapData[] assemblyResultsCollection = ((MapDataCollection) mapDataArray[assemblyResultsIndex]).Collection.ToArray();
-            var simpleAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
-            assemblyResultsCollection[simpleAssemblyIndex].Attach(simpleAssemblyMapDataObserver);
-
-            var detailedAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
-            assemblyResultsCollection[detailedAssemblyIndex].Attach(detailedAssemblyMapDataObserver);
-
-            var tailorMadeAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
-            assemblyResultsCollection[tailorMadeAssemblyIndex].Attach(tailorMadeAssemblyMapDataObserver);
-
-            var combinedAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
-            assemblyResultsCollection[combinedAssemblyIndex].Attach(combinedAssemblyMapDataObserver);
-
             return new[]
             {
                 referenceLineMapDataObserver,
                 hydraulicBoundaryLocationsMapDataObserver,
                 foreshoreProfilesMapDataObserver,
                 structuresMapDataObserver,
-                calculationsMapDataObserver,
-                sectionsMapDataObserver,
-                sectionsStartPointMapDataObserver,
-                sectionsEndPointMapDataObserver,
-                simpleAssemblyMapDataObserver,
-                detailedAssemblyMapDataObserver,
-                tailorMadeAssemblyMapDataObserver,
-                combinedAssemblyMapDataObserver
+                calculationsMapDataObserver
             };
         }
     }

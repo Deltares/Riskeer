@@ -107,6 +107,13 @@ namespace Riskeer.ClosingStructures.Plugin
                 CreateInstance = context => new ClosingStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
 
+            yield return new ViewInfo<ClosingStructuresFailurePathContext, ClosingStructuresFailurePathView>
+            {
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
+                CreateInstance = context => new ClosingStructuresFailurePathView(context.WrappedData, context.Parent)
+            };
+
             yield return new ViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>,
                 IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult>,

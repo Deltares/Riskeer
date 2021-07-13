@@ -27,12 +27,10 @@ using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.ClosingStructures.Forms.Factories;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Factories;
@@ -46,23 +44,12 @@ namespace Riskeer.ClosingStructures.Forms.Views
     /// </summary>
     public partial class ClosingStructuresFailureMechanismView : UserControl, IMapView
     {
-        private MapDataCollection mapDataCollection;
         private MapLineData referenceLineMapData;
         private MapPointData hydraulicBoundaryLocationsMapData;
         private MapLineData foreshoreProfilesMapData;
         private MapPointData structuresMapData;
         private MapLineData calculationsMapData;
 
-        private MapLineData sectionsMapData;
-        private MapPointData sectionsStartPointMapData;
-        private MapPointData sectionsEndPointMapData;
-
-        private MapLineData simpleAssemblyMapData;
-        private MapLineData detailedAssemblyMapData;
-        private MapLineData tailorMadeAssemblyMapData;
-        private MapLineData combinedAssemblyMapData;
-
-        private Observer failureMechanismObserver;
         private Observer assessmentSectionObserver;
         private Observer referenceLineObserver;
         private Observer hydraulicBoundaryLocationsObserver;
@@ -82,7 +69,6 @@ namespace Riskeer.ClosingStructures.Forms.Views
         private RecursiveObserver<CalculationGroup, StructuresCalculation<ClosingStructuresInput>> calculationObserver;
         private RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile> foreshoreProfileObserver;
         private RecursiveObserver<StructureCollection<ClosingStructure>, ClosingStructure> structureObserver;
-        private RecursiveObserver<IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult>, ClosingStructuresFailureMechanismSectionResult> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismView"/>.
@@ -107,12 +93,6 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
-
-            CreateObservers();
-
-            CreateMapData();
-            SetAllMapDataFeatures();
-            riskeerMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
         }
 
         /// <summary>
@@ -135,9 +115,26 @@ namespace Riskeer.ClosingStructures.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets the <see cref="MapDataCollection"/>.
+        /// </summary>
+        protected MapDataCollection MapDataCollection { get; private set; }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            CreateObservers();
+
+            CreateMapData();
+
+            SetAllMapDataFeatures();
+
+            riskeerMapControl.SetAllData(MapDataCollection, AssessmentSection.BackgroundData);
+
+            base.OnLoad(e);
+        }
+
         protected override void Dispose(bool disposing)
         {
-            failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
             referenceLineObserver.Dispose();
             waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
@@ -156,7 +153,6 @@ namespace Riskeer.ClosingStructures.Forms.Views
             calculationObserver.Dispose();
             structuresObserver.Dispose();
             structureObserver.Dispose();
-            sectionResultObserver.Dispose();
 
             if (disposing)
             {
@@ -166,51 +162,25 @@ namespace Riskeer.ClosingStructures.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void CreateMapData()
+        protected virtual void CreateMapData()
         {
-            mapDataCollection = new MapDataCollection(ClosingStructuresDataResources.ClosingStructuresFailureMechanism_DisplayName);
+            MapDataCollection = new MapDataCollection(ClosingStructuresDataResources.ClosingStructuresFailureMechanism_DisplayName);
             referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
             hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             foreshoreProfilesMapData = RiskeerMapDataFactory.CreateForeshoreProfileMapData();
             calculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData();
             structuresMapData = RiskeerMapDataFactory.CreateStructuresMapData();
 
-            MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
-            sectionsMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
-            sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
-            sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+            MapDataCollection.Add(referenceLineMapData);
 
-            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
-            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
-
-            mapDataCollection.Add(referenceLineMapData);
-
-            sectionsMapDataCollection.Add(sectionsMapData);
-            sectionsMapDataCollection.Add(sectionsStartPointMapData);
-            sectionsMapDataCollection.Add(sectionsEndPointMapData);
-            mapDataCollection.Add(sectionsMapDataCollection);
-
-            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
-            assemblyMapDataCollection.Add(detailedAssemblyMapData);
-            assemblyMapDataCollection.Add(simpleAssemblyMapData);
-            assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            mapDataCollection.Add(assemblyMapDataCollection);
-
-            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
-            mapDataCollection.Add(foreshoreProfilesMapData);
-            mapDataCollection.Add(structuresMapData);
-            mapDataCollection.Add(calculationsMapData);
+            MapDataCollection.Add(hydraulicBoundaryLocationsMapData);
+            MapDataCollection.Add(foreshoreProfilesMapData);
+            MapDataCollection.Add(structuresMapData);
+            MapDataCollection.Add(calculationsMapData);
         }
 
-        private void CreateObservers()
+        protected virtual void CreateObservers()
         {
-            failureMechanismObserver = new Observer(UpdateFailureMechanismMapData)
-            {
-                Observable = FailureMechanism
-            };
             assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
             {
                 Observable = AssessmentSection
@@ -271,54 +241,23 @@ namespace Riskeer.ClosingStructures.Forms.Views
             {
                 Observable = FailureMechanism.ClosingStructures
             };
-
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult>,
-                ClosingStructuresFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
-            {
-                Observable = FailureMechanism.SectionResults
-            };
         }
 
-        private void SetAllMapDataFeatures()
+        protected virtual void SetAllMapDataFeatures()
         {
             SetReferenceLineMapData();
-            SetSectionsMapData();
             SetHydraulicBoundaryLocationsMapData();
             SetForeshoreProfilesMapData();
             SetStructuresMapData();
             SetCalculationsMapData();
-            SetAssemblyMapData();
         }
-
-        #region Assembly MapData
-
-        private void UpdateAssemblyMapData()
-        {
-            SetAssemblyMapData();
-            simpleAssemblyMapData.NotifyObservers();
-            detailedAssemblyMapData.NotifyObservers();
-            tailorMadeAssemblyMapData.NotifyObservers();
-            combinedAssemblyMapData.NotifyObservers();
-        }
-
-        private void SetAssemblyMapData()
-        {
-            simpleAssemblyMapData.Features = ClosingStructuresAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(FailureMechanism);
-            detailedAssemblyMapData.Features = ClosingStructuresAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(FailureMechanism, AssessmentSection);
-            tailorMadeAssemblyMapData.Features = ClosingStructuresAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(FailureMechanism, AssessmentSection);
-            combinedAssemblyMapData.Features = ClosingStructuresAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(FailureMechanism, AssessmentSection);
-        }
-
-        #endregion
 
         #region Calculations MapData
 
-        private void UpdateCalculationsMapData()
+        protected virtual void UpdateCalculationsMapData()
         {
             SetCalculationsMapData();
             calculationsMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetCalculationsMapData()
@@ -357,28 +296,6 @@ namespace Riskeer.ClosingStructures.Forms.Views
         {
             ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
             referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
-        }
-
-        #endregion
-
-        #region FailureMechanism MapData
-
-        private void UpdateFailureMechanismMapData()
-        {
-            SetSectionsMapData();
-            sectionsMapData.NotifyObservers();
-            sectionsStartPointMapData.NotifyObservers();
-            sectionsEndPointMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
-        }
-
-        private void SetSectionsMapData()
-        {
-            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
-            sectionsMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
-            sectionsStartPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
-            sectionsEndPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
         }
 
         #endregion

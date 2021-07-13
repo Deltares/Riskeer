@@ -37,7 +37,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class ClosingStructuresFailureMechanismViewInfoTest
+    public class ClosingStructuresFailurePathViewInfoTest
     {
         private MockRepository mocks;
         private ClosingStructuresPlugin plugin;
@@ -48,7 +48,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new ClosingStructuresPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ClosingStructuresFailureMechanismView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ClosingStructuresFailurePathView));
         }
 
         [TearDown]
@@ -61,8 +61,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ClosingStructuresCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(ClosingStructuresCalculationsContext), info.ViewDataType);
+            Assert.AreEqual(typeof(ClosingStructuresFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(ClosingStructuresFailurePathContext), info.ViewDataType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -100,12 +100,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
 
             using (var testForm = new Form())
             {
                 // Call
-                var view = info.CreateInstance(context) as ClosingStructuresFailureMechanismView;
+                var view = info.CreateInstance(context) as ClosingStructuresFailurePathView;
 
                 testForm.Controls.Add(view);
                 testForm.Show();
