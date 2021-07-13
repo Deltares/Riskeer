@@ -102,8 +102,6 @@ namespace Riskeer.ClosingStructures.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                CloseForData = CloseClosingStructuresFailureMechanismViewForData,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new ClosingStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
 
@@ -292,16 +290,6 @@ namespace Riskeer.ClosingStructures.Plugin
         }
 
         #region ViewInfos
-
-        private static bool CloseClosingStructuresFailureMechanismViewForData(ClosingStructuresFailureMechanismView view, object data)
-        {
-            var assessmentSection = data as IAssessmentSection;
-            var failureMechanism = data as ClosingStructuresFailureMechanism;
-
-            return assessmentSection != null
-                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
-                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
-        }
 
         private static bool CloseFailureMechanismResultViewForData(ClosingStructuresFailureMechanismResultView view, object o)
         {
