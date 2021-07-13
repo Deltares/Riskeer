@@ -425,16 +425,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         #region ViewInfos
 
-        private static bool CloseGrassCoverErosionOutwardsFailureMechanismViewForData(GrassCoverErosionOutwardsFailureMechanismView view, object data)
-        {
-            var assessmentSection = data as IAssessmentSection;
-            var failureMechanism = data as GrassCoverErosionOutwardsFailureMechanism;
-
-            return assessmentSection != null
-                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
-                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
-        }
-
         private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionOutwardsFailureMechanismResultView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
