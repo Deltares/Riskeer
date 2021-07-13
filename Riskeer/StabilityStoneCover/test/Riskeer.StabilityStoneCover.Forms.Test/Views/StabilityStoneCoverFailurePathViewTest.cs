@@ -101,16 +101,10 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             StabilityStoneCoverFailurePathView view = CreateView(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<UserControl>(view);
-            Assert.IsInstanceOf<IMapView>(view);
+            Assert.IsInstanceOf<StabilityStoneCoverFailureMechanismView>(view);
             Assert.IsNull(view.Data);
             Assert.AreSame(failureMechanism, view.FailureMechanism);
             Assert.AreSame(assessmentSection, view.AssessmentSection);
-
-            Assert.AreEqual(1, view.Controls.Count);
-            Assert.IsInstanceOf<RiskeerMapControl>(view.Controls[0]);
-            Assert.AreSame(view.Map, ((RiskeerMapControl) view.Controls[0]).MapControl);
-            Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
             AssertEmptyMapData(view.Map.Data);
         }
 
