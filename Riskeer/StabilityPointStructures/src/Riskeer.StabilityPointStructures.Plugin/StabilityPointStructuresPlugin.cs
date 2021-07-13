@@ -104,6 +104,13 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new StabilityPointStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
+            
+            yield return new ViewInfo<StabilityPointStructuresFailurePathContext, StabilityPointStructuresFailurePathView>
+            {
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
+                CreateInstance = context => new StabilityPointStructuresFailurePathView(context.WrappedData, context.Parent)
+            };
 
             yield return new ViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>,

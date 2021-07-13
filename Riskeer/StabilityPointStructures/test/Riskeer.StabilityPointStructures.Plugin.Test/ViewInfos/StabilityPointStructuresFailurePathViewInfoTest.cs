@@ -37,7 +37,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class StabilityPointStructuresFailureMechanismViewInfoTest
+    public class StabilityPointStructuresFailurePathViewInfoTest
     {
         private MockRepository mocks;
         private StabilityPointStructuresPlugin plugin;
@@ -48,7 +48,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new StabilityPointStructuresPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StabilityPointStructuresFailureMechanismView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StabilityPointStructuresFailurePathView));
         }
 
         [TearDown]
@@ -61,8 +61,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(StabilityPointStructuresCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(StabilityPointStructuresCalculationsContext), info.ViewDataType);
+            Assert.AreEqual(typeof(StabilityPointStructuresFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(StabilityPointStructuresFailurePathContext), info.ViewDataType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -100,12 +100,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailurePathContext(failureMechanism, assessmentSection);
 
             using (var testForm = new Form())
             {
                 // Call
-                var view = info.CreateInstance(context) as StabilityPointStructuresFailureMechanismView;
+                var view = info.CreateInstance(context) as StabilityPointStructuresFailurePathView;
 
                 testForm.Controls.Add(view);
                 testForm.Show();

@@ -129,12 +129,17 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(4, viewInfos.Length);
+                Assert.AreEqual(5, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(StabilityPointStructuresCalculationsContext),
                     typeof(StabilityPointStructuresFailureMechanismView));
+                
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(StabilityPointStructuresFailurePathContext),
+                    typeof(StabilityPointStructuresFailurePathView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
