@@ -808,18 +808,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         {
             MapData[] mapDataArray = mapData.ToArray();
 
-            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
-
-            var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
-
-            var foreshoreProfilesMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[foreshoreProfilesIndex].Attach(foreshoreProfilesMapDataObserver);
-
-            var calculationsMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[calculationsIndex].Attach(calculationsMapDataObserver);
-
             MapData[] sectionsCollection = ((MapDataCollection) mapDataArray[sectionsCollectionIndex]).Collection.ToArray();
             var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
             sectionsCollection[sectionsIndex].Attach(sectionsMapDataObserver);
