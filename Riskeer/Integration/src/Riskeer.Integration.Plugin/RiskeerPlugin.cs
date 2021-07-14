@@ -208,7 +208,7 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = context => new AssessmentSectionCompositionProperties(
                     context.Parent,
-                    new AssessmentSectionCompositionChangeHandler(Gui.ViewCommands))
+                    new AssessmentSectionCompositionChangeHandler())
             };
             yield return new PropertyInfo<NormContext, NormProperties>
             {

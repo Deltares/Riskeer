@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base;
-using Core.Gui.Commands;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Extensions.Forms;
@@ -149,10 +148,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var observer = mocks.StrictMock<IObserver>();
             failureMechanismContribution.Attach(observer);
             observer.Expect(o => o.UpdateObserver());
-            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler(viewCommands);
+            var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler();
 
             var properties = new AssessmentSectionCompositionProperties(assessmentSection, compositionChangeHandler);
 
@@ -183,11 +181,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             failureMechanismContribution.Attach(observer);
-
-            var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler(viewCommands);
+            var compositionChangeHandler = new AssessmentSectionCompositionChangeHandler();
 
             var properties = new AssessmentSectionCompositionProperties(assessmentSection, compositionChangeHandler);
 

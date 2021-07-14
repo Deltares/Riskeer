@@ -691,7 +691,6 @@ namespace Riskeer.Integration.Data
             }
 
             Composition = newComposition;
-            SetFailureMechanismRelevancy();
         }
 
         /// <summary>
@@ -732,21 +731,6 @@ namespace Riskeer.Integration.Data
             waveHeightCalculationsForSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
             waveHeightCalculationsForLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
             waveHeightCalculationsForFactorizedLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-        }
-
-        private void SetFailureMechanismRelevancy()
-        {
-            Piping.IsRelevant = Composition != AssessmentSectionComposition.Dune;
-            GrassCoverErosionInwards.IsRelevant = Composition != AssessmentSectionComposition.Dune;
-            MacroStabilityInwards.IsRelevant = Composition != AssessmentSectionComposition.Dune;
-            StabilityStoneCover.IsRelevant = Composition != AssessmentSectionComposition.Dune;
-            WaveImpactAsphaltCover.IsRelevant = Composition != AssessmentSectionComposition.Dune;
-            GrassCoverErosionOutwards.IsRelevant = Composition != AssessmentSectionComposition.Dune;
-            HeightStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
-            ClosingStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
-            StabilityPointStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
-            PipingStructure.IsRelevant = Composition != AssessmentSectionComposition.Dune;
-            DuneErosion.IsRelevant = Composition != AssessmentSectionComposition.Dike;
         }
     }
 }

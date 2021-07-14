@@ -25,7 +25,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Util;
-using Core.Gui.Commands;
 using log4net;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -46,25 +45,7 @@ namespace Riskeer.Integration.Plugin.Handlers
     /// </summary>
     public class AssessmentSectionCompositionChangeHandler : IAssessmentSectionCompositionChangeHandler
     {
-        private readonly IViewCommands viewCommands;
         private readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionCompositionChangeHandler));
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionCompositionChangeHandler"/>.
-        /// </summary>
-        /// <param name="viewCommands">The view commands used to close views for irrelevant
-        /// failure mechanisms.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="viewCommands"/>
-        /// is <c>null</c>.</exception>
-        public AssessmentSectionCompositionChangeHandler(IViewCommands viewCommands)
-        {
-            if (viewCommands == null)
-            {
-                throw new ArgumentNullException(nameof(viewCommands));
-            }
-
-            this.viewCommands = viewCommands;
-        }
 
         public bool ConfirmCompositionChange()
         {
@@ -82,7 +63,6 @@ namespace Riskeer.Integration.Plugin.Handlers
             }
 
             Dictionary<IFailureMechanism, double> oldFailureMechanismContributions = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.Contribution, new ReferenceEqualityComparer<IFailureMechanism>());
-            Dictionary<IFailureMechanism, bool> oldFailureMechanismRelevancies = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.IsRelevant, new ReferenceEqualityComparer<IFailureMechanism>());
 
             var affectedObjects = new List<IObservable>();
             if (assessmentSection.Composition != newComposition)
@@ -105,24 +85,9 @@ namespace Riskeer.Integration.Plugin.Handlers
                 }
 
                 affectedObjects.AddRange(ClearHydraulicBoundaryLocationCalculationOutput(failureMechanismsToClearOutputFor));
-
-                CloseViewsForIrrelevantFailureMechanisms(GetFailureMechanismsWithRelevancyUpdated(oldFailureMechanismRelevancies));
             }
 
             return affectedObjects;
-        }
-
-        private void CloseViewsForIrrelevantFailureMechanisms(IEnumerable<IFailureMechanism> failureMechanisms)
-        {
-            foreach (IFailureMechanism failureMechanism in failureMechanisms.Where(fm => !fm.IsRelevant))
-            {
-                viewCommands.RemoveAllViewsForItem(failureMechanism);
-            }
-        }
-
-        private static IEnumerable<IFailureMechanism> GetFailureMechanismsWithRelevancyUpdated(IDictionary<IFailureMechanism, bool> oldFailureMechanismRelevancies)
-        {
-            return oldFailureMechanismRelevancies.Where(fmr => fmr.Value != fmr.Key.IsRelevant).Select(fmr => fmr.Key);
         }
 
         private static IEnumerable<IFailureMechanism> GetFailureMechanismsToClearOutputFor(IAssessmentSection assessmentSection,

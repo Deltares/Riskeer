@@ -318,9 +318,10 @@ namespace Riskeer.Integration.Data.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetFailureMechanismRelevancy))]
-        public void ChangeComposition_ToTargetValue_UpdateContributionsAndFailureMechanismRelevancies(AssessmentSectionComposition composition,
-                                                                                                      bool[] relevancies)
+        [TestCase(AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune)]
+        [TestCase(AssessmentSectionComposition.Dune)]
+        public void ChangeComposition_ToTargetValue_UpdateContributions(AssessmentSectionComposition composition)
         {
             // Setup
             AssessmentSectionComposition initialComposition = composition == AssessmentSectionComposition.Dike
@@ -336,17 +337,6 @@ namespace Riskeer.Integration.Data.Test
 
             // Assert
             AssertExpectedContributions(composition, assessmentSection);
-            Assert.AreEqual(relevancies[0], assessmentSection.Piping.IsRelevant);
-            Assert.AreEqual(relevancies[1], assessmentSection.GrassCoverErosionInwards.IsRelevant);
-            Assert.AreEqual(relevancies[2], assessmentSection.MacroStabilityInwards.IsRelevant);
-            Assert.AreEqual(relevancies[3], assessmentSection.StabilityStoneCover.IsRelevant);
-            Assert.AreEqual(relevancies[4], assessmentSection.WaveImpactAsphaltCover.IsRelevant);
-            Assert.AreEqual(relevancies[5], assessmentSection.GrassCoverErosionOutwards.IsRelevant);
-            Assert.AreEqual(relevancies[6], assessmentSection.HeightStructures.IsRelevant);
-            Assert.AreEqual(relevancies[7], assessmentSection.ClosingStructures.IsRelevant);
-            Assert.AreEqual(relevancies[8], assessmentSection.StabilityPointStructures.IsRelevant);
-            Assert.AreEqual(relevancies[9], assessmentSection.PipingStructure.IsRelevant);
-            Assert.AreEqual(relevancies[10], assessmentSection.DuneErosion.IsRelevant);
             AssertFailureProbabilityMarginFactor(composition, assessmentSection);
         }
 
@@ -558,54 +548,6 @@ namespace Riskeer.Integration.Data.Test
             }
 
             return contributions;
-        }
-
-        private static IEnumerable<TestCaseData> GetFailureMechanismRelevancy()
-        {
-            yield return new TestCaseData(AssessmentSectionComposition.Dike, new[]
-            {
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                false
-            });
-
-            yield return new TestCaseData(AssessmentSectionComposition.DikeAndDune, new[]
-            {
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true,
-                true
-            });
-
-            yield return new TestCaseData(AssessmentSectionComposition.Dune, new[]
-            {
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                true
-            });
         }
 
         private static IEnumerable<TestCaseData> GetInvalidNormValues(string name)

@@ -24,10 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
-using Core.Gui.Commands;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -54,40 +52,19 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     public class AssessmentSectionCompositionChangeHandlerTest : NUnitFormTest
     {
         [Test]
-        public void Constructor_ViewCommandsNull_ThrowsArgumentNullException()
+        public void Constructor_ExpectedValues()
         {
             // Call
-            TestDelegate test = () => new AssessmentSectionCompositionChangeHandler(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("viewCommands", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_WithViewCommands_ExpectedValues()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
-            // Call
-            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
+            var handler = new AssessmentSectionCompositionChangeHandler();
 
             // Assert
             Assert.IsInstanceOf<IAssessmentSectionCompositionChangeHandler>(handler);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ConfirmCompositionChange_Always_ShowMessageBox()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
             var title = "";
             var message = "";
             DialogBoxHandler = (name, wnd) =>
@@ -99,7 +76,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 tester.ClickOk();
             };
 
-            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
+            var handler = new AssessmentSectionCompositionChangeHandler();
 
             // Call
             handler.ConfirmCompositionChange();
@@ -111,66 +88,51 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                      + Environment.NewLine +
                                      "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedMessage, message);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ConfirmCompositionChange_MessageBoxOk_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
             DialogBoxHandler = (name, wnd) =>
             {
                 var tester = new MessageBoxTester(wnd);
                 tester.ClickOk();
             };
 
-            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
+            var handler = new AssessmentSectionCompositionChangeHandler();
 
             // Call
             bool result = handler.ConfirmCompositionChange();
 
             // Assert
             Assert.IsTrue(result);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ConfirmCompositionChange_MessageBoxCancel_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
             DialogBoxHandler = (name, wnd) =>
             {
                 var tester = new MessageBoxTester(wnd);
                 tester.ClickCancel();
             };
 
-            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
+            var handler = new AssessmentSectionCompositionChangeHandler();
 
             // Call
             bool result = handler.ConfirmCompositionChange();
 
             // Assert
             Assert.IsFalse(result);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ChangeComposition_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
-            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
+            var handler = new AssessmentSectionCompositionChangeHandler();
 
             // Call
             TestDelegate call = () => handler.ChangeComposition(null, AssessmentSectionComposition.Dike);
@@ -178,17 +140,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void ChangeComposition_ChangeToSameValue_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             AssessmentSectionComposition originalComposition = assessmentSection.Composition;
             ICalculation[] calculationsWithOutput = assessmentSection.GetFailureMechanisms()
@@ -207,7 +164,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsWithOutput =
                 GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
 
-            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
+            var handler = new AssessmentSectionCompositionChangeHandler();
 
             // Call
             IEnumerable<IObservable> affectedObjects = handler.ChangeComposition(assessmentSection, originalComposition);
@@ -220,7 +177,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.True(hydraulicBoundaryLocationCalculationsWithOutput.All(calc => calc.HasOutput));
 
             CollectionAssert.IsEmpty(affectedObjects);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -230,10 +186,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                                                                                         AssessmentSectionComposition newComposition)
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(oldComposition);
 
             IEnumerable<ICalculation> unaffectedObjects = GetDuneIrrelevantFailureMechanisms(assessmentSection)
@@ -254,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                        .Where(calc => calc.HasOutput))
                                                                .ToArray();
 
-            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
+            var handler = new AssessmentSectionCompositionChangeHandler();
 
             // Call
             IEnumerable<IObservable> affectedObjects = null;
@@ -274,8 +226,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AssertHydraulicBoundaryLocationCalculationsHaveNoOutputs(grassCoverErosionOutwardsFailureMechanism);
             DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -287,10 +237,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                                                                                         AssessmentSectionComposition newComposition)
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(oldComposition);
 
             IEnumerable<ICalculation> expectedUnaffectedObjects = assessmentSection.GetFailureMechanisms()
@@ -310,7 +256,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                })
                                                                .ToArray();
 
-            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
+            var handler = new AssessmentSectionCompositionChangeHandler();
 
             // Call
             IEnumerable<IObservable> affectedObjects = null;
@@ -327,8 +273,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             Assert.IsTrue(hydraulicBoundaryLocationCalculationsWithOutput.All(c => c.HasOutput));
             DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -338,10 +282,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                                                                             AssessmentSectionComposition newComposition)
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(oldComposition);
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
@@ -358,7 +298,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                             .Where(calc => calc.HasOutput))
                     .ToArray();
 
-            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
+            var handler = new AssessmentSectionCompositionChangeHandler();
 
             // Call
             IEnumerable<IObservable> affectedObjects = null;
@@ -372,8 +312,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
             GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AssertHydraulicBoundaryLocationCalculationsHaveNoOutputs(grassCoverErosionOutwardsFailureMechanism);
             DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -383,10 +321,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                                                                                AssessmentSectionComposition newComposition)
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(oldComposition);
 
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
@@ -401,7 +335,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                                    })
                                                                                    .ToArray();
 
-            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
+            var handler = new AssessmentSectionCompositionChangeHandler();
 
             // Call
             IEnumerable<IObservable> affectedObjects = null;
@@ -416,21 +350,15 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             Assert.IsTrue(hydraulicBoundaryLocationCalculationsWithOutput.All(calc => calc.HasOutput));
             DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune, TestName = "ChangeComposition_ChangeToDuneNoLocationsWithOutput_ChangeCompositionReturnsAllAffectedObjects(Dike,Dune)")]
         [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune, TestName = "ChangeComposition_ChangeToDuneNoLocationsWithOutput_ChangeCompositionReturnsAllAffectedObjects(DikeDune,Dune)")]
-        public void ChangeComposition_ChangeToDuneAndNoHydraulicBoudaryLocationsWithOutput_ChangeCompositionAndReturnsAllAffectedObjects(AssessmentSectionComposition oldComposition,
-                                                                                                                                         AssessmentSectionComposition newComposition)
+        public void ChangeComposition_ChangeToDuneAndNoHydraulicBoundaryLocationsWithOutput_ChangeCompositionAndReturnsAllAffectedObjects(AssessmentSectionComposition oldComposition,
+                                                                                                                                          AssessmentSectionComposition newComposition)
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(oldComposition);
 
             IEnumerable<ICalculation> notAffectedObjects = GetDuneIrrelevantFailureMechanisms(assessmentSection)
@@ -445,7 +373,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                      .SelectMany(fm => fm.Calculations)
                      .Where(c => c.HasOutput)).ToArray();
 
-            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
+            var handler = new AssessmentSectionCompositionChangeHandler();
 
             // Call
             IEnumerable<IObservable> affectedObjects = null;
@@ -458,7 +386,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert 
             AssertCorrectOutputClearedWhenCompositionDune(notAffectedObjects, assessmentSection);
             CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -466,14 +393,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike, TestName = "ChangeComposition_ChangeToNonDuneNoLocationsWithOutput_ChangeCompositionReturnsAffectedObjects(DikeDune,Dike)")]
         [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike, TestName = "ChangeComposition_ChangeToNonDuneNoLocationsWithOutput_ChangeCompositionReturnsAffectedObjects(Dune,Dike)")]
         [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune, TestName = "ChangeComposition_ChangeToNonDuneNoLocationsWithOutput_ChangeCompositionReturnsAffectedObjects(Dune,DikeDune)")]
-        public void ChangeComposition_ChangeToNonDuneAndNoHydraulicBoudaryLocationsWithOutput_ChangeCompositionAndReturnsAllAffectedObjects(AssessmentSectionComposition oldComposition,
-                                                                                                                                            AssessmentSectionComposition newComposition)
+        public void ChangeComposition_ChangeToNonDuneAndNoHydraulicBoundaryLocationsWithOutput_ChangeCompositionAndReturnsAllAffectedObjects(AssessmentSectionComposition oldComposition,
+                                                                                                                                             AssessmentSectionComposition newComposition)
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(oldComposition);
 
             IEnumerable<ICalculation> expectedUnaffectedObjects = assessmentSection.GetFailureMechanisms()
@@ -486,7 +409,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 assessmentSection
             };
 
-            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
+            var handler = new AssessmentSectionCompositionChangeHandler();
 
             // Call
             IEnumerable<IObservable> affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
@@ -496,7 +419,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             AssertOutputNotCleared(expectedUnaffectedObjects, assessmentSection.GetFailureMechanisms());
 
             CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -506,17 +428,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune, TestName = "ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(DikeDune, Dune)")]
         [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike, TestName = "ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(Dune, Dike)")]
         [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune, TestName = "ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(Dune, DikeDune)")]
-        public void ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(AssessmentSectionComposition oldComposition,
-                                                                                          AssessmentSectionComposition newComposition)
+        public void ChangeComposition_SetNewValue_ReturnAffectedObjects(AssessmentSectionComposition oldComposition,
+                                                                        AssessmentSectionComposition newComposition)
         {
             // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            mocks.ReplayAll();
-
+            var handler = new AssessmentSectionCompositionChangeHandler();
             var assessmentSection = new AssessmentSection(oldComposition);
-
-            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
             // Call
             IEnumerable<IObservable> affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
@@ -528,36 +445,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune, 0, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(Dike, DikeDune)")]
-        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune, 10, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(Dike, Dune)")]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike, 1, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(DikeDune, Dike)")]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune, 10, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(DikeDune, Dune)")]
-        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike, 1, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(Dune, Dike)")]
-        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune, 0, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(Dune, DikeDune)")]
-        public void ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(AssessmentSectionComposition oldComposition,
-                                                                                                AssessmentSectionComposition newComposition,
-                                                                                                int expectedNumberOfCalls)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
-            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<IFailureMechanism>.Matches(fm => !fm.IsRelevant)))
-                        .Repeat.Times(expectedNumberOfCalls);
-            mocks.ReplayAll();
-
-            var assessmentSection = new AssessmentSection(oldComposition);
-
-            var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
-
-            // Call
-            handler.ChangeComposition(assessmentSection, newComposition);
-
-            // Assert
-            mocks.VerifyAll();
         }
 
         /// <summary>
