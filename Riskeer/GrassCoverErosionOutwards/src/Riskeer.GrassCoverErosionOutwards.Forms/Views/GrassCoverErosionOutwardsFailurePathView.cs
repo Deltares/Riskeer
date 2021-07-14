@@ -33,7 +33,7 @@ using GrassCoverErosionOutwardsDataResources = Riskeer.GrassCoverErosionOutwards
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
 {
     /// <summary>
-    /// This class is a view showing map data for a stability stone cover failure path.
+    /// This class is a view showing map data for a grass cover erosion outwards failure path.
     /// </summary>
     public class GrassCoverErosionOutwardsFailurePathView : GrassCoverErosionOutwardsFailureMechanismView
     {
@@ -57,7 +57,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsFailurePathView(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                  IAssessmentSection assessmentSection) : base(failureMechanism, assessmentSection) {}
+                                                        IAssessmentSection assessmentSection) : base(failureMechanism, assessmentSection) {}
 
         protected override void Dispose(bool disposing)
         {

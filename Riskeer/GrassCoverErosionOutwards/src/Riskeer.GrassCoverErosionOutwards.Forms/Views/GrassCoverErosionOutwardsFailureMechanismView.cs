@@ -32,15 +32,15 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Revetment.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.Factories;
+using Riskeer.Revetment.Data;
 using GrassCoverErosionOutwardsDataResources = Riskeer.GrassCoverErosionOutwards.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
 {
     /// <summary>
-    /// This class is a view showing map data for a stability stone cover failure mechanism.
+    /// This class is a view showing map data for a grass cover erosion outwards failure mechanism.
     /// </summary>
     public partial class GrassCoverErosionOutwardsFailureMechanismView : UserControl, IMapView
     {
@@ -54,14 +54,17 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
         private Observer hydraulicBoundaryLocationsObserver;
         private Observer foreshoreProfilesObserver;
 
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificFactorizedSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificLowerLimitNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForMechanismSpecificFactorizedSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForMechanismSpecificSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForMechanismSpecificLowerLimitNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNormObserver;
+
         private RecursiveObserver<CalculationGroup, WaveConditionsInput> calculationInputObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private RecursiveObserver<CalculationGroup, GrassCoverErosionOutwardsWaveConditionsCalculation> calculationObserver;
@@ -74,7 +77,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsFailureMechanismView(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                       IAssessmentSection assessmentSection)
+                                                             IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
             {
@@ -134,12 +137,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
         {
             assessmentSectionObserver.Dispose();
             referenceLineObserver.Dispose();
-            waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
-            waterLevelCalculationsForSignalingNormObserver.Dispose();
+            waterLevelCalculationsForMechanismSpecificFactorizedSignalingNormObserver.Dispose();
+            waterLevelCalculationsForMechanismSpecificSignalingNormObserver.Dispose();
+            waterLevelCalculationsForMechanismSpecificLowerLimitNormObserver.Dispose();
             waterLevelCalculationsForLowerLimitNormObserver.Dispose();
             waterLevelCalculationsForFactorizedLowerLimitNormObserver.Dispose();
-            waveHeightCalculationsForFactorizedSignalingNormObserver.Dispose();
-            waveHeightCalculationsForSignalingNormObserver.Dispose();
+            waveHeightCalculationsForMechanismSpecificFactorizedSignalingNormObserver.Dispose();
+            waveHeightCalculationsForMechanismSpecificSignalingNormObserver.Dispose();
+            waveHeightCalculationsForMechanismSpecificLowerLimitNormObserver.Dispose();
             waveHeightCalculationsForLowerLimitNormObserver.Dispose();
             waveHeightCalculationsForFactorizedLowerLimitNormObserver.Dispose();
             hydraulicBoundaryLocationsObserver.Dispose();
@@ -197,18 +202,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
                 Observable = FailureMechanism.ForeshoreProfiles
             };
 
-            waterLevelCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waterLevelCalculationsForMechanismSpecificFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                FailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waterLevelCalculationsForMechanismSpecificSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                FailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waterLevelCalculationsForMechanismSpecificLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                FailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
             waterLevelCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
                 AssessmentSection.WaterLevelCalculationsForLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
             waterLevelCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
                 AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waveHeightCalculationsForMechanismSpecificFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                FailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waveHeightCalculationsForMechanismSpecificSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                FailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
+            waveHeightCalculationsForMechanismSpecificLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                FailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
             waveHeightCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
                 AssessmentSection.WaveHeightCalculationsForLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
             waveHeightCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
@@ -275,7 +284,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
 
         private void SetHydraulicBoundaryLocationsMapData()
         {
-            hydraulicBoundaryLocationsMapData.Features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(AssessmentSection);
+            hydraulicBoundaryLocationsMapData.Features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(AssessmentSection, FailureMechanism);
         }
 
         #endregion

@@ -44,6 +44,8 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
+using Riskeer.GrassCoverErosionOutwards.Forms.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Forms.Views;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
@@ -61,6 +63,31 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         private const int calculationObserverIndex = 3;
 
         private Form testForm;
+
+        private static IEnumerable<TestCaseData> GetCalculationFuncs
+        {
+            get
+            {
+                yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
+                                                  (assessmentSection, failureMechanism) => failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First()));
+                yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
+                                                  (assessmentSection, failureMechanism) => failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First()));
+                yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
+                                                  (assessmentSection, failureMechanism) => failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First()));
+                yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
+                                                  (assessmentSection, failureMechanism) => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First()));
+                yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
+                                                  (assessmentSection, failureMechanism) => failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First()));
+                yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
+                                                  (assessmentSection, failureMechanism) => failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First()));
+                yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
+                                                  (assessmentSection, failureMechanism) => failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First()));
+                yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
+                                                  (assessmentSection, failureMechanism) => assessmentSection.WaveHeightCalculationsForLowerLimitNorm.First()));
+                yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
+                                                  (assessmentSection, failureMechanism) => assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.First()));
+            }
+        }
 
         [SetUp]
         public void Setup()
@@ -213,7 +240,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 ReferenceLine = referenceLine
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
             {
                 new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
             });
@@ -246,24 +273,27 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
                 Assert.AreEqual(4, mapDataList.Count);
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
 
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
+                GrassCoverErosionOutwardsMapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism, assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
                 MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
-                AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(), mapDataList[calculationsIndex]);
+                AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(),
+                                          mapDataList[calculationsIndex]);
             }
         }
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
+        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryDatabaseUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
             {
-                new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
             });
 
-            GrassCoverErosionOutwardsFailureMechanismView view = CreateView(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
+            GrassCoverErosionOutwardsFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -275,35 +305,36 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
             // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+            GrassCoverErosionOutwardsMapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism, assessmentSection, hydraulicBoundaryLocationsMapData);
 
             // When
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
             {
                 new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0)
             });
             assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
             // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+            GrassCoverErosionOutwardsMapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism, assessmentSection, hydraulicBoundaryLocationsMapData);
             mocks.VerifyAll();
         }
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        [TestCaseSource(typeof(MapViewTestHelper), nameof(MapViewTestHelper.GetCalculationFuncs))]
+        [TestCaseSource(nameof(GetCalculationFuncs))]
         public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
-            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
+            Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation> getCalculationFunc)
         {
             // Given
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
             {
                 hydraulicBoundaryLocation
             });
 
-            GrassCoverErosionOutwardsFailureMechanismView view = CreateView(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
+            GrassCoverErosionOutwardsFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -315,16 +346,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
             // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+            GrassCoverErosionOutwardsMapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism, assessmentSection, hydraulicBoundaryLocationsMapData);
 
             // When
-            HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
+            HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection, failureMechanism);
             calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
             calculation.NotifyObservers();
 
             // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-            mocks.ReplayAll();
+            GrassCoverErosionOutwardsMapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism, assessmentSection, hydraulicBoundaryLocationsMapData);
+            mocks.VerifyAll();
         }
 
         [Test]
