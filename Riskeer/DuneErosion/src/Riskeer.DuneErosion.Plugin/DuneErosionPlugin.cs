@@ -243,16 +243,6 @@ namespace Riskeer.DuneErosion.Plugin
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
-        private static bool CloseFailureMechanismViewForData(DuneErosionFailureMechanismView view, object data)
-        {
-            var assessmentSection = data as IAssessmentSection;
-            var failureMechanism = data as DuneErosionFailureMechanism;
-
-            return assessmentSection != null
-                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
-                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
-        }
-
         private static bool CloseDuneLocationCalculationsViewForData(DuneLocationCalculationsView view, object dataToCloseFor)
         {
             var failureMechanismContext = dataToCloseFor as DuneErosionCalculationsContext;
