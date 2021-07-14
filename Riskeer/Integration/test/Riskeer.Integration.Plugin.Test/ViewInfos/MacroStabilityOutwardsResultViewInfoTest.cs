@@ -184,44 +184,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, failureMechanism);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, new MacroStabilityOutwardsFailureMechanism());
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-        }
-
-        [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup

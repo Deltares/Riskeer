@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -1237,16 +1237,11 @@ namespace Riskeer.Integration.Plugin
         }
 
         private static bool CloseFailureMechanismWithDetailedAssessmentViewForData<TFailureMechanism, TSectionResult>(
-            FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult> view, object o)
+            FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult> view, object dataToCloseFor)
             where TFailureMechanism : IHasSectionResults<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as IFailureMechanism;
-
-            return assessmentSection != null
-                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
-                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
+            return dataToCloseFor is IAssessmentSection assessmentSection && ReferenceEquals(view.AssessmentSection, assessmentSection);
         }
 
         #endregion
@@ -1272,34 +1267,30 @@ namespace Riskeer.Integration.Plugin
         }
 
         private static bool CloseFailureMechanismWithoutDetailedAssessmentViewForData<TFailureMechanism, TSectionResult>(
-            FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult> view, object o)
+            FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult> view, object dataToCloseFor)
             where TFailureMechanism : IHasSectionResults<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as IFailureMechanism;
 
-            return assessmentSection != null
-                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
-                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
+            return dataToCloseFor is IAssessmentSection assessmentSection && ReferenceEquals(view.AssessmentSection, assessmentSection);
         }
 
         #endregion
 
         #region FailureMechanismContributionContext ViewInfo
 
-        private static bool CloseFailureMechanismContributionViewForData(FailureMechanismContributionView view, object o)
+        private static bool CloseFailureMechanismContributionViewForData(FailureMechanismContributionView view, object dataToCloseFor)
         {
-            return o is IAssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
+            return dataToCloseFor is IAssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
         }
 
         #endregion
 
         #region NormContext ViewInfo
 
-        private static bool CloseAssessmentSectionCategoriesViewForData(AssessmentSectionAssemblyCategoriesView view, object o)
+        private static bool CloseAssessmentSectionCategoriesViewForData(AssessmentSectionAssemblyCategoriesView view, object dataToCloseFor)
         {
-            return o is IAssessmentSection assessmentSection && assessmentSection.FailureMechanismContribution == view.FailureMechanismContribution;
+            return dataToCloseFor is IAssessmentSection assessmentSection && assessmentSection.FailureMechanismContribution == view.FailureMechanismContribution;
         }
 
         #endregion
@@ -1313,11 +1304,7 @@ namespace Riskeer.Integration.Plugin
             where TResultRow : FailureMechanismSectionResultRow<TResult>
             where TAssemblyResultControl : AssemblyResultControl, new()
         {
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
-            var failureMechanism = dataToCloseFor as IFailureMechanism;
-            var failureMechanismContext = dataToCloseFor as IFailureMechanismContext<IFailureMechanism>;
-
-            if (assessmentSection != null)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 return assessmentSection
                        .GetFailureMechanisms()
@@ -1325,22 +1312,22 @@ namespace Riskeer.Integration.Plugin
                        .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
-            if (failureMechanismContext != null)
+            if (dataToCloseFor is IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
             {
-                failureMechanism = failureMechanismContext.WrappedData;
+                return failureMechanismContext.WrappedData is IHasSectionResults<FailureMechanismSectionResult> failureMechanismWithSectionResults
+                       && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanismWithSectionResults.SectionResults);
             }
 
-            return failureMechanism is IHasSectionResults<FailureMechanismSectionResult> failureMechanismWithSectionResults
-                   && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanismWithSectionResults.SectionResults);
+            return false;
         }
 
         #endregion
 
         #region StateRootContext ViewInfo
 
-        private static bool CloseAssessmentSectionViewForData(AssessmentSectionReferenceLineView view, object o)
+        private static bool CloseAssessmentSectionViewForData(AssessmentSectionReferenceLineView view, object dataToCloseFor)
         {
-            return ReferenceEquals(view.AssessmentSection, o);
+            return ReferenceEquals(view.AssessmentSection, dataToCloseFor);
         }
 
         #endregion
@@ -1358,34 +1345,27 @@ namespace Riskeer.Integration.Plugin
 
         #region Comment ViewInfo
 
-        private static bool CloseCommentViewForData(CommentView commentView, object o)
+        private static bool CloseCommentViewForData(CommentView commentView, object dataToCloseFor)
         {
-            if (o is ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext)
+            if (dataToCloseFor is ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext)
             {
                 return GetCommentElements(calculationGroupContext.WrappedData)
                     .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
             }
 
-            var calculationContext = o as ICalculationContext<ICalculationBase, IFailureMechanism>;
+            var calculationContext = dataToCloseFor as ICalculationContext<ICalculationBase, IFailureMechanism>;
             if (calculationContext?.WrappedData is ICalculation calculation)
             {
                 return ReferenceEquals(commentView.Data, calculation.Comments);
             }
 
-            var failureMechanism = o as IFailureMechanism;
-
-            if (o is IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
+            if (dataToCloseFor is IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
             {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (failureMechanism != null)
-            {
-                return GetCommentElements(failureMechanism)
+                return GetCommentElements(failureMechanismContext.WrappedData)
                     .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
             }
 
-            if (o is IAssessmentSection assessmentSection)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 return GetCommentElements(assessmentSection)
                     .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
@@ -1423,36 +1403,36 @@ namespace Riskeer.Integration.Plugin
 
         #region AssemblyResultTotalContext ViewInfo
 
-        private static bool CloseAssemblyResultTotalViewForData(AssemblyResultTotalView view, object o)
+        private static bool CloseAssemblyResultTotalViewForData(AssemblyResultTotalView view, object dataToCloseFor)
         {
-            return o is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
+            return dataToCloseFor is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
         }
 
         #endregion
 
         #region AssemblyResultPerSectionContext ViewInfo
 
-        private static bool CloseAssemblyResultPerSectionViewForData(AssemblyResultPerSectionView view, object o)
+        private static bool CloseAssemblyResultPerSectionViewForData(AssemblyResultPerSectionView view, object dataToCloseFor)
         {
-            return o is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
+            return dataToCloseFor is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
         }
 
         #endregion
 
         #region AssemblyResultCategoriesContext ViewInfo
 
-        private static bool CloseAssemblyResultCategoriesViewForData(AssemblyResultCategoriesView view, object o)
+        private static bool CloseAssemblyResultCategoriesViewForData(AssemblyResultCategoriesView view, object dataToCloseFor)
         {
-            return o is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
+            return dataToCloseFor is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
         }
 
         #endregion
 
         #region AssemblyResultPerSectionMapContext ViewInfo
 
-        private static bool CloseAssemblyResultPerSectionMapViewForData(AssemblyResultPerSectionMapView view, object o)
+        private static bool CloseAssemblyResultPerSectionMapViewForData(AssemblyResultPerSectionMapView view, object dataToCloseFor)
         {
-            return o is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
+            return dataToCloseFor is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
         }
 
         #endregion

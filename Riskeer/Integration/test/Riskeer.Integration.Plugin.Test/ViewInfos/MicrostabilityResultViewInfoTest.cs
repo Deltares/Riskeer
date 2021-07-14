@@ -177,38 +177,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
-        {
-            // Setup
-            var failureMechanism = new MicrostabilityFailureMechanism();
-
-            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults, failureMechanism))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, failureMechanism);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
-        {
-            // Setup
-            var failureMechanism = new MicrostabilityFailureMechanism();
-
-            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults, failureMechanism))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, new MicrostabilityFailureMechanism());
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-        }
-
-        [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup

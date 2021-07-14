@@ -137,43 +137,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new TechnicalInnovationFailureMechanism();
-            var otherFailureMechanism = new TechnicalInnovationFailureMechanism();
-
-            using (FailureMechanismWithoutDetailedAssessmentView<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResult> view =
-                CreateView(failureMechanism, assessmentSection))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, otherFailureMechanism);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new TechnicalInnovationFailureMechanism();
-
-            using (FailureMechanismWithoutDetailedAssessmentView<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResult> view =
-                CreateView(failureMechanism, assessmentSection))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, failureMechanism);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismRelevant(bool isRelevant)
