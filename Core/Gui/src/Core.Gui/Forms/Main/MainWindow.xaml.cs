@@ -238,6 +238,8 @@ namespace Core.Gui.Forms.Main
             InitChartLegendWindow();
             InitMessagesWindow();
             InitPropertiesWindowOrBringToFront();
+
+            UpdateToolWindowButtonState();
         }
 
         public void ValidateItems()
