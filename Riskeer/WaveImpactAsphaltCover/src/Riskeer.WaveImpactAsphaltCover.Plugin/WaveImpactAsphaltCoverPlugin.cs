@@ -261,19 +261,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         private static bool CloseFailureMechanismResultViewForData(WaveImpactAsphaltCoverFailureMechanismResultView view, object dataToCloseFor)
         {
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
-            var failureMechanism = dataToCloseFor as WaveImpactAsphaltCoverFailureMechanism;
-            var failureMechanismContext = dataToCloseFor as IFailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism>;
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism = null;
 
-            if (assessmentSection != null)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<WaveImpactAsphaltCoverFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
+                failureMechanism = assessmentSection
+                                   .GetFailureMechanisms()
+                                   .OfType<WaveImpactAsphaltCoverFailureMechanism>()
+                                   .FirstOrDefault();
             }
 
-            if (failureMechanismContext != null)
+            if (dataToCloseFor is IFailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }

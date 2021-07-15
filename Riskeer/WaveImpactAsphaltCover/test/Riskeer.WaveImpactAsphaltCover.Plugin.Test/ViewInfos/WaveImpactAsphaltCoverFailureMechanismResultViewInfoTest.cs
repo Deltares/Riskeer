@@ -165,7 +165,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new WaveImpactAsphaltCoverFailureMechanism(),
                 failureMechanism
             });
 
@@ -181,38 +180,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             }
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
-        {
-            // Setup
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, failureMechanism);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
-        {
-            // Setup
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, new WaveImpactAsphaltCoverFailureMechanism());
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
         }
 
         [Test]
