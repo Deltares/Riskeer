@@ -31,7 +31,7 @@ using Riskeer.Integration.Forms.PresentationObjects;
 namespace Riskeer.Integration.Plugin.Test.StateInfos
 {
     [TestFixture]
-    public class CalculationsStateInfoTest
+    public class HydraulicLoadsStateInfoTest
     {
         private RiskeerPlugin plugin;
         private StateInfo info;
@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetStateInfos().First(si => si.Name == "Berekeningen");
+            info = plugin.GetStateInfos().First(si => si.Name == "Hydraulische\r\n belastingen");
         }
 
         [TearDown]
@@ -53,7 +53,7 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual("\uE902", info.Symbol);
+            Assert.AreEqual("\uE901", info.Symbol);
         }
 
         [Test]
@@ -74,10 +74,10 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
 
             // Assert
             Assert.IsNotNull(rootData);
-            Assert.IsInstanceOf<CalculationsStateRootContext>(rootData);
+            Assert.IsInstanceOf<HydraulicLoadsStateRootContext>(rootData);
 
-            var calculationsStateRootContext = (CalculationsStateRootContext) rootData;
-            Assert.AreSame(assessmentSection, calculationsStateRootContext.WrappedData);
+            var hydraulicLoadsStateRootContext = (HydraulicLoadsStateRootContext) rootData;
+            Assert.AreSame(assessmentSection, hydraulicLoadsStateRootContext.WrappedData);
         }
 
         [Test]

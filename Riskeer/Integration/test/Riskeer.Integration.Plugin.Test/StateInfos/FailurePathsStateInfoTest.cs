@@ -53,7 +53,7 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual("\uE902", info.Symbol);
+            Assert.AreEqual("\uE903", info.Symbol);
         }
 
         [Test]
