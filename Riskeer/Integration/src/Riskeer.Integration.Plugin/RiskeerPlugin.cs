@@ -164,7 +164,7 @@ namespace Riskeer.Integration.Plugin
 
                 return null;
             });
-            
+
             yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_HydraulicLoads, "\uE901", fontFamily, project =>
             {
                 if (project is RiskeerProject riskeerProject)
@@ -816,6 +816,10 @@ namespace Riskeer.Integration.Plugin
                 AssessmentSectionStateRootContextChildNodeObjects,
                 AssessmentSectionStateRootContextMenuStrip);
 
+            yield return CreateStateRootTreeNodeInfo<HydraulicLoadsStateRootContext>(
+                HydraulicLoadsStateRootContextChildNodeObjects,
+                HydraulicLoadsStateRootContextMenuStrip);
+
             yield return CreateStateRootTreeNodeInfo<CalculationsStateRootContext>(
                 CalculationsStateRootContextChildNodeObjects,
                 CalculationsStateRootContextMenuStrip);
@@ -1281,7 +1285,6 @@ namespace Riskeer.Integration.Plugin
             where TFailureMechanism : IHasSectionResults<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
-
             return dataToCloseFor is IAssessmentSection assessmentSection && ReferenceEquals(view.AssessmentSection, assessmentSection);
         }
 
@@ -1614,17 +1617,12 @@ namespace Riskeer.Integration.Plugin
 
             return new object[]
             {
-                new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
                 new PipingCalculationsContext(assessmentSection.Piping, assessmentSection),
                 new GrassCoverErosionInwardsCalculationsContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
                 new MacroStabilityInwardsCalculationsContext(assessmentSection.MacroStabilityInwards, assessmentSection),
-                new StabilityStoneCoverCalculationsContext(assessmentSection.StabilityStoneCover, assessmentSection),
-                new WaveImpactAsphaltCoverCalculationsContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
-                new GrassCoverErosionOutwardsCalculationsContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
                 new HeightStructuresCalculationsContext(assessmentSection.HeightStructures, assessmentSection),
                 new ClosingStructuresCalculationsContext(assessmentSection.ClosingStructures, assessmentSection),
-                new StabilityPointStructuresCalculationsContext(assessmentSection.StabilityPointStructures, assessmentSection),
-                new DuneErosionCalculationsContext(assessmentSection.DuneErosion, assessmentSection)
+                new StabilityPointStructuresCalculationsContext(assessmentSection.StabilityPointStructures, assessmentSection)
             };
         }
 
@@ -1653,6 +1651,52 @@ namespace Riskeer.Integration.Plugin
                       .AddPropertiesItem()
                       .Build();
         }
+
+        #endregion
+
+        #region HydraulicLoadsStateRootContext TreeNodeInfo
+
+        private static object[] HydraulicLoadsStateRootContextChildNodeObjects(HydraulicLoadsStateRootContext nodeData)
+        {
+            AssessmentSection assessmentSection = nodeData.WrappedData;
+
+            return new object[]
+            {
+                new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
+                new StabilityStoneCoverCalculationsContext(assessmentSection.StabilityStoneCover, assessmentSection),
+                new WaveImpactAsphaltCoverCalculationsContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
+                new GrassCoverErosionOutwardsCalculationsContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
+                new DuneErosionCalculationsContext(assessmentSection.DuneErosion, assessmentSection)
+            };
+        }
+
+        private ContextMenuStrip HydraulicLoadsStateRootContextMenuStrip(HydraulicLoadsStateRootContext nodeData,
+                                                                         object parentData, TreeViewControl treeViewControl)
+        {
+            var calculateAllItem = new StrictContextMenuItem(
+                RiskeerCommonFormsResources.Calculate_All,
+                Resources.AssessmentSection_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData.WrappedData));
+                });
+
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
+                      .AddRenameItem()
+                      .AddSeparator()
+                      .AddCustomItem(calculateAllItem)
+                      .AddSeparator()
+                      .AddCollapseAllItem()
+                      .AddExpandAllItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        #endregion
 
         #region FailurePathsStateRootContext TreeNodeInfo
 
@@ -1698,8 +1742,6 @@ namespace Riskeer.Integration.Plugin
                       .AddPropertiesItem()
                       .Build();
         }
-
-        #endregion
 
         #endregion
 
