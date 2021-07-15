@@ -167,10 +167,7 @@ namespace Riskeer.DuneErosion.Plugin
                                                                              context.AssessmentSection,
                                                                              context.GetNormFunc,
                                                                              context.CategoryBoundaryName),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = duneLocationCalculationGuiService;
-                },
+                AfterCreate = (view, context) => { view.CalculationGuiService = duneLocationCalculationGuiService; },
                 AdditionalDataCheck = context => context.WrappedData.Any()
             };
         }
@@ -222,20 +219,19 @@ namespace Riskeer.DuneErosion.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailureMechanismResultViewForData(DuneErosionFailureMechanismResultView view, object o)
+        private static bool CloseFailureMechanismResultViewForData(DuneErosionFailureMechanismResultView view, object dataToCloseFor)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as DuneErosionFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<DuneErosionFailureMechanism>;
-            if (assessmentSection != null)
+            DuneErosionFailureMechanism failureMechanism = null;
+
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<DuneErosionFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
+                failureMechanism = assessmentSection
+                                   .GetFailureMechanisms()
+                                   .OfType<DuneErosionFailureMechanism>()
+                                   .FirstOrDefault();
             }
 
-            if (failureMechanismContext != null)
+            if (dataToCloseFor is IFailureMechanismContext<DuneErosionFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -245,16 +241,16 @@ namespace Riskeer.DuneErosion.Plugin
 
         private static bool CloseDuneLocationCalculationsViewForData(DuneLocationCalculationsView view, object dataToCloseFor)
         {
-            var failureMechanismContext = dataToCloseFor as DuneErosionCalculationsContext;
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
-            var failureMechanism = dataToCloseFor as DuneErosionFailureMechanism;
+            DuneErosionFailureMechanism failureMechanism = null;
 
-            if (assessmentSection != null)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                failureMechanism = ((IAssessmentSection) dataToCloseFor).GetFailureMechanisms().OfType<DuneErosionFailureMechanism>().Single();
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<DuneErosionFailureMechanism>()
+                                                    .FirstOrDefault();
             }
 
-            if (failureMechanismContext != null)
+            if (dataToCloseFor is DuneErosionCalculationsContext failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
