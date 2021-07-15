@@ -160,7 +160,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new GrassCoverErosionOutwardsFailureMechanism(),
                 failureMechanism
             });
 
@@ -176,38 +175,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             }
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, failureMechanism);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, new GrassCoverErosionOutwardsFailureMechanism());
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
         }
 
         [Test]

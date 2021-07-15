@@ -161,7 +161,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
-            
+
             yield return new ViewInfo<GrassCoverErosionOutwardsFailurePathContext, GrassCoverErosionOutwardsFailurePathView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
@@ -197,7 +197,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                                  context.GetNormFunc,
                                                                                  context.CategoryBoundaryName),
                 AfterCreate = (view, context) => view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService,
-                CloseForData = (view, data) => CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, data)
+                CloseForData = CloseHydraulicBoundaryCalculationsViewForData
             };
 
             yield return new ViewInfo<
@@ -214,7 +214,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                            context.GetNormFunc,
                                                                            context.CategoryBoundaryName),
                 AfterCreate = (view, context) => view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService,
-                CloseForData = (view, data) => CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, data)
+                CloseForData = CloseHydraulicBoundaryCalculationsViewForData
             };
 
             yield return new ViewInfo<GrassCoverErosionOutwardsWaveConditionsInputContext,
@@ -425,20 +425,19 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionOutwardsFailureMechanismResultView view, object o)
+        private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionOutwardsFailureMechanismResultView view, object dataToCloseFor)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as GrassCoverErosionOutwardsFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism>;
-            if (assessmentSection != null)
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = null;
+
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
+                failureMechanism = assessmentSection
+                                   .GetFailureMechanisms()
+                                   .OfType<GrassCoverErosionOutwardsFailureMechanism>()
+                                   .FirstOrDefault();
             }
 
-            if (failureMechanismContext != null)
+            if (dataToCloseFor is IFailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -446,28 +445,23 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
-        private static bool CloseHydraulicBoundaryCalculationsViewForData(IAssessmentSection viewAssessmentSection,
+        private static bool CloseHydraulicBoundaryCalculationsViewForData(HydraulicBoundaryCalculationsView view,
                                                                           object dataToCloseFor)
         {
-            GrassCoverErosionOutwardsFailureMechanism viewFailureMechanism = viewAssessmentSection.GetFailureMechanisms()
-                                                                                                  .OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                                                                                                  .Single();
-
-            var failureMechanismContext = dataToCloseFor as GrassCoverErosionOutwardsCalculationsContext;
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
-            var failureMechanism = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanism;
-
-            if (assessmentSection != null)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                failureMechanism = ((IAssessmentSection) dataToCloseFor).GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().Single();
+                return ReferenceEquals(assessmentSection, view.AssessmentSection);
             }
 
-            if (failureMechanismContext != null)
+            if (dataToCloseFor is GrassCoverErosionOutwardsCalculationsContext calculationsContext)
             {
-                failureMechanism = failureMechanismContext.Parent.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().Single();
+                return ReferenceEquals(calculationsContext.WrappedData, view.AssessmentSection
+                                                                            .GetFailureMechanisms()
+                                                                            .OfType<GrassCoverErosionOutwardsFailureMechanism>()
+                                                                            .SingleOrDefault());
             }
 
-            return failureMechanism != null && ReferenceEquals(failureMechanism, viewFailureMechanism);
+            return false;
         }
 
         #endregion

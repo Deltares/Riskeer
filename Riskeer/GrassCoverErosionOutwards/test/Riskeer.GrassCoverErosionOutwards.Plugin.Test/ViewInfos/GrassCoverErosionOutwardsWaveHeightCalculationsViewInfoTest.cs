@@ -275,19 +275,20 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void CloseViewForData_ForMatchingCalculationsContext_ReturnsTrue()
         {
             // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
-                new GrassCoverErosionOutwardsFailureMechanism()
+                failureMechanism
             });
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionOutwardsCalculationsContext(
-                new GrassCoverErosionOutwardsFailureMechanism(),
-                assessmentSection);
+                failureMechanism, assessmentSection);
 
             using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                              assessmentSection,
