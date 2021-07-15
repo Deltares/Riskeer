@@ -26,17 +26,12 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -77,7 +72,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
                 yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
                                                   (assessmentSection, failureMechanism) => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First()));
                 yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
-                                                  (assessmentSection, failureMechanism) => failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First()));
+                                                  (assessmentSection, failureMechanism) => assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.First()));
+
+                yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
+                                                  (assessmentSection, failureMechanism) => failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First()));
                 yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
                                                   (assessmentSection, failureMechanism) => failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First()));
                 yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
@@ -175,8 +173,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            var random = new Random(39);
-
             var calculationA = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 InputParameters =
@@ -245,39 +241,23 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
                 new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
             });
 
-            var expectedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var expectedDetailedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            var expectedTailorMadeAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            var expectedCombinedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            // Call
+            GrassCoverErosionOutwardsFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-                calculator.SimpleAssessmentAssemblyOutput = expectedSimpleAssembly;
-                calculator.DetailedAssessmentAssemblyGroupOutput = expectedDetailedAssemblyCategory;
-                calculator.TailorMadeAssemblyCategoryOutput = expectedTailorMadeAssemblyCategory;
-                calculator.CombinedAssemblyCategoryOutput = expectedCombinedAssemblyCategory;
+            // Assert
+            MapDataCollection mapData = map.Data;
+            Assert.IsInstanceOf<MapDataCollection>(mapData);
 
-                // Call
-                GrassCoverErosionOutwardsFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
+            List<MapData> mapDataList = mapData.Collection.ToList();
+            Assert.AreEqual(4, mapDataList.Count);
+            MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
 
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-                // Assert
-                MapDataCollection mapData = map.Data;
-                Assert.IsInstanceOf<MapDataCollection>(mapData);
-
-                List<MapData> mapDataList = mapData.Collection.ToList();
-                Assert.AreEqual(4, mapDataList.Count);
-                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
-
-                GrassCoverErosionOutwardsMapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism, assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
-                MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
-                AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(),
-                                          mapDataList[calculationsIndex]);
-            }
+            GrassCoverErosionOutwardsMapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(failureMechanism, assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
+            MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
+            AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(),
+                                      mapDataList[calculationsIndex]);
         }
 
         [Test]

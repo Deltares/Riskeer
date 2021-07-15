@@ -27,17 +27,12 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -152,8 +147,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            var random = new Random(39);
-
             MacroStabilityInwardsStochasticSoilModel stochasticSoilModel1 =
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("name1", new[]
                 {
@@ -239,39 +232,23 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 hydraulicBoundaryLocation2
             });
 
-            var expectedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var expectedDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var expectedTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var expectedCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            // Call
+            MacroStabilityInwardsFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-                calculator.SimpleAssessmentAssemblyOutput = expectedSimpleAssembly;
-                calculator.DetailedAssessmentAssemblyOutput = expectedDetailedAssembly;
-                calculator.TailorMadeAssessmentAssemblyOutput = expectedTailorMadeAssembly;
-                calculator.CombinedAssemblyOutput = expectedCombinedAssembly;
+            // Assert
+            MapDataCollection mapData = map.Data;
+            Assert.IsInstanceOf<MapDataCollection>(mapData);
 
-                // Call
-                MacroStabilityInwardsFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
+            List<MapData> mapDataList = mapData.Collection.ToList();
+            Assert.AreEqual(5, mapDataList.Count);
+            MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
+            AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, mapDataList[surfaceLinesIndex]);
 
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-                // Assert
-                MapDataCollection mapData = map.Data;
-                Assert.IsInstanceOf<MapDataCollection>(mapData);
-
-                List<MapData> mapDataList = mapData.Collection.ToList();
-                Assert.AreEqual(5, mapDataList.Count);
-                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
-                AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, mapDataList[surfaceLinesIndex]);
-
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
-                AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, mapDataList[stochasticSoilModelsIndex]);
-                AssertCalculationsMapData(failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(), mapDataList[calculationsIndex]);
-            }
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
+            AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, mapDataList[stochasticSoilModelsIndex]);
+            AssertCalculationsMapData(failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(), mapDataList[calculationsIndex]);
         }
 
         [Test]

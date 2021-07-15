@@ -27,17 +27,12 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -164,8 +159,6 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            var random = new Random(39);
-
             PipingStochasticSoilModel stochasticSoilModel1 = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("name1", new[]
             {
                 new Point2D(1.0, 2.0),
@@ -254,45 +247,29 @@ namespace Riskeer.Piping.Forms.Test.Views
                 hydraulicBoundaryLocation2
             });
 
-            var expectedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var expectedDetailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var expectedTailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var expectedCombinedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            // Call
+            PipingFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-                calculator.SimpleAssessmentAssemblyOutput = expectedSimpleAssembly;
-                calculator.DetailedAssessmentAssemblyOutput = expectedDetailedAssembly;
-                calculator.TailorMadeAssessmentAssemblyOutput = expectedTailorMadeAssembly;
-                calculator.CombinedAssemblyOutput = expectedCombinedAssembly;
+            // Assert
+            MapDataCollection mapData = map.Data;
+            Assert.IsInstanceOf<MapDataCollection>(mapData);
 
-                // Call
-                PipingFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
+            List<MapData> mapDataList = mapData.Collection.ToList();
+            Assert.AreEqual(7, mapDataList.Count);
+            MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
+            AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, mapDataList[surfaceLinesIndex]);
 
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
+            IEnumerable<MapData> sectionsCollection = ((MapDataCollection) mapDataList[sectionsCollectionIndex]).Collection;
+            MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsIndex));
+            MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsStartPointIndex));
+            MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsEndPointIndex));
 
-                // Assert
-                MapDataCollection mapData = map.Data;
-                Assert.IsInstanceOf<MapDataCollection>(mapData);
-
-                List<MapData> mapDataList = mapData.Collection.ToList();
-                Assert.AreEqual(7, mapDataList.Count);
-                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
-                AssertSurfaceLinesMapData(failureMechanism.SurfaceLines, mapDataList[surfaceLinesIndex]);
-
-                IEnumerable<MapData> sectionsCollection = ((MapDataCollection) mapDataList[sectionsCollectionIndex]).Collection;
-                MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsIndex));
-                MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsStartPointIndex));
-                MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsEndPointIndex));
-
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
-                AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, mapDataList[stochasticSoilModelsIndex]);
-                AssertProbabilisticCalculationsMapData(failureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>(), mapDataList[probabilisticCalculationsIndex]);
-                AssertSemiProbabilisticCalculationsMapData(failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(), mapDataList[semiProbabilisticCalculationsIndex]);
-            }
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
+            AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, mapDataList[stochasticSoilModelsIndex]);
+            AssertProbabilisticCalculationsMapData(failureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>(), mapDataList[probabilisticCalculationsIndex]);
+            AssertSemiProbabilisticCalculationsMapData(failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(), mapDataList[semiProbabilisticCalculationsIndex]);
         }
 
         [Test]

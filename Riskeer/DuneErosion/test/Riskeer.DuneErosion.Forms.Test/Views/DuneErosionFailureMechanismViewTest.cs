@@ -26,15 +26,10 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -163,8 +158,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            var random = new Random(39);
-
             var assessmentSection = new AssessmentSectionStub
             {
                 ReferenceLine = new ReferenceLine()
@@ -195,36 +188,20 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2))
             });
 
-            var expectedSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var expectedDetailedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            var expectedTailorMadeAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            var expectedCombinedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            // Call
+            DuneErosionFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
-                calculator.SimpleAssessmentAssemblyOutput = expectedSimpleAssembly;
-                calculator.DetailedAssessmentAssemblyGroupOutput = expectedDetailedAssemblyCategory;
-                calculator.TailorMadeAssemblyCategoryOutput = expectedTailorMadeAssemblyCategory;
-                calculator.CombinedAssemblyCategoryOutput = expectedCombinedAssemblyCategory;
+            // Assert
+            MapDataCollection mapData = map.Data;
+            Assert.IsInstanceOf<MapDataCollection>(mapData);
 
-                // Call
-                DuneErosionFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
+            List<MapData> mapDataList = mapData.Collection.ToList();
+            Assert.AreEqual(2, mapDataList.Count);
+            MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
 
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-                // Assert
-                MapDataCollection mapData = map.Data;
-                Assert.IsInstanceOf<MapDataCollection>(mapData);
-
-                List<MapData> mapDataList = mapData.Collection.ToList();
-                Assert.AreEqual(2, mapDataList.Count);
-                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
-
-                AssertDuneLocationsMapData(failureMechanism, mapDataList[duneLocationsIndex]);
-            }
+            AssertDuneLocationsMapData(failureMechanism, mapDataList[duneLocationsIndex]);
         }
 
         [Test]
