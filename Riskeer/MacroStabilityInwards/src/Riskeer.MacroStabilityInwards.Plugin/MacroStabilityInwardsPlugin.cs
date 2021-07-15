@@ -454,20 +454,19 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailureMechanismResultViewForData(MacroStabilityInwardsFailureMechanismResultView view, object o)
+        private static bool CloseFailureMechanismResultViewForData(MacroStabilityInwardsFailureMechanismResultView view, object dataToCloseFor)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as MacroStabilityInwardsFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<MacroStabilityInwardsFailureMechanism>;
-            if (assessmentSection != null)
+            MacroStabilityInwardsFailureMechanism failureMechanism = null;
+
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<MacroStabilityInwardsFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
+                failureMechanism = assessmentSection
+                                   .GetFailureMechanisms()
+                                   .OfType<MacroStabilityInwardsFailureMechanism>()
+                                   .FirstOrDefault();
             }
 
-            if (failureMechanismContext != null)
+            if (dataToCloseFor is IFailureMechanismContext<MacroStabilityInwardsFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -475,79 +474,80 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
-        private static bool CloseCalculationsViewForData(MacroStabilityInwardsCalculationsView view, object o)
+        private static bool CloseCalculationsViewForData(MacroStabilityInwardsCalculationsView view, object dataToCloseFor)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as MacroStabilityInwardsFailureMechanism;
+            MacroStabilityInwardsFailureMechanism failureMechanism = null;
 
-            if (o is MacroStabilityInwardsCalculationsContext failureMechanismContext)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (assessmentSection != null)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<MacroStabilityInwardsFailureMechanism>()
                                                     .FirstOrDefault();
             }
 
-            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
-        }
-
-        private static bool CloseScenariosViewForData(MacroStabilityInwardsScenariosView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as MacroStabilityInwardsFailureMechanism;
-
-            if (o is FailureMechanismContext<MacroStabilityInwardsFailureMechanism> failureMechanismContext)
+            if (dataToCloseFor is MacroStabilityInwardsCalculationsContext failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            if (assessmentSection != null)
+            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
+        }
+
+        private static bool CloseScenariosViewForData(MacroStabilityInwardsScenariosView view, object dataToCloseFor)
+        {
+            MacroStabilityInwardsFailureMechanism failureMechanism = null;
+
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<MacroStabilityInwardsFailureMechanism>()
                                                     .FirstOrDefault();
             }
 
+            if (dataToCloseFor is FailureMechanismContext<MacroStabilityInwardsFailureMechanism> failureMechanismContext)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
 
-        private static bool CloseInputViewForData(MacroStabilityInwardsInputView view, object o)
+        private static bool CloseInputViewForData(MacroStabilityInwardsInputView view, object dataToCloseFor)
         {
-            if (o is MacroStabilityInwardsCalculationScenarioContext calculationScenarioContext)
+            MacroStabilityInwardsFailureMechanism failureMechanism = null;
+
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                return ReferenceEquals(view.Data, calculationScenarioContext.WrappedData);
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<MacroStabilityInwardsFailureMechanism>()
+                                                    .FirstOrDefault();
+            }
+
+            if (dataToCloseFor is MacroStabilityInwardsCalculationsContext calculationsContext)
+            {
+                failureMechanism = calculationsContext.WrappedData;
             }
 
             IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = null;
-
-            if (o is MacroStabilityInwardsCalculationGroupContext calculationGroupContext)
-            {
-                calculations = calculationGroupContext.WrappedData.GetCalculations()
-                                                      .OfType<MacroStabilityInwardsCalculationScenario>();
-            }
-
-            var failureMechanism = o as MacroStabilityInwardsFailureMechanism;
-
-            if (o is MacroStabilityInwardsCalculationsContext failureMechanismContext)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (o is IAssessmentSection assessmentSection)
-            {
-                failureMechanism = assessmentSection.GetFailureMechanisms()
-                                                    .OfType<MacroStabilityInwardsFailureMechanism>()
-                                                    .FirstOrDefault();
-            }
 
             if (failureMechanism != null)
             {
                 calculations = failureMechanism.CalculationsGroup.GetCalculations()
                                                .OfType<MacroStabilityInwardsCalculationScenario>();
+            }
+
+            if (dataToCloseFor is MacroStabilityInwardsCalculationGroupContext calculationGroupContext)
+            {
+                calculations = calculationGroupContext.WrappedData.GetCalculations()
+                                                      .OfType<MacroStabilityInwardsCalculationScenario>();
+            }
+
+            if (dataToCloseFor is MacroStabilityInwardsCalculationScenarioContext calculationScenarioContext)
+            {
+                calculations = new[]
+                {
+                    calculationScenarioContext.WrappedData
+                };
             }
 
             return calculations != null && calculations.Any(ci => ReferenceEquals(view.Data, ci));
