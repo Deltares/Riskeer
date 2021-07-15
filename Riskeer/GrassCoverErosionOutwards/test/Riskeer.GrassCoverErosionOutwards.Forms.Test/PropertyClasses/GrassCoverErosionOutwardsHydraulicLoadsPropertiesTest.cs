@@ -31,7 +31,7 @@ using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsCalculationsPropertiesTest
+    public class GrassCoverErosionOutwardsHydraulicLoadsPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -66,7 +66,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var properties = new GrassCoverErosionOutwardsCalculationsProperties(failureMechanism, changeHandler);
+            var properties = new GrassCoverErosionOutwardsHydraulicLoadsProperties(failureMechanism, changeHandler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>>(properties);
@@ -91,7 +91,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new GrassCoverErosionOutwardsCalculationsProperties(new GrassCoverErosionOutwardsFailureMechanism(), changeHandler);
+            var properties = new GrassCoverErosionOutwardsHydraulicLoadsProperties(new GrassCoverErosionOutwardsFailureMechanism(), changeHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

@@ -34,7 +34,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// <summary>
     /// Calculation related ViewModel of <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionOutwardsCalculationsProperties : GrassCoverErosionOutwardsFailureMechanismProperties
+    public class GrassCoverErosionOutwardsHydraulicLoadsProperties : GrassCoverErosionOutwardsFailureMechanismProperties
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -46,12 +46,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         private const int tailorMadeWaveImpactPropertyIndex = 8;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsCalculationsProperties"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsHydraulicLoadsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="handler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsCalculationsProperties(
+        public GrassCoverErosionOutwardsHydraulicLoadsProperties(
             GrassCoverErosionOutwardsFailureMechanism data,
             IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> handler) : base(data, new ConstructionProperties
         {
