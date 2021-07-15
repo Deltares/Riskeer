@@ -289,20 +289,19 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailureMechanismResultViewForData(StabilityPointStructuresFailureMechanismResultView view, object viewData)
+        private static bool CloseFailureMechanismResultViewForData(StabilityPointStructuresFailureMechanismResultView view, object dataToCloseFor)
         {
-            var assessmentSection = viewData as IAssessmentSection;
-            var failureMechanism = viewData as StabilityPointStructuresFailureMechanism;
-            var failureMechanismContext = viewData as IFailureMechanismContext<StabilityPointStructuresFailureMechanism>;
-            if (assessmentSection != null)
+            StabilityPointStructuresFailureMechanism failureMechanism = null;
+
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<StabilityPointStructuresFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
+                failureMechanism = assessmentSection
+                                   .GetFailureMechanisms()
+                                   .OfType<StabilityPointStructuresFailureMechanism>()
+                                   .SingleOrDefault();
             }
 
-            if (failureMechanismContext != null)
+            if (dataToCloseFor is IFailureMechanismContext<StabilityPointStructuresFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -310,39 +309,39 @@ namespace Riskeer.StabilityPointStructures.Plugin
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
-        private static bool CloseScenariosViewForData(StabilityPointStructuresScenariosView view, object removedData)
+        private static bool CloseScenariosViewForData(StabilityPointStructuresScenariosView view, object dataToCloseFor)
         {
-            var failureMechanism = removedData as StabilityPointStructuresFailureMechanism;
+            StabilityPointStructuresFailureMechanism failureMechanism = null;
 
-            if (removedData is FailureMechanismContext<StabilityPointStructuresFailureMechanism> failureMechanismContext)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (removedData is IAssessmentSection assessmentSection)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<StabilityPointStructuresFailureMechanism>()
                                                     .FirstOrDefault();
+            }
+
+            if (dataToCloseFor is FailureMechanismContext<StabilityPointStructuresFailureMechanism> failureMechanismContext)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
 
-        private static bool CloseCalculationsViewForData(StabilityPointStructuresCalculationsView view, object o)
+        private static bool CloseCalculationsViewForData(StabilityPointStructuresCalculationsView view, object dataToCloseFor)
         {
-            var failureMechanism = o as StabilityPointStructuresFailureMechanism;
+            StabilityPointStructuresFailureMechanism failureMechanism = null;
 
-            if (o is StabilityPointStructuresCalculationsContext failureMechanismContext)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (o is IAssessmentSection assessmentSection)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<StabilityPointStructuresFailureMechanism>()
                                                     .FirstOrDefault();
+            }
+
+            if (dataToCloseFor is StabilityPointStructuresCalculationsContext failureMechanismContext)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);

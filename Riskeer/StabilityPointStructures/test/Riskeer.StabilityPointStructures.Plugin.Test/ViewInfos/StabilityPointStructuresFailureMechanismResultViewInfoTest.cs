@@ -183,50 +183,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, failureMechanism);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, new StabilityPointStructuresFailureMechanism());
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailurePathContext_ReturnsTrue()
         {
             // Setup
