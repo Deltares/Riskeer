@@ -164,8 +164,18 @@ namespace Riskeer.Integration.Plugin
 
                 return null;
             });
+            
+            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_HydraulicLoads, "\uE901", fontFamily, project =>
+            {
+                if (project is RiskeerProject riskeerProject)
+                {
+                    return new HydraulicLoadsStateRootContext(riskeerProject.AssessmentSections.First());
+                }
 
-            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_Calculations, "\uE901", fontFamily, project =>
+                return null;
+            });
+
+            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_Calculations, "\uE902", fontFamily, project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {
@@ -175,7 +185,7 @@ namespace Riskeer.Integration.Plugin
                 return null;
             });
 
-            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_FailurePaths, "\uE902", fontFamily, project =>
+            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_FailurePaths, "\uE903", fontFamily, project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {
