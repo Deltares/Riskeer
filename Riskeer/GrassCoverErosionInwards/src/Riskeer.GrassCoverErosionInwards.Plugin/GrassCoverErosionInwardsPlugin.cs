@@ -400,16 +400,16 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         #region ViewInfos
 
-        private static bool CloseScenariosViewForData(GrassCoverErosionInwardsScenariosView view, object removedData)
+        private static bool CloseScenariosViewForData(GrassCoverErosionInwardsScenariosView view, object dataToCloseFor)
         {
-            var failureMechanism = removedData as GrassCoverErosionInwardsFailureMechanism;
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = null;
 
-            if (removedData is FailureMechanismContext<GrassCoverErosionInwardsFailureMechanism> failureMechanismContext)
+            if (dataToCloseFor is FailureMechanismContext<GrassCoverErosionInwardsFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            if (removedData is IAssessmentSection assessmentSection)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<GrassCoverErosionInwardsFailureMechanism>()
@@ -419,20 +419,18 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionInwardsFailureMechanismResultView view, object o)
+        private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionInwardsFailureMechanismResultView view, object dataToCloseFor)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<GrassCoverErosionInwardsFailureMechanism>;
-            if (assessmentSection != null)
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = null;
+
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<GrassCoverErosionInwardsFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<GrassCoverErosionInwardsFailureMechanism>()
+                                                    .FirstOrDefault();
             }
 
-            if (failureMechanismContext != null)
+            if (dataToCloseFor is IFailureMechanismContext<GrassCoverErosionInwardsFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -440,34 +438,23 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
-        private static bool CloseInputViewForData(GrassCoverErosionInwardsInputView view, object o)
+        private static bool CloseInputViewForData(GrassCoverErosionInwardsInputView view, object dataToCloseFor)
         {
-            if (o is GrassCoverErosionInwardsCalculationScenarioContext calculationContext)
-            {
-                return ReferenceEquals(view.Data, calculationContext.WrappedData);
-            }
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = null;
 
-            IEnumerable<GrassCoverErosionInwardsCalculation> calculations = null;
-
-            if (o is GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext)
-            {
-                calculations = calculationGroupContext.WrappedData.GetCalculations()
-                                                      .OfType<GrassCoverErosionInwardsCalculation>();
-            }
-
-            var failureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
-
-            if (o is GrassCoverErosionInwardsCalculationsContext failureMechanismContext)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (o is IAssessmentSection assessmentSection)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<GrassCoverErosionInwardsFailureMechanism>()
                                                     .FirstOrDefault();
             }
+
+            if (dataToCloseFor is GrassCoverErosionInwardsCalculationsContext failureMechanismContext)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+
+            IEnumerable<GrassCoverErosionInwardsCalculation> calculations = null;
 
             if (failureMechanism != null)
             {
@@ -475,24 +462,37 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                .OfType<GrassCoverErosionInwardsCalculation>();
             }
 
+            if (dataToCloseFor is GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext)
+            {
+                calculations = calculationGroupContext.WrappedData.GetCalculations()
+                                                      .OfType<GrassCoverErosionInwardsCalculation>();
+            }
+
+            if (dataToCloseFor is GrassCoverErosionInwardsCalculationScenarioContext calculationContext)
+            {
+                calculations = new[]
+                {
+                    calculationContext.WrappedData
+                };
+            }
+
             return calculations != null && calculations.Any(ci => ReferenceEquals(view.Data, ci));
         }
 
-        private static bool CloseCalculationsViewForData(GrassCoverErosionInwardsCalculationsView view, object o)
+        private static bool CloseCalculationsViewForData(GrassCoverErosionInwardsCalculationsView view, object dataToCloseFor)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = null;
 
-            if (o is GrassCoverErosionInwardsCalculationsContext failureMechanismContext)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (assessmentSection != null)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<GrassCoverErosionInwardsFailureMechanism>()
                                                     .FirstOrDefault();
+            }
+
+            if (dataToCloseFor is GrassCoverErosionInwardsCalculationsContext failureMechanismContext)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
