@@ -45,7 +45,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.AreEqual(typeof(DuneErosionHydraulicLoadsContext), info.DataType);
-                Assert.AreEqual(typeof(DuneErosionCalculationsProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(DuneErosionHydraulicLoadsProperties), info.PropertyObjectType);
             }
         }
 
@@ -68,7 +68,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<DuneErosionCalculationsProperties>(objectProperties);
+                Assert.IsInstanceOf<DuneErosionHydraulicLoadsProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
 

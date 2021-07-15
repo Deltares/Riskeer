@@ -64,9 +64,9 @@ namespace Riskeer.DuneErosion.Plugin
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<DuneErosionHydraulicLoadsContext, DuneErosionCalculationsProperties>
+            yield return new PropertyInfo<DuneErosionHydraulicLoadsContext, DuneErosionHydraulicLoadsProperties>
             {
-                CreateInstance = context => new DuneErosionCalculationsProperties(context.WrappedData,
+                CreateInstance = context => new DuneErosionHydraulicLoadsProperties(context.WrappedData,
                                                                                   new DuneErosionFailureMechanismPropertyChangeHandler())
             };
 

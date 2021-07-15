@@ -29,7 +29,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
     /// <summary>
     /// Calculation related ViewModel of <see cref="DuneErosionFailureMechanism"/> for properties panel.
     /// </summary>
-    public class DuneErosionCalculationsProperties : DuneErosionFailureMechanismProperties
+    public class DuneErosionHydraulicLoadsProperties : DuneErosionFailureMechanismProperties
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -38,12 +38,12 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
         private const int nPropertyIndex = 5;
 
         /// <summary>
-        /// Creates a new instance of <see cref="DuneErosionCalculationsProperties"/>.
+        /// Creates a new instance of <see cref="DuneErosionHydraulicLoadsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="handler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public DuneErosionCalculationsProperties(DuneErosionFailureMechanism data,
+        public DuneErosionHydraulicLoadsProperties(DuneErosionFailureMechanism data,
                                                  IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> handler) : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
