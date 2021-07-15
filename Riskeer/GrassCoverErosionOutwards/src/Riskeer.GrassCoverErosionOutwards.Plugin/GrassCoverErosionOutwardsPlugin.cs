@@ -237,8 +237,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<GrassCoverErosionOutwardsHydraulicLoadsContext>(
-                CalculationsChildNodeObjects,
-                CalculationsContextMenuStrip);
+                HydraulicLoadsChildNodeObjects,
+                HydraulicLoadsContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<GrassCoverErosionOutwardsFailurePathContext>(
                 FailurePathChildNodeObjects,
@@ -468,9 +468,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         #region TreeNodeInfos
 
-        #region GrassCoverErosionOutwardsCalculationsContext TreeNodeInfo
+        #region GrassCoverErosionOutwardsHydraulicLoadsContext TreeNodeInfo
 
-        private static object[] CalculationsChildNodeObjects(GrassCoverErosionOutwardsHydraulicLoadsContext context)
+        private static object[] HydraulicLoadsChildNodeObjects(GrassCoverErosionOutwardsHydraulicLoadsContext context)
         {
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -478,13 +478,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetCalculationsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                                       GetHydraulicLoadsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
                 new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
                                                                               failureMechanism, assessmentSection)
             };
         }
 
-        private static IEnumerable<object> GetCalculationsInputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetHydraulicLoadsInputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -493,7 +493,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationsContextMenuStrip(GrassCoverErosionOutwardsHydraulicLoadsContext context,
+        private ContextMenuStrip HydraulicLoadsContextMenuStrip(GrassCoverErosionOutwardsHydraulicLoadsContext context,
                                                               object parentData,
                                                               TreeViewControl treeViewControl)
         {

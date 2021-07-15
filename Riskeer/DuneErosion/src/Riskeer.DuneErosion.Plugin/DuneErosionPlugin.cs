@@ -90,8 +90,8 @@ namespace Riskeer.DuneErosion.Plugin
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<DuneErosionHydraulicLoadsContext>(
-                CalculationsChildNodeObjects,
-                CalculationsContextMenuStrip);
+                HydraulicLoadsChildNodeObjects,
+                HydraulicLoadsContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<DuneErosionFailurePathContext>(
                 FailurePathChildNodeObjects,
@@ -262,9 +262,9 @@ namespace Riskeer.DuneErosion.Plugin
 
         #region TreeNodeInfos
 
-        #region DuneErosionCalculationsContext TreeNodeInfo
+        #region DuneErosionHydraulicLoadsContext TreeNodeInfo
 
-        private static object[] CalculationsChildNodeObjects(DuneErosionHydraulicLoadsContext context)
+        private static object[] HydraulicLoadsChildNodeObjects(DuneErosionHydraulicLoadsContext context)
         {
             DuneErosionFailureMechanism wrappedData = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -272,12 +272,12 @@ namespace Riskeer.DuneErosion.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetCalculationsInputs(wrappedData), TreeFolderCategory.Input),
+                                       GetHydraulicLoadsInputs(wrappedData), TreeFolderCategory.Input),
                 new DuneLocationCalculationsGroupContext(context.WrappedData.DuneLocations, context.WrappedData, assessmentSection)
             };
         }
 
-        private static IEnumerable<object> GetCalculationsInputs(DuneErosionFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetHydraulicLoadsInputs(DuneErosionFailureMechanism failureMechanism)
         {
             return new object[]
             {
@@ -285,7 +285,7 @@ namespace Riskeer.DuneErosion.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationsContextMenuStrip(DuneErosionHydraulicLoadsContext context,
+        private ContextMenuStrip HydraulicLoadsContextMenuStrip(DuneErosionHydraulicLoadsContext context,
                                                               object parentData,
                                                               TreeViewControl treeViewControl)
         {

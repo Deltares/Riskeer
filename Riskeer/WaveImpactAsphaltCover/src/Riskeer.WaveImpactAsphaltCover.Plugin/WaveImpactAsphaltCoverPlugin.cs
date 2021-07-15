@@ -146,8 +146,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<WaveImpactAsphaltCoverHydraulicLoadsContext>(
-                CalculationsChildNodeObjects,
-                CalculationsContextMenuStrip);
+                HydraulicLoadsChildNodeObjects,
+                HydraulicLoadsContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<WaveImpactAsphaltCoverFailurePathContext>(
                 FailurePathChildNodeObjects,
@@ -283,9 +283,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         #region TreeNodeInfos
 
-        #region WaveImpactAsphaltCoverCalculationsContext TreeNodeInfo
+        #region WaveImpactAsphaltCoverHydraulicLoadsContext TreeNodeInfo
 
-        private static object[] CalculationsChildNodeObjects(WaveImpactAsphaltCoverHydraulicLoadsContext context)
+        private static object[] HydraulicLoadsChildNodeObjects(WaveImpactAsphaltCoverHydraulicLoadsContext context)
         {
             WaveImpactAsphaltCoverFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -293,13 +293,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetCalculationsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                                       GetHydraulicLoadsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
                 new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup, null,
                                                                                 failureMechanism, assessmentSection)
             };
         }
 
-        private static IEnumerable<object> GetCalculationsInputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetHydraulicLoadsInputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -308,7 +308,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationsContextMenuStrip(WaveImpactAsphaltCoverHydraulicLoadsContext context,
+        private ContextMenuStrip HydraulicLoadsContextMenuStrip(WaveImpactAsphaltCoverHydraulicLoadsContext context,
                                                               object parentData,
                                                               TreeViewControl treeViewControl)
         {
