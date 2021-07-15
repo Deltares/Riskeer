@@ -64,13 +64,12 @@ namespace Riskeer.Common.Forms.Views
             this.tableLayoutPanel.RowCount = 2;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(1349, 644);
             this.tableLayoutPanel.TabIndex = 0;
             // 
             // generateButton
             // 
-            this.generateButton.Location = new System.Drawing.Point(3, 591);
+            this.generateButton.Location = new System.Drawing.Point(3, 607);
             this.generateButton.Name = "generateButton";
             this.generateButton.Padding = new System.Windows.Forms.Padding(2);
             this.generateButton.Size = new System.Drawing.Size(170, 34);
@@ -81,8 +80,8 @@ namespace Riskeer.Common.Forms.Views
             // 
             // CalculationsView
             // 
-            this.Controls.Add(this.tableLayoutPanel);
             this.Controls.Add(this.generateButton);
+            this.Controls.Add(this.tableLayoutPanel);
             this.Name = "CalculationsView";
             this.Size = new System.Drawing.Size(1349, 644);
             this.tableLayoutPanel.ResumeLayout(false);
