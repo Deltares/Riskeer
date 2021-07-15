@@ -45,7 +45,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.AreEqual(typeof(WaveImpactAsphaltCoverHydraulicLoadsContext), info.DataType);
-                Assert.AreEqual(typeof(WaveImpactAsphaltCoverCalculationsProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(WaveImpactAsphaltCoverHydraulicLoadsProperties), info.PropertyObjectType);
             }
         }
 
@@ -68,7 +68,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<WaveImpactAsphaltCoverCalculationsProperties>(objectProperties);
+                Assert.IsInstanceOf<WaveImpactAsphaltCoverHydraulicLoadsProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
 

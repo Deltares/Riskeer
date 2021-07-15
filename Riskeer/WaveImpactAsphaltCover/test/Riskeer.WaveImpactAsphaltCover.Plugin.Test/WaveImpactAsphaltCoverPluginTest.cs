@@ -68,7 +68,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveImpactAsphaltCoverHydraulicLoadsContext),
-                    typeof(WaveImpactAsphaltCoverCalculationsProperties));
+                    typeof(WaveImpactAsphaltCoverHydraulicLoadsProperties));
                 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

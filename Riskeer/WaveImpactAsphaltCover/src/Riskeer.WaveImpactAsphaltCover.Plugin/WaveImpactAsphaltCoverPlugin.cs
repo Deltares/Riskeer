@@ -68,9 +68,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<WaveImpactAsphaltCoverHydraulicLoadsContext, WaveImpactAsphaltCoverCalculationsProperties>
+            yield return new PropertyInfo<WaveImpactAsphaltCoverHydraulicLoadsContext, WaveImpactAsphaltCoverHydraulicLoadsProperties>
             {
-                CreateInstance = context => new WaveImpactAsphaltCoverCalculationsProperties(context.WrappedData)
+                CreateInstance = context => new WaveImpactAsphaltCoverHydraulicLoadsProperties(context.WrappedData)
             };
             yield return new PropertyInfo<WaveImpactAsphaltCoverFailurePathContext, WaveImpactAsphaltCoverFailurePathProperties>
             {

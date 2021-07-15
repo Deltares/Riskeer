@@ -32,7 +32,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
     /// <summary>
     /// Calculation related ViewModel of <see cref="WaveImpactAsphaltCoverFailureMechanism"/> for properties panel.
     /// </summary>
-    public class WaveImpactAsphaltCoverCalculationsProperties : WaveImpactAsphaltCoverFailureMechanismProperties
+    public class WaveImpactAsphaltCoverHydraulicLoadsProperties : WaveImpactAsphaltCoverFailureMechanismProperties
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -42,11 +42,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
         private const int cPropertyIndex = 6;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverCalculationsProperties"/>.
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverHydraulicLoadsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverCalculationsProperties(WaveImpactAsphaltCoverFailureMechanism data) : base(data, new ConstructionProperties
+        public WaveImpactAsphaltCoverHydraulicLoadsProperties(WaveImpactAsphaltCoverFailureMechanism data) : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
             CodePropertyIndex = codePropertyIndex,

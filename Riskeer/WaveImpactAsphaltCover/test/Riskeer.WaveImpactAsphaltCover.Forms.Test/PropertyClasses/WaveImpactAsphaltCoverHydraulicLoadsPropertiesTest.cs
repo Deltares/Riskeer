@@ -29,7 +29,7 @@ using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverCalculationsPropertiesTest
+    public class WaveImpactAsphaltCoverHydraulicLoadsPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -45,7 +45,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            var properties = new WaveImpactAsphaltCoverCalculationsProperties(failureMechanism);
+            var properties = new WaveImpactAsphaltCoverHydraulicLoadsProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismProperties>(properties);
@@ -64,7 +64,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Call
-            var properties = new WaveImpactAsphaltCoverCalculationsProperties(new WaveImpactAsphaltCoverFailureMechanism());
+            var properties = new WaveImpactAsphaltCoverHydraulicLoadsProperties(new WaveImpactAsphaltCoverFailureMechanism());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
