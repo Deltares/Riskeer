@@ -78,7 +78,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<GrassCoverErosionOutwardsCalculationsContext, GrassCoverErosionOutwardsCalculationsProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsHydraulicLoadsContext, GrassCoverErosionOutwardsCalculationsProperties>
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsCalculationsProperties(
                     context.WrappedData,
@@ -155,7 +155,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<GrassCoverErosionOutwardsCalculationsContext, GrassCoverErosionOutwardsFailureMechanismView>
+            yield return new ViewInfo<GrassCoverErosionOutwardsHydraulicLoadsContext, GrassCoverErosionOutwardsFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -236,7 +236,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<GrassCoverErosionOutwardsCalculationsContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<GrassCoverErosionOutwardsHydraulicLoadsContext>(
                 CalculationsChildNodeObjects,
                 CalculationsContextMenuStrip);
 
@@ -453,7 +453,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 return ReferenceEquals(assessmentSection, view.AssessmentSection);
             }
 
-            if (dataToCloseFor is GrassCoverErosionOutwardsCalculationsContext calculationsContext)
+            if (dataToCloseFor is GrassCoverErosionOutwardsHydraulicLoadsContext calculationsContext)
             {
                 return ReferenceEquals(calculationsContext.WrappedData, view.AssessmentSection
                                                                             .GetFailureMechanisms()
@@ -470,7 +470,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         #region GrassCoverErosionOutwardsCalculationsContext TreeNodeInfo
 
-        private static object[] CalculationsChildNodeObjects(GrassCoverErosionOutwardsCalculationsContext context)
+        private static object[] CalculationsChildNodeObjects(GrassCoverErosionOutwardsHydraulicLoadsContext context)
         {
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -493,7 +493,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationsContextMenuStrip(GrassCoverErosionOutwardsCalculationsContext context,
+        private ContextMenuStrip CalculationsContextMenuStrip(GrassCoverErosionOutwardsHydraulicLoadsContext context,
                                                               object parentData,
                                                               TreeViewControl treeViewControl)
         {

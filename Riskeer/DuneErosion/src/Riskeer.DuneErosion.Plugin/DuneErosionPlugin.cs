@@ -64,7 +64,7 @@ namespace Riskeer.DuneErosion.Plugin
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<DuneErosionCalculationsContext, DuneErosionCalculationsProperties>
+            yield return new PropertyInfo<DuneErosionHydraulicLoadsContext, DuneErosionCalculationsProperties>
             {
                 CreateInstance = context => new DuneErosionCalculationsProperties(context.WrappedData,
                                                                                   new DuneErosionFailureMechanismPropertyChangeHandler())
@@ -89,7 +89,7 @@ namespace Riskeer.DuneErosion.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<DuneErosionCalculationsContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<DuneErosionHydraulicLoadsContext>(
                 CalculationsChildNodeObjects,
                 CalculationsContextMenuStrip);
 
@@ -141,7 +141,7 @@ namespace Riskeer.DuneErosion.Plugin
                     (DuneErosionFailureMechanism) context.FailureMechanism)
             };
 
-            yield return new ViewInfo<DuneErosionCalculationsContext, DuneErosionFailureMechanismView>
+            yield return new ViewInfo<DuneErosionHydraulicLoadsContext, DuneErosionFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -250,7 +250,7 @@ namespace Riskeer.DuneErosion.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is DuneErosionCalculationsContext failureMechanismContext)
+            if (dataToCloseFor is DuneErosionHydraulicLoadsContext failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -264,7 +264,7 @@ namespace Riskeer.DuneErosion.Plugin
 
         #region DuneErosionCalculationsContext TreeNodeInfo
 
-        private static object[] CalculationsChildNodeObjects(DuneErosionCalculationsContext context)
+        private static object[] CalculationsChildNodeObjects(DuneErosionHydraulicLoadsContext context)
         {
             DuneErosionFailureMechanism wrappedData = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -285,7 +285,7 @@ namespace Riskeer.DuneErosion.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationsContextMenuStrip(DuneErosionCalculationsContext context,
+        private ContextMenuStrip CalculationsContextMenuStrip(DuneErosionHydraulicLoadsContext context,
                                                               object parentData,
                                                               TreeViewControl treeViewControl)
         {

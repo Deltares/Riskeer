@@ -61,8 +61,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(WaveImpactAsphaltCoverCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(WaveImpactAsphaltCoverCalculationsContext), info.ViewDataType);
+            Assert.AreEqual(typeof(WaveImpactAsphaltCoverHydraulicLoadsContext), info.DataType);
+            Assert.AreEqual(typeof(WaveImpactAsphaltCoverHydraulicLoadsContext), info.ViewDataType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -100,7 +100,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
 
             using (var testForm = new Form())
             {

@@ -54,7 +54,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(StabilityStoneCoverCalculationsContext),
+                    typeof(StabilityStoneCoverHydraulicLoadsContext),
                     typeof(StabilityStoneCoverCalculationsProperties));
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -85,7 +85,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(StabilityStoneCoverCalculationsContext),
+                    typeof(StabilityStoneCoverHydraulicLoadsContext),
                     typeof(StabilityStoneCoverFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
@@ -118,7 +118,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(8, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverCalculationsContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverHydraulicLoadsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverFailurePathContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)));

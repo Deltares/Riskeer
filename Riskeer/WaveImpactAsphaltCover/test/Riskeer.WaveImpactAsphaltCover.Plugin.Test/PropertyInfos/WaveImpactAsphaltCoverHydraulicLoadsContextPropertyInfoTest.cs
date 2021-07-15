@@ -25,27 +25,27 @@ using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.DuneErosion.Data;
-using Riskeer.DuneErosion.Forms.PresentationObjects;
-using Riskeer.DuneErosion.Forms.PropertyClasses;
+using Riskeer.WaveImpactAsphaltCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 
-namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
+namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class DuneErosionCalculationsPropertyInfoTest
+    public class WaveImpactAsphaltCoverHydraulicLoadsContextPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new DuneErosionPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 // Call
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(DuneErosionCalculationsContext), info.DataType);
-                Assert.AreEqual(typeof(DuneErosionCalculationsProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(WaveImpactAsphaltCoverHydraulicLoadsContext), info.DataType);
+                Assert.AreEqual(typeof(WaveImpactAsphaltCoverCalculationsProperties), info.PropertyObjectType);
             }
         }
 
@@ -57,10 +57,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism();
-            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var context = new WaveImpactAsphaltCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new DuneErosionPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 PropertyInfo info = GetInfo(plugin);
 
@@ -68,16 +68,16 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<DuneErosionCalculationsProperties>(objectProperties);
+                Assert.IsInstanceOf<WaveImpactAsphaltCoverCalculationsProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
 
             mocks.VerifyAll();
         }
 
-        private static PropertyInfo GetInfo(DuneErosionPlugin plugin)
+        private static PropertyInfo GetInfo(WaveImpactAsphaltCoverPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DuneErosionCalculationsContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(WaveImpactAsphaltCoverHydraulicLoadsContext));
         }
     }
 }

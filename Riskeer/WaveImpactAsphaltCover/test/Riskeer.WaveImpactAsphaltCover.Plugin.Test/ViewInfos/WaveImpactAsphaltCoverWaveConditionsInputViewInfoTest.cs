@@ -204,7 +204,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
         protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
         {
-            return new WaveImpactAsphaltCoverCalculationsContext(
+            return new WaveImpactAsphaltCoverHydraulicLoadsContext(
                 new WaveImpactAsphaltCoverFailureMechanism
                 {
                     WaveConditionsCalculationGroup =

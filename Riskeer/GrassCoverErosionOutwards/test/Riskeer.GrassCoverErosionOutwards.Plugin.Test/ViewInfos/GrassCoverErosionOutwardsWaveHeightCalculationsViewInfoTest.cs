@@ -287,7 +287,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
-            var context = new GrassCoverErosionOutwardsCalculationsContext(
+            var context = new GrassCoverErosionOutwardsHydraulicLoadsContext(
                 failureMechanism, assessmentSection);
 
             using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
@@ -327,7 +327,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            var context = new GrassCoverErosionOutwardsCalculationsContext(
+            var context = new GrassCoverErosionOutwardsHydraulicLoadsContext(
                 new GrassCoverErosionOutwardsFailureMechanism(),
                 assessmentSectionB);
 

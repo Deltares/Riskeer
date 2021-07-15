@@ -23,13 +23,13 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Riskeer.WaveImpactAsphaltCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 
-namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsCalculationsContextTest
+    public class WaveImpactAsphaltCoverHydraulicLoadsContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -39,16 +39,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism>>(context);
-            Assert.AreSame(assessmentSection, context.Parent);
+            Assert.IsInstanceOf<FailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism>>(context);
             Assert.AreSame(failureMechanism, context.WrappedData);
-            mocks.VerifyAll();
+            Assert.AreSame(assessmentSection, context.Parent);
         }
     }
 }

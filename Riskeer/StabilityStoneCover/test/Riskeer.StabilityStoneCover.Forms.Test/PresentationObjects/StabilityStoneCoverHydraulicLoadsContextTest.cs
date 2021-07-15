@@ -19,26 +19,36 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.DuneErosion.Data;
+using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 
-namespace Riskeer.DuneErosion.Forms.PresentationObjects
+namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
 {
-    /// <summary>
-    /// Presentation object for calculations of <see cref="DuneErosionFailureMechanism"/>.
-    /// </summary>
-    public class DuneErosionCalculationsContext : FailureMechanismContext<DuneErosionFailureMechanism>
+    [TestFixture]
+    public class StabilityStoneCoverHydraulicLoadsContextTest
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="DuneErosionCalculationsContext"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> instance
-        /// wrapped by this context object.</param>
-        /// <param name="assessmentSection">The assessment section which the failure mechanism belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DuneErosionCalculationsContext(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            : base(failureMechanism, assessmentSection) {}
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            // Call
+            var context = new StabilityStoneCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismContext<StabilityStoneCoverFailureMechanism>>(context);
+            Assert.AreSame(failureMechanism, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.Parent);
+            mocks.VerifyAll();
+        }
     }
 }

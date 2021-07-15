@@ -68,7 +68,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<WaveImpactAsphaltCoverCalculationsContext, WaveImpactAsphaltCoverCalculationsProperties>
+            yield return new PropertyInfo<WaveImpactAsphaltCoverHydraulicLoadsContext, WaveImpactAsphaltCoverCalculationsProperties>
             {
                 CreateInstance = context => new WaveImpactAsphaltCoverCalculationsProperties(context.WrappedData)
             };
@@ -89,7 +89,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<WaveImpactAsphaltCoverCalculationsContext, WaveImpactAsphaltCoverFailureMechanismView>
+            yield return new ViewInfo<WaveImpactAsphaltCoverHydraulicLoadsContext, WaveImpactAsphaltCoverFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -145,7 +145,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<WaveImpactAsphaltCoverCalculationsContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<WaveImpactAsphaltCoverHydraulicLoadsContext>(
                 CalculationsChildNodeObjects,
                 CalculationsContextMenuStrip);
 
@@ -285,7 +285,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         #region WaveImpactAsphaltCoverCalculationsContext TreeNodeInfo
 
-        private static object[] CalculationsChildNodeObjects(WaveImpactAsphaltCoverCalculationsContext context)
+        private static object[] CalculationsChildNodeObjects(WaveImpactAsphaltCoverHydraulicLoadsContext context)
         {
             WaveImpactAsphaltCoverFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -308,7 +308,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationsContextMenuStrip(WaveImpactAsphaltCoverCalculationsContext context,
+        private ContextMenuStrip CalculationsContextMenuStrip(WaveImpactAsphaltCoverHydraulicLoadsContext context,
                                                               object parentData,
                                                               TreeViewControl treeViewControl)
         {
@@ -328,12 +328,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                           .Build();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(WaveImpactAsphaltCoverCalculationsContext context)
+        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(WaveImpactAsphaltCoverHydraulicLoadsContext context)
         {
             return EnableValidateAndCalculateMenuItem(context.Parent);
         }
 
-        private void CalculateAllInFailureMechanism(WaveImpactAsphaltCoverCalculationsContext context)
+        private void CalculateAllInFailureMechanism(WaveImpactAsphaltCoverHydraulicLoadsContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,

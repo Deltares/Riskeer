@@ -68,7 +68,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<StabilityStoneCoverCalculationsContext, StabilityStoneCoverCalculationsProperties>
+            yield return new PropertyInfo<StabilityStoneCoverHydraulicLoadsContext, StabilityStoneCoverCalculationsProperties>
             {
                 CreateInstance = context => new StabilityStoneCoverCalculationsProperties(context.WrappedData)
             };
@@ -92,7 +92,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<StabilityStoneCoverCalculationsContext, StabilityStoneCoverFailureMechanismView>
+            yield return new ViewInfo<StabilityStoneCoverHydraulicLoadsContext, StabilityStoneCoverFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -136,7 +136,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<StabilityStoneCoverCalculationsContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<StabilityStoneCoverHydraulicLoadsContext>(
                 CalculationsChildNodeObjects,
                 CalculationsContextMenuStrip);
 
@@ -285,7 +285,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         #region StabilityStoneCoverCalculationsContext TreeNodeInfo
 
-        private static object[] CalculationsChildNodeObjects(StabilityStoneCoverCalculationsContext context)
+        private static object[] CalculationsChildNodeObjects(StabilityStoneCoverHydraulicLoadsContext context)
         {
             StabilityStoneCoverFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -308,7 +308,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationsContextMenuStrip(StabilityStoneCoverCalculationsContext context,
+        private ContextMenuStrip CalculationsContextMenuStrip(StabilityStoneCoverHydraulicLoadsContext context,
                                                               object parentData,
                                                               TreeViewControl treeViewControl)
         {
@@ -328,12 +328,12 @@ namespace Riskeer.StabilityStoneCover.Plugin
                           .Build();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(StabilityStoneCoverCalculationsContext context)
+        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(StabilityStoneCoverHydraulicLoadsContext context)
         {
             return EnableValidateAndCalculateMenuItem(context.Parent);
         }
 
-        private void CalculateAllInFailureMechanism(StabilityStoneCoverCalculationsContext context)
+        private void CalculateAllInFailureMechanism(StabilityStoneCoverHydraulicLoadsContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,

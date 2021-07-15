@@ -338,7 +338,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            var context = new DuneErosionCalculationsContext(
+            var context = new DuneErosionHydraulicLoadsContext(
                 failureMechanism,
                 assessmentSection);
 
@@ -377,7 +377,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            var context = new DuneErosionCalculationsContext(
+            var context = new DuneErosionHydraulicLoadsContext(
                 new DuneErosionFailureMechanism(),
                 assessmentSectionB);
 

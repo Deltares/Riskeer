@@ -22,22 +22,24 @@
 using System;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.StabilityStoneCover.Data;
+using Riskeer.GrassCoverErosionOutwards.Data;
 
-namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
+namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for calculations of <see cref="StabilityStoneCoverFailureMechanism"/>.
+    /// Presentation object for calculations of <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class StabilityStoneCoverCalculationsContext : FailureMechanismContext<StabilityStoneCoverFailureMechanism>
+    public class GrassCoverErosionOutwardsHydraulicLoadsContext : FailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityStoneCoverCalculationsContext"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsHydraulicLoadsContext"/>.
         /// </summary>
-        /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
-        /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism"/>.</param>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> 
+        /// instance wrapped by this context object.</param>
+        /// <param name="assessmentSection">The assessment section which the failure mechanism belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityStoneCoverCalculationsContext(StabilityStoneCoverFailureMechanism wrappedFailureMechanism, IAssessmentSection parent)
-            : base(wrappedFailureMechanism, parent) {}
+        public GrassCoverErosionOutwardsHydraulicLoadsContext(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                            IAssessmentSection assessmentSection)
+            : base(failureMechanism, assessmentSection) {}
     }
 }

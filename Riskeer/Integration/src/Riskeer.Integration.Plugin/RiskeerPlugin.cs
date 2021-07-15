@@ -1663,10 +1663,10 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
-                new StabilityStoneCoverCalculationsContext(assessmentSection.StabilityStoneCover, assessmentSection),
-                new WaveImpactAsphaltCoverCalculationsContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
-                new GrassCoverErosionOutwardsCalculationsContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
-                new DuneErosionCalculationsContext(assessmentSection.DuneErosion, assessmentSection)
+                new StabilityStoneCoverHydraulicLoadsContext(assessmentSection.StabilityStoneCover, assessmentSection),
+                new WaveImpactAsphaltCoverHydraulicLoadsContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
+                new GrassCoverErosionOutwardsHydraulicLoadsContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
+                new DuneErosionHydraulicLoadsContext(assessmentSection.DuneErosion, assessmentSection)
             };
         }
 

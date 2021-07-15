@@ -25,27 +25,27 @@ using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Forms.PresentationObjects;
+using Riskeer.DuneErosion.Forms.PropertyClasses;
 
-namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
+namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsCalculationsContextPropertyInfoTest
+    public class DuneErosionHydraulicLoadsPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            using (var plugin = new DuneErosionPlugin())
             {
                 // Call
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(GrassCoverErosionOutwardsCalculationsContext), info.DataType);
-                Assert.AreEqual(typeof(GrassCoverErosionOutwardsCalculationsProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(DuneErosionHydraulicLoadsContext), info.DataType);
+                Assert.AreEqual(typeof(DuneErosionCalculationsProperties), info.PropertyObjectType);
             }
         }
 
@@ -57,10 +57,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var context = new DuneErosionHydraulicLoadsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            using (var plugin = new DuneErosionPlugin())
             {
                 PropertyInfo info = GetInfo(plugin);
 
@@ -68,16 +68,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<GrassCoverErosionOutwardsCalculationsProperties>(objectProperties);
+                Assert.IsInstanceOf<DuneErosionCalculationsProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
 
             mocks.VerifyAll();
         }
 
-        private static PropertyInfo GetInfo(GrassCoverErosionOutwardsPlugin plugin)
+        private static PropertyInfo GetInfo(DuneErosionPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(GrassCoverErosionOutwardsCalculationsContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DuneErosionHydraulicLoadsContext));
         }
     }
 }

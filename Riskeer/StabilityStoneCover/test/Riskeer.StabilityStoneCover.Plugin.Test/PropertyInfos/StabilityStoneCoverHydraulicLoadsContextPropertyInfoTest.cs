@@ -32,7 +32,7 @@ using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
 namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class StabilityStoneCoverCalculationsContextPropertyInfoTest
+    public class StabilityStoneCoverHydraulicLoadsContextPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -44,7 +44,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(StabilityStoneCoverCalculationsContext), info.DataType);
+                Assert.AreEqual(typeof(StabilityStoneCoverHydraulicLoadsContext), info.DataType);
                 Assert.AreEqual(typeof(StabilityStoneCoverCalculationsProperties), info.PropertyObjectType);
             }
         }
@@ -58,7 +58,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new StabilityStoneCoverCalculationsContext(failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
 
             using (var plugin = new StabilityStoneCoverPlugin())
             {
@@ -77,7 +77,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos
 
         private static PropertyInfo GetInfo(StabilityStoneCoverPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(StabilityStoneCoverCalculationsContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(StabilityStoneCoverHydraulicLoadsContext));
         }
     }
 }

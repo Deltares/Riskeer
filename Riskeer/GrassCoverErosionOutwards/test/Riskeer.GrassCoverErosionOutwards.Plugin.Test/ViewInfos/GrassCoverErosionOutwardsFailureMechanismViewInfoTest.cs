@@ -61,8 +61,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionOutwardsCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(GrassCoverErosionOutwardsCalculationsContext), info.ViewDataType);
+            Assert.AreEqual(typeof(GrassCoverErosionOutwardsHydraulicLoadsContext), info.DataType);
+            Assert.AreEqual(typeof(GrassCoverErosionOutwardsHydraulicLoadsContext), info.ViewDataType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsHydraulicLoadsContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -100,7 +100,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            var context = new GrassCoverErosionOutwardsCalculationsContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsHydraulicLoadsContext(failureMechanism, assessmentSection);
 
             using (var testForm = new Form())
             {

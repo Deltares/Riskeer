@@ -25,27 +25,27 @@ using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
-using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
 
-namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
+namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverCalculationsContextPropertyInfoTest
+    public class GrassCoverErosionOutwardsHydraulicLoadsContextPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new WaveImpactAsphaltCoverPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 // Call
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(WaveImpactAsphaltCoverCalculationsContext), info.DataType);
-                Assert.AreEqual(typeof(WaveImpactAsphaltCoverCalculationsProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsHydraulicLoadsContext), info.DataType);
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsCalculationsProperties), info.PropertyObjectType);
             }
         }
 
@@ -57,10 +57,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new WaveImpactAsphaltCoverCalculationsContext(failureMechanism, assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var context = new GrassCoverErosionOutwardsHydraulicLoadsContext(failureMechanism, assessmentSection);
 
-            using (var plugin = new WaveImpactAsphaltCoverPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 PropertyInfo info = GetInfo(plugin);
 
@@ -68,16 +68,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<WaveImpactAsphaltCoverCalculationsProperties>(objectProperties);
+                Assert.IsInstanceOf<GrassCoverErosionOutwardsCalculationsProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
 
             mocks.VerifyAll();
         }
 
-        private static PropertyInfo GetInfo(WaveImpactAsphaltCoverPlugin plugin)
+        private static PropertyInfo GetInfo(GrassCoverErosionOutwardsPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(WaveImpactAsphaltCoverCalculationsContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(GrassCoverErosionOutwardsHydraulicLoadsContext));
         }
     }
 }

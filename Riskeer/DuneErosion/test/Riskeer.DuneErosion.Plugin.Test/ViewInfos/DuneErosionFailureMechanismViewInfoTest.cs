@@ -60,8 +60,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(DuneErosionCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(DuneErosionCalculationsContext), info.ViewDataType);
+            Assert.AreEqual(typeof(DuneErosionHydraulicLoadsContext), info.DataType);
+            Assert.AreEqual(typeof(DuneErosionHydraulicLoadsContext), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, info.Image);
         }
 
@@ -73,7 +73,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionHydraulicLoadsContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -91,7 +91,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            var context = new DuneErosionCalculationsContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionHydraulicLoadsContext(failureMechanism, assessmentSection);
 
             using (var testForm = new Form())
             {

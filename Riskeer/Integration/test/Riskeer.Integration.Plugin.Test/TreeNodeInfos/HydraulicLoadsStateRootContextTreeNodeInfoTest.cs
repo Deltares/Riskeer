@@ -168,19 +168,19 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryDatabaseContext.WrappedData);
                 Assert.AreSame(assessmentSection, hydraulicBoundaryDatabaseContext.AssessmentSection);
                 
-                var stabilityStoneCoverHydraulicLoadsContext = (StabilityStoneCoverCalculationsContext) objects[1];
+                var stabilityStoneCoverHydraulicLoadsContext = (StabilityStoneCoverHydraulicLoadsContext) objects[1];
                 Assert.AreSame(assessmentSection.StabilityStoneCover, stabilityStoneCoverHydraulicLoadsContext.WrappedData);
                 Assert.AreSame(assessmentSection, stabilityStoneCoverHydraulicLoadsContext.Parent);
 
-                var waveImpactAsphaltCoverHydraulicLoadsContext = (WaveImpactAsphaltCoverCalculationsContext) objects[2];
+                var waveImpactAsphaltCoverHydraulicLoadsContext = (WaveImpactAsphaltCoverHydraulicLoadsContext) objects[2];
                 Assert.AreSame(assessmentSection.WaveImpactAsphaltCover, waveImpactAsphaltCoverHydraulicLoadsContext.WrappedData);
                 Assert.AreSame(assessmentSection, waveImpactAsphaltCoverHydraulicLoadsContext.Parent);
 
-                var grassCoverErosionOutwardsHydraulicLoadsContext = (GrassCoverErosionOutwardsCalculationsContext) objects[3];
+                var grassCoverErosionOutwardsHydraulicLoadsContext = (GrassCoverErosionOutwardsHydraulicLoadsContext) objects[3];
                 Assert.AreSame(assessmentSection.GrassCoverErosionOutwards, grassCoverErosionOutwardsHydraulicLoadsContext.WrappedData);
                 Assert.AreSame(assessmentSection, grassCoverErosionOutwardsHydraulicLoadsContext.Parent);
 
-                var duneErosionHydraulicLoadsContext = (DuneErosionCalculationsContext) objects[4];
+                var duneErosionHydraulicLoadsContext = (DuneErosionHydraulicLoadsContext) objects[4];
                 Assert.AreSame(assessmentSection.DuneErosion, duneErosionHydraulicLoadsContext.WrappedData);
                 Assert.AreSame(assessmentSection, duneErosionHydraulicLoadsContext.Parent);
 
