@@ -614,12 +614,11 @@ namespace Riskeer.Piping.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailureMechanismResultViewForData(PipingFailureMechanismResultView view, object o)
+        private static bool CloseFailureMechanismResultViewForData(PipingFailureMechanismResultView view, object dataToCloseFor)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as PipingFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<PipingFailureMechanism>;
-            if (assessmentSection != null)
+            PipingFailureMechanism failureMechanism = null;
+
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 return assessmentSection
                        .GetFailureMechanisms()
@@ -627,7 +626,7 @@ namespace Riskeer.Piping.Plugin
                        .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
-            if (failureMechanismContext != null)
+            if (dataToCloseFor is IFailureMechanismContext<PipingFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -635,84 +634,88 @@ namespace Riskeer.Piping.Plugin
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
-        private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object o)
+        private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object dataToCloseFor)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var pipingFailureMechanism = o as PipingFailureMechanism;
+            PipingFailureMechanism failureMechanism = dataToCloseFor as PipingFailureMechanism;
 
-            if (o is PipingCalculationsContext context)
-            {
-                pipingFailureMechanism = context.WrappedData;
-            }
-
-            if (assessmentSection != null)
-            {
-                pipingFailureMechanism = assessmentSection.GetFailureMechanisms()
-                                                          .OfType<PipingFailureMechanism>()
-                                                          .FirstOrDefault();
-            }
-
-            return pipingFailureMechanism != null && ReferenceEquals(view.Data, pipingFailureMechanism.CalculationsGroup);
-        }
-
-        private static bool ClosePipingScenariosViewForData(PipingScenariosView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var pipingFailureMechanism = o as PipingFailureMechanism;
-
-            if (o is FailureMechanismContext<PipingFailureMechanism> context)
-            {
-                pipingFailureMechanism = context.WrappedData;
-            }
-
-            if (assessmentSection != null)
-            {
-                pipingFailureMechanism = assessmentSection.GetFailureMechanisms()
-                                                          .OfType<PipingFailureMechanism>()
-                                                          .FirstOrDefault();
-            }
-
-            return pipingFailureMechanism != null && ReferenceEquals(view.Data, pipingFailureMechanism.CalculationsGroup);
-        }
-
-        private static bool ClosePipingInputViewForData(PipingInputView view, object o)
-        {
-            if (o is ProbabilisticPipingCalculationScenarioContext probabilisticPipingCalculationScenarioContext)
-            {
-                return ReferenceEquals(view.Data, probabilisticPipingCalculationScenarioContext.WrappedData);
-            }
-
-            if (o is SemiProbabilisticPipingCalculationScenarioContext semiProbabilisticPipingCalculationScenarioContext)
-            {
-                return ReferenceEquals(view.Data, semiProbabilisticPipingCalculationScenarioContext.WrappedData);
-            }
-
-            IEnumerable<IPipingCalculationScenario<PipingInput>> calculations = null;
-
-            if (o is PipingCalculationGroupContext pipingCalculationGroupContext)
-            {
-                calculations = pipingCalculationGroupContext.WrappedData.GetCalculations()
-                                                            .Cast<IPipingCalculationScenario<PipingInput>>();
-            }
-
-            var failureMechanism = o as PipingFailureMechanism;
-
-            if (o is PipingCalculationsContext context)
-            {
-                failureMechanism = context.WrappedData;
-            }
-
-            if (o is IAssessmentSection assessmentSection)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<PipingFailureMechanism>()
                                                     .FirstOrDefault();
             }
 
+            if (dataToCloseFor is PipingCalculationsContext context)
+            {
+                failureMechanism = context.WrappedData;
+            }
+
+            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
+        }
+
+        private static bool ClosePipingScenariosViewForData(PipingScenariosView view, object dataToCloseFor)
+        {
+            PipingFailureMechanism failureMechanism = null;
+
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
+            {
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<PipingFailureMechanism>()
+                                                    .FirstOrDefault();
+            }
+
+            if (dataToCloseFor is FailureMechanismContext<PipingFailureMechanism> context)
+            {
+                failureMechanism = context.WrappedData;
+            }
+
+            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
+        }
+
+        private static bool ClosePipingInputViewForData(PipingInputView view, object dataToCloseFor)
+        {
+            PipingFailureMechanism failureMechanism = null;
+
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
+            {
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<PipingFailureMechanism>()
+                                                    .FirstOrDefault();
+            }
+
+            if (dataToCloseFor is PipingCalculationsContext context)
+            {
+                failureMechanism = context.WrappedData;
+            }
+
+            IEnumerable<IPipingCalculationScenario<PipingInput>> calculations = null;
+
             if (failureMechanism != null)
             {
                 calculations = failureMechanism.CalculationsGroup.GetCalculations()
                                                .Cast<IPipingCalculationScenario<PipingInput>>();
+            }
+
+            if (dataToCloseFor is PipingCalculationGroupContext pipingCalculationGroupContext)
+            {
+                calculations = pipingCalculationGroupContext.WrappedData.GetCalculations()
+                                                            .Cast<IPipingCalculationScenario<PipingInput>>();
+            }
+
+            if (dataToCloseFor is ProbabilisticPipingCalculationScenarioContext probabilisticPipingCalculationScenarioContext)
+            {
+                calculations = new[]
+                {
+                    probabilisticPipingCalculationScenarioContext.WrappedData
+                };
+            }
+
+            if (dataToCloseFor is SemiProbabilisticPipingCalculationScenarioContext semiProbabilisticPipingCalculationScenarioContext)
+            {
+                calculations = new[]
+                {
+                    semiProbabilisticPipingCalculationScenarioContext.WrappedData
+                };
             }
 
             return calculations != null && calculations.Any(ci => ReferenceEquals(view.Data, ci));

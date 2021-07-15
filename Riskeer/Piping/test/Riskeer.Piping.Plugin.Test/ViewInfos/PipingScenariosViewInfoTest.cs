@@ -167,48 +167,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            using (var view = new PipingScenariosView(new CalculationGroup(), new PipingFailureMechanism(), assessmentSection))
-            {
-                var failureMechanism = new PipingFailureMechanism();
-
-                // Call
-                bool closeForData = info.CloseForData(view, failureMechanism);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-
-            using (var view = new PipingScenariosView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, failureMechanism);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailurePathContext_ReturnsFalse()
         {
             // Setup
