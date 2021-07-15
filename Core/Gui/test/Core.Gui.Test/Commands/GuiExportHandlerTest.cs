@@ -72,9 +72,9 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             string sourceTypeName = source == null ? "null" : source.GetType().FullName;
-            TestHelper.AssertLogMessageIsGenerated(call, $"Riskeer kan de huidige selectie ({sourceTypeName}) niet exporteren.");
+            TestHelper.AssertLogMessageIsGenerated(call, $"Het is niet mogelijk om de huidige selectie ({sourceTypeName}) te exporteren.");
             Assert.AreEqual("Fout", messageBoxTitle);
-            Assert.AreEqual("Riskeer kan de huidige selectie niet exporteren.", messageBoxText);
+            Assert.AreEqual("Het is niet mogelijk om de huidige selectie te exporteren.", messageBoxText);
             mockRepository.VerifyAll();
         }
 
@@ -111,9 +111,9 @@ namespace Core.Gui.Test.Commands
 
             // Assert
             string sourceTypeName = source == null ? "null" : source.GetType().FullName;
-            TestHelper.AssertLogMessageIsGenerated(call, $"Riskeer kan de huidige selectie ({sourceTypeName}) niet exporteren.");
+            TestHelper.AssertLogMessageIsGenerated(call, $"Het is niet mogelijk om de huidige selectie ({sourceTypeName}) te exporteren.");
             Assert.AreEqual("Fout", messageBoxTitle);
-            Assert.AreEqual("Riskeer kan de huidige selectie niet exporteren.", messageBoxText);
+            Assert.AreEqual("Het is niet mogelijk om de huidige selectie te exporteren.", messageBoxText);
             mockRepository.VerifyAll();
         }
 
