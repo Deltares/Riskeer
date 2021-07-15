@@ -68,9 +68,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<StabilityStoneCoverHydraulicLoadsContext, StabilityStoneCoverCalculationsProperties>
+            yield return new PropertyInfo<StabilityStoneCoverHydraulicLoadsContext, StabilityStoneCoverHydraulicLoadsProperties>
             {
-                CreateInstance = context => new StabilityStoneCoverCalculationsProperties(context.WrappedData)
+                CreateInstance = context => new StabilityStoneCoverHydraulicLoadsProperties(context.WrappedData)
             };
             yield return new PropertyInfo<StabilityStoneCoverFailurePathContext, StabilityStoneCoverFailurePathProperties>
             {

@@ -45,7 +45,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.AreEqual(typeof(StabilityStoneCoverHydraulicLoadsContext), info.DataType);
-                Assert.AreEqual(typeof(StabilityStoneCoverCalculationsProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(StabilityStoneCoverHydraulicLoadsProperties), info.PropertyObjectType);
             }
         }
 
@@ -68,7 +68,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<StabilityStoneCoverCalculationsProperties>(objectProperties);
+                Assert.IsInstanceOf<StabilityStoneCoverHydraulicLoadsProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
 

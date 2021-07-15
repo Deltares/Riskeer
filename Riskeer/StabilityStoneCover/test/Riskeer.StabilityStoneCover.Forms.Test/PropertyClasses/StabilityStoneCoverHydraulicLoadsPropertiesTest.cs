@@ -29,7 +29,7 @@ using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
 namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class StabilityStoneCoverCalculationsPropertiesTest
+    public class StabilityStoneCoverHydraulicLoadsPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -44,14 +44,14 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            var properties = new StabilityStoneCoverCalculationsProperties(failureMechanism);
+            var properties = new StabilityStoneCoverHydraulicLoadsProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<StabilityStoneCoverFailureMechanismProperties>(properties);
-            TestHelper.AssertTypeConverter<StabilityStoneCoverCalculationsProperties, ExpandableObjectConverter>(
-                nameof(StabilityStoneCoverCalculationsProperties.Columns));
-            TestHelper.AssertTypeConverter<StabilityStoneCoverCalculationsProperties, ExpandableObjectConverter>(
-                nameof(StabilityStoneCoverCalculationsProperties.Blocks));
+            TestHelper.AssertTypeConverter<StabilityStoneCoverHydraulicLoadsProperties, ExpandableObjectConverter>(
+                nameof(StabilityStoneCoverHydraulicLoadsProperties.Columns));
+            TestHelper.AssertTypeConverter<StabilityStoneCoverHydraulicLoadsProperties, ExpandableObjectConverter>(
+                nameof(StabilityStoneCoverHydraulicLoadsProperties.Blocks));
 
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
@@ -70,7 +70,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            var properties = new StabilityStoneCoverCalculationsProperties(failureMechanism);
+            var properties = new StabilityStoneCoverHydraulicLoadsProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

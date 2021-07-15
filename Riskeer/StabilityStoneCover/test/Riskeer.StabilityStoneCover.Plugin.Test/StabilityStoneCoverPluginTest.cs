@@ -55,7 +55,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityStoneCoverHydraulicLoadsContext),
-                    typeof(StabilityStoneCoverCalculationsProperties));
+                    typeof(StabilityStoneCoverHydraulicLoadsProperties));
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityStoneCoverFailurePathContext),
