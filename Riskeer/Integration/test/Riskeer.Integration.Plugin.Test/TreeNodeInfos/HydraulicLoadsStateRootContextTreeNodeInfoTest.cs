@@ -30,22 +30,20 @@ using Core.Gui.ContextMenu;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Riskeer.HeightStructures.Forms.PresentationObjects;
+using Riskeer.DuneErosion.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
-using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
-using Riskeer.Piping.Forms.PresentationObjects;
-using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
+using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerIntegrationFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class CalculationsStateRootContextTreeNodeInfoTest
+    public class HydraulicLoadsStateRootContextTreeNodeInfoTest
     {
         private const int contextMenuCalculateAllIndex = 4;
 
@@ -88,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Name = "ttt"
             };
 
-            var context = new CalculationsStateRootContext(assessmentSection);
+            var context = new HydraulicLoadsStateRootContext(assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -155,7 +153,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var context = new CalculationsStateRootContext(assessmentSection);
+            var context = new HydraulicLoadsStateRootContext(assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -164,31 +162,28 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 object[] objects = info.ChildNodeObjects(context).ToArray();
 
                 // Assert
-                Assert.AreEqual(6, objects.Length);
+                Assert.AreEqual(5, objects.Length);
 
-                var pipingCalculationsContext = (PipingCalculationsContext) objects[0];
-                Assert.AreSame(assessmentSection.Piping, pipingCalculationsContext.WrappedData);
-                Assert.AreSame(assessmentSection, pipingCalculationsContext.Parent);
+                var hydraulicBoundaryDatabaseContext = (HydraulicBoundaryDatabaseContext) objects[0];
+                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryDatabaseContext.WrappedData);
+                Assert.AreSame(assessmentSection, hydraulicBoundaryDatabaseContext.AssessmentSection);
+                
+                var stabilityStoneCoverHydraulicLoadsContext = (StabilityStoneCoverCalculationsContext) objects[1];
+                Assert.AreSame(assessmentSection.StabilityStoneCover, stabilityStoneCoverHydraulicLoadsContext.WrappedData);
+                Assert.AreSame(assessmentSection, stabilityStoneCoverHydraulicLoadsContext.Parent);
 
-                var grassCoverErosionInwardsCalculationsContext = (GrassCoverErosionInwardsCalculationsContext) objects[1];
-                Assert.AreSame(assessmentSection.GrassCoverErosionInwards, grassCoverErosionInwardsCalculationsContext.WrappedData);
-                Assert.AreSame(assessmentSection, grassCoverErosionInwardsCalculationsContext.Parent);
+                var waveImpactAsphaltCoverHydraulicLoadsContext = (WaveImpactAsphaltCoverCalculationsContext) objects[2];
+                Assert.AreSame(assessmentSection.WaveImpactAsphaltCover, waveImpactAsphaltCoverHydraulicLoadsContext.WrappedData);
+                Assert.AreSame(assessmentSection, waveImpactAsphaltCoverHydraulicLoadsContext.Parent);
 
-                var macroStabilityInwardsCalculationsContext = (MacroStabilityInwardsCalculationsContext) objects[2];
-                Assert.AreSame(assessmentSection.MacroStabilityInwards, macroStabilityInwardsCalculationsContext.WrappedData);
-                Assert.AreSame(assessmentSection, macroStabilityInwardsCalculationsContext.Parent);
+                var grassCoverErosionOutwardsHydraulicLoadsContext = (GrassCoverErosionOutwardsCalculationsContext) objects[3];
+                Assert.AreSame(assessmentSection.GrassCoverErosionOutwards, grassCoverErosionOutwardsHydraulicLoadsContext.WrappedData);
+                Assert.AreSame(assessmentSection, grassCoverErosionOutwardsHydraulicLoadsContext.Parent);
 
-                var heightStructuresCalculationsContext = (HeightStructuresCalculationsContext) objects[3];
-                Assert.AreSame(assessmentSection.HeightStructures, heightStructuresCalculationsContext.WrappedData);
-                Assert.AreSame(assessmentSection, heightStructuresCalculationsContext.Parent);
+                var duneErosionHydraulicLoadsContext = (DuneErosionCalculationsContext) objects[4];
+                Assert.AreSame(assessmentSection.DuneErosion, duneErosionHydraulicLoadsContext.WrappedData);
+                Assert.AreSame(assessmentSection, duneErosionHydraulicLoadsContext.Parent);
 
-                var closingStructuresCalculationsContext = (ClosingStructuresCalculationsContext) objects[4];
-                Assert.AreSame(assessmentSection.ClosingStructures, closingStructuresCalculationsContext.WrappedData);
-                Assert.AreSame(assessmentSection, closingStructuresCalculationsContext.Parent);
-
-                var stabilityPointStructuresCalculationsContext = (StabilityPointStructuresCalculationsContext) objects[5];
-                Assert.AreSame(assessmentSection.StabilityPointStructures, stabilityPointStructuresCalculationsContext.WrappedData);
-                Assert.AreSame(assessmentSection, stabilityPointStructuresCalculationsContext.Parent);
             }
         }
 
@@ -242,7 +237,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var treeView = new TreeViewControl())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                var context = new CalculationsStateRootContext(assessmentSection);
+                var context = new HydraulicLoadsStateRootContext(assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var mocks = new MockRepository();
@@ -297,7 +292,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var context = new CalculationsStateRootContext(assessmentSection);
+            var context = new HydraulicLoadsStateRootContext(assessmentSection);
             context.Attach(observer);
 
             using (var plugin = new RiskeerPlugin())
@@ -333,7 +328,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(CalculationsStateRootContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HydraulicLoadsStateRootContext));
         }
     }
 }
