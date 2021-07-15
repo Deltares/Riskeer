@@ -169,7 +169,7 @@ namespace Riskeer.HeightStructures.Plugin
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new HeightStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
-            
+
             yield return new ViewInfo<HeightStructuresFailurePathContext, HeightStructuresFailurePathView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
@@ -294,39 +294,38 @@ namespace Riskeer.HeightStructures.Plugin
 
         #region ViewInfos
 
-        private static bool CloseScenariosViewForData(HeightStructuresScenariosView view, object removedData)
+        private static bool CloseScenariosViewForData(HeightStructuresScenariosView view, object dataToCloseFor)
         {
-            var failureMechanism = removedData as HeightStructuresFailureMechanism;
+            HeightStructuresFailureMechanism failureMechanism = null;
 
-            if (removedData is FailureMechanismContext<HeightStructuresFailureMechanism> failureMechanismContext)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (removedData is IAssessmentSection assessmentSection)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<HeightStructuresFailureMechanism>()
                                                     .FirstOrDefault();
             }
 
+            if (dataToCloseFor is FailureMechanismContext<HeightStructuresFailureMechanism> failureMechanismContext)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(HeightStructuresFailureMechanismResultView view, object o)
+        private static bool CloseFailureMechanismResultViewForData(HeightStructuresFailureMechanismResultView view, object dataToCloseFor)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as HeightStructuresFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<HeightStructuresFailureMechanism>;
-            if (assessmentSection != null)
+            HeightStructuresFailureMechanism failureMechanism = null;
+
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<HeightStructuresFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
+                failureMechanism = assessmentSection
+                                   .GetFailureMechanisms()
+                                   .OfType<HeightStructuresFailureMechanism>()
+                                   .SingleOrDefault();
             }
 
-            if (failureMechanismContext != null)
+            if (dataToCloseFor is IFailureMechanismContext<HeightStructuresFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -334,20 +333,20 @@ namespace Riskeer.HeightStructures.Plugin
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
-        private static bool CloseCalculationsViewForData(HeightStructuresCalculationsView view, object o)
+        private static bool CloseCalculationsViewForData(HeightStructuresCalculationsView view, object dataToCloseFor)
         {
-            var failureMechanism = o as HeightStructuresFailureMechanism;
+            HeightStructuresFailureMechanism failureMechanism = null;
 
-            if (o is HeightStructuresCalculationsContext failureMechanismContext)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (o is IAssessmentSection assessmentSection)
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<HeightStructuresFailureMechanism>()
                                                     .FirstOrDefault();
+            }
+
+            if (dataToCloseFor is HeightStructuresCalculationsContext failureMechanismContext)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);

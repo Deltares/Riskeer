@@ -166,7 +166,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new HeightStructuresFailureMechanism(),
                 failureMechanism
             });
             mocks.ReplayAll();
@@ -178,46 +177,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsTrue(closeForData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var view = new HeightStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection);
-
-            // Call
-            bool closeForData = info.CloseForData(view, failureMechanism);
-
-            // Assert
-            Assert.IsTrue(closeForData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var view = new HeightStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection);
-
-            // Call
-            bool closeForData = info.CloseForData(view, new HeightStructuresFailureMechanism());
-
-            // Assert
-            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
