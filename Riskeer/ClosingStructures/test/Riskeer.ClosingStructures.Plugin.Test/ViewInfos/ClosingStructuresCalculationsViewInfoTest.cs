@@ -193,41 +193,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSectionStub();
-
-            using (var view = new ClosingStructuresCalculationsView(new CalculationGroup(), new ClosingStructuresFailureMechanism(), assessmentSection))
-            {
-                var failureMechanism = new ClosingStructuresFailureMechanism();
-
-                // Call
-                bool closeForData = info.CloseForData(view, failureMechanism);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            using (var view = new ClosingStructuresCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, failureMechanism);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-        }
-
-        [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedCalculationsContext_ReturnsFalse()
         {
             // Setup
