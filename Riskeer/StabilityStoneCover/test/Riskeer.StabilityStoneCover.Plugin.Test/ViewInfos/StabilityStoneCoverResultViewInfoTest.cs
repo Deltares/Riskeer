@@ -162,7 +162,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new StabilityStoneCoverFailureMechanism(),
                 failureMechanism
             });
 
@@ -176,38 +175,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
                 mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
-        {
-            // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, failureMechanism);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
-        {
-            // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, new StabilityStoneCoverFailureMechanism());
-
-                // Assert
-                Assert.IsFalse(closeForData);
             }
         }
 
