@@ -82,16 +82,6 @@ namespace Application.Riskeer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan niet meerdere instanties van Riskeer starten. Sluit eerst de andere instantie..
-        /// </summary>
-        internal static string App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first {
-            get {
-                return ResourceManager.GetString("App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_" +
-                        "close_the_other_instance_first", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Riskeer versie {0} wordt gestart door {1}....
         /// </summary>
         internal static string App_Starting_Riskeer_version_0_by_user_0 {

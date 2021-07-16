@@ -129,9 +129,6 @@
 
 Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel binnen Rijkswaterstaat als daar buiten. Op deze manier kan de helpdesk uw vragen snel en efficiënt beantwoorden, waarbij optimaal gebruik wordt gemaakt van de beschikbare kennis.</value>
   </data>
-  <data name="App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first" xml:space="preserve">
-    <value>Kan niet meerdere instanties van Riskeer starten. Sluit eerst de andere instantie.</value>
-  </data>
   <data name="App_Unhandled_exception" xml:space="preserve">
     <value>Onbekende kritieke fout opgetreden.</value>
   </data>

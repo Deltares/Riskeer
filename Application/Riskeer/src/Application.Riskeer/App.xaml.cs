@@ -57,7 +57,6 @@ using Riskeer.StabilityStoneCover.Plugin;
 using Riskeer.Storage.Core;
 using Riskeer.WaveImpactAsphaltCover.Plugin;
 using ApplicationResources = Application.Riskeer.Properties.Resources;
-using MessageBox = System.Windows.MessageBox;
 
 namespace Application.Riskeer
 {
@@ -71,7 +70,6 @@ namespace Application.Riskeer
 
         private const int numberOfDaysToKeepLogFiles = 30;
 
-        private static Mutex singleInstanceMutex;
         private static string fileToOpen = string.Empty;
 
         private readonly ILog log;
@@ -97,22 +95,9 @@ namespace Application.Riskeer
                                    userDisplay));
         }
 
-        protected override void OnExit(ExitEventArgs e)
-        {
-            singleInstanceMutex?.ReleaseMutex();
-            base.OnExit(e);
-        }
-
         private void OnStartup(object sender, StartupEventArgs e)
         {
             ParseArguments(e.Args);
-
-            if (IsNotFirstInstance())
-            {
-                MessageBox.Show(ApplicationResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first);
-                Shutdown(1);
-                return;
-            }
 
             DeleteOldLogFiles();
 
@@ -252,39 +237,6 @@ namespace Application.Riskeer
 
                 throw;
             }
-        }
-
-        private static bool IsNotFirstInstance()
-        {
-            var hasMutex = false;
-
-            try
-            {
-                if (!AcquireSingleInstancePerUserMutex())
-                {
-                    return true;
-                }
-
-                hasMutex = true;
-            }
-            finally
-            {
-                if (!hasMutex)
-                {
-                    singleInstanceMutex = null;
-                }
-            }
-
-            return false;
-        }
-
-        private static bool AcquireSingleInstancePerUserMutex()
-        {
-            // Include the user name in the (global) mutex to ensure we limit only the number of instances per 
-            // user, not per system (essential on for example Citrix systems).
-            singleInstanceMutex = new Mutex(true, $"Riskeer-single-instance-mutex-{Environment.UserName}", out bool createdNew);
-
-            return createdNew;
         }
 
         private static bool ParseFileArgument(string potentialPath)
