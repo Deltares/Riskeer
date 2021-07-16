@@ -394,7 +394,7 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = CloseAssessmentSectionViewForData
             };
 
-            yield return new ViewInfo<FailurePathsStateRootContext, AssessmentSectionExtendedView>
+            yield return new ViewInfo<CalculationsStateRootContext, AssessmentSectionExtendedView>
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
                 Image = RiskeerFormsResources.Map,
@@ -402,11 +402,11 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = CloseAssessmentSectionViewForData
             };
 
-            yield return new ViewInfo<CalculationsStateRootContext, AssessmentSectionReferenceLineView>
+            yield return new ViewInfo<FailurePathsStateRootContext, AssessmentSectionExtendedView>
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
                 Image = RiskeerFormsResources.Map,
-                CreateInstance = context => new AssessmentSectionReferenceLineView(context.WrappedData),
+                CreateInstance = context => new AssessmentSectionExtendedView(context.WrappedData),
                 CloseForData = CloseAssessmentSectionViewForData
             };
 

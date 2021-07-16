@@ -44,8 +44,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssessmentSectionReferenceLineView)
-                                                      && tni.DataType == typeof(CalculationsStateRootContext));
+            info = plugin.GetViewInfos().First(tni => tni.DataType == typeof(CalculationsStateRootContext));
         }
 
         [TearDown]
@@ -58,7 +57,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(CalculationsStateRootContext), info.DataType);
+            Assert.AreEqual(typeof(AssessmentSectionExtendedView), info.ViewType);
         }
 
         [Test]
@@ -101,7 +100,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
-            var view = new AssessmentSectionReferenceLineView(assessmentSection);
+            var view = new AssessmentSectionExtendedView(assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
@@ -118,7 +117,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection1 = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             var assessmentSection2 = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
-            var view = new AssessmentSectionReferenceLineView(assessmentSection1);
+            var view = new AssessmentSectionExtendedView(assessmentSection1);
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection2);

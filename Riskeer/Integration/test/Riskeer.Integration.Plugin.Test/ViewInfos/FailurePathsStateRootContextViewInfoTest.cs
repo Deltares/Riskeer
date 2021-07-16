@@ -35,7 +35,7 @@ using RiskeerFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class AssessmentSectionExtendedViewInfoTest
+    public class FailurePathsStateRootContextViewInfoTest
     {
         private RiskeerPlugin plugin;
         private ViewInfo info;
@@ -44,7 +44,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssessmentSectionExtendedView));
+            info = plugin.GetViewInfos().First(tni => tni.DataType == typeof(FailurePathsStateRootContext));
         }
 
         [TearDown]
@@ -57,7 +57,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailurePathsStateRootContext), info.DataType);
+            Assert.AreEqual(typeof(AssessmentSectionExtendedView), info.ViewType);
         }
 
         [Test]

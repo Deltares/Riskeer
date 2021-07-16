@@ -432,7 +432,7 @@ namespace Riskeer.Integration.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(CalculationsStateRootContext),
-                    typeof(AssessmentSectionReferenceLineView));
+                    typeof(AssessmentSectionExtendedView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

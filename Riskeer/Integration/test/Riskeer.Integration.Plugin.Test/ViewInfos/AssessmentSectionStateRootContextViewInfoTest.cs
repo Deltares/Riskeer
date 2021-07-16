@@ -44,8 +44,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssessmentSectionReferenceLineView)
-                                                      && tni.DataType == typeof(AssessmentSectionStateRootContext));
+            info = plugin.GetViewInfos().First(tni => tni.DataType == typeof(AssessmentSectionStateRootContext));
         }
 
         [TearDown]
@@ -58,7 +57,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(AssessmentSectionStateRootContext), info.DataType);
+            Assert.AreEqual(typeof(AssessmentSectionReferenceLineView), info.ViewType);
         }
 
         [Test]
