@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
@@ -48,7 +49,9 @@ using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Data.TestUtil.Probabilistic;
 using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 using Riskeer.Piping.KernelWrapper.SubCalculator;
 using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;
@@ -67,10 +70,10 @@ namespace Riskeer.Integration.Service.Test
         public void CreateCalculationActivities_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(null);
+            void Call() => AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -86,17 +89,122 @@ namespace Riskeer.Integration.Service.Test
                 hydraulicBoundaryLocation
             };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
-            AddGrassCoverErosionInwardsCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddSemiProbabilisticPipingCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
+            AddProbabilisticPipingCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
+            AddGrassCoverErosionInwardsCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddMacroStabilityInwardsCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
-            AddStabilityStoneCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
-            AddWaveImpactAsphaltCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
-            AddGrassCoverErosionOutwardsCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddHeightStructuresCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddClosingStructuresCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddStabilityPointStructuresCalculation(assessmentSection, hydraulicBoundaryLocation);
+
+            var mocks = new MockRepository();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+
+            HydraulicBoundaryCalculationSettings expectedCalculationSettings =
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
+            using (mocks.Ordered())
+            {
+                calculatorFactory.Expect(cf => cf.CreatePipingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(new TestPipingCalculator());
+
+                calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(new TestOvertoppingCalculator());
+
+                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
+                                             Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
+
+                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(
+                                             Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
+
+                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
+                                             Arg<HydraRingCalculationSettings>.Is.NotNull))
+                                 .WhenCalled(invocation =>
+                                 {
+                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
+                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
+                                 })
+                                 .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
+            }
+
+            mocks.ReplayAll();
+
+            // Call
+            IEnumerable<CalculatableActivity> activities =
+                AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(assessmentSection);
+
+            // Assert
+            Assert.AreEqual(7, activities.Count());
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            using (new PipingSubCalculatorFactoryConfig())
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                var pipingTestFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
+                var macroStabilityTestFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+
+                Assert.IsFalse(pipingTestFactory.LastCreatedUpliftCalculator.Calculated);
+                Assert.IsFalse(macroStabilityTestFactory.LastCreatedUpliftVanCalculator.Calculated);
+
+                activities.ForEachElementDo(activity => activity.Run());
+
+                Assert.IsTrue(pipingTestFactory.LastCreatedUpliftCalculator.Calculated);
+                Assert.IsTrue(macroStabilityTestFactory.LastCreatedUpliftVanCalculator.Calculated);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateHydraulicLoadCalculationActivities_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateHydraulicLoadCalculationActivities_WithValidDataAndAllFailureMechanismsRelevant_ExpectedActivitiesCreated()
+        {
+            // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
+            {
+                hydraulicBoundaryLocation
+            };
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+
+            AddStabilityStoneCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
+            AddWaveImpactAsphaltCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
+            AddGrassCoverErosionOutwardsCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddDuneLocationCalculation(assessmentSection);
 
             var mocks = new MockRepository();
@@ -123,14 +231,6 @@ namespace Riskeer.Integration.Service.Test
                                          expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestWaveHeightCalculator()).Repeat.Times(4);
-
-                calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(new TestOvertoppingCalculator());
 
                 calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
@@ -163,33 +263,6 @@ namespace Riskeer.Integration.Service.Test
                                  })
                                  .Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(6);
 
-                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(
-                                             Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
-
-                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(
-                                             Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
-
-                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(
-                                             Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
-
                 calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
@@ -203,85 +276,17 @@ namespace Riskeer.Integration.Service.Test
 
             // Call
             IEnumerable<CalculatableActivity> activities =
-                AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(assessmentSection);
+                AssessmentSectionCalculationActivityFactory.CreateHydraulicLoadCalculationActivities(assessmentSection);
 
             // Assert
-            Assert.AreEqual(28, activities.Count());
+            Assert.AreEqual(22, activities.Count());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            using (new PipingSubCalculatorFactoryConfig())
-            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                // Run hydraulic boundary location calculations first
-                activities.Take(8).ForEachElementDo(activity => activity.Run());
-
-                var pipingTestFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
-                var macroStabilityTestFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-
-                Assert.IsFalse(pipingTestFactory.LastCreatedUpliftCalculator.Calculated);
-                Assert.IsFalse(macroStabilityTestFactory.LastCreatedUpliftVanCalculator.Calculated);
-
-                activities.Skip(8).ForEachElementDo(activity => activity.Run());
-
-                Assert.IsTrue(pipingTestFactory.LastCreatedUpliftCalculator.Calculated);
-                Assert.IsTrue(macroStabilityTestFactory.LastCreatedUpliftVanCalculator.Calculated);
+                activities.ForEachElementDo(activity => activity.Run());
             }
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetFailureMechanismTestCases))]
-        public void CreateCalculationActivities_FailureMechanismNotIrrelevant_NoActivitiesCreated(
-            Action<AssessmentSection> setFailureMechanismIrrelevantAction,
-            Action<AssessmentSection> addValidCalculationToFailureMechanismAction)
-        {
-            // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            setFailureMechanismIrrelevantAction(assessmentSection);
-
-            addValidCalculationToFailureMechanismAction(assessmentSection);
-
-            // Call
-            IEnumerable<CalculatableActivity> activities =
-                AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(assessmentSection);
-
-            // Assert
-            CollectionAssert.IsEmpty(activities);
-        }
-
-        private static IEnumerable<TestCaseData> GetFailureMechanismTestCases()
-        {
-            yield return new TestCaseData(new Action<AssessmentSection>(section => section.Piping.IsRelevant = false),
-                                          new Action<AssessmentSection>(section => AddSemiProbabilisticPipingCalculationScenario(section, new TestHydraulicBoundaryLocation())))
-                .SetName("Piping");
-            yield return new TestCaseData(new Action<AssessmentSection>(section => section.GrassCoverErosionInwards.IsRelevant = false),
-                                          new Action<AssessmentSection>(section => AddGrassCoverErosionInwardsCalculation(section, new TestHydraulicBoundaryLocation())))
-                .SetName("GrassCoverErosionInwards");
-            yield return new TestCaseData(new Action<AssessmentSection>(section => section.MacroStabilityInwards.IsRelevant = false),
-                                          new Action<AssessmentSection>(section => AddMacroStabilityInwardsCalculationScenario(section, new TestHydraulicBoundaryLocation())))
-                .SetName("MacroStabilityInwards");
-            yield return new TestCaseData(new Action<AssessmentSection>(section => section.StabilityStoneCover.IsRelevant = false),
-                                          new Action<AssessmentSection>(section => AddStabilityStoneCoverCalculation(section, new TestHydraulicBoundaryLocation())))
-                .SetName("StabilityStoneCover");
-            yield return new TestCaseData(new Action<AssessmentSection>(section => section.WaveImpactAsphaltCover.IsRelevant = false),
-                                          new Action<AssessmentSection>(section => AddWaveImpactAsphaltCoverCalculation(section, new TestHydraulicBoundaryLocation())))
-                .SetName("WaveImpactAsphaltCover");
-            yield return new TestCaseData(new Action<AssessmentSection>(section => section.GrassCoverErosionOutwards.IsRelevant = false),
-                                          new Action<AssessmentSection>(section => AddGrassCoverErosionOutwardsCalculation(section, new TestHydraulicBoundaryLocation())))
-                .SetName("GrassCoverErosionOutwards");
-            yield return new TestCaseData(new Action<AssessmentSection>(section => section.HeightStructures.IsRelevant = false),
-                                          new Action<AssessmentSection>(section => AddHeightStructuresCalculation(section, new TestHydraulicBoundaryLocation())))
-                .SetName("HeightStructures");
-            yield return new TestCaseData(new Action<AssessmentSection>(section => section.ClosingStructures.IsRelevant = false),
-                                          new Action<AssessmentSection>(section => AddClosingStructuresCalculation(section, new TestHydraulicBoundaryLocation())))
-                .SetName("ClosingStructures");
-            yield return new TestCaseData(new Action<AssessmentSection>(section => section.StabilityPointStructures.IsRelevant = false),
-                                          new Action<AssessmentSection>(section => AddStabilityPointStructuresCalculation(section, new TestHydraulicBoundaryLocation())))
-                .SetName("StabilityPointStructures");
-            yield return new TestCaseData(new Action<AssessmentSection>(section => section.DuneErosion.IsRelevant = false),
-                                          new Action<AssessmentSection>(AddDuneLocationCalculation))
-                .SetName("DuneErosion");
         }
 
         private static AssessmentSection CreateAssessmentSection()
@@ -298,6 +303,35 @@ namespace Riskeer.Integration.Service.Test
             return assessmentSection;
         }
 
+        private static void AddSemiProbabilisticPipingCalculationScenario(AssessmentSection assessmentSection,
+                                                                          HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            var pipingCalculationScenario =
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
+                    hydraulicBoundaryLocation);
+            pipingCalculationScenario.InputParameters.UseAssessmentLevelManualInput = true;
+            pipingCalculationScenario.InputParameters.AssessmentLevel = new Random(39).NextRoundedDouble();
+            assessmentSection.Piping.CalculationsGroup.Children.Add(pipingCalculationScenario);
+        }
+
+        private static void AddProbabilisticPipingCalculationScenario(AssessmentSection assessmentSection,
+                                                                      HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            var pipingCalculationScenario =
+                ProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<ProbabilisticPipingCalculationScenario>(
+                    hydraulicBoundaryLocation);
+            assessmentSection.Piping.CalculationsGroup.Children.Add(pipingCalculationScenario);
+
+            assessmentSection.Piping.SetSections(new[]
+            {
+                new FailureMechanismSection("test", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                })
+            }, string.Empty);
+        }
+
         private static void AddGrassCoverErosionInwardsCalculation(AssessmentSection assessmentSection,
                                                                    HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
@@ -309,17 +343,6 @@ namespace Riskeer.Integration.Service.Test
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             });
-        }
-
-        private static void AddSemiProbabilisticPipingCalculationScenario(AssessmentSection assessmentSection,
-                                                                          HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            var pipingCalculationScenario =
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithValidInput<SemiProbabilisticPipingCalculationScenario>(
-                    hydraulicBoundaryLocation);
-            pipingCalculationScenario.InputParameters.UseAssessmentLevelManualInput = true;
-            pipingCalculationScenario.InputParameters.AssessmentLevel = new Random(39).NextRoundedDouble();
-            assessmentSection.Piping.CalculationsGroup.Children.Add(pipingCalculationScenario);
         }
 
         private static void AddMacroStabilityInwardsCalculationScenario(AssessmentSection assessmentSection,
