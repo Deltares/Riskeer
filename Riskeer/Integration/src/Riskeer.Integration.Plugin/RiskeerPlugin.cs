@@ -394,6 +394,14 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = CloseAssessmentSectionViewForData
             };
 
+            yield return new ViewInfo<HydraulicLoadsStateRootContext, AssessmentSectionExtendedView>
+            {
+                GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
+                Image = RiskeerFormsResources.Map,
+                CreateInstance = context => new AssessmentSectionExtendedView(context.WrappedData),
+                CloseForData = CloseAssessmentSectionViewForData
+            };
+
             yield return new ViewInfo<CalculationsStateRootContext, AssessmentSectionExtendedView>
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
