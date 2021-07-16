@@ -28,7 +28,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
@@ -72,7 +71,6 @@ namespace Application.Riskeer
 
         private const int numberOfDaysToKeepLogFiles = 30;
 
-        private static int waitForProcessId = -1;
         private static Mutex singleInstanceMutex;
         private static string fileToOpen = string.Empty;
 
@@ -109,7 +107,6 @@ namespace Application.Riskeer
         {
             ParseArguments(e.Args);
 
-            WaitForPreviousInstanceToExit();
             if (IsNotFirstInstance())
             {
                 MessageBox.Show(ApplicationResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first);
@@ -290,29 +287,6 @@ namespace Application.Riskeer
             return createdNew;
         }
 
-        /// <summary>
-        /// If variable waitForProcessId > -1, the application will hold until 
-        /// the process with that ID has exited. 
-        /// </summary>
-        private static void WaitForPreviousInstanceToExit()
-        {
-            // Wait until previous version of Riskeer has exited
-            if (waitForProcessId == -1)
-            {
-                return;
-            }
-
-            try
-            {
-                Process process = Process.GetProcessById(waitForProcessId);
-                process.WaitForExit();
-            }
-            catch
-            {
-                //Ignored, because the process may already be closed
-            }
-        }
-
         private static bool ParseFileArgument(string potentialPath)
         {
             if (potentialPath.Length > 0)
@@ -333,25 +307,13 @@ namespace Application.Riskeer
         }
 
         /// <summary>
-        /// Parses the process' start-up parameters.
+        /// Parses the start-up parameters.
         /// </summary>
-        /// <param name="arguments">List of start-up parameters.</param>
+        /// <param name="arguments">The start-up parameters.</param>
         private static void ParseArguments(IEnumerable<string> arguments)
         {
-            var argumentWaitForProcessRegex = new Regex("^" + argumentWaitForProcess + @"(?<processId>\d+)$", RegexOptions.IgnoreCase);
             foreach (string arg in arguments)
             {
-                Match match = argumentWaitForProcessRegex.Match(arg);
-                if (match.Success)
-                {
-                    int pid = int.Parse(match.Groups["processId"].Value);
-                    if (pid > 0)
-                    {
-                        waitForProcessId = pid;
-                        break;
-                    }
-                }
-
                 if (ParseFileArgument(arg))
                 {
                     break;
