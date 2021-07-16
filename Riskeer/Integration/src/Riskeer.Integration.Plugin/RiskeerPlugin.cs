@@ -1632,7 +1632,7 @@ namespace Riskeer.Integration.Plugin
         {
             var calculateAllItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
-                Resources.AssessmentSection_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.HydraulicLoads_Calculate_All_ToolTip,
                 RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
@@ -1640,6 +1640,8 @@ namespace Riskeer.Integration.Plugin
                         Gui.MainWindow,
                         AssessmentSectionCalculationActivityFactory.CreateHydraulicLoadCalculationActivities(nodeData.WrappedData));
                 });
+
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.WrappedData, calculateAllItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()

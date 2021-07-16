@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -31,6 +32,7 @@ using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
@@ -167,7 +169,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var hydraulicBoundaryDatabaseContext = (HydraulicBoundaryDatabaseContext) objects[0];
                 Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryDatabaseContext.WrappedData);
                 Assert.AreSame(assessmentSection, hydraulicBoundaryDatabaseContext.AssessmentSection);
-                
+
                 var stabilityStoneCoverHydraulicLoadsContext = (StabilityStoneCoverHydraulicLoadsContext) objects[1];
                 Assert.AreSame(assessmentSection.StabilityStoneCover, stabilityStoneCoverHydraulicLoadsContext.WrappedData);
                 Assert.AreSame(assessmentSection, stabilityStoneCoverHydraulicLoadsContext.Parent);
@@ -183,14 +185,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var duneErosionHydraulicLoadsContext = (DuneErosionHydraulicLoadsContext) objects[4];
                 Assert.AreSame(assessmentSection.DuneErosion, duneErosionHydraulicLoadsContext.WrappedData);
                 Assert.AreSame(assessmentSection, duneErosionHydraulicLoadsContext.Parent);
-
             }
         }
 
         [Test]
-        public void ContextMenuStrip_Always_CallsBuilder()
+        public void ContextMenuStrip_WithContext_CallsBuilder()
         {
             // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var context = new HydraulicLoadsStateRootContext(assessmentSection);
+
             var mocks = new MockRepository();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
@@ -211,7 +215,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocks.ReplayAll();
@@ -222,7 +226,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     plugin.Gui = gui;
 
                     // Call
-                    info.ContextMenuStrip(null, null, treeViewControl);
+                    info.ContextMenuStrip(context, null, treeViewControl);
                 }
             }
 
@@ -231,7 +235,58 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_AddCustomItems()
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseLinked_ContextMenuItemCalculateAllEnabled()
+        {
+            // Setup
+            using (var treeView = new TreeViewControl())
+            {
+                string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryDatabase");
+                string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                {
+                    HydraulicBoundaryDatabase =
+                    {
+                        FilePath = validFilePath
+                    }
+                };
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+                HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+
+                var context = new HydraulicLoadsStateRootContext(assessmentSection);
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var mocks = new MockRepository();
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                mocks.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip menu = GetInfo(plugin).ContextMenuStrip(context, null, treeView))
+                    {
+                        // Assert
+                        Assert.AreEqual(10, menu.Items.Count);
+
+                        TestHelper.AssertContextMenuStripContainsItem(
+                            menu, contextMenuCalculateAllIndex,
+                            "Alles be&rekenen",
+                            "Alle hydraulische belastingen berekenen.",
+                            RiskeerCommonFormsResources.CalculateAllIcon);
+                    }
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabled()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -257,10 +312,56 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         // Assert
                         Assert.AreEqual(10, menu.Items.Count);
 
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                                      "Alles be&rekenen",
-                                                                      "Voer alle berekeningen binnen dit traject uit.",
-                                                                      RiskeerCommonFormsResources.CalculateAllIcon);
+                        TestHelper.AssertContextMenuStripContainsItem(
+                            menu, contextMenuCalculateAllIndex,
+                            "Alles be&rekenen",
+                            "Er is geen hydraulische belastingendatabase geïmporteerd.",
+                            RiskeerCommonFormsResources.CalculateAllIcon,
+                            false);
+                    }
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemCalculateAllDisabled()
+        {
+            // Setup
+            using (var treeView = new TreeViewControl())
+            {
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                {
+                    HydraulicBoundaryDatabase =
+                    {
+                        FilePath = "invalidFilePath"
+                    }
+                };
+                var context = new HydraulicLoadsStateRootContext(assessmentSection);
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var mocks = new MockRepository();
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                mocks.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip menu = GetInfo(plugin).ContextMenuStrip(context, null, treeView))
+                    {
+                        // Assert
+                        Assert.AreEqual(10, menu.Items.Count);
+
+                        ToolStripItem contextMenuItem = menu.Items[contextMenuCalculateAllIndex];
+
+                        Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
+                        StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", contextMenuItem.ToolTipText);
+                        TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
+                        Assert.IsFalse(contextMenuItem.Enabled);
                     }
                 }
             }
@@ -298,7 +399,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
-                
+
                 // Call
                 const string newName = "New Name";
                 info.OnNodeRenamed(context, newName);
@@ -317,7 +418,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
-                
+
                 // Call
                 bool canRemove = info.CanRemove(null, null);
 
