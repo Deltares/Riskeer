@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Service
         /// <param name="assessmentSection">The assessment section to create the activities for.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static IEnumerable<CalculatableActivity> CreateActivities(AssessmentSection assessmentSection)
+        public static IEnumerable<CalculatableActivity> CreateCalculationActivities(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {

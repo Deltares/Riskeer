@@ -1643,7 +1643,7 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData.WrappedData));
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(nodeData.WrappedData));
                 });
 
             return Gui.Get(nodeData, treeViewControl)
@@ -1687,7 +1687,7 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData.WrappedData));
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(nodeData.WrappedData));
                 });
 
             return Gui.Get(nodeData, treeViewControl)

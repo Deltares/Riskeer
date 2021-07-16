@@ -64,10 +64,10 @@ namespace Riskeer.Integration.Service.Test
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
 
         [Test]
-        public void CreateActivities_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void CreateCalculationActivities_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => AssessmentSectionCalculationActivityFactory.CreateActivities(null);
+            TestDelegate test = () => AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -75,7 +75,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void CreateActivities_WithValidDataAndAllFailureMechanismsRelevant_ExpectedActivitiesCreated()
+        public void CreateCalculationActivities_WithValidDataAndAllFailureMechanismsRelevant_ExpectedActivitiesCreated()
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -203,7 +203,7 @@ namespace Riskeer.Integration.Service.Test
 
             // Call
             IEnumerable<CalculatableActivity> activities =
-                AssessmentSectionCalculationActivityFactory.CreateActivities(assessmentSection);
+                AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(assessmentSection);
 
             // Assert
             Assert.AreEqual(28, activities.Count());
@@ -232,7 +232,7 @@ namespace Riskeer.Integration.Service.Test
 
         [Test]
         [TestCaseSource(nameof(GetFailureMechanismTestCases))]
-        public void CreateActivities_FailureMechanismNotIrrelevant_NoActivitiesCreated(
+        public void CreateCalculationActivities_FailureMechanismNotIrrelevant_NoActivitiesCreated(
             Action<AssessmentSection> setFailureMechanismIrrelevantAction,
             Action<AssessmentSection> addValidCalculationToFailureMechanismAction)
         {
@@ -244,7 +244,7 @@ namespace Riskeer.Integration.Service.Test
 
             // Call
             IEnumerable<CalculatableActivity> activities =
-                AssessmentSectionCalculationActivityFactory.CreateActivities(assessmentSection);
+                AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(assessmentSection);
 
             // Assert
             CollectionAssert.IsEmpty(activities);
