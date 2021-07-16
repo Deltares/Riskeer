@@ -363,10 +363,7 @@ namespace Riskeer.Integration.Plugin
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
                                                                                  context.CategoryBoundaryName),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                }
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
             yield return new ViewInfo<WaveHeightCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
@@ -380,10 +377,7 @@ namespace Riskeer.Integration.Plugin
                                                                            context.AssessmentSection,
                                                                            context.GetNormFunc,
                                                                            context.CategoryBoundaryName),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                }
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
             yield return new ViewInfo<AssessmentSectionStateRootContext, AssessmentSectionReferenceLineView>
@@ -1617,6 +1611,52 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
+        #region HydraulicLoadsStateRootContext TreeNodeInfo
+
+        private static object[] HydraulicLoadsStateRootContextChildNodeObjects(HydraulicLoadsStateRootContext nodeData)
+        {
+            AssessmentSection assessmentSection = nodeData.WrappedData;
+
+            return new object[]
+            {
+                new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
+                new StabilityStoneCoverHydraulicLoadsContext(assessmentSection.StabilityStoneCover, assessmentSection),
+                new WaveImpactAsphaltCoverHydraulicLoadsContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
+                new GrassCoverErosionOutwardsHydraulicLoadsContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
+                new DuneErosionHydraulicLoadsContext(assessmentSection.DuneErosion, assessmentSection)
+            };
+        }
+
+        private ContextMenuStrip HydraulicLoadsStateRootContextMenuStrip(HydraulicLoadsStateRootContext nodeData,
+                                                                         object parentData, TreeViewControl treeViewControl)
+        {
+            var calculateAllItem = new StrictContextMenuItem(
+                RiskeerCommonFormsResources.Calculate_All,
+                Resources.AssessmentSection_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(
+                        Gui.MainWindow,
+                        AssessmentSectionCalculationActivityFactory.CreateHydraulicLoadCalculationActivities(nodeData.WrappedData));
+                });
+
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
+                      .AddRenameItem()
+                      .AddSeparator()
+                      .AddCustomItem(calculateAllItem)
+                      .AddSeparator()
+                      .AddCollapseAllItem()
+                      .AddExpandAllItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        #endregion
+
         #region CalculationsStateRootContext TreeNodeInfo
 
         private static object[] CalculationsStateRootContextChildNodeObjects(CalculationsStateRootContext nodeData)
@@ -1643,51 +1683,8 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(nodeData.WrappedData));
-                });
-
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddOpenItem()
-                      .AddSeparator()
-                      .AddRenameItem()
-                      .AddSeparator()
-                      .AddCustomItem(calculateAllItem)
-                      .AddSeparator()
-                      .AddCollapseAllItem()
-                      .AddExpandAllItem()
-                      .AddSeparator()
-                      .AddPropertiesItem()
-                      .Build();
-        }
-
-        #endregion
-
-        #region HydraulicLoadsStateRootContext TreeNodeInfo
-
-        private static object[] HydraulicLoadsStateRootContextChildNodeObjects(HydraulicLoadsStateRootContext nodeData)
-        {
-            AssessmentSection assessmentSection = nodeData.WrappedData;
-
-            return new object[]
-            {
-                new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
-                new StabilityStoneCoverHydraulicLoadsContext(assessmentSection.StabilityStoneCover, assessmentSection),
-                new WaveImpactAsphaltCoverHydraulicLoadsContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
-                new GrassCoverErosionOutwardsHydraulicLoadsContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
-                new DuneErosionHydraulicLoadsContext(assessmentSection.DuneErosion, assessmentSection)
-            };
-        }
-
-        private ContextMenuStrip HydraulicLoadsStateRootContextMenuStrip(HydraulicLoadsStateRootContext nodeData,
-                                                                         object parentData, TreeViewControl treeViewControl)
-        {
-            var calculateAllItem = new StrictContextMenuItem(
-                RiskeerCommonFormsResources.Calculate_All,
-                Resources.AssessmentSection_Calculate_All_ToolTip,
-                RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) =>
-                {
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(nodeData.WrappedData));
+                    ActivityProgressDialogRunner.Run(
+                        Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(nodeData.WrappedData));
                 });
 
             return Gui.Get(nodeData, treeViewControl)
