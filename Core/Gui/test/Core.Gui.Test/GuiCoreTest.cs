@@ -242,34 +242,6 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        public void Constructor_ConstructedAfterAnotherInstanceHasBeenCreated_ThrowsInvalidOperationException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var projectStore = mocks.Stub<IStoreProject>();
-            var projectMigrator = mocks.Stub<IMigrateProject>();
-            var projectFactory = mocks.Stub<IProjectFactory>();
-            mocks.ReplayAll();
-
-            var guiCoreSettings = new GuiCoreSettings();
-
-            using (var mainWindow = new MainWindow())
-            using (new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
-            {
-                // Call
-                void Call()
-                {
-                    using (new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings)) {}
-                }
-
-                // Assert
-                Assert.Throws<InvalidOperationException>(Call);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Dispose_WithPlugin_PluginRemoved()
         {
             // Setup

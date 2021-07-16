@@ -23,7 +23,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -61,9 +60,6 @@ namespace Core.Gui
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiCore));
 
-        private static bool isAlreadyRunningInstanceOfIGui;
-        private static string instanceCreationStackTrace;
-
         private readonly string applicationTitle;
         private readonly Observer projectObserver;
         private ISelectionProvider currentSelectionProvider;
@@ -78,21 +74,9 @@ namespace Core.Gui
         /// <param name="projectMigrator">The project migrator.</param>
         /// <param name="projectFactory">The project factory.</param>
         /// <param name="fixedSettings">The fixed settings.</param>
-        /// <exception cref="InvalidOperationException">Thrown when another <see cref="GuiCore"/>
-        /// instance is running.</exception>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GuiCore(IMainWindow mainWindow, IStoreProject projectStore, IMigrateProject projectMigrator, IProjectFactory projectFactory, GuiCoreSettings fixedSettings)
         {
-            // Error detection code, make sure we use only a single instance of GuiCore at a time
-            if (isAlreadyRunningInstanceOfIGui)
-            {
-                isAlreadyRunningInstanceOfIGui = false; // Reset so that the consecutive creations won't fail
-                throw new InvalidOperationException(
-                    string.Format(CultureInfo.CurrentCulture,
-                                  Resources.GuiCore_Only_a_single_instance_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0,
-                                  instanceCreationStackTrace));
-            }
-
             if (mainWindow == null)
             {
                 throw new ArgumentNullException(nameof(mainWindow));
@@ -121,9 +105,6 @@ namespace Core.Gui
             ProjectStore = projectStore;
             FixedSettings = fixedSettings;
             MainWindow = mainWindow;
-
-            isAlreadyRunningInstanceOfIGui = true;
-            instanceCreationStackTrace = new StackTrace().ToString();
 
             Plugins = new List<PluginBase>();
 
@@ -328,9 +309,6 @@ namespace Core.Gui
             #endregion
 
             GC.Collect();
-
-            instanceCreationStackTrace = "";
-            isAlreadyRunningInstanceOfIGui = false;
         }
 
         private void DeactivatePlugin(PluginBase plugin)

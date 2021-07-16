@@ -1246,16 +1246,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Slechts één instantie van de grafische interface is toegestaan per proces. Zorg ervoor dat de vorige instantie correct opgeruimd is. &apos;Stack trace&apos;: {0}.
-        /// </summary>
-        public static string GuiCore_Only_a_single_instance_is_allowed_at_the_same_time_per_process_Make_sure_that_the_previous_instance_was_disposed_correctly_stack_trace_0 {
-            get {
-                return ResourceManager.GetString("GuiCore_Only_a_single_instance_is_allowed_at_the_same_time_per_process_Make_sure_" +
-                        "that_the_previous_instance_was_disposed_correctly_stack_trace_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gestart in {0:f2} seconden..
         /// </summary>
         public static string GuiCore_Run_Started_in_0_f2_sec {
