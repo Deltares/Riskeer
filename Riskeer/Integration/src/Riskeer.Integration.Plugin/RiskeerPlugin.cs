@@ -918,17 +918,6 @@ namespace Riskeer.Integration.Plugin
                 ContextMenuStrip = CategoryTreeFolderContextMenu
             };
 
-            yield return new TreeNodeInfo<FailureMechanismContributionContext>
-            {
-                Text = failureMechanismContribution => RiskeerDataResources.FailureMechanismContribution_DisplayName,
-                Image = failureMechanismContribution => RiskeerCommonFormsResources.FailureMechanismContributionIcon,
-                ContextMenuStrip = (failureMechanismContribution, parentData, treeViewControl) => Gui.Get(failureMechanismContribution, treeViewControl)
-                                                                                                     .AddOpenItem()
-                                                                                                     .AddSeparator()
-                                                                                                     .AddPropertiesItem()
-                                                                                                     .Build()
-            };
-
             yield return new TreeNodeInfo<HydraulicBoundaryDatabaseContext>
             {
                 Text = hydraulicBoundaryDatabase => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
@@ -1276,7 +1265,7 @@ namespace Riskeer.Integration.Plugin
         }
 
         #endregion
-        
+
         #region NormContext ViewInfo
 
         private static bool CloseAssessmentSectionCategoriesViewForData(AssessmentSectionAssemblyCategoriesView view, object dataToCloseFor)
