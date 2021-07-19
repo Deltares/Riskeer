@@ -39,7 +39,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section which the failure mechanism belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsHydraulicLoadsContext(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                            IAssessmentSection assessmentSection)
+                                                              IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
     }
 }

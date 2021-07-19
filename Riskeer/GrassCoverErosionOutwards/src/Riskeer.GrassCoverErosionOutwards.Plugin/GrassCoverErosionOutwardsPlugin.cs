@@ -453,12 +453,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 return ReferenceEquals(assessmentSection, view.AssessmentSection);
             }
 
-            if (dataToCloseFor is GrassCoverErosionOutwardsHydraulicLoadsContext calculationsContext)
+            if (dataToCloseFor is GrassCoverErosionOutwardsHydraulicLoadsContext hydraulicLoadsContext)
             {
-                return ReferenceEquals(calculationsContext.WrappedData, view.AssessmentSection
-                                                                            .GetFailureMechanisms()
-                                                                            .OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                                                                            .SingleOrDefault());
+                return ReferenceEquals(hydraulicLoadsContext.WrappedData, view.AssessmentSection
+                                                                              .GetFailureMechanisms()
+                                                                              .OfType<GrassCoverErosionOutwardsFailureMechanism>()
+                                                                              .SingleOrDefault());
             }
 
             return false;
@@ -494,8 +494,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         }
 
         private ContextMenuStrip HydraulicLoadsContextMenuStrip(GrassCoverErosionOutwardsHydraulicLoadsContext context,
-                                                              object parentData,
-                                                              TreeViewControl treeViewControl)
+                                                                object parentData,
+                                                                TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
