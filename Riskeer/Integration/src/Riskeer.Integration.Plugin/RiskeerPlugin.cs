@@ -331,10 +331,6 @@ namespace Riskeer.Integration.Plugin
         {
             yield return new ViewInfo<FailureMechanismContributionContext, FailureMechanismContribution, FailureMechanismContributionView>
             {
-                GetViewName = (view, context) => RiskeerDataResources.FailureMechanismContribution_DisplayName,
-                GetViewData = context => context.WrappedData,
-                Image = RiskeerCommonFormsResources.FailureMechanismContributionIcon,
-                CloseForData = CloseFailureMechanismContributionViewForData,
                 CreateInstance = context => new FailureMechanismContributionView(context.Parent, Gui.ViewCommands)
             };
 
@@ -1285,16 +1281,7 @@ namespace Riskeer.Integration.Plugin
         }
 
         #endregion
-
-        #region FailureMechanismContributionContext ViewInfo
-
-        private static bool CloseFailureMechanismContributionViewForData(FailureMechanismContributionView view, object dataToCloseFor)
-        {
-            return dataToCloseFor is IAssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
-        }
-
-        #endregion
-
+        
         #region NormContext ViewInfo
 
         private static bool CloseAssessmentSectionCategoriesViewForData(AssessmentSectionAssemblyCategoriesView view, object dataToCloseFor)

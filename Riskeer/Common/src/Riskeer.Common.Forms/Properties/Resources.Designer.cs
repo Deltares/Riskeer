@@ -1715,16 +1715,6 @@ namespace Riskeer.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap FailureMechanismContributionIcon {
-            get {
-                object obj = ResourceManager.GetObject("FailureMechanismContributionIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap FailureMechanismIcon {
             get {
                 object obj = ResourceManager.GetObject("FailureMechanismIcon", resourceCulture);

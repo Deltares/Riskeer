@@ -62,7 +62,6 @@
     <None Include="Resources\blue-document-list.png" />
     <None Include="Resources\blue-document--pencil.png" />
     <None Include="Resources\document-task.png" />
-    <None Include="Resources\chart-pie-separate.png" />
     <None Include="Resources\control_equalizer_blue.png" />
     <None Include="Resources\folder_add.png" />
     <None Include="Resources\Checkbox_empty.png" />

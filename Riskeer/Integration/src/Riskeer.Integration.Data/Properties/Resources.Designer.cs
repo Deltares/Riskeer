@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Data.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -115,15 +115,6 @@ namespace Riskeer.Integration.Data.Properties {
         public static string AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims {
             get {
                 return ResourceManager.GetString("AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Faalkansbegroting.
-        /// </summary>
-        public static string FailureMechanismContribution_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismContribution_DisplayName", resourceCulture);
             }
         }
         
