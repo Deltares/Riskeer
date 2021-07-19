@@ -163,7 +163,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 object[] objects = info.ChildNodeObjects(assessmentSectionContext).ToArray();
 
                 // Assert
-                Assert.AreEqual(5, objects.Length);
+                Assert.AreEqual(4, objects.Length);
 
                 var referenceLineContext = (ReferenceLineContext) objects[0];
                 Assert.AreSame(assessmentSection.ReferenceLine, referenceLineContext.WrappedData);
@@ -173,14 +173,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.FailureMechanismContribution, normContext.WrappedData);
                 Assert.AreSame(assessmentSection, normContext.AssessmentSection);
 
-                var contributionContext = (FailureMechanismContributionContext) objects[2];
-                Assert.AreSame(assessmentSection.FailureMechanismContribution, contributionContext.WrappedData);
-                Assert.AreSame(assessmentSection, contributionContext.Parent);
-
-                var backgroundData = (BackgroundData) objects[3];
+                var backgroundData = (BackgroundData) objects[2];
                 Assert.AreSame(assessmentSection.BackgroundData, backgroundData);
 
-                var comment = (Comment) objects[4];
+                var comment = (Comment) objects[3];
                 Assert.AreSame(assessmentSection.Comments, comment);
             }
         }
@@ -296,7 +292,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
-                
+
                 // Call
                 const string newName = "New Name";
                 info.OnNodeRenamed(assessmentSectionContext, newName);
@@ -315,7 +311,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
-                
+
                 // Call
                 bool canRemove = info.CanRemove(null, null);
 
