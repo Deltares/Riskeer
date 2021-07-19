@@ -200,7 +200,7 @@ namespace Riskeer.Integration.Plugin
         {
             yield return new PropertyInfo<StateRootContext, AssessmentSectionProperties>
             {
-                CreateInstance = context => new AssessmentSectionProperties(context.WrappedData)
+                CreateInstance = context => new AssessmentSectionProperties(context.WrappedData, new AssessmentSectionCompositionChangeHandler())
             };
             yield return new PropertyInfo<BackgroundData, BackgroundDataProperties>
             {

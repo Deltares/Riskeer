@@ -21,11 +21,13 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Integration.Forms.PropertyClasses;
 
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
@@ -36,12 +38,35 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            mocks.ReplayAll();
+
             // Call
-            void Call() => new AssessmentSectionProperties(null);
+            void Call() => new AssessmentSectionProperties(null, assessmentSectionChangeHandler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionCompositionChangeHandlerNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new AssessmentSectionCompositionProperties(assessmentSection, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("compositionChangeHandler", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -51,39 +76,21 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.Id).Return("1");
+            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
+            var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             mocks.ReplayAll();
 
             assessmentSection.Name = "test";
 
             // Call
-            var properties = new AssessmentSectionProperties(assessmentSection);
+            var properties = new AssessmentSectionProperties(assessmentSection, assessmentSectionChangeHandler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<IAssessmentSection>>(properties);
             Assert.AreSame(assessmentSection, properties.Data);
             Assert.AreEqual(assessmentSection.Id, properties.Id);
             Assert.AreEqual(assessmentSection.Name, properties.Name);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void SetProperties_WithData_UpdateDataAndNotifyObservers()
-        {
-            // Setup
-            const string newName = "Test";
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Expect(section => section.NotifyObservers());
-            mocks.ReplayAll();
-
-            var properties = new AssessmentSectionProperties(assessmentSection);
-
-            // Call
-            properties.Name = newName;
-
-            // Assert
-            Assert.AreEqual(newName, assessmentSection.Name);
+            Assert.AreEqual(assessmentSection.Composition, properties.Composition);
             mocks.VerifyAll();
         }
 
@@ -93,15 +100,16 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             mocks.ReplayAll();
 
             // Call
-            var properties = new AssessmentSectionProperties(assessmentSection);
+            var properties = new AssessmentSectionProperties(assessmentSection, assessmentSectionChangeHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(2, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             const string generalCategoryName = "Algemeen";
 
@@ -117,6 +125,91 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             generalCategoryName,
                                                                             "Naam",
                                                                             "Naam van het traject.");
+
+            PropertyDescriptor compositionProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(compositionProperty,
+                                                                            generalCategoryName,
+                                                                            "Trajecttype",
+                                                                            "Selecteer het type traject, bepalend voor de faalkansbegroting.");
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void GivenAssessmentSectionProperties_WhenChangingName_ThenUpdatesDataAndNotifiesObservers()
+        {
+            // Given
+            const string newName = "Test";
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers());
+            var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            mocks.ReplayAll();
+
+            var properties = new AssessmentSectionProperties(assessmentSection, assessmentSectionChangeHandler);
+
+            // When
+            properties.Name = newName;
+
+            // Thenc 
+            Assert.AreEqual(newName, assessmentSection.Name);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenAssessmentSectionProperties_WhenConfirmingCompositionValueChange_ThenCompositionSetAndNotifiesObserver()
+        {
+            // Given
+            const AssessmentSectionComposition newComposition = AssessmentSectionComposition.DikeAndDune;
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
+            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.1, 0.1));
+
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            var assessmentSectionChangeHandler = mocks.StrictMock<IAssessmentSectionCompositionChangeHandler>();
+            assessmentSectionChangeHandler.Expect(handler => handler.ConfirmCompositionChange()).Return(true);
+            assessmentSectionChangeHandler.Expect(handler => handler.ChangeComposition(assessmentSection, newComposition))
+                                          .Return(new[]
+                                          {
+                                              observable
+                                          });
+            mocks.ReplayAll();
+
+            var properties = new AssessmentSectionCompositionProperties(assessmentSection, assessmentSectionChangeHandler);
+
+            // When
+            properties.Composition = newComposition;
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenAssessmentSectionProperties_WhenCancelingCompositionValueChange_ThenDataSameAndObserversNotNotified()
+        {
+            // Given
+            const AssessmentSectionComposition originalComposition = AssessmentSectionComposition.Dike;
+            const AssessmentSectionComposition newComposition = AssessmentSectionComposition.DikeAndDune;
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.Composition).Return(originalComposition);
+
+            var assessmentSectionChangeHandler = mocks.StrictMock<IAssessmentSectionCompositionChangeHandler>();
+            assessmentSectionChangeHandler.Expect(handler => handler.ConfirmCompositionChange()).Return(false);
+            mocks.ReplayAll();
+
+            var properties = new AssessmentSectionCompositionProperties(assessmentSection, assessmentSectionChangeHandler);
+
+            // When
+            properties.Composition = newComposition;
+
+            // Then
+            Assert.AreEqual(originalComposition, properties.Composition);
+            Assert.AreEqual(originalComposition, assessmentSection.Composition);
             mocks.VerifyAll();
         }
     }
