@@ -457,26 +457,6 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trajecttype: {0}.
-        /// </summary>
-        public static string FailureMechanismContributionView_AssessmentSectionCompositionLabelText_AssessmentSectionComposition_0_ {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionView_AssessmentSectionCompositionLabelText_Assessment" +
-                        "SectionComposition_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Norm van het dijktraject: 1 / {0}.
-        /// </summary>
-        public static string FailureMechanismContributionView_ReturnPeriodLabelText_Norm_is_one_over_ReturnPeriod_0_ {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionView_ReturnPeriodLabelText_Norm_is_one_over_ReturnPer" +
-                        "iod_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Heeft vakindeling.
         /// </summary>
         public static string FailureMechanismMergeDataRow_HasSections_DisplayName {
