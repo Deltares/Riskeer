@@ -214,12 +214,6 @@ namespace Riskeer.Integration.Plugin
                         Gui.MainWindow,
                         new HydraulicLocationConfigurationDatabaseUpdateHandler(context.AssessmentSection), context.WrappedData))
             };
-            yield return new PropertyInfo<FailureMechanismContributionContext, AssessmentSectionCompositionProperties>
-            {
-                CreateInstance = context => new AssessmentSectionCompositionProperties(
-                    context.Parent,
-                    new AssessmentSectionCompositionChangeHandler())
-            };
             yield return new PropertyInfo<NormContext, NormProperties>
             {
                 CreateInstance = context => new NormProperties(
