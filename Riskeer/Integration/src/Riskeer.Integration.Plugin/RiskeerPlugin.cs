@@ -329,11 +329,6 @@ namespace Riskeer.Integration.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<FailureMechanismContributionContext, FailureMechanismContribution, FailureMechanismContributionView>
-            {
-                CreateInstance = context => new FailureMechanismContributionView(context.Parent, Gui.ViewCommands)
-            };
-
             yield return new ViewInfo<NormContext, FailureMechanismContribution, AssessmentSectionAssemblyCategoriesView>
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Norms_DisplayName,
