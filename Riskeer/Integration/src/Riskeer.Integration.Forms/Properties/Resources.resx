@@ -145,9 +145,6 @@
   <data name="HydraulicBoundaryDatabase_FilePath_DisplayName" xml:space="preserve">
     <value>HRD bestandslocatie</value>
   </data>
-  <data name="FailureMechanismContributionView_ProbabilityPerYear_Not_applicable" xml:space="preserve">
-    <value>n.v.t</value>
-  </data>
   <data name="CalculationGroupContextProperties_DisplayName" xml:space="preserve">
     <value>Map met berekeningen</value>
   </data>
@@ -279,12 +276,6 @@
   </data>
   <data name="FailureMechanism_Name_DisplayName" xml:space="preserve">
     <value>Toetsspoor</value>
-  </data>
-  <data name="FailureMechanismContributionView_GridColumn_Contribution" xml:space="preserve">
-    <value>Toegestane bijdrage aan faalkans [%]</value>
-  </data>
-  <data name="FailureMechanismContributionView_GridColumn_ProbabilitySpace" xml:space="preserve">
-    <value>Faalkansruimte [1/jaar]</value>
   </data>
   <data name="RefreshAssemblyResultsButton_Text" xml:space="preserve">
     <value>Toetsoordeel verversen</value>
