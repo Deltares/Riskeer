@@ -27,7 +27,7 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for calculations of <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
+    /// Presentation object for hydraulic loads of <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
     /// </summary>
     public class WaveImpactAsphaltCoverHydraulicLoadsContext : FailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism>
     {

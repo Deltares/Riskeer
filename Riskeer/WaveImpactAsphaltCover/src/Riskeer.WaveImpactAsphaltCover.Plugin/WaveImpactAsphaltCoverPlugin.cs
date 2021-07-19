@@ -309,8 +309,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         }
 
         private ContextMenuStrip HydraulicLoadsContextMenuStrip(WaveImpactAsphaltCoverHydraulicLoadsContext context,
-                                                              object parentData,
-                                                              TreeViewControl treeViewControl)
+                                                                object parentData,
+                                                                TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
