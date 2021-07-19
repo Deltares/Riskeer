@@ -309,8 +309,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
         }
 
         private ContextMenuStrip HydraulicLoadsContextMenuStrip(StabilityStoneCoverHydraulicLoadsContext context,
-                                                              object parentData,
-                                                              TreeViewControl treeViewControl)
+                                                                object parentData,
+                                                                TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 

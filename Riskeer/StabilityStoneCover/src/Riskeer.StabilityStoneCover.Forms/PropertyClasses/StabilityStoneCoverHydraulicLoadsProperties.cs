@@ -31,7 +31,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
 {
     /// <summary>
-    /// Calculation related ViewModel of <see cref="StabilityStoneCoverFailureMechanism"/> for properties panel.
+    /// Hydraulic loads related ViewModel of <see cref="StabilityStoneCoverFailureMechanism"/> for properties panel.
     /// </summary>
     public class StabilityStoneCoverHydraulicLoadsProperties : StabilityStoneCoverFailureMechanismProperties
     {
@@ -46,7 +46,8 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public StabilityStoneCoverHydraulicLoadsProperties(StabilityStoneCoverFailureMechanism data) : base(data, new ConstructionProperties
+        public StabilityStoneCoverHydraulicLoadsProperties(StabilityStoneCoverFailureMechanism data) 
+            : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
             CodePropertyIndex = codePropertyIndex,

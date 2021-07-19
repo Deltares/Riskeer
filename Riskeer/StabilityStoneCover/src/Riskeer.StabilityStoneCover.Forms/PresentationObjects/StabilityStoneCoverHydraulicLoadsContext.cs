@@ -27,7 +27,7 @@ using Riskeer.StabilityStoneCover.Data;
 namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for calculations of <see cref="StabilityStoneCoverFailureMechanism"/>.
+    /// Presentation object for hydraulic loads of <see cref="StabilityStoneCoverFailureMechanism"/>.
     /// </summary>
     public class StabilityStoneCoverHydraulicLoadsContext : FailureMechanismContext<StabilityStoneCoverFailureMechanism>
     {
