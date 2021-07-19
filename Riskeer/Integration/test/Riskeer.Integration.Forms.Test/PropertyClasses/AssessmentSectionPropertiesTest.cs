@@ -61,7 +61,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            void Call() => new AssessmentSectionCompositionProperties(assessmentSection, null);
+            void Call() => new AssessmentSectionProperties(assessmentSection, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -133,7 +133,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             "Selecteer het type traject, bepalend voor de faalkansbegroting.");
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void GivenAssessmentSectionProperties_WhenChangingName_ThenUpdatesDataAndNotifiesObservers()
         {
@@ -178,7 +178,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                           });
             mocks.ReplayAll();
 
-            var properties = new AssessmentSectionCompositionProperties(assessmentSection, assessmentSectionChangeHandler);
+            var properties = new AssessmentSectionProperties(assessmentSection, assessmentSectionChangeHandler);
 
             // When
             properties.Composition = newComposition;
@@ -202,7 +202,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             assessmentSectionChangeHandler.Expect(handler => handler.ConfirmCompositionChange()).Return(false);
             mocks.ReplayAll();
 
-            var properties = new AssessmentSectionCompositionProperties(assessmentSection, assessmentSectionChangeHandler);
+            var properties = new AssessmentSectionProperties(assessmentSection, assessmentSectionChangeHandler);
 
             // When
             properties.Composition = newComposition;
