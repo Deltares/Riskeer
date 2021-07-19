@@ -46,7 +46,7 @@ namespace Riskeer.Common.Forms.Views
             // 
             this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewControl.Location = new System.Drawing.Point(4, 4);
-            this.dataGridViewControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewControl.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewControl.MultiSelect = true;
             this.dataGridViewControl.Name = "dataGridViewControl";
             this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
@@ -57,6 +57,7 @@ namespace Riskeer.Common.Forms.Views
             // 
             this.tableLayoutPanel.ColumnCount = 1;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel.Controls.Add(this.generateButton, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.dataGridViewControl, 0, 0);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
@@ -80,12 +81,12 @@ namespace Riskeer.Common.Forms.Views
             // 
             // CalculationsView
             // 
-            this.Controls.Add(this.generateButton);
             this.Controls.Add(this.tableLayoutPanel);
             this.Name = "CalculationsView";
             this.Size = new System.Drawing.Size(1349, 644);
             this.tableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
 
         #endregion
