@@ -27,7 +27,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.DuneErosion.Forms.PropertyClasses
 {
     /// <summary>
-    /// Calculation related ViewModel of <see cref="DuneErosionFailureMechanism"/> for properties panel.
+    /// Hydraulic loads related ViewModel of <see cref="DuneErosionFailureMechanism"/> for properties panel.
     /// </summary>
     public class DuneErosionHydraulicLoadsProperties : DuneErosionFailureMechanismProperties
     {

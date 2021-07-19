@@ -27,7 +27,7 @@ using Riskeer.DuneErosion.Data;
 namespace Riskeer.DuneErosion.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for calculations of <see cref="DuneErosionFailureMechanism"/>.
+    /// Presentation object for hydraulic loads of <see cref="DuneErosionFailureMechanism"/>.
     /// </summary>
     public class DuneErosionHydraulicLoadsContext : FailureMechanismContext<DuneErosionFailureMechanism>
     {

@@ -67,7 +67,7 @@ namespace Riskeer.DuneErosion.Plugin
             yield return new PropertyInfo<DuneErosionHydraulicLoadsContext, DuneErosionHydraulicLoadsProperties>
             {
                 CreateInstance = context => new DuneErosionHydraulicLoadsProperties(context.WrappedData,
-                                                                                  new DuneErosionFailureMechanismPropertyChangeHandler())
+                                                                                    new DuneErosionFailureMechanismPropertyChangeHandler())
             };
 
             yield return new PropertyInfo<DuneErosionFailurePathContext, DuneErosionFailurePathProperties>
@@ -250,9 +250,9 @@ namespace Riskeer.DuneErosion.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is DuneErosionHydraulicLoadsContext failureMechanismContext)
+            if (dataToCloseFor is DuneErosionHydraulicLoadsContext hydraulicLoadsContext)
             {
-                failureMechanism = failureMechanismContext.WrappedData;
+                failureMechanism = hydraulicLoadsContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(failureMechanism, view.FailureMechanism);
@@ -286,8 +286,8 @@ namespace Riskeer.DuneErosion.Plugin
         }
 
         private ContextMenuStrip HydraulicLoadsContextMenuStrip(DuneErosionHydraulicLoadsContext context,
-                                                              object parentData,
-                                                              TreeViewControl treeViewControl)
+                                                                object parentData,
+                                                                TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
