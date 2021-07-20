@@ -23,7 +23,6 @@ using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
@@ -61,21 +60,13 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
         public void CreateInstance_WithContextWithPartialFaultTreeOutput_ExpectedProperties()
         {
             // Setup
-            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
-
             var calculation = new ProbabilisticPipingCalculationScenario
             {
-                InputParameters =
-                {
-                    SurfaceLine = failureMechanism.SurfaceLines.First()
-                },
-                Output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
-                                                       PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput())
+                Output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
+                                                       PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput())
             };
 
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation,
-                                                                              failureMechanism,
-                                                                              new AssessmentSectionStub());
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
@@ -89,21 +80,13 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
         public void CreateInstance_WithContextWithPartialSubMechanismOutput_ExpectedProperties()
         {
             // Setup
-            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
-
             var calculation = new ProbabilisticPipingCalculationScenario
             {
-                InputParameters =
-                {
-                    SurfaceLine = failureMechanism.SurfaceLines.First()
-                },
-                Output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(),
-                                                       PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput())
+                Output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
+                                                       PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput())
             };
 
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation,
-                                                                              failureMechanism,
-                                                                              new AssessmentSectionStub());
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
@@ -117,21 +100,13 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
         public void CreateInstance_WithContextWithOtherPartialOutput_Null()
         {
             // Setup
-            TestPipingFailureMechanism failureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
-
             var calculation = new ProbabilisticPipingCalculationScenario
             {
-                InputParameters =
-                {
-                    SurfaceLine = failureMechanism.SurfaceLines.First()
-                },
                 Output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
                                                        PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput())
             };
 
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation,
-                                                                              failureMechanism,
-                                                                              new AssessmentSectionStub());
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
