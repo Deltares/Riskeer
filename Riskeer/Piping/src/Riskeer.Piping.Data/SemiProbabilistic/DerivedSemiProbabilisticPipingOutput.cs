@@ -31,7 +31,6 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
     /// </summary>
     public class DerivedSemiProbabilisticPipingOutput
     {
-        private double requiredProbability;
         private double pipingProbability;
         private double upliftProbability;
         private double heaveProbability;
@@ -49,18 +48,14 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// <param name="sellmeijerFactorOfSafety">The factor of safety for the Sellmeijer sub mechanism.</param>
         /// <param name="sellmeijerReliability">The reliability of the Sellmeijer sub mechanism.</param>
         /// <param name="sellmeijerProbability">The probability of failure due to the Sellmeijer sub mechanism.</param>
-        /// <param name="requiredProbability">The required (maximum allowed) probability of failure due to piping.</param>
-        /// <param name="requiredReliability">The required (maximum allowed) reliability of the piping failure mechanism</param>
         /// <param name="pipingProbability">The calculated probability of failing due to piping.</param>
         /// <param name="pipingReliability">The calculated reliability of the piping failure mechanism.</param>
-        /// <param name="pipingFactorOfSafety">The factor of safety for the piping failure mechanism.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a probability that falls
         /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
         public DerivedSemiProbabilisticPipingOutput(double upliftFactorOfSafety, double upliftReliability, double upliftProbability,
                                                     double heaveFactorOfSafety, double heaveReliability, double heaveProbability,
                                                     double sellmeijerFactorOfSafety, double sellmeijerReliability, double sellmeijerProbability,
-                                                    double requiredProbability, double requiredReliability,
-                                                    double pipingProbability, double pipingReliability, double pipingFactorOfSafety)
+                                                    double pipingProbability, double pipingReliability)
         {
             UpliftFactorOfSafety = new RoundedDouble(3, upliftFactorOfSafety);
             UpliftReliability = new RoundedDouble(5, upliftReliability);
@@ -72,41 +67,9 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
             SellmeijerReliability = new RoundedDouble(5, sellmeijerReliability);
             SellmeijerProbability = sellmeijerProbability;
 
-            RequiredProbability = requiredProbability;
-            RequiredReliability = new RoundedDouble(5, requiredReliability);
             PipingProbability = pipingProbability;
             PipingReliability = new RoundedDouble(5, pipingReliability);
-            PipingFactorOfSafety = new RoundedDouble(3, pipingFactorOfSafety);
         }
-
-        /// <summary>
-        /// Gets the required probability of the piping failure mechanism,
-        /// which value in range [0,1].
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value that falls
-        /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
-        public double RequiredProbability
-        {
-            get
-            {
-                return requiredProbability;
-            }
-            private set
-            {
-                ProbabilityHelper.ValidateProbability(value, nameof(value), true);
-                requiredProbability = value;
-            }
-        }
-
-        /// <summary>
-        /// Get the required reliability of the piping failure mechanism.
-        /// </summary>
-        public RoundedDouble RequiredReliability { get; }
-
-        /// <summary>
-        /// Gets the factor of safety of the piping failure mechanism.
-        /// </summary>
-        public RoundedDouble PipingFactorOfSafety { get; }
 
         /// <summary>
         /// Gets the reliability of the piping failure mechanism.
