@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(ProbabilisticPipingOutputProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.DataType == typeof(ProbabilisticPipingSectionSpecificOutputContext));
         }
 
         [TearDown]
@@ -53,7 +53,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ProbabilisticPipingSectionSpecificOutputContext), info.DataType);
+            Assert.AreEqual(typeof(ProbabilisticPipingOutputProperties), info.PropertyObjectType);
         }
 
         [Test]
