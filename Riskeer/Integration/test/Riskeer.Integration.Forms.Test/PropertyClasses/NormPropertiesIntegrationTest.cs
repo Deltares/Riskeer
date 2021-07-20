@@ -88,8 +88,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             var emptyPipingCalculation = new TestPipingCalculationScenario();
             var pipingCalculation = new TestPipingCalculationScenario(true);
-            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
+            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation(double.NaN);
+            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -178,7 +178,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             SetOutputToHydraulicBoundaryLocationCalculations(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation, random);
 
             var pipingCalculation = new TestPipingCalculationScenario(true);
-            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
+            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -260,7 +260,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             });
 
             var emptyPipingCalculation = new TestPipingCalculationScenario();
-            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
+            var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
 
             assessmentSection.Piping.CalculationsGroup.Children.Add(emptyPipingCalculation);

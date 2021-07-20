@@ -36,10 +36,10 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
         public void HasIllustrationPoints_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints((IEnumerable<GrassCoverErosionInwardsCalculation>) null);
+            void Call() => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints((IEnumerable<GrassCoverErosionInwardsCalculation>) null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
         }
 
@@ -86,8 +86,8 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
             {
                 yield return new TestCaseData(new[]
                 {
-                    new GrassCoverErosionInwardsCalculation(),
-                    new GrassCoverErosionInwardsCalculation
+                    new GrassCoverErosionInwardsCalculation(double.NaN),
+                    new GrassCoverErosionInwardsCalculation(double.NaN)
                     {
                         Output = new TestGrassCoverErosionInwardsOutput()
                     },
@@ -101,28 +101,28 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
         private static IEnumerable<TestCaseData> GetCalculationConfigurations()
         {
             var random = new Random(21);
-            var calculationWithOverToppingOutputWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWithOverToppingOutputWithIllustrationPoints = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
                                                             null,
                                                             null)
             };
 
-            var calculationWithDikeHeightRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWithDikeHeightRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
                                                             new TestDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
                                                             null)
             };
 
-            var calculationWithOvertoppingRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWithOvertoppingRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
                                                             null,
                                                             new TestOvertoppingRateOutput(new TestGeneralResultFaultTreeIllustrationPoint()))
             };
 
-            var calculationWitNoIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWitNoIllustrationPoints = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
                                                             null,
@@ -133,7 +133,7 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
             yield return new TestCaseData(calculationWithDikeHeightRateWithIllustrationPoints, true);
             yield return new TestCaseData(calculationWithOvertoppingRateWithIllustrationPoints, true);
             yield return new TestCaseData(calculationWitNoIllustrationPoints, false);
-            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(), false);
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(double.NaN), false);
         }
     }
 }

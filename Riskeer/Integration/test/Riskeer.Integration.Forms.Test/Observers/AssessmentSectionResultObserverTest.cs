@@ -56,10 +56,10 @@ namespace Riskeer.Integration.Forms.Test.Observers
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new AssessmentSectionResultObserver(null);
+            void Call() => new AssessmentSectionResultObserver(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -231,7 +231,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(calculation);
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
