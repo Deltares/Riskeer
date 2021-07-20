@@ -24,9 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Forms.Properties;
 
@@ -37,36 +35,24 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
     /// </summary>
     public class SemiProbabilisticPipingOutputProperties : ObjectProperties<SemiProbabilisticPipingOutput>
     {
-        private DerivedSemiProbabilisticPipingOutput derivedOutput;
+        private readonly DerivedSemiProbabilisticPipingOutput derivedOutput;
 
         /// <summary>
         /// Creates a new instance of <see cref="SemiProbabilisticPipingOutputProperties"/>.
         /// </summary>
         /// <param name="output">The output to show the properties for.</param>
-        /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the output belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter
-        /// is <c>null</c>.</exception>
-        public SemiProbabilisticPipingOutputProperties(SemiProbabilisticPipingOutput output, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        /// <param name="norm">The norm to assess for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
+        public SemiProbabilisticPipingOutputProperties(SemiProbabilisticPipingOutput output, double norm)
         {
             if (output == null)
             {
                 throw new ArgumentNullException(nameof(output));
             }
 
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             Data = output;
 
-            CreateDerivedOutput(output, assessmentSection);
+            derivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(output, norm);
         }
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Uplift), 1, 4)]
@@ -259,11 +245,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
             {
                 return derivedOutput.PipingReliability;
             }
-        }
-
-        private void CreateDerivedOutput(SemiProbabilisticPipingOutput output, IAssessmentSection assessmentSection)
-        {
-            derivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(output, assessmentSection.FailureMechanismContribution.Norm);
         }
     }
 }

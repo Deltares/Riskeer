@@ -36,8 +36,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// <param name="norm">The norm to assess for.</param>
         /// <returns>The created <see cref="DerivedSemiProbabilisticPipingOutput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
-        public static DerivedSemiProbabilisticPipingOutput Create(SemiProbabilisticPipingOutput output,
-                                                                  double norm)
+        public static DerivedSemiProbabilisticPipingOutput Create(SemiProbabilisticPipingOutput output, double norm)
         {
             if (output == null)
             {

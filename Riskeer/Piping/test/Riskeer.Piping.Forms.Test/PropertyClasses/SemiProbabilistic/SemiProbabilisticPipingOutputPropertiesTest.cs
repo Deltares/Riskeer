@@ -24,11 +24,8 @@ using System.ComponentModel;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic;
@@ -41,78 +38,33 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         [Test]
         public void Constructor_OutputNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            void Call() => new SemiProbabilisticPipingOutputProperties(null, new PipingFailureMechanism(), assessmentSection);
+            void Call() => new SemiProbabilisticPipingOutputProperties(null, 0.1);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("output", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new SemiProbabilisticPipingOutputProperties(PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput(), null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new SemiProbabilisticPipingOutputProperties(PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput(), new PipingFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             SemiProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
 
             // Call
-            var properties = new SemiProbabilisticPipingOutputProperties(output, failureMechanism, assessmentSection);
+            var properties = new SemiProbabilisticPipingOutputProperties(output, 0.1);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<SemiProbabilisticPipingOutput>>(properties);
             Assert.AreSame(output, properties.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
+            const double norm = 0.1;
 
             var random = new Random(22);
             double upliftEffectiveStress = random.NextDouble();
@@ -137,10 +89,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             });
 
             // Call
-            var properties = new SemiProbabilisticPipingOutputProperties(output, failureMechanism, assessmentSection);
+            var properties = new SemiProbabilisticPipingOutputProperties(output, norm);
 
             // Assert
-            DerivedSemiProbabilisticPipingOutput expectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(output, assessmentSection.FailureMechanismContribution.Norm);
+            DerivedSemiProbabilisticPipingOutput expectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(output, norm);
             Assert.AreEqual(upliftFactorOfSafety, properties.UpliftFactorOfSafety, properties.UpliftFactorOfSafety.GetAccuracy());
             Assert.AreEqual(expectedDerivedOutput.UpliftReliability, properties.UpliftReliability, properties.UpliftReliability.GetAccuracy());
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.UpliftProbability), properties.UpliftProbability);
@@ -158,21 +110,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             Assert.AreEqual(sellmeijerCreepCoefficient, properties.SellmeijerCreepCoefficient, properties.SellmeijerCreepCoefficient.GetAccuracy());
             Assert.AreEqual(sellmeijerCriticalFall, properties.SellmeijerCriticalFall, properties.SellmeijerCriticalFall.GetAccuracy());
             Assert.AreEqual(sellmeijerReducedFall, properties.SellmeijerReducedFall, properties.SellmeijerReducedFall.GetAccuracy());
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             // Call
-            var properties = new SemiProbabilisticPipingOutputProperties(PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput(), failureMechanism, assessmentSection);
+            var properties = new SemiProbabilisticPipingOutputProperties(PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput(), 0.1);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -294,8 +238,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                                                                             "Betrouwbaarheidsindex faalkans [-]",
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
                                                                             true);
-
-            mocks.VerifyAll();
         }
     }
 }
