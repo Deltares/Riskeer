@@ -62,7 +62,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                                                                                                            validFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -104,7 +104,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                                                                                                            invalidFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -150,7 +150,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -193,7 +193,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                                                                                                            invalidFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -233,7 +233,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                                                                                                            mockRepository);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -274,7 +274,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                                                                                                            validFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -353,7 +353,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                                                                                                            validFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -402,7 +402,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                                                                                                            validFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -448,7 +448,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                                                                                                            validFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -491,7 +491,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                                                                                                            validFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -573,7 +573,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                                                                                                            validFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -618,7 +618,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -663,7 +663,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -717,7 +717,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Calculate_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             // Call
@@ -735,7 +735,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Calculate_GeneralInputNull_ThrowArgumentNullException()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
@@ -797,7 +797,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             DikeProfile dikeProfile = GetDikeProfile();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -899,7 +899,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             DikeProfile dikeProfile = GetDikeProfile();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -975,7 +975,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             DikeProfile dikeProfile = GetDikeProfile();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1040,7 +1040,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                              .Return(overtoppingCalculator);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1095,7 +1095,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                              .Return(dikeHeightCalculator);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1163,7 +1163,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                              .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1226,7 +1226,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             DikeProfile dikeProfile = GetDikeProfile();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1301,7 +1301,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             DikeProfile dikeProfile = GetDikeProfile();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1377,7 +1377,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             DikeProfile dikeProfile = GetDikeProfile();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1460,7 +1460,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             DikeProfile dikeProfile = GetDikeProfile();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1536,7 +1536,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             DikeProfile dikeProfile = GetDikeProfile();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1613,7 +1613,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             DikeProfile dikeProfile = GetDikeProfile();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1690,7 +1690,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             DikeProfile dikeProfile = GetDikeProfile();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1766,7 +1766,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             DikeProfile dikeProfile = GetDikeProfile();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1843,7 +1843,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             DikeProfile dikeProfile = GetDikeProfile();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -2987,7 +2987,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -3054,7 +3054,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                              .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -3122,7 +3122,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                              .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -3166,7 +3166,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                              .Return(overtoppingCalculator);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -3210,7 +3210,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                              .Return(overtoppingCalculator);
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -3268,7 +3268,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
         private static GrassCoverErosionInwardsCalculation GetCalculationWithBreakWater(double breakWaterHeight)
         {
-            return new GrassCoverErosionInwardsCalculation
+            return new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -3287,7 +3287,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
         private static GrassCoverErosionInwardsCalculation GetValidCalculationWithCalculateIllustrationPointsSettings()
         {
-            return new GrassCoverErosionInwardsCalculation
+            return new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {

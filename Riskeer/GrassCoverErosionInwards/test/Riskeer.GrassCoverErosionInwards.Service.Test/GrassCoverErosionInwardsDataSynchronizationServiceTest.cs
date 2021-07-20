@@ -53,7 +53,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void ClearCalculationOutput_WithCalculation_ClearsOutput()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -76,7 +76,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void ClearCalculationOutput_CalculationWithoutOutput_DoNothing()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = null
             };
@@ -182,7 +182,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var overtoppingOutputWithIllustrationPoints = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
                                                                                              null,
                                                                                              null);
-            var calculationWithOverToppingOutputWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWithOverToppingOutputWithIllustrationPoints = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = overtoppingOutputWithIllustrationPoints
             };
@@ -190,7 +190,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var dikeHeightOutputWithIllustrationPoints = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
                                                                                             new TestDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
                                                                                             null);
-            var calculationWithDikeHeightWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWithDikeHeightWithIllustrationPoints = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = dikeHeightOutputWithIllustrationPoints
             };
@@ -198,7 +198,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var overtoppingRateOutputWithIllustrationPoints = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
                                                                                                  null,
                                                                                                  new TestOvertoppingRateOutput(new TestGeneralResultFaultTreeIllustrationPoint()));
-            var calculationWithOvertoppingRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWithOvertoppingRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = overtoppingRateOutputWithIllustrationPoints
             };
@@ -206,7 +206,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var outputWithNoIllustrationPoints = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
                                                                                     null,
                                                                                     null);
-            var calculationWitNoIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWitNoIllustrationPoints = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = outputWithNoIllustrationPoints
             };
@@ -217,7 +217,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 calculationWithOverToppingOutputWithIllustrationPoints,
                 calculationWithOvertoppingRateWithIllustrationPoints,
                 calculationWithDikeHeightWithIllustrationPoints,
-                new GrassCoverErosionInwardsCalculation()
+                new GrassCoverErosionInwardsCalculation(double.NaN)
             };
 
             // Call
@@ -457,14 +457,14 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var calculationWithOutput = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
+            var calculationWithOutput = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
+            var calculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -474,14 +474,14 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };
-            var calculationWithHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
+            var calculationWithHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
-            var calculationWithHydraulicBoundaryLocationAndDikeProfile = new GrassCoverErosionInwardsCalculation
+            var calculationWithHydraulicBoundaryLocationAndDikeProfile = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -489,14 +489,14 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                     DikeProfile = dikeProfile1
                 }
             };
-            var calculationWithDikeProfile = new GrassCoverErosionInwardsCalculation
+            var calculationWithDikeProfile = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
                     DikeProfile = dikeProfile2
                 }
             };
-            var calculationWithOutputHydraulicBoundaryLocationAndDikeProfile = new GrassCoverErosionInwardsCalculation
+            var calculationWithOutputHydraulicBoundaryLocationAndDikeProfile = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -506,14 +506,14 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
 
-            var subCalculation = new GrassCoverErosionInwardsCalculation();
-            var subCalculationWithOutput = new GrassCoverErosionInwardsCalculation
+            var subCalculation = new GrassCoverErosionInwardsCalculation(double.NaN);
+            var subCalculationWithOutput = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0),
                                                             new TestDikeHeightOutput(0),
                                                             new TestOvertoppingRateOutput(0))
             };
-            var subCalculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -521,14 +521,14 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 },
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
-            var subCalculationWithHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
+            var subCalculationWithHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
-            var subCalculationWithHydraulicBoundaryLocationAndDikeProfile = new GrassCoverErosionInwardsCalculation
+            var subCalculationWithHydraulicBoundaryLocationAndDikeProfile = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -536,14 +536,14 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                     DikeProfile = dikeProfile1
                 }
             };
-            var subCalculationWithDikeProfile = new GrassCoverErosionInwardsCalculation
+            var subCalculationWithDikeProfile = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
                     DikeProfile = dikeProfile2
                 }
             };
-            var subCalculationWithOutputHydraulicBoundaryLocationAndDikeProfile = new GrassCoverErosionInwardsCalculation
+            var subCalculationWithOutputHydraulicBoundaryLocationAndDikeProfile = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
