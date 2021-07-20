@@ -25,8 +25,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.SemiProbabilistic;
@@ -41,89 +39,34 @@ namespace Riskeer.Piping.Data.Test
         [Test]
         public void GetDetailedAssessmentProbability_SectionResultNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
             void Call() => PipingFailureMechanismSectionResultDetailedAssessmentExtensions.GetDetailedAssessmentProbability(
-                null, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), new PipingFailureMechanism(), assessmentSection);
+                null, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), 0.1);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResult", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetDetailedAssessmentProbability_CalculationScenariosNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, new PipingFailureMechanism(),
-                                                                                          assessmentSection);
+            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, 0.1);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationScenarios", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetDetailedAssessmentProbability_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
-
-            // Call
-            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
-                                                                                          null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetDetailedAssessmentProbability_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
-
-            // Call
-            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
-                                                                                          new PipingFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void GetDetailedAssessmentProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
@@ -152,46 +95,30 @@ namespace Riskeer.Piping.Data.Test
             };
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, 0.1);
 
             // Assert
             Assert.AreEqual(4.2467174336864661e-7, detailedAssessmentProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetDetailedAssessmentProbability_NoScenarios_ReturnsNaN()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
-                                                                                                                  failureMechanism,
-                                                                                                                  assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), 0.1);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetDetailedAssessmentProbability_NoRelevantScenarios_ReturnsNaN()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
@@ -201,25 +128,16 @@ namespace Riskeer.Piping.Data.Test
             };
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios,
-                                                                                                                  failureMechanism,
-                                                                                                                  assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, 0.1);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetDetailedAssessmentProbability_ScenarioNotCalculated_ReturnsNaN()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
@@ -230,23 +148,16 @@ namespace Riskeer.Piping.Data.Test
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new[]
             {
                 pipingCalculationScenario
-            }, failureMechanism, assessmentSection);
+            }, 0.1);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetDetailedAssessmentProbability_ScenarioWithNaNResults_ReturnsNaN()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
@@ -272,11 +183,10 @@ namespace Riskeer.Piping.Data.Test
             };
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, 0.1);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -286,11 +196,6 @@ namespace Riskeer.Piping.Data.Test
         public void GetDetailedAssessmentProbability_RelevantScenarioContributionsDoNotAddUpTo1_ReturnNaN(double contributionA, double contributionB)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var pipingCalculationScenarioA =
                 SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
@@ -306,11 +211,10 @@ namespace Riskeer.Piping.Data.Test
             {
                 pipingCalculationScenarioA,
                 pipingCalculationScenarioB
-            }, failureMechanism, assessmentSection);
+            }, 0.1);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
-            mocks.VerifyAll();
         }
 
         [Test]

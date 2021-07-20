@@ -61,10 +61,10 @@ namespace Riskeer.Piping.Data.Test
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleSimpleAssessment(null);
+            void Call() => PipingFailureMechanismAssemblyFactory.AssembleSimpleAssessment(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
         }
 
@@ -128,10 +128,10 @@ namespace Riskeer.Piping.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                void Call() => PipingFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -151,14 +151,14 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 null,
                 Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                 new PipingFailureMechanism(),
                 assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -172,14 +172,14 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 new PipingFailureMechanism(),
                 assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationScenarios", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -193,14 +193,14 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                 null,
                 assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -209,14 +209,14 @@ namespace Riskeer.Piping.Data.Test
         public void AssembleDetailedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                 new PipingFailureMechanism(),
                 null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -251,8 +251,7 @@ namespace Riskeer.Piping.Data.Test
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(
                                     Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
-                                    failureMechanism,
-                                    assessmentSection),
+                                    assessmentSection.FailureMechanismContribution.Norm),
                                 calculator.DetailedAssessmentProbabilityInput);
                 Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length),
                                 calculator.DetailedAssessmentFailureMechanismSectionNInput);
@@ -320,7 +319,7 @@ namespace Riskeer.Piping.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                void Call() => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
                     new[]
                     {
@@ -331,7 +330,7 @@ namespace Riskeer.Piping.Data.Test
                     assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -351,13 +350,13 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+            void Call() => PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                 null,
                 new PipingFailureMechanism(),
                 assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -371,13 +370,13 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+            void Call() => PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -386,13 +385,13 @@ namespace Riskeer.Piping.Data.Test
         public void AssembleTailorMadeAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+            void Call() => PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new PipingFailureMechanism(),
                 null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -479,13 +478,13 @@ namespace Riskeer.Piping.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+                void Call() => PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -506,14 +505,14 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 null,
                 Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                 new PipingFailureMechanism(),
                 assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -527,14 +526,14 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 new PipingFailureMechanism(),
                 assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationScenarios", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -548,14 +547,14 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                 null,
                 assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -564,14 +563,14 @@ namespace Riskeer.Piping.Data.Test
         public void AssembleCombinedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                 new PipingFailureMechanism(),
                 null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -700,14 +699,14 @@ namespace Riskeer.Piping.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                void Call() => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
                     Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -728,14 +727,14 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            void Call() => PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                 null,
                 new PipingFailureMechanism(),
                 assessmentSection,
                 new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -749,14 +748,14 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            void Call() => PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection,
                 new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -765,14 +764,14 @@ namespace Riskeer.Piping.Data.Test
         public void GetSectionAssemblyCategoryGroup_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            void Call() => PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new PipingFailureMechanism(),
                 null,
                 new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -1012,14 +1011,14 @@ namespace Riskeer.Piping.Data.Test
                 }
 
                 // Call
-                TestDelegate call = () => PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                void Call() => PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
                     assessmentSection,
                     useManualAssembly);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -1040,13 +1039,13 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+            void Call() => PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(
                 null,
                 assessmentSection,
                 new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -1055,13 +1054,13 @@ namespace Riskeer.Piping.Data.Test
         public void AssembleFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+            void Call() => PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(
                 new PipingFailureMechanism(),
                 null,
                 new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -1236,13 +1235,13 @@ namespace Riskeer.Piping.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                void Call() => PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(
                     failureMechanism,
                     assessmentSection,
                     new Random(39).NextBoolean());
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -1271,13 +1270,13 @@ namespace Riskeer.Piping.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                void Call() => PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(
                     failureMechanism,
                     assessmentSection,
                     new Random(39).NextBoolean());
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<AssemblyException>(innerException);
                 Assert.AreEqual("Voor een of meerdere vakken kan geen resultaat worden bepaald.", exception.Message);

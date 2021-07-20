@@ -156,7 +156,7 @@ namespace Riskeer.Piping.Forms.Views
         /// Gets the detailed assessment probability a of the <see cref="PipingFailureMechanismSectionResult"/>.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
+        public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(calculations, assessmentSection.FailureMechanismContribution.Norm);
 
         /// <summary>
         /// Gets or sets the value representing the tailor made assessment result.
@@ -271,7 +271,7 @@ namespace Riskeer.Piping.Forms.Views
                 ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
                     SectionResult.GetCalculationScenarios(calculations).ToArray(),
                     scenarios => SectionResult.GetTotalContribution(scenarios),
-                    scenarios => SectionResult.GetDetailedAssessmentProbability(scenarios, failureMechanism, assessmentSection));
+                    scenarios => SectionResult.GetDetailedAssessmentProbability(scenarios, assessmentSection.FailureMechanismContribution.Norm));
             }
         }
 
