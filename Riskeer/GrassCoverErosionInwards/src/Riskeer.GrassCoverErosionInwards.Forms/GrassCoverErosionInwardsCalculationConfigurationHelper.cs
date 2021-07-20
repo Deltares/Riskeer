@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -38,8 +39,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms
         /// </summary>
         /// <param name="calculationGroup">The calculation group.</param>
         /// <param name="dikeProfiles">The collection of dike profiles.</param>
+        /// <param name="failureMechanismContribution">The <see cref="FailureMechanismContribution"/>
+        /// used to get the correct norm.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void GenerateCalculations(CalculationGroup calculationGroup, IEnumerable<DikeProfile> dikeProfiles)
+        public static void GenerateCalculations(CalculationGroup calculationGroup, IEnumerable<DikeProfile> dikeProfiles,
+                                                FailureMechanismContribution failureMechanismContribution)
         {
             if (calculationGroup == null)
             {
@@ -51,9 +55,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms
                 throw new ArgumentNullException(nameof(dikeProfiles));
             }
 
+            if (failureMechanismContribution == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismContribution));
+            }
+
             foreach (DikeProfile profile in dikeProfiles)
             {
-                var calculation = new GrassCoverErosionInwardsCalculationScenario
+                var calculation = new GrassCoverErosionInwardsCalculationScenario(failureMechanismContribution.Norm)
                 {
                     Name = NamingHelper.GetUniqueName(calculationGroup.Children, profile.Name, c => c.Name),
                     InputParameters =

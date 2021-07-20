@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -37,7 +38,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test
         public void GenerateCalculations_CalculationGroupNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(null, Enumerable.Empty<DikeProfile>());
+            void Call() => GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(
+                null, Enumerable.Empty<DikeProfile>(), new FailureMechanismContribution(0.01, 0.001));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -45,14 +47,27 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test
         }
 
         [Test]
-        public void GenerateCalculations_StructuresNull_ThrowsArgumentNullException()
+        public void GenerateCalculations_DikeProfilesNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(new CalculationGroup(), null);
+            void Call() => GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(
+                new CalculationGroup(), null, new FailureMechanismContribution(0.01, 0.001));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("dikeProfiles", exception.ParamName);
+        }
+
+        [Test]
+        public void GenerateCalculations_FailureMechanismContributionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(
+                new CalculationGroup(), Enumerable.Empty<DikeProfile>(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanismContribution", exception.ParamName);
         }
 
         [Test]
@@ -64,12 +79,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test
             DikeProfile dikeProfile1 = DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 0.0), "profiel 1");
             DikeProfile dikeProfile2 = DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 0.0), "profiel 2");
 
+            var failureMechanismContribution = new FailureMechanismContribution(0.01, 0.001);
+            
             // Call
-            GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(calculationGroup, new[]
-            {
-                dikeProfile1,
-                dikeProfile2
-            });
+            GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(
+                calculationGroup, new[]
+                {
+                    dikeProfile1,
+                    dikeProfile2
+                }, failureMechanismContribution);
 
             // Assert
             Assert.AreEqual(2, calculationGroup.Children.Count);
@@ -77,10 +95,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test
             var calculation1 = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children.First();
             Assert.AreEqual("name", calculation1.Name);
             Assert.AreEqual(dikeProfile1, calculation1.InputParameters.DikeProfile);
+            Assert.AreEqual(failureMechanismContribution.Norm, calculation1.InputParameters.DikeHeightReliabilityIndex);
+            Assert.AreEqual(failureMechanismContribution.Norm, calculation1.InputParameters.OvertoppingRateReliabilityIndex);
 
             var calculation2 = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children.Last();
             Assert.AreEqual("name (1)", calculation2.Name);
             Assert.AreEqual(dikeProfile2, calculation2.InputParameters.DikeProfile);
+            Assert.AreEqual(failureMechanismContribution.Norm, calculation2.InputParameters.DikeHeightReliabilityIndex);
+            Assert.AreEqual(failureMechanismContribution.Norm, calculation2.InputParameters.OvertoppingRateReliabilityIndex);
         }
     }
 }

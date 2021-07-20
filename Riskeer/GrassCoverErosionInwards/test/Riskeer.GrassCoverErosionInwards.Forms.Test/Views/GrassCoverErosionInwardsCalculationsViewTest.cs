@@ -34,6 +34,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -604,6 +605,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.01, 0.001));
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -644,6 +646,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.01, 0.001));
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 

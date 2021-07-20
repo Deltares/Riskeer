@@ -810,7 +810,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(nodeData.WrappedData, dialog.SelectedItems);
+                    GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(
+                        nodeData.WrappedData, dialog.SelectedItems, nodeData.AssessmentSection.FailureMechanismContribution);
                     nodeData.NotifyObservers();
                 }
             }

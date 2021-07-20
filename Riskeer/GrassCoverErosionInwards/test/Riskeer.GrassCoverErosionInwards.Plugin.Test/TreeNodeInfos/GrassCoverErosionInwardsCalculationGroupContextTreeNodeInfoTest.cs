@@ -1770,6 +1770,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Given
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.01, 0.001));
 
             DikeProfile dikeProfile1 = DikeProfileTestFactory.CreateDikeProfile("Dike profile 1", "id1");
             DikeProfile dikeProfile2 = DikeProfileTestFactory.CreateDikeProfile("Dike profile 2", "id2");
@@ -1897,6 +1898,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Given
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.01, 0.001));
 
             const string existingCalculationName = "Dike profile";
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile(existingCalculationName);

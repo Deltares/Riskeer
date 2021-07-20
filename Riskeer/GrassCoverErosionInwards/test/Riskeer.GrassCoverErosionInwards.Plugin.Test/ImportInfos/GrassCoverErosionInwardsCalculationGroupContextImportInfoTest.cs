@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -114,6 +115,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ImportInfos
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.01, 0.001));
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionInwardsCalculationGroupContext(new CalculationGroup(),

@@ -104,7 +104,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(calculationGroup, dialog.SelectedItems);
+                    GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(
+                        calculationGroup, dialog.SelectedItems, AssessmentSection.FailureMechanismContribution);
                     calculationGroup.NotifyObservers();
                 }
             }
