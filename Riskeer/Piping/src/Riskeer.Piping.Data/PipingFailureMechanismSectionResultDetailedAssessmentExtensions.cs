@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Piping.Data.SemiProbabilistic;
 
@@ -40,16 +39,14 @@ namespace Riskeer.Piping.Data
         /// </summary>
         /// <param name="sectionResult">The section result to get the detailed assessment probability for.</param>
         /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
-        /// <param name="failureMechanism">The failure mechanism the calculations belong to.</param>
-        /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
+        /// <param name="norm">The norm to assess for.</param>
         /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there
         /// are no relevant calculations, when not all relevant calculations are performed or when the
         /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static double GetDetailedAssessmentProbability(this PipingFailureMechanismSectionResult sectionResult,
                                                               IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios,
-                                                              PipingFailureMechanism failureMechanism,
-                                                              IAssessmentSection assessmentSection)
+                                                              double norm)
         {
             if (sectionResult == null)
             {
@@ -59,16 +56,6 @@ namespace Riskeer.Piping.Data
             if (calculationScenarios == null)
             {
                 throw new ArgumentNullException(nameof(calculationScenarios));
-            }
-
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             SemiProbabilisticPipingCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios(calculationScenarios).ToArray();
@@ -81,7 +68,7 @@ namespace Riskeer.Piping.Data
             double totalDetailedAssessmentProbability = 0;
             foreach (SemiProbabilisticPipingCalculationScenario scenario in relevantScenarios)
             {
-                DerivedSemiProbabilisticPipingOutput derivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(scenario.Output, assessmentSection.FailureMechanismContribution.Norm);
+                DerivedSemiProbabilisticPipingOutput derivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(scenario.Output, norm);
 
                 totalDetailedAssessmentProbability += derivedOutput.PipingProbability * (double) scenario.Contribution;
             }
