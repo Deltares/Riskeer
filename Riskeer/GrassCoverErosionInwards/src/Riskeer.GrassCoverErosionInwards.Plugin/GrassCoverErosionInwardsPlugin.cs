@@ -120,6 +120,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 (context, filePath) => new GrassCoverErosionInwardsCalculationConfigurationImporter(
                     filePath,
                     context.WrappedData,
+                    context.AssessmentSection.FailureMechanismContribution,
                     context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
                     context.AvailableDikeProfiles));
 

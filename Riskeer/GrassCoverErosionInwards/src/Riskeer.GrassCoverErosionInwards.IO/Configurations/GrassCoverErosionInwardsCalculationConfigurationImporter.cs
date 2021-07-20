@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.Configurations;
@@ -38,6 +39,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         : CalculationConfigurationImporter<GrassCoverErosionInwardsCalculationConfigurationReader,
             GrassCoverErosionInwardsCalculationConfiguration>
     {
+        private readonly FailureMechanismContribution failureMechanismContribution;
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
         private readonly IEnumerable<DikeProfile> availableDikeProfiles;
 
@@ -46,6 +48,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         /// </summary>
         /// <param name="xmlFilePath">The path to the XML file to import from.</param>
         /// <param name="importTarget">The calculation group to update.</param>
+        /// <param name="failureMechanismContribution">The <see cref="FailureMechanismContribution"/>
+        /// used to get the correct norm.</param>
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations
         /// used to check if the imported objects contain the right location.</param>
         /// <param name="dikeProfiles">The dike profiles used to check if
@@ -55,10 +59,16 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         public GrassCoverErosionInwardsCalculationConfigurationImporter(
             string xmlFilePath,
             CalculationGroup importTarget,
+            FailureMechanismContribution failureMechanismContribution,
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
             IEnumerable<DikeProfile> dikeProfiles)
             : base(xmlFilePath, importTarget)
         {
+            if (failureMechanismContribution == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismContribution));
+            }
+
             if (hydraulicBoundaryLocations == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
@@ -69,6 +79,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                 throw new ArgumentNullException(nameof(dikeProfiles));
             }
 
+            this.failureMechanismContribution = failureMechanismContribution;
             availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
             availableDikeProfiles = dikeProfiles;
         }
@@ -80,7 +91,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
 
         protected override ICalculation ParseReadCalculation(GrassCoverErosionInwardsCalculationConfiguration readCalculation)
         {
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(failureMechanismContribution.Norm)
             {
                 Name = readCalculation.Name
             };
