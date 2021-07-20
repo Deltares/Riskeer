@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -27,7 +27,6 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
@@ -61,7 +60,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int shouldOvertoppingOutputIllustrationPointsBeCalculatedPropertyIndex = 9;
         private const int shouldDikeHeightBeCalculatedPropertyIndex = 10;
         private const int shouldDikeHeightIllustrationPointsBeCalculatedPropertyIndex = 11;
-        private const int calculateOvertoppingRatePropertyIndex = 12;
+        private const int shouldOvertoppingRateBeCalculatedPropertyIndex = 12;
         private const int shouldOvertoppingRateIllustrationPointsBeCalculatedPropertyIndex = 13;
 
         private MockRepository mockRepository;
@@ -171,9 +170,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsFalse(properties.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
             Assert.AreEqual(input.ShouldDikeHeightBeCalculated, properties.ShouldDikeHeightBeCalculated);
             Assert.IsFalse(properties.ShouldDikeHeightIllustrationPointsBeCalculated);
-            Assert.AreEqual(input.OvertoppingRateCalculationType, properties.OvertoppingRateCalculationType);
-            TestHelper.AssertTypeConverter<GrassCoverErosionInwardsInputContextProperties, EnumTypeConverter>(
-                nameof(GrassCoverErosionInwardsInputContextProperties.OvertoppingRateCalculationType));
+            Assert.AreEqual(input.ShouldOvertoppingRateBeCalculated, properties.ShouldOvertoppingRateBeCalculated);
             Assert.IsFalse(properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
 
             mockRepository.VerifyAll();
@@ -213,7 +210,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsFalse(properties.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
             Assert.AreEqual(input.ShouldDikeHeightBeCalculated, properties.ShouldDikeHeightBeCalculated);
             Assert.IsFalse(properties.ShouldDikeHeightIllustrationPointsBeCalculated);
-            Assert.AreEqual(input.OvertoppingRateCalculationType, properties.OvertoppingRateCalculationType);
+            Assert.AreEqual(input.ShouldOvertoppingRateBeCalculated, properties.ShouldOvertoppingRateBeCalculated);
             Assert.IsFalse(properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
             mockRepository.VerifyAll();
         }
@@ -250,10 +247,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void OvertoppingRateCalculationType_Always_InputChangedAndObservablesNotified()
+        public void ShouldOvertoppingRateBeCalculated_Always_InputChangedAndObservablesNotified()
         {
-            var overtoppingRateCalculationType = new Random(21).NextEnumValue<OvertoppingRateCalculationType>();
-            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.OvertoppingRateCalculationType = overtoppingRateCalculationType);
+            bool shouldOvertoppingRateBeCalculated = new Random(21).NextBoolean();
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.ShouldOvertoppingRateBeCalculated = shouldOvertoppingRateBeCalculated);
         }
 
         [Test]
@@ -636,18 +633,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var input = new GrassCoverErosionInwardsInput(double.NaN)
             {
-                ShouldDikeHeightBeCalculated = calculationsEnabled
+                DikeProfile = withDikeProfile
+                                  ? DikeProfileTestFactory.CreateDikeProfile()
+                                  : null,
+                ShouldDikeHeightBeCalculated = calculationsEnabled,
+                ShouldOvertoppingRateBeCalculated = calculationsEnabled
             };
-
-            if (withDikeProfile)
-            {
-                input.DikeProfile = DikeProfileTestFactory.CreateDikeProfile();
-            }
-
-            if (calculationsEnabled)
-            {
-                input.OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm;
-            }
 
             // Call
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
@@ -745,7 +736,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.",
                                                                             !calculationsEnabled);
 
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[calculateOvertoppingRatePropertyIndex],
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[shouldOvertoppingRateBeCalculatedPropertyIndex],
                                                                             overtoppingRateCategoryName,
                                                                             "Overslagdebiet berekenen",
                                                                             "Geeft aan of ook het overslagdebiet moet worden berekend.");
@@ -787,10 +778,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(!shouldDikeHeightBeCalculated, result);
         }
 
-        [TestCase(OvertoppingRateCalculationType.NoCalculation, true)]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, false)]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, false)]
-        public void DynamicReadOnly_ShouldOvertoppingRateIllustrationPointsBeCalculated_ReturnsExpectedResult(OvertoppingRateCalculationType overtoppingRateCalculationType, bool expectedResult)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicReadOnly_ShouldOvertoppingRateIllustrationPointsBeCalculated_ReturnsExpectedResult(bool shouldOvertoppingRateBeCalculated)
         {
             // Setup
             var changeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
@@ -800,7 +790,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var input = new GrassCoverErosionInwardsInput(double.NaN)
             {
-                OvertoppingRateCalculationType = overtoppingRateCalculationType
+                ShouldOvertoppingRateBeCalculated = shouldOvertoppingRateBeCalculated
             };
 
             var context = new GrassCoverErosionInwardsInputContext(input,
@@ -814,7 +804,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             bool result = properties.DynamicReadOnlyValidationMethod(nameof(properties.ShouldOvertoppingRateIllustrationPointsBeCalculated));
 
             // Assert
-            Assert.AreEqual(expectedResult, result);
+            Assert.AreEqual(!shouldOvertoppingRateBeCalculated, result);
         }
 
         [TestCase(true)]

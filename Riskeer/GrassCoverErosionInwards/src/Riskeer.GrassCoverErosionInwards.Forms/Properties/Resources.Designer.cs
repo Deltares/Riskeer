@@ -434,24 +434,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of ook het overslagdebiet moet worden berekend..
-        /// </summary>
-        public static string OvertoppingRateCalculationType_Description {
-            get {
-                return ResourceManager.GetString("OvertoppingRateCalculationType_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overslagdebiet berekenen.
-        /// </summary>
-        public static string OvertoppingRateCalculationType_DisplayName {
-            get {
-                return ResourceManager.GetString("OvertoppingRateCalculationType_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Is convergentie bereikt in de overslagdebiet berekening?.
         /// </summary>
         public static string OvertoppingRateOutput_Convergence_Description {
@@ -493,6 +475,24 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         public static string ShouldOvertoppingOutputIllustrationPointsBeCalculated_DisplayName {
             get {
                 return ResourceManager.GetString("ShouldOvertoppingOutputIllustrationPointsBeCalculated_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geeft aan of ook het overslagdebiet moet worden berekend..
+        /// </summary>
+        public static string ShouldOvertoppingRateBeCalculated_Description {
+            get {
+                return ResourceManager.GetString("ShouldOvertoppingRateBeCalculated_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overslagdebiet berekenen.
+        /// </summary>
+        public static string ShouldOvertoppingRateBeCalculated_DisplayName {
+            get {
+                return ResourceManager.GetString("ShouldOvertoppingRateBeCalculated_DisplayName", resourceCulture);
             }
         }
         

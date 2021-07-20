@@ -25,7 +25,6 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
@@ -35,7 +34,6 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.UITypeEditors;
-using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionInwards.Forms.Properties;
 using Riskeer.GrassCoverErosionInwards.Forms.UITypeEditors;
@@ -61,7 +59,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int shouldOvertoppingOutputIllustrationPointsBeCalculatedPropertyIndex = 10;
         private const int shouldDikeHeightBeCalculatedPropertyIndex = 11;
         private const int shouldDikeHeightIllustrationPointsBeCalculatedPropertyIndex = 12;
-        private const int calculateOvertoppingRatePropertyIndex = 13;
+        private const int shouldOvertoppingRateBeCalculatedPropertyIndex = 13;
         private const int shouldOvertoppingRateIllustrationPointsBeCalculatedPropertyIndex = 14;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
@@ -252,17 +250,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(calculateOvertoppingRatePropertyIndex)]
+        [PropertyOrder(shouldOvertoppingRateBeCalculatedPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingRate), 6, 6)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.OvertoppingRateCalculationType_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.OvertoppingRateCalculationType_Description))]
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public OvertoppingRateCalculationType OvertoppingRateCalculationType
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldOvertoppingRateBeCalculated_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldOvertoppingRateBeCalculated_Description))]
+        public bool ShouldOvertoppingRateBeCalculated
         {
-            get => data.WrappedData.OvertoppingRateCalculationType;
+            get => data.WrappedData.ShouldOvertoppingRateBeCalculated;
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.OvertoppingRateCalculationType = value, propertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ShouldOvertoppingRateBeCalculated = value, propertyChangeHandler);
             }
         }
 
@@ -316,7 +313,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
             if (propertyName.Equals(nameof(ShouldOvertoppingRateIllustrationPointsBeCalculated)))
             {
-                return OvertoppingRateCalculationType == OvertoppingRateCalculationType.NoCalculation;
+                return !ShouldOvertoppingRateBeCalculated;
             }
 
             return false;
