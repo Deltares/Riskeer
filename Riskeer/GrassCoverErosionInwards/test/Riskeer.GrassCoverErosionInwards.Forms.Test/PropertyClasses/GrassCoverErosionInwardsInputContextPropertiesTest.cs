@@ -144,10 +144,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_WithInputContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var failureMechanism = mockRepository.Stub<GrassCoverErosionInwardsFailureMechanism>();
-            var calculation = mockRepository.Stub<GrassCoverErosionInwardsCalculation>();
             mockRepository.ReplayAll();
 
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var input = new GrassCoverErosionInwardsInput(double.NaN);
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
 
@@ -186,10 +186,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_WithInputContextInstanceWithDikeProfile_ReturnCorrectPropertyValues()
         {
             // Setup
-            var failureMechanism = mockRepository.Stub<GrassCoverErosionInwardsFailureMechanism>();
-            var calculation = mockRepository.Stub<GrassCoverErosionInwardsCalculation>();
             mockRepository.ReplayAll();
 
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var input = new GrassCoverErosionInwardsInput(double.NaN)
             {
                 DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(12.34, 56.78)),
@@ -295,12 +295,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             const int numberOfChangedProperties = 3;
-            var failureMechanism = mockRepository.Stub<GrassCoverErosionInwardsFailureMechanism>();
-            var calculation = mockRepository.Stub<GrassCoverErosionInwardsCalculation>();
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mockRepository.ReplayAll();
 
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var input = new GrassCoverErosionInwardsInput(double.NaN)
             {
                 DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
