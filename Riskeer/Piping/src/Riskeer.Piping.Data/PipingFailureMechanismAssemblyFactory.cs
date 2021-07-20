@@ -119,7 +119,7 @@ namespace Riskeer.Piping.Data
             {
                 return calculator.AssembleDetailedAssessment(
                     failureMechanismSectionResult.DetailedAssessmentResult,
-                    failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
+                    failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, assessmentSection.FailureMechanismContribution.Norm),
                     failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length),
                     CreateAssemblyCategoriesInput(failureMechanism, assessmentSection));
             }
