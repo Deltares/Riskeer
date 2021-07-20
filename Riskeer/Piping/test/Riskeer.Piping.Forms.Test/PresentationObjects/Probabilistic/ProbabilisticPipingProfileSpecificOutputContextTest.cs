@@ -19,12 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 
@@ -34,73 +30,17 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
     public class ProbabilisticPipingProfileSpecificOutputContextTest
     {
         [Test]
-        public void Constructor_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new ProbabilisticPipingProfileSpecificOutputContext(null, new PipingFailureMechanism(), assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("wrappedData", exception.ParamName);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculationScenario(), null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculationScenario(), new PipingFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculation = new ProbabilisticPipingCalculationScenario();
-            var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation, failureMechanism, assessmentSection);
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ProbabilisticPipingCalculationScenario>>(context);
             Assert.AreSame(calculation, context.WrappedData);
-            Assert.AreSame(failureMechanism, context.FailureMechanism);
-            Assert.AreSame(assessmentSection, context.AssessmentSection);
-
-            mocks.VerifyAll();
         }
     }
 }
