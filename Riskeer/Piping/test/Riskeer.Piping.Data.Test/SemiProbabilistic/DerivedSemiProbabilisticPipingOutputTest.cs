@@ -44,11 +44,8 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             double sellmeijerFactorOfSafety = random.NextDouble();
             double sellmeijerReliability = random.NextDouble();
             double sellmeijerProbability = random.NextDouble();
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
             double pipingProbability = random.NextDouble();
             double pipingReliability = random.NextDouble();
-            double pipingFactorOfSafety = random.NextDouble();
 
             // Call
             var output = new DerivedSemiProbabilisticPipingOutput(
@@ -61,11 +58,8 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
                 sellmeijerFactorOfSafety,
                 sellmeijerReliability,
                 sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
                 pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
+                pipingReliability);
 
             // Assert
             Assert.AreEqual(3, output.HeaveFactorOfSafety.NumberOfDecimalPlaces);
@@ -83,106 +77,9 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             Assert.AreEqual(5, output.SellmeijerReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(sellmeijerReliability, output.SellmeijerReliability, output.SellmeijerReliability.GetAccuracy());
             Assert.AreEqual(sellmeijerProbability, output.SellmeijerProbability);
-            Assert.AreEqual(requiredProbability, output.RequiredProbability);
-            Assert.AreEqual(5, output.RequiredReliability.NumberOfDecimalPlaces);
-            Assert.AreEqual(requiredReliability, output.RequiredReliability, output.RequiredReliability.GetAccuracy());
             Assert.AreEqual(pipingProbability, output.PipingProbability);
             Assert.AreEqual(5, output.PipingReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(pipingReliability, output.PipingReliability, output.PipingReliability.GetAccuracy());
-            Assert.AreEqual(3, output.PipingFactorOfSafety.NumberOfDecimalPlaces);
-            Assert.AreEqual(pipingFactorOfSafety, output.PipingFactorOfSafety, output.PipingFactorOfSafety.GetAccuracy());
-        }
-
-        [Test]
-        [TestCase(double.NaN)]
-        [TestCase(0.0)]
-        [TestCase(0.123456789)]
-        [TestCase(1.0)]
-        public void Constructor_ValidRequiredProbability_ExpectedValues(double requiredProbability)
-        {
-            // Setup
-            var random = new Random(21);
-            double upliftFactorOfSafety = random.NextDouble();
-            double upliftReliability = random.NextDouble();
-            double upliftProbability = random.NextDouble();
-            double heaveFactorOfSafety = random.NextDouble();
-            double heaveReliability = random.NextDouble();
-            double heaveProbability = random.NextDouble();
-            double sellmeijerFactorOfSafety = random.NextDouble();
-            double sellmeijerReliability = random.NextDouble();
-            double sellmeijerProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
-            double pipingProbability = random.NextDouble();
-            double pipingReliability = random.NextDouble();
-            double pipingFactorOfSafety = random.NextDouble();
-
-            // Call
-            var output = new DerivedSemiProbabilisticPipingOutput(
-                upliftFactorOfSafety,
-                upliftReliability,
-                upliftProbability,
-                heaveFactorOfSafety,
-                heaveReliability,
-                heaveProbability,
-                sellmeijerFactorOfSafety,
-                sellmeijerReliability,
-                sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
-                pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
-
-            // Assert
-            Assert.AreEqual(requiredProbability, output.RequiredProbability);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(0.0 - 1e-6)]
-        [TestCase(-346587.456)]
-        [TestCase(1.0 + 1e-6)]
-        [TestCase(346587.456)]
-        public void Constructor_InvalidRequiredProbability_ThrowArgumentOutOfRangeException(double requiredProbability)
-        {
-            // Setup
-            var random = new Random(21);
-            double upliftFactorOfSafety = random.NextDouble();
-            double upliftReliability = random.NextDouble();
-            double upliftProbability = random.NextDouble();
-            double heaveFactorOfSafety = random.NextDouble();
-            double heaveReliability = random.NextDouble();
-            double heaveProbability = random.NextDouble();
-            double sellmeijerFactorOfSafety = random.NextDouble();
-            double sellmeijerReliability = random.NextDouble();
-            double sellmeijerProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
-            double pipingProbability = random.NextDouble();
-            double pipingReliability = random.NextDouble();
-            double pipingFactorOfSafety = random.NextDouble();
-
-            // Call
-            TestDelegate call = () => new DerivedSemiProbabilisticPipingOutput(
-                upliftFactorOfSafety,
-                upliftReliability,
-                upliftProbability,
-                heaveFactorOfSafety,
-                heaveReliability,
-                heaveProbability,
-                sellmeijerFactorOfSafety,
-                sellmeijerReliability,
-                sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
-                pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
-
-            // Assert
-            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
@@ -202,11 +99,8 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             double heaveProbability = random.NextDouble();
             double sellmeijerFactorOfSafety = random.NextDouble();
             double sellmeijerReliability = random.NextDouble();
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
             double pipingProbability = random.NextDouble();
             double pipingReliability = random.NextDouble();
-            double pipingFactorOfSafety = random.NextDouble();
 
             // Call
             var output = new DerivedSemiProbabilisticPipingOutput(
@@ -219,11 +113,8 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
                 sellmeijerFactorOfSafety,
                 sellmeijerReliability,
                 sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
                 pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
+                pipingReliability);
 
             // Assert
             Assert.AreEqual(sellmeijerProbability, output.SellmeijerProbability);
@@ -249,14 +140,11 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             double heaveProbability = random.NextDouble();
             double sellmeijerFactorOfSafety = random.NextDouble();
             double sellmeijerReliability = random.NextDouble();
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
             double pipingProbability = random.NextDouble();
             double pipingReliability = random.NextDouble();
-            double pipingFactorOfSafety = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new DerivedSemiProbabilisticPipingOutput(
+            void Call() => new DerivedSemiProbabilisticPipingOutput(
                 upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,
@@ -266,15 +154,12 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
                 sellmeijerFactorOfSafety,
                 sellmeijerReliability,
                 sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
                 pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
+                pipingReliability);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -294,11 +179,8 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             double sellmeijerFactorOfSafety = random.NextDouble();
             double sellmeijerReliability = random.NextDouble();
             double sellmeijerProbability = random.NextDouble();
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
             double pipingProbability = random.NextDouble();
             double pipingReliability = random.NextDouble();
-            double pipingFactorOfSafety = random.NextDouble();
 
             // Call
             var output = new DerivedSemiProbabilisticPipingOutput(
@@ -311,11 +193,8 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
                 sellmeijerFactorOfSafety,
                 sellmeijerReliability,
                 sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
                 pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
+                pipingReliability);
 
             // Assert
             Assert.AreEqual(heaveProbability, output.HeaveProbability);
@@ -341,14 +220,11 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             double sellmeijerFactorOfSafety = random.NextDouble();
             double sellmeijerReliability = random.NextDouble();
             double sellmeijerProbability = random.NextDouble();
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
             double pipingProbability = random.NextDouble();
             double pipingReliability = random.NextDouble();
-            double pipingFactorOfSafety = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new DerivedSemiProbabilisticPipingOutput(
+            void Call() => new DerivedSemiProbabilisticPipingOutput(
                 upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,
@@ -358,15 +234,12 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
                 sellmeijerFactorOfSafety,
                 sellmeijerReliability,
                 sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
                 pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
+                pipingReliability);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -386,11 +259,8 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             double sellmeijerFactorOfSafety = random.NextDouble();
             double sellmeijerReliability = random.NextDouble();
             double sellmeijerProbability = random.NextDouble();
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
             double pipingProbability = random.NextDouble();
             double pipingReliability = random.NextDouble();
-            double pipingFactorOfSafety = random.NextDouble();
 
             // Call
             var output = new DerivedSemiProbabilisticPipingOutput(
@@ -403,11 +273,8 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
                 sellmeijerFactorOfSafety,
                 sellmeijerReliability,
                 sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
                 pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
+                pipingReliability);
 
             // Assert
             Assert.AreEqual(upliftProbability, output.UpliftProbability);
@@ -433,14 +300,11 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             double sellmeijerFactorOfSafety = random.NextDouble();
             double sellmeijerReliability = random.NextDouble();
             double sellmeijerProbability = random.NextDouble();
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
             double pipingProbability = random.NextDouble();
             double pipingReliability = random.NextDouble();
-            double pipingFactorOfSafety = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new DerivedSemiProbabilisticPipingOutput(
+            void Call() => new DerivedSemiProbabilisticPipingOutput(
                 upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,
@@ -450,15 +314,12 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
                 sellmeijerFactorOfSafety,
                 sellmeijerReliability,
                 sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
                 pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
+                pipingReliability);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -479,10 +340,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             double sellmeijerFactorOfSafety = random.NextDouble();
             double sellmeijerReliability = random.NextDouble();
             double sellmeijerProbability = random.NextDouble();
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
             double pipingReliability = random.NextDouble();
-            double pipingFactorOfSafety = random.NextDouble();
 
             // Call
             var output = new DerivedSemiProbabilisticPipingOutput(
@@ -495,11 +353,8 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
                 sellmeijerFactorOfSafety,
                 sellmeijerReliability,
                 sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
                 pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
+                pipingReliability);
 
             // Assert
             Assert.AreEqual(pipingProbability, output.PipingProbability);
@@ -526,13 +381,10 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             double sellmeijerFactorOfSafety = random.NextDouble();
             double sellmeijerReliability = random.NextDouble();
             double sellmeijerProbability = random.NextDouble();
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
             double pipingReliability = random.NextDouble();
-            double pipingFactorOfSafety = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new DerivedSemiProbabilisticPipingOutput(
+            void Call() => new DerivedSemiProbabilisticPipingOutput(
                 upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,
@@ -542,15 +394,12 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
                 sellmeijerFactorOfSafety,
                 sellmeijerReliability,
                 sellmeijerProbability,
-                requiredProbability,
-                requiredReliability,
                 pipingProbability,
-                pipingReliability,
-                pipingFactorOfSafety);
+                pipingReliability);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
     }
 }
