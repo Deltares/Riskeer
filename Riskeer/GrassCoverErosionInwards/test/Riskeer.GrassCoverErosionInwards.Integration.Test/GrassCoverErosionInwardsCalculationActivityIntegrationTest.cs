@@ -65,7 +65,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -130,7 +130,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -222,7 +222,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             DikeProfile dikeProfile = CreateDikeProfile();
             dikeProfile.BreakWater.Type = breakWaterType;
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -306,7 +306,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -361,7 +361,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -431,7 +431,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -475,7 +475,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -548,7 +548,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             DikeProfile dikeProfile = CreateDikeProfile();
             dikeProfile.BreakWater.Type = breakWaterType;
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -641,7 +641,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -704,7 +704,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -768,7 +768,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -832,7 +832,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -897,7 +897,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -948,7 +948,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1022,7 +1022,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             DikeProfile dikeProfile = CreateDikeProfile();
             dikeProfile.BreakWater.Type = breakWaterType;
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1114,7 +1114,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1177,7 +1177,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1241,7 +1241,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1305,7 +1305,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1370,7 +1370,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -1421,7 +1421,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
