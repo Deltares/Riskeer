@@ -71,7 +71,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var output = new TestGrassCoverErosionInwardsOutput();
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = output
             };

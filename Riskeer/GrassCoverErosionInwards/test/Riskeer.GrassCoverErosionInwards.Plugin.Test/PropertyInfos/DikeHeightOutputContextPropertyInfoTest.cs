@@ -62,7 +62,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         {
             // Setup
             var dikeHeightOutput = new TestDikeHeightOutput(10);
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.5),
                                                             dikeHeightOutput,
