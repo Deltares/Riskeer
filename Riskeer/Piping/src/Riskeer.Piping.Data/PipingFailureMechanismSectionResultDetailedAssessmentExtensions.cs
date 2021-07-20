@@ -81,7 +81,7 @@ namespace Riskeer.Piping.Data
             double totalDetailedAssessmentProbability = 0;
             foreach (SemiProbabilisticPipingCalculationScenario scenario in relevantScenarios)
             {
-                DerivedSemiProbabilisticPipingOutput derivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(scenario.Output, failureMechanism, assessmentSection);
+                DerivedSemiProbabilisticPipingOutput derivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(scenario.Output, assessmentSection.FailureMechanismContribution.Norm);
 
                 totalDetailedAssessmentProbability += derivedOutput.PipingProbability * (double) scenario.Contribution;
             }

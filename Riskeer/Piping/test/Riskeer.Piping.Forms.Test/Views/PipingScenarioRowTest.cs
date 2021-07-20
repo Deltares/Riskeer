@@ -116,7 +116,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
 
             // Assert
-            DerivedSemiProbabilisticPipingOutput expectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(calculation.Output, failureMechanism, assessmentSection);
+            DerivedSemiProbabilisticPipingOutput expectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(calculation.Output, assessmentSection.FailureMechanismContribution.Norm);
 
             Assert.AreEqual(expectedDerivedOutput.PipingProbability, row.FailureProbability);
             Assert.AreEqual(expectedDerivedOutput.UpliftProbability, row.FailureProbabilityUplift);
@@ -171,7 +171,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             row.Update();
 
             // Then
-            DerivedSemiProbabilisticPipingOutput expectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(calculation.Output, failureMechanism, assessmentSection);
+            DerivedSemiProbabilisticPipingOutput expectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(calculation.Output, assessmentSection.FailureMechanismContribution.Norm);
             Assert.AreEqual(expectedDerivedOutput.PipingProbability, row.FailureProbability);
             Assert.AreEqual(expectedDerivedOutput.UpliftProbability, row.FailureProbabilityUplift);
             Assert.AreEqual(expectedDerivedOutput.HeaveProbability, row.FailureProbabilityHeave);
@@ -197,7 +197,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
 
             // Precondition
-            DerivedSemiProbabilisticPipingOutput expectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(calculation.Output, failureMechanism, assessmentSection);
+            DerivedSemiProbabilisticPipingOutput expectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(calculation.Output, assessmentSection.FailureMechanismContribution.Norm);
             Assert.AreEqual(expectedDerivedOutput.PipingProbability, row.FailureProbability);
             Assert.AreEqual(expectedDerivedOutput.UpliftProbability, row.FailureProbabilityUplift);
             Assert.AreEqual(expectedDerivedOutput.HeaveProbability, row.FailureProbabilityHeave);
@@ -233,7 +233,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
 
             // Precondition
-            DerivedSemiProbabilisticPipingOutput expectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(calculation.Output, failureMechanism, assessmentSection);
+            DerivedSemiProbabilisticPipingOutput expectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(calculation.Output, assessmentSection.FailureMechanismContribution.Norm);
             Assert.AreEqual(expectedDerivedOutput.PipingProbability, row.FailureProbability);
             Assert.AreEqual(expectedDerivedOutput.UpliftProbability, row.FailureProbabilityUplift);
             Assert.AreEqual(expectedDerivedOutput.HeaveProbability, row.FailureProbabilityHeave);
@@ -246,7 +246,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             row.Update();
 
             // Then
-            DerivedSemiProbabilisticPipingOutput newExpectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(calculation.Output, failureMechanism, assessmentSection);
+            DerivedSemiProbabilisticPipingOutput newExpectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(calculation.Output, assessmentSection.FailureMechanismContribution.Norm);
             Assert.AreEqual(newExpectedDerivedOutput.PipingProbability, row.FailureProbability);
             Assert.AreEqual(newExpectedDerivedOutput.UpliftProbability, row.FailureProbabilityUplift);
             Assert.AreEqual(newExpectedDerivedOutput.HeaveProbability, row.FailureProbabilityHeave);
