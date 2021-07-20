@@ -49,17 +49,20 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
     public class GrassCoverErosionInwardsInputContextProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>,
                                                                   IHasHydraulicBoundaryLocationProperty
     {
-        private const int dikeProfilePropertyIndex = 1;
-        private const int worldReferencePointPropertyIndex = 2;
-        private const int orientationPropertyIndex = 3;
-        private const int breakWaterPropertyIndex = 4;
-        private const int foreshorePropertyIndex = 5;
-        private const int dikeGeometryPropertyIndex = 6;
-        private const int dikeHeightPropertyIndex = 7;
-        private const int criticalFlowRatePropertyIndex = 8;
-        private const int hydraulicBoundaryLocationPropertyIndex = 9;
-        private const int calculateDikeHeightPropertyIndex = 10;
-        private const int calculateOvertoppingRatePropertyIndex = 11;
+        private const int hydraulicBoundaryLocationPropertyIndex = 1;
+        private const int dikeProfilePropertyIndex = 2;
+        private const int worldReferencePointPropertyIndex = 3;
+        private const int orientationPropertyIndex = 4;
+        private const int breakWaterPropertyIndex = 5;
+        private const int foreshorePropertyIndex = 6;
+        private const int dikeGeometryPropertyIndex = 7;
+        private const int dikeHeightPropertyIndex = 8;
+        private const int criticalFlowRatePropertyIndex = 9;
+        private const int shouldOvertoppingOutputIllustrationPointsBeCalculatedPropertyIndex = 10;
+        private const int calculateDikeHeightPropertyIndex = 11;
+        private const int shouldDikeHeightIllustrationPointsBeCalculatedPropertyIndex = 12;
+        private const int calculateOvertoppingRatePropertyIndex = 13;
+        private const int shouldOvertoppingRateIllustrationPointsBeCalculatedPropertyIndex = 14;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
@@ -93,10 +96,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesDescription(typeof(Resources), nameof(Resources.DikeProfile_Description))]
         public DikeProfile DikeProfile
         {
-            get
-            {
-                return data.WrappedData.DikeProfile;
-            }
+            get => data.WrappedData.DikeProfile;
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.DikeProfile = value, propertyChangeHandler);
@@ -126,10 +126,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesDescription(typeof(Resources), nameof(Resources.Orientation_DikeProfile_Description))]
         public RoundedDouble Orientation
         {
-            get
-            {
-                return data.WrappedData.Orientation;
-            }
+            get => data.WrappedData.Orientation;
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.Orientation = value, propertyChangeHandler);
@@ -190,10 +187,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesDescription(typeof(Resources), nameof(Resources.DikeHeight_Description))]
         public RoundedDouble DikeHeight
         {
-            get
-            {
-                return data.WrappedData.DikeHeight;
-            }
+            get => data.WrappedData.DikeHeight;
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.DikeHeight = value, propertyChangeHandler);
@@ -216,15 +210,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(shouldOvertoppingOutputIllustrationPointsBeCalculatedPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 4, 6)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldOvertoppingOutputIllustrationPointsBeCalculated_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
         public bool ShouldOvertoppingOutputIllustrationPointsBeCalculated
         {
-            get
-            {
-                return data.WrappedData.ShouldOvertoppingOutputIllustrationPointsBeCalculated;
-            }
+            get => data.WrappedData.ShouldOvertoppingOutputIllustrationPointsBeCalculated;
             set
             {
                 data.WrappedData.ShouldOvertoppingOutputIllustrationPointsBeCalculated = value;
@@ -239,10 +231,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         [TypeConverter(typeof(EnumTypeConverter))]
         public DikeHeightCalculationType DikeHeightCalculationType
         {
-            get
-            {
-                return data.WrappedData.DikeHeightCalculationType;
-            }
+            get => data.WrappedData.DikeHeightCalculationType;
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.DikeHeightCalculationType = value, propertyChangeHandler);
@@ -250,15 +239,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [DynamicReadOnly]
+        [PropertyOrder(shouldDikeHeightIllustrationPointsBeCalculatedPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight), 5, 6)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldDikeHeightIllustrationPointsBeCalculated_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
         public bool ShouldDikeHeightIllustrationPointsBeCalculated
         {
-            get
-            {
-                return data.WrappedData.ShouldDikeHeightIllustrationPointsBeCalculated;
-            }
+            get => data.WrappedData.ShouldDikeHeightIllustrationPointsBeCalculated;
             set
             {
                 data.WrappedData.ShouldDikeHeightIllustrationPointsBeCalculated = value;
@@ -273,10 +260,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         [TypeConverter(typeof(EnumTypeConverter))]
         public OvertoppingRateCalculationType OvertoppingRateCalculationType
         {
-            get
-            {
-                return data.WrappedData.OvertoppingRateCalculationType;
-            }
+            get => data.WrappedData.OvertoppingRateCalculationType;
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.OvertoppingRateCalculationType = value, propertyChangeHandler);
@@ -284,15 +268,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [DynamicReadOnly]
+        [PropertyOrder(shouldOvertoppingRateIllustrationPointsBeCalculatedPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingRate), 6, 6)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
         public bool ShouldOvertoppingRateIllustrationPointsBeCalculated
         {
-            get
-            {
-                return data.WrappedData.ShouldOvertoppingRateIllustrationPointsBeCalculated;
-            }
+            get => data.WrappedData.ShouldOvertoppingRateIllustrationPointsBeCalculated;
             set
             {
                 data.WrappedData.ShouldOvertoppingRateIllustrationPointsBeCalculated = value;

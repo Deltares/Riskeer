@@ -49,20 +49,21 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionInwardsInputContextPropertiesTest
     {
-        private const int dikeProfilePropertyIndex = 0;
-        private const int worldReferencePointPropertyIndex = 1;
-        private const int orientationPropertyIndex = 2;
-        private const int breakWaterPropertyIndex = 3;
-        private const int foreshorePropertyIndex = 4;
-        private const int dikeGeometryPropertyIndex = 5;
-        private const int dikeHeightPropertyIndex = 6;
-        private const int criticalFlowRatePropertyIndex = 7;
-        private const int hydraulicBoundaryLocationPropertyIndex = 8;
-        private const int calculateDikeHeightPropertyIndex = 9;
-        private const int calculateOvertoppingRatePropertyIndex = 10;
-        private const int overtoppingOutputIllustrationPointsPropertyIndex = 11;
-        private const int dikeHeightOutputIllustrationPointsPropertyIndex = 12;
-        private const int overtoppingRateIllustrationPointsPropertyIndex = 13;
+        private const int hydraulicBoundaryLocationPropertyIndex = 0;
+        private const int dikeProfilePropertyIndex = 1;
+        private const int worldReferencePointPropertyIndex = 2;
+        private const int orientationPropertyIndex = 3;
+        private const int breakWaterPropertyIndex = 4;
+        private const int foreshorePropertyIndex = 5;
+        private const int dikeGeometryPropertyIndex = 6;
+        private const int dikeHeightPropertyIndex = 7;
+        private const int criticalFlowRatePropertyIndex = 8;
+        private const int shouldOvertoppingOutputIllustrationPointsBeCalculatedPropertyIndex = 9;
+        private const int calculateDikeHeightPropertyIndex = 10;
+        private const int shouldDikeHeightIllustrationPointsBeCalculatedPropertyIndex = 11;
+        private const int calculateOvertoppingRatePropertyIndex = 12;
+        private const int shouldOvertoppingRateIllustrationPointsBeCalculatedPropertyIndex = 13;
+
         private MockRepository mockRepository;
         private IObservablePropertyChangeHandler handler;
         private IAssessmentSection assessmentSection;
@@ -155,29 +156,27 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             // Assert
-            Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
+            Assert.IsNull(properties.SelectedHydraulicBoundaryLocation);
             Assert.IsNull(properties.DikeProfile);
+            Assert.IsNull(properties.WorldReferencePoint);
+            Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
             Assert.IsNaN(properties.Orientation.Value);
-            Assert.IsInstanceOf<UseBreakWaterProperties>(
-                properties.BreakWater);
-            Assert.IsInstanceOf<UseForeshoreProperties>(
-                properties.Foreshore);
+            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
+            Assert.IsInstanceOf<UseForeshoreProperties>(properties.Foreshore);
             Assert.AreSame(inputContext, properties.DikeGeometry.Data);
             Assert.AreEqual(2, properties.DikeHeight.NumberOfDecimalPlaces);
             Assert.IsNaN(properties.DikeHeight);
             Assert.AreEqual(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
-            Assert.IsNull(properties.SelectedHydraulicBoundaryLocation);
+            Assert.IsFalse(properties.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
             Assert.AreEqual(input.DikeHeightCalculationType, properties.DikeHeightCalculationType);
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsInputContextProperties, EnumTypeConverter>(
                 nameof(GrassCoverErosionInwardsInputContextProperties.DikeHeightCalculationType));
+            Assert.IsFalse(properties.ShouldDikeHeightIllustrationPointsBeCalculated);
             Assert.AreEqual(input.OvertoppingRateCalculationType, properties.OvertoppingRateCalculationType);
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsInputContextProperties, EnumTypeConverter>(
                 nameof(GrassCoverErosionInwardsInputContextProperties.OvertoppingRateCalculationType));
-            Assert.IsNull(properties.WorldReferencePoint);
             Assert.IsFalse(properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
-            Assert.IsFalse(properties.ShouldDikeHeightIllustrationPointsBeCalculated);
-            Assert.IsFalse(properties.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
 
             mockRepository.VerifyAll();
         }
@@ -201,26 +200,31 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             // Assert
+            Assert.AreSame(input.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
             Assert.AreSame(input.DikeProfile, properties.DikeProfile);
+            Assert.AreEqual(new Point2D(12, 57), properties.WorldReferencePoint);
             Assert.AreEqual(0.0, properties.Orientation.Value);
-            Assert.IsInstanceOf<UseBreakWaterProperties>(
-                properties.BreakWater);
-            Assert.IsInstanceOf<UseForeshoreProperties>(
-                properties.Foreshore);
+            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
+            Assert.IsInstanceOf<UseForeshoreProperties>(properties.Foreshore);
             Assert.AreSame(inputContext, properties.DikeGeometry.Data);
             Assert.AreEqual(2, properties.DikeHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, properties.DikeHeight.Value);
             Assert.AreEqual(input.CriticalFlowRate.Mean, properties.CriticalFlowRate.Mean);
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
-            Assert.AreSame(input.HydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
-            Assert.AreEqual(input.DikeHeightCalculationType, properties.DikeHeightCalculationType);
-            Assert.AreEqual(input.OvertoppingRateCalculationType, properties.OvertoppingRateCalculationType);
-            Assert.AreEqual(new Point2D(12, 57), properties.WorldReferencePoint);
-            Assert.IsFalse(properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
-            Assert.IsFalse(properties.ShouldDikeHeightIllustrationPointsBeCalculated);
             Assert.IsFalse(properties.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            Assert.AreEqual(input.DikeHeightCalculationType, properties.DikeHeightCalculationType);
+            Assert.IsFalse(properties.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.AreEqual(input.OvertoppingRateCalculationType, properties.OvertoppingRateCalculationType);
+            Assert.IsFalse(properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void DikeProfile_Always_InputChangedAndObservablesNotified()
+        {
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
+            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.DikeProfile = dikeProfile);
         }
 
         [Test]
@@ -252,13 +256,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             var overtoppingRateCalculationType = new Random(21).NextEnumValue<OvertoppingRateCalculationType>();
             SetPropertyAndVerifyNotificationsAndOutput(properties => properties.OvertoppingRateCalculationType = overtoppingRateCalculationType);
-        }
-
-        [Test]
-        public void DikeProfile_Always_InputChangedAndObservablesNotified()
-        {
-            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
-            SetPropertyAndVerifyNotificationsAndOutput(properties => properties.DikeProfile = dikeProfile);
         }
 
         [Test]
@@ -657,15 +654,21 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);
 
             // Assert
+            const string hydraulicDataCategoryName = "\t\t\t\t\tHydraulische gegevens";
             const string schematizationCategoryName = "\t\t\t\tSchematisatie";
             const string criticalValuesCategoryName = "\t\t\tToetseisen";
-            const string hydraulicDataCategoryName = "\t\t\t\t\tHydraulische gegevens";
+            const string overtoppingOutputCategoryName = "\t\tSterkte berekening";
             const string dikeHeightCategoryName = "\tHBN";
             const string overtoppingRateCategoryName = "Overslagdebiet";
-            const string overtoppingOutputCategoryName = "\t\tSterkte berekening";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(14, dynamicProperties.Count);
+
+            PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hydraulicBoundaryLocationProperty,
+                                                                            hydraulicDataCategoryName,
+                                                                            "Hydraulische belastingenlocatie",
+                                                                            "De hydraulische belastingenlocatie.");
 
             PropertyDescriptor dikeProfileProperty = dynamicProperties[dikeProfilePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeProfileProperty,
@@ -726,34 +729,28 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "Kritiek overslagdebiet per strekkende meter.",
                                                                             true);
 
-            PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hydraulicBoundaryLocationProperty,
-                                                                            hydraulicDataCategoryName,
-                                                                            "Hydraulische belastingenlocatie",
-                                                                            "De hydraulische belastingenlocatie.");
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[shouldOvertoppingOutputIllustrationPointsBeCalculatedPropertyIndex],
+                                                                            overtoppingOutputCategoryName,
+                                                                            "Illustratiepunten inlezen   ",
+                                                                            "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[calculateDikeHeightPropertyIndex],
                                                                             dikeHeightCategoryName,
                                                                             "HBN berekenen",
                                                                             "Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend.");
 
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[calculateOvertoppingRatePropertyIndex],
-                                                                            overtoppingRateCategoryName,
-                                                                            "Overslagdebiet berekenen",
-                                                                            "Geeft aan of ook het overslagdebiet moet worden berekend.");
-
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[overtoppingOutputIllustrationPointsPropertyIndex],
-                                                                            overtoppingOutputCategoryName,
-                                                                            "Illustratiepunten inlezen   ",
-                                                                            "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
-
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[dikeHeightOutputIllustrationPointsPropertyIndex],
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[shouldDikeHeightIllustrationPointsBeCalculatedPropertyIndex],
                                                                             dikeHeightCategoryName,
                                                                             "Illustratiepunten inlezen ",
                                                                             "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.",
                                                                             !calculationsEnabled);
 
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[overtoppingRateIllustrationPointsPropertyIndex],
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[calculateOvertoppingRatePropertyIndex],
+                                                                            overtoppingRateCategoryName,
+                                                                            "Overslagdebiet berekenen",
+                                                                            "Geeft aan of ook het overslagdebiet moet worden berekend.");
+
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[shouldOvertoppingRateIllustrationPointsBeCalculatedPropertyIndex],
                                                                             overtoppingRateCategoryName,
                                                                             "Illustratiepunten inlezen  ",
                                                                             "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.",
