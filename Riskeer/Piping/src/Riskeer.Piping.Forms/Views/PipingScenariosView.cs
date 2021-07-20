@@ -74,7 +74,7 @@ namespace Riskeer.Piping.Forms.Views
                                                                                          .OfType<SemiProbabilisticPipingCalculationScenario>()
                                                                                          .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
-            return pipingCalculations.Select(pc => new PipingScenarioRow(pc, FailureMechanism, assessmentSection)).ToList();
+            return pipingCalculations.Select(pc => new PipingScenarioRow(pc, assessmentSection)).ToList();
         }
 
         protected override void InitializeDataGridView()

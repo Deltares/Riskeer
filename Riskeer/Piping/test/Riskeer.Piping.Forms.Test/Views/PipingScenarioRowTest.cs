@@ -38,32 +38,13 @@ namespace Riskeer.Piping.Forms.Test.Views
     public class PipingScenarioRowTest
     {
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new SemiProbabilisticPipingCalculationScenario();
-
-            // Call
-            void Call() => new PipingScenarioRow(calculation, null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var calculation = new SemiProbabilisticPipingCalculationScenario();
 
             // Call
-            void Call() => new PipingScenarioRow(calculation, new PipingFailureMechanism(), null);
+            void Call() => new PipingScenarioRow(calculation, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -83,7 +64,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var calculation = new SemiProbabilisticPipingCalculationScenario();
 
             // Call
-            var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new PipingScenarioRow(calculation, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ScenarioRow<SemiProbabilisticPipingCalculationScenario>>(row);
@@ -113,7 +94,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             };
 
             // Call
-            var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new PipingScenarioRow(calculation, assessmentSection);
 
             // Assert
             DerivedSemiProbabilisticPipingOutput expectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(calculation.Output, assessmentSection.FailureMechanismContribution.Norm);
@@ -136,7 +117,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var calculation = new SemiProbabilisticPipingCalculationScenario();
 
             // Call
-            var row = new PipingScenarioRow(calculation, new PipingFailureMechanism(), assessmentSection);
+            var row = new PipingScenarioRow(calculation, assessmentSection);
 
             // Assert
             Assert.IsNaN(row.FailureProbability);
@@ -158,7 +139,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var calculation = new SemiProbabilisticPipingCalculationScenario();
 
-            var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new PipingScenarioRow(calculation, assessmentSection);
 
             // Precondition
             Assert.IsNaN(row.FailureProbability);
@@ -194,7 +175,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             };
 
-            var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new PipingScenarioRow(calculation, assessmentSection);
 
             // Precondition
             DerivedSemiProbabilisticPipingOutput expectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(calculation.Output, assessmentSection.FailureMechanismContribution.Norm);
@@ -230,7 +211,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             };
 
-            var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new PipingScenarioRow(calculation, assessmentSection);
 
             // Precondition
             DerivedSemiProbabilisticPipingOutput expectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(calculation.Output, assessmentSection.FailureMechanismContribution.Norm);

@@ -24,7 +24,6 @@ using System.ComponentModel;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Forms.Views
@@ -34,7 +33,6 @@ namespace Riskeer.Piping.Forms.Views
     /// </summary>
     public class PipingScenarioRow : ScenarioRow<SemiProbabilisticPipingCalculationScenario>
     {
-        private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
         private DerivedSemiProbabilisticPipingOutput derivedOutput;
 
@@ -42,23 +40,16 @@ namespace Riskeer.Piping.Forms.Views
         /// Creates a new instance of <see cref="PipingCalculationRow"/>.
         /// </summary>
         /// <param name="calculationScenario">The <see cref="SemiProbabilisticPipingCalculationScenario"/> this row contains.</param>
-        /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section that the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal PipingScenarioRow(SemiProbabilisticPipingCalculationScenario calculationScenario, PipingFailureMechanism failureMechanism,
-                                   IAssessmentSection assessmentSection) : base(calculationScenario)
+        internal PipingScenarioRow(SemiProbabilisticPipingCalculationScenario calculationScenario, IAssessmentSection assessmentSection)
+            : base(calculationScenario)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
             CreateDerivedOutput();
