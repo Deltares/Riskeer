@@ -319,7 +319,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
         {
             // Setup
             DikeProfile profileToBeRemoved = DikeProfileTestFactory.CreateDikeProfile("Removed profile", "removed profile ID");
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -359,7 +359,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
         {
             // Setup
             DikeProfile affectedProfile = DikeProfileTestFactory.CreateDikeProfile("Profile to be updated", "ID of updated profile");
-            var affectedCalculation = new GrassCoverErosionInwardsCalculation
+            var affectedCalculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -371,7 +371,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             const string unaffectedProfileName = "Unaffected Profile";
             const string unaffectedProfileId = "unaffected profile Id";
             DikeProfile unaffectedProfile = DikeProfileTestFactory.CreateDikeProfile(unaffectedProfileName, unaffectedProfileId);
-            var unaffectedCalculation = new GrassCoverErosionInwardsCalculation
+            var unaffectedCalculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -426,7 +426,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
         {
             // Setup
             DikeProfile removedProfile = DikeProfileTestFactory.CreateDikeProfile("Profile to be removed", "ID of removed profile");
-            var affectedCalculation = new GrassCoverErosionInwardsCalculation
+            var affectedCalculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -438,7 +438,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             const string unaffectedProfileName = "Unaffected Profile";
             const string unaffectedProfileId = "unaffected profile Id";
             DikeProfile unaffectedProfile = DikeProfileTestFactory.CreateDikeProfile(unaffectedProfileName, unaffectedProfileId);
-            var unaffectedCalculation = new GrassCoverErosionInwardsCalculation
+            var unaffectedCalculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -488,7 +488,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
         {
             // Setup
             DikeProfile affectedProfile = DikeProfileTestFactory.CreateDikeProfile("Profile to be updated", "ID of updated profile");
-            var affectedCalculation = new GrassCoverErosionInwardsCalculation
+            var affectedCalculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -537,7 +537,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             };
 
             DikeProfile affectedProfile = DikeProfileTestFactory.CreateDikeProfile(geometry, id);
-            var affectedCalculation = new GrassCoverErosionInwardsCalculation
+            var affectedCalculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {

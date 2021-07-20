@@ -137,7 +137,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ExportInfos
 
             if (hasCalculation)
             {
-                calculationGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
+                calculationGroup.Children.Add(new GrassCoverErosionInwardsCalculation(double.NaN));
             }
 
             var context = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup,

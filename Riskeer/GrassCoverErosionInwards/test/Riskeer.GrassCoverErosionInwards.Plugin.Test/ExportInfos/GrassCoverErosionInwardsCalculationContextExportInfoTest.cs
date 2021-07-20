@@ -88,7 +88,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new GrassCoverErosionInwardsCalculationScenarioContext(new GrassCoverErosionInwardsCalculationScenario(),
+            var context = new GrassCoverErosionInwardsCalculationScenarioContext(new GrassCoverErosionInwardsCalculationScenario(double.NaN),
                                                                                  new CalculationGroup(),
                                                                                  new GrassCoverErosionInwardsFailureMechanism(),
                                                                                  assessmentSection);
@@ -107,7 +107,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new GrassCoverErosionInwardsCalculationScenarioContext(new GrassCoverErosionInwardsCalculationScenario(),
+            var context = new GrassCoverErosionInwardsCalculationScenarioContext(new GrassCoverErosionInwardsCalculationScenario(double.NaN),
                                                                                  new CalculationGroup(),
                                                                                  new GrassCoverErosionInwardsFailureMechanism(),
                                                                                  assessmentSection);

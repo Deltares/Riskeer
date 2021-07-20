@@ -44,10 +44,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(null);
+            void Call() => new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -202,7 +202,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             // Setup
             DikeProfile existingDikeProfile = DikeProfileTestFactory.CreateDikeProfile("test", "ID1");
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
