@@ -33,6 +33,7 @@ using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.UITypeEditors;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionInwards.Forms.Properties;
@@ -58,9 +59,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int criticalFlowRatePropertyIndex = 9;
         private const int shouldOvertoppingOutputIllustrationPointsBeCalculatedPropertyIndex = 10;
         private const int shouldDikeHeightBeCalculatedPropertyIndex = 11;
-        private const int shouldDikeHeightIllustrationPointsBeCalculatedPropertyIndex = 12;
-        private const int shouldOvertoppingRateBeCalculatedPropertyIndex = 13;
-        private const int shouldOvertoppingRateIllustrationPointsBeCalculatedPropertyIndex = 14;
+        private const int dikeHeightReliabilityIndexPropertyIndex = 12;
+        private const int shouldDikeHeightIllustrationPointsBeCalculatedPropertyIndex = 13;
+        private const int shouldOvertoppingRateBeCalculatedPropertyIndex = 14;
+        private const int overtoppingRateReliabilityIndexPropertyIndex = 15;
+        private const int shouldOvertoppingRateIllustrationPointsBeCalculatedPropertyIndex = 16;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
@@ -235,6 +238,20 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(dikeHeightReliabilityIndexPropertyIndex)]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight), 5, 6)]
+        [DisplayName("Doelkans (1/jaar)")]
+        [Description("Doelkans (1/jaar)")]
+        public double DikeHeightReliabilityIndex
+        {
+            get => data.WrappedData.DikeHeightReliabilityIndex;
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.DikeHeightReliabilityIndex = value, propertyChangeHandler);
+            }
+        }
+
         [DynamicReadOnly]
         [PropertyOrder(shouldDikeHeightIllustrationPointsBeCalculatedPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight), 5, 6)]
@@ -260,6 +277,20 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ShouldOvertoppingRateBeCalculated = value, propertyChangeHandler);
+            }
+        }
+        
+        [PropertyOrder(overtoppingRateReliabilityIndexPropertyIndex)]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingRate), 6, 6)]
+        [DisplayName("Doelkans (1/jaar)")]
+        [Description("Doelkans (1/jaar)")]
+        public double OvertoppingRateReliabilityIndex
+        {
+            get => data.WrappedData.OvertoppingRateReliabilityIndex;
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.OvertoppingRateReliabilityIndex = value, propertyChangeHandler);
             }
         }
 
