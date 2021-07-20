@@ -199,24 +199,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend..
-        /// </summary>
-        public static string DikeHeightCalculationType_Description {
-            get {
-                return ResourceManager.GetString("DikeHeightCalculationType_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HBN berekenen.
-        /// </summary>
-        public static string DikeHeightCalculationType_DisplayName {
-            get {
-                return ResourceManager.GetString("DikeHeightCalculationType_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Is convergentie bereikt in de HBN berekening?.
         /// </summary>
         public static string DikeHeightOutput_Convergence_Description {
@@ -475,6 +457,24 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         public static string OvertoppingRateOutput_Convergence_Description {
             get {
                 return ResourceManager.GetString("OvertoppingRateOutput_Convergence_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend..
+        /// </summary>
+        public static string ShouldDikeHeightBeCalculated_Description {
+            get {
+                return ResourceManager.GetString("ShouldDikeHeightBeCalculated_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HBN berekenen.
+        /// </summary>
+        public static string ShouldDikeHeightBeCalculated_DisplayName {
+            get {
+                return ResourceManager.GetString("ShouldDikeHeightBeCalculated_DisplayName", resourceCulture);
             }
         }
         

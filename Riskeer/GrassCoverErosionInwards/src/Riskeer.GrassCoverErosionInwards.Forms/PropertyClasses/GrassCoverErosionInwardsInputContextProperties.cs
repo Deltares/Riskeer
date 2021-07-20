@@ -59,7 +59,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int dikeHeightPropertyIndex = 8;
         private const int criticalFlowRatePropertyIndex = 9;
         private const int shouldOvertoppingOutputIllustrationPointsBeCalculatedPropertyIndex = 10;
-        private const int calculateDikeHeightPropertyIndex = 11;
+        private const int shouldDikeHeightBeCalculatedPropertyIndex = 11;
         private const int shouldDikeHeightIllustrationPointsBeCalculatedPropertyIndex = 12;
         private const int calculateOvertoppingRatePropertyIndex = 13;
         private const int shouldOvertoppingRateIllustrationPointsBeCalculatedPropertyIndex = 14;
@@ -224,17 +224,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(calculateDikeHeightPropertyIndex)]
+        [PropertyOrder(shouldDikeHeightBeCalculatedPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight), 5, 6)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeHeightCalculationType_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.DikeHeightCalculationType_Description))]
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public DikeHeightCalculationType DikeHeightCalculationType
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldDikeHeightBeCalculated_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldDikeHeightBeCalculated_Description))]
+        public bool ShouldDikeHeightBeCalculated
         {
-            get => data.WrappedData.DikeHeightCalculationType;
+            get => data.WrappedData.ShouldDikeHeightBeCalculated;
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.DikeHeightCalculationType = value, propertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ShouldDikeHeightBeCalculated = value, propertyChangeHandler);
             }
         }
 
@@ -312,7 +311,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
             if (propertyName.Equals(nameof(ShouldDikeHeightIllustrationPointsBeCalculated)))
             {
-                return DikeHeightCalculationType == DikeHeightCalculationType.NoCalculation;
+                return !ShouldDikeHeightBeCalculated;
             }
 
             if (propertyName.Equals(nameof(ShouldOvertoppingRateIllustrationPointsBeCalculated)))
