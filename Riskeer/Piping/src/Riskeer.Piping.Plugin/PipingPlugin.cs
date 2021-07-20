@@ -106,7 +106,7 @@ namespace Riskeer.Piping.Plugin
             };
             yield return new PropertyInfo<SemiProbabilisticPipingOutputContext, SemiProbabilisticPipingOutputProperties>
             {
-                CreateInstance = context => new SemiProbabilisticPipingOutputProperties(context.WrappedData, context.FailureMechanism, context.AssessmentSection)
+                CreateInstance = context => new SemiProbabilisticPipingOutputProperties(context.WrappedData, context.AssessmentSection.FailureMechanismContribution.Norm)
             };
             yield return new PropertyInfo<PipingSurfaceLinesContext, PipingSurfaceLineCollectionProperties>
             {
@@ -636,7 +636,7 @@ namespace Riskeer.Piping.Plugin
 
         private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object dataToCloseFor)
         {
-            PipingFailureMechanism failureMechanism = dataToCloseFor as PipingFailureMechanism;
+            var failureMechanism = dataToCloseFor as PipingFailureMechanism;
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
