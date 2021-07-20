@@ -331,7 +331,7 @@ namespace Riskeer.Piping.Plugin
                     () => ((PartialProbabilisticFaultTreePipingOutput) context.WrappedData.Output?.ProfileSpecificOutput)?.GeneralResult)
             };
 
-            yield return new ViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticSubMechanismPipingProfileSpecificOutputView>
+            yield return new ViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticSubMechanismPipingOutputView>
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticProfileSpecificOutput_DisplayName,
@@ -340,7 +340,7 @@ namespace Riskeer.Piping.Plugin
                 AdditionalDataCheck = context => context.WrappedData.HasOutput && context.WrappedData.Output.ProfileSpecificOutput is PartialProbabilisticSubMechanismPipingOutput,
                 CreateInstance = context =>
                 {
-                    return new ProbabilisticSubMechanismPipingProfileSpecificOutputView(
+                    return new ProbabilisticSubMechanismPipingOutputView(
                         context.WrappedData,
                         () => ((PartialProbabilisticSubMechanismPipingOutput) context.WrappedData.Output?.ProfileSpecificOutput)?.GeneralResult);
                 }
@@ -361,7 +361,7 @@ namespace Riskeer.Piping.Plugin
                 }
             };
 
-            yield return new ViewInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticSubMechanismPipingSectionSpecificOutputView>
+            yield return new ViewInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticSubMechanismPipingOutputView>
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticSectionSpecificOutput_DisplayName,
@@ -370,7 +370,7 @@ namespace Riskeer.Piping.Plugin
                 AdditionalDataCheck = context => context.WrappedData.HasOutput && context.WrappedData.Output.SectionSpecificOutput is PartialProbabilisticSubMechanismPipingOutput,
                 CreateInstance = context =>
                 {
-                    return new ProbabilisticSubMechanismPipingSectionSpecificOutputView(
+                    return new ProbabilisticSubMechanismPipingOutputView(
                         context.WrappedData,
                         () => ((PartialProbabilisticSubMechanismPipingOutput) context.WrappedData.Output?.SectionSpecificOutput)?.GeneralResult);
                 }

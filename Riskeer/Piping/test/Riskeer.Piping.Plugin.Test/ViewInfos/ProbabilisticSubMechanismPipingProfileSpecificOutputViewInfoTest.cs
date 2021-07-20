@@ -54,7 +54,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ProbabilisticSubMechanismPipingProfileSpecificOutputView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ProbabilisticSubMechanismPipingOutputView));
         }
 
         [TearDown]
@@ -157,7 +157,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<ProbabilisticSubMechanismPipingProfileSpecificOutputView>(view);
+            Assert.IsInstanceOf<ProbabilisticSubMechanismPipingOutputView>(view);
         }
 
         [TestFixture]

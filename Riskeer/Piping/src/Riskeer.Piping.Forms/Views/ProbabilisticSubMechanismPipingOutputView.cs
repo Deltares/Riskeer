@@ -28,20 +28,20 @@ namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
     /// Override of <see cref="GeneralResultSubMechanismIllustrationPointView"/> for making output views for
-    /// <see cref="ProbabilisticPipingOutput.SectionSpecificOutput"/> uniquely identifiable (when it comes
-    /// to opening/closing views).
+    /// <see cref="ProbabilisticPipingCalculationScenario"/> uniquely identifiable (when it comes to
+    /// opening/closing views).
     /// </summary>
-    public class ProbabilisticSubMechanismPipingSectionSpecificOutputView : GeneralResultSubMechanismIllustrationPointView
+    public class ProbabilisticSubMechanismPipingOutputView : GeneralResultSubMechanismIllustrationPointView
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ProbabilisticSubMechanismPipingSectionSpecificOutputView"/>.
+        /// Creates a new instance of <see cref="ProbabilisticSubMechanismPipingOutputView"/>.
         /// </summary>
         /// <param name="calculation">The calculation to show the illustration points for.</param>
         /// <param name="getGeneralResultFunc">A <see cref="Func{TResult}"/> for obtaining the illustration point
         /// data (<see cref="GeneralResult{T}"/> with <see cref="TopLevelSubMechanismIllustrationPoint"/> objects)
         /// that must be presented.</param>
         /// <exception cref="NullReferenceException">Thrown when any parameter is <c>null</c>.</exception>
-        public ProbabilisticSubMechanismPipingSectionSpecificOutputView(
+        public ProbabilisticSubMechanismPipingOutputView(
             ProbabilisticPipingCalculationScenario calculation,
             Func<GeneralResult<TopLevelSubMechanismIllustrationPoint>> getGeneralResultFunc)
             : base(calculation, getGeneralResultFunc) {}
