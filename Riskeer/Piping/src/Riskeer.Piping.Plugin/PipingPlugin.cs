@@ -346,7 +346,7 @@ namespace Riskeer.Piping.Plugin
                 }
             };
 
-            yield return new ViewInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticFaultTreePipingSectionSpecificOutputView>
+            yield return new ViewInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticFaultTreePipingOutputView>
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticSectionSpecificOutput_DisplayName,
@@ -355,7 +355,7 @@ namespace Riskeer.Piping.Plugin
                 AdditionalDataCheck = context => !context.WrappedData.HasOutput || context.WrappedData.Output.SectionSpecificOutput is PartialProbabilisticFaultTreePipingOutput,
                 CreateInstance = context =>
                 {
-                    return new ProbabilisticFaultTreePipingSectionSpecificOutputView(
+                    return new ProbabilisticFaultTreePipingOutputView(
                         context.WrappedData,
                         () => ((PartialProbabilisticFaultTreePipingOutput) context.WrappedData.Output?.SectionSpecificOutput)?.GeneralResult);
                 }

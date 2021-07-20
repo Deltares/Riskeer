@@ -169,14 +169,14 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 using (var plugin = new PipingPlugin())
                 {
                     return plugin.GetViewInfos()
-                                 .First(tni => tni.ViewType == typeof(ProbabilisticFaultTreePipingSectionSpecificOutputView))
+                                 .First(tni => tni.ViewType == typeof(ProbabilisticFaultTreePipingOutputView))
                                  .CloseForData(view, o);
                 }
             }
 
             protected override IView GetView(ICalculation data)
             {
-                return new ProbabilisticFaultTreePipingSectionSpecificOutputView(
+                return new ProbabilisticFaultTreePipingOutputView(
                     (ProbabilisticPipingCalculationScenario) data,
                     () => new TestGeneralResultFaultTreeIllustrationPoint());
             }
