@@ -99,7 +99,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            Color color = info.ForeColor(new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation(),
+            Color color = info.ForeColor(new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation(double.NaN),
                                                                                    failureMechanism,
                                                                                    assessmentSection));
 
@@ -119,7 +119,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            Color color = info.ForeColor(new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation
+            Color color = info.ForeColor(new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             }, failureMechanism, assessmentSection));
@@ -151,7 +151,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
+            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = hasOutput ? new TestGrassCoverErosionInwardsOutput() : null
             };

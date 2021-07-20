@@ -80,8 +80,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var input = new GrassCoverErosionInwardsInput();
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var input = new GrassCoverErosionInwardsInput(double.NaN);
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var context = new GrassCoverErosionInwardsInputContext(input,
                                                                    calculation,
                                                                    new GrassCoverErosionInwardsFailureMechanism(),
@@ -101,7 +101,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
             var calculationContext = new GrassCoverErosionInwardsCalculationScenarioContext(calculation,
                                                                                             new CalculationGroup(),
                                                                                             new GrassCoverErosionInwardsFailureMechanism(),
@@ -128,8 +128,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
-            var calculationToRemove = new GrassCoverErosionInwardsCalculationScenario();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
+            var calculationToRemove = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
 
             var calculationContext = new GrassCoverErosionInwardsCalculationScenarioContext(calculationToRemove,
                                                                                             new CalculationGroup(),
@@ -157,7 +157,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
@@ -186,7 +186,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
@@ -215,7 +215,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var calculationGroup = new CalculationGroup();
             var nestedGroup = new CalculationGroup();
             nestedGroup.Children.Add(calculation);
@@ -246,7 +246,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var calculationGroup = new CalculationGroup();
             var nestedGroup = new CalculationGroup();
             nestedGroup.Children.Add(calculation);
@@ -277,7 +277,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
@@ -304,7 +304,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
@@ -331,7 +331,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
@@ -361,7 +361,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
@@ -388,7 +388,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
@@ -418,7 +418,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
@@ -432,7 +432,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (var view = new GrassCoverErosionInwardsInputView
             {
-                Data = new GrassCoverErosionInwardsCalculation()
+                Data = new GrassCoverErosionInwardsCalculation(double.NaN)
             })
             {
                 // Call
@@ -448,7 +448,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
@@ -481,7 +481,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
@@ -498,7 +498,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             using (var view = new GrassCoverErosionInwardsInputView
             {
-                Data = new GrassCoverErosionInwardsCalculation()
+                Data = new GrassCoverErosionInwardsCalculation(double.NaN)
             })
             {
                 // Call
