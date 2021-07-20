@@ -59,7 +59,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil
                 throw new ArgumentNullException(nameof(section));
             }
 
-            var scenario = new GrassCoverErosionInwardsCalculationScenario
+            var scenario = new GrassCoverErosionInwardsCalculationScenario(0.0)
             {
                 IsRelevant = true,
                 InputParameters =

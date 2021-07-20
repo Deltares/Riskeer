@@ -46,8 +46,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var input = new GrassCoverErosionInwardsInput();
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var input = new GrassCoverErosionInwardsInput(double.NaN);
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
@@ -69,14 +69,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var input = new GrassCoverErosionInwardsInput();
+            var input = new GrassCoverErosionInwardsInput(double.NaN);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsInputContext(input, null, failureMechanism, assessmentSection);
+            void Call() => new GrassCoverErosionInwardsInputContext(input, null, failureMechanism, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
             mocksRepository.VerifyAll();
         }

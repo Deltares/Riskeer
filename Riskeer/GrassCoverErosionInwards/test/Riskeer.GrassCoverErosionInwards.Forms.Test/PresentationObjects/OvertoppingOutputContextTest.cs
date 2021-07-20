@@ -41,7 +41,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
 
             // Call
             var context = new OvertoppingOutputContext(calculation, failureMechanism, assessmentSection);
@@ -55,7 +55,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructror_FailureMechanismNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -63,10 +63,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new OvertoppingOutputContext(new GrassCoverErosionInwardsCalculation(), null, assessmentSection);
+            void Call() => new OvertoppingOutputContext(new GrassCoverErosionInwardsCalculation(double.NaN), null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -75,12 +75,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new OvertoppingOutputContext(new GrassCoverErosionInwardsCalculation(),
-                                                                   new GrassCoverErosionInwardsFailureMechanism(),
-                                                                   null);
+            void Call() => new OvertoppingOutputContext(new GrassCoverErosionInwardsCalculation(double.NaN),
+                                                        new GrassCoverErosionInwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }

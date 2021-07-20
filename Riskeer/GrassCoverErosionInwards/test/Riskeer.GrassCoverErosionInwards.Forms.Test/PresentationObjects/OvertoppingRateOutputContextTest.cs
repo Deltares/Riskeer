@@ -33,7 +33,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
 
             // Call
             var overtoppingRateOutputContext = new OvertoppingRateOutputContext(calculation);

@@ -68,8 +68,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var input = new GrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
+            var input = new GrassCoverErosionInwardsInput(double.NaN);
             var properties = new GrassCoverErosionInwardsInputContextDikeGeometryProperties();
 
             // Call
@@ -95,7 +95,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                 new RoughnessPoint(new Point2D(3.3, 4.4), 0.7)
             });
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -132,8 +132,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var input = new GrassCoverErosionInwardsInput();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
+            var input = new GrassCoverErosionInwardsInput(double.NaN);
 
             // Call
             var properties = new GrassCoverErosionInwardsInputContextDikeGeometryProperties
