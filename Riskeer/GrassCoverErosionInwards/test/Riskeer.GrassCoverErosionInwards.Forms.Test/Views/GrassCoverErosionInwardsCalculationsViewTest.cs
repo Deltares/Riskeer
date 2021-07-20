@@ -775,7 +775,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             {
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculationScenario
+                    new GrassCoverErosionInwardsCalculationScenario(double.NaN)
                     {
                         Name = "Calculation 1",
                         Comments =
@@ -808,7 +808,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                         },
                         Output = null
                     },
-                    new GrassCoverErosionInwardsCalculationScenario
+                    new GrassCoverErosionInwardsCalculationScenario(double.NaN)
                     {
                         Name = "Calculation 2",
                         Comments =

@@ -58,7 +58,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario();
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
 
             // Call
             var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, handler);
@@ -87,7 +87,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(newLocation, new Point2D(0, 0));
             var newValue = new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(selectableHydraulicBoundaryLocation);
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue, calculation);
@@ -100,7 +100,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             DikeProfile newProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 0.0));
             var newValue = new DataGridViewComboBoxItemWrapper<DikeProfile>(newProfile);
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.DikeProfile = newValue, calculation);
@@ -112,7 +112,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var dikeProfileChangedCounter = 0;
             var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var row = new GrassCoverErosionInwardsCalculationRow(new GrassCoverErosionInwardsCalculationScenario(), handler);
+            var row = new GrassCoverErosionInwardsCalculationRow(new GrassCoverErosionInwardsCalculationScenario(double.NaN), handler);
 
             row.DikeProfileChanged += (s, a) => dikeProfileChangedCounter++;
 
@@ -151,7 +151,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var dikeProfileChangedCounter = 0;
             var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
-            var row = new GrassCoverErosionInwardsCalculationRow(new GrassCoverErosionInwardsCalculationScenario
+            var row = new GrassCoverErosionInwardsCalculationRow(new GrassCoverErosionInwardsCalculationScenario(double.NaN)
             {
                 InputParameters =
                 {
@@ -174,7 +174,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             const bool newValue = true;
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseBreakWater = newValue, calculation);
@@ -210,7 +210,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void BreakWaterType_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged(BreakWaterType breakWaterType, BreakWaterType newBreakWaterType)
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
             {
                 InputParameters =
                 {
@@ -252,7 +252,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var newValue = new RoundedDouble(4, 16);
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.BreakWaterHeight = newValue, calculation);
@@ -285,7 +285,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             const bool newValue = true;
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseForeshoreGeometry = newValue, calculation);
@@ -318,7 +318,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var newValue = new RoundedDouble(2, 2.08);
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.DikeHeight = newValue, calculation);
@@ -351,7 +351,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var newValue = new RoundedDouble(4, 0.03);
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.MeanCriticalFlowRate = newValue, calculation);
@@ -384,7 +384,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var newValue = new RoundedDouble(4, 0.0004);
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.StandardDeviationCriticalFlowRate = newValue, calculation);
@@ -516,10 +516,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void Constructor_DikeProfileNull_CorrectColumnStates()
         {
             // Setup
-            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario();
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
 
             // Call
-            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(calculationScenario, new GrassCoverErosionInwardsInput()));
+            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(
+                                                                     calculationScenario, new GrassCoverErosionInwardsInput(double.NaN)));
 
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -535,7 +536,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void Constructor_DikeProfileWithoutForeshoreGeometry_CorrectColumnStates(bool useBreakWater)
         {
             // Setup
-            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
             {
                 InputParameters =
                 {
@@ -545,7 +546,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             };
 
             // Call
-            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(calculationScenario, new GrassCoverErosionInwardsInput()));
+            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(
+                                                                     calculationScenario, new GrassCoverErosionInwardsInput(double.NaN)));
 
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -561,7 +563,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void Constructor_DikeProfileWithForeshoreGeometry_CorrectColumnStates(bool useBreakWater)
         {
             // Setup
-            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
             {
                 InputParameters =
                 {
@@ -574,7 +576,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             };
 
             // Call
-            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(calculationScenario, new GrassCoverErosionInwardsInput()));
+            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(
+                                                                     calculationScenario, new GrassCoverErosionInwardsInput(double.NaN)));
 
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -590,7 +593,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void UseBreakWater_AlwaysOnChange_CorrectColumnStates(bool useBreakWater)
         {
             // Setup
-            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
             {
                 InputParameters =
                 {
@@ -599,7 +602,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             };
 
             // Call
-            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(calculationScenario, new GrassCoverErosionInwardsInput()))
+            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(
+                                                                     calculationScenario, new GrassCoverErosionInwardsInput(double.NaN)))
             {
                 UseBreakWater = useBreakWater
             };
@@ -614,7 +618,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void DikeProfile_OnChangeToNull_CorrectColumnStates()
         {
             // Setup
-            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
             {
                 InputParameters =
                 {
@@ -623,7 +627,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             };
 
             // Call
-            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(calculationScenario, new GrassCoverErosionInwardsInput()))
+            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(
+                                                                     calculationScenario, new GrassCoverErosionInwardsInput(double.NaN)))
             {
                 DikeProfile = new DataGridViewComboBoxItemWrapper<DikeProfile>(null)
             };
@@ -640,10 +645,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void DikeProfile_OnChangeToProfileWithoutForeshoreGeometry_CorrectColumnStates()
         {
             // Setup
-            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario();
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
 
             // Call
-            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(calculationScenario, new GrassCoverErosionInwardsInput()))
+            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(
+                                                                     calculationScenario, new GrassCoverErosionInwardsInput(double.NaN)))
             {
                 DikeProfile = new DataGridViewComboBoxItemWrapper<DikeProfile>(DikeProfileTestFactory.CreateDikeProfile())
             };
@@ -660,10 +666,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void DikeProfile_OnChangeToProfileWithForeshoreGeometry_CorrectColumnStates()
         {
             // Setup
-            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario();
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
 
             // Call
-            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(calculationScenario, new GrassCoverErosionInwardsInput()))
+            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(
+                                                                     calculationScenario, new GrassCoverErosionInwardsInput(double.NaN)))
             {
                 DikeProfile = new DataGridViewComboBoxItemWrapper<DikeProfile>(DikeProfileTestFactory.CreateDikeProfile(new[]
                 {
