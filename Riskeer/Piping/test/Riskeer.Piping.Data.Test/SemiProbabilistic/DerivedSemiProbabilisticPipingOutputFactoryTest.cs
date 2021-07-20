@@ -40,12 +40,10 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => DerivedSemiProbabilisticPipingOutputFactory.Create(null,
-                                                                                         new PipingFailureMechanism(),
-                                                                                         assessmentSection);
+            void Call() => DerivedSemiProbabilisticPipingOutputFactory.Create(null, new PipingFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("output", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -59,12 +57,12 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => DerivedSemiProbabilisticPipingOutputFactory.Create(new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties()),
-                                                                                         null,
-                                                                                         assessmentSection);
+            void Call() => DerivedSemiProbabilisticPipingOutputFactory.Create(new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties()),
+                                                                              null,
+                                                                              assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -73,12 +71,12 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedSemiProbabilisticPipingOutputFactory.Create(new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties()),
-                                                                                         new PipingFailureMechanism(),
-                                                                                         null);
+            void Call() => DerivedSemiProbabilisticPipingOutputFactory.Create(new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties()),
+                                                                              new PipingFailureMechanism(),
+                                                                              null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -110,8 +108,6 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             Assert.AreEqual(0.00017624686431291146, derivedOutput.HeaveProbability, 1e-6);
             Assert.AreEqual(0.13596896289025881, derivedOutput.SellmeijerProbability, 1e-6);
             Assert.AreEqual(3.57331, derivedOutput.PipingReliability, derivedOutput.PipingReliability.GetAccuracy());
-            Assert.AreEqual(1.28155, derivedOutput.RequiredReliability, derivedOutput.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(2.788, derivedOutput.PipingFactorOfSafety, derivedOutput.PipingFactorOfSafety.GetAccuracy());
             mocks.VerifyAll();
         }
     }

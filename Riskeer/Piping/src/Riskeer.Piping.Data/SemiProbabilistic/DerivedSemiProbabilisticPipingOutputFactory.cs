@@ -58,8 +58,6 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
             }
 
             double norm = assessmentSection.FailureMechanismContribution.Norm;
-            double contribution = failureMechanism.Contribution / 100;
-            PipingProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
 
             double upliftFactorOfSafety = output.UpliftFactorOfSafety;
             double heaveFactorOfSafety = output.HeaveFactorOfSafety;
@@ -77,20 +75,12 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
             double pipingProbability = PipingProbability(upliftProbability, heaveProbability, sellmeijerProbability);
             double pipingReliability = StatisticsConverter.ProbabilityToReliability(pipingProbability);
 
-            double requiredProbability = RequiredProbability(probabilityAssessmentInput.A,
-                                                             probabilityAssessmentInput.B,
-                                                             assessmentSection.ReferenceLine.Length,
-                                                             norm,
-                                                             contribution);
-            double requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);
-
             return new DerivedSemiProbabilisticPipingOutput(upliftFactorOfSafety, upliftReliability,
                                                             upliftProbability, heaveFactorOfSafety,
                                                             heaveReliability, heaveProbability,
                                                             sellmeijerFactorOfSafety, sellmeijerReliability,
-                                                            sellmeijerProbability, requiredProbability,
-                                                            requiredReliability, pipingProbability,
-                                                            pipingReliability, pipingReliability / requiredReliability);
+                                                            sellmeijerProbability, pipingProbability,
+                                                            pipingReliability);
         }
 
         /// <summary>
@@ -103,20 +93,6 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         private static double PipingProbability(double probabilityOfUplift, double probabilityOfHeave, double probabilityOfSellmeijer)
         {
             return Math.Min(Math.Min(probabilityOfUplift, probabilityOfHeave), probabilityOfSellmeijer);
-        }
-
-        /// <summary>
-        /// Calculates the required probability of the piping failure mechanism for the complete assessment section.
-        /// </summary>
-        /// <param name="constantA">The constant a.</param>
-        /// <param name="constantB">The constant b.</param>
-        /// <param name="sectionLength">The length of the assessment section.</param>
-        /// <param name="norm">The norm.</param>
-        /// <param name="contribution">The contribution of piping to the total failure.</param>
-        /// <returns>A value representing the required probability.</returns>
-        private static double RequiredProbability(double constantA, double constantB, double sectionLength, double norm, double contribution)
-        {
-            return (norm * contribution) / (1 + (constantA * sectionLength) / constantB);
         }
 
         private static double SubMechanismReliability(double factorOfSafety, SubCalculationFactors factors, double norm)
