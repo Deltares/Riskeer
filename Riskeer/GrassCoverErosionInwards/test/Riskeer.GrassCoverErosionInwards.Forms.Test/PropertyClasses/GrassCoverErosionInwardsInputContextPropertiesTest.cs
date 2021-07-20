@@ -759,7 +759,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[dikeHeightReliabilityIndexPropertyIndex],
                                                                             dikeHeightCategoryName,
                                                                             "Doelkans (1/jaar)",
-                                                                            "Doelkans (1/jaar)",
+                                                                            "Overschrijdingskans waarvoor de bijbehorende dijkhoogte wordt berekend.",
                                                                             !calculationsEnabled);
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[shouldDikeHeightIllustrationPointsBeCalculatedPropertyIndex],
@@ -776,7 +776,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[overtoppingRateReliabilityIndexPropertyIndex],
                                                                             overtoppingRateCategoryName,
                                                                             "Doelkans (1/jaar)",
-                                                                            "Doelkans (1/jaar)",
+                                                                            "Overschrijdingskans waarvoor het bijbehorende overslagdebiet wordt berekend.",
                                                                             !calculationsEnabled);
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[shouldOvertoppingRateIllustrationPointsBeCalculatedPropertyIndex],

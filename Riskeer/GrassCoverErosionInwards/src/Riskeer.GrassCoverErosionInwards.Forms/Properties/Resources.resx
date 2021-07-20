@@ -265,4 +265,13 @@
     <value>kritiek overslagdebiet
 [m³/s/m]</value>
   </data>
+  <data name="ReliabilityIndex_DisplayName" xml:space="preserve">
+    <value>Doelkans (1/jaar)</value>
+  </data>
+  <data name="DikeHeight_ReliabilityIndex_Description" xml:space="preserve">
+    <value>Overschrijdingskans waarvoor de bijbehorende dijkhoogte wordt berekend.</value>
+  </data>
+  <data name="OvertoppingRate_ReliabilityIndex_Description" xml:space="preserve">
+    <value>Overschrijdingskans waarvoor het bijbehorende overslagdebiet wordt berekend.</value>
+  </data>
 </root>

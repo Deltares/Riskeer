@@ -242,8 +242,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         [PropertyOrder(dikeHeightReliabilityIndexPropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight), 5, 6)]
-        [DisplayName("Doelkans (1/jaar)")]
-        [Description("Doelkans (1/jaar)")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ReliabilityIndex_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DikeHeight_ReliabilityIndex_Description))]
         public double DikeHeightReliabilityIndex
         {
             get => data.WrappedData.DikeHeightReliabilityIndex;
@@ -285,8 +285,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         [PropertyOrder(overtoppingRateReliabilityIndexPropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingRate), 6, 6)]
-        [DisplayName("Doelkans (1/jaar)")]
-        [Description("Doelkans (1/jaar)")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ReliabilityIndex_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.OvertoppingRate_ReliabilityIndex_Description))]
         public double OvertoppingRateReliabilityIndex
         {
             get => data.WrappedData.OvertoppingRateReliabilityIndex;
