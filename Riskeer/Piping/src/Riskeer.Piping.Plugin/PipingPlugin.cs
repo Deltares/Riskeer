@@ -1344,7 +1344,7 @@ namespace Riskeer.Piping.Plugin
 
             return new object[]
             {
-                new ProbabilisticPipingProfileSpecificOutputContext(calculation, context.FailureMechanism, context.AssessmentSection),
+                new ProbabilisticPipingProfileSpecificOutputContext(calculation),
                 new ProbabilisticPipingSectionSpecificOutputContext(calculation)
             };
         }
