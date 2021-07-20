@@ -41,7 +41,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(ProbabilisticPipingProfileSpecificOutputProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(ProbabilisticPipingSectionSpecificOutputProperties));
         }
 
         [TearDown]
@@ -81,7 +81,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<ProbabilisticFaultTreePipingProfileSpecificOutputProperties>(objectProperties);
+            Assert.IsInstanceOf<ProbabilisticFaultTreePipingSectionSpecificOutputProperties>(objectProperties);
             Assert.AreSame(context.WrappedData.Output.ProfileSpecificOutput, objectProperties.Data);
         }
 
@@ -109,7 +109,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<ProbabilisticSubMechanismPipingProfileSpecificOutputProperties>(objectProperties);
+            Assert.IsInstanceOf<ProbabilisticSubMechanismPipingSectionSpecificOutputProperties>(objectProperties);
             Assert.AreSame(context.WrappedData.Output.ProfileSpecificOutput, objectProperties.Data);
         }
 
