@@ -817,7 +817,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private static void AddCalculation(GrassCoverErosionInwardsCalculationGroupContext context)
         {
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(context.AssessmentSection.FailureMechanismContribution.Norm)
             {
                 Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
             };

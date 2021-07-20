@@ -34,10 +34,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculation"/>.
         /// </summary>
-        public GrassCoverErosionInwardsCalculation()
+        /// <param name="norm">The norm to use in the calculation input.</param>
+        public GrassCoverErosionInwardsCalculation(double norm)
         {
             Name = RiskeerCommonDataResources.Calculation_DefaultName;
-            InputParameters = new GrassCoverErosionInwardsInput();
+            InputParameters = new GrassCoverErosionInwardsInput(norm);
             Comments = new Comment();
         }
 

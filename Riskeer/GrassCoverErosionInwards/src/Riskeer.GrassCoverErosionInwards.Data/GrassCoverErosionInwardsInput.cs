@@ -51,7 +51,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsInput"/>.
         /// </summary>
-        public GrassCoverErosionInwardsInput()
+        /// <param name="norm">The norm to use.</param>
+        public GrassCoverErosionInwardsInput(double norm)
         {
             orientation = new RoundedDouble(orientationNumberOfDecimals);
             dikeHeight = new RoundedDouble(2);
@@ -65,6 +66,9 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             };
             DikeHeightCalculationType = DikeHeightCalculationType.NoCalculation;
             OvertoppingRateCalculationType = OvertoppingRateCalculationType.NoCalculation;
+
+            DikeHeightReliabilityIndex = norm;
+            OvertoppingRateReliabilityIndex = norm;
         }
 
         /// <summary>

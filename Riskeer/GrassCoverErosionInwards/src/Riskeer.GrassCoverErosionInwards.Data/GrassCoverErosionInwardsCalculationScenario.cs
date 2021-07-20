@@ -35,7 +35,9 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
         /// </summary>
-        public GrassCoverErosionInwardsCalculationScenario()
+        /// <param name="norm">The norm to use in the calculation input.</param>
+        public GrassCoverErosionInwardsCalculationScenario(double norm) 
+            : base(norm)
         {
             IsRelevant = true;
             contribution = new RoundedDouble(CalculationScenarioHelper.ContributionNumberOfDecimalPlaces, 1);
