@@ -141,7 +141,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsInputContext>>(properties);
             Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
             Assert.AreSame(context, properties.Data);
-            
+
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsInputContextProperties, NoProbabilityValueDoubleConverter>(
                 nameof(GrassCoverErosionInwardsInputContextProperties.DikeHeightReliabilityIndex));
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsInputContextProperties, NoProbabilityValueDoubleConverter>(
@@ -271,7 +271,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             bool shouldOvertoppingRateBeCalculated = new Random(21).NextBoolean();
             SetPropertyAndVerifyNotificationsAndOutput(properties => properties.ShouldOvertoppingRateBeCalculated = shouldOvertoppingRateBeCalculated);
         }
-        
+
         [Test]
         public void OvertoppingRateReliabilityIndex_Always_InputChangedAndObservablesNotified()
         {
@@ -759,8 +759,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[dikeHeightReliabilityIndexPropertyIndex],
                                                                             dikeHeightCategoryName,
                                                                             "Doelkans (1/jaar)",
-                                                                            "Doelkans (1/jaar)");
-            
+                                                                            "Doelkans (1/jaar)",
+                                                                            !calculationsEnabled);
+
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[shouldDikeHeightIllustrationPointsBeCalculatedPropertyIndex],
                                                                             dikeHeightCategoryName,
                                                                             "Illustratiepunten inlezen ",
@@ -771,11 +772,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             overtoppingRateCategoryName,
                                                                             "Overslagdebiet berekenen",
                                                                             "Geeft aan of ook het overslagdebiet moet worden berekend.");
-            
+
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[overtoppingRateReliabilityIndexPropertyIndex],
                                                                             overtoppingRateCategoryName,
                                                                             "Doelkans (1/jaar)",
-                                                                            "Doelkans (1/jaar)");
+                                                                            "Doelkans (1/jaar)",
+                                                                            !calculationsEnabled);
 
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[shouldOvertoppingRateIllustrationPointsBeCalculatedPropertyIndex],
                                                                             overtoppingRateCategoryName,
@@ -787,7 +789,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicReadOnly_ShouldDikeHeightIllustrationPointsBeCalculated_ReturnsExpectedResult(bool shouldDikeHeightBeCalculated)
+        public void DynamicReadOnly_CalculateDikeHeightProperties_ReturnsExpectedResult(bool shouldDikeHeightBeCalculated)
         {
             // Setup
             var changeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
@@ -808,15 +810,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionInwardsInputContextProperties(context, changeHandler);
 
             // Call
-            bool result = properties.DynamicReadOnlyValidationMethod(nameof(properties.ShouldDikeHeightIllustrationPointsBeCalculated));
+            bool dikeHeightReliabilityIndexReadOnly = properties.DynamicReadOnlyValidationMethod(nameof(properties.DikeHeightReliabilityIndex));
+            bool shouldDikeHeightIllustrationPointsBeCalculatedReadOnly = properties.DynamicReadOnlyValidationMethod(nameof(properties.ShouldDikeHeightIllustrationPointsBeCalculated));
 
             // Assert
-            Assert.AreEqual(!shouldDikeHeightBeCalculated, result);
+            Assert.AreEqual(!shouldDikeHeightBeCalculated, dikeHeightReliabilityIndexReadOnly);
+            Assert.AreEqual(!shouldDikeHeightBeCalculated, shouldDikeHeightIllustrationPointsBeCalculatedReadOnly);
         }
 
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicReadOnly_ShouldOvertoppingRateIllustrationPointsBeCalculated_ReturnsExpectedResult(bool shouldOvertoppingRateBeCalculated)
+        public void DynamicReadOnly_CalculateOvertoppingRateProperties_ReturnsExpectedResult(bool shouldOvertoppingRateBeCalculated)
         {
             // Setup
             var changeHandler = mockRepository.Stub<IObservablePropertyChangeHandler>();
@@ -837,10 +841,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionInwardsInputContextProperties(context, changeHandler);
 
             // Call
-            bool result = properties.DynamicReadOnlyValidationMethod(nameof(properties.ShouldOvertoppingRateIllustrationPointsBeCalculated));
+            bool overtoppingRateReliabilityIndexReadOnly = properties.DynamicReadOnlyValidationMethod(nameof(properties.OvertoppingRateReliabilityIndex));
+            bool shouldOvertoppingRateIllustrationPointsBeCalculated = properties.DynamicReadOnlyValidationMethod(nameof(properties.ShouldOvertoppingRateIllustrationPointsBeCalculated));
 
             // Assert
-            Assert.AreEqual(!shouldOvertoppingRateBeCalculated, result);
+            Assert.AreEqual(!shouldOvertoppingRateBeCalculated, overtoppingRateReliabilityIndexReadOnly);
+            Assert.AreEqual(!shouldOvertoppingRateBeCalculated, shouldOvertoppingRateIllustrationPointsBeCalculated);
         }
 
         [TestCase(true)]

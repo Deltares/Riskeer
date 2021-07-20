@@ -238,6 +238,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
+        [DynamicReadOnly]
         [PropertyOrder(dikeHeightReliabilityIndexPropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight), 5, 6)]
@@ -279,7 +280,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ShouldOvertoppingRateBeCalculated = value, propertyChangeHandler);
             }
         }
-        
+
+        [DynamicReadOnly]
         [PropertyOrder(overtoppingRateReliabilityIndexPropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingRate), 6, 6)]
@@ -337,12 +339,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
                 return data.WrappedData.DikeProfile == null;
             }
 
-            if (propertyName.Equals(nameof(ShouldDikeHeightIllustrationPointsBeCalculated)))
+            if (propertyName.Equals(nameof(ShouldDikeHeightIllustrationPointsBeCalculated))
+                || propertyName.Equals(nameof(DikeHeightReliabilityIndex)))
             {
                 return !ShouldDikeHeightBeCalculated;
             }
 
-            if (propertyName.Equals(nameof(ShouldOvertoppingRateIllustrationPointsBeCalculated)))
+            if (propertyName.Equals(nameof(ShouldOvertoppingRateIllustrationPointsBeCalculated))
+                || propertyName.Equals(nameof(OvertoppingRateReliabilityIndex)))
             {
                 return !ShouldOvertoppingRateBeCalculated;
             }
