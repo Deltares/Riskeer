@@ -66,7 +66,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
 
             Data = output;
 
-            CreateDerivedOutput(output, failureMechanism, assessmentSection);
+            CreateDerivedOutput(output, assessmentSection);
         }
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Uplift), 1, 4)]
@@ -261,10 +261,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
             }
         }
 
-        private void CreateDerivedOutput(SemiProbabilisticPipingOutput output, PipingFailureMechanism failureMechanism,
-                                         IAssessmentSection assessmentSection)
+        private void CreateDerivedOutput(SemiProbabilisticPipingOutput output, IAssessmentSection assessmentSection)
         {
-            derivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(output, failureMechanism, assessmentSection);
+            derivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(output, assessmentSection.FailureMechanismContribution.Norm);
         }
     }
 }
