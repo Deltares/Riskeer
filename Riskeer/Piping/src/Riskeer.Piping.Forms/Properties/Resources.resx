@@ -271,12 +271,6 @@
   <data name="PipingInput_ExitPointL_DisplayName" xml:space="preserve">
     <value>Uittredepunt</value>
   </data>
-  <data name="PipingOutput_PipingFactorOfSafety_Description" xml:space="preserve">
-    <value>De veiligheidsfactor voor deze berekening.</value>
-  </data>
-  <data name="PipingOutput_PipingFactorOfSafety_DisplayName" xml:space="preserve">
-    <value>Veiligheidsfactor [-]</value>
-  </data>
   <data name="PipingOutput_HeaveProbability_Description" xml:space="preserve">
     <value>De kans dat het submechanisme heave optreedt voor deze berekening.</value>
   </data>
@@ -306,18 +300,6 @@
   </data>
   <data name="PipingOutput_PipingReliability_DisplayName" xml:space="preserve">
     <value>Betrouwbaarheidsindex faalkans [-]</value>
-  </data>
-  <data name="PipingOutput_RequiredProbability_Description" xml:space="preserve">
-    <value>De maximaal toegestane kans dat het toetsspoor piping optreedt.</value>
-  </data>
-  <data name="PipingOutput_RequiredProbability_DisplayName" xml:space="preserve">
-    <value>Faalkanseis [1/jaar]</value>
-  </data>
-  <data name="PipingOutput_RequiredReliability_Description" xml:space="preserve">
-    <value>De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor piping.</value>
-  </data>
-  <data name="PipingOutput_RequiredReliability_DisplayName" xml:space="preserve">
-    <value>Betrouwbaarheidsindex faalkanseis [-]</value>
   </data>
   <data name="PipingOutput_SellmeijerProbability_Description" xml:space="preserve">
     <value>De kans dat het submechanisme terugschrijdende erosie (Sellmeijer) optreedt voor deze berekening.</value>

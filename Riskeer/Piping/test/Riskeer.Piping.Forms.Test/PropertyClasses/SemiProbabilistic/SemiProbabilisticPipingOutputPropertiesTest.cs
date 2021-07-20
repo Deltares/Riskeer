@@ -76,10 +76,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SemiProbabilisticPipingOutputProperties(PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput(), new PipingFailureMechanism(), null);
+            void Call() => new SemiProbabilisticPipingOutputProperties(PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput(), new PipingFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -150,11 +150,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             Assert.AreEqual(sellmeijerFactorOfSafety, properties.SellmeijerFactorOfSafety, properties.SellmeijerFactorOfSafety.GetAccuracy());
             Assert.AreEqual(expectedDerivedOutput.SellmeijerReliability, properties.SellmeijerReliability, properties.SellmeijerReliability.GetAccuracy());
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.SellmeijerProbability), properties.SellmeijerProbability);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.RequiredProbability), properties.RequiredProbability);
-            Assert.AreEqual(expectedDerivedOutput.RequiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.PipingProbability), properties.PipingProbability);
             Assert.AreEqual(expectedDerivedOutput.PipingReliability, properties.PipingReliability, properties.PipingReliability.GetAccuracy());
-            Assert.AreEqual(expectedDerivedOutput.PipingFactorOfSafety, properties.PipingFactorOfSafety, properties.PipingFactorOfSafety.GetAccuracy());
 
             Assert.AreEqual(upliftEffectiveStress, properties.UpliftEffectiveStress, properties.UpliftEffectiveStress.GetAccuracy());
             Assert.AreEqual(heaveGradient, properties.HeaveGradient, properties.HeaveGradient.GetAccuracy());
@@ -179,7 +176,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(19, dynamicProperties.Count);
+            Assert.AreEqual(16, dynamicProperties.Count);
 
             const string heaveCategory = "\t\tHeave";
             const string upliftCategory = "\t\t\tOpbarsten";
@@ -284,40 +281,20 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                                                                             "De kans dat het submechanisme terugschrijdende erosie (Sellmeijer) optreedt voor deze berekening.",
                                                                             true);
 
-            PropertyDescriptor requiredProbabilityProperty = dynamicProperties[14];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
-                                                                            pipingCategory,
-                                                                            "Faalkanseis [1/jaar]",
-                                                                            "De maximaal toegestane kans dat het toetsspoor piping optreedt.",
-                                                                            true);
-
-            PropertyDescriptor requiredReliabilityProperty = dynamicProperties[15];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredReliabilityProperty,
-                                                                            pipingCategory,
-                                                                            "Betrouwbaarheidsindex faalkanseis [-]",
-                                                                            "De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor piping.",
-                                                                            true);
-
-            PropertyDescriptor pipingProbabilityProperty = dynamicProperties[16];
+            PropertyDescriptor pipingProbabilityProperty = dynamicProperties[14];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(pipingProbabilityProperty,
                                                                             pipingCategory,
                                                                             "Benaderde faalkans [1/jaar]",
                                                                             "De benaderde kans dat het toetsspoor piping optreedt voor deze berekening.",
                                                                             true);
 
-            PropertyDescriptor pipingReliabilityProperty = dynamicProperties[17];
+            PropertyDescriptor pipingReliabilityProperty = dynamicProperties[15];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(pipingReliabilityProperty,
                                                                             pipingCategory,
                                                                             "Betrouwbaarheidsindex faalkans [-]",
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
                                                                             true);
 
-            PropertyDescriptor pipingFactorOfSafetyProperty = dynamicProperties[18];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(pipingFactorOfSafetyProperty,
-                                                                            pipingCategory,
-                                                                            "Veiligheidsfactor [-]",
-                                                                            "De veiligheidsfactor voor deze berekening.",
-                                                                            true);
             mocks.VerifyAll();
         }
     }

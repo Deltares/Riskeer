@@ -238,33 +238,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
         }
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Piping), 4, 4)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingOutput_RequiredProbability_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingOutput_RequiredProbability_Description))]
-        [PropertyOrder(31)]
-        public string RequiredProbability
-        {
-            get
-            {
-                return ProbabilityFormattingHelper.Format(derivedOutput.RequiredProbability);
-            }
-        }
-
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Piping), 4, 4)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingOutput_RequiredReliability_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingOutput_RequiredReliability_Description))]
-        [PropertyOrder(32)]
-        public RoundedDouble RequiredReliability
-        {
-            get
-            {
-                return derivedOutput.RequiredReliability;
-            }
-        }
-
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Piping), 4, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingOutput_PipingProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingOutput_PipingProbability_Description))]
-        [PropertyOrder(33)]
+        [PropertyOrder(31)]
         public string PipingProbability
         {
             get
@@ -276,24 +252,12 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Piping), 4, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingOutput_PipingReliability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingOutput_PipingReliability_Description))]
-        [PropertyOrder(34)]
+        [PropertyOrder(32)]
         public RoundedDouble PipingReliability
         {
             get
             {
                 return derivedOutput.PipingReliability;
-            }
-        }
-
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Piping), 4, 4)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingOutput_PipingFactorOfSafety_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingOutput_PipingFactorOfSafety_Description))]
-        [PropertyOrder(35)]
-        public RoundedDouble PipingFactorOfSafety
-        {
-            get
-            {
-                return derivedOutput.PipingFactorOfSafety;
             }
         }
 

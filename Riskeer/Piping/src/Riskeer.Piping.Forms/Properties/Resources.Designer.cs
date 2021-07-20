@@ -749,24 +749,6 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De veiligheidsfactor voor deze berekening..
-        /// </summary>
-        public static string PipingOutput_PipingFactorOfSafety_Description {
-            get {
-                return ResourceManager.GetString("PipingOutput_PipingFactorOfSafety_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Veiligheidsfactor [-].
-        /// </summary>
-        public static string PipingOutput_PipingFactorOfSafety_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingOutput_PipingFactorOfSafety_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De benaderde kans dat het toetsspoor piping optreedt voor deze berekening..
         /// </summary>
         public static string PipingOutput_PipingProbability_Description {
@@ -799,42 +781,6 @@ namespace Riskeer.Piping.Forms.Properties {
         public static string PipingOutput_PipingReliability_DisplayName {
             get {
                 return ResourceManager.GetString("PipingOutput_PipingReliability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De maximaal toegestane kans dat het toetsspoor piping optreedt..
-        /// </summary>
-        public static string PipingOutput_RequiredProbability_Description {
-            get {
-                return ResourceManager.GetString("PipingOutput_RequiredProbability_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Faalkanseis [1/jaar].
-        /// </summary>
-        public static string PipingOutput_RequiredProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingOutput_RequiredProbability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor piping..
-        /// </summary>
-        public static string PipingOutput_RequiredReliability_Description {
-            get {
-                return ResourceManager.GetString("PipingOutput_RequiredReliability_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Betrouwbaarheidsindex faalkanseis [-].
-        /// </summary>
-        public static string PipingOutput_RequiredReliability_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingOutput_RequiredReliability_DisplayName", resourceCulture);
             }
         }
         
