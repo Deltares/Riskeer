@@ -240,7 +240,7 @@ namespace Riskeer.Piping.Plugin.Test
                     viewInfos,
                     typeof(ProbabilisticPipingProfileSpecificOutputContext),
                     typeof(ProbabilisticPipingCalculationScenario),
-                    typeof(ProbabilisticFaultTreePipingProfileSpecificOutputView));
+                    typeof(ProbabilisticFaultTreePipingOutputView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

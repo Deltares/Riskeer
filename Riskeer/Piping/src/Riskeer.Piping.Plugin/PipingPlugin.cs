@@ -319,14 +319,14 @@ namespace Riskeer.Piping.Plugin
                                                                                                   ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
             };
 
-            yield return new ViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticFaultTreePipingProfileSpecificOutputView>
+            yield return new ViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticFaultTreePipingOutputView>
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticProfileSpecificOutput_DisplayName,
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 AdditionalDataCheck = context => !context.WrappedData.HasOutput || context.WrappedData.Output.ProfileSpecificOutput is PartialProbabilisticFaultTreePipingOutput,
-                CreateInstance = context => new ProbabilisticFaultTreePipingProfileSpecificOutputView(
+                CreateInstance = context => new ProbabilisticFaultTreePipingOutputView(
                     context.WrappedData,
                     () => ((PartialProbabilisticFaultTreePipingOutput) context.WrappedData.Output?.ProfileSpecificOutput)?.GeneralResult)
             };
