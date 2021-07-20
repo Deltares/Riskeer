@@ -31,7 +31,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects.Probabilistic
     public class ProbabilisticPipingSectionSpecificOutputContext : ObservableWrappedObjectContextBase<ProbabilisticPipingCalculationScenario>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ProbabilisticPipingOutputContext"/>.
+        /// Creates a new instance of <see cref="ProbabilisticPipingSectionSpecificOutputContext"/>.
         /// </summary>
         /// <param name="calculation">The <see cref="ProbabilisticPipingCalculationScenario"/> object to wrap.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>

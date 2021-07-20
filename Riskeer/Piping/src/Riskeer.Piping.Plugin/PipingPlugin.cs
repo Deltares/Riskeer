@@ -132,11 +132,11 @@ namespace Riskeer.Piping.Plugin
             };
             yield return new PropertyInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingOutputProperties>
             {
-                CreateInstance = CreateProbabilisticPipingProfileSpecificOutputProperties
+                CreateInstance = context => CreateProbabilisticPipingOutputProperties(context.WrappedData.Output?.ProfileSpecificOutput)
             };
             yield return new PropertyInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingOutputProperties>
             {
-                CreateInstance = CreateProbabilisticPipingSectionSpecificOutputProperties
+                CreateInstance = context => CreateProbabilisticPipingOutputProperties(context.WrappedData.Output?.SectionSpecificOutput)
             };
         }
 
@@ -568,12 +568,10 @@ namespace Riskeer.Piping.Plugin
 
         #region PropertyInfos
 
-        #region ProbabilisticPipingProfileSpecificOutputContext PropertyInfo
-
-        private static ProbabilisticPipingOutputProperties CreateProbabilisticPipingProfileSpecificOutputProperties(
-            ProbabilisticPipingProfileSpecificOutputContext context)
+        private static ProbabilisticPipingOutputProperties CreateProbabilisticPipingOutputProperties(
+            IPartialProbabilisticPipingOutput partialProbabilisticPipingOutput)
         {
-            switch (context.WrappedData.Output?.ProfileSpecificOutput)
+            switch (partialProbabilisticPipingOutput)
             {
                 case PartialProbabilisticFaultTreePipingOutput partialProbabilisticFaultTreePipingOutput:
                     return new ProbabilisticFaultTreePipingOutputProperties(
@@ -585,28 +583,6 @@ namespace Riskeer.Piping.Plugin
                     return null;
             }
         }
-
-        #endregion
-
-        #region ProbabilisticPipingSectionSpecificOutputContext PropertyInfo
-
-        private static ProbabilisticPipingOutputProperties CreateProbabilisticPipingSectionSpecificOutputProperties(
-            ProbabilisticPipingSectionSpecificOutputContext context)
-        {
-            switch (context.WrappedData.Output?.SectionSpecificOutput)
-            {
-                case PartialProbabilisticFaultTreePipingOutput partialProbabilisticFaultTreePipingOutput:
-                    return new ProbabilisticFaultTreePipingOutputProperties(
-                        partialProbabilisticFaultTreePipingOutput);
-                case PartialProbabilisticSubMechanismPipingOutput partialProbabilisticSubMechanismPipingOutput:
-                    return new ProbabilisticSubMechanismPipingOutputProperties
-                        (partialProbabilisticSubMechanismPipingOutput);
-                default:
-                    return null;
-            }
-        }
-
-        #endregion
 
         #endregion
 
