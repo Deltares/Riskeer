@@ -117,9 +117,9 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                     Children =
                     {
                         new CalculationGroup(),
-                        new GrassCoverErosionInwardsCalculation(),
+                        new GrassCoverErosionInwardsCalculation(double.NaN),
                         mocks.StrictMock<ICalculation>(),
-                        new GrassCoverErosionInwardsCalculation()
+                        new GrassCoverErosionInwardsCalculation(double.NaN)
                     }
                 }
             };

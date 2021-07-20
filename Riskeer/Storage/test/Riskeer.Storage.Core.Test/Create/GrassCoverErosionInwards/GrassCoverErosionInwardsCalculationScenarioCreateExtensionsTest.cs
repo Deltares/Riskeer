@@ -41,7 +41,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
         public void Create_PersistenceRegistryNull_ThrowArgumentNullException()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
 
             // Call
             void Call() => calculation.Create(null, 0);
@@ -60,7 +60,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             var random = new Random(12);
             int order = random.Next();
             const string name = "GrassCoverErosionInwardsCalculation Name";
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
             {
                 Name = name,
                 Comments =
@@ -140,7 +140,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             // Setup
             const string name = "A";
             const string comment = "B";
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
             {
                 Name = name,
                 Comments =
@@ -168,7 +168,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
         public void Create_NaNParameters_EntityWithNullFields()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
             {
                 InputParameters =
                 {
@@ -203,7 +203,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
             {
                 InputParameters =
                 {
@@ -227,7 +227,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1, 1);
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
             {
                 InputParameters =
                 {
@@ -254,7 +254,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             var overtoppingOutput = new OvertoppingOutput(random.NextDouble(), false, random.NextDouble(), null);
             var output = new GrassCoverErosionInwardsOutput(overtoppingOutput, null, null);
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
             {
                 Output = output
             };
