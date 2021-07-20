@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Util;
-using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.Piping.Data.SemiProbabilistic
 {
@@ -34,30 +33,16 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// Creates a new <see cref="DerivedSemiProbabilisticPipingOutput"/> based on the given parameters.
         /// </summary>
         /// <param name="output">The output of a calculation.</param>
-        /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
+        /// <param name="norm">The norm to assess for.</param>
         /// <returns>The created <see cref="DerivedSemiProbabilisticPipingOutput"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
         public static DerivedSemiProbabilisticPipingOutput Create(SemiProbabilisticPipingOutput output,
-                                                                  PipingFailureMechanism failureMechanism,
-                                                                  IAssessmentSection assessmentSection)
+                                                                  double norm)
         {
             if (output == null)
             {
                 throw new ArgumentNullException(nameof(output));
             }
-
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            double norm = assessmentSection.FailureMechanismContribution.Norm;
 
             double upliftFactorOfSafety = output.UpliftFactorOfSafety;
             double heaveFactorOfSafety = output.HeaveFactorOfSafety;
