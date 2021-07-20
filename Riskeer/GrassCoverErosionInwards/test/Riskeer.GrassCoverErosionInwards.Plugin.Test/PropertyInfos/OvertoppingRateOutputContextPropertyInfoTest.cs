@@ -61,7 +61,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_NewPropertiesWithData()
         {
             var overtoppingRateOutput = new TestOvertoppingRateOutput(10);
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.5),
                                                             null,

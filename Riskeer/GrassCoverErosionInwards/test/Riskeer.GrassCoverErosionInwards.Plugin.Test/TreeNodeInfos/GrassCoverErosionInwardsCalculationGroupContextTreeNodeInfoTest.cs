@@ -147,7 +147,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
-            var childCalculation = new GrassCoverErosionInwardsCalculationScenario();
+            var childCalculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
 
             group.Children.Add(childGroup);
             group.Children.Add(calculationItem);
@@ -432,12 +432,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculation()
+                    new GrassCoverErosionInwardsCalculation(double.NaN)
                 }
             };
 
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(double.NaN));
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
@@ -554,7 +554,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculation()
+                    new GrassCoverErosionInwardsCalculation(double.NaN)
                 }
             };
 
@@ -594,7 +594,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculation
+                    new GrassCoverErosionInwardsCalculation(double.NaN)
                     {
                         InputParameters =
                         {
@@ -641,7 +641,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculation
+                    new GrassCoverErosionInwardsCalculation(double.NaN)
                     {
                         InputParameters =
                         {
@@ -693,7 +693,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var calculation2Observer = mocks.StrictMock<IObserver>();
 
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
-            var calculation1 = new GrassCoverErosionInwardsCalculation
+            var calculation1 = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -703,7 +703,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             calculation1.Attach(calculation1Observer);
             calculation1.InputParameters.Attach(calculation1InputObserver);
 
-            var calculation2 = new GrassCoverErosionInwardsCalculation
+            var calculation2 = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -765,7 +765,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var calculation2Observer = mocks.StrictMock<IObserver>();
 
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
-            var calculation1 = new GrassCoverErosionInwardsCalculation
+            var calculation1 = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -776,7 +776,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             calculation1.Attach(calculation1Observer);
             calculation1.InputParameters.Attach(calculation1InputObserver);
 
-            var calculation2 = new GrassCoverErosionInwardsCalculation
+            var calculation2 = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -857,7 +857,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             calculation2Observer.Expect(obs => obs.UpdateObserver());
 
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
-            var calculation1 = new GrassCoverErosionInwardsCalculation
+            var calculation1 = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -868,7 +868,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             calculation1.Attach(calculation1Observer);
             calculation1.InputParameters.Attach(calculation1InputObserver);
 
-            var calculation2 = new GrassCoverErosionInwardsCalculation
+            var calculation2 = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 InputParameters =
                 {
@@ -941,12 +941,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculation()
+                    new GrassCoverErosionInwardsCalculation(double.NaN)
                 }
             };
 
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(double.NaN));
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
@@ -997,14 +997,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculation()
+                    new GrassCoverErosionInwardsCalculation(double.NaN)
                 }
             };
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(double.NaN));
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -1049,12 +1049,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculation()
+                    new GrassCoverErosionInwardsCalculation(double.NaN)
                 }
             };
 
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(double.NaN));
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
@@ -1104,12 +1104,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculation()
+                    new GrassCoverErosionInwardsCalculation(double.NaN)
                 }
             };
 
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(double.NaN));
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
@@ -1161,14 +1161,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculation()
+                    new GrassCoverErosionInwardsCalculation(double.NaN)
                 }
             };
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(double.NaN));
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -1283,7 +1283,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var calculationWithOutput = new GrassCoverErosionInwardsCalculation
+            var calculationWithOutput = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -1294,7 +1294,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 {
                     calculationWithIllustrationPoints,
                     calculationWithOutput,
-                    new GrassCoverErosionInwardsCalculation()
+                    new GrassCoverErosionInwardsCalculation(double.NaN)
                 }
             };
 
@@ -1325,7 +1325,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var calculationWithOutput = new GrassCoverErosionInwardsCalculation
+            var calculationWithOutput = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -1335,7 +1335,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 Children =
                 {
                     calculationWithOutput,
-                    new GrassCoverErosionInwardsCalculation()
+                    new GrassCoverErosionInwardsCalculation(double.NaN)
                 }
             };
 
@@ -1363,12 +1363,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndAborted_ThenInquiryAndIllustrationPointsNotCleared()
         {
             // Given
-            var calculationWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWithIllustrationPoints = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new TestGrassCoverErosionInwardsOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
 
-            var calculationWithOutput = new GrassCoverErosionInwardsCalculation
+            var calculationWithOutput = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -1379,7 +1379,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 {
                     calculationWithIllustrationPoints,
                     calculationWithOutput,
-                    new GrassCoverErosionInwardsCalculation()
+                    new GrassCoverErosionInwardsCalculation(double.NaN)
                 }
             };
 
@@ -1430,12 +1430,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinued_ThenInquiryAndIllustrationPointsCleared()
         {
             // Given
-            var calculationWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWithIllustrationPoints = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new TestGrassCoverErosionInwardsOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
 
-            var calculationWithOutput = new GrassCoverErosionInwardsCalculation
+            var calculationWithOutput = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -1446,7 +1446,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 {
                     calculationWithIllustrationPoints,
                     calculationWithOutput,
-                    new GrassCoverErosionInwardsCalculation()
+                    new GrassCoverErosionInwardsCalculation(double.NaN)
                 }
             };
 
@@ -1504,7 +1504,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Name = "A",
                 InputParameters =
@@ -1513,7 +1513,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             });
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Name = "B",
                 InputParameters =
@@ -1574,7 +1574,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Name = "A",
                 InputParameters =
@@ -1583,7 +1583,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             });
-            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Name = "B",
                 InputParameters =
@@ -1727,7 +1727,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                                null,
                                                                                failureMechanism,
                                                                                assessmentSection);
-            var calculationItem = new GrassCoverErosionInwardsCalculation
+            var calculationItem = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Name = "Nieuwe berekening"
             };
@@ -1772,7 +1772,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             DikeProfile dikeProfile2 = DikeProfileTestFactory.CreateDikeProfile("Dike profile 2", "id2");
 
             var existingCalculationGroup = new CalculationGroup();
-            var existingCalculation = new GrassCoverErosionInwardsCalculationScenario();
+            var existingCalculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 CalculationsGroup =
@@ -1904,7 +1904,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 {
                     Children =
                     {
-                        new GrassCoverErosionInwardsCalculationScenario
+                        new GrassCoverErosionInwardsCalculationScenario(double.NaN)
                         {
                             Name = existingCalculationName
                         }
@@ -2011,7 +2011,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                                                                      null,
                                                                                      failureMechanism,
                                                                                      assessmentSection);
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
 
             observer.Expect(o => o.UpdateObserver());
 
@@ -2072,21 +2072,21 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         private static IEnumerable<TestCaseData> GetCalculationConfigurationsWithIllustrationPoints()
         {
             var random = new Random(21);
-            var calculationWithOverToppingOutputWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWithOverToppingOutputWithIllustrationPoints = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
                                                             null,
                                                             null)
             };
 
-            var calculationWithDikeHeightRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWithDikeHeightRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
                                                             new TestDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
                                                             null)
             };
 
-            var calculationWithOvertoppingRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWithOvertoppingRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation(double.NaN)
             {
                 Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
                                                             null,
