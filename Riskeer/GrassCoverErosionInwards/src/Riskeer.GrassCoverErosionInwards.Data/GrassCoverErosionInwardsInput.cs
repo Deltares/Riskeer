@@ -155,7 +155,27 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets how the dike height should be calculated.
+        /// Gets or sets whether the Dike Height should be calculated.
+        /// </summary>
+        public bool ShouldDikeHeightBeCalculated { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the Overtopping Rate should be calculated.
+        /// </summary>
+        public bool ShouldOvertoppingRateBeCalculated { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reliability index for the Dike Height calculation.
+        /// </summary>
+        public double DikeHeightReliabilityIndex { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reliability index for the Overtopping Rate calculation.
+        /// </summary>
+        public double OvertoppingRateReliabilityIndex { get; set; }
+
+        /// <summary>
+        /// Gets or sets how the Dike Height should be calculated.
         /// </summary>
         public DikeHeightCalculationType DikeHeightCalculationType { get; set; }
 
@@ -165,17 +185,17 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         public OvertoppingRateCalculationType OvertoppingRateCalculationType { get; set; }
 
         /// <summary>
-        /// Gets or sets if the illustration points should be calculated for Dike Height.
+        /// Gets or sets whether the illustration points should be calculated for Dike Height.
         /// </summary>
         public bool ShouldDikeHeightIllustrationPointsBeCalculated { get; set; }
 
         /// <summary>
-        /// Gets or sets if the illustration points should be calculated for Overtopping Flow.
+        /// Gets or sets whether the illustration points should be calculated for Overtopping Flow.
         /// </summary>
         public bool ShouldOvertoppingRateIllustrationPointsBeCalculated { get; set; }
 
         /// <summary>
-        /// Gets or sets if the illustration points should be calculated for Overtopping Output.
+        /// Gets or sets whether the illustration points should be calculated for Overtopping Output.
         /// </summary>
         public bool ShouldOvertoppingOutputIllustrationPointsBeCalculated { get; set; }
 

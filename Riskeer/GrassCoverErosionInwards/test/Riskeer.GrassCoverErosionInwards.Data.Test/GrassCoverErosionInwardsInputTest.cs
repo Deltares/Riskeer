@@ -54,71 +54,71 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 string defaultId = defaultDikeProfile.Id;
 
                 yield return new TestCaseData(
-                        new DikeProfile(defaultLocation,
-                                        defaultRoughnessPoints,
-                                        defaultForeshoreGeometry,
-                                        new BreakWater(BreakWaterType.Caisson, defaultBreakWaterHeight),
-                                        new DikeProfile.ConstructionProperties
-                                        {
-                                            Id = defaultId,
-                                            Orientation = defaultOrientation,
-                                            DikeHeight = defaultDikeHeight
-                                        }));
+                    new DikeProfile(defaultLocation,
+                                    defaultRoughnessPoints,
+                                    defaultForeshoreGeometry,
+                                    new BreakWater(BreakWaterType.Caisson, defaultBreakWaterHeight),
+                                    new DikeProfile.ConstructionProperties
+                                    {
+                                        Id = defaultId,
+                                        Orientation = defaultOrientation,
+                                        DikeHeight = defaultDikeHeight
+                                    }));
                 yield return new TestCaseData(
-                        new DikeProfile(defaultLocation,
-                                        defaultRoughnessPoints,
-                                        defaultForeshoreGeometry,
-                                        new BreakWater(defaultBreakWaterType, 4),
-                                        new DikeProfile.ConstructionProperties
-                                        {
-                                            Id = defaultId,
-                                            Orientation = defaultOrientation,
-                                            DikeHeight = defaultDikeHeight
-                                        }));
+                    new DikeProfile(defaultLocation,
+                                    defaultRoughnessPoints,
+                                    defaultForeshoreGeometry,
+                                    new BreakWater(defaultBreakWaterType, 4),
+                                    new DikeProfile.ConstructionProperties
+                                    {
+                                        Id = defaultId,
+                                        Orientation = defaultOrientation,
+                                        DikeHeight = defaultDikeHeight
+                                    }));
                 yield return new TestCaseData(
-                        new DikeProfile(defaultLocation,
-                                        defaultRoughnessPoints,
-                                        defaultForeshoreGeometry,
-                                        new BreakWater(defaultBreakWaterType, defaultBreakWaterHeight),
-                                        new DikeProfile.ConstructionProperties
-                                        {
-                                            Id = defaultId,
-                                            Orientation = defaultOrientation,
-                                            DikeHeight = 2
-                                        }));
+                    new DikeProfile(defaultLocation,
+                                    defaultRoughnessPoints,
+                                    defaultForeshoreGeometry,
+                                    new BreakWater(defaultBreakWaterType, defaultBreakWaterHeight),
+                                    new DikeProfile.ConstructionProperties
+                                    {
+                                        Id = defaultId,
+                                        Orientation = defaultOrientation,
+                                        DikeHeight = 2
+                                    }));
                 yield return new TestCaseData(
-                        new DikeProfile(defaultLocation,
-                                        defaultRoughnessPoints,
-                                        new Point2D[0],
-                                        new BreakWater(defaultBreakWaterType, defaultBreakWaterHeight),
-                                        new DikeProfile.ConstructionProperties
-                                        {
-                                            Id = defaultId,
-                                            Orientation = defaultOrientation,
-                                            DikeHeight = defaultDikeHeight
-                                        }));
+                    new DikeProfile(defaultLocation,
+                                    defaultRoughnessPoints,
+                                    new Point2D[0],
+                                    new BreakWater(defaultBreakWaterType, defaultBreakWaterHeight),
+                                    new DikeProfile.ConstructionProperties
+                                    {
+                                        Id = defaultId,
+                                        Orientation = defaultOrientation,
+                                        DikeHeight = defaultDikeHeight
+                                    }));
                 yield return new TestCaseData(
-                        new DikeProfile(defaultLocation,
-                                        defaultRoughnessPoints,
-                                        defaultForeshoreGeometry,
-                                        null,
-                                        new DikeProfile.ConstructionProperties
-                                        {
-                                            Id = defaultId,
-                                            Orientation = defaultOrientation,
-                                            DikeHeight = defaultDikeHeight
-                                        }));
+                    new DikeProfile(defaultLocation,
+                                    defaultRoughnessPoints,
+                                    defaultForeshoreGeometry,
+                                    null,
+                                    new DikeProfile.ConstructionProperties
+                                    {
+                                        Id = defaultId,
+                                        Orientation = defaultOrientation,
+                                        DikeHeight = defaultDikeHeight
+                                    }));
                 yield return new TestCaseData(
-                        new DikeProfile(defaultLocation,
-                                        defaultRoughnessPoints,
-                                        defaultForeshoreGeometry,
-                                        null,
-                                        new DikeProfile.ConstructionProperties
-                                        {
-                                            Id = defaultId,
-                                            Orientation = 12,
-                                            DikeHeight = defaultDikeHeight
-                                        }));
+                    new DikeProfile(defaultLocation,
+                                    defaultRoughnessPoints,
+                                    defaultForeshoreGeometry,
+                                    null,
+                                    new DikeProfile.ConstructionProperties
+                                    {
+                                        Id = defaultId,
+                                        Orientation = 12,
+                                        DikeHeight = defaultDikeHeight
+                                    }));
             }
         }
 
@@ -146,6 +146,9 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
             AssertDikeProfileInput(null, input);
             Assert.IsNull(input.HydraulicBoundaryLocation);
+
+            Assert.IsFalse(input.ShouldDikeHeightBeCalculated);
+            Assert.IsFalse(input.ShouldOvertoppingRateBeCalculated);
             Assert.AreEqual(DikeHeightCalculationType.NoCalculation, input.DikeHeightCalculationType);
             Assert.AreEqual(OvertoppingRateCalculationType.NoCalculation, input.OvertoppingRateCalculationType);
 
