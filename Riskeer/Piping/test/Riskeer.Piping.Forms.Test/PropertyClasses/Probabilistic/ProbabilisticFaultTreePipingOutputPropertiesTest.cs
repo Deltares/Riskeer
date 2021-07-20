@@ -38,7 +38,7 @@ using Riskeer.Piping.Forms.PropertyClasses.Probabilistic;
 namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 {
     [TestFixture]
-    public class ProbabilisticFaultTreePipingSectionSpecificOutputPropertiesTest
+    public class ProbabilisticFaultTreePipingOutputPropertiesTest
     {
         private const int probabilityPropertyIndex = 0;
         private const int reliabilityPropertyIndex = 1;
@@ -54,7 +54,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         public void Constructor_OutputNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new ProbabilisticFaultTreePipingSectionSpecificOutputProperties(null);
+            void Call() => new ProbabilisticFaultTreePipingOutputProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -68,10 +68,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             PartialProbabilisticFaultTreePipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput();
 
             // Call
-            var properties = new ProbabilisticFaultTreePipingSectionSpecificOutputProperties(output);
+            var properties = new ProbabilisticFaultTreePipingOutputProperties(output);
 
             // Assert
-            Assert.IsInstanceOf<ProbabilisticFaultTreePipingSectionSpecificOutputProperties>(properties);
+            Assert.IsInstanceOf<ProbabilisticFaultTreePipingOutputProperties>(properties);
             Assert.AreSame(output, properties.Data);
         }
 
@@ -82,7 +82,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             PartialProbabilisticFaultTreePipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput();
 
             // Call
-            var properties = new ProbabilisticFaultTreePipingSectionSpecificOutputProperties(output);
+            var properties = new ProbabilisticFaultTreePipingOutputProperties(output);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -110,8 +110,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                             true);
 
             PropertyDescriptor alphaValuesProperty = dynamicProperties[alphaValuesPropertyIndex];
-            TestHelper.AssertTypeConverter<ProbabilisticFaultTreePipingSectionSpecificOutputProperties, KeyValueExpandableArrayConverter>(
-                nameof(ProbabilisticFaultTreePipingSectionSpecificOutputProperties.AlphaValues));
+            TestHelper.AssertTypeConverter<ProbabilisticFaultTreePipingOutputProperties, KeyValueExpandableArrayConverter>(
+                nameof(ProbabilisticFaultTreePipingOutputProperties.AlphaValues));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Invloedscoëfficiënten [-]",
@@ -119,8 +119,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                             true);
 
             PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex];
-            TestHelper.AssertTypeConverter<ProbabilisticFaultTreePipingSectionSpecificOutputProperties, KeyValueExpandableArrayConverter>(
-                nameof(ProbabilisticFaultTreePipingSectionSpecificOutputProperties.Durations));
+            TestHelper.AssertTypeConverter<ProbabilisticFaultTreePipingOutputProperties, KeyValueExpandableArrayConverter>(
+                nameof(ProbabilisticFaultTreePipingOutputProperties.Durations));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Tijdsduren [uur]",
@@ -128,8 +128,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                             true);
 
             PropertyDescriptor illustrationPointProperty = dynamicProperties[illustrationPointsPropertyIndex];
-            TestHelper.AssertTypeConverter<ProbabilisticFaultTreePipingSectionSpecificOutputProperties, ExpandableArrayConverter>(
-                nameof(ProbabilisticFaultTreePipingSectionSpecificOutputProperties.IllustrationPoints));
+            TestHelper.AssertTypeConverter<ProbabilisticFaultTreePipingOutputProperties, ExpandableArrayConverter>(
+                nameof(ProbabilisticFaultTreePipingOutputProperties.IllustrationPoints));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Illustratiepunten",
@@ -144,7 +144,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             PartialProbabilisticFaultTreePipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(null);
 
             // Call
-            var properties = new ProbabilisticFaultTreePipingSectionSpecificOutputProperties(output);
+            var properties = new ProbabilisticFaultTreePipingOutputProperties(output);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -172,7 +172,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             PartialProbabilisticFaultTreePipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput();
 
             // Call
-            var properties = new ProbabilisticFaultTreePipingSectionSpecificOutputProperties(output);
+            var properties = new ProbabilisticFaultTreePipingOutputProperties(output);
 
             // Assert
             Assert.AreEqual(ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(output.Reliability)), properties.Probability);
@@ -200,7 +200,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         {
             // Setup
             PartialProbabilisticFaultTreePipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(null);
-            var properties = new ProbabilisticFaultTreePipingSectionSpecificOutputProperties(output);
+            var properties = new ProbabilisticFaultTreePipingOutputProperties(output);
 
             // Call
             TopLevelFaultTreeIllustrationPointProperties[] illustrationPoints = properties.IllustrationPoints;

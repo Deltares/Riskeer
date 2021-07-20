@@ -32,19 +32,19 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 {
     /// <summary>
-    /// ViewModel of section specific <see cref="IPartialProbabilisticPipingOutput"/> for properties panel.
+    /// ViewModel of <see cref="IPartialProbabilisticPipingOutput"/> for properties panel.
     /// </summary>
-    public class ProbabilisticPipingSectionSpecificOutputProperties : ObjectProperties<IPartialProbabilisticPipingOutput>
+    public class ProbabilisticPipingOutputProperties : ObjectProperties<IPartialProbabilisticPipingOutput>
     {
         private const int probabilityIndex = 0;
         private const int reliabilityIndex = 1;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ProbabilisticPipingSectionSpecificOutputProperties"/>.
+        /// Creates a new instance of <see cref="ProbabilisticPipingOutputProperties"/>.
         /// </summary>
         /// <param name="output">The output to show the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
-        protected ProbabilisticPipingSectionSpecificOutputProperties(IPartialProbabilisticPipingOutput output)
+        protected ProbabilisticPipingOutputProperties(IPartialProbabilisticPipingOutput output)
         {
             if (output == null)
             {

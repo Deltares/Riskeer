@@ -130,11 +130,11 @@ namespace Riskeer.Piping.Plugin
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentProperties(
                     context.WrappedData, ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
             };
-            yield return new PropertyInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingSectionSpecificOutputProperties>
+            yield return new PropertyInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingOutputProperties>
             {
                 CreateInstance = CreateProbabilisticPipingProfileSpecificOutputProperties
             };
-            yield return new PropertyInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingSectionSpecificOutputProperties>
+            yield return new PropertyInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingOutputProperties>
             {
                 CreateInstance = CreateProbabilisticPipingSectionSpecificOutputProperties
             };
@@ -570,16 +570,16 @@ namespace Riskeer.Piping.Plugin
 
         #region ProbabilisticPipingProfileSpecificOutputContext PropertyInfo
 
-        private static ProbabilisticPipingSectionSpecificOutputProperties CreateProbabilisticPipingProfileSpecificOutputProperties(
+        private static ProbabilisticPipingOutputProperties CreateProbabilisticPipingProfileSpecificOutputProperties(
             ProbabilisticPipingProfileSpecificOutputContext context)
         {
             switch (context.WrappedData.Output?.ProfileSpecificOutput)
             {
                 case PartialProbabilisticFaultTreePipingOutput partialProbabilisticFaultTreePipingOutput:
-                    return new ProbabilisticFaultTreePipingSectionSpecificOutputProperties(
+                    return new ProbabilisticFaultTreePipingOutputProperties(
                         partialProbabilisticFaultTreePipingOutput);
                 case PartialProbabilisticSubMechanismPipingOutput partialProbabilisticSubMechanismPipingOutput:
-                    return new ProbabilisticSubMechanismPipingSectionSpecificOutputProperties(
+                    return new ProbabilisticSubMechanismPipingOutputProperties(
                         partialProbabilisticSubMechanismPipingOutput);
                 default:
                     return null;
@@ -590,16 +590,16 @@ namespace Riskeer.Piping.Plugin
 
         #region ProbabilisticPipingSectionSpecificOutputContext PropertyInfo
 
-        private static ProbabilisticPipingSectionSpecificOutputProperties CreateProbabilisticPipingSectionSpecificOutputProperties(
+        private static ProbabilisticPipingOutputProperties CreateProbabilisticPipingSectionSpecificOutputProperties(
             ProbabilisticPipingSectionSpecificOutputContext context)
         {
             switch (context.WrappedData.Output?.SectionSpecificOutput)
             {
                 case PartialProbabilisticFaultTreePipingOutput partialProbabilisticFaultTreePipingOutput:
-                    return new ProbabilisticFaultTreePipingSectionSpecificOutputProperties(
+                    return new ProbabilisticFaultTreePipingOutputProperties(
                         partialProbabilisticFaultTreePipingOutput);
                 case PartialProbabilisticSubMechanismPipingOutput partialProbabilisticSubMechanismPipingOutput:
-                    return new ProbabilisticSubMechanismPipingSectionSpecificOutputProperties
+                    return new ProbabilisticSubMechanismPipingOutputProperties
                         (partialProbabilisticSubMechanismPipingOutput);
                 default:
                     return null;

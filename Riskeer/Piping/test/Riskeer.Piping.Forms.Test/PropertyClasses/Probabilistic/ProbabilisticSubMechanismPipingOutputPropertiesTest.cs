@@ -38,7 +38,7 @@ using Riskeer.Piping.Forms.PropertyClasses.Probabilistic;
 namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 {
     [TestFixture]
-    public class ProbabilisticSubMechanismPipingSectionSpecificOutputPropertiesTest
+    public class ProbabilisticSubMechanismPipingOutputPropertiesTest
     {
         private const int probabilityPropertyIndex = 0;
         private const int reliabilityPropertyIndex = 1;
@@ -54,7 +54,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         public void Constructor_OutputNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new ProbabilisticSubMechanismPipingSectionSpecificOutputProperties(null);
+            void Call() => new ProbabilisticSubMechanismPipingOutputProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -68,10 +68,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             PartialProbabilisticSubMechanismPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput();
 
             // Call
-            var properties = new ProbabilisticSubMechanismPipingSectionSpecificOutputProperties(output);
+            var properties = new ProbabilisticSubMechanismPipingOutputProperties(output);
 
             // Assert
-            Assert.IsInstanceOf<ProbabilisticSubMechanismPipingSectionSpecificOutputProperties>(properties);
+            Assert.IsInstanceOf<ProbabilisticSubMechanismPipingOutputProperties>(properties);
             Assert.AreSame(output, properties.Data);
         }
 
@@ -82,7 +82,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             PartialProbabilisticSubMechanismPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput();
 
             // Call
-            var properties = new ProbabilisticSubMechanismPipingSectionSpecificOutputProperties(output);
+            var properties = new ProbabilisticSubMechanismPipingOutputProperties(output);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -110,8 +110,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                             true);
 
             PropertyDescriptor alphaValuesProperty = dynamicProperties[alphaValuesPropertyIndex];
-            TestHelper.AssertTypeConverter<ProbabilisticSubMechanismPipingSectionSpecificOutputProperties, KeyValueExpandableArrayConverter>(
-                nameof(ProbabilisticSubMechanismPipingSectionSpecificOutputProperties.AlphaValues));
+            TestHelper.AssertTypeConverter<ProbabilisticSubMechanismPipingOutputProperties, KeyValueExpandableArrayConverter>(
+                nameof(ProbabilisticSubMechanismPipingOutputProperties.AlphaValues));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Invloedscoëfficiënten [-]",
@@ -119,8 +119,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                             true);
 
             PropertyDescriptor durationsProperty = dynamicProperties[durationsPropertyIndex];
-            TestHelper.AssertTypeConverter<ProbabilisticSubMechanismPipingSectionSpecificOutputProperties, KeyValueExpandableArrayConverter>(
-                nameof(ProbabilisticSubMechanismPipingSectionSpecificOutputProperties.Durations));
+            TestHelper.AssertTypeConverter<ProbabilisticSubMechanismPipingOutputProperties, KeyValueExpandableArrayConverter>(
+                nameof(ProbabilisticSubMechanismPipingOutputProperties.Durations));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Tijdsduren [uur]",
@@ -128,8 +128,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                             true);
 
             PropertyDescriptor illustrationPointProperty = dynamicProperties[illustrationPointsPropertyIndex];
-            TestHelper.AssertTypeConverter<ProbabilisticSubMechanismPipingSectionSpecificOutputProperties, ExpandableArrayConverter>(
-                nameof(ProbabilisticSubMechanismPipingSectionSpecificOutputProperties.IllustrationPoints));
+            TestHelper.AssertTypeConverter<ProbabilisticSubMechanismPipingOutputProperties, ExpandableArrayConverter>(
+                nameof(ProbabilisticSubMechanismPipingOutputProperties.IllustrationPoints));
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(illustrationPointProperty,
                                                                             illustrationPointsCategoryName,
                                                                             "Illustratiepunten",
@@ -144,7 +144,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             PartialProbabilisticSubMechanismPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(null);
 
             // Call
-            var properties = new ProbabilisticSubMechanismPipingSectionSpecificOutputProperties(output);
+            var properties = new ProbabilisticSubMechanismPipingOutputProperties(output);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -172,7 +172,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             PartialProbabilisticSubMechanismPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput();
 
             // Call
-            var properties = new ProbabilisticSubMechanismPipingSectionSpecificOutputProperties(output);
+            var properties = new ProbabilisticSubMechanismPipingOutputProperties(output);
 
             // Assert
             Assert.AreEqual(ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(output.Reliability)), properties.Probability);
@@ -191,7 +191,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         {
             // Setup
             PartialProbabilisticSubMechanismPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(null);
-            var properties = new ProbabilisticSubMechanismPipingSectionSpecificOutputProperties(output);
+            var properties = new ProbabilisticSubMechanismPipingOutputProperties(output);
 
             // Call
             TopLevelSubMechanismIllustrationPointProperties[] illustrationPoints = properties.IllustrationPoints;

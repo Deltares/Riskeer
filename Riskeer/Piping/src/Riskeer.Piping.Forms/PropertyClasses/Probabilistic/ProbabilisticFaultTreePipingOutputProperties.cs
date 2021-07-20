@@ -36,7 +36,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
     /// <summary>
     /// ViewModel of profile specific <see cref="PartialProbabilisticSubMechanismPipingOutput"/> for properties panel.
     /// </summary>
-    public class ProbabilisticFaultTreePipingSectionSpecificOutputProperties : ProbabilisticPipingSectionSpecificOutputProperties
+    public class ProbabilisticFaultTreePipingOutputProperties : ProbabilisticPipingOutputProperties
     {
         private const int windDirectionIndex = 2;
         private const int alphaValuesIndex = 3;
@@ -46,11 +46,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         private readonly PartialProbabilisticFaultTreePipingOutput faultTreeOutput;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ProbabilisticFaultTreePipingSectionSpecificOutputProperties"/>.
+        /// Creates a new instance of <see cref="ProbabilisticFaultTreePipingOutputProperties"/>.
         /// </summary>
         /// <param name="output">The output to show the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
-        public ProbabilisticFaultTreePipingSectionSpecificOutputProperties(
+        public ProbabilisticFaultTreePipingOutputProperties(
             PartialProbabilisticFaultTreePipingOutput output)
             : base(output)
         {
