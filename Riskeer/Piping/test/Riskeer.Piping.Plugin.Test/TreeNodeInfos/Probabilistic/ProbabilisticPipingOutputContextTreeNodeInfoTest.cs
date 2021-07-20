@@ -165,8 +165,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var profileSpecificOutputContext = children[0] as ProbabilisticPipingProfileSpecificOutputContext;
             Assert.AreSame(calculation, profileSpecificOutputContext.WrappedData);
-            Assert.AreSame(failureMechanism, profileSpecificOutputContext.FailureMechanism);
-            Assert.AreSame(assessmentSection, profileSpecificOutputContext.AssessmentSection);
 
             var sectionSpecificOutputContext = children[1] as ProbabilisticPipingSectionSpecificOutputContext;
             Assert.AreSame(calculation, sectionSpecificOutputContext.WrappedData);

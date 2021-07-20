@@ -25,8 +25,6 @@ using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -78,19 +76,14 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void GetViewData_WithContext_ReturnsWrappedCalculationScenario()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculationScenario = new ProbabilisticPipingCalculationScenario();
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculationScenario, new PipingFailureMechanism(), assessmentSection);
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculationScenario);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(calculationScenario, viewData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -107,53 +100,37 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void AdditionalDataCheck_CalculationWithoutOutput_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(
-                new ProbabilisticPipingCalculationScenario(), new PipingFailureMechanism(), assessmentSection);
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculationScenario());
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
 
             // Assert
             Assert.IsTrue(additionalDataCheck);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AdditionalDataCheck_CalculationWithoutFaultTreeOutput_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculation = new ProbabilisticPipingCalculationScenario
             {
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
             };
 
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(
-                calculation, new PipingFailureMechanism(), assessmentSection);
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation);
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
 
             // Assert
             Assert.IsFalse(additionalDataCheck);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void AdditionalDataCheck_CalculationWithFaultTreeOutput_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculation = new ProbabilisticPipingCalculationScenario
             {
                 Output = new ProbabilisticPipingOutput(
@@ -161,33 +138,26 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                     PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput())
             };
 
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(
-                calculation, new PipingFailureMechanism(), assessmentSection);
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation);
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
 
             // Assert
             Assert.IsTrue(additionalDataCheck);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var context = new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculationScenario(), new PipingFailureMechanism(), assessmentSection);
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(new ProbabilisticPipingCalculationScenario());
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<ProbabilisticFaultTreePipingProfileSpecificOutputView>(view);
-            mocks.VerifyAll();
         }
 
         [TestFixture]
