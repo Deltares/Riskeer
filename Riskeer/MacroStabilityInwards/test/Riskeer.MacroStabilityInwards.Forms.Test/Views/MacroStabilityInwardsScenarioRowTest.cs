@@ -21,9 +21,6 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
@@ -35,18 +32,17 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
     public class MacroStabilityInwardsScenarioRowTest
     {
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            void Call() => new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, null);
+            void Call() => new MacroStabilityInwardsScenarioRow(calculation, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
         }
 
         [Test]
@@ -54,15 +50,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
-            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ScenarioRow<MacroStabilityInwardsCalculationScenario>>(row);
@@ -74,23 +65,17 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
 
             // Call
-            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism);
 
             // Assert
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -98,19 +83,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
-            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism);
 
             // Assert
             Assert.IsNaN(row.FailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -118,14 +97,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         {
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new MacroStabilityInwardsCalculationScenario();
-
-            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism);
 
             // Precondition
             Assert.IsNaN(row.FailureProbability);
@@ -137,7 +110,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Then
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -145,17 +117,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         {
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput()
             };
 
-            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism);
 
             // Precondition
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism);
@@ -167,7 +134,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Then
             Assert.IsNaN(row.FailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -175,17 +141,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         {
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput()
             };
 
-            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism);
 
             // Precondition
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism);
@@ -203,7 +164,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Then
             DerivedMacroStabilityInwardsOutput newExpectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism);
             Assert.AreEqual(newExpectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
-            mocks.VerifyAll();
         }
     }
 }
