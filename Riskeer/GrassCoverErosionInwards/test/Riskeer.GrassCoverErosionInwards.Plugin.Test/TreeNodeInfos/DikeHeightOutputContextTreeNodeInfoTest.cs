@@ -100,7 +100,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ForeColor_HasNoOutput_ReturnGrayText()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
+            var calculation = new GrassCoverErosionInwardsCalculation(0.1)
             {
                 Output = new GrassCoverErosionInwardsOutput(
                     new TestOvertoppingOutput(0.5),
@@ -119,7 +119,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ForeColor_HasOutput_ReturnControlText()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
+            var calculation = new GrassCoverErosionInwardsCalculation(0.1)
             {
                 Output = new GrassCoverErosionInwardsOutput(
                     new TestOvertoppingOutput(0.5),
