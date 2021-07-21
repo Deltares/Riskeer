@@ -231,7 +231,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
+            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(calculation);
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
