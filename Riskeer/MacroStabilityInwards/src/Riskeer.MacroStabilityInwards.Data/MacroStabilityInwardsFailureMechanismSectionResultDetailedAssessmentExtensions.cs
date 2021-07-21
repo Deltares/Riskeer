@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 
 namespace Riskeer.MacroStabilityInwards.Data
@@ -41,15 +40,13 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// <param name="sectionResult">The section result to get the detailed assessment probability for.</param>
         /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the calculations belong to.</param>
-        /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
         /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there
         /// are no relevant calculations, when not all relevant calculations are performed or when the
         /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static double GetDetailedAssessmentProbability(this MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
                                                               IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
-                                                              MacroStabilityInwardsFailureMechanism failureMechanism,
-                                                              IAssessmentSection assessmentSection)
+                                                              MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             if (sectionResult == null)
             {
@@ -64,11 +61,6 @@ namespace Riskeer.MacroStabilityInwards.Data
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             MacroStabilityInwardsCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios(calculationScenarios).ToArray();
