@@ -40,12 +40,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => DerivedMacroStabilityInwardsOutputFactory.Create(null,
-                                                                                       new MacroStabilityInwardsFailureMechanism(),
-                                                                                       assessmentSection);
+            void Call() => DerivedMacroStabilityInwardsOutputFactory.Create(null, new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("output", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -59,12 +57,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => DerivedMacroStabilityInwardsOutputFactory.Create(MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                                                                                       null,
-                                                                                       assessmentSection);
+            void Call() => DerivedMacroStabilityInwardsOutputFactory.Create(MacroStabilityInwardsOutputTestFactory.CreateOutput(), null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -73,12 +69,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedMacroStabilityInwardsOutputFactory.Create(MacroStabilityInwardsOutputTestFactory.CreateOutput(),
-                                                                                       new MacroStabilityInwardsFailureMechanism(),
-                                                                                       null);
+            void Call() => DerivedMacroStabilityInwardsOutputFactory.Create(MacroStabilityInwardsOutputTestFactory.CreateOutput(), new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -86,10 +80,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void Create_ValidData_ReturnsExpectedValue()
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism
-            {
-                Contribution = 100
-            };
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
@@ -105,11 +96,8 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.AreEqual(output.FactorOfStability, derivedOutput.FactorOfStability, derivedOutput.FactorOfStability.GetAccuracy());
-            Assert.AreEqual(1.289, derivedOutput.MacroStabilityInwardsFactorOfSafety, derivedOutput.MacroStabilityInwardsFactorOfSafety.GetAccuracy());
             Assert.AreEqual(0.049327, derivedOutput.MacroStabilityInwardsProbability, 1e-6);
             Assert.AreEqual(1.65141, derivedOutput.MacroStabilityInwardsReliability, derivedOutput.MacroStabilityInwardsReliability.GetAccuracy());
-            Assert.AreEqual(0.1, derivedOutput.RequiredProbability, 1e-6);
-            Assert.AreEqual(1.28155, derivedOutput.RequiredReliability, derivedOutput.RequiredReliability.GetAccuracy());
             mocks.VerifyAll();
         }
     }
