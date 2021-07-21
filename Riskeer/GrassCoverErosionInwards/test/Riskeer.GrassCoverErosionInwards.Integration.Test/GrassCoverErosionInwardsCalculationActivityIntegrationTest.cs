@@ -94,25 +94,9 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.NoCalculation, OvertoppingRateCalculationType.NoCalculation,
-                  TestName = "Run_OvertoppingOnly_ProgressTextSetAccordingly")]
-        [TestCase(DikeHeightCalculationType.NoCalculation, OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
-                  TestName = "Run_OvertoppingRateNorm_ProgressTextSetAccordingly")]
-        [TestCase(DikeHeightCalculationType.NoCalculation, OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
-                  TestName = "Run_OvertoppingRateRequiredProbability_ProgressTextSetAccordingly")]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, OvertoppingRateCalculationType.NoCalculation,
-                  TestName = "Run_DikeHeightNorm_ProgressTextSetAccordingly")]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
-                  TestName = "Run_DikeHeightNormAndOvertoppingRateNorm_ProgressTextSetAccordingly")]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
-                  TestName = "Run_DikeHeightNormAndOvertoppingRequiredProbability_ProgressTextSetAccordingly")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, OvertoppingRateCalculationType.NoCalculation,
-                  TestName = "Run_DikeHeightRequiredProbability_ProgressTextSetAccordingly")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
-                  TestName = "Run_DikeHeightRequiredProbabilityAndOvertoppingNorm_ProgressTextSetAccordingly")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
-                  TestName = "Run_DikeHeightRequiredProbabilityAndOvertoppingRequiredProbability_ProgressTextSetAccordingly")]
-        public void Run_CombinationOfCalculations_ProgressTextSetAccordingly(DikeHeightCalculationType dikeHeightCalculationType, OvertoppingRateCalculationType overtoppingRateCalculationType)
+        [Combinatorial]
+        public void Run_CombinationOfCalculations_ProgressTextSetAccordingly([Values(true, false)] bool shouldDikeHeightBeCalculated,
+                                                                             [Values(true, false)] bool shouldOvertoppingRateBeCalculated)
         {
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -136,8 +120,8 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
-                    DikeHeightCalculationType = dikeHeightCalculationType,
-                    OvertoppingRateCalculationType = overtoppingRateCalculationType
+                    ShouldDikeHeightBeCalculated = shouldDikeHeightBeCalculated,
+                    ShouldOvertoppingRateBeCalculated = shouldOvertoppingRateBeCalculated
                 }
             };
 
@@ -155,22 +139,22 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             }
 
             // Assert
-            int totalNumberOfCalculations = dikeHeightCalculationType != DikeHeightCalculationType.NoCalculation
-                                                ? overtoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation
+            int totalNumberOfCalculations = shouldDikeHeightBeCalculated
+                                                ? shouldOvertoppingRateBeCalculated
                                                       ? 3
                                                       : 2
-                                                : overtoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation
+                                                : shouldOvertoppingRateBeCalculated
                                                     ? 2
                                                     : 1;
 
             string expectedProgressTexts = $"Stap 1 van {totalNumberOfCalculations} | Uitvoeren overloop en overslag berekening" + Environment.NewLine;
 
-            if (dikeHeightCalculationType != DikeHeightCalculationType.NoCalculation)
+            if (shouldDikeHeightBeCalculated)
             {
                 expectedProgressTexts += $"Stap 2 van {totalNumberOfCalculations} | Uitvoeren HBN berekening" + Environment.NewLine;
             }
 
-            if (overtoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation)
+            if (shouldOvertoppingRateBeCalculated)
             {
                 expectedProgressTexts += $"Stap {totalNumberOfCalculations} van {totalNumberOfCalculations} | Uitvoeren overslagdebiet berekening" + Environment.NewLine;
             }
@@ -260,12 +244,12 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 GeneralGrassCoverErosionInwardsInput generalInput = assessmentSection.GrassCoverErosionInwards.GeneralInput;
 
                 GrassCoverErosionInwardsInput input = calculation.InputParameters;
-                var expectedInput = new OvertoppingCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                                                                    calculation.InputParameters.Orientation,
-                                                                    calculation.InputParameters.DikeGeometry.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X, roughnessPoint.Point.Y, roughnessPoint.Roughness)),
+                var expectedInput = new OvertoppingCalculationInput(input.HydraulicBoundaryLocation.Id,
+                                                                    input.Orientation,
+                                                                    input.DikeGeometry.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X, roughnessPoint.Point.Y, roughnessPoint.Roughness)),
                                                                     input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                     new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
-                                                                    calculation.InputParameters.DikeHeight,
+                                                                    input.DikeHeight,
                                                                     generalInput.CriticalOvertoppingModelFactor,
                                                                     generalInput.FbFactor.Mean,
                                                                     generalInput.FbFactor.StandardDeviation,
@@ -276,8 +260,8 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                                                                     generalInput.FnFactor.LowerBoundary,
                                                                     generalInput.FnFactor.UpperBoundary,
                                                                     generalInput.OvertoppingModelFactor,
-                                                                    calculation.InputParameters.CriticalFlowRate.Mean,
-                                                                    calculation.InputParameters.CriticalFlowRate.StandardDeviation,
+                                                                    input.CriticalFlowRate.Mean,
+                                                                    input.CriticalFlowRate.StandardDeviation,
                                                                     generalInput.FrunupModelFactor.Mean,
                                                                     generalInput.FrunupModelFactor.StandardDeviation,
                                                                     generalInput.FrunupModelFactor.LowerBoundary,
@@ -510,14 +494,10 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         #region Dike height calculations
 
         [Test]
-        public void Run_ValidDikeHeightCalculation_InputPropertiesCorrectlySentToService(
-            [Values(BreakWaterType.Caisson,
-                    BreakWaterType.Wall,
-                    BreakWaterType.Dam)]
-            BreakWaterType breakWaterType,
-            [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                    DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
-            DikeHeightCalculationType dikeHeightCalculationType)
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Dam)]
+        [TestCase(BreakWaterType.Wall)]
+        public void Run_ValidDikeHeightCalculation_InputPropertiesCorrectlySentToService(BreakWaterType breakWaterType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -554,7 +534,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
-                    DikeHeightCalculationType = dikeHeightCalculationType
+                    ShouldDikeHeightBeCalculated = true
                 }
             };
 
@@ -575,17 +555,10 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 GrassCoverErosionInwardsInput input = calculation.InputParameters;
 
-                double norm = dikeHeightCalculationType == DikeHeightCalculationType.CalculateByAssessmentSectionNorm
-                                  ? assessmentSection.FailureMechanismContribution.Norm
-                                  : RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                                      assessmentSection.FailureMechanismContribution.Norm,
-                                      assessmentSection.GrassCoverErosionInwards.Contribution,
-                                      generalInput.N);
-
-                var expectedInput = new DikeHeightCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                                                                   norm,
-                                                                   calculation.InputParameters.Orientation,
-                                                                   calculation.InputParameters.DikeGeometry.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X, roughnessPoint.Point.Y, roughnessPoint.Roughness)),
+                var expectedInput = new DikeHeightCalculationInput(input.HydraulicBoundaryLocation.Id,
+                                                                   input.DikeHeightReliabilityIndex,
+                                                                   input.Orientation,
+                                                                   input.DikeGeometry.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X, roughnessPoint.Point.Y, roughnessPoint.Roughness)),
                                                                    input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                    new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                    generalInput.CriticalOvertoppingModelFactor,
@@ -598,8 +571,8 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                                                                    generalInput.FnFactor.LowerBoundary,
                                                                    generalInput.FnFactor.UpperBoundary,
                                                                    generalInput.OvertoppingModelFactor,
-                                                                   calculation.InputParameters.CriticalFlowRate.Mean,
-                                                                   calculation.InputParameters.CriticalFlowRate.StandardDeviation,
+                                                                   input.CriticalFlowRate.Mean,
+                                                                   input.CriticalFlowRate.StandardDeviation,
                                                                    generalInput.FrunupModelFactor.Mean,
                                                                    generalInput.FrunupModelFactor.StandardDeviation,
                                                                    generalInput.FrunupModelFactor.LowerBoundary,
@@ -616,9 +589,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_InvalidDikeHeightWithExceptionAndLastErrorPresent_LogError(Norm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_InvalidDikeHeightWithExceptionAndLastErrorPresent_LogError(RequiredProbability)")]
-        public void Run_InvalidDikeHeightCalculationWithExceptionAndLastErrorPresent_LogError(DikeHeightCalculationType dikeHeightCalculationType)
+        public void Run_InvalidDikeHeightCalculationWithExceptionAndLastErrorPresent_LogError()
         {
             // Setup
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
@@ -647,7 +618,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
-                    DikeHeightCalculationType = dikeHeightCalculationType
+                    ShouldDikeHeightBeCalculated = true
                 }
             };
 
@@ -680,9 +651,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_InvalidDikeHeightWithExceptionAndNoLastErrorPresent_LogError(Norm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_InvalidDikeHeightWithExceptionAndNoLastErrorPresent_LogError(RequiredProbability)")]
-        public void Run_InvalidDikeHeightCalculationWithExceptionAndNoLastErrorPresent_LogError(DikeHeightCalculationType dikeHeightCalculationType)
+        public void Run_InvalidDikeHeightCalculationWithExceptionAndNoLastErrorPresent_LogError()
         {
             // Setup
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
@@ -710,7 +679,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
-                    DikeHeightCalculationType = dikeHeightCalculationType
+                    ShouldDikeHeightBeCalculated = true
                 }
             };
 
@@ -743,9 +712,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_InvalidDikeHeightWithoutExceptionAndLastErrorPresent_LogError(Norm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_InvalidDikeHeightWithoutExceptionAndLastErrorPresent_LogError(RequiredProbability)")]
-        public void Run_InvalidDikeHeightCalculationWithoutExceptionAndWithLastErrorPresent_LogError(DikeHeightCalculationType dikeHeightCalculationType)
+        public void Run_InvalidDikeHeightCalculationWithoutExceptionAndWithLastErrorPresent_LogError()
         {
             // Setup
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
@@ -774,7 +741,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
-                    DikeHeightCalculationType = dikeHeightCalculationType
+                    ShouldDikeHeightBeCalculated = true
                 }
             };
 
@@ -807,9 +774,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_ValidDikeHeight_CalculateValidateAndLog(Norm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_ValidDikeHeight_CalculateValidateAndLog(RequiredProbability)")]
-        public void Run_ValidDikeHeightCalculation_PerformValidationAndCalculationAndLogStartAndEndError(DikeHeightCalculationType dikeHeightCalculationType)
+        public void Run_ValidDikeHeightCalculation_PerformValidationAndCalculationAndLogStartAndEndError()
         {
             // Setup
             var dikeHeightCalculator = new TestHydraulicLoadsCalculator
@@ -838,7 +803,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
-                    DikeHeightCalculationType = dikeHeightCalculationType
+                    ShouldDikeHeightBeCalculated = true
                 }
             };
 
@@ -871,9 +836,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Finish_InvalidDikeHeight_OutputSetAndObserversNotified(Norm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Finish_InvalidDikeHeight_OutputSetAndObserversNotified(RequiredProbability)")]
-        public void Finish_InvalidDikeHeightCalculation_OutputSetAndObserversNotified(DikeHeightCalculationType dikeHeightCalculationType)
+        public void Finish_InvalidDikeHeightCalculation_OutputSetAndObserversNotified()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -903,7 +866,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
-                    DikeHeightCalculationType = dikeHeightCalculationType
+                    ShouldDikeHeightBeCalculated = true
                 }
             };
 
@@ -927,9 +890,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Finish_ValidDikeHeight_OutputSetAndObserversNotified(Norm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Finish_ValidDikeHeight_OutputSetAndObserversNotified(RequiredProbability)")]
-        public void Finish_ValidDikeHeightCalculation_OutputSetAndObserversNotified(DikeHeightCalculationType dikeHeightCalculationType)
+        public void Finish_ValidDikeHeightCalculation_OutputSetAndObserversNotified()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -954,7 +915,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
-                    DikeHeightCalculationType = dikeHeightCalculationType
+                    ShouldDikeHeightBeCalculated = true
                 }
             };
 
@@ -985,14 +946,10 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         #region Overtopping rate calculations
 
         [Test]
-        public void Run_ValidOvertoppingRateCalculation_InputPropertiesCorrectlySentToService(
-            [Values(BreakWaterType.Caisson,
-                    BreakWaterType.Wall,
-                    BreakWaterType.Dam)]
-            BreakWaterType breakWaterType,
-            [Values(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
-                    OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
-            OvertoppingRateCalculationType overtoppingRateCalculationType)
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Dam)]
+        [TestCase(BreakWaterType.Wall)]
+        public void Run_ValidOvertoppingRateCalculation_InputPropertiesCorrectlySentToService(BreakWaterType breakWaterType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -1028,7 +985,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
-                    OvertoppingRateCalculationType = overtoppingRateCalculationType
+                    ShouldOvertoppingRateBeCalculated = true
                 }
             };
 
@@ -1049,20 +1006,13 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 GrassCoverErosionInwardsInput input = calculation.InputParameters;
 
-                double norm = overtoppingRateCalculationType == OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
-                                  ? assessmentSection.FailureMechanismContribution.Norm
-                                  : RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                                      assessmentSection.FailureMechanismContribution.Norm,
-                                      assessmentSection.GrassCoverErosionInwards.Contribution,
-                                      generalInput.N);
-
-                var expectedInput = new OvertoppingRateCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                                                                        norm,
-                                                                        calculation.InputParameters.Orientation,
-                                                                        calculation.InputParameters.DikeGeometry.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X, roughnessPoint.Point.Y, roughnessPoint.Roughness)),
+                var expectedInput = new OvertoppingRateCalculationInput(input.HydraulicBoundaryLocation.Id,
+                                                                        input.OvertoppingRateReliabilityIndex,
+                                                                        input.Orientation,
+                                                                        input.DikeGeometry.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X, roughnessPoint.Point.Y, roughnessPoint.Roughness)),
                                                                         input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                         new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
-                                                                        calculation.InputParameters.DikeHeight,
+                                                                        input.DikeHeight,
                                                                         generalInput.CriticalOvertoppingModelFactor,
                                                                         generalInput.FbFactor.Mean,
                                                                         generalInput.FbFactor.StandardDeviation,
@@ -1089,9 +1039,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_InvalidOvertoppingRateWithExceptionAndLastErrorPresent_LogError(Norm)")]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_InvalidOvertoppingRateWithExceptionAndLastErrorPresent_LogError(RequiredProbability)")]
-        public void Run_InvalidOvertoppingRateCalculationWithExceptionAndLastErrorPresent_LogError(OvertoppingRateCalculationType overtoppingRateCalculationType)
+        public void Run_InvalidOvertoppingRateCalculationWithExceptionAndLastErrorPresent_LogError()
         {
             // Setup
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
@@ -1120,7 +1068,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
-                    OvertoppingRateCalculationType = overtoppingRateCalculationType
+                    ShouldOvertoppingRateBeCalculated = true
                 }
             };
 
@@ -1153,9 +1101,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_InvalidOvertoppingRateWithExceptionAndNoLastErrorPresent_LogError(Norm)")]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_InvalidOvertoppingRateWithExceptionAndNoLastErrorPresent_LogError(RequiredProbability)")]
-        public void Run_InvalidOvertoppingRateCalculationWithExceptionAndNoLastErrorPresent_LogError(OvertoppingRateCalculationType overtoppingRateCalculationType)
+        public void Run_InvalidOvertoppingRateCalculationWithExceptionAndNoLastErrorPresent_LogError()
         {
             // Setup
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
@@ -1183,7 +1129,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
-                    OvertoppingRateCalculationType = overtoppingRateCalculationType
+                    ShouldOvertoppingRateBeCalculated = true
                 }
             };
 
@@ -1216,9 +1162,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_InvalidOvertoppingRateWithoutExceptionAndLastErrorPresent_LogError(Norm)")]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_InvalidOvertoppingRateWithoutExceptionAndLastErrorPresent_LogError(RequiredProbability)")]
-        public void Run_InvalidOvertoppingRateCalculationWithoutExceptionAndWithLastErrorPresent_LogError(OvertoppingRateCalculationType overtoppingRateCalculationType)
+        public void Run_InvalidOvertoppingRateCalculationWithoutExceptionAndWithLastErrorPresent_LogError()
         {
             // Setup
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
@@ -1247,7 +1191,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
-                    OvertoppingRateCalculationType = overtoppingRateCalculationType
+                    ShouldOvertoppingRateBeCalculated = true
                 }
             };
 
@@ -1280,9 +1224,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Run_ValidOvertoppingRate_CalculateValidateAndLog(Norm)")]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Run_ValidOvertoppingRate_CalculateValidateAndLog(RequiredProbability)")]
-        public void Run_ValidOvertoppingRateCalculation_PerformValidationAndCalculationAndLogStartAndEndError(OvertoppingRateCalculationType overtoppingRateCalculationType)
+        public void Run_ValidOvertoppingRateCalculation_PerformValidationAndCalculationAndLogStartAndEndError()
         {
             // Setup
             var overtoppingRateCalculator = new TestHydraulicLoadsCalculator
@@ -1311,7 +1253,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
-                    OvertoppingRateCalculationType = overtoppingRateCalculationType
+                    ShouldOvertoppingRateBeCalculated = true
                 }
             };
 
@@ -1344,9 +1286,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Finish_InvalidOvertoppingRate_OutputSetAndObserversNotified(Norm)")]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Finish_InvalidOvertoppingRate_OutputSetAndObserversNotified(RequiredProbability)")]
-        public void Finish_InvalidOvertoppingRateCalculation_OutputSetAndObserversNotified(OvertoppingRateCalculationType overtoppingRateCalculationType)
+        public void Finish_InvalidOvertoppingRateCalculation_OutputSetAndObserversNotified()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -1376,7 +1316,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
-                    OvertoppingRateCalculationType = overtoppingRateCalculationType
+                    ShouldOvertoppingRateBeCalculated = true
                 }
             };
 
@@ -1400,9 +1340,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Finish_ValidOvertoppingRate_OutputSetAndObserversNotified(Norm)")]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Finish_ValidOvertoppingRate_OutputSetAndObserversNotified(RequiredProbability)")]
-        public void Finish_ValidOvertoppingRateCalculation_OutputSetAndObserversNotified(OvertoppingRateCalculationType overtoppingRateCalculationType)
+        public void Finish_ValidOvertoppingRateCalculation_OutputSetAndObserversNotified()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -1427,7 +1365,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = CreateDikeProfile(),
-                    OvertoppingRateCalculationType = overtoppingRateCalculationType
+                    ShouldOvertoppingRateBeCalculated = true
                 }
             };
 
