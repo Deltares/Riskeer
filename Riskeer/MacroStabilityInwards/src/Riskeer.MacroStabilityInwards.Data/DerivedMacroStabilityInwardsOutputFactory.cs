@@ -33,24 +33,19 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// Calculates the semi-probabilistic results given a <see cref="MacroStabilityInwardsCalculation"/> with <see cref="MacroStabilityInwardsOutput"/>.
         /// </summary>
         /// <param name="output">The output of a calculation.</param>
-        /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <param name="modelFactor">The model factor used to calculate a reliablity from a stability factor.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
         public static DerivedMacroStabilityInwardsOutput Create(MacroStabilityInwardsOutput output,
-                                                                MacroStabilityInwardsFailureMechanism failureMechanism)
+                                                                double modelFactor)
         {
             if (output == null)
             {
                 throw new ArgumentNullException(nameof(output));
             }
 
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             double factorOfStability = output.FactorOfStability;
 
-            double macroStabilityInwardsReliability = CalculateEstimatedReliability(factorOfStability, failureMechanism.GeneralInput.ModelFactor);
+            double macroStabilityInwardsReliability = CalculateEstimatedReliability(factorOfStability, modelFactor);
             double macroStabilityInwardsProbability = StatisticsConverter.ReliabilityToProbability(macroStabilityInwardsReliability);
 
             return new DerivedMacroStabilityInwardsOutput(factorOfStability,

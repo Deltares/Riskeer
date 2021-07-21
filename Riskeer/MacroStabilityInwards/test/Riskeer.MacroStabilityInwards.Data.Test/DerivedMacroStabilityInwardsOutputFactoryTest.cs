@@ -33,7 +33,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void Create_OutputNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => DerivedMacroStabilityInwardsOutputFactory.Create(null, new MacroStabilityInwardsFailureMechanism());
+            void Call() => DerivedMacroStabilityInwardsOutputFactory.Create(null, 1.1);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -41,29 +41,16 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void Create_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => DerivedMacroStabilityInwardsOutputFactory.Create(MacroStabilityInwardsOutputTestFactory.CreateOutput(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
         public void Create_ValidData_ReturnsExpectedValue()
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
             MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput(new MacroStabilityInwardsOutput.ConstructionProperties
             {
                 FactorOfStability = new Random(21).NextDouble()
             });
 
             // Call
-            DerivedMacroStabilityInwardsOutput derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, failureMechanism);
+            DerivedMacroStabilityInwardsOutput derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, 1.1);
 
             // Assert
             Assert.AreEqual(output.FactorOfStability, derivedOutput.FactorOfStability, derivedOutput.FactorOfStability.GetAccuracy());

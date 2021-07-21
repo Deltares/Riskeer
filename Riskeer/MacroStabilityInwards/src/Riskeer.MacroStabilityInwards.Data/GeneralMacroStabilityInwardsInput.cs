@@ -39,7 +39,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Gets the model factor used to calculate a factor of safety from a stability factor.
+        /// Gets the model factor used to calculate a reliablity from a stability factor.
         /// </summary>
         public double ModelFactor { get; }
 
