@@ -298,7 +298,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         [TestCase(double.NaN)]
         [TestCase(0.0)]
         [TestCase(0.11)]
-        public void DikeHeightReliabilityIndex_InvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
+        public void DikeHeightTargetProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
             const double originalValue = 0.1;
@@ -318,7 +318,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         [TestCase(1e-100)]
         [TestCase(0.05)]
         [TestCase(0.1)]
-        public void DikeHeightReliabilityIndex_ValidValue_NewValueSet(double newValue)
+        public void DikeHeightTargetProbability_ValidValue_NewValueSet(double newValue)
         {
             // Setup
             var input = new GrassCoverErosionInwardsInput(0.1);
@@ -334,7 +334,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         [TestCase(double.NaN)]
         [TestCase(0.0)]
         [TestCase(0.11)]
-        public void OvertoppingRateReliabilityIndex_InvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
+        public void OvertoppingRateTargetProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
             const double originalValue = 0.1;
@@ -354,7 +354,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         [TestCase(1e-100)]
         [TestCase(0.05)]
         [TestCase(0.1)]
-        public void OvertoppingRateReliabilityIndex_ValidValue_NewValueSet(double newValue)
+        public void OvertoppingRateTargetProbability_ValidValue_NewValueSet(double newValue)
         {
             // Setup
             var input = new GrassCoverErosionInwardsInput(0.1);
