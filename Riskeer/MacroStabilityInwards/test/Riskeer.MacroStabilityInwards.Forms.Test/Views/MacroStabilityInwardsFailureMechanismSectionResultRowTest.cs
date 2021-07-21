@@ -175,7 +175,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityInwardsFailureMechanismSectionResult>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
-                Assert.AreEqual(result.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
+                Assert.AreEqual(result.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism),
                                 row.DetailedAssessmentProbability);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
                 Assert.AreEqual(result.TailorMadeAssessmentProbability, row.TailorMadeAssessmentProbability);
@@ -1125,9 +1125,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
 
                 // Assert
-                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(calculationScenarios,
-                                                                               failureMechanism,
-                                                                               assessmentSection),
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism),
                                 detailedAssessmentProbability);
                 mocks.VerifyAll();
             }

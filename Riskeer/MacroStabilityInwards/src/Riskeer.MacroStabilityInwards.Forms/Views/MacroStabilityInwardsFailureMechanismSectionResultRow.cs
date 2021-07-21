@@ -156,7 +156,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// Gets the detailed assessment probability a of the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
+        public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism);
 
         /// <summary>
         /// Gets or sets the value representing the tailor made assessment result.
@@ -271,7 +271,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
                     SectionResult.GetCalculationScenarios(calculations).ToArray(),
                     scenarios => SectionResult.GetTotalContribution(scenarios),
-                    scenarios => SectionResult.GetDetailedAssessmentProbability(scenarios, failureMechanism, assessmentSection));
+                    scenarios => SectionResult.GetDetailedAssessmentProbability(scenarios, failureMechanism));
             }
         }
 
