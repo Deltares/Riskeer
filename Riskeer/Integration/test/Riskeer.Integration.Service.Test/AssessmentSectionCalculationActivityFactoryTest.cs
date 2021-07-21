@@ -335,7 +335,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AddGrassCoverErosionInwardsCalculation(AssessmentSection assessmentSection,
                                                                    HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(double.NaN)
+            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(0.1)
             {
                 InputParameters =
                 {
