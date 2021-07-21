@@ -25,8 +25,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -61,35 +59,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new MacroStabilityInwardsScenariosView(new CalculationGroup(), new MacroStabilityInwardsFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculationGroup = new CalculationGroup();
 
             // Call
-            using (var scenarioView = new MacroStabilityInwardsScenariosView(calculationGroup, new MacroStabilityInwardsFailureMechanism(), assessmentSection))
+            using (var scenarioView = new MacroStabilityInwardsScenariosView(calculationGroup, new MacroStabilityInwardsFailureMechanism()))
             {
                 // Assert
                 Assert.IsInstanceOf<ScenariosView<MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInput, MacroStabilityInwardsScenarioRow, MacroStabilityInwardsFailureMechanism>>(scenarioView);
                 Assert.AreSame(calculationGroup, scenarioView.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -205,7 +186,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
         private void ShowMacroStabilityInwardsScenariosView(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
-            var scenarioView = new MacroStabilityInwardsScenariosView(failureMechanism.CalculationsGroup, failureMechanism, new AssessmentSectionStub());
+            var scenarioView = new MacroStabilityInwardsScenariosView(failureMechanism.CalculationsGroup, failureMechanism);
 
             testForm.Controls.Add(scenarioView);
             testForm.Show();
