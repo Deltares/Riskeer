@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
@@ -36,8 +35,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     /// </summary>
     public class MacroStabilityInwardsScenariosView : ScenariosView<MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInput, MacroStabilityInwardsScenarioRow, MacroStabilityInwardsFailureMechanism>
     {
-        private readonly IAssessmentSection assessmentSection;
-
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsScenariosView"/>.
         /// </summary>
@@ -45,19 +42,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// to get the calculations from.</param>
         /// <param name="failureMechanism">The <see cref="MacroStabilityInwardsFailureMechanism"/>
         /// to get the sections from.</param>
-        /// <param name="assessmentSection">The assessment section the scenarios belong to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter
-        /// is <c>null</c>.</exception>
-        public MacroStabilityInwardsScenariosView(CalculationGroup calculationGroup, MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            : base(calculationGroup, failureMechanism)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            this.assessmentSection = assessmentSection;
-        }
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public MacroStabilityInwardsScenariosView(CalculationGroup calculationGroup, MacroStabilityInwardsFailureMechanism failureMechanism)
+            : base(calculationGroup, failureMechanism) {}
 
         protected override MacroStabilityInwardsInput GetCalculationInput(MacroStabilityInwardsCalculationScenario calculationScenario)
         {
