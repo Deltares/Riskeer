@@ -29,6 +29,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Probabilistics;
+using Riskeer.GrassCoverErosionInwards.Data.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Data
@@ -40,18 +41,23 @@ namespace Riskeer.GrassCoverErosionInwards.Data
     {
         private const int orientationNumberOfDecimals = 2;
 
-        private static readonly Range<RoundedDouble> orientationValidityRange = new Range<RoundedDouble>(new RoundedDouble(orientationNumberOfDecimals),
-                                                                                                         new RoundedDouble(orientationNumberOfDecimals, 360));
+        private static readonly Range<RoundedDouble> orientationValidityRange = new Range<RoundedDouble>(
+            new RoundedDouble(orientationNumberOfDecimals),
+            new RoundedDouble(orientationNumberOfDecimals, 360));
 
         private LogNormalDistribution criticalFlowRate;
         private RoundedDouble orientation;
         private RoundedDouble dikeHeight;
         private DikeProfile dikeProfile;
+        private double dikeHeightReliabilityIndex;
+        private double overtoppingRateReliabilityIndex;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsInput"/>.
         /// </summary>
         /// <param name="norm">The norm to use.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="norm"/>
+        /// is not in the interval {0.0, 0.1] or is <see cref="double.NaN"/>.</exception>
         public GrassCoverErosionInwardsInput(double norm)
         {
             orientation = new RoundedDouble(orientationNumberOfDecimals);
@@ -76,10 +82,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// </summary>
         public DikeProfile DikeProfile
         {
-            get
-            {
-                return dikeProfile;
-            }
+            get => dikeProfile;
             set
             {
                 dikeProfile = value;
@@ -91,12 +94,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// Gets or sets the orientation of the dike profile geometry with respect to North
         /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value
+        /// is not in the interval [0.00, 360.00] or is <see cref="double.NaN"/>.</exception>
         public RoundedDouble Orientation
         {
-            get
-            {
-                return orientation;
-            }
+            get => orientation;
             set
             {
                 RoundedDouble newOrientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
@@ -119,27 +121,15 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// and the succeeding <see cref="RoughnessPoint"/>. The roughness of the last
         /// point is irrelevant.
         /// </remarks>
-        public IEnumerable<RoughnessPoint> DikeGeometry
-        {
-            get
-            {
-                return dikeProfile?.DikeGeometry ?? new RoughnessPoint[0];
-            }
-        }
+        public IEnumerable<RoughnessPoint> DikeGeometry => dikeProfile?.DikeGeometry ?? new RoughnessPoint[0];
 
         /// <summary>
         /// Gets or sets the height of the dike [m+NAP].
         /// </summary>
         public RoundedDouble DikeHeight
         {
-            get
-            {
-                return dikeHeight;
-            }
-            set
-            {
-                dikeHeight = value.ToPrecision(dikeHeight.NumberOfDecimalPlaces);
-            }
+            get => dikeHeight;
+            set => dikeHeight = value.ToPrecision(dikeHeight.NumberOfDecimalPlaces);
         }
 
         /// <summary>
@@ -147,10 +137,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// </summary>
         public LogNormalDistribution CriticalFlowRate
         {
-            get
-            {
-                return criticalFlowRate;
-            }
+            get => criticalFlowRate;
             set
             {
                 criticalFlowRate.Mean = value.Mean;
@@ -171,12 +158,32 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <summary>
         /// Gets or sets the reliability index for the Dike Height calculation.
         /// </summary>
-        public double DikeHeightReliabilityIndex { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value
+        /// is not in the interval {0.0, 0.1] or is <see cref="double.NaN"/>.</exception>
+        public double DikeHeightReliabilityIndex
+        {
+            get => dikeHeightReliabilityIndex;
+            set
+            {
+                ValidateReliabilityIndex(value);
+                dikeHeightReliabilityIndex = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the reliability index for the Overtopping Rate calculation.
         /// </summary>
-        public double OvertoppingRateReliabilityIndex { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value
+        /// is not in the interval {0.0, 0.1] or is <see cref="double.NaN"/>.</exception>
+        public double OvertoppingRateReliabilityIndex
+        {
+            get => overtoppingRateReliabilityIndex;
+            set
+            {
+                ValidateReliabilityIndex(value);
+                overtoppingRateReliabilityIndex = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets how the Dike Height should be calculated.
@@ -239,15 +246,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data
 
         public bool UseForeshore { get; set; }
 
-        public RoundedPoint2DCollection ForeshoreGeometry
-        {
-            get
-            {
-                return dikeProfile != null
-                           ? dikeProfile.ForeshoreGeometry
-                           : new RoundedPoint2DCollection(2, Enumerable.Empty<Point2D>());
-            }
-        }
+        public RoundedPoint2DCollection ForeshoreGeometry =>
+            dikeProfile != null
+                ? dikeProfile.ForeshoreGeometry
+                : new RoundedPoint2DCollection(2, Enumerable.Empty<Point2D>());
 
         /// <summary>
         /// Applies the properties of the <see cref="DikeProfile"/> to the
@@ -280,6 +282,16 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             clone.BreakWater = (BreakWater) BreakWater.Clone();
 
             return clone;
+        }
+
+        private static void ValidateReliabilityIndex(double reliabilityIndex)
+        {
+            if (double.IsNaN(reliabilityIndex) || reliabilityIndex <= 0 || reliabilityIndex > 0.1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(reliabilityIndex),
+                                                      reliabilityIndex,
+                                                      Resources.ReliabilityIndex_Value_must_be_in_range);
+            }
         }
 
         private void SetDefaultDikeProfileProperties()

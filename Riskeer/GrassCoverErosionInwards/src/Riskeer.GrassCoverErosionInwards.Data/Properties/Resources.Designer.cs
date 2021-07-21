@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -152,6 +152,15 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Properties {
         public static string OvertoppingRateCalculationType_NoCalculation_DisplayName {
             get {
                 return ResourceManager.GetString("OvertoppingRateCalculationType_NoCalculation_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde van de doelkans moet groter zijn dan 0.0 en kleiner dan of gelijk aan 0.1..
+        /// </summary>
+        public static string ReliabilityIndex_Value_must_be_in_range {
+            get {
+                return ResourceManager.GetString("ReliabilityIndex_Value_must_be_in_range", resourceCulture);
             }
         }
     }
