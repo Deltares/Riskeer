@@ -30,10 +30,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
     public class OvertoppingRateOutputContextTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
+            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
 
             // Call
             var overtoppingRateOutputContext = new OvertoppingRateOutputContext(calculation);

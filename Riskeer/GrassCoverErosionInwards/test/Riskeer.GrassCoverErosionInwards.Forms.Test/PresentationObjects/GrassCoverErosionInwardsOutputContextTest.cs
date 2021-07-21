@@ -41,7 +41,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
+            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
 
             // Call
             var grassCoverErosionInwardsOutputContext = new GrassCoverErosionInwardsOutputContext(calculation, failureMechanism, assessmentSection);
@@ -63,7 +63,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            void Call() => new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation(double.NaN),
+            void Call() => new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation(0.1),
                                                                      null, assessmentSection);
 
             // Assert
@@ -76,7 +76,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation(double.NaN),
+            void Call() => new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation(0.1),
                                                                      new GrassCoverErosionInwardsFailureMechanism(), null);
 
             // Assert

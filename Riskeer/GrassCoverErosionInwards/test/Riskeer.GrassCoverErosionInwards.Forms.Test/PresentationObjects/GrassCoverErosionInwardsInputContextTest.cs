@@ -46,8 +46,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var input = new GrassCoverErosionInwardsInput(double.NaN);
-            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
+            var input = new GrassCoverErosionInwardsInput(0.1);
+            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
@@ -63,13 +63,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_NullCalculation_ThrowsArgumentNullException()
+        public void Constructor_CalculationNull_ThrowsArgumentNullException()
         {
             // Setup
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var input = new GrassCoverErosionInwardsInput(double.NaN);
+            var input = new GrassCoverErosionInwardsInput(0.1);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call

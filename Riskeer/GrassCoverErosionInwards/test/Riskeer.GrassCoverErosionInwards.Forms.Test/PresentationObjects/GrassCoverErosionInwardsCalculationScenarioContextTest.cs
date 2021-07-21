@@ -43,7 +43,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var parent = new CalculationGroup();
 
@@ -69,7 +69,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
@@ -88,7 +88,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             private static readonly MockRepository mocks = new MockRepository();
 
             private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
-            private static readonly GrassCoverErosionInwardsCalculationScenario calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
+            private static readonly GrassCoverErosionInwardsCalculationScenario calculation = new GrassCoverErosionInwardsCalculationScenario(0.1);
             private static readonly GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             private static readonly CalculationGroup parent = new CalculationGroup();
 
@@ -116,7 +116,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new GrassCoverErosionInwardsCalculationScenarioContext(new GrassCoverErosionInwardsCalculationScenario(double.NaN),
+                yield return new TestCaseData(new GrassCoverErosionInwardsCalculationScenarioContext(new GrassCoverErosionInwardsCalculationScenario(0.1),
                                                                                                      parent,
                                                                                                      failureMechanism,
                                                                                                      assessmentSection))
