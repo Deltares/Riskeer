@@ -61,10 +61,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(null);
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
         }
 
@@ -128,10 +128,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -151,14 +151,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 null,
                 Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                 new MacroStabilityInwardsFailureMechanism(),
                 assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -172,14 +172,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 new MacroStabilityInwardsFailureMechanism(),
                 assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationScenarios", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -193,14 +193,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                 null,
                 assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -209,14 +209,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void AssembleDetailedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                 new MacroStabilityInwardsFailureMechanism(),
                 null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -251,8 +251,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(
                                     Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                    failureMechanism,
-                                    assessmentSection),
+                                    failureMechanism),
                                 calculator.DetailedAssessmentProbabilityInput);
                 Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length),
                                 calculator.DetailedAssessmentFailureMechanismSectionNInput);
@@ -319,7 +318,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
                     new[]
                     {
@@ -329,7 +328,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                     assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -349,13 +348,13 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                 null,
                 new MacroStabilityInwardsFailureMechanism(),
                 assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -369,13 +368,13 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                 new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -384,13 +383,13 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void AssembleTailorMadeAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                 new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new MacroStabilityInwardsFailureMechanism(),
                 null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -477,13 +476,13 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+                void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -504,14 +503,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 null,
                 Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                 new MacroStabilityInwardsFailureMechanism(),
                 assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -525,14 +524,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 new MacroStabilityInwardsFailureMechanism(),
                 assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationScenarios", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -546,14 +545,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                 null,
                 assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -562,14 +561,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void AssembleCombinedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                 new MacroStabilityInwardsFailureMechanism(),
                 null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -698,14 +697,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
                     Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -726,14 +725,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                 null,
                 new MacroStabilityInwardsFailureMechanism(),
                 assessmentSection,
                 new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -747,14 +746,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                 new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection,
                 new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -763,14 +762,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void GetSectionAssemblyCategoryGroup_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                 new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new MacroStabilityInwardsFailureMechanism(),
                 null,
                 new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -1010,14 +1009,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 }
 
                 // Call
-                TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
                     assessmentSection,
                     useManualAssembly);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -1038,13 +1037,13 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
                 null,
                 assessmentSection,
                 new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -1053,13 +1052,13 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void AssembleFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
                 new MacroStabilityInwardsFailureMechanism(),
                 null,
                 new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -1234,13 +1233,13 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
                     failureMechanism,
                     assessmentSection,
                     new Random(39).NextBoolean());
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -1269,13 +1268,13 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
                     failureMechanism,
                     assessmentSection,
                     new Random(39).NextBoolean());
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<AssemblyException>(innerException);
                 Assert.AreEqual("Voor een of meerdere vakken kan geen resultaat worden bepaald.", exception.Message);
