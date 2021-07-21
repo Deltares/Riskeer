@@ -249,9 +249,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
                 // Assert
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
-                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(
-                                    Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                    failureMechanism),
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), 1.1),
                                 calculator.DetailedAssessmentProbabilityInput);
                 Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length),
                                 calculator.DetailedAssessmentFailureMechanismSectionNInput);

@@ -125,7 +125,7 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
                 });
                 calculation1.NotifyObservers();
                 string expectedProbability = ProbabilityFormattingHelper.Format(
-                    DerivedMacroStabilityInwardsOutputFactory.Create(calculation1.Output, failureMechanism).MacroStabilityInwardsProbability);
+                    DerivedMacroStabilityInwardsOutputFactory.Create(calculation1.Output, failureMechanism.GeneralInput.ModelFactor).MacroStabilityInwardsProbability);
                 Assert.AreEqual(expectedProbability,
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);

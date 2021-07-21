@@ -66,7 +66,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private void CreateDerivedOutput()
         {
             derivedOutput = CalculationScenario.HasOutput
-                                ? DerivedMacroStabilityInwardsOutputFactory.Create(CalculationScenario.Output, failureMechanism)
+                                ? DerivedMacroStabilityInwardsOutputFactory.Create(CalculationScenario.Output, failureMechanism.GeneralInput.ModelFactor)
                                 : null;
         }
     }

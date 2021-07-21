@@ -74,7 +74,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism);
 
             // Assert
-            DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism);
+            DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.GeneralInput.ModelFactor);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
         }
 
@@ -108,7 +108,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             row.Update();
 
             // Then
-            DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism);
+            DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.GeneralInput.ModelFactor);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
         }
 
@@ -125,7 +125,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism);
 
             // Precondition
-            DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism);
+            DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.GeneralInput.ModelFactor);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
 
             // When
@@ -149,7 +149,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism);
 
             // Precondition
-            DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism);
+            DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.GeneralInput.ModelFactor);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
 
             var random = new Random(11);
@@ -162,7 +162,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             row.Update();
 
             // Then
-            DerivedMacroStabilityInwardsOutput newExpectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism);
+            DerivedMacroStabilityInwardsOutput newExpectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.GeneralInput.ModelFactor);
             Assert.AreEqual(newExpectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
         }
     }
