@@ -22,8 +22,6 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
@@ -34,59 +32,33 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
     public class MacroStabilityInwardsScenariosContextTest
     {
         [Test]
+        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var calculationGroup = new CalculationGroup();
+
+            // Call
+            void Call() => new MacroStabilityInwardsScenariosContext(calculationGroup, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
             // Call
-            var context = new MacroStabilityInwardsScenariosContext(calculationGroup, failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsScenariosContext(calculationGroup, failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<WrappedObjectContextBase<CalculationGroup>>(context);
             Assert.AreSame(calculationGroup, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
-            Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailuremechanismNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculationGroup = new CalculationGroup();
-
-            // Call
-            TestDelegate test = () => new MacroStabilityInwardsScenariosContext(calculationGroup, null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculationGroup = new CalculationGroup();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            // Call
-            TestDelegate call = () => new MacroStabilityInwardsScenariosContext(calculationGroup, failureMechanism, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
 }
