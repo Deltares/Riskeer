@@ -48,7 +48,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void IsDikeProfileIntersectionWithReferenceLineInSection_LineSegmentsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1);
 
             // Call
             void Call() => calculation.IsDikeProfileIntersectionWithReferenceLineInSection(null);
@@ -62,7 +62,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void IsDikeProfileIntersectionWithReferenceLineInSection_CalculationWithoutDikeProfile_ReturnsFalse()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1);
 
             // Call
             bool intersects = calculation.IsDikeProfileIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
@@ -83,7 +83,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1)
             {
                 InputParameters =
                 {
@@ -110,7 +110,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1)
             {
                 InputParameters =
                 {
@@ -139,7 +139,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 new Point2D(20.0, 0.0)
             });
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1)
             {
                 InputParameters =
                 {

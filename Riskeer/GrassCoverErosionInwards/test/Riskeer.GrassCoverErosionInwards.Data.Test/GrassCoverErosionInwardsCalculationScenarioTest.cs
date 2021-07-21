@@ -37,7 +37,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void Constructor_ExpectedValues()
         {
             // Call
-            var scenario = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
+            var scenario = new GrassCoverErosionInwardsCalculationScenario(0.1);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsCalculation>(scenario);
@@ -53,7 +53,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void Contribution_SetInvalidValue_ThrowArgumentException(double newValue)
         {
             // Setup
-            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario(0.1);
 
             // Call
             void Call() => calculationScenario.Contribution = (RoundedDouble) newValue;
@@ -68,7 +68,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void Contribution_SetValidValue_ValueSet(double newValue)
         {
             // Setup
-            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario(0.1);
 
             // Call
             calculationScenario.Contribution = (RoundedDouble) newValue;
@@ -109,7 +109,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             var random = new Random(21);
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1)
             {
                 Name = "A Name",
                 Comments =

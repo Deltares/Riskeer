@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
@@ -37,7 +38,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            double norm = new Random(21).NextDouble();
+            double norm = new Random(21).NextDouble(1e-15, 0.1);
             
             // Call
             var calculation = new GrassCoverErosionInwardsCalculation(norm);
@@ -62,7 +63,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void Properties_Name_ReturnsExpectedValues(string name)
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
+            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
 
             // Call
             calculation.Name = name;
@@ -78,7 +79,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void Property_Comments_ReturnsExpectedValues(string comments)
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
+            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
 
             // Call
             calculation.Comments.Body = comments;
@@ -91,7 +92,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void ClearOutput_Always_SetsOutputToNull()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
+            var calculation = new GrassCoverErosionInwardsCalculation(0.1)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -107,7 +108,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void HasOutput_OutputNull_ReturnsFalse()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
+            var calculation = new GrassCoverErosionInwardsCalculation(0.1)
             {
                 Output = null
             };
@@ -123,7 +124,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void HasOutput_OutputSet_ReturnsTrue()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
+            var calculation = new GrassCoverErosionInwardsCalculation(0.1)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -183,7 +184,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                                                                     new TestDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
                                                                     new TestOvertoppingRateOutput(new TestGeneralResultFaultTreeIllustrationPoint()));
 
-            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
+            var calculation = new GrassCoverErosionInwardsCalculation(0.1)
             {
                 Output = originalOutput
             };
@@ -202,7 +203,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void ClearIllustrationPoints_CalculationWithoutOutput_DoesNotThrow()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN);
+            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
 
             // Call
             void Call() => calculation.ClearIllustrationPoints();
@@ -213,7 +214,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
         private static GrassCoverErosionInwardsCalculation CreateRandomCalculationWithoutOutput()
         {
-            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
+            var calculation = new GrassCoverErosionInwardsCalculation(0.1)
             {
                 Comments =
                 {
@@ -241,7 +242,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             var overtoppingRateOutputWithoutGeneralResult = new TestOvertoppingRateOutput(1.0);
             var overtoppingRateOutputWithGeneralResult = new TestOvertoppingRateOutput(new TestGeneralResultFaultTreeIllustrationPoint());
 
-            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(double.NaN)
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(0.1)
                 {
                     InputParameters =
                     {
@@ -257,7 +258,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 }, false)
                 .SetName("OutputSufficientScenario1");
 
-            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(double.NaN)
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(0.1)
                 {
                     InputParameters =
                     {
@@ -270,7 +271,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 }, false)
                 .SetName("OutputSufficientScenario2");
 
-            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(double.NaN)
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(0.1)
                 {
                     Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
                                                                 null,
@@ -278,10 +279,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 }, false)
                 .SetName("OutputSufficientScenario3");
 
-            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(double.NaN), true)
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(0.1), true)
                 .SetName("NoOutputScenario1");
 
-            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(double.NaN)
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(0.1)
                 {
                     InputParameters =
                     {
@@ -291,7 +292,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 }, true)
                 .SetName("NoOutputScenario2");
 
-            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(double.NaN)
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(0.1)
                 {
                     InputParameters =
                     {
@@ -304,7 +305,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 }, true)
                 .SetName("NoOutputScenario3");
 
-            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(double.NaN)
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(0.1)
                 {
                     Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithGeneralResult,
                                                                 null,
@@ -312,7 +313,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 }, true)
                 .SetName("OvertoppingOutputWithRedundantGeneralResult");
 
-            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(double.NaN)
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(0.1)
                 {
                     InputParameters =
                     {
@@ -324,7 +325,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 }, true)
                 .SetName("OvertoppingOutputWithMissingGeneralResult");
 
-            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(double.NaN)
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(0.1)
                 {
                     InputParameters =
                     {
@@ -336,7 +337,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 }, true)
                 .SetName("DikeHeightOutputWithRedundantGeneralResult");
 
-            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(double.NaN)
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(0.1)
                 {
                     InputParameters =
                     {
@@ -349,7 +350,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 }, true)
                 .SetName("DikeHeightOutputWithMissingGeneralResult");
 
-            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(double.NaN)
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(0.1)
                 {
                     InputParameters =
                     {
@@ -361,7 +362,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 }, true)
                 .SetName("OvertoppingRateOutputWithRedundantGeneralResult");
 
-            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(double.NaN)
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(0.1)
                 {
                     InputParameters =
                     {
