@@ -55,44 +55,15 @@ namespace Riskeer.MacroStabilityInwards.Data
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
-
-            MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
-            double contribution = failureMechanism.Contribution / 100;
-            double norm = assessmentSection.FailureMechanismContribution.Norm;
-
+            
             double factorOfStability = output.FactorOfStability;
-            double requiredProbability = CalculateRequiredProbability(probabilityAssessmentInput.A,
-                                                                      probabilityAssessmentInput.B,
-                                                                      assessmentSection.ReferenceLine.Length,
-                                                                      norm,
-                                                                      contribution);
-            double requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);
 
             double macroStabilityInwardsReliability = CalculateEstimatedReliability(factorOfStability, failureMechanism.GeneralInput.ModelFactor);
             double macroStabilityInwardsProbability = StatisticsConverter.ReliabilityToProbability(macroStabilityInwardsReliability);
-
-            double macroStabilityInwardsFactorOfSafety = macroStabilityInwardsReliability / requiredReliability;
-
+            
             return new DerivedMacroStabilityInwardsOutput(factorOfStability,
-                                                          requiredProbability,
-                                                          requiredReliability,
                                                           macroStabilityInwardsProbability,
-                                                          macroStabilityInwardsReliability,
-                                                          macroStabilityInwardsFactorOfSafety);
-        }
-
-        /// <summary>
-        /// Calculates the required probability of the macro stability inwards failure mechanism for the complete assessment section.
-        /// </summary>
-        /// <param name="constantA">The constant a.</param>
-        /// <param name="constantB">The constant b.</param>
-        /// <param name="sectionLength">The length of the assessment section.</param>
-        /// <param name="norm">The norm.</param>
-        /// <param name="contribution">The contribution of macro stability inwards to the total failure.</param>
-        /// <returns>A value representing the required probability.</returns>
-        private static double CalculateRequiredProbability(double constantA, double constantB, double sectionLength, double norm, double contribution)
-        {
-            return (norm * contribution) / (1 + (constantA * sectionLength) / constantB);
+                                                          macroStabilityInwardsReliability);
         }
 
         /// <summary>
