@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.MacroStabilityInwards.Data;
 
@@ -37,10 +36,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="CalculationGroup"/>.</param>
         /// <param name="failureMechanism">The failure mechanism that the calculation group belongs to.</param>
-        /// <param name="assessmentSection">The assessment section that the calculation group belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsScenariosContext(CalculationGroup wrappedData, MacroStabilityInwardsFailureMechanism failureMechanism,
-                                                     IAssessmentSection assessmentSection)
+        public MacroStabilityInwardsScenariosContext(CalculationGroup wrappedData, MacroStabilityInwardsFailureMechanism failureMechanism)
             : base(wrappedData)
         {
             if (failureMechanism == null)
@@ -48,23 +45,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             FailureMechanism = failureMechanism;
-            AssessmentSection = assessmentSection;
         }
 
         /// <summary>
         /// Gets the parent failure mechanism of the calculation group.
         /// </summary>
         public MacroStabilityInwardsFailureMechanism FailureMechanism { get; }
-
-        /// <summary>
-        /// Gets the assessment section.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
     }
 }
