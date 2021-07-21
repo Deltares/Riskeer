@@ -39,7 +39,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_OutputNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new MacroStabilityInwardsOutputProperties(null, new MacroStabilityInwardsFailureMechanism());
+            void Call() => new MacroStabilityInwardsOutputProperties(null, 1.1);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -47,28 +47,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
-
-            // Call
-            void Call() => new MacroStabilityInwardsOutputProperties(output, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
             MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var properties = new MacroStabilityInwardsOutputProperties(output, failureMechanism);
+            var properties = new MacroStabilityInwardsOutputProperties(output, 1.1);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsOutput>>(properties);
@@ -79,15 +64,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            const double modelFactor = 1.1;
 
             MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
             // Call
-            var properties = new MacroStabilityInwardsOutputProperties(output, failureMechanism);
+            var properties = new MacroStabilityInwardsOutputProperties(output, modelFactor);
 
             // Assert
-            DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, failureMechanism);
+            DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, modelFactor);
 
             Assert.AreEqual(expectedDerivedOutput.FactorOfStability, properties.MacroStabilityInwardsFactorOfStability,
                             properties.MacroStabilityInwardsFactorOfStability.GetAccuracy());
@@ -99,12 +84,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
             MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
             // Call
-            var properties = new MacroStabilityInwardsOutputProperties(output, failureMechanism);
+            var properties = new MacroStabilityInwardsOutputProperties(output, 1.1);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

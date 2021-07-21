@@ -39,29 +39,25 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         private const int macroStabilityInwardsProbabilityIndex = 2;
         private const int macroStabilityInwardsReliabilityIndex = 3;
 
-        private DerivedMacroStabilityInwardsOutput derivedOutput;
+        private readonly DerivedMacroStabilityInwardsOutput derivedOutput;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutputProperties"/>.
         /// </summary>
         /// <param name="output">The output to show the properties for.</param>
-        /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <param name="modelFactor">The model factor used to calculate a reliablity from a stability factor.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsOutputProperties(MacroStabilityInwardsOutput output,
-                                                     MacroStabilityInwardsFailureMechanism failureMechanism)
+                                                     double modelFactor)
         {
             if (output == null)
             {
                 throw new ArgumentNullException(nameof(output));
             }
 
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             Data = output;
-            CreateDerivedOutput(output, failureMechanism);
+
+            derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, modelFactor);
         }
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_MacroStabilityInwards))]
@@ -98,11 +94,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             {
                 return derivedOutput.MacroStabilityInwardsReliability;
             }
-        }
-
-        private void CreateDerivedOutput(MacroStabilityInwardsOutput output, MacroStabilityInwardsFailureMechanism failureMechanism)
-        {
-            derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, failureMechanism);
         }
     }
 }
