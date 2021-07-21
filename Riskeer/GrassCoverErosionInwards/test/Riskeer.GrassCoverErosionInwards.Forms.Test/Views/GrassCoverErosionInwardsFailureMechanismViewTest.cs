@@ -144,7 +144,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            var calculationA = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+            var calculationA = new GrassCoverErosionInwardsCalculationScenario(0.1)
             {
                 InputParameters =
                 {
@@ -152,7 +152,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             };
-            var calculationB = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+            var calculationB = new GrassCoverErosionInwardsCalculationScenario(0.1)
             {
                 InputParameters =
                 {
@@ -512,7 +512,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenViewWithCalculationGroupData_WhenCalculationGroupUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var calculationA = new GrassCoverErosionInwardsCalculation(double.NaN)
+            var calculationA = new GrassCoverErosionInwardsCalculation(0.1)
             {
                 InputParameters =
                 {
@@ -520,7 +520,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             };
-            var calculationB = new GrassCoverErosionInwardsCalculation(double.NaN)
+            var calculationB = new GrassCoverErosionInwardsCalculation(0.1)
             {
                 InputParameters =
                 {
@@ -555,7 +555,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenViewWithCalculationInputData_WhenCalculationInputUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var calculationA = new GrassCoverErosionInwardsCalculation(double.NaN)
+            var calculationA = new GrassCoverErosionInwardsCalculation(0.1)
             {
                 InputParameters =
                 {
@@ -592,7 +592,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenViewWithCalculationData_WhenCalculationUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var calculationA = new GrassCoverErosionInwardsCalculation(double.NaN)
+            var calculationA = new GrassCoverErosionInwardsCalculation(0.1)
             {
                 InputParameters =
                 {

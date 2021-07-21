@@ -286,7 +286,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             protected override GrassCoverErosionInwardsCalculation CreateCalculation()
             {
-                return new GrassCoverErosionInwardsCalculation(double.NaN);
+                return new GrassCoverErosionInwardsCalculation(0.1);
             }
         }
 
