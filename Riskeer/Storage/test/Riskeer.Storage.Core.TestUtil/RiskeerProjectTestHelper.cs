@@ -1790,7 +1790,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 Name = "GEKB A",
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+                    new GrassCoverErosionInwardsCalculationScenario(assessmentSection.FailureMechanismContribution.Norm)
                     {
                         Name = "Calculation 1",
                         Comments =
@@ -1822,7 +1822,7 @@ namespace Riskeer.Storage.Core.TestUtil
                                                                     new DikeHeightOutput(0.56, 0.05, 2, 0.06, 3, CalculationConvergence.CalculatedConverged, null),
                                                                     new OvertoppingRateOutput(0.57, 0.07, 4, 0.08, 5, CalculationConvergence.CalculatedConverged, null))
                     },
-                    new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+                    new GrassCoverErosionInwardsCalculationScenario(assessmentSection.FailureMechanismContribution.Norm)
                     {
                         Name = "Calculation 2",
                         Comments =
@@ -1864,7 +1864,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 Name = "GEKB B"
             });
             failureMechanism.CalculationsGroup.Children.Add(
-                new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+                new GrassCoverErosionInwardsCalculationScenario(assessmentSection.FailureMechanismContribution.Norm)
                 {
                     Name = "Calculation 2",
                     Comments =

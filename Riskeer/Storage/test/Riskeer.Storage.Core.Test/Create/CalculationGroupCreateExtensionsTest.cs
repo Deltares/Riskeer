@@ -413,11 +413,11 @@ namespace Riskeer.Storage.Core.Test.Create
             {
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+                    new GrassCoverErosionInwardsCalculationScenario(0.1)
                     {
                         Name = "A"
                     },
-                    new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+                    new GrassCoverErosionInwardsCalculationScenario(0.1)
                     {
                         Name = "B"
                     }
@@ -453,7 +453,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     {
                         Name = "A"
                     },
-                    new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+                    new GrassCoverErosionInwardsCalculationScenario(0.1)
                     {
                         Name = "B"
                     },
@@ -461,7 +461,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     {
                         Name = "C"
                     },
-                    new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+                    new GrassCoverErosionInwardsCalculationScenario(0.1)
                     {
                         Name = "D"
                     }
