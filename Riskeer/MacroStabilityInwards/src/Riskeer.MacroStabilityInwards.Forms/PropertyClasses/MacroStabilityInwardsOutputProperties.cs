@@ -37,11 +37,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
     public class MacroStabilityInwardsOutputProperties : ObjectProperties<MacroStabilityInwardsOutput>
     {
         private const int macroStabilityInwardsFactorOfStabilityIndex = 1;
-        private const int requiredProbabilityIndex = 2;
-        private const int requiredReliabilityIndex = 3;
-        private const int macroStabilityInwardsProbabilityIndex = 4;
-        private const int macroStabilityInwardsReliabilityIndex = 5;
-        private const int macroStabilityInwardsFactorOfSafetyIndex = 6;
+        private const int macroStabilityInwardsProbabilityIndex = 2;
+        private const int macroStabilityInwardsReliabilityIndex = 3;
+
         private DerivedMacroStabilityInwardsOutput derivedOutput;
 
         /// <summary>
@@ -88,30 +86,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_MacroStabilityInwards))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutput_RequiredProbability_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutput_RequiredProbability_Description))]
-        [PropertyOrder(requiredProbabilityIndex)]
-        public string RequiredProbability
-        {
-            get
-            {
-                return ProbabilityFormattingHelper.Format(derivedOutput.RequiredProbability);
-            }
-        }
-
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_MacroStabilityInwards))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutput_RequiredReliability_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutput_RequiredReliability_Description))]
-        [PropertyOrder(requiredReliabilityIndex)]
-        public RoundedDouble RequiredReliability
-        {
-            get
-            {
-                return derivedOutput.RequiredReliability;
-            }
-        }
-
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_MacroStabilityInwards))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutput_MacroStabilityInwardsProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutput_MacroStabilityInwardsProbability_Description))]
         [PropertyOrder(macroStabilityInwardsProbabilityIndex)]
@@ -132,18 +106,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 return derivedOutput.MacroStabilityInwardsReliability;
-            }
-        }
-
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_MacroStabilityInwards))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutput_MacroStabilityInwardsFactorOfSafety_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsOutput_MacroStabilityInwardsFactorOfSafety_Description))]
-        [PropertyOrder(macroStabilityInwardsFactorOfSafetyIndex)]
-        public RoundedDouble MacroStabilityInwardsFactorOfSafety
-        {
-            get
-            {
-                return derivedOutput.MacroStabilityInwardsFactorOfSafety;
             }
         }
 

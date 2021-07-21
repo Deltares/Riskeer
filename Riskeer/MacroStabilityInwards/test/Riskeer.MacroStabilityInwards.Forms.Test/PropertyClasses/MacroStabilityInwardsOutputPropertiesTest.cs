@@ -46,11 +46,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsOutputProperties(null, new MacroStabilityInwardsFailureMechanism(),
-                                                                                assessmentSection);
+            void Call() => new MacroStabilityInwardsOutputProperties(null, new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("output", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -66,11 +65,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsOutputProperties(output, null,
-                                                                                assessmentSection);
+            void Call() => new MacroStabilityInwardsOutputProperties(output, null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -82,11 +80,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsOutputProperties(output, new MacroStabilityInwardsFailureMechanism(),
-                                                                                null);
+            void Call() => new MacroStabilityInwardsOutputProperties(output, new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -131,11 +128,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedDerivedOutput.FactorOfStability, properties.MacroStabilityInwardsFactorOfStability,
                             properties.MacroStabilityInwardsFactorOfStability.GetAccuracy());
 
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.RequiredProbability), properties.RequiredProbability);
-            Assert.AreEqual(expectedDerivedOutput.RequiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.MacroStabilityInwardsProbability), properties.MacroStabilityInwardsProbability);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsReliability, properties.MacroStabilityInwardsReliability, properties.MacroStabilityInwardsReliability.GetAccuracy());
-            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsFactorOfSafety, properties.MacroStabilityInwardsFactorOfSafety, properties.MacroStabilityInwardsFactorOfSafety.GetAccuracy());
             mocks.VerifyAll();
         }
 
@@ -155,7 +149,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(6, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             const string macroStabilityInwardsCategory = "Macrostabiliteit binnenwaarts";
 
@@ -166,39 +160,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "Het quotiënt van de weerstandbiedende- en aandrijvende krachten langs een glijvlak.",
                                                                             true);
 
-            PropertyDescriptor requiredProbabilityProperty = dynamicProperties[1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
-                                                                            macroStabilityInwardsCategory,
-                                                                            "Faalkanseis [1/jaar]",
-                                                                            "De maximaal toegestane kans dat het toetsspoor macrostabiliteit binnenwaarts optreedt.",
-                                                                            true);
-
-            PropertyDescriptor requiredReliabilityProperty = dynamicProperties[2];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredReliabilityProperty,
-                                                                            macroStabilityInwardsCategory,
-                                                                            "Betrouwbaarheidsindex faalkanseis [-]",
-                                                                            "De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor macrostabiliteit binnenwaarts.",
-                                                                            true);
-
-            PropertyDescriptor macroStabilityInwardsProbabilityProperty = dynamicProperties[3];
+            PropertyDescriptor macroStabilityInwardsProbabilityProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(macroStabilityInwardsProbabilityProperty,
                                                                             macroStabilityInwardsCategory,
                                                                             "Benaderde faalkans [1/jaar]",
                                                                             "De benaderde kans dat het toetsspoor macrostabiliteit binnenwaarts optreedt voor deze berekening.",
                                                                             true);
 
-            PropertyDescriptor macroStabilityInwardsReliabilityProperty = dynamicProperties[4];
+            PropertyDescriptor macroStabilityInwardsReliabilityProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(macroStabilityInwardsReliabilityProperty,
                                                                             macroStabilityInwardsCategory,
                                                                             "Betrouwbaarheidsindex faalkans [-]",
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
-                                                                            true);
-
-            PropertyDescriptor macroStabilityInwardsFactorOfSafetyProperty = dynamicProperties[5];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(macroStabilityInwardsFactorOfSafetyProperty,
-                                                                            macroStabilityInwardsCategory,
-                                                                            "Veiligheidsfactor [-]",
-                                                                            "De veiligheidsfactor voor deze berekening.",
                                                                             true);
             mocks.VerifyAll();
         }
