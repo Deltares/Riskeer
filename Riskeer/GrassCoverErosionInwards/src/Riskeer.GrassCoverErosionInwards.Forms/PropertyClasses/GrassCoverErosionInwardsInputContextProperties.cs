@@ -59,10 +59,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int criticalFlowRatePropertyIndex = 9;
         private const int shouldOvertoppingOutputIllustrationPointsBeCalculatedPropertyIndex = 10;
         private const int shouldDikeHeightBeCalculatedPropertyIndex = 11;
-        private const int dikeHeightReliabilityIndexPropertyIndex = 12;
+        private const int dikeHeightTargetProbabilityPropertyIndex = 12;
         private const int shouldDikeHeightIllustrationPointsBeCalculatedPropertyIndex = 13;
         private const int shouldOvertoppingRateBeCalculatedPropertyIndex = 14;
-        private const int overtoppingRateReliabilityIndexPropertyIndex = 15;
+        private const int overtoppingRateTargetProbabilityPropertyIndex = 15;
         private const int shouldOvertoppingRateIllustrationPointsBeCalculatedPropertyIndex = 16;
 
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
@@ -239,12 +239,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [DynamicReadOnly]
-        [PropertyOrder(dikeHeightReliabilityIndexPropertyIndex)]
+        [PropertyOrder(dikeHeightTargetProbabilityPropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight), 5, 6)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ReliabilityIndex_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.DikeHeight_ReliabilityIndex_Description))]
-        public double DikeHeightReliabilityIndex
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.TargetProbability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DikeHeight_TargetProbability_Description))]
+        public double DikeHeightTargetProbability
         {
             get => data.WrappedData.DikeHeightTargetProbability;
             set
@@ -282,12 +282,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [DynamicReadOnly]
-        [PropertyOrder(overtoppingRateReliabilityIndexPropertyIndex)]
+        [PropertyOrder(overtoppingRateTargetProbabilityPropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingRate), 6, 6)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ReliabilityIndex_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.OvertoppingRate_ReliabilityIndex_Description))]
-        public double OvertoppingRateReliabilityIndex
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.TargetProbability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.OvertoppingRate_TargetProbability_Description))]
+        public double OvertoppingRateTargetProbability
         {
             get => data.WrappedData.OvertoppingRateTargetProbability;
             set
@@ -340,13 +340,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
 
             if (propertyName.Equals(nameof(ShouldDikeHeightIllustrationPointsBeCalculated))
-                || propertyName.Equals(nameof(DikeHeightReliabilityIndex)))
+                || propertyName.Equals(nameof(DikeHeightTargetProbability)))
             {
                 return !ShouldDikeHeightBeCalculated;
             }
 
             if (propertyName.Equals(nameof(ShouldOvertoppingRateIllustrationPointsBeCalculated))
-                || propertyName.Equals(nameof(OvertoppingRateReliabilityIndex)))
+                || propertyName.Equals(nameof(OvertoppingRateTargetProbability)))
             {
                 return !ShouldOvertoppingRateBeCalculated;
             }

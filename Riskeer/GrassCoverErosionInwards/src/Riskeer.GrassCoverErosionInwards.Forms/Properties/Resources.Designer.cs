@@ -201,9 +201,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Overschrijdingskans waarvoor de bijbehorende dijkhoogte wordt berekend..
         /// </summary>
-        public static string DikeHeight_ReliabilityIndex_Description {
+        public static string DikeHeight_TargetProbability_Description {
             get {
-                return ResourceManager.GetString("DikeHeight_ReliabilityIndex_Description", resourceCulture);
+                return ResourceManager.GetString("DikeHeight_TargetProbability_Description", resourceCulture);
             }
         }
         
@@ -445,9 +445,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Overschrijdingskans waarvoor het bijbehorende overslagdebiet wordt berekend..
         /// </summary>
-        public static string OvertoppingRate_ReliabilityIndex_Description {
+        public static string OvertoppingRate_TargetProbability_Description {
             get {
-                return ResourceManager.GetString("OvertoppingRate_ReliabilityIndex_Description", resourceCulture);
+                return ResourceManager.GetString("OvertoppingRate_TargetProbability_Description", resourceCulture);
             }
         }
         
@@ -457,15 +457,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         public static string OvertoppingRateOutput_Convergence_Description {
             get {
                 return ResourceManager.GetString("OvertoppingRateOutput_Convergence_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Doelkans (1/jaar).
-        /// </summary>
-        public static string ReliabilityIndex_DisplayName {
-            get {
-                return ResourceManager.GetString("ReliabilityIndex_DisplayName", resourceCulture);
             }
         }
         
@@ -529,6 +520,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         public static string ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName {
             get {
                 return ResourceManager.GetString("ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doelkans (1/jaar).
+        /// </summary>
+        public static string TargetProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("TargetProbability_DisplayName", resourceCulture);
             }
         }
         
