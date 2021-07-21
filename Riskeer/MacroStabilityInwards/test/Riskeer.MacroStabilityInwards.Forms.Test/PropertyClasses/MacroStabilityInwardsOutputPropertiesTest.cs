@@ -107,10 +107,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism
-            {
-                Contribution = 10
-            };
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
@@ -122,8 +119,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var properties = new MacroStabilityInwardsOutputProperties(output, failureMechanism, assessmentSection);
 
             // Assert
-            DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(
-                output, failureMechanism, assessmentSection);
+            DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, failureMechanism);
 
             Assert.AreEqual(expectedDerivedOutput.FactorOfStability, properties.MacroStabilityInwardsFactorOfStability,
                             properties.MacroStabilityInwardsFactorOfStability.GetAccuracy());
