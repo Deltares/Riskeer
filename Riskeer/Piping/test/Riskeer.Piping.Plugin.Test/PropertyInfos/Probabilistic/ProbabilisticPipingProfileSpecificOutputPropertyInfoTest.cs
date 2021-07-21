@@ -62,8 +62,8 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
             // Setup
             var calculation = new ProbabilisticPipingCalculationScenario
             {
-                Output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
-                                                       PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput())
+                Output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput(),
+                                                       PipingTestDataGenerator.GetRandomPartialProbabilisticFaultTreePipingOutput())
             };
 
             var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation);
@@ -82,8 +82,8 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
             // Setup
             var calculation = new ProbabilisticPipingCalculationScenario
             {
-                Output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(),
-                                                       PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput())
+                Output = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput(),
+                                                       PipingTestDataGenerator.GetRandomPartialProbabilisticSubMechanismPipingOutput())
             };
 
             var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation);
