@@ -81,9 +81,7 @@ namespace Riskeer.MacroStabilityInwards.Data
             double totalDetailedAssessmentProbability = 0;
             foreach (MacroStabilityInwardsCalculationScenario scenario in relevantScenarios)
             {
-                DerivedMacroStabilityInwardsOutput derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(scenario.Output,
-                                                                                                                    failureMechanism,
-                                                                                                                    assessmentSection);
+                DerivedMacroStabilityInwardsOutput derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(scenario.Output, failureMechanism);
 
                 totalDetailedAssessmentProbability += derivedOutput.MacroStabilityInwardsProbability * (double) scenario.Contribution;
             }
