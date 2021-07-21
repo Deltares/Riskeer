@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Util;
-using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.MacroStabilityInwards.Data
 {
@@ -35,11 +34,9 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// </summary>
         /// <param name="output">The output of a calculation.</param>
         /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the output belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static DerivedMacroStabilityInwardsOutput Create(MacroStabilityInwardsOutput output,
-                                                                MacroStabilityInwardsFailureMechanism failureMechanism,
-                                                                IAssessmentSection assessmentSection)
+                                                                MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             if (output == null)
             {
@@ -51,16 +48,11 @@ namespace Riskeer.MacroStabilityInwards.Data
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-            
             double factorOfStability = output.FactorOfStability;
 
             double macroStabilityInwardsReliability = CalculateEstimatedReliability(factorOfStability, failureMechanism.GeneralInput.ModelFactor);
             double macroStabilityInwardsProbability = StatisticsConverter.ReliabilityToProbability(macroStabilityInwardsReliability);
-            
+
             return new DerivedMacroStabilityInwardsOutput(factorOfStability,
                                                           macroStabilityInwardsProbability,
                                                           macroStabilityInwardsReliability);
