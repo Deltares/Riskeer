@@ -160,7 +160,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var failureMechanismScenariosContext = (MacroStabilityInwardsScenariosContext) outputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismScenariosContext.FailureMechanism);
             Assert.AreSame(failureMechanism.CalculationsGroup, failureMechanismScenariosContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismScenariosContext.AssessmentSection);
 
             var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);

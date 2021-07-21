@@ -38,14 +38,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
     [TestFixture]
     public class MacroStabilityInwardsScenariosViewInfoTest
     {
-        private MockRepository mocks;
         private MacroStabilityInwardsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new MacroStabilityInwardsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MacroStabilityInwardsScenariosView));
         }
@@ -69,19 +67,15 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedCalculationGroup()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var calculationsGroup = new CalculationGroup();
-            var scenariosContext = new MacroStabilityInwardsScenariosContext(calculationsGroup, failureMechanism, assessmentSection);
+            var scenariosContext = new MacroStabilityInwardsScenariosContext(calculationsGroup, failureMechanism);
 
             // Call
             object viewData = info.GetViewData(scenariosContext);
 
             // Assert
             Assert.AreSame(calculationsGroup, viewData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -100,6 +94,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             // Setup
             var calculationsGroup = new CalculationGroup();
 
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
 
@@ -124,6 +119,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var calculationsGroup = new CalculationGroup();
 
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
@@ -150,6 +146,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
@@ -174,6 +171,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailurePathContext_ReturnsFalse()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -196,6 +194,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailurePathContext_ReturnsTrue()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -218,19 +217,15 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var calculationsGroup = new CalculationGroup();
-            var context = new MacroStabilityInwardsScenariosContext(calculationsGroup, failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsScenariosContext(calculationsGroup, failureMechanism);
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsScenariosView>(view);
-            mocks.VerifyAll();
         }
     }
 }
