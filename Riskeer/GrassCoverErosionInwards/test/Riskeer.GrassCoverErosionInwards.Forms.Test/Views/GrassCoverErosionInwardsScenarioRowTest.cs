@@ -44,7 +44,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            void Call() => new GrassCoverErosionInwardsScenarioRow(new GrassCoverErosionInwardsCalculationScenario(double.NaN),
+            void Call() => new GrassCoverErosionInwardsScenarioRow(new GrassCoverErosionInwardsCalculationScenario(0.1),
                                                                    null, assessmentSection);
 
             // Assert
@@ -57,7 +57,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new GrassCoverErosionInwardsScenarioRow(new GrassCoverErosionInwardsCalculationScenario(double.NaN),
+            void Call() => new GrassCoverErosionInwardsScenarioRow(new GrassCoverErosionInwardsCalculationScenario(0.1),
                                                                    new GrassCoverErosionInwardsFailureMechanism(), null);
 
             // Assert
@@ -73,7 +73,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1);
 
             // Call
             var row = new GrassCoverErosionInwardsScenarioRow(calculation, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
@@ -94,7 +94,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -119,7 +119,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1);
 
             // Call
             var row = new GrassCoverErosionInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
@@ -139,7 +139,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN);
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1);
 
             var row = new GrassCoverErosionInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
 
@@ -167,7 +167,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
@@ -198,7 +198,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1)
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };

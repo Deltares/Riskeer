@@ -37,7 +37,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         {
             // Call
             var view = new OvertoppingOutputGeneralResultFaultTreeIllustrationPointView(
-                new GrassCoverErosionInwardsCalculation(double.NaN),
+                new GrassCoverErosionInwardsCalculation(0.1),
                 () => new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Assert

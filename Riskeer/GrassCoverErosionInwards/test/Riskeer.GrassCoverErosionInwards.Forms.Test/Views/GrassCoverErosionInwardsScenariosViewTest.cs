@@ -158,7 +158,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
-                new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+                new GrassCoverErosionInwardsCalculationScenario(0.1)
                 {
                     Name = "Calculation 1",
                     InputParameters =
@@ -166,7 +166,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                         DikeProfile = dikeProfile1
                     }
                 },
-                new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+                new GrassCoverErosionInwardsCalculationScenario(0.1)
                 {
                     Name = "Calculation 2",
                     InputParameters =
