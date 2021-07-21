@@ -35,92 +35,21 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             // Setup
             var random = new Random(21);
             double factorOfStability = random.NextDouble();
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
             double macroStabilityInwardsProbability = random.NextDouble();
             double macroStabilityInwardsReliability = random.NextDouble();
-            double macroStabilityInwardsFactorOfSafety = random.NextDouble();
 
             // Call
             var output = new DerivedMacroStabilityInwardsOutput(
                 factorOfStability,
-                requiredProbability,
-                requiredReliability,
                 macroStabilityInwardsProbability,
-                macroStabilityInwardsReliability,
-                macroStabilityInwardsFactorOfSafety);
+                macroStabilityInwardsReliability);
 
             // Assert
             Assert.AreEqual(factorOfStability, output.FactorOfStability, output.FactorOfStability.GetAccuracy());
             Assert.AreEqual(3, output.FactorOfStability.NumberOfDecimalPlaces);
-            Assert.AreEqual(requiredProbability, output.RequiredProbability);
-            Assert.AreEqual(5, output.RequiredReliability.NumberOfDecimalPlaces);
-            Assert.AreEqual(requiredReliability, output.RequiredReliability, output.RequiredReliability.GetAccuracy());
             Assert.AreEqual(macroStabilityInwardsProbability, output.MacroStabilityInwardsProbability);
             Assert.AreEqual(5, output.MacroStabilityInwardsReliability.NumberOfDecimalPlaces);
             Assert.AreEqual(macroStabilityInwardsReliability, output.MacroStabilityInwardsReliability, output.MacroStabilityInwardsReliability.GetAccuracy());
-            Assert.AreEqual(3, output.MacroStabilityInwardsFactorOfSafety.NumberOfDecimalPlaces);
-            Assert.AreEqual(macroStabilityInwardsFactorOfSafety, output.MacroStabilityInwardsFactorOfSafety, output.MacroStabilityInwardsFactorOfSafety.GetAccuracy());
-        }
-
-        [Test]
-        [TestCase(double.NaN)]
-        [TestCase(0.0)]
-        [TestCase(0.123456789)]
-        [TestCase(1.0)]
-        public void Constructor_ValidRequiredProbability_ExpectedValues(double requiredProbability)
-        {
-            // Setup
-            var random = new Random(21);
-            double factorOfStability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
-            double macroStabilityInwardsProbability = random.NextDouble();
-            double macroStabilityInwardsReliability = random.NextDouble();
-            double macroStabilityInwardsFactorOfSafety = random.NextDouble();
-
-            // Call
-            var output = new DerivedMacroStabilityInwardsOutput(
-                factorOfStability,
-                requiredProbability,
-                requiredReliability,
-                macroStabilityInwardsProbability,
-                macroStabilityInwardsReliability,
-                macroStabilityInwardsFactorOfSafety);
-
-            // Assert
-            Assert.AreEqual(requiredProbability, output.RequiredProbability);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(0.0 - 1e-6)]
-        [TestCase(-346587.456)]
-        [TestCase(1.0 + 1e-6)]
-        [TestCase(346587.456)]
-        public void Constructor_InvalidRequiredProbability_ThrowsArgumentOutOfRangeException(double requiredProbability)
-        {
-            // Setup
-            var random = new Random(21);
-            double factorOfStability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
-            double macroStabilityInwardsProbability = random.NextDouble();
-            double macroStabilityInwardsReliability = random.NextDouble();
-            double macroStabilityInwardsFactorOfSafety = random.NextDouble();
-
-            // Call
-            TestDelegate call = () => new DerivedMacroStabilityInwardsOutput(
-                factorOfStability,
-                requiredProbability,
-                requiredReliability,
-                macroStabilityInwardsProbability,
-                macroStabilityInwardsReliability,
-                macroStabilityInwardsFactorOfSafety);
-
-            // Assert
-            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
 
         [Test]
@@ -133,19 +62,13 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             // Setup
             var random = new Random(21);
             double factorOfStability = random.NextDouble();
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
             double macroStabilityInwardsReliability = random.NextDouble();
-            double macroStabilityInwardsFactorOfSafety = random.NextDouble();
 
             // Call
             var output = new DerivedMacroStabilityInwardsOutput(
                 factorOfStability,
-                requiredProbability,
-                requiredReliability,
                 macroStabilityInwardsProbability,
-                macroStabilityInwardsReliability,
-                macroStabilityInwardsFactorOfSafety);
+                macroStabilityInwardsReliability);
 
             // Assert
             Assert.AreEqual(macroStabilityInwardsProbability, output.MacroStabilityInwardsProbability);
@@ -164,23 +87,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             // Setup
             var random = new Random(21);
             double factorOfStability = random.NextDouble();
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
             double macroStabilityInwardsReliability = random.NextDouble();
-            double macroStabilityInwardsFactorOfSafety = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new DerivedMacroStabilityInwardsOutput(
-                factorOfStability,
-                requiredProbability,
-                requiredReliability,
-                macroStabilityInwardsProbability,
-                macroStabilityInwardsReliability,
-                macroStabilityInwardsFactorOfSafety);
+            void Call() => new DerivedMacroStabilityInwardsOutput(factorOfStability, macroStabilityInwardsProbability, macroStabilityInwardsReliability);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
     }
 }

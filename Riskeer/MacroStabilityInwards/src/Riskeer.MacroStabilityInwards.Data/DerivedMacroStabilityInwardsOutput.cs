@@ -71,7 +71,7 @@ namespace Riskeer.MacroStabilityInwards.Data
                 macroStabilityInwardsProbability = value;
             }
         }
-        
+
         /// <summary>
         /// Gets the reliability of the macro stability inwards failure mechanism.
         /// </summary>
