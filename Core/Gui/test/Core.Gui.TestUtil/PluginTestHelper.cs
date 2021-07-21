@@ -72,9 +72,8 @@ namespace Core.Gui.TestUtil
         public static ViewInfo AssertViewInfoDefined(IEnumerable<ViewInfo> viewInfos, Type dataType, Type viewDataType, Type viewType)
         {
             Assert.NotNull(viewInfos);
-            ViewInfo viewInfo = viewInfos.SingleOrDefault(vi => vi.ViewDataType == viewDataType && vi.ViewType == viewType);
-            Assert.NotNull(viewInfo, "Could not find viewInfo for the combination of viewDataType {0} and viewType {1} ", viewDataType, viewType);
-            Assert.AreEqual(dataType, viewInfo.DataType);
+            ViewInfo viewInfo = viewInfos.SingleOrDefault(vi => vi.DataType == dataType && vi.ViewDataType == viewDataType && vi.ViewType == viewType);
+            Assert.NotNull(viewInfo, "Could not find viewInfo for the combination of dataType {0}, viewDataType {1} and viewType {2} ", dataType, viewDataType, viewType);
             return viewInfo;
         }
 

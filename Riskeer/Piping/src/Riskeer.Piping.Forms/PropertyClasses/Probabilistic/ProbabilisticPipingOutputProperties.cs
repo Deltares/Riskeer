@@ -34,7 +34,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
     /// <summary>
     /// ViewModel of <see cref="IPartialProbabilisticPipingOutput"/> for properties panel.
     /// </summary>
-    public class ProbabilisticPipingOutputProperties : ObjectProperties<IPartialProbabilisticPipingOutput>
+    public abstract class ProbabilisticPipingOutputProperties : ObjectProperties<IPartialProbabilisticPipingOutput>
     {
         private const int probabilityIndex = 0;
         private const int reliabilityIndex = 1;

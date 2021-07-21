@@ -27,7 +27,7 @@ namespace Riskeer.Piping.Data.Probabilistic
     /// This class contains the result of a sub-calculation for a <see cref="ProbabilisticPipingCalculation"/>.
     /// </summary>
     /// <typeparam name="T">The type of the top level illustration point.</typeparam>
-    public class PartialProbabilisticPipingOutput<T> : IPartialProbabilisticPipingOutput
+    public abstract class PartialProbabilisticPipingOutput<T> : IPartialProbabilisticPipingOutput
         where T : TopLevelIllustrationPointBase
     {
         /// <summary>
