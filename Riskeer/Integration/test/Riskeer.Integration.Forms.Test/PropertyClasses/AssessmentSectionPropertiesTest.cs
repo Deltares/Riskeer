@@ -40,11 +40,11 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            var assessmentSectionCompositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             mocks.ReplayAll();
 
             // Call
-            void Call() => new AssessmentSectionProperties(null, assessmentSectionChangeHandler);
+            void Call() => new AssessmentSectionProperties(null, assessmentSectionCompositionChangeHandler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -77,13 +77,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.Id).Return("1");
             assessmentSection.Stub(section => section.Composition).Return(AssessmentSectionComposition.Dike);
-            var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            var assessmentSectionCompositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             mocks.ReplayAll();
 
             assessmentSection.Name = "test";
 
             // Call
-            var properties = new AssessmentSectionProperties(assessmentSection, assessmentSectionChangeHandler);
+            var properties = new AssessmentSectionProperties(assessmentSection, assessmentSectionCompositionChangeHandler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<IAssessmentSection>>(properties);
@@ -100,11 +100,11 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            var assessmentSectionCompositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             mocks.ReplayAll();
 
             // Call
-            var properties = new AssessmentSectionProperties(assessmentSection, assessmentSectionChangeHandler);
+            var properties = new AssessmentSectionProperties(assessmentSection, assessmentSectionCompositionChangeHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -143,10 +143,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Expect(section => section.NotifyObservers());
-            var assessmentSectionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
+            var assessmentSectionCompositionChangeHandler = mocks.Stub<IAssessmentSectionCompositionChangeHandler>();
             mocks.ReplayAll();
 
-            var properties = new AssessmentSectionProperties(assessmentSection, assessmentSectionChangeHandler);
+            var properties = new AssessmentSectionProperties(assessmentSection, assessmentSectionCompositionChangeHandler);
 
             // When
             properties.Name = newName;
@@ -169,16 +169,16 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
-            var assessmentSectionChangeHandler = mocks.StrictMock<IAssessmentSectionCompositionChangeHandler>();
-            assessmentSectionChangeHandler.Expect(handler => handler.ConfirmCompositionChange()).Return(true);
-            assessmentSectionChangeHandler.Expect(handler => handler.ChangeComposition(assessmentSection, newComposition))
-                                          .Return(new[]
-                                          {
-                                              observable
-                                          });
+            var assessmentSectionCompositionChangeHandler = mocks.StrictMock<IAssessmentSectionCompositionChangeHandler>();
+            assessmentSectionCompositionChangeHandler.Expect(handler => handler.ConfirmCompositionChange()).Return(true);
+            assessmentSectionCompositionChangeHandler.Expect(handler => handler.ChangeComposition(assessmentSection, newComposition))
+                                                     .Return(new[]
+                                                     {
+                                                         observable
+                                                     });
             mocks.ReplayAll();
 
-            var properties = new AssessmentSectionProperties(assessmentSection, assessmentSectionChangeHandler);
+            var properties = new AssessmentSectionProperties(assessmentSection, assessmentSectionCompositionChangeHandler);
 
             // When
             properties.Composition = newComposition;
@@ -198,11 +198,11 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.Composition).Return(originalComposition);
 
-            var assessmentSectionChangeHandler = mocks.StrictMock<IAssessmentSectionCompositionChangeHandler>();
-            assessmentSectionChangeHandler.Expect(handler => handler.ConfirmCompositionChange()).Return(false);
+            var assessmentSectionCompositionChangeHandler = mocks.StrictMock<IAssessmentSectionCompositionChangeHandler>();
+            assessmentSectionCompositionChangeHandler.Expect(handler => handler.ConfirmCompositionChange()).Return(false);
             mocks.ReplayAll();
 
-            var properties = new AssessmentSectionProperties(assessmentSection, assessmentSectionChangeHandler);
+            var properties = new AssessmentSectionProperties(assessmentSection, assessmentSectionCompositionChangeHandler);
 
             // When
             properties.Composition = newComposition;
