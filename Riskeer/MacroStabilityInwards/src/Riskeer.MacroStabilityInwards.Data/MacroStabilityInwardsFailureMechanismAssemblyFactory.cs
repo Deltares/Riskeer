@@ -118,7 +118,7 @@ namespace Riskeer.MacroStabilityInwards.Data
             {
                 return calculator.AssembleDetailedAssessment(
                     failureMechanismSectionResult.DetailedAssessmentResult,
-                    failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism),
+                    failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism.GeneralInput.ModelFactor),
                     failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length),
                     CreateAssemblyCategoriesInput(failureMechanism, assessmentSection));
             }
