@@ -70,7 +70,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
 
             Data = output;
-            CreateDerivedOutput(output, failureMechanism, assessmentSection);
+            CreateDerivedOutput(output, failureMechanism);
         }
 
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_MacroStabilityInwards))]
@@ -109,11 +109,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        private void CreateDerivedOutput(MacroStabilityInwardsOutput output,
-                                         MacroStabilityInwardsFailureMechanism failureMechanism,
-                                         IAssessmentSection assessmentSection)
+        private void CreateDerivedOutput(MacroStabilityInwardsOutput output, MacroStabilityInwardsFailureMechanism failureMechanism)
         {
-            derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, failureMechanism, assessmentSection);
+            derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, failureMechanism);
         }
     }
 }
