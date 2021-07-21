@@ -73,12 +73,9 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> for which to validate the values.</param>
-        /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> for which to validate the values.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
         /// <returns><c>true</c> if <paramref name="calculation"/> has no validation errors; <c>false</c> otherwise.</returns>
-        public static bool Validate(GrassCoverErosionInwardsCalculation calculation,
-                                    GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                    IAssessmentSection assessmentSection)
+        public static bool Validate(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection)
         {
             CalculationServiceHelper.LogValidationBegin();
 
@@ -92,8 +89,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
 
             string[] messages = ValidateInput(calculation.InputParameters).ToArray();
             CalculationServiceHelper.LogMessagesAsError(messages);
-
-            ValidateNorms(calculation.InputParameters, failureMechanism, assessmentSection);
             CalculationServiceHelper.LogValidationEnd();
             return !messages.Any();
         }
@@ -117,7 +112,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> that holds all the information required to perform the calculation.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
         /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
-        /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when one of the following parameters is <c>null</c>:
         /// <list type="bullet">
         /// <item><paramref name="calculation"/></item>
@@ -128,10 +122,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// <list type="bullet">
         /// <item>The hydraulic boundary database file path contains invalid characters.</item>
         /// <item>The contribution of the failure mechanism is zero.</item>
-        /// <item>The target probability or the calculated probability of a dike height calculation falls outside 
-        /// the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</item>
-        /// <item>The target probability or the calculated probability of an overtopping rate calculation falls outside 
-        /// the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</item>
         /// </list>
         /// </exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
@@ -155,8 +145,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs during the calculation.</exception>
         internal void Calculate(GrassCoverErosionInwardsCalculation calculation,
                                 IAssessmentSection assessmentSection,
-                                GeneralGrassCoverErosionInwardsInput generalInput,
-                                double failureMechanismContribution)
+                                GeneralGrassCoverErosionInwardsInput generalInput)
         {
             if (calculation == null)
             {
@@ -175,11 +164,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
 
             HydraulicBoundaryCalculationSettings calculationSettings =
                 HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
-            int numberOfCalculators = CreateCalculators(calculation,
-                                                        assessmentSection,
-                                                        generalInput,
-                                                        failureMechanismContribution,
-                                                        calculationSettings);
+            int numberOfCalculators = CreateCalculators(calculation, calculationSettings);
 
             string hydraulicBoundaryDatabaseFilePath = calculationSettings.HydraulicBoundaryDatabaseFilePath;
             bool usePreprocessor = !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory);
@@ -199,9 +184,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                 }
 
                 DikeHeightOutput dikeHeightOutput = CalculateDikeHeight(calculation,
-                                                                        assessmentSection,
                                                                         generalInput,
-                                                                        failureMechanismContribution,
                                                                         hydraulicBoundaryDatabaseFilePath,
                                                                         usePreprocessor,
                                                                         numberOfCalculators);
@@ -211,9 +194,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                 }
 
                 OvertoppingRateOutput overtoppingRateOutput = CalculateOvertoppingRate(calculation,
-                                                                                       assessmentSection,
                                                                                        generalInput,
-                                                                                       failureMechanismContribution,
                                                                                        hydraulicBoundaryDatabaseFilePath,
                                                                                        usePreprocessor,
                                                                                        numberOfCalculators);
@@ -239,9 +220,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         }
 
         private int CreateCalculators(GrassCoverErosionInwardsCalculation calculation,
-                                      IAssessmentSection assessmentSection,
-                                      GeneralGrassCoverErosionInwardsInput generalInput,
-                                      double failureMechanismContribution,
                                       HydraulicBoundaryCalculationSettings calculationSettings)
         {
             var numberOfCalculators = 1;
@@ -250,25 +228,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(
                 hydraRingCalculationSettings);
 
-            bool dikeHeightNormValid = TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(
-                GetNormForDikeHeight(calculation.InputParameters,
-                                     assessmentSection,
-                                     generalInput,
-                                     failureMechanismContribution), lm => {});
-
-            if (calculation.InputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation && dikeHeightNormValid)
+            if (calculation.InputParameters.ShouldDikeHeightBeCalculated)
             {
                 dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(hydraRingCalculationSettings);
                 numberOfCalculators++;
             }
 
-            bool overtoppingRateNormValid = TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(
-                GetNormForOvertoppingRate(calculation.InputParameters,
-                                          assessmentSection,
-                                          generalInput,
-                                          failureMechanismContribution), lm => {});
-
-            if (calculation.InputParameters.OvertoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation && overtoppingRateNormValid)
+            if (calculation.InputParameters.ShouldOvertoppingRateBeCalculated)
             {
                 overtoppingRateCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingRateCalculator(hydraRingCalculationSettings);
                 numberOfCalculators++;
@@ -331,9 +297,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         }
 
         private DikeHeightOutput CalculateDikeHeight(GrassCoverErosionInwardsCalculation calculation,
-                                                     IAssessmentSection assessmentSection,
                                                      GeneralGrassCoverErosionInwardsInput generalInput,
-                                                     double failureMechanismContribution,
                                                      string hydraulicBoundaryDatabaseFilePath,
                                                      bool usePreprocessor,
                                                      int numberOfCalculators)
@@ -347,12 +311,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                                          Resources.GrassCoverErosionInwardsCalculationService_DikeHeight),
                            2, numberOfCalculators);
 
-            double norm = GetNormForDikeHeight(calculation.InputParameters, assessmentSection, generalInput, failureMechanismContribution);
-
-            DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(calculation, norm,
-                                                                                          generalInput,
-                                                                                          hydraulicBoundaryDatabaseFilePath,
-                                                                                          usePreprocessor);
+            DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(
+                calculation, generalInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
             var dikeHeightCalculated = true;
 
@@ -377,15 +337,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             DikeHeightOutput output = CreateDikeHeightOutput(dikeHeightCalculator,
                                                              calculation.Name,
                                                              dikeHeightCalculationInput.Beta,
-                                                             norm,
+                                                             calculation.InputParameters.DikeHeightReliabilityIndex,
                                                              calculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated);
             return output;
         }
 
         private OvertoppingRateOutput CalculateOvertoppingRate(GrassCoverErosionInwardsCalculation calculation,
-                                                               IAssessmentSection assessmentSection,
                                                                GeneralGrassCoverErosionInwardsInput generalInput,
-                                                               double failureMechanismContribution,
                                                                string hydraulicBoundaryDatabaseFilePath,
                                                                bool usePreprocessor,
                                                                int numberOfCalculators)
@@ -399,12 +357,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                                          Resources.GrassCoverErosionInwardsCalculationService_OvertoppingRate),
                            numberOfCalculators, numberOfCalculators);
 
-            double norm = GetNormForOvertoppingRate(calculation.InputParameters, assessmentSection, generalInput, failureMechanismContribution);
-
-            OvertoppingRateCalculationInput overtoppingRateCalculationInput = CreateOvertoppingRateInput(calculation, norm,
-                                                                                                         generalInput,
-                                                                                                         hydraulicBoundaryDatabaseFilePath,
-                                                                                                         usePreprocessor);
+            OvertoppingRateCalculationInput overtoppingRateCalculationInput = CreateOvertoppingRateInput(
+                calculation, generalInput, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
 
             var overtoppingRateCalculated = true;
 
@@ -429,7 +383,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             OvertoppingRateOutput output = CreateOvertoppingRateOutput(overtoppingRateCalculator,
                                                                        calculation.Name,
                                                                        overtoppingRateCalculationInput.Beta,
-                                                                       norm,
+                                                                       calculation.InputParameters.OvertoppingRateReliabilityIndex,
                                                                        calculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated);
             return output;
         }
@@ -564,7 +518,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// Creates an instance of <see cref="DikeHeightCalculationInput"/> for calculation purposes.
         /// </summary>
         /// <param name="calculation">The calculation containing the input for the dike height calculation.</param>
-        /// <param name="norm">The norm to use in the calculation.</param>
         /// <param name="generalInput">The general grass cover erosion inwards calculation input parameters.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
@@ -580,13 +533,12 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// </list>
         /// </exception>
         private static DikeHeightCalculationInput CreateDikeHeightInput(GrassCoverErosionInwardsCalculation calculation,
-                                                                        double norm,
                                                                         GeneralGrassCoverErosionInwardsInput generalInput,
                                                                         string hydraulicBoundaryDatabaseFilePath,
                                                                         bool usePreprocessor)
         {
             var dikeHeightCalculationInput = new DikeHeightCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                                                                            norm,
+                                                                            calculation.InputParameters.DikeHeightReliabilityIndex,
                                                                             calculation.InputParameters.Orientation,
                                                                             ParseProfilePoints(calculation.InputParameters.DikeGeometry),
                                                                             HydraRingInputParser.ParseForeshore(calculation.InputParameters),
@@ -621,7 +573,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// Creates an instance of <see cref="OvertoppingRateCalculationInput"/> for calculation purposes.
         /// </summary>
         /// <param name="calculation">The calculation containing the input for the overtopping rate calculation.</param>
-        /// <param name="norm">The norm to use in the calculation.</param>
         /// <param name="generalInput">The general grass cover erosion inwards calculation input parameters.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="usePreprocessor">Indicator whether to use the preprocessor in the calculation.</param>
@@ -637,13 +588,12 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// </list>
         /// </exception>
         private static OvertoppingRateCalculationInput CreateOvertoppingRateInput(GrassCoverErosionInwardsCalculation calculation,
-                                                                                  double norm,
                                                                                   GeneralGrassCoverErosionInwardsInput generalInput,
                                                                                   string hydraulicBoundaryDatabaseFilePath,
                                                                                   bool usePreprocessor)
         {
             var overtoppingRateCalculationInput = new OvertoppingRateCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                                                                                      norm,
+                                                                                      calculation.InputParameters.OvertoppingRateReliabilityIndex,
                                                                                       calculation.InputParameters.Orientation,
                                                                                       ParseProfilePoints(calculation.InputParameters.DikeGeometry),
                                                                                       HydraRingInputParser.ParseForeshore(calculation.InputParameters),
@@ -822,65 +772,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             validationResults.AddRange(new UseBreakWaterRule(inputParameters).Validate());
 
             return validationResults;
-        }
-
-        private static void ValidateNorms(GrassCoverErosionInwardsInput inputParameters,
-                                          GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                          IAssessmentSection assessmentSection)
-        {
-            if (inputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation)
-            {
-                TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(
-                    GetNormForDikeHeight(inputParameters,
-                                         assessmentSection,
-                                         failureMechanism.GeneralInput,
-                                         failureMechanism.Contribution),
-                    lm => CalculationServiceHelper.LogMessagesAsWarning(new[]
-                    {
-                        string.Format(Resources.GrassCoverErosionInwardsCalculationService_Calculation_0_cannot_be_executed_Reason_1_,
-                                      Resources.GrassCoverErosionInwardsCalculationService_DikeHeight, lm)
-                    }));
-            }
-
-            if (inputParameters.OvertoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation)
-            {
-                TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(
-                    GetNormForOvertoppingRate(inputParameters,
-                                              assessmentSection,
-                                              failureMechanism.GeneralInput,
-                                              failureMechanism.Contribution),
-                    lm => CalculationServiceHelper.LogMessagesAsWarning(new[]
-                    {
-                        string.Format(Resources.GrassCoverErosionInwardsCalculationService_Calculation_0_cannot_be_executed_Reason_1_,
-                                      Resources.GrassCoverErosionInwardsCalculationService_OvertoppingRate, lm)
-                    }));
-            }
-        }
-
-        private static double GetNormForDikeHeight(GrassCoverErosionInwardsInput input,
-                                                   IAssessmentSection assessmentSection,
-                                                   GeneralGrassCoverErosionInwardsInput generalInput,
-                                                   double failureMechanismContribution)
-        {
-            return input.DikeHeightCalculationType == DikeHeightCalculationType.CalculateByAssessmentSectionNorm
-                       ? assessmentSection.FailureMechanismContribution.Norm
-                       : RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                           assessmentSection.FailureMechanismContribution.Norm,
-                           failureMechanismContribution,
-                           generalInput.N);
-        }
-
-        private static double GetNormForOvertoppingRate(GrassCoverErosionInwardsInput input,
-                                                        IAssessmentSection assessmentSection,
-                                                        GeneralGrassCoverErosionInwardsInput generalInput,
-                                                        double failureMechanismContribution)
-        {
-            return input.OvertoppingRateCalculationType == OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
-                       ? assessmentSection.FailureMechanismContribution.Norm
-                       : RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                           assessmentSection.FailureMechanismContribution.Norm,
-                           failureMechanismContribution,
-                           generalInput.N);
         }
 
         private static GeneralResult<TopLevelFaultTreeIllustrationPoint> ConvertIllustrationPointsResult(HydraRingGeneralResult result, string errorMessage)

@@ -568,7 +568,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private static void ValidateAllInFailureMechanism(GrassCoverErosionInwardsCalculationsContext context)
         {
-            ValidateAll(context.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), context.WrappedData, context.Parent);
+            ValidateAll(context.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), context.Parent);
         }
 
         private void CalculateAllInFailureMechanism(GrassCoverErosionInwardsCalculationsContext context)
@@ -844,7 +844,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         private static void ValidateAllInCalculationGroup(GrassCoverErosionInwardsCalculationGroupContext context)
         {
             ValidateAll(context.WrappedData.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>(),
-                        context.FailureMechanism,
                         context.AssessmentSection);
         }
 
@@ -922,7 +921,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private static void Validate(GrassCoverErosionInwardsCalculationScenarioContext context)
         {
-            GrassCoverErosionInwardsCalculationService.Validate(context.WrappedData, context.FailureMechanism, context.AssessmentSection);
+            GrassCoverErosionInwardsCalculationService.Validate(context.WrappedData, context.AssessmentSection);
         }
 
         private void Calculate(GrassCoverErosionInwardsCalculationScenarioContext context)
@@ -1027,12 +1026,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         }
 
         private static void ValidateAll(IEnumerable<GrassCoverErosionInwardsCalculation> calculations,
-                                        GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                         IAssessmentSection assessmentSection)
         {
             foreach (GrassCoverErosionInwardsCalculation calculation in calculations)
             {
-                GrassCoverErosionInwardsCalculationService.Validate(calculation, failureMechanism, assessmentSection);
+                GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
             }
         }
 

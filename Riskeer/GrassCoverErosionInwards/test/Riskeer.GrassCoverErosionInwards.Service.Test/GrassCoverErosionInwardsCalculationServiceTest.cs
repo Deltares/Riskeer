@@ -54,12 +54,9 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_NoHydraulicBoundaryLocation_LogsMessageAndReturnsFalse()
         {
             // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
+                new GrassCoverErosionInwardsFailureMechanism(), mockRepository, validFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation(0.1)
@@ -72,9 +69,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
-                                                                                              grassCoverErosionInwardsFailureMechanism,
-                                                                                              assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -94,12 +89,10 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_InvalidHydraulicBoundaryDatabase_LogsMessageAndReturnsFalse()
         {
             // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             string invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                            mockRepository,
                                                                                                            invalidFilePath);
             mockRepository.ReplayAll();
@@ -115,9 +108,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = true;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
-                                                                                              grassCoverErosionInwardsFailureMechanism,
-                                                                                              assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -137,10 +128,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_InvalidPreprocessorDirectory_LogsMessageAndReturnsFalse()
         {
             // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                            mockRepository,
                                                                                                            validFilePath);
 
@@ -161,9 +150,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = true;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
-                                                                                              grassCoverErosionInwardsFailureMechanism,
-                                                                                              assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -183,12 +170,10 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsMessageAndReturnsFalse()
         {
             // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             string invalidFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                            mockRepository,
                                                                                                            invalidFilePath);
             mockRepository.ReplayAll();
@@ -204,9 +189,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
-                                                                                              grassCoverErosionInwardsFailureMechanism,
-                                                                                              assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -226,10 +209,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_WithoutImportedHydraulicBoundaryDatabase_LogsMessageAndReturnsFalse()
         {
             // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                            mockRepository);
             mockRepository.ReplayAll();
 
@@ -244,9 +225,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
-                                                                                              grassCoverErosionInwardsFailureMechanism,
-                                                                                              assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -266,12 +245,9 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_NoDikeProfile_LogsMessageAndReturnsFalse()
         {
             // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFilePath);
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
+                new GrassCoverErosionInwardsFailureMechanism(), mockRepository, validFilePath);
             mockRepository.ReplayAll();
 
             var calculation = new GrassCoverErosionInwardsCalculation(0.1)
@@ -285,9 +261,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
-                                                                                              grassCoverErosionInwardsFailureMechanism,
-                                                                                              assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -310,10 +284,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_ValidInputAndInvalidBreakWaterHeight_LogsMessageAndReturnsFalse(double breakWaterHeight)
         {
             // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                            mockRepository,
                                                                                                            validFilePath);
             mockRepository.ReplayAll();
@@ -323,9 +295,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
-                                                                                              grassCoverErosionInwardsFailureMechanism,
-                                                                                              assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -345,10 +315,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_ValidInputAndInvalidOrientation_LogsMessageAndReturnsFalse()
         {
             // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                            mockRepository,
                                                                                                            validFilePath);
             mockRepository.ReplayAll();
@@ -369,9 +337,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
-                                                                                              grassCoverErosionInwardsFailureMechanism,
-                                                                                              assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -394,10 +360,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_ValidInputAndInvalidDikeHeight_LogsMessageAndReturnsFalse(double dikeHeight)
         {
             // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                            mockRepository,
                                                                                                            validFilePath);
             mockRepository.ReplayAll();
@@ -418,9 +382,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
-                                                                                              grassCoverErosionInwardsFailureMechanism,
-                                                                                              assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -437,92 +399,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Validate_InvalidNormForDikeHeightCalculation_LogsMessageAndReturnTrue()
-        {
-            // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFilePath);
-            mockRepository.ReplayAll();
-
-            var calculation = new GrassCoverErosionInwardsCalculation(0.1)
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
-                    DikeHeightCalculationType = DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability
-                }
-            };
-
-            // Call
-            var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
-                                                                                              grassCoverErosionInwardsFailureMechanism,
-                                                                                              assessmentSection);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("De HBN berekening kan niet worden uitgevoerd. " +
-                                        "Doelkans is te klein om een berekening uit te kunnen voeren.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsTrue(isValid);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Validate_InvalidNormForOvertoppingRateCalculation_LogsMessageAndReturnTrue()
-        {
-            // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFilePath);
-            mockRepository.ReplayAll();
-
-            var calculation = new GrassCoverErosionInwardsCalculation(0.1)
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
-                    OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability
-                }
-            };
-
-            // Call
-            var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
-                                                                                              grassCoverErosionInwardsFailureMechanism,
-                                                                                              assessmentSection);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("De overslagdebiet berekening kan niet worden uitgevoerd. " +
-                                        "Doelkans is te klein om een berekening uit te kunnen voeren.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsTrue(isValid);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         [TestCase(true, 10.0)]
         [TestCase(false, 10.0)]
         [TestCase(false, double.NaN)]
@@ -531,10 +407,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_ValidInputAndValidBreakWaterHeight_ReturnsTrue(bool useBreakWater, double breakWaterHeight)
         {
             // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                            mockRepository,
                                                                                                            validFilePath);
             mockRepository.ReplayAll();
@@ -544,9 +418,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
-                                                                                              grassCoverErosionInwardsFailureMechanism,
-                                                                                              assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -565,10 +437,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_ValidInputWithCanUseProcessorFalse_ReturnsTrue()
         {
             // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                            mockRepository,
                                                                                                            validFilePath);
             mockRepository.ReplayAll();
@@ -584,9 +454,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
-                                                                                              grassCoverErosionInwardsFailureMechanism,
-                                                                                              assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -605,10 +473,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_ValidInputWithUseProcessorTrue_ReturnsTrue()
         {
             // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                            mockRepository,
                                                                                                            validFilePath);
 
@@ -629,9 +495,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
-                                                                                              grassCoverErosionInwardsFailureMechanism,
-                                                                                              assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -650,10 +514,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Validate_ValidInputWithUseProcessorFalse_ReturnsTrue()
         {
             // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(new GrassCoverErosionInwardsFailureMechanism(),
                                                                                                            mockRepository,
                                                                                                            validFilePath);
 
@@ -674,9 +536,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
-                                                                                              grassCoverErosionInwardsFailureMechanism,
-                                                                                              assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -704,8 +564,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             // Call
             TestDelegate test = () => new GrassCoverErosionInwardsCalculationService().Calculate(null,
                                                                                                  assessmentSection,
-                                                                                                 failureMechanism.GeneralInput,
-                                                                                                 failureMechanism.Contribution);
+                                                                                                 failureMechanism.GeneralInput);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -723,8 +582,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             // Call
             TestDelegate test = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                  null,
-                                                                                                 failureMechanism.GeneralInput,
-                                                                                                 failureMechanism.Contribution);
+                                                                                                 failureMechanism.GeneralInput);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -735,18 +593,14 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void Calculate_GeneralInputNull_ThrowArgumentNullException()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
-
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+            TestDelegate test = () => new GrassCoverErosionInwardsCalculationService().Calculate(new GrassCoverErosionInwardsCalculation(0.1),
                                                                                                  assessmentSection,
-                                                                                                 null,
-                                                                                                 failureMechanism.Contribution);
+                                                                                                 null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -757,14 +611,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         [Test]
         [Combinatorial]
         public void Calculate_CalculationValid_ReturnOutput([Values(true, false)] bool useForeland,
-                                                            [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                                                                    DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
-                                                                    DikeHeightCalculationType.NoCalculation)]
-                                                            DikeHeightCalculationType dikeHeightCalculationType,
-                                                            [Values(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
-                                                                    OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
-                                                                    OvertoppingRateCalculationType.NoCalculation)]
-                                                            OvertoppingRateCalculationType overtoppingRateCalculationType,
+                                                            [Values(true, false)] bool shouldDikeHeightBeCalculated,
+                                                            [Values(true, false)] bool shouldOvertoppingRateBeCalculated,
                                                             [Values(true, false)] bool calculateIllustrationPoints)
         {
             // Setup
@@ -803,8 +651,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
-                    DikeHeightCalculationType = dikeHeightCalculationType,
-                    OvertoppingRateCalculationType = overtoppingRateCalculationType,
+                    ShouldDikeHeightBeCalculated = shouldDikeHeightBeCalculated,
+                    ShouldOvertoppingRateBeCalculated = shouldOvertoppingRateBeCalculated,
                     UseForeshore = useForeland,
                     ShouldDikeHeightIllustrationPointsBeCalculated = calculateIllustrationPoints,
                     ShouldOvertoppingOutputIllustrationPointsBeCalculated = calculateIllustrationPoints,
@@ -817,8 +665,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                            assessmentSection,
-                                                                           failureMechanism.GeneralInput,
-                                                                           failureMechanism.Contribution);
+                                                                           failureMechanism.GeneralInput);
             }
 
             // Assert
@@ -829,7 +676,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             Assert.AreEqual(calculateIllustrationPoints, calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
             Assert.AreEqual(calculateIllustrationPoints, overtoppingOutput.HasGeneralResult);
 
-            if (dikeHeightCalculationType != DikeHeightCalculationType.NoCalculation)
+            if (shouldDikeHeightBeCalculated)
             {
                 DikeHeightOutput dikeHeightOutput = calculation.Output.DikeHeightOutput;
                 Assert.IsNotNull(dikeHeightOutput);
@@ -848,7 +695,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 Assert.IsNull(calculation.Output.DikeHeightOutput);
             }
 
-            if (overtoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation)
+            if (shouldOvertoppingRateBeCalculated)
             {
                 OvertoppingRateOutput overtoppingRateOutput = calculation.Output.OvertoppingRateOutput;
                 Assert.IsNotNull(overtoppingRateOutput);
@@ -871,9 +718,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Calculate_DikeHeightCalculationFails_OutputNotNull(AssessmentSectionNorm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Calculate_DikeHeightCalculationFails_OutputNotNull(ProfileProbability)")]
-        public void Calculate_DikeHeightCalculationFails_OutputNotNull(DikeHeightCalculationType dikeHeightCalculationType)
+        public void Calculate_DikeHeightCalculationFails_OutputNotNull()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -905,7 +750,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
-                    DikeHeightCalculationType = dikeHeightCalculationType
+                    ShouldDikeHeightBeCalculated = true
                 }
             };
 
@@ -916,8 +761,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                assessmentSection,
-                                                                               failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution);
+                                                                               failureMechanism.GeneralInput);
                 }
             };
 
@@ -948,9 +792,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Calculate_OvertoppingRateCalculationFails_OutputNotNull(AssessmentSectionNorm)")]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Calculate_OvertoppingRateCalculationFails_OutputNotNull(ProfileProbability)")]
-        public void Calculate_OvertoppingRateCalculationFails_OutputNotNull(OvertoppingRateCalculationType overtoppingRateCalculationType)
+        public void Calculate_OvertoppingRateCalculationFails_OutputNotNull()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -981,7 +823,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
-                    OvertoppingRateCalculationType = overtoppingRateCalculationType
+                    ShouldOvertoppingRateBeCalculated = true
                 }
             };
 
@@ -992,8 +834,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                assessmentSection,
-                                                                               failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution);
+                                                                               failureMechanism.GeneralInput);
                 }
             };
 
@@ -1058,8 +899,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 service.Calculate(calculation,
                                   assessmentSection,
-                                  grassCoverErosionInwardsFailureMechanism.GeneralInput,
-                                  grassCoverErosionInwardsFailureMechanism.Contribution);
+                                  grassCoverErosionInwardsFailureMechanism.GeneralInput);
 
                 // Assert
                 Assert.IsTrue(overtoppingCalculator.IsCanceled);
@@ -1070,12 +910,10 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        [Combinatorial]
+        [TestCase(true)]
+        [TestCase(false)]
         public void Calculate_CancelDikeHeightCalculation_CancelsCalculatorAndHasNullOutput(
-            [Values(true, false)] bool cancelBeforeDikeHeightCalculationStarts,
-            [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                    DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
-            DikeHeightCalculationType dikeHeightCalculationType)
+            bool cancelBeforeDikeHeightCalculationStarts)
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -1101,7 +939,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
-                    DikeHeightCalculationType = dikeHeightCalculationType
+                    ShouldDikeHeightBeCalculated = true
                 }
             };
 
@@ -1122,8 +960,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 service.Calculate(calculation,
                                   assessmentSection,
-                                  failureMechanism.GeneralInput,
-                                  failureMechanism.Contribution);
+                                  failureMechanism.GeneralInput);
 
                 // Assert
                 Assert.IsNull(calculation.Output);
@@ -1135,12 +972,10 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        [Combinatorial]
+        [TestCase(true)]
+        [TestCase(false)]
         public void Calculate_CancelOvertoppingRateCalculation_CancelsCalculatorAndHasNullOutput(
-            [Values(true, false)] bool cancelBeforeOvertoppingRateCalculationStarts,
-            [Values(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
-                    OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
-            OvertoppingRateCalculationType overtoppingRateCalculationType)
+            bool cancelBeforeOvertoppingRateCalculationStarts)
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -1169,8 +1004,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
-                    OvertoppingRateCalculationType = overtoppingRateCalculationType,
-                    DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm
+                    ShouldDikeHeightBeCalculated = true,
+                    ShouldOvertoppingRateBeCalculated = true
                 }
             };
 
@@ -1191,8 +1026,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 service.Calculate(calculation,
                                   assessmentSection,
-                                  failureMechanism.GeneralInput,
-                                  failureMechanism.Contribution);
+                                  failureMechanism.GeneralInput);
 
                 // Assert
                 Assert.IsNull(calculation.Output);
@@ -1246,8 +1080,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                    assessmentSection,
-                                                                                   failureMechanism.GeneralInput,
-                                                                                   failureMechanism.Contribution);
+                                                                                   failureMechanism.GeneralInput);
                     }
                     catch (HydraRingCalculationException)
                     {
@@ -1321,8 +1154,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                    assessmentSection,
-                                                                                   failureMechanism.GeneralInput,
-                                                                                   failureMechanism.Contribution);
+                                                                                   failureMechanism.GeneralInput);
                     }
                     catch (HydraRingCalculationException)
                     {
@@ -1397,8 +1229,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                     {
                         new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                    assessmentSection,
-                                                                                   failureMechanism.GeneralInput,
-                                                                                   failureMechanism.Contribution);
+                                                                                   failureMechanism.GeneralInput);
                     }
                     catch (HydraRingCalculationException e)
                     {
@@ -1432,9 +1263,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Calculate_DikeHeightCalculationFailedWithExceptionLastError_LogError(AssessmentSectionNorm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Calculate_DikeHeightCalculationFailedWithExceptionLastError_LogError(ProfileProbability)")]
-        public void Calculate_DikeHeightCalculationFailedWithExceptionAndLastErrorPresent_LogError(DikeHeightCalculationType dikeHeightCalculationType)
+        public void Calculate_DikeHeightCalculationFailedWithExceptionAndLastErrorPresent_LogError()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -1466,7 +1295,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
-                    DikeHeightCalculationType = dikeHeightCalculationType
+                    ShouldDikeHeightBeCalculated = true
                 }
             };
 
@@ -1477,8 +1306,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                assessmentSection,
-                                                                               failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution);
+                                                                               failureMechanism.GeneralInput);
                 };
 
                 // Assert
@@ -1509,9 +1337,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Calculate_DikeHeightCalculationFailedWithExceptionNoLastError_LogError(AssessmentSectionNorm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Calculate_DikeHeightCalculationFailedWithExceptionNoLastError_LogError(ProfileProbability)")]
-        public void Calculate_DikeHeightCalculationFailedWithExceptionAndNoLastErrorPresent_LogError(DikeHeightCalculationType dikeHeightCalculationType)
+        public void Calculate_DikeHeightCalculationFailedWithExceptionAndNoLastErrorPresent_LogError()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -1542,7 +1368,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
-                    DikeHeightCalculationType = dikeHeightCalculationType
+                    ShouldDikeHeightBeCalculated = true
                 }
             };
 
@@ -1553,8 +1379,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                assessmentSection,
-                                                                               failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution);
+                                                                               failureMechanism.GeneralInput);
                 };
 
                 // Assert
@@ -1585,9 +1410,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        [TestCase(DikeHeightCalculationType.CalculateByAssessmentSectionNorm, TestName = "Calculate_DikeHeightCalculationFailedNoExceptionWithLastError_LogError(AssessmentSectionNorm)")]
-        [TestCase(DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Calculate_DikeHeightCalculationFailedNoExceptionWithLastError_LogError(ProfileProbability)")]
-        public void Calculate_DikeHeightCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogError(DikeHeightCalculationType dikeHeightCalculationType)
+        public void Calculate_DikeHeightCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogError()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -1619,7 +1442,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
-                    DikeHeightCalculationType = dikeHeightCalculationType
+                    ShouldDikeHeightBeCalculated = true
                 }
             };
 
@@ -1630,8 +1453,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                assessmentSection,
-                                                                               failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution);
+                                                                               failureMechanism.GeneralInput);
                 };
 
                 // Assert
@@ -1662,9 +1484,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Calculate_OvertoppingRateCalculationFailedWithExceptionLastError_LogError(AssessmentSectionNorm)")]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Calculate_OvertoppingRateCalculationFailedWithExceptionLastError_LogError(ProfileProbability)")]
-        public void Calculate_OvertoppingRateCalculationFailedWithExceptionAndLastErrorPresent_LogError(OvertoppingRateCalculationType overtoppingRateCalculationType)
+        public void Calculate_OvertoppingRateCalculationFailedWithExceptionAndLastErrorPresent_LogError()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -1696,7 +1516,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
-                    OvertoppingRateCalculationType = overtoppingRateCalculationType
+                    ShouldOvertoppingRateBeCalculated = true
                 }
             };
 
@@ -1707,8 +1527,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                assessmentSection,
-                                                                               failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution);
+                                                                               failureMechanism.GeneralInput);
                 };
 
                 // Assert
@@ -1739,9 +1558,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Calculate_OvertoppingRateCalculationFailedWithExceptionNoLastError_LogError(AssessmentSectionNorm)")]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Calculate_OvertoppingRateCalculationFailedWithExceptionNoLastError_LogError(ProfileProbability)")]
-        public void Calculate_OvertoppingRateCalculationFailedWithExceptionAndNoLastErrorPresent_LogError(OvertoppingRateCalculationType overtoppingRateCalculationType)
+        public void Calculate_OvertoppingRateCalculationFailedWithExceptionAndNoLastErrorPresent_LogError()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -1772,7 +1589,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
-                    OvertoppingRateCalculationType = overtoppingRateCalculationType
+                    ShouldOvertoppingRateBeCalculated = true
                 }
             };
 
@@ -1783,8 +1600,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                assessmentSection,
-                                                                               failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution);
+                                                                               failureMechanism.GeneralInput);
                 };
 
                 // Assert
@@ -1815,9 +1631,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        [TestCase(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm, TestName = "Calculate_OvertoppingRateCalculationFailedNoExceptionWithLastError_LogError(AssessmentSectionNorm)")]
-        [TestCase(OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability, TestName = "Calculate_OvertoppingRateCalculationFailedNoExceptionWithLastError_LogError(ProfileProbability)")]
-        public void Calculate_OvertoppingRateCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogError(OvertoppingRateCalculationType overtoppingRateCalculationType)
+        public void Calculate_OvertoppingRateCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogError()
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -1849,7 +1663,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = dikeProfile,
-                    OvertoppingRateCalculationType = overtoppingRateCalculationType
+                    ShouldOvertoppingRateBeCalculated = true
                 }
             };
 
@@ -1860,8 +1674,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                assessmentSection,
-                                                                               failureMechanism.GeneralInput,
-                                                                               failureMechanism.Contribution);
+                                                                               failureMechanism.GeneralInput);
                 };
 
                 // Assert
@@ -1934,8 +1747,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
-                                                                                               failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution);
+                                                                                               failureMechanism.GeneralInput);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -2022,8 +1834,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
-                                                                                               failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution);
+                                                                                               failureMechanism.GeneralInput);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -2108,8 +1919,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
-                                                                                               failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution);
+                                                                                               failureMechanism.GeneralInput);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -2196,8 +2006,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
-                                                                                               failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution);
+                                                                                               failureMechanism.GeneralInput);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -2282,8 +2091,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
-                                                                                               failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution);
+                                                                                               failureMechanism.GeneralInput);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -2370,8 +2178,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
-                                                                                               failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution);
+                                                                                               failureMechanism.GeneralInput);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -2454,8 +2261,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
-                                                                                               failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution);
+                                                                                               failureMechanism.GeneralInput);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -2542,8 +2348,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
-                                                                                               failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution);
+                                                                                               failureMechanism.GeneralInput);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -2632,8 +2437,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
-                                                                                               failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution);
+                                                                                               failureMechanism.GeneralInput);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -2720,8 +2524,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
-                                                                                               failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution);
+                                                                                               failureMechanism.GeneralInput);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -2810,8 +2613,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
-                                                                                               failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution);
+                                                                                               failureMechanism.GeneralInput);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -2898,8 +2700,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 Action call = () => new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                                                assessmentSection,
-                                                                                               failureMechanism.GeneralInput,
-                                                                                               failureMechanism.Contribution);
+                                                                                               failureMechanism.GeneralInput);
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
@@ -2993,8 +2794,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = GetDikeProfile(),
-                    DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                    OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
+                    ShouldDikeHeightBeCalculated = true,
+                    ShouldOvertoppingRateBeCalculated = true
                 }
             };
 
@@ -3003,8 +2804,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                            assessmentSection,
-                                                                           failureMechanism.GeneralInput,
-                                                                           failureMechanism.Contribution);
+                                                                           failureMechanism.GeneralInput);
             }
 
             // Assert
@@ -3060,8 +2860,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = GetDikeProfile(),
-                    DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                    OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
+                    ShouldDikeHeightBeCalculated = true,
+                    ShouldOvertoppingRateBeCalculated = true
                 }
             };
 
@@ -3070,8 +2870,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                            assessmentSection,
-                                                                           failureMechanism.GeneralInput,
-                                                                           failureMechanism.Contribution);
+                                                                           failureMechanism.GeneralInput);
             }
 
             // Assert
@@ -3128,8 +2927,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     DikeProfile = GetDikeProfile(),
-                    DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                    OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
+                    ShouldDikeHeightBeCalculated = true,
+                    ShouldOvertoppingRateBeCalculated = true
                 }
             };
 
@@ -3138,102 +2937,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 // Call
                 new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
                                                                            assessmentSection,
-                                                                           failureMechanism.GeneralInput,
-                                                                           failureMechanism.Contribution);
+                                                                           failureMechanism.GeneralInput);
             }
 
             // Assert
             Assert.IsFalse(overtoppingCalculator.ReceivedInputs.Single().PreprocessorSetting.RunPreprocessor);
             Assert.IsFalse(dikeHeightCalculator.ReceivedInputs.Single().PreprocessorSetting.RunPreprocessor);
             Assert.IsFalse(overtoppingRateCalculator.ReceivedInputs.Single().PreprocessorSetting.RunPreprocessor);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_CalculateDikeHeightWithInvalidNorm_DikeHeightOutputNull()
-        {
-            // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFilePath);
-            var overtoppingCalculator = new TestOvertoppingCalculator();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            mockRepository.ReplayAll();
-
-            var calculation = new GrassCoverErosionInwardsCalculation(0.1)
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
-                    DikeHeightCalculationType = DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability
-                }
-            };
-
-            var service = new GrassCoverErosionInwardsCalculationService();
-
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                // Call
-                service.Calculate(calculation,
-                                  assessmentSection,
-                                  grassCoverErosionInwardsFailureMechanism.GeneralInput,
-                                  grassCoverErosionInwardsFailureMechanism.Contribution);
-
-                // Assert
-                Assert.IsNull(calculation.Output.DikeHeightOutput);
-            }
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_CalculateOvertoppingRateWithInvalidNorm_OvertoppingRateOutputNull()
-        {
-            // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
-                                                                                                           mockRepository,
-                                                                                                           validFilePath);
-            var overtoppingCalculator = new TestOvertoppingCalculator();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(null))
-                             .IgnoreArguments()
-                             .Return(overtoppingCalculator);
-            mockRepository.ReplayAll();
-
-            var calculation = new GrassCoverErosionInwardsCalculation(0.1)
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
-                    OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability
-                }
-            };
-
-            var service = new GrassCoverErosionInwardsCalculationService();
-
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                // Call
-                service.Calculate(calculation,
-                                  assessmentSection,
-                                  grassCoverErosionInwardsFailureMechanism.GeneralInput,
-                                  grassCoverErosionInwardsFailureMechanism.Contribution);
-
-                // Assert
-                Assert.IsNull(calculation.Output.OvertoppingRateOutput);
-            }
-
             mockRepository.VerifyAll();
         }
 
@@ -3293,8 +3003,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                     DikeProfile = GetDikeProfile(),
-                    DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                    OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
+                    ShouldDikeHeightBeCalculated = true,
+                    ShouldOvertoppingRateBeCalculated = true,
                     ShouldDikeHeightIllustrationPointsBeCalculated = true,
                     ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
                     ShouldOvertoppingRateIllustrationPointsBeCalculated = true

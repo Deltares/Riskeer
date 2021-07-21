@@ -71,7 +71,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
 
         protected override bool Validate()
         {
-            return GrassCoverErosionInwardsCalculationService.Validate(calculation, failureMechanism, assessmentSection);
+            return GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
         }
 
         protected override void PerformCalculation()
@@ -81,8 +81,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             calculationService.Calculate(
                 calculation,
                 assessmentSection,
-                failureMechanism.GeneralInput,
-                failureMechanism.Contribution);
+                failureMechanism.GeneralInput);
         }
 
         protected override void OnCancel()

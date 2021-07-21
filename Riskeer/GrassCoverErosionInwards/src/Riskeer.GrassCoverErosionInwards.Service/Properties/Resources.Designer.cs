@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -149,16 +149,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Properties {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_" +
                         "illustrationPoints_for_CalculationName_0_overtopping_with_ErrorMessage_1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De {0} berekening kan niet worden uitgevoerd. {1}.
-        /// </summary>
-        internal static string GrassCoverErosionInwardsCalculationService_Calculation_0_cannot_be_executed_Reason_1_ {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculation_0_cannot_be_executed_Reaso" +
-                        "n_1_", resourceCulture);
             }
         }
         
