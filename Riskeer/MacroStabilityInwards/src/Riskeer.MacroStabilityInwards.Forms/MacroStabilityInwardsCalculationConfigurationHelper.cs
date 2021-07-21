@@ -53,7 +53,8 @@ namespace Riskeer.MacroStabilityInwards.Forms
         /// <list type="bullet">
         /// <item><paramref name="surfaceLines"/> is <c>null</c></item>
         /// <item><paramref name="soilModels"/> is <c>null</c></item>
-        /// </list></exception>
+        /// </list>
+        /// </exception>
         public static IEnumerable<ICalculationBase> GenerateCalculationItemsStructure(IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines, IEnumerable<MacroStabilityInwardsStochasticSoilModel> soilModels)
         {
             if (surfaceLines == null)

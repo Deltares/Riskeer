@@ -24,7 +24,6 @@ using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.Properties;
@@ -47,12 +46,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         /// </summary>
         /// <param name="output">The output to show the properties for.</param>
         /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the output belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsOutputProperties(MacroStabilityInwardsOutput output,
-                                                     MacroStabilityInwardsFailureMechanism failureMechanism,
-                                                     IAssessmentSection assessmentSection)
+                                                     MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             if (output == null)
             {
@@ -62,11 +58,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             Data = output;

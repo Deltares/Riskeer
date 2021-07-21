@@ -24,8 +24,6 @@ using System.ComponentModel;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.MacroStabilityInwards.Data;
@@ -40,51 +38,26 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_OutputNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            void Call() => new MacroStabilityInwardsOutputProperties(null, new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            void Call() => new MacroStabilityInwardsOutputProperties(null, new MacroStabilityInwardsFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("output", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
             // Call
-            void Call() => new MacroStabilityInwardsOutputProperties(output, null, assessmentSection);
+            void Call() => new MacroStabilityInwardsOutputProperties(output, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
-
-            // Call
-            void Call() => new MacroStabilityInwardsOutputProperties(output, new MacroStabilityInwardsFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -93,10 +66,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            var properties = new MacroStabilityInwardsOutputProperties(output, failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsOutputProperties(output, failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsOutput>>(properties);
@@ -109,14 +81,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
             // Call
-            var properties = new MacroStabilityInwardsOutputProperties(output, failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsOutputProperties(output, failureMechanism);
 
             // Assert
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, failureMechanism);
@@ -126,7 +94,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.MacroStabilityInwardsProbability), properties.MacroStabilityInwardsProbability);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsReliability, properties.MacroStabilityInwardsReliability, properties.MacroStabilityInwardsReliability.GetAccuracy());
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -134,14 +101,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
             // Call
-            var properties = new MacroStabilityInwardsOutputProperties(output, failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsOutputProperties(output, failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -169,7 +132,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "Betrouwbaarheidsindex faalkans [-]",
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
                                                                             true);
-            mocks.VerifyAll();
         }
     }
 }
