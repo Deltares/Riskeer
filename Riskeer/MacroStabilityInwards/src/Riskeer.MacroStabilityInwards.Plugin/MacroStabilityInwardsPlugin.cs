@@ -688,7 +688,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism,
                                                               assessmentSection,
                                                               () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
-                new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
+                new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
             };
