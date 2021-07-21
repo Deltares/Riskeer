@@ -72,7 +72,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                                                                                  .OfType<MacroStabilityInwardsCalculationScenario>()
                                                                                  .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
-            return calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc, FailureMechanism, assessmentSection)).ToList();
+            return calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc, FailureMechanism)).ToList();
         }
     }
 }
