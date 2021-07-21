@@ -177,10 +177,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
             Assert.AreEqual(input.ShouldOvertoppingOutputIllustrationPointsBeCalculated, properties.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
             Assert.AreEqual(input.ShouldDikeHeightBeCalculated, properties.ShouldDikeHeightBeCalculated);
-            Assert.AreEqual(input.DikeHeightReliabilityIndex, properties.DikeHeightReliabilityIndex);
+            Assert.AreEqual(input.DikeHeightTargetProbability, properties.DikeHeightReliabilityIndex);
             Assert.AreEqual(input.ShouldDikeHeightIllustrationPointsBeCalculated, properties.ShouldDikeHeightIllustrationPointsBeCalculated);
             Assert.AreEqual(input.ShouldOvertoppingRateBeCalculated, properties.ShouldOvertoppingRateBeCalculated);
-            Assert.AreEqual(input.OvertoppingRateReliabilityIndex, properties.OvertoppingRateReliabilityIndex);
+            Assert.AreEqual(input.OvertoppingRateTargetProbability, properties.OvertoppingRateReliabilityIndex);
             Assert.AreEqual(input.ShouldOvertoppingRateIllustrationPointsBeCalculated, properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
 
             mockRepository.VerifyAll();
@@ -219,10 +219,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation, properties.CriticalFlowRate.StandardDeviation);
             Assert.AreEqual(input.ShouldOvertoppingOutputIllustrationPointsBeCalculated, properties.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
             Assert.AreEqual(input.ShouldDikeHeightBeCalculated, properties.ShouldDikeHeightBeCalculated);
-            Assert.AreEqual(input.DikeHeightReliabilityIndex, properties.DikeHeightReliabilityIndex);
+            Assert.AreEqual(input.DikeHeightTargetProbability, properties.DikeHeightReliabilityIndex);
             Assert.AreEqual(input.ShouldDikeHeightIllustrationPointsBeCalculated, properties.ShouldDikeHeightIllustrationPointsBeCalculated);
             Assert.AreEqual(input.ShouldOvertoppingRateBeCalculated, properties.ShouldOvertoppingRateBeCalculated);
-            Assert.AreEqual(input.OvertoppingRateReliabilityIndex, properties.OvertoppingRateReliabilityIndex);
+            Assert.AreEqual(input.OvertoppingRateTargetProbability, properties.OvertoppingRateReliabilityIndex);
             Assert.AreEqual(input.ShouldOvertoppingRateIllustrationPointsBeCalculated, properties.ShouldOvertoppingRateIllustrationPointsBeCalculated);
             mockRepository.VerifyAll();
         }

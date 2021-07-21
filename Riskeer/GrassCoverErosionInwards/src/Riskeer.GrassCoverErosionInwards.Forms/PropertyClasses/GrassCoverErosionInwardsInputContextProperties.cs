@@ -246,10 +246,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesDescription(typeof(Resources), nameof(Resources.DikeHeight_ReliabilityIndex_Description))]
         public double DikeHeightReliabilityIndex
         {
-            get => data.WrappedData.DikeHeightReliabilityIndex;
+            get => data.WrappedData.DikeHeightTargetProbability;
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.DikeHeightReliabilityIndex = value, propertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.DikeHeightTargetProbability = value, propertyChangeHandler);
             }
         }
 
@@ -289,10 +289,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesDescription(typeof(Resources), nameof(Resources.OvertoppingRate_ReliabilityIndex_Description))]
         public double OvertoppingRateReliabilityIndex
         {
-            get => data.WrappedData.OvertoppingRateReliabilityIndex;
+            get => data.WrappedData.OvertoppingRateTargetProbability;
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.OvertoppingRateReliabilityIndex = value, propertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.OvertoppingRateTargetProbability = value, propertyChangeHandler);
             }
         }
 

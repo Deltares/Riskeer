@@ -49,8 +49,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         private RoundedDouble orientation;
         private RoundedDouble dikeHeight;
         private DikeProfile dikeProfile;
-        private double dikeHeightReliabilityIndex;
-        private double overtoppingRateReliabilityIndex;
+        private double dikeHeightTargetProbability;
+        private double overtoppingRateTargetProbability;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsInput"/>.
@@ -73,8 +73,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             DikeHeightCalculationType = DikeHeightCalculationType.NoCalculation;
             OvertoppingRateCalculationType = OvertoppingRateCalculationType.NoCalculation;
 
-            DikeHeightReliabilityIndex = norm;
-            OvertoppingRateReliabilityIndex = norm;
+            DikeHeightTargetProbability = norm;
+            OvertoppingRateTargetProbability = norm;
         }
 
         /// <summary>
@@ -156,32 +156,32 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         public bool ShouldOvertoppingRateBeCalculated { get; set; }
 
         /// <summary>
-        /// Gets or sets the reliability index for the Dike Height calculation.
+        /// Gets or sets the target probability for the Dike Height calculation.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value
         /// is not in the interval {0.0, 0.1] or is <see cref="double.NaN"/>.</exception>
-        public double DikeHeightReliabilityIndex
+        public double DikeHeightTargetProbability
         {
-            get => dikeHeightReliabilityIndex;
+            get => dikeHeightTargetProbability;
             set
             {
-                ValidateReliabilityIndex(value);
-                dikeHeightReliabilityIndex = value;
+                ValidateTargetProbability(value);
+                dikeHeightTargetProbability = value;
             }
         }
 
         /// <summary>
-        /// Gets or sets the reliability index for the Overtopping Rate calculation.
+        /// Gets or sets the target probability for the Overtopping Rate calculation.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value
         /// is not in the interval {0.0, 0.1] or is <see cref="double.NaN"/>.</exception>
-        public double OvertoppingRateReliabilityIndex
+        public double OvertoppingRateTargetProbability
         {
-            get => overtoppingRateReliabilityIndex;
+            get => overtoppingRateTargetProbability;
             set
             {
-                ValidateReliabilityIndex(value);
-                overtoppingRateReliabilityIndex = value;
+                ValidateTargetProbability(value);
+                overtoppingRateTargetProbability = value;
             }
         }
 
@@ -284,13 +284,13 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             return clone;
         }
 
-        private static void ValidateReliabilityIndex(double reliabilityIndex)
+        private static void ValidateTargetProbability(double targetProbability)
         {
-            if (double.IsNaN(reliabilityIndex) || reliabilityIndex <= 0 || reliabilityIndex > 0.1)
+            if (double.IsNaN(targetProbability) || targetProbability <= 0 || targetProbability > 0.1)
             {
-                throw new ArgumentOutOfRangeException(nameof(reliabilityIndex),
-                                                      reliabilityIndex,
-                                                      Resources.ReliabilityIndex_Value_must_be_in_range);
+                throw new ArgumentOutOfRangeException(nameof(targetProbability),
+                                                      targetProbability,
+                                                      Resources.TargetProbability_Value_must_be_in_range);
             }
         }
 

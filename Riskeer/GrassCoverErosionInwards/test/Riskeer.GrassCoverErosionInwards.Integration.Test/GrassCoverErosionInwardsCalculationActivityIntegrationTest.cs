@@ -556,7 +556,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 GrassCoverErosionInwardsInput input = calculation.InputParameters;
 
                 var expectedInput = new DikeHeightCalculationInput(input.HydraulicBoundaryLocation.Id,
-                                                                   input.DikeHeightReliabilityIndex,
+                                                                   input.DikeHeightTargetProbability,
                                                                    input.Orientation,
                                                                    input.DikeGeometry.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X, roughnessPoint.Point.Y, roughnessPoint.Roughness)),
                                                                    input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
@@ -1007,7 +1007,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 GrassCoverErosionInwardsInput input = calculation.InputParameters;
 
                 var expectedInput = new OvertoppingRateCalculationInput(input.HydraulicBoundaryLocation.Id,
-                                                                        input.OvertoppingRateReliabilityIndex,
+                                                                        input.OvertoppingRateTargetProbability,
                                                                         input.Orientation,
                                                                         input.DikeGeometry.Select(roughnessPoint => new HydraRingRoughnessProfilePoint(roughnessPoint.Point.X, roughnessPoint.Point.Y, roughnessPoint.Roughness)),
                                                                         input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),

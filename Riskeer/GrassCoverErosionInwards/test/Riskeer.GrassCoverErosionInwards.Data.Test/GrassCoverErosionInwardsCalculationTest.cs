@@ -52,8 +52,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             Assert.IsNull(calculation.Comments.Body);
             Assert.IsNull(calculation.Output);
             Assert.IsNull(calculation.InputParameters.DikeProfile);
-            Assert.AreEqual(norm, calculation.InputParameters.DikeHeightReliabilityIndex);
-            Assert.AreEqual(norm, calculation.InputParameters.OvertoppingRateReliabilityIndex);
+            Assert.AreEqual(norm, calculation.InputParameters.DikeHeightTargetProbability);
+            Assert.AreEqual(norm, calculation.InputParameters.OvertoppingRateTargetProbability);
         }
 
         [Test]

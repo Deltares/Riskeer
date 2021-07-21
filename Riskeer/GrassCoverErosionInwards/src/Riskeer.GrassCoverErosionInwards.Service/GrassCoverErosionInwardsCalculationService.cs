@@ -337,7 +337,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             DikeHeightOutput output = CreateDikeHeightOutput(dikeHeightCalculator,
                                                              calculation.Name,
                                                              dikeHeightCalculationInput.Beta,
-                                                             calculation.InputParameters.DikeHeightReliabilityIndex,
+                                                             calculation.InputParameters.DikeHeightTargetProbability,
                                                              calculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated);
             return output;
         }
@@ -383,7 +383,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             OvertoppingRateOutput output = CreateOvertoppingRateOutput(overtoppingRateCalculator,
                                                                        calculation.Name,
                                                                        overtoppingRateCalculationInput.Beta,
-                                                                       calculation.InputParameters.OvertoppingRateReliabilityIndex,
+                                                                       calculation.InputParameters.OvertoppingRateTargetProbability,
                                                                        calculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated);
             return output;
         }
@@ -538,7 +538,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                                                                         bool usePreprocessor)
         {
             var dikeHeightCalculationInput = new DikeHeightCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                                                                            calculation.InputParameters.DikeHeightReliabilityIndex,
+                                                                            calculation.InputParameters.DikeHeightTargetProbability,
                                                                             calculation.InputParameters.Orientation,
                                                                             ParseProfilePoints(calculation.InputParameters.DikeGeometry),
                                                                             HydraRingInputParser.ParseForeshore(calculation.InputParameters),
@@ -593,7 +593,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                                                                                   bool usePreprocessor)
         {
             var overtoppingRateCalculationInput = new OvertoppingRateCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                                                                                      calculation.InputParameters.OvertoppingRateReliabilityIndex,
+                                                                                      calculation.InputParameters.OvertoppingRateTargetProbability,
                                                                                       calculation.InputParameters.Orientation,
                                                                                       ParseProfilePoints(calculation.InputParameters.DikeGeometry),
                                                                                       HydraRingInputParser.ParseForeshore(calculation.InputParameters),

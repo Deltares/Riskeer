@@ -95,14 +95,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test
             var calculation1 = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children.First();
             Assert.AreEqual("name", calculation1.Name);
             Assert.AreEqual(dikeProfile1, calculation1.InputParameters.DikeProfile);
-            Assert.AreEqual(failureMechanismContribution.Norm, calculation1.InputParameters.DikeHeightReliabilityIndex);
-            Assert.AreEqual(failureMechanismContribution.Norm, calculation1.InputParameters.OvertoppingRateReliabilityIndex);
+            Assert.AreEqual(failureMechanismContribution.Norm, calculation1.InputParameters.DikeHeightTargetProbability);
+            Assert.AreEqual(failureMechanismContribution.Norm, calculation1.InputParameters.OvertoppingRateTargetProbability);
 
             var calculation2 = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children.Last();
             Assert.AreEqual("name (1)", calculation2.Name);
             Assert.AreEqual(dikeProfile2, calculation2.InputParameters.DikeProfile);
-            Assert.AreEqual(failureMechanismContribution.Norm, calculation2.InputParameters.DikeHeightReliabilityIndex);
-            Assert.AreEqual(failureMechanismContribution.Norm, calculation2.InputParameters.OvertoppingRateReliabilityIndex);
+            Assert.AreEqual(failureMechanismContribution.Norm, calculation2.InputParameters.DikeHeightTargetProbability);
+            Assert.AreEqual(failureMechanismContribution.Norm, calculation2.InputParameters.OvertoppingRateTargetProbability);
         }
     }
 }

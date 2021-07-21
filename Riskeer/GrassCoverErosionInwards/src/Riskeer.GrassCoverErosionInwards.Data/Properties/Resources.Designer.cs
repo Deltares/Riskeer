@@ -158,9 +158,9 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De waarde van de doelkans moet groter zijn dan 0.0 en kleiner dan of gelijk aan 0.1..
         /// </summary>
-        public static string ReliabilityIndex_Value_must_be_in_range {
+        public static string TargetProbability_Value_must_be_in_range {
             get {
-                return ResourceManager.GetString("ReliabilityIndex_Value_must_be_in_range", resourceCulture);
+                return ResourceManager.GetString("TargetProbability_Value_must_be_in_range", resourceCulture);
             }
         }
     }

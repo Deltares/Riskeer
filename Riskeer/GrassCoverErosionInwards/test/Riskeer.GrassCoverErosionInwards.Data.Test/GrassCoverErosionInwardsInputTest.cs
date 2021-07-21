@@ -152,8 +152,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             Assert.IsFalse(input.ShouldDikeHeightBeCalculated);
             Assert.IsFalse(input.ShouldOvertoppingRateBeCalculated);
 
-            Assert.AreEqual(norm, input.DikeHeightReliabilityIndex);
-            Assert.AreEqual(norm, input.OvertoppingRateReliabilityIndex);
+            Assert.AreEqual(norm, input.DikeHeightTargetProbability);
+            Assert.AreEqual(norm, input.OvertoppingRateTargetProbability);
 
             Assert.AreEqual(DikeHeightCalculationType.NoCalculation, input.DikeHeightCalculationType);
             Assert.AreEqual(OvertoppingRateCalculationType.NoCalculation, input.OvertoppingRateCalculationType);
@@ -305,13 +305,13 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             var input = new GrassCoverErosionInwardsInput(originalValue);
 
             // Call
-            void Call() => input.DikeHeightReliabilityIndex = invalidValue;
+            void Call() => input.DikeHeightTargetProbability = invalidValue;
 
             // Assert
             const string expectedMessage = "De waarde van de doelkans moet groter zijn dan 0.0 en kleiner dan of gelijk aan 0.1.";
             var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
-            Assert.AreEqual(originalValue, input.DikeHeightReliabilityIndex);
+            Assert.AreEqual(originalValue, input.DikeHeightTargetProbability);
         }
 
         [Test]
@@ -324,10 +324,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             var input = new GrassCoverErosionInwardsInput(0.1);
 
             // Call
-            input.DikeHeightReliabilityIndex = newValue;
+            input.DikeHeightTargetProbability = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, input.DikeHeightReliabilityIndex);
+            Assert.AreEqual(newValue, input.DikeHeightTargetProbability);
         }
 
         [Test]
@@ -341,13 +341,13 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             var input = new GrassCoverErosionInwardsInput(originalValue);
 
             // Call
-            void Call() => input.OvertoppingRateReliabilityIndex = invalidValue;
+            void Call() => input.OvertoppingRateTargetProbability = invalidValue;
 
             // Assert
             const string expectedMessage = "De waarde van de doelkans moet groter zijn dan 0.0 en kleiner dan of gelijk aan 0.1.";
             var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
-            Assert.AreEqual(originalValue, input.OvertoppingRateReliabilityIndex);
+            Assert.AreEqual(originalValue, input.OvertoppingRateTargetProbability);
         }
 
         [Test]
@@ -360,10 +360,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             var input = new GrassCoverErosionInwardsInput(0.1);
 
             // Call
-            input.OvertoppingRateReliabilityIndex = newValue;
+            input.OvertoppingRateTargetProbability = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, input.OvertoppingRateReliabilityIndex);
+            Assert.AreEqual(newValue, input.OvertoppingRateTargetProbability);
         }
 
         [Test]
