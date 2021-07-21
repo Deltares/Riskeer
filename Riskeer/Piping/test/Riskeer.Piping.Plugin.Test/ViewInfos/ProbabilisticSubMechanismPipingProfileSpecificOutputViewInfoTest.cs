@@ -54,7 +54,8 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ProbabilisticSubMechanismPipingOutputView));
+            info = plugin.GetViewInfos().First(tni => tni.DataType == typeof(ProbabilisticPipingProfileSpecificOutputContext) &&
+                                                      tni.ViewType == typeof(ProbabilisticSubMechanismPipingOutputView));
         }
 
         [TearDown]
@@ -67,7 +68,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ProbabilisticPipingProfileSpecificOutputContext), info.DataType);
             Assert.AreEqual(typeof(ProbabilisticPipingCalculationScenario), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralOutputIcon, info.Image);
         }
