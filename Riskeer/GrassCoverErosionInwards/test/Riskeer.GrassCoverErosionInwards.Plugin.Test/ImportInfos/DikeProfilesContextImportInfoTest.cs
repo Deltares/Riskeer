@@ -180,7 +180,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ImportInfos
                 plugin.Gui = gui;
 
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(double.NaN));
+                failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(0.1));
 
                 var dikeProfiles = new DikeProfileCollection();
                 var context = new DikeProfilesContext(dikeProfiles, failureMechanism, assessmentSection);
@@ -215,7 +215,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ImportInfos
                 plugin.Gui = gui;
 
                 var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-                failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(double.NaN)
+                failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation(0.1)
                 {
                     Output = new TestGrassCoverErosionInwardsOutput()
                 });

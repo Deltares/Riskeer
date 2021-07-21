@@ -88,7 +88,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
         private static GrassCoverErosionInwardsCalculationScenario CreateFullCalculation()
         {
-            return new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+            return new GrassCoverErosionInwardsCalculationScenario(0.1)
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -116,7 +116,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
         private static GrassCoverErosionInwardsCalculationScenario CreateSparseCalculation()
         {
-            return new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+            return new GrassCoverErosionInwardsCalculationScenario(0.1)
             {
                 Name = "sparse config"
             };
@@ -124,7 +124,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
         private static CalculationGroup CreateNestedCalculation()
         {
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1)
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -132,7 +132,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Location1")
                 }
             };
-            var calculation2 = new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+            var calculation2 = new GrassCoverErosionInwardsCalculationScenario(0.1)
             {
                 Name = "Berekening 2"
             };
@@ -161,7 +161,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
         private static GrassCoverErosionInwardsCalculationScenario CreateIrrelevantCalculationScenario()
         {
-            return new GrassCoverErosionInwardsCalculationScenario(double.NaN)
+            return new GrassCoverErosionInwardsCalculationScenario(0.1)
             {
                 Name = "irrelevant",
                 Contribution = (RoundedDouble) 0.5432,
@@ -171,7 +171,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
         protected override GrassCoverErosionInwardsCalculationScenario CreateCalculation()
         {
-            return new GrassCoverErosionInwardsCalculationScenario(double.NaN);
+            return new GrassCoverErosionInwardsCalculationScenario(0.1);
         }
 
         protected override GrassCoverErosionInwardsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)

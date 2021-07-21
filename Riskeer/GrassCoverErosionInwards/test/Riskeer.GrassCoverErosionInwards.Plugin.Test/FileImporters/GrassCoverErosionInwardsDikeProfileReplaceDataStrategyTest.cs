@@ -202,7 +202,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             // Setup
             DikeProfile existingDikeProfile = DikeProfileTestFactory.CreateDikeProfile("test", "ID1");
 
-            var calculation = new GrassCoverErosionInwardsCalculation(double.NaN)
+            var calculation = new GrassCoverErosionInwardsCalculation(0.1)
             {
                 InputParameters =
                 {
