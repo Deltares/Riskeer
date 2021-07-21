@@ -31,70 +31,27 @@ namespace Riskeer.MacroStabilityInwards.Data
     /// </summary>
     public class DerivedMacroStabilityInwardsOutput
     {
-        private double requiredProbability;
         private double macroStabilityInwardsProbability;
 
         /// <summary>
         /// Creates a new instance of <see cref="DerivedMacroStabilityInwardsOutput"/>.
         /// </summary>
         /// <param name="factorOfStability">The calculated factor of stability of the macro stability inwards failure mechanism.</param>
-        /// <param name="requiredProbability">The required (maximum allowed) probability of failure due to macro stability inwards.</param>
-        /// <param name="requiredReliability">The required (maximum allowed) reliability of the macro stability inwards failure mechanism</param>
         /// <param name="macroStabilityInwardsProbability">The calculated probability of failing due to macro stability inwards.</param>
         /// <param name="macroStabilityInwardsReliability">The calculated reliability of the macro stability inwards failure mechanism.</param>
-        /// <param name="macroStabilityInwardsFactorOfSafety">The factor of safety for the macro stability inwards failure mechanism.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a probability that falls
         /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
-        public DerivedMacroStabilityInwardsOutput(double factorOfStability, double requiredProbability, double requiredReliability,
-                                                  double macroStabilityInwardsProbability, double macroStabilityInwardsReliability,
-                                                  double macroStabilityInwardsFactorOfSafety)
+        public DerivedMacroStabilityInwardsOutput(double factorOfStability, double macroStabilityInwardsProbability, double macroStabilityInwardsReliability)
         {
             FactorOfStability = new RoundedDouble(3, factorOfStability);
-            RequiredProbability = requiredProbability;
-            RequiredReliability = new RoundedDouble(5, requiredReliability);
             MacroStabilityInwardsProbability = macroStabilityInwardsProbability;
             MacroStabilityInwardsReliability = new RoundedDouble(5, macroStabilityInwardsReliability);
-            MacroStabilityInwardsFactorOfSafety = new RoundedDouble(3, macroStabilityInwardsFactorOfSafety);
         }
 
         /// <summary>
         /// Gets the factor of stability of the macro stability inwards failure mechanism.
         /// </summary>
         public RoundedDouble FactorOfStability { get; }
-
-        /// <summary>
-        /// Gets the required probability of the macro stability inwards failure mechanism,
-        /// which value in range [0,1].
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value that falls
-        /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
-        public double RequiredProbability
-        {
-            get
-            {
-                return requiredProbability;
-            }
-            private set
-            {
-                ProbabilityHelper.ValidateProbability(value, nameof(value), true);
-                requiredProbability = value;
-            }
-        }
-
-        /// <summary>
-        /// Get the required reliability of the macro stability inwards failure mechanism.
-        /// </summary>
-        public RoundedDouble RequiredReliability { get; }
-
-        /// <summary>
-        /// Gets the factor of safety of the macro stability inwards failure mechanism.
-        /// </summary>
-        public RoundedDouble MacroStabilityInwardsFactorOfSafety { get; }
-
-        /// <summary>
-        /// Gets the reliability of the macro stability inwards failure mechanism.
-        /// </summary>
-        public RoundedDouble MacroStabilityInwardsReliability { get; }
 
         /// <summary>
         /// Gets the probability of failing due to the macro stability inwards failure mechanism,
@@ -114,5 +71,10 @@ namespace Riskeer.MacroStabilityInwards.Data
                 macroStabilityInwardsProbability = value;
             }
         }
+        
+        /// <summary>
+        /// Gets the reliability of the macro stability inwards failure mechanism.
+        /// </summary>
+        public RoundedDouble MacroStabilityInwardsReliability { get; }
     }
 }
