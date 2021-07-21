@@ -94,7 +94,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, 1.1);
 
             // Assert
-            Assert.AreEqual(0.99012835996547233, detailedAssessmentProbability, 1e-8);
+            Assert.AreEqual(0.99052414832077185, detailedAssessmentProbability, 1e-8);
         }
 
         [Test]

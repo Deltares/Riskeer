@@ -54,8 +54,8 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.AreEqual(output.FactorOfStability, derivedOutput.FactorOfStability, derivedOutput.FactorOfStability.GetAccuracy());
-            Assert.AreEqual(0.049327, derivedOutput.MacroStabilityInwardsProbability, 1e-6);
-            Assert.AreEqual(1.65141, derivedOutput.MacroStabilityInwardsReliability, derivedOutput.MacroStabilityInwardsReliability.GetAccuracy());
+            Assert.AreEqual(0.067853, derivedOutput.MacroStabilityInwardsProbability, 1e-6);
+            Assert.AreEqual(1.49197, derivedOutput.MacroStabilityInwardsReliability, derivedOutput.MacroStabilityInwardsReliability.GetAccuracy());
         }
     }
 }
