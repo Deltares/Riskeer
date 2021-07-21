@@ -21,8 +21,6 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 
@@ -34,46 +32,23 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         [Test]
         public void Create_OutputNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            void Call() => DerivedMacroStabilityInwardsOutputFactory.Create(null, new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            void Call() => DerivedMacroStabilityInwardsOutputFactory.Create(null, new MacroStabilityInwardsFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("output", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Create_FailureMechanismNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            void Call() => DerivedMacroStabilityInwardsOutputFactory.Create(MacroStabilityInwardsOutputTestFactory.CreateOutput(), null, assessmentSection);
+            void Call() => DerivedMacroStabilityInwardsOutputFactory.Create(MacroStabilityInwardsOutputTestFactory.CreateOutput(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => DerivedMacroStabilityInwardsOutputFactory.Create(MacroStabilityInwardsOutputTestFactory.CreateOutput(), new MacroStabilityInwardsFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -82,23 +57,18 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput(new MacroStabilityInwardsOutput.ConstructionProperties
             {
                 FactorOfStability = new Random(21).NextDouble()
             });
 
             // Call
-            DerivedMacroStabilityInwardsOutput derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, failureMechanism, assessmentSection);
+            DerivedMacroStabilityInwardsOutput derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(output, failureMechanism);
 
             // Assert
             Assert.AreEqual(output.FactorOfStability, derivedOutput.FactorOfStability, derivedOutput.FactorOfStability.GetAccuracy());
             Assert.AreEqual(0.049327, derivedOutput.MacroStabilityInwardsProbability, 1e-6);
             Assert.AreEqual(1.65141, derivedOutput.MacroStabilityInwardsReliability, derivedOutput.MacroStabilityInwardsReliability.GetAccuracy());
-            mocks.VerifyAll();
         }
     }
 }
