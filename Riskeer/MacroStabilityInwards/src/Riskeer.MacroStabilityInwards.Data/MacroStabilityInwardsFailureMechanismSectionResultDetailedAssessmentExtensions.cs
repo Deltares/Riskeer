@@ -39,14 +39,14 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// </summary>
         /// <param name="sectionResult">The section result to get the detailed assessment probability for.</param>
         /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
-        /// <param name="failureMechanism">The failure mechanism the calculations belong to.</param>
+        /// <param name="modelFactor">The model factor used to calculate a reliablity from a stability factor.</param>
         /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there
         /// are no relevant calculations, when not all relevant calculations are performed or when the
         /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static double GetDetailedAssessmentProbability(this MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
                                                               IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
-                                                              MacroStabilityInwardsFailureMechanism failureMechanism)
+                                                              double modelFactor)
         {
             if (sectionResult == null)
             {
@@ -56,11 +56,6 @@ namespace Riskeer.MacroStabilityInwards.Data
             if (calculationScenarios == null)
             {
                 throw new ArgumentNullException(nameof(calculationScenarios));
-            }
-
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             MacroStabilityInwardsCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios(calculationScenarios).ToArray();
@@ -73,7 +68,7 @@ namespace Riskeer.MacroStabilityInwards.Data
             double totalDetailedAssessmentProbability = 0;
             foreach (MacroStabilityInwardsCalculationScenario scenario in relevantScenarios)
             {
-                DerivedMacroStabilityInwardsOutput derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(scenario.Output, failureMechanism);
+                DerivedMacroStabilityInwardsOutput derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(scenario.Output, modelFactor);
 
                 totalDetailedAssessmentProbability += derivedOutput.MacroStabilityInwardsProbability * (double) scenario.Contribution;
             }

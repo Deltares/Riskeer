@@ -39,7 +39,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Call
             void Call() => MacroStabilityInwardsFailureMechanismSectionResultDetailedAssessmentExtensions.GetDetailedAssessmentProbability(
-                null, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), new MacroStabilityInwardsFailureMechanism());
+                null, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), 1.1);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -54,7 +54,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, new MacroStabilityInwardsFailureMechanism());
+            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, 1.1);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -62,26 +62,9 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void GetDetailedAssessmentProbability_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
-
-            // Call
-            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
         public void GetDetailedAssessmentProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
@@ -108,7 +91,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             };
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, 1.1);
 
             // Assert
             Assert.AreEqual(0.99012835996547233, detailedAssessmentProbability, 1e-8);
@@ -118,14 +101,11 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void GetDetailedAssessmentProbability_NoScenarios_ReturnsNaN()
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                                                  failureMechanism);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), 1.1);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
@@ -135,8 +115,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void GetDetailedAssessmentProbability_NoRelevantScenarios_ReturnsNaN()
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
@@ -146,7 +124,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             };
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, 1.1);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
@@ -156,8 +134,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void GetDetailedAssessmentProbability_ScenarioNotCalculated_ReturnsNaN()
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
@@ -167,7 +143,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new[]
             {
                 macroStabilityInwardsCalculationScenario
-            }, failureMechanism);
+            }, 1.1);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
@@ -177,8 +153,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void GetDetailedAssessmentProbability_ScenarioWithNaNResults_ReturnsNaN()
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
@@ -202,7 +176,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             };
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, 1.1);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
@@ -215,7 +189,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void GetDetailedAssessmentProbability_RelevantScenarioContributionsDoNotAddUpTo1_ReturnNaN(double contributionA, double contributionB)
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             MacroStabilityInwardsCalculationScenario scenarioA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
             MacroStabilityInwardsCalculationScenario scenarioB = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
@@ -229,7 +202,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             {
                 scenarioA,
                 scenarioB
-            }, failureMechanism);
+            }, 1.1);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
