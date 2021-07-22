@@ -1769,8 +1769,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenDikeProfileSelectedAndDialogClosed_ThenCalculationsAddedWithProfileAssigned()
         {
             // Given
+            var failureMechanismContribution = new FailureMechanismContribution(0.01, 0.001);
+            
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.01, 0.001));
+            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(failureMechanismContribution);
 
             DikeProfile dikeProfile1 = DikeProfileTestFactory.CreateDikeProfile("Dike profile 1", "id1");
             DikeProfile dikeProfile2 = DikeProfileTestFactory.CreateDikeProfile("Dike profile 2", "id2");
@@ -1833,6 +1835,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     var generatedCalculation = failureMechanism.CalculationsGroup.Children[2] as GrassCoverErosionInwardsCalculationScenario;
                     Assert.IsNotNull(generatedCalculation);
                     Assert.AreSame(dikeProfile1, generatedCalculation.InputParameters.DikeProfile);
+                    Assert.AreEqual(failureMechanismContribution.Norm, generatedCalculation.InputParameters.DikeHeightTargetProbability);
+                    Assert.AreEqual(failureMechanismContribution.Norm, generatedCalculation.InputParameters.OvertoppingRateTargetProbability);
                 }
             }
         }
