@@ -28,7 +28,6 @@ using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -42,8 +41,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class GrassCoverErosionInwardsOutputProperties : ObjectProperties<GrassCoverErosionInwardsOutput>
     {
-        private readonly ProbabilityAssessmentOutput derivedOvertoppingOutput;
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutputProperties"/>.
         /// </summary>
@@ -71,9 +68,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
 
             Data = grassCoverErosionInwardsOutput;
-
-            derivedOvertoppingOutput = GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(grassCoverErosionInwardsOutput.OvertoppingOutput,
-                                                                                                         failureMechanism, assessmentSection);
         }
 
         [DynamicVisibleValidationMethod]
@@ -94,7 +88,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(derivedOvertoppingOutput.Probability);
+                return ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(data.OvertoppingOutput.Reliability));
             }
         }
 
@@ -106,7 +100,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return derivedOvertoppingOutput.Reliability;
+                return new RoundedDouble(5, data.OvertoppingOutput.Reliability);
             }
         }
 
