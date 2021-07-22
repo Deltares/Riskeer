@@ -89,7 +89,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedGrassCoverErosionInwardsCalculation()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
+            var calculation = new GrassCoverErosionInwardsCalculation();
             TOutputContext context = GetContext(calculation);
 
             // Call
@@ -103,7 +103,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_CreatesInstanceOfViewType()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
+            var calculation = new GrassCoverErosionInwardsCalculation();
             TOutputContext context = GetContext(calculation);
 
             // Call
@@ -127,12 +127,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
         protected override ICalculation GetCalculation()
         {
-            return new GrassCoverErosionInwardsCalculation(0.1);
+            return new GrassCoverErosionInwardsCalculation();
         }
 
         protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
         {
-            return new GrassCoverErosionInwardsCalculationScenarioContext(new GrassCoverErosionInwardsCalculationScenario(0.1),
+            return new GrassCoverErosionInwardsCalculationScenarioContext(new GrassCoverErosionInwardsCalculationScenario(),
                                                                           new CalculationGroup(),
                                                                           new GrassCoverErosionInwardsFailureMechanism(),
                                                                           new AssessmentSectionStub());
@@ -145,7 +145,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 {
                     Children =
                     {
-                        new GrassCoverErosionInwardsCalculation(0.1)
+                        new GrassCoverErosionInwardsCalculation()
                     }
                 },
                 null,
@@ -162,7 +162,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                     {
                         Children =
                         {
-                            new GrassCoverErosionInwardsCalculation(0.1)
+                            new GrassCoverErosionInwardsCalculation()
                         }
                     }
                 },
