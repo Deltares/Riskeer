@@ -101,7 +101,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Factories
         {
             // Setup
             var chartData = new ChartLineData("test name");
-            var input = new GrassCoverErosionInwardsInput(0.1)
+            var input = new GrassCoverErosionInwardsInput
             {
                 UseForeshore = true
             };
@@ -118,7 +118,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Factories
         {
             // Setup
             var chartData = new ChartLineData("test name");
-            var input = new GrassCoverErosionInwardsInput(0.1)
+            var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = DikeProfileTestFactory.CreateDikeProfile("dike profile name"),
                 UseForeshore = false
@@ -136,7 +136,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Factories
         {
             // Setup
             var chartData = new ChartLineData("test name");
-            var input = new GrassCoverErosionInwardsInput(0.1)
+            var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = DikeProfileTestFactory.CreateDikeProfile("dike profile name"),
                 UseForeshore = true

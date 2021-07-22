@@ -59,8 +59,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Factories
         public void CreateCalculationFeatures_GivenCalculations_ReturnsCalculationFeaturesCollection()
         {
             // Setup
-            var calculationA = new GrassCoverErosionInwardsCalculation(0.1);
-            var calculationB = new GrassCoverErosionInwardsCalculation(0.1);
+            var calculationA = new GrassCoverErosionInwardsCalculation();
+            var calculationB = new GrassCoverErosionInwardsCalculation();
 
             calculationA.InputParameters.DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.0, 3.0));
             calculationB.InputParameters.DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(1.0, 4.0));

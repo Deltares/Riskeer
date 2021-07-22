@@ -76,7 +76,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Factories
         public void CreateForeshoreGeometryPoints_DikeProfileNull_ReturnsEmptyCollection()
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput(0.1)
+            var input = new GrassCoverErosionInwardsInput
             {
                 UseForeshore = true
             };
@@ -92,7 +92,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Factories
         public void CreateForeshoreGeometryPoints_DikeProfileSetUseForeshoreFalse_ReturnsEmptyCollection()
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput(0.1)
+            var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
                 {
@@ -118,7 +118,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Factories
                 new Point2D(1.1, 2.2),
                 new Point2D(3.3, 4.4)
             };
-            var input = new GrassCoverErosionInwardsInput(0.1)
+            var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = DikeProfileTestFactory.CreateDikeProfile(foreshoreGeometry),
                 UseForeshore = true
@@ -145,7 +145,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Factories
         public void CreateDikeHeightPoints_DikeProfileSetDikeHeightNaN_ReturnsEmptyCollection()
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput(0.1)
+            var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
                 {
@@ -166,7 +166,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Factories
         public void CreateDikeHeightPoints_DikeProfileSetDikeGeometryLessThanTwoPoints_ReturnsEmptyCollection()
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput(0.1)
+            var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
                 {
@@ -186,7 +186,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Factories
         public void CreateDikeHeightPoints_DikeProfileSetValidData_ReturnsEmptyCollection()
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput(0.1)
+            var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = DikeProfileTestFactory.CreateDikeProfile(
                     new[]
