@@ -317,8 +317,8 @@ namespace Riskeer.Integration.TestUtil
                 dikeprofile2
             }, "some/path/to/dikeprofiles");
 
-            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
-            var calculationWithOutputAndDikeProfileAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation(0.1)
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculationWithOutputAndDikeProfileAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
@@ -329,7 +329,7 @@ namespace Riskeer.Integration.TestUtil
                                                             new TestDikeHeightOutput(0, CalculationConvergence.CalculatedConverged),
                                                             new TestOvertoppingRateOutput(0, CalculationConvergence.CalculatedConverged))
             };
-            var calculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation(0.1)
+            var calculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
@@ -339,14 +339,14 @@ namespace Riskeer.Integration.TestUtil
                                                             new TestDikeHeightOutput(0, CalculationConvergence.CalculatedConverged),
                                                             new TestOvertoppingRateOutput(0, CalculationConvergence.CalculatedConverged))
             };
-            var calculationWithHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation(0.1)
+            var calculationWithHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
-            var calculationWithDikeProfileAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation(0.1)
+            var calculationWithDikeProfileAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
@@ -355,8 +355,8 @@ namespace Riskeer.Integration.TestUtil
                 }
             };
 
-            var subCalculation = new GrassCoverErosionInwardsCalculation(0.1);
-            var subCalculationWithOutputAndDikeProfileAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation(0.1)
+            var subCalculation = new GrassCoverErosionInwardsCalculation();
+            var subCalculationWithOutputAndDikeProfileAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
@@ -367,7 +367,7 @@ namespace Riskeer.Integration.TestUtil
                                                             new TestDikeHeightOutput(0, CalculationConvergence.CalculatedConverged),
                                                             new TestOvertoppingRateOutput(0, CalculationConvergence.CalculatedConverged))
             };
-            var subCalculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation(0.1)
+            var subCalculationWithOutputAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
@@ -377,14 +377,14 @@ namespace Riskeer.Integration.TestUtil
                                                             new TestDikeHeightOutput(0, CalculationConvergence.CalculatedConverged),
                                                             new TestOvertoppingRateOutput(0, CalculationConvergence.CalculatedConverged))
             };
-            var subCalculationWithHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation(0.1)
+            var subCalculationWithHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
-            var subCalculationWithDikeProfileAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation(0.1)
+            var subCalculationWithDikeProfileAndHydraulicBoundaryLocation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {

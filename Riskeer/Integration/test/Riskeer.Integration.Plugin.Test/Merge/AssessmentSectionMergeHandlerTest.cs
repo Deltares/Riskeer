@@ -265,7 +265,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                     HydraulicBoundaryLocation = sourceLocations[0]
                 }
             });
-            sourceAssessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculationScenario(0.1)
+            sourceAssessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {
