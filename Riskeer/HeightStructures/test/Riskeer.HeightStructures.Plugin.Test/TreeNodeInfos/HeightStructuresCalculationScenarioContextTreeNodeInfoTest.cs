@@ -143,7 +143,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var structuresOutputContext = children[2] as HeightStructuresOutputContext;
             Assert.IsNotNull(structuresOutputContext);
             Assert.AreSame(calculationContext.WrappedData, structuresOutputContext.WrappedData);
-            Assert.AreSame(calculationContext.FailureMechanism, structuresOutputContext.FailureMechanism);
             Assert.AreSame(calculationContext.AssessmentSection, structuresOutputContext.AssessmentSection);
         }
 

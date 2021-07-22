@@ -26,7 +26,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
-using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Forms.PropertyClasses;
@@ -68,14 +67,13 @@ namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new TestHeightStructuresCalculationScenario
             {
                 Output = new StructuresOutput(0, null)
             };
 
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(new HeightStructuresOutputContext(calculation, failureMechanism, assessmentSection));
+            IObjectProperties objectProperties = info.CreateInstance(new HeightStructuresOutputContext(calculation, assessmentSection));
 
             // Assert
             Assert.IsInstanceOf<HeightStructuresOutputProperties>(objectProperties);

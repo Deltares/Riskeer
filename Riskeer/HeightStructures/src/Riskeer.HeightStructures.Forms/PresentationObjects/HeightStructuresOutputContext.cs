@@ -23,7 +23,6 @@ using System;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.HeightStructures.Data;
 
 namespace Riskeer.HeightStructures.Forms.PresentationObjects
 {
@@ -36,25 +35,9 @@ namespace Riskeer.HeightStructures.Forms.PresentationObjects
         /// Creates a new instance of <see cref="HeightStructuresOutputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The structures calculation wrapped by the context object.</param>
-        /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HeightStructuresOutputContext(IStructuresCalculation wrappedData,
-                                             HeightStructuresFailureMechanism failureMechanism,
-                                             IAssessmentSection assessmentSection)
-            : base(wrappedData, assessmentSection)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            FailureMechanism = failureMechanism;
-        }
-
-        /// <summary>
-        /// Gets the failure mechanism.
-        /// </summary>
-        public HeightStructuresFailureMechanism FailureMechanism { get; }
+        public HeightStructuresOutputContext(IStructuresCalculation wrappedData, IAssessmentSection assessmentSection)
+            : base(wrappedData, assessmentSection) {}
     }
 }
