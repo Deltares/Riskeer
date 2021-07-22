@@ -62,7 +62,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         {
             // Setup
             var overtoppingOutput = new TestOvertoppingOutput(0.5);
-            var calculation = new GrassCoverErosionInwardsCalculation(0.1)
+            var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(overtoppingOutput, null, null)
             };
