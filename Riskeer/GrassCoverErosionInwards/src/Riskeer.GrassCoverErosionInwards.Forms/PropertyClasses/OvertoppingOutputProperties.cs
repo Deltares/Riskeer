@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Core.Common.Util.Extensions;
 using Core.Gui.Attributes;
@@ -30,7 +31,6 @@ using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.IllustrationPoints;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -44,8 +44,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
     /// </summary>
     public class OvertoppingOutputProperties : ObjectProperties<OvertoppingOutput>
     {
-        private readonly ProbabilityAssessmentOutput derivedOutput;
-
         /// <summary>
         /// Creates a new instance of <see cref="OvertoppingOutputProperties"/>.
         /// </summary>
@@ -73,11 +71,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
 
             Data = overtoppingOutput;
-
-            derivedOutput = ProbabilityAssessmentOutputFactory.Create(assessmentSection.FailureMechanismContribution.Norm,
-                                                                      failureMechanism.Contribution,
-                                                                      failureMechanism.GeneralInput.N,
-                                                                      overtoppingOutput.Reliability);
         }
 
         [PropertyOrder(1)]
@@ -88,7 +81,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(derivedOutput.Probability);
+                return ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(data.Reliability));
             }
         }
 
@@ -100,7 +93,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return derivedOutput.Reliability;
+                return new RoundedDouble(5, data.Reliability);
             }
         }
 
