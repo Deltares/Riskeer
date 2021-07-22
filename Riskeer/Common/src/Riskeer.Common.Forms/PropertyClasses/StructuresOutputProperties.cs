@@ -122,30 +122,6 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result), 1, 2)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_RequiredProbability_Displayname))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_RequiredProbability_Description))]
-        public string RequiredProbability
-        {
-            get
-            {
-                return ProbabilityFormattingHelper.Format(DerivedOutput.RequiredProbability);
-            }
-        }
-
-        [PropertyOrder(2)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result), 1, 2)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_RequiredReliability_Displayname))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_RequiredReliability_Description))]
-        public RoundedDouble RequiredReliability
-        {
-            get
-            {
-                return DerivedOutput.RequiredReliability;
-            }
-        }
-
-        [PropertyOrder(3)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result), 1, 2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_Probability_Displayname))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_Probability_Description))]
         public string Probability
@@ -156,7 +132,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(4)]
+        [PropertyOrder(2)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result), 1, 2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_Reliability_Displayname))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_Reliability_Description))]
@@ -165,18 +141,6 @@ namespace Riskeer.Common.Forms.PropertyClasses
             get
             {
                 return DerivedOutput.Reliability;
-            }
-        }
-
-        [PropertyOrder(5)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result), 1, 2)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_FactorOfSafety_Displayname))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ProbabilityAssessmentOutput_FactorOfSafety_Description))]
-        public RoundedDouble FactorOfSafety
-        {
-            get
-            {
-                return DerivedOutput.FactorOfSafety;
             }
         }
 

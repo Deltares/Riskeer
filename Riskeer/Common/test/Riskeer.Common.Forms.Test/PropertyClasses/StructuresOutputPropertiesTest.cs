@@ -39,15 +39,12 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
     [TestFixture]
     public class StructuresOutputPropertiesTest
     {
-        private const int requiredProbabilityPropertyIndex = 0;
-        private const int requiredReliabilityPropertyIndex = 1;
-        private const int probabilityPropertyIndex = 2;
-        private const int reliabilityPropertyIndex = 3;
-        private const int factorOfSafetyPropertyIndex = 4;
-        private const int windDirectionPropertyIndex = 5;
-        private const int alphaValuesPropertyIndex = 6;
-        private const int durationsPropertyIndex = 7;
-        private const int illustrationPointsPropertyIndex = 8;
+        private const int probabilityPropertyIndex = 0;
+        private const int reliabilityPropertyIndex = 1;
+        private const int windDirectionPropertyIndex = 2;
+        private const int alphaValuesPropertyIndex = 3;
+        private const int durationsPropertyIndex = 4;
+        private const int illustrationPointsPropertyIndex = 5;
 
         private const string illustrationPointsCategoryName = "Illustratiepunten";
         private const string resultCategoryName = "\tResultaat";
@@ -137,21 +134,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(9, dynamicProperties.Count);
-
-            PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
-                                                                            resultCategoryName,
-                                                                            "Faalkanseis [1/jaar]",
-                                                                            "De maximaal toegestane faalkanseis voor het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor requiredReliabilityProperty = dynamicProperties[requiredReliabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredReliabilityProperty,
-                                                                            resultCategoryName,
-                                                                            "Betrouwbaarheidsindex faalkanseis [-]",
-                                                                            "De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.",
-                                                                            true);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
@@ -165,13 +148,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                             resultCategoryName,
                                                                             "Betrouwbaarheidsindex faalkans [-]",
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
-                                                                            true);
-
-            PropertyDescriptor factorOfSafetyProperty = dynamicProperties[factorOfSafetyPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorOfSafetyProperty,
-                                                                            resultCategoryName,
-                                                                            "Veiligheidsfactor [-]",
-                                                                            "De veiligheidsfactor voor deze berekening.",
                                                                             true);
 
             PropertyDescriptor windDirectionProperty = dynamicProperties[windDirectionPropertyIndex];
@@ -214,21 +190,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
-
-            PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
-                                                                            resultCategoryName,
-                                                                            "Faalkanseis [1/jaar]",
-                                                                            "De maximaal toegestane faalkanseis voor het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor requiredReliabilityProperty = dynamicProperties[requiredReliabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredReliabilityProperty,
-                                                                            resultCategoryName,
-                                                                            "Betrouwbaarheidsindex faalkanseis [-]",
-                                                                            "De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.",
-                                                                            true);
+            Assert.AreEqual(2, dynamicProperties.Count);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
@@ -242,13 +204,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                             resultCategoryName,
                                                                             "Betrouwbaarheidsindex faalkans [-]",
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
-                                                                            true);
-
-            PropertyDescriptor factorOfSafetyProperty = dynamicProperties[factorOfSafetyPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorOfSafetyProperty,
-                                                                            resultCategoryName,
-                                                                            "Veiligheidsfactor [-]",
-                                                                            "De veiligheidsfactor voor deze berekening.",
                                                                             true);
         }
 

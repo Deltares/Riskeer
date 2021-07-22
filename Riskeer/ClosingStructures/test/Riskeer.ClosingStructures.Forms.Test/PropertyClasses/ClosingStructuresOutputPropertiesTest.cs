@@ -102,11 +102,8 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             // Assert
             ProbabilityAssessmentOutput expectedProbabilityAssessmentOutput = ClosingStructuresProbabilityAssessmentOutputFactory.Create(
                 structuresOutput, failureMechanism, assessmentSection);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.RequiredProbability), properties.RequiredProbability);
-            Assert.AreEqual(expectedProbabilityAssessmentOutput.RequiredReliability, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.Probability), properties.Probability);
             Assert.AreEqual(expectedProbabilityAssessmentOutput.Reliability, properties.Reliability, properties.Reliability.GetAccuracy());
-            Assert.AreEqual(expectedProbabilityAssessmentOutput.FactorOfSafety, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
             mocks.VerifyAll();
         }
     }
