@@ -1790,7 +1790,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 Name = "GEKB A",
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculationScenario(assessmentSection.FailureMechanismContribution.Norm)
+                    new GrassCoverErosionInwardsCalculationScenario
                     {
                         Name = "Calculation 1",
                         Comments =
@@ -1813,8 +1813,8 @@ namespace Riskeer.Storage.Core.TestUtil
                                 Mean = (RoundedDouble) 1.1,
                                 StandardDeviation = (RoundedDouble) 2.2
                             },
-                            DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                            OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
+                            DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                            OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
                             UseForeshore = true,
                             UseBreakWater = true
                         },
@@ -1822,7 +1822,7 @@ namespace Riskeer.Storage.Core.TestUtil
                                                                     new DikeHeightOutput(0.56, 0.05, 2, 0.06, 3, CalculationConvergence.CalculatedConverged, null),
                                                                     new OvertoppingRateOutput(0.57, 0.07, 4, 0.08, 5, CalculationConvergence.CalculatedConverged, null))
                     },
-                    new GrassCoverErosionInwardsCalculationScenario(assessmentSection.FailureMechanismContribution.Norm)
+                    new GrassCoverErosionInwardsCalculationScenario
                     {
                         Name = "Calculation 2",
                         Comments =
@@ -1845,13 +1845,13 @@ namespace Riskeer.Storage.Core.TestUtil
                                 Mean = (RoundedDouble) 1.1,
                                 StandardDeviation = (RoundedDouble) 2.2
                             },
-                            DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                            OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
                             UseForeshore = true,
                             UseBreakWater = true,
                             ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
                             ShouldDikeHeightIllustrationPointsBeCalculated = true,
-                            ShouldOvertoppingRateIllustrationPointsBeCalculated = true
+                            DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                            ShouldOvertoppingRateIllustrationPointsBeCalculated = true,
+                            OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm
                         },
                         Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, 1.1, GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
                                                                     new DikeHeightOutput(0.56, 0.05, 2, 0.06, 3, CalculationConvergence.CalculatedConverged, GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
@@ -1864,12 +1864,17 @@ namespace Riskeer.Storage.Core.TestUtil
                 Name = "GEKB B"
             });
             failureMechanism.CalculationsGroup.Children.Add(
-                new GrassCoverErosionInwardsCalculationScenario(assessmentSection.FailureMechanismContribution.Norm)
+                new GrassCoverErosionInwardsCalculationScenario
                 {
                     Name = "Calculation 2",
                     Comments =
                     {
                         Body = "Comments about Calculation 2"
+                    },
+                    InputParameters =
+                    {
+                        DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                        OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm
                     }
                 });
         }
