@@ -78,7 +78,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionInwardsInputView())
             {
-                var calculation = new GrassCoverErosionInwardsCalculation(0.1);
+                var calculation = new GrassCoverErosionInwardsCalculation();
 
                 // Call
                 view.Data = calculation;
@@ -110,7 +110,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionInwardsInputView
             {
-                Data = new GrassCoverErosionInwardsCalculation(0.1)
+                Data = new GrassCoverErosionInwardsCalculation()
             })
             {
                 // Precondition
@@ -133,7 +133,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             using (var view = new GrassCoverErosionInwardsInputView())
             {
-                var calculation = new GrassCoverErosionInwardsCalculation(0.1);
+                var calculation = new GrassCoverErosionInwardsCalculation();
 
                 // Call
                 view.Data = calculation;
@@ -150,7 +150,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = new GrassCoverErosionInwardsInputView())
             {
                 DikeProfile dikeProfile = GetDikeProfileWithGeometry();
-                var calculation = new GrassCoverErosionInwardsCalculation(0.1)
+                var calculation = new GrassCoverErosionInwardsCalculation
                 {
                     InputParameters =
                     {
@@ -180,7 +180,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = new GrassCoverErosionInwardsInputView())
             {
                 DikeProfile dikeProfile = GetDikeProfileWithGeometry();
-                var calculation = new GrassCoverErosionInwardsCalculation(0.1)
+                var calculation = new GrassCoverErosionInwardsCalculation
                 {
                     InputParameters =
                     {
@@ -219,7 +219,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
 
-                var calculation = new GrassCoverErosionInwardsCalculation(0.1)
+                var calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Name = initialName
                 };
@@ -248,7 +248,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
 
-                var calculation = new GrassCoverErosionInwardsCalculation(0.1)
+                var calculation = new GrassCoverErosionInwardsCalculation
                 {
                     Name = initialName
                 };
@@ -258,7 +258,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
 
-                view.Data = new GrassCoverErosionInwardsCalculation(0.1)
+                view.Data = new GrassCoverErosionInwardsCalculation
                 {
                     Name = initialName
                 };
@@ -286,7 +286,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             {
                 DikeProfile dikeProfile = GetDikeProfileWithGeometry();
 
-                var calculation = new GrassCoverErosionInwardsCalculation(0.1)
+                var calculation = new GrassCoverErosionInwardsCalculation
                 {
                     InputParameters =
                     {
@@ -332,7 +332,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             using (var view = new GrassCoverErosionInwardsInputView())
             {
-                var calculation = new GrassCoverErosionInwardsCalculation(0.1)
+                var calculation = new GrassCoverErosionInwardsCalculation
                 {
                     InputParameters =
                     {
@@ -350,7 +350,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 foreshoreChartData.Attach(observer);
                 dikeHeightChartData.Attach(observer);
 
-                view.Data = new GrassCoverErosionInwardsCalculation(0.1)
+                view.Data = new GrassCoverErosionInwardsCalculation
                 {
                     InputParameters =
                     {
@@ -376,7 +376,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             const int updatedForeshoreIndex = foreshoreIndex;
             const int updatedDikeHeightIndex = dikeHeightIndex - 1;
 
-            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
+            var calculation = new GrassCoverErosionInwardsCalculation();
 
             using (var view = new GrassCoverErosionInwardsInputView
             {
@@ -424,7 +424,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = new GrassCoverErosionInwardsInputView())
             {
                 DikeProfile dikeProfile = GetDikeProfileWithGeometry();
-                var calculation1 = new GrassCoverErosionInwardsCalculation(0.1)
+                var calculation1 = new GrassCoverErosionInwardsCalculation
                 {
                     InputParameters =
                     {
@@ -432,7 +432,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     }
                 };
 
-                var calculation2 = new GrassCoverErosionInwardsCalculation(0.1);
+                var calculation2 = new GrassCoverErosionInwardsCalculation();
 
                 view.Data = calculation1;
                 ChartData dataBeforeUpdate = view.Chart.Data;

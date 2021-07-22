@@ -116,7 +116,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var random = new Random(39);
 
-            var calculationA = new GrassCoverErosionInwardsCalculationScenario(0.1)
+            var calculationA = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -124,7 +124,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             };
-            var calculationB = new GrassCoverErosionInwardsCalculationScenario(0.1)
+            var calculationB = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -273,7 +273,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenViewWithCalculationGroupData_WhenCalculationGroupUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var calculationA = new GrassCoverErosionInwardsCalculation(0.1)
+            var calculationA = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
@@ -281,7 +281,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             };
-            var calculationB = new GrassCoverErosionInwardsCalculation(0.1)
+            var calculationB = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
@@ -319,7 +319,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenViewWithCalculationInputData_WhenCalculationInputUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var calculationA = new GrassCoverErosionInwardsCalculation(0.1)
+            var calculationA = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
@@ -359,7 +359,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenViewWithCalculationData_WhenCalculationUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
-            var calculationA = new GrassCoverErosionInwardsCalculation(0.1)
+            var calculationA = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
@@ -470,7 +470,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         {
             // Given
             var random = new Random(39);
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1);
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
