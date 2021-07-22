@@ -36,51 +36,17 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
     public class HeightStructuresOutputPropertiesTest
     {
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new HeightStructuresOutputProperties(new TestStructuresOutput(), null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new HeightStructuresOutputProperties(new TestStructuresOutput(), new HeightStructuresFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var output = new TestStructuresOutput();
-            var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            var properties = new HeightStructuresOutputProperties(output, failureMechanism, assessmentSection);
+            var properties = new HeightStructuresOutputProperties(output);
 
             // Assert
             Assert.IsInstanceOf<StructuresOutputProperties>(properties);
             Assert.AreSame(output, properties.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -99,7 +65,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             var structuresOutput = new TestStructuresOutput(reliability);
 
             // Call
-            var properties = new HeightStructuresOutputProperties(structuresOutput, failureMechanism, assessmentSection);
+            var properties = new HeightStructuresOutputProperties(structuresOutput);
 
             // Assert
             ProbabilityAssessmentOutput expectedProbabilityAssessmentOutput = HeightStructuresProbabilityAssessmentOutputFactory.Create(

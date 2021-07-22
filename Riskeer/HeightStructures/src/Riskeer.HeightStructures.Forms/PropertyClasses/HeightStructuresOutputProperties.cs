@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.HeightStructures.Data;
 
 namespace Riskeer.HeightStructures.Forms.PropertyClasses
 {
@@ -32,33 +30,12 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
     /// </summary>
     public class HeightStructuresOutputProperties : StructuresOutputProperties
     {
-        private readonly HeightStructuresFailureMechanism failureMechanism;
-        private readonly IAssessmentSection assessmentSection;
-
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresOutputProperties"/>.
         /// </summary>
         /// <param name="structuresOutput">The structures output to create the object properties for.</param>
-        /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the output belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HeightStructuresOutputProperties(StructuresOutput structuresOutput,
-                                                HeightStructuresFailureMechanism failureMechanism,
-                                                IAssessmentSection assessmentSection)
-            : base(structuresOutput)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            this.failureMechanism = failureMechanism;
-            this.assessmentSection = assessmentSection;
-        }
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="structuresOutput"/> is <c>null</c>.</exception>
+        public HeightStructuresOutputProperties(StructuresOutput structuresOutput)
+            : base(structuresOutput) {}
     }
 }

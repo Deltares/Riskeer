@@ -91,9 +91,7 @@ namespace Riskeer.HeightStructures.Plugin
             };
             yield return new PropertyInfo<HeightStructuresOutputContext, HeightStructuresOutputProperties>
             {
-                CreateInstance = context => new HeightStructuresOutputProperties(context.WrappedData.Output,
-                                                                                 context.FailureMechanism,
-                                                                                 context.AssessmentSection)
+                CreateInstance = context => new HeightStructuresOutputProperties(context.WrappedData.Output)
             };
         }
 
