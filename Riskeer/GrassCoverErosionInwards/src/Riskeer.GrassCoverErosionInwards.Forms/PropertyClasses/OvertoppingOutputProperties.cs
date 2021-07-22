@@ -82,30 +82,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 1, 2)]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ProbabilityAssessmentOutput_RequiredProbability_Displayname))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ProbabilityAssessmentOutput_RequiredProbability_Description))]
-        public string RequiredProbability
-        {
-            get
-            {
-                return ProbabilityFormattingHelper.Format(derivedOutput.RequiredProbability);
-            }
-        }
-
-        [PropertyOrder(2)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 1, 2)]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ProbabilityAssessmentOutput_RequiredReliability_Displayname))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ProbabilityAssessmentOutput_RequiredReliability_Description))]
-        public RoundedDouble RequiredReliability
-        {
-            get
-            {
-                return derivedOutput.RequiredReliability;
-            }
-        }
-
-        [PropertyOrder(3)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 1, 2)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ProbabilityAssessmentOutput_Probability_Displayname))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ProbabilityAssessmentOutput_Probability_Description))]
         public string Probability
@@ -116,7 +92,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(4)]
+        [PropertyOrder(2)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 1, 2)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ProbabilityAssessmentOutput_Reliability_Displayname))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ProbabilityAssessmentOutput_Reliability_Description))]
@@ -128,19 +104,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(5)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 1, 2)]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ProbabilityAssessmentOutput_FactorOfSafety_Displayname))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ProbabilityAssessmentOutput_FactorOfSafety_Description))]
-        public RoundedDouble FactorOfSafety
-        {
-            get
-            {
-                return derivedOutput.FactorOfSafety;
-            }
-        }
-
-        [PropertyOrder(6)]
+        [PropertyOrder(3)]
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 1, 2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsOutput_WaveHeight_Displayname))]
@@ -153,7 +117,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(7)]
+        [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingOutput), 1, 2)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Displayname))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Description))]

@@ -43,17 +43,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class OvertoppingOutputPropertiesTest
     {
-        private const int requiredProbabilityPropertyIndex = 0;
-        private const int requiredReliabilityPropertyIndex = 1;
-        private const int probabilityPropertyIndex = 2;
-        private const int reliabilityPropertyIndex = 3;
-        private const int factorOfSafetyPropertyIndex = 4;
-        private const int waveHeightIndex = 5;
-        private const int isDominantIndex = 6;
-        private const int windDirectionPropertyIndex = 7;
-        private const int alphaValuesPropertyIndex = 8;
-        private const int durationsPropertyIndex = 9;
-        private const int illustrationPointsPropertyIndex = 10;
+        private const int probabilityPropertyIndex = 0;
+        private const int reliabilityPropertyIndex = 1;
+        private const int waveHeightIndex = 2;
+        private const int isDominantIndex = 3;
+        private const int windDirectionPropertyIndex = 4;
+        private const int alphaValuesPropertyIndex = 5;
+        private const int durationsPropertyIndex = 6;
+        private const int illustrationPointsPropertyIndex = 7;
 
         private const string resultCategoryName = "\tSterkte berekening";
         private const string illustrationPointsCategoryName = "Illustratiepunten";
@@ -92,10 +89,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => new OvertoppingOutputProperties(null, failureMechanism, assessmentSection);
+            void Call() => new OvertoppingOutputProperties(null, failureMechanism, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("overtoppingOutput", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -109,10 +106,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new OvertoppingOutputProperties(new TestOvertoppingOutput(0), null, assessmentSection);
+            void Call() => new OvertoppingOutputProperties(new TestOvertoppingOutput(0), null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -121,12 +118,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new OvertoppingOutputProperties(new TestOvertoppingOutput(0),
-                                                                      new GrassCoverErosionInwardsFailureMechanism(),
-                                                                      null);
+            void Call() => new OvertoppingOutputProperties(new TestOvertoppingOutput(0), new GrassCoverErosionInwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -161,11 +156,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(waveHeight, properties.WaveHeight, properties.WaveHeight.GetAccuracy());
             Assert.AreEqual(reliability, properties.Reliability, properties.Reliability.GetAccuracy());
-            Assert.AreEqual(double.PositiveInfinity, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(3, properties.FactorOfSafety.NumberOfDecimalPlaces);
-            Assert.AreEqual(0, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
 
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(0), properties.RequiredProbability);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5), properties.Probability);
 
             Assert.AreEqual(isOvertoppingDominant, properties.IsOvertoppingDominant);
@@ -236,24 +227,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new OvertoppingOutputProperties(overtoppingOutput, failureMechanism, assessmentSection);
 
             // Assert
-            int propertiesCount = overtoppingOutput.HasWaveHeight ? 7 : 6;
+            int propertiesCount = overtoppingOutput.HasWaveHeight ? 4 : 3;
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(propertiesCount, dynamicProperties.Count);
-
-            PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
-                                                                            resultCategoryName,
-                                                                            "Faalkanseis [1/jaar]",
-                                                                            "De maximaal toegestane faalkanseis voor het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor requiredReliabilityProperty = dynamicProperties[requiredReliabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredReliabilityProperty,
-                                                                            resultCategoryName,
-                                                                            "Betrouwbaarheidsindex faalkanseis [-]",
-                                                                            "De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.",
-                                                                            true);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
@@ -267,13 +244,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             resultCategoryName,
                                                                             "Betrouwbaarheidsindex faalkans [-]",
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
-                                                                            true);
-
-            PropertyDescriptor factorOfSafetyProperty = dynamicProperties[factorOfSafetyPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorOfSafetyProperty,
-                                                                            resultCategoryName,
-                                                                            "Veiligheidsfactor [-]",
-                                                                            "De veiligheidsfactor voor deze berekening.",
                                                                             true);
 
             if (overtoppingOutput.HasWaveHeight)
@@ -320,24 +290,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new OvertoppingOutputProperties(overtoppingOutput, failureMechanism, assessmentSection);
 
             // Assert
-            int propertiesCount = overtoppingOutput.HasWaveHeight ? 11 : 10;
+            int propertiesCount = overtoppingOutput.HasWaveHeight ? 8 : 7;
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(propertiesCount, dynamicProperties.Count);
-
-            PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
-                                                                            resultCategoryName,
-                                                                            "Faalkanseis [1/jaar]",
-                                                                            "De maximaal toegestane faalkanseis voor het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor requiredReliabilityProperty = dynamicProperties[requiredReliabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredReliabilityProperty,
-                                                                            resultCategoryName,
-                                                                            "Betrouwbaarheidsindex faalkanseis [-]",
-                                                                            "De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.",
-                                                                            true);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
@@ -351,13 +307,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             resultCategoryName,
                                                                             "Betrouwbaarheidsindex faalkans [-]",
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
-                                                                            true);
-
-            PropertyDescriptor factorOfSafetyProperty = dynamicProperties[factorOfSafetyPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorOfSafetyProperty,
-                                                                            resultCategoryName,
-                                                                            "Veiligheidsfactor [-]",
-                                                                            "De veiligheidsfactor voor deze berekening.",
                                                                             true);
 
             if (overtoppingOutput.HasWaveHeight)
