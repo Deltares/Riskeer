@@ -74,9 +74,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 
             Data = overtoppingOutput;
 
-            derivedOutput = GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(overtoppingOutput,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+            derivedOutput = ProbabilityAssessmentOutputFactory.Create(assessmentSection.FailureMechanismContribution.Norm,
+                                                                      failureMechanism.Contribution,
+                                                                      failureMechanism.GeneralInput.N,
+                                                                      overtoppingOutput.Reliability);
         }
 
         [PropertyOrder(1)]
