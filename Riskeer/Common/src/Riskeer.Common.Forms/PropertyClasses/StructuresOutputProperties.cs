@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Core.Common.Util.Extensions;
 using Core.Gui.Attributes;
@@ -41,8 +42,6 @@ namespace Riskeer.Common.Forms.PropertyClasses
     /// </summary>
     public abstract class StructuresOutputProperties : ObjectProperties<StructuresOutput>
     {
-        private ProbabilityAssessmentOutput derivedOutput;
-
         /// <summary>
         /// Creates a new instance of <see cref="StructuresOutputProperties"/>.
         /// </summary>
@@ -128,7 +127,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(DerivedOutput.Probability);
+                return ProbabilityFormattingHelper.Format(StatisticsConverter.ReliabilityToProbability(data.Reliability));
             }
         }
 
@@ -140,7 +139,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                return DerivedOutput.Reliability;
+                return new RoundedDouble(5, data.Reliability);
             }
         }
 
@@ -159,14 +158,6 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// </summary>
         /// <returns>The created derived output.</returns>
         protected abstract ProbabilityAssessmentOutput CreateDerivedOutput();
-
-        private ProbabilityAssessmentOutput DerivedOutput
-        {
-            get
-            {
-                return derivedOutput ?? (derivedOutput = CreateDerivedOutput());
-            }
-        }
 
         private TopLevelFaultTreeIllustrationPointProperties[] GetTopLevelFaultTreeIllustrationPointProperties(bool areClosingSituationsSame)
         {
