@@ -26,8 +26,6 @@ using Core.Common.Util;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
@@ -50,81 +48,34 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int secondHydraulicLoadsOutputIndex = 10;
 
         [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var grassCoverErosionInwardsOutput = new TestGrassCoverErosionInwardsOutput();
-
-            // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties(grassCoverErosionInwardsOutput, failureMechanism, assessmentSection);
-
-            // Assert
-            Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsOutput>>(properties);
-            Assert.AreSame(grassCoverErosionInwardsOutput, properties.Data);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_GrassCoverErosionInwardsOutputNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            void Call() => new GrassCoverErosionInwardsOutputProperties(null, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+            void Call() => new GrassCoverErosionInwardsOutputProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("grassCoverErosionInwardsOutput", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var grassCoverErosionInwardsOutput = new TestGrassCoverErosionInwardsOutput();
 
             // Call
-            void Call() => new GrassCoverErosionInwardsOutputProperties(new TestGrassCoverErosionInwardsOutput(), null, assessmentSection);
+            var properties = new GrassCoverErosionInwardsOutputProperties(grassCoverErosionInwardsOutput);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new GrassCoverErosionInwardsOutputProperties(new TestGrassCoverErosionInwardsOutput(), new GrassCoverErosionInwardsFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
+            Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsOutput>>(properties);
+            Assert.AreSame(grassCoverErosionInwardsOutput, properties.Data);
         }
 
         [Test]
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var random = new Random(39);
             double waveHeight = random.NextDouble();
             bool isOvertoppingDominant = Convert.ToBoolean(random.Next(0, 2));
@@ -164,7 +115,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var output = new GrassCoverErosionInwardsOutput(resultOutput, dikeHeightOutput, overtoppingRateOutput);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties(output, failureMechanism, assessmentSection);
+            var properties = new GrassCoverErosionInwardsOutputProperties(output);
 
             // Assert
             Assert.AreEqual(2, properties.WaveHeight.NumberOfDecimalPlaces);
@@ -210,19 +161,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             string overtoppingRateConvergenceValue = new EnumDisplayWrapper<CalculationConvergence>(overtoppingRateConvergence).DisplayName;
             Assert.AreEqual(overtoppingRateConvergenceValue, properties.OvertoppingRateConvergence);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void PropertyAttributes_WithDikeHeightAndOvertoppingRateCalculated_ReturnExpectedValues()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var resultOutput = new OvertoppingOutput(10,
                                                      true,
                                                      0,
@@ -235,7 +179,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                             overtoppingRateOutput);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties(output, failureMechanism, assessmentSection);
+            var properties = new GrassCoverErosionInwardsOutputProperties(output);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -244,7 +188,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             AssertResultOutputProperties(dynamicProperties);
             AssertDikeHeightOutputProperties(dynamicProperties, firstHydraulicLoadsOutputIndex);
             AssertOvertoppingRateOutputProperties(dynamicProperties, secondHydraulicLoadsOutputIndex);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -254,12 +197,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                                                       bool overtoppingRateCalculated)
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             DikeHeightOutput dikeHeightOutput = null;
             OvertoppingRateOutput overtoppingRateOutput = null;
 
@@ -283,7 +220,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                             overtoppingRateOutput);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties(output, failureMechanism, assessmentSection);
+            var properties = new GrassCoverErosionInwardsOutputProperties(output);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -300,8 +237,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             {
                 AssertOvertoppingRateOutputProperties(dynamicProperties, firstHydraulicLoadsOutputIndex);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -310,12 +245,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_WithoutDikeHeightAndOvertoppingRateCalculated_ReturnExpectedValues(double waveHeight)
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var resultOutput = new OvertoppingOutput(waveHeight,
                                                      true,
                                                      0,
@@ -324,7 +253,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var output = new GrassCoverErosionInwardsOutput(resultOutput, null, null);
 
             // Call
-            var properties = new GrassCoverErosionInwardsOutputProperties(output, failureMechanism, assessmentSection);
+            var properties = new GrassCoverErosionInwardsOutputProperties(output);
 
             // Assert
             int propertiesCount = double.IsNaN(waveHeight) ? 3 : 4;
@@ -333,7 +262,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(propertiesCount, dynamicProperties.Count);
 
             AssertResultOutputProperties(dynamicProperties, !double.IsNaN(waveHeight));
-            mocks.VerifyAll();
         }
 
         private static void AssertResultOutputProperties(PropertyDescriptorCollection dynamicProperties, bool waveHeightCalculated = true)

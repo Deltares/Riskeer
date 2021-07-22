@@ -26,7 +26,6 @@ using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
@@ -45,26 +44,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutputProperties"/>.
         /// </summary>
         /// <param name="grassCoverErosionInwardsOutput">The grass cover erosion inwards output to create the object properties for.</param>
-        /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the output belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsOutputProperties(GrassCoverErosionInwardsOutput grassCoverErosionInwardsOutput,
-                                                        GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                        IAssessmentSection assessmentSection)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="grassCoverErosionInwardsOutput"/> is <c>null</c>.</exception>
+        public GrassCoverErosionInwardsOutputProperties(GrassCoverErosionInwardsOutput grassCoverErosionInwardsOutput)
         {
             if (grassCoverErosionInwardsOutput == null)
             {
                 throw new ArgumentNullException(nameof(grassCoverErosionInwardsOutput));
-            }
-
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             Data = grassCoverErosionInwardsOutput;
