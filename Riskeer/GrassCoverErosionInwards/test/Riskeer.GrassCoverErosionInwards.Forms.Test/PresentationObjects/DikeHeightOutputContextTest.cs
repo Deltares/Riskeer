@@ -33,7 +33,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
+            var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
             var dikeHeightOutputContext = new DikeHeightOutputContext(calculation);

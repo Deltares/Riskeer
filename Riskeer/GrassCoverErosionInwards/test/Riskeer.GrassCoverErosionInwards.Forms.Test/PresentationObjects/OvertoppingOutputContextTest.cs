@@ -33,7 +33,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
             var context = new OvertoppingOutputContext(calculation);
@@ -41,6 +46,35 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<GrassCoverErosionInwardsCalculation>>(context);
             Assert.AreSame(calculation, context.WrappedData);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new OvertoppingOutputContext(new GrassCoverErosionInwardsCalculation(), null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new OvertoppingOutputContext(new GrassCoverErosionInwardsCalculation(),
+                                                        new GrassCoverErosionInwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
 }
