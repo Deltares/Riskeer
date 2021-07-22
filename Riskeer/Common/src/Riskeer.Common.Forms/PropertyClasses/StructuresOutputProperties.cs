@@ -30,7 +30,6 @@ using Core.Gui.Attributes;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.IllustrationPoints;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
@@ -152,12 +151,6 @@ namespace Riskeer.Common.Forms.PropertyClasses
                        || propertyName.Equals(nameof(Durations))
                        || propertyName.Equals(nameof(IllustrationPoints)));
         }
-
-        /// <summary>
-        /// Creates the derived output.
-        /// </summary>
-        /// <returns>The created derived output.</returns>
-        protected abstract ProbabilityAssessmentOutput CreateDerivedOutput();
 
         private TopLevelFaultTreeIllustrationPointProperties[] GetTopLevelFaultTreeIllustrationPointProperties(bool areClosingSituationsSame)
         {

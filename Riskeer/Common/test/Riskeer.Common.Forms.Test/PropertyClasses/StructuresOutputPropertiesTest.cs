@@ -28,7 +28,6 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.IllustrationPoints;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
@@ -67,10 +66,10 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_StructuresOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SimpleStructuresOutputProperties(null);
+            void Call() => new SimpleStructuresOutputProperties(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("structuresOutput", exception.ParamName);
         }
 
@@ -211,11 +210,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             public SimpleStructuresOutputProperties(StructuresOutput structuresOutput)
                 : base(structuresOutput) {}
-
-            protected override ProbabilityAssessmentOutput CreateDerivedOutput()
-            {
-                return null;
-            }
         }
     }
 }

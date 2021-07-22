@@ -21,7 +21,6 @@
 
 using System;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.HeightStructures.Data;
@@ -60,11 +59,6 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
 
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
-        }
-
-        protected override ProbabilityAssessmentOutput CreateDerivedOutput()
-        {
-            return HeightStructuresProbabilityAssessmentOutputFactory.Create(data, failureMechanism, assessmentSection);
         }
     }
 }

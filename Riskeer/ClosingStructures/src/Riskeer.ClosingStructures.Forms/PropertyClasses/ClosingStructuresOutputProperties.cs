@@ -22,7 +22,6 @@
 using System;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.PropertyClasses;
 
@@ -60,11 +59,6 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
 
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
-        }
-
-        protected override ProbabilityAssessmentOutput CreateDerivedOutput()
-        {
-            return ClosingStructuresProbabilityAssessmentOutputFactory.Create(data, failureMechanism, assessmentSection);
         }
     }
 }
