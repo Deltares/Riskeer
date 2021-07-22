@@ -142,7 +142,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var structuresOutputContext = children[2] as StabilityPointStructuresOutputContext;
             Assert.IsNotNull(structuresOutputContext);
             Assert.AreSame(calculationContext.WrappedData, structuresOutputContext.WrappedData);
-            Assert.AreSame(calculationContext.FailureMechanism, structuresOutputContext.FailureMechanism);
             Assert.AreSame(calculationContext.AssessmentSection, structuresOutputContext.AssessmentSection);
         }
 
@@ -954,7 +953,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
-                
+
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.MainWindow).Return(mainWindow);

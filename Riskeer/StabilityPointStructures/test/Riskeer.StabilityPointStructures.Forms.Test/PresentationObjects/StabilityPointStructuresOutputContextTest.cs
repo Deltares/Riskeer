@@ -19,12 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 
@@ -42,35 +40,14 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             var calculation = new TestStabilityPointStructuresCalculationScenario();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            var structuresOutputContext = new StabilityPointStructuresOutputContext(calculation, failureMechanism, assessmentSection);
+            var structuresOutputContext = new StabilityPointStructuresOutputContext(calculation, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<StructuresOutputContext>(structuresOutputContext);
             Assert.AreSame(calculation, structuresOutputContext.WrappedData);
-            Assert.AreSame(failureMechanism, structuresOutputContext.FailureMechanism);
             Assert.AreSame(assessmentSection, structuresOutputContext.AssessmentSection);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new TestStabilityPointStructuresCalculationScenario();
-
-            // Call
-            TestDelegate call = () => new StabilityPointStructuresOutputContext(calculation, null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
     }

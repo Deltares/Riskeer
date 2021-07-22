@@ -75,7 +75,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
             };
 
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(new StabilityPointStructuresOutputContext(calculation, failureMechanism, assessmentSection));
+            IObjectProperties objectProperties = info.CreateInstance(new StabilityPointStructuresOutputContext(calculation, assessmentSection));
 
             // Assert
             Assert.IsInstanceOf<StabilityPointStructuresOutputProperties>(objectProperties);

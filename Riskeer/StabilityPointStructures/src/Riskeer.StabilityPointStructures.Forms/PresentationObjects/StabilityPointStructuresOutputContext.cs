@@ -23,7 +23,6 @@ using System;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.StabilityPointStructures.Data;
 
 namespace Riskeer.StabilityPointStructures.Forms.PresentationObjects
 {
@@ -36,25 +35,10 @@ namespace Riskeer.StabilityPointStructures.Forms.PresentationObjects
         /// Creates a new instance of <see cref="StabilityPointStructuresOutputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The structures calculation wrapped by the context object.</param>
-        /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public StabilityPointStructuresOutputContext(IStructuresCalculation wrappedData,
-                                                     StabilityPointStructuresFailureMechanism failureMechanism,
                                                      IAssessmentSection assessmentSection)
-            : base(wrappedData, assessmentSection)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            FailureMechanism = failureMechanism;
-        }
-
-        /// <summary>
-        /// Gets the failure mechanism.
-        /// </summary>
-        public StabilityPointStructuresFailureMechanism FailureMechanism { get; }
+            : base(wrappedData, assessmentSection) {}
     }
 }

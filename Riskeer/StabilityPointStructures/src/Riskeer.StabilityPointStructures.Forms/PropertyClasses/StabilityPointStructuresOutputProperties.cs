@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.StabilityPointStructures.Data;
 
 namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 {
@@ -32,33 +30,12 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
     /// </summary>
     public class StabilityPointStructuresOutputProperties : StructuresOutputProperties
     {
-        private readonly StabilityPointStructuresFailureMechanism failureMechanism;
-        private readonly IAssessmentSection assessmentSection;
-
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresOutputProperties"/>.
         /// </summary>
         /// <param name="structuresOutput">The structures output to create the object properties for.</param>
-        /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the output belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityPointStructuresOutputProperties(StructuresOutput structuresOutput,
-                                                        StabilityPointStructuresFailureMechanism failureMechanism,
-                                                        IAssessmentSection assessmentSection)
-            : base(structuresOutput)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            this.failureMechanism = failureMechanism;
-            this.assessmentSection = assessmentSection;
-        }
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="structuresOutput"/> is <c>null</c>.</exception>
+        public StabilityPointStructuresOutputProperties(StructuresOutput structuresOutput)
+            : base(structuresOutput) {}
     }
 }
