@@ -58,8 +58,6 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             // Setup
             var random = new Random(14);
             var breakWaterType = random.NextEnumValue<BreakWaterType>();
-            var dikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>();
-            var overtoppingRateCalculationType = random.NextEnumValue<OvertoppingRateCalculationType>();
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 Name = "sodhfksn",
@@ -74,10 +72,12 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
                 UseBreakWater = Convert.ToByte(random.NextBoolean()),
                 BreakWaterType = Convert.ToByte(breakWaterType),
                 BreakWaterHeight = 5.7,
-                DikeHeightCalculationType = Convert.ToByte(dikeHeightCalculationType),
-                OvertoppingRateCalculationType = Convert.ToByte(overtoppingRateCalculationType),
                 ShouldOvertoppingOutputIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean()),
+                ShouldDikeHeightBeCalculated = Convert.ToByte(random.NextBoolean()),
+                DikeHeightTargetProbability = 0.01,
                 ShouldDikeHeightIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean()),
+                ShouldOvertoppingRateBeCalculated = Convert.ToByte(random.NextBoolean()),
+                OvertoppingRateTargetProbability = 0.02,
                 ShouldOvertoppingRateIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean()),
                 RelevantForScenario = Convert.ToByte(random.NextBoolean()),
                 ScenarioContribution = 0.45
@@ -103,12 +103,15 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             AssertBoolean(entity.UseBreakWater, input.UseBreakWater);
             Assert.AreEqual(breakWaterType, input.BreakWater.Type);
             Assert.AreEqual(entity.BreakWaterHeight, input.BreakWater.Height.Value);
-            Assert.AreEqual(dikeHeightCalculationType, input.DikeHeightCalculationType);
-            Assert.AreEqual(overtoppingRateCalculationType, input.OvertoppingRateCalculationType);
             AssertBoolean(entity.ShouldOvertoppingOutputIllustrationPointsBeCalculated,
                           input.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            
+            AssertBoolean(entity.ShouldDikeHeightBeCalculated, input.ShouldDikeHeightBeCalculated);
+            Assert.AreEqual(entity.DikeHeightTargetProbability, input.DikeHeightTargetProbability);
             AssertBoolean(entity.ShouldDikeHeightIllustrationPointsBeCalculated,
                           input.ShouldDikeHeightIllustrationPointsBeCalculated);
+            AssertBoolean(entity.ShouldOvertoppingRateBeCalculated, input.ShouldOvertoppingRateBeCalculated);
+            Assert.AreEqual(entity.OvertoppingRateTargetProbability, input.OvertoppingRateTargetProbability);
             AssertBoolean(entity.ShouldOvertoppingRateIllustrationPointsBeCalculated,
                           input.ShouldOvertoppingRateIllustrationPointsBeCalculated);
 
@@ -130,7 +133,9 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
                 CriticalFlowRateMean = null,
                 CriticalFlowRateStandardDeviation = null,
                 DikeHeight = null,
-                BreakWaterHeight = null
+                BreakWaterHeight = null,
+                DikeHeightTargetProbability = 0.01,
+                OvertoppingRateTargetProbability = 0.02
             };
 
             var collector = new ReadConversionCollector();
@@ -163,7 +168,9 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 DikeProfileEntity = dikeProfileEntity,
-                ScenarioContribution = 0
+                ScenarioContribution = 0,
+                DikeHeightTargetProbability = 0.01,
+                OvertoppingRateTargetProbability = 0.02
             };
 
             var collector = new ReadConversionCollector();
@@ -189,7 +196,9 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 DikeProfileEntity = dikeProfileEntity,
-                ScenarioContribution = 0
+                ScenarioContribution = 0,
+                DikeHeightTargetProbability = 0.01,
+                OvertoppingRateTargetProbability = 0.02
             };
 
             var collector = new ReadConversionCollector();
@@ -211,7 +220,9 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 HydraulicLocationEntity = hydraulicLocationEntity,
-                ScenarioContribution = 0
+                ScenarioContribution = 0,
+                DikeHeightTargetProbability = 0.01,
+                OvertoppingRateTargetProbability = 0.02
             };
 
             var collector = new ReadConversionCollector();
@@ -232,7 +243,9 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 HydraulicLocationEntity = hydraulicLocationEntity,
-                ScenarioContribution = 0
+                ScenarioContribution = 0,
+                DikeHeightTargetProbability = 0.01,
+                OvertoppingRateTargetProbability = 0.02
             };
 
             var collector = new ReadConversionCollector();
@@ -255,7 +268,9 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
                 {
                     new GrassCoverErosionInwardsOutputEntity()
                 },
-                ScenarioContribution = 0
+                ScenarioContribution = 0,
+                DikeHeightTargetProbability = 0.01,
+                OvertoppingRateTargetProbability = 0.02
             };
 
             var collector = new ReadConversionCollector();

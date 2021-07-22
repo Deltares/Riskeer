@@ -79,10 +79,12 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards
             inputParameters.UseBreakWater = Convert.ToBoolean(entity.UseBreakWater);
             inputParameters.BreakWater.Height = (RoundedDouble) entity.BreakWaterHeight.ToNullAsNaN();
             inputParameters.BreakWater.Type = (BreakWaterType) entity.BreakWaterType;
-            inputParameters.DikeHeightCalculationType = (DikeHeightCalculationType) entity.DikeHeightCalculationType;
-            inputParameters.OvertoppingRateCalculationType = (OvertoppingRateCalculationType) entity.OvertoppingRateCalculationType;
             inputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated = Convert.ToBoolean(entity.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            inputParameters.ShouldDikeHeightBeCalculated = Convert.ToBoolean(entity.ShouldDikeHeightBeCalculated);
+            inputParameters.DikeHeightTargetProbability = entity.DikeHeightTargetProbability;
             inputParameters.ShouldDikeHeightIllustrationPointsBeCalculated = Convert.ToBoolean(entity.ShouldDikeHeightIllustrationPointsBeCalculated);
+            inputParameters.ShouldOvertoppingRateBeCalculated = Convert.ToBoolean(entity.ShouldOvertoppingRateBeCalculated);
+            inputParameters.OvertoppingRateTargetProbability = entity.OvertoppingRateTargetProbability;
             inputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated = Convert.ToBoolean(entity.ShouldOvertoppingRateIllustrationPointsBeCalculated);
         }
 

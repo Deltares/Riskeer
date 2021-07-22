@@ -83,18 +83,20 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
                 entity.HydraulicLocationEntity = registry.Get(input.HydraulicBoundaryLocation);
             }
 
-            entity.BreakWaterHeight = input.BreakWater.Height.ToNaNAsNull();
-            entity.BreakWaterType = Convert.ToByte(input.BreakWater.Type);
-            entity.UseBreakWater = Convert.ToByte(input.UseBreakWater);
-            entity.CriticalFlowRateMean = input.CriticalFlowRate.Mean.ToNaNAsNull();
-            entity.CriticalFlowRateStandardDeviation = input.CriticalFlowRate.StandardDeviation.ToNaNAsNull();
             entity.Orientation = input.Orientation.ToNaNAsNull();
-            entity.DikeHeightCalculationType = Convert.ToByte(input.DikeHeightCalculationType);
-            entity.OvertoppingRateCalculationType = Convert.ToByte(input.OvertoppingRateCalculationType);
             entity.DikeHeight = input.DikeHeight.ToNaNAsNull();
             entity.UseForeshore = Convert.ToByte(input.UseForeshore);
+            entity.UseBreakWater = Convert.ToByte(input.UseBreakWater);
+            entity.BreakWaterType = Convert.ToByte(input.BreakWater.Type);
+            entity.BreakWaterHeight = input.BreakWater.Height.ToNaNAsNull();
+            entity.CriticalFlowRateMean = input.CriticalFlowRate.Mean.ToNaNAsNull();
+            entity.CriticalFlowRateStandardDeviation = input.CriticalFlowRate.StandardDeviation.ToNaNAsNull();
             entity.ShouldOvertoppingOutputIllustrationPointsBeCalculated = Convert.ToByte(input.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            entity.ShouldDikeHeightBeCalculated = Convert.ToByte(input.ShouldDikeHeightBeCalculated);
+            entity.DikeHeightTargetProbability = input.DikeHeightTargetProbability;
             entity.ShouldDikeHeightIllustrationPointsBeCalculated = Convert.ToByte(input.ShouldDikeHeightIllustrationPointsBeCalculated);
+            entity.ShouldOvertoppingRateBeCalculated = Convert.ToByte(input.ShouldOvertoppingRateBeCalculated);
+            entity.OvertoppingRateTargetProbability = input.OvertoppingRateTargetProbability;
             entity.ShouldOvertoppingRateIllustrationPointsBeCalculated = Convert.ToByte(input.ShouldOvertoppingRateIllustrationPointsBeCalculated);
         }
     }

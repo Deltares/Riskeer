@@ -80,8 +80,6 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
                         Height = (RoundedDouble) 3.3,
                         Type = BreakWaterType.Dam
                     },
-                    DikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>(),
-                    OvertoppingRateCalculationType = random.NextEnumValue<OvertoppingRateCalculationType>(),
                     CriticalFlowRate =
                     {
                         Mean = (RoundedDouble) 4.4,
@@ -89,8 +87,12 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
                     },
                     UseBreakWater = true,
                     UseForeshore = false,
-                    ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean(),
                     ShouldOvertoppingOutputIllustrationPointsBeCalculated = random.NextBoolean(),
+                    ShouldDikeHeightBeCalculated = random.NextBoolean(),
+                    DikeHeightTargetProbability = random.NextDouble(1e-15, 0.1),
+                    ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean(),
+                    ShouldOvertoppingRateBeCalculated = random.NextBoolean(),
+                    OvertoppingRateTargetProbability = random.NextDouble(1e-15, 0.1),
                     ShouldOvertoppingRateIllustrationPointsBeCalculated = random.NextBoolean()
                 },
                 Output = null
@@ -119,15 +121,19 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(input.CriticalFlowRate.Mean.Value, entity.CriticalFlowRateMean);
             Assert.AreEqual(input.CriticalFlowRate.StandardDeviation.Value, entity.CriticalFlowRateStandardDeviation);
             Assert.AreEqual(input.Orientation.Value, entity.Orientation);
-            Assert.AreEqual(Convert.ToByte(input.DikeHeightCalculationType), entity.DikeHeightCalculationType);
-            Assert.AreEqual(Convert.ToByte(input.OvertoppingRateCalculationType), entity.OvertoppingRateCalculationType);
             Assert.AreEqual(input.DikeHeight.Value, entity.DikeHeight);
             Assert.AreEqual(Convert.ToByte(input.UseForeshore), entity.UseForeshore);
 
-            Assert.AreEqual(Convert.ToByte(input.ShouldDikeHeightIllustrationPointsBeCalculated),
-                            entity.ShouldDikeHeightIllustrationPointsBeCalculated);
             Assert.AreEqual(Convert.ToByte(input.ShouldOvertoppingOutputIllustrationPointsBeCalculated),
                             entity.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            
+            Assert.AreEqual(Convert.ToByte(input.ShouldDikeHeightBeCalculated), entity.ShouldDikeHeightBeCalculated);
+            Assert.AreEqual(input.DikeHeightTargetProbability, entity.DikeHeightTargetProbability);
+            Assert.AreEqual(Convert.ToByte(input.ShouldDikeHeightIllustrationPointsBeCalculated),
+                            entity.ShouldDikeHeightIllustrationPointsBeCalculated);
+            
+            Assert.AreEqual(Convert.ToByte(input.ShouldOvertoppingRateBeCalculated), entity.ShouldOvertoppingRateBeCalculated);
+            Assert.AreEqual(input.OvertoppingRateTargetProbability, entity.OvertoppingRateTargetProbability);
             Assert.AreEqual(Convert.ToByte(input.ShouldOvertoppingRateIllustrationPointsBeCalculated),
                             entity.ShouldOvertoppingRateIllustrationPointsBeCalculated);
 

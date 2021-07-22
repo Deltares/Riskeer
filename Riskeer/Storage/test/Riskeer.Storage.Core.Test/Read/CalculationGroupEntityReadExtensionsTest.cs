@@ -626,13 +626,17 @@ namespace Riskeer.Storage.Core.Test.Read
                     {
                         Order = 0,
                         Name = "1",
-                        ScenarioContribution = 0.1
+                        ScenarioContribution = 0.1,
+                        DikeHeightTargetProbability = 0.02,
+                        OvertoppingRateTargetProbability = 0.03
                     },
                     new GrassCoverErosionInwardsCalculationEntity
                     {
                         Order = 1,
                         Name = "2",
-                        ScenarioContribution = 0.1
+                        ScenarioContribution = 0.1,
+                        DikeHeightTargetProbability = 0.02,
+                        OvertoppingRateTargetProbability = 0.03
                     }
                 }
             };
@@ -666,13 +670,17 @@ namespace Riskeer.Storage.Core.Test.Read
                     {
                         Order = 2,
                         Name = "calculation2",
-                        ScenarioContribution = 0.1
+                        ScenarioContribution = 0.1,
+                        DikeHeightTargetProbability = 0.02,
+                        OvertoppingRateTargetProbability = 0.03
                     },
                     new GrassCoverErosionInwardsCalculationEntity
                     {
                         Order = 0,
                         Name = "calculation1",
-                        ScenarioContribution = 0.1
+                        ScenarioContribution = 0.1,
+                        DikeHeightTargetProbability = 0.02,
+                        OvertoppingRateTargetProbability = 0.03
                     }
                 },
                 CalculationGroupEntity1 =

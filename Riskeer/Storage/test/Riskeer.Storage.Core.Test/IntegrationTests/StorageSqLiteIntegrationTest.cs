@@ -1787,8 +1787,13 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedInput.DikeHeight, actualInput.DikeHeight);
             Assert.AreEqual(expectedInput.CriticalFlowRate.Mean, actualInput.CriticalFlowRate.Mean);
             Assert.AreEqual(expectedInput.CriticalFlowRate.StandardDeviation, actualInput.CriticalFlowRate.StandardDeviation);
-            Assert.AreEqual(expectedInput.DikeHeightCalculationType, actualInput.DikeHeightCalculationType);
-            Assert.AreEqual(expectedInput.OvertoppingRateCalculationType, actualInput.OvertoppingRateCalculationType);
+            Assert.AreEqual(expectedInput.ShouldOvertoppingOutputIllustrationPointsBeCalculated, actualInput.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            Assert.AreEqual(expectedInput.ShouldDikeHeightBeCalculated, actualInput.ShouldDikeHeightBeCalculated);
+            Assert.AreEqual(expectedInput.DikeHeightTargetProbability, actualInput.DikeHeightTargetProbability);
+            Assert.AreEqual(expectedInput.ShouldDikeHeightIllustrationPointsBeCalculated, actualInput.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.AreEqual(expectedInput.ShouldOvertoppingRateBeCalculated, actualInput.ShouldOvertoppingRateBeCalculated);
+            Assert.AreEqual(expectedInput.OvertoppingRateTargetProbability, actualInput.OvertoppingRateTargetProbability);
+            Assert.AreEqual(expectedInput.ShouldOvertoppingRateIllustrationPointsBeCalculated, actualInput.ShouldOvertoppingRateIllustrationPointsBeCalculated);
         }
 
         private static void AssertGrassCoverErosionInwardsOutput(GrassCoverErosionInwardsOutput expectedOutput,
