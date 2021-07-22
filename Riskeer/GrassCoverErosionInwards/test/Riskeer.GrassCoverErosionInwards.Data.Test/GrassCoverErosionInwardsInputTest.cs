@@ -132,10 +132,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 StandardDeviation = (RoundedDouble) 0.0006
             };
 
-            double norm = new Random(21).NextDouble(1e-15, 0.1);
-
             // Call
-            var input = new GrassCoverErosionInwardsInput(norm);
+            var input = new GrassCoverErosionInwardsInput();
 
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(input);
@@ -152,8 +150,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             Assert.IsFalse(input.ShouldDikeHeightBeCalculated);
             Assert.IsFalse(input.ShouldOvertoppingRateBeCalculated);
 
-            Assert.AreEqual(norm, input.DikeHeightTargetProbability);
-            Assert.AreEqual(norm, input.OvertoppingRateTargetProbability);
+            Assert.IsNaN(input.DikeHeightTargetProbability);
+            Assert.IsNaN(input.OvertoppingRateTargetProbability);
 
             Assert.AreEqual(DikeHeightCalculationType.NoCalculation, input.DikeHeightCalculationType);
             Assert.AreEqual(OvertoppingRateCalculationType.NoCalculation, input.OvertoppingRateCalculationType);
@@ -162,27 +160,12 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        [TestCase(double.NaN)]
-        [TestCase(0.0)]
-        [TestCase(0.11)]
-        public void Constructor_InvalidNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
-        {
-            // Call
-            void Call() => new GrassCoverErosionInwardsInput(invalidNorm);
-
-            // Assert
-            const string expectedMessage = "De waarde van de doelkans moet groter zijn dan 0.0 en kleiner dan of gelijk aan 0.1.";
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
-            StringAssert.StartsWith(expectedMessage, exception.Message);
-        }
-
-        [Test]
         public void DikeProfile_SetNullValue_InputSyncedToDefaults()
         {
             // Setup
             DikeProfile dikeProfile = CreateTestDikeProfile();
 
-            var input = new GrassCoverErosionInwardsInput(0.1)
+            var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = dikeProfile
             };
@@ -199,7 +182,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void DikeProfile_SetNewValue_InputSyncedAccordingly(DikeProfile newDikeProfile)
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput(0.1);
+            var input = new GrassCoverErosionInwardsInput();
 
             // Call
             input.DikeProfile = newDikeProfile;
@@ -217,7 +200,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void Orientation_SetNewValue_ValueIsRounded(double validOrientation)
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput(0.1);
+            var input = new GrassCoverErosionInwardsInput();
 
             int originalNumberOfDecimalPlaces = input.Orientation.NumberOfDecimalPlaces;
 
@@ -240,7 +223,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void Orientation_SetInvalidValue_ThrowsArgumentOutOfRangeException(double invalidOrientation)
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput(0.1);
+            var input = new GrassCoverErosionInwardsInput();
 
             // Call
             void Call() => input.Orientation = (RoundedDouble) invalidOrientation;
@@ -254,7 +237,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void DikeHeight_SetNewValue_ValueIsRounded()
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput(0.1);
+            var input = new GrassCoverErosionInwardsInput();
 
             int originalNumberOfDecimalPlaces = input.DikeHeight.NumberOfDecimalPlaces;
 
@@ -271,7 +254,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var random = new Random(22);
-            var input = new GrassCoverErosionInwardsInput(0.1);
+            var input = new GrassCoverErosionInwardsInput();
             RoundedDouble mean = random.NextRoundedDouble(0.01, double.MaxValue);
             RoundedDouble standardDeviation = random.NextRoundedDouble(0.01, double.MaxValue);
             var expectedDistribution = new LogNormalDistribution(4)
@@ -301,8 +284,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void DikeHeightTargetProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
-            const double originalValue = 0.1;
-            var input = new GrassCoverErosionInwardsInput(originalValue);
+            var input = new GrassCoverErosionInwardsInput();
 
             // Call
             void Call() => input.DikeHeightTargetProbability = invalidValue;
@@ -311,7 +293,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             const string expectedMessage = "De waarde van de doelkans moet groter zijn dan 0.0 en kleiner dan of gelijk aan 0.1.";
             var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
-            Assert.AreEqual(originalValue, input.DikeHeightTargetProbability);
         }
 
         [Test]
@@ -321,7 +302,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void DikeHeightTargetProbability_ValidValue_NewValueSet(double newValue)
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput(0.1);
+            var input = new GrassCoverErosionInwardsInput();
 
             // Call
             input.DikeHeightTargetProbability = newValue;
@@ -337,8 +318,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void OvertoppingRateTargetProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
-            const double originalValue = 0.1;
-            var input = new GrassCoverErosionInwardsInput(originalValue);
+            var input = new GrassCoverErosionInwardsInput();
 
             // Call
             void Call() => input.OvertoppingRateTargetProbability = invalidValue;
@@ -347,7 +327,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             const string expectedMessage = "De waarde van de doelkans moet groter zijn dan 0.0 en kleiner dan of gelijk aan 0.1.";
             var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
-            Assert.AreEqual(originalValue, input.OvertoppingRateTargetProbability);
         }
 
         [Test]
@@ -357,7 +336,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void OvertoppingRateTargetProbability_ValidValue_NewValueSet(double newValue)
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput(0.1);
+            var input = new GrassCoverErosionInwardsInput();
 
             // Call
             input.OvertoppingRateTargetProbability = newValue;
@@ -370,7 +349,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void IsDikeProfileInputSynchronized_DikeProfileNotSet_ReturnFalse()
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput(0.1);
+            var input = new GrassCoverErosionInwardsInput();
 
             // Call
             bool synchronized = input.IsDikeProfileInputSynchronized;
@@ -383,7 +362,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void IsDikeProfileInputSynchronized_InputParametersAndDikeProfileInSync_ReturnTrue()
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput(0.1)
+            var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
                 {
@@ -406,7 +385,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             // Setup
             DikeProfile dikeProfile = CreateTestDikeProfile();
 
-            var input = new GrassCoverErosionInwardsInput(0.1)
+            var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = dikeProfile
             };
@@ -424,7 +403,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void SynchronizeDikeProfileInput_DikeProfileNotSet_ExpectedValues()
         {
             // Setup
-            var input = new GrassCoverErosionInwardsInput(0.1);
+            var input = new GrassCoverErosionInwardsInput();
 
             // Call
             input.SynchronizeDikeProfileInput();
@@ -440,7 +419,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             // Setup
             DikeProfile dikeProfile = CreateTestDikeProfile();
 
-            var input = new GrassCoverErosionInwardsInput(0.1)
+            var input = new GrassCoverErosionInwardsInput
             {
                 DikeProfile = dikeProfile
             };
@@ -458,7 +437,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new GrassCoverErosionInwardsInput(0.1);
+            var original = new GrassCoverErosionInwardsInput();
 
             GrassCoverErosionInwardsTestDataGenerator.SetRandomDataToGrassCoverErosionInwardsInput(original);
 
@@ -473,7 +452,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new GrassCoverErosionInwardsInput(0.1);
+            var original = new GrassCoverErosionInwardsInput();
 
             GrassCoverErosionInwardsTestDataGenerator.SetRandomDataToGrassCoverErosionInwardsInput(original);
 

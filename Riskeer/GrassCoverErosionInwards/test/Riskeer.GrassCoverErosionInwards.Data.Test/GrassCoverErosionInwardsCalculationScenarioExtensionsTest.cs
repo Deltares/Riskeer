@@ -83,7 +83,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario()
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -110,7 +110,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario()
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -139,7 +139,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 new Point2D(20.0, 0.0)
             });
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario()
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {
