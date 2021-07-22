@@ -27,8 +27,6 @@ using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
@@ -59,82 +57,31 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var overtoppingOutput = new TestOvertoppingOutput(0.5);
 
             // Call
-            var properties = new OvertoppingOutputProperties(overtoppingOutput,
-                                                             failureMechanism,
-                                                             assessmentSection);
+            var properties = new OvertoppingOutputProperties(overtoppingOutput);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<OvertoppingOutput>>(properties);
             Assert.AreSame(overtoppingOutput, properties.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_OvertoppingOutputNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             // Call
-            void Call() => new OvertoppingOutputProperties(null, failureMechanism, assessmentSection);
+            void Call() => new OvertoppingOutputProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("overtoppingOutput", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new OvertoppingOutputProperties(new TestOvertoppingOutput(0), null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new OvertoppingOutputProperties(new TestOvertoppingOutput(0), new GrassCoverErosionInwardsFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var random = new Random(39);
             double waveHeight = random.NextDouble();
             bool isOvertoppingDominant = random.NextBoolean();
@@ -148,9 +95,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                           generalResult);
 
             // Call
-            var properties = new OvertoppingOutputProperties(overtoppingOutput,
-                                                             failureMechanism,
-                                                             assessmentSection);
+            var properties = new OvertoppingOutputProperties(overtoppingOutput);
 
             // Assert
             Assert.AreEqual(2, properties.WaveHeight.NumberOfDecimalPlaces);
@@ -182,28 +127,20 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(nrOfExpectedTopLevelIllustrationPoints, properties.IllustrationPoints.Length);
 
             CollectionAssert.AreEqual(generalResult.TopLevelIllustrationPoints, properties.IllustrationPoints.Select(i => i.Data));
-            mocks.VerifyAll();
         }
 
         [Test]
         public void IllustrationPoints_WithoutGeneralResult_ReturnsEmptyTopLevelFaultTreeIllustrationPointPropertiesArray()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var overtoppingOutput = new TestOvertoppingOutput(0.5);
-            var properties = new OvertoppingOutputProperties(overtoppingOutput, failureMechanism, assessmentSection);
+            var properties = new OvertoppingOutputProperties(overtoppingOutput);
 
             // Call
             TopLevelFaultTreeIllustrationPointProperties[] illustrationPoints = properties.IllustrationPoints;
 
             // Assert
             Assert.IsEmpty(illustrationPoints);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -212,19 +149,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_NoGeneralResult_ReturnExpectedValues(double waveHeight)
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var overtoppingOutput = new OvertoppingOutput(waveHeight,
                                                           true,
                                                           0,
                                                           null);
 
             // Call
-            var properties = new OvertoppingOutputProperties(overtoppingOutput, failureMechanism, assessmentSection);
+            var properties = new OvertoppingOutputProperties(overtoppingOutput);
 
             // Assert
             int propertiesCount = overtoppingOutput.HasWaveHeight ? 4 : 3;
@@ -266,7 +197,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "Overslag dominant [-]",
                                                                             "Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.",
                                                                             true);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -275,19 +205,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void PropertyAttributes_HasGeneralResult_ReturnExpectedValues(double waveHeight)
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var overtoppingOutput = new OvertoppingOutput(waveHeight,
                                                           true,
                                                           0,
                                                           new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
-            var properties = new OvertoppingOutputProperties(overtoppingOutput, failureMechanism, assessmentSection);
+            var properties = new OvertoppingOutputProperties(overtoppingOutput);
 
             // Assert
             int propertiesCount = overtoppingOutput.HasWaveHeight ? 8 : 7;
@@ -357,7 +281,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "Illustratiepunten",
                                                                             "De lijst van illustratiepunten voor de berekening.",
                                                                             true);
-            mocks.VerifyAll();
         }
     }
 }

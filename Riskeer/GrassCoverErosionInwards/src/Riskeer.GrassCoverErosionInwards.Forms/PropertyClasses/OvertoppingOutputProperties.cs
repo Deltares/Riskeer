@@ -29,7 +29,6 @@ using Core.Common.Util.Extensions;
 using Core.Gui.Attributes;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -48,26 +47,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         /// Creates a new instance of <see cref="OvertoppingOutputProperties"/>.
         /// </summary>
         /// <param name="overtoppingOutput">The overtopping output to create the object properties for.</param>
-        /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the output belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public OvertoppingOutputProperties(OvertoppingOutput overtoppingOutput,
-                                           GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                           IAssessmentSection assessmentSection)
+        public OvertoppingOutputProperties(OvertoppingOutput overtoppingOutput)
         {
             if (overtoppingOutput == null)
             {
                 throw new ArgumentNullException(nameof(overtoppingOutput));
-            }
-
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             Data = overtoppingOutput;
