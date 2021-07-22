@@ -51,7 +51,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(0.1)
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = entity.Name,
                 Comments =

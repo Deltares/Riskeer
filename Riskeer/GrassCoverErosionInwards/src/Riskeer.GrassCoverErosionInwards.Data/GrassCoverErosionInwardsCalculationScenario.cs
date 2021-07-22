@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Helpers;
@@ -36,11 +35,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
         /// </summary>
-        /// <param name="norm">The norm to use in the calculation input.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="norm"/>
-        /// is not in the interval {0.0, 0.1] or is <see cref="double.NaN"/>.</exception>
-        public GrassCoverErosionInwardsCalculationScenario(double norm) 
-            : base(norm)
+        public GrassCoverErosionInwardsCalculationScenario()
         {
             IsRelevant = true;
             contribution = new RoundedDouble(CalculationScenarioHelper.ContributionNumberOfDecimalPlaces, 1);

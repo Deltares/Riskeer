@@ -62,12 +62,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms
 
             foreach (DikeProfile profile in dikeProfiles)
             {
-                var calculation = new GrassCoverErosionInwardsCalculationScenario(failureMechanismContribution.Norm)
+                var calculation = new GrassCoverErosionInwardsCalculationScenario
                 {
                     Name = NamingHelper.GetUniqueName(calculationGroup.Children, profile.Name, c => c.Name),
                     InputParameters =
                     {
-                        DikeProfile = profile
+                        DikeProfile = profile,
+                        DikeHeightTargetProbability = failureMechanismContribution.Norm,
+                        OvertoppingRateTargetProbability = failureMechanismContribution.Norm
                     }
                 };
                 calculationGroup.Children.Add(calculation);

@@ -91,9 +91,14 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
 
         protected override ICalculation ParseReadCalculation(GrassCoverErosionInwardsCalculationConfiguration readCalculation)
         {
-            var calculation = new GrassCoverErosionInwardsCalculationScenario(failureMechanismContribution.Norm)
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
-                Name = readCalculation.Name
+                Name = readCalculation.Name,
+                InputParameters =
+                {
+                    DikeHeightTargetProbability = failureMechanismContribution.Norm,
+                    OvertoppingRateTargetProbability = failureMechanismContribution.Norm
+                }
             };
 
             if (TrySetCriticalFlowRate(readCalculation, calculation)
