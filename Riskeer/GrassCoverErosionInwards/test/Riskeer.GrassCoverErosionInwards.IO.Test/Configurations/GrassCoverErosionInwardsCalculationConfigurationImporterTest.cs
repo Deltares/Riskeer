@@ -367,7 +367,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario(0.1)
+            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -403,7 +403,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario(0.1)
+            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Calculation",
                 Contribution = (RoundedDouble) 0.8765
@@ -436,7 +436,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario(0.1)
+            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Calculation",
                 IsRelevant = false
@@ -467,7 +467,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario(0.1)
+            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -504,7 +504,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario(0.1)
+            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Berekening 1"
             };
@@ -534,7 +534,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario(0.1)
+            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -597,7 +597,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario(0.1)
+            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Berekening 1",
                 InputParameters =

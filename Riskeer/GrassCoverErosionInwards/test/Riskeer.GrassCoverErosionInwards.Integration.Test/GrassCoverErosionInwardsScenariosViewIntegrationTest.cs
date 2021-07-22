@@ -125,7 +125,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 // Call
                 foreach (DikeProfile profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
                 {
-                    calculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculationScenario(0.1)
+                    calculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculationScenario
                     {
                         Name = NamingHelper.GetUniqueName(((CalculationGroup) view.Data).Children, profile.Name, c => c.Name),
                         InputParameters =
@@ -183,7 +183,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 foreach (DikeProfile profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
                 {
-                    calculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculationScenario(0.1)
+                    calculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculationScenario
                     {
                         Name = NamingHelper.GetUniqueName(calculationsGroup.Children, profile.Name, c => c.Name),
                         InputParameters =
@@ -250,7 +250,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 foreach (DikeProfile profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
                 {
-                    assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculationScenario(0.1)
+                    assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculationScenario
                     {
                         Name = NamingHelper.GetUniqueName(assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children, profile.Name + "Calculation", c => c.Name),
                         InputParameters =
