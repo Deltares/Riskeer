@@ -88,8 +88,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var grassCoverErosionInwardsInputContext = new GrassCoverErosionInwardsInputContext(
-                new GrassCoverErosionInwardsInput(0.1),
-                new GrassCoverErosionInwardsCalculation(0.1),
+                new GrassCoverErosionInwardsInput(),
+                new GrassCoverErosionInwardsCalculation(),
                 new GrassCoverErosionInwardsFailureMechanism(),
                 mocksRepository.Stub<IAssessmentSection>());
 
@@ -107,8 +107,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var grassCoverErosionInwardsInputContext = new GrassCoverErosionInwardsInputContext(
-                new GrassCoverErosionInwardsInput(0.1),
-                new GrassCoverErosionInwardsCalculation(0.1),
+                new GrassCoverErosionInwardsInput(),
+                new GrassCoverErosionInwardsCalculation(),
                 new GrassCoverErosionInwardsFailureMechanism(),
                 mocksRepository.Stub<IAssessmentSection>());
 
