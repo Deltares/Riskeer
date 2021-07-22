@@ -19,10 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
@@ -42,35 +40,14 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             var calculation = new TestClosingStructuresCalculationScenario();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            var structuresOutputContext = new ClosingStructuresOutputContext(calculation, failureMechanism, assessmentSection);
+            var structuresOutputContext = new ClosingStructuresOutputContext(calculation, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<StructuresOutputContext>(structuresOutputContext);
             Assert.AreSame(calculation, structuresOutputContext.WrappedData);
-            Assert.AreSame(failureMechanism, structuresOutputContext.FailureMechanism);
             Assert.AreSame(assessmentSection, structuresOutputContext.AssessmentSection);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new TestClosingStructuresCalculationScenario();
-
-            // Call
-            TestDelegate call = () => new ClosingStructuresOutputContext(calculation, null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
     }

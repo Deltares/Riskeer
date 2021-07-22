@@ -24,7 +24,6 @@ using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.ClosingStructures.Forms.PropertyClasses;
@@ -68,14 +67,13 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculationScenario
             {
                 Output = new StructuresOutput(0, null)
             };
 
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(new ClosingStructuresOutputContext(calculation, failureMechanism, assessmentSection));
+            IObjectProperties objectProperties = info.CreateInstance(new ClosingStructuresOutputContext(calculation, assessmentSection));
 
             // Assert
             Assert.IsInstanceOf<ClosingStructuresOutputProperties>(objectProperties);

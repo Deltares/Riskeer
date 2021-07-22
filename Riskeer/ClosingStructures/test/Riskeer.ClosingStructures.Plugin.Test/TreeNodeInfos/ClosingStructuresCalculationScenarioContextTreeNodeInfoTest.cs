@@ -144,7 +144,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var structuresOutputContext = children[2] as ClosingStructuresOutputContext;
             Assert.IsNotNull(structuresOutputContext);
             Assert.AreSame(calculationContext.WrappedData, structuresOutputContext.WrappedData);
-            Assert.AreSame(calculationContext.FailureMechanism, structuresOutputContext.FailureMechanism);
             Assert.AreSame(calculationContext.AssessmentSection, structuresOutputContext.AssessmentSection);
         }
 
@@ -930,7 +929,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         {
             // Given
             IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
-            
+
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 

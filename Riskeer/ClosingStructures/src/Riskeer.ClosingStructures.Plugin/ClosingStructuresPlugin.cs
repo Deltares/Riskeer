@@ -709,7 +709,7 @@ namespace Riskeer.ClosingStructures.Plugin
                                                   calculation,
                                                   context.FailureMechanism,
                                                   context.AssessmentSection),
-                new ClosingStructuresOutputContext(calculation, context.FailureMechanism, context.AssessmentSection)
+                new ClosingStructuresOutputContext(calculation, context.AssessmentSection)
             };
         }
 

@@ -34,7 +34,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         /// Creates a new instance of <see cref="ClosingStructuresOutputProperties"/>.
         /// </summary>
         /// <param name="structuresOutput">The structures output to create the object properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="structuresOutput"/> is <c>null</c>.</exception>
         public ClosingStructuresOutputProperties(StructuresOutput structuresOutput)
             : base(structuresOutput) {}
     }
