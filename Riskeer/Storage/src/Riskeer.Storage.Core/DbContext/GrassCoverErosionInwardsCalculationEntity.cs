@@ -52,15 +52,17 @@ namespace Riskeer.Storage.Core.DbContext
         public double? CriticalFlowRateMean { get; set; }
         public double? CriticalFlowRateStandardDeviation { get; set; }
         public byte UseForeshore { get; set; }
-        public byte DikeHeightCalculationType { get; set; }
         public double? DikeHeight { get; set; }
         public byte UseBreakWater { get; set; }
         public byte BreakWaterType { get; set; }
         public double? BreakWaterHeight { get; set; }
-        public byte OvertoppingRateCalculationType { get; set; }
-        public byte ShouldDikeHeightIllustrationPointsBeCalculated { get; set; }
-        public byte ShouldOvertoppingRateIllustrationPointsBeCalculated { get; set; }
         public byte ShouldOvertoppingOutputIllustrationPointsBeCalculated { get; set; }
+        public byte ShouldDikeHeightBeCalculated { get; set; }
+        public double DikeHeightTargetProbability { get; set; }
+        public byte ShouldDikeHeightIllustrationPointsBeCalculated { get; set; }
+        public byte ShouldOvertoppingRateBeCalculated { get; set; }
+        public double OvertoppingRateTargetProbability { get; set; }
+        public byte ShouldOvertoppingRateIllustrationPointsBeCalculated { get; set; }
         public byte RelevantForScenario { get; set; }
         public double ScenarioContribution { get; set; }
 
