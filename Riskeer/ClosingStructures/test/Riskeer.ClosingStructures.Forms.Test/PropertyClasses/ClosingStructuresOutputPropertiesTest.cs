@@ -36,51 +36,17 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
     public class ClosingStructuresOutputPropertiesTest
     {
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new ClosingStructuresOutputProperties(new TestStructuresOutput(), null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new ClosingStructuresOutputProperties(new TestStructuresOutput(), new ClosingStructuresFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var output = new TestStructuresOutput();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            var properties = new ClosingStructuresOutputProperties(output, failureMechanism, assessmentSection);
+            var properties = new ClosingStructuresOutputProperties(output);
 
             // Assert
             Assert.IsInstanceOf<StructuresOutputProperties>(properties);
             Assert.AreSame(output, properties.Data);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -97,7 +63,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             var structuresOutput = new TestStructuresOutput(random.NextDouble());
 
             // Call
-            var properties = new ClosingStructuresOutputProperties(structuresOutput, failureMechanism, assessmentSection);
+            var properties = new ClosingStructuresOutputProperties(structuresOutput);
 
             // Assert
             ProbabilityAssessmentOutput expectedProbabilityAssessmentOutput = ClosingStructuresProbabilityAssessmentOutputFactory.Create(

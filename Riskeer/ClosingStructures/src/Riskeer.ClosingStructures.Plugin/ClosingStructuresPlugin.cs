@@ -90,9 +90,7 @@ namespace Riskeer.ClosingStructures.Plugin
             };
             yield return new PropertyInfo<ClosingStructuresOutputContext, ClosingStructuresOutputProperties>
             {
-                CreateInstance = context => new ClosingStructuresOutputProperties(context.WrappedData.Output,
-                                                                                  context.FailureMechanism,
-                                                                                  context.AssessmentSection)
+                CreateInstance = context => new ClosingStructuresOutputProperties(context.WrappedData.Output)
             };
         }
 
