@@ -41,16 +41,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionInwardsOutputPropertiesTest
     {
-        private const int requiredProbabilityPropertyIndex = 0;
-        private const int requiredReliabilityPropertyIndex = 1;
-        private const int probabilityPropertyIndex = 2;
-        private const int reliabilityPropertyIndex = 3;
-        private const int factorOfSafetyPropertyIndex = 4;
-        private const int waveHeightIndex = 5;
-        private const int isDominantIndex = 6;
+        private const int probabilityPropertyIndex = 0;
+        private const int reliabilityPropertyIndex = 1;
+        private const int waveHeightIndex = 2;
+        private const int isDominantIndex = 3;
 
-        private const int firstHydraulicLoadsOutputIndex = 7;
-        private const int secondHydraulicLoadsOutputIndex = 13;
+        private const int firstHydraulicLoadsOutputIndex = 4;
+        private const int secondHydraulicLoadsOutputIndex = 10;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -82,10 +79,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsOutputProperties(null, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+            void Call() => new GrassCoverErosionInwardsOutputProperties(null, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("grassCoverErosionInwardsOutput", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -99,10 +96,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsOutputProperties(new TestGrassCoverErosionInwardsOutput(), null, assessmentSection);
+            void Call() => new GrassCoverErosionInwardsOutputProperties(new TestGrassCoverErosionInwardsOutput(), null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -111,12 +108,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsOutputProperties(new TestGrassCoverErosionInwardsOutput(),
-                                                                                   new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                   null);
+            void Call() => new GrassCoverErosionInwardsOutputProperties(new TestGrassCoverErosionInwardsOutput(), new GrassCoverErosionInwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -175,11 +170,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(2, properties.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(waveHeight, properties.WaveHeight, properties.WaveHeight.GetAccuracy());
             Assert.AreEqual(reliability, properties.Reliability, properties.Reliability.GetAccuracy());
-            Assert.AreEqual(double.PositiveInfinity, properties.RequiredReliability, properties.RequiredReliability.GetAccuracy());
-            Assert.AreEqual(3, properties.FactorOfSafety.NumberOfDecimalPlaces);
-            Assert.AreEqual(0, properties.FactorOfSafety, properties.FactorOfSafety.GetAccuracy());
 
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(0), properties.RequiredProbability);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5), properties.Probability);
 
             Assert.AreEqual(isOvertoppingDominant, properties.IsOvertoppingDominant);
@@ -248,7 +239,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(19, dynamicProperties.Count);
+            Assert.AreEqual(16, dynamicProperties.Count);
 
             AssertResultOutputProperties(dynamicProperties);
             AssertDikeHeightOutputProperties(dynamicProperties, firstHydraulicLoadsOutputIndex);
@@ -296,7 +287,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(13, dynamicProperties.Count);
+            Assert.AreEqual(10, dynamicProperties.Count);
 
             AssertResultOutputProperties(dynamicProperties);
 
@@ -336,7 +327,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var properties = new GrassCoverErosionInwardsOutputProperties(output, failureMechanism, assessmentSection);
 
             // Assert
-            int propertiesCount = double.IsNaN(waveHeight) ? 6 : 7;
+            int propertiesCount = double.IsNaN(waveHeight) ? 3 : 4;
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(propertiesCount, dynamicProperties.Count);
@@ -348,19 +339,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private static void AssertResultOutputProperties(PropertyDescriptorCollection dynamicProperties, bool waveHeightCalculated = true)
         {
             const string resultCategory = "\t\tSterkte berekening";
-            PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
-                                                                            resultCategory,
-                                                                            "Faalkanseis [1/jaar]",
-                                                                            "De maximaal toegestane faalkanseis voor het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor requiredReliabilityProperty = dynamicProperties[requiredReliabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredReliabilityProperty,
-                                                                            resultCategory,
-                                                                            "Betrouwbaarheidsindex faalkanseis [-]",
-                                                                            "De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.",
-                                                                            true);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
@@ -374,13 +352,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             resultCategory,
                                                                             "Betrouwbaarheidsindex faalkans [-]",
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
-                                                                            true);
-
-            PropertyDescriptor factorOfSafetyProperty = dynamicProperties[factorOfSafetyPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorOfSafetyProperty,
-                                                                            resultCategory,
-                                                                            "Veiligheidsfactor [-]",
-                                                                            "De veiligheidsfactor voor deze berekening.",
                                                                             true);
 
             if (waveHeightCalculated)
