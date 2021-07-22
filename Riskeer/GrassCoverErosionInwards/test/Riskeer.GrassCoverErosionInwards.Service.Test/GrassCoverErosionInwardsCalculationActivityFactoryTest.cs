@@ -77,7 +77,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             // Call
             TestDelegate test = () => GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(
-                new GrassCoverErosionInwardsCalculation(0.1), null, assessmentSection);
+                new GrassCoverErosionInwardsCalculation(), null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -89,7 +89,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         public void CreateCalculationActivity_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
+            var calculation = new GrassCoverErosionInwardsCalculation();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
@@ -282,7 +282,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
         private static GrassCoverErosionInwardsCalculation CreateValidCalculation()
         {
-            return new GrassCoverErosionInwardsCalculation(0.1)
+            return new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {

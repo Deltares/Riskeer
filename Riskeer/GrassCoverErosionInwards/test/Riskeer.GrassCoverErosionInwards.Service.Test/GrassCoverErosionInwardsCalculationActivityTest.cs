@@ -41,7 +41,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
+            var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, failureMechanism, assessmentSection);
@@ -63,7 +63,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
+            var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
             TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, null, assessmentSection);
@@ -79,7 +79,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculation = new GrassCoverErosionInwardsCalculation(0.1);
+            var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
             TestDelegate call = () => new GrassCoverErosionInwardsCalculationActivity(calculation, failureMechanism, null);
