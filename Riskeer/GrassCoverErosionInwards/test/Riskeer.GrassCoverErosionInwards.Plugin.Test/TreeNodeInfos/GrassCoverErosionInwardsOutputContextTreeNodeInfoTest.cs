@@ -91,9 +91,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ForeColor_HasNoOutput_ReturnGrayText()
         {
             // Call
-            Color color = info.ForeColor(new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation(),
-                                                                                   failureMechanism,
-                                                                                   assessmentSection));
+            Color color = info.ForeColor(new GrassCoverErosionInwardsOutputContext(new GrassCoverErosionInwardsCalculation()));
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
@@ -128,12 +126,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnsCollectionWithOutputObjects(bool hasOutput)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
             var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = hasOutput ? new TestGrassCoverErosionInwardsOutput() : null
