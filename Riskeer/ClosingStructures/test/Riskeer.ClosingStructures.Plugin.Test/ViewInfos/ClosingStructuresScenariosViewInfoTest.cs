@@ -77,20 +77,15 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnWrappedData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresScenariosContext(calculationGroup, failureMechanism, assessmentSection);
+            var context = new ClosingStructuresScenariosContext(calculationGroup, failureMechanism);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(calculationGroup, viewData);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -232,12 +227,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnsClosingStructuresScenariosView()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var group = new CalculationGroup();
-            var context = new ClosingStructuresScenariosContext(group, new ClosingStructuresFailureMechanism(), assessmentSection);
+            var context = new ClosingStructuresScenariosContext(group, new ClosingStructuresFailureMechanism());
 
             // Call
             using (IView view = info.CreateInstance(context))
@@ -246,8 +237,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
                 Assert.IsInstanceOf<ClosingStructuresScenariosView>(view);
                 Assert.AreSame(group, view.Data);
             }
-
-            mocks.VerifyAll();
         }
     }
 }
