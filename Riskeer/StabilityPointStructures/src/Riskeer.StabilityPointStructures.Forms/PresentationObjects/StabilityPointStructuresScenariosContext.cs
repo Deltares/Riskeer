@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.StabilityPointStructures.Data;
 
@@ -38,10 +37,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="CalculationGroup"/>.</param>
         /// <param name="failureMechanism">A <see cref="StabilityPointStructuresFailureMechanism"/> forming the context.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="wrappedData"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityPointStructuresScenariosContext(CalculationGroup wrappedData, StabilityPointStructuresFailureMechanism failureMechanism,
-                                                        IAssessmentSection assessmentSection)
+        public StabilityPointStructuresScenariosContext(CalculationGroup wrappedData, StabilityPointStructuresFailureMechanism failureMechanism)
             : base(wrappedData)
         {
             if (failureMechanism == null)
@@ -49,23 +46,12 @@ namespace Riskeer.StabilityPointStructures.Forms.PresentationObjects
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             ParentFailureMechanism = failureMechanism;
-            AssessmentSection = assessmentSection;
         }
 
         /// <summary>
         /// The parent failure mechanism of the calculation group.
         /// </summary>
         public StabilityPointStructuresFailureMechanism ParentFailureMechanism { get; }
-
-        /// <summary>
-        /// Gets the <see cref="IAssessmentSection"/> of the calculation group.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
     }
 }

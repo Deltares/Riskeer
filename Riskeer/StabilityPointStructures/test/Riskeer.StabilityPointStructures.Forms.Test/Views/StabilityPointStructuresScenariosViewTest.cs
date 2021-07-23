@@ -25,8 +25,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
@@ -62,35 +60,18 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new StabilityPointStructuresScenariosView(new CalculationGroup(), new StabilityPointStructuresFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculationGroup = new CalculationGroup();
 
             // Call
-            using (var view = new StabilityPointStructuresScenariosView(calculationGroup, new StabilityPointStructuresFailureMechanism(), assessmentSection))
+            using (var view = new StabilityPointStructuresScenariosView(calculationGroup, new StabilityPointStructuresFailureMechanism()))
             {
                 // Assert
                 Assert.IsInstanceOf<ScenariosView<StructuresCalculationScenario<StabilityPointStructuresInput>, StabilityPointStructuresInput, StabilityPointStructuresScenarioRow, StabilityPointStructuresFailureMechanism>>(view);
                 Assert.AreSame(calculationGroup, view.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -182,7 +163,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
         private void ShowStabilityPointStructuresScenariosView(StabilityPointStructuresFailureMechanism failureMechanism)
         {
-            var scenariosView = new StabilityPointStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism, new AssessmentSectionStub());
+            var scenariosView = new StabilityPointStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism);
             testForm.Controls.Add(scenariosView);
             testForm.Show();
         }

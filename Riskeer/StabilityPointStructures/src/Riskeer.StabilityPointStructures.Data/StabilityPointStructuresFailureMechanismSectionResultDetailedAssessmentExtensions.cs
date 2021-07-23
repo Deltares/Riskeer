@@ -83,8 +83,7 @@ namespace Riskeer.StabilityPointStructures.Data
             double totalDetailedAssessmentProbability = 0;
             foreach (StructuresCalculationScenario<StabilityPointStructuresInput> scenario in relevantScenarios)
             {
-                ProbabilityAssessmentOutput derivedOutput = StabilityPointStructuresProbabilityAssessmentOutputFactory.Create(
-                    scenario.Output, failureMechanism, assessmentSection);
+                ProbabilityAssessmentOutput derivedOutput = ProbabilityAssessmentOutputFactory.Create(scenario.Output.Reliability);
 
                 totalDetailedAssessmentProbability += derivedOutput.Probability * (double) scenario.Contribution;
             }

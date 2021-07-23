@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Views;
@@ -34,35 +33,16 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
     /// </summary>
     public class StabilityPointStructuresScenarioRow : ScenarioRow<StructuresCalculationScenario<StabilityPointStructuresInput>>
     {
-        private readonly StabilityPointStructuresFailureMechanism failureMechanism;
-        private readonly IAssessmentSection assessmentSection;
         private ProbabilityAssessmentOutput probabilityAssessmentOutput;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresScenarioRow"/>.
         /// <param name="calculationScenario">The <see cref="StructuresCalculationScenario{StabilityPointStructuresInput}"/> this row contains.</param>
-        /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
-        /// <param name="assessmentSection">The assessment section that the calculation belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationScenario"/> is <c>null</c>.</exception>
         /// </summary>
-        public StabilityPointStructuresScenarioRow(StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario,
-                                                   StabilityPointStructuresFailureMechanism failureMechanism,
-                                                   IAssessmentSection assessmentSection)
+        public StabilityPointStructuresScenarioRow(StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario)
             : base(calculationScenario)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            this.failureMechanism = failureMechanism;
-            this.assessmentSection = assessmentSection;
-
             CreateProbabilityAssessmentOutput();
         }
 
@@ -76,8 +56,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         private void CreateProbabilityAssessmentOutput()
         {
             probabilityAssessmentOutput = CalculationScenario.HasOutput
-                                              ? StabilityPointStructuresProbabilityAssessmentOutputFactory.Create(
-                                                  CalculationScenario.Output, failureMechanism, assessmentSection)
+                                              ? ProbabilityAssessmentOutputFactory.Create(CalculationScenario.Output.Reliability)
                                               : null;
         }
     }

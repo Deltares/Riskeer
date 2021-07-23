@@ -46,17 +46,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new ClosingStructuresScenariosContext(new CalculationGroup(), new ClosingStructuresFailureMechanism());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup

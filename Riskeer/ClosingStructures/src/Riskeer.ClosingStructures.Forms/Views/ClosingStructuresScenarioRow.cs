@@ -38,7 +38,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresScenarioRow"/>.
         /// <param name="calculationScenario">The <see cref="StructuresCalculationScenario{ClosingStructuresInput}"/> this row contains.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationScenario"/> is <c>null</c>.</exception>
         /// </summary>
         public ClosingStructuresScenarioRow(StructuresCalculationScenario<ClosingStructuresInput> calculationScenario)
             : base(calculationScenario)

@@ -63,7 +63,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
 
-                var view = new StabilityPointStructuresScenariosView(assessmentSection.StabilityPointStructures.CalculationsGroup, assessmentSection.StabilityPointStructures, assessmentSection);
+                var view = new StabilityPointStructuresScenariosView(assessmentSection.StabilityPointStructures.CalculationsGroup, assessmentSection.StabilityPointStructures);
                 form.Controls.Add(view);
                 form.Show();
 
@@ -98,7 +98,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 CalculationGroup calculationsGroup = assessmentSection.StabilityPointStructures.CalculationsGroup;
-                var view = new StabilityPointStructuresScenariosView(calculationsGroup, assessmentSection.StabilityPointStructures, assessmentSection);
+                var view = new StabilityPointStructuresScenariosView(calculationsGroup, assessmentSection.StabilityPointStructures);
 
                 form.Controls.Add(view);
                 form.Show();
@@ -162,7 +162,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 CalculationGroup calculationsGroup = assessmentSection.StabilityPointStructures.CalculationsGroup;
-                var view = new StabilityPointStructuresScenariosView(calculationsGroup, assessmentSection.StabilityPointStructures, assessmentSection);
+                var view = new StabilityPointStructuresScenariosView(calculationsGroup, assessmentSection.StabilityPointStructures);
 
                 form.Controls.Add(view);
                 form.Show();
@@ -226,7 +226,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
                 StabilityPointStructuresFailureMechanism failureMechanism = assessmentSection.StabilityPointStructures;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
-                var view = new StabilityPointStructuresScenariosView(assessmentSection.StabilityPointStructures.CalculationsGroup, assessmentSection.StabilityPointStructures, assessmentSection);
+                var view = new StabilityPointStructuresScenariosView(assessmentSection.StabilityPointStructures.CalculationsGroup, assessmentSection.StabilityPointStructures);
                 form.Controls.Add(view);
                 form.Show();
 
