@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.GrassCoverErosionInwards.Data;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects
@@ -35,36 +34,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsOutputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The grass cover erosion inwards calculation wrapped by the context object.</param>
-        /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsOutputContext(GrassCoverErosionInwardsCalculation wrappedData,
-                                                     GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                     IAssessmentSection assessmentSection)
-            : base(wrappedData)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            FailureMechanism = failureMechanism;
-            AssessmentSection = assessmentSection;
-        }
-
-        /// <summary>
-        /// Gets the failure mechanism.
-        /// </summary>
-        public GrassCoverErosionInwardsFailureMechanism FailureMechanism { get; }
-
-        /// <summary>
-        /// Gets the assessment section.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
+        public GrassCoverErosionInwardsOutputContext(GrassCoverErosionInwardsCalculation wrappedData)
+            : base(wrappedData) {}
     }
 }

@@ -867,9 +867,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                          calculation,
                                                          context.FailureMechanism,
                                                          context.AssessmentSection),
-                new GrassCoverErosionInwardsOutputContext(calculation,
-                                                          context.FailureMechanism,
-                                                          context.AssessmentSection)
+                new GrassCoverErosionInwardsOutputContext(calculation)
             };
         }
 
