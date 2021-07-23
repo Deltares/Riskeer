@@ -25,11 +25,9 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Forms.Views;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
@@ -62,35 +60,18 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new ClosingStructuresScenariosView(new CalculationGroup(), new ClosingStructuresFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculationGroup = new CalculationGroup();
 
             // Call
-            using (var view = new ClosingStructuresScenariosView(calculationGroup, new ClosingStructuresFailureMechanism(), assessmentSection))
+            using (var view = new ClosingStructuresScenariosView(calculationGroup, new ClosingStructuresFailureMechanism()))
             {
                 // Assert
                 Assert.IsInstanceOf<ScenariosView<StructuresCalculationScenario<ClosingStructuresInput>, ClosingStructuresInput, ClosingStructuresScenarioRow, ClosingStructuresFailureMechanism>>(view);
                 Assert.AreSame(calculationGroup, view.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -182,7 +163,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
         private void ShowClosingStructuresScenariosView(ClosingStructuresFailureMechanism failureMechanism)
         {
-            var scenariosView = new ClosingStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism, new AssessmentSectionStub());
+            var scenariosView = new ClosingStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism);
             testForm.Controls.Add(scenariosView);
             testForm.Show();
         }

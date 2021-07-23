@@ -34,28 +34,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
     public class HeightStructuresScenarioRowTest
     {
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new HeightStructuresScenarioRow(new StructuresCalculationScenario<HeightStructuresInput>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new HeightStructuresScenarioRow(new StructuresCalculationScenario<HeightStructuresInput>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup

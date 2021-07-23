@@ -21,10 +21,8 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.Views;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
@@ -36,109 +34,56 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
     public class ClosingStructuresScenarioRowTest
     {
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new ClosingStructuresScenarioRow(new StructuresCalculationScenario<ClosingStructuresInput>(), null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new ClosingStructuresScenarioRow(new StructuresCalculationScenario<ClosingStructuresInput>(), new ClosingStructuresFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
 
             // Call
-            var row = new ClosingStructuresScenarioRow(calculation, new ClosingStructuresFailureMechanism(), assessmentSection);
+            var row = new ClosingStructuresScenarioRow(calculation);
 
             // Assert
             Assert.IsInstanceOf<ScenarioRow<StructuresCalculationScenario<ClosingStructuresInput>>>(row);
             Assert.AreSame(calculation, row.CalculationScenario);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithCalculationWithOutput_PropertiesFromCalculation()
         {
             // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Output = new TestStructuresOutput()
             };
 
             // Call
-            var row = new ClosingStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new ClosingStructuresScenarioRow(calculation);
 
             // Assert
             ProbabilityAssessmentOutput expectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.Reliability);
             Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithCalculationWithoutOutput_PropertiesFromCalculation()
         {
             // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
 
             // Call
-            var row = new ClosingStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new ClosingStructuresScenarioRow(calculation);
 
             // Assert
             Assert.IsNaN(row.FailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenScenarioRow_WhenOutputSetAndUpdate_ThenDerivedOutputUpdated()
         {
             // Given
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
 
-            var row = new ClosingStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new ClosingStructuresScenarioRow(calculation);
 
             // Precondition
             Assert.IsNaN(row.FailureProbability);
@@ -150,25 +95,18 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Then
             ProbabilityAssessmentOutput expectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.Reliability);
             Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenScenarioRow_WhenOutputSetToNullAndUpdate_ThenDerivedOutputUpdated()
         {
             // Given
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Output = new TestStructuresOutput()
             };
 
-            var row = new ClosingStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new ClosingStructuresScenarioRow(calculation);
 
             // Precondition
             ProbabilityAssessmentOutput expectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.Reliability);
@@ -180,25 +118,18 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Then
             Assert.IsNaN(row.FailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenScenarioRow_WhenOutputChangedAndUpdate_ThenDerivedOutputUpdated()
         {
             // Given
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Output = new TestStructuresOutput()
             };
 
-            var row = new ClosingStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new ClosingStructuresScenarioRow(calculation);
 
             // Precondition
             ProbabilityAssessmentOutput expectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.Reliability);
@@ -213,7 +144,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Then
             ProbabilityAssessmentOutput newExpectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.Reliability);
             Assert.AreEqual(newExpectedDerivedOutput.Probability, row.FailureProbability);
-            mocks.VerifyAll();
         }
     }
 }

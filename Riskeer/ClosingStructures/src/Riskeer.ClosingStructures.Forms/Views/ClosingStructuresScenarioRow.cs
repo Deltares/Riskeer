@@ -21,7 +21,6 @@
 
 using System;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Views;
@@ -34,35 +33,16 @@ namespace Riskeer.ClosingStructures.Forms.Views
     /// </summary>
     public class ClosingStructuresScenarioRow : ScenarioRow<StructuresCalculationScenario<ClosingStructuresInput>>
     {
-        private readonly ClosingStructuresFailureMechanism failureMechanism;
-        private readonly IAssessmentSection assessmentSection;
         private ProbabilityAssessmentOutput probabilityAssessmentOutput;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresScenarioRow"/>.
         /// <param name="calculationScenario">The <see cref="StructuresCalculationScenario{ClosingStructuresInput}"/> this row contains.</param>
-        /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
-        /// <param name="assessmentSection">The assessment section that the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// </summary>
-        public ClosingStructuresScenarioRow(StructuresCalculationScenario<ClosingStructuresInput> calculationScenario,
-                                            ClosingStructuresFailureMechanism failureMechanism,
-                                            IAssessmentSection assessmentSection)
+        public ClosingStructuresScenarioRow(StructuresCalculationScenario<ClosingStructuresInput> calculationScenario)
             : base(calculationScenario)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            this.failureMechanism = failureMechanism;
-            this.assessmentSection = assessmentSection;
-
             CreateProbabilityAssessmentOutput();
         }
 

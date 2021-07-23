@@ -129,7 +129,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 Image = RiskeerCommonFormsResources.ScenariosIcon,
-                CreateInstance = context => new ClosingStructuresScenariosView(context.WrappedData, context.ParentFailureMechanism, context.AssessmentSection),
+                CreateInstance = context => new ClosingStructuresScenariosView(context.WrappedData, context.ParentFailureMechanism),
                 CloseForData = CloseScenariosViewForData
             };
 

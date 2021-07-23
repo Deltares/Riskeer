@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
@@ -37,27 +36,16 @@ namespace Riskeer.ClosingStructures.Forms.Views
     /// </summary>
     public class ClosingStructuresScenariosView : ScenariosView<StructuresCalculationScenario<ClosingStructuresInput>, ClosingStructuresInput, ClosingStructuresScenarioRow, ClosingStructuresFailureMechanism>
     {
-        private readonly IAssessmentSection assessmentSection;
-
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresScenariosView"/>.
         /// </summary>
         /// <param name="calculationGroup">The data to show in this view.</param>
         /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/>
         /// the <paramref name="calculationGroup"/> belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the scenarios belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public ClosingStructuresScenariosView(CalculationGroup calculationGroup, ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            : base(calculationGroup, failureMechanism)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            this.assessmentSection = assessmentSection;
-        }
+        public ClosingStructuresScenariosView(CalculationGroup calculationGroup, ClosingStructuresFailureMechanism failureMechanism)
+            : base(calculationGroup, failureMechanism) {}
 
         protected override ClosingStructuresInput GetCalculationInput(StructuresCalculationScenario<ClosingStructuresInput> calculationScenario)
         {
@@ -71,7 +59,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
                                                                                                               .OfType<StructuresCalculationScenario<ClosingStructuresInput>>()
                                                                                                               .Where(cs => cs.IsStructureIntersectionWithReferenceLineInSection(lineSegments));
 
-            return calculations.Select(c => new ClosingStructuresScenarioRow(c, FailureMechanism, assessmentSection)).ToList();
+            return calculations.Select(c => new ClosingStructuresScenarioRow(c)).ToList();
         }
     }
 }

@@ -117,7 +117,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new ClosingStructuresScenariosView(new CalculationGroup(), new ClosingStructuresFailureMechanism(), assessmentSection))
+            using (var view = new ClosingStructuresScenariosView(new CalculationGroup(), new ClosingStructuresFailureMechanism()))
             {
                 // Precondition
                 Assert.AreNotSame(view.Data, unrelatedFailureMechanism.CalculationsGroup);
@@ -146,7 +146,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new ClosingStructuresScenariosView(relatedFailureMechanism.CalculationsGroup, relatedFailureMechanism, assessmentSection))
+            using (var view = new ClosingStructuresScenariosView(relatedFailureMechanism.CalculationsGroup, relatedFailureMechanism))
             {
                 // Precondition
                 Assert.AreSame(view.Data, relatedFailureMechanism.CalculationsGroup);
@@ -170,7 +170,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
-            using (var view = new ClosingStructuresScenariosView(new CalculationGroup(), new ClosingStructuresFailureMechanism(), assessmentSection))
+            using (var view = new ClosingStructuresScenariosView(new CalculationGroup(), new ClosingStructuresFailureMechanism()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -193,7 +193,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var context = new ClosingStructuresFailurePathContext(new ClosingStructuresFailureMechanism(), assessmentSection);
 
-            using (var view = new ClosingStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
+            using (var view = new ClosingStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -216,7 +216,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
 
-            using (var view = new ClosingStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
+            using (var view = new ClosingStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);

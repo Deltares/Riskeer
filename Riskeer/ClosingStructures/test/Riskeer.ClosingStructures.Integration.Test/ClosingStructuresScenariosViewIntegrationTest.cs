@@ -63,7 +63,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
 
-                var view = new ClosingStructuresScenariosView(assessmentSection.ClosingStructures.CalculationsGroup, assessmentSection.ClosingStructures, assessmentSection);
+                var view = new ClosingStructuresScenariosView(assessmentSection.ClosingStructures.CalculationsGroup, assessmentSection.ClosingStructures);
                 form.Controls.Add(view);
                 form.Show();
 
@@ -98,7 +98,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 CalculationGroup calculationsGroup = assessmentSection.ClosingStructures.CalculationsGroup;
-                var view = new ClosingStructuresScenariosView(calculationsGroup, assessmentSection.ClosingStructures, assessmentSection);
+                var view = new ClosingStructuresScenariosView(calculationsGroup, assessmentSection.ClosingStructures);
 
                 form.Controls.Add(view);
                 form.Show();
@@ -162,7 +162,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 CalculationGroup calculationsGroup = assessmentSection.ClosingStructures.CalculationsGroup;
-                var view = new ClosingStructuresScenariosView(calculationsGroup, assessmentSection.ClosingStructures, assessmentSection);
+                var view = new ClosingStructuresScenariosView(calculationsGroup, assessmentSection.ClosingStructures);
 
                 form.Controls.Add(view);
                 form.Show();
@@ -226,7 +226,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 ClosingStructuresFailureMechanism failureMechanism = assessmentSection.ClosingStructures;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
-                var view = new ClosingStructuresScenariosView(assessmentSection.ClosingStructures.CalculationsGroup, assessmentSection.ClosingStructures, assessmentSection);
+                var view = new ClosingStructuresScenariosView(assessmentSection.ClosingStructures.CalculationsGroup, assessmentSection.ClosingStructures);
                 form.Controls.Add(view);
                 form.Show();
 
