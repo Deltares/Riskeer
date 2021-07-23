@@ -21,11 +21,9 @@
 
 using System;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.Probabilistic;
@@ -134,25 +132,9 @@ namespace Riskeer.Piping.Data.Test
                                                                                                             assessmentSection);
 
             // Assert
-            ProbabilityAssessmentOutput expectedProbabilityOutput = ProbabilityAssessmentOutputFactory.Create(assessmentSection.FailureMechanismContribution.Norm,
-                                                                                                              failureMechanism.Contribution,
-                                                                                                              GetSectionLength(calculation, failureMechanism),
-                                                                                                              output.Reliability);
-
-            Assert.AreEqual(expectedProbabilityOutput.RequiredProbability, probabilityOutput.RequiredProbability);
-            Assert.AreEqual(expectedProbabilityOutput.RequiredReliability, probabilityOutput.RequiredReliability);
+            ProbabilityAssessmentOutput expectedProbabilityOutput = ProbabilityAssessmentOutputFactory.Create(output.Reliability);
             Assert.AreEqual(expectedProbabilityOutput.Probability, probabilityOutput.Probability);
             Assert.AreEqual(expectedProbabilityOutput.Reliability, probabilityOutput.Reliability);
-            Assert.AreEqual(expectedProbabilityOutput.FactorOfSafety, probabilityOutput.FactorOfSafety);
-        }
-
-        private static double GetSectionLength(ProbabilisticPipingCalculationScenario calculation, PipingFailureMechanism failureMechanism)
-        {
-            FailureMechanismSection failureMechanismSection = failureMechanism
-                                                              .Sections
-                                                              .First(section => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points)));
-
-            return failureMechanismSection.Length;
         }
     }
 }

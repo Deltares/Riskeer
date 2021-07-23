@@ -42,12 +42,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(null,
-                                                                                                        new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                        assessmentSection);
+            void Call() => GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(null, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("output", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -61,11 +59,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(new TestOvertoppingOutput(0),
-                                                                                                        null, assessmentSection);
+            void Call() => GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(new TestOvertoppingOutput(0), null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -74,11 +71,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(new TestOvertoppingOutput(0),
-                                                                                                        new GrassCoverErosionInwardsFailureMechanism(), null);
+            void Call() => GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(new TestOvertoppingOutput(0), new GrassCoverErosionInwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -107,15 +103,9 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                                                                                                                               assessmentSection);
 
             // Assert
-            ProbabilityAssessmentOutput expectedProbabilityOutput = ProbabilityAssessmentOutputFactory.Create(assessmentSection.FailureMechanismContribution.Norm,
-                                                                                                              failureMechanism.Contribution,
-                                                                                                              failureMechanism.GeneralInput.N,
-                                                                                                              output.Reliability);
-            Assert.AreEqual(expectedProbabilityOutput.FactorOfSafety, probabilityOutput.FactorOfSafety);
+            ProbabilityAssessmentOutput expectedProbabilityOutput = ProbabilityAssessmentOutputFactory.Create(output.Reliability);
             Assert.AreEqual(expectedProbabilityOutput.Probability, probabilityOutput.Probability);
             Assert.AreEqual(expectedProbabilityOutput.Reliability, probabilityOutput.Reliability);
-            Assert.AreEqual(expectedProbabilityOutput.RequiredProbability, probabilityOutput.RequiredProbability);
-            Assert.AreEqual(expectedProbabilityOutput.RequiredReliability, probabilityOutput.RequiredReliability);
             mocks.VerifyAll();
         }
     }

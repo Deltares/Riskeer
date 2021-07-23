@@ -35,103 +35,16 @@ namespace Riskeer.Common.Data.Test.Probability
         {
             // Setup
             var random = new Random(5);
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
             double probability = random.NextDouble();
             double reliability = random.NextDouble();
-            double factorOfSafety = random.NextDouble();
 
             // Call
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(requiredProbability, requiredReliability, probability, reliability, factorOfSafety);
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(probability, reliability);
 
             // Assert
-            Assert.AreEqual(requiredProbability, probabilityAssessmentOutput.RequiredProbability);
-            Assert.AreEqual(5, probabilityAssessmentOutput.RequiredReliability.NumberOfDecimalPlaces);
-            Assert.AreEqual(requiredReliability, probabilityAssessmentOutput.RequiredReliability, probabilityAssessmentOutput.RequiredReliability.GetAccuracy());
             Assert.AreEqual(probability, probabilityAssessmentOutput.Probability);
             Assert.AreEqual(5, probabilityAssessmentOutput.Reliability.NumberOfDecimalPlaces);
             Assert.AreEqual(reliability, probabilityAssessmentOutput.Reliability, probabilityAssessmentOutput.Reliability.GetAccuracy());
-            Assert.AreEqual(3, probabilityAssessmentOutput.FactorOfSafety.NumberOfDecimalPlaces);
-            Assert.AreEqual(factorOfSafety, probabilityAssessmentOutput.FactorOfSafety, probabilityAssessmentOutput.FactorOfSafety.GetAccuracy());
-        }
-
-        [Test]
-        [TestCase(double.NaN)]
-        [TestCase(0.0)]
-        [TestCase(0.123456789)]
-        [TestCase(1.0)]
-        public void RequiredProbability_SetToValidValue_GetValidValue(double requiredProbability)
-        {
-            // Setup
-            var random = new Random(5);
-            double requiredReliability = random.NextDouble();
-            double probability = random.NextDouble();
-            double reliability = random.NextDouble();
-            double factorOfSafety = random.NextDouble();
-
-            // Call
-            var output = new ProbabilityAssessmentOutput(requiredProbability,
-                                                         requiredReliability,
-                                                         probability,
-                                                         reliability,
-                                                         factorOfSafety);
-
-            // Assert
-            Assert.AreEqual(requiredProbability, output.RequiredProbability);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(-1e-6)]
-        [TestCase(-346587.456)]
-        [TestCase(1.0 + 1e-6)]
-        [TestCase(346587.456)]
-        public void RequiredProbability_SetToInvalidValue_ThrowArgumentOutOfRangeException(double requiredProbability)
-        {
-            // Setup
-            var random = new Random(5);
-            double requiredReliability = random.NextDouble();
-            double probability = random.NextDouble();
-            double reliability = random.NextDouble();
-            double factorOfSafety = random.NextDouble();
-
-            // Call
-            TestDelegate call = () => new ProbabilityAssessmentOutput(requiredProbability,
-                                                                      requiredReliability,
-                                                                      probability,
-                                                                      reliability,
-                                                                      factorOfSafety);
-
-            // Assert
-            const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-        }
-
-        [Test]
-        [TestCase(double.NaN)]
-        [TestCase(0.0)]
-        [TestCase(0.123456789)]
-        [TestCase(1.0)]
-        public void Probability_SetToValidValue_GetValidValue(double probability)
-        {
-            // Setup
-            var random = new Random(5);
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
-            double reliability = random.NextDouble();
-            double factorOfSafety = random.NextDouble();
-
-            // Call
-            var output = new ProbabilityAssessmentOutput(requiredProbability,
-                                                         requiredReliability,
-                                                         probability,
-                                                         reliability,
-                                                         factorOfSafety);
-
-            // Assert
-            Assert.AreEqual(requiredProbability, output.RequiredProbability);
         }
 
         [Test]
@@ -146,21 +59,14 @@ namespace Riskeer.Common.Data.Test.Probability
         {
             // Setup
             var random = new Random(5);
-            double requiredProbability = random.NextDouble();
-            double requiredReliability = random.NextDouble();
             double reliability = random.NextDouble();
-            double factorOfSafety = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new ProbabilityAssessmentOutput(requiredProbability,
-                                                                      requiredReliability,
-                                                                      probability,
-                                                                      reliability,
-                                                                      factorOfSafety);
+            void Call() => new ProbabilityAssessmentOutput(probability, reliability);
 
             // Assert
             const string expectedMessage = "Kans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
     }
 }

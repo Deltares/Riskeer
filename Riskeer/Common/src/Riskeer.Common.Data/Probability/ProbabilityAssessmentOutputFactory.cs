@@ -31,34 +31,13 @@ namespace Riskeer.Common.Data.Probability
         /// <summary>
         /// Creates <see cref="ProbabilityAssessmentOutput"/> based on the provided parameters.
         /// </summary>
-        /// <param name="norm">The norm to assess for.</param>
-        /// <param name="contribution">The contribution of the failure mechanism as a percentage (0-100)
-        /// to the total of the failure probability of the assessment section.</param>
-        /// <param name="lengthEffectN">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <param name="reliability">The reliability to use for the calculation.</param>
         /// <returns>The calculated <see cref="ProbabilityAssessmentOutput"/>.</returns>
-        public static ProbabilityAssessmentOutput Create(double norm, double contribution, double lengthEffectN, double reliability)
+        public static ProbabilityAssessmentOutput Create(double reliability)
         {
-            double requiredProbability = GetRequiredProbability(contribution / 100.0, norm, lengthEffectN);
             double probability = StatisticsConverter.ReliabilityToProbability(reliability);
-            double requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);
-            double factorOfSafety = GetFactorOfSafety(reliability, requiredReliability);
 
-            return new ProbabilityAssessmentOutput(requiredProbability,
-                                                   requiredReliability,
-                                                   probability,
-                                                   reliability,
-                                                   factorOfSafety);
-        }
-
-        private static double GetRequiredProbability(double contribution, double norm, double lengthEffectN)
-        {
-            return contribution * norm / lengthEffectN;
-        }
-
-        private static double GetFactorOfSafety(double reliability, double requiredReliability)
-        {
-            return reliability / requiredReliability;
+            return new ProbabilityAssessmentOutput(probability, reliability);
         }
     }
 }

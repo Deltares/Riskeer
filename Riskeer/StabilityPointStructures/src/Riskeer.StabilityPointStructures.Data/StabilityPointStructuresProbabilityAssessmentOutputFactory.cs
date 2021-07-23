@@ -59,10 +59,7 @@ namespace Riskeer.StabilityPointStructures.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return ProbabilityAssessmentOutputFactory.Create(assessmentSection.FailureMechanismContribution.Norm,
-                                                             failureMechanism.Contribution,
-                                                             failureMechanism.GeneralInput.N,
-                                                             output.Reliability);
+            return ProbabilityAssessmentOutputFactory.Create(output.Reliability);
         }
     }
 }

@@ -101,15 +101,9 @@ namespace Riskeer.ClosingStructures.Data.Test
                                                                                                                        assessmentSection);
 
             // Assert
-            ProbabilityAssessmentOutput expectedProbabilityOutput = ProbabilityAssessmentOutputFactory.Create(assessmentSection.FailureMechanismContribution.Norm,
-                                                                                                              failureMechanism.Contribution,
-                                                                                                              failureMechanism.GeneralInput.N,
-                                                                                                              output.Reliability);
-            Assert.AreEqual(expectedProbabilityOutput.FactorOfSafety, probabilityOutput.FactorOfSafety);
+            ProbabilityAssessmentOutput expectedProbabilityOutput = ProbabilityAssessmentOutputFactory.Create(output.Reliability);
             Assert.AreEqual(expectedProbabilityOutput.Probability, probabilityOutput.Probability);
             Assert.AreEqual(expectedProbabilityOutput.Reliability, probabilityOutput.Reliability);
-            Assert.AreEqual(expectedProbabilityOutput.RequiredProbability, probabilityOutput.RequiredProbability);
-            Assert.AreEqual(expectedProbabilityOutput.RequiredReliability, probabilityOutput.RequiredReliability);
             mocks.VerifyAll();
         }
     }

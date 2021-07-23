@@ -82,10 +82,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             double totalDetailedAssessmentProbability = 0;
             foreach (GrassCoverErosionInwardsCalculationScenario scenario in relevantScenarios)
             {
-                ProbabilityAssessmentOutput derivedOutput = ProbabilityAssessmentOutputFactory.Create(assessmentSection.FailureMechanismContribution.Norm,
-                                                                                                      failureMechanism.Contribution,
-                                                                                                      failureMechanism.GeneralInput.N,
-                                                                                                      scenario.Output.OvertoppingOutput.Reliability);
+                ProbabilityAssessmentOutput derivedOutput = ProbabilityAssessmentOutputFactory.Create(scenario.Output.OvertoppingOutput.Reliability);
 
                 totalDetailedAssessmentProbability += derivedOutput.Probability * (double) scenario.Contribution;
             }

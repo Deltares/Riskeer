@@ -29,50 +29,18 @@ namespace Riskeer.Common.Data.Probability
     /// </summary>
     public class ProbabilityAssessmentOutput
     {
-        private double requiredProbability;
         private double probability;
 
         /// <summary>
         /// Creates a new instance of <see cref="ProbabilityAssessmentOutput"/>.
         /// </summary>
-        /// <param name="requiredProbability">The required (maximum allowed) probability of failure.</param>
-        /// <param name="requiredReliability">The required (maximum allowed) reliability of the failure mechanism.</param>
         /// <param name="probability">The probability of failure.</param>
         /// <param name="reliability">The reliability of the failure mechanism.</param>
-        /// <param name="factorOfSafety">The factor of safety of the failure mechanism.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a probability that falls
-        /// outside the [0.0, 1.0] range and isn't <see cref="double.NaN"/>.</exception>
-        public ProbabilityAssessmentOutput(double requiredProbability, double requiredReliability, double probability, double reliability, double factorOfSafety)
+        public ProbabilityAssessmentOutput(double probability, double reliability)
         {
-            RequiredProbability = requiredProbability;
-            RequiredReliability = new RoundedDouble(5, requiredReliability);
             Probability = probability;
             Reliability = new RoundedDouble(5, reliability);
-            FactorOfSafety = new RoundedDouble(3, factorOfSafety);
         }
-
-        /// <summary>
-        /// Gets the required (maximum allowed) probability of failure.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a value that falls
-        /// outside the [0.0, 1.0] range and isn't <see cref="double.NaN"/>.</exception>
-        public double RequiredProbability
-        {
-            get
-            {
-                return requiredProbability;
-            }
-            private set
-            {
-                ProbabilityHelper.ValidateProbability(value, nameof(value), true);
-                requiredProbability = value;
-            }
-        }
-
-        /// <summary>
-        /// Get the required (maximum allowed) reliability of the failure mechanism.
-        /// </summary>
-        public RoundedDouble RequiredReliability { get; }
 
         /// <summary>
         /// Gets the probability of failure.
@@ -96,10 +64,5 @@ namespace Riskeer.Common.Data.Probability
         /// Gets the reliability of the failure mechanism.
         /// </summary>
         public RoundedDouble Reliability { get; }
-
-        /// <summary>
-        /// Gets the factor of safety of the failure mechanism.
-        /// </summary>
-        public RoundedDouble FactorOfSafety { get; }
     }
 }

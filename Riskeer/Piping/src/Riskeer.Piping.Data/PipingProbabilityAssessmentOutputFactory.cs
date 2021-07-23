@@ -20,10 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Piping.Data.Probabilistic;
 
@@ -68,19 +65,7 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return ProbabilityAssessmentOutputFactory.Create(assessmentSection.FailureMechanismContribution.Norm,
-                                                             failureMechanism.Contribution,
-                                                             GetSectionLength(calculation, failureMechanism),
-                                                             output.Reliability);
-        }
-
-        private static double GetSectionLength(ProbabilisticPipingCalculationScenario calculation, PipingFailureMechanism failureMechanism)
-        {
-            FailureMechanismSection failureMechanismSection = failureMechanism
-                                                              .Sections
-                                                              .First(section => calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points)));
-
-            return failureMechanismSection.Length;
+            return ProbabilityAssessmentOutputFactory.Create(output.Reliability);
         }
     }
 }
