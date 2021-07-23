@@ -61,6 +61,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertDatabase(reader);
 
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
+                    AssertGrassCoverErosionInwardsOutput(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -202,6 +203,19 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateCalculationWithDikeHeightAndOvertoppingRate);
         }
 
+        private static void AssertGrassCoverErosionInwardsOutput(MigratedDatabaseReader reader)
+        {
+            const string validateDikeHeightOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [GrassCoverErosionInwardsDikeHeightOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateDikeHeightOutput);
+
+            const string validateOvertoppingRateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [GrassCoverErosionInwardsOvertoppingRateOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOvertoppingRateOutput);
+        }
+        
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string[] tables =
@@ -232,10 +246,8 @@ namespace Riskeer.Migration.Integration.Test
                 "GeneralResultFaultTreeIllustrationPointStochastEntity",
                 "GeneralResultSubMechanismIllustrationPointEntity",
                 "GeneralResultSubMechanismIllustrationPointStochastEntity",
-                "GrassCoverErosionInwardsDikeHeightOutputEntity",
                 "GrassCoverErosionInwardsFailureMechanismMetaEntity",
                 "GrassCoverErosionInwardsOutputEntity",
-                "GrassCoverErosionInwardsOvertoppingRateOutputEntity",
                 "GrassCoverErosionInwardsSectionResultEntity",
                 "GrassCoverErosionOutwardsFailureMechanismMetaEntity",
                 "GrassCoverErosionOutwardsSectionResultEntity",
