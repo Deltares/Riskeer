@@ -22,8 +22,6 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -34,55 +32,33 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
     public class GrassCoverErosionInwardsScenariosContextTest
     {
         [Test]
+        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var calculationGroup = new CalculationGroup();
+
+            // Call
+            void Call() => new GrassCoverErosionInwardsScenariosContext(calculationGroup, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
             // Call
-            var context = new GrassCoverErosionInwardsScenariosContext(calculationGroup, failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionInwardsScenariosContext(calculationGroup, failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<WrappedObjectContextBase<CalculationGroup>>(context);
             Assert.AreSame(calculationGroup, context.WrappedData);
             Assert.AreSame(failureMechanism, context.ParentFailureMechanism);
-            Assert.AreSame(assessmentSection, context.AssessmentSection);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculationGroup = new CalculationGroup();
-
-            // Call
-            void Call() => new GrassCoverErosionInwardsScenariosContext(calculationGroup, null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new GrassCoverErosionInwardsScenariosContext(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
 }

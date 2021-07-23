@@ -27,9 +27,7 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -83,40 +81,30 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnScenarios()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var group = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var context = new GrassCoverErosionInwardsScenariosContext(group, failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionInwardsScenariosContext(group, failureMechanism);
 
             // Call
             string text = info.Text(context);
 
             // Assert
             Assert.AreEqual("Scenario's", text);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnExpectedImage()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var group = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var context = new GrassCoverErosionInwardsScenariosContext(group, failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionInwardsScenariosContext(group, failureMechanism);
 
             // Call
             Image image = info.Image(context);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ScenariosIcon, image);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -125,7 +113,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var context = new GrassCoverErosionInwardsScenariosContext(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism(), new AssessmentSectionStub());
+                var context = new GrassCoverErosionInwardsScenariosContext(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism());
 
                 var mocks = new MockRepository();
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();

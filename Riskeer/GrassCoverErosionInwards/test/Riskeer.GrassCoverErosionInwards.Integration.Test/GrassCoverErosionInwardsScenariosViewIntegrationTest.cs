@@ -64,8 +64,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 DataImportHelper.ImportReferenceLine(assessmentSection);
 
                 var view = new GrassCoverErosionInwardsScenariosView(assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
-                                                                     assessmentSection.GrassCoverErosionInwards,
-                                                                     assessmentSection);
+                                                                     assessmentSection.GrassCoverErosionInwards);
                 form.Controls.Add(view);
                 form.Show();
 
@@ -101,8 +100,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
                 var view = new GrassCoverErosionInwardsScenariosView(assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
-                                                                     assessmentSection.GrassCoverErosionInwards,
-                                                                     assessmentSection);
+                                                                     assessmentSection.GrassCoverErosionInwards);
                 form.Controls.Add(view);
                 form.Show();
 
@@ -168,8 +166,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
                 var view = new GrassCoverErosionInwardsScenariosView(assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
-                                                                     assessmentSection.GrassCoverErosionInwards,
-                                                                     assessmentSection);
+                                                                     assessmentSection.GrassCoverErosionInwards);
                 form.Controls.Add(view);
                 form.Show();
 
@@ -236,8 +233,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 var view = new GrassCoverErosionInwardsScenariosView(assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
-                                                                     assessmentSection.GrassCoverErosionInwards,
-                                                                     assessmentSection);
+                                                                     assessmentSection.GrassCoverErosionInwards);
                 form.Controls.Add(view);
                 form.Show();
 

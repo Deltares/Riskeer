@@ -21,10 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Probability;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
@@ -36,112 +33,56 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
     public class GrassCoverErosionInwardsScenarioRowTest
     {
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new GrassCoverErosionInwardsScenarioRow(new GrassCoverErosionInwardsCalculationScenario(),
-                                                                   null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new GrassCoverErosionInwardsScenarioRow(new GrassCoverErosionInwardsCalculationScenario(),
-                                                                   new GrassCoverErosionInwardsFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculation = new GrassCoverErosionInwardsCalculationScenario();
 
             // Call
-            var row = new GrassCoverErosionInwardsScenarioRow(calculation, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+            var row = new GrassCoverErosionInwardsScenarioRow(calculation);
 
             // Assert
             Assert.IsInstanceOf<ScenarioRow<GrassCoverErosionInwardsCalculationScenario>>(row);
             Assert.AreSame(calculation, row.CalculationScenario);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithCalculationWithOutput_PropertiesFromCalculation()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
 
             // Call
-            var row = new GrassCoverErosionInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new GrassCoverErosionInwardsScenarioRow(calculation);
 
             // Assert
-            ProbabilityAssessmentOutput expectedDerivedOutput = GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(
-                calculation.Output.OvertoppingOutput, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput expectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.OvertoppingOutput.Reliability);
             Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithCalculationWithoutOutput_PropertiesFromCalculation()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new GrassCoverErosionInwardsCalculationScenario();
 
             // Call
-            var row = new GrassCoverErosionInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new GrassCoverErosionInwardsScenarioRow(calculation);
 
             // Assert
             Assert.IsNaN(row.FailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenScenarioRow_WhenOutputSetAndUpdate_ThenDerivedOutputUpdated()
         {
             // Given
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new GrassCoverErosionInwardsCalculationScenario();
 
-            var row = new GrassCoverErosionInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new GrassCoverErosionInwardsScenarioRow(calculation);
 
             // Precondition
             Assert.IsNaN(row.FailureProbability);
@@ -151,32 +92,23 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             row.Update();
 
             // Then
-            ProbabilityAssessmentOutput expectedDerivedOutput = GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(
-                calculation.Output.OvertoppingOutput, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput expectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.OvertoppingOutput.Reliability);
             Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenScenarioRow_WhenOutputSetToNullAndUpdate_ThenDerivedOutputUpdated()
         {
             // Given
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
 
-            var row = new GrassCoverErosionInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new GrassCoverErosionInwardsScenarioRow(calculation);
 
             // Precondition
-            ProbabilityAssessmentOutput expectedDerivedOutput = GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(
-                calculation.Output.OvertoppingOutput, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput expectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.OvertoppingOutput.Reliability);
             Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
 
             // When
@@ -185,29 +117,21 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Then
             Assert.IsNaN(row.FailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenScenarioRow_WhenOutputChangedAndUpdate_ThenDerivedOutputUpdated()
         {
             // Given
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
 
-            var row = new GrassCoverErosionInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new GrassCoverErosionInwardsScenarioRow(calculation);
 
             // Precondition
-            ProbabilityAssessmentOutput expectedDerivedOutput = GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(
-                calculation.Output.OvertoppingOutput, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput expectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.OvertoppingOutput.Reliability);
             Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
 
             var random = new Random(11);
@@ -217,10 +141,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             row.Update();
 
             // Then
-            ProbabilityAssessmentOutput newExpectedDerivedOutput = GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(
-                calculation.Output.OvertoppingOutput, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput newExpectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.OvertoppingOutput.Reliability);
             Assert.AreEqual(newExpectedDerivedOutput.Probability, row.FailureProbability);
-            mocks.VerifyAll();
         }
     }
 }
