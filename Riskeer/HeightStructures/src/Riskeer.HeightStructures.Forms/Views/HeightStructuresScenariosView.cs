@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
@@ -37,27 +36,16 @@ namespace Riskeer.HeightStructures.Forms.Views
     /// </summary>
     public class HeightStructuresScenariosView : ScenariosView<StructuresCalculationScenario<HeightStructuresInput>, HeightStructuresInput, HeightStructuresScenarioRow, HeightStructuresFailureMechanism>
     {
-        private readonly IAssessmentSection assessmentSection;
-
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresScenariosView"/>.
         /// </summary>
         /// <param name="calculationGroup">The data to show in this view.</param>
         /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/>
         /// the <paramref name="calculationGroup"/> belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the scenarios belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public HeightStructuresScenariosView(CalculationGroup calculationGroup, HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            : base(calculationGroup, failureMechanism)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            this.assessmentSection = assessmentSection;
-        }
+        public HeightStructuresScenariosView(CalculationGroup calculationGroup, HeightStructuresFailureMechanism failureMechanism)
+            : base(calculationGroup, failureMechanism) {}
 
         protected override HeightStructuresInput GetCalculationInput(StructuresCalculationScenario<HeightStructuresInput> calculationScenario)
         {

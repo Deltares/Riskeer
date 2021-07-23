@@ -25,8 +25,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
@@ -62,35 +60,18 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new HeightStructuresScenariosView(new CalculationGroup(), new HeightStructuresFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculationGroup = new CalculationGroup();
 
             // Call
-            using (var view = new HeightStructuresScenariosView(calculationGroup, new HeightStructuresFailureMechanism(), assessmentSection))
+            using (var view = new HeightStructuresScenariosView(calculationGroup, new HeightStructuresFailureMechanism()))
             {
                 // Assert
                 Assert.IsInstanceOf<ScenariosView<StructuresCalculationScenario<HeightStructuresInput>, HeightStructuresInput, HeightStructuresScenarioRow, HeightStructuresFailureMechanism>>(view);
                 Assert.AreSame(calculationGroup, view.Data);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -182,7 +163,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
         private void ShowHeightStructuresScenariosView(HeightStructuresFailureMechanism failureMechanism)
         {
-            var scenariosView = new HeightStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism, new AssessmentSectionStub());
+            var scenariosView = new HeightStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism);
             testForm.Controls.Add(scenariosView);
             testForm.Show();
         }

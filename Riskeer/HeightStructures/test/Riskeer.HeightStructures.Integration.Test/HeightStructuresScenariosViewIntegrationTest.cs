@@ -63,7 +63,7 @@ namespace Riskeer.HeightStructures.Integration.Test
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
 
-                var view = new HeightStructuresScenariosView(assessmentSection.HeightStructures.CalculationsGroup, assessmentSection.HeightStructures, assessmentSection);
+                var view = new HeightStructuresScenariosView(assessmentSection.HeightStructures.CalculationsGroup, assessmentSection.HeightStructures);
                 form.Controls.Add(view);
                 form.Show();
 
@@ -98,7 +98,7 @@ namespace Riskeer.HeightStructures.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 CalculationGroup calculationsGroup = assessmentSection.HeightStructures.CalculationsGroup;
-                var view = new HeightStructuresScenariosView(calculationsGroup, assessmentSection.HeightStructures, assessmentSection);
+                var view = new HeightStructuresScenariosView(calculationsGroup, assessmentSection.HeightStructures);
 
                 form.Controls.Add(view);
                 form.Show();
@@ -162,7 +162,7 @@ namespace Riskeer.HeightStructures.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 CalculationGroup calculationsGroup = assessmentSection.HeightStructures.CalculationsGroup;
-                var view = new HeightStructuresScenariosView(calculationsGroup, assessmentSection.HeightStructures, assessmentSection);
+                var view = new HeightStructuresScenariosView(calculationsGroup, assessmentSection.HeightStructures);
 
                 form.Controls.Add(view);
                 form.Show();
@@ -226,7 +226,7 @@ namespace Riskeer.HeightStructures.Integration.Test
                 HeightStructuresFailureMechanism failureMechanism = assessmentSection.HeightStructures;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
-                var view = new HeightStructuresScenariosView(assessmentSection.HeightStructures.CalculationsGroup, assessmentSection.HeightStructures, assessmentSection);
+                var view = new HeightStructuresScenariosView(assessmentSection.HeightStructures.CalculationsGroup, assessmentSection.HeightStructures);
                 form.Controls.Add(view);
                 form.Show();
 
