@@ -59,10 +59,147 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
+
+                    AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
             }
+        }
+
+        private static void AssertGrassCoverErosionInwardsCalculation(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            const string getNormQuery =
+                "JOIN ( " +
+                "WITH CalculationGroups AS ( " +
+                "SELECT " +
+                "CalculationGroupEntityId, " +
+                "ParentCalculationGroupEntityId AS OriginalParentId, " +
+                "ParentCalculationGroupEntityId AS NextParentId, " +
+                "NULL as RootId, " +
+                "CASE " +
+                "WHEN ParentCalculationGroupEntityId IS NULL " +
+                "THEN 1 " +
+                "END AS IsRoot " +
+                "FROM CalculationGroupEntity " +
+                "UNION ALL " +
+                "SELECT " +
+                "CalculationGroups.CalculationGroupEntityId, " +
+                "CalculationGroups.OriginalParentId, " +
+                "entity.ParentCalculationGroupEntityId, " +
+                "CASE " +
+                "WHEN entity.ParentCalculationGroupEntityId IS NULL " +
+                "THEN CalculationGroups.NextParentId " +
+                "ELSE " +
+                "CalculationGroups.RootId " +
+                "END, " +
+                "NULL " +
+                "FROM CalculationGroups " +
+                "INNER JOIN CalculationGroupEntity entity " +
+                "ON CalculationGroups.NextParentId = entity.CalculationGroupEntityId " +
+                ") " +
+                "SELECT " +
+                "CalculationGroupEntityId as OriginalGroupId, " +
+                "CASE " +
+                "WHEN IsRoot = 1 " +
+                "THEN CalculationGroupEntityId " +
+                "ELSE RootId " +
+                "END AS FinalGroupId " +
+                "FROM CalculationGroups " +
+                "WHERE RootId IS NOT NULL OR IsRoot = 1) " +
+                "ON OLD.CalculationGroupEntityId = OriginalGroupId " +
+                "JOIN ( " +
+                "SELECT " +
+                "AssessmentSectionEntityId AS failureMechanismAssessmentSectionId, " +
+                "CalculationGroupEntityId AS failureMechanismCalculationGroupEntityId " +
+                "FROM FailureMechanismEntity) " +
+                "ON failureMechanismCalculationGroupEntityId = FinalGroupId " +
+                "JOIN ( " +
+                "SELECT " +
+                "AssessmentSectionEntityId AS sectionId, " +
+                "CASE " +
+                "WHEN NormativeNormType IS 1 " +
+                "THEN LowerLimitNorm " +
+                "ELSE SignalingNorm " +
+                "END AS Norm " +
+                "FROM AssessmentSectionEntity) " +
+                "ON sectionId = failureMechanismAssessmentSectionId";
+
+            string validateCalculationWithoutDikeHeightAndOvertoppingRate =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.GrassCoverErosionInwardsCalculationEntity " +
+                "WHERE DikeHeightCalculationType = 1 " +
+                "AND OvertoppingRateCalculationType = 1 " +
+                ") " +
+                "FROM GrassCoverErosionInwardsCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.GrassCoverErosionInwardsCalculationEntity OLD USING(GrassCoverErosionInwardsCalculationEntityId) " +
+                $"{getNormQuery} " +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[DikeProfileEntityId] IS OLD.[DikeProfileEntityId]" +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[DikeHeight] IS OLD.[DikeHeight] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] IS OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[CriticalFlowRateMean] IS OLD.[CriticalFlowRateMean] " +
+                "AND NEW.[CriticalFlowRateStandardDeviation] IS OLD.[CriticalFlowRateStandardDeviation] " +
+                "AND NEW.[ShouldOvertoppingOutputIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingOutputIllustrationPointsBeCalculated] " +
+                "AND NEW.[ShouldDikeHeightBeCalculated] = 0 " +
+                "AND NEW.[DikeHeightTargetProbability] = Norm " +
+                "AND NEW.[ShouldDikeHeightIllustrationPointsBeCalculated] = OLD.[ShouldDikeHeightIllustrationPointsBeCalculated] " +
+                "AND NEW.[ShouldOvertoppingRateBeCalculated] = 0 " +
+                "AND NEW.[OvertoppingRateTargetProbability] = Norm " +
+                "AND NEW.[ShouldOvertoppingRateIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingRateIllustrationPointsBeCalculated] " +
+                "AND NEW.[RelevantForScenario] = OLD.[RelevantForScenario] " +
+                "AND NEW.[ScenarioContribution] = OLD.[ScenarioContribution]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationWithoutDikeHeightAndOvertoppingRate);
+
+            string validateCalculationWithDikeHeightAndOvertoppingRate =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.GrassCoverErosionInwardsCalculationEntity " +
+                "WHERE DikeHeightCalculationType != 1 " +
+                "AND OvertoppingRateCalculationType != 1 " +
+                ") " +
+                "FROM GrassCoverErosionInwardsCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.GrassCoverErosionInwardsCalculationEntity OLD USING(GrassCoverErosionInwardsCalculationEntityId) " +
+                $"{getNormQuery} " +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[DikeProfileEntityId] IS OLD.[DikeProfileEntityId]" +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[DikeHeight] IS OLD.[DikeHeight] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] IS OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[CriticalFlowRateMean] IS OLD.[CriticalFlowRateMean] " +
+                "AND NEW.[CriticalFlowRateStandardDeviation] IS OLD.[CriticalFlowRateStandardDeviation] " +
+                "AND NEW.[ShouldOvertoppingOutputIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingOutputIllustrationPointsBeCalculated] " +
+                "AND NEW.[ShouldDikeHeightBeCalculated] = 1 " +
+                "AND NEW.[DikeHeightTargetProbability] = Norm " +
+                "AND NEW.[ShouldDikeHeightIllustrationPointsBeCalculated] = OLD.[ShouldDikeHeightIllustrationPointsBeCalculated] " +
+                "AND NEW.[ShouldOvertoppingRateBeCalculated] = 1 " +
+                "AND NEW.[OvertoppingRateTargetProbability] = Norm " +
+                "AND NEW.[ShouldOvertoppingRateIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingRateIllustrationPointsBeCalculated] " +
+                "AND NEW.[RelevantForScenario] = OLD.[RelevantForScenario] " +
+                "AND NEW.[ScenarioContribution] = OLD.[ScenarioContribution]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationWithDikeHeightAndOvertoppingRate);
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
@@ -95,7 +232,6 @@ namespace Riskeer.Migration.Integration.Test
                 "GeneralResultFaultTreeIllustrationPointStochastEntity",
                 "GeneralResultSubMechanismIllustrationPointEntity",
                 "GeneralResultSubMechanismIllustrationPointStochastEntity",
-                "GrassCoverErosionInwardsCalculationEntity",
                 "GrassCoverErosionInwardsDikeHeightOutputEntity",
                 "GrassCoverErosionInwardsFailureMechanismMetaEntity",
                 "GrassCoverErosionInwardsOutputEntity",
