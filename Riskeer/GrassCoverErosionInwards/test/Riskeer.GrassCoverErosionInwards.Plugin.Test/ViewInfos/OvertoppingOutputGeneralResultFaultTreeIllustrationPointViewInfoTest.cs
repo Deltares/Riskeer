@@ -23,7 +23,6 @@ using System.Threading;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -47,8 +46,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
         protected override OvertoppingOutputContext GetContext(GrassCoverErosionInwardsCalculation calculation)
         {
-            return new OvertoppingOutputContext(calculation, new GrassCoverErosionInwardsFailureMechanism(),
-                                                new AssessmentSectionStub());
+            return new OvertoppingOutputContext(calculation);
         }
     }
 }

@@ -27,7 +27,6 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -101,14 +100,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ForeColor_HasNoOutput_ReturnGrayText()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculation = new GrassCoverErosionInwardsCalculation(0.1);
 
             // Call
-            Color color = info.ForeColor(new OvertoppingOutputContext(calculation, failureMechanism, assessmentSection));
+            Color color = info.ForeColor(new OvertoppingOutputContext(calculation));
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
@@ -118,10 +113,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ForeColor_HasOutput_ReturnControlText()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculation = new GrassCoverErosionInwardsCalculation(0.1)
             {
                 Output = new GrassCoverErosionInwardsOutput(
@@ -131,7 +122,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             };
 
             // Call
-            Color color = info.ForeColor(new OvertoppingOutputContext(calculation, failureMechanism, assessmentSection));
+            Color color = info.ForeColor(new OvertoppingOutputContext(calculation));
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);

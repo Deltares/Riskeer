@@ -1007,7 +1007,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             return new object[]
             {
-                new OvertoppingOutputContext(calculation, context.FailureMechanism, context.AssessmentSection),
+                new OvertoppingOutputContext(calculation),
                 new DikeHeightOutputContext(calculation),
                 new OvertoppingRateOutputContext(calculation)
             };

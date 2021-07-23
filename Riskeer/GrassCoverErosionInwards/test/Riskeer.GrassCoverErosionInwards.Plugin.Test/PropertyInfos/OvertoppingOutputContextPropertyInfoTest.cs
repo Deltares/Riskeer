@@ -23,9 +23,6 @@ using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -64,12 +61,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_NewPropertiesWithData()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var overtoppingOutput = new TestOvertoppingOutput(0.5);
             var calculation = new GrassCoverErosionInwardsCalculation(0.1)
             {
@@ -77,14 +68,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
             };
 
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(new OvertoppingOutputContext(calculation,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection));
+            IObjectProperties objectProperties = info.CreateInstance(new OvertoppingOutputContext(calculation));
 
             // Assert
             Assert.IsInstanceOf<OvertoppingOutputProperties>(objectProperties);
             Assert.AreSame(overtoppingOutput, objectProperties.Data);
-            mocks.VerifyAll();
         }
     }
 }
