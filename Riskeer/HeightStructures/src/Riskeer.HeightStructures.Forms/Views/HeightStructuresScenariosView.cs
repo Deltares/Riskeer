@@ -71,7 +71,7 @@ namespace Riskeer.HeightStructures.Forms.Views
                                                                                                              .OfType<StructuresCalculationScenario<HeightStructuresInput>>()
                                                                                                              .Where(cs => cs.IsStructureIntersectionWithReferenceLineInSection(lineSegments));
 
-            return calculations.Select(c => new HeightStructuresScenarioRow(c, FailureMechanism, assessmentSection)).ToList();
+            return calculations.Select(c => new HeightStructuresScenarioRow(c)).ToList();
         }
     }
 }

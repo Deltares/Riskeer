@@ -21,8 +21,6 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
@@ -38,26 +36,19 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            void Call() => new HeightStructuresScenarioRow(new StructuresCalculationScenario<HeightStructuresInput>(), null, assessmentSection);
+            void Call() => new HeightStructuresScenarioRow(new StructuresCalculationScenario<HeightStructuresInput>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new HeightStructuresScenarioRow(new StructuresCalculationScenario<HeightStructuresInput>(),
-                                                           new HeightStructuresFailureMechanism(), null);
+            void Call() => new HeightStructuresScenarioRow(new StructuresCalculationScenario<HeightStructuresInput>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -68,79 +59,53 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
 
             // Call
-            var row = new HeightStructuresScenarioRow(calculation, new HeightStructuresFailureMechanism(), assessmentSection);
+            var row = new HeightStructuresScenarioRow(calculation);
 
             // Assert
             Assert.IsInstanceOf<ScenarioRow<StructuresCalculationScenario<HeightStructuresInput>>>(row);
             Assert.AreSame(calculation, row.CalculationScenario);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithCalculationWithOutput_PropertiesFromCalculation()
         {
             // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Output = new TestStructuresOutput()
             };
 
             // Call
-            var row = new HeightStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new HeightStructuresScenarioRow(calculation);
 
             // Assert
-            ProbabilityAssessmentOutput expectedDerivedOutput = HeightStructuresProbabilityAssessmentOutputFactory.Create(
-                calculation.Output, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput expectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.Reliability);
             Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_WithCalculationWithoutOutput_PropertiesFromCalculation()
         {
             // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
 
             // Call
-            var row = new HeightStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new HeightStructuresScenarioRow(calculation);
 
             // Assert
             Assert.IsNaN(row.FailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenScenarioRow_WhenOutputSetAndUpdate_ThenDerivedOutputUpdated()
         {
             // Given
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
 
-            var row = new HeightStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new HeightStructuresScenarioRow(calculation);
 
             // Precondition
             Assert.IsNaN(row.FailureProbability);
@@ -150,32 +115,23 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             row.Update();
 
             // Then
-            ProbabilityAssessmentOutput expectedDerivedOutput = HeightStructuresProbabilityAssessmentOutputFactory.Create(
-                calculation.Output, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput expectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.Reliability);
             Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenScenarioRow_WhenOutputSetToNullAndUpdate_ThenDerivedOutputUpdated()
         {
             // Given
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Output = new TestStructuresOutput()
             };
 
-            var row = new HeightStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new HeightStructuresScenarioRow(calculation);
 
             // Precondition
-            ProbabilityAssessmentOutput expectedDerivedOutput = HeightStructuresProbabilityAssessmentOutputFactory.Create(
-                calculation.Output, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput expectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.Reliability);
             Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
 
             // When
@@ -184,29 +140,21 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             // Then
             Assert.IsNaN(row.FailureProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenScenarioRow_WhenOutputChangedAndUpdate_ThenDerivedOutputUpdated()
         {
             // Given
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Output = new TestStructuresOutput()
             };
 
-            var row = new HeightStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
+            var row = new HeightStructuresScenarioRow(calculation);
 
             // Precondition
-            ProbabilityAssessmentOutput expectedDerivedOutput = HeightStructuresProbabilityAssessmentOutputFactory.Create(
-                calculation.Output, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput expectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.Reliability);
             Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
 
             var random = new Random(11);
@@ -216,10 +164,8 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             row.Update();
 
             // Then
-            ProbabilityAssessmentOutput newExpectedDerivedOutput = HeightStructuresProbabilityAssessmentOutputFactory.Create(
-                calculation.Output, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput newExpectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.Reliability);
             Assert.AreEqual(newExpectedDerivedOutput.Probability, row.FailureProbability);
-            mocks.VerifyAll();
         }
     }
 }

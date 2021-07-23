@@ -21,13 +21,10 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PropertyClasses;
 
 namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
@@ -53,12 +50,6 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var random = new Random(39);
             double reliability = random.NextDouble();
 
@@ -68,11 +59,9 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             var properties = new HeightStructuresOutputProperties(structuresOutput);
 
             // Assert
-            ProbabilityAssessmentOutput expectedProbabilityAssessmentOutput = HeightStructuresProbabilityAssessmentOutputFactory.Create(
-                structuresOutput, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput expectedProbabilityAssessmentOutput = ProbabilityAssessmentOutputFactory.Create(reliability);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.Probability), properties.Probability);
             Assert.AreEqual(expectedProbabilityAssessmentOutput.Reliability, properties.Reliability, properties.Reliability.GetAccuracy());
-            mocks.VerifyAll();
         }
     }
 }
