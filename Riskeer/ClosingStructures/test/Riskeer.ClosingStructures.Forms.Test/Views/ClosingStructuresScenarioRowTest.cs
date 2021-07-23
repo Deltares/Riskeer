@@ -101,8 +101,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var row = new ClosingStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
 
             // Assert
-            ProbabilityAssessmentOutput expectedDerivedOutput = ClosingStructuresProbabilityAssessmentOutputFactory.Create(
-                calculation.Output, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput expectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.Reliability);
             Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
             mocks.VerifyAll();
         }
@@ -149,8 +148,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             row.Update();
 
             // Then
-            ProbabilityAssessmentOutput expectedDerivedOutput = ClosingStructuresProbabilityAssessmentOutputFactory.Create(
-                calculation.Output, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput expectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.Reliability);
             Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
             mocks.VerifyAll();
         }
@@ -173,8 +171,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var row = new ClosingStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
 
             // Precondition
-            ProbabilityAssessmentOutput expectedDerivedOutput = ClosingStructuresProbabilityAssessmentOutputFactory.Create(
-                calculation.Output, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput expectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.Reliability);
             Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
 
             // When
@@ -204,8 +201,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var row = new ClosingStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
 
             // Precondition
-            ProbabilityAssessmentOutput expectedDerivedOutput = ClosingStructuresProbabilityAssessmentOutputFactory.Create(
-                calculation.Output, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput expectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.Reliability);
             Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
 
             var random = new Random(11);
@@ -215,8 +211,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             row.Update();
 
             // Then
-            ProbabilityAssessmentOutput newExpectedDerivedOutput = ClosingStructuresProbabilityAssessmentOutputFactory.Create(
-                calculation.Output, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput newExpectedDerivedOutput = ProbabilityAssessmentOutputFactory.Create(calculation.Output.Reliability);
             Assert.AreEqual(newExpectedDerivedOutput.Probability, row.FailureProbability);
             mocks.VerifyAll();
         }

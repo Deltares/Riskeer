@@ -83,8 +83,7 @@ namespace Riskeer.ClosingStructures.Data
             double totalDetailedAssessmentProbability = 0;
             foreach (StructuresCalculationScenario<ClosingStructuresInput> scenario in relevantScenarios)
             {
-                ProbabilityAssessmentOutput derivedOutput = ClosingStructuresProbabilityAssessmentOutputFactory.Create(
-                    scenario.Output, failureMechanism, assessmentSection);
+                ProbabilityAssessmentOutput derivedOutput = ProbabilityAssessmentOutputFactory.Create(scenario.Output.Reliability);
 
                 totalDetailedAssessmentProbability += derivedOutput.Probability * (double) scenario.Contribution;
             }

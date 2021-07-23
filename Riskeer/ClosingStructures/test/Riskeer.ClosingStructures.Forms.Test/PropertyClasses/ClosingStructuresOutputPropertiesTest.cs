@@ -21,10 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PropertyClasses;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
@@ -53,12 +50,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             var random = new Random(39);
             var structuresOutput = new TestStructuresOutput(random.NextDouble());
 
@@ -66,11 +57,9 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             var properties = new ClosingStructuresOutputProperties(structuresOutput);
 
             // Assert
-            ProbabilityAssessmentOutput expectedProbabilityAssessmentOutput = ClosingStructuresProbabilityAssessmentOutputFactory.Create(
-                structuresOutput, failureMechanism, assessmentSection);
+            ProbabilityAssessmentOutput expectedProbabilityAssessmentOutput = ProbabilityAssessmentOutputFactory.Create(structuresOutput.Reliability);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedProbabilityAssessmentOutput.Probability), properties.Probability);
             Assert.AreEqual(expectedProbabilityAssessmentOutput.Reliability, properties.Reliability, properties.Reliability.GetAccuracy());
-            mocks.VerifyAll();
         }
     }
 }

@@ -76,8 +76,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         private void CreateProbabilityAssessmentOutput()
         {
             probabilityAssessmentOutput = CalculationScenario.HasOutput
-                                              ? ClosingStructuresProbabilityAssessmentOutputFactory.Create(
-                                                  CalculationScenario.Output, failureMechanism, assessmentSection)
+                                              ? ProbabilityAssessmentOutputFactory.Create(CalculationScenario.Output.Reliability)
                                               : null;
         }
     }
