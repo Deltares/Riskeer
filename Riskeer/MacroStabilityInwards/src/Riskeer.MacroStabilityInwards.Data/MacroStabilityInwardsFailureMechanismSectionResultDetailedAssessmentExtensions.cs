@@ -39,7 +39,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// </summary>
         /// <param name="sectionResult">The section result to get the detailed assessment probability for.</param>
         /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
-        /// <param name="modelFactor">The model factor used to calculate a reliablity from a stability factor.</param>
+        /// <param name="modelFactor">The model factor used to calculate a reliability from a stability factor.</param>
         /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there
         /// are no relevant calculations, when not all relevant calculations are performed or when the
         /// contribution of the relevant calculations don't add up to 1.</returns>

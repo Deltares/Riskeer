@@ -33,7 +33,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// Calculates the semi-probabilistic results given a <see cref="MacroStabilityInwardsCalculation"/> with <see cref="MacroStabilityInwardsOutput"/>.
         /// </summary>
         /// <param name="output">The output of a calculation.</param>
-        /// <param name="modelFactor">The model factor used to calculate a reliablity from a stability factor.</param>
+        /// <param name="modelFactor">The model factor used to calculate a reliability from a stability factor.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
         public static DerivedMacroStabilityInwardsOutput Create(MacroStabilityInwardsOutput output,
                                                                 double modelFactor)

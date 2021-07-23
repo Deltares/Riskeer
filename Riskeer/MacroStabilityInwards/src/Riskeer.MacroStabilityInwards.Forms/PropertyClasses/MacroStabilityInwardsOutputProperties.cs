@@ -45,7 +45,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         /// Creates a new instance of <see cref="MacroStabilityInwardsOutputProperties"/>.
         /// </summary>
         /// <param name="output">The output to show the properties for.</param>
-        /// <param name="modelFactor">The model factor used to calculate a reliablity from a stability factor.</param>
+        /// <param name="modelFactor">The model factor used to calculate a reliability from a stability factor.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsOutputProperties(MacroStabilityInwardsOutput output,
                                                      double modelFactor)
