@@ -237,8 +237,7 @@ namespace Riskeer.HeightStructures.Data.Test
 
                 // Assert
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(
-                                    Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
-                                    failureMechanism, assessmentSection),
+                                    Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>()),
                                 calculator.DetailedAssessmentProbabilityInput);
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.DetailedAssessmentAssemblyCategoriesInput);

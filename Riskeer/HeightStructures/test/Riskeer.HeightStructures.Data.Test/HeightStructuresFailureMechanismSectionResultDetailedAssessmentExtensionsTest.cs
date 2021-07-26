@@ -25,8 +25,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
@@ -40,91 +38,35 @@ namespace Riskeer.HeightStructures.Data.Test
         [Test]
         public void GetDetailedAssessmentProbability_SectionResultNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
             void Call() => HeightStructuresFailureMechanismSectionResultDetailedAssessmentExtensions.GetDetailedAssessmentProbability(
-                null, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
-                new HeightStructuresFailureMechanism(), assessmentSection);
+                null, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResult", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetDetailedAssessmentProbability_CalculationScenariosNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Call
             void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(
-                null, new HeightStructuresFailureMechanism(), assessmentSection);
+                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationScenarios", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetDetailedAssessmentProbability_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
-
-            // Call
-            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(
-                Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(), null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetDetailedAssessmentProbability_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
-
-            // Call
-            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(
-                Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
-                new HeightStructuresFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void GetDetailedAssessmentProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
         {
             // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
@@ -150,47 +92,31 @@ namespace Riskeer.HeightStructures.Data.Test
             };
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations);
 
             // Assert
             Assert.AreEqual(0.3973850177700996, detailedAssessmentProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetDetailedAssessmentProbability_NoScenarios_ReturnsNaN()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Call
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(
-                Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
-                failureMechanism,
-                assessmentSection);
+                Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>());
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetDetailedAssessmentProbability_NoRelevantScenarios_ReturnsNaN()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
@@ -202,25 +128,16 @@ namespace Riskeer.HeightStructures.Data.Test
                 new[]
                 {
                     calculationScenario
-                },
-                failureMechanism,
-                assessmentSection);
+                });
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetDetailedAssessmentProbability_ScenarioNotCalculated_ReturnsNaN()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
@@ -230,23 +147,16 @@ namespace Riskeer.HeightStructures.Data.Test
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new[]
             {
                 calculationScenario
-            }, failureMechanism, assessmentSection);
+            });
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetDetailedAssessmentProbability_ScenarioWithNaNResults_ReturnsNaN()
         {
             // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
@@ -270,11 +180,10 @@ namespace Riskeer.HeightStructures.Data.Test
             };
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -284,11 +193,6 @@ namespace Riskeer.HeightStructures.Data.Test
         public void GetDetailedAssessmentProbability_RelevantScenarioContributionsDoNotAddUpTo1_ReturnNaN(double contributionA, double contributionB)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             StructuresCalculationScenario<HeightStructuresInput> scenarioA = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
             StructuresCalculationScenario<HeightStructuresInput> scenarioB = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
@@ -302,11 +206,10 @@ namespace Riskeer.HeightStructures.Data.Test
             {
                 scenarioA,
                 scenarioB
-            }, failureMechanism, assessmentSection);
+            });
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
-            mocks.VerifyAll();
         }
 
         [Test]
