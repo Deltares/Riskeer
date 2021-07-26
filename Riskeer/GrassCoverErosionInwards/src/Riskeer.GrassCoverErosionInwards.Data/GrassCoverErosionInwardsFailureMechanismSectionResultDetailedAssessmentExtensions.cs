@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Probability;
 
@@ -45,7 +46,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static double GetDetailedAssessmentProbability(this GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult,
-                                                              IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios)
+                                                              IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios,
+                                                              IAssessmentSection assessmentSection = null)
         {
             if (sectionResult == null)
             {
