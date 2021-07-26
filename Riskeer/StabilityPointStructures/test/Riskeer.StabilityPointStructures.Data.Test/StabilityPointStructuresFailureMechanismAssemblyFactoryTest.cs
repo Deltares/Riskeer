@@ -237,8 +237,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
 
                 // Assert
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(
-                                    Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
-                                    failureMechanism, assessmentSection),
+                                    Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>()),
                                 calculator.DetailedAssessmentProbabilityInput);
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.DetailedAssessmentAssemblyCategoriesInput);
