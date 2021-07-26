@@ -66,6 +66,11 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         public double? DikeHeight { get; set; }
 
         /// <summary>
+        /// Gets or sets whether the illustration points should be calculated for Overtopping Output.
+        /// </summary>
+        public bool? ShouldOvertoppingOutputIllustrationPointsBeCalculated { get; set; }
+
+        /// <summary>
         /// Gets or sets the value for how the dike height should be calculated for the grass cover
         /// erosion inwards calculation.
         /// </summary>
@@ -78,17 +83,32 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         public ConfigurationHydraulicLoadsCalculationType? OvertoppingRateCalculationType { get; set; }
 
         /// <summary>
-        /// Gets or sets if the illustration points should be calculated for Overtopping Output.
+        /// Gets or sets whether the Dike Height should be calculated.
         /// </summary>
-        public bool? ShouldOvertoppingOutputIllustrationPointsBeCalculated { get; set; }
+        public bool? ShouldDikeHeightBeCalculated { get; set; }
 
         /// <summary>
-        /// Gets or sets if the illustration points should be calculated for Dike Height.
+        /// Gets or sets the target probability for Dike Height.
+        /// </summary>
+        public double? DikeHeightTargetProbability { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the illustration points should be calculated for Dike Height.
         /// </summary>
         public bool? ShouldDikeHeightIllustrationPointsBeCalculated { get; set; }
 
         /// <summary>
-        /// Gets or sets if the illustration points should be calculated for Overtopping Flow.
+        /// Gets or sets whether the Overtopping Rate should be calculated.
+        /// </summary>
+        public bool? ShouldOvertoppingRateBeCalculated { get; set; }
+
+        /// <summary>
+        /// Gets or sets the target probability of Overtopping Rate.
+        /// </summary>
+        public double? OvertoppingRateTargetProbability { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the illustration points should be calculated for Overtopping Rate.
         /// </summary>
         public bool? ShouldOvertoppingRateIllustrationPointsBeCalculated { get; set; }
 
