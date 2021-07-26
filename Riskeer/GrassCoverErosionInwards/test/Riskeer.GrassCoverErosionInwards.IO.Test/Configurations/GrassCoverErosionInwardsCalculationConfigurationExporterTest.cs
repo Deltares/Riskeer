@@ -109,7 +109,10 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                         Id = "Dijkprofiel ID",
                         Name = "Dijkprofiel",
                         DikeHeight = 3.45
-                    })
+                    }),
+                    ShouldDikeHeightBeCalculated = true,
+                    DikeHeightTargetProbability = 0.01,
+                    OvertoppingRateTargetProbability = 0.02
                 }
             };
         }

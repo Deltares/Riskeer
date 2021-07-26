@@ -2,10 +2,12 @@
 <configuratie versie="1">
   <berekening naam="sparse config">
     <illustratiepunteninlezen>false</illustratiepunteninlezen>
+    <hbnberekenen>false</hbnberekenen>
+    <hbndoelkans>0</hbndoelkans>
     <hbnillustratiepunteninlezen>false</hbnillustratiepunteninlezen>
+    <overslagdebietberekenen>false</overslagdebietberekenen>
+    <overslagdebietdoelkans>0</overslagdebietdoelkans>
     <overslagdebietillustratiepunteninlezen>false</overslagdebietillustratiepunteninlezen>
-    <hbnberekenen>niet</hbnberekenen>
-    <overslagdebietberekenen>niet</overslagdebietberekenen>
     <stochasten>
       <stochast naam="overslagdebiet">
         <verwachtingswaarde>0.004</verwachtingswaarde>

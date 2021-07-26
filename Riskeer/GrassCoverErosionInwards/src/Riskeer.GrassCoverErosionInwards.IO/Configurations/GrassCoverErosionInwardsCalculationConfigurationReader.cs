@@ -121,13 +121,13 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                 Orientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation),
                 DikeHeight = calculationElement.GetDoubleValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightElement),
                 DikeHeightCalculationType = (ConfigurationHydraulicLoadsCalculationType?) calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationHydraulicLoadsCalculationTypeConverter>(
-                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement),
+                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldDikeHeightBeCalculatedElement),
                 OvertoppingRateCalculationType = (ConfigurationHydraulicLoadsCalculationType?) calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationHydraulicLoadsCalculationTypeConverter>(
-                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.OvertoppingRateCalculationTypeElement),
+                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldOvertoppingRateBeCalculatedElement),
                 WaveReduction = calculationElement.GetWaveReductionParameters(),
                 CriticalFlowRate = calculationElement.GetStochastConfiguration(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.CriticalFlowRateStochastName),
                 ShouldOvertoppingOutputIllustrationPointsBeCalculated = calculationElement.GetBoolValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldOvertoppingOutputIllustrationPointsBeCalculatedElement),
-                ShouldDikeHeightIllustrationPointsBeCalculated = calculationElement.GetBoolValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldDikeHeightIllustrationPointsBeCalculatedElementElement),
+                ShouldDikeHeightIllustrationPointsBeCalculated = calculationElement.GetBoolValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldDikeHeightIllustrationPointsBeCalculatedElement),
                 ShouldOvertoppingRateIllustrationPointsBeCalculated = calculationElement.GetBoolValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldOvertoppingRateIllustrationPointsBeCalculatedElement),
                 Scenario = calculationElement.GetScenarioConfiguration()
             };

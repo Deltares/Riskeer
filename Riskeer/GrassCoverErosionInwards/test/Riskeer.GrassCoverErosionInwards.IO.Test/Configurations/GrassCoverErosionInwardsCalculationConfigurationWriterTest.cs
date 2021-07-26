@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
 using System.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.IO.Configurations;
@@ -152,52 +150,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             }
         }
 
-        [Test]
-        public void Write_InvalidDikeHeightCalculationType_ThrowsCriticalFileWriteException()
-        {
-            // Setup
-            var configuration = new GrassCoverErosionInwardsCalculationConfiguration("fail")
-            {
-                DikeHeightCalculationType = (ConfigurationHydraulicLoadsCalculationType?) 9000
-            };
-
-            var writer = new GrassCoverErosionInwardsCalculationConfigurationWriter("valid");
-
-            // Call
-            void Call() =>
-                writer.Write(new[]
-                {
-                    configuration
-                });
-
-            // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(Call);
-            Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
-        }
-
-        [Test]
-        public void Write_InvalidOvertoppingRateCalculationType_ThrowsCriticalFileWriteException()
-        {
-            // Setup
-            var configuration = new GrassCoverErosionInwardsCalculationConfiguration("fail")
-            {
-                OvertoppingRateCalculationType = (ConfigurationHydraulicLoadsCalculationType?) 9000
-            };
-
-            var writer = new GrassCoverErosionInwardsCalculationConfigurationWriter("valid");
-
-            // Call
-            void Call() =>
-                writer.Write(new[]
-                {
-                    configuration
-                });
-
-            // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(Call);
-            Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
-        }
-
         private static GrassCoverErosionInwardsCalculationConfiguration CreateCompleteCalculation()
         {
             return new GrassCoverErosionInwardsCalculationConfiguration("Berekening 1")
@@ -205,12 +157,14 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 HydraulicBoundaryLocationName = "Locatie1",
                 DikeProfileId = "id",
                 Orientation = 67.1,
-                DikeHeightCalculationType = ConfigurationHydraulicLoadsCalculationType.NoCalculation,
-                OvertoppingRateCalculationType = ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm,
                 DikeHeight = 0,
-                ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
-                ShouldDikeHeightIllustrationPointsBeCalculated = false,
                 ShouldOvertoppingRateIllustrationPointsBeCalculated = true,
+                ShouldDikeHeightBeCalculated = false,
+                DikeHeightTargetProbability = 0.001,
+                ShouldDikeHeightIllustrationPointsBeCalculated = false,
+                ShouldOvertoppingRateBeCalculated = true,
+                OvertoppingRateTargetProbability = 0.02,
+                ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
                 WaveReduction = new WaveReductionConfiguration
                 {
                     UseForeshoreProfile = true,

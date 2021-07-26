@@ -23,7 +23,6 @@ using System;
 using System.Xml;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Export;
-using Riskeer.GrassCoverErosionInwards.IO.Configurations.Helpers;
 
 namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
 {
@@ -89,12 +88,44 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                     XmlConvert.ToString(configuration.ShouldOvertoppingOutputIllustrationPointsBeCalculated.Value));
             }
 
+            if (configuration.ShouldDikeHeightBeCalculated.HasValue)
+            {
+                WriteElementWhenContentAvailable(
+                    writer,
+                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldDikeHeightBeCalculatedElement,
+                    XmlConvert.ToString(configuration.ShouldDikeHeightBeCalculated.Value));
+            }
+
+            if (configuration.DikeHeightTargetProbability.HasValue)
+            {
+                WriteElementWhenContentAvailable(
+                    writer,
+                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightTargetProbability,
+                    XmlConvert.ToString(configuration.DikeHeightTargetProbability.Value));
+            }
+
             if (configuration.ShouldDikeHeightIllustrationPointsBeCalculated.HasValue)
             {
                 WriteElementWhenContentAvailable(
                     writer,
-                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldDikeHeightIllustrationPointsBeCalculatedElementElement,
+                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldDikeHeightIllustrationPointsBeCalculatedElement,
                     XmlConvert.ToString(configuration.ShouldDikeHeightIllustrationPointsBeCalculated.Value));
+            }
+
+            if (configuration.ShouldOvertoppingRateBeCalculated.HasValue)
+            {
+                WriteElementWhenContentAvailable(
+                    writer,
+                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldOvertoppingRateBeCalculatedElement,
+                    XmlConvert.ToString(configuration.ShouldOvertoppingRateBeCalculated.Value));
+            }
+
+            if (configuration.OvertoppingRateTargetProbability.HasValue)
+            {
+                WriteElementWhenContentAvailable(
+                    writer,
+                    GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.OvertoppingRateTargetProbability,
+                    XmlConvert.ToString(configuration.OvertoppingRateTargetProbability.Value));
             }
 
             if (configuration.ShouldOvertoppingRateIllustrationPointsBeCalculated.HasValue)
@@ -104,16 +135,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                     GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldOvertoppingRateIllustrationPointsBeCalculatedElement,
                     XmlConvert.ToString(configuration.ShouldOvertoppingRateIllustrationPointsBeCalculated.Value));
             }
-
-            WriteConfigurationLoadSchematizationTypeWhenAvailable(
-                writer,
-                GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement,
-                configuration.DikeHeightCalculationType);
-
-            WriteConfigurationLoadSchematizationTypeWhenAvailable(
-                writer,
-                GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.OvertoppingRateCalculationTypeElement,
-                configuration.OvertoppingRateCalculationType);
 
             WriteWaveReductionWhenAvailable(writer, configuration.WaveReduction);
 
@@ -127,31 +148,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
             writer.WriteEndElement();
 
             WriteScenarioWhenAvailable(writer, configuration.Scenario);
-        }
-
-        /// <summary>
-        /// Writes the <paramref name="calculationType"/> in XML format to file.
-        /// </summary>
-        /// <param name="writer">The writer to use for writing.</param>
-        /// <param name="elementName">The XML element name.</param>
-        /// <param name="calculationType">The calculation type to write.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
-        /// is closed.</exception>
-        /// <exception cref="NotSupportedException">Thrown when the conversion of
-        /// <paramref name="calculationType"/> cannot be performed.</exception>
-        private static void WriteConfigurationLoadSchematizationTypeWhenAvailable(
-            XmlWriter writer,
-            string elementName,
-            ConfigurationHydraulicLoadsCalculationType? calculationType)
-        {
-            if (!calculationType.HasValue)
-            {
-                return;
-            }
-
-            var converter = new ConfigurationHydraulicLoadsCalculationTypeConverter();
-            writer.WriteElementString(elementName,
-                                      converter.ConvertToInvariantString(calculationType.Value));
         }
     }
 }

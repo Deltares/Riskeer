@@ -42,24 +42,34 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         public const string DikeHeightElement = "dijkhoogte";
 
         /// <summary>
-        /// The identifier for the dike height calculation type elements.
-        /// </summary>
-        public const string DikeHeightCalculationTypeElement = "hbnberekenen";
-
-        /// <summary>
-        /// The identifier for the overtopping rate calculation type elements.
-        /// </summary>
-        public const string OvertoppingRateCalculationTypeElement = "overslagdebietberekenen";
-
-        /// <summary>
         /// The tag of the element containing the value whether illustration points should be read for the overtopping calculation.
         /// </summary>
         public const string ShouldOvertoppingOutputIllustrationPointsBeCalculatedElement = "illustratiepunteninlezen";
 
         /// <summary>
+        /// The tag of the element containing the value whether dike height should be calculated.
+        /// </summary>
+        public const string ShouldDikeHeightBeCalculatedElement = "hbnberekenen";
+
+        /// <summary>
+        /// The tag of the element containing the value of the dike height  target probability.
+        /// </summary>
+        public const string DikeHeightTargetProbability = "hbndoelkans";
+
+        /// <summary>
         /// The tag of the element containing the value whether illustration points should be read for the dike height calculation.
         /// </summary>
-        public const string ShouldDikeHeightIllustrationPointsBeCalculatedElementElement = "hbnillustratiepunteninlezen";
+        public const string ShouldDikeHeightIllustrationPointsBeCalculatedElement = "hbnillustratiepunteninlezen";
+
+        /// <summary>
+        /// The tag of the element containing the value whether overtopping rate should be calculated.
+        /// </summary>
+        public const string ShouldOvertoppingRateBeCalculatedElement = "overslagdebietberekenen";
+
+        /// <summary>
+        /// The tag of the element containing the value of the overtopping rate target probability.
+        /// </summary>
+        public const string OvertoppingRateTargetProbability = "overslagdebietdoelkans";
 
         /// <summary>
         /// The tag of the element containing the value whether illustration points should be read for the overtopping rate calculation.

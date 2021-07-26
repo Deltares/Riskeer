@@ -34,10 +34,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.AreEqual("dijkprofiel", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement);
             Assert.AreEqual("overslagdebiet", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.CriticalFlowRateStochastName);
             Assert.AreEqual("dijkhoogte", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightElement);
-            Assert.AreEqual("hbnberekenen", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightCalculationTypeElement);
-            Assert.AreEqual("overslagdebietberekenen", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.OvertoppingRateCalculationTypeElement);
             Assert.AreEqual("illustratiepunteninlezen", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldOvertoppingOutputIllustrationPointsBeCalculatedElement);
-            Assert.AreEqual("hbnillustratiepunteninlezen", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldDikeHeightIllustrationPointsBeCalculatedElementElement);
+            Assert.AreEqual("hbnberekenen", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldDikeHeightBeCalculatedElement);
+            Assert.AreEqual("hbndoelkans", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightTargetProbability);
+            Assert.AreEqual("hbnillustratiepunteninlezen", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldDikeHeightIllustrationPointsBeCalculatedElement);
+            Assert.AreEqual("overslagdebietberekenen", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldOvertoppingRateBeCalculatedElement);
+            Assert.AreEqual("overslagdebietdoelkans", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.OvertoppingRateTargetProbability);
             Assert.AreEqual("overslagdebietillustratiepunteninlezen", GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldOvertoppingRateIllustrationPointsBeCalculatedElement);
         }
     }

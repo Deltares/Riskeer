@@ -6,10 +6,12 @@
     <orientatie>67.1</orientatie>
     <dijkhoogte>0</dijkhoogte>
     <illustratiepunteninlezen>true</illustratiepunteninlezen>
+    <hbnberekenen>false</hbnberekenen>
+    <hbndoelkans>0.001</hbndoelkans>
     <hbnillustratiepunteninlezen>false</hbnillustratiepunteninlezen>
+    <overslagdebietberekenen>true</overslagdebietberekenen>
+    <overslagdebietdoelkans>0.02</overslagdebietdoelkans>
     <overslagdebietillustratiepunteninlezen>true</overslagdebietillustratiepunteninlezen>
-    <hbnberekenen>niet</hbnberekenen>
-    <overslagdebietberekenen>norm</overslagdebietberekenen>
     <golfreductie>
       <damgebruiken>true</damgebruiken>
       <damtype>caisson</damtype>

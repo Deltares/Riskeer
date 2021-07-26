@@ -27,7 +27,6 @@ using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Export;
 using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.GrassCoverErosionInwards.Data;
-using Riskeer.GrassCoverErosionInwards.IO.Configurations.Helpers;
 
 namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
 {
@@ -56,11 +55,15 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
             var configuration = new GrassCoverErosionInwardsCalculationConfiguration(calculation.Name)
             {
                 HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name,
-                ShouldOvertoppingOutputIllustrationPointsBeCalculated = input.ShouldOvertoppingOutputIllustrationPointsBeCalculated,
-                ShouldDikeHeightIllustrationPointsBeCalculated = input.ShouldDikeHeightIllustrationPointsBeCalculated,
-                ShouldOvertoppingRateIllustrationPointsBeCalculated = input.ShouldOvertoppingRateIllustrationPointsBeCalculated,
                 CriticalFlowRate = input.CriticalFlowRate.ToStochastConfiguration(),
-                Scenario = calculation.ToScenarioConfiguration()
+                Scenario = calculation.ToScenarioConfiguration(),
+                ShouldOvertoppingOutputIllustrationPointsBeCalculated = input.ShouldOvertoppingOutputIllustrationPointsBeCalculated,
+                ShouldDikeHeightBeCalculated = input.ShouldDikeHeightBeCalculated,
+                DikeHeightTargetProbability = input.DikeHeightTargetProbability,
+                ShouldDikeHeightIllustrationPointsBeCalculated = input.ShouldDikeHeightIllustrationPointsBeCalculated,
+                ShouldOvertoppingRateBeCalculated = input.ShouldOvertoppingRateBeCalculated,
+                OvertoppingRateTargetProbability = input.OvertoppingRateTargetProbability,
+                ShouldOvertoppingRateIllustrationPointsBeCalculated = input.ShouldOvertoppingRateIllustrationPointsBeCalculated
             };
 
             if (input.DikeProfile != null)
@@ -81,18 +84,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                     configuration.WaveReduction.BreakWaterType = (ConfigurationBreakWaterType?)
                         new ConfigurationBreakWaterTypeConverter().ConvertFrom(input.BreakWater.Type);
                 }
-            }
-
-            if (Enum.IsDefined(typeof(DikeHeightCalculationType), input.DikeHeightCalculationType))
-            {
-                configuration.DikeHeightCalculationType = (ConfigurationHydraulicLoadsCalculationType?)
-                    new ConfigurationHydraulicLoadsCalculationTypeConverter().ConvertFrom(input.DikeHeightCalculationType);
-            }
-
-            if (Enum.IsDefined(typeof(OvertoppingRateCalculationType), input.OvertoppingRateCalculationType))
-            {
-                configuration.OvertoppingRateCalculationType = (ConfigurationHydraulicLoadsCalculationType?)
-                    new ConfigurationHydraulicLoadsCalculationTypeConverter().ConvertFrom(input.OvertoppingRateCalculationType);
             }
 
             return configuration;
