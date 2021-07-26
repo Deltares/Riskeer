@@ -130,7 +130,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(compositionProperty,
                                                                             generalCategoryName,
                                                                             "Trajecttype",
-                                                                            "Selecteer het type traject, bepalend voor de faalkansbegroting.");
+                                                                            "Selecteert het trajecttype.");
             mocks.VerifyAll();
         }
 

@@ -191,7 +191,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecteer het type traject, bepalend voor de faalkansbegroting..
+        ///   Looks up a localized string similar to Selecteert het trajecttype..
         /// </summary>
         public static string AssessmentSectionComposition_Composition_Description {
             get {
