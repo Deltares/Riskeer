@@ -948,7 +948,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
-                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection), resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(calculationScenarios), resultRow.DetailedAssessmentProbability);
                 Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
                 mocks.VerifyAll();
             }
@@ -1050,7 +1050,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
-                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(calculationScenarios),
                                 resultRow.DetailedAssessmentProbability);
                 Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
                 mocks.VerifyAll();
