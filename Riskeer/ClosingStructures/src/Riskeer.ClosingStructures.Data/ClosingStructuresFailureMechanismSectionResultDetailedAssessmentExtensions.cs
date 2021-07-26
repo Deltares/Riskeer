@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
@@ -42,16 +41,12 @@ namespace Riskeer.ClosingStructures.Data
         /// </summary>
         /// <param name="sectionResult">The section result to get the detailed assessment probability for.</param>
         /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
-        /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there
         /// are no relevant calculations, when not all relevant calculations are performed or when the
         /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static double GetDetailedAssessmentProbability(this ClosingStructuresFailureMechanismSectionResult sectionResult,
-                                                              IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios,
-                                                              ClosingStructuresFailureMechanism failureMechanism,
-                                                              IAssessmentSection assessmentSection)
+                                                              IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios)
         {
             if (sectionResult == null)
             {
@@ -61,16 +56,6 @@ namespace Riskeer.ClosingStructures.Data
             if (calculationScenarios == null)
             {
                 throw new ArgumentNullException(nameof(calculationScenarios));
-            }
-
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             StructuresCalculationScenario<ClosingStructuresInput>[] relevantScenarios = sectionResult.GetCalculationScenarios(calculationScenarios).ToArray();

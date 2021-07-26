@@ -237,8 +237,7 @@ namespace Riskeer.ClosingStructures.Data.Test
 
                 // Assert
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(
-                                    Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
-                                    failureMechanism, assessmentSection),
+                                    Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>()),
                                 calculator.DetailedAssessmentProbabilityInput);
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.DetailedAssessmentAssemblyCategoriesInput);

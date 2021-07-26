@@ -118,7 +118,7 @@ namespace Riskeer.ClosingStructures.Data
             {
                 return calculator.AssembleDetailedAssessment(
                     failureMechanismSectionResult.DetailedAssessmentResult,
-                    failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
+                    failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios),
                     CreateAssemblyCategoriesInput(failureMechanism, assessmentSection));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)

@@ -157,7 +157,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// Gets the value representing the detailed assessment probability.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection);
+        public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(calculationScenarios);
 
         /// <summary>
         /// Gets or sets the value representing the tailor made assessment result.
@@ -272,7 +272,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
                     SectionResult.GetCalculationScenarios(calculationScenarios).ToArray(),
                     scenarios => SectionResult.GetTotalContribution(scenarios),
-                    scenarios => SectionResult.GetDetailedAssessmentProbability(scenarios, failureMechanism, assessmentSection));
+                    scenarios => SectionResult.GetDetailedAssessmentProbability(scenarios));
             }
         }
 
