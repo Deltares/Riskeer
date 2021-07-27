@@ -1724,7 +1724,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.01, 0.001));
+            var failureMechanismContribution = new FailureMechanismContribution(0.01, 0.001);
+            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(failureMechanismContribution);
 
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                null,
@@ -1761,6 +1762,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     Assert.IsInstanceOf<GrassCoverErosionInwardsCalculation>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+
+                    var calculation = (GrassCoverErosionInwardsCalculation) newlyAddedItem;
+                    Assert.AreEqual(failureMechanismContribution.Norm, calculation.InputParameters.DikeHeightTargetProbability);
+                    Assert.AreEqual(failureMechanismContribution.Norm, calculation.InputParameters.OvertoppingRateTargetProbability);
                 }
             }
         }
@@ -1770,7 +1775,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanismContribution = new FailureMechanismContribution(0.01, 0.001);
-            
+
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             assessmentSection.Stub(section => section.FailureMechanismContribution).Return(failureMechanismContribution);
 

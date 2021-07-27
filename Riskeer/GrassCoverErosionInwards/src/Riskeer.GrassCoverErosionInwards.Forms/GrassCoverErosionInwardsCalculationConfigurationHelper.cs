@@ -40,7 +40,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms
         /// <param name="calculationGroup">The calculation group.</param>
         /// <param name="dikeProfiles">The collection of dike profiles.</param>
         /// <param name="failureMechanismContribution">The <see cref="FailureMechanismContribution"/>
-        /// used to get the correct norm.</param>
+        /// used to get the default norm.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static void GenerateCalculations(CalculationGroup calculationGroup, IEnumerable<DikeProfile> dikeProfiles,
                                                 FailureMechanismContribution failureMechanismContribution)

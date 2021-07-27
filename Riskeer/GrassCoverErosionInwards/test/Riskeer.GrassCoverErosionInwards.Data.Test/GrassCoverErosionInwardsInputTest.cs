@@ -144,7 +144,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(2, input.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(2, input.DikeHeight.NumberOfDecimalPlaces);
 
-            AssertDikeProfileInput(null, input);
+            AssertDefaultDikeProfileInput(input);
             Assert.IsNull(input.HydraulicBoundaryLocation);
 
             Assert.IsFalse(input.ShouldDikeHeightBeCalculated);
@@ -174,7 +174,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             input.DikeProfile = null;
 
             // Assert
-            AssertDikeProfileInput(null, input);
+            AssertDefaultDikeProfileInput(input);
         }
 
         [Test]
@@ -409,7 +409,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             input.SynchronizeDikeProfileInput();
 
             // Assert
-            AssertDikeProfileInput(null, input);
+            AssertDefaultDikeProfileInput(input);
         }
 
         [Test]
@@ -466,38 +466,36 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             CoreCloneAssert.AreObjectClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
         }
 
+        private static void AssertDefaultDikeProfileInput(GrassCoverErosionInwardsInput input)
+        {
+            Assert.IsNull(input.DikeProfile);
+            Assert.IsNaN(input.Orientation);
+            Assert.IsFalse(input.UseBreakWater);
+            Assert.AreEqual(BreakWaterType.Dam, input.BreakWater.Type);
+            Assert.AreEqual(0, input.BreakWater.Height, input.BreakWater.Height.GetAccuracy());
+            Assert.IsFalse(input.UseForeshore);
+            CollectionAssert.IsEmpty(input.ForeshoreGeometry);
+            CollectionAssert.IsEmpty(input.DikeGeometry);
+            Assert.IsNaN(input.DikeHeight);
+        }
+
         private static void AssertDikeProfileInput(DikeProfile expectedDikeProfile, GrassCoverErosionInwardsInput input)
         {
-            if (expectedDikeProfile == null)
-            {
-                Assert.IsNull(input.DikeProfile);
-                Assert.IsNaN(input.Orientation);
-                Assert.IsFalse(input.UseBreakWater);
-                Assert.AreEqual(BreakWaterType.Dam, input.BreakWater.Type);
-                Assert.AreEqual(0, input.BreakWater.Height, input.BreakWater.Height.GetAccuracy());
-                Assert.IsFalse(input.UseForeshore);
-                CollectionAssert.IsEmpty(input.ForeshoreGeometry);
-                CollectionAssert.IsEmpty(input.DikeGeometry);
-                Assert.IsNaN(input.DikeHeight);
-            }
-            else
-            {
-                Assert.AreEqual(expectedDikeProfile.Orientation, input.Orientation, input.Orientation.GetAccuracy());
+            Assert.AreEqual(expectedDikeProfile.Orientation, input.Orientation, input.Orientation.GetAccuracy());
 
-                Assert.AreEqual(expectedDikeProfile.HasBreakWater, input.UseBreakWater);
-                Assert.AreEqual(expectedDikeProfile.HasBreakWater
-                                    ? expectedDikeProfile.BreakWater.Type
-                                    : BreakWaterType.Dam,
-                                input.BreakWater.Type);
-                Assert.AreEqual(expectedDikeProfile.HasBreakWater
-                                    ? expectedDikeProfile.BreakWater.Height
-                                    : 0.0,
-                                input.BreakWater.Height);
-                Assert.AreEqual(expectedDikeProfile.ForeshoreGeometry.Any(), input.UseForeshore);
-                CollectionAssert.AreEqual(expectedDikeProfile.ForeshoreGeometry, input.ForeshoreGeometry);
-                CollectionAssert.AreEqual(expectedDikeProfile.DikeGeometry, input.DikeGeometry);
-                Assert.AreEqual(expectedDikeProfile.DikeHeight, input.DikeHeight, input.DikeHeight.GetAccuracy());
-            }
+            Assert.AreEqual(expectedDikeProfile.HasBreakWater, input.UseBreakWater);
+            Assert.AreEqual(expectedDikeProfile.HasBreakWater
+                                ? expectedDikeProfile.BreakWater.Type
+                                : BreakWaterType.Dam,
+                            input.BreakWater.Type);
+            Assert.AreEqual(expectedDikeProfile.HasBreakWater
+                                ? expectedDikeProfile.BreakWater.Height
+                                : 0.0,
+                            input.BreakWater.Height);
+            Assert.AreEqual(expectedDikeProfile.ForeshoreGeometry.Any(), input.UseForeshore);
+            CollectionAssert.AreEqual(expectedDikeProfile.ForeshoreGeometry, input.ForeshoreGeometry);
+            CollectionAssert.AreEqual(expectedDikeProfile.DikeGeometry, input.DikeGeometry);
+            Assert.AreEqual(expectedDikeProfile.DikeHeight, input.DikeHeight, input.DikeHeight.GetAccuracy());
         }
 
         private static DikeProfile CreateTestDikeProfile()
