@@ -93,12 +93,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         {
             var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
-                Name = readCalculation.Name,
-                InputParameters =
-                {
-                    DikeHeightTargetProbability = failureMechanismContribution.Norm,
-                    OvertoppingRateTargetProbability = failureMechanismContribution.Norm
-                }
+                Name = readCalculation.Name
             };
 
             if (TrySetCriticalFlowRate(readCalculation, calculation)
@@ -110,9 +105,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                 && ValidateWaveReduction(readCalculation, calculation))
             {
                 SetWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
-                SetDikeHeightCalculationType(readCalculation, calculation);
-                SetOvertoppingRateCalculationType(readCalculation, calculation);
                 SetShouldIllustrationPointsBeCalculated(readCalculation, calculation);
+                SetDikeHeightAndOvertoppingRateParameters(readCalculation, calculation, failureMechanismContribution.Norm);
                 return calculation;
             }
 
@@ -217,35 +211,42 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Assigns the dike height calculation type.
+        /// Assigns the dike height and overtopping rate calculation parameters.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        private static void SetDikeHeightCalculationType(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration,
-                                                         GrassCoverErosionInwardsCalculation calculation)
+        /// <param name="norm">The norm to use as default value.</param>
+        private static void SetDikeHeightAndOvertoppingRateParameters(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration,
+                                                                      GrassCoverErosionInwardsCalculation calculation,
+                                                                      double norm)
         {
-            if (calculationConfiguration.DikeHeightCalculationType.HasValue)
+            if (calculationConfiguration.ShouldDikeHeightBeCalculated.HasValue)
             {
-                calculation.InputParameters.DikeHeightCalculationType = (DikeHeightCalculationType) calculationConfiguration.DikeHeightCalculationType.Value;
+                calculation.InputParameters.ShouldDikeHeightBeCalculated = calculationConfiguration.ShouldDikeHeightBeCalculated.Value;
+            }
+
+            calculation.InputParameters.DikeHeightTargetProbability = calculationConfiguration.DikeHeightTargetProbability ?? norm;
+
+            if (calculationConfiguration.ShouldDikeHeightIllustrationPointsBeCalculated.HasValue)
+            {
+                calculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated = calculationConfiguration.ShouldDikeHeightIllustrationPointsBeCalculated.Value;
+            }
+
+            if (calculationConfiguration.ShouldOvertoppingRateBeCalculated.HasValue)
+            {
+                calculation.InputParameters.ShouldOvertoppingRateBeCalculated = calculationConfiguration.ShouldOvertoppingRateBeCalculated.Value;
+            }
+
+            calculation.InputParameters.OvertoppingRateTargetProbability = calculationConfiguration.OvertoppingRateTargetProbability ?? norm;
+
+            if (calculationConfiguration.ShouldOvertoppingRateIllustrationPointsBeCalculated.HasValue)
+            {
+                calculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated = calculationConfiguration.ShouldOvertoppingRateIllustrationPointsBeCalculated.Value;
             }
         }
 
         /// <summary>
-        /// Assigns the overtopping rate calculation type.
-        /// </summary>
-        /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
-        /// <param name="calculation">The calculation to configure.</param>
-        private static void SetOvertoppingRateCalculationType(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration,
-                                                              GrassCoverErosionInwardsCalculation calculation)
-        {
-            if (calculationConfiguration.OvertoppingRateCalculationType.HasValue)
-            {
-                calculation.InputParameters.OvertoppingRateCalculationType = (OvertoppingRateCalculationType) calculationConfiguration.OvertoppingRateCalculationType.Value;
-            }
-        }
-
-        /// <summary>
-        /// Assigns the properties defining whether the illustration points need to be read for various calculations.
+        /// Assigns the property defining whether the illustration points need to be read.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
@@ -255,16 +256,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
             if (calculationConfiguration.ShouldOvertoppingOutputIllustrationPointsBeCalculated.HasValue)
             {
                 calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated = calculationConfiguration.ShouldOvertoppingOutputIllustrationPointsBeCalculated.Value;
-            }
-
-            if (calculationConfiguration.ShouldDikeHeightIllustrationPointsBeCalculated.HasValue)
-            {
-                calculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated = calculationConfiguration.ShouldDikeHeightIllustrationPointsBeCalculated.Value;
-            }
-
-            if (calculationConfiguration.ShouldOvertoppingRateIllustrationPointsBeCalculated.HasValue)
-            {
-                calculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated = calculationConfiguration.ShouldOvertoppingRateIllustrationPointsBeCalculated.Value;
             }
         }
 

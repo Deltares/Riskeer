@@ -66,7 +66,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             void Call() => new GrassCoverErosionInwardsCalculationConfigurationImporter(
                 "", new CalculationGroup(), null, Enumerable.Empty<HydraulicBoundaryLocation>(),
                 Enumerable.Empty<DikeProfile>());
-            
+
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismContribution", exception.ParamName);
@@ -347,11 +347,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             var calculationGroup = new CalculationGroup();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HBlocatie", 10, 20);
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile("Dijkprofiel", "Dijkprofiel ID");
+            const double norm = 0.01;
 
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
-                new FailureMechanismContribution(0.01, 0.001),
+                new FailureMechanismContribution(norm, 0.001),
                 new[]
                 {
                     hydraulicBoundaryLocation
@@ -372,7 +373,9 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 Name = "Berekening 1",
                 InputParameters =
                 {
-                    DikeProfile = dikeProfile
+                    DikeProfile = dikeProfile,
+                    DikeHeightTargetProbability = norm,
+                    OvertoppingRateTargetProbability = norm
                 }
             };
 
@@ -387,11 +390,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationScenarioContributionOnly.xml");
 
             var calculationGroup = new CalculationGroup();
+            const double norm = 0.01;
 
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
-                new FailureMechanismContribution(0.01, 0.001),
+                new FailureMechanismContribution(norm, 0.001),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                 Enumerable.Empty<DikeProfile>());
 
@@ -406,7 +410,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Calculation",
-                Contribution = (RoundedDouble) 0.8765
+                Contribution = (RoundedDouble) 0.8765,
+                InputParameters =
+                {
+                    DikeHeightTargetProbability = norm,
+                    OvertoppingRateTargetProbability = norm
+                }
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
@@ -420,11 +429,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationScenarioRelevantOnly.xml");
 
             var calculationGroup = new CalculationGroup();
+            const double norm = 0.01;
 
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
-                new FailureMechanismContribution(0.01, 0.001),
+                new FailureMechanismContribution(norm, 0.001),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                 Enumerable.Empty<DikeProfile>());
 
@@ -439,7 +449,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Calculation",
-                IsRelevant = false
+                IsRelevant = false,
+                InputParameters =
+                {
+                    DikeHeightTargetProbability = norm,
+                    OvertoppingRateTargetProbability = norm
+                }
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
@@ -453,11 +468,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationCriticalFlowRateMeanOnly.xml");
 
             var calculationGroup = new CalculationGroup();
+            const double norm = 0.01;
 
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
-                new FailureMechanismContribution(0.01, 0.001),
+                new FailureMechanismContribution(norm, 0.001),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                 Enumerable.Empty<DikeProfile>());
 
@@ -475,7 +491,9 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                     CriticalFlowRate =
                     {
                         Mean = (RoundedDouble) 2.0
-                    }
+                    },
+                    DikeHeightTargetProbability = norm,
+                    OvertoppingRateTargetProbability = norm
                 }
             };
 
@@ -490,11 +508,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationCriticalFlowRateNoParameters.xml");
 
             var calculationGroup = new CalculationGroup();
+            const double norm = 0.01;
 
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
-                new FailureMechanismContribution(0.01, 0.001),
+                new FailureMechanismContribution(norm, 0.001),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                 Enumerable.Empty<DikeProfile>());
 
@@ -506,7 +525,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
             {
-                Name = "Berekening 1"
+                Name = "Berekening 1",
+                InputParameters =
+                {
+                    DikeHeightTargetProbability = norm,
+                    OvertoppingRateTargetProbability = norm
+                }
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
@@ -520,11 +544,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             string filePath = Path.Combine(importerPath, "validConfigurationCriticalFlowRateStandardDeviationOnly.xml");
 
             var calculationGroup = new CalculationGroup();
+            const double norm = 0.01;
 
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
-                new FailureMechanismContribution(0.01, 0.001),
+                new FailureMechanismContribution(norm, 0.001),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                 Enumerable.Empty<DikeProfile>());
 
@@ -542,7 +567,9 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                     CriticalFlowRate =
                     {
                         StandardDeviation = (RoundedDouble) 1.1
-                    }
+                    },
+                    DikeHeightTargetProbability = norm,
+                    OvertoppingRateTargetProbability = norm
                 }
             };
 
@@ -620,7 +647,11 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                         StandardDeviation = (RoundedDouble) 1.1
                     },
                     ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
+                    ShouldDikeHeightBeCalculated = true,
+                    DikeHeightTargetProbability = 0.05,
                     ShouldDikeHeightIllustrationPointsBeCalculated = false,
+                    ShouldOvertoppingRateBeCalculated = false,
+                    OvertoppingRateTargetProbability = 0.007,
                     ShouldOvertoppingRateIllustrationPointsBeCalculated = true
                 },
                 IsRelevant = true,
@@ -637,23 +668,27 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
             Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution);
 
-            Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.AreEqual(expectedCalculation.InputParameters.Orientation, actualCalculation.InputParameters.Orientation);
-            Assert.AreEqual(expectedCalculation.InputParameters.DikeProfile, actualCalculation.InputParameters.DikeProfile);
-            Assert.AreEqual(expectedCalculation.InputParameters.DikeHeightCalculationType, actualCalculation.InputParameters.DikeHeightCalculationType);
-            Assert.AreEqual(expectedCalculation.InputParameters.OvertoppingRateCalculationType, actualCalculation.InputParameters.OvertoppingRateCalculationType);
-            Assert.AreEqual(expectedCalculation.InputParameters.DikeHeight, actualCalculation.InputParameters.DikeHeight);
-            Assert.AreEqual(expectedCalculation.InputParameters.UseForeshore, actualCalculation.InputParameters.UseForeshore);
-            Assert.AreEqual(expectedCalculation.InputParameters.UseBreakWater, actualCalculation.InputParameters.UseBreakWater);
-            Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Height, actualCalculation.InputParameters.BreakWater.Height);
-            Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Type, actualCalculation.InputParameters.BreakWater.Type);
-            Assert.AreEqual(expectedCalculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated,
-                            actualCalculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
-            Assert.AreEqual(expectedCalculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated,
-                            actualCalculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated);
-            Assert.AreEqual(expectedCalculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated,
-                            actualCalculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated);
-            DistributionAssert.AreEqual(expectedCalculation.InputParameters.CriticalFlowRate, actualCalculation.InputParameters.CriticalFlowRate);
+            GrassCoverErosionInwardsInput expectedInput = expectedCalculation.InputParameters;
+            GrassCoverErosionInwardsInput actualInput = actualCalculation.InputParameters;
+            Assert.AreSame(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
+            Assert.AreEqual(expectedInput.Orientation, actualInput.Orientation);
+            Assert.AreEqual(expectedInput.DikeProfile, actualInput.DikeProfile);
+            Assert.AreEqual(expectedInput.DikeHeight, actualInput.DikeHeight);
+            Assert.AreEqual(expectedInput.UseForeshore, actualInput.UseForeshore);
+            Assert.AreEqual(expectedInput.UseBreakWater, actualInput.UseBreakWater);
+            Assert.AreEqual(expectedInput.BreakWater.Height, actualInput.BreakWater.Height);
+            Assert.AreEqual(expectedInput.BreakWater.Type, actualInput.BreakWater.Type);
+            DistributionAssert.AreEqual(expectedInput.CriticalFlowRate, actualInput.CriticalFlowRate);
+            Assert.AreEqual(expectedInput.ShouldOvertoppingOutputIllustrationPointsBeCalculated,
+                            actualInput.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            Assert.AreEqual(expectedInput.ShouldDikeHeightBeCalculated, actualInput.ShouldDikeHeightBeCalculated);
+            Assert.AreEqual(expectedInput.DikeHeightTargetProbability, actualInput.DikeHeightTargetProbability);
+            Assert.AreEqual(expectedInput.ShouldDikeHeightIllustrationPointsBeCalculated,
+                            actualInput.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.AreEqual(expectedInput.ShouldOvertoppingRateBeCalculated, actualInput.ShouldOvertoppingRateBeCalculated);
+            Assert.AreEqual(expectedInput.OvertoppingRateTargetProbability, actualInput.OvertoppingRateTargetProbability);
+            Assert.AreEqual(expectedInput.ShouldOvertoppingRateIllustrationPointsBeCalculated,
+                            actualInput.ShouldOvertoppingRateIllustrationPointsBeCalculated);
         }
     }
 }
