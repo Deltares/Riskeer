@@ -88,7 +88,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                                }
                            }, string.Empty),
                        new CalculationConfigurationSchemaDefinition(
-                           1, Resources.GEKBConfiguratieSchema,
+                           1, Resources.GEKBConfiguratieSchema_1,
                            new Dictionary<string, string>
                            {
                                {
@@ -109,7 +109,30 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                                {
                                    scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                                }
-                           }, Resources.GEKBConfiguratieSchema0To1)
+                           }, Resources.GEKBConfiguratieSchema0To1),
+                       new CalculationConfigurationSchemaDefinition(
+                           2, Resources.GEKBConfiguratieSchema,
+                           new Dictionary<string, string>
+                           {
+                               {
+                                   hbLocatieSchemaVersion1Name, RiskeerCommonIOResources.HbLocatieSchema
+                               },
+                               {
+                                   orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
+                               },
+                               {
+                                   golfReductieSchemaName, RiskeerCommonIOResources.GolfReductieSchema
+                               },
+                               {
+                                   stochastSchemaName, RiskeerCommonIOResources.StochastSchema
+                               },
+                               {
+                                   stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
+                               },
+                               {
+                                   scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                               }
+                           }, Resources.GEKBConfiguratieSchema1To2)
                    }) {}
 
         protected override GrassCoverErosionInwardsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
