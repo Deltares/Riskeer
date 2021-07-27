@@ -153,6 +153,9 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 yield return new TestCaseData("invalidShouldOvertoppingOutputIllustrationPointsBeCalculatedEmpty.xml",
                                               "The 'illustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidShouldOvertoppingOutputIllustrationPointsBeCalculatedEmpty");
+                yield return new TestCaseData("invalidMultipleShouldOvertoppingOutputIllustrationPointsBeCalculated.xml",
+                                              "Element 'illustratiepunteninlezen' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidMultipleShouldOvertoppingOutputIllustrationPointsBeCalculated");
                 yield return new TestCaseData("invalidShouldOvertoppingOutputIllustrationPointsBeCalculatedNoBoolean.xml",
                                               "The 'illustratiepunteninlezen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidShouldOvertoppingOutputIllustrationPointsBeCalculatedNoBoolean");
@@ -170,6 +173,9 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 yield return new TestCaseData("invalidShouldDikeHeightIllustrationPointsBeCalculatedEmpty.xml",
                                               "The 'hbnillustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidShouldDikeHeightIllustrationPointsBeCalculatedEmpty");
+                yield return new TestCaseData("invalidMultipleShouldDikeHeightOutputIllustrationPointsBeCalculated.xml",
+                                              "Element 'hbnillustratiepunteninlezen' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidMultipleShouldDikeHeightOutputIllustrationPointsBeCalculated");
                 yield return new TestCaseData("invalidShouldDikeHeightIllustrationPointsBeCalculatedNoBoolean.xml",
                                               "The 'hbnillustratiepunteninlezen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidShouldDikeHeightIllustrationPointsBeCalculatedNoBoolean");
@@ -187,6 +193,9 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 yield return new TestCaseData("invalidShouldOvertoppingRateIllustrationPointsBeCalculatedEmpty.xml",
                                               "The 'overslagdebietillustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidShouldOvertoppingRateIllustrationPointsBeCalculatedEmpty");
+                yield return new TestCaseData("invalidMultipleShouldOvertoppingRateOutputIllustrationPointsBeCalculated.xml",
+                                              "Element 'overslagdebietillustratiepunteninlezen' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidMultipleShouldOvertoppingRateOutputIllustrationPointsBeCalculated");
                 yield return new TestCaseData("invalidShouldOvertoppingRateIllustrationPointsBeCalculatedNoBoolean.xml",
                                               "The 'overslagdebietillustratiepunteninlezen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidShouldOvertoppingRateIllustrationPointsBeCalculatedNoBoolean");
