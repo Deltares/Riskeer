@@ -524,7 +524,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Doelkans (1/jaar).
+        ///   Looks up a localized string similar to Doelkans [1/jaar].
         /// </summary>
         public static string TargetProbability_DisplayName {
             get {
