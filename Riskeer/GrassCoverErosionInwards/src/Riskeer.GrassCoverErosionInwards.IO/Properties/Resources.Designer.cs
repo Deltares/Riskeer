@@ -207,6 +207,16 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Een waarde van &apos;{0}&apos; als doelkans is ongeldig..
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationConfigurationImporter_ReadTargetProbability_TargetProbability_0_invalid {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationConfigurationImporter_ReadTargetProbability_Ta" +
+                        "rgetProbability_0_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het opgegeven dijkprofiel &apos;{0}&apos; heeft geen voorlandgeometrie en kan daarom niet gebruikt worden..
         /// </summary>
         internal static string GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_DikeProfile_0_has_no_geometry_and_cannot_be_used {

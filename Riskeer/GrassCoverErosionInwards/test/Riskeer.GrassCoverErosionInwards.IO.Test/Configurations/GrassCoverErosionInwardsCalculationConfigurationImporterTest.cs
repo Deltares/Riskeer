@@ -185,6 +185,62 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         }
 
         [Test]
+        [SetCulture("nl-NL")]
+        public void Import_ValidConfigurationInvalidDikeHeightTargetProbability_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationInvalidDikeHeightTargetProbability.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                new FailureMechanismContribution(0.01, 0.001),
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<DikeProfile>());
+
+            // Call
+            var successful = false;
+            void Call() => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "Een waarde van '0,3' als doelkans is ongeldig. " +
+                                           "De waarde van de doelkans moet groter zijn dan 0 en kleiner dan of gelijk aan 0,1. " +
+                                           "Berekening 'Berekening 1' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void Import_ValidConfigurationInvalidOvertoppingRateTargetProbability_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationInvalidOvertoppingRateTargetProbability.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                new FailureMechanismContribution(0.01, 0.001),
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<DikeProfile>());
+
+            // Call
+            var successful = false;
+            void Call() => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "Een waarde van '0' als doelkans is ongeldig. " +
+                                           "De waarde van de doelkans moet groter zijn dan 0 en kleiner dan of gelijk aan 0,1. " +
+                                           "Berekening 'Berekening 1' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
         public void Import_HydraulicBoundaryLocationUnknown_LogMessageAndContinueImport()
         {
             // Setup

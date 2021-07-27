@@ -288,9 +288,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         {
             if (double.IsNaN(targetProbability) || targetProbability <= 0 || targetProbability > 0.1)
             {
-                throw new ArgumentOutOfRangeException(nameof(targetProbability),
-                                                      targetProbability,
-                                                      Resources.TargetProbability_Value_must_be_in_range);
+                throw new ArgumentOutOfRangeException(null, Resources.TargetProbability_Value_must_be_in_range);
             }
         }
 

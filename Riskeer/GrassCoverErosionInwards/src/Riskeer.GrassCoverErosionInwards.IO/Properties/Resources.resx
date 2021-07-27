@@ -160,4 +160,7 @@
   <data name="GEKBConfiguratieSchema1To2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\gekbconfiguratieschema1to2.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="GrassCoverErosionInwardsCalculationConfigurationImporter_ReadTargetProbability_TargetProbability_0_invalid" xml:space="preserve">
+    <value>Een waarde van '{0}' als doelkans is ongeldig.</value>
+  </data>
 </root>

@@ -102,11 +102,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                 && TrySetOrientation(readCalculation, calculation)
                 && TrySetDikeHeight(readCalculation, calculation)
                 && TrySetScenarioParameters(readCalculation.Scenario, calculation)
+                && TrySetDikeHeightParameters(readCalculation, calculation)
+                && TrySetOvertoppingRateParameters(readCalculation, calculation)
                 && ValidateWaveReduction(readCalculation, calculation))
             {
                 SetWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
                 SetShouldIllustrationPointsBeCalculated(readCalculation, calculation);
-                SetDikeHeightAndOvertoppingRateParameters(readCalculation, calculation);
                 return calculation;
             }
 
@@ -211,38 +212,75 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         }
 
         /// <summary>
-        /// Assigns the dike height and overtopping rate calculation parameters.
+        /// Assigns the dike height calculation parameters.
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        private void SetDikeHeightAndOvertoppingRateParameters(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration,
-                                                                      GrassCoverErosionInwardsCalculation calculation)
+        private bool TrySetDikeHeightParameters(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration,
+                                                GrassCoverErosionInwardsCalculation calculation)
         {
             if (calculationConfiguration.ShouldDikeHeightBeCalculated.HasValue)
             {
                 calculation.InputParameters.ShouldDikeHeightBeCalculated = calculationConfiguration.ShouldDikeHeightBeCalculated.Value;
             }
 
-            calculation.InputParameters.DikeHeightTargetProbability = calculationConfiguration.DikeHeightTargetProbability
-                                                                      ?? failureMechanismContribution.Norm;
+            double dikeHeightTargetProbability = calculationConfiguration.DikeHeightTargetProbability ?? failureMechanismContribution.Norm;
+
+            try
+            {
+                calculation.InputParameters.DikeHeightTargetProbability = dikeHeightTargetProbability;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Log.LogOutOfRangeException(string.Format(Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ReadTargetProbability_TargetProbability_0_invalid, dikeHeightTargetProbability),
+                                           calculation.Name,
+                                           e);
+
+                return false;
+            }
 
             if (calculationConfiguration.ShouldDikeHeightIllustrationPointsBeCalculated.HasValue)
             {
                 calculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated = calculationConfiguration.ShouldDikeHeightIllustrationPointsBeCalculated.Value;
             }
 
+            return true;
+        }
+
+        /// <summary>
+        /// Assigns the overtopping rate calculation parameters.
+        /// </summary>
+        /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        private bool TrySetOvertoppingRateParameters(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration,
+                                                     GrassCoverErosionInwardsCalculation calculation)
+        {
             if (calculationConfiguration.ShouldOvertoppingRateBeCalculated.HasValue)
             {
                 calculation.InputParameters.ShouldOvertoppingRateBeCalculated = calculationConfiguration.ShouldOvertoppingRateBeCalculated.Value;
             }
 
-            calculation.InputParameters.OvertoppingRateTargetProbability = calculationConfiguration.OvertoppingRateTargetProbability
-                                                                           ?? failureMechanismContribution.Norm;
+            double overtoppingRateTargetProbability = calculationConfiguration.OvertoppingRateTargetProbability ?? failureMechanismContribution.Norm;
+
+            try
+            {
+                calculation.InputParameters.OvertoppingRateTargetProbability = overtoppingRateTargetProbability;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Log.LogOutOfRangeException(string.Format(Resources.GrassCoverErosionInwardsCalculationConfigurationImporter_ReadTargetProbability_TargetProbability_0_invalid, overtoppingRateTargetProbability),
+                                           calculation.Name,
+                                           e);
+
+                return false;
+            }
 
             if (calculationConfiguration.ShouldOvertoppingRateIllustrationPointsBeCalculated.HasValue)
             {
                 calculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated = calculationConfiguration.ShouldOvertoppingRateIllustrationPointsBeCalculated.Value;
             }
+
+            return true;
         }
 
         /// <summary>
