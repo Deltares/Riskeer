@@ -578,6 +578,44 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         }
 
         [Test]
+        public void Import_ValidConfigurationWithoutTargetProbabilitiesSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationWithoutTargetProbabilities.xml");
+
+            var calculationGroup = new CalculationGroup();
+            const double norm = 0.006;
+
+            var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                new FailureMechanismContribution(norm, 0.001),
+                Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<DikeProfile>());
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
+            {
+                Name = "Berekening 1",
+                InputParameters =
+                {
+                    ShouldDikeHeightBeCalculated = true,
+                    DikeHeightTargetProbability = norm,
+                    ShouldOvertoppingRateBeCalculated = true,
+                    OvertoppingRateTargetProbability = norm
+                }
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculationScenario(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
+        }
+
+        [Test]
         public void Import_ValidConfigurationWithValidData_DataAddedToModel()
         {
             // Setup
