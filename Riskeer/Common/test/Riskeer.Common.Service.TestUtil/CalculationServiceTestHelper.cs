@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using NUnit.Framework;
 
 namespace Riskeer.Common.Service.TestUtil
@@ -62,6 +63,18 @@ namespace Riskeer.Common.Service.TestUtil
         public static void AssertCalculationEndMessage(string actualMessage)
         {
             Assert.AreEqual("Berekening is beëindigd.", actualMessage);
+        }
+
+        /// <summary>
+        /// Gets the required probability which is used in profile specific calculations.
+        /// </summary>
+        /// <param name="norm">The assessment section norm.</param>
+        /// <param name="failureMechanismContribution">The failure mechanism contribution.</param>
+        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
+        /// <returns>The profile specific required probability.</returns>
+        public static double ProfileSpecificRequiredProbability(double norm, double failureMechanismContribution, RoundedDouble n)
+        {
+            return norm * (failureMechanismContribution / 100) / n;
         }
     }
 }

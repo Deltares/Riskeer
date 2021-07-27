@@ -281,36 +281,6 @@ namespace Riskeer.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De bijdrage van dit toetsspoor moet in het bereik {0} liggen..
-        /// </summary>
-        public static string RiskeerCommonDataCalculationService_ProfileSpecificRequiredProbability_Contribution_must_be_in_Range_0_ {
-            get {
-                return ResourceManager.GetString("RiskeerCommonDataCalculationService_ProfileSpecificRequiredProbability_Contributi" +
-                        "on_must_be_in_Range_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De N-waarde van dit toetsspoor moet groter zijn dan 0..
-        /// </summary>
-        public static string RiskeerCommonDataCalculationService_ProfileSpecificRequiredProbability_N_must_be_larger_than_0 {
-            get {
-                return ResourceManager.GetString("RiskeerCommonDataCalculationService_ProfileSpecificRequiredProbability_N_must_be_" +
-                        "larger_than_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De norm moet in het bereik {0} liggen..
-        /// </summary>
-        public static string RiskeerCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_must_be_in_Range_0_ {
-            get {
-                return ResourceManager.GetString("RiskeerCommonDataCalculationService_ProfileSpecificRequiredProbability_Norm_must_" +
-                        "be_in_Range_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het uitlezen van illustratiepunten is mislukt..
         /// </summary>
         public static string SetGeneralResult_Converting_IllustrationPointResult_Failed {

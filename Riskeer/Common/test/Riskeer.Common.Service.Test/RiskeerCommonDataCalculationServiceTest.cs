@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 
@@ -40,81 +38,6 @@ namespace Riskeer.Common.Service.Test
 
             // Assert
             Assert.AreEqual(expectedConvergence, calculationConverged);
-        }
-
-        [Test]
-        [Combinatorial]
-        public void ProfileSpecificRequiredProbability_WithValidParameters_ReturnSpecificProbability(
-            [Values(1, 0.5, 0)] double norm,
-            [Values(100, 50, 0)] double failureMechanismContribution,
-            [Values(10, 1)] double n)
-        {
-            // Call
-            double probability = RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, (RoundedDouble) n);
-
-            // Assert
-            double expectedProfileSpecificRequiredProbability = norm * (failureMechanismContribution / 100) / n;
-            Assert.AreEqual(expectedProfileSpecificRequiredProbability, probability);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        public void ProfileSpecificRequiredProbability_WithInvalidNorm_ThrowsArgumentException(
-            [Values(150, 1 + 1e-6, -1e-6, -150, double.NaN)]
-            double norm)
-        {
-            // Setup
-            const double failureMechanismContribution = 50;
-            var n = (RoundedDouble) 10;
-
-            // Call
-            TestDelegate action = () => RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(action);
-            Assert.AreEqual(norm, exception.ActualValue);
-            Assert.AreEqual("norm", exception.ParamName);
-            StringAssert.StartsWith("De norm moet in het bereik [0,0, 1,0] liggen." +
-                                    Environment.NewLine, exception.Message);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        public void ProfileSpecificRequiredProbability_WithInvalidFailureMechanismContribution_ThrowsArgumentException(
-            [Values(150, 100 + 1e-6, -1e-6, -150, double.NaN)]
-            double failureMechanismContribution)
-        {
-            // Setup
-            const double norm = 0.5;
-            var n = (RoundedDouble) 10;
-
-            // Call
-            TestDelegate action = () => RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, n);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(action);
-            Assert.AreEqual(failureMechanismContribution, exception.ActualValue);
-            Assert.AreEqual("failureMechanismContribution", exception.ParamName);
-            StringAssert.StartsWith("De bijdrage van dit toetsspoor moet in het bereik [0,0, 100,0] liggen." +
-                                    Environment.NewLine, exception.Message);
-        }
-
-        [Test]
-        public void ProfileSpecificRequiredProbability_WithInvalidN_ThrowsArgumentException([Values(0, -1)] double n)
-        {
-            // Setup
-            const double norm = 0.5;
-            const double failureMechanismContribution = 50;
-
-            // Call
-            TestDelegate action = () => RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(norm, failureMechanismContribution, (RoundedDouble) n);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(action);
-            Assert.AreEqual(n, exception.ActualValue);
-            Assert.AreEqual("n", exception.ParamName);
-            StringAssert.StartsWith("De N-waarde van dit toetsspoor moet groter zijn dan 0." +
-                                    Environment.NewLine, exception.Message);
         }
     }
 }

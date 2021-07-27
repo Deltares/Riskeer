@@ -118,12 +118,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// <item><paramref name="assessmentSection"/></item>
         /// <item><paramref name="generalInput"/></item>
         /// </list></exception>
-        /// <exception cref="ArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item>The hydraulic boundary database file path contains invalid characters.</item>
-        /// <item>The contribution of the failure mechanism is zero.</item>
-        /// </list>
-        /// </exception>
+        /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item>No settings database file could be found at the location of the hydraulic boundary database file path
