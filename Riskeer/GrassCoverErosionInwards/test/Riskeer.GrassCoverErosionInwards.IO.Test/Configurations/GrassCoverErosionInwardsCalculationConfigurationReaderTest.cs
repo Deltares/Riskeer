@@ -76,26 +76,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                                               "Element 'dijkhoogte' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidMultipleDikeHeight");
 
-                yield return new TestCaseData("invalidDikeHeightCalculationTypeEmpty.xml",
-                                              "The 'hbnberekenen' element is invalid - The value '' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
-                    .SetName("invalidDikeHeightCalculationTypeEmpty");
-                yield return new TestCaseData("invalidMultipleDikeHeightCalculationTypes.xml",
-                                              "Element 'hbnberekenen' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidMultipleDikeHeightCalculationTypes");
-                yield return new TestCaseData("invalidDikeHeightCalculationTypeUnsupportedString.xml",
-                                              "The 'hbnberekenen' element is invalid - The value 'invalid' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
-                    .SetName("invalidDikeHeightCalculationTypeUnsupportedString");
-
-                yield return new TestCaseData("invalidOvertoppingRateCalculationTypeEmpty.xml",
-                                              "The 'overslagdebietberekenen' element is invalid - The value '' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
-                    .SetName("invalidOvertoppingRateCalculationTypeEmpty");
-                yield return new TestCaseData("invalidMultipleOvertoppingRateCalculationTypes.xml",
-                                              "Element 'overslagdebietberekenen' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidMultipleOvertoppingRateCalculationTypes");
-                yield return new TestCaseData("invalidOvertoppingRateCalculationTypeUnsupportedString.xml",
-                                              "The 'overslagdebietberekenen' element is invalid - The value 'invalid' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
-                    .SetName("invalidOvertoppingRateCalculationTypeUnsupportedString");
-
                 yield return new TestCaseData("invalidUseBreakWaterEmpty.xml",
                                               "The 'damgebruiken' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidUseBreakWaterEmpty");
@@ -177,12 +157,32 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                                               "The 'illustratiepunteninlezen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidShouldOvertoppingOutputIllustrationPointsBeCalculatedNoBoolean");
 
+                yield return new TestCaseData("invalidShouldDikeHeightBeCalculatedEmpty.xml",
+                                              "The 'hbnberekenen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidShouldDikeHeightBeCalculatedEmpty");
+                yield return new TestCaseData("invalidMultipleShouldDikeHeightBeCalculated.xml",
+                                              "Element 'hbnberekenen' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidMultipleShouldDikeHeightBeCalculated");
+                yield return new TestCaseData("invalidShouldDikeHeightBeCalculatedNoBoolean.xml",
+                                              "The 'hbnberekenen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidShouldDikeHeightBeCalculatedNoBoolean");
+
                 yield return new TestCaseData("invalidShouldDikeHeightIllustrationPointsBeCalculatedEmpty.xml",
                                               "The 'hbnillustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidShouldDikeHeightIllustrationPointsBeCalculatedEmpty");
                 yield return new TestCaseData("invalidShouldDikeHeightIllustrationPointsBeCalculatedNoBoolean.xml",
                                               "The 'hbnillustratiepunteninlezen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidShouldDikeHeightIllustrationPointsBeCalculatedNoBoolean");
+
+                yield return new TestCaseData("invalidShouldOvertoppingRateBeCalculatedEmpty.xml",
+                                              "The 'overslagdebietberekenen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidShouldOvertoppingRateBeCalculatedEmpty");
+                yield return new TestCaseData("invalidMultipleShouldOvertoppingRateBeCalculated.xml",
+                                              "Element 'overslagdebietberekenen' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidMultipleShouldOvertoppingRateBeCalculated");
+                yield return new TestCaseData("invalidShouldOvertoppingRateBeCalculatedNoBoolean.xml",
+                                              "The 'overslagdebietberekenen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidShouldOvertoppingRateBeCalculatedNoBoolean");
 
                 yield return new TestCaseData("invalidShouldOvertoppingRateIllustrationPointsBeCalculatedEmpty.xml",
                                               "The 'overslagdebietillustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")

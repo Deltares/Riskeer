@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie versie="1">
+<configuratie versie="2">
   <berekening naam="Calculation">
-    <hbnberekenen/>
+    <hbnberekenen>true</hbnberekenen>
+    <hbnberekenen>false</hbnberekenen>
   </berekening>
 </configuratie>
