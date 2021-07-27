@@ -62,10 +62,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
+            void Call() => GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -74,10 +74,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         public void CreateCalculationActivitiesForFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivities(new GrassCoverErosionOutwardsFailureMechanism(), null);
+            void Call() => GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivities(new GrassCoverErosionOutwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -196,11 +196,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () =>
+            void Call() =>
                 GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivitiesWithoutAssessmentSectionCalculations(null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -209,11 +209,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         public void CreateCalculationActivitiesWithoutAssessmentSectionCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () =>
+            void Call() =>
                 GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivitiesWithoutAssessmentSectionCalculations(new GrassCoverErosionOutwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -391,12 +391,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(null,
-                                                                                                                                  new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                                                                  assessmentSection);
+            void Call() => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(null,
+                                                                                                                       new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                                                       assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -410,12 +410,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
-                                                                                                                                  null,
-                                                                                                                                  assessmentSection);
+            void Call() => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
+                                                                                                                       null,
+                                                                                                                       assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -428,10 +428,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation, failureMechanism, null);
+            void Call() => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -474,11 +474,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(
+            void Call() => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(
                 null, new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationGroup", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -492,11 +492,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(
+            void Call() => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(
                 new CalculationGroup(), null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -505,11 +505,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         public void CreateWaveConditionsCalculationActivitiesForCalculationGroup_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(
+            void Call() => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(
                 new CalculationGroup(), new GrassCoverErosionOutwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -565,13 +565,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () =>
+            void Call() =>
                 GrassCoverErosionOutwardsCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                     null,
                     assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -580,13 +580,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         public void CreateDesignWaterLevelCalculationActivities_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () =>
+            void Call() =>
                 GrassCoverErosionOutwardsCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                     new GrassCoverErosionOutwardsFailureMechanism(),
                     null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -688,13 +688,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () =>
+            void Call() =>
                 GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                     null,
                     assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -703,13 +703,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         public void CreateWaveHeightCalculationActivities_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () =>
+            void Call() =>
                 GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                     new GrassCoverErosionOutwardsFailureMechanism(),
                     null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -874,7 +874,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
         private static double GetExpectedNorm(GrassCoverErosionOutwardsFailureMechanism failureMechanism, double norm)
         {
-            return RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(
+            return CalculationServiceTestHelper.ProfileSpecificRequiredProbability(
                 norm,
                 failureMechanism.Contribution,
                 failureMechanism.GeneralInput.N);

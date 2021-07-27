@@ -33,7 +33,6 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
@@ -74,12 +73,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(null,
-                                                                                                                failureMechanism,
-                                                                                                                assessmentSection);
+            void Call() => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(null,
+                                                                                                     failureMechanism,
+                                                                                                     assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
             mockRepository.VerifyAll();
         }
@@ -95,12 +94,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                                null,
-                                                                                                                assessmentSection);
+            void Call() => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                     null,
+                                                                                                     assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mockRepository.VerifyAll();
         }
@@ -113,12 +112,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                                failureMechanism,
-                                                                                                                null);
+            void Call() => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                     failureMechanism,
+                                                                                                     null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -141,14 +140,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                                failureMechanism,
-                                                                                                                assessmentSection);
+            void Call() => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                     failureMechanism,
+                                                                                                     assessmentSection);
 
             // Assert
             string expectedMessage = $"The value of argument 'calculationType' ({(int) calculation.InputParameters.CalculationType}) " +
                                      $"is invalid for Enum type '{nameof(GrassCoverErosionOutwardsWaveConditionsCalculationType)}'.";
-            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage)
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage)
                                          .ParamName;
             Assert.AreEqual("calculationType", paramName);
             mockRepository.VerifyAll();
@@ -191,12 +190,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                              failureMechanism,
-                                                                                                              assessmentSection);
+                void Call() => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                         failureMechanism,
+                                                                                                         assessmentSection);
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     const int expectedNrOfMessages = 26;
@@ -263,12 +262,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                              failureMechanism,
-                                                                                                              assessmentSection);
+                void Call() => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                         failureMechanism,
+                                                                                                         assessmentSection);
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     const int expectedNrOfMessages = 26;
@@ -326,12 +325,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                              failureMechanism,
-                                                                                                              assessmentSection);
+                void Call() => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                         failureMechanism,
+                                                                                                         assessmentSection);
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(expectedMessageCount, msgs.Length);
@@ -441,7 +440,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
                 var waterLevelIndex = 0;
                 GeneralGrassCoverErosionOutwardsInput generalInput = failureMechanism.GeneralInput;
-                double expectedNorm = RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                double expectedNorm = CalculationServiceTestHelper.ProfileSpecificRequiredProbability(
                     assessmentSection.FailureMechanismContribution.SignalingNorm / 30,
                     failureMechanism.Contribution,
                     failureMechanism.GeneralInput.N);
@@ -693,7 +692,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 HydraRingCalculationException exception = null;
 
                 // Call
-                Action call = () =>
+                void Call()
                 {
                     try
                     {
@@ -705,10 +704,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                     {
                         exception = e;
                     }
-                };
+                }
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(16, msgs.Length);
@@ -793,12 +792,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () =>
+                void Call()
                 {
                     new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
                                                                                               failureMechanism,
                                                                                               assessmentSection);
-                };
+                }
 
                 // Assert
                 RoundedDouble[] waterLevels = GetWaterLevels(calculation, failureMechanism, assessmentSection).ToArray();
@@ -806,7 +805,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
                 RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
 
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(36, msgs.Length);
