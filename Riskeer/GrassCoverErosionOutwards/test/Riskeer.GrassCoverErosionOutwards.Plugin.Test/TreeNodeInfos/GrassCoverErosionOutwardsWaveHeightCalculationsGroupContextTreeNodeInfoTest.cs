@@ -43,7 +43,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Plugin.TestUtil;
-using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
@@ -551,10 +550,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                     {
                         // When
-                        Action call = () => contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
+                        void Call() => contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
                         // Then
-                        TestHelper.AssertLogMessages(call, messages =>
+                        TestHelper.AssertLogMessages(Call, messages =>
                         {
                             string[] msgs = messages.ToArray();
                             Assert.AreEqual(40, msgs.Length);
@@ -803,7 +802,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
         private static double GetExpectedNorm(GrassCoverErosionOutwardsFailureMechanism failureMechanism, Func<double> getNormFunc)
         {
-            return RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(
+            return CalculationServiceTestHelper.ProfileSpecificRequiredProbability(
                 getNormFunc(),
                 failureMechanism.Contribution,
                 failureMechanism.GeneralInput.N);
