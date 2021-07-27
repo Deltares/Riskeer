@@ -9,7 +9,7 @@
     <hbnillustratiepunteninlezen>true</hbnillustratiepunteninlezen>
     <overslagdebietillustratiepunteninlezen>false</overslagdebietillustratiepunteninlezen>
     <hbnberekenen>norm</hbnberekenen>
-    <overslagdebietberekenen>doorsnede</overslagdebietberekenen>
+    <overslagdebietberekenen>niet</overslagdebietberekenen>
     <golfreductie>
       <damgebruiken>true</damgebruiken>
       <damtype>havendam</damtype>

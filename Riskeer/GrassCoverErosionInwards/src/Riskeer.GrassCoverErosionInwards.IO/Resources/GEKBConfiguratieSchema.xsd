@@ -33,7 +33,7 @@ All rights reserved.
     <xs:complexType name="configuratieType">
       <xs:complexContent>
         <xs:extension base="configuratieType">
-          <xs:attribute name="versie" type="xs:int" use="required" fixed="1"/>
+          <xs:attribute name="versie" type="xs:int" use="required" fixed="2"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>

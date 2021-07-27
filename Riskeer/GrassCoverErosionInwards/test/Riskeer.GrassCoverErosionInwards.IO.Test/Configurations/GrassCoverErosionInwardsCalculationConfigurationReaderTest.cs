@@ -362,10 +362,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         }
 
         [Test]
-        public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadCalculation()
+        [TestCase("version0ValidConfigurationFullCalculation")]
+        [TestCase("version1ValidConfigurationFullCalculation")]
+        public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadCalculation(string fileName)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "version0ValidConfigurationFullCalculation.xml");
+            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
             var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
 
             // Call
@@ -487,8 +489,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.AreEqual("some_dike_profile", configuration.DikeProfileId);
             Assert.AreEqual(67.1, configuration.Orientation);
             Assert.AreEqual(3.45, configuration.DikeHeight);
-            Assert.AreEqual(ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm, configuration.DikeHeightCalculationType);
-            Assert.AreEqual(ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability, configuration.OvertoppingRateCalculationType);
             Assert.AreEqual(true, configuration.WaveReduction.UseBreakWater);
             Assert.AreEqual(ConfigurationBreakWaterType.Dam, configuration.WaveReduction.BreakWaterType);
             Assert.AreEqual(1.234, configuration.WaveReduction.BreakWaterHeight);
@@ -496,7 +496,9 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.AreEqual(0.1, configuration.CriticalFlowRate.Mean);
             Assert.AreEqual(0.2, configuration.CriticalFlowRate.StandardDeviation);
             Assert.IsTrue(configuration.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            Assert.IsTrue(configuration.ShouldDikeHeightBeCalculated);
             Assert.IsTrue(configuration.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.IsFalse(configuration.ShouldOvertoppingRateBeCalculated);
             Assert.IsFalse(configuration.ShouldOvertoppingRateIllustrationPointsBeCalculated);
             Assert.AreEqual(8.8, configuration.Scenario.Contribution);
             Assert.IsTrue(configuration.Scenario.IsRelevant);
