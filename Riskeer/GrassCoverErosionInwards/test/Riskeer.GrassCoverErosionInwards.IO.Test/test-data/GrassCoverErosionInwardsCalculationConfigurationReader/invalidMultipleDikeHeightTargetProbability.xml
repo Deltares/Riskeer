@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie versie="2">
+  <berekening naam="Calculation">
+    <hbndoelkans>0.01</hbndoelkans>
+    <hbndoelkans>0.02</hbndoelkans>
+  </berekening>
+</configuratie>

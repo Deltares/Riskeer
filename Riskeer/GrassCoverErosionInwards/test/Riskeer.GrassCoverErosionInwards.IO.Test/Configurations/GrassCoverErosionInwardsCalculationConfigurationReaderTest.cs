@@ -170,6 +170,16 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                                               "The 'hbnberekenen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidShouldDikeHeightBeCalculatedNoBoolean");
 
+                yield return new TestCaseData("invalidDikeHeightTargetProbabilityEmpty.xml",
+                                              "The 'hbndoelkans' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidDikeHeightTargetProbabilityEmpty");
+                yield return new TestCaseData("invalidDikeHeightTargetProbabilityNoDouble.xml",
+                                              "The 'hbndoelkans' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
+                    .SetName("invalidDikeHeightTargetProbabilityNoDouble");
+                yield return new TestCaseData("invalidMultipleDikeHeightTargetProbability.xml",
+                                              "Element 'hbndoelkans' cannot appear more than once if content model type is \"all\"")
+                    .SetName("invalidMultipleDikeHeightTargetProbability");
+
                 yield return new TestCaseData("invalidShouldDikeHeightIllustrationPointsBeCalculatedEmpty.xml",
                                               "The 'hbnillustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidShouldDikeHeightIllustrationPointsBeCalculatedEmpty");
@@ -189,6 +199,16 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 yield return new TestCaseData("invalidShouldOvertoppingRateBeCalculatedNoBoolean.xml",
                                               "The 'overslagdebietberekenen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidShouldOvertoppingRateBeCalculatedNoBoolean");
+
+                yield return new TestCaseData("invalidOvertoppingRateTargetProbabilityEmpty.xml",
+                                              "The 'overslagdebietdoelkans' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidOvertoppingRateTargetProbabilityEmpty");
+                yield return new TestCaseData("invalidOvertoppingRateTargetProbabilityNoDouble.xml",
+                                              "The 'overslagdebietdoelkans' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
+                    .SetName("invalidOvertoppingRateTargetProbabilityNoDouble");
+                yield return new TestCaseData("invalidMultipleOvertoppingRateTargetProbability.xml",
+                                              "Element 'overslagdebietdoelkans' cannot appear more than once if content model type is \"all\"")
+                    .SetName("invalidMultipleOvertoppingRateTargetProbability");
 
                 yield return new TestCaseData("invalidShouldOvertoppingRateIllustrationPointsBeCalculatedEmpty.xml",
                                               "The 'overslagdebietillustratiepunteninlezen' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
