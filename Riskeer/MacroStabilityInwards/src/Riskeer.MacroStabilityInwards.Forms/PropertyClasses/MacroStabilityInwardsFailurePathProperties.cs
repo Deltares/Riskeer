@@ -58,8 +58,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex,
                 GroupPropertyIndex = groupPropertyIndex
-            }, assessmentSection)
+            })
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             this.assessmentSection = assessmentSection;
         }
 

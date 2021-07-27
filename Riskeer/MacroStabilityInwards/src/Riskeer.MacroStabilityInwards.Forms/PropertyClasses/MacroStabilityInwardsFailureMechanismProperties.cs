@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.MacroStabilityInwards.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -42,11 +41,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="constructionProperties">The property values required to create an instance of <see cref="MacroStabilityInwardsFailureMechanismProperties"/>.</param>
-        /// <param name="assessmentSection">The assessment section the data belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsFailureMechanismProperties(MacroStabilityInwardsFailureMechanism data,
-                                                               ConstructionProperties constructionProperties,
-                                                               IAssessmentSection assessmentSection)
+                                                               ConstructionProperties constructionProperties)
         {
             if (data == null)
             {
@@ -56,11 +53,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             if (constructionProperties == null)
             {
                 throw new ArgumentNullException(nameof(constructionProperties));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             Data = data;

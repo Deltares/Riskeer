@@ -24,8 +24,6 @@ using System.ComponentModel;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 
@@ -41,82 +39,45 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            void Call() => new MacroStabilityInwardsFailureMechanismProperties(null, new MacroStabilityInwardsFailureMechanismProperties.ConstructionProperties(), assessmentSection);
+            void Call() => new MacroStabilityInwardsFailureMechanismProperties(null, new MacroStabilityInwardsFailureMechanismProperties.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            void Call() => new MacroStabilityInwardsFailureMechanismProperties(new MacroStabilityInwardsFailureMechanism(), null, assessmentSection);
+            void Call() => new MacroStabilityInwardsFailureMechanismProperties(new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("constructionProperties", exception.ParamName);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new MacroStabilityInwardsFailureMechanismProperties(new MacroStabilityInwardsFailureMechanism(), new MacroStabilityInwardsFailureMechanismProperties.ConstructionProperties(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, new MacroStabilityInwardsFailureMechanismProperties.ConstructionProperties(), assessmentSection);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, new MacroStabilityInwardsFailureMechanismProperties.ConstructionProperties());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsFailureMechanism>>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
@@ -125,7 +86,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex,
                 GroupPropertyIndex = groupPropertyIndex
-            }, assessmentSection);
+            });
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -153,8 +114,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "Groep",
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
-
-            mocks.VerifyAll();
         }
     }
 }

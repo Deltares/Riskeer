@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -44,16 +43,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="assessmentSection">The assessment section the data belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsCalculationsProperties(MacroStabilityInwardsFailureMechanism data,
-                                                           IAssessmentSection assessmentSection) :
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        public MacroStabilityInwardsCalculationsProperties(MacroStabilityInwardsFailureMechanism data) :
             base(data, new ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex,
                 GroupPropertyIndex = groupPropertyIndex
-            }, assessmentSection) {}
+            }) {}
 
         #region Model settings
 

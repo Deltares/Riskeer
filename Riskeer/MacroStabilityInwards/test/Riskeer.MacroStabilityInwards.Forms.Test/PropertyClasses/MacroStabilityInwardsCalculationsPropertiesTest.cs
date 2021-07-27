@@ -22,8 +22,6 @@
 using System.ComponentModel;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 
@@ -42,15 +40,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var properties = new MacroStabilityInwardsCalculationsProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsCalculationsProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsFailureMechanismProperties>(properties);
@@ -62,22 +55,16 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             Assert.AreEqual(generalInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
             Assert.AreEqual(generalInput.ModelFactor, properties.ModelFactor);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var properties = new MacroStabilityInwardsCalculationsProperties(failureMechanism, assessmentSection);
+            var properties = new MacroStabilityInwardsCalculationsProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -120,8 +107,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "Modelfactor [-]",
                                                                             "Modelfactor die wordt gebruikt bij de berekening van de benaderde faalkans op basis van de berekende stabiliteitsfactor.",
                                                                             true);
-
-            mocks.VerifyAll();
         }
     }
 }
