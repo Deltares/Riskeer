@@ -29,7 +29,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Service;
+using Riskeer.Common.Service.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data.Test
@@ -41,13 +41,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         public void GetAssessmentLevel_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsFailureMechanismExtensions.GetAssessmentLevel(null,
-                                                                                                             new AssessmentSectionStub(),
-                                                                                                             new TestHydraulicBoundaryLocation(),
-                                                                                                             FailureMechanismCategoryType.FactorizedLowerLimitNorm);
+            void Call() => GrassCoverErosionOutwardsFailureMechanismExtensions.GetAssessmentLevel(null,
+                                                                                                  new AssessmentSectionStub(),
+                                                                                                  new TestHydraulicBoundaryLocation(),
+                                                                                                  FailureMechanismCategoryType.FactorizedLowerLimitNorm);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -58,12 +58,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.GetAssessmentLevel(null,
-                                                                          new TestHydraulicBoundaryLocation(),
-                                                                          FailureMechanismCategoryType.FactorizedLowerLimitNorm);
+            void Call() => failureMechanism.GetAssessmentLevel(null,
+                                                               new TestHydraulicBoundaryLocation(),
+                                                               FailureMechanismCategoryType.FactorizedLowerLimitNorm);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
         }
 
@@ -77,13 +77,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.GetAssessmentLevel(assessmentSection,
-                                                                          new TestHydraulicBoundaryLocation(),
-                                                                          (FailureMechanismCategoryType) invalidValue);
+            void Call() => failureMechanism.GetAssessmentLevel(assessmentSection,
+                                                               new TestHydraulicBoundaryLocation(),
+                                                               (FailureMechanismCategoryType) invalidValue);
 
             // Assert
             string expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(FailureMechanismCategoryType)}'.";
-            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage).ParamName;
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
             Assert.AreEqual("categoryType", parameterName);
         }
 
@@ -166,14 +166,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         public void GetHydraulicBoundaryLocationCalculation_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsFailureMechanismExtensions.GetHydraulicBoundaryLocationCalculation(
+            void Call() => GrassCoverErosionOutwardsFailureMechanismExtensions.GetHydraulicBoundaryLocationCalculation(
                 null,
                 new AssessmentSectionStub(),
                 new TestHydraulicBoundaryLocation(),
                 FailureMechanismCategoryType.FactorizedLowerLimitNorm);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -184,13 +184,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.GetHydraulicBoundaryLocationCalculation(
+            void Call() => failureMechanism.GetHydraulicBoundaryLocationCalculation(
                 null,
                 new TestHydraulicBoundaryLocation(),
                 FailureMechanismCategoryType.FactorizedLowerLimitNorm);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
         }
 
@@ -204,13 +204,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.GetHydraulicBoundaryLocationCalculation(assessmentSection,
-                                                                                               new TestHydraulicBoundaryLocation(),
-                                                                                               (FailureMechanismCategoryType) invalidValue);
+            void Call() => failureMechanism.GetHydraulicBoundaryLocationCalculation(assessmentSection,
+                                                                                    new TestHydraulicBoundaryLocation(),
+                                                                                    (FailureMechanismCategoryType) invalidValue);
 
             // Assert
             string expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(FailureMechanismCategoryType)}'.";
-            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage).ParamName;
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
             Assert.AreEqual("categoryType", parameterName);
         }
 
@@ -273,12 +273,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         public void GetNorm_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsFailureMechanismExtensions.GetNorm(null,
-                                                                                                  new AssessmentSectionStub(),
-                                                                                                  FailureMechanismCategoryType.FactorizedLowerLimitNorm);
+            void Call() => GrassCoverErosionOutwardsFailureMechanismExtensions.GetNorm(null,
+                                                                                       new AssessmentSectionStub(),
+                                                                                       FailureMechanismCategoryType.FactorizedLowerLimitNorm);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -289,11 +289,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.GetNorm(null,
-                                                               FailureMechanismCategoryType.FactorizedLowerLimitNorm);
+            void Call() => failureMechanism.GetNorm(null,
+                                                    FailureMechanismCategoryType.FactorizedLowerLimitNorm);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
         }
 
@@ -307,12 +307,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.GetNorm(assessmentSection,
-                                                               (FailureMechanismCategoryType) invalidValue);
+            void Call() => failureMechanism.GetNorm(assessmentSection,
+                                                    (FailureMechanismCategoryType) invalidValue);
 
             // Assert
             string expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(FailureMechanismCategoryType)}'.";
-            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage).ParamName;
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
             Assert.AreEqual("categoryType", parameterName);
         }
 
@@ -384,7 +384,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         private static double GetMechanismSpecificNorm(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                        double norm)
         {
-            return RiskeerCommonDataCalculationService.ProfileSpecificRequiredProbability(
+            return CalculationServiceTestHelper.ProfileSpecificRequiredProbability(
                 norm,
                 failureMechanism.Contribution,
                 failureMechanism.GeneralInput.N);
