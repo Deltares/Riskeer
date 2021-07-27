@@ -140,17 +140,17 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets whether the Dike Height should be calculated.
+        /// Gets or sets whether the dike height should be calculated.
         /// </summary>
         public bool ShouldDikeHeightBeCalculated { get; set; }
 
         /// <summary>
-        /// Gets or sets whether the Overtopping Rate should be calculated.
+        /// Gets or sets whether the overtopping rate should be calculated.
         /// </summary>
         public bool ShouldOvertoppingRateBeCalculated { get; set; }
 
         /// <summary>
-        /// Gets or sets the target probability for the Dike Height calculation.
+        /// Gets or sets the target probability for the dike height calculation.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value
         /// is not in the interval {0.0, 0.1] or is <see cref="double.NaN"/>.</exception>
@@ -165,7 +165,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets the target probability for the Overtopping Rate calculation.
+        /// Gets or sets the target probability for the overtopping rate calculation.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value
         /// is not in the interval {0.0, 0.1] or is <see cref="double.NaN"/>.</exception>
@@ -180,7 +180,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets how the Dike Height should be calculated.
+        /// Gets or sets how the dike height should be calculated.
         /// </summary>
         public DikeHeightCalculationType DikeHeightCalculationType { get; set; }
 
@@ -190,17 +190,17 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         public OvertoppingRateCalculationType OvertoppingRateCalculationType { get; set; }
 
         /// <summary>
-        /// Gets or sets whether the illustration points should be calculated for Dike Height.
+        /// Gets or sets whether the illustration points should be calculated for dike height.
         /// </summary>
         public bool ShouldDikeHeightIllustrationPointsBeCalculated { get; set; }
 
         /// <summary>
-        /// Gets or sets whether the illustration points should be calculated for Overtopping Flow.
+        /// Gets or sets whether the illustration points should be calculated for overtopping rate.
         /// </summary>
         public bool ShouldOvertoppingRateIllustrationPointsBeCalculated { get; set; }
 
         /// <summary>
-        /// Gets or sets whether the illustration points should be calculated for Overtopping Output.
+        /// Gets or sets whether the illustration points should be calculated for overtopping output.
         /// </summary>
         public bool ShouldOvertoppingOutputIllustrationPointsBeCalculated { get; set; }
 
@@ -278,6 +278,12 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             return clone;
         }
 
+        /// <summary>
+        /// Validates the target probability.
+        /// </summary>
+        /// <param name="targetProbability">The target probability to validate.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the target probabilty value
+        /// is not in the interval {0.0, 0.1] or is <see cref="double.NaN"/>.</exception>
         private static void ValidateTargetProbability(double targetProbability)
         {
             if (double.IsNaN(targetProbability) || targetProbability <= 0 || targetProbability > 0.1)
