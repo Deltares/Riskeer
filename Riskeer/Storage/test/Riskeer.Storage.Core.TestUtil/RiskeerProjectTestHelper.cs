@@ -1813,7 +1813,9 @@ namespace Riskeer.Storage.Core.TestUtil
                                 Mean = (RoundedDouble) 1.1,
                                 StandardDeviation = (RoundedDouble) 2.2
                             },
+                            ShouldDikeHeightBeCalculated = true,
                             DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                            ShouldOvertoppingRateBeCalculated = true,
                             OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
                             UseForeshore = true,
                             UseBreakWater = true
@@ -1848,10 +1850,12 @@ namespace Riskeer.Storage.Core.TestUtil
                             UseForeshore = true,
                             UseBreakWater = true,
                             ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
-                            ShouldDikeHeightIllustrationPointsBeCalculated = true,
+                            ShouldDikeHeightBeCalculated = true,
                             DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
-                            ShouldOvertoppingRateIllustrationPointsBeCalculated = true,
+                            ShouldDikeHeightIllustrationPointsBeCalculated = true,
+                            ShouldOvertoppingRateBeCalculated = true,
                             OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm
+                            ShouldOvertoppingRateIllustrationPointsBeCalculated = true,
                         },
                         Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, 1.1, GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
                                                                     new DikeHeightOutput(0.56, 0.05, 2, 0.06, 3, CalculationConvergence.CalculatedConverged, GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
