@@ -20,7 +20,11 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
+using Core.Common.Util.Attributes;
+using Core.Gui.Attributes;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Probability;
 using Riskeer.MacroStabilityInwards.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -39,6 +43,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         private const int bPropertyIndex = 6;
         private const int sectionLengthPropertyIndex = 7;
         private const int nPropertyIndex = 8;
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailurePathProperties"/>.
@@ -52,12 +57,84 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             {
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex,
-                GroupPropertyIndex = groupPropertyIndex,
-                ContributionPropertyIndex = contributionPropertyIndex,
-                APropertyIndex = aPropertyIndex,
-                BPropertyIndex = bPropertyIndex,
-                SectionLengthPropertyIndex = sectionLengthPropertyIndex,
-                NPropertyIndex = nPropertyIndex
-            }, assessmentSection) {}
+                GroupPropertyIndex = groupPropertyIndex
+            }, assessmentSection)
+        {
+            this.assessmentSection = assessmentSection;
+        }
+
+        #region General
+
+        [PropertyOrder(contributionPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
+        public double Contribution
+        {
+            get
+            {
+                return data.Contribution;
+            }
+        }
+
+        #endregion
+
+        #region Length effect parameters
+
+        [PropertyOrder(aPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_Description))]
+        public double A
+        {
+            get
+            {
+                return data.MacroStabilityInwardsProbabilityAssessmentInput.A;
+            }
+            set
+            {
+                data.MacroStabilityInwardsProbabilityAssessmentInput.A = value;
+                data.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(bPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_Description))]
+        public double B
+        {
+            get
+            {
+                return data.MacroStabilityInwardsProbabilityAssessmentInput.B;
+            }
+        }
+
+        [PropertyOrder(sectionLengthPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_Description))]
+        public RoundedDouble SectionLength
+        {
+            get
+            {
+                return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
+            }
+        }
+
+        [PropertyOrder(nPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_Description))]
+        public RoundedDouble N
+        {
+            get
+            {
+                MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = data.MacroStabilityInwardsProbabilityAssessmentInput;
+                return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
+            }
+        }
+
+        #endregion
     }
 }

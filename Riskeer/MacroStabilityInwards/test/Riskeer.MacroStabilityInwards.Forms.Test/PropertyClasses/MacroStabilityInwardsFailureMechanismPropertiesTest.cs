@@ -21,15 +21,11 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base;
-using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Probability;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 
@@ -38,14 +34,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismPropertiesTest
     {
-        private const int namePropertyIndex = 7;
-        private const int codePropertyIndex = 6;
-        private const int groupPropertyIndex = 5;
-        private const int contributionPropertyIndex = 4;
-        private const int aPropertyIndex = 3;
-        private const int bPropertyIndex = 2;
-        private const int sectionLengthPropertyIndex = 1;
-        private const int nPropertyIndex = 0;
+        private const int namePropertyIndex = 2;
+        private const int codePropertyIndex = 1;
+        private const int groupPropertyIndex = 0;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -113,19 +104,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
-            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-
-            MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
-            Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
-            Assert.AreEqual(probabilityAssessmentInput.B, properties.B);
-            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length),
-                            properties.N,
-                            properties.N.GetAccuracy());
-            Assert.AreEqual(2, properties.SectionLength.NumberOfDecimalPlaces);
-            Assert.AreEqual(assessmentSection.ReferenceLine.Length,
-                            properties.SectionLength,
-                            properties.SectionLength.GetAccuracy());
 
             mocks.VerifyAll();
         }
@@ -146,20 +124,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             {
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex,
-                GroupPropertyIndex = groupPropertyIndex,
-                ContributionPropertyIndex = contributionPropertyIndex,
-                APropertyIndex = aPropertyIndex,
-                BPropertyIndex = bPropertyIndex,
-                SectionLengthPropertyIndex = sectionLengthPropertyIndex,
-                NPropertyIndex = nPropertyIndex
+                GroupPropertyIndex = groupPropertyIndex
             }, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
-            const string lengthEffectCategory = "Lengte-effect parameters";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -181,98 +153,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "Groep",
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
-
-            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
-                                                                            generalCategory,
-                                                                            "Faalkansbijdrage [%]",
-                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
-                                                                            true);
-
-            PropertyDescriptor aProperty = dynamicProperties[aPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
-                                                                            lengthEffectCategory,
-                                                                            "a [-]",
-                                                                            "De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.");
-
-            PropertyDescriptor bProperty = dynamicProperties[bPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
-                                                                            lengthEffectCategory,
-                                                                            "b [m]",
-                                                                            "De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.",
-                                                                            true);
-
-            PropertyDescriptor sectionLengthProperty = dynamicProperties[sectionLengthPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionLengthProperty,
-                                                                            lengthEffectCategory,
-                                                                            "Lengte* [m]",
-                                                                            "Totale lengte van het traject in meters (afgerond).",
-                                                                            true);
-
-            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
-                                                                            lengthEffectCategory,
-                                                                            "N* [-]",
-                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
-                                                                            true);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-1)]
-        [TestCase(-0.1)]
-        [TestCase(1.1)]
-        [TestCase(8)]
-        public void A_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, new MacroStabilityInwardsFailureMechanismProperties.ConstructionProperties(), assessmentSection);
-
-            // Call
-            void Call() => properties.A = value;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(0.1)]
-        [TestCase(1)]
-        [TestCase(0.0000001)]
-        [TestCase(0.9999999)]
-        public void A_SetValidValue_SetsValueAndUpdatesObservers(double value)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, new MacroStabilityInwardsFailureMechanismProperties.ConstructionProperties(), assessmentSection);
-
-            // Call
-            properties.A = value;
-
-            // Assert
-            Assert.AreEqual(value, failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A);
 
             mocks.VerifyAll();
         }

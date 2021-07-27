@@ -21,12 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Probability;
 using Riskeer.MacroStabilityInwards.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -38,7 +36,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
     public class MacroStabilityInwardsFailureMechanismProperties : ObjectProperties<MacroStabilityInwardsFailureMechanism>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
-        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismProperties"/>.
@@ -67,7 +64,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
 
             Data = data;
-            this.assessmentSection = assessmentSection;
 
             propertyIndexLookup = new Dictionary<string, int>
             {
@@ -79,21 +75,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
                 },
                 {
                     nameof(Group), constructionProperties.GroupPropertyIndex
-                },
-                {
-                    nameof(Contribution), constructionProperties.ContributionPropertyIndex
-                },
-                {
-                    nameof(A), constructionProperties.APropertyIndex
-                },
-                {
-                    nameof(B), constructionProperties.BPropertyIndex
-                },
-                {
-                    nameof(SectionLength), constructionProperties.SectionLengthPropertyIndex
-                },
-                {
-                    nameof(N), constructionProperties.NPropertyIndex
                 }
             };
         }
@@ -127,35 +108,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismProperties.Group"/>.
             /// </summary>
             public int GroupPropertyIndex { get; set; }
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismProperties.Contribution"/>.
-            /// </summary>
-            public int ContributionPropertyIndex { get; set; }
-
-            #endregion
-
-            #region Length effect parameters
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismProperties.A"/>.
-            /// </summary>
-            public int APropertyIndex { get; set; }
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismProperties.B"/>.
-            /// </summary>
-            public int BPropertyIndex { get; set; }
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismProperties.SectionLength"/>.
-            /// </summary>
-            public int SectionLengthPropertyIndex { get; set; }
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismProperties.N"/>.
-            /// </summary>
-            public int NPropertyIndex { get; set; }
 
             #endregion
         }
@@ -195,76 +147,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 return data.Group;
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
-        public double Contribution
-        {
-            get
-            {
-                return data.Contribution;
-            }
-        }
-
-        #endregion
-
-        #region Length effect parameters
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_Description))]
-        public double A
-        {
-            get
-            {
-                return data.MacroStabilityInwardsProbabilityAssessmentInput.A;
-            }
-            set
-            {
-                data.MacroStabilityInwardsProbabilityAssessmentInput.A = value;
-                data.NotifyObservers();
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_Description))]
-        public double B
-        {
-            get
-            {
-                return data.MacroStabilityInwardsProbabilityAssessmentInput.B;
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_Description))]
-        public RoundedDouble SectionLength
-        {
-            get
-            {
-                return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_Description))]
-        public RoundedDouble N
-        {
-            get
-            {
-                MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = data.MacroStabilityInwardsProbabilityAssessmentInput;
-                return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
             }
         }
 
