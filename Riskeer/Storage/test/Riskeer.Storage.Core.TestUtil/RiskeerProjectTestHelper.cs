@@ -1854,7 +1854,7 @@ namespace Riskeer.Storage.Core.TestUtil
                             DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
                             ShouldDikeHeightIllustrationPointsBeCalculated = true,
                             ShouldOvertoppingRateBeCalculated = true,
-                            OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm
+                            OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
                             ShouldOvertoppingRateIllustrationPointsBeCalculated = true,
                         },
                         Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, 1.1, GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
