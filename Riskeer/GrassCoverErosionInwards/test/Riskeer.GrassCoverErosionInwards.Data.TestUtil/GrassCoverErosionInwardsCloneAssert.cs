@@ -107,9 +107,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil
             Assert.AreEqual(original.DikeHeight, clone.DikeHeight);
             CoreCloneAssert.AreObjectClones(original.CriticalFlowRate, clone.CriticalFlowRate, DistributionAssert.AreEqual);
             Assert.AreSame(original.HydraulicBoundaryLocation, clone.HydraulicBoundaryLocation);
-            Assert.AreEqual(original.DikeHeightCalculationType, clone.DikeHeightCalculationType);
-            Assert.AreEqual(original.OvertoppingRateCalculationType, clone.OvertoppingRateCalculationType);
+            Assert.AreEqual(original.ShouldDikeHeightBeCalculated, clone.ShouldDikeHeightBeCalculated);
+            Assert.AreEqual(original.DikeHeightTargetProbability, clone.DikeHeightTargetProbability);
             Assert.AreEqual(original.ShouldDikeHeightIllustrationPointsBeCalculated, clone.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.AreEqual(original.ShouldOvertoppingRateBeCalculated, clone.ShouldOvertoppingRateBeCalculated);
+            Assert.AreEqual(original.OvertoppingRateTargetProbability, clone.OvertoppingRateTargetProbability);
             Assert.AreEqual(original.ShouldOvertoppingRateIllustrationPointsBeCalculated, clone.ShouldOvertoppingRateIllustrationPointsBeCalculated);
             Assert.AreEqual(original.ShouldOvertoppingOutputIllustrationPointsBeCalculated, clone.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
             Assert.AreEqual(original.UseBreakWater, clone.UseBreakWater);

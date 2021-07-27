@@ -51,9 +51,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil
                 StandardDeviation = random.NextRoundedDouble()
             };
             input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            input.DikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>();
-            input.OvertoppingRateCalculationType = random.NextEnumValue<OvertoppingRateCalculationType>();
+            input.ShouldDikeHeightBeCalculated = random.NextBoolean();
+            input.DikeHeightTargetProbability = random.NextDouble(1e-15, 0.1);
             input.ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean();
+            input.ShouldOvertoppingRateBeCalculated = random.NextBoolean();
+            input.OvertoppingRateTargetProbability = random.NextDouble(1e-15, 0.1);
             input.ShouldOvertoppingRateIllustrationPointsBeCalculated = random.NextBoolean();
             input.ShouldOvertoppingOutputIllustrationPointsBeCalculated = random.NextBoolean();
             input.DikeProfile = DikeProfileTestFactory.CreateDikeProfile();

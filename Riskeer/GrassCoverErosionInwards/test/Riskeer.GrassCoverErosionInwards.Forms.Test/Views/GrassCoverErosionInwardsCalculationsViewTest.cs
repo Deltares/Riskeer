@@ -796,8 +796,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                                 Height = (RoundedDouble) 3.3,
                                 Type = BreakWaterType.Dam
                             },
-                            DikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>(),
-                            OvertoppingRateCalculationType = random.NextEnumValue<OvertoppingRateCalculationType>(),
                             CriticalFlowRate =
                             {
                                 Mean = (RoundedDouble) 4.4,
@@ -805,8 +803,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                             },
                             UseBreakWater = false,
                             UseForeshore = false,
-                            ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean(),
                             ShouldOvertoppingOutputIllustrationPointsBeCalculated = random.NextBoolean(),
+                            ShouldDikeHeightBeCalculated = random.NextBoolean(),
+                            DikeHeightTargetProbability = random.NextDouble(1e-15, 0.1),
+                            ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean(),
+                            ShouldOvertoppingRateBeCalculated = random.NextBoolean(),
+                            OvertoppingRateTargetProbability = random.NextDouble(1e-15, 0.1),
                             ShouldOvertoppingRateIllustrationPointsBeCalculated = random.NextBoolean()
                         },
                         Output = null
@@ -829,8 +831,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                                 Height = (RoundedDouble) 3.3,
                                 Type = BreakWaterType.Dam
                             },
-                            DikeHeightCalculationType = random.NextEnumValue<DikeHeightCalculationType>(),
-                            OvertoppingRateCalculationType = random.NextEnumValue<OvertoppingRateCalculationType>(),
                             CriticalFlowRate =
                             {
                                 Mean = (RoundedDouble) 4.4,
@@ -838,8 +838,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                             },
                             UseBreakWater = false,
                             UseForeshore = false,
-                            ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean(),
                             ShouldOvertoppingOutputIllustrationPointsBeCalculated = random.NextBoolean(),
+                            ShouldDikeHeightBeCalculated = random.NextBoolean(),
+                            DikeHeightTargetProbability = random.NextDouble(1e-15, 0.1),
+                            ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean(),
+                            ShouldOvertoppingRateBeCalculated = random.NextBoolean(),
+                            OvertoppingRateTargetProbability = random.NextDouble(1e-15, 0.1),
                             ShouldOvertoppingRateIllustrationPointsBeCalculated = random.NextBoolean()
                         }
                     }

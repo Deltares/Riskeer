@@ -67,8 +67,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data
                 Mean = (RoundedDouble) 0.004,
                 StandardDeviation = (RoundedDouble) 0.0006
             };
-            DikeHeightCalculationType = DikeHeightCalculationType.NoCalculation;
-            OvertoppingRateCalculationType = OvertoppingRateCalculationType.NoCalculation;
         }
 
         /// <summary>
@@ -178,16 +176,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data
                 overtoppingRateTargetProbability = value;
             }
         }
-
-        /// <summary>
-        /// Gets or sets how the dike height should be calculated.
-        /// </summary>
-        public DikeHeightCalculationType DikeHeightCalculationType { get; set; }
-
-        /// <summary>
-        /// Gets or sets how the overtopping rate should be calculated.
-        /// </summary>
-        public OvertoppingRateCalculationType OvertoppingRateCalculationType { get; set; }
 
         /// <summary>
         /// Gets or sets whether the illustration points should be calculated for dike height.

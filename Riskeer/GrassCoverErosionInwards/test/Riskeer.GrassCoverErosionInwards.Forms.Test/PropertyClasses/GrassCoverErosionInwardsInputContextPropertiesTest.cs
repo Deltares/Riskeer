@@ -321,8 +321,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var calculation = new GrassCoverErosionInwardsCalculation();
             var input = new GrassCoverErosionInwardsInput
             {
-                DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
+                ShouldDikeHeightBeCalculated = true,
+                ShouldOvertoppingRateBeCalculated = true
             };
             var inputContext = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSection);
             var properties = new GrassCoverErosionInwardsInputContextProperties(inputContext, handler);

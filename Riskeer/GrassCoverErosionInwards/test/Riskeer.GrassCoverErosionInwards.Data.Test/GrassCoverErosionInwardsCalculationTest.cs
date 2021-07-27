@@ -239,8 +239,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 {
                     InputParameters =
                     {
-                        DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                        OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
+                        ShouldDikeHeightBeCalculated = true,
+                        ShouldOvertoppingRateBeCalculated = true,
                         ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
                         ShouldOvertoppingRateIllustrationPointsBeCalculated = true,
                         ShouldDikeHeightIllustrationPointsBeCalculated = true
@@ -255,8 +255,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 {
                     InputParameters =
                     {
-                        DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                        OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
+                        ShouldDikeHeightBeCalculated = true,
+                        ShouldOvertoppingRateBeCalculated = true
                     },
                     Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
                                                                 dikeHeightOutputWithoutGeneralResult,
@@ -279,8 +279,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 {
                     InputParameters =
                     {
-                        DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                        OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
+                        ShouldDikeHeightBeCalculated = true,
+                        ShouldOvertoppingRateBeCalculated = true
                     }
                 }, true)
                 .SetName("NoOutputScenario2");
@@ -289,8 +289,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 {
                     InputParameters =
                     {
-                        DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                        OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
+                        ShouldDikeHeightBeCalculated = true,
+                        ShouldOvertoppingRateBeCalculated = true,
                         ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
                         ShouldOvertoppingRateIllustrationPointsBeCalculated = true,
                         ShouldDikeHeightIllustrationPointsBeCalculated = true
@@ -322,7 +322,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 {
                     InputParameters =
                     {
-                        DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm
+                        ShouldDikeHeightBeCalculated = true
                     },
                     Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
                                                                 dikeHeightOutputWithGeneralResult,
@@ -334,7 +334,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 {
                     InputParameters =
                     {
-                        DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+                        ShouldDikeHeightBeCalculated = true,
                         ShouldDikeHeightIllustrationPointsBeCalculated = true
                     },
                     Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
@@ -347,7 +347,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 {
                     InputParameters =
                     {
-                        OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
+                        ShouldOvertoppingRateBeCalculated = true
                     },
                     Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
                                                                 null,
@@ -359,7 +359,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 {
                     InputParameters =
                     {
-                        OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
+                        ShouldOvertoppingRateBeCalculated = true,
                         ShouldOvertoppingRateIllustrationPointsBeCalculated = true
                     },
                     Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,

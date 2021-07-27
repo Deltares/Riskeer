@@ -725,8 +725,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeProfile = dikeProfile,
-                    DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                    OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
                     Orientation = (RoundedDouble) 5.5,
                     UseForeshore = true,
                     UseBreakWater = true,

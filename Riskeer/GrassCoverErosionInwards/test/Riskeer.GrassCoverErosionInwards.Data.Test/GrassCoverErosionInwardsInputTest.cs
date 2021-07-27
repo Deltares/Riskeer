@@ -153,9 +153,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             Assert.AreEqual(0, input.DikeHeightTargetProbability);
             Assert.AreEqual(0, input.OvertoppingRateTargetProbability);
 
-            Assert.AreEqual(DikeHeightCalculationType.NoCalculation, input.DikeHeightCalculationType);
-            Assert.AreEqual(OvertoppingRateCalculationType.NoCalculation, input.OvertoppingRateCalculationType);
-
             DistributionAssert.AreEqual(criticalFlowRate, input.CriticalFlowRate);
         }
 
