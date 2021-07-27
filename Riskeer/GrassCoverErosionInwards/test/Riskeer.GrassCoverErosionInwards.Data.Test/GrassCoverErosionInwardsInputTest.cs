@@ -290,7 +290,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             void Call() => input.DikeHeightTargetProbability = invalidValue;
 
             // Assert
-            const string expectedMessage = "De waarde van de doelkans moet groter zijn dan 0.0 en kleiner dan of gelijk aan 0.1.";
+            const string expectedMessage = "De waarde van de doelkans moet groter zijn dan 0 en kleiner dan of gelijk aan 0,1.";
             var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
         }
@@ -324,7 +324,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             void Call() => input.OvertoppingRateTargetProbability = invalidValue;
 
             // Assert
-            const string expectedMessage = "De waarde van de doelkans moet groter zijn dan 0.0 en kleiner dan of gelijk aan 0.1.";
+            const string expectedMessage = "De waarde van de doelkans moet groter zijn dan 0 en kleiner dan of gelijk aan 0,1.";
             var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
         }
