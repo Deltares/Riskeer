@@ -401,10 +401,10 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Call
             var successful = false;
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
             var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
@@ -440,10 +440,10 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Call
             var successful = false;
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
             var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario

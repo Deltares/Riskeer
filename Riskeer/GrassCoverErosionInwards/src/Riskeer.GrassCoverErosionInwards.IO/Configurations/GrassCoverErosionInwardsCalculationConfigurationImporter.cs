@@ -106,7 +106,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
             {
                 SetWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
                 SetShouldIllustrationPointsBeCalculated(readCalculation, calculation);
-                SetDikeHeightAndOvertoppingRateParameters(readCalculation, calculation, failureMechanismContribution.Norm);
+                SetDikeHeightAndOvertoppingRateParameters(readCalculation, calculation);
                 return calculation;
             }
 
@@ -215,17 +215,16 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <param name="norm">The norm to use as default value.</param>
-        private static void SetDikeHeightAndOvertoppingRateParameters(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration,
-                                                                      GrassCoverErosionInwardsCalculation calculation,
-                                                                      double norm)
+        private void SetDikeHeightAndOvertoppingRateParameters(GrassCoverErosionInwardsCalculationConfiguration calculationConfiguration,
+                                                                      GrassCoverErosionInwardsCalculation calculation)
         {
             if (calculationConfiguration.ShouldDikeHeightBeCalculated.HasValue)
             {
                 calculation.InputParameters.ShouldDikeHeightBeCalculated = calculationConfiguration.ShouldDikeHeightBeCalculated.Value;
             }
 
-            calculation.InputParameters.DikeHeightTargetProbability = calculationConfiguration.DikeHeightTargetProbability ?? norm;
+            calculation.InputParameters.DikeHeightTargetProbability = calculationConfiguration.DikeHeightTargetProbability
+                                                                      ?? failureMechanismContribution.Norm;
 
             if (calculationConfiguration.ShouldDikeHeightIllustrationPointsBeCalculated.HasValue)
             {
@@ -237,7 +236,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                 calculation.InputParameters.ShouldOvertoppingRateBeCalculated = calculationConfiguration.ShouldOvertoppingRateBeCalculated.Value;
             }
 
-            calculation.InputParameters.OvertoppingRateTargetProbability = calculationConfiguration.OvertoppingRateTargetProbability ?? norm;
+            calculation.InputParameters.OvertoppingRateTargetProbability = calculationConfiguration.OvertoppingRateTargetProbability
+                                                                           ?? failureMechanismContribution.Norm;
 
             if (calculationConfiguration.ShouldOvertoppingRateIllustrationPointsBeCalculated.HasValue)
             {
