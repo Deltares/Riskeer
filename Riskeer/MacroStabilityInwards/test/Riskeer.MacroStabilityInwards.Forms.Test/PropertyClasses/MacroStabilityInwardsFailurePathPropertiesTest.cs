@@ -48,19 +48,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            void Call() => new MacroStabilityInwardsFailurePathProperties(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            void Call() => new MacroStabilityInwardsFailurePathProperties(new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
