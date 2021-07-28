@@ -167,7 +167,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new TestFailureMechanism(),
                 failureMechanism
             });
 

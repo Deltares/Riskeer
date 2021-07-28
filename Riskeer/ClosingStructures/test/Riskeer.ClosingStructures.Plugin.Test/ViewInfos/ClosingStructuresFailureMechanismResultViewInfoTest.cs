@@ -165,7 +165,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new TestFailureMechanism(),
                 failureMechanism
             });
             mocks.ReplayAll();
@@ -213,7 +212,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
 
             var context = new ClosingStructuresFailurePathContext(new ClosingStructuresFailureMechanism(), assessmentSection);
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            
+
             using (var view = new ClosingStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
