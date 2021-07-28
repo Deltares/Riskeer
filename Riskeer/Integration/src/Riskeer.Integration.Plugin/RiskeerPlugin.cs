@@ -333,7 +333,8 @@ namespace Riskeer.Integration.Plugin
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Norms_DisplayName,
                 Image = RiskeerCommonFormsResources.NormsIcon,
-                CloseForData = CloseAssessmentSectionCategoriesViewForData,
+                CloseForData = (view, dataToCloseFor) => dataToCloseFor is IAssessmentSection assessmentSection
+                                                         && assessmentSection.FailureMechanismContribution == view.FailureMechanismContribution,
                 CreateInstance = context => new AssessmentSectionAssemblyCategoriesView(context.AssessmentSection.FailureMechanismContribution)
             };
 
@@ -586,7 +587,7 @@ namespace Riskeer.Integration.Plugin
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.CombinedAssembly_DisplayName,
                 Image = Resources.AssemblyResultTotal,
-                CloseForData = CloseAssemblyResultTotalViewForData,
+                CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
                 CreateInstance = context => new AssemblyResultTotalView(context.WrappedData)
             };
 
@@ -594,7 +595,7 @@ namespace Riskeer.Integration.Plugin
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssemblyResultPerSection_DisplayName,
                 Image = Resources.AssemblyResultPerSection,
-                CloseForData = CloseAssemblyResultPerSectionViewForData,
+                CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
                 CreateInstance = context => new AssemblyResultPerSectionView(context.WrappedData)
             };
 
@@ -622,7 +623,7 @@ namespace Riskeer.Integration.Plugin
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
                 Image = RiskeerCommonFormsResources.NormsIcon,
-                CloseForData = CloseAssemblyResultCategoriesViewForData,
+                CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
                 CreateInstance = context => new AssemblyResultCategoriesView(context.WrappedData,
                                                                              context.GetAssemblyCategoriesFunc)
             };
@@ -630,7 +631,7 @@ namespace Riskeer.Integration.Plugin
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssemblyResultPerSectionMapView_DisplayName,
                 Image = Resources.AssemblyResultPerSectionMap,
-                CloseForData = CloseAssemblyResultPerSectionMapViewForData,
+                CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
                 CreateInstance = context => new AssemblyResultPerSectionMapView(context.WrappedData)
             };
         }
@@ -1220,18 +1221,10 @@ namespace Riskeer.Integration.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                CloseForData = CloseFailureMechanismWithDetailedAssessmentViewForData,
+                CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = createInstanceFunc
             };
-        }
-
-        private static bool CloseFailureMechanismWithDetailedAssessmentViewForData<TFailureMechanism, TSectionResult>(
-            FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult> view, object dataToCloseFor)
-            where TFailureMechanism : IHasSectionResults<TSectionResult>
-            where TSectionResult : FailureMechanismSectionResult
-        {
-            return dataToCloseFor is IAssessmentSection assessmentSection && ReferenceEquals(view.AssessmentSection, assessmentSection);
         }
 
         #endregion
@@ -1250,18 +1243,10 @@ namespace Riskeer.Integration.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                CloseForData = CloseFailureMechanismWithoutDetailedAssessmentViewForData,
+                CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = createInstanceFunc
             };
-        }
-
-        private static bool CloseFailureMechanismWithoutDetailedAssessmentViewForData<TFailureMechanism, TSectionResult>(
-            FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult> view, object dataToCloseFor)
-            where TFailureMechanism : IHasSectionResults<TSectionResult>
-            where TSectionResult : FailureMechanismSectionResult
-        {
-            return dataToCloseFor is IAssessmentSection assessmentSection && ReferenceEquals(view.AssessmentSection, assessmentSection);
         }
 
         #endregion
@@ -1315,9 +1300,7 @@ namespace Riskeer.Integration.Plugin
 
         private static bool CloseHydraulicBoundaryCalculationsViewForData(HydraulicBoundaryCalculationsView view, object dataToCloseFor)
         {
-            IAssessmentSection viewData = view.AssessmentSection;
-
-            return dataToCloseFor is IAssessmentSection assessmentSection && ReferenceEquals(viewData, assessmentSection);
+            return ReferenceEquals(view.AssessmentSection, dataToCloseFor);
         }
 
         #endregion
@@ -1376,42 +1359,6 @@ namespace Riskeer.Integration.Plugin
             {
                 yield return calculation.Comments;
             }
-        }
-
-        #endregion
-
-        #region AssemblyResultTotalContext ViewInfo
-
-        private static bool CloseAssemblyResultTotalViewForData(AssemblyResultTotalView view, object dataToCloseFor)
-        {
-            return dataToCloseFor is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
-        }
-
-        #endregion
-
-        #region AssemblyResultPerSectionContext ViewInfo
-
-        private static bool CloseAssemblyResultPerSectionViewForData(AssemblyResultPerSectionView view, object dataToCloseFor)
-        {
-            return dataToCloseFor is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
-        }
-
-        #endregion
-
-        #region AssemblyResultCategoriesContext ViewInfo
-
-        private static bool CloseAssemblyResultCategoriesViewForData(AssemblyResultCategoriesView view, object dataToCloseFor)
-        {
-            return dataToCloseFor is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
-        }
-
-        #endregion
-
-        #region AssemblyResultPerSectionMapContext ViewInfo
-
-        private static bool CloseAssemblyResultPerSectionMapViewForData(AssemblyResultPerSectionMapView view, object dataToCloseFor)
-        {
-            return dataToCloseFor is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
         }
 
         #endregion
