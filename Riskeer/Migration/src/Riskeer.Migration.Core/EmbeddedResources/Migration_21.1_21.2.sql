@@ -34,119 +34,6 @@ INSERT INTO GeneralResultFaultTreeIllustrationPointEntity SELECT * FROM [SOURCEP
 INSERT INTO GeneralResultFaultTreeIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].GeneralResultFaultTreeIllustrationPointStochastEntity;
 INSERT INTO GeneralResultSubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointEntity;
 INSERT INTO GeneralResultSubMechanismIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointStochastEntity;
-INSERT INTO GrassCoverErosionInwardsCalculationEntity(
-    [GrassCoverErosionInwardsCalculationEntityId],
-    [CalculationGroupEntityId],
-    [HydraulicLocationEntityId],
-    [DikeProfileEntityId],
-    [Order],
-    [Name],
-    [Comments],
-    [Orientation],
-    [CriticalFlowRateMean],
-    [CriticalFlowRateStandardDeviation],
-    [UseForeshore],
-    [DikeHeight],
-    [UseBreakWater],
-    [BreakWaterType],
-    [BreakWaterHeight],
-    [ShouldOvertoppingOutputIllustrationPointsBeCalculated],
-    [ShouldDikeHeightBeCalculated],
-    [DikeHeightTargetProbability],
-    [ShouldDikeHeightIllustrationPointsBeCalculated],
-    [ShouldOvertoppingRateBeCalculated],
-    [OvertoppingRateTargetProbability],
-    [ShouldOvertoppingRateIllustrationPointsBeCalculated],
-    [RelevantForScenario],
-    [ScenarioContribution])
-SELECT
-    [GrassCoverErosionInwardsCalculationEntityId],
-    [CalculationGroupEntityId],
-    [HydraulicLocationEntityId],
-    [DikeProfileEntityId],
-    [Order],
-    [Name],
-    [Comments],
-    [Orientation],
-    [CriticalFlowRateMean],
-    [CriticalFlowRateStandardDeviation],
-    [UseForeshore],
-    [DikeHeight],
-    [UseBreakWater],
-    [BreakWaterType],
-    [BreakWaterHeight],
-    [ShouldOvertoppingOutputIllustrationPointsBeCalculated],
-    CASE
-        WHEN [DikeHeightCalculationType] IS 1
-            THEN 0
-        ELSE 1
-    END,
-    Norm,
-    [ShouldDikeHeightIllustrationPointsBeCalculated],
-    CASE
-        WHEN [OvertoppingRateCalculationType] IS 1
-            THEN 0
-        ELSE 1
-    END,
-    Norm,
-    [ShouldOvertoppingRateIllustrationPointsBeCalculated],
-    [RelevantForScenario],
-    [ScenarioContribution]
-FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity
-JOIN (
-    WITH CalculationGroups AS (
-        SELECT
-            CalculationGroupEntityId,
-            ParentCalculationGroupEntityId AS OriginalParentId,
-            ParentCalculationGroupEntityId AS NextParentId,
-            NULL as RootId,
-            CASE
-                WHEN ParentCalculationGroupEntityId IS NULL
-                    THEN 1
-                END AS IsRoot
-        FROM CalculationGroupEntity
-        UNION ALL
-        SELECT
-            CalculationGroups.CalculationGroupEntityId,
-            CalculationGroups.OriginalParentId,
-            entity.ParentCalculationGroupEntityId,
-            CASE
-                WHEN entity.ParentCalculationGroupEntityId IS NULL
-                    THEN CalculationGroups.NextParentId
-                ELSE
-                    CalculationGroups.RootId
-                END,
-            NULL
-        FROM CalculationGroups
-        INNER JOIN CalculationGroupEntity entity
-        ON CalculationGroups.NextParentId = entity.CalculationGroupEntityId
-    )
-    SELECT
-        CalculationGroupEntityId as OriginalGroupId,
-        CASE
-            WHEN IsRoot = 1
-                THEN CalculationGroupEntityId
-            ELSE RootId
-        END AS FinalGroupId
-    FROM CalculationGroups
-    WHERE RootId IS NOT NULL OR IsRoot = 1)
-ON GrassCoverErosionInwardsCalculationEntity.CalculationGroupEntityId = OriginalGroupId
-JOIN (
-    SELECT
-        AssessmentSectionEntityId AS failureMechanismAssessmentSectionId,
-        CalculationGroupEntityId AS failureMechanismCalculationGroupEntityId
-    FROM FailureMechanismEntity)
-    ON failureMechanismCalculationGroupEntityId = FinalGroupId
-JOIN (
-    SELECT
-        AssessmentSectionEntityId AS sectionId,
-        CASE
-            WHEN NormativeNormType IS 1
-                THEN LowerLimitNorm
-            ELSE SignalingNorm
-        END AS Norm
-    FROM AssessmentSectionEntity)
-ON sectionId = failureMechanismAssessmentSectionId;
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionInwardsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
 INSERT INTO GrassCoverErosionInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
@@ -230,6 +117,131 @@ INSERT INTO WaveImpactAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJE
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
 
+/*
+ Map all calculation groups to failure mechanism ids.
+ */
+CREATE TEMP TABLE RootCalculationGroupFailureMechanismMapping
+(
+    'CalculationGroupEntityId' INTEGER NOT NULL PRIMARY KEY,
+    'FailureMechanismEntityId' INTEGER NOT NULL
+);
+
+INSERT INTO RootCalculationGroupFailureMechanismMapping
+SELECT OriginalGroupId, FailureMechanismEntityId
+FROM
+(
+    WITH CalculationGroups AS (
+        SELECT
+            CalculationGroupEntityId,
+            ParentCalculationGroupEntityId AS OriginalParentId,
+            ParentCalculationGroupEntityId AS NextParentId,
+            NULL as RootId,
+            CASE
+                WHEN ParentCalculationGroupEntityId IS NULL
+                    THEN 1
+                END AS IsRoot
+        FROM CalculationGroupEntity
+        UNION ALL
+        SELECT
+            CalculationGroups.CalculationGroupEntityId,
+            CalculationGroups.OriginalParentId,
+            entity.ParentCalculationGroupEntityId,
+            CASE
+                WHEN entity.ParentCalculationGroupEntityId IS NULL
+                    THEN CalculationGroups.NextParentId
+                ELSE
+                    CalculationGroups.RootId
+                END,
+            NULL
+        FROM CalculationGroups
+                 INNER JOIN CalculationGroupEntity entity
+                            ON CalculationGroups.NextParentId = entity.CalculationGroupEntityId)
+    SELECT
+        CalculationGroupEntityId as OriginalGroupId,
+        CASE
+            WHEN IsRoot = 1
+                THEN CalculationGroupEntityId
+            ELSE RootId
+        END AS RootGroupId
+    FROM CalculationGroups
+    WHERE RootId IS NOT NULL OR IsRoot = 1)
+JOIN FailureMechanismEntity ON FailureMechanismEntity.CalculationGroupEntityId = RootGroupId;
+
+INSERT INTO GrassCoverErosionInwardsCalculationEntity(
+    [GrassCoverErosionInwardsCalculationEntityId],
+    [CalculationGroupEntityId],
+    [HydraulicLocationEntityId],
+    [DikeProfileEntityId],
+    [Order],
+    [Name],
+    [Comments],
+    [Orientation],
+    [CriticalFlowRateMean],
+    [CriticalFlowRateStandardDeviation],
+    [UseForeshore],
+    [DikeHeight],
+    [UseBreakWater],
+    [BreakWaterType],
+    [BreakWaterHeight],
+    [ShouldOvertoppingOutputIllustrationPointsBeCalculated],
+    [ShouldDikeHeightBeCalculated],
+    [DikeHeightTargetProbability],
+    [ShouldDikeHeightIllustrationPointsBeCalculated],
+    [ShouldOvertoppingRateBeCalculated],
+    [OvertoppingRateTargetProbability],
+    [ShouldOvertoppingRateIllustrationPointsBeCalculated],
+    [RelevantForScenario],
+    [ScenarioContribution])
+SELECT
+    [GrassCoverErosionInwardsCalculationEntityId],
+    [CalculationGroupEntityId],
+    [HydraulicLocationEntityId],
+    [DikeProfileEntityId],
+    [Order],
+    [Name],
+    [Comments],
+    [Orientation],
+    [CriticalFlowRateMean],
+    [CriticalFlowRateStandardDeviation],
+    [UseForeshore],
+    [DikeHeight],
+    [UseBreakWater],
+    [BreakWaterType],
+    [BreakWaterHeight],
+    [ShouldOvertoppingOutputIllustrationPointsBeCalculated],
+    CASE
+        WHEN [DikeHeightCalculationType] IS 1
+            THEN 0
+        ELSE 1
+    END,
+    Norm,
+    [ShouldDikeHeightIllustrationPointsBeCalculated],
+    CASE
+        WHEN [OvertoppingRateCalculationType] IS 1
+            THEN 0
+        ELSE 1
+    END,
+    Norm,
+    [ShouldOvertoppingRateIllustrationPointsBeCalculated],
+    [RelevantForScenario],
+    [ScenarioContribution]
+FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity
+JOIN RootCalculationGroupFailureMechanismMapping USING(CalculationGroupEntityId)
+JOIN (
+    SELECT FailureMechanismEntityId, AssessmentSectionEntityId
+    FROM FailureMechanismEntity)
+USING(FailureMechanismEntityId)
+JOIN (
+    SELECT
+        AssessmentSectionEntityId AS sectionId,
+        CASE
+            WHEN NormativeNormType IS 1
+                THEN LowerLimitNorm
+            ELSE SignalingNorm
+        END AS Norm
+    FROM AssessmentSectionEntity)
+ON sectionId = AssessmentSectionEntityId;
+
 /* 
 Write migration logging
 */
@@ -301,47 +313,13 @@ SELECT
     asfm.[FailureMechanismId],
     asfm.[FailureMechanismName],
     "De waarden van de doelkans voor HBN en overslagdebiet zijn veranderd naar de trajectnorm."
-FROM GrassCoverErosionInwardsCalculationEntity calc
-JOIN [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity AS source ON calc.[rowid] = source.[rowid]
+FROM GrassCoverErosionInwardsCalculationEntity
+JOIN RootCalculationGroupFailureMechanismMapping USING(CalculationGroupEntityId)
 JOIN (
-    WITH CalculationGroups AS (
-        SELECT
-            CalculationGroupEntityId,
-            ParentCalculationGroupEntityId AS OriginalParentId,
-            ParentCalculationGroupEntityId AS NextParentId,
-            NULL as RootId,
-            CASE
-                WHEN ParentCalculationGroupEntityId IS NULL
-                    THEN 1
-            END AS IsRoot
-        FROM CalculationGroupEntity
-        UNION ALL
-        SELECT
-            CalculationGroups.CalculationGroupEntityId,
-            CalculationGroups.OriginalParentId,
-            entity.ParentCalculationGroupEntityId,
-        CASE
-            WHEN entity.ParentCalculationGroupEntityId IS NULL
-                THEN CalculationGroups.NextParentId
-            ELSE
-                CalculationGroups.RootId
-            END,
-        NULL
-        FROM CalculationGroups
-        INNER JOIN CalculationGroupEntity entity
-        ON CalculationGroups.NextParentId = entity.CalculationGroupEntityId)
-        SELECT
-            CalculationGroupEntityId as OriginalGroupId,
-            CASE
-                WHEN IsRoot = 1
-                    THEN CalculationGroupEntityId
-                ELSE RootId
-            END AS FinalGroupId
-        FROM CalculationGroups
-        WHERE RootId IS NOT NULL OR IsRoot = 1)
-ON calc.CalculationGroupEntityId = OriginalGroupId
-JOIN FailureMechanismEntity AS fm ON fm.[CalculationGroupEntityId] = FinalGroupId
-JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fm.[FailureMechanismEntityId];
+    SELECT FailureMechanismEntityId, AssessmentSectionEntityId
+    FROM FailureMechanismEntity)
+USING(FailureMechanismEntityId)
+JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = FailureMechanismEntityId;
 
 CREATE TEMP TABLE TempAssessmentSectionChanges
 (
@@ -472,6 +450,7 @@ SELECT
     END
 FROM AssessmentSectionFailureMechanismMessages;
 
+DROP TABLE RootCalculationGroupFailureMechanismMapping;
 DROP TABLE TempFailureMechanisms;
 DROP TABLE TempAssessmentSectionFailureMechanism;
 DROP TABLE TempAssessmentSectionChanges;
