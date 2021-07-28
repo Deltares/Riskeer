@@ -1251,15 +1251,6 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region NormContext ViewInfo
-
-        private static bool CloseAssessmentSectionCategoriesViewForData(AssessmentSectionAssemblyCategoriesView view, object dataToCloseFor)
-        {
-            return dataToCloseFor is IAssessmentSection assessmentSection && assessmentSection.FailureMechanismContribution == view.FailureMechanismContribution;
-        }
-
-        #endregion
-
         #region FailureMechanismResults ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData<TFailureMechanism, TResult, TView, TResultRow, TAssemblyResultControl>(TView view, object dataToCloseFor)
