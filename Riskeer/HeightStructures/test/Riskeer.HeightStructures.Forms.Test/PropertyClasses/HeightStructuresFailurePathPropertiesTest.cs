@@ -19,9 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using Core.Common.Base;
+using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PropertyClasses;
@@ -108,6 +113,59 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
                                                                             lengthEffectCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(0.0)]
+        [TestCase(-1.0)]
+        [TestCase(-20.0)]
+        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.Attach(observer);
+
+            var properties = new HeightStructuresFailurePathProperties(failureMechanism);
+
+            // Call
+            void Call() => properties.N = (RoundedDouble) newN;
+
+            // Assert
+            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(1.0)]
+        [TestCase(10.0)]
+        [TestCase(20.0)]
+        public void N_SetValidValue_UpdateDataAndNotifyObservers(double newN)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.Attach(observer);
+
+            var properties = new HeightStructuresFailurePathProperties(failureMechanism);
+
+            // Call
+            properties.N = (RoundedDouble) newN;
+
+            // Assert
+            Assert.AreEqual(newN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+
+            mocks.VerifyAll();
         }
     }
 }

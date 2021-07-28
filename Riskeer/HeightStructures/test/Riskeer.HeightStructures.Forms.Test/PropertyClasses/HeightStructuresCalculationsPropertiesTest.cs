@@ -34,11 +34,9 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
-        private const int contributionPropertyIndex = 3;
-        private const int gravitationalAccelerationPropertyIndex = 4;
-        private const int nPropertyIndex = 5;
-        private const int modelFactorOvertoppingFlowPropertyIndex = 6;
-        private const int modelFactorStorageVolumePropertyIndex = 7;
+        private const int gravitationalAccelerationPropertyIndex = 3;
+        private const int modelFactorOvertoppingFlowPropertyIndex = 4;
+        private const int modelFactorStorageVolumePropertyIndex = 5;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -55,10 +53,8 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
-            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
 
             GeneralHeightStructuresInput generalInput = failureMechanism.GeneralInput;
-            Assert.AreEqual(generalInput.N, properties.N);
             Assert.AreEqual(generalInput.GravitationalAcceleration, properties.GravitationalAcceleration);
 
             Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.Mean, properties.ModelFactorOvertoppingFlow.Mean);
@@ -76,11 +72,10 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             const string generalCategory = "Algemeen";
-            const string lengthEffectCategory = "Lengte-effect parameters";
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -103,25 +98,12 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
-            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
-                                                                            generalCategory,
-                                                                            "Faalkansbijdrage [%]",
-                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
-                                                                            true);
-
             PropertyDescriptor gravitationalAccelerationProperty = dynamicProperties[gravitationalAccelerationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(gravitationalAccelerationProperty,
                                                                             generalCategory,
                                                                             "Valversnelling [m/s²]",
                                                                             "Valversnelling.",
                                                                             true);
-
-            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
-                                                                            lengthEffectCategory,
-                                                                            "N [-]",
-                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
 
             PropertyDescriptor modelFactorOvertoppingFlowProperty = dynamicProperties[modelFactorOvertoppingFlowPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorOvertoppingFlowProperty.Converter);
