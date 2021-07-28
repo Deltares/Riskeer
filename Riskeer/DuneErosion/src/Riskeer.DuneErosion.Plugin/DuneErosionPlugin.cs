@@ -225,10 +225,9 @@ namespace Riskeer.DuneErosion.Plugin
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                failureMechanism = assessmentSection
-                                   .GetFailureMechanisms()
-                                   .OfType<DuneErosionFailureMechanism>()
-                                   .FirstOrDefault();
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<DuneErosionFailureMechanism>()
+                                                    .FirstOrDefault();
             }
 
             if (dataToCloseFor is IFailureMechanismContext<DuneErosionFailureMechanism> failureMechanismContext)

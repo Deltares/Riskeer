@@ -317,10 +317,9 @@ namespace Riskeer.HeightStructures.Plugin
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                failureMechanism = assessmentSection
-                                   .GetFailureMechanisms()
-                                   .OfType<HeightStructuresFailureMechanism>()
-                                   .SingleOrDefault();
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<HeightStructuresFailureMechanism>()
+                                                    .FirstOrDefault();
             }
 
             if (dataToCloseFor is IFailureMechanismContext<HeightStructuresFailureMechanism> failureMechanismContext)

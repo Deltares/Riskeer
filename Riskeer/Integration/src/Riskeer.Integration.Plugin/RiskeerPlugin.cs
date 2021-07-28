@@ -1286,10 +1286,9 @@ namespace Riskeer.Integration.Plugin
         {
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<IHasSectionResults<FailureMechanismSectionResult>>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
+                return assessmentSection.GetFailureMechanisms()
+                                        .OfType<IHasSectionResults<FailureMechanismSectionResult>>()
+                                        .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
             if (dataToCloseFor is IFailureMechanismContext<IFailureMechanism> failureMechanismContext)

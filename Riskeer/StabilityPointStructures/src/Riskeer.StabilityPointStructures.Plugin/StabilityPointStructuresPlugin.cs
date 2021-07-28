@@ -293,10 +293,9 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                failureMechanism = assessmentSection
-                                   .GetFailureMechanisms()
-                                   .OfType<StabilityPointStructuresFailureMechanism>()
-                                   .SingleOrDefault();
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<StabilityPointStructuresFailureMechanism>()
+                                                    .FirstOrDefault();
             }
 
             if (dataToCloseFor is IFailureMechanismContext<StabilityPointStructuresFailureMechanism> failureMechanismContext)

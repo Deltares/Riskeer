@@ -431,10 +431,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                failureMechanism = assessmentSection
-                                   .GetFailureMechanisms()
-                                   .OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                                   .FirstOrDefault();
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<GrassCoverErosionOutwardsFailureMechanism>()
+                                                    .FirstOrDefault();
             }
 
             if (dataToCloseFor is IFailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism> failureMechanismContext)
@@ -458,7 +457,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 return ReferenceEquals(hydraulicLoadsContext.WrappedData, view.AssessmentSection
                                                                               .GetFailureMechanisms()
                                                                               .OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                                                                              .SingleOrDefault());
+                                                                              .FirstOrDefault());
             }
 
             return false;

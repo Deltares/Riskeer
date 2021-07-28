@@ -265,10 +265,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                failureMechanism = assessmentSection
-                                   .GetFailureMechanisms()
-                                   .OfType<WaveImpactAsphaltCoverFailureMechanism>()
-                                   .FirstOrDefault();
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<WaveImpactAsphaltCoverFailureMechanism>()
+                                                    .FirstOrDefault();
             }
 
             if (dataToCloseFor is IFailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism> failureMechanismContext)

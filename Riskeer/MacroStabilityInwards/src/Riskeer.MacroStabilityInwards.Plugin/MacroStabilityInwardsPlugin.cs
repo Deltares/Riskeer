@@ -460,10 +460,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                failureMechanism = assessmentSection
-                                   .GetFailureMechanisms()
-                                   .OfType<MacroStabilityInwardsFailureMechanism>()
-                                   .FirstOrDefault();
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<MacroStabilityInwardsFailureMechanism>()
+                                                    .FirstOrDefault();
             }
 
             if (dataToCloseFor is IFailureMechanismContext<MacroStabilityInwardsFailureMechanism> failureMechanismContext)

@@ -593,10 +593,9 @@ namespace Riskeer.Piping.Plugin
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<PipingFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
+                return assessmentSection.GetFailureMechanisms()
+                                        .OfType<PipingFailureMechanism>()
+                                        .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
             }
 
             if (dataToCloseFor is IFailureMechanismContext<PipingFailureMechanism> failureMechanismContext)
