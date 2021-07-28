@@ -593,9 +593,9 @@ namespace Riskeer.Piping.Plugin
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                return assessmentSection.GetFailureMechanisms()
-                                        .OfType<PipingFailureMechanism>()
-                                        .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<PipingFailureMechanism>()
+                                                    .FirstOrDefault();
             }
 
             if (dataToCloseFor is IFailureMechanismContext<PipingFailureMechanism> failureMechanismContext)
@@ -608,7 +608,7 @@ namespace Riskeer.Piping.Plugin
 
         private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object dataToCloseFor)
         {
-            var failureMechanism = dataToCloseFor as PipingFailureMechanism;
+            PipingFailureMechanism failureMechanism = null;
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
