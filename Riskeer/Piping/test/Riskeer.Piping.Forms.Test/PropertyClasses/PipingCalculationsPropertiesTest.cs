@@ -27,7 +27,6 @@ using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
@@ -58,19 +57,12 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_ChangeHandlerNull_ThrowArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            void Call() => new PipingCalculationsProperties(new PipingFailureMechanism(), assessmentSection, null);
+            void Call() => new PipingCalculationsProperties(new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("handler", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -78,15 +70,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, handler);
+            var properties = new PipingCalculationsProperties(failureMechanism, handler);
 
             // Assert
             Assert.IsInstanceOf<PipingFailureMechanismProperties>(properties);
@@ -129,14 +119,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, handler);
+            var properties = new PipingCalculationsProperties(failureMechanism, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -261,7 +250,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observable = mocks.StrictMock<IObservable>();
             mocks.ReplayAll();
 
@@ -276,7 +264,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, handler);
+            var properties = new PipingCalculationsProperties(failureMechanism, handler);
 
             // Call            
             void Call() => properties.WaterVolumetricWeight = roundedValue;
@@ -297,7 +285,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
@@ -313,7 +300,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new PipingCalculationsProperties(failureMechanism, assessmentSection, handler);
+            var properties = new PipingCalculationsProperties(failureMechanism, handler);
 
             // Call            
             properties.WaterVolumetricWeight = roundedValue;

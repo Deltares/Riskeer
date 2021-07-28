@@ -87,8 +87,7 @@ namespace Riskeer.Piping.Plugin
         {
             yield return new PropertyInfo<PipingCalculationsContext, PipingCalculationsProperties>
             {
-                CreateInstance = context => new PipingCalculationsProperties(context.WrappedData, context.Parent,
-                                                                             new FailureMechanismPropertyChangeHandler<PipingFailureMechanism>())
+                CreateInstance = context => new PipingCalculationsProperties(context.WrappedData, new FailureMechanismPropertyChangeHandler<PipingFailureMechanism>())
             };
             yield return new PropertyInfo<PipingFailurePathContext, PipingFailurePathProperties>
             {

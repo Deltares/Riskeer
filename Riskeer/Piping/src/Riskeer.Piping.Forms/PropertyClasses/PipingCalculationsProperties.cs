@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
@@ -61,11 +60,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         /// Creates a new instance of <see cref="PipingCalculationsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="assessmentSection">The assessment section the data belongs to.</param>
         /// <param name="handler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingCalculationsProperties(PipingFailureMechanism data,
-                                            IAssessmentSection assessmentSection,
                                             IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> handler) : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
