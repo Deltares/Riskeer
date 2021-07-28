@@ -189,7 +189,6 @@ namespace Core.Gui.Forms.ViewHost
                 PerformWithoutChangingActiveContent(() =>
                 {
                     layoutDocument.Close();
-                    UpdateDockingManager();
                 });
 
                 if (ReferenceEquals(ActiveDocumentView, view))
@@ -204,7 +203,6 @@ namespace Core.Gui.Forms.ViewHost
                 PerformWithoutChangingActiveContent(() =>
                 {
                     layoutAnchorable.Hide();
-                    UpdateDockingManager();
                 });
             }
         }
@@ -267,7 +265,7 @@ namespace Core.Gui.Forms.ViewHost
                 {
                     layoutContent.IsActive = true;
 
-                    UpdateDockingManager();
+                    DockingManager.UpdateLayout(); // This method is called in order to get rid of problems caused by AvalonDock's latency
                 }
             });
         }
@@ -388,6 +386,8 @@ namespace Core.Gui.Forms.ViewHost
             view.Dispose();
 
             OnViewClosed(view);
+            
+            Application.DoEvents(); // This method is called in order to get rid of problems caused by AvalonDock's latency
         }
 
         private void PerformWithoutChangingActiveContent(Action actionToPerform)
@@ -399,14 +399,6 @@ namespace Core.Gui.Forms.ViewHost
 
             DockingManager.ActiveContent = currentActiveContent;
             DockingManager.ActiveContentChanged += OnActiveContentChanged;
-        }
-
-        /// <summary>
-        /// This method can be called in order to get rid of problems caused by AvalonDock's latency.
-        /// </summary>
-        private void UpdateDockingManager()
-        {
-            DockingManager.UpdateLayout();
         }
 
         private void CleanupHostControl(IView view)
