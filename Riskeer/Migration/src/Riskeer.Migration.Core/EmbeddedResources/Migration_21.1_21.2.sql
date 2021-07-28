@@ -214,11 +214,12 @@ INSERT INTO TechnicalInnovationSectionResultEntity SELECT * FROM [SOURCEPROJECT]
 INSERT INTO TopLevelFaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].TopLevelFaultTreeIllustrationPointEntity;
 INSERT INTO TopLevelSubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].TopLevelSubMechanismIllustrationPointEntity;
 INSERT INTO VersionEntity (
-[VersionId],
+    [VersionId],
     [Version],
     [Timestamp],
     [FingerPrint])
-SELECT [VersionId],
+SELECT
+    [VersionId],
     "21.2",
     [Timestamp],
     [FingerPrint]
@@ -344,10 +345,10 @@ JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] 
 
 CREATE TEMP TABLE TempAssessmentSectionChanges
 (
-	[AssessmentSectionId],
-	[AssessmentSectionName],
-	[Order],
-	[msg]
+    [AssessmentSectionId],
+    [AssessmentSectionName],
+    [Order],
+    [msg]
 );
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
@@ -363,93 +364,93 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
     [ToVersion],
     [LogMessage])
-WITH RECURSIVE
-FailureMechanismMessages
-(
-    [FailureMechanismId],
-    [FailureMechanismName],
-    [AssessmentSectionId],
-    [AssessmentSectionName],
-    [msg],
-    [level]
- ) AS (
- SELECT DISTINCT
-    [FailureMechanismId],
-    [FailureMechanismName],
-    [AssessmentSectionId],
-    [AssessmentSectionName],
-    NULL,
-    1
-FROM TempChanges
-UNION
-SELECT
-    [FailureMechanismId],
-    NULL,
-    [AssessmentSectionId],
-    [AssessmentSectionName],
-    [msg],
-    2
-FROM TempChanges
-WHERE TempChanges.[FailureMechanismId] IS [FailureMechanismId]
-ORDER BY [FailureMechanismId], [AssessmentSectionId]),
-AssessmentSectionFailureMechanismMessages
-(
-    [AssessmentSectionId],
-    [AssessmentSectionName],
-    [IsAssessmentSectionHeader],
-    [FailureMechanismId],
-    [FailureMechanismName],
-    [msg],
-    [level],
-    [Order]
-) AS (
-SELECT DISTINCT
-    [AssessmentSectionId],
-    [AssessmentSectionName],
-    1,
-    NULL,
-    NULL,
-    NULL,
-    1,
-    0
-FROM
-(
-SELECT
-    [AssessmentSectionId],
-    [AssessmentSectionName]
-FROM TempAssessmentSectionChanges
-UNION
-SELECT
-    [AssessmentSectionId],
-    [AssessmentSectionName]
-FROM FailureMechanismMessages
-WHERE [AssessmentSectionId] IS NOT NULL)
-UNION
-SELECT * FROM
-(
-SELECT
-    [AssessmentSectionId],
-    [AssessmentSectionName],
-    0 AS [IsAssessmentSectionHeader],
-    NULL AS [FailureMechanismId],
-    NULL,
-    [msg],
-    1 AS [level],
-    [Order]
-FROM TempAssessmentSectionChanges
-UNION
-SELECT
-    [AssessmentSectionId],
-    NULL,
-    0 AS [IsAssessmentSectionHeader],
-    fmm.[FailureMechanismId] AS [FailureMechanismId],
-    fmm.[FailureMechanismName],
-    [msg],
-    fmm.[level] AS [level],
-    1 AS [Order]
-FROM FailureMechanismMessages AS fmm
-WHERE fmm.[AssessmentSectionId] IS [AssessmentSectionId])
-ORDER BY [AssessmentSectionId], [FailureMechanismId], [level], [IsAssessmentSectionHeader] DESC, [Order])
+    WITH RECURSIVE
+    FailureMechanismMessages
+    (
+        [FailureMechanismId],
+        [FailureMechanismName],
+        [AssessmentSectionId],
+        [AssessmentSectionName],
+        [msg],
+        [level]
+    ) AS (
+    SELECT DISTINCT
+        [FailureMechanismId],
+        [FailureMechanismName],
+        [AssessmentSectionId],
+        [AssessmentSectionName],
+        NULL,
+        1
+    FROM TempChanges
+    UNION
+    SELECT
+        [FailureMechanismId],
+        NULL,
+        [AssessmentSectionId],
+        [AssessmentSectionName],
+        [msg],
+        2
+    FROM TempChanges
+    WHERE TempChanges.[FailureMechanismId] IS [FailureMechanismId]
+    ORDER BY [FailureMechanismId], [AssessmentSectionId]),
+    AssessmentSectionFailureMechanismMessages
+    (
+        [AssessmentSectionId],
+        [AssessmentSectionName],
+        [IsAssessmentSectionHeader],
+        [FailureMechanismId],
+        [FailureMechanismName],
+        [msg],
+        [level],
+        [Order]
+    ) AS (
+    SELECT DISTINCT
+        [AssessmentSectionId],
+        [AssessmentSectionName],
+        1,
+        NULL,
+        NULL,
+        NULL,
+        1,
+        0
+    FROM
+    (
+        SELECT
+            [AssessmentSectionId],
+            [AssessmentSectionName]
+        FROM TempAssessmentSectionChanges
+        UNION
+        SELECT
+            [AssessmentSectionId],
+            [AssessmentSectionName]
+        FROM FailureMechanismMessages
+        WHERE [AssessmentSectionId] IS NOT NULL)
+    UNION
+    SELECT * FROM
+    (
+        SELECT
+            [AssessmentSectionId],
+            [AssessmentSectionName],
+            0 AS [IsAssessmentSectionHeader],
+            NULL AS [FailureMechanismId],
+            NULL,
+            [msg],
+            1 AS [level],
+            [Order]
+        FROM TempAssessmentSectionChanges
+        UNION
+        SELECT
+            [AssessmentSectionId],
+            NULL,
+            0 AS [IsAssessmentSectionHeader],
+            fmm.[FailureMechanismId] AS [FailureMechanismId],
+            fmm.[FailureMechanismName],
+            [msg],
+            fmm.[level] AS [level],
+            1 AS [Order]
+        FROM FailureMechanismMessages AS fmm
+        WHERE fmm.[AssessmentSectionId] IS [AssessmentSectionId])
+    ORDER BY [AssessmentSectionId], [FailureMechanismId], [level], [IsAssessmentSectionHeader] DESC, [Order])
 SELECT
     "21.1",
     "21.2",
