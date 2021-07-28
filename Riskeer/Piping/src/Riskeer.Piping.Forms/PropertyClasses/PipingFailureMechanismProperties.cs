@@ -21,12 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Piping.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -38,18 +35,15 @@ namespace Riskeer.Piping.Forms.PropertyClasses
     public class PipingFailureMechanismProperties : ObjectProperties<PipingFailureMechanism>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
-        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="constructionProperties">The property values required to create an instance of <see cref="PipingFailureMechanismProperties"/>.</param>
-        /// <param name="assessmentSection">The assessment section the data belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingFailureMechanismProperties(PipingFailureMechanism data,
-                                                ConstructionProperties constructionProperties,
-                                                IAssessmentSection assessmentSection)
+                                                ConstructionProperties constructionProperties)
         {
             if (data == null)
             {
@@ -61,13 +55,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
 
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             Data = data;
-            this.assessmentSection = assessmentSection;
 
             propertyIndexLookup = new Dictionary<string, int>
             {
@@ -79,21 +67,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
                 },
                 {
                     nameof(Group), constructionProperties.GroupPropertyIndex
-                },
-                {
-                    nameof(Contribution), constructionProperties.ContributionPropertyIndex
-                },
-                {
-                    nameof(A), constructionProperties.APropertyIndex
-                },
-                {
-                    nameof(B), constructionProperties.BPropertyIndex
-                },
-                {
-                    nameof(SectionLength), constructionProperties.SectionLengthPropertyIndex
-                },
-                {
-                    nameof(N), constructionProperties.NPropertyIndex
                 }
             };
         }
@@ -127,35 +100,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.Group"/>.
             /// </summary>
             public int GroupPropertyIndex { get; set; }
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.Contribution"/>.
-            /// </summary>
-            public int ContributionPropertyIndex { get; set; }
-
-            #endregion
-
-            #region Length effect parameters
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.A"/>.
-            /// </summary>
-            public int APropertyIndex { get; set; }
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.B"/>.
-            /// </summary>
-            public int BPropertyIndex { get; set; }
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.SectionLength"/>.
-            /// </summary>
-            public int SectionLengthPropertyIndex { get; set; }
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.N"/>.
-            /// </summary>
-            public int NPropertyIndex { get; set; }
 
             #endregion
         }
@@ -195,76 +139,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             get
             {
                 return data.Group;
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
-        public double Contribution
-        {
-            get
-            {
-                return data.Contribution;
-            }
-        }
-
-        #endregion
-
-        #region Length effect parameters
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_Description))]
-        public double A
-        {
-            get
-            {
-                return data.PipingProbabilityAssessmentInput.A;
-            }
-            set
-            {
-                data.PipingProbabilityAssessmentInput.A = value;
-                data.NotifyObservers();
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_Description))]
-        public double B
-        {
-            get
-            {
-                return data.PipingProbabilityAssessmentInput.B;
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_Description))]
-        public RoundedDouble SectionLength
-        {
-            get
-            {
-                return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_Description))]
-        public RoundedDouble N
-        {
-            get
-            {
-                PipingProbabilityAssessmentInput probabilityAssessmentInput = data.PipingProbabilityAssessmentInput;
-                return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
             }
         }
 

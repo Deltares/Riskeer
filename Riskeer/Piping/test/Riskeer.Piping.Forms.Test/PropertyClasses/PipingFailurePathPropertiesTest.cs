@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using Core.Common.Base;
+using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -42,24 +45,23 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         private const int bPropertyIndex = 5;
         private const int sectionLengthPropertyIndex = 6;
         private const int nPropertyIndex = 7;
-        private MockRepository mocks;
 
-        [SetUp]
-        public void SetUp()
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
-            mocks = new MockRepository();
-        }
+            // Call
+            void Call() => new PipingFailurePathProperties(new PipingFailureMechanism(), null);
 
-        [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
@@ -87,12 +89,15 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(assessmentSection.ReferenceLine.Length,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -165,6 +170,66 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-1)]
+        [TestCase(-0.1)]
+        [TestCase(1.1)]
+        [TestCase(8)]
+        public void A_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.Attach(observer);
+
+            var properties = new PipingFailurePathProperties(failureMechanism, assessmentSection);
+
+            // Call
+            void Call() => properties.A = value;
+
+            // Assert
+            const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(0.1)]
+        [TestCase(1)]
+        [TestCase(0.0000001)]
+        [TestCase(0.9999999)]
+        public void A_SetValidValue_SetsValueAndUpdatesObservers(double value)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.Attach(observer);
+
+            var properties = new PipingFailurePathProperties(failureMechanism, assessmentSection);
+
+            // Call
+            properties.A = value;
+
+            // Assert
+            Assert.AreEqual(value, failureMechanism.PipingProbabilityAssessmentInput.A);
+
+            mocks.VerifyAll();
         }
     }
 }

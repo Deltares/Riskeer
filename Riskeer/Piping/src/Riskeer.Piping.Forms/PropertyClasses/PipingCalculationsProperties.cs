@@ -43,22 +43,17 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
-        private const int contributionPropertyIndex = 4;
-        private const int waterVolumetricWeightPropertyIndex = 5;
-        private const int upLiftModelFactorPropertyIndex = 6;
-        private const int sellmeijerModelFactorPropertyIndex = 7;
-        private const int aPropertyIndex = 8;
-        private const int bPropertyIndex = 9;
-        private const int sectionLengthPropertyIndex = 10;
-        private const int nPropertyIndex = 11;
-        private const int criticalHeaveGradientPropertyIndex = 12;
-        private const int sandParticlesVolumetricWeightPropertyIndex = 13;
-        private const int whitesDragCoefficientPropertyIndex = 14;
-        private const int beddingAnglePropertyIndex = 15;
-        private const int waterKinematicViscosityPropertyIndex = 16;
-        private const int gravityPropertyIndex = 17;
-        private const int meanDiameter70PropertyIndex = 18;
-        private const int sellmeijerReductionFactorPropertyIndex = 19;
+        private const int waterVolumetricWeightPropertyIndex = 4;
+        private const int upLiftModelFactorPropertyIndex = 5;
+        private const int sellmeijerModelFactorPropertyIndex = 6;
+        private const int criticalHeaveGradientPropertyIndex = 7;
+        private const int sandParticlesVolumetricWeightPropertyIndex = 8;
+        private const int whitesDragCoefficientPropertyIndex = 9;
+        private const int beddingAnglePropertyIndex = 10;
+        private const int waterKinematicViscosityPropertyIndex = 11;
+        private const int gravityPropertyIndex = 12;
+        private const int meanDiameter70PropertyIndex = 13;
+        private const int sellmeijerReductionFactorPropertyIndex = 14;
 
         private readonly IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> propertyChangeHandler;
 
@@ -75,13 +70,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         {
             NamePropertyIndex = namePropertyIndex,
             CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex,
-            ContributionPropertyIndex = contributionPropertyIndex,
-            APropertyIndex = aPropertyIndex,
-            BPropertyIndex = bPropertyIndex,
-            SectionLengthPropertyIndex = sectionLengthPropertyIndex,
-            NPropertyIndex = nPropertyIndex
-        }, assessmentSection)
+            GroupPropertyIndex = groupPropertyIndex
+        })
         {
             if (handler == null)
             {

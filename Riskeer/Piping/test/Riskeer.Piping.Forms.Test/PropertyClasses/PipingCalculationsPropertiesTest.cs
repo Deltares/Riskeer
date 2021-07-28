@@ -28,7 +28,6 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
@@ -44,40 +43,23 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
-        private const int contributionPropertyIndex = 3;
-        private const int waterVolumetricWeightPropertyIndex = 4;
-        private const int upLiftModelFactorPropertyIndex = 5;
-        private const int sellmeijerModelFactorPropertyIndex = 6;
-        private const int aPropertyIndex = 7;
-        private const int bPropertyIndex = 8;
-        private const int sectionLengthPropertyIndex = 9;
-        private const int nPropertyIndex = 10;
-        private const int criticalHeaveGradientPropertyIndex = 11;
-        private const int sandParticlesVolumetricWeightPropertyIndex = 12;
-        private const int whitesDragCoefficientPropertyIndex = 13;
-        private const int beddingAnglePropertyIndex = 14;
-        private const int waterKinematicViscosityPropertyIndex = 15;
-        private const int gravityPropertyIndex = 16;
-        private const int meanDiameter70PropertyIndex = 17;
-        private const int sellmeijerReductionFactorPropertyIndex = 18;
-        private MockRepository mocks;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
-        }
+        private const int waterVolumetricWeightPropertyIndex = 3;
+        private const int upLiftModelFactorPropertyIndex = 4;
+        private const int sellmeijerModelFactorPropertyIndex = 5;
+        private const int criticalHeaveGradientPropertyIndex = 6;
+        private const int sandParticlesVolumetricWeightPropertyIndex = 7;
+        private const int whitesDragCoefficientPropertyIndex = 8;
+        private const int beddingAnglePropertyIndex = 9;
+        private const int waterKinematicViscosityPropertyIndex = 10;
+        private const int gravityPropertyIndex = 11;
+        private const int meanDiameter70PropertyIndex = 12;
+        private const int sellmeijerReductionFactorPropertyIndex = 13;
 
         [Test]
         public void Constructor_ChangeHandlerNull_ThrowArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -87,12 +69,15 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("handler", exception.ParamName);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
@@ -108,7 +93,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
-            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
 
             GeneralPipingInput generalInput = failureMechanism.GeneralInput;
 
@@ -137,23 +121,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.MeanDiameter70, properties.MeanDiameter70);
             Assert.AreEqual(generalInput.SellmeijerReductionFactor, properties.SellmeijerReductionFactor);
 
-            PipingProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
-            Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
-            Assert.AreEqual(probabilityAssessmentInput.B, properties.B);
-            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length),
-                            properties.N,
-                            properties.N.GetAccuracy());
-            Assert.AreEqual(2, properties.SectionLength.NumberOfDecimalPlaces);
-            Assert.AreEqual(assessmentSection.ReferenceLine.Length,
-                            properties.SectionLength,
-                            properties.SectionLength.GetAccuracy());
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<PipingFailureMechanism>>();
             mocks.ReplayAll();
@@ -165,12 +140,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(19, dynamicProperties.Count);
+            Assert.AreEqual(14, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string heaveCategory = "Heave";
             const string modelFactorCategory = "Modelinstellingen";
-            const string lengthEffectCategory = "Lengte-effect parameters";
             const string sellmeijerCategory = "Terugschrijdende erosie (Sellmeijer)";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
@@ -194,13 +168,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
-            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
-                                                                            generalCategory,
-                                                                            "Faalkansbijdrage [%]",
-                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
-                                                                            true);
-
             PropertyDescriptor volumicWeightOfWaterProperty = dynamicProperties[waterVolumetricWeightPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(volumicWeightOfWaterProperty,
                                                                             generalCategory,
@@ -221,33 +188,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             modelFactorCategory,
                                                                             "Modelfactor piping toegepast op het model van Sellmeijer [-]",
                                                                             "Rekenwaarde om de onzekerheid in het model van Sellmeijer in rekening te brengen.",
-                                                                            true);
-
-            PropertyDescriptor aProperty = dynamicProperties[aPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
-                                                                            lengthEffectCategory,
-                                                                            "a [-]",
-                                                                            "De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.");
-
-            PropertyDescriptor bProperty = dynamicProperties[bPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
-                                                                            lengthEffectCategory,
-                                                                            "b [m]",
-                                                                            "De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.",
-                                                                            true);
-
-            PropertyDescriptor sectionLengthProperty = dynamicProperties[sectionLengthPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionLengthProperty,
-                                                                            lengthEffectCategory,
-                                                                            "Lengte* [m]",
-                                                                            "Totale lengte van het traject in meters (afgerond).",
-                                                                            true);
-
-            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
-                                                                            lengthEffectCategory,
-                                                                            "N* [-]",
-                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
 
             PropertyDescriptor criticalHeaveGradientProperty = dynamicProperties[criticalHeaveGradientPropertyIndex];
@@ -306,6 +246,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             "Reductiefactor Sellmeijer [-]",
                                                                             "Reductiefactor Sellmeijer.",
                                                                             true);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -318,6 +260,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void WaterVolumetricWeight_SetInvalidValue_ThrowArgumentExceptionAndDoesNotUpdateObservers(double value)
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observable = mocks.StrictMock<IObservable>();
             mocks.ReplayAll();
@@ -342,6 +285,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             const string expectedMessage = "De waarde moet binnen het bereik [0,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(handler.Called);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -351,6 +296,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void WaterVolumetricWeight_SetValidValue_SetsValueRoundedAndUpdatesObservers(double value)
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
@@ -376,6 +322,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(value, failureMechanism.GeneralInput.WaterVolumetricWeight,
                             failureMechanism.GeneralInput.WaterVolumetricWeight.GetAccuracy());
             Assert.IsTrue(handler.Called);
+
+            mocks.VerifyAll();
         }
     }
 }
