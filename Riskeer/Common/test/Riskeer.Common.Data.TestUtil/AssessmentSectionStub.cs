@@ -170,10 +170,21 @@ namespace Riskeer.Common.Data.TestUtil
             waterLevelCalculationsForSignalingNorm.Clear();
             waterLevelCalculationsForLowerLimitNorm.Clear();
             waterLevelCalculationsForFactorizedLowerLimitNorm.Clear();
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaterLevelCalculationsForUserDefinedTargetProbabilities)
+            {
+                element.HydraulicBoundaryLocationCalculations.Clear();
+            }
+
             waveHeightCalculationsForFactorizedSignalingNorm.Clear();
             waveHeightCalculationsForSignalingNorm.Clear();
             waveHeightCalculationsForLowerLimitNorm.Clear();
             waveHeightCalculationsForFactorizedLowerLimitNorm.Clear();
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaveHeightCalculationsForUserDefinedTargetProbabilities)
+            {
+                element.HydraulicBoundaryLocationCalculations.Clear();
+            }
 
             foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
             {
@@ -204,10 +215,21 @@ namespace Riskeer.Common.Data.TestUtil
             waterLevelCalculationsForSignalingNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
             waterLevelCalculationsForLowerLimitNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
             waterLevelCalculationsForFactorizedLowerLimitNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaterLevelCalculationsForUserDefinedTargetProbabilities)
+            {
+                element.HydraulicBoundaryLocationCalculations.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
+            }
+
             waveHeightCalculationsForFactorizedSignalingNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
             waveHeightCalculationsForSignalingNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
             waveHeightCalculationsForLowerLimitNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
             waveHeightCalculationsForFactorizedLowerLimitNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaveHeightCalculationsForUserDefinedTargetProbabilities)
+            {
+                element.HydraulicBoundaryLocationCalculations.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
+            }
         }
 
         private static HydraulicBoundaryLocationCalculation CreateHydraulicBoundaryLocationCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation,
