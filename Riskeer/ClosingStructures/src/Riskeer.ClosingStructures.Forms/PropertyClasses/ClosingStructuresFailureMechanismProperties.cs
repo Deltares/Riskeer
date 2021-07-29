@@ -21,12 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.ClosingStructures.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Forms.PropertyClasses
@@ -69,18 +67,6 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
                 },
                 {
                     nameof(Group), constructionProperties.GroupPropertyIndex
-                },
-                {
-                    nameof(Contribution), constructionProperties.ContributionPropertyIndex
-                },
-                {
-                    nameof(C), constructionProperties.CPropertyIndex
-                },
-                {
-                    nameof(N2A), constructionProperties.N2APropertyIndex
-                },
-                {
-                    nameof(N), constructionProperties.NPropertyIndex
                 }
             };
         }
@@ -98,25 +84,6 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         /// </summary>
         public class ConstructionProperties
         {
-            #region Length effect parameters
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="ClosingStructuresFailureMechanismProperties.C"/>.
-            /// </summary>
-            public int CPropertyIndex { get; set; }
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="ClosingStructuresFailureMechanismProperties.N2A"/>.
-            /// </summary>
-            public int N2APropertyIndex { get; set; }
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="ClosingStructuresFailureMechanismProperties.N"/>.
-            /// </summary>
-            public int NPropertyIndex { get; set; }
-
-            #endregion
-
             #region General
 
             /// <summary>
@@ -134,58 +101,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             /// </summary>
             public int GroupPropertyIndex { get; set; }
 
-            /// <summary>
-            /// Gets or sets the property index for <see cref="ClosingStructuresFailureMechanismProperties.Contribution"/>.
-            /// </summary>
-            public int ContributionPropertyIndex { get; set; }
-
             #endregion
         }
-
-        #region Length effect parameters
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_C_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_C_Description))]
-        public RoundedDouble C
-        {
-            get
-            {
-                return data.GeneralInput.C;
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_N2A_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_N2A_Description))]
-        public int N2A
-        {
-            get
-            {
-                return data.GeneralInput.N2A;
-            }
-            set
-            {
-                data.GeneralInput.N2A = value;
-                data.NotifyObservers();
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_Description))]
-        public RoundedDouble N
-        {
-            get
-            {
-                return new RoundedDouble(2, data.GeneralInput.N);
-            }
-        }
-
-        #endregion
 
         #region General
 
@@ -222,18 +139,6 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             get
             {
                 return data.Group;
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
-        public double Contribution
-        {
-            get
-            {
-                return data.Contribution;
             }
         }
 

@@ -20,7 +20,11 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
+using Core.Common.Util.Attributes;
+using Core.Gui.Attributes;
 using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Forms.PropertyClasses
@@ -48,11 +52,68 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         {
             NamePropertyIndex = namePropertyIndex,
             CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex,
-            ContributionPropertyIndex = contributionPropertyIndex,
-            CPropertyIndex = cPropertyIndex,
-            N2APropertyIndex = n2APropertyIndex,
-            NPropertyIndex = nPropertyIndex
+            GroupPropertyIndex = groupPropertyIndex
         }) {}
+
+        #region General
+
+        [PropertyOrder(contributionPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
+        public double Contribution
+        {
+            get
+            {
+                return data.Contribution;
+            }
+        }
+
+        #endregion
+
+        #region Length effect parameters
+
+        [PropertyOrder(cPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailurePathProperties_C_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ClosingStructuresFailurePathProperties_C_Description))]
+        public RoundedDouble C
+        {
+            get
+            {
+                return data.GeneralInput.C;
+            }
+        }
+
+        [PropertyOrder(n2APropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailurePathProperties_N2A_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ClosingStructuresFailurePathProperties_N2A_Description))]
+        public int N2A
+        {
+            get
+            {
+                return data.GeneralInput.N2A;
+            }
+            set
+            {
+                data.GeneralInput.N2A = value;
+                data.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(nPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_Description))]
+        public RoundedDouble N
+        {
+            get
+            {
+                return new RoundedDouble(2, data.GeneralInput.N);
+            }
+        }
+
+        #endregion
     }
 }

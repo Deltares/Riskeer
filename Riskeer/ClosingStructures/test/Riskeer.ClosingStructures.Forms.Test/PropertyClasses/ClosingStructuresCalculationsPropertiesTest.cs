@@ -25,7 +25,6 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PropertyClasses;
-using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 {
@@ -35,17 +34,12 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
-        private const int contributionPropertyIndex = 3;
-        private const int gravitationalAccelerationPropertyIndex = 4;
+        private const int gravitationalAccelerationPropertyIndex = 3;
 
-        private const int cPropertyIndex = 5;
-        private const int n2APropertyIndex = 6;
-        private const int nPropertyIndex = 7;
-
-        private const int modelFactorOvertoppingFlowPropertyIndex = 8;
-        private const int modelFactorStorageVolumePropertyIndex = 9;
-        private const int modelFactorLongThresholdPropertyIndex = 10;
-        private const int modelFactorInflowVolumePropertyIndex = 11;
+        private const int modelFactorOvertoppingFlowPropertyIndex = 4;
+        private const int modelFactorStorageVolumePropertyIndex = 5;
+        private const int modelFactorLongThresholdPropertyIndex = 6;
+        private const int modelFactorInflowVolumePropertyIndex = 7;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -73,16 +67,10 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
-            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
 
             GeneralClosingStructuresInput generalInput = failureMechanism.GeneralInput;
             Assert.AreEqual(generalInput.GravitationalAcceleration,
                             properties.GravitationalAcceleration);
-
-            Assert.AreEqual(generalInput.C, properties.C);
-            Assert.AreEqual(generalInput.N2A, properties.N2A);
-            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(generalInput.N, properties.N, properties.N.GetAccuracy());
 
             Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.Mean, properties.ModelFactorOvertoppingFlow.Mean);
             Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.StandardDeviation, properties.ModelFactorOvertoppingFlow.StandardDeviation);
@@ -101,11 +89,10 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 
             // Assert
             const string generalCategory = "Algemeen";
-            const string lengthEffectCategory = "Lengte-effect parameters";
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(12, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -128,38 +115,11 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
-            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
-                                                                            generalCategory,
-                                                                            "Faalkansbijdrage [%]",
-                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
-                                                                            true);
-
             PropertyDescriptor gravitationalAccelerationProperty = dynamicProperties[gravitationalAccelerationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(gravitationalAccelerationProperty,
                                                                             generalCategory,
                                                                             "Valversnelling [m/s²]",
                                                                             "Valversnelling.",
-                                                                            true);
-
-            PropertyDescriptor cProperty = dynamicProperties[cPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(cProperty,
-                                                                            lengthEffectCategory,
-                                                                            "C [-]",
-                                                                            "De parameter 'C' die gebruikt wordt om het lengte-effect te berekenen.",
-                                                                            true);
-
-            PropertyDescriptor n2AProperty = dynamicProperties[n2APropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(n2AProperty,
-                                                                            lengthEffectCategory,
-                                                                            "2NA [-]",
-                                                                            "De parameter '2NA' die gebruikt wordt om het lengte-effect te berekenen.");
-
-            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
-                                                                            lengthEffectCategory,
-                                                                            "N* [-]",
-                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
 
             PropertyDescriptor modelFactorOvertoppingFlowProperty = dynamicProperties[modelFactorOvertoppingFlowPropertyIndex];

@@ -19,9 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using Core.Common.Base;
+using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PropertyClasses;
 using Riskeer.Common.Data.TestUtil;
@@ -123,6 +127,59 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-1)]
+        [TestCase(-20)]
+        [TestCase(41)]
+        public void N2A_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(int newN2A)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.Attach(observer);
+
+            var properties = new ClosingStructuresFailurePathProperties(failureMechanism);
+
+            // Call
+            void Call() => properties.N2A = newN2A;
+
+            // Assert
+            const string expectedMessage = "De waarde voor 'N2A' moet in het bereik [0, 40] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(10)]
+        [TestCase(20)]
+        public void N2A_SetValidValue_UpdateDataAndNotifyObservers(int newN2A)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.Attach(observer);
+
+            var properties = new ClosingStructuresFailurePathProperties(failureMechanism);
+
+            // Call
+            properties.N2A = newN2A;
+
+            // Assert
+            Assert.AreEqual(newN2A, failureMechanism.GeneralInput.N2A, failureMechanism.GeneralInput.N2A);
+
+            mocks.VerifyAll();
         }
     }
 }

@@ -103,36 +103,36 @@ namespace Riskeer.ClosingStructures.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De parameter &apos;C&apos; die gebruikt wordt om het lengte-effect te berekenen..
         /// </summary>
-        public static string ClosingStructuresFailureMechanismProperties_C_Description {
+        public static string ClosingStructuresFailurePathProperties_C_Description {
             get {
-                return ResourceManager.GetString("ClosingStructuresFailureMechanismProperties_C_Description", resourceCulture);
+                return ResourceManager.GetString("ClosingStructuresFailurePathProperties_C_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to C [-].
         /// </summary>
-        public static string ClosingStructuresFailureMechanismProperties_C_DisplayName {
+        public static string ClosingStructuresFailurePathProperties_C_DisplayName {
             get {
-                return ResourceManager.GetString("ClosingStructuresFailureMechanismProperties_C_DisplayName", resourceCulture);
+                return ResourceManager.GetString("ClosingStructuresFailurePathProperties_C_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De parameter &apos;2NA&apos; die gebruikt wordt om het lengte-effect te berekenen..
         /// </summary>
-        public static string ClosingStructuresFailureMechanismProperties_N2A_Description {
+        public static string ClosingStructuresFailurePathProperties_N2A_Description {
             get {
-                return ResourceManager.GetString("ClosingStructuresFailureMechanismProperties_N2A_Description", resourceCulture);
+                return ResourceManager.GetString("ClosingStructuresFailurePathProperties_N2A_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to 2NA [-].
         /// </summary>
-        public static string ClosingStructuresFailureMechanismProperties_N2A_DisplayName {
+        public static string ClosingStructuresFailurePathProperties_N2A_DisplayName {
             get {
-                return ResourceManager.GetString("ClosingStructuresFailureMechanismProperties_N2A_DisplayName", resourceCulture);
+                return ResourceManager.GetString("ClosingStructuresFailurePathProperties_N2A_DisplayName", resourceCulture);
             }
         }
         

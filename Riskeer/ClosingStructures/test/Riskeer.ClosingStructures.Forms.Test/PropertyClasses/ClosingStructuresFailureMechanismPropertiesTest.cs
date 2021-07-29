@@ -21,27 +21,19 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base;
-using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PropertyClasses;
-using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 {
     public class ClosingStructuresFailureMechanismPropertiesTest
     {
-        private const int namePropertyIndex = 6;
-        private const int codePropertyIndex = 5;
-        private const int groupPropertyIndex = 4;
-        private const int contributionPropertyIndex = 3;
-        private const int cPropertyIndex = 2;
-        private const int n2APropertyIndex = 1;
-        private const int nPropertyIndex = 0;
+        private const int namePropertyIndex = 2;
+        private const int codePropertyIndex = 1;
+        private const int groupPropertyIndex = 0;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -80,14 +72,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
-            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-
-            GeneralClosingStructuresInput generalInput = failureMechanism.GeneralInput;
-
-            Assert.AreEqual(generalInput.C, properties.C);
-            Assert.AreEqual(generalInput.N2A, properties.N2A);
-            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(generalInput.N, properties.N, properties.N.GetAccuracy());
         }
 
         [Test]
@@ -98,19 +82,14 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             {
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex,
-                GroupPropertyIndex = groupPropertyIndex,
-                ContributionPropertyIndex = contributionPropertyIndex,
-                CPropertyIndex = cPropertyIndex,
-                N2APropertyIndex = n2APropertyIndex,
-                NPropertyIndex = nPropertyIndex
+                GroupPropertyIndex = groupPropertyIndex
             });
 
             // Assert
             const string generalCategory = "Algemeen";
-            const string lengthEffectCategory = "Lengte-effect parameters";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -132,86 +111,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Groep",
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
-
-            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
-                                                                            generalCategory,
-                                                                            "Faalkansbijdrage [%]",
-                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
-                                                                            true);
-
-            PropertyDescriptor cProperty = dynamicProperties[cPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(cProperty,
-                                                                            lengthEffectCategory,
-                                                                            "C [-]",
-                                                                            "De parameter 'C' die gebruikt wordt om het lengte-effect te berekenen.",
-                                                                            true);
-
-            PropertyDescriptor n2AProperty = dynamicProperties[n2APropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(n2AProperty,
-                                                                            lengthEffectCategory,
-                                                                            "2NA [-]",
-                                                                            "De parameter '2NA' die gebruikt wordt om het lengte-effect te berekenen.");
-
-            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
-                                                                            lengthEffectCategory,
-                                                                            "N* [-]",
-                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
-                                                                            true);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-1)]
-        [TestCase(-20)]
-        [TestCase(41)]
-        public void N2A_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(int newN2A)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, new ClosingStructuresFailureMechanismProperties.ConstructionProperties());
-
-            // Call
-            void Call() => properties.N2A = newN2A;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'N2A' moet in het bereik [0, 40] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(1)]
-        [TestCase(10)]
-        [TestCase(20)]
-        public void N2A_SetValidValue_UpdateDataAndNotifyObservers(int newN2A)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, new ClosingStructuresFailureMechanismProperties.ConstructionProperties());
-
-            // Call
-            properties.N2A = newN2A;
-
-            // Assert
-            Assert.AreEqual(newN2A, failureMechanism.GeneralInput.N2A, failureMechanism.GeneralInput.N2A);
-
-            mocks.VerifyAll();
         }
     }
 }
