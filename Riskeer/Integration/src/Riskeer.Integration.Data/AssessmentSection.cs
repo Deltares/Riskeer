@@ -722,10 +722,21 @@ namespace Riskeer.Integration.Data
             waterLevelCalculationsForSignalingNorm.Clear();
             waterLevelCalculationsForLowerLimitNorm.Clear();
             waterLevelCalculationsForFactorizedLowerLimitNorm.Clear();
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaterLevelCalculationsForUserDefinedTargetProbabilities)
+            {
+                element.HydraulicBoundaryLocationCalculations.Clear();
+            }
+
             waveHeightCalculationsForFactorizedSignalingNorm.Clear();
             waveHeightCalculationsForSignalingNorm.Clear();
             waveHeightCalculationsForLowerLimitNorm.Clear();
             waveHeightCalculationsForFactorizedLowerLimitNorm.Clear();
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaveHeightCalculationsForUserDefinedTargetProbabilities)
+            {
+                element.HydraulicBoundaryLocationCalculations.Clear();
+            }
         }
 
         private void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation)
@@ -734,10 +745,21 @@ namespace Riskeer.Integration.Data
             waterLevelCalculationsForSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
             waterLevelCalculationsForLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
             waterLevelCalculationsForFactorizedLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaterLevelCalculationsForUserDefinedTargetProbabilities)
+            {
+                element.HydraulicBoundaryLocationCalculations.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            }
+
             waveHeightCalculationsForFactorizedSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
             waveHeightCalculationsForSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
             waveHeightCalculationsForLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
             waveHeightCalculationsForFactorizedLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaveHeightCalculationsForUserDefinedTargetProbabilities)
+            {
+                element.HydraulicBoundaryLocationCalculations.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            }
         }
     }
 }
