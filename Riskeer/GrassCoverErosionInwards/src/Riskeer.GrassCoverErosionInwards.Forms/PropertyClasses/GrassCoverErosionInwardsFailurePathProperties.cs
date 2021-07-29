@@ -20,6 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.Base;
+using Core.Common.Base.Data;
+using Core.Common.Util.Attributes;
+using Core.Gui.Attributes;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionInwards.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -36,6 +41,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
         private const int nPropertyIndex = 5;
+        private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailurePathProperties"/>.
@@ -50,9 +56,64 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             {
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex,
-                GroupPropertyIndex = groupPropertyIndex,
-                ContributionPropertyIndex = contributionPropertyIndex,
-                NPropertyIndex = nPropertyIndex
-            }, handler) {}
+                GroupPropertyIndex = groupPropertyIndex
+            })
+        {
+            if (handler == null)
+            {
+                throw new ArgumentNullException(nameof(handler));
+            }
+
+            propertyChangeHandler = handler;
+        }
+
+        #region General
+
+        [PropertyOrder(contributionPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
+        public double Contribution
+        {
+            get
+            {
+                return data.Contribution;
+            }
+        }
+
+        #endregion
+
+        #region Length effect parameters
+
+        [PropertyOrder(nPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
+        public RoundedDouble N
+        {
+            get
+            {
+                return data.GeneralInput.N;
+            }
+            set
+            {
+                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
+                    data,
+                    value,
+                    (f, v) => f.GeneralInput.N = v);
+
+                NotifyAffectedObjects(affectedObjects);
+            }
+        }
+
+        #endregion
+
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
+        {
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
     }
 }

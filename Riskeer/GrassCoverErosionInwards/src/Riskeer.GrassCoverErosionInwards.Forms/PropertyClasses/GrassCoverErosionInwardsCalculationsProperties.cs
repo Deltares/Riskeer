@@ -38,29 +38,23 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
-        private const int contributionPropertyIndex = 4;
-        private const int nPropertyIndex = 5;
-        private const int frunupModelFactorPropertyIndex = 6;
-        private const int fbFactorPropertyIndex = 7;
-        private const int fnFactorPropertyIndex = 8;
-        private const int fshallowModelFactorPropertyIndex = 9;
+        private const int frunupModelFactorPropertyIndex = 4;
+        private const int fbFactorPropertyIndex = 5;
+        private const int fnFactorPropertyIndex = 6;
+        private const int fshallowModelFactorPropertyIndex = 7;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsCalculationsProperties(
-            GrassCoverErosionInwardsFailureMechanism data,
-            IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> handler) : base(data, new ConstructionProperties
+            GrassCoverErosionInwardsFailureMechanism data) : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
             CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex,
-            ContributionPropertyIndex = contributionPropertyIndex,
-            NPropertyIndex = nPropertyIndex
-        }, handler) {}
+            GroupPropertyIndex = groupPropertyIndex
+        }) {}
 
         #region Model settings
 
