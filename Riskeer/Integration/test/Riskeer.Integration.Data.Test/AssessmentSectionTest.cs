@@ -365,6 +365,12 @@ namespace Riskeer.Integration.Data.Test
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
+            var waterLevelCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(waterLevelCalculationsForTargetProbability);
+
+            var waveHeightCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(waveHeightCalculationsForTargetProbability);
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[]
             {
                 new TestHydraulicBoundaryLocation()
@@ -375,10 +381,12 @@ namespace Riskeer.Integration.Data.Test
             CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);
             CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
             CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
+            CollectionAssert.IsNotEmpty(waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
             CollectionAssert.IsNotEmpty(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
             CollectionAssert.IsNotEmpty(assessmentSection.WaveHeightCalculationsForSignalingNorm);
             CollectionAssert.IsNotEmpty(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
             CollectionAssert.IsNotEmpty(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
+            CollectionAssert.IsNotEmpty(waveHeightCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
 
             // Call
             assessmentSection.SetHydraulicBoundaryLocationCalculations(Enumerable.Empty<HydraulicBoundaryLocation>());
@@ -388,10 +396,12 @@ namespace Riskeer.Integration.Data.Test
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
+            CollectionAssert.IsEmpty(waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForSignalingNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
+            CollectionAssert.IsEmpty(waveHeightCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
         }
 
         [Test]
@@ -400,6 +410,10 @@ namespace Riskeer.Integration.Data.Test
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability());
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability());
+
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
             TestHydraulicBoundaryLocation[] hydraulicBoundaryLocations =
@@ -577,10 +591,12 @@ namespace Riskeer.Integration.Data.Test
             Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForSignalingNorm.Count());
             Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Count());
             Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations.Count());
             Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Count());
             Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightCalculationsForSignalingNorm.Count());
             Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Count());
             Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations.Count());
         }
 
         private static void AssertDefaultHydraulicBoundaryLocationCalculations(AssessmentSection assessmentSection, int index, HydraulicBoundaryLocation hydraulicBoundaryLocation)
@@ -589,10 +605,12 @@ namespace Riskeer.Integration.Data.Test
             AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(index), hydraulicBoundaryLocation);
             AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(index), hydraulicBoundaryLocation);
             AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations.ElementAt(index), hydraulicBoundaryLocation);
             AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.ElementAt(index), hydraulicBoundaryLocation);
             AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightCalculationsForSignalingNorm.ElementAt(index), hydraulicBoundaryLocation);
             AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightCalculationsForLowerLimitNorm.ElementAt(index), hydraulicBoundaryLocation);
             AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations.ElementAt(index), hydraulicBoundaryLocation);
         }
 
         private static void AssertDefaultHydraulicBoundaryLocationCalculation(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
