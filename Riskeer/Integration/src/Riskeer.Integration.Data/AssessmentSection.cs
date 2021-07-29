@@ -112,7 +112,10 @@ namespace Riskeer.Integration.Data
             };
 
             ReferenceLine = new ReferenceLine();
+
             HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            WaterLevelCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
+            WaveHeightCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
 
             piping = new PipingFailureMechanism();
             grassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
@@ -516,6 +519,8 @@ namespace Riskeer.Integration.Data
             }
         }
 
+        public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaterLevelCalculationsForUserDefinedTargetProbabilities { get; }
+
         public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedSignalingNorm
         {
             get
@@ -547,6 +552,8 @@ namespace Riskeer.Integration.Data
                 return waveHeightCalculationsForFactorizedLowerLimitNorm;
             }
         }
+
+        public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaveHeightCalculationsForUserDefinedTargetProbabilities { get; }
 
         public string Id { get; set; }
 

@@ -94,6 +94,11 @@ namespace Riskeer.Common.Data.AssessmentSection
         IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedLowerLimitNorm { get; }
 
         /// <summary>
+        /// Gets the water level calculations corresponding to the user defined target probabilities.
+        /// </summary>
+        ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaterLevelCalculationsForUserDefinedTargetProbabilities { get; }
+
+        /// <summary>
         /// Gets the wave height calculations corresponding to the factorized signaling norm.
         /// </summary>
         IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedSignalingNorm { get; }
@@ -112,6 +117,11 @@ namespace Riskeer.Common.Data.AssessmentSection
         /// Gets the wave height calculations corresponding to the factorized lower limit norm.
         /// </summary>
         IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedLowerLimitNorm { get; }
+
+        /// <summary>
+        /// Gets the wave height calculations corresponding to the user defined target probabilities.
+        /// </summary>
+        ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaveHeightCalculationsForUserDefinedTargetProbabilities { get; }
 
         /// <summary>
         /// Gets the failure mechanisms corresponding to the assessment section.

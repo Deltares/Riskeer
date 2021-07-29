@@ -37,7 +37,6 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             // Assert
             Assert.IsInstanceOf<Observable>(hydraulicBoundaryLocationCalculationsForTargetProbability);
             Assert.AreEqual(0.1, hydraulicBoundaryLocationCalculationsForTargetProbability.TargetProbability);
-            Assert.IsNotNull(hydraulicBoundaryLocationCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
             Assert.IsEmpty(hydraulicBoundaryLocationCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
         }
     }
