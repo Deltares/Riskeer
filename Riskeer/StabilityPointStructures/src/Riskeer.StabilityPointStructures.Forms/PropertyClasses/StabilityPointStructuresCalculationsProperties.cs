@@ -39,13 +39,11 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
-        private const int contributionPropertyIndex = 4;
-        private const int gravitationalAccelerationPropertyIndex = 5;
-        private const int nPropertyIndex = 6;
-        private const int modelFactorStorageVolumePropertyIndex = 7;
-        private const int modelFactorCollisionLoadPropertyIndex = 8;
-        private const int modelFactorLoadEffectPropertyIndex = 9;
-        private const int modelFactorLongThresholdPropertyIndex = 10;
+        private const int gravitationalAccelerationPropertyIndex = 4;
+        private const int modelFactorStorageVolumePropertyIndex = 5;
+        private const int modelFactorCollisionLoadPropertyIndex = 6;
+        private const int modelFactorLoadEffectPropertyIndex = 7;
+        private const int modelFactorLongThresholdPropertyIndex = 8;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresCalculationsProperties"/>.
@@ -56,9 +54,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         {
             NamePropertyIndex = namePropertyIndex,
             CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex,
-            ContributionPropertyIndex = contributionPropertyIndex,
-            NPropertyIndex = nPropertyIndex
+            GroupPropertyIndex = groupPropertyIndex
         }) {}
 
         #region General

@@ -35,13 +35,11 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
-        private const int contributionPropertyIndex = 3;
-        private const int gravitationalAccelerationPropertyIndex = 4;
-        private const int nPropertyIndex = 5;
-        private const int modelFactorStorageVolumePropertyIndex = 6;
-        private const int modelFactorCollisionLoadPropertyIndex = 7;
-        private const int modelFactorLoadEffectPropertyIndex = 8;
-        private const int modelFactorLongThresholdPropertyIndex = 9;
+        private const int gravitationalAccelerationPropertyIndex = 3;
+        private const int modelFactorStorageVolumePropertyIndex = 4;
+        private const int modelFactorCollisionLoadPropertyIndex = 5;
+        private const int modelFactorLoadEffectPropertyIndex = 6;
+        private const int modelFactorLongThresholdPropertyIndex = 7;
 
         [Test]
         public void Constructor_DataIsNull_ThrowArgumentNullException()
@@ -69,10 +67,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
-            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
 
             GeneralStabilityPointStructuresInput generalInput = failureMechanism.GeneralInput;
-            Assert.AreEqual(generalInput.N, properties.N);
             Assert.AreEqual(generalInput.GravitationalAcceleration, properties.GravitationalAcceleration);
             Assert.AreEqual(generalInput.ModelFactorStorageVolume.Mean, properties.ModelFactorStorageVolume.Mean);
             Assert.AreEqual(generalInput.ModelFactorStorageVolume.StandardDeviation, properties.ModelFactorStorageVolume.StandardDeviation);
@@ -95,11 +91,10 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 
             // Assert
             const string generalCategory = "Algemeen";
-            const string lengthEffectCategory = "Lengte-effect parameters";
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(10, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -122,25 +117,12 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
-            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
-                                                                            generalCategory,
-                                                                            "Faalkansbijdrage [%]",
-                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
-                                                                            true);
-
             PropertyDescriptor gravitationalAccelerationProperty = dynamicProperties[gravitationalAccelerationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(gravitationalAccelerationProperty,
                                                                             generalCategory,
                                                                             "Valversnelling [m/s²]",
                                                                             "Valversnelling.",
                                                                             true);
-
-            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
-                                                                            lengthEffectCategory,
-                                                                            "N [-]",
-                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
 
             PropertyDescriptor modelFactorStorageVolumeProperty = dynamicProperties[modelFactorStorageVolumePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorStorageVolumeProperty.Converter);

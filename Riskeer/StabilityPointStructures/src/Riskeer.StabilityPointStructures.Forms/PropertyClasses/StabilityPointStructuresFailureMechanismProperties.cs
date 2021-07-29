@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
@@ -68,36 +67,9 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
                 },
                 {
                     nameof(Group), constructionProperties.GroupPropertyIndex
-                },
-                {
-                    nameof(Contribution), constructionProperties.ContributionPropertyIndex
-                },
-                {
-                    nameof(N), constructionProperties.NPropertyIndex
                 }
             };
         }
-
-        #region Length effect parameters
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
-        public RoundedDouble N
-        {
-            get
-            {
-                return data.GeneralInput.N;
-            }
-            set
-            {
-                data.GeneralInput.N = value;
-                data.NotifyObservers();
-            }
-        }
-
-        #endregion
 
         [DynamicPropertyOrderEvaluationMethod]
         public int DynamicPropertyOrderEvaluationMethod(string propertyName)
@@ -112,15 +84,6 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         /// </summary>
         public class ConstructionProperties
         {
-            #region Length effect parameters
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="StabilityPointStructuresFailureMechanismProperties.N"/>.
-            /// </summary>
-            public int NPropertyIndex { get; set; }
-
-            #endregion
-
             #region General
 
             /// <summary>
@@ -137,11 +100,6 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             /// Gets or sets the property index for <see cref="StabilityPointStructuresFailureMechanismProperties.Group"/>.
             /// </summary>
             public int GroupPropertyIndex { get; set; }
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="StabilityPointStructuresFailureMechanismProperties.Contribution"/>.
-            /// </summary>
-            public int ContributionPropertyIndex { get; set; }
 
             #endregion
         }
@@ -181,18 +139,6 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return data.Group;
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
-        public double Contribution
-        {
-            get
-            {
-                return data.Contribution;
             }
         }
 

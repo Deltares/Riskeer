@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
+using Core.Common.Util.Attributes;
+using Core.Gui.Attributes;
 using Riskeer.StabilityPointStructures.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -45,9 +48,44 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         {
             NamePropertyIndex = namePropertyIndex,
             CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex,
-            ContributionPropertyIndex = contributionPropertyIndex,
-            NPropertyIndex = nPropertyIndex
+            GroupPropertyIndex = groupPropertyIndex
         }) {}
+
+        #region General
+
+        [PropertyOrder(contributionPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
+        public double Contribution
+        {
+            get
+            {
+                return data.Contribution;
+            }
+        }
+
+        #endregion
+
+        #region Length effect parameters
+
+        [PropertyOrder(nPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
+        public RoundedDouble N
+        {
+            get
+            {
+                return data.GeneralInput.N;
+            }
+            set
+            {
+                data.GeneralInput.N = value;
+                data.NotifyObservers();
+            }
+        }
+
+        #endregion
     }
 }

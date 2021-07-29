@@ -21,14 +21,9 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base;
-using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PropertyClasses;
 
@@ -36,11 +31,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 {
     public class StabilityPointStructuresFailureMechanismPropertiesTest
     {
-        private const int namePropertyIndex = 4;
-        private const int codePropertyIndex = 3;
-        private const int groupPropertyIndex = 2;
-        private const int contributionPropertyIndex = 1;
-        private const int nPropertyIndex = 0;
+        private const int namePropertyIndex = 2;
+        private const int codePropertyIndex = 1;
+        private const int groupPropertyIndex = 0;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -78,12 +71,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
-            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-
-            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(failureMechanism.GeneralInput.N,
-                            properties.N,
-                            properties.N.GetAccuracy());
         }
 
         [Test]
@@ -97,17 +84,14 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             {
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex,
-                GroupPropertyIndex = groupPropertyIndex,
-                ContributionPropertyIndex = contributionPropertyIndex,
-                NPropertyIndex = nPropertyIndex
+                GroupPropertyIndex = groupPropertyIndex
             });
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
-            const string lengthEffectCategory = "Lengte-effect parameters";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -129,72 +113,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             "Groep",
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
-
-            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
-                                                                            generalCategory,
-                                                                            "Faalkansbijdrage [%]",
-                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
-                                                                            true);
-
-            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
-                                                                            lengthEffectCategory,
-                                                                            "N [-]",
-                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(0.0)]
-        [TestCase(-1.0)]
-        [TestCase(-20.0)]
-        public void N_InvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, new StabilityPointStructuresFailureMechanismProperties.ConstructionProperties());
-
-            // Call
-            void Call() => properties.N = (RoundedDouble) value;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(1.0)]
-        [TestCase(10.0)]
-        [TestCase(20.0)]
-        public void N_SetValidValue_UpdateDataAndNotifyObservers(double value)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.Attach(observer);
-
-            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, new StabilityPointStructuresFailureMechanismProperties.ConstructionProperties());
-
-            // Call
-            properties.N = (RoundedDouble) value;
-
-            // Assert
-            Assert.AreEqual(value, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
-
-            mocks.VerifyAll();
         }
     }
 }
