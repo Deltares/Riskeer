@@ -22,6 +22,9 @@
 using System.ComponentModel;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses;
 
@@ -33,28 +36,51 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
-        private const int frunupModelFactorPropertyIndex = 3;
-        private const int fbFactorPropertyIndex = 4;
-        private const int fnFactorPropertyIndex = 5;
-        private const int fshallowModelFactorPropertyIndex = 6;
+        private const int contributionPropertyIndex = 3;
+        private const int nPropertyIndex = 4;
+        private const int frunupModelFactorPropertyIndex = 5;
+        private const int fbFactorPropertyIndex = 6;
+        private const int fnFactorPropertyIndex = 7;
+        private const int fshallowModelFactorPropertyIndex = 8;
+        private MockRepository mocks;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mocks = new MockRepository();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            mocks.VerifyAll();
+        }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
+            mocks.ReplayAll();
+
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
             var properties = new GrassCoverErosionInwardsCalculationsProperties(
-                failureMechanism);
+                failureMechanism,
+                handler);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismProperties>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
+            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
 
             GeneralGrassCoverErosionInwardsInput generalInput = failureMechanism.GeneralInput;
+
+            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(generalInput.N, properties.N, properties.N.GetAccuracy());
 
             Assert.AreEqual(generalInput.FbFactor.Mean, properties.FbFactor.Mean);
             Assert.AreEqual(generalInput.FbFactor.StandardDeviation, properties.FbFactor.StandardDeviation);
@@ -73,18 +99,23 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
+            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
+            mocks.ReplayAll();
+
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
             var properties = new GrassCoverErosionInwardsCalculationsProperties(
-                failureMechanism);
+                failureMechanism,
+                handler);
 
             // Assert
             const string generalCategory = "Algemeen";
+            const string lengthEffectCategory = "Lengte-effect parameters";
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(9, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -106,6 +137,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "Groep",
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
+
+            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
+                                                                            generalCategory,
+                                                                            "Faalkansbijdrage [%]",
+                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
+                                                                            true);
+
+            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
+                                                                            lengthEffectCategory,
+                                                                            "N [-]",
+                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
 
             PropertyDescriptor frunupModelFactorProperty = dynamicProperties[frunupModelFactorPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(frunupModelFactorProperty.Converter);
