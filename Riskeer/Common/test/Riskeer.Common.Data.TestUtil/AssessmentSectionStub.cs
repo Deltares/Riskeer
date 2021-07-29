@@ -58,7 +58,10 @@ namespace Riskeer.Common.Data.TestUtil
             };
 
             ReferenceLine = new ReferenceLine();
+
             HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            WaterLevelCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
+            WaveHeightCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
 
             waterLevelCalculationsForFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
             waterLevelCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
@@ -118,6 +121,8 @@ namespace Riskeer.Common.Data.TestUtil
             }
         }
 
+        public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaterLevelCalculationsForUserDefinedTargetProbabilities { get; }
+
         public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedSignalingNorm
         {
             get
@@ -149,6 +154,8 @@ namespace Riskeer.Common.Data.TestUtil
                 return waveHeightCalculationsForFactorizedLowerLimitNorm;
             }
         }
+
+        public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaveHeightCalculationsForUserDefinedTargetProbabilities { get; }
 
         /// <summary>
         /// Sets the hydraulic boundary locations on the assessment section stub.
