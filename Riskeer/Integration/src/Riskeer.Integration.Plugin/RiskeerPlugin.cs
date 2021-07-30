@@ -930,6 +930,24 @@ namespace Riskeer.Integration.Plugin
                 ContextMenuStrip = HydraulicBoundaryDatabaseContextMenuStrip
             };
 
+            yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
+            {
+                Text = context => RiskeerCommonFormsResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon
+            };
+
+            yield return new TreeNodeInfo<WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext>
+            {
+                Text = context => RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon
+            };
+
+            yield return new TreeNodeInfo<WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext>
+            {
+                Text = context => RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon
+            };
+
             yield return new TreeNodeInfo<DesignWaterLevelCalculationsGroupContext>
             {
                 Text = context => RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
