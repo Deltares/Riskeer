@@ -230,7 +230,7 @@ namespace Riskeer.Integration.Service.Test
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                          expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
-                                 .Return(new TestWaveHeightCalculator()).Repeat.Times(4);
+                                 .Return(new TestWaveHeightCalculator()).Repeat.Times(2);
 
                 calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
@@ -279,7 +279,7 @@ namespace Riskeer.Integration.Service.Test
                 AssessmentSectionCalculationActivityFactory.CreateHydraulicLoadCalculationActivities(assessmentSection);
 
             // Assert
-            Assert.AreEqual(22, activities.Count());
+            Assert.AreEqual(20, activities.Count());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -363,7 +363,7 @@ namespace Riskeer.Integration.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
+                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
                     UseForeshore = true,
                     UseBreakWater = true,
                     LowerBoundaryRevetment = (RoundedDouble) 1,
@@ -383,7 +383,7 @@ namespace Riskeer.Integration.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
+                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
                     UseForeshore = true,
                     UseBreakWater = true,
                     LowerBoundaryRevetment = (RoundedDouble) 1,
@@ -403,7 +403,7 @@ namespace Riskeer.Integration.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = FailureMechanismCategoryType.FactorizedLowerLimitNorm,
+                    CategoryType = FailureMechanismCategoryType.LowerLimitNorm,
                     UseBreakWater = true,
                     LowerBoundaryRevetment = (RoundedDouble) 1,
                     UpperBoundaryRevetment = (RoundedDouble) 3,
