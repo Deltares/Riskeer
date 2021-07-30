@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Service;
@@ -87,6 +88,50 @@ namespace Riskeer.Integration.Service
                                     noProbabilityValueDoubleConverter.ConvertToString(lowerLimitNorm)));
 
             return activities;
+        }
+
+        /// <summary>
+        /// Creates a collection of <see cref="CalculatableActivity"/> for all user defined target probability based water level calculations 
+        /// within the given <see cref="IAssessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section to create the activities for.</param>
+        /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public static IEnumerable<CalculatableActivity> CreateWaterLevelCalculationActivitiesForUserDefinedTargetProbabilities(IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            return assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                                    .SelectMany(wlc => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                                                    wlc.HydraulicBoundaryLocationCalculations,
+                                                    assessmentSection,
+                                                    wlc.TargetProbability,
+                                                    noProbabilityValueDoubleConverter.ConvertToString(wlc.TargetProbability)));
+        }
+
+        /// <summary>
+        /// Creates a collection of <see cref="CalculatableActivity"/> for all user defined target probability based wave height calculations 
+        /// within the given <see cref="IAssessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section to create the activities for.</param>
+        /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public static IEnumerable<CalculatableActivity> CreateWaveHeightCalculationActivitiesForUserDefinedTargetProbabilities(IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            return assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+                                    .SelectMany(whc => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
+                                                    whc.HydraulicBoundaryLocationCalculations,
+                                                    assessmentSection,
+                                                    whc.TargetProbability,
+                                                    noProbabilityValueDoubleConverter.ConvertToString(whc.TargetProbability)));
         }
 
         /// <summary>
