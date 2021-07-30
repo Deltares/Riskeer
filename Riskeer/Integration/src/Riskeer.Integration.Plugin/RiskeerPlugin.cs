@@ -936,7 +936,8 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
             {
                 Text = context => RiskeerCommonFormsResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName,
-                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
+                ChildNodeObjects = WaterLevelCalculationsForNormTargetProbabilitiesGroupContextChildNodes
             };
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilityContext>
@@ -2246,6 +2247,19 @@ namespace Riskeer.Integration.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private static object[] WaterLevelCalculationsForNormTargetProbabilitiesGroupContextChildNodes(WaterLevelCalculationsForNormTargetProbabilitiesGroupContext context)
+        {
+            return new object[]
+            {
+                new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                                          context.AssessmentSection,
+                                                                          () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm)),
+                new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                                                          context.AssessmentSection,
+                                                                          () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm))
+            };
         }
 
         private ContextMenuStrip DesignWaterLevelCalculationsGroupContextMenuStrip(DesignWaterLevelCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
