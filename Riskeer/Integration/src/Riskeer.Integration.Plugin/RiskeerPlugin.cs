@@ -56,6 +56,7 @@ using Riskeer.Common.Forms.GuiServices;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TreeNodeInfos;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.IO.FileImporters;
@@ -119,6 +120,8 @@ namespace Riskeer.Integration.Plugin
         private static readonly FontFamily fontFamily = new FontFamily(
             new Uri($"{PackUriHelper.UriSchemePack}://application:,,,/Riskeer.Integration.Plugin;component/Resources/"),
             "./#Symbols");
+
+        private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
 
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
         private AssessmentSectionMerger assessmentSectionMerger;
@@ -936,16 +939,34 @@ namespace Riskeer.Integration.Plugin
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon
             };
 
+            yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilityContext>
+            {
+                Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.GetNormFunc()),
+                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon
+            };
+
             yield return new TreeNodeInfo<WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext>
             {
                 Text = context => RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon
             };
 
+            yield return new TreeNodeInfo<WaterLevelCalculationsForUserDefinedTargetProbabilityContext>
+            {
+                Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability),
+                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon
+            };
+
             yield return new TreeNodeInfo<WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext>
             {
                 Text = context => RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon
+            };
+
+            yield return new TreeNodeInfo<WaveHeightCalculationsForUserDefinedTargetProbabilityContext>
+            {
+                Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability),
+                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon
             };
 
             yield return new TreeNodeInfo<DesignWaterLevelCalculationsGroupContext>
