@@ -46,6 +46,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
@@ -606,7 +607,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                          expectedSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  }).Return(waveHeightCalculator)
                                  .Repeat
-                                 .Times(4);
+                                 .Times(2);
                 mocks.ReplayAll();
 
                 TreeNodeInfo info = GetInfo(plugin);
@@ -622,37 +623,47 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     // When
-                    Action call = () => contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
+                    void Call() => contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(call, messages =>
+                    TestHelper.AssertLogMessages(Call, messages =>
                     {
                         string[] msgs = messages.ToArray();
-                        Assert.AreEqual(64, msgs.Length);
+                        Assert.AreEqual(48, msgs.Length);
 
                         const string designWaterLevelCalculationTypeDisplayName = "Waterstand";
                         const string designWaterLevelCalculationDisplayName = "Waterstand berekening";
 
+                        var noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
+
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "A+", msgs, 0);
+                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName,
+                            noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.FailureMechanismContribution.SignalingNorm),
+                            msgs, 0);
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "A", msgs, 8);
+                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName,
+                            noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.FailureMechanismContribution.LowerLimitNorm),
+                            msgs, 8);
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "B", msgs, 16);
+                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName,
+                            noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].TargetProbability),
+                            msgs, 16);
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "C", msgs, 24);
+                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName,
+                            noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].TargetProbability),
+                            msgs, 24);
 
                         const string waveHeightCalculationTypeDisplayName = "Golfhoogte";
                         const string waveHeightCalculationDisplayName = "Golfhoogte berekening";
 
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "A+", msgs, 32);
+                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName,
+                            noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[0].TargetProbability),
+                            msgs, 32);
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "A", msgs, 40);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "B", msgs, 48);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "C", msgs, 56);
+                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName,
+                            noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[1].TargetProbability),
+                            msgs, 40);
                     });
                 }
             }
