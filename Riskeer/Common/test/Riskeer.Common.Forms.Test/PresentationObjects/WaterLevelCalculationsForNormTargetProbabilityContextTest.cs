@@ -42,18 +42,18 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
-            double GetNormFunc() => 0.01;
+            Func<double> getNormFunc = () => 0.01;
 
             // Call
             var context = new WaterLevelCalculationsForNormTargetProbabilityContext(calculations,
                                                                                     assessmentSection,
-                                                                                    GetNormFunc);
+                                                                                    getNormFunc);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>>(context);
             Assert.AreSame(calculations, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            Assert.AreSame((Func<double>) GetNormFunc, context.GetNormFunc);
+            Assert.AreSame(getNormFunc, context.GetNormFunc);
             mockRepository.VerifyAll();
         }
 
