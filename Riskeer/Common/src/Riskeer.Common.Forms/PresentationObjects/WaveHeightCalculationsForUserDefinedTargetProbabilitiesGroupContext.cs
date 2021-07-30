@@ -30,15 +30,15 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all wave height calculations based on user defined target probabilities.
     /// </summary>
-    public class WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
+    public class WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The locations that the <see cref="WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext"/> belongs to.</param>
+        /// <param name="wrappedData">The calculations wrapped by the <see cref="WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext"/>.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that the <see cref="WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(ObservableList<HydraulicBoundaryLocation> wrappedData,
+        public WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> wrappedData,
                                                                                    IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
