@@ -60,8 +60,30 @@ namespace Riskeer.Common.Data.TestUtil
             ReferenceLine = new ReferenceLine();
 
             HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            WaterLevelCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
-            WaveHeightCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
+
+            WaterLevelCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
+            {
+                new HydraulicBoundaryLocationCalculationsForTargetProbability
+                {
+                    TargetProbability = 0.0001
+                },
+                new HydraulicBoundaryLocationCalculationsForTargetProbability
+                {
+                    TargetProbability = 0.00001
+                }
+            };
+
+            WaveHeightCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
+            {
+                new HydraulicBoundaryLocationCalculationsForTargetProbability
+                {
+                    TargetProbability = 0.00025
+                },
+                new HydraulicBoundaryLocationCalculationsForTargetProbability
+                {
+                    TargetProbability = 0.000025
+                }
+            };
 
             waterLevelCalculationsForFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
             waterLevelCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();

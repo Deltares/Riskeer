@@ -129,6 +129,59 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateWaterLevelCalculationActivitiesForUserDefinedTargetProbabilities_WithValidDataAndUsePreprocessorStates_ExpectedInputSetToActivities(bool usePreprocessor)
+        {
+            // Setup
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessor);
+
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName 1");
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName 2");
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
+            });
+
+            // Call
+            IEnumerable<CalculatableActivity> activities =
+                AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaterLevelCalculationActivitiesForUserDefinedTargetProbabilities(assessmentSection);
+
+            // Assert
+            Assert.AreEqual(4, activities.Count());
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+
+            double firstTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].TargetProbability;
+            string firstTargetProbabilityText = noProbabilityValueDoubleConverter.ConvertToString(firstTargetProbability);
+            double secondTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].TargetProbability;
+            string secondTargetProbabilityText = noProbabilityValueDoubleConverter.ConvertToString(secondTargetProbability);
+
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(0),
+                                                      hydraulicBoundaryLocation1,
+                                                      firstTargetProbability,
+                                                      firstTargetProbabilityText,
+                                                      hydraulicBoundaryDatabase);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1),
+                                                      hydraulicBoundaryLocation2,
+                                                      firstTargetProbability,
+                                                      firstTargetProbabilityText,
+                                                      hydraulicBoundaryDatabase);
+
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(2),
+                                                      hydraulicBoundaryLocation1,
+                                                      secondTargetProbability,
+                                                      secondTargetProbabilityText,
+                                                      hydraulicBoundaryDatabase);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(3),
+                                                      hydraulicBoundaryLocation2,
+                                                      secondTargetProbability,
+                                                      secondTargetProbabilityText,
+                                                      hydraulicBoundaryDatabase);
+        }
+
+        [Test]
         public void CreateWaveHeightCalculationActivitiesForUserDefinedTargetProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
@@ -137,6 +190,59 @@ namespace Riskeer.Integration.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateWaveHeightCalculationActivitiesForUserDefinedTargetProbabilities_WithValidDataAndUsePreprocessorStates_ExpectedInputSetToActivities(bool usePreprocessor)
+        {
+            // Setup
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessor);
+
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName 1");
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName 2");
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
+            });
+
+            // Call
+            IEnumerable<CalculatableActivity> activities =
+                AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivitiesForUserDefinedTargetProbabilities(assessmentSection);
+
+            // Assert
+            Assert.AreEqual(4, activities.Count());
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+
+            double firstTargetProbability = assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[0].TargetProbability;
+            string firstTargetProbabilityText = noProbabilityValueDoubleConverter.ConvertToString(firstTargetProbability);
+            double secondTargetProbability = assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[1].TargetProbability;
+            string secondTargetProbabilityText = noProbabilityValueDoubleConverter.ConvertToString(secondTargetProbability);
+
+            AssertWaveHeightCalculationActivity(activities.ElementAt(0),
+                                                hydraulicBoundaryLocation1,
+                                                firstTargetProbability,
+                                                firstTargetProbabilityText,
+                                                hydraulicBoundaryDatabase);
+            AssertWaveHeightCalculationActivity(activities.ElementAt(1),
+                                                hydraulicBoundaryLocation2,
+                                                firstTargetProbability,
+                                                firstTargetProbabilityText,
+                                                hydraulicBoundaryDatabase);
+
+            AssertWaveHeightCalculationActivity(activities.ElementAt(2),
+                                                hydraulicBoundaryLocation1,
+                                                secondTargetProbability,
+                                                secondTargetProbabilityText,
+                                                hydraulicBoundaryDatabase);
+            AssertWaveHeightCalculationActivity(activities.ElementAt(3),
+                                                hydraulicBoundaryLocation2,
+                                                secondTargetProbability,
+                                                secondTargetProbabilityText,
+                                                hydraulicBoundaryDatabase);
         }
 
         [Test]
