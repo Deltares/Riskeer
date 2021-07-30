@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
@@ -50,6 +51,7 @@ namespace Riskeer.Integration.Service.Test
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
+        private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
 
         [Test]
         public void CreateWaterLevelCalculationActivitiesForNormTargetProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -60,6 +62,59 @@ namespace Riskeer.Integration.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateWaterLevelCalculationActivitiesForNormTargetProbabilities_WithValidDataAndUsePreprocessorStates_ExpectedInputSetToActivities(bool usePreprocessor)
+        {
+            // Setup
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessor);
+
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName 1");
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName 2");
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
+            });
+
+            // Call
+            IEnumerable<CalculatableActivity> activities =
+                AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaterLevelCalculationActivitiesForNormTargetProbabilities(assessmentSection);
+
+            // Assert
+            Assert.AreEqual(4, activities.Count());
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+
+            double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
+            string signalingNormText = noProbabilityValueDoubleConverter.ConvertToString(signalingNorm);
+            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+            string lowerLimitNormText = noProbabilityValueDoubleConverter.ConvertToString(lowerLimitNorm);
+
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(0),
+                                                      hydraulicBoundaryLocation1,
+                                                      signalingNorm,
+                                                      signalingNormText,
+                                                      hydraulicBoundaryDatabase);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1),
+                                                      hydraulicBoundaryLocation2,
+                                                      signalingNorm,
+                                                      signalingNormText,
+                                                      hydraulicBoundaryDatabase);
+
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(2),
+                                                      hydraulicBoundaryLocation1,
+                                                      lowerLimitNorm,
+                                                      lowerLimitNormText,
+                                                      hydraulicBoundaryDatabase);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(3),
+                                                      hydraulicBoundaryLocation2,
+                                                      lowerLimitNorm,
+                                                      lowerLimitNormText,
+                                                      hydraulicBoundaryDatabase);
         }
 
         [Test]
