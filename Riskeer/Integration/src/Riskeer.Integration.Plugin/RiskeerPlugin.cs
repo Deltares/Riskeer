@@ -949,7 +949,8 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext>
             {
                 Text = context => RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName,
-                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
+                ChildNodeObjects = WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodes
             };
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForUserDefinedTargetProbabilityContext>
@@ -961,7 +962,8 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext>
             {
                 Text = context => RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName,
-                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
+                ChildNodeObjects = WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodes
             };
 
             yield return new TreeNodeInfo<WaveHeightCalculationsForUserDefinedTargetProbabilityContext>
@@ -2260,6 +2262,20 @@ namespace Riskeer.Integration.Plugin
                                                                           context.AssessmentSection,
                                                                           () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm))
             };
+        }
+
+        private static object[] WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodes(WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext context)
+        {
+            return context.WrappedData
+                          .Select(calculations => (object) new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculations, context.AssessmentSection))
+                          .ToArray();
+        }
+
+        private static object[] WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodes(WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext context)
+        {
+            return context.WrappedData
+                          .Select(calculations => (object) new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, context.AssessmentSection))
+                          .ToArray();
         }
 
         private ContextMenuStrip DesignWaterLevelCalculationsGroupContextMenuStrip(DesignWaterLevelCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
