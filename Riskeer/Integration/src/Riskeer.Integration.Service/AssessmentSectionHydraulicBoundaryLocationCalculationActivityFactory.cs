@@ -52,8 +52,9 @@ namespace Riskeer.Integration.Service
             }
 
             var activities = new List<CalculatableActivity>();
-            activities.AddRange(CreateDesignWaterLevelCalculationActivities(assessmentSection));
-            activities.AddRange(CreateWaveHeightCalculationActivities(assessmentSection));
+            activities.AddRange(CreateWaterLevelCalculationActivitiesForNormTargetProbabilities(assessmentSection));
+            activities.AddRange(CreateWaterLevelCalculationActivitiesForUserDefinedTargetProbabilities(assessmentSection));
+            activities.AddRange(CreateWaveHeightCalculationActivitiesForUserDefinedTargetProbabilities(assessmentSection));
             return activities;
         }
 

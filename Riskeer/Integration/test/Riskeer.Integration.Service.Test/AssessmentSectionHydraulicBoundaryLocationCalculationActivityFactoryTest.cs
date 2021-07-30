@@ -54,6 +54,124 @@ namespace Riskeer.Integration.Service.Test
         private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
 
         [Test]
+        public void CreateHydraulicBoundaryLocationCalculationActivities_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateHydraulicBoundaryLocationCalculationActivities_WithValidDataAndUsePreprocessorStates_ExpectedInputSetToActivities(bool usePreprocessor)
+        {
+            // Setup
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessor);
+
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName 1");
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName 2");
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
+            });
+
+            // Call
+            IEnumerable<CalculatableActivity> activities =
+                AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(assessmentSection);
+
+            // Assert
+            Assert.AreEqual(12, activities.Count());
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+
+            double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
+            string signalingNormText = noProbabilityValueDoubleConverter.ConvertToString(signalingNorm);
+            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+            string lowerLimitNormText = noProbabilityValueDoubleConverter.ConvertToString(lowerLimitNorm);
+
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(0),
+                                                      hydraulicBoundaryLocation1,
+                                                      signalingNorm,
+                                                      signalingNormText,
+                                                      hydraulicBoundaryDatabase);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1),
+                                                      hydraulicBoundaryLocation2,
+                                                      signalingNorm,
+                                                      signalingNormText,
+                                                      hydraulicBoundaryDatabase);
+
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(2),
+                                                      hydraulicBoundaryLocation1,
+                                                      lowerLimitNorm,
+                                                      lowerLimitNormText,
+                                                      hydraulicBoundaryDatabase);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(3),
+                                                      hydraulicBoundaryLocation2,
+                                                      lowerLimitNorm,
+                                                      lowerLimitNormText,
+                                                      hydraulicBoundaryDatabase);
+
+            double firstWaterLevelTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].TargetProbability;
+            string firstWaterLevelTargetProbabilityText = noProbabilityValueDoubleConverter.ConvertToString(firstWaterLevelTargetProbability);
+            double secondWaterLevelTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].TargetProbability;
+            string secondWaterLevelTargetProbabilityText = noProbabilityValueDoubleConverter.ConvertToString(secondWaterLevelTargetProbability);
+
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(4),
+                                                      hydraulicBoundaryLocation1,
+                                                      firstWaterLevelTargetProbability,
+                                                      firstWaterLevelTargetProbabilityText,
+                                                      hydraulicBoundaryDatabase);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(5),
+                                                      hydraulicBoundaryLocation2,
+                                                      firstWaterLevelTargetProbability,
+                                                      firstWaterLevelTargetProbabilityText,
+                                                      hydraulicBoundaryDatabase);
+
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(6),
+                                                      hydraulicBoundaryLocation1,
+                                                      secondWaterLevelTargetProbability,
+                                                      secondWaterLevelTargetProbabilityText,
+                                                      hydraulicBoundaryDatabase);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(7),
+                                                      hydraulicBoundaryLocation2,
+                                                      secondWaterLevelTargetProbability,
+                                                      secondWaterLevelTargetProbabilityText,
+                                                      hydraulicBoundaryDatabase);
+
+            double firstWaveHeightTargetProbability = assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[0].TargetProbability;
+            string firstWaveHeightTargetProbabilityText = noProbabilityValueDoubleConverter.ConvertToString(firstWaveHeightTargetProbability);
+            double secondWaveHeightTargetProbability = assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[1].TargetProbability;
+            string secondWaveHeightTargetProbabilityText = noProbabilityValueDoubleConverter.ConvertToString(secondWaveHeightTargetProbability);
+
+            AssertWaveHeightCalculationActivity(activities.ElementAt(8),
+                                                hydraulicBoundaryLocation1,
+                                                firstWaveHeightTargetProbability,
+                                                firstWaveHeightTargetProbabilityText,
+                                                hydraulicBoundaryDatabase);
+            AssertWaveHeightCalculationActivity(activities.ElementAt(9),
+                                                hydraulicBoundaryLocation2,
+                                                firstWaveHeightTargetProbability,
+                                                firstWaveHeightTargetProbabilityText,
+                                                hydraulicBoundaryDatabase);
+
+            AssertWaveHeightCalculationActivity(activities.ElementAt(10),
+                                                hydraulicBoundaryLocation1,
+                                                secondWaveHeightTargetProbability,
+                                                secondWaveHeightTargetProbabilityText,
+                                                hydraulicBoundaryDatabase);
+            AssertWaveHeightCalculationActivity(activities.ElementAt(11),
+                                                hydraulicBoundaryLocation2,
+                                                secondWaveHeightTargetProbability,
+                                                secondWaveHeightTargetProbabilityText,
+                                                hydraulicBoundaryDatabase);
+        }
+
+        [Test]
         public void CreateWaterLevelCalculationActivitiesForNormTargetProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
@@ -242,135 +360,6 @@ namespace Riskeer.Integration.Service.Test
                                                 hydraulicBoundaryLocation2,
                                                 secondTargetProbability,
                                                 secondTargetProbabilityText,
-                                                hydraulicBoundaryDatabase);
-        }
-
-        [Test]
-        public void CreateHydraulicBoundaryLocationCalculationActivities_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CreateHydraulicBoundaryLocationCalculationActivities_WithValidDataAndUsePreprocessorStates_ExpectedInputSetToActivities(bool usePreprocessor)
-        {
-            // Setup
-            AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessor);
-
-            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName 1");
-            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName 2");
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation1,
-                hydraulicBoundaryLocation2
-            });
-
-            // Call
-            IEnumerable<CalculatableActivity> activities =
-                AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(assessmentSection);
-
-            // Assert
-            Assert.AreEqual(16, activities.Count());
-
-            double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
-            double factorizedSignalingNorm = signalingNorm / 30;
-            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
-            double factorizedLowerLimitNorm = lowerLimitNorm * 30;
-
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(0),
-                                                      hydraulicBoundaryLocation1,
-                                                      factorizedSignalingNorm,
-                                                      expectedCategoryBoundaryName1,
-                                                      hydraulicBoundaryDatabase);
-            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1),
-                                                      hydraulicBoundaryLocation2,
-                                                      factorizedSignalingNorm,
-                                                      expectedCategoryBoundaryName1,
-                                                      hydraulicBoundaryDatabase);
-
-            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(2),
-                                                      hydraulicBoundaryLocation1,
-                                                      signalingNorm,
-                                                      expectedCategoryBoundaryName2,
-                                                      hydraulicBoundaryDatabase);
-            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(3),
-                                                      hydraulicBoundaryLocation2,
-                                                      signalingNorm,
-                                                      expectedCategoryBoundaryName2,
-                                                      hydraulicBoundaryDatabase);
-
-            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(4),
-                                                      hydraulicBoundaryLocation1,
-                                                      lowerLimitNorm,
-                                                      expectedCategoryBoundaryName3,
-                                                      hydraulicBoundaryDatabase);
-            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(5),
-                                                      hydraulicBoundaryLocation2,
-                                                      lowerLimitNorm,
-                                                      expectedCategoryBoundaryName3,
-                                                      hydraulicBoundaryDatabase);
-
-            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(6),
-                                                      hydraulicBoundaryLocation1,
-                                                      factorizedLowerLimitNorm,
-                                                      expectedCategoryBoundaryName4,
-                                                      hydraulicBoundaryDatabase);
-            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(7),
-                                                      hydraulicBoundaryLocation2,
-                                                      factorizedLowerLimitNorm,
-                                                      expectedCategoryBoundaryName4,
-                                                      hydraulicBoundaryDatabase);
-
-            AssertWaveHeightCalculationActivity(activities.ElementAt(8),
-                                                hydraulicBoundaryLocation1,
-                                                factorizedSignalingNorm,
-                                                expectedCategoryBoundaryName1,
-                                                hydraulicBoundaryDatabase);
-            AssertWaveHeightCalculationActivity(activities.ElementAt(9),
-                                                hydraulicBoundaryLocation2,
-                                                factorizedSignalingNorm,
-                                                expectedCategoryBoundaryName1,
-                                                hydraulicBoundaryDatabase);
-
-            AssertWaveHeightCalculationActivity(activities.ElementAt(10),
-                                                hydraulicBoundaryLocation1,
-                                                signalingNorm,
-                                                expectedCategoryBoundaryName2,
-                                                hydraulicBoundaryDatabase);
-            AssertWaveHeightCalculationActivity(activities.ElementAt(11),
-                                                hydraulicBoundaryLocation2,
-                                                signalingNorm,
-                                                expectedCategoryBoundaryName2,
-                                                hydraulicBoundaryDatabase);
-
-            AssertWaveHeightCalculationActivity(activities.ElementAt(12),
-                                                hydraulicBoundaryLocation1,
-                                                lowerLimitNorm,
-                                                expectedCategoryBoundaryName3,
-                                                hydraulicBoundaryDatabase);
-            AssertWaveHeightCalculationActivity(activities.ElementAt(13),
-                                                hydraulicBoundaryLocation2,
-                                                lowerLimitNorm,
-                                                expectedCategoryBoundaryName3,
-                                                hydraulicBoundaryDatabase);
-
-            AssertWaveHeightCalculationActivity(activities.ElementAt(14),
-                                                hydraulicBoundaryLocation1,
-                                                factorizedLowerLimitNorm,
-                                                expectedCategoryBoundaryName4,
-                                                hydraulicBoundaryDatabase);
-            AssertWaveHeightCalculationActivity(activities.ElementAt(15),
-                                                hydraulicBoundaryLocation2,
-                                                factorizedLowerLimitNorm,
-                                                expectedCategoryBoundaryName4,
                                                 hydraulicBoundaryDatabase);
         }
 
