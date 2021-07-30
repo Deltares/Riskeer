@@ -2091,9 +2091,9 @@ namespace Riskeer.Integration.Plugin
                 {
                     new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(nodeData.WrappedData.Locations,
                                                                                      nodeData.AssessmentSection),
-                    new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(nodeData.WrappedData.Locations,
+                    new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(nodeData.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
                                                                                             nodeData.AssessmentSection),
-                    new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(nodeData.WrappedData.Locations,
+                    new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(nodeData.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
                                                                                             nodeData.AssessmentSection),
                     new DesignWaterLevelCalculationsGroupContext(nodeData.WrappedData.Locations,
                                                                  nodeData.AssessmentSection),
