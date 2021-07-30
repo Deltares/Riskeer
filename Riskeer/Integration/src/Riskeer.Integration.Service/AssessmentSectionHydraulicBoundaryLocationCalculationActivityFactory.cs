@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Service;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
@@ -33,6 +34,8 @@ namespace Riskeer.Integration.Service
     /// </summary>
     public static class AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory
     {
+        private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
+
         /// <summary>
         /// Creates a collection of <see cref="CalculatableActivity"/> for all hydraulic boundary location calculations
         /// in the given <see cref="IAssessmentSection"/>.
@@ -50,6 +53,39 @@ namespace Riskeer.Integration.Service
             var activities = new List<CalculatableActivity>();
             activities.AddRange(CreateDesignWaterLevelCalculationActivities(assessmentSection));
             activities.AddRange(CreateWaveHeightCalculationActivities(assessmentSection));
+            return activities;
+        }
+
+        /// <summary>
+        /// Creates a collection of <see cref="CalculatableActivity"/> for all norm target probability based water level calculations 
+        /// within the given <see cref="IAssessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section to create the activities for.</param>
+        /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public static IEnumerable<CalculatableActivity> CreateWaterLevelCalculationActivitiesForNormTargetProbabilities(IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            var activities = new List<CalculatableActivity>();
+
+            double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
+            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                                    assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                    assessmentSection,
+                                    signalingNorm,
+                                    noProbabilityValueDoubleConverter.ConvertToString(signalingNorm)));
+
+            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                                    assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                    assessmentSection,
+                                    lowerLimitNorm,
+                                    noProbabilityValueDoubleConverter.ConvertToString(lowerLimitNorm)));
+
             return activities;
         }
 
