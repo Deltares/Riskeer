@@ -810,15 +810,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 new TestHydraulicBoundaryLocation()
             });
 
-            SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
             SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForSignalingNorm);
-            SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
             SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
 
-            SetHydraulicBoundaryLocationOutput(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
-            SetHydraulicBoundaryLocationOutput(assessmentSection.WaveHeightCalculationsForSignalingNorm);
-            SetHydraulicBoundaryLocationOutput(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
-            SetHydraulicBoundaryLocationOutput(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
+            SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations);
+            SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations);
+
+            SetHydraulicBoundaryLocationOutput(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations);
+            SetHydraulicBoundaryLocationOutput(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations);
 
             return assessmentSection;
         }
@@ -841,25 +840,28 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             return assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
                                     .Concat(assessmentSection.WaterLevelCalculationsForSignalingNorm)
-                                    .Concat(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
                                     .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
-                                    .Concat(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm)
-                                    .Concat(assessmentSection.WaveHeightCalculationsForSignalingNorm)
-                                    .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
-                                    .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
+                                    .Concat(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations)
+                                    .Concat(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations)
+                                    .Concat(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations)
+                                    .Concat(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations)
                                     .Where(calc => calc.HasOutput);
         }
 
         private static IEnumerable<TestCaseData> GetHydraulicBoundaryLocationCalculations()
         {
-            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(section => section.WaterLevelCalculationsForFactorizedSignalingNorm.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(section => section.WaterLevelCalculationsForSignalingNorm.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(section => section.WaterLevelCalculationsForFactorizedLowerLimitNorm.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(section => section.WaterLevelCalculationsForLowerLimitNorm.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(section => section.WaveHeightCalculationsForFactorizedSignalingNorm.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(section => section.WaveHeightCalculationsForSignalingNorm.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(section => section.WaveHeightCalculationsForFactorizedLowerLimitNorm.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(section => section.WaveHeightCalculationsForLowerLimitNorm.First()));
+            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
+                                              section => section.WaterLevelCalculationsForSignalingNorm.First()));
+            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
+                                              section => section.WaterLevelCalculationsForLowerLimitNorm.First()));
+            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
+                                              section => section.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations.First()));
+            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
+                                              section => section.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations.First()));
+            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
+                                              section => section.WaveHeightCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations.First()));
+            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
+                                              section => section.WaveHeightCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations.First()));
         }
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
