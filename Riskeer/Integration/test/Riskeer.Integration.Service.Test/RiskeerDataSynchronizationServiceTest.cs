@@ -568,10 +568,10 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void ClearIllustrationPointResultsOfWaterLevelCalculationsForNormProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void ClearIllustrationPointResultsOfWaterLevelCalculationsForNormTargetProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForNormProbabilities(null);
+            void Call() => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForNormTargetProbabilities(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -579,7 +579,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void ClearIllustrationPointResultsOfWaterLevelCalculationsForNormProbabilities_AssessmentSectionWithCalculations_ClearsIllustrationPointsAndReturnsAffectedObjects()
+        public void ClearIllustrationPointResultsOfWaterLevelCalculationsForNormTargetProbabilities_AssessmentSectionWithCalculations_ClearsIllustrationPointsAndReturnsAffectedObjects()
         {
             // Setup
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
@@ -603,7 +603,7 @@ namespace Riskeer.Integration.Service.Test
                                                                                  .ToArray();
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForNormProbabilities(assessmentSection);
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForNormTargetProbabilities(assessmentSection);
 
             // Assert
             CollectionAssert.AreEquivalent(waterLevelCalculationsForNormTargetProbabilitiesWithIllustrationPoints, affectedObjects);
@@ -619,10 +619,10 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedTargetProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedProbabilities(null);
+            void Call() => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedTargetProbabilities(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -630,7 +630,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedProbabilities_AssessmentSectionWithCalculations_ClearsIllustrationPointsAndReturnsAffectedObjects()
+        public void ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedTargetProbabilities_AssessmentSectionWithCalculations_ClearsIllustrationPointsAndReturnsAffectedObjects()
         {
             // Setup
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
@@ -654,7 +654,7 @@ namespace Riskeer.Integration.Service.Test
                                                                                  .ToArray();
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedProbabilities(assessmentSection);
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedTargetProbabilities(assessmentSection);
 
             // Assert
             CollectionAssert.AreEquivalent(waterLevelCalculationsForNormTargetProbabilitiesWithIllustrationPoints, affectedObjects);
@@ -668,12 +668,12 @@ namespace Riskeer.Integration.Service.Test
             Assert.IsTrue(waveHeightCalculationsForUserDefinedTargetProbabilitiesWithIllustrationPoints.All(calc => calc.Output.HasGeneralResult));
             Assert.IsTrue(waveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput.All(calc => calc.HasOutput));
         }
-        
+
         [Test]
-        public void ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedTargetProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedProbabilities(null);
+            void Call() => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedTargetProbabilities(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -681,7 +681,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedProbabilities_AssessmentSectionWithCalculations_ClearsIllustrationPointsAndReturnsAffectedObjects()
+        public void ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedTargetProbabilities_AssessmentSectionWithCalculations_ClearsIllustrationPointsAndReturnsAffectedObjects()
         {
             // Setup
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
@@ -705,7 +705,7 @@ namespace Riskeer.Integration.Service.Test
                                                                                  .ToArray();
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedProbabilities(assessmentSection);
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedTargetProbabilities(assessmentSection);
 
             // Assert
             CollectionAssert.AreEquivalent(waterLevelCalculationsForNormTargetProbabilitiesWithIllustrationPoints, affectedObjects);
@@ -719,7 +719,7 @@ namespace Riskeer.Integration.Service.Test
             Assert.IsTrue(waveHeightCalculationsForUserDefinedTargetProbabilitiesWithIllustrationPoints.All(calc => !calc.Output.HasGeneralResult));
             Assert.IsTrue(waveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput.All(calc => calc.HasOutput));
         }
-        
+
         [Test]
         public void ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
         {
