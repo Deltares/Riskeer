@@ -937,6 +937,7 @@ namespace Riskeer.Integration.Plugin
             {
                 Text = context => RiskeerCommonFormsResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
+                ContextMenuStrip = WaterLevelCalculationsForNormTargetProbabilitiesGroupContextMenuStrip,
                 ChildNodeObjects = WaterLevelCalculationsForNormTargetProbabilitiesGroupContextChildNodes
             };
 
@@ -950,6 +951,7 @@ namespace Riskeer.Integration.Plugin
             {
                 Text = context => RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
+                ContextMenuStrip = WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip,
                 ChildNodeObjects = WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodes
             };
 
@@ -963,6 +965,7 @@ namespace Riskeer.Integration.Plugin
             {
                 Text = context => RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
+                ContextMenuStrip = WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip,
                 ChildNodeObjects = WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodes
             };
 
@@ -2251,6 +2254,39 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
+        private ContextMenuStrip WaterLevelCalculationsForNormTargetProbabilitiesGroupContextMenuStrip(WaterLevelCalculationsForNormTargetProbabilitiesGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            IAssessmentSection assessmentSection = nodeData.AssessmentSection;
+
+            IMainWindow guiMainWindow = Gui.MainWindow;
+            var waterLevelCalculationItem = new StrictContextMenuItem(
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.WaterLevel_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(
+                        guiMainWindow,
+                        AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaterLevelCalculationActivitiesForNormTargetProbabilities(assessmentSection));
+                });
+
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waterLevelCalculationItem);
+
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
+                GetInquiryHelper(),
+                RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
+                () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForNormTargetProbabilities(nodeData.AssessmentSection));
+
+            return builder.AddCustomItem(waterLevelCalculationItem)
+                          .AddSeparator()
+                          .AddClearIllustrationPointsOfCalculationsItem(() => WaterLevelCalculationsForNormTargetProbabilitiesHaveIllustrationPoints(assessmentSection), changeHandler)
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .Build();
+        }
+
         private static object[] WaterLevelCalculationsForNormTargetProbabilitiesGroupContextChildNodes(WaterLevelCalculationsForNormTargetProbabilitiesGroupContext context)
         {
             return new object[]
@@ -2264,11 +2300,77 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
+        private ContextMenuStrip WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip(WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            IAssessmentSection assessmentSection = nodeData.AssessmentSection;
+
+            IMainWindow guiMainWindow = Gui.MainWindow;
+            var waterLevelCalculationItem = new StrictContextMenuItem(
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.WaterLevel_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(
+                        guiMainWindow,
+                        AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaterLevelCalculationActivitiesForUserDefinedTargetProbabilities(assessmentSection));
+                });
+
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waterLevelCalculationItem);
+
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
+                GetInquiryHelper(),
+                RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
+                () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedTargetProbabilities(nodeData.AssessmentSection));
+
+            return builder.AddCustomItem(waterLevelCalculationItem)
+                          .AddSeparator()
+                          .AddClearIllustrationPointsOfCalculationsItem(() => WaterLevelCalculationsForUserDefinedTargetProbabilitiesHaveIllustrationPoints(assessmentSection), changeHandler)
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .Build();
+        }
+
         private static object[] WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodes(WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext context)
         {
             return context.WrappedData
                           .Select(calculations => (object) new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculations, context.AssessmentSection))
                           .ToArray();
+        }
+
+        private ContextMenuStrip WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip(WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            IAssessmentSection assessmentSection = nodeData.AssessmentSection;
+
+            IMainWindow guiMainWindow = Gui.MainWindow;
+            var waveHeightCalculationItem = new StrictContextMenuItem(
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(
+                        guiMainWindow,
+                        AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivitiesForUserDefinedTargetProbabilities(assessmentSection));
+                });
+
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightCalculationItem);
+
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
+                GetInquiryHelper(),
+                RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
+                () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedTargetProbabilities(nodeData.AssessmentSection));
+
+            return builder.AddCustomItem(waveHeightCalculationItem)
+                          .AddSeparator()
+                          .AddClearIllustrationPointsOfCalculationsItem(() => WaveHeightCalculationsForUserDefinedTargetProbabilitiesHaveIllustrationPoints(assessmentSection), changeHandler)
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .Build();
         }
 
         private static object[] WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodes(WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext context)
