@@ -974,7 +974,8 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<WaveHeightCalculationsForUserDefinedTargetProbabilityContext>
             {
                 Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability),
-                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon
+                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
+                ContextMenuStrip = WaveHeightCalculationsForUserDefinedTargetProbabilityContextMenuStrip
             };
 
             yield return new TreeNodeInfo<DesignWaterLevelCalculationsGroupContext>
@@ -2460,6 +2461,46 @@ namespace Riskeer.Integration.Plugin
             return context.WrappedData
                           .Select(calculations => (object) new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, context.AssessmentSection))
                           .ToArray();
+        }
+
+        private ContextMenuStrip WaveHeightCalculationsForUserDefinedTargetProbabilityContextMenuStrip(WaveHeightCalculationsForUserDefinedTargetProbabilityContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            var waveHeightCalculationItem = new StrictContextMenuItem(
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
+                (sender, args) =>
+                {
+                    if (hydraulicBoundaryLocationCalculationGuiService == null)
+                    {
+                        return;
+                    }
+
+                    IAssessmentSection assessmentSection = nodeData.AssessmentSection;
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(nodeData.WrappedData.HydraulicBoundaryLocationCalculations,
+                                                                                        assessmentSection,
+                                                                                        nodeData.WrappedData.TargetProbability,
+                                                                                        noProbabilityValueDoubleConverter.ConvertToString(nodeData.WrappedData.TargetProbability));
+                });
+
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
+                                                        nodeData.WrappedData.TargetProbability,
+                                                        waveHeightCalculationItem);
+
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
+                GetInquiryHelper(),
+                noProbabilityValueDoubleConverter.ConvertToString(nodeData.WrappedData.TargetProbability),
+                () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData.HydraulicBoundaryLocationCalculations));
+
+            return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddCustomItem(waveHeightCalculationItem)
+                          .AddSeparator()
+                          .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData.HydraulicBoundaryLocationCalculations), changeHandler)
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
         private ContextMenuStrip DesignWaterLevelCalculationsGroupContextMenuStrip(DesignWaterLevelCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
