@@ -262,4 +262,13 @@ Wilt u doorgaan?</value>
   <data name="AssessmentSectionFromFileCommandHandler_Unable_to_create_assessmentSection_with_LowerLimitNorm_0_and_SignalingNorm_1_Norms_should_be_in_Range_2_" xml:space="preserve">
     <value>Het traject kan niet aangemaakt worden met een ondergrens van {0} en een signaleringswaarde van {1}. De waarde van de ondergrens en signaleringswaarde moet in het bereik {2} liggen en de ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde.</value>
   </data>
+  <data name="ContextMenuStrip_Add_TargetProbability" xml:space="preserve">
+    <value>Doelkans toevoegen</value>
+  </data>
+  <data name="ContextMenuStrip_Add_TargetProbability_WaterLevels_ToolTip" xml:space="preserve">
+    <value>Voeg een nieuwe doelkans toe aan deze map met waterstanden.</value>
+  </data>
+  <data name="ContextMenuStrip_Add_TargetProbability_WaveHeights_ToolTip" xml:space="preserve">
+    <value>Voeg een nieuwe doelkans toe aan deze map met golfhoogten.</value>
+  </data>
 </root>

@@ -2347,6 +2347,18 @@ namespace Riskeer.Integration.Plugin
         {
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
+            var addTargetProbabilityItem = new StrictContextMenuItem(
+                Resources.ContextMenuStrip_Add_TargetProbability,
+                Resources.ContextMenuStrip_Add_TargetProbability_WaterLevels_ToolTip,
+                RiskeerCommonFormsResources.GenericInputOutputIcon,
+                (sender, args) =>
+                {
+                    HydraulicBoundaryLocationCalculationsForTargetProbability hydraulicBoundaryLocationCalculationsForTargetProbability = CreateHydraulicBoundaryLocationCalculationsForTargetProbability(assessmentSection);
+
+                    nodeData.WrappedData.Add(hydraulicBoundaryLocationCalculationsForTargetProbability);
+                    nodeData.WrappedData.NotifyObservers();
+                });
+
             IMainWindow guiMainWindow = Gui.MainWindow;
             var waterLevelCalculationItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
@@ -2367,7 +2379,9 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedTargetProbabilities(nodeData.AssessmentSection));
 
-            return builder.AddCustomItem(waterLevelCalculationItem)
+            return builder.AddCustomItem(addTargetProbabilityItem)
+                          .AddSeparator()
+                          .AddCustomItem(waterLevelCalculationItem)
                           .AddSeparator()
                           .AddClearIllustrationPointsOfCalculationsItem(() => WaterLevelCalculationsForUserDefinedTargetProbabilitiesHaveIllustrationPoints(assessmentSection), changeHandler)
                           .AddSeparator()
@@ -2427,6 +2441,18 @@ namespace Riskeer.Integration.Plugin
         {
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
+            var addTargetProbabilityItem = new StrictContextMenuItem(
+                Resources.ContextMenuStrip_Add_TargetProbability,
+                Resources.ContextMenuStrip_Add_TargetProbability_WaveHeights_ToolTip,
+                RiskeerCommonFormsResources.GenericInputOutputIcon,
+                (sender, args) =>
+                {
+                    HydraulicBoundaryLocationCalculationsForTargetProbability hydraulicBoundaryLocationCalculationsForTargetProbability = CreateHydraulicBoundaryLocationCalculationsForTargetProbability(assessmentSection);
+
+                    nodeData.WrappedData.Add(hydraulicBoundaryLocationCalculationsForTargetProbability);
+                    nodeData.WrappedData.NotifyObservers();
+                });
+
             IMainWindow guiMainWindow = Gui.MainWindow;
             var waveHeightCalculationItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
@@ -2447,7 +2473,9 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedTargetProbabilities(nodeData.AssessmentSection));
 
-            return builder.AddCustomItem(waveHeightCalculationItem)
+            return builder.AddCustomItem(addTargetProbabilityItem)
+                          .AddSeparator()
+                          .AddCustomItem(waveHeightCalculationItem)
                           .AddSeparator()
                           .AddClearIllustrationPointsOfCalculationsItem(() => WaveHeightCalculationsForUserDefinedTargetProbabilitiesHaveIllustrationPoints(assessmentSection), changeHandler)
                           .AddSeparator()
@@ -2654,6 +2682,19 @@ namespace Riskeer.Integration.Plugin
         {
             return assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
                                     .Any(whc => IllustrationPointsHelper.HasIllustrationPoints(whc.HydraulicBoundaryLocationCalculations));
+        }
+
+        private static HydraulicBoundaryLocationCalculationsForTargetProbability CreateHydraulicBoundaryLocationCalculationsForTargetProbability(IAssessmentSection assessmentSection)
+        {
+            var hydraulicBoundaryLocationCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability
+            {
+                TargetProbability = 0.1
+            };
+
+            hydraulicBoundaryLocationCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(
+                assessmentSection.HydraulicBoundaryDatabase.Locations.Select(hbl => new HydraulicBoundaryLocationCalculation(hbl)));
+
+            return hydraulicBoundaryLocationCalculationsForTargetProbability;
         }
 
         #endregion
