@@ -812,14 +812,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         {
                             string[] msgs = messages.ToArray();
                             Assert.AreEqual(8, msgs.Length);
-                            Assert.AreEqual($"Golfhoogte berekenen voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName}) is gestart.", msgs[0]);
+                            Assert.AreEqual($"Golfhoogte berekenen voor locatie '{locationName}' ({categoryBoundaryName}) is gestart.", msgs[0]);
                             CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                             CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                             CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                            Assert.AreEqual($"Golfhoogte berekening voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
+                            Assert.AreEqual($"Golfhoogte berekening voor locatie '{locationName}' ({categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
                             StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                             CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
-                            Assert.AreEqual($"Golfhoogte berekenen voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName}) is gelukt.", msgs[7]);
+                            Assert.AreEqual($"Golfhoogte berekenen voor locatie '{locationName}' ({categoryBoundaryName}) is gelukt.", msgs[7]);
                         });
 
                         HydraulicBoundaryLocationCalculationOutput output = hydraulicBoundaryLocationCalculation.Output;
