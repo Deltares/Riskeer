@@ -1504,7 +1504,7 @@ namespace Riskeer.Integration.Service.Test
         private static IEnumerable<HydraulicBoundaryLocationCalculation> GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesWithOutput(IAssessmentSection assessmentSection)
         {
             return assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
-                                    .SelectMany(whc => whc.HydraulicBoundaryLocationCalculations)
+                                    .SelectMany(wlc => wlc.HydraulicBoundaryLocationCalculations)
                                     .Where(calc => calc.HasOutput);
         }
 

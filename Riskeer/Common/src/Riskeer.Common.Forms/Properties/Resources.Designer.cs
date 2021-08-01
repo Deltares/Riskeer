@@ -2491,6 +2491,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hydraulische belastingen.
+        /// </summary>
+        public static string HydraulicLoads_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicLoads_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string Id_DisplayName {
@@ -4384,15 +4393,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string View_Height_DisplayName {
             get {
                 return ResourceManager.GetString("View_Height_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waterstanden en Golfhoogten.
-        /// </summary>
-        public static string WaterLevel_and_WaveHeight_DisplayName {
-            get {
-                return ResourceManager.GetString("WaterLevel_and_WaveHeight_DisplayName", resourceCulture);
             }
         }
         

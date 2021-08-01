@@ -2231,7 +2231,7 @@ namespace Riskeer.Integration.Plugin
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 GetInquiryHelper(),
-                RiskeerCommonFormsResources.WaterLevel_and_WaveHeight_DisplayName,
+                RiskeerCommonFormsResources.HydraulicLoads_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaterLevelAndWaveHeightCalculations(nodeData.AssessmentSection));
 
             AssessmentSection assessmentSection = nodeData.AssessmentSection;

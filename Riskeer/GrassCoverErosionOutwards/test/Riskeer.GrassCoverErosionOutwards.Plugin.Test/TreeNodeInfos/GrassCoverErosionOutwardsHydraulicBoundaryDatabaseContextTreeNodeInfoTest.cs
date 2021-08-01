@@ -29,13 +29,13 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
+using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
-using Core.Gui.TestUtil.ContextMenu;
-using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
+using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -629,7 +629,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     contextMenuAdapter.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
                     // Then
-                    const string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij 'Waterstanden en Golfhoogten' wilt wissen?";
+                    const string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij 'Hydraulische belastingen' wilt wissen?";
                     Assert.AreEqual(expectedMessage, messageBoxText);
 
                     Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));
@@ -698,7 +698,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     contextMenuAdapter.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
                     // Then
-                    const string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij 'Waterstanden en Golfhoogten' wilt wissen?";
+                    const string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij 'Hydraulische belastingen' wilt wissen?";
                     Assert.AreEqual(expectedMessage, messageBoxText);
 
                     Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));
