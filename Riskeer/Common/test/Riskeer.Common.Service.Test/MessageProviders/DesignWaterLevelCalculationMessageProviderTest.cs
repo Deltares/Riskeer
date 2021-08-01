@@ -31,21 +31,21 @@ namespace Riskeer.Common.Service.Test.MessageProviders
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        public void Constructor_CategoryBoundaryNameInvalid_ThrowsArgumentException(string categoryBoundaryName)
+        public void Constructor_CalculationIdentifierInvalid_ThrowsArgumentException(string calculationIdentifier)
         {
             // Call
-            TestDelegate call = () => new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
+            void Call() => new DesignWaterLevelCalculationMessageProvider(calculationIdentifier);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("'categoryBoundaryName' must have a value.", exception.Message);
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual("'calculationIdentifier' must have a value.", exception.Message);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var provider = new DesignWaterLevelCalculationMessageProvider("A");
+            var provider = new DesignWaterLevelCalculationMessageProvider("1/10000");
 
             // Assert
             Assert.IsInstanceOf<ICalculationMessageProvider>(provider);
@@ -58,14 +58,14 @@ namespace Riskeer.Common.Service.Test.MessageProviders
         public void GetActivityDescription_VariousParameters_ReturnsExpectedValue(string name)
         {
             // Setup
-            const string categoryBoundaryName = "A";
-            var provider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
+            const string calculationIdentifier = "1/10000";
+            var provider = new DesignWaterLevelCalculationMessageProvider(calculationIdentifier);
 
             // Call
             string description = provider.GetActivityDescription(name);
 
             // Assert
-            string expectedDescription = $"Waterstand berekenen voor locatie '{name}' (Categoriegrens {categoryBoundaryName})";
+            string expectedDescription = $"Waterstand berekenen voor locatie '{name}' ({calculationIdentifier})";
             Assert.AreEqual(expectedDescription, description);
         }
 
@@ -76,14 +76,14 @@ namespace Riskeer.Common.Service.Test.MessageProviders
         public void GetCalculationFailedMessage_VariousParameters_ReturnsExpectedValue(string name)
         {
             // Setup
-            const string categoryBoundaryName = "A";
-            var provider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
+            const string calculationIdentifier = "1/10000";
+            var provider = new DesignWaterLevelCalculationMessageProvider(calculationIdentifier);
 
             // Call
             string message = provider.GetCalculationFailedMessage(name);
 
             // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{name}' (Categoriegrens {categoryBoundaryName}). " +
+            string expectedMessage = $"Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{name}' ({calculationIdentifier}). " +
                                      "Er is geen foutrapport beschikbaar.";
             Assert.AreEqual(expectedMessage, message);
         }
@@ -95,15 +95,15 @@ namespace Riskeer.Common.Service.Test.MessageProviders
         public void GetCalculationFailedWithErrorReportMessage_ValidNames_ExpectedValues(string name)
         {
             // Setup
-            const string categoryBoundaryName = "A";
-            var provider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
+            const string calculationIdentifier = "1/10000";
+            var provider = new DesignWaterLevelCalculationMessageProvider(calculationIdentifier);
             const string failureMessage = "It failed";
 
             // Call
             string message = provider.GetCalculationFailedWithErrorReportMessage(name, failureMessage);
 
             // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{name}' (Categoriegrens {categoryBoundaryName}). " +
+            string expectedMessage = $"Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{name}' ({calculationIdentifier}). " +
                                      $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
@@ -115,15 +115,15 @@ namespace Riskeer.Common.Service.Test.MessageProviders
         public void GetCalculationFailedWithErrorReportMessage_ValidFailureMessages_ExpectedValues(string failureMessage)
         {
             // Setup
-            const string categoryBoundaryName = "A";
-            var provider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
+            const string calculationIdentifier = "1/10000";
+            var provider = new DesignWaterLevelCalculationMessageProvider(calculationIdentifier);
             const string name = "calculation name";
 
             // Call
             string message = provider.GetCalculationFailedWithErrorReportMessage(name, failureMessage);
 
             // Assert
-            string expectedMessage = $"Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{name}' (Categoriegrens {categoryBoundaryName}). " +
+            string expectedMessage = $"Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{name}' ({calculationIdentifier}). " +
                                      $"Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{failureMessage}";
             Assert.AreEqual(expectedMessage, message);
         }
@@ -135,14 +135,14 @@ namespace Riskeer.Common.Service.Test.MessageProviders
         public void GetCalculatedNotConvergedMessage_VariousParameters_ReturnsExpectedValue(string name)
         {
             // Setup
-            const string categoryBoundaryName = "A";
-            var provider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
+            const string calculationIdentifier = "1/10000";
+            var provider = new DesignWaterLevelCalculationMessageProvider(calculationIdentifier);
 
             // Call
             string message = provider.GetCalculatedNotConvergedMessage(name);
 
             // Assert
-            string expectedMessage = $"Waterstand berekening voor locatie '{name}' (Categoriegrens {categoryBoundaryName}) is niet geconvergeerd.";
+            string expectedMessage = $"Waterstand berekening voor locatie '{name}' ({calculationIdentifier}) is niet geconvergeerd.";
             Assert.AreEqual(expectedMessage, message);
         }
     }
