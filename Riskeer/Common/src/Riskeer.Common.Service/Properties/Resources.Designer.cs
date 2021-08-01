@@ -146,7 +146,7 @@ namespace Riskeer.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand berekening voor locatie &apos;{0}&apos; (Categoriegrens {1}) is niet geconvergeerd..
+        ///   Looks up a localized string similar to Waterstand berekening voor locatie &apos;{0}&apos; ({1}) is niet geconvergeerd..
         /// </summary>
         public static string DesignWaterLevelCalculationActivity_DesignWaterLevelCalculation_for_HydraulicBoundaryLocation_0_CalculationIdentifier_1_not_converged {
             get {
@@ -166,7 +166,7 @@ namespace Riskeer.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de waterstand berekening voor locatie &apos;{0}&apos; (Categoriegrens {1}). Bekijk het foutrapport door op details te klikken.
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de waterstand berekening voor locatie &apos;{0}&apos; ({1}). Bekijk het foutrapport door op details te klikken.
         ///{2}.
         /// </summary>
         public static string DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_CalculationIdentifier_1_click_details_for_last_error_report_2 {
@@ -177,7 +177,7 @@ namespace Riskeer.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de waterstand berekening voor locatie &apos;{0}&apos; (Categoriegrens {1}). Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de waterstand berekening voor locatie &apos;{0}&apos; ({1}). Er is geen foutrapport beschikbaar..
         /// </summary>
         public static string DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_CalculationIdentifier_1_no_error_report {
             get {
@@ -187,7 +187,7 @@ namespace Riskeer.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand berekenen voor locatie &apos;{0}&apos; (Categoriegrens {1}).
+        ///   Looks up a localized string similar to Waterstand berekenen voor locatie &apos;{0}&apos; ({1}).
         /// </summary>
         public static string DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicBoundaryLocation_0_CalculationIdentifier_1_ {
             get {
