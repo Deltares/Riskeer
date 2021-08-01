@@ -1497,7 +1497,7 @@ namespace Riskeer.Integration.Service.Test
         private static IEnumerable<HydraulicBoundaryLocationCalculation> GetWaterLevelCalculationsForNormTargetProbabilitiesWithOutput(IAssessmentSection assessmentSection)
         {
             return assessmentSection.WaterLevelCalculationsForSignalingNorm
-                                    .Concat(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
+                                    .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
                                     .Where(calc => calc.HasOutput);
         }
 

@@ -325,7 +325,7 @@ namespace Riskeer.Integration.Service
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
                                          assessmentSection.WaterLevelCalculationsForSignalingNorm));
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
-                                         assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm));
+                                         assessmentSection.WaterLevelCalculationsForLowerLimitNorm));
             return affectedObjects;
         }
 
