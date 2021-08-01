@@ -72,16 +72,16 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/200";
 
             // Call
-            TestDelegate call = () => new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
-                                                                        null,
-                                                                        1,
-                                                                        categoryBoundaryName);
+            void Call() => new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
+                                                             null,
+                                                             validNorm,
+                                                             calculationIdentifier);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationSettings", exception.ParamName);
         }
 
@@ -90,17 +90,17 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/200";
 
             // Call
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                              CreateCalculationSettings(),
-                                                             1,
-                                                             categoryBoundaryName);
+                                                             validNorm,
+                                                             calculationIdentifier);
 
             // Assert
             Assert.IsInstanceOf<CalculatableActivity>(activity);
-            Assert.AreEqual(GetActivityDescription(locationName, categoryBoundaryName), activity.Description);
+            Assert.AreEqual(GetActivityDescription(locationName, calculationIdentifier), activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
         }
@@ -111,7 +111,7 @@ namespace Riskeer.Common.Service.Test
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
             const string locationName = "locationName";
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/200";
 
             var settings = new HydraulicBoundaryCalculationSettings(invalidFilePath,
                                                                     validHlcdFilePath,
@@ -120,17 +120,17 @@ namespace Riskeer.Common.Service.Test
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                              settings,
                                                              validNorm,
-                                                             categoryBoundaryName);
+                                                             calculationIdentifier);
 
             // Call
-            Action call = () => activity.Run();
+            void Call() => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"{GetActivityDescription(locationName, categoryBoundaryName)} is gestart.", msgs[0]);
+                Assert.AreEqual($"{GetActivityDescription(locationName, calculationIdentifier)} is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
@@ -144,7 +144,7 @@ namespace Riskeer.Common.Service.Test
             // Setup
             const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
             const string locationName = "locationName";
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/200";
 
             var settings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                                     validHlcdFilePath,
@@ -153,7 +153,7 @@ namespace Riskeer.Common.Service.Test
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                              settings,
                                                              validNorm,
-                                                             categoryBoundaryName);
+                                                             calculationIdentifier);
 
             // Call
             Action call = () => activity.Run();
@@ -163,7 +163,7 @@ namespace Riskeer.Common.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"{GetActivityDescription(locationName, categoryBoundaryName)} is gestart.", msgs[0]);
+                Assert.AreEqual($"{GetActivityDescription(locationName, calculationIdentifier)} is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
@@ -176,22 +176,22 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/1";
 
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                              CreateCalculationSettings(),
                                                              1.0,
-                                                             categoryBoundaryName);
+                                                             calculationIdentifier);
 
             // Call
-            Action call = () => activity.Run();
+            void Call() => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"{GetActivityDescription(locationName, categoryBoundaryName)} is gestart.", msgs[0]);
+                Assert.AreEqual($"{GetActivityDescription(locationName, calculationIdentifier)} is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
@@ -206,7 +206,7 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/30";
             const double norm = 1.0 / 30;
 
             var calculator = new TestWaveHeightCalculator
@@ -235,7 +235,7 @@ namespace Riskeer.Common.Service.Test
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation),
                                                              calculationSettings,
                                                              norm,
-                                                             categoryBoundaryName);
+                                                             calculationIdentifier);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -258,7 +258,7 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/30";
             const double norm = 1.0 / 30;
 
             var calculator = new TestWaveHeightCalculator
@@ -278,7 +278,7 @@ namespace Riskeer.Common.Service.Test
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation),
                                                              CreateCalculationSettings(),
                                                              norm,
-                                                             categoryBoundaryName);
+                                                             calculationIdentifier);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -290,7 +290,7 @@ namespace Riskeer.Common.Service.Test
                 {
                     string[] messages = m.ToArray();
                     Assert.AreEqual(6, messages.Length);
-                    Assert.AreEqual($"{GetActivityDescription(locationName, categoryBoundaryName)} is gestart.", messages[0]);
+                    Assert.AreEqual($"{GetActivityDescription(locationName, calculationIdentifier)} is gestart.", messages[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(messages[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
@@ -332,7 +332,7 @@ namespace Riskeer.Common.Service.Test
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                              CreateCalculationSettings(),
                                                              norm,
-                                                             "A");
+                                                             "1/30");
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -357,7 +357,7 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/200";
 
             var calculator = new TestWaveHeightCalculator
             {
@@ -385,26 +385,26 @@ namespace Riskeer.Common.Service.Test
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                              CreateCalculationSettings(),
                                                              validNorm,
-                                                             categoryBoundaryName);
+                                                             calculationIdentifier);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => activity.Run();
+                void Call() => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, m =>
+                TestHelper.AssertLogMessages(Call, m =>
                 {
                     string[] messages = m.ToArray();
                     Assert.AreEqual(7, messages.Length);
-                    Assert.AreEqual($"{GetActivityDescription(locationName, categoryBoundaryName)} is gestart.", messages[0]);
+                    Assert.AreEqual($"{GetActivityDescription(locationName, calculationIdentifier)} is gestart.", messages[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(messages[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
 
                     string expectedFailureMessage = string.IsNullOrEmpty(lastErrorFileContent)
-                                                        ? $"Er is een fout opgetreden tijdens de golfhoogte berekening voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName}). Er is geen foutrapport beschikbaar."
-                                                        : $"Er is een fout opgetreden tijdens de golfhoogte berekening voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName}). Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}";
+                                                        ? $"Er is een fout opgetreden tijdens de golfhoogte berekening voor locatie '{locationName}' ({calculationIdentifier}). Er is geen foutrapport beschikbaar."
+                                                        : $"Er is een fout opgetreden tijdens de golfhoogte berekening voor locatie '{locationName}' ({calculationIdentifier}). Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}";
                     Assert.AreEqual(expectedFailureMessage, messages[4]);
 
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", messages[5]);
@@ -424,7 +424,7 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/300";
 
             var calculator = new TestWaveHeightCalculator
             {
@@ -452,19 +452,19 @@ namespace Riskeer.Common.Service.Test
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                              CreateCalculationSettings(),
                                                              norm,
-                                                             categoryBoundaryName);
+                                                             calculationIdentifier);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => activity.Run();
+                void Call() => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    Assert.AreEqual($"Golfhoogte berekening voor locatie 'locationName' (Categoriegrens {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
+                    Assert.AreEqual($"Golfhoogte berekening voor locatie 'locationName' ({calculationIdentifier}) is niet geconvergeerd.", msgs[4]);
                 });
                 Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocationCalculation.Output.CalculationConvergence);
             }
@@ -480,7 +480,7 @@ namespace Riskeer.Common.Service.Test
         public void Finish_ActivityWithSpecificState_NotifyHydraulicBoundaryLocationCalculation(ActivityState state)
         {
             // Setup
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/200";
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
@@ -492,8 +492,8 @@ namespace Riskeer.Common.Service.Test
 
             var activity = new TestWaveHeightCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                                  CreateCalculationSettings(),
-                                                                 1.0,
-                                                                 categoryBoundaryName,
+                                                                 validNorm,
+                                                                 calculationIdentifier,
                                                                  state);
 
             // Call
@@ -503,9 +503,9 @@ namespace Riskeer.Common.Service.Test
             mockRepository.VerifyAll();
         }
 
-        private static string GetActivityDescription(string locationName, string categoryBoundaryName)
+        private static string GetActivityDescription(string locationName, string calculationIdentifier)
         {
-            return $"Golfhoogte berekenen voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName})";
+            return $"Golfhoogte berekenen voor locatie '{locationName}' ({calculationIdentifier})";
         }
 
         private static HydraulicBoundaryCalculationSettings CreateCalculationSettings()
