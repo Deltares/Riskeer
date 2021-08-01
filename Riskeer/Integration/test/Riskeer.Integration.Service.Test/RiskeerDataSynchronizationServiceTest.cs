@@ -568,6 +568,39 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
+        public void ClearIllustrationPointResultsOfWaterLevelCalculationsForNormProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForNormProbabilities(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedProbabilities(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedProbabilities(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
         public void ClearIllustrationPointResultsForDesignWaterLevelCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call

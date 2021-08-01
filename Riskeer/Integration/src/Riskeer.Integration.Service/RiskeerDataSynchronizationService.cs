@@ -330,12 +330,12 @@ namespace Riskeer.Integration.Service
         }
 
         /// <summary>
-        /// Clears all illustration point results of the user specified probability based water level calculations.
+        /// Clears all illustration point results of the user defined probability based water level calculations.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the illustration point results for.</param>
         /// <returns>All objects that are affected by the operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearIllustrationPointResultsOfWaterLevelCalculationsForUserSpecifiedProbabilities(IAssessmentSection assessmentSection)
+        public static IEnumerable<IObservable> ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedProbabilities(IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
@@ -354,12 +354,12 @@ namespace Riskeer.Integration.Service
         }
 
         /// <summary>
-        /// Clears all illustration point results of the user specified probability based wave height calculations.
+        /// Clears all illustration point results of the user defined probability based wave height calculations.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the illustration point results for.</param>
         /// <returns>All objects that are affected by the operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearIllustrationPointResultsOfWaveHeightCalculationsForUserSpecifiedProbabilities(IAssessmentSection assessmentSection)
+        public static IEnumerable<IObservable> ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedProbabilities(IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
