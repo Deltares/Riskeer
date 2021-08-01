@@ -617,11 +617,11 @@ namespace Riskeer.Integration.Service.Test
             // Setup
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
 
-            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithOutput = GetAllDesignWaterLevelCalculationsWithOutput(assessmentSection).ToArray();
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithOutput = GetWaterLevelCalculationsForNormProbabilitiesWithOutput(assessmentSection).ToArray();
             HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithIllustrationPoints = waterLevelCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
                                                                                                                                   .ToArray();
 
-            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithOutput = GetAllWaveHeightCalculationsWithOutput(assessmentSection).ToArray();
+            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithOutput = GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput(assessmentSection).ToArray();
             HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithIllustrationPoints = waveHeightCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
                                                                                                                                   .ToArray();
 
@@ -655,11 +655,11 @@ namespace Riskeer.Integration.Service.Test
             // Setup
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
 
-            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithOutput = GetAllDesignWaterLevelCalculationsWithOutput(assessmentSection).ToArray();
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithOutput = GetWaterLevelCalculationsForNormProbabilitiesWithOutput(assessmentSection).ToArray();
             HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithIllustrationPoints = waterLevelCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
                                                                                                                                   .ToArray();
 
-            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithOutput = GetAllWaveHeightCalculationsWithOutput(assessmentSection).ToArray();
+            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithOutput = GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput(assessmentSection).ToArray();
             HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithIllustrationPoints = waveHeightCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
                                                                                                                                   .ToArray();
 
@@ -693,8 +693,8 @@ namespace Riskeer.Integration.Service.Test
             // Setup
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
 
-            HydraulicBoundaryLocationCalculation[] calculationsWithOutput = GetAllDesignWaterLevelCalculationsWithOutput(assessmentSection)
-                                                                            .Concat(GetAllWaveHeightCalculationsWithOutput(assessmentSection))
+            HydraulicBoundaryLocationCalculation[] calculationsWithOutput = GetWaterLevelCalculationsForNormProbabilitiesWithOutput(assessmentSection)
+                                                                            .Concat(GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput(assessmentSection))
                                                                             .ToArray();
             HydraulicBoundaryLocationCalculation[] calculationsWithIllustrationPoints = calculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
                                                                                                               .ToArray();
@@ -1426,21 +1426,24 @@ namespace Riskeer.Integration.Service.Test
             }
         }
 
-        private static IEnumerable<HydraulicBoundaryLocationCalculation> GetAllDesignWaterLevelCalculationsWithOutput(IAssessmentSection assessmentSection)
+        private static IEnumerable<HydraulicBoundaryLocationCalculation> GetWaterLevelCalculationsForNormProbabilitiesWithOutput(IAssessmentSection assessmentSection)
         {
-            return assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
-                                    .Concat(assessmentSection.WaterLevelCalculationsForSignalingNorm)
+            return assessmentSection.WaterLevelCalculationsForSignalingNorm
                                     .Concat(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
-                                    .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
                                     .Where(calc => calc.HasOutput);
         }
 
-        private static IEnumerable<HydraulicBoundaryLocationCalculation> GetAllWaveHeightCalculationsWithOutput(IAssessmentSection assessmentSection)
+        private static IEnumerable<HydraulicBoundaryLocationCalculation> GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesWithOutput(IAssessmentSection assessmentSection)
         {
-            return assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
-                                    .Concat(assessmentSection.WaveHeightCalculationsForSignalingNorm)
-                                    .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
-                                    .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
+            return assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                                    .SelectMany(whc => whc.HydraulicBoundaryLocationCalculations)
+                                    .Where(calc => calc.HasOutput);
+        }
+
+        private static IEnumerable<HydraulicBoundaryLocationCalculation> GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput(IAssessmentSection assessmentSection)
+        {
+            return assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+                                    .SelectMany(whc => whc.HydraulicBoundaryLocationCalculations)
                                     .Where(calc => calc.HasOutput);
         }
 
@@ -1817,15 +1820,15 @@ namespace Riskeer.Integration.Service.Test
             };
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, true);
-            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
+
             SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForSignalingNorm);
             SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
-            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
 
-            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
-            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaveHeightCalculationsForSignalingNorm);
-            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
-            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations);
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations);
+
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations);
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations);
 
             return assessmentSection;
         }
