@@ -358,10 +358,10 @@ namespace Riskeer.Common.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Golfhoogte berekening voor locatie &apos;{0}&apos; (Categoriegrens {1}) is niet geconvergeerd..
         /// </summary>
-        public static string WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_Category_1_not_converged {
+        public static string WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_CalculationIdentifier_1_not_converged {
             get {
                 return ResourceManager.GetString("WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation" +
-                        "_0_Category_1_not_converged", resourceCulture);
+                        "_0_CalculationIdentifier_1_not_converged", resourceCulture);
             }
         }
         
@@ -379,30 +379,30 @@ namespace Riskeer.Common.Service.Properties {
         ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de golfhoogte berekening voor locatie &apos;{0}&apos; (Categoriegrens {1}). Bekijk het foutrapport door op details te klikken.
         ///{2}.
         /// </summary>
-        public static string WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Category_1_click_details_for_last_error_report_2 {
+        public static string WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_CalculationIdentifier_1_click_details_for_last_error_report_2 {
             get {
-                return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Category_" +
-                        "1_click_details_for_last_error_report_2", resourceCulture);
+                return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Calculati" +
+                        "onIdentifier_1_click_details_for_last_error_report_2", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de golfhoogte berekening voor locatie &apos;{0}&apos; (Categoriegrens {1}). Er is geen foutrapport beschikbaar..
         /// </summary>
-        public static string WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Category_1_no_error_report {
+        public static string WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_CalculationIdentifier_1_no_error_report {
             get {
-                return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Category_" +
-                        "1_no_error_report", resourceCulture);
+                return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Calculati" +
+                        "onIdentifier_1_no_error_report", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Golfhoogte berekenen voor locatie &apos;{0}&apos; (Categoriegrens {1}).
         /// </summary>
-        public static string WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLocation_0_Category_1_ {
+        public static string WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLocation_0_CalculationIdentifier_1_ {
             get {
                 return ResourceManager.GetString("WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLoca" +
-                        "tion_0_Category_1_", resourceCulture);
+                        "tion_0_CalculationIdentifier_1_", resourceCulture);
             }
         }
     }
