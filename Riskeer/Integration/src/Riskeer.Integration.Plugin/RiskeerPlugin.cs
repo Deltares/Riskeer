@@ -960,7 +960,9 @@ namespace Riskeer.Integration.Plugin
             {
                 Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = WaterLevelCalculationsForUserDefinedTargetProbabilityContextMenuStrip
+                ContextMenuStrip = WaterLevelCalculationsForUserDefinedTargetProbabilityContextMenuStrip,
+                CanRemove = (context, o) => true,
+                OnNodeRemoved = WaterLevelCalculationsForUserDefinedTargetProbabilityOnNodeRemoved
             };
 
             yield return new TreeNodeInfo<WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext>
@@ -975,7 +977,9 @@ namespace Riskeer.Integration.Plugin
             {
                 Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = WaveHeightCalculationsForUserDefinedTargetProbabilityContextMenuStrip
+                ContextMenuStrip = WaveHeightCalculationsForUserDefinedTargetProbabilityContextMenuStrip,
+                CanRemove = (context, o) => true,
+                OnNodeRemoved = WaveHeightCalculationsForUserDefinedTargetProbabilityOnNodeRemoved
             };
 
             yield return new TreeNodeInfo<DesignWaterLevelCalculationsGroupContext>
@@ -2432,9 +2436,18 @@ namespace Riskeer.Integration.Plugin
                           .AddCustomItem(waterLevelCalculationItem)
                           .AddSeparator()
                           .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData.HydraulicBoundaryLocationCalculations), changeHandler)
+                          .AddDeleteItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private static void WaterLevelCalculationsForUserDefinedTargetProbabilityOnNodeRemoved(WaterLevelCalculationsForUserDefinedTargetProbabilityContext context, object o)
+        {
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> parent = context.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
+
+            parent.Remove(context.WrappedData);
+            parent.NotifyObservers();
         }
 
         private ContextMenuStrip WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip(WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
@@ -2526,9 +2539,18 @@ namespace Riskeer.Integration.Plugin
                           .AddCustomItem(waveHeightCalculationItem)
                           .AddSeparator()
                           .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData.HydraulicBoundaryLocationCalculations), changeHandler)
+                          .AddDeleteItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private static void WaveHeightCalculationsForUserDefinedTargetProbabilityOnNodeRemoved(WaveHeightCalculationsForUserDefinedTargetProbabilityContext context, object o)
+        {
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> parent = context.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
+
+            parent.Remove(context.WrappedData);
+            parent.NotifyObservers();
         }
 
         private ContextMenuStrip DesignWaterLevelCalculationsGroupContextMenuStrip(DesignWaterLevelCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
