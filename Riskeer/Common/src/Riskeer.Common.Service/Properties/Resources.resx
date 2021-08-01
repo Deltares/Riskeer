@@ -135,10 +135,10 @@
   <data name="Validation_started" xml:space="preserve">
     <value>Validatie is gestart.</value>
   </data>
-  <data name="DesignWaterLevelCalculationActivity_DesignWaterLevelCalculation_for_HydraulicBoundaryLocation_0_Category_1_not_converged" xml:space="preserve">
+  <data name="DesignWaterLevelCalculationActivity_DesignWaterLevelCalculation_for_HydraulicBoundaryLocation_0_CalculationIdentifier_1_not_converged" xml:space="preserve">
     <value>Waterstand berekening voor locatie '{0}' (Categoriegrens {1}) is niet geconvergeerd.</value>
   </data>
-  <data name="DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicBoundaryLocation_0_Category_1_" xml:space="preserve">
+  <data name="DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicBoundaryLocation_0_CalculationIdentifier_1_" xml:space="preserve">
     <value>Waterstand berekenen voor locatie '{0}' (Categoriegrens {1})</value>
   </data>
   <data name="Hydraulic_boundary_database_connection_failed_0_" xml:space="preserve">
@@ -177,7 +177,7 @@
   <data name="WaveHeightCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0" xml:space="preserve">
     <value>Golfhoogte berekening is uitgevoerd op de tijdelijke locatie '{0}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
   </data>
-  <data name="DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_Category_1_click_details_for_last_error_report_2" xml:space="preserve">
+  <data name="DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_CalculationIdentifier_1_click_details_for_last_error_report_2" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{0}' (Categoriegrens {1}). Bekijk het foutrapport door op details te klikken.
 {2}</value>
   </data>
@@ -197,7 +197,7 @@
   <data name="SetGeneralResult_Converting_IllustrationPointResult_Failed" xml:space="preserve">
     <value>Het uitlezen van illustratiepunten is mislukt.</value>
   </data>
-  <data name="DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_Category_1_no_error_report" xml:space="preserve">
+  <data name="DesignWaterLevelCalculationService_Calculate_Error_in_DesignWaterLevelCalculation_0_CalculationIdentifier_1_no_error_report" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens de waterstand berekening voor locatie '{0}' (Categoriegrens {1}). Er is geen foutrapport beschikbaar.</value>
   </data>
   <data name="WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Category_1_no_error_report" xml:space="preserve">
