@@ -579,6 +579,46 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
+        public void ClearIllustrationPointResultsOfWaterLevelCalculationsForNormProbabilities_AssessmentSectionWithCalculations_ClearsIllustrationPointsAndReturnsAffectedObjects()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
+
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsForNormTargetProbabilitiesWithOutput =
+                GetWaterLevelCalculationsForNormTargetProbabilitiesWithOutput(assessmentSection).ToArray();
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsForNormTargetProbabilitiesWithIllustrationPoints =
+                waterLevelCalculationsForNormTargetProbabilitiesWithOutput.Where(calc => calc.Output.HasGeneralResult)
+                                                                          .ToArray();
+
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsForUserDefinedTargetProbabilitiesWithOutput =
+                GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesWithOutput(assessmentSection).ToArray();
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsForUserDefinedTargetProbabilitiesWithIllustrationPoints =
+                waterLevelCalculationsForUserDefinedTargetProbabilitiesWithOutput.Where(calc => calc.Output.HasGeneralResult)
+                                                                                 .ToArray();
+
+            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput =
+                GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput(assessmentSection).ToArray();
+            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsForUserDefinedTargetProbabilitiesWithIllustrationPoints =
+                waveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput.Where(calc => calc.Output.HasGeneralResult)
+                                                                                 .ToArray();
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForNormProbabilities(assessmentSection);
+
+            // Assert
+            CollectionAssert.AreEquivalent(waterLevelCalculationsForNormTargetProbabilitiesWithIllustrationPoints, affectedObjects);
+
+            Assert.IsTrue(waterLevelCalculationsForNormTargetProbabilitiesWithIllustrationPoints.All(calc => !calc.Output.HasGeneralResult));
+            Assert.IsTrue(waterLevelCalculationsForNormTargetProbabilitiesWithOutput.All(calc => calc.HasOutput));
+
+            Assert.IsTrue(waterLevelCalculationsForUserDefinedTargetProbabilitiesWithIllustrationPoints.All(calc => calc.Output.HasGeneralResult));
+            Assert.IsTrue(waterLevelCalculationsForUserDefinedTargetProbabilitiesWithOutput.All(calc => calc.HasOutput));
+
+            Assert.IsTrue(waveHeightCalculationsForUserDefinedTargetProbabilitiesWithIllustrationPoints.All(calc => calc.Output.HasGeneralResult));
+            Assert.IsTrue(waveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput.All(calc => calc.HasOutput));
+        }
+
+        [Test]
         public void ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
@@ -589,6 +629,46 @@ namespace Riskeer.Integration.Service.Test
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
+        [Test]
+        public void ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedProbabilities_AssessmentSectionWithCalculations_ClearsIllustrationPointsAndReturnsAffectedObjects()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
+
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsForNormTargetProbabilitiesWithOutput =
+                GetWaterLevelCalculationsForNormTargetProbabilitiesWithOutput(assessmentSection).ToArray();
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsForNormTargetProbabilitiesWithIllustrationPoints =
+                waterLevelCalculationsForNormTargetProbabilitiesWithOutput.Where(calc => calc.Output.HasGeneralResult)
+                                                                          .ToArray();
+
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsForUserDefinedTargetProbabilitiesWithOutput =
+                GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesWithOutput(assessmentSection).ToArray();
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsForUserDefinedTargetProbabilitiesWithIllustrationPoints =
+                waterLevelCalculationsForUserDefinedTargetProbabilitiesWithOutput.Where(calc => calc.Output.HasGeneralResult)
+                                                                                 .ToArray();
+
+            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput =
+                GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput(assessmentSection).ToArray();
+            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsForUserDefinedTargetProbabilitiesWithIllustrationPoints =
+                waveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput.Where(calc => calc.Output.HasGeneralResult)
+                                                                                 .ToArray();
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedProbabilities(assessmentSection);
+
+            // Assert
+            CollectionAssert.AreEquivalent(waterLevelCalculationsForNormTargetProbabilitiesWithIllustrationPoints, affectedObjects);
+
+            Assert.IsTrue(waterLevelCalculationsForNormTargetProbabilitiesWithIllustrationPoints.All(calc => calc.Output.HasGeneralResult));
+            Assert.IsTrue(waterLevelCalculationsForNormTargetProbabilitiesWithOutput.All(calc => calc.HasOutput));
+
+            Assert.IsTrue(waterLevelCalculationsForUserDefinedTargetProbabilitiesWithIllustrationPoints.All(calc => !calc.Output.HasGeneralResult));
+            Assert.IsTrue(waterLevelCalculationsForUserDefinedTargetProbabilitiesWithOutput.All(calc => calc.HasOutput));
+
+            Assert.IsTrue(waveHeightCalculationsForUserDefinedTargetProbabilitiesWithIllustrationPoints.All(calc => calc.Output.HasGeneralResult));
+            Assert.IsTrue(waveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput.All(calc => calc.HasOutput));
+        }
+        
         [Test]
         public void ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
         {
@@ -601,81 +681,45 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void ClearIllustrationPointResultsForDesignWaterLevelCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void ClearIllustrationPointResultsForDesignWaterLevelCalculations_AssessmentSectionWithCalculations_ClearsIllustrationPointsAndReturnsAffectedObjects()
+        public void ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedProbabilities_AssessmentSectionWithCalculations_ClearsIllustrationPointsAndReturnsAffectedObjects()
         {
             // Setup
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
 
-            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithOutput = GetWaterLevelCalculationsForNormProbabilitiesWithOutput(assessmentSection).ToArray();
-            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithIllustrationPoints = waterLevelCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
-                                                                                                                                  .ToArray();
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsForNormTargetProbabilitiesWithOutput =
+                GetWaterLevelCalculationsForNormTargetProbabilitiesWithOutput(assessmentSection).ToArray();
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsForNormTargetProbabilitiesWithIllustrationPoints =
+                waterLevelCalculationsForNormTargetProbabilitiesWithOutput.Where(calc => calc.Output.HasGeneralResult)
+                                                                          .ToArray();
 
-            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithOutput = GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput(assessmentSection).ToArray();
-            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithIllustrationPoints = waveHeightCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
-                                                                                                                                  .ToArray();
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsForUserDefinedTargetProbabilitiesWithOutput =
+                GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesWithOutput(assessmentSection).ToArray();
+            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsForUserDefinedTargetProbabilitiesWithIllustrationPoints =
+                waterLevelCalculationsForUserDefinedTargetProbabilitiesWithOutput.Where(calc => calc.Output.HasGeneralResult)
+                                                                                 .ToArray();
 
-            // Call
-            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(assessmentSection);
-
-            // Assert
-            CollectionAssert.AreEquivalent(waterLevelCalculationsWithIllustrationPoints, affectedObjects);
-
-            Assert.IsTrue(waterLevelCalculationsWithIllustrationPoints.All(calc => !calc.Output.HasGeneralResult));
-            Assert.IsTrue(waterLevelCalculationsWithOutput.All(calc => calc.HasOutput));
-
-            Assert.IsTrue(waveHeightCalculationsWithIllustrationPoints.All(calc => calc.Output.HasGeneralResult));
-            Assert.IsTrue(waveHeightCalculationsWithOutput.All(calc => calc.HasOutput));
-        }
-
-        [Test]
-        public void ClearIllustrationPointResultsForWaveHeightCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void ClearIllustrationPointResultsForWaveHeightCalculations_AssessmentSectionWithCalculations_ClearsIllustrationPointsAndReturnsAffectedObjects()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
-
-            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithOutput = GetWaterLevelCalculationsForNormProbabilitiesWithOutput(assessmentSection).ToArray();
-            HydraulicBoundaryLocationCalculation[] waterLevelCalculationsWithIllustrationPoints = waterLevelCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
-                                                                                                                                  .ToArray();
-
-            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithOutput = GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput(assessmentSection).ToArray();
-            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsWithIllustrationPoints = waveHeightCalculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
-                                                                                                                                  .ToArray();
+            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput =
+                GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput(assessmentSection).ToArray();
+            HydraulicBoundaryLocationCalculation[] waveHeightCalculationsForUserDefinedTargetProbabilitiesWithIllustrationPoints =
+                waveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput.Where(calc => calc.Output.HasGeneralResult)
+                                                                                 .ToArray();
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(assessmentSection);
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedProbabilities(assessmentSection);
 
             // Assert
-            CollectionAssert.AreEquivalent(waveHeightCalculationsWithIllustrationPoints, affectedObjects);
+            CollectionAssert.AreEquivalent(waterLevelCalculationsForNormTargetProbabilitiesWithIllustrationPoints, affectedObjects);
 
-            Assert.IsTrue(waterLevelCalculationsWithIllustrationPoints.All(calc => calc.Output.HasGeneralResult));
-            Assert.IsTrue(waterLevelCalculationsWithOutput.All(calc => calc.HasOutput));
+            Assert.IsTrue(waterLevelCalculationsForNormTargetProbabilitiesWithIllustrationPoints.All(calc => calc.Output.HasGeneralResult));
+            Assert.IsTrue(waterLevelCalculationsForNormTargetProbabilitiesWithOutput.All(calc => calc.HasOutput));
 
-            Assert.IsTrue(waveHeightCalculationsWithIllustrationPoints.All(calc => !calc.Output.HasGeneralResult));
-            Assert.IsTrue(waveHeightCalculationsWithOutput.All(calc => calc.HasOutput));
+            Assert.IsTrue(waterLevelCalculationsForUserDefinedTargetProbabilitiesWithIllustrationPoints.All(calc => calc.Output.HasGeneralResult));
+            Assert.IsTrue(waterLevelCalculationsForUserDefinedTargetProbabilitiesWithOutput.All(calc => calc.HasOutput));
+
+            Assert.IsTrue(waveHeightCalculationsForUserDefinedTargetProbabilitiesWithIllustrationPoints.All(calc => !calc.Output.HasGeneralResult));
+            Assert.IsTrue(waveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput.All(calc => calc.HasOutput));
         }
-
+        
         [Test]
         public void ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
         {
@@ -693,7 +737,7 @@ namespace Riskeer.Integration.Service.Test
             // Setup
             IAssessmentSection assessmentSection = GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations();
 
-            HydraulicBoundaryLocationCalculation[] calculationsWithOutput = GetWaterLevelCalculationsForNormProbabilitiesWithOutput(assessmentSection)
+            HydraulicBoundaryLocationCalculation[] calculationsWithOutput = GetWaterLevelCalculationsForNormTargetProbabilitiesWithOutput(assessmentSection)
                                                                             .Concat(GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesWithOutput(assessmentSection))
                                                                             .ToArray();
             HydraulicBoundaryLocationCalculation[] calculationsWithIllustrationPoints = calculationsWithOutput.Where(calc => calc.Output.HasGeneralResult)
@@ -1426,7 +1470,7 @@ namespace Riskeer.Integration.Service.Test
             }
         }
 
-        private static IEnumerable<HydraulicBoundaryLocationCalculation> GetWaterLevelCalculationsForNormProbabilitiesWithOutput(IAssessmentSection assessmentSection)
+        private static IEnumerable<HydraulicBoundaryLocationCalculation> GetWaterLevelCalculationsForNormTargetProbabilitiesWithOutput(IAssessmentSection assessmentSection)
         {
             return assessmentSection.WaterLevelCalculationsForSignalingNorm
                                     .Concat(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
