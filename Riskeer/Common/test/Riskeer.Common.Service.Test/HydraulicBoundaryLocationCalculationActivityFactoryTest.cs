@@ -55,14 +55,14 @@ namespace Riskeer.Common.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
+            void Call() => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                 null,
                 assessmentSection,
                 new Random(12).NextDouble(),
-                "A");
+                "1/10000");
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("calculations", paramName);
             mocks.VerifyAll();
         }
@@ -71,14 +71,14 @@ namespace Riskeer.Common.Service.Test
         public void CreateWaveHeightCalculationActivities_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
+            void Call() => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                 Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                 null,
                 new Random(12).NextDouble(),
-                "A");
+                "1/10000");
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
         }
 
@@ -88,7 +88,7 @@ namespace Riskeer.Common.Service.Test
         public void CreateWaveHeightCalculationActivities_WithValidDataAndUsePreprocessorStates_ReturnsExpectedActivity(bool usePreprocessor)
         {
             // Setup
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/30";
             const double norm = 1.0 / 30;
 
             var mocks = new MockRepository();
@@ -109,15 +109,15 @@ namespace Riskeer.Common.Service.Test
                 },
                 assessmentSection,
                 norm,
-                categoryBoundaryName);
+                calculationIdentifier);
 
             // Assert
             Assert.AreEqual(2, activities.Count());
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveHeightCalculationActivity));
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertWaveHeightCalculationActivity(activities.First(), hydraulicBoundaryLocation1, categoryBoundaryName, norm, hydraulicBoundaryDatabase);
-            AssertWaveHeightCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, categoryBoundaryName, norm, hydraulicBoundaryDatabase);
+            AssertWaveHeightCalculationActivity(activities.First(), hydraulicBoundaryLocation1, calculationIdentifier, norm, hydraulicBoundaryDatabase);
+            AssertWaveHeightCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, calculationIdentifier, norm, hydraulicBoundaryDatabase);
 
             mocks.VerifyAll();
         }
@@ -131,14 +131,14 @@ namespace Riskeer.Common.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+            void Call() => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                 null,
                 assessmentSection,
                 new Random(12).NextDouble(),
-                "A");
+                "1/10000");
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("calculations", paramName);
             mocks.VerifyAll();
         }
@@ -147,14 +147,14 @@ namespace Riskeer.Common.Service.Test
         public void CreateDesignWaterLevelCalculationActivities_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+            void Call() => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                 Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                 null,
                 new Random(12).NextDouble(),
-                "A");
+                "1/10000");
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
         }
 
@@ -164,7 +164,7 @@ namespace Riskeer.Common.Service.Test
         public void CreateDesignWaterLevelCalculationActivities_WithValidDataAndUsePreprocessorStates_ReturnsExpectedActivity(bool usePreprocessor)
         {
             // Setup
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/30";
             const double norm = 1.0 / 30;
 
             var mocks = new MockRepository();
@@ -185,22 +185,22 @@ namespace Riskeer.Common.Service.Test
                 },
                 assessmentSection,
                 norm,
-                categoryBoundaryName);
+                calculationIdentifier);
 
             // Assert
             Assert.AreEqual(2, activities.Count());
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(DesignWaterLevelCalculationActivity));
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertDesignWaterLevelCalculationActivity(activities.First(), hydraulicBoundaryLocation1, categoryBoundaryName, norm, hydraulicBoundaryDatabase);
-            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, categoryBoundaryName, norm, hydraulicBoundaryDatabase);
+            AssertDesignWaterLevelCalculationActivity(activities.First(), hydraulicBoundaryLocation1, calculationIdentifier, norm, hydraulicBoundaryDatabase);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, calculationIdentifier, norm, hydraulicBoundaryDatabase);
 
             mocks.VerifyAll();
         }
 
         private static void AssertWaveHeightCalculationActivity(Activity activity,
                                                                 HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                                string categoryBoundaryName,
+                                                                string calculationIdentifier,
                                                                 double norm,
                                                                 HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
@@ -221,7 +221,7 @@ namespace Riskeer.Common.Service.Test
             {
                 Action call = activity.Run;
 
-                string expectedLogMessage = $"Golfhoogte berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categoriegrens {categoryBoundaryName}) is gestart.";
+                string expectedLogMessage = $"Golfhoogte berekenen voor locatie '{hydraulicBoundaryLocation.Name}' ({calculationIdentifier}) is gestart.";
 
                 TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
                 WaveHeightCalculationInput waveHeightCalculationInput = calculator.ReceivedInputs.Single();
@@ -234,7 +234,7 @@ namespace Riskeer.Common.Service.Test
 
         private static void AssertDesignWaterLevelCalculationActivity(Activity activity,
                                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                                      string categoryBoundaryName,
+                                                                      string calculationIdentifier,
                                                                       double norm,
                                                                       HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
@@ -255,7 +255,7 @@ namespace Riskeer.Common.Service.Test
             {
                 Action call = activity.Run;
 
-                string expectedLogMessage = $"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categoriegrens {categoryBoundaryName}) is gestart.";
+                string expectedLogMessage = $"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' ({calculationIdentifier}) is gestart.";
 
                 TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
                 AssessmentLevelCalculationInput designWaterLevelCalculationInput = calculator.ReceivedInputs.Single();
