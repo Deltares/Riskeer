@@ -1323,15 +1323,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle waterstanden berekenen..
-        /// </summary>
-        public static string DesignWaterLevel_Calculate_All_ToolTip {
-            get {
-                return ResourceManager.GetString("DesignWaterLevel_Calculate_All_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Is convergentie bereikt in de waterstand berekening?.
         /// </summary>
         public static string DesignWaterLevelCalculation_Convergence_Description {
@@ -4393,6 +4384,15 @@ namespace Riskeer.Common.Forms.Properties {
         public static string View_Height_DisplayName {
             get {
                 return ResourceManager.GetString("View_Height_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alle waterstanden berekenen..
+        /// </summary>
+        public static string WaterLevel_Calculate_All_ToolTip {
+            get {
+                return ResourceManager.GetString("WaterLevel_Calculate_All_ToolTip", resourceCulture);
             }
         }
         

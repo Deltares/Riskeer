@@ -2109,9 +2109,9 @@ namespace Riskeer.Integration.Plugin
 
         private ContextMenuStrip DesignWaterLevelCalculationsContextMenuStrip(DesignWaterLevelCalculationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
-            var designWaterLevelItem = new StrictContextMenuItem(
+            var waterLevelCalculationItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
-                RiskeerCommonFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.WaterLevel_Calculate_All_ToolTip,
                 RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
@@ -2129,7 +2129,7 @@ namespace Riskeer.Integration.Plugin
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
                                                         nodeData.GetNormFunc(),
-                                                        designWaterLevelItem);
+                                                        waterLevelCalculationItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
@@ -2139,7 +2139,7 @@ namespace Riskeer.Integration.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddCustomItem(designWaterLevelItem)
+                          .AddCustomItem(waterLevelCalculationItem)
                           .AddSeparator()
                           .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
                           .AddSeparator()
@@ -2149,7 +2149,7 @@ namespace Riskeer.Integration.Plugin
 
         private ContextMenuStrip WaveHeightCalculationsContextMenuStrip(WaveHeightCalculationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
-            var waveHeightItem = new StrictContextMenuItem(
+            var waveHeightCalculationItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
                 RiskeerCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
                 RiskeerCommonFormsResources.CalculateAllIcon,
@@ -2169,7 +2169,7 @@ namespace Riskeer.Integration.Plugin
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
                                                         nodeData.GetNormFunc(),
-                                                        waveHeightItem);
+                                                        waveHeightCalculationItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
@@ -2179,7 +2179,7 @@ namespace Riskeer.Integration.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddCustomItem(waveHeightItem)
+                          .AddCustomItem(waveHeightCalculationItem)
                           .AddSeparator()
                           .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
                           .AddSeparator()
@@ -2283,9 +2283,9 @@ namespace Riskeer.Integration.Plugin
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
             IMainWindow guiMainWindow = Gui.MainWindow;
-            var designWaterLevelItem = new StrictContextMenuItem(
+            var waterLevelCalculationItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
-                RiskeerCommonFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.WaterLevel_Calculate_All_ToolTip,
                 RiskeerCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
@@ -2294,7 +2294,7 @@ namespace Riskeer.Integration.Plugin
                         AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(assessmentSection));
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, designWaterLevelItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waterLevelCalculationItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
@@ -2302,7 +2302,7 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(nodeData.AssessmentSection));
 
-            return builder.AddCustomItem(designWaterLevelItem)
+            return builder.AddCustomItem(waterLevelCalculationItem)
                           .AddSeparator()
                           .AddClearIllustrationPointsOfCalculationsItem(() => DesignWaterLevelCalculationsHaveIllustrationPoints(assessmentSection), changeHandler)
                           .AddSeparator()
@@ -2316,7 +2316,7 @@ namespace Riskeer.Integration.Plugin
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
             IMainWindow guiMainWindow = Gui.MainWindow;
-            var waveHeightItem = new StrictContextMenuItem(
+            var waveHeightCalculationItem = new StrictContextMenuItem(
                 RiskeerCommonFormsResources.Calculate_All,
                 RiskeerCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
                 RiskeerCommonFormsResources.CalculateAllIcon,
@@ -2327,7 +2327,7 @@ namespace Riskeer.Integration.Plugin
                         AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(assessmentSection));
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightCalculationItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
@@ -2335,7 +2335,7 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(nodeData.AssessmentSection));
 
-            return builder.AddCustomItem(waveHeightItem)
+            return builder.AddCustomItem(waveHeightCalculationItem)
                           .AddSeparator()
                           .AddClearIllustrationPointsOfCalculationsItem(() => WaveHeightCalculationsHaveIllustrationPoints(assessmentSection), changeHandler)
                           .AddSeparator()

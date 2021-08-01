@@ -163,7 +163,7 @@
   <data name="Calculate_All_ToolTip" xml:space="preserve">
     <value>Voer alle berekeningen binnen dit toetsspoor uit.</value>
   </data>
-  <data name="DesignWaterLevel_Calculate_All_ToolTip" xml:space="preserve">
+  <data name="WaterLevel_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle waterstanden berekenen.</value>
   </data>
   <data name="WaveHeight_Calculate_All_ToolTip" xml:space="preserve">
