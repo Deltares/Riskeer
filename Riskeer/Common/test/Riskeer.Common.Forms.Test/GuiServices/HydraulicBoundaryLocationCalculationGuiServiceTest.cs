@@ -83,7 +83,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, 0.01, "A");
+            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, 0.01, "1/10000");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -103,7 +103,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.CalculateDesignWaterLevels(null, assessmentSection, 0.01, "A");
+            void Call() => guiService.CalculateDesignWaterLevels(null, assessmentSection, 0.01, "1/10000");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -126,7 +126,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "A");
+            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "1/10000");
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -154,7 +154,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 1.0, "A");
+            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 1.0, "1/10000");
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, "Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.");
@@ -183,7 +183,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "A");
+                void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "1/10000");
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(Call, 0);
@@ -197,7 +197,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         {
             // Setup
             const string hydraulicLocationName = "name";
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/10000";
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
@@ -231,19 +231,19 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                     guiService.CalculateDesignWaterLevels(new[]
                     {
                         new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(hydraulicLocationName))
-                    }, assessmentSection, 0.01, categoryBoundaryName);
+                    }, assessmentSection, 0.01, calculationIdentifier);
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
-                    string activityDescription = GetDesignWaterLevelCalculationActivityDescription(hydraulicLocationName, categoryBoundaryName);
+                    string activityDescription = GetDesignWaterLevelCalculationActivityDescription(hydraulicLocationName, calculationIdentifier);
                     Assert.AreEqual($"{activityDescription} is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                    Assert.AreEqual($"Waterstand berekening voor locatie 'name' (Categoriegrens {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
+                    Assert.AreEqual($"Waterstand berekening voor locatie 'name' ({calculationIdentifier}) is niet geconvergeerd.", msgs[4]);
                     StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                     Assert.AreEqual($"{activityDescription} is gelukt.", msgs[7]);
@@ -264,7 +264,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, 0.01, "A");
+            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, 0.01, "1/10000");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -284,7 +284,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.CalculateWaveHeights(null, assessmentSection, 0.01, "A");
+            void Call() => guiService.CalculateWaveHeights(null, assessmentSection, 0.01, "1/10000");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -307,7 +307,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "A");
+            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "1/10000");
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -334,7 +334,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 1.0, "A");
+            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 1.0, "1/10000");
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, "Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.");
@@ -362,7 +362,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "A");
+                void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "1/10000");
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(Call, 0);
@@ -376,7 +376,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         {
             // Setup
             const string hydraulicLocationName = "name";
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/10000";
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
@@ -410,19 +410,19 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                     guiService.CalculateWaveHeights(new[]
                     {
                         new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(hydraulicLocationName))
-                    }, assessmentSection, 0.01, categoryBoundaryName);
+                    }, assessmentSection, 0.01, calculationIdentifier);
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
-                    string activityDescription = GetWaveHeightCalculationActivityDescription(hydraulicLocationName, categoryBoundaryName);
+                    string activityDescription = GetWaveHeightCalculationActivityDescription(hydraulicLocationName, calculationIdentifier);
                     Assert.AreEqual($"{activityDescription} is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                    Assert.AreEqual($"Golfhoogte berekening voor locatie 'name' (Categoriegrens {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
+                    Assert.AreEqual($"Golfhoogte berekening voor locatie 'name' ({calculationIdentifier}) is niet geconvergeerd.", msgs[4]);
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                     Assert.AreEqual($"{activityDescription} is gelukt.", msgs[7]);
@@ -432,14 +432,14 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             mocks.VerifyAll();
         }
 
-        private static string GetWaveHeightCalculationActivityDescription(string locationName, string categoryBoundaryName)
+        private static string GetWaveHeightCalculationActivityDescription(string locationName, string calculationIdentifier)
         {
-            return $"Golfhoogte berekenen voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName})";
+            return $"Golfhoogte berekenen voor locatie '{locationName}' ({calculationIdentifier})";
         }
 
-        private static string GetDesignWaterLevelCalculationActivityDescription(string locationName, string categoryBoundaryName)
+        private static string GetDesignWaterLevelCalculationActivityDescription(string locationName, string calculationIdentifier)
         {
-            return $"Waterstand berekenen voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName})";
+            return $"Waterstand berekenen voor locatie '{locationName}' ({calculationIdentifier})";
         }
     }
 }
