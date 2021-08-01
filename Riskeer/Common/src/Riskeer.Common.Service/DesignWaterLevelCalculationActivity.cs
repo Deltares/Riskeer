@@ -43,15 +43,15 @@ namespace Riskeer.Common.Service
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
         /// hydraulic boundary calculation settings.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="categoryBoundaryName">The category boundary name of the calculation.</param>
+        /// <param name="calculationIdentifier">The calculation identifier to use in all messages.</param>
         /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> or
         /// <paramref name="calculationSettings"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="calculationIdentifier"/> is <c>null</c> or empty.</exception>
         public DesignWaterLevelCalculationActivity(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                                                    HydraulicBoundaryCalculationSettings calculationSettings,
                                                    double norm,
-                                                   string categoryBoundaryName)
+                                                   string calculationIdentifier)
             : base(hydraulicBoundaryLocationCalculation)
         {
             if (calculationSettings == null)
@@ -59,7 +59,7 @@ namespace Riskeer.Common.Service
                 throw new ArgumentNullException(nameof(calculationSettings));
             }
 
-            messageProvider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
+            messageProvider = new DesignWaterLevelCalculationMessageProvider(calculationIdentifier);
 
             this.hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocationCalculation;
             this.calculationSettings = calculationSettings;

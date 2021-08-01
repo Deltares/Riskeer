@@ -523,12 +523,12 @@ namespace Riskeer.Common.Service.Test
             public TestDesignWaterLevelCalculationActivity(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                                                            HydraulicBoundaryCalculationSettings calculationSettings,
                                                            double norm,
-                                                           string categoryBoundaryName,
+                                                           string calculationIdentifier,
                                                            ActivityState state)
                 : base(hydraulicBoundaryLocationCalculation,
                        calculationSettings,
                        norm,
-                       categoryBoundaryName)
+                       calculationIdentifier)
             {
                 State = state;
             }
