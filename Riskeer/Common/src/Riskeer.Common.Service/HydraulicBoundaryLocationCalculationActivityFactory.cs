@@ -41,15 +41,15 @@ namespace Riskeer.Common.Service
         /// the activities for.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
-        /// <param name="categoryBoundaryName">The category boundary name for the calculations.</param>
+        /// <param name="calculationIdentifier">The calculation identifier to use in all messages.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="calculationIdentifier"/> is <c>null</c> or empty.</exception>
         public static IEnumerable<CalculatableActivity> CreateWaveHeightCalculationActivities(
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
             IAssessmentSection assessmentSection,
             double norm,
-            string categoryBoundaryName)
+            string calculationIdentifier)
         {
             if (assessmentSection == null)
             {
@@ -65,7 +65,7 @@ namespace Riskeer.Common.Service
             return calculations.Select(calculation => new WaveHeightCalculationActivity(calculation,
                                                                                         settings,
                                                                                         norm,
-                                                                                        categoryBoundaryName)).ToArray();
+                                                                                        calculationIdentifier)).ToArray();
         }
 
         /// <summary>
@@ -76,15 +76,15 @@ namespace Riskeer.Common.Service
         /// the activities for.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
-        /// <param name="categoryBoundaryName">The category boundary name to use for the activities.</param>
+        /// <param name="calculationIdentifier">The calculation identifier to use in all messages.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="calculationIdentifier"/> is <c>null</c> or empty.</exception>
         public static IEnumerable<CalculatableActivity> CreateDesignWaterLevelCalculationActivities(
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
             IAssessmentSection assessmentSection,
             double norm,
-            string categoryBoundaryName)
+            string calculationIdentifier)
         {
             if (assessmentSection == null)
             {
@@ -100,7 +100,7 @@ namespace Riskeer.Common.Service
             return calculations.Select(calculation => new DesignWaterLevelCalculationActivity(calculation,
                                                                                               settings,
                                                                                               norm,
-                                                                                              categoryBoundaryName)).ToArray();
+                                                                                              calculationIdentifier)).ToArray();
         }
     }
 }
