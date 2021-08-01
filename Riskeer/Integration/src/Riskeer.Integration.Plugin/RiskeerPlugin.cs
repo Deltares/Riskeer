@@ -2232,7 +2232,7 @@ namespace Riskeer.Integration.Plugin
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 GetInquiryHelper(),
                 RiskeerCommonFormsResources.WaterLevel_and_WaveHeight_DisplayName,
-                () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(nodeData.AssessmentSection));
+                () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaterLevelAndWaveHeightCalculations(nodeData.AssessmentSection));
 
             AssessmentSection assessmentSection = nodeData.AssessmentSection;
             return builder.AddImportItem(RiskeerFormsResources.HydraulicBoundaryDatabase_Connect,

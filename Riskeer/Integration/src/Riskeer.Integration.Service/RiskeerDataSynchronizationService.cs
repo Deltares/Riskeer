@@ -330,7 +330,7 @@ namespace Riskeer.Integration.Service
         }
 
         /// <summary>
-        /// Clears all illustration point results of the user defined target probability based water level calculations.
+        /// Clears the illustration point results of the user defined target probability based water level calculations.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the illustration point results for.</param>
         /// <returns>All objects that are affected by the operation.</returns>
@@ -354,7 +354,7 @@ namespace Riskeer.Integration.Service
         }
 
         /// <summary>
-        /// Clears all illustration point results of the user defined target probability based wave height calculations.
+        /// Clears the illustration point results of the user defined target probability based wave height calculations.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the illustration point results for.</param>
         /// <returns>All objects that are affected by the operation.</returns>
@@ -378,7 +378,7 @@ namespace Riskeer.Integration.Service
         }
 
         /// <summary>
-        /// Clears all the illustration point results for the design water level calculations.
+        /// Clears the illustration point results for the design water level calculations.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the illustration point results for.</param>
         /// <returns>All objects that are affected by the operation.</returns>
@@ -403,7 +403,7 @@ namespace Riskeer.Integration.Service
         }
 
         /// <summary>
-        /// Clears all the illustration point results for the wave height calculations.
+        /// Clears the illustration point results for the wave height calculations.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the illustration point results for.</param>
         /// <returns>All objects that are affected by the operation.</returns>
@@ -428,12 +428,12 @@ namespace Riskeer.Integration.Service
         }
 
         /// <summary>
-        /// Clears all the illustration point results for the design water level and wave height calculations.
+        /// Clears the illustration point results for all water level and wave height calculations.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the illustration point results for.</param>
         /// <returns>All objects that are affected by the operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(IAssessmentSection assessmentSection)
+        public static IEnumerable<IObservable> ClearIllustrationPointResultsForWaterLevelAndWaveHeightCalculations(IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
@@ -441,9 +441,9 @@ namespace Riskeer.Integration.Service
             }
 
             var affectedObjects = new List<IObservable>();
-            affectedObjects.AddRange(ClearIllustrationPointResultsForWaveHeightCalculations(assessmentSection));
-            affectedObjects.AddRange(ClearIllustrationPointResultsForDesignWaterLevelCalculations(assessmentSection));
-
+            affectedObjects.AddRange(ClearIllustrationPointResultsOfWaterLevelCalculationsForNormTargetProbabilities(assessmentSection));
+            affectedObjects.AddRange(ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedTargetProbabilities(assessmentSection));
+            affectedObjects.AddRange(ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedTargetProbabilities(assessmentSection));
             return affectedObjects;
         }
 
