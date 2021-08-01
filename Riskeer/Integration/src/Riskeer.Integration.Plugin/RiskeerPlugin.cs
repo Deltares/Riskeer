@@ -2390,12 +2390,6 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static bool HasIllustrationPoints(IAssessmentSection assessmentSection)
-        {
-            return DesignWaterLevelCalculationsHaveIllustrationPoints(assessmentSection)
-                   || WaveHeightCalculationsHaveIllustrationPoints(assessmentSection);
-        }
-
         private static bool WaveHeightCalculationsHaveIllustrationPoints(IAssessmentSection assessmentSection)
         {
             return IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm)
@@ -2410,6 +2404,31 @@ namespace Riskeer.Integration.Plugin
                    || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForSignalingNorm)
                    || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
                    || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+        }
+
+        private static bool HasIllustrationPoints(IAssessmentSection assessmentSection)
+        {
+            return WaterLevelCalculationsForNormTargetProbabilitiesHaveIllustrationPoints(assessmentSection)
+                   || WaterLevelCalculationsForUserDefinedTargetProbabilitiesHaveIllustrationPoints(assessmentSection)
+                   || WaveHeightCalculationsForUserDefinedTargetProbabilitiesHaveIllustrationPoints(assessmentSection);
+        }
+
+        private static bool WaterLevelCalculationsForNormTargetProbabilitiesHaveIllustrationPoints(IAssessmentSection assessmentSection)
+        {
+            return IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForSignalingNorm)
+                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+        }
+
+        private static bool WaterLevelCalculationsForUserDefinedTargetProbabilitiesHaveIllustrationPoints(IAssessmentSection assessmentSection)
+        {
+            return assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                                    .Any(wlc => IllustrationPointsHelper.HasIllustrationPoints(wlc.HydraulicBoundaryLocationCalculations));
+        }
+
+        private static bool WaveHeightCalculationsForUserDefinedTargetProbabilitiesHaveIllustrationPoints(IAssessmentSection assessmentSection)
+        {
+            return assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+                                    .Any(whc => IllustrationPointsHelper.HasIllustrationPoints(whc.HydraulicBoundaryLocationCalculations));
         }
 
         #endregion
