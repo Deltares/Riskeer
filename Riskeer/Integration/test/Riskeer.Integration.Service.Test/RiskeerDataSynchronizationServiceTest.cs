@@ -63,10 +63,10 @@ namespace Riskeer.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithoutAssessmentSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs((IAssessmentSection) null);
+            void Call() => RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs((IAssessmentSection) null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -97,10 +97,10 @@ namespace Riskeer.Integration.Service.Test
         public void ClearFailureMechanismCalculationOutputs_WithoutFailureMechanisms_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs((IEnumerable<IFailureMechanism>) null);
+            void Call() => RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs((IEnumerable<IFailureMechanism>) null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanisms", exception.ParamName);
         }
 
@@ -133,10 +133,10 @@ namespace Riskeer.Integration.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
+            void Call() => RiskeerDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -241,10 +241,10 @@ namespace Riskeer.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationCalculationOutput_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(null);
+            void Call() => RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -402,10 +402,10 @@ namespace Riskeer.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms((IAssessmentSection) null);
+            void Call() => RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms((IAssessmentSection) null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -497,10 +497,10 @@ namespace Riskeer.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms_FailureMechanismsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms((IEnumerable<IFailureMechanism>) null);
+            void Call() => RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms((IEnumerable<IFailureMechanism>) null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanisms", exception.ParamName);
         }
 
@@ -571,10 +571,10 @@ namespace Riskeer.Integration.Service.Test
         public void ClearIllustrationPointResultsForDesignWaterLevelCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(null);
+            void Call() => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -609,10 +609,10 @@ namespace Riskeer.Integration.Service.Test
         public void ClearIllustrationPointResultsForWaveHeightCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(null);
+            void Call() => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -647,10 +647,10 @@ namespace Riskeer.Integration.Service.Test
         public void ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(null);
+            void Call() => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -680,10 +680,10 @@ namespace Riskeer.Integration.Service.Test
         public void ClearReferenceLine_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.ClearReferenceLineDependentData(null);
+            void Call() => RiskeerDataSynchronizationService.ClearReferenceLineDependentData(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
         }
 
@@ -820,10 +820,10 @@ namespace Riskeer.Integration.Service.Test
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile((StabilityStoneCoverFailureMechanism) null, profile);
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile((StabilityStoneCoverFailureMechanism) null, profile);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -834,10 +834,10 @@ namespace Riskeer.Integration.Service.Test
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("profile", paramName);
         }
 
@@ -894,10 +894,10 @@ namespace Riskeer.Integration.Service.Test
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile((WaveImpactAsphaltCoverFailureMechanism) null, profile);
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile((WaveImpactAsphaltCoverFailureMechanism) null, profile);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -908,10 +908,10 @@ namespace Riskeer.Integration.Service.Test
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("profile", paramName);
         }
 
@@ -968,10 +968,10 @@ namespace Riskeer.Integration.Service.Test
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile((GrassCoverErosionOutwardsFailureMechanism) null, profile);
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile((GrassCoverErosionOutwardsFailureMechanism) null, profile);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -982,10 +982,10 @@ namespace Riskeer.Integration.Service.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("profile", paramName);
         }
 
@@ -1041,10 +1041,10 @@ namespace Riskeer.Integration.Service.Test
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile((HeightStructuresFailureMechanism) null, profile);
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile((HeightStructuresFailureMechanism) null, profile);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -1055,10 +1055,10 @@ namespace Riskeer.Integration.Service.Test
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("profile", paramName);
         }
 
@@ -1115,10 +1115,10 @@ namespace Riskeer.Integration.Service.Test
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile((ClosingStructuresFailureMechanism) null, profile);
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile((ClosingStructuresFailureMechanism) null, profile);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -1129,10 +1129,10 @@ namespace Riskeer.Integration.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("profile", paramName);
         }
 
@@ -1189,10 +1189,10 @@ namespace Riskeer.Integration.Service.Test
             ForeshoreProfile profile = new TestForeshoreProfile();
 
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile((StabilityPointStructuresFailureMechanism) null, profile);
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile((StabilityPointStructuresFailureMechanism) null, profile);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -1203,10 +1203,10 @@ namespace Riskeer.Integration.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
+            void Call() => RiskeerDataSynchronizationService.RemoveForeshoreProfile(failureMechanism, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("profile", paramName);
         }
 
@@ -1260,11 +1260,10 @@ namespace Riskeer.Integration.Service.Test
         public void RemoveAllForeshoreProfiles_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveAllForeshoreProfiles<ICalculationInput>(null,
-                                                                                                                      new ForeshoreProfileCollection());
+            void Call() => RiskeerDataSynchronizationService.RemoveAllForeshoreProfiles<ICalculationInput>(null, new ForeshoreProfileCollection());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
         }
 
@@ -1272,11 +1271,10 @@ namespace Riskeer.Integration.Service.Test
         public void RemoveAllForeshoreProfiles_ForeshoreProfilesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveAllForeshoreProfiles(Enumerable.Empty<ICalculation<ICalculationInput>>(),
-                                                                                                   null);
+            void Call() => RiskeerDataSynchronizationService.RemoveAllForeshoreProfiles(Enumerable.Empty<ICalculation<ICalculationInput>>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("foreshoreProfiles", exception.ParamName);
         }
 
@@ -1338,10 +1336,10 @@ namespace Riskeer.Integration.Service.Test
             DikeProfile profile = DikeProfileTestFactory.CreateDikeProfile();
 
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveDikeProfile(null, profile);
+            void Call() => RiskeerDataSynchronizationService.RemoveDikeProfile(null, profile);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -1352,10 +1350,10 @@ namespace Riskeer.Integration.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => RiskeerDataSynchronizationService.RemoveDikeProfile(failureMechanism, null);
+            void Call() => RiskeerDataSynchronizationService.RemoveDikeProfile(failureMechanism, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("profile", paramName);
         }
 
