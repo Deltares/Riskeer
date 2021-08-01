@@ -290,7 +290,7 @@ namespace Riskeer.DuneErosion.Service.Test
                 }
             };
 
-            string expectedLogMessage = $"Hydraulische belastingen berekenen voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName}) is gestart.";
+            string expectedLogMessage = $"Hydraulische belastingen berekenen voor locatie '{locationName}' ({categoryBoundaryName}) is gestart.";
 
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
             DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = calculator.ReceivedInputs.Last();

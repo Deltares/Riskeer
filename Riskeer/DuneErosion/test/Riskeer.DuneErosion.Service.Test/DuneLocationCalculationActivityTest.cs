@@ -91,7 +91,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
             // Assert
             Assert.IsInstanceOf<CalculatableActivity>(activity);
-            Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName})", activity.Description);
+            Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({categoryBoundaryName})", activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
         }
@@ -122,7 +122,7 @@ namespace Riskeer.DuneErosion.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName}) is gestart.", msgs[0]);
+                Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({categoryBoundaryName}) is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
@@ -154,7 +154,7 @@ namespace Riskeer.DuneErosion.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName}) is gestart.", msgs[0]);
+                Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({categoryBoundaryName}) is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
@@ -182,7 +182,7 @@ namespace Riskeer.DuneErosion.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName}) is gestart.", msgs[0]);
+                Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({categoryBoundaryName}) is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
@@ -280,7 +280,7 @@ namespace Riskeer.DuneErosion.Service.Test
                 {
                     string[] messages = m.ToArray();
                     Assert.AreEqual(6, messages.Length);
-                    Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName}) is gestart.", messages[0]);
+                    Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({categoryBoundaryName}) is gestart.", messages[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(messages[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
@@ -376,8 +376,8 @@ namespace Riskeer.DuneErosion.Service.Test
 
                 // Assert
                 string expectedFailureMessage = string.IsNullOrEmpty(lastErrorFileContent)
-                                                    ? $"Er is een fout opgetreden tijdens de hydraulische belastingenberekening '{locationName}' (Categoriegrens {categoryBoundaryName}). Er is geen foutrapport beschikbaar."
-                                                    : $"Er is een fout opgetreden tijdens de hydraulische belastingenberekening '{locationName}' (Categoriegrens {categoryBoundaryName}). Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}";
+                                                    ? $"Er is een fout opgetreden tijdens de hydraulische belastingenberekening '{locationName}' ({categoryBoundaryName}). Er is geen foutrapport beschikbaar."
+                                                    : $"Er is een fout opgetreden tijdens de hydraulische belastingenberekening '{locationName}' ({categoryBoundaryName}). Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}";
 
                 TestHelper.AssertLogMessageIsGenerated(call, expectedFailureMessage, 7);
             }
@@ -419,7 +419,7 @@ namespace Riskeer.DuneErosion.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    Assert.AreEqual($"Hydraulische belastingenberekening voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
+                    Assert.AreEqual($"Hydraulische belastingenberekening voor locatie '{locationName}' ({categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
                 });
                 Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, duneLocationCalculation.Output.CalculationConvergence);
             }
