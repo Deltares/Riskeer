@@ -259,6 +259,24 @@ namespace Riskeer.Integration.Service
         }
 
         /// <summary>
+        /// Clears the hydraulic boundary location calculation output that is contained within a
+        /// <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/>.
+        /// </summary>
+        /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/>
+        /// which contains the hydraulic boundary location calculations at stake.</param>
+        /// <returns>All objects affected by the operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationsForTargetProbability"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutput(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
+        {
+            if (calculationsForTargetProbability == null)
+            {
+                throw new ArgumentNullException(nameof(calculationsForTargetProbability));
+            }
+
+            return RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
+        }
+
+        /// <summary>
         /// Clears the hydraulic boundary location calculation output that is contained within specific failure mechanisms 
         /// of the <paramref name="assessmentSection"/>.
         /// </summary>
