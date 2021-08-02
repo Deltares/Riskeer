@@ -199,6 +199,21 @@ namespace Riskeer.Integration.Service.Test
             {
                 hydraulicBoundaryLocation
             };
+            
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(
+                new[]
+                {
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(),
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability()
+                });
+
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.AddRange(
+                new[]
+                {
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(),
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability()
+                });
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
             assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
