@@ -620,10 +620,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         contextMenuAdapter.Items[contextMenuRunWaterLevelCalculationsIndex].PerformClick();
 
                         // Assert
-                        AssessmentLevelCalculationInput designWaterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
+                        AssessmentLevelCalculationInput waterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
 
-                        Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), designWaterLevelCalculationInput.Beta);
+                        Assert.AreEqual(hydraulicBoundaryLocation.Id, waterLevelCalculationInput.HydraulicBoundaryLocationId);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), waterLevelCalculationInput.Beta);
                     }
                 }
             }
@@ -709,10 +709,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         contextMenuAdapter.Items[contextMenuRunWaterLevelCalculationsIndex].PerformClick();
 
                         // Assert
-                        AssessmentLevelCalculationInput designWaterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
+                        AssessmentLevelCalculationInput waterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
 
-                        Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), designWaterLevelCalculationInput.Beta);
+                        Assert.AreEqual(hydraulicBoundaryLocation.Id, waterLevelCalculationInput.HydraulicBoundaryLocationId);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), waterLevelCalculationInput.Beta);
                     }
                 }
             }
@@ -796,10 +796,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         contextMenuAdapter.Items[contextMenuRunWaterLevelCalculationsIndex].PerformClick();
 
                         // Assert
-                        AssessmentLevelCalculationInput designWaterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
+                        AssessmentLevelCalculationInput waterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
 
-                        Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), designWaterLevelCalculationInput.Beta);
+                        Assert.AreEqual(hydraulicBoundaryLocation.Id, waterLevelCalculationInput.HydraulicBoundaryLocationId);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), waterLevelCalculationInput.Beta);
                     }
                 }
             }
