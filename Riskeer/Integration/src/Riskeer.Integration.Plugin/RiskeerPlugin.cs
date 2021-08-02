@@ -240,6 +240,10 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new CalculationGroupContextProperties(context)
             };
             yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
+            yield return new PropertyInfo<WaterLevelCalculationsForNormTargetProbabilityContext, DesignWaterLevelCalculationsProperties>
+            {
+                CreateInstance = context => new DesignWaterLevelCalculationsProperties(context.WrappedData)
+            };
             yield return new PropertyInfo<DesignWaterLevelCalculationsContext, DesignWaterLevelCalculationsProperties>
             {
                 CreateInstance = context => new DesignWaterLevelCalculationsProperties(context.WrappedData)
