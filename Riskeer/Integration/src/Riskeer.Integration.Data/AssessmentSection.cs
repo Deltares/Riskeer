@@ -114,30 +114,8 @@ namespace Riskeer.Integration.Data
             ReferenceLine = new ReferenceLine();
 
             HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
-            WaterLevelCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
-            {
-                new HydraulicBoundaryLocationCalculationsForTargetProbability
-                {
-                    TargetProbability = 0.0001
-                },
-                new HydraulicBoundaryLocationCalculationsForTargetProbability
-                {
-                    TargetProbability = 0.00001
-                }
-            };
-            
-            WaveHeightCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
-            {
-                new HydraulicBoundaryLocationCalculationsForTargetProbability
-                {
-                    TargetProbability = 0.00025
-                },
-                new HydraulicBoundaryLocationCalculationsForTargetProbability
-                {
-                    TargetProbability = 0.000025
-                }
-            };
+            WaterLevelCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
+            WaveHeightCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
 
             piping = new PipingFailureMechanism();
             grassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
