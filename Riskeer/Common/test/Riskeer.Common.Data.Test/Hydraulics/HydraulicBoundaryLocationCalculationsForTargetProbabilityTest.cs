@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
@@ -38,6 +39,40 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             Assert.IsInstanceOf<Observable>(hydraulicBoundaryLocationCalculationsForTargetProbability);
             Assert.AreEqual(0.1, hydraulicBoundaryLocationCalculationsForTargetProbability.TargetProbability);
             Assert.IsEmpty(hydraulicBoundaryLocationCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(0.0)]
+        [TestCase(0.11)]
+        public void TargetProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
+        {
+            // Setup
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+
+            // Call
+            void Call() => calculationsForTargetProbability.TargetProbability = invalidValue;
+
+            // Assert
+            const string expectedMessage = "De waarde van de doelkans moet groter zijn dan 0 en kleiner dan of gelijk aan 0,1.";
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
+            StringAssert.StartsWith(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        [TestCase(1e-100)]
+        [TestCase(0.05)]
+        [TestCase(0.1)]
+        public void TargetProbability_ValidValue_NewValueSet(double newValue)
+        {
+            // Setup
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+
+            // Call
+            calculationsForTargetProbability.TargetProbability = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, calculationsForTargetProbability.TargetProbability);
         }
     }
 }
