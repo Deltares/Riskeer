@@ -643,7 +643,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         contextMenuAdapter.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
                         // Then
-                        const string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij 'Golfhoogten' wilt wissen?";
+                        const string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij 'Golfhoogten bij doelkans' wilt wissen?";
                         Assert.AreEqual(expectedMessage, messageBoxText);
 
                         Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));
@@ -708,7 +708,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         contextMenuAdapter.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
                         // Then
-                        const string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij 'Golfhoogten' wilt wissen?";
+                        const string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij 'Golfhoogten bij doelkans' wilt wissen?";
                         Assert.AreEqual(expectedMessage, messageBoxText);
 
                         Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));
