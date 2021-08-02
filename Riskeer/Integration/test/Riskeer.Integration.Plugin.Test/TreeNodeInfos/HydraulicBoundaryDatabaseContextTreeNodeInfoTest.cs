@@ -459,6 +459,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            SetHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilities(assessmentSection);
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new TestHydraulicBoundaryLocation()
@@ -557,6 +560,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+
+            SetHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilities(assessmentSection);
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -800,10 +805,30 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mockRepository.VerifyAll();
         }
 
+        private static void SetHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilities(IAssessmentSection assessmentSection)
+        {
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(
+                new[]
+                {
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(),
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability()
+                });
+
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.AddRange(
+                new[]
+                {
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(),
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability()
+                });
+        }
+
         private static AssessmentSection GetAssessmentSectionWithHydraulicBoundaryLocationCalculationOutputs()
         {
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+
+            SetHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilities(assessmentSection);
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new TestHydraulicBoundaryLocation(),
