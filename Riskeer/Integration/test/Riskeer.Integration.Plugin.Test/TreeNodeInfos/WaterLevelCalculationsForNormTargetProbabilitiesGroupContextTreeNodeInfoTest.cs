@@ -125,6 +125,43 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ChildNodeObjects_Always_ReturnsChildrenOfData()
+        {
+            // Setup
+            const double signalingNorm = 0.002;
+            const double lowerLimitNorm = 0.005;
+
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.FailureMechanismContribution.LowerLimitNorm = lowerLimitNorm;
+            assessmentSection.FailureMechanismContribution.SignalingNorm = signalingNorm;
+
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
+            var calculationsGroupContext = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(locations, assessmentSection);
+
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                object[] childNodeObjects = info.ChildNodeObjects(calculationsGroupContext);
+
+                // Assert
+                Assert.AreEqual(2, childNodeObjects.Length);
+
+                WaterLevelCalculationsForNormTargetProbabilityContext[] calculationsContexts = childNodeObjects.OfType<WaterLevelCalculationsForNormTargetProbabilityContext>().ToArray();
+                Assert.AreEqual(2, calculationsContexts.Length);
+
+                Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
+
+                Assert.AreSame(assessmentSection.WaterLevelCalculationsForSignalingNorm, calculationsContexts[0].WrappedData);
+                Assert.AreEqual(signalingNorm, calculationsContexts[0].GetNormFunc());
+
+                Assert.AreSame(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, calculationsContexts[1].WrappedData);
+                Assert.AreEqual(lowerLimitNorm, calculationsContexts[1].GetNormFunc());
+            }
+        }
+
+        [Test]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
@@ -488,43 +525,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ChildNodeObjects_Always_ReturnsChildrenOfData()
-        {
-            // Setup
-            const double signalingNorm = 0.002;
-            const double lowerLimitNorm = 0.005;
-
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.FailureMechanismContribution.LowerLimitNorm = lowerLimitNorm;
-            assessmentSection.FailureMechanismContribution.SignalingNorm = signalingNorm;
-
-            var locations = new ObservableList<HydraulicBoundaryLocation>();
-            var calculationsGroupContext = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(locations, assessmentSection);
-
-            using (var plugin = new RiskeerPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
-
-                // Call
-                object[] childNodeObjects = info.ChildNodeObjects(calculationsGroupContext);
-
-                // Assert
-                Assert.AreEqual(2, childNodeObjects.Length);
-
-                WaterLevelCalculationsForNormTargetProbabilityContext[] calculationsContexts = childNodeObjects.OfType<WaterLevelCalculationsForNormTargetProbabilityContext>().ToArray();
-                Assert.AreEqual(2, calculationsContexts.Length);
-
-                Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
-
-                Assert.AreSame(assessmentSection.WaterLevelCalculationsForSignalingNorm, calculationsContexts[0].WrappedData);
-                Assert.AreEqual(signalingNorm, calculationsContexts[0].GetNormFunc());
-
-                Assert.AreSame(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, calculationsContexts[1].WrappedData);
-                Assert.AreEqual(lowerLimitNorm, calculationsContexts[1].GetNormFunc());
-            }
         }
 
         [Test]
