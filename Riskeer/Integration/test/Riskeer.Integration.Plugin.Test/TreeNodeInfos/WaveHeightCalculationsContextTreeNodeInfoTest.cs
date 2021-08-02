@@ -383,56 +383,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_InvalidNorm_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase)), "complete.sqlite")
-            };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
-
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-
-            var nodeData = new WaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                             assessmentSection,
-                                                             () => 1.0,
-                                                             "A");
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mockRepository.Stub<IGui>();
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                mockRepository.ReplayAll();
-
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-
-                    plugin.Gui = gui;
-
-                    // Call
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                    {
-                        // Assert
-                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuRunWaveHeightCalculationsIndex];
-
-                        Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
-                        StringAssert.Contains("Doelkans is te groot om een berekening uit te kunnen voeren.", contextMenuItem.ToolTipText);
-                        TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
-                        Assert.IsFalse(contextMenuItem.Enabled);
-                    }
-                }
-            }
-
-            mockRepository.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
         {
             // Setup
@@ -495,7 +445,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            Func<double> getNormFunc = () => 0.01;
+            double GetNormFunc() => 0.01;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
@@ -505,7 +455,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var context = new WaveHeightCalculationsContext(hydraulicBoundaryLocationCalculations,
                                                             assessmentSection,
-                                                            getNormFunc,
+                                                            GetNormFunc,
                                                             "A");
 
             using (var treeViewControl = new TreeViewControl())
@@ -555,7 +505,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         WaveHeightCalculationInput waveHeightCalculationInput = waveHeightCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(getNormFunc()), waveHeightCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(GetNormFunc()), waveHeightCalculationInput.Beta);
                     }
                 }
             }
@@ -584,7 +534,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            Func<double> getNormFunc = () => 0.01;
+            double GetNormFunc() => 0.01;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
@@ -594,7 +544,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var context = new WaveHeightCalculationsContext(hydraulicBoundaryLocationCalculations,
                                                             assessmentSection,
-                                                            getNormFunc,
+                                                            GetNormFunc,
                                                             "A");
 
             using (var treeViewControl = new TreeViewControl())
@@ -643,7 +593,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         WaveHeightCalculationInput waveHeightCalculationInput = waveHeightCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(getNormFunc()), waveHeightCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(GetNormFunc()), waveHeightCalculationInput.Beta);
                     }
                 }
             }
@@ -671,7 +621,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            Func<double> getNormFunc = () => 0.01;
+            double GetNormFunc() => 0.01;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
@@ -681,7 +631,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var context = new WaveHeightCalculationsContext(hydraulicBoundaryLocationCalculations,
                                                             assessmentSection,
-                                                            getNormFunc,
+                                                            GetNormFunc,
                                                             "A");
 
             using (var treeViewControl = new TreeViewControl())
@@ -730,7 +680,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         WaveHeightCalculationInput waveHeightCalculationInput = waveHeightCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(getNormFunc()), waveHeightCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(GetNormFunc()), waveHeightCalculationInput.Beta);
                     }
                 }
             }
@@ -805,10 +755,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                     {
                         // When
-                        Action action = () => contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
+                        void Action() => contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
                         // Then
-                        TestHelper.AssertLogMessages(action, messages =>
+                        TestHelper.AssertLogMessages(Action, messages =>
                         {
                             string[] msgs = messages.ToArray();
                             Assert.AreEqual(8, msgs.Length);
