@@ -287,8 +287,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
-            const string categoryBoundaryName = "A";
-
             var context = new WaterLevelCalculationsForNormTargetProbabilityContext(calculations,
                                                                                     assessmentSection,
                                                                                     GetNormFunc);
@@ -296,7 +294,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                    new AssessmentSectionStub(),
                                                                    GetNormFunc,
-                                                                   categoryBoundaryName))
+                                                                   () => "1/100"))
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -323,7 +321,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                    assessmentSection,
                                                                    () => 0.01,
-                                                                   "1/100"))
+                                                                   () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
                 ViewInfo info = GetViewInfo(plugin);
@@ -346,7 +344,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                    assessmentSectionA,
                                                                    () => 0.01,
-                                                                   "1/100"))
+                                                                   () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
                 ViewInfo info = GetViewInfo(plugin);
@@ -368,7 +366,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                    assessmentSectionA,
                                                                    () => 0.01,
-                                                                   "1/100"))
+                                                                   () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
                 ViewInfo info = GetViewInfo(plugin);
