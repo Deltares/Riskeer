@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.Views
     public partial class WaveHeightCalculationsView : HydraulicBoundaryCalculationsView
     {
         private readonly Func<double> getNormFunc;
-        private readonly string categoryBoundaryName;
+        private readonly Func<string> getCalculationIdentifierFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightCalculationsView"/>.
@@ -44,14 +44,12 @@ namespace Riskeer.Common.Forms.Views
         /// <param name="calculations">The calculations to show in the view.</param>
         /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
         /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to use during calculations.</param>
-        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/>, <paramref name="assessmentSection"/>
-        /// or <paramref name="getNormFunc"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
+        /// <param name="getCalculationIdentifierFunc"><see cref="Func{TResult}"/> for getting the calculation identifier to use in all messages.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public WaveHeightCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                           IAssessmentSection assessmentSection,
                                           Func<double> getNormFunc,
-                                          string categoryBoundaryName)
+                                          Func<string> getCalculationIdentifierFunc)
             : base(calculations, assessmentSection)
         {
             if (getNormFunc == null)
@@ -59,15 +57,15 @@ namespace Riskeer.Common.Forms.Views
                 throw new ArgumentNullException(nameof(getNormFunc));
             }
 
-            if (string.IsNullOrEmpty(categoryBoundaryName))
+            if (getCalculationIdentifierFunc == null)
             {
-                throw new ArgumentException($"'{nameof(categoryBoundaryName)}' must have a value.");
+                throw new ArgumentNullException(nameof(getCalculationIdentifierFunc));
             }
 
             InitializeComponent();
 
-            this.categoryBoundaryName = categoryBoundaryName;
             this.getNormFunc = getNormFunc;
+            this.getCalculationIdentifierFunc = getCalculationIdentifierFunc;
         }
 
         protected override object CreateSelectedItemFromCurrentRow()
@@ -87,7 +85,7 @@ namespace Riskeer.Common.Forms.Views
             CalculationGuiService.CalculateWaveHeights(calculations,
                                                        AssessmentSection,
                                                        getNormFunc(),
-                                                       categoryBoundaryName);
+                                                       getCalculationIdentifierFunc());
         }
 
         protected override void InitializeDataGridView()
