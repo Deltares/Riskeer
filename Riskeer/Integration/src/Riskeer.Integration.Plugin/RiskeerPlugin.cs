@@ -248,6 +248,10 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = context => new WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(context.WrappedData)
             };
+            yield return new PropertyInfo<WaveHeightCalculationsForUserDefinedTargetProbabilityContext, WaveHeightCalculationsForUserDefinedTargetProbabilityProperties>
+            {
+                CreateInstance = context => new WaveHeightCalculationsForUserDefinedTargetProbabilityProperties(context.WrappedData)
+            };
             yield return new PropertyInfo<DesignWaterLevelCalculationsContext, DesignWaterLevelCalculationsProperties>
             {
                 CreateInstance = context => new DesignWaterLevelCalculationsProperties(context.WrappedData)

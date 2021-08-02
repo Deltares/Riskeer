@@ -232,7 +232,7 @@ namespace Riskeer.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(28, propertyInfos.Length);
+                Assert.AreEqual(29, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -288,6 +288,11 @@ namespace Riskeer.Integration.Plugin.Test
                     propertyInfos,
                     typeof(WaterLevelCalculationsForUserDefinedTargetProbabilityContext),
                     typeof(WaterLevelCalculationsForUserDefinedTargetProbabilityProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(WaveHeightCalculationsForUserDefinedTargetProbabilityContext),
+                    typeof(WaveHeightCalculationsForUserDefinedTargetProbabilityProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
