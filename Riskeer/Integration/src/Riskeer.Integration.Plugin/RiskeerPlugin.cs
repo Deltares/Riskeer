@@ -960,6 +960,7 @@ namespace Riskeer.Integration.Plugin
             {
                 Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
+                EnsureVisibleOnCreate = (context, o) => true,
                 ContextMenuStrip = WaterLevelCalculationsForUserDefinedTargetProbabilityContextMenuStrip,
                 CanRemove = (context, o) => true,
                 OnNodeRemoved = WaterLevelCalculationsForUserDefinedTargetProbabilityOnNodeRemoved
@@ -977,6 +978,7 @@ namespace Riskeer.Integration.Plugin
             {
                 Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
+                EnsureVisibleOnCreate = (context, o) => true,
                 ContextMenuStrip = WaveHeightCalculationsForUserDefinedTargetProbabilityContextMenuStrip,
                 CanRemove = (context, o) => true,
                 OnNodeRemoved = WaveHeightCalculationsForUserDefinedTargetProbabilityOnNodeRemoved
