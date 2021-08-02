@@ -58,7 +58,7 @@ namespace Riskeer.Common.Forms.GuiServices
         public void CalculateDesignWaterLevels(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                IAssessmentSection assessmentSection,
                                                double norm,
-                                               string categoryBoundaryName)
+                                               string calculationIdentifier)
         {
             if (assessmentSection == null)
             {
@@ -75,13 +75,13 @@ namespace Riskeer.Common.Forms.GuiServices
                               calculations,
                               assessmentSection,
                               norm,
-                              categoryBoundaryName));
+                              calculationIdentifier));
         }
 
         public void CalculateWaveHeights(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                          IAssessmentSection assessmentSection,
                                          double norm,
-                                         string categoryBoundaryName)
+                                         string calculationIdentifier)
         {
             if (assessmentSection == null)
             {
@@ -98,7 +98,7 @@ namespace Riskeer.Common.Forms.GuiServices
                               calculations,
                               assessmentSection,
                               norm,
-                              categoryBoundaryName));
+                              calculationIdentifier));
         }
 
         private void RunActivities(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, double norm, IEnumerable<CalculatableActivity> activities)
