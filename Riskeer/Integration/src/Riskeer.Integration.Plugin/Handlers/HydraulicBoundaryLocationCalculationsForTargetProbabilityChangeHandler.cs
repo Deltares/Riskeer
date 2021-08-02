@@ -89,7 +89,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
             if (affectedObjects.Any())
             {
-                log.Info(Resources.FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_results_cleared);
+                log.Info(Resources.HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler_Hydraulic_load_results_cleared);
 
                 return affectedObjects;
             }
