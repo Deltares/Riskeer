@@ -172,6 +172,48 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void OnNodeRemoved_Always_RemovesItemFromParentAndNotifiesObservers()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
+
+            var calculationObserver = mockRepository.StrictMock<IObserver>();
+            calculationObserver.Expect(o => o.UpdateObserver());
+
+            mockRepository.ReplayAll();
+
+            var calculationForFirstTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+            var calculationForSecondTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
+            {
+                calculationForFirstTargetProbability,
+                calculationForSecondTargetProbability
+            };
+
+            calculations.Attach(calculationObserver);
+
+            var parentContext = new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculations,
+                                                                                                        assessmentSection);
+
+            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculationForFirstTargetProbability,
+                                                                                           assessmentSection);
+
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                info.OnNodeRemoved(context, parentContext);
+
+                // Assert
+                Assert.AreEqual(1, calculations.Count);
+                CollectionAssert.DoesNotContain(calculations, calculationForFirstTargetProbability);
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup

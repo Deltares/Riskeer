@@ -2423,7 +2423,7 @@ namespace Riskeer.Integration.Plugin
 
         private static void WaterLevelCalculationsForUserDefinedTargetProbabilityOnNodeRemoved(WaterLevelCalculationsForUserDefinedTargetProbabilityContext context, object o)
         {
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> parent = context.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> parent = ((WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext) o).WrappedData;
 
             parent.Remove(context.WrappedData);
             parent.NotifyObservers();
@@ -2524,7 +2524,7 @@ namespace Riskeer.Integration.Plugin
 
         private static void WaveHeightCalculationsForUserDefinedTargetProbabilityOnNodeRemoved(WaveHeightCalculationsForUserDefinedTargetProbabilityContext context, object o)
         {
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> parent = context.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> parent = ((WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext) o).WrappedData;
 
             parent.Remove(context.WrappedData);
             parent.NotifyObservers();
