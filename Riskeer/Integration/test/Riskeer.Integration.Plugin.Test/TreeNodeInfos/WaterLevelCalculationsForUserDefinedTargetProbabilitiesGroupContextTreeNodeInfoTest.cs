@@ -51,6 +51,7 @@ using Riskeer.HydraRing.Calculation.Calculator;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
+using Riskeer.Integration.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
@@ -205,6 +206,65 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnAddTargetProbabilityItem_CalculationsForTargetProbabilityAddedAndObserversNotified()
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        new TestHydraulicBoundaryLocation("Location 1"),
+                        new TestHydraulicBoundaryLocation("Location 2")
+                    }
+                }
+            };
+
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
+            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculations, assessmentSection);
+
+            var mockRepository = new MockRepository();
+            var calculationsObserver = mockRepository.StrictMock<IObserver>();
+            calculationsObserver.Expect(o => o.UpdateObserver());
+            calculations.Attach(calculationsObserver);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mockRepository);
+
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
+
+                mockRepository.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+                    plugin.Activate();
+
+                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
+                    {
+                        // When
+                        contextMenuAdapter.Items[contextMenuAddTargetProbabilityIndex].PerformClick();
+
+                        // Then
+                        Assert.AreEqual(1, calculations.Count);
+                        Assert.AreEqual(0.1, calculations[0].TargetProbability);
+                        Assert.AreEqual(2, calculations[0].HydraulicBoundaryLocationCalculations.Count);
+                    }
+                }
+            }
+
             mockRepository.VerifyAll();
         }
 
