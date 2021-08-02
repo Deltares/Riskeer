@@ -341,6 +341,48 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssessmentSectionAssemblyCategoriesView(context.AssessmentSection.FailureMechanismContribution)
             };
 
+            yield return new ViewInfo<WaterLevelCalculationsForNormTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
+            {
+                GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName} - " +
+                                                 $"{noProbabilityValueDoubleConverter.ConvertToString(context.GetNormFunc())}",
+                GetViewData = context => context.WrappedData,
+                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
+                CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
+                CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData,
+                                                                                 context.AssessmentSection,
+                                                                                 context.GetNormFunc,
+                                                                                 noProbabilityValueDoubleConverter.ConvertToString(context.GetNormFunc())),
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+            };
+
+            yield return new ViewInfo<WaterLevelCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
+            {
+                GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName} - " +
+                                                 $"{noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)}",
+                GetViewData = context => context.WrappedData.HydraulicBoundaryLocationCalculations,
+                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
+                CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
+                CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData.HydraulicBoundaryLocationCalculations,
+                                                                                 context.AssessmentSection,
+                                                                                 () => context.WrappedData.TargetProbability,
+                                                                                 noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)),
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+            };
+
+            yield return new ViewInfo<WaveHeightCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
+            {
+                GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName} - " +
+                                                 $"{noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)}",
+                GetViewData = context => context.WrappedData.HydraulicBoundaryLocationCalculations,
+                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
+                CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
+                CreateInstance = context => new WaveHeightCalculationsView(context.WrappedData.HydraulicBoundaryLocationCalculations,
+                                                                           context.AssessmentSection,
+                                                                           () => context.WrappedData.TargetProbability,
+                                                                           noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)),
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+            };
+
             yield return new ViewInfo<DesignWaterLevelCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
             {
                 GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName} - " +
