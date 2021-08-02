@@ -28,6 +28,7 @@ using log4net;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Integration.Plugin.Properties;
+using Riskeer.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Handlers
@@ -85,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         private IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutput()
         {
-            IEnumerable<IObservable> affectedObjects = new List<IObservable>(); // Fixme
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculationsForTargetProbability);
 
             if (affectedObjects.Any())
             {
