@@ -58,7 +58,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class WaterLevelCalculationsForUserDefinedTargetProbabilityContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuRunAssessmentLevelCalculationsIndex = 2;
+        private const int contextMenuRunWaterLevelCalculationsIndex = 2;
         private const int contextMenuClearIllustrationPointsIndex = 4;
 
         private MockRepository mockRepository;
@@ -261,6 +261,55 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_Always_AddCustomItems()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var nodeData = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(),
+                                                                                            assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                    {
+                        // Assert
+                        Assert.AreEqual(8, menu.Items.Count);
+
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRunWaterLevelCalculationsIndex,
+                                                                      "Alles be&rekenen",
+                                                                      "Er is geen hydraulische belastingendatabase geïmporteerd.",
+                                                                      RiskeerCommonFormsResources.CalculateAllIcon,
+                                                                      false);
+
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
+                                                                      "Wis alle illustratiepunten...",
+                                                                      "Er zijn geen berekeningen met illustratiepunten om te wissen.",
+                                                                      RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
+                                                                      false);
+                    }
+                }
+            }
+
+            // Assert
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
@@ -288,7 +337,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                     {
                         // Assert
-                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuRunAssessmentLevelCalculationsIndex];
+                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuRunWaterLevelCalculationsIndex];
 
                         Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
                         StringAssert.Contains("Er is geen hydraulische belastingendatabase geïmporteerd.", contextMenuItem.ToolTipText);
@@ -329,7 +378,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                     {
                         // Assert
-                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuRunAssessmentLevelCalculationsIndex];
+                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuRunWaterLevelCalculationsIndex];
 
                         Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
                         StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", contextMenuItem.ToolTipText);
@@ -380,7 +429,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         const string expectedItemText = @"Alles be&rekenen";
                         const string expectedItemTooltip = @"Alle waterstanden berekenen.";
 
-                        TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunAssessmentLevelCalculationsIndex,
+                        TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunWaterLevelCalculationsIndex,
                                                                       expectedItemText, expectedItemTooltip, RiskeerCommonFormsResources.CalculateAllIcon);
                     }
                 }
@@ -568,7 +617,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                     {
                         // Call
-                        contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();
+                        contextMenuAdapter.Items[contextMenuRunWaterLevelCalculationsIndex].PerformClick();
 
                         // Assert
                         AssessmentLevelCalculationInput designWaterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
@@ -657,7 +706,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                     {
                         // Call
-                        contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();
+                        contextMenuAdapter.Items[contextMenuRunWaterLevelCalculationsIndex].PerformClick();
 
                         // Assert
                         AssessmentLevelCalculationInput designWaterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
@@ -744,7 +793,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                     {
                         // Call
-                        contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();
+                        contextMenuAdapter.Items[contextMenuRunWaterLevelCalculationsIndex].PerformClick();
 
                         // Assert
                         AssessmentLevelCalculationInput designWaterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
@@ -822,7 +871,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                     {
                         // When
-                        void Call() => contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();
+                        void Call() => contextMenuAdapter.Items[contextMenuRunWaterLevelCalculationsIndex].PerformClick();
 
                         // Then
                         TestHelper.AssertLogMessages(Call, messages =>
