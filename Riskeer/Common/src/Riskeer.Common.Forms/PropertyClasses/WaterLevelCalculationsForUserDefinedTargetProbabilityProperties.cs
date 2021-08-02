@@ -25,16 +25,15 @@ using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Properties;
-using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TypeConverters;
 
-namespace Riskeer.Integration.Forms.PresentationObjects
+namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of a collection of <see cref="HydraulicBoundaryLocationCalculation"/> with a user specified
-    /// target probability based wave height calculation result for properties panel.
+    /// target probability based design water level calculation result for properties panel.
     /// </summary>
-    public class WaveHeightCalculationsForUserDefinedTargetProbabilityProperties : WaveHeightCalculationsProperties
+    public class WaterLevelCalculationsForUserDefinedTargetProbabilityProperties : DesignWaterLevelCalculationsProperties
     {
         private const int targetProbabilityPropertyIndex = 1;
         private const int calculationsPropertyIndex = 2;
@@ -42,18 +41,18 @@ namespace Riskeer.Integration.Forms.PresentationObjects
         private readonly HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveHeightCalculationsForUserDefinedTargetProbabilityProperties"/>.
+        /// Creates a new instance of <see cref="WaterLevelCalculationsForUserDefinedTargetProbabilityProperties"/>.
         /// </summary>
         /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> to show the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationsForTargetProbability"/> is <c>null</c>.</exception>
-        public WaveHeightCalculationsForUserDefinedTargetProbabilityProperties(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
+        public WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
             : base(calculationsForTargetProbability?.HydraulicBoundaryLocationCalculations ?? throw new ArgumentNullException(nameof(calculationsForTargetProbability)))
         {
             this.calculationsForTargetProbability = calculationsForTargetProbability;
         }
 
         [PropertyOrder(calculationsPropertyIndex)]
-        public override WaveHeightCalculationProperties[] Calculations
+        public override DesignWaterLevelCalculationProperties[] Calculations
         {
             get
             {
@@ -65,7 +64,7 @@ namespace Riskeer.Integration.Forms.PresentationObjects
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.TargetProbability_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.TargetProbability_WaveHeights_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.TargetProbability_WaterLevels_Description))]
         public double TargetProbability
         {
             get
