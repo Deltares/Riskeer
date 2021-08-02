@@ -961,9 +961,9 @@ namespace Riskeer.Integration.Plugin
                 Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 EnsureVisibleOnCreate = (context, o) => true,
-                ContextMenuStrip = WaterLevelCalculationsForUserDefinedTargetProbabilityContextMenuStrip,
                 CanRemove = (context, o) => true,
-                OnNodeRemoved = WaterLevelCalculationsForUserDefinedTargetProbabilityOnNodeRemoved
+                OnNodeRemoved = WaterLevelCalculationsForUserDefinedTargetProbabilityOnNodeRemoved,
+                ContextMenuStrip = WaterLevelCalculationsForUserDefinedTargetProbabilityContextMenuStrip
             };
 
             yield return new TreeNodeInfo<WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext>
@@ -979,9 +979,9 @@ namespace Riskeer.Integration.Plugin
                 Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 EnsureVisibleOnCreate = (context, o) => true,
-                ContextMenuStrip = WaveHeightCalculationsForUserDefinedTargetProbabilityContextMenuStrip,
                 CanRemove = (context, o) => true,
-                OnNodeRemoved = WaveHeightCalculationsForUserDefinedTargetProbabilityOnNodeRemoved
+                OnNodeRemoved = WaveHeightCalculationsForUserDefinedTargetProbabilityOnNodeRemoved,
+                ContextMenuStrip = WaveHeightCalculationsForUserDefinedTargetProbabilityContextMenuStrip
             };
 
             yield return new TreeNodeInfo<DesignWaterLevelCalculationsGroupContext>

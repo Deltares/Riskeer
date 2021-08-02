@@ -141,6 +141,38 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void EnsureVisibleOnCreate_Always_ReturnsTrue()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                bool ensureVisibleOnCreate = info.EnsureVisibleOnCreate(null, null);
+
+                // Assert
+                Assert.IsTrue(ensureVisibleOnCreate);
+            }
+        }
+
+        [Test]
+        public void CanRemove_Always_ReturnsTrue()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                bool canRemove = info.CanRemove(null, null);
+
+                // Assert
+                Assert.IsTrue(canRemove);
+            }
+        }
+
+        [Test]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
