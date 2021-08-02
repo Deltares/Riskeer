@@ -271,4 +271,9 @@ Wilt u doorgaan?</value>
   <data name="ContextMenuStrip_Add_TargetProbability_WaveHeights_ToolTip" xml:space="preserve">
     <value>Voeg een nieuwe doelkans toe aan deze map met golfhoogten.</value>
   </data>
+  <data name="HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler_Confirm_change_target_probability_and_clear_dependent_data" xml:space="preserve">
+    <value>Als u de doelkans aanpast, dan worden alle bijbehorende rekenresultaten verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
 </root>
