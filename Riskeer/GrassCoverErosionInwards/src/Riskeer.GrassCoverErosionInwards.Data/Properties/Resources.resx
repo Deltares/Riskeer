@@ -141,7 +141,4 @@
   <data name="OvertoppingRateCalculationType_NoCalculation_DisplayName" xml:space="preserve">
     <value>Niet</value>
   </data>
-  <data name="TargetProbability_Value_must_be_in_range" xml:space="preserve">
-    <value>De waarde van de doelkans moet groter zijn dan 0 en kleiner dan of gelijk aan 0,1.</value>
-  </data>
 </root>

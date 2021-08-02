@@ -27,9 +27,9 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Helpers;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Probabilistics;
-using Riskeer.GrassCoverErosionInwards.Data.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Data
@@ -157,7 +157,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             get => dikeHeightTargetProbability;
             set
             {
-                ValidateTargetProbability(value);
+                TargetProbabilityHelper.ValidateTargetProbability(value);
                 dikeHeightTargetProbability = value;
             }
         }
@@ -172,7 +172,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             get => overtoppingRateTargetProbability;
             set
             {
-                ValidateTargetProbability(value);
+                TargetProbabilityHelper.ValidateTargetProbability(value);
                 overtoppingRateTargetProbability = value;
             }
         }
@@ -264,20 +264,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             clone.BreakWater = (BreakWater) BreakWater.Clone();
 
             return clone;
-        }
-
-        /// <summary>
-        /// Validates the target probability.
-        /// </summary>
-        /// <param name="targetProbability">The target probability to validate.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the target probabilty value
-        /// is not in the interval {0.0, 0.1] or is <see cref="double.NaN"/>.</exception>
-        private static void ValidateTargetProbability(double targetProbability)
-        {
-            if (double.IsNaN(targetProbability) || targetProbability <= 0 || targetProbability > 0.1)
-            {
-                throw new ArgumentOutOfRangeException(null, Resources.TargetProbability_Value_must_be_in_range);
-            }
         }
 
         private void SetDefaultDikeProfileProperties()
