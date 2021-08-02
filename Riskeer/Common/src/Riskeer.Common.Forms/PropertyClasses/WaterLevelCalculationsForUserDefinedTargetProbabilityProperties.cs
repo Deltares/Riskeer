@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Riskeer.Common.Data.Hydraulics;
@@ -36,8 +37,6 @@ namespace Riskeer.Common.Forms.PropertyClasses
     {
         private const int targetProbabilityPropertyIndex = 1;
         private const int calculationsPropertyIndex = 2;
-
-        private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
 
         private readonly HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability;
 
@@ -62,14 +61,19 @@ namespace Riskeer.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(targetProbabilityPropertyIndex)]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.TargetProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.TargetProbability_WaterLevels_Description))]
-        public string TargetProbability
+        public double TargetProbability
         {
             get
             {
-                return noProbabilityValueDoubleConverter.ConvertToString(calculationsForTargetProbability.TargetProbability);
+                return calculationsForTargetProbability.TargetProbability;
+            }
+            set
+            {
+                calculationsForTargetProbability.TargetProbability = value;
             }
         }
     }
