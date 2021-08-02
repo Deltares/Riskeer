@@ -314,6 +314,60 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void CloseViewForData_ForMatchingContext_ReturnsTrue()
+        {
+            // Setup
+            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(),
+                new AssessmentSectionStub());
+
+            using (var view = new DesignWaterLevelCalculationsView(context.WrappedData.HydraulicBoundaryLocationCalculations,
+                                                                   new AssessmentSectionStub(),
+                                                                   () => 0.01,
+                                                                   "1/100"))
+            using (var plugin = new RiskeerPlugin())
+            {
+                view.Data = context.WrappedData.HydraulicBoundaryLocationCalculations;
+
+                ViewInfo info = GetViewInfo(plugin);
+
+                // Call
+                bool closeForData = info.CloseForData(view, context);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+        }
+
+        [Test]
+        public void CloseViewForData_ForNonMatchingContext_ReturnsFalse()
+        {
+            // Setup
+            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(),
+                new AssessmentSectionStub());
+
+            var otherCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+
+            using (var view = new DesignWaterLevelCalculationsView(otherCalculations,
+                                                                   new AssessmentSectionStub(),
+                                                                   () => 0.01,
+                                                                   "1/100"))
+            using (var plugin = new RiskeerPlugin())
+            {
+                view.Data = otherCalculations;
+
+                ViewInfo info = GetViewInfo(plugin);
+
+                // Call
+                bool closeForData = info.CloseForData(view, context);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+        }
+
+        [Test]
         public void CloseViewForData_ForMatchingAssessmentSection_ReturnsTrue()
         {
             // Setup
