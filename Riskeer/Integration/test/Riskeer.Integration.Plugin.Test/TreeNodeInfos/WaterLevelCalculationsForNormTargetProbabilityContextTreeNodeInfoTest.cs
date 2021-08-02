@@ -107,7 +107,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                                     assessmentSection,
                                                                                     () => 0.01);
 
-            // Setup
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
