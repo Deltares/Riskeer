@@ -241,7 +241,7 @@ namespace Riskeer.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationCalculationOutput_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(null);
+            void Call() => RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput((IAssessmentSection) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -396,6 +396,57 @@ namespace Riskeer.Integration.Service.Test
             Assert.IsNull(duneLocationCalculation3.Output);
             Assert.IsNull(duneLocationCalculation4.Output);
             Assert.IsNull(duneLocationCalculation5.Output);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocationCalculationOutput_HydraulicBoundaryLocationCalculationsForTargetProbabilityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput((HydraulicBoundaryLocationCalculationsForTargetProbability) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationsForTargetProbability", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocationCalculationOutput_CalculationsForTargetProbabilityWithAndWithoutOutput_ClearsOutputAndReturnsAffectedCalculations()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var calculationWithOutput1 = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
+            };
+
+            var calculationWithOutput2 = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
+            };
+
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability
+            {
+                HydraulicBoundaryLocationCalculations =
+                {
+                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
+                    calculationWithOutput1,
+                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
+                    calculationWithOutput2,
+                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                }
+            };
+
+            // Call
+            IEnumerable<IObservable> affectedCalculations = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculationsForTargetProbability);
+
+            // Assert
+            Assert.IsTrue(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations.All(c => c.Output == null));
+            CollectionAssert.AreEqual(new[]
+            {
+                calculationWithOutput1,
+                calculationWithOutput2
+            }, affectedCalculations);
         }
 
         [Test]
