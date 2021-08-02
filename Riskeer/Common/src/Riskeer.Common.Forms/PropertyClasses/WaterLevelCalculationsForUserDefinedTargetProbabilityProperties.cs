@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Forms.TypeConverters;
 
@@ -39,16 +40,25 @@ namespace Riskeer.Common.Forms.PropertyClasses
         private const int calculationsPropertyIndex = 2;
 
         private readonly HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability;
+        private readonly IObservablePropertyChangeHandler targetProbabilityChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaterLevelCalculationsForUserDefinedTargetProbabilityProperties"/>.
         /// </summary>
         /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> to show the properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationsForTargetProbability"/> is <c>null</c>.</exception>
-        public WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
+        /// <param name="targetProbabilityChangeHandler">The <see cref="IObservablePropertyChangeHandler"/> for when the target probability changes.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability,
+                                                                               IObservablePropertyChangeHandler targetProbabilityChangeHandler)
             : base(calculationsForTargetProbability?.HydraulicBoundaryLocationCalculations ?? throw new ArgumentNullException(nameof(calculationsForTargetProbability)))
         {
+            if (targetProbabilityChangeHandler == null)
+            {
+                throw new ArgumentNullException(nameof(targetProbabilityChangeHandler));
+            }
+
             this.calculationsForTargetProbability = calculationsForTargetProbability;
+            this.targetProbabilityChangeHandler = targetProbabilityChangeHandler;
         }
 
         [PropertyOrder(calculationsPropertyIndex)]
@@ -73,7 +83,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
             }
             set
             {
-                calculationsForTargetProbability.TargetProbability = value;
+                PropertyChangeHelper.ChangePropertyAndNotify(() => calculationsForTargetProbability.TargetProbability = value, targetProbabilityChangeHandler);
             }
         }
     }
