@@ -295,7 +295,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                              new AssessmentSectionStub(),
                                                              () => targetProbability,
-                                                             "1/100"))
+                                                             () => "1/100"))
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -324,7 +324,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new WaveHeightCalculationsView(context.WrappedData.HydraulicBoundaryLocationCalculations,
                                                              new AssessmentSectionStub(),
                                                              () => 0.01,
-                                                             "1/100"))
+                                                             () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
                 view.Data = context.WrappedData.HydraulicBoundaryLocationCalculations;
@@ -352,7 +352,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new WaveHeightCalculationsView(otherCalculations,
                                                              new AssessmentSectionStub(),
                                                              () => 0.01,
-                                                             "1/100"))
+                                                             () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
                 view.Data = otherCalculations;
@@ -376,7 +376,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                              assessmentSection,
                                                              () => 0.01,
-                                                             "1/100"))
+                                                             () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
                 ViewInfo info = GetViewInfo(plugin);
@@ -399,7 +399,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                              assessmentSectionA,
                                                              () => 0.01,
-                                                             "1/100"))
+                                                             () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
                 ViewInfo info = GetViewInfo(plugin);
@@ -421,7 +421,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                              assessmentSectionA,
                                                              () => 0.01,
-                                                             "1/100"))
+                                                             () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
                 ViewInfo info = GetViewInfo(plugin);

@@ -304,7 +304,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                              assessmentSection,
                                                              getNormFunc,
-                                                             categoryBoundaryName))
+                                                             () => categoryBoundaryName))
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -331,7 +331,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                              assessmentSection,
                                                              () => 0.01,
-                                                             "A"))
+                                                             () => "A"))
             using (var plugin = new RiskeerPlugin())
             {
                 ViewInfo info = GetViewInfo(plugin);
@@ -354,7 +354,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                              assessmentSectionA,
                                                              () => 0.01,
-                                                             "A"))
+                                                             () => "A"))
             using (var plugin = new RiskeerPlugin())
             {
                 ViewInfo info = GetViewInfo(plugin);
@@ -376,7 +376,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                              assessmentSectionA,
                                                              () => 0.01,
-                                                             "A"))
+                                                             () => "A"))
             using (var plugin = new RiskeerPlugin())
             {
                 ViewInfo info = GetViewInfo(plugin);
