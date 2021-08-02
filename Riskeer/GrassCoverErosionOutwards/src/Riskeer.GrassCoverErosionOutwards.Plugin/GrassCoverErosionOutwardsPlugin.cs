@@ -195,7 +195,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData,
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
-                                                                                 context.CategoryBoundaryName),
+                                                                                 () => context.CategoryBoundaryName),
                 AfterCreate = (view, context) => view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService,
                 CloseForData = CloseHydraulicBoundaryCalculationsViewForData
             };
