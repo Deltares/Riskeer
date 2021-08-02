@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Util.Attributes;
+using Core.Gui.Attributes;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Forms.TypeConverters;
@@ -33,6 +34,9 @@ namespace Riskeer.Common.Forms.PropertyClasses
     /// </summary>
     public class WaterLevelCalculationsForUserDefinedTargetProbabilityProperties : DesignWaterLevelCalculationsProperties
     {
+        private const int targetProbabilityPropertyIndex = 1;
+        private const int calculationsPropertyIndex = 2;
+
         private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
         private readonly HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability;
 
@@ -47,6 +51,16 @@ namespace Riskeer.Common.Forms.PropertyClasses
             this.calculationsForTargetProbability = calculationsForTargetProbability;
         }
 
+        [PropertyOrder(calculationsPropertyIndex)]
+        public override DesignWaterLevelCalculationProperties[] Calculations
+        {
+            get
+            {
+                return base.Calculations;
+            }
+        }
+
+        [PropertyOrder(targetProbabilityPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.TargetProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.TargetProbability_WaterLevels_Description))]
