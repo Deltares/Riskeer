@@ -1613,4 +1613,10 @@ scenario
   <data name="WaterVolumetricWeight_Description" xml:space="preserve">
     <value>Volumiek gewicht van water.</value>
   </data>
+  <data name="TargetProbability_DisplayName" xml:space="preserve">
+    <value>Doelkans [1/jaar]</value>
+  </data>
+  <data name="TargetProbability_WaterLevels_Description" xml:space="preserve">
+    <value>Overschrijdingskans waarvoor de waterstanden worden berekend.</value>
+  </data>
 </root>
