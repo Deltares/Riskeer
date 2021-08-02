@@ -361,7 +361,7 @@ namespace Riskeer.Integration.Plugin
                                                  $"{noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)}",
                 GetViewData = context => context.WrappedData.HydraulicBoundaryLocationCalculations,
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
+                CloseForData = CloseForWaterLevelCalculationsForUserDefinedTargetProbabilityContextData,
                 CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData.HydraulicBoundaryLocationCalculations,
                                                                                  context.AssessmentSection,
                                                                                  () => context.WrappedData.TargetProbability,
@@ -375,7 +375,7 @@ namespace Riskeer.Integration.Plugin
                                                  $"{noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)}",
                 GetViewData = context => context.WrappedData.HydraulicBoundaryLocationCalculations,
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
+                CloseForData = CloseForWaveHeightCalculationsForUserDefinedTargetProbabilityContextData,
                 CreateInstance = context => new WaveHeightCalculationsView(context.WrappedData.HydraulicBoundaryLocationCalculations,
                                                                            context.AssessmentSection,
                                                                            () => context.WrappedData.TargetProbability,
@@ -1388,6 +1388,28 @@ namespace Riskeer.Integration.Plugin
         private static bool CloseHydraulicBoundaryCalculationsViewForData(HydraulicBoundaryCalculationsView view, object dataToCloseFor)
         {
             return ReferenceEquals(view.AssessmentSection, dataToCloseFor);
+        }
+
+        private static bool CloseForWaterLevelCalculationsForUserDefinedTargetProbabilityContextData(DesignWaterLevelCalculationsView view, object dataToCloseFor)
+        {
+            if (dataToCloseFor is WaterLevelCalculationsForUserDefinedTargetProbabilityContext context
+                && ReferenceEquals(context.WrappedData.HydraulicBoundaryLocationCalculations, view.Data))
+            {
+                return true;
+            }
+
+            return CloseHydraulicBoundaryCalculationsViewForData(view, dataToCloseFor);
+        }
+
+        private static bool CloseForWaveHeightCalculationsForUserDefinedTargetProbabilityContextData(WaveHeightCalculationsView view, object dataToCloseFor)
+        {
+            if (dataToCloseFor is WaveHeightCalculationsForUserDefinedTargetProbabilityContext context
+                && ReferenceEquals(context.WrappedData.HydraulicBoundaryLocationCalculations, view.Data))
+            {
+                return true;
+            }
+
+            return CloseHydraulicBoundaryCalculationsViewForData(view, dataToCloseFor);
         }
 
         #endregion
