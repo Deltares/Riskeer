@@ -393,13 +393,31 @@ namespace Riskeer.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(32, viewInfos.Length);
+                Assert.AreEqual(35, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(NormContext),
                     typeof(FailureMechanismContribution),
                     typeof(AssessmentSectionAssemblyCategoriesView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(WaterLevelCalculationsForNormTargetProbabilityContext),
+                    typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>),
+                    typeof(DesignWaterLevelCalculationsView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(WaterLevelCalculationsForUserDefinedTargetProbabilityContext),
+                    typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>),
+                    typeof(DesignWaterLevelCalculationsView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(WaveHeightCalculationsForUserDefinedTargetProbabilityContext),
+                    typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>),
+                    typeof(WaveHeightCalculationsView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
