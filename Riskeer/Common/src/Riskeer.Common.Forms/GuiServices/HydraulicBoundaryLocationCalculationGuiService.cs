@@ -33,7 +33,7 @@ using Riskeer.Common.Service;
 namespace Riskeer.Common.Forms.GuiServices
 {
     /// <summary>
-    /// This class is responsible for calculating design water levels and wave heights.
+    /// This class is responsible for calculating water levels and wave heights.
     /// </summary>
     public class HydraulicBoundaryLocationCalculationGuiService : IHydraulicBoundaryLocationCalculationGuiService
     {

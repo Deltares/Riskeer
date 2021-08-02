@@ -2139,9 +2139,7 @@ namespace Riskeer.Integration.Plugin
                                                                                               nodeData.CategoryBoundaryName);
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
-                                                        nodeData.GetNormFunc(),
-                                                        waterLevelCalculationItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, waterLevelCalculationItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
@@ -2179,9 +2177,7 @@ namespace Riskeer.Integration.Plugin
                                                                                         nodeData.CategoryBoundaryName);
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
-                                                        nodeData.GetNormFunc(),
-                                                        waveHeightCalculationItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, waveHeightCalculationItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
@@ -2207,21 +2203,6 @@ namespace Riskeer.Integration.Plugin
                 menuItem.Enabled = false;
                 menuItem.ToolTipText = validationText;
             }
-        }
-
-        private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection, double norm, StrictContextMenuItem menuItem)
-        {
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, menuItem);
-            if (!menuItem.Enabled)
-            {
-                return;
-            }
-
-            TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, logMessage =>
-            {
-                menuItem.Enabled = false;
-                menuItem.ToolTipText = logMessage;
-            });
         }
 
         private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
@@ -2329,9 +2310,7 @@ namespace Riskeer.Integration.Plugin
                                                                                               noProbabilityValueDoubleConverter.ConvertToString(nodeData.GetNormFunc()));
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
-                                                        nodeData.GetNormFunc(),
-                                                        waterLevelCalculationItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, waterLevelCalculationItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
@@ -2423,9 +2402,7 @@ namespace Riskeer.Integration.Plugin
                                                                                               noProbabilityValueDoubleConverter.ConvertToString(nodeData.WrappedData.TargetProbability));
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
-                                                        nodeData.WrappedData.TargetProbability,
-                                                        waterLevelCalculationItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, waterLevelCalculationItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
@@ -2526,9 +2503,7 @@ namespace Riskeer.Integration.Plugin
                                                                                         noProbabilityValueDoubleConverter.ConvertToString(nodeData.WrappedData.TargetProbability));
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
-                                                        nodeData.WrappedData.TargetProbability,
-                                                        waveHeightCalculationItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, waveHeightCalculationItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
