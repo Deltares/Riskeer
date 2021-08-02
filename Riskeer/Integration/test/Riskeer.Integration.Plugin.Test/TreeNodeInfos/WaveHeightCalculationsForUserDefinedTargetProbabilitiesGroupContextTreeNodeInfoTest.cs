@@ -207,6 +207,62 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_Always_AddCustomItems()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>(),
+                                                                                                   assessmentSection);
+
+            var mockRepository = new MockRepository();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                    {
+                        // Assert
+                        Assert.AreEqual(8, menu.Items.Count);
+
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddTargetProbabilityIndex,
+                                                                      "Doelkans toevoegen",
+                                                                      "Voeg een nieuwe doelkans toe aan deze map met golfhoogten.",
+                                                                      RiskeerCommonFormsResources.GenericInputOutputIcon);
+
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRunWaveHeightCalculationsIndex,
+                                                                      "Alles be&rekenen",
+                                                                      "Er is geen hydraulische belastingendatabase geïmporteerd.",
+                                                                      RiskeerCommonFormsResources.CalculateAllIcon,
+                                                                      false);
+
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
+                                                                      "Wis alle illustratiepunten...",
+                                                                      "Er zijn geen berekeningen met illustratiepunten om te wissen.",
+                                                                      RiskeerCommonFormsResources.ClearIllustrationPointsIcon,
+                                                                      false);
+                    }
+                }
+            }
+
+            // Assert
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void ContextMenuStrip_ClickOnAddTargetProbabilityItem_CalculationsForTargetProbabilityAddedAndObserversNotified()
         {
             // Given
