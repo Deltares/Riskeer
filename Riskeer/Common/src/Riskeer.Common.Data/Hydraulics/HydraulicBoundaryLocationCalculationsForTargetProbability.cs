@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
+using Riskeer.Common.Data.Helpers;
 
 namespace Riskeer.Common.Data.Hydraulics
 {
@@ -28,10 +30,30 @@ namespace Riskeer.Common.Data.Hydraulics
     /// </summary>
     public class HydraulicBoundaryLocationCalculationsForTargetProbability : Observable
     {
+        private double targetProbability;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/>.
+        /// </summary>
+        public HydraulicBoundaryLocationCalculationsForTargetProbability()
+        {
+            TargetProbability = 0.1;
+        }
+
         /// <summary>
         /// Gets or sets the target probability.
         /// </summary>
-        public double TargetProbability { get; set; } = 0.1;
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value
+        /// is not in the interval {0.0, 0.1] or is <see cref="double.NaN"/>.</exception>
+        public double TargetProbability
+        {
+            get => targetProbability;
+            set
+            {
+                TargetProbabilityHelper.ValidateTargetProbability(value);
+                targetProbability = value;
+            }
+        }
 
         /// <summary>
         /// Gets the list of <see cref="HydraulicBoundaryLocationCalculation"/> instances.
