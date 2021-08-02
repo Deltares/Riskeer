@@ -77,34 +77,32 @@ namespace Riskeer.Common.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                     assessmentSection,
-                                                                     null,
-                                                                     "A");
+            void Call() => new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                          assessmentSection,
+                                                          null,
+                                                          () => "1/100");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("getNormFunc", exception.ParamName);
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        public void Constructor_CategoryBoundaryNameInvalid_ThrowsArgumentException(string categoryBoundaryName)
+        public void Constructor_GetCalculationIdentifierFuncNull_ThrowsArgumentNullException()
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                     assessmentSection,
-                                                                     () => 0.01,
-                                                                     categoryBoundaryName);
+            void Call() => new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                          assessmentSection,
+                                                          () => 0.01,
+                                                          null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("'categoryBoundaryName' must have a value.", exception.Message);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("getCalculationIdentifierFunc", exception.ParamName);
         }
 
         [Test]
@@ -118,7 +116,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                              assessmentSection,
                                                              () => 0.01,
-                                                             "A"))
+                                                             () => "1/100"))
             {
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryCalculationsView>(view);
@@ -137,7 +135,7 @@ namespace Riskeer.Common.Forms.Test.Views
             ShowWaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                            assessmentSection,
                                            0.01,
-                                           "A",
+                                           "1/100",
                                            testForm);
 
             // Assert
@@ -358,10 +356,10 @@ namespace Riskeer.Common.Forms.Test.Views
             var button = new ButtonTester("CalculateForSelectedButton", testForm);
 
             // Call
-            TestDelegate test = () => button.Click();
+            void Call() => button.Click();
 
             // Assert
-            Assert.DoesNotThrow(test);
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]
@@ -370,7 +368,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             const double norm = 0.01;
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/100";
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -389,14 +387,14 @@ namespace Riskeer.Common.Forms.Test.Views
             IAssessmentSection assessmentSectionValue = null;
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
             double normValue = double.NaN;
-            string categoryBoundaryNameValue = null;
+            string calculationIdentifierValue = null;
             guiService.Expect(ch => ch.CalculateWaveHeights(null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[0]).ToArray();
                     assessmentSectionValue = (IAssessmentSection) invocation.Arguments[1];
                     normValue = (double) invocation.Arguments[2];
-                    categoryBoundaryNameValue = (string) invocation.Arguments[3];
+                    calculationIdentifierValue = (string) invocation.Arguments[3];
                 });
 
             mockRepository.ReplayAll();
@@ -406,7 +404,7 @@ namespace Riskeer.Common.Forms.Test.Views
             WaveHeightCalculationsView view = ShowWaveHeightCalculationsView(hydraulicBoundaryLocationCalculations,
                                                                              assessmentSection,
                                                                              norm,
-                                                                             categoryBoundaryName,
+                                                                             calculationIdentifier,
                                                                              testForm);
 
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
@@ -420,7 +418,7 @@ namespace Riskeer.Common.Forms.Test.Views
             button.Click();
 
             // Assert
-            Assert.AreEqual(categoryBoundaryName, categoryBoundaryNameValue);
+            Assert.AreEqual(calculationIdentifier, calculationIdentifierValue);
             Assert.AreSame(assessmentSection, assessmentSectionValue);
             Assert.AreEqual(norm, normValue);
             Assert.AreEqual(1, performedCalculations.Length);
@@ -460,13 +458,13 @@ namespace Riskeer.Common.Forms.Test.Views
         private static WaveHeightCalculationsView ShowWaveHeightCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                                                  IAssessmentSection assessmentSection,
                                                                                  double norm,
-                                                                                 string categoryBoundaryName,
+                                                                                 string calculationIdentifier,
                                                                                  Form form)
         {
             var view = new WaveHeightCalculationsView(calculations,
                                                       assessmentSection,
                                                       () => norm,
-                                                      categoryBoundaryName);
+                                                      () => calculationIdentifier);
 
             form.Controls.Add(view);
             form.Show();
@@ -479,7 +477,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             var assessmentSection = new AssessmentSectionStub();
 
-            return ShowWaveHeightCalculationsView(calculations, assessmentSection, 0.01, "A", form);
+            return ShowWaveHeightCalculationsView(calculations, assessmentSection, 0.01, "1/100", form);
         }
 
         private static ObservableList<HydraulicBoundaryLocationCalculation> GetTestHydraulicBoundaryLocationCalculations()
