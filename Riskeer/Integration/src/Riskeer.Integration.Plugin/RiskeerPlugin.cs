@@ -351,7 +351,7 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData,
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
-                                                                                 noProbabilityValueDoubleConverter.ConvertToString(context.GetNormFunc())),
+                                                                                 () => noProbabilityValueDoubleConverter.ConvertToString(context.GetNormFunc())),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
@@ -365,7 +365,7 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData.HydraulicBoundaryLocationCalculations,
                                                                                  context.AssessmentSection,
                                                                                  () => context.WrappedData.TargetProbability,
-                                                                                 noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)),
+                                                                                 () => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
@@ -393,7 +393,7 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData,
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
-                                                                                 context.CategoryBoundaryName),
+                                                                                 () => context.CategoryBoundaryName),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
