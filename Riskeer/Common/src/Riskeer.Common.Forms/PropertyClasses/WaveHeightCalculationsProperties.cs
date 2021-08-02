@@ -46,7 +46,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_Description))]
-        public WaveHeightCalculationProperties[] Calculations
+        public virtual WaveHeightCalculationProperties[] Calculations
         {
             get
             {

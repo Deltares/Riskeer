@@ -4164,6 +4164,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overschrijdingskans waarvoor de golfhoogten worden berekend..
+        /// </summary>
+        public static string TargetProbability_WaveHeights_Description {
+            get {
+                return ResourceManager.GetString("TargetProbability_WaveHeights_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} ({1}).
         /// </summary>
         public static string TopLevelSubMechanismIllustrationPointProperties_ToString_WindDirectionName_0_ClosingSituation_1 {
