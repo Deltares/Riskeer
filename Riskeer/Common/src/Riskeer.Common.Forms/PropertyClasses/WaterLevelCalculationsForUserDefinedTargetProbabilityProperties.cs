@@ -38,12 +38,13 @@ namespace Riskeer.Common.Forms.PropertyClasses
         private const int calculationsPropertyIndex = 2;
 
         private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
+
         private readonly HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaterLevelCalculationsForUserDefinedTargetProbabilityProperties"/>.
         /// </summary>
-        /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> to set as data.</param>
+        /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> to show the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationsForTargetProbability"/> is <c>null</c>.</exception>
         public WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
             : base(calculationsForTargetProbability?.HydraulicBoundaryLocationCalculations ?? throw new ArgumentNullException(nameof(calculationsForTargetProbability)))
