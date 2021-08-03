@@ -42,7 +42,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
@@ -328,6 +327,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     hydraulicBoundaryLocation
                 });
 
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ElementAt(0).Output =
+                new TestHydraulicBoundaryLocationCalculationOutput(2.0);
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
 
@@ -345,41 +347,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
 
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-                var designWaterLevelCalculator = new TestDesignWaterLevelCalculator
-                {
-                    Converged = false,
-                    DesignWaterLevel = 2.0
-                };
-                var waveHeightCalculator = new TestWaveHeightCalculator
-                {
-                    Converged = false
-                };
                 var waveConditionsCalculator = new TestWaveConditionsCosineCalculator
                 {
                     Converged = false
                 };
 
                 HydraulicBoundaryCalculationSettings expectedCalculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
-                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         expectedCalculationSettings,
-                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(designWaterLevelCalculator)
-                                 .Repeat
-                                 .Times(5);
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         expectedCalculationSettings,
-                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(waveHeightCalculator)
-                                 .Repeat
-                                 .Times(5);
                 calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
@@ -399,54 +372,26 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     // When
-                    Action call = () => contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
+                    void Call() => contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(call, messages =>
+                    TestHelper.AssertLogMessages(Call, messages =>
                     {
                         string[] msgs = messages.ToArray();
-                        Assert.AreEqual(108, msgs.Length);
+                        Assert.AreEqual(28, msgs.Length);
 
-                        const string designWaterLevelCalculationTypeDisplayName = "Waterstand";
-                        const string designWaterLevelCalculationDisplayName = "Waterstand berekening";
-
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "Iv", msgs, 0);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "IIv", msgs, 8);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "IIIv", msgs, 16);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "IVv", msgs, 24);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "Vv", msgs, 32);
-
-                        const string waveHeightCalculationTypeDisplayName = "Golfhoogte";
-                        const string waveHeightCalculationDisplayName = "Golfhoogte berekening";
-
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "Iv", msgs, 40);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "IIv", msgs, 48);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "IIIv", msgs, 56);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "IVv", msgs, 64);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "Vv", msgs, 72);
-
-                        Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs.ElementAt(80));
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs.ElementAt(81));
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs.ElementAt(82));
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.ElementAt(83));
+                        Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs.ElementAt(0));
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs.ElementAt(1));
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs.ElementAt(2));
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.ElementAt(3));
 
                         IEnumerable<RoundedDouble> waterLevels = calculation.InputParameters.GetWaterLevels(
                             failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output.Result);
                         Assert.AreEqual(3, waterLevels.Count());
-                        AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfoploop", 84);
-                        AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfklap", 95);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.ElementAt(106));
-                        Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gelukt.", msgs.ElementAt(107));
+                        AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfoploop", 4);
+                        AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfklap", 15);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.ElementAt(26));
+                        Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gelukt.", msgs.ElementAt(27));
                     });
                 }
             }
