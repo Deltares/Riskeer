@@ -71,6 +71,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                 setValue();
 
                 affectedObjects.AddRange(ClearHydraulicBoundaryLocationCalculationOutput());
+                affectedObjects.Add(calculationsForTargetProbability);
             }
 
             return affectedObjects;

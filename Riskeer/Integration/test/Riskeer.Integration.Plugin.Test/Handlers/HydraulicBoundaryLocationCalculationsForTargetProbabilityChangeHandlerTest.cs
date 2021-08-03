@@ -114,9 +114,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = CreateCalculationsForTargetProbabilityWithAndWithoutOutput();
-            HydraulicBoundaryLocationCalculation[] expectedAffectedObjects = calculationsForTargetProbability.HydraulicBoundaryLocationCalculations
-                                                                                                             .Where(hblc => hblc.HasOutput)
-                                                                                                             .ToArray();
+            List<object> expectedAffectedObjects = calculationsForTargetProbability.HydraulicBoundaryLocationCalculations
+                                                                                   .Where(hblc => hblc.HasOutput)
+                                                                                   .Cast<object>()
+                                                                                   .ToList();
+
+            expectedAffectedObjects.Add(calculationsForTargetProbability);
 
             var handler = new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(calculationsForTargetProbability);
 
@@ -145,14 +148,21 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 tester.ClickOk();
             };
 
-            var handler = new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability
+            {
+                HydraulicBoundaryLocationCalculations =
                 {
-                    HydraulicBoundaryLocationCalculations =
-                    {
-                        new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-                    }
-                });
+                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                }
+            };
+
+            var handler = new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
+                calculationsForTargetProbability);
+
+            HydraulicBoundaryLocationCalculationsForTargetProbability[] expectedAffectedObjects =
+            {
+                calculationsForTargetProbability
+            };
 
             IEnumerable<IObservable> affectedObjects = null;
 
@@ -161,7 +171,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Assert
             TestHelper.AssertLogMessagesCount(Call, 0);
-            CollectionAssert.IsEmpty(affectedObjects);
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
 
         [Test]
