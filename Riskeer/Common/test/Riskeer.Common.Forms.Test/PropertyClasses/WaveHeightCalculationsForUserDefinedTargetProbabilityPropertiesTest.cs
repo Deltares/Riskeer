@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Gui.Converters;
 using Core.Gui.TestUtil;
@@ -29,6 +30,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Common.Forms.Test.PropertyClasses
@@ -150,6 +152,38 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(calculationsForTargetProbability.TargetProbability, properties.TargetProbability);
             Assert.AreEqual(1, properties.Calculations.Length);
 
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void TargetProbability_Always_InputChangedAndObservablesNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            mocks.ReplayAll();
+
+            var customHandler = new SetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
+
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability
+            {
+                HydraulicBoundaryLocationCalculations =
+                {
+                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                }
+            };
+
+            var properties = new WaveHeightCalculationsForUserDefinedTargetProbabilityProperties(
+                calculationsForTargetProbability, customHandler);
+
+            // Call
+            properties.TargetProbability = 0.01;
+
+            // Assert
             mocks.VerifyAll();
         }
     }
