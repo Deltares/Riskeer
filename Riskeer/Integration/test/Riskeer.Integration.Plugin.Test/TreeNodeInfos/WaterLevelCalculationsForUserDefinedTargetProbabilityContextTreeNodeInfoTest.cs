@@ -87,7 +87,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.CanCheck);
                 Assert.IsNull(info.CheckedState);
                 Assert.IsNull(info.OnNodeChecked);
-                Assert.IsNull(info.CanDrag);
+                Assert.IsNotNull(info.CanDrag);
                 Assert.IsNull(info.CanDrop);
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
@@ -967,6 +967,22 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CanDrag_Always_ReturnsTrue()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                bool canDrag = info.CanDrag(null, null);
+
+                // Assert
+                Assert.IsTrue(canDrag);
+            }
         }
 
         public override void Setup()
