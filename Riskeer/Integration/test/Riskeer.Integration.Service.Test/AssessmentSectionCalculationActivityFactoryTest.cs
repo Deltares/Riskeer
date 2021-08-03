@@ -199,7 +199,7 @@ namespace Riskeer.Integration.Service.Test
             {
                 hydraulicBoundaryLocation
             };
-            
+
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(
                 new[]
                 {
@@ -255,21 +255,6 @@ namespace Riskeer.Integration.Service.Test
                                  })
                                  .Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(9);
 
-                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(new TestDesignWaterLevelCalculator()).Repeat.Times(3);
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(new TestWaveHeightCalculator()).Repeat.Times(3);
-
                 calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
@@ -294,7 +279,7 @@ namespace Riskeer.Integration.Service.Test
                 AssessmentSectionCalculationActivityFactory.CreateHydraulicLoadCalculationActivities(assessmentSection);
 
             // Assert
-            Assert.AreEqual(20, activities.Count());
+            Assert.AreEqual(14, activities.Count());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {

@@ -60,7 +60,7 @@ namespace Riskeer.Integration.Service
             activities.AddRange(AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(assessmentSection));
             activities.AddRange(StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(assessmentSection.StabilityStoneCover, assessmentSection));
             activities.AddRange(WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(assessmentSection.WaveImpactAsphaltCover, assessmentSection));
-            activities.AddRange(GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivitiesWithoutAssessmentSectionCalculations(assessmentSection.GrassCoverErosionOutwards, assessmentSection));
+            activities.AddRange(GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivities(assessmentSection.GrassCoverErosionOutwards, assessmentSection));
             activities.AddRange(DuneLocationCalculationActivityFactory.CreateCalculationActivities(assessmentSection.DuneErosion, assessmentSection));
 
             return activities;
