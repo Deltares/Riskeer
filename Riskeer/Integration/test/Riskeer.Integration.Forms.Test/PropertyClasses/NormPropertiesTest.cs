@@ -118,18 +118,18 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             const string expectedCategory = "Algemeen";
 
-            PropertyDescriptor signalingNormProperty = dynamicProperties[0];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(signalingNormProperty,
-                                                                            expectedCategory,
-                                                                            "Signaleringswaarde [1/jaar]",
-                                                                            "Overstromingskans van het dijktraject waarvan overschrijding gemeld moet worden aan de Minister van I en M.");
-
-            PropertyDescriptor lowerLevelNormProperty = dynamicProperties[1];
+            PropertyDescriptor lowerLevelNormProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lowerLevelNormProperty,
                                                                             expectedCategory,
                                                                             "Ondergrens [1/jaar]",
                                                                             "Overstromingskans van het dijktraject die hoort bij het minimale beschermingsniveau dat de kering moet bieden.");
 
+            PropertyDescriptor signalingNormProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(signalingNormProperty,
+                                                                            expectedCategory,
+                                                                            "Signaleringswaarde [1/jaar]",
+                                                                            "Overstromingskans van het dijktraject waarvan overschrijding gemeld moet worden aan de Minister van I en M.");
+            
             PropertyDescriptor normativeNormProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(normativeNormProperty,
                                                                             expectedCategory,

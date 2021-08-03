@@ -2237,12 +2237,12 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
-                                                                          context.AssessmentSection,
-                                                                          () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm)),
                 new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                                           context.AssessmentSection,
-                                                                          () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm))
+                                                                          () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm)),
+                new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                                          context.AssessmentSection,
+                                                                          () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm))
             };
         }
 

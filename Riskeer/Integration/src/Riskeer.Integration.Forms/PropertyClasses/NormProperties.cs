@@ -62,25 +62,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             Data = failureMechanismContribution;
             this.normChangeHandler = normChangeHandler;
         }
-
+        
         [PropertyOrder(1)]
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SignalingNorm_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.SignalingNorm_Description))]
-        public double SignalingNorm
-        {
-            get
-            {
-                return data.SignalingNorm;
-            }
-            set
-            {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.SignalingNorm = value, normChangeHandler);
-            }
-        }
-
-        [PropertyOrder(2)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.LowerLimitNorm_DisplayName))]
@@ -94,6 +77,23 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             set
             {
                 PropertyChangeHelper.ChangePropertyAndNotify(() => data.LowerLimitNorm = value, normChangeHandler);
+            }
+        }
+
+        [PropertyOrder(2)]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SignalingNorm_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.SignalingNorm_Description))]
+        public double SignalingNorm
+        {
+            get
+            {
+                return data.SignalingNorm;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.SignalingNorm = value, normChangeHandler);
             }
         }
 
