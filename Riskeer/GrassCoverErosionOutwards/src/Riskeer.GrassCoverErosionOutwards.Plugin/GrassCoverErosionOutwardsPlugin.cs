@@ -275,22 +275,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 ContextMenuStrip = GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContextMenuStrip
             };
 
-            yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext>
-            {
-                Text = context => RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
-                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
-                ContextMenuStrip = GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContextMenuStrip,
-                ChildNodeObjects = DesignWaterLevelCalculationsGroupContextChildNodeObjects
-            };
-
-            yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext>
-            {
-                Text = context => RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
-                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
-                ContextMenuStrip = GrassCoverErosionOutwardsWaveHeightCalculationsGroupContextMenuStrip,
-                ChildNodeObjects = WaveHeightCalculationsGroupContextChildNodeObjects
-            };
-
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>
             {
                 Text = context => RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
