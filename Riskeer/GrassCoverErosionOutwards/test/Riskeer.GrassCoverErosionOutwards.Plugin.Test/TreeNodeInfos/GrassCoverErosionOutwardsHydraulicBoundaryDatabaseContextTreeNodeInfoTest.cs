@@ -258,6 +258,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     hydraulicBoundaryLocation
                 });
 
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ElementAt(0).Output =
+                new TestHydraulicBoundaryLocationCalculationOutput(2.0);
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
 
@@ -314,7 +317,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(Call, messages =>
                     {
                         string[] msgs = messages.ToArray();
-                        Assert.AreEqual(5, msgs.Length);
+                        Assert.AreEqual(28, msgs.Length);
 
                         Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs.ElementAt(0));
                         CalculationServiceTestHelper.AssertValidationStartMessage(msgs.ElementAt(1));
@@ -324,10 +327,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         IEnumerable<RoundedDouble> waterLevels = calculation.InputParameters.GetWaterLevels(
                             failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output.Result);
                         Assert.AreEqual(3, waterLevels.Count());
-                        AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfoploop", 84);
-                        AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfklap", 95);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.ElementAt(106));
-                        Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gelukt.", msgs.ElementAt(107));
+                        AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfoploop", 4);
+                        AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfklap", 15);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.ElementAt(26));
+                        Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gelukt.", msgs.ElementAt(27));
                     });
                 }
             }
