@@ -296,18 +296,8 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(DesignWaterLevelCalculationsContext),
-                    typeof(DesignWaterLevelCalculationsProperties));
-
-                PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos,
                     typeof(DesignWaterLevelCalculationContext),
                     typeof(DesignWaterLevelCalculationProperties));
-
-                PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos,
-                    typeof(WaveHeightCalculationsContext),
-                    typeof(WaveHeightCalculationsProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

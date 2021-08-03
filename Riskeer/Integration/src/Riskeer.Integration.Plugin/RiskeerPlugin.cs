@@ -256,17 +256,9 @@ namespace Riskeer.Integration.Plugin
                     context.WrappedData,
                     new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(context.WrappedData))
             };
-            yield return new PropertyInfo<DesignWaterLevelCalculationsContext, DesignWaterLevelCalculationsProperties>
-            {
-                CreateInstance = context => new DesignWaterLevelCalculationsProperties(context.WrappedData)
-            };
             yield return new PropertyInfo<DesignWaterLevelCalculationContext, DesignWaterLevelCalculationProperties>
             {
                 CreateInstance = context => new DesignWaterLevelCalculationProperties(context.WrappedData)
-            };
-            yield return new PropertyInfo<WaveHeightCalculationsContext, WaveHeightCalculationsProperties>
-            {
-                CreateInstance = context => new WaveHeightCalculationsProperties(context.WrappedData)
             };
             yield return new PropertyInfo<WaveHeightCalculationContext, WaveHeightCalculationProperties>
             {
