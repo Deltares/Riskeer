@@ -2636,39 +2636,6 @@ namespace Riskeer.Integration.Plugin
             parent.NotifyObservers();
         }
 
-        private ContextMenuStrip WaveHeightCalculationsGroupContextMenuStrip(WaveHeightCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
-        {
-            IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-
-            IMainWindow guiMainWindow = Gui.MainWindow;
-            var waveHeightCalculationItem = new StrictContextMenuItem(
-                RiskeerCommonFormsResources.Calculate_All,
-                RiskeerCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
-                RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) =>
-                {
-                    ActivityProgressDialogRunner.Run(
-                        guiMainWindow,
-                        AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(assessmentSection));
-                });
-
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightCalculationItem);
-
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                GetInquiryHelper(),
-                RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
-                () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForWaveHeightCalculations(nodeData.AssessmentSection));
-
-            return builder.AddCustomItem(waveHeightCalculationItem)
-                          .AddSeparator()
-                          .AddClearIllustrationPointsOfCalculationsItem(() => WaveHeightCalculationsHaveIllustrationPoints(assessmentSection), changeHandler)
-                          .AddSeparator()
-                          .AddCollapseAllItem()
-                          .AddExpandAllItem()
-                          .Build();
-        }
-
         private static object[] DesignWaterLevelCalculationsGroupContextChildNodeObjects(DesignWaterLevelCalculationsGroupContext context)
         {
             return new object[]
@@ -2713,14 +2680,6 @@ namespace Riskeer.Integration.Plugin
                                                   () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm),
                                                   RiskeerCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName)
             };
-        }
-
-        private static bool WaveHeightCalculationsHaveIllustrationPoints(IAssessmentSection assessmentSection)
-        {
-            return IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm)
-                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForSignalingNorm)
-                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
-                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
         }
 
         private static bool HasIllustrationPoints(IAssessmentSection assessmentSection)
