@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -39,7 +38,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.ExportInfos;
-using Riskeer.Common.Forms.GuiServices;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -70,8 +68,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
     /// </summary>
     public class GrassCoverErosionOutwardsPlugin : PluginBase
     {
-        private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
-
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<GrassCoverErosionOutwardsHydraulicLoadsContext, GrassCoverErosionOutwardsHydraulicLoadsProperties>
@@ -310,18 +306,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 new GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateStrategy());
         }
 
-        public override void Activate()
-        {
-            base.Activate();
-
-            if (Gui == null)
-            {
-                throw new InvalidOperationException("Gui cannot be null");
-            }
-
-            hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
-        }
-
         #region ViewInfos
 
         private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionOutwardsFailureMechanismResultView view, object dataToCloseFor)
@@ -342,7 +326,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
-        
+
         #endregion
 
         #region TreeNodeInfos
