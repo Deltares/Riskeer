@@ -428,7 +428,6 @@ namespace Riskeer.Integration.Service.Test
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new GrassCoverErosionOutwardsFailureMechanism(),
                 new DuneErosionFailureMechanism()
             });
             mockRepository.ReplayAll();
@@ -490,7 +489,6 @@ namespace Riskeer.Integration.Service.Test
             // Call
             IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(new IFailureMechanism[]
             {
-                new GrassCoverErosionOutwardsFailureMechanism(),
                 new DuneErosionFailureMechanism()
             });
 
