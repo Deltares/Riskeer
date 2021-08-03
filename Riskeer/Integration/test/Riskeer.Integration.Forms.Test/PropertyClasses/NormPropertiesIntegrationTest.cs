@@ -110,8 +110,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             AttachObserver(mockRepository, assessmentSection.FailureMechanismContribution);
             AttachObserver(mockRepository, assessmentSection, hydraulicBoundaryLocation1);
             AttachObserver(mockRepository, assessmentSection, hydraulicBoundaryLocation2, false);
-            AttachObserver(mockRepository, assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation1);
-            AttachObserver(mockRepository, assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation2, false);
             AttachObserver(mockRepository, pipingCalculation);
             AttachObserver(mockRepository, emptyPipingCalculation, false);
             AttachObserver(mockRepository, grassCoverErosionInwardsCalculation);
@@ -129,10 +127,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            Action call = () => setPropertyAction(properties);
+            void Call() => setPropertyAction(properties);
 
             // Assert
-            TestHelper.AssertLogMessages(call, msgs =>
+            TestHelper.AssertLogMessages(Call, msgs =>
             {
                 string[] messages = msgs.ToArray();
                 Assert.AreEqual(string.Format(messageCalculationsRemoved, numberOfCalculationsWithOutput), messages[0]);
@@ -141,7 +139,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             AssertNormValues(properties, assessmentSection.FailureMechanismContribution);
             AssertHydraulicBoundaryOutput(assessmentSection, hydraulicBoundaryLocation1, false);
-            AssertHydraulicBoundaryOutput(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation1, false);
             Assert.IsFalse(pipingCalculation.HasOutput);
             Assert.IsFalse(grassCoverErosionInwardsCalculation.HasOutput);
             Assert.IsFalse(heightStructuresCalculation.HasOutput);
@@ -216,17 +213,16 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            Action call = () => setPropertyAction(properties);
+            void Call() => setPropertyAction(properties);
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
+            TestHelper.AssertLogMessagesCount(Call, 0);
             Assert.AreEqual(originalLowerLimitNorm, failureMechanismContribution.LowerLimitNorm);
             Assert.AreEqual(originalSignalingNorm, failureMechanismContribution.SignalingNorm);
             Assert.AreEqual(originalNormativeNorm, failureMechanismContribution.NormativeNorm);
             Assert.AreEqual(originalNorm, failureMechanismContribution.Norm);
 
             AssertHydraulicBoundaryOutput(assessmentSection, hydraulicBoundaryLocation, true);
-            AssertHydraulicBoundaryOutput(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation, true);
             Assert.IsTrue(pipingCalculation.HasOutput);
             Assert.IsTrue(grassCoverErosionInwardsCalculation.HasOutput);
             Assert.IsTrue(heightStructuresCalculation.HasOutput);
@@ -285,10 +281,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            Action call = () => setPropertyAction(properties);
+            void Call() => setPropertyAction(properties);
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
+            TestHelper.AssertLogMessagesCount(Call, 0);
             AssertNormValues(properties, assessmentSection.FailureMechanismContribution);
             mockRepository.VerifyAll();
         }
@@ -471,30 +467,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedHasOutput, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm
                                                                 .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
                                                                 .HasOutput);
-        }
-
-        private static void AssertHydraulicBoundaryOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                          HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                          bool expectedHasOutput)
-        {
-            Assert.AreEqual(expectedHasOutput, failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
-                                                               .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                                                               .HasOutput);
-            Assert.AreEqual(expectedHasOutput, failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm
-                                                               .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                                                               .HasOutput);
-            Assert.AreEqual(expectedHasOutput, failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
-                                                               .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                                                               .HasOutput);
-            Assert.AreEqual(expectedHasOutput, failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
-                                                               .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                                                               .HasOutput);
-            Assert.AreEqual(expectedHasOutput, failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm
-                                                               .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                                                               .HasOutput);
-            Assert.AreEqual(expectedHasOutput, failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
-                                                               .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                                                               .HasOutput);
         }
 
         private static void AssertNormValues(NormProperties properties, FailureMechanismContribution failureMechanismContribution)
