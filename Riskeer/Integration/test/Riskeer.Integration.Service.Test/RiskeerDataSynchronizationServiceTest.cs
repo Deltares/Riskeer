@@ -39,7 +39,6 @@ using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone;
@@ -249,7 +248,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void ClearHydraulicBoundaryLocationCalculationOutput_HydraulicBoundaryGrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedObjects()
+        public void ClearHydraulicBoundaryLocationCalculationOutput_HydraulicBoundaryAndDuneLocations_ClearDataAndReturnAffectedObjects()
         {
             // Setup
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
@@ -282,13 +281,6 @@ namespace Riskeer.Integration.Service.Test
                 hydraulicBoundaryLocation2
             });
 
-            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
-            grassCoverErosionOutwardsFailureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation1,
-                hydraulicBoundaryLocation2
-            });
-
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation1 = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
                                                                                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForSignalingNorm
@@ -315,26 +307,6 @@ namespace Riskeer.Integration.Service.Test
             hydraulicBoundaryLocationCalculation7.Output = new TestHydraulicBoundaryLocationCalculationOutput();
             hydraulicBoundaryLocationCalculation8.Output = new TestHydraulicBoundaryLocationCalculationOutput();
 
-            HydraulicBoundaryLocationCalculation grassHydraulicBoundaryLocationCalculation1 = grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
-                                                                                                                                       .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation grassHydraulicBoundaryLocationCalculation2 = grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm
-                                                                                                                                       .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation grassHydraulicBoundaryLocationCalculation3 = grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
-                                                                                                                                       .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation grassHydraulicBoundaryLocationCalculation4 = grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
-                                                                                                                                       .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation grassHydraulicBoundaryLocationCalculation5 = grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm
-                                                                                                                                       .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation grassHydraulicBoundaryLocationCalculation6 = grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
-                                                                                                                                       .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-
-            grassHydraulicBoundaryLocationCalculation1.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            grassHydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            grassHydraulicBoundaryLocationCalculation3.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            grassHydraulicBoundaryLocationCalculation4.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            grassHydraulicBoundaryLocationCalculation5.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            grassHydraulicBoundaryLocationCalculation6.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-
             DuneLocationCalculation duneLocationCalculation1 = duneErosionFailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
             DuneLocationCalculation duneLocationCalculation2 = duneErosionFailureMechanism.CalculationsForMechanismSpecificSignalingNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
             DuneLocationCalculation duneLocationCalculation3 = duneErosionFailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
@@ -357,12 +329,6 @@ namespace Riskeer.Integration.Service.Test
                 hydraulicBoundaryLocationCalculation6,
                 hydraulicBoundaryLocationCalculation7,
                 hydraulicBoundaryLocationCalculation8,
-                grassHydraulicBoundaryLocationCalculation1,
-                grassHydraulicBoundaryLocationCalculation2,
-                grassHydraulicBoundaryLocationCalculation3,
-                grassHydraulicBoundaryLocationCalculation4,
-                grassHydraulicBoundaryLocationCalculation5,
-                grassHydraulicBoundaryLocationCalculation6,
                 duneLocationCalculation1,
                 duneLocationCalculation2,
                 duneLocationCalculation3,
@@ -375,6 +341,7 @@ namespace Riskeer.Integration.Service.Test
 
             // Assert
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
+
             Assert.IsFalse(hydraulicBoundaryLocationCalculation1.HasOutput);
             Assert.IsFalse(hydraulicBoundaryLocationCalculation2.HasOutput);
             Assert.IsFalse(hydraulicBoundaryLocationCalculation3.HasOutput);
@@ -383,13 +350,6 @@ namespace Riskeer.Integration.Service.Test
             Assert.IsFalse(hydraulicBoundaryLocationCalculation6.HasOutput);
             Assert.IsFalse(hydraulicBoundaryLocationCalculation7.HasOutput);
             Assert.IsFalse(hydraulicBoundaryLocationCalculation8.HasOutput);
-
-            Assert.IsFalse(grassHydraulicBoundaryLocationCalculation1.HasOutput);
-            Assert.IsFalse(grassHydraulicBoundaryLocationCalculation2.HasOutput);
-            Assert.IsFalse(grassHydraulicBoundaryLocationCalculation3.HasOutput);
-            Assert.IsFalse(grassHydraulicBoundaryLocationCalculation4.HasOutput);
-            Assert.IsFalse(grassHydraulicBoundaryLocationCalculation5.HasOutput);
-            Assert.IsFalse(grassHydraulicBoundaryLocationCalculation6.HasOutput);
 
             Assert.IsNull(duneLocationCalculation1.Output);
             Assert.IsNull(duneLocationCalculation2.Output);
@@ -485,37 +445,6 @@ namespace Riskeer.Integration.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms_AssessmentSectionWithGrassCoverErosionOutwardsFailureMechanism_ClearDataAndReturnAffectedCalculations(bool hasOutput)
-        {
-            // Setup
-            var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            ConfigureGrassCoverErosionOutwardsFailureMechanism(grassCoverErosionOutwardsFailureMechanism, hasOutput);
-
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[]
-            {
-                grassCoverErosionOutwardsFailureMechanism
-            });
-            mockRepository.ReplayAll();
-
-            IEnumerable<HydraulicBoundaryLocationCalculation> expectedAffectedItems =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(grassCoverErosionOutwardsFailureMechanism);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(assessmentSection);
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AssertHydraulicBoundaryLocationCalculationsHaveNoOutputs(grassCoverErosionOutwardsFailureMechanism);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
         public void ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms_AssessmentSectionWithDuneErosionFailureMechanism_ClearDataAndReturnAffectedCalculations(bool hasOutput)
         {
             // Setup
@@ -567,31 +496,6 @@ namespace Riskeer.Integration.Service.Test
 
             // Assert
             CollectionAssert.IsEmpty(affectedObjects);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms_GrassCoverErosionOutwardsFailureMechanism_ClearDataAndReturnAffectedCalculations(bool hasOutput)
-        {
-            // Setup
-            var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            ConfigureGrassCoverErosionOutwardsFailureMechanism(grassCoverErosionOutwardsFailureMechanism, hasOutput);
-
-            IEnumerable<HydraulicBoundaryLocationCalculation> expectedAffectedItems =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(grassCoverErosionOutwardsFailureMechanism);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(new IFailureMechanism[]
-            {
-                grassCoverErosionOutwardsFailureMechanism
-            });
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AssertHydraulicBoundaryLocationCalculationsHaveNoOutputs(grassCoverErosionOutwardsFailureMechanism);
         }
 
         [Test]
@@ -1889,24 +1793,6 @@ namespace Riskeer.Integration.Service.Test
             foreach (FailureMechanismSectionResult sectionResult in failureMechanism.SectionResults)
             {
                 yield return sectionResult;
-            }
-        }
-
-        private static void ConfigureGrassCoverErosionOutwardsFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism, bool hasOutput)
-        {
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new TestHydraulicBoundaryLocation()
-            });
-
-            if (hasOutput)
-            {
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
-                failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
-                failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
-                failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
             }
         }
 
