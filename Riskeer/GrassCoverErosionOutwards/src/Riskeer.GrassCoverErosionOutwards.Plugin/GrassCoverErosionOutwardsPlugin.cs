@@ -1019,17 +1019,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                         calculateAllItem);
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                GetInquiryHelper(),
-                RiskeerCommonFormsResources.HydraulicLoads_DisplayName,
-                () => GrassCoverErosionOutwardsDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(
-                    failureMechanism, assessmentSection));
 
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddCustomItem(calculateAllItem)
-                          .AddSeparator()
-                          .AddClearIllustrationPointsOfCalculationsItem(() => false, changeHandler)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()

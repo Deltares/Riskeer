@@ -24,9 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
@@ -43,8 +41,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Data.TestUtil.IllustrationPoints;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
@@ -61,7 +57,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
     public class GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuCalculateAllIndex = 2;
-        private const int contextMenuClearIllustrationPointsIndex = 4;
 
         private MockRepository mockRepository;
         private GrassCoverErosionOutwardsPlugin plugin;
@@ -132,8 +127,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 using (mockRepository.Ordered())
                 {
                     menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -241,88 +234,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculations))]
-        public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsEnabledAndTooltipSet(
-            Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation> getHydraulicBoundaryLocationCalculationFunc)
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
-            {
-                new TestHydraulicBoundaryLocation()
-            });
-
-            HydraulicBoundaryLocationCalculation calculation = getHydraulicBoundaryLocationCalculationFunc(assessmentSection, failureMechanism);
-            calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint());
-
-            var nodeData = new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
-                                                                                         failureMechanism,
-                                                                                         assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mockRepository.Stub<IGui>();
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                mockRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
-
-                    Assert.AreEqual("Wis alle illustratiepunten...", contextMenuItem.Text);
-                    Assert.AreEqual("Wis alle berekende illustratiepunten.", contextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ClearIllustrationPointsIcon, contextMenuItem.Image);
-                    Assert.IsTrue(contextMenuItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabled()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
-            {
-                new TestHydraulicBoundaryLocation()
-            });
-
-            var nodeData = new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
-                                                                                         failureMechanism,
-                                                                                         assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mockRepository.Stub<IGui>();
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                mockRepository.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuClearIllustrationPointsIndex];
-                    Assert.IsFalse(contextMenuItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
@@ -372,41 +283,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
 
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                var designWaterLevelCalculator = new TestDesignWaterLevelCalculator
-                {
-                    Converged = false,
-                    DesignWaterLevel = 2.0
-                };
-                var waveHeightCalculator = new TestWaveHeightCalculator
-                {
-                    Converged = false
-                };
                 var waveConditionsCalculator = new TestWaveConditionsCosineCalculator
                 {
                     Converged = false
                 };
 
                 HydraulicBoundaryCalculationSettings expectedCalculationSettings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
-                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         expectedCalculationSettings,
-                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(designWaterLevelCalculator)
-                                 .Repeat
-                                 .Times(5);
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
-                                 .WhenCalled(invocation =>
-                                 {
-                                     HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         expectedCalculationSettings,
-                                         (HydraRingCalculationSettings) invocation.Arguments[0]);
-                                 })
-                                 .Return(waveHeightCalculator)
-                                 .Repeat
-                                 .Times(5);
                 calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
                                  {
@@ -432,40 +314,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(Call, messages =>
                     {
                         string[] msgs = messages.ToArray();
-                        Assert.AreEqual(108, msgs.Length);
+                        Assert.AreEqual(5, msgs.Length);
 
-                        const string designWaterLevelCalculationTypeDisplayName = "Waterstand";
-                        const string designWaterLevelCalculationDisplayName = "Waterstand berekening";
-
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "Iv", msgs, 0);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "IIv", msgs, 8);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "IIIv", msgs, 16);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "IVv", msgs, 24);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName, "Vv", msgs, 32);
-
-                        const string waveHeightCalculationTypeDisplayName = "Golfhoogte";
-                        const string waveHeightCalculationDisplayName = "Golfhoogte berekening";
-
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "Iv", msgs, 40);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "IIv", msgs, 48);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "IIIv", msgs, 56);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "IVv", msgs, 64);
-                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                            hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName, "Vv", msgs, 72);
-
-                        Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs.ElementAt(80));
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs.ElementAt(81));
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs.ElementAt(82));
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.ElementAt(83));
+                        Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs.ElementAt(0));
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs.ElementAt(1));
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs.ElementAt(2));
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.ElementAt(3));
 
                         IEnumerable<RoundedDouble> waterLevels = calculation.InputParameters.GetWaterLevels(
                             failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output.Result);
@@ -566,138 +420,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
         }
 
-        [Test]
-        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculations))]
-        [Apartment(ApartmentState.STA)]
-        public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndDoNotContinue_ThenInquiryAndIllustrationPointsNotCleared(
-            Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation> getHydraulicLocationCalculationFunc)
-        {
-            // Given
-            var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
-            {
-                new TestHydraulicBoundaryLocation()
-            });
-
-            var random = new Random(21);
-            HydraulicBoundaryLocationCalculation calculation = getHydraulicLocationCalculationFunc(assessmentSection, failureMechanism);
-            calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint());
-
-            HydraulicBoundaryLocationCalculation[] calculationsWithOutput = GetAllHydraulicLocationCalculationsWithOutput(assessmentSection, failureMechanism).ToArray();
-
-            var messageBoxText = "";
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var helper = new MessageBoxTester(wnd);
-                messageBoxText = helper.Text;
-
-                helper.ClickCancel();
-            };
-
-            var context = new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var affectedCalculationObserver = mockRepository.StrictMock<IObserver>();
-
-                var gui = mockRepository.Stub<IGui>();
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mockRepository.ReplayAll();
-
-                calculation.Attach(affectedCalculationObserver);
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // When
-                    contextMenuAdapter.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
-
-                    // Then
-                    const string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij 'Hydraulische belastingen' wilt wissen?";
-                    Assert.AreEqual(expectedMessage, messageBoxText);
-
-                    Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));
-                    Assert.IsTrue(calculation.Output.HasGeneralResult);
-                }
-            }
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculations))]
-        [Apartment(ApartmentState.STA)]
-        public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinue_ThenInquiryAndIllustrationPointsCleared(
-            Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation> getHydraulicLocationCalculationFunc)
-        {
-            // Given
-            var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
-            {
-                new TestHydraulicBoundaryLocation(),
-                new TestHydraulicBoundaryLocation()
-            }, true);
-
-            var random = new Random(21);
-            HydraulicBoundaryLocationCalculation calculation = getHydraulicLocationCalculationFunc(assessmentSection, failureMechanism);
-            calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint());
-
-            HydraulicBoundaryLocationCalculation unaffectedCalculation = assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.ElementAt(1);
-
-            HydraulicBoundaryLocationCalculation[] calculationsWithOutput = GetAllHydraulicLocationCalculationsWithOutput(assessmentSection, failureMechanism).ToArray();
-
-            var messageBoxText = "";
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var helper = new MessageBoxTester(wnd);
-                messageBoxText = helper.Text;
-
-                helper.ClickOk();
-            };
-
-            var context = new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var affectedCalculationObserver = mockRepository.StrictMock<IObserver>();
-                affectedCalculationObserver.Expect(o => o.UpdateObserver());
-                var unAffectedCalculationObserver = mockRepository.StrictMock<IObserver>();
-
-                var gui = mockRepository.Stub<IGui>();
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mockRepository.ReplayAll();
-
-                calculation.Attach(affectedCalculationObserver);
-                unaffectedCalculation.Attach(unAffectedCalculationObserver);
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // When
-                    contextMenuAdapter.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
-
-                    // Then
-                    const string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij 'Hydraulische belastingen' wilt wissen?";
-                    Assert.AreEqual(expectedMessage, messageBoxText);
-
-                    Assert.IsTrue(calculationsWithOutput.All(calc => calc.HasOutput));
-                    Assert.IsFalse(calculation.Output.HasGeneralResult);
-                }
-            }
-        }
-
         public override void Setup()
         {
             mockRepository = new MockRepository();
@@ -748,46 +470,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     UpperBoundaryWaterLevels = (RoundedDouble) 2
                 }
             };
-        }
-
-        private static IEnumerable<HydraulicBoundaryLocationCalculation> GetAllHydraulicLocationCalculationsWithOutput(IAssessmentSection assessmentSection,
-                                                                                                                       GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-        {
-            return failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
-                                   .Concat(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm)
-                                   .Concat(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm)
-                                   .Concat(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
-                                   .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
-                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm)
-                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm)
-                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm)
-                                   .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
-                                   .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
-                                   .Where(calc => calc.HasOutput);
-        }
-
-        private static IEnumerable<TestCaseData> GetHydraulicBoundaryLocationCalculations()
-        {
-            yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
-                                              (s, fm) => fm.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
-                                              (s, fm) => fm.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
-                                              (s, fm) => fm.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
-                                              (s, fm) => s.WaterLevelCalculationsForLowerLimitNorm.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
-                                              (s, fm) => s.WaterLevelCalculationsForFactorizedLowerLimitNorm.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
-                                              (s, fm) => fm.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
-                                              (s, fm) => fm.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
-                                              (s, fm) => fm.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
-                                              (s, fm) => s.WaveHeightCalculationsForLowerLimitNorm.First()));
-            yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
-                                              (s, fm) => s.WaveHeightCalculationsForFactorizedLowerLimitNorm.First()));
         }
     }
 }
