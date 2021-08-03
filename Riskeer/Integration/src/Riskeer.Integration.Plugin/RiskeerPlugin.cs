@@ -1011,7 +1011,10 @@ namespace Riskeer.Integration.Plugin
                 Text = context => RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip,
-                ChildNodeObjects = WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodes
+                ChildNodeObjects = WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodes,
+                CanInsert = WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext_CanDropOrInsert,
+                CanDrop = WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext_CanDropOrInsert,
+                OnDrop = WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop
             };
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForUserDefinedTargetProbabilityContext>
@@ -1021,7 +1024,8 @@ namespace Riskeer.Integration.Plugin
                 EnsureVisibleOnCreate = (context, o) => true,
                 CanRemove = (context, o) => true,
                 OnNodeRemoved = WaterLevelCalculationsForUserDefinedTargetProbabilityOnNodeRemoved,
-                ContextMenuStrip = WaterLevelCalculationsForUserDefinedTargetProbabilityContextMenuStrip
+                ContextMenuStrip = WaterLevelCalculationsForUserDefinedTargetProbabilityContextMenuStrip,
+                CanDrag = (context, o) => true
             };
 
             yield return new TreeNodeInfo<WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext>
@@ -1029,7 +1033,10 @@ namespace Riskeer.Integration.Plugin
                 Text = context => RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip,
-                ChildNodeObjects = WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodes
+                ChildNodeObjects = WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodes,
+                CanInsert = WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext_CanDropOrInsert,
+                CanDrop = WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext_CanDropOrInsert,
+                OnDrop = WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop
             };
 
             yield return new TreeNodeInfo<WaveHeightCalculationsForUserDefinedTargetProbabilityContext>
@@ -1039,7 +1046,8 @@ namespace Riskeer.Integration.Plugin
                 EnsureVisibleOnCreate = (context, o) => true,
                 CanRemove = (context, o) => true,
                 OnNodeRemoved = WaveHeightCalculationsForUserDefinedTargetProbabilityOnNodeRemoved,
-                ContextMenuStrip = WaveHeightCalculationsForUserDefinedTargetProbabilityContextMenuStrip
+                ContextMenuStrip = WaveHeightCalculationsForUserDefinedTargetProbabilityContextMenuStrip,
+                CanDrag = (context, o) => true
             };
 
             yield return new TreeNodeInfo<DesignWaterLevelCalculationsGroupContext>
@@ -1316,6 +1324,44 @@ namespace Riskeer.Integration.Plugin
         }
 
         #endregion
+
+        private static bool WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext_CanDropOrInsert(object draggedData, object targetData)
+        {
+            var waterLevelCalculationsForTargetProbabilitiesGroupContext = (WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext) targetData;
+            var waterLevelCalculationsForTargetProbabilityContext = (WaterLevelCalculationsForUserDefinedTargetProbabilityContext) draggedData;
+
+            return waterLevelCalculationsForTargetProbabilitiesGroupContext.WrappedData.Contains(waterLevelCalculationsForTargetProbabilityContext.WrappedData);
+        }
+
+        private static void WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
+        {
+            var waterLevelCalculationsForTargetProbabilitiesGroupContext = (WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext) newParentData;
+            var waterLevelCalculationsForTargetProbabilityContext = (WaterLevelCalculationsForUserDefinedTargetProbabilityContext) droppedData;
+
+            waterLevelCalculationsForTargetProbabilitiesGroupContext.WrappedData.Remove(
+                waterLevelCalculationsForTargetProbabilityContext.WrappedData);
+            waterLevelCalculationsForTargetProbabilitiesGroupContext.WrappedData.Insert(
+                position, waterLevelCalculationsForTargetProbabilityContext.WrappedData);
+        }
+
+        private static bool WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext_CanDropOrInsert(object draggedData, object targetData)
+        {
+            var waveHeightCalculationsForTargetProbabilitiesGroupContext = (WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext) targetData;
+            var waveHeightCalculationsForTargetProbabilityContext = (WaveHeightCalculationsForUserDefinedTargetProbabilityContext) draggedData;
+
+            return waveHeightCalculationsForTargetProbabilitiesGroupContext.WrappedData.Contains(waveHeightCalculationsForTargetProbabilityContext.WrappedData);
+        }
+
+        private static void WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
+        {
+            var waveHeightCalculationsForTargetProbabilitiesGroupContext = (WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext) newParentData;
+            var waveHeightCalculationsForTargetProbabilityContext = (WaveHeightCalculationsForUserDefinedTargetProbabilityContext) droppedData;
+
+            waveHeightCalculationsForTargetProbabilitiesGroupContext.WrappedData.Remove(
+                waveHeightCalculationsForTargetProbabilityContext.WrappedData);
+            waveHeightCalculationsForTargetProbabilitiesGroupContext.WrappedData.Insert(
+                position, waveHeightCalculationsForTargetProbabilityContext.WrappedData);
+        }
 
         #region ViewInfos
 
