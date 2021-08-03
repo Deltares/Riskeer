@@ -37,31 +37,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
     public static class GrassCoverErosionOutwardsCalculationActivityFactory
     {
         /// <summary>
-        /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in
-        /// <paramref name="failureMechanism"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to create the activities for.</param>
-        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
-        /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<CalculatableActivity> CreateCalculationActivities(
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-            IAssessmentSection assessmentSection)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            return CreateWaveConditionsCalculationActivities(failureMechanism.WaveConditionsCalculationGroup, failureMechanism, assessmentSection);
-        }
-
-        /// <summary>
         /// Creates a collection of <see cref="CalculatableActivity"/> based on the wave conditions calculations in
         /// <paramref name="calculationGroup"/>.
         /// </summary>
