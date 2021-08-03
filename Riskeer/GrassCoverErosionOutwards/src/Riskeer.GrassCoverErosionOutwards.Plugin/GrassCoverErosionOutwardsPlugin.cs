@@ -45,7 +45,6 @@ using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
-using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -145,40 +144,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismResultView(
                     context.WrappedData,
                     (GrassCoverErosionOutwardsFailureMechanism) context.FailureMechanism)
-            };
-
-            yield return new ViewInfo<
-                GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext,
-                IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
-                DesignWaterLevelCalculationsView>
-            {
-                GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName} " +
-                                                 $"- {RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
-                GetViewData = context => context.WrappedData,
-                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
-                CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData,
-                                                                                 context.AssessmentSection,
-                                                                                 context.GetNormFunc,
-                                                                                 () => context.CategoryBoundaryName),
-                AfterCreate = (view, context) => view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService,
-                CloseForData = CloseHydraulicBoundaryCalculationsViewForData
-            };
-
-            yield return new ViewInfo<
-                GrassCoverErosionOutwardsWaveHeightCalculationsContext,
-                IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
-                WaveHeightCalculationsView>
-            {
-                GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName} " +
-                                                 $"- {RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
-                GetViewData = context => context.WrappedData,
-                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
-                CreateInstance = context => new WaveHeightCalculationsView(context.WrappedData,
-                                                                           context.AssessmentSection,
-                                                                           context.GetNormFunc,
-                                                                           () => context.CategoryBoundaryName),
-                AfterCreate = (view, context) => view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService,
-                CloseForData = CloseHydraulicBoundaryCalculationsViewForData
             };
 
             yield return new ViewInfo<GrassCoverErosionOutwardsWaveConditionsInputContext,
@@ -377,26 +342,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
-
-        private static bool CloseHydraulicBoundaryCalculationsViewForData(HydraulicBoundaryCalculationsView view,
-                                                                          object dataToCloseFor)
-        {
-            if (dataToCloseFor is IAssessmentSection assessmentSection)
-            {
-                return ReferenceEquals(assessmentSection, view.AssessmentSection);
-            }
-
-            if (dataToCloseFor is GrassCoverErosionOutwardsHydraulicLoadsContext hydraulicLoadsContext)
-            {
-                return ReferenceEquals(hydraulicLoadsContext.WrappedData, view.AssessmentSection
-                                                                              .GetFailureMechanisms()
-                                                                              .OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                                                                              .FirstOrDefault());
-            }
-
-            return false;
-        }
-
+        
         #endregion
 
         #region TreeNodeInfos

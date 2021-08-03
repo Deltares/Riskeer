@@ -4433,15 +4433,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstanden.
-        /// </summary>
-        public static string WaterLevelCalculations_DisplayName {
-            get {
-                return ResourceManager.GetString("WaterLevelCalculations_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Waterstanden bij norm.
         /// </summary>
         public static string WaterLevelCalculationsForNormTargetProbabilities_DisplayName {
@@ -4519,15 +4510,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string WaveHeightCalculation_Result_DisplayName {
             get {
                 return ResourceManager.GetString("WaveHeightCalculation_Result_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Golfhoogten.
-        /// </summary>
-        public static string WaveHeightCalculations_DisplayName {
-            get {
-                return ResourceManager.GetString("WaveHeightCalculations_DisplayName", resourceCulture);
             }
         }
         

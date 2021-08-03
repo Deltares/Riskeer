@@ -1440,12 +1440,6 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   <data name="WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName" xml:space="preserve">
     <value>Golfhoogten bij doelkans</value>
   </data>
-  <data name="WaterLevelCalculations_DisplayName" xml:space="preserve">
-    <value>Waterstanden</value>
-  </data>
-  <data name="WaveHeightCalculations_DisplayName" xml:space="preserve">
-    <value>Golfhoogten</value>
-  </data>
   <data name="HydraulicLoads_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle hydraulische belastingen berekenen.</value>
   </data>
