@@ -1050,27 +1050,11 @@ namespace Riskeer.Integration.Plugin
                 CanDrag = (context, o) => true
             };
 
-            yield return new TreeNodeInfo<DesignWaterLevelCalculationsGroupContext>
-            {
-                Text = context => RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
-                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
-                ContextMenuStrip = DesignWaterLevelCalculationsGroupContextMenuStrip,
-                ChildNodeObjects = DesignWaterLevelCalculationsGroupContextChildNodeObjects
-            };
-
             yield return new TreeNodeInfo<DesignWaterLevelCalculationsContext>
             {
                 Text = context => RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = DesignWaterLevelCalculationsContextMenuStrip
-            };
-
-            yield return new TreeNodeInfo<WaveHeightCalculationsGroupContext>
-            {
-                Text = context => RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName,
-                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
-                ContextMenuStrip = WaveHeightCalculationsGroupContextMenuStrip,
-                ChildNodeObjects = WaveHeightCalculationsGroupContextChildNodeObjects
             };
 
             yield return new TreeNodeInfo<WaveHeightCalculationsContext>
