@@ -74,14 +74,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsHydraulicLoadsProperties(
                     context.WrappedData,
-                    new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler())
+                    new FailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>())
             };
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsFailurePathContext, GrassCoverErosionOutwardsFailurePathProperties>
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsFailurePathProperties(
                     context.WrappedData,
-                    new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler())
+                    new FailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>())
             };
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsOutputContext, GrassCoverErosionOutwardsWaveConditionsOutputProperties>

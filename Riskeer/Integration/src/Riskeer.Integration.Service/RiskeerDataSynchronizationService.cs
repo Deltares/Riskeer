@@ -310,12 +310,6 @@ namespace Riskeer.Integration.Service
 
             foreach (IFailureMechanism failureMechanism in failureMechanisms)
             {
-                var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
-                if (grassCoverErosionOutwardsFailureMechanism != null)
-                {
-                    changedObservables.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(grassCoverErosionOutwardsFailureMechanism));
-                }
-
                 var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
                 if (duneErosionFailureMechanism != null)
                 {
