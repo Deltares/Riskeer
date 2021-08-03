@@ -232,7 +232,7 @@ namespace Riskeer.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(27, propertyInfos.Length);
+                Assert.AreEqual(25, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -353,16 +353,6 @@ namespace Riskeer.Integration.Plugin.Test
                     propertyInfos,
                     typeof(MacroStabilityOutwardsAssemblyCategoriesContext),
                     typeof(FailureMechanismSectionAssemblyCategoriesProperties));
-
-                PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos,
-                    typeof(DesignWaterLevelCalculationsGroupContext),
-                    typeof(DesignWaterLevelCalculationsGroupProperties));
-
-                PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos,
-                    typeof(WaveHeightCalculationsGroupContext),
-                    typeof(WaveHeightCalculationsGroupProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

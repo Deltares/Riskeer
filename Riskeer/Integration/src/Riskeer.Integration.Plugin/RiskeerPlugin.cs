@@ -308,30 +308,6 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = context => new FailureMechanismSectionAssemblyCategoriesProperties(context.GetFailureMechanismSectionAssemblyCategoriesFunc())
             };
-            yield return new PropertyInfo<DesignWaterLevelCalculationsGroupContext, DesignWaterLevelCalculationsGroupProperties>
-            {
-                CreateInstance = context =>
-                {
-                    IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary =
-                        DesignWaterLevelCalculationsGroupContextChildNodeObjects(context)
-                            .Cast<DesignWaterLevelCalculationsContext>()
-                            .Select(childContext => new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>(childContext.CategoryBoundaryName,
-                                                                                                                         childContext.WrappedData));
-                    return new DesignWaterLevelCalculationsGroupProperties(context.WrappedData, calculationsPerCategoryBoundary);
-                }
-            };
-            yield return new PropertyInfo<WaveHeightCalculationsGroupContext, WaveHeightCalculationsGroupProperties>
-            {
-                CreateInstance = context =>
-                {
-                    IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary =
-                        WaveHeightCalculationsGroupContextChildNodeObjects(context)
-                            .Cast<WaveHeightCalculationsContext>()
-                            .Select(childContext => new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>(childContext.CategoryBoundaryName,
-                                                                                                                         childContext.WrappedData));
-                    return new WaveHeightCalculationsGroupProperties(context.WrappedData, calculationsPerCategoryBoundary);
-                }
-            };
             yield return new PropertyInfo<AssemblyResultCategoriesContext, AssemblyResultCategoriesProperties>
             {
                 CreateInstance = context => new AssemblyResultCategoriesProperties(context.GetAssemblyCategoriesFunc(), context.WrappedData)
@@ -2508,52 +2484,6 @@ namespace Riskeer.Integration.Plugin
 
             parent.Remove(context.WrappedData);
             parent.NotifyObservers();
-        }
-
-        private static object[] DesignWaterLevelCalculationsGroupContextChildNodeObjects(DesignWaterLevelCalculationsGroupContext context)
-        {
-            return new object[]
-            {
-                new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
-                                                        context.AssessmentSection,
-                                                        () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedSignalingNorm),
-                                                        RiskeerCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName),
-                new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
-                                                        context.AssessmentSection,
-                                                        () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm),
-                                                        RiskeerCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName),
-                new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
-                                                        context.AssessmentSection,
-                                                        () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm),
-                                                        RiskeerCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName),
-                new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
-                                                        context.AssessmentSection,
-                                                        () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm),
-                                                        RiskeerCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName)
-            };
-        }
-
-        private static object[] WaveHeightCalculationsGroupContextChildNodeObjects(WaveHeightCalculationsGroupContext context)
-        {
-            return new object[]
-            {
-                new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
-                                                  context.AssessmentSection,
-                                                  () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedSignalingNorm),
-                                                  RiskeerCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName),
-                new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForSignalingNorm,
-                                                  context.AssessmentSection,
-                                                  () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm),
-                                                  RiskeerCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName),
-                new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
-                                                  context.AssessmentSection,
-                                                  () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm),
-                                                  RiskeerCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName),
-                new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
-                                                  context.AssessmentSection,
-                                                  () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm),
-                                                  RiskeerCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName)
-            };
         }
 
         private static bool HasIllustrationPoints(IAssessmentSection assessmentSection)
