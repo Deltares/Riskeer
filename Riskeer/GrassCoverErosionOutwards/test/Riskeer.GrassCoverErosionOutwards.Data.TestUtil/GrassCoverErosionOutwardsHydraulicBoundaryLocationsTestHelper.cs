@@ -21,8 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 
@@ -78,51 +76,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
             }
         }
 
-        /// <summary>
-        /// Gets all the <see cref="HydraulicBoundaryLocationCalculation"/> that have an output within the <paramref name="failureMechanism"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to retrieve the calculations from.</param>
-        /// <returns>A collection of all the hydraulic boundary location calculations that contain an output.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<HydraulicBoundaryLocationCalculation> GetAllHydraulicBoundaryLocationCalculationsWithOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            return failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput)
-                                   .Concat(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
-                                   .Concat(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
-                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
-                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
-                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
-                                   .ToArray();
-        }
-
-        /// <summary>
-        /// Asserts if all the hydraulic boundary location calculations within the <paramref name="failureMechanism"/>
-        /// have no outputs.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to assert.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        /// <exception cref="AssertionException">Thrown when any of the hydraulic boundary location calculations within the 
-        /// <paramref name="failureMechanism"/> contains output.</exception>
-        public static void AssertHydraulicBoundaryLocationCalculationsHaveNoOutputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => !HasHydraulicBoundaryLocationCalculationOutput(calc)));
-            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.All(calc => !HasHydraulicBoundaryLocationCalculationOutput(calc)));
-            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.All(calc => !HasHydraulicBoundaryLocationCalculationOutput(calc)));
-            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => !HasHydraulicBoundaryLocationCalculationOutput(calc)));
-            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.All(calc => !HasHydraulicBoundaryLocationCalculationOutput(calc)));
-            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.All(calc => !HasHydraulicBoundaryLocationCalculationOutput(calc)));
-        }
-
         private static void SetHydraulicBoundaryLocationCalculationsOutput(
             IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
         {
@@ -130,11 +83,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
             {
                 hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             }
-        }
-
-        private static bool HasHydraulicBoundaryLocationCalculationOutput(HydraulicBoundaryLocationCalculation calculation)
-        {
-            return calculation.HasOutput;
         }
     }
 }
