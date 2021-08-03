@@ -30,12 +30,10 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
@@ -160,10 +158,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                                             .Concat(assessmentSection.DuneErosion.CalculationsForFactorizedLowerLimitNorm.Where(HasDuneLocationCalculationOutput))
                                                                                             .ToArray();
 
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
-            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsWithOutput =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
-
             var handler = new AssessmentSectionCompositionChangeHandler();
 
             // Call
@@ -174,7 +168,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                         "All calculations that had output still have them.");
 
             Assert.True(duneLocationCalculationsWithOutput.All(HasDuneLocationCalculationOutput));
-            Assert.True(hydraulicBoundaryLocationCalculationsWithOutput.All(calc => calc.HasOutput));
 
             CollectionAssert.IsEmpty(affectedObjects);
         }
@@ -193,10 +186,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                           .Where(calc => calc.HasOutput)
                                                           .ToArray();
 
-            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             IEnumerable<IObservable> expectedAffectedObjects = GetAllAffectedDuneLocationCalculations(duneErosionFailureMechanism)
-                                                               .Concat(GetAllAffectedGrassCoverErosionOutwardsCalculations(grassCoverErosionOutwardsFailureMechanism))
                                                                .Concat(new IObservable[]
                                                                {
                                                                    assessmentSection
@@ -224,7 +215,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             AssertCorrectOutputClearedWhenCompositionDune(unaffectedObjects, assessmentSection);
             CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
 
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AssertHydraulicBoundaryLocationCalculationsHaveNoOutputs(grassCoverErosionOutwardsFailureMechanism);
             DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
         }
 
@@ -243,10 +233,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                                    .SelectMany(fm => fm.Calculations)
                                                                                    .Where(calc => calc.HasOutput)
                                                                                    .ToArray();
-
-            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
-            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsWithOutput =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(grassCoverErosionOutwardsFailureMechanism);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             IEnumerable<IObservable> expectedAffectedObjects = GetAllAffectedDuneLocationCalculations(duneErosionFailureMechanism)
@@ -271,7 +257,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
             AssertOutputNotCleared(expectedUnaffectedObjects, assessmentSection.GetFailureMechanisms());
 
-            Assert.IsTrue(hydraulicBoundaryLocationCalculationsWithOutput.All(c => c.HasOutput));
             DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
         }
 
@@ -284,11 +269,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Setup
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(oldComposition);
 
-            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             IEnumerable<IObservable> expectedAffectedObjects =
                 GetAllAffectedDuneLocationCalculations(duneErosionFailureMechanism)
-                    .Concat(GetAllAffectedGrassCoverErosionOutwardsCalculations(grassCoverErosionOutwardsFailureMechanism))
                     .Concat(new IObservable[]
                     {
                         assessmentSection
@@ -310,7 +293,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(newComposition, assessmentSection.Composition);
             Assert.True(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(c => !c.HasOutput));
             CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AssertHydraulicBoundaryLocationCalculationsHaveNoOutputs(grassCoverErosionOutwardsFailureMechanism);
             DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
         }
 
@@ -322,10 +304,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Setup
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(oldComposition);
-
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
-            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsWithOutput =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             IEnumerable<IObservable> expectedAffectedObjects =
@@ -348,7 +326,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.True(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(c => !c.HasOutput));
             CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
 
-            Assert.IsTrue(hydraulicBoundaryLocationCalculationsWithOutput.All(calc => calc.HasOutput));
             DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
         }
 
@@ -473,15 +450,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             AssertOutputNotCleared(unaffectedObjects, GetDuneIrrelevantFailureMechanisms(assessmentSection));
         }
-
-        #region Grass Cover Erosion Outwards failure mechanism helpers
-
-        private static IEnumerable<IObservable> GetAllAffectedGrassCoverErosionOutwardsCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-        {
-            return GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
-        }
-
-        #endregion
 
         #region Dune Erosion failure mechanism helpers
 
