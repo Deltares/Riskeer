@@ -1050,20 +1050,6 @@ namespace Riskeer.Integration.Plugin
                 CanDrag = (context, o) => true
             };
 
-            yield return new TreeNodeInfo<DesignWaterLevelCalculationsContext>
-            {
-                Text = context => RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
-                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = DesignWaterLevelCalculationsContextMenuStrip
-            };
-
-            yield return new TreeNodeInfo<WaveHeightCalculationsContext>
-            {
-                Text = context => RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
-                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = WaveHeightCalculationsContextMenuStrip
-            };
-
             yield return new TreeNodeInfo<ForeshoreProfilesContext>
             {
                 Text = context => RiskeerCommonFormsResources.ForeshoreProfiles_DisplayName,
@@ -2223,82 +2209,6 @@ namespace Riskeer.Integration.Plugin
             }
 
             return new object[0];
-        }
-
-        private ContextMenuStrip DesignWaterLevelCalculationsContextMenuStrip(DesignWaterLevelCalculationsContext nodeData, object parentData, TreeViewControl treeViewControl)
-        {
-            var waterLevelCalculationItem = new StrictContextMenuItem(
-                RiskeerCommonFormsResources.Calculate_All,
-                RiskeerCommonFormsResources.WaterLevel_Calculate_All_ToolTip,
-                RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) =>
-                {
-                    if (hydraulicBoundaryLocationCalculationGuiService == null)
-                    {
-                        return;
-                    }
-
-                    IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(nodeData.WrappedData,
-                                                                                              assessmentSection,
-                                                                                              nodeData.GetNormFunc(),
-                                                                                              nodeData.CategoryBoundaryName);
-                });
-
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, waterLevelCalculationItem);
-
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                GetInquiryHelper(),
-                RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
-                () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
-
-            return builder.AddOpenItem()
-                          .AddSeparator()
-                          .AddCustomItem(waterLevelCalculationItem)
-                          .AddSeparator()
-                          .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
-                          .AddSeparator()
-                          .AddPropertiesItem()
-                          .Build();
-        }
-
-        private ContextMenuStrip WaveHeightCalculationsContextMenuStrip(WaveHeightCalculationsContext nodeData, object parentData, TreeViewControl treeViewControl)
-        {
-            var waveHeightCalculationItem = new StrictContextMenuItem(
-                RiskeerCommonFormsResources.Calculate_All,
-                RiskeerCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
-                RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) =>
-                {
-                    if (hydraulicBoundaryLocationCalculationGuiService == null)
-                    {
-                        return;
-                    }
-
-                    IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(nodeData.WrappedData,
-                                                                                        assessmentSection,
-                                                                                        nodeData.GetNormFunc(),
-                                                                                        nodeData.CategoryBoundaryName);
-                });
-
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, waveHeightCalculationItem);
-
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                GetInquiryHelper(),
-                RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
-                () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
-
-            return builder.AddOpenItem()
-                          .AddSeparator()
-                          .AddCustomItem(waveHeightCalculationItem)
-                          .AddSeparator()
-                          .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
-                          .AddSeparator()
-                          .AddPropertiesItem()
-                          .Build();
         }
 
         private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection, StrictContextMenuItem menuItem)
