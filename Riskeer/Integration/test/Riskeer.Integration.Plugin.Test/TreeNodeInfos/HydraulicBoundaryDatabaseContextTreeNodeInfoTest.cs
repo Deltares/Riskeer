@@ -329,7 +329,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 object[] objects = info.ChildNodeObjects(hydraulicBoundaryDatabaseContext).ToArray();
 
                 // Assert
-                Assert.AreEqual(5, objects.Length);
+                Assert.AreEqual(3, objects.Length);
 
                 var waterLevelCalculationsForNormTargetProbabilitiesGroupContext = (WaterLevelCalculationsForNormTargetProbabilitiesGroupContext) objects[0];
                 Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, waterLevelCalculationsForNormTargetProbabilitiesGroupContext.WrappedData);
@@ -342,14 +342,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var waveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext = (WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext) objects[2];
                 Assert.AreSame(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities, waveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext.WrappedData);
                 Assert.AreSame(assessmentSection, waveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext.AssessmentSection);
-
-                var designWaterLevelCalculationsGroupContext = (DesignWaterLevelCalculationsGroupContext) objects[3];
-                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, designWaterLevelCalculationsGroupContext.WrappedData);
-                Assert.AreSame(assessmentSection, designWaterLevelCalculationsGroupContext.AssessmentSection);
-
-                var waveHeightCalculationsGroupContext = (WaveHeightCalculationsGroupContext) objects[4];
-                Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, waveHeightCalculationsGroupContext.WrappedData);
-                Assert.AreSame(assessmentSection, waveHeightCalculationsGroupContext.AssessmentSection);
             }
         }
 
