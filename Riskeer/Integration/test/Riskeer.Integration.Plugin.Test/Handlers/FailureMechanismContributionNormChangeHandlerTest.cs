@@ -32,8 +32,6 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
-using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Plugin.Handlers;
 using Riskeer.Integration.TestUtil;
@@ -63,10 +61,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new FailureMechanismContributionNormChangeHandler(null);
+            void Call() => new FailureMechanismContributionNormChangeHandler(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -78,10 +76,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
-            TestDelegate test = () => handler.SetPropertyValueAfterConfirmation(null);
+            void Call() => handler.SetPropertyValueAfterConfirmation(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("setValue", exception.ParamName);
         }
 
@@ -142,7 +140,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                             .Concat(assessmentSection.WaveHeightCalculationsForSignalingNorm)
                                             .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
                                             .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
-                                            .Concat(GetAllAffectedGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(assessmentSection.GrassCoverErosionOutwards))
                                             .Concat(GetAllAffectedDuneLocationCalculations(assessmentSection.DuneErosion))
                                             .Concat(new IObservable[]
                                             {
@@ -154,7 +151,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IEnumerable<IObservable> affectedObjects = null;
 
             // Call
-            Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => {});
+            void Call() => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => {});
 
             // Assert
             var expectedMessages = new[]
@@ -162,7 +159,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 "De resultaten van 36 berekeningen zijn verwijderd.",
                 "Alle berekende hydraulische belastingen zijn verwijderd."
             };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages, 2);
+            TestHelper.AssertLogMessagesAreGenerated(Call, expectedMessages, 2);
 
             CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput),
                                      "There should be no calculations with output.");
@@ -195,7 +192,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                  .Concat(assessmentSection.WaveHeightCalculationsForSignalingNorm)
                                  .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
                                  .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
-                                 .Concat(GetAllAffectedGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(assessmentSection.GrassCoverErosionOutwards))
                                  .Concat(GetAllAffectedDuneLocationCalculations(assessmentSection.DuneErosion))
                                  .Concat(new IObservable[]
                                  {
@@ -207,10 +203,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IEnumerable<IObservable> affectedObjects = null;
 
             // Call
-            Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => {});
+            void Call() => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => {});
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende hydraulische belastingen zijn verwijderd.", 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, "Alle berekende hydraulische belastingen zijn verwijderd.", 1);
 
             AssertHydraulicBoundaryLocationCalculationOutput(assessmentSection, false);
             DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(assessmentSection.DuneErosion);
@@ -239,10 +235,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IEnumerable<IObservable> affectedObjects = null;
 
             // Call
-            Action call = () => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => {});
+            void Call() => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => {});
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "De resultaten van 36 berekeningen zijn verwijderd.", 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, "De resultaten van 36 berekeningen zijn verwijderd.", 1);
 
             CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput),
                                      "There should be no calculations with output.");
@@ -326,16 +322,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var expectedException = new Exception();
 
             // Call
-            TestDelegate test = () => handler.SetPropertyValueAfterConfirmation(() => { throw expectedException; });
+            void Call() => handler.SetPropertyValueAfterConfirmation(() => { throw expectedException; });
 
             // Assert
-            var exception = Assert.Throws<Exception>(test);
+            var exception = Assert.Throws<Exception>(Call);
             Assert.AreSame(expectedException, exception);
-        }
-
-        private static IEnumerable<IObservable> GetAllAffectedGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-        {
-            return GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
         }
 
         private static IEnumerable<IObservable> GetAllAffectedDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism)
@@ -353,14 +344,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.IsTrue(assessmentSection.WaveHeightCalculationsForSignalingNorm.All(c => c.HasOutput == hasOutput));
             Assert.IsTrue(assessmentSection.WaveHeightCalculationsForLowerLimitNorm.All(c => c.HasOutput == hasOutput));
             Assert.IsTrue(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.All(c => c.HasOutput == hasOutput));
-
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
-            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.All(c => c.HasOutput == hasOutput));
-            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.All(c => c.HasOutput == hasOutput));
-            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.All(c => c.HasOutput == hasOutput));
-            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.All(c => c.HasOutput == hasOutput));
-            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.All(c => c.HasOutput == hasOutput));
-            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.All(c => c.HasOutput == hasOutput));
         }
     }
 }
