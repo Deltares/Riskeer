@@ -492,7 +492,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                     ActivityProgressDialogRunner.Run(
                         Gui.MainWindow,
                         GrassCoverErosionOutwardsCalculationActivityFactory
-                            .CreateCalculationActivities(context.WrappedData, assessmentSection));
+                            .CreateWaveConditionsCalculationActivities(context.WrappedData.WaveConditionsCalculationGroup,
+                                                                       context.WrappedData,
+                                                                       assessmentSection));
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection,
@@ -1008,7 +1010,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                     ActivityProgressDialogRunner.Run(
                         guiMainWindow,
                         GrassCoverErosionOutwardsCalculationActivityFactory
-                            .CreateCalculationActivities(failureMechanism, assessmentSection));
+                            .CreateWaveConditionsCalculationActivities(failureMechanism.WaveConditionsCalculationGroup,
+                                                                       failureMechanism,
+                                                                       assessmentSection));
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection,
