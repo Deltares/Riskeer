@@ -30,7 +30,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
-using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
 using Riskeer.HydraRing.IO.TestUtil;
 using Riskeer.Integration.Data;
@@ -47,10 +46,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new HydraulicLocationConfigurationDatabaseUpdateHandler(null);
+            void Call() => new HydraulicLocationConfigurationDatabaseUpdateHandler(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -109,10 +108,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSection());
 
             // Call
-            TestDelegate call = () => handler.Update(null, ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), false, "");
+            void Call() => handler.Update(null, ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), false, "");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
         }
 
@@ -123,11 +122,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new HydraulicLocationConfigurationDatabaseUpdateHandler(CreateAssessmentSection());
 
             // Call
-            TestDelegate call = () => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(),
-                                                     false, null);
+            void Call() => handler.Update(new HydraulicBoundaryDatabase(), ReadHydraulicLocationConfigurationDatabaseSettingsTestFactory.Create(), false, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hlcdFilePath", exception.ParamName);
         }
 
@@ -141,12 +139,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
-            Action call = () => handler.Update(hydraulicBoundaryDatabase, null, usePreprocessorClosure, hlcdFilePath);
+            void Call() => handler.Update(hydraulicBoundaryDatabase, null, usePreprocessorClosure, hlcdFilePath);
 
             // Assert
             const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig. Er worden standaardwaarden " +
                                            "conform WBI2017 gebruikt voor de HLCD bestandsinformatie.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
 
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(hlcdFilePath, settings.FilePath);
@@ -173,10 +171,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             bool usePreprocessorClosure = new Random(21).NextBoolean();
 
             // Call
-            Action call = () => handler.Update(hydraulicBoundaryDatabase, readSettings, usePreprocessorClosure, hlcdFilePath);
+            void Call() => handler.Update(hydraulicBoundaryDatabase, readSettings, usePreprocessorClosure, hlcdFilePath);
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
+            TestHelper.AssertLogMessagesCount(Call, 0);
 
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(hlcdFilePath, settings.FilePath);
@@ -251,6 +249,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         private static IEnumerable<HydraulicBoundaryLocationCalculation> GetLocationCalculations(AssessmentSection assessmentSection)
         {
             var calculations = new List<HydraulicBoundaryLocationCalculation>();
+
             calculations.AddRange(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
             calculations.AddRange(assessmentSection.WaterLevelCalculationsForSignalingNorm);
             calculations.AddRange(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
@@ -259,14 +258,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             calculations.AddRange(assessmentSection.WaveHeightCalculationsForSignalingNorm);
             calculations.AddRange(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
             calculations.AddRange(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
-
-            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
-            calculations.AddRange(grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            calculations.AddRange(grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
-            calculations.AddRange(grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
-            calculations.AddRange(grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            calculations.AddRange(grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
-            calculations.AddRange(grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
 
             return calculations;
         }
