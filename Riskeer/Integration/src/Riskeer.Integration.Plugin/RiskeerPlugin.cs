@@ -391,34 +391,6 @@ namespace Riskeer.Integration.Plugin
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
-            yield return new ViewInfo<DesignWaterLevelCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
-            {
-                GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName} - " +
-                                                 $"{RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
-                GetViewData = context => context.WrappedData,
-                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
-                CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData,
-                                                                                 context.AssessmentSection,
-                                                                                 context.GetNormFunc,
-                                                                                 () => context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
-            };
-
-            yield return new ViewInfo<WaveHeightCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
-            {
-                GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaveHeightCalculations_DisplayName} - " +
-                                                 $"{RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
-                GetViewData = context => context.WrappedData,
-                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
-                CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
-                CreateInstance = context => new WaveHeightCalculationsView(context.WrappedData,
-                                                                           context.AssessmentSection,
-                                                                           context.GetNormFunc,
-                                                                           () => context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
-            };
-
             yield return new ViewInfo<AssessmentSectionStateRootContext, AssessmentSectionReferenceLineView>
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,

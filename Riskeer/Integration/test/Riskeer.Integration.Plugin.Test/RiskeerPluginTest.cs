@@ -232,7 +232,7 @@ namespace Riskeer.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(29, propertyInfos.Length);
+                Assert.AreEqual(27, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -398,7 +398,7 @@ namespace Riskeer.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(35, viewInfos.Length);
+                Assert.AreEqual(33, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -421,18 +421,6 @@ namespace Riskeer.Integration.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(WaveHeightCalculationsForUserDefinedTargetProbabilityContext),
-                    typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>),
-                    typeof(WaveHeightCalculationsView));
-
-                PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos,
-                    typeof(DesignWaterLevelCalculationsContext),
-                    typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>),
-                    typeof(DesignWaterLevelCalculationsView));
-
-                PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos,
-                    typeof(WaveHeightCalculationsContext),
                     typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>),
                     typeof(WaveHeightCalculationsView));
 
