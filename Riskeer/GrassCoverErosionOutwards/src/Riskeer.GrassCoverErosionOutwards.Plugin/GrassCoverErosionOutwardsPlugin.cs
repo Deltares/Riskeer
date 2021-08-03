@@ -530,12 +530,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             IAssessmentSection assessmentSection = context.AssessmentSection;
             if (assessmentSection.HydraulicBoundaryDatabase.IsLinked())
             {
-                ObservableList<HydraulicBoundaryLocation> locations = context.WrappedData.Locations;
                 GrassCoverErosionOutwardsFailureMechanism failureMechanism = context.FailureMechanism;
                 return new object[]
                 {
-                    new GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext(locations, failureMechanism, assessmentSection),
-                    new GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext(locations, failureMechanism, assessmentSection),
                     new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
                                                                                        null,
                                                                                        failureMechanism,

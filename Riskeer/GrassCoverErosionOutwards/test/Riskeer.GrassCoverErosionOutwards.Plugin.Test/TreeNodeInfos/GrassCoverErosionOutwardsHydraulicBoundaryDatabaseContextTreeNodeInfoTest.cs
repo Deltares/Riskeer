@@ -426,10 +426,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                 {
                     // When
-                    Action call = () => contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
+                    void Call() => contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(call, messages =>
+                    TestHelper.AssertLogMessages(Call, messages =>
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(108, msgs.Length);
@@ -519,18 +519,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
-            Assert.AreEqual(3, children.Length);
-            var designWaterLevelCalculationsGroupContext = (GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext) children[0];
-            CollectionAssert.AreEqual(assessmentSection.HydraulicBoundaryDatabase.Locations, designWaterLevelCalculationsGroupContext.WrappedData);
-            Assert.AreSame(failureMechanism, designWaterLevelCalculationsGroupContext.FailureMechanism);
-            Assert.AreSame(assessmentSection, designWaterLevelCalculationsGroupContext.AssessmentSection);
+            Assert.AreEqual(1, children.Length);
 
-            var waveHeightHydraulicBoundaryCalculationsGroupContext = (GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext) children[1];
-            CollectionAssert.AreEqual(assessmentSection.HydraulicBoundaryDatabase.Locations, waveHeightHydraulicBoundaryCalculationsGroupContext.WrappedData);
-            Assert.AreSame(failureMechanism, waveHeightHydraulicBoundaryCalculationsGroupContext.FailureMechanism);
-            Assert.AreSame(assessmentSection, waveHeightHydraulicBoundaryCalculationsGroupContext.AssessmentSection);
-
-            var waveConditionsCalculationGroupContext = (GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext) children[2];
+            var waveConditionsCalculationGroupContext = (GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext) children[0];
             Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, waveConditionsCalculationGroupContext.WrappedData);
             Assert.IsNull(waveConditionsCalculationGroupContext.Parent);
             Assert.AreSame(failureMechanism, waveConditionsCalculationGroupContext.FailureMechanism);
