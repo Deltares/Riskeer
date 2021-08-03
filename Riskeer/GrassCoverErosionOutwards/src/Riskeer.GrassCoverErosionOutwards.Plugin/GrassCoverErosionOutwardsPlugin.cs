@@ -50,7 +50,6 @@ using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
-using Riskeer.Common.Util;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -273,20 +272,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContextMenuStrip
-            };
-
-            yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>
-            {
-                Text = context => RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
-                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = GrassCoverErosionOutwardsDesignWaterLevelCalculationsContextMenuStrip
-            };
-
-            yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveHeightCalculationsContext>
-            {
-                Text = context => RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
-                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = GrassCoverErosionOutwardsWaveHeightCalculationsContextMenuStrip
             };
 
             yield return new TreeNodeInfo<EmptyGrassCoverErosionOutwardsOutput>
@@ -577,102 +562,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
-                          .AddSeparator()
-                          .AddPropertiesItem()
-                          .Build();
-        }
-
-        #endregion
-
-        #region GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext TreeNodeInfo
-
-        private ContextMenuStrip GrassCoverErosionOutwardsDesignWaterLevelCalculationsContextMenuStrip(GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext nodeData,
-                                                                                                       object parentData,
-                                                                                                       TreeViewControl treeViewControl)
-        {
-            var waterLevelCalculationItem = new StrictContextMenuItem(
-                RiskeerCommonFormsResources.Calculate_All,
-                RiskeerCommonFormsResources.WaterLevel_Calculate_All_ToolTip,
-                RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) =>
-                {
-                    if (hydraulicBoundaryLocationCalculationGuiService == null)
-                    {
-                        return;
-                    }
-
-                    IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-
-                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
-                        nodeData.WrappedData,
-                        assessmentSection,
-                        nodeData.GetNormFunc(),
-                        nodeData.CategoryBoundaryName);
-                });
-
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
-                                                        nodeData.GetNormFunc(),
-                                                        waterLevelCalculationItem);
-
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                GetInquiryHelper(),
-                RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
-                () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
-
-            return builder.AddOpenItem()
-                          .AddSeparator()
-                          .AddCustomItem(waterLevelCalculationItem)
-                          .AddSeparator()
-                          .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
-                          .AddSeparator()
-                          .AddPropertiesItem()
-                          .Build();
-        }
-
-        #endregion
-
-        #region GrassCoverErosionOutwardsWaveHeightCalculationsContext TreeNodeInfo
-
-        private ContextMenuStrip GrassCoverErosionOutwardsWaveHeightCalculationsContextMenuStrip(GrassCoverErosionOutwardsWaveHeightCalculationsContext nodeData,
-                                                                                                 object parentData,
-                                                                                                 TreeViewControl treeViewControl)
-        {
-            var waveHeightCalculationItem = new StrictContextMenuItem(
-                RiskeerCommonFormsResources.Calculate_All,
-                RiskeerCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
-                RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) =>
-                {
-                    if (hydraulicBoundaryLocationCalculationGuiService == null)
-                    {
-                        return;
-                    }
-
-                    IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-
-                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
-                        nodeData.WrappedData,
-                        assessmentSection,
-                        nodeData.GetNormFunc(),
-                        nodeData.CategoryBoundaryName);
-                });
-
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
-                                                        nodeData.GetNormFunc(),
-                                                        waveHeightCalculationItem);
-
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                GetInquiryHelper(),
-                RiskeerPluginHelper.FormatCategoryBoundaryName(nodeData.CategoryBoundaryName),
-                () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
-
-            return builder.AddOpenItem()
-                          .AddSeparator()
-                          .AddCustomItem(waveHeightCalculationItem)
-                          .AddSeparator()
-                          .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
@@ -1122,23 +1011,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 menuItem.Enabled = false;
                 menuItem.ToolTipText = validationText;
             }
-        }
-
-        private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection,
-                                                                        double norm,
-                                                                        StrictContextMenuItem menuItem)
-        {
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, menuItem);
-            if (!menuItem.Enabled)
-            {
-                return;
-            }
-
-            TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, logMessage =>
-            {
-                menuItem.Enabled = false;
-                menuItem.ToolTipText = logMessage;
-            });
         }
 
         private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
