@@ -2636,39 +2636,6 @@ namespace Riskeer.Integration.Plugin
             parent.NotifyObservers();
         }
 
-        private ContextMenuStrip DesignWaterLevelCalculationsGroupContextMenuStrip(DesignWaterLevelCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
-        {
-            IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-
-            IMainWindow guiMainWindow = Gui.MainWindow;
-            var waterLevelCalculationItem = new StrictContextMenuItem(
-                RiskeerCommonFormsResources.Calculate_All,
-                RiskeerCommonFormsResources.WaterLevel_Calculate_All_ToolTip,
-                RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) =>
-                {
-                    ActivityProgressDialogRunner.Run(
-                        guiMainWindow,
-                        AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(assessmentSection));
-                });
-
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waterLevelCalculationItem);
-
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
-                GetInquiryHelper(),
-                RiskeerCommonFormsResources.WaterLevelCalculations_DisplayName,
-                () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelCalculations(nodeData.AssessmentSection));
-
-            return builder.AddCustomItem(waterLevelCalculationItem)
-                          .AddSeparator()
-                          .AddClearIllustrationPointsOfCalculationsItem(() => DesignWaterLevelCalculationsHaveIllustrationPoints(assessmentSection), changeHandler)
-                          .AddSeparator()
-                          .AddCollapseAllItem()
-                          .AddExpandAllItem()
-                          .Build();
-        }
-
         private ContextMenuStrip WaveHeightCalculationsGroupContextMenuStrip(WaveHeightCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
@@ -2754,14 +2721,6 @@ namespace Riskeer.Integration.Plugin
                    || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForSignalingNorm)
                    || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
                    || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
-        }
-
-        private static bool DesignWaterLevelCalculationsHaveIllustrationPoints(IAssessmentSection assessmentSection)
-        {
-            return IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm)
-                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForSignalingNorm)
-                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
-                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
         }
 
         private static bool HasIllustrationPoints(IAssessmentSection assessmentSection)
