@@ -86,9 +86,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.CheckedState);
                 Assert.IsNull(info.OnNodeChecked);
                 Assert.IsNull(info.CanDrag);
-                Assert.IsNull(info.CanDrop);
-                Assert.IsNull(info.CanInsert);
-                Assert.IsNull(info.OnDrop);
+                Assert.IsNotNull(info.CanDrop);
+                Assert.IsNotNull(info.CanInsert);
+                Assert.IsNotNull(info.OnDrop);
             }
         }
 
@@ -774,6 +774,200 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CanInsert_DraggedDataOfUnsupportedDataType_ReturnsFalse()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                var targetData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                    new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>(),
+                    new AssessmentSectionStub());
+
+                // Call
+                bool canInsert = info.CanInsert(new object(), targetData);
+
+                // Assert
+                Assert.IsFalse(canInsert);
+            }
+        }
+
+        [Test]
+        public void CanInsert_DraggedDataNotPartOfGroupContext_ReturnsFalse()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                var assessmentSectionStub = new AssessmentSectionStub();
+
+                var targetData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                    new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>(),
+                    assessmentSectionStub);
+
+                var draggedData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(),
+                    assessmentSectionStub);
+
+                // Call
+                bool canInsert = info.CanInsert(draggedData, targetData);
+
+                // Assert
+                Assert.IsFalse(canInsert);
+            }
+        }
+
+        [Test]
+        public void CanInsert_DraggedDataPartOfGroupContext_ReturnsTrue()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                var assessmentSectionStub = new AssessmentSectionStub();
+                var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+
+                var targetData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                    new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
+                    {
+                        calculationsForTargetProbability
+                    },
+                    assessmentSectionStub);
+
+                var draggedData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(
+                    calculationsForTargetProbability,
+                    assessmentSectionStub);
+
+                // Call
+                bool canInsert = info.CanInsert(draggedData, targetData);
+
+                // Assert
+                Assert.IsTrue(canInsert);
+            }
+        }
+
+        [Test]
+        public void CanDrop_DraggedDataOfUnsupportedDataType_ReturnsFalse()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                var targetData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                    new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>(),
+                    new AssessmentSectionStub());
+
+                // Call
+                bool canDrop = info.CanDrop(new object(), targetData);
+
+                // Assert
+                Assert.IsFalse(canDrop);
+            }
+        }
+
+        [Test]
+        public void CanDrop_DraggedDataNotPartOfGroupContext_ReturnsFalse()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                var assessmentSectionStub = new AssessmentSectionStub();
+
+                var targetData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                    new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>(),
+                    assessmentSectionStub);
+
+                var draggedData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(),
+                    assessmentSectionStub);
+
+                // Call
+                bool canDrop = info.CanDrop(draggedData, targetData);
+
+                // Assert
+                Assert.IsFalse(canDrop);
+            }
+        }
+
+        [Test]
+        public void CanDrop_DraggedDataPartOfGroupContext_ReturnsTrue()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                var assessmentSectionStub = new AssessmentSectionStub();
+                var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+
+                var targetData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                    new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
+                    {
+                        calculationsForTargetProbability
+                    },
+                    assessmentSectionStub);
+
+                var draggedData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(
+                    calculationsForTargetProbability,
+                    assessmentSectionStub);
+
+                // Call
+                bool canDrop = info.CanDrop(draggedData, targetData);
+
+                // Assert
+                Assert.IsTrue(canDrop);
+            }
+        }
+
+        [Test]
+        public void OnDrop_DataDroppedToDifferentIndex_DroppedDataCorrectlyMoved()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                var assessmentSectionStub = new AssessmentSectionStub();
+
+                var calculationsForTargetProbability1 = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+                var calculationsForTargetProbability2 = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+                var calculationsForTargetProbability3 = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+
+                var calculationsForTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
+                {
+                    calculationsForTargetProbability1,
+                    calculationsForTargetProbability2,
+                    calculationsForTargetProbability3
+                };
+
+                var parentData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                    calculationsForTargetProbabilities,
+                    assessmentSectionStub);
+
+                var droppedData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(
+                    calculationsForTargetProbability3,
+                    assessmentSectionStub);
+
+                // Call
+                info.OnDrop(droppedData, parentData, parentData, 1, null);
+
+                // Assert
+                CollectionAssert.AreEquivalent(new[]
+                {
+                    calculationsForTargetProbability1,
+                    calculationsForTargetProbability3,
+                    calculationsForTargetProbability2
+                }, calculationsForTargetProbabilities);
+            }
         }
 
         private static void AssertHydraulicBoundaryLocationCalculationOutput(IWaveHeightCalculator waveHeightCalculator,

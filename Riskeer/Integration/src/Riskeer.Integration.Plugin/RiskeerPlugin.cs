@@ -1347,9 +1347,9 @@ namespace Riskeer.Integration.Plugin
         private static bool WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext_CanDropOrInsert(object draggedData, object targetData)
         {
             var waveHeightCalculationsForTargetProbabilitiesGroupContext = (WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext) targetData;
-            var waveHeightCalculationsForTargetProbabilityContext = (WaveHeightCalculationsForUserDefinedTargetProbabilityContext) draggedData;
 
-            return waveHeightCalculationsForTargetProbabilitiesGroupContext.WrappedData.Contains(waveHeightCalculationsForTargetProbabilityContext.WrappedData);
+            return draggedData is WaveHeightCalculationsForUserDefinedTargetProbabilityContext waveHeightCalculationsForTargetProbabilityContext
+                   && waveHeightCalculationsForTargetProbabilitiesGroupContext.WrappedData.Contains(waveHeightCalculationsForTargetProbabilityContext.WrappedData);
         }
 
         private static void WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
