@@ -2809,7 +2809,7 @@ namespace Riskeer.Integration.Plugin
         {
             var hydraulicBoundaryLocationCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability
             {
-                TargetProbability = 0.1
+                TargetProbability = 0.01
             };
 
             hydraulicBoundaryLocationCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(

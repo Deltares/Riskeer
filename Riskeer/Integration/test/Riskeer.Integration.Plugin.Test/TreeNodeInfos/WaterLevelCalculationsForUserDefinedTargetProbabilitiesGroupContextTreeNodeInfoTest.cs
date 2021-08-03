@@ -312,7 +312,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                         // Then
                         Assert.AreEqual(1, calculations.Count);
-                        Assert.AreEqual(0.1, calculations[0].TargetProbability);
+                        Assert.AreEqual(0.01, calculations[0].TargetProbability);
                         Assert.AreEqual(2, calculations[0].HydraulicBoundaryLocationCalculations.Count);
                     }
                 }
