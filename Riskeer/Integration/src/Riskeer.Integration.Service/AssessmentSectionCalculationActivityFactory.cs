@@ -57,11 +57,21 @@ namespace Riskeer.Integration.Service
             }
 
             var activities = new List<CalculatableActivity>();
-            activities.AddRange(AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(assessmentSection));
-            activities.AddRange(StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(assessmentSection.StabilityStoneCover, assessmentSection));
-            activities.AddRange(WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(assessmentSection.WaveImpactAsphaltCover, assessmentSection));
-            activities.AddRange(GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivities(assessmentSection.GrassCoverErosionOutwards, assessmentSection));
-            activities.AddRange(DuneLocationCalculationActivityFactory.CreateCalculationActivities(assessmentSection.DuneErosion, assessmentSection));
+            activities.AddRange(AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(
+                                    assessmentSection));
+            activities.AddRange(StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(
+                                    assessmentSection.StabilityStoneCover,
+                                    assessmentSection));
+            activities.AddRange(WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(
+                                    assessmentSection.WaveImpactAsphaltCover,
+                                    assessmentSection));
+            activities.AddRange(GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(
+                                    assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup,
+                                    assessmentSection.GrassCoverErosionOutwards,
+                                    assessmentSection));
+            activities.AddRange(DuneLocationCalculationActivityFactory.CreateCalculationActivities(
+                                    assessmentSection.DuneErosion,
+                                    assessmentSection));
 
             return activities;
         }
@@ -82,12 +92,24 @@ namespace Riskeer.Integration.Service
 
             var activities = new List<CalculatableActivity>();
 
-            activities.AddRange(PipingCalculationActivityFactory.CreateCalculationActivities(assessmentSection.Piping, assessmentSection));
-            activities.AddRange(GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(assessmentSection.GrassCoverErosionInwards, assessmentSection));
-            activities.AddRange(MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(assessmentSection.MacroStabilityInwards, assessmentSection));
-            activities.AddRange(HeightStructuresCalculationActivityFactory.CreateCalculationActivities(assessmentSection.HeightStructures, assessmentSection));
-            activities.AddRange(ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(assessmentSection.ClosingStructures, assessmentSection));
-            activities.AddRange(StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(assessmentSection.StabilityPointStructures, assessmentSection));
+            activities.AddRange(PipingCalculationActivityFactory.CreateCalculationActivities(
+                                    assessmentSection.Piping,
+                                    assessmentSection));
+            activities.AddRange(GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(
+                                    assessmentSection.GrassCoverErosionInwards,
+                                    assessmentSection));
+            activities.AddRange(MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(
+                                    assessmentSection.MacroStabilityInwards,
+                                    assessmentSection));
+            activities.AddRange(HeightStructuresCalculationActivityFactory.CreateCalculationActivities(
+                                    assessmentSection.HeightStructures,
+                                    assessmentSection));
+            activities.AddRange(ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(
+                                    assessmentSection.ClosingStructures,
+                                    assessmentSection));
+            activities.AddRange(StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(
+                                    assessmentSection.StabilityPointStructures,
+                                    assessmentSection));
 
             return activities;
         }
