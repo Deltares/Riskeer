@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
@@ -30,10 +29,7 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
@@ -67,7 +63,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(6, viewInfos.Length);
+                Assert.AreEqual(4, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -84,18 +80,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
                     typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>),
                     typeof(GrassCoverErosionOutwardsFailureMechanismResultView));
-
-                PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos,
-                    typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext),
-                    typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>),
-                    typeof(DesignWaterLevelCalculationsView));
-
-                PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos,
-                    typeof(GrassCoverErosionOutwardsWaveHeightCalculationsContext),
-                    typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>),
-                    typeof(WaveHeightCalculationsView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -138,7 +122,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(8, propertyInfos.Length);
+                Assert.AreEqual(4, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -152,16 +136,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext),
-                    typeof(DesignWaterLevelCalculationsProperties));
-
-                PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos,
-                    typeof(GrassCoverErosionOutwardsWaveHeightCalculationsContext),
-                    typeof(WaveHeightCalculationsProperties));
-
-                PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos,
                     typeof(GrassCoverErosionOutwardsWaveConditionsOutputContext),
                     typeof(GrassCoverErosionOutwardsWaveConditionsOutputProperties));
 
@@ -169,16 +143,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
                     propertyInfos,
                     typeof(GrassCoverErosionOutwardsWaveConditionsInputContext),
                     typeof(GrassCoverErosionOutwardsWaveConditionsInputContextProperties));
-
-                PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos,
-                    typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext),
-                    typeof(DesignWaterLevelCalculationsGroupProperties));
-
-                PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos,
-                    typeof(GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext),
-                    typeof(WaveHeightCalculationsGroupProperties));
             }
         }
 
@@ -222,21 +186,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
                 // Assert
                 Assert.AreEqual(1, importInfos.Length);
                 Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext)));
-            }
-        }
-
-        [Test]
-        public void Activate_GuiNull_ThrowInvalidOperationException()
-        {
-            // Setup
-            using (var plugin = new GrassCoverErosionOutwardsPlugin())
-            {
-                // Call
-                TestDelegate test = () => plugin.Activate();
-
-                // Assert
-                var exception = Assert.Throws<InvalidOperationException>(test);
-                Assert.AreEqual("Gui cannot be null", exception.Message);
             }
         }
     }
