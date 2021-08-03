@@ -135,10 +135,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new AssessmentSectionCompositionChangeHandler();
 
             // Call
-            TestDelegate call = () => handler.ChangeComposition(null, AssessmentSectionComposition.Dike);
+            void Call() => handler.ChangeComposition(null, AssessmentSectionComposition.Dike);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
         }
 
@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Call
             IEnumerable<IObservable> affectedObjects = null;
-            Action call = () => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
+            void Call() => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
 
             // Assert
             string[] expectedMessage =
@@ -218,7 +218,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 "De resultaten van 28 berekeningen zijn verwijderd.",
                 "Alle berekende hydraulische belastingen van de relevante toetssporen zijn verwijderd."
             };
-            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessage, 2);
+            TestHelper.AssertLogMessagesAreGenerated(Call, expectedMessage, 2);
 
             Assert.AreEqual(newComposition, assessmentSection.Composition);
             AssertCorrectOutputClearedWhenCompositionDune(unaffectedObjects, assessmentSection);
@@ -260,11 +260,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Call
             IEnumerable<IObservable> affectedObjects = null;
-            Action call = () => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
+            void Call() => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
 
             // Assert
             const string expectedMessage = "Alle berekende hydraulische belastingen van de relevante toetssporen zijn verwijderd.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
 
             Assert.AreEqual(newComposition, assessmentSection.Composition);
 
@@ -302,10 +302,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Call
             IEnumerable<IObservable> affectedObjects = null;
-            Action call = () => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
+            void Call() => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende hydraulische belastingen van de relevante toetssporen zijn verwijderd.", 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, "Alle berekende hydraulische belastingen van de relevante toetssporen zijn verwijderd.", 1);
 
             Assert.AreEqual(newComposition, assessmentSection.Composition);
             Assert.True(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(c => !c.HasOutput));
@@ -339,10 +339,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Call
             IEnumerable<IObservable> affectedObjects = null;
-            Action call = () => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
+            void Call() => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende hydraulische belastingen van de relevante toetssporen zijn verwijderd.", 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, "Alle berekende hydraulische belastingen van de relevante toetssporen zijn verwijderd.", 1);
 
             Assert.AreEqual(newComposition, assessmentSection.Composition);
             Assert.True(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(c => !c.HasOutput));
@@ -377,10 +377,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Call
             IEnumerable<IObservable> affectedObjects = null;
-            Action call = () => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
+            void Call() => affectedObjects = handler.ChangeComposition(assessmentSection, newComposition);
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "De resultaten van 28 berekeningen zijn verwijderd.", 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, "De resultaten van 28 berekeningen zijn verwijderd.", 1);
             Assert.AreEqual(newComposition, assessmentSection.Composition);
 
             // Assert 
