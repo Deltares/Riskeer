@@ -35,7 +35,6 @@ using Core.Gui.Plugin;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.ChangeHandlers;
@@ -44,7 +43,6 @@ using Riskeer.Common.Forms.GuiServices;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Forms.Views;
@@ -83,19 +81,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                     context.WrappedData,
                     new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler())
             };
+
             yield return new PropertyInfo<GrassCoverErosionOutwardsFailurePathContext, GrassCoverErosionOutwardsFailurePathProperties>
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsFailurePathProperties(
                     context.WrappedData,
                     new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler())
-            };
-            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext, DesignWaterLevelCalculationsProperties>
-            {
-                CreateInstance = context => new DesignWaterLevelCalculationsProperties(context.WrappedData)
-            };
-            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightCalculationsContext, WaveHeightCalculationsProperties>
-            {
-                CreateInstance = context => new WaveHeightCalculationsProperties(context.WrappedData)
             };
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsOutputContext, GrassCoverErosionOutwardsWaveConditionsOutputProperties>
@@ -111,32 +102,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                       context.Calculation.InputParameters.HydraulicBoundaryLocation,
                                                                       context.Calculation.InputParameters.CategoryType),
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
-            };
-
-            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext, DesignWaterLevelCalculationsGroupProperties>
-            {
-                CreateInstance = context =>
-                {
-                    IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary =
-                        DesignWaterLevelCalculationsGroupContextChildNodeObjects(context)
-                            .Cast<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>()
-                            .Select(childContext => new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>(childContext.CategoryBoundaryName,
-                                                                                                                         childContext.WrappedData));
-                    return new DesignWaterLevelCalculationsGroupProperties(context.WrappedData, calculationsPerCategoryBoundary);
-                }
-            };
-
-            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext, WaveHeightCalculationsGroupProperties>
-            {
-                CreateInstance = context =>
-                {
-                    IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary =
-                        WaveHeightCalculationsGroupContextChildNodeObjects(context)
-                            .Cast<GrassCoverErosionOutwardsWaveHeightCalculationsContext>()
-                            .Select(childContext => new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>(childContext.CategoryBoundaryName,
-                                                                                                                         childContext.WrappedData));
-                    return new WaveHeightCalculationsGroupProperties(context.WrappedData, calculationsPerCategoryBoundary);
-                }
             };
         }
 
@@ -916,88 +881,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .Build();
-        }
-
-        #endregion
-
-        #region GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext TreeNodeInfo
-
-        private static object[] DesignWaterLevelCalculationsGroupContextChildNodeObjects(GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext context)
-        {
-            return new object[]
-            {
-                new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
-                    context.FailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
-                    context.FailureMechanism,
-                    context.AssessmentSection,
-                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName),
-                new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
-                    context.FailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
-                    context.FailureMechanism,
-                    context.AssessmentSection,
-                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName),
-                new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
-                    context.FailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
-                    context.FailureMechanism,
-                    context.AssessmentSection,
-                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName),
-                new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
-                    context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
-                    context.FailureMechanism,
-                    context.AssessmentSection,
-                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                    RiskeerCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName),
-                new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
-                    context.AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
-                    context.FailureMechanism,
-                    context.AssessmentSection,
-                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                    RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
-            };
-        }
-
-        #endregion
-
-        #region GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext TreeNodeInfo
-
-        private static object[] WaveHeightCalculationsGroupContextChildNodeObjects(GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext context)
-        {
-            return new object[]
-            {
-                new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
-                    context.FailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
-                    context.FailureMechanism,
-                    context.AssessmentSection,
-                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName),
-                new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
-                    context.FailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
-                    context.FailureMechanism,
-                    context.AssessmentSection,
-                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName),
-                new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
-                    context.FailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
-                    context.FailureMechanism,
-                    context.AssessmentSection,
-                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName),
-                new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
-                    context.AssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
-                    context.FailureMechanism,
-                    context.AssessmentSection,
-                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                    RiskeerCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName),
-                new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
-                    context.AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
-                    context.FailureMechanism,
-                    context.AssessmentSection,
-                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                    RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
-            };
         }
 
         #endregion
