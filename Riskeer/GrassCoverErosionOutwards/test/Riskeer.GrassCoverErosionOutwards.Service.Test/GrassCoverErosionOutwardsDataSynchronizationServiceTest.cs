@@ -26,7 +26,6 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
@@ -201,48 +200,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
 
             CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
-        }
-
-        [Test]
-        public void ClearHydraulicBoundaryLocationCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
-        public void ClearHydraulicBoundaryLocationCalculationOutput_FailureMechanismWithOutputs_OutputClearedAndAffectedItemsReturned()
-        {
-            // Setup
-            var hydraulicBoundaryLocations = new[]
-            {
-                new TestHydraulicBoundaryLocation(),
-                new TestHydraulicBoundaryLocation()
-            };
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
-
-            IEnumerable<HydraulicBoundaryLocationCalculation> expectedAffectedItems =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
-
-            // Call
-            IEnumerable<IObservable> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(failureMechanism);
-
-            // Assert
-            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AssertHydraulicBoundaryLocationCalculationsHaveNoOutputs(failureMechanism);
         }
 
         private static GrassCoverErosionOutwardsFailureMechanism CreateFullyConfiguredFailureMechanism()

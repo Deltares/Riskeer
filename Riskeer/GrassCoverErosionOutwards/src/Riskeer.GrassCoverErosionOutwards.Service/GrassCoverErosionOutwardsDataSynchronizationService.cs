@@ -147,37 +147,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             return new ClearResults(changedObjects, removedObjects);
         }
 
-        /// <summary>
-        /// Clears the hydraulic boundary location calculation output that is contained within the grass cover erosion outwards failure mechanism.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to clear the hydraulic boundary location calculation output for.</param>
-        /// <returns>All objects changed during the clear.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            var affectedObjects = new List<IObservable>();
-            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
-                                         failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm));
-            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
-                                         failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm));
-            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
-                                         failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm));
-
-            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
-                                         failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm));
-            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
-                                         failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm));
-            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
-                                         failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm));
-
-            return affectedObjects;
-        }
-
         private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(WaveConditionsInput input)
         {
             if (input.HydraulicBoundaryLocation != null)
