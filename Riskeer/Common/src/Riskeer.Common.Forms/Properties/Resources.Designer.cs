@@ -2454,15 +2454,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstanden en golfhoogten uit marginale statistiek.
-        /// </summary>
-        public static string HydraulicBoundaryLocationsExporter_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationsExporter_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap HydraulicCalculationIcon {
