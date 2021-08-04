@@ -149,13 +149,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 WaterLevelCalculationsForNormTargetProbabilityContext[] calculationsContexts = childNodeObjects.OfType<WaterLevelCalculationsForNormTargetProbabilityContext>().ToArray();
                 Assert.AreEqual(2, calculationsContexts.Length);
 
-                Assert.AreSame(assessmentSection.WaterLevelCalculationsForSignalingNorm, calculationsContexts[0].WrappedData);
+                Assert.AreSame(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, calculationsContexts[0].WrappedData);
                 Assert.AreSame(assessmentSection, calculationsContexts[0].AssessmentSection);
-                Assert.AreEqual(signalingNorm, calculationsContexts[0].GetNormFunc());
+                Assert.AreEqual(lowerLimitNorm, calculationsContexts[0].GetNormFunc());
 
-                Assert.AreSame(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, calculationsContexts[1].WrappedData);
+                Assert.AreSame(assessmentSection.WaterLevelCalculationsForSignalingNorm, calculationsContexts[1].WrappedData);
                 Assert.AreSame(assessmentSection, calculationsContexts[1].AssessmentSection);
-                Assert.AreEqual(lowerLimitNorm, calculationsContexts[1].GetNormFunc());
+                Assert.AreEqual(signalingNorm, calculationsContexts[1].GetNormFunc());
             }
         }
 
@@ -242,7 +242,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                       "Er is geen hydraulische belastingendatabase geïmporteerd.",
                                                                       RiskeerCommonFormsResources.CalculateAllIcon,
                                                                       false);
-                        
+
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIllustrationPointsIndex,
                                                                       "Wis alle illustratiepunten...",
                                                                       "Er zijn geen berekeningen met illustratiepunten om te wissen.",
