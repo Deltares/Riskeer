@@ -27,7 +27,6 @@ using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Util;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ProgressDialog;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
@@ -187,17 +186,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
-            };
-
-            yield return new TreeNodeInfo<GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext>
-            {
-                Text = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
-                ChildNodeObjects = GetHydraulicBoundaryDatabaseContextChildNodeObjects,
-                ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase.IsLinked()
-                                           ? Color.FromKnownColor(KnownColor.ControlText)
-                                           : Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContextMenuStrip
             };
 
             yield return new TreeNodeInfo<EmptyGrassCoverErosionOutwardsOutput>
@@ -389,24 +377,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private static object[] GetHydraulicBoundaryDatabaseContextChildNodeObjects(GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext context)
-        {
-            IAssessmentSection assessmentSection = context.AssessmentSection;
-            if (assessmentSection.HydraulicBoundaryDatabase.IsLinked())
-            {
-                GrassCoverErosionOutwardsFailureMechanism failureMechanism = context.FailureMechanism;
-                return new object[]
-                {
-                    new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                       null,
-                                                                                       failureMechanism,
-                                                                                       assessmentSection)
-                };
-            }
-
-            return new object[0];
         }
 
         #endregion
@@ -771,46 +741,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                     calculationGroupContext.NotifyObservers();
                 }
             }
-        }
-
-        #endregion
-
-        #region GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext TreeNodeInfo
-
-        private ContextMenuStrip GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContextMenuStrip(
-            GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
-        {
-            IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = nodeData.FailureMechanism;
-
-            IMainWindow guiMainWindow = Gui.MainWindow;
-
-            var calculateAllItem = new StrictContextMenuItem(
-                RiskeerCommonFormsResources.Calculate_All,
-                RiskeerCommonFormsResources.CalculationGroup_Calculate_All_ToolTip,
-                RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) =>
-                {
-                    ActivityProgressDialogRunner.Run(
-                        guiMainWindow,
-                        GrassCoverErosionOutwardsCalculationActivityFactory
-                            .CreateWaveConditionsCalculationActivities(failureMechanism.WaveConditionsCalculationGroup,
-                                                                       failureMechanism,
-                                                                       assessmentSection));
-                });
-
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection,
-                                                        calculateAllItem);
-
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-
-            return builder.AddExportItem()
-                          .AddSeparator()
-                          .AddCustomItem(calculateAllItem)
-                          .AddSeparator()
-                          .AddCollapseAllItem()
-                          .AddExpandAllItem()
-                          .Build();
         }
 
         #endregion
