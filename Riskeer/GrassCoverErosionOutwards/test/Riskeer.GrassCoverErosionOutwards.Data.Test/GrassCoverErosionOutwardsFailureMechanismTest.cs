@@ -48,7 +48,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             Assert.AreEqual(3, failureMechanism.Group);
             Assert.IsInstanceOf<GeneralGrassCoverErosionOutwardsInput>(failureMechanism.GeneralInput);
 
-            Assert.AreEqual("Berekeningen", failureMechanism.WaveConditionsCalculationGroup.Name);
+            Assert.AreEqual("Hydraulische belastingen", failureMechanism.WaveConditionsCalculationGroup.Name);
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.Sections);

@@ -140,7 +140,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             string text = info.Text(context);
 
             // Assert
-            Assert.AreEqual("Berekeningen", text);
+            Assert.AreEqual("Hydraulische belastingen", text);
         }
 
         [Test]

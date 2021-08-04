@@ -180,10 +180,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var inputComment = (Comment) inputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
-            var hydraulicBoundaryDatabaseContext = (GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext) children[1];
-            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryDatabaseContext.WrappedData);
-            Assert.AreSame(failureMechanism, hydraulicBoundaryDatabaseContext.FailureMechanism);
-            Assert.AreSame(assessmentSection, hydraulicBoundaryDatabaseContext.AssessmentSection);
+            var calculationGroupContext = (GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext) children[1];
+            Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, calculationGroupContext.WrappedData);
+            Assert.IsNull(calculationGroupContext.Parent);
+            Assert.AreSame(failureMechanism, calculationGroupContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, calculationGroupContext.AssessmentSection);
         }
 
         [Test]

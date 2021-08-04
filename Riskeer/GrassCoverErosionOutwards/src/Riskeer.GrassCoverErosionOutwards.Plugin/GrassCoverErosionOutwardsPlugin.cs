@@ -342,8 +342,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetHydraulicLoadsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
-                new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
-                                                                              failureMechanism, assessmentSection)
+                new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                                                                                   null, failureMechanism, assessmentSection)
             };
         }
 

@@ -57,7 +57,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
             GeneralInput = new GeneralGrassCoverErosionOutwardsInput();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
-                Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
+                Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
             };
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
