@@ -393,7 +393,7 @@ namespace Core.Gui.Test
                 var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
                 gui.Run();
 
-                gui.ViewHost.AddToolView(toolView, ToolViewLocation.Left, string.Empty);
+                gui.ViewHost.AddToolView(toolView, ToolViewLocation.Left, string.Empty, string.Empty);
 
                 // Call
                 gui.Dispose();

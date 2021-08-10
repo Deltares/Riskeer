@@ -561,11 +561,10 @@ namespace Core.Gui.Forms.Main
             {
                 propertyGrid = new PropertyGridView(gui.PropertyResolver)
                 {
-                    Text = Properties.Resources.Properties_DisplayName,
                     Data = applicationSelection.Selection
                 };
 
-                viewController.ViewHost.AddToolView(propertyGrid, ToolViewLocation.Right, "\uE905");
+                viewController.ViewHost.AddToolView(propertyGrid, ToolViewLocation.Right, Properties.Resources.Properties_DisplayName, "\uE905");
             }
             else
             {
@@ -607,11 +606,9 @@ namespace Core.Gui.Forms.Main
 
         private void InitMessagesWindow()
         {
-            MessageWindow = new MessageWindow(this)
-            {
-                Text = Properties.Resources.Messages
-            };
-            viewController.ViewHost.AddToolView(MessageWindow, ToolViewLocation.Bottom, "\uE906");
+            MessageWindow = new MessageWindow(this);
+
+            viewController.ViewHost.AddToolView(MessageWindow, ToolViewLocation.Bottom, Properties.Resources.Messages, "\uE906");
         }
 
         private void InitMapLegendWindow()
