@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Threading;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.Views;
@@ -28,6 +29,7 @@ using Riskeer.Piping.Forms.Views;
 namespace Riskeer.Piping.Forms.Test.Views
 {
     [TestFixture]
+    [Apartment(ApartmentState.STA)]
     public class ProbabilisticFaultTreePipingOutputViewTest
     {
         [Test]
