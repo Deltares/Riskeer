@@ -133,7 +133,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull))
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull, string.Empty))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
@@ -197,7 +197,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull))
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull, string.Empty))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
@@ -255,7 +255,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull))
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull, string.Empty))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
@@ -295,7 +295,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull))
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull, string.Empty))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
@@ -335,7 +335,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull))
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull, string.Empty))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
@@ -421,7 +421,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull))
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull, string.Empty))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
@@ -468,7 +468,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull))
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull, string.Empty))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
@@ -522,7 +522,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull))
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull, string.Empty))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
@@ -577,7 +577,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull))
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull, string.Empty))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
 
@@ -620,8 +620,8 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => c.Data == data1)));
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => c.Data == data2)));
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => c.Data == data1), string.Empty));
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => c.Data == data2), string.Empty));
             viewHost.Stub(vh => vh.SetImage(null, null)).IgnoreArguments();
 
             mocks.ReplayAll();
@@ -655,7 +655,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(viewList);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull))
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull, string.Empty))
                     .WhenCalled(invocation => viewList.Add(invocation.Arguments[0] as TestView));
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
             viewHost.Expect(vh => vh.BringToFront(Arg<TestView>.Matches(c => c == viewList.First())));
@@ -843,7 +843,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull))
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull, string.Empty))
                     .WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); })
                     .Repeat.Twice();
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments().Repeat.Twice();
@@ -932,7 +932,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull))
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull, string.Empty))
                     .WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); })
                     .Repeat.Twice();
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments().Repeat.Twice();
@@ -972,7 +972,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull))
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull, string.Empty))
                     .WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); })
                     .Repeat.Twice();
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments().Repeat.Twice();
@@ -1015,7 +1015,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull))
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull, string.Empty))
                     .WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); })
                     .Repeat.Twice();
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments().Repeat.Twice();
@@ -1076,7 +1076,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
-            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull))
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull, string.Empty))
                     .WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); });
             viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
             viewHost.Expect(vh => vh.Remove(Arg<TestView>.Is.NotNull))
