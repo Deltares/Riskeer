@@ -49,7 +49,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
                                                                         double normTargetProbability)
             : base(hydraulicBoundaryLocationCalculations)
         {
-            this.TargetProbability = normTargetProbability;
+            TargetProbability = normTargetProbability;
         }
 
         [PropertyOrder(calculationsPropertyIndex)]
