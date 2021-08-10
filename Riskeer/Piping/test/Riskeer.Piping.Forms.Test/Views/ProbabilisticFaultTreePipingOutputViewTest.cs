@@ -36,12 +36,13 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Call
-            var view = new ProbabilisticFaultTreePipingOutputView(
+            using (var view = new ProbabilisticFaultTreePipingOutputView(
                 new ProbabilisticPipingCalculationScenario(),
-                () => new TestGeneralResultFaultTreeIllustrationPoint());
-
-            // Assert
-            Assert.IsInstanceOf<GeneralResultFaultTreeIllustrationPointView>(view);
+                () => new TestGeneralResultFaultTreeIllustrationPoint()))
+            {
+                // Assert
+                Assert.IsInstanceOf<GeneralResultFaultTreeIllustrationPointView>(view);
+            }
         }
     }
 }

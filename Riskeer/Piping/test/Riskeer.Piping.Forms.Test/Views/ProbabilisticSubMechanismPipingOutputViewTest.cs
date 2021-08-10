@@ -34,12 +34,13 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Call
-            var view = new ProbabilisticSubMechanismPipingOutputView(
+            using (var view = new ProbabilisticSubMechanismPipingOutputView(
                 new ProbabilisticPipingCalculationScenario(),
-                () => new TestGeneralResultSubMechanismIllustrationPoint());
-
-            // Assert
-            Assert.IsInstanceOf<GeneralResultSubMechanismIllustrationPointView>(view);
+                () => new TestGeneralResultSubMechanismIllustrationPoint()))
+            {
+                // Assert
+                Assert.IsInstanceOf<GeneralResultSubMechanismIllustrationPointView>(view);
+            }
         }
     }
 }
