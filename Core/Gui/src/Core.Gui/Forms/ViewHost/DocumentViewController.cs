@@ -173,7 +173,7 @@ namespace Core.Gui.Forms.ViewHost
 
             openedViewLookup.Add(data, view);
 
-            viewHost.AddDocumentView(view.Item1);
+            viewHost.AddDocumentView(view.Item1, viewInfo.GetViewName(view.Item1, data));
             viewHost.SetImage(view.Item1, viewInfo.Image);
         }
 
@@ -184,8 +184,6 @@ namespace Core.Gui.Forms.ViewHost
             view.Data = viewInfo.GetViewData(data);
 
             viewInfo.AfterCreate(view, data);
-
-            view.Text = viewInfo.GetViewName(view, data);
 
             return view;
         }
