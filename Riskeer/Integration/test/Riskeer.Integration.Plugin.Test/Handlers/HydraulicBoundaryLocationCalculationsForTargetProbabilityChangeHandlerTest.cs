@@ -37,17 +37,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     public class HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandlerTest : NUnitFormTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Call
-            var handler = new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability());
-
-            // Assert
-            Assert.IsInstanceOf<IObservablePropertyChangeHandler>(handler);
-        }
-
-        [Test]
         public void Constructor_HydraulicBoundaryLocationCalculationsForTargetProbabilityNull_ThrowsArgumentNullException()
         {
             // Call
@@ -56,6 +45,17 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationsForTargetProbability", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var handler = new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
+                new HydraulicBoundaryLocationCalculationsForTargetProbability());
+
+            // Assert
+            Assert.IsInstanceOf<IObservablePropertyChangeHandler>(handler);
         }
 
         [Test]
