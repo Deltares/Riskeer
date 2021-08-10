@@ -23,7 +23,6 @@ using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.PresentationObjects;
 
@@ -38,16 +37,14 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var structuresCalculation = mocks.Stub<IStructuresCalculation>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
-            var structuresOutputContext = new SimpleStructuresOutputContext(structuresCalculation, assessmentSection);
+            var structuresOutputContext = new SimpleStructuresOutputContext(structuresCalculation);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IStructuresCalculation>>(structuresOutputContext);
             Assert.AreSame(structuresCalculation, structuresOutputContext.WrappedData);
-            Assert.AreSame(assessmentSection, structuresOutputContext.AssessmentSection);
             mocks.VerifyAll();
         }
 
@@ -60,18 +57,18 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimpleStructuresOutputContext(structuresCalculation, null);
+            void Call() => new SimpleStructuresOutputContext(structuresCalculation);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
             mocks.VerifyAll();
         }
 
         private class SimpleStructuresOutputContext : StructuresOutputContext
         {
-            public SimpleStructuresOutputContext(IStructuresCalculation wrappedData, IAssessmentSection assessmentSection)
-                : base(wrappedData, assessmentSection) {}
+            public SimpleStructuresOutputContext(IStructuresCalculation wrappedData)
+                : base(wrappedData) {}
         }
     }
 }

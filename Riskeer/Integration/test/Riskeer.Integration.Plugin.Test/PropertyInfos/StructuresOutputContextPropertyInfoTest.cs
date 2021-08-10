@@ -23,8 +23,6 @@ using System.Linq;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -63,23 +61,17 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_StructuresOutputContext_ReturnStructuresOutputProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var calculation = new TestStructuresCalculationScenario
             {
                 Output = new StructuresOutput(0, null)
             };
 
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(new StructuresOutputContext(calculation, assessmentSection));
+            IObjectProperties objectProperties = info.CreateInstance(new StructuresOutputContext(calculation));
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<StructuresOutput>>(objectProperties);
             Assert.AreSame(calculation.Output, objectProperties.Data);
-
-            mocks.VerifyAll();
         }
     }
 }

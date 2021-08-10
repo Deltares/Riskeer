@@ -27,7 +27,6 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
@@ -100,12 +99,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_HasNoOutput_ReturnGrayText()
         {
             // Setup
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             var structuresCalculation = mocksRepository.Stub<IStructuresCalculation>();
             mocksRepository.ReplayAll();
 
             // Call
-            Color color = info.ForeColor(new SimpleStructuresOutputContext(structuresCalculation, assessmentSection));
+            Color color = info.ForeColor(new SimpleStructuresOutputContext(structuresCalculation));
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
@@ -115,13 +113,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ForeColor_HasOutput_ReturnControlText()
         {
             // Setup
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             var structuresCalculation = mocksRepository.Stub<IStructuresCalculation>();
             structuresCalculation.Stub(c => c.HasOutput).Return(true);
             mocksRepository.ReplayAll();
 
             // Call
-            Color color = info.ForeColor(new SimpleStructuresOutputContext(structuresCalculation, assessmentSection));
+            Color color = info.ForeColor(new SimpleStructuresOutputContext(structuresCalculation));
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
@@ -173,8 +170,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         private class SimpleStructuresOutputContext : StructuresOutputContext
         {
-            public SimpleStructuresOutputContext(IStructuresCalculation wrappedData, IAssessmentSection assessmentSection)
-                : base(wrappedData, assessmentSection) {}
+            public SimpleStructuresOutputContext(IStructuresCalculation wrappedData)
+                : base(wrappedData) {}
         }
     }
 }

@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
 
 namespace Riskeer.Common.Forms.PresentationObjects
@@ -35,22 +34,8 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// Creates a new instance of <see cref="StructuresOutputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The structures calculation wrapped by the context object.</param>
-        /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StructuresOutputContext(IStructuresCalculation wrappedData, IAssessmentSection assessmentSection)
-            : base(wrappedData)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            AssessmentSection = assessmentSection;
-        }
-
-        /// <summary>
-        /// Gets the assessment section.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
+        public StructuresOutputContext(IStructuresCalculation wrappedData)
+            : base(wrappedData) {}
     }
 }

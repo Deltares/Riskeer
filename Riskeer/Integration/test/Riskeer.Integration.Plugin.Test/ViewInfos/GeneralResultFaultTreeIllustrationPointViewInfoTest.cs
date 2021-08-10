@@ -89,12 +89,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var structuresCalculation = mocks.Stub<IStructuresCalculation>();
             mocks.ReplayAll();
 
             // Call
-            object viewData = info.GetViewData(new SimpleStructuresOutputContext(structuresCalculation, assessmentSection));
+            object viewData = info.GetViewData(new SimpleStructuresOutputContext(structuresCalculation));
 
             // Assert
             Assert.AreSame(structuresCalculation, viewData);
@@ -107,12 +106,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var structuresCalculation = mocks.Stub<IStructuresCalculation>();
             mocks.ReplayAll();
 
             // Call
-            IView view = info.CreateInstance(new SimpleStructuresOutputContext(structuresCalculation, assessmentSection));
+            IView view = info.CreateInstance(new SimpleStructuresOutputContext(structuresCalculation));
 
             // Assert
             Assert.IsInstanceOf<GeneralResultFaultTreeIllustrationPointView>(view);
@@ -121,8 +119,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
         private class SimpleStructuresOutputContext : StructuresOutputContext
         {
-            public SimpleStructuresOutputContext(IStructuresCalculation wrappedData, IAssessmentSection assessmentSection)
-                : base(wrappedData, assessmentSection) {}
+            public SimpleStructuresOutputContext(IStructuresCalculation wrappedData)
+                : base(wrappedData) {}
         }
 
         public abstract class ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester : ShouldCloseViewWithCalculationDataTester

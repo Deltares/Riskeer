@@ -714,7 +714,7 @@ namespace Riskeer.HeightStructures.Plugin
                                                  calculation,
                                                  context.FailureMechanism,
                                                  context.AssessmentSection),
-                new StructuresOutputContext(calculation, context.AssessmentSection)
+                new StructuresOutputContext(calculation)
             };
         }
 
