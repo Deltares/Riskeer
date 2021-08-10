@@ -47,7 +47,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         /// Creates a new instance of <see cref="OvertoppingOutputProperties"/>.
         /// </summary>
         /// <param name="overtoppingOutput">The overtopping output to create the object properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="overtoppingOutput"/> is <c>null</c>.</exception>
         public OvertoppingOutputProperties(OvertoppingOutput overtoppingOutput)
         {
             if (overtoppingOutput == null)

@@ -37,14 +37,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class OvertoppingOutputContextTreeNodeInfoTest
     {
-        private MockRepository mocks;
         private GrassCoverErosionInwardsPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new GrassCoverErosionInwardsPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(OvertoppingOutputContext));
         }
@@ -53,15 +51,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.ForeColor);
@@ -86,9 +80,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnsFromResource()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Call
             string text = info.Text(null);
 
@@ -100,8 +91,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ForeColor_HasNoOutput_ReturnGrayText()
         {
             // Setup
-            mocks.ReplayAll();
-
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
@@ -115,8 +104,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ForeColor_HasOutput_ReturnControlText()
         {
             // Setup
-            mocks.ReplayAll();
-
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Output = new GrassCoverErosionInwardsOutput(
@@ -135,9 +122,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsGeneralOutputIcon()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Call
             Image image = info.Image(null);
 
@@ -149,6 +133,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
+            var mocks = new MockRepository();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
@@ -171,7 +156,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert expectancies called in TearDown()
+            mocks.VerifyAll();
         }
     }
 }
