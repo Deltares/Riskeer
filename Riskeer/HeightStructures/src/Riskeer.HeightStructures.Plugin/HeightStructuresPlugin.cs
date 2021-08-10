@@ -89,10 +89,6 @@ namespace Riskeer.HeightStructures.Plugin
                     context,
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
-            yield return new PropertyInfo<HeightStructuresOutputContext, HeightStructuresOutputProperties>
-            {
-                CreateInstance = context => new HeightStructuresOutputProperties(context.WrappedData.Output)
-            };
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()
@@ -718,7 +714,7 @@ namespace Riskeer.HeightStructures.Plugin
                                                  calculation,
                                                  context.FailureMechanism,
                                                  context.AssessmentSection),
-                new HeightStructuresOutputContext(calculation, context.AssessmentSection)
+                new StructuresOutputContext(calculation, context.AssessmentSection)
             };
         }
 

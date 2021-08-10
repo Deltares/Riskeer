@@ -62,13 +62,13 @@ namespace Riskeer.HeightStructures.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(6, propertyInfos.Length);
+                Assert.AreEqual(5, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(HeightStructuresCalculationsContext),
                     typeof(HeightStructuresCalculationsProperties));
-                
+
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(HeightStructuresFailurePathContext),
@@ -88,11 +88,6 @@ namespace Riskeer.HeightStructures.Plugin.Test
                     propertyInfos,
                     typeof(HeightStructuresInputContext),
                     typeof(HeightStructuresInputContextProperties));
-
-                PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos,
-                    typeof(HeightStructuresOutputContext),
-                    typeof(HeightStructuresOutputProperties));
             }
         }
 
@@ -135,7 +130,7 @@ namespace Riskeer.HeightStructures.Plugin.Test
                     viewInfos,
                     typeof(HeightStructuresCalculationsContext),
                     typeof(HeightStructuresFailureMechanismView));
-                
+
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(HeightStructuresFailurePathContext),

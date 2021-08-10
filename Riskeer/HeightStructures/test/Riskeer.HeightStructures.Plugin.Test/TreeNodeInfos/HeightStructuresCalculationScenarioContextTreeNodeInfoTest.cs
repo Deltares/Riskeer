@@ -42,6 +42,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
@@ -140,7 +141,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(heightStructuresInputContext);
             Assert.AreSame(calculationContext.WrappedData.InputParameters, heightStructuresInputContext.WrappedData);
 
-            var structuresOutputContext = children[2] as HeightStructuresOutputContext;
+            var structuresOutputContext = children[2] as StructuresOutputContext;
             Assert.IsNotNull(structuresOutputContext);
             Assert.AreSame(calculationContext.WrappedData, structuresOutputContext.WrappedData);
             Assert.AreSame(calculationContext.AssessmentSection, structuresOutputContext.AssessmentSection);
