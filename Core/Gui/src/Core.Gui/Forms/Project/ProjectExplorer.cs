@@ -26,7 +26,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Events;
 using Core.Gui.Commands;
-using Core.Gui.Properties;
 
 namespace Core.Gui.Forms.Project
 {
@@ -65,8 +64,6 @@ namespace Core.Gui.Forms.Project
             }
 
             InitializeComponent();
-
-            Text = Resources.ProjectExplorer_DisplayName;
 
             this.viewCommands = viewCommands;
 

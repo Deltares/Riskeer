@@ -59,7 +59,6 @@ namespace Core.Gui.Forms.Chart
 
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
             InitializeComponent();
-            Text = GuiResources.ChartLegendView_Chart_DisplayName;
 
             RegisterTreeNodeInfos();
 

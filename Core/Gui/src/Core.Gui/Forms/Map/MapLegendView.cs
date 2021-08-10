@@ -63,7 +63,6 @@ namespace Core.Gui.Forms.Map
 
             this.contextMenuBuilderProvider = contextMenuBuilderProvider;
             InitializeComponent();
-            Text = GuiResources.MapLegendView_Map_DisplayName;
 
             RegisterTreeNodeInfos();
 
