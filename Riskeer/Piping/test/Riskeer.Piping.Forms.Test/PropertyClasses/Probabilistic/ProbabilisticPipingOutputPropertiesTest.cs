@@ -54,7 +54,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         }
 
         [Test]
-        public void Constructor_WithParameters_ExpectedValues()
+        public void Constructor_WithData_ExpectedValues()
         {
             // Setup
             PartialProbabilisticPipingOutput<TestTopLevelIllustrationPoint> output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput();
