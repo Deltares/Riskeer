@@ -250,7 +250,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     testForm.Controls.Add(view);
                     testForm.Show();
 
-                    // Assert
                     DataGridView calculationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
                     DataGridViewRowCollection rows = calculationsDataGridView.Rows;
                     rows[0].Cells[calculateColumnIndex].Value = true;
@@ -260,6 +259,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
                     button.Click();
 
+                    // Assert
                     Assert.AreEqual(GetNormFunc(), actualNormValue);
                     Assert.AreSame(hydraulicBoundaryLocationCalculation, performedCalculations.Single());
                 }
