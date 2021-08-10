@@ -43,9 +43,14 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// Creates a new instance of <see cref="WaterLevelCalculationsForNormTargetProbabilityProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculations">The collection of hydraulic boundary location calculations to set as data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public WaterLevelCalculationsForNormTargetProbabilityProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
-            : base(hydraulicBoundaryLocationCalculations) {}
+        /// <param name="normTargetProbability">The norm target probability.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
+        public WaterLevelCalculationsForNormTargetProbabilityProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations,
+                                                                        double normTargetProbability)
+            : base(hydraulicBoundaryLocationCalculations)
+        {
+            this.TargetProbability = normTargetProbability;
+        }
 
         [PropertyOrder(calculationsPropertyIndex)]
         public override DesignWaterLevelCalculationProperties[] Calculations
@@ -61,12 +66,6 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.TargetProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.TargetProbability_WaterLevels_Description))]
-        public double TargetProbability
-        {
-            get
-            {
-                return 0.01;
-            }
-        }
+        public double TargetProbability { get; }
     }
 }
