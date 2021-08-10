@@ -24,25 +24,25 @@ using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.ClosingStructures.Data.TestUtil;
-using Riskeer.ClosingStructures.Forms.PresentationObjects;
-using Riskeer.ClosingStructures.Forms.PropertyClasses;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.PropertyClasses;
 
-namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
+namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class ClosingStructuresOutputPropertyInfoTest
+    public class StructuresOutputPropertyInfoTest
     {
-        private ClosingStructuresPlugin plugin;
+        private RiskeerPlugin plugin;
         private PropertyInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new ClosingStructuresPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.DataType == typeof(ClosingStructuresOutputContext));
+            plugin = new RiskeerPlugin();
+            info = plugin.GetPropertyInfos().First(tni => tni.DataType == typeof(StructuresOutputContext));
         }
 
         [TearDown]
@@ -55,28 +55,28 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ClosingStructuresOutputContext), info.DataType);
-            Assert.AreEqual(typeof(ClosingStructuresOutputProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(StructuresOutputContext), info.DataType);
+            Assert.AreEqual(typeof(StructuresOutputProperties), info.PropertyObjectType);
         }
 
         [Test]
-        public void CreateInstance_ClosingStructuresOutputContext_ReturnClosingStructuresOutputProperties()
+        public void CreateInstance_StructuresOutputContext_ReturnStructuresOutputProperties()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculationScenario
+            var calculation = new TestStructuresCalculationScenario
             {
                 Output = new StructuresOutput(0, null)
             };
 
             // Call
-            IObjectProperties objectProperties = info.CreateInstance(new ClosingStructuresOutputContext(calculation, assessmentSection));
+            IObjectProperties objectProperties = info.CreateInstance(new StructuresOutputContext(calculation, assessmentSection));
 
             // Assert
-            Assert.IsInstanceOf<ClosingStructuresOutputProperties>(objectProperties);
+            Assert.IsInstanceOf<StructuresOutputProperties>(objectProperties);
             Assert.AreSame(calculation.Output, objectProperties.Data);
 
             mocks.VerifyAll();

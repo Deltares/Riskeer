@@ -312,6 +312,10 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = context => new AssemblyResultCategoriesProperties(context.GetAssemblyCategoriesFunc(), context.WrappedData)
             };
+            yield return new PropertyInfo<StructuresOutputContext, StructuresOutputProperties>
+            {
+                CreateInstance = context => new StructuresOutputProperties(context.WrappedData.Output)
+            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()

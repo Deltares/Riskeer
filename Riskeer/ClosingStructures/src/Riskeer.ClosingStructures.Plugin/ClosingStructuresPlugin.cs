@@ -88,10 +88,6 @@ namespace Riskeer.ClosingStructures.Plugin
                     context,
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
-            yield return new PropertyInfo<ClosingStructuresOutputContext, ClosingStructuresOutputProperties>
-            {
-                CreateInstance = context => new ClosingStructuresOutputProperties(context.WrappedData.Output)
-            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -709,7 +705,7 @@ namespace Riskeer.ClosingStructures.Plugin
                                                   calculation,
                                                   context.FailureMechanism,
                                                   context.AssessmentSection),
-                new ClosingStructuresOutputContext(calculation, context.AssessmentSection)
+                new StructuresOutputContext(calculation, context.AssessmentSection)
             };
         }
 

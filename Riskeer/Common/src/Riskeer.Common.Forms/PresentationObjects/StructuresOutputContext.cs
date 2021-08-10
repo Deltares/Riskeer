@@ -29,7 +29,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for the output of structures calculations.
     /// </summary>
-    public abstract class StructuresOutputContext : ObservableWrappedObjectContextBase<IStructuresCalculation>
+    public class StructuresOutputContext : ObservableWrappedObjectContextBase<IStructuresCalculation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StructuresOutputContext"/>.
@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// <param name="wrappedData">The structures calculation wrapped by the context object.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected StructuresOutputContext(IStructuresCalculation wrappedData, IAssessmentSection assessmentSection)
+        public StructuresOutputContext(IStructuresCalculation wrappedData, IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (assessmentSection == null)
