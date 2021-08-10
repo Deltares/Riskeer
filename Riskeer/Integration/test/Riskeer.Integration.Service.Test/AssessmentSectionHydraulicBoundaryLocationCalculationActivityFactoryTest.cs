@@ -60,6 +60,39 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
+        public void CreateWaterLevelCalculationActivitiesForNormTargetProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaterLevelCalculationActivitiesForNormTargetProbabilities(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateWaterLevelCalculationActivitiesForUserDefinedTargetProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaterLevelCalculationActivitiesForUserDefinedTargetProbabilities(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateWaveHeightCalculationActivitiesForUserDefinedTargetProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivitiesForUserDefinedTargetProbabilities(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void CreateHydraulicBoundaryLocationCalculationActivities_WithValidDataAndUsePreprocessorStates_ExpectedInputSetToActivities(bool usePreprocessor)
@@ -84,31 +117,31 @@ namespace Riskeer.Integration.Service.Test
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
-            double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
-            string signalingNormText = noProbabilityValueDoubleConverter.ConvertToString(signalingNorm);
             double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
             string lowerLimitNormText = noProbabilityValueDoubleConverter.ConvertToString(lowerLimitNorm);
+            double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
+            string signalingNormText = noProbabilityValueDoubleConverter.ConvertToString(signalingNorm);
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(0),
                                                       hydraulicBoundaryLocation1,
-                                                      signalingNorm,
-                                                      signalingNormText,
+                                                      lowerLimitNorm,
+                                                      lowerLimitNormText,
                                                       hydraulicBoundaryDatabase);
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1),
                                                       hydraulicBoundaryLocation2,
-                                                      signalingNorm,
-                                                      signalingNormText,
+                                                      lowerLimitNorm,
+                                                      lowerLimitNormText,
                                                       hydraulicBoundaryDatabase);
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(2),
                                                       hydraulicBoundaryLocation1,
-                                                      lowerLimitNorm,
-                                                      lowerLimitNormText,
+                                                      signalingNorm,
+                                                      signalingNormText,
                                                       hydraulicBoundaryDatabase);
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(3),
                                                       hydraulicBoundaryLocation2,
-                                                      lowerLimitNorm,
-                                                      lowerLimitNormText,
+                                                      signalingNorm,
+                                                      signalingNormText,
                                                       hydraulicBoundaryDatabase);
 
             double firstWaterLevelTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].TargetProbability;
@@ -167,17 +200,6 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void CreateWaterLevelCalculationActivitiesForNormTargetProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaterLevelCalculationActivitiesForNormTargetProbabilities(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void CreateWaterLevelCalculationActivitiesForNormTargetProbabilities_WithValidDataAndUsePreprocessorStates_ExpectedInputSetToActivities(bool usePreprocessor)
@@ -231,17 +253,6 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void CreateWaterLevelCalculationActivitiesForUserDefinedTargetProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaterLevelCalculationActivitiesForUserDefinedTargetProbabilities(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void CreateWaterLevelCalculationActivitiesForUserDefinedTargetProbabilities_WithValidDataAndUsePreprocessorStates_ExpectedInputSetToActivities(bool usePreprocessor)
@@ -292,17 +303,6 @@ namespace Riskeer.Integration.Service.Test
                                                       secondTargetProbability,
                                                       secondTargetProbabilityText,
                                                       hydraulicBoundaryDatabase);
-        }
-
-        [Test]
-        public void CreateWaveHeightCalculationActivitiesForUserDefinedTargetProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivitiesForUserDefinedTargetProbabilities(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
