@@ -43,7 +43,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
-            var properties = new DesignWaterLevelCalculationsProperties(hydraulicBoundaryLocationCalculations);
+            var properties = new TestDesignWaterLevelCalculationsProperties(hydraulicBoundaryLocationCalculations);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsProperties>(properties);
@@ -57,7 +57,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var properties = new DesignWaterLevelCalculationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            var properties = new TestDesignWaterLevelCalculationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -78,7 +78,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var properties = new DesignWaterLevelCalculationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>
+            var properties = new TestDesignWaterLevelCalculationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
                 hydraulicBoundaryLocationCalculation
             });
@@ -86,6 +86,12 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(1, properties.Calculations.Length);
             Assert.AreSame(hydraulicBoundaryLocationCalculation, properties.Calculations[0].Data);
+        }
+
+        private class TestDesignWaterLevelCalculationsProperties : DesignWaterLevelCalculationsProperties
+        {
+            public TestDesignWaterLevelCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+                : base(hydraulicBoundaryLocationCalculations) {}
         }
     }
 }

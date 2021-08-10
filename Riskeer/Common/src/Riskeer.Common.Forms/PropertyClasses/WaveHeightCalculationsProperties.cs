@@ -33,13 +33,13 @@ namespace Riskeer.Common.Forms.PropertyClasses
     /// ViewModel of a collection of <see cref="HydraulicBoundaryLocationCalculation"/> with
     /// a wave height calculation result for properties panel.
     /// </summary>
-    public class WaveHeightCalculationsProperties : HydraulicBoundaryLocationCalculationsProperties
+    public abstract class WaveHeightCalculationsProperties : HydraulicBoundaryLocationCalculationsProperties
     {
         /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightCalculationsProperties"/>.
         /// </summary>
-        public WaveHeightCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+        protected WaveHeightCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
             : base(hydraulicBoundaryLocationCalculations) {}
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
