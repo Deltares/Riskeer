@@ -45,7 +45,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(DesignWaterLevelCalculationsProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(WaterLevelCalculationsForNormTargetProbabilityProperties), info.PropertyObjectType);
             }
         }
 
@@ -59,9 +59,11 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
+            double GetNormFunc() => 0.01;
+
             var context = new WaterLevelCalculationsForNormTargetProbabilityContext(hydraulicBoundaryLocationCalculations,
                                                                                     assessmentSection,
-                                                                                    () => 0.01);
+                                                                                    GetNormFunc);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -71,8 +73,9 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<DesignWaterLevelCalculationsProperties>(objectProperties);
+                Assert.IsInstanceOf<WaterLevelCalculationsForNormTargetProbabilityProperties>(objectProperties);
                 Assert.AreSame(hydraulicBoundaryLocationCalculations, objectProperties.Data);
+                Assert.AreEqual(GetNormFunc(), ((WaterLevelCalculationsForNormTargetProbabilityProperties) objectProperties).TargetProbability);
             }
 
             mockRepository.VerifyAll();
