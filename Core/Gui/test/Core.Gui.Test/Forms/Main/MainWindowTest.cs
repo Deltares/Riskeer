@@ -367,7 +367,6 @@ namespace Core.Gui.Test.Forms.Main
                 // Assert
                 Assert.IsNull(viewHost.ActiveDocumentView);
                 Assert.AreSame(viewHost.ToolViews.ElementAt(0), mainWindow.PropertyGrid, "PropertyGrid instance should remain the same.");
-                Assert.AreEqual("Eigenschappen", mainWindow.PropertyGrid.Text);
                 Assert.AreEqual(selectedObject, mainWindow.PropertyGrid.Data);
             }
 
@@ -408,7 +407,6 @@ namespace Core.Gui.Test.Forms.Main
                 // Assert
                 Assert.IsNull(viewHost.ActiveDocumentView);
                 Assert.AreSame(originalPropertyGrid, mainWindow.PropertyGrid, "PropertyGrid instance should remain the same.");
-                Assert.AreEqual("Eigenschappen", mainWindow.PropertyGrid.Text);
                 Assert.AreSame(selectedObject, mainWindow.PropertyGrid.Data);
             }
 
@@ -474,11 +472,9 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.IsNull(mainWindow.ProjectExplorer.Data);
 
                 Assert.IsInstanceOf<PropertyGridView>(mainWindow.PropertyGrid);
-                Assert.AreEqual("Eigenschappen", mainWindow.PropertyGrid.Text);
                 Assert.AreEqual(selectedObject, mainWindow.PropertyGrid.Data);
 
                 Assert.IsInstanceOf<MessageWindow>(mainWindow.MessageWindow);
-                Assert.AreEqual("Berichten", mainWindow.MessageWindow.Text);
 
                 Assert.IsInstanceOf<MapLegendView>(mainWindow.MapLegendView);
                 Assert.IsNull(GetMapControl(mainWindow.MapLegendView));
