@@ -64,34 +64,16 @@ namespace Core.Gui.Test.Forms.Log
         }
 
         [Test]
-        public void OnLoad_ExpectedMessageWindowText()
-        {
-            // Setup
-            using (var form = new Form())
-            using (MessageWindow messageWindow = ShowMessageWindow(null))
-            {
-                form.Controls.Add(messageWindow);
-
-                // Call
-                form.Show();
-
-                // Assert
-                Assert.AreEqual("Berichten", messageWindow.Text);
-            }
-        }
-
-        [Test]
         public void AddMessage_LevelIsNull_ThrowsArgumentNullException()
         {
             // Setup
             using (MessageWindow messageWindow = ShowMessageWindow(null))
             {
                 // Call
-                TestDelegate call = () => messageWindow.AddMessage(null, new DateTime(),
-                                                                   "Should throw exception");
+                void Call() => messageWindow.AddMessage(null, new DateTime(), "Should throw exception");
 
                 // Assert
-                string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+                string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
                 Assert.AreEqual("level", paramName);
             }
         }

@@ -70,7 +70,6 @@ namespace Core.Gui.Test.Forms.Map
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsInstanceOf<ISelectionProvider>(view);
                 Assert.IsNull(view.Data);
-                Assert.AreEqual("Kaart", view.Text);
                 Assert.IsNotNull(treeViewControl);
                 Assert.IsInstanceOf<TreeViewControl>(treeViewControl);
             }
@@ -80,11 +79,11 @@ namespace Core.Gui.Test.Forms.Map
         public void Constructor_ContextMenuBuilderProviderNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MapLegendView(null);
+            void Call() => new MapLegendView(null);
 
             // Assert
             const string expectedMessage = "Cannot create a MapLegendView when the context menu builder provider is null.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
         }
 
         [Test]
@@ -127,10 +126,10 @@ namespace Core.Gui.Test.Forms.Map
             using (var view = new MapLegendView(contextMenuBuilderProvider))
             {
                 // Call
-                TestDelegate test = () => view.Data = new object();
+                void Call() => view.Data = new object();
 
                 // Assert
-                Assert.Throws<InvalidCastException>(test);
+                Assert.Throws<InvalidCastException>(Call);
             }
         }
 

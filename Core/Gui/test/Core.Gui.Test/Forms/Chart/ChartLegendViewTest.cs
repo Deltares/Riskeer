@@ -68,7 +68,6 @@ namespace Core.Gui.Test.Forms.Chart
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsInstanceOf<ISelectionProvider>(view);
                 Assert.IsNull(view.Data);
-                Assert.AreEqual("Grafiek", view.Text);
             }
 
             mocks.VerifyAll();
