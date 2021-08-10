@@ -1896,15 +1896,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berichten.
-        /// </summary>
-        public static string MessageWindow_MessageWindow_Messages {
-            get {
-                return ResourceManager.GetString("MessageWindow_MessageWindow_Messages", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Controleer logbestand voor meer informatie (&quot;Project&quot;-&gt;&quot;Toon log&quot;)..
         /// </summary>
         public static string MessageWindowLogAppender_AppendToMessageWindow_Check_log_file_for_more_information_Home_Show_Log {
