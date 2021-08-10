@@ -45,7 +45,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         private readonly PartialProbabilisticSubMechanismPipingOutput subMechanismOutput;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ProbabilisticFaultTreePipingOutputProperties"/>.
+        /// Creates a new instance of <see cref="ProbabilisticSubMechanismPipingOutputProperties"/>.
         /// </summary>
         /// <param name="output">The output to show the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>

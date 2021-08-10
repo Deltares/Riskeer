@@ -35,6 +35,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects.Probabilistic
         /// </summary>
         /// <param name="calculation">The <see cref="ProbabilisticPipingCalculationScenario"/> object to wrap.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public ProbabilisticPipingSectionSpecificOutputContext(ProbabilisticPipingCalculationScenario calculation) : base(calculation) {}
+        public ProbabilisticPipingSectionSpecificOutputContext(ProbabilisticPipingCalculationScenario calculation)
+            : base(calculation) {}
     }
 }

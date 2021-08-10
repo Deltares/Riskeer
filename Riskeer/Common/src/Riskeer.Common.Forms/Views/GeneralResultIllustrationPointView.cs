@@ -50,7 +50,7 @@ namespace Riskeer.Common.Forms.Views
         /// <param name="calculation">The calculation to show the illustration points for.</param>
         /// <param name="getGeneralResultFunc">A <see cref="Func{TResult}"/> for obtaining the
         /// illustration point that must be presented.</param>
-        /// <exception cref="NullReferenceException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         protected GeneralResultIllustrationPointView(ICalculation calculation, Func<GeneralResult<TTopLevelIllustrationPoint>> getGeneralResultFunc)
         {
             if (calculation == null)

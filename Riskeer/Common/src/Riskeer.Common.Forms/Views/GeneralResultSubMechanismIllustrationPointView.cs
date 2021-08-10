@@ -41,7 +41,7 @@ namespace Riskeer.Common.Forms.Views
         /// <param name="getGeneralResultFunc">A <see cref="Func{TResult}"/> for obtaining the illustration point
         /// data (<see cref="GeneralResult{T}"/> with <see cref="TopLevelSubMechanismIllustrationPoint"/> objects)
         /// that must be presented.</param>
-        /// <exception cref="NullReferenceException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GeneralResultSubMechanismIllustrationPointView(ICalculation calculation,
                                                               Func<GeneralResult<TopLevelSubMechanismIllustrationPoint>> getGeneralResultFunc)
             : base(calculation, getGeneralResultFunc) {}

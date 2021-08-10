@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Forms.Views
         /// <param name="getGeneralResultFunc">A <see cref="Func{TResult}"/> for obtaining the illustration point
         /// data (<see cref="GeneralResult{T}"/> with <see cref="TopLevelFaultTreeIllustrationPoint"/> objects)
         /// that must be presented.</param>
-        /// <exception cref="NullReferenceException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ProbabilisticFaultTreePipingOutputView(
             ProbabilisticPipingCalculationScenario calculation,
             Func<GeneralResult<TopLevelFaultTreeIllustrationPoint>> getGeneralResultFunc)
