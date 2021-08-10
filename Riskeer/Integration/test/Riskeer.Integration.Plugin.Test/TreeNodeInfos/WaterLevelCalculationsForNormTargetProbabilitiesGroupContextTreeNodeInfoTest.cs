@@ -559,9 +559,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                             const string calculationDisplayName = "Waterstand berekening";
 
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "1/500", msgs, 0);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "1/200", msgs, 0);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "1/200", msgs, 8);
+                                hydraulicBoundaryLocation.Name, calculationTypeDisplayName, calculationDisplayName, "1/500", msgs, 8);
                         });
 
                         AssertHydraulicBoundaryLocationCalculationOutput(designWaterLevelCalculator, assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output);
