@@ -56,8 +56,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.IsNull(readCalculation.DikeProfileId);
             Assert.IsNull(readCalculation.Orientation);
             Assert.IsNull(readCalculation.DikeHeight);
-            Assert.IsNull(readCalculation.DikeHeightCalculationType);
-            Assert.IsNull(readCalculation.OvertoppingRateCalculationType);
             Assert.IsNull(readCalculation.WaveReduction);
             Assert.IsNull(readCalculation.CriticalFlowRate);
             Assert.IsNull(readCalculation.ShouldOvertoppingOutputIllustrationPointsBeCalculated);

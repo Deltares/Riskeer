@@ -71,18 +71,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         public bool? ShouldOvertoppingOutputIllustrationPointsBeCalculated { get; set; }
 
         /// <summary>
-        /// Gets or sets the value for how the dike height should be calculated for the grass cover
-        /// erosion inwards calculation.
-        /// </summary>
-        public ConfigurationHydraulicLoadsCalculationType? DikeHeightCalculationType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value for how the overtopping rate should be calculated for the grass 
-        /// cover erosion inwards calculation.
-        /// </summary>
-        public ConfigurationHydraulicLoadsCalculationType? OvertoppingRateCalculationType { get; set; }
-
-        /// <summary>
         /// Gets or sets whether the dike height should be calculated.
         /// </summary>
         public bool? ShouldDikeHeightBeCalculated { get; set; }

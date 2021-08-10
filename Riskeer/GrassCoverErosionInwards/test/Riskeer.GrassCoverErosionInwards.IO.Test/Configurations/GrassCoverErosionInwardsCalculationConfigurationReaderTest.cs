@@ -298,8 +298,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.IsNull(configuration.DikeProfileId);
             Assert.IsNull(configuration.Orientation);
             Assert.IsNull(configuration.DikeHeight);
-            Assert.IsNull(configuration.DikeHeightCalculationType);
-            Assert.IsNull(configuration.OvertoppingRateCalculationType);
             Assert.IsNull(configuration.WaveReduction);
             Assert.IsNull(configuration.CriticalFlowRate);
             Assert.IsNull(configuration.Scenario);
@@ -427,8 +425,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.AreEqual("id_of_dikeprofile", configuration.DikeProfileId);
             Assert.IsNull(configuration.Orientation);
             Assert.AreEqual(-1.2, configuration.DikeHeight);
-            Assert.IsNull(configuration.DikeHeightCalculationType);
-            Assert.IsNull(configuration.OvertoppingRateCalculationType);
             Assert.AreEqual(false, configuration.WaveReduction.UseBreakWater);
             Assert.IsNull(configuration.WaveReduction.BreakWaterType);
             Assert.AreEqual(3.4, configuration.WaveReduction.BreakWaterHeight);
