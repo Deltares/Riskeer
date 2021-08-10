@@ -141,7 +141,7 @@ namespace Core.Gui.Forms.ViewHost
             OnViewOpened(view);
         }
 
-        public void AddToolView(IView view, ToolViewLocation toolViewLocation, string symbol)
+        public void AddToolView(IView view, ToolViewLocation toolViewLocation, string title, string symbol)
         {
             var control = view as Control;
             if (control == null)
@@ -163,7 +163,7 @@ namespace Core.Gui.Forms.ViewHost
             var layoutAnchorable = new CustomLayoutAnchorable
             {
                 Content = hostControl,
-                Title = view.Text,
+                Title = title,
                 Symbol = symbol
             };
 
