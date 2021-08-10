@@ -34,30 +34,6 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
     public class WaterLevelCalculationsForNormTargetProbabilityContextTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
-            Func<double> getNormFunc = () => 0.01;
-
-            // Call
-            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(calculations,
-                                                                                    assessmentSection,
-                                                                                    getNormFunc);
-
-            // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>>(context);
-            Assert.AreSame(calculations, context.WrappedData);
-            Assert.AreSame(assessmentSection, context.AssessmentSection);
-            Assert.AreSame(getNormFunc, context.GetNormFunc);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
@@ -86,6 +62,30 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("getNormFunc", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            Func<double> getNormFunc = () => 0.01;
+
+            // Call
+            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(calculations,
+                                                                                    assessmentSection,
+                                                                                    getNormFunc);
+
+            // Assert
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>>(context);
+            Assert.AreSame(calculations, context.WrappedData);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
+            Assert.AreSame(getNormFunc, context.GetNormFunc);
+            mockRepository.VerifyAll();
         }
     }
 }
