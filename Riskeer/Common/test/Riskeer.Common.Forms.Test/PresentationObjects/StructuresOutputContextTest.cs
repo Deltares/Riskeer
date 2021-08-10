@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -45,23 +44,6 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IStructuresCalculation>>(structuresOutputContext);
             Assert.AreSame(structuresCalculation, structuresOutputContext.WrappedData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var structuresCalculation = mocks.Stub<IStructuresCalculation>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new SimpleStructuresOutputContext(structuresCalculation);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
             mocks.VerifyAll();
         }
 
