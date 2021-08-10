@@ -86,10 +86,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
             {
                 CreateInstance = context => new StructureCollectionProperties<StabilityPointStructure>(context.WrappedData)
             };
-            yield return new PropertyInfo<StabilityPointStructuresOutputContext, StabilityPointStructuresOutputProperties>
-            {
-                CreateInstance = context => new StabilityPointStructuresOutputProperties(context.WrappedData.Output)
-            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -712,7 +708,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                          calculation,
                                                          context.FailureMechanism,
                                                          context.AssessmentSection),
-                new StabilityPointStructuresOutputContext(calculation, context.AssessmentSection)
+                new StructuresOutputContext(calculation, context.AssessmentSection)
             };
         }
 

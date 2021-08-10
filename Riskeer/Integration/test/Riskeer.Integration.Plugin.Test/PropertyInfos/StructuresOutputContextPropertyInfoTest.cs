@@ -76,7 +76,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(new StructuresOutputContext(calculation, assessmentSection));
 
             // Assert
-            Assert.IsInstanceOf<StructuresOutputProperties>(objectProperties);
+            Assert.IsInstanceOf<ObjectProperties<StructuresOutput>>(objectProperties);
             Assert.AreSame(calculation.Output, objectProperties.Data);
 
             mocks.VerifyAll();

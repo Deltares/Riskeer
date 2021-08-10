@@ -42,6 +42,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
@@ -139,7 +140,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(stabilityPointStructuresInputContext);
             Assert.AreSame(calculationContext.WrappedData.InputParameters, stabilityPointStructuresInputContext.WrappedData);
 
-            var structuresOutputContext = children[2] as StabilityPointStructuresOutputContext;
+            var structuresOutputContext = children[2] as StructuresOutputContext;
             Assert.IsNotNull(structuresOutputContext);
             Assert.AreSame(calculationContext.WrappedData, structuresOutputContext.WrappedData);
             Assert.AreSame(calculationContext.AssessmentSection, structuresOutputContext.AssessmentSection);

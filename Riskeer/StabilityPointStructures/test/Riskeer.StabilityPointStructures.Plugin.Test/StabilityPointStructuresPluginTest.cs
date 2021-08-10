@@ -62,13 +62,13 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(6, propertyInfos.Length);
+                Assert.AreEqual(5, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityPointStructuresCalculationsContext),
                     typeof(StabilityPointStructuresCalculationsProperties));
-                
+
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityPointStructuresFailurePathContext),
@@ -88,11 +88,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
                     propertyInfos,
                     typeof(StabilityPointStructuresContext),
                     typeof(StructureCollectionProperties<StabilityPointStructure>));
-
-                PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos,
-                    typeof(StabilityPointStructuresOutputContext),
-                    typeof(StabilityPointStructuresOutputProperties));
             }
         }
 
@@ -135,7 +130,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
                     viewInfos,
                     typeof(StabilityPointStructuresCalculationsContext),
                     typeof(StabilityPointStructuresFailureMechanismView));
-                
+
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(StabilityPointStructuresFailurePathContext),
