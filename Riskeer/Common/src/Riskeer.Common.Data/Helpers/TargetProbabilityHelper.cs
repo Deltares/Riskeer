@@ -27,13 +27,13 @@ namespace Riskeer.Common.Data.Helpers
     /// <summary>
     /// Helper class for getting valid target probabilities.
     /// </summary>
-    public class TargetProbabilityHelper
+    public static class TargetProbabilityHelper
     {
         /// <summary>
         /// Validates the provided target probability.
         /// </summary>
         /// <param name="targetProbability">The target probability to validate.</param>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the target probabilty value
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the target probability value
         /// is not in the interval {0.0, 0.1] or is <see cref="double.NaN"/>.</exception>
         public static void ValidateTargetProbability(double targetProbability)
         {
