@@ -106,6 +106,13 @@ namespace Core.Gui.Forms.ViewHost
         void BringToFront(IView view);
 
         /// <summary>
+        /// Sets the title for a document view or tool view.
+        /// </summary>
+        /// <param name="view">The view to set the title for.</param>
+        /// <param name="title">The title.</param>
+        void SetTitle(IView view, string title);
+
+        /// <summary>
         /// Sets the image for a document view or tool view.
         /// </summary>
         /// <param name="view">The view to set the image for.</param>

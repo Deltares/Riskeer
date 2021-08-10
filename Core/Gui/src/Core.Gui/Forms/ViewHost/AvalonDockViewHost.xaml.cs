@@ -227,6 +227,15 @@ namespace Core.Gui.Forms.ViewHost
             OnViewBroughtToFront(view);
         }
 
+        public void SetTitle(IView view, string title)
+        {
+            var layoutContent = GetLayoutContent<LayoutContent>(view);
+            if (layoutContent != null)
+            {
+                layoutContent.Title = title;
+            }
+        }
+
         public void SetImage(IView view, Image image)
         {
             var layoutContent = GetLayoutContent<LayoutContent>(view);
@@ -386,7 +395,7 @@ namespace Core.Gui.Forms.ViewHost
             view.Dispose();
 
             OnViewClosed(view);
-            
+
             Application.DoEvents(); // This method is called in order to get rid of problems caused by AvalonDock's latency
         }
 
