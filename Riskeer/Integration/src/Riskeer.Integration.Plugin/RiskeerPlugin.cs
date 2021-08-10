@@ -29,6 +29,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
+using Core.Common.Controls.Views;
 using Core.Common.Util;
 using Core.Common.Util.Extensions;
 using Core.Components.Gis.Data;
@@ -36,6 +37,7 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ProgressDialog;
+using Core.Gui.Forms.ViewHost;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
 using log4net;
@@ -123,6 +125,8 @@ namespace Riskeer.Integration.Plugin
 
         private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
 
+        private static readonly IDictionary<IView, Observer> observersForViewTitles = new Dictionary<IView, Observer>();
+
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
         private AssessmentSectionMerger assessmentSectionMerger;
 
@@ -131,9 +135,21 @@ namespace Riskeer.Integration.Plugin
             get => base.Gui;
             set
             {
-                RemoveOnOpenProjectListener(base.Gui);
+                if (base.Gui != null)
+                {
+                    base.Gui.ProjectOpened -= VerifyHydraulicBoundaryDatabasePath;
+                    base.Gui.ViewHost.ViewOpened -= OnViewOpened;
+                    base.Gui.ViewHost.ViewClosed -= OnViewClosed;
+                }
+
                 base.Gui = value;
-                AddOnOpenProjectListener(value);
+
+                if (value != null)
+                {
+                    value.ProjectOpened += VerifyHydraulicBoundaryDatabasePath;
+                    base.Gui.ViewHost.ViewOpened += OnViewOpened;
+                    base.Gui.ViewHost.ViewClosed += OnViewClosed;
+                }
             }
         }
 
@@ -345,8 +361,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ViewInfo<WaterLevelCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
             {
-                GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName} - " +
-                                                 $"{noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)}",
+                GetViewName = (view, context) => GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesViewName(context.WrappedData),
                 GetViewData = context => context.WrappedData.HydraulicBoundaryLocationCalculations,
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseForWaterLevelCalculationsForUserDefinedTargetProbabilityContextData,
@@ -359,8 +374,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ViewInfo<WaveHeightCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
             {
-                GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName} - " +
-                                                 $"{noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)}",
+                GetViewName = (view, context) => GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesViewName(context.WrappedData),
                 GetViewData = context => context.WrappedData.HydraulicBoundaryLocationCalculations,
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseForWaveHeightCalculationsForUserDefinedTargetProbabilityContextData,
@@ -1182,22 +1196,6 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static void RemoveOnOpenProjectListener(IProjectOwner projectOwner)
-        {
-            if (projectOwner != null)
-            {
-                projectOwner.ProjectOpened -= VerifyHydraulicBoundaryDatabasePath;
-            }
-        }
-
-        private static void AddOnOpenProjectListener(IProjectOwner projectOwner)
-        {
-            if (projectOwner != null)
-            {
-                projectOwner.ProjectOpened += VerifyHydraulicBoundaryDatabasePath;
-            }
-        }
-
         private static void VerifyHydraulicBoundaryDatabasePath(IProject project)
         {
             var riskeerProject = project as RiskeerProject;
@@ -1222,6 +1220,63 @@ namespace Riskeer.Integration.Plugin
                         validationProblem);
                 }
             }
+        }
+
+        private void OnViewOpened(object sender, ViewChangeEventArgs e)
+        {
+            Func<string> getTitleFunc = null;
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserSpecifiedTargetProbabilities = null;
+
+            if (e.View is DesignWaterLevelCalculationsView designWaterLevelCalculationsView)
+            {
+                calculationsForUserSpecifiedTargetProbabilities =
+                    designWaterLevelCalculationsView.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                                                    .FirstOrDefault(calculations => ReferenceEquals(calculations.HydraulicBoundaryLocationCalculations, designWaterLevelCalculationsView.Data));
+
+                getTitleFunc = () => GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesViewName(calculationsForUserSpecifiedTargetProbabilities);
+            }
+
+            if (e.View is WaveHeightCalculationsView waveHeightCalculationsView)
+            {
+                calculationsForUserSpecifiedTargetProbabilities =
+                    waveHeightCalculationsView.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+                                              .FirstOrDefault(calculations => ReferenceEquals(calculations.HydraulicBoundaryLocationCalculations, waveHeightCalculationsView.Data));
+
+                getTitleFunc = () => GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesViewName(calculationsForUserSpecifiedTargetProbabilities);
+            }
+
+            if (calculationsForUserSpecifiedTargetProbabilities == null)
+            {
+                return;
+            }
+
+            observersForViewTitles[e.View] = new Observer(() => Gui.ViewHost.SetTitle(e.View, getTitleFunc()))
+            {
+                Observable = calculationsForUserSpecifiedTargetProbabilities
+            };
+        }
+
+        private static void OnViewClosed(object sender, ViewChangeEventArgs e)
+        {
+            if (observersForViewTitles.TryGetValue(e.View, out Observer observerForViewTitle))
+            {
+                observerForViewTitle.Dispose();
+                observersForViewTitles.Remove(e.View);
+            }
+        }
+
+        private static string GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesViewName(
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserSpecifiedTargetProbabilities)
+        {
+            return $"{RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName} - " +
+                   $"{noProbabilityValueDoubleConverter.ConvertToString(calculationsForUserSpecifiedTargetProbabilities.TargetProbability)}";
+        }
+
+        private static string GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesViewName(
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserSpecifiedTargetProbabilities)
+        {
+            return $"{RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName} - " +
+                   $"{noProbabilityValueDoubleConverter.ConvertToString(calculationsForUserSpecifiedTargetProbabilities.TargetProbability)}";
         }
 
         private static bool HasGeometry(ReferenceLine referenceLine)
