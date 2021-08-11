@@ -30,9 +30,7 @@ namespace Riskeer.Common.Data.Test.Probability
     {
         [Test]
         [TestCase(1.23456, 0.10849715177356248)]
-        [TestCase(789.123, 0.0)]
-        [TestCase(4, 0.00003167124)]
-        [TestCase(5, 0.00000028665)]
+        [TestCase(2.34567, 0.00949645752871438)]
         public void Constructor_DifferentInputs_ExpectedValues(double reliability, double expectedResult)
         {
             // Call
