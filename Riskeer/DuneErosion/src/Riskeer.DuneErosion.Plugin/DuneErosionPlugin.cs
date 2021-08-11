@@ -60,6 +60,8 @@ namespace Riskeer.DuneErosion.Plugin
     /// </summary>
     public class DuneErosionPlugin : PluginBase
     {
+        private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
+
         private DuneLocationCalculationGuiService duneLocationCalculationGuiService;
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
@@ -122,6 +124,13 @@ namespace Riskeer.DuneErosion.Plugin
                 Text = context => RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = DuneLocationCalculationsContextMenuStrip
+            };
+
+            yield return new TreeNodeInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext>
+            {
+                Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability),
+                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
+                ContextMenuStrip = DuneLocationCalculationsForUserDefinedTargetProbabilityContextMenuStrip
             };
         }
 
@@ -449,6 +458,48 @@ namespace Riskeer.DuneErosion.Plugin
 
             string validationText = ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection,
                                                                                context.GetNormFunc());
+
+            if (!string.IsNullOrEmpty(validationText))
+            {
+                calculateAllItem.Enabled = false;
+                calculateAllItem.ToolTipText = validationText;
+            }
+
+            return Gui.Get(context, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
+                      .AddExportItem()
+                      .AddSeparator()
+                      .AddCustomItem(calculateAllItem)
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        #endregion
+
+        #region DuneLocationCalculationsForUserDefinedTargetProbabilityContext TreeNodeInfo
+
+        private ContextMenuStrip DuneLocationCalculationsForUserDefinedTargetProbabilityContextMenuStrip(DuneLocationCalculationsForUserDefinedTargetProbabilityContext context, object parent, TreeViewControl treeViewControl)
+        {
+            var calculateAllItem = new StrictContextMenuItem(
+                RiskeerCommonFormsResources.Calculate_All,
+                RiskeerCommonFormsResources.HydraulicLoads_Calculate_All_ToolTip,
+                RiskeerCommonFormsResources.CalculateAllIcon,
+                (sender, args) =>
+                {
+                    if (duneLocationCalculationGuiService == null)
+                    {
+                        return;
+                    }
+
+                    duneLocationCalculationGuiService.Calculate(context.WrappedData.DuneLocationCalculations,
+                                                                context.AssessmentSection,
+                                                                context.WrappedData.TargetProbability,
+                                                                noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability));
+                });
+
+            string validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(context.AssessmentSection.HydraulicBoundaryDatabase);
 
             if (!string.IsNullOrEmpty(validationText))
             {
