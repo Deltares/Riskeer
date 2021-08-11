@@ -468,6 +468,29 @@ namespace Core.Gui.Test.Forms.ViewHost
         }
 
         [Test]
+        public void SetTitle_DocumentView_TitleSet()
+        {
+            // Setup
+            const string titleToSet = "Random title";
+
+            var testView = new TestView();
+
+            using (var avalonDockViewHost = new AvalonDockViewHost())
+            {
+                avalonDockViewHost.AddDocumentView(testView, string.Empty);
+
+                // Precondition
+                Assert.IsFalse(IsTitleSet(avalonDockViewHost, testView, titleToSet));
+
+                // Call
+                avalonDockViewHost.SetTitle(testView, titleToSet);
+
+                // Assert
+                Assert.IsTrue(IsTitleSet(avalonDockViewHost, testView, titleToSet));
+            }
+        }
+
+        [Test]
         public void SetImage_DocumentView_ImageSet()
         {
             // Setup
@@ -819,6 +842,29 @@ namespace Core.Gui.Test.Forms.ViewHost
                 Assert.AreEqual(0, activeDocumentViewChangedCounter);
                 Assert.AreEqual(0, activeViewChangedCounter);
                 Assert.IsTrue(IsActiveView(avalonDockViewHost, testView2));
+            }
+        }
+
+        [Test]
+        public void SetTitle_ToolView_TitleSet()
+        {
+            // Setup
+            const string titleToSet = "Random title";
+
+            var testView = new TestView();
+
+            using (var avalonDockViewHost = new AvalonDockViewHost())
+            {
+                avalonDockViewHost.AddToolView(testView, ToolViewLocation.Left, string.Empty, string.Empty);
+
+                // Precondition
+                Assert.IsFalse(IsTitleSet(avalonDockViewHost, testView, titleToSet));
+
+                // Call
+                avalonDockViewHost.SetTitle(testView, titleToSet);
+
+                // Assert
+                Assert.IsTrue(IsTitleSet(avalonDockViewHost, testView, titleToSet));
             }
         }
 
