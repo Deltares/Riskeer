@@ -22,7 +22,6 @@
 using System.Linq;
 using Core.Gui;
 using Core.Gui.Commands;
-using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
@@ -64,7 +63,6 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             gui.Stub(g => g.ViewCommands).Return(viewCommands);
             gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-            gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
             mocks.ReplayAll();
 
             using (var plugin = new RiskeerPlugin())
