@@ -43,6 +43,8 @@ namespace Riskeer.Integration.TestUtil
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             gui.Stub(g => g.ViewHost).Return(mockRepository.Stub<IViewHost>());
 
+            gui.Replay();
+
             return gui;
         }
     }
