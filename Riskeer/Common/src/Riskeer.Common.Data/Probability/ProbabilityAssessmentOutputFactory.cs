@@ -29,7 +29,7 @@ namespace Riskeer.Common.Data.Probability
     public static class ProbabilityAssessmentOutputFactory
     {
         /// <summary>
-        /// Creates <see cref="ProbabilityAssessmentOutput"/> based on the provided parameters.
+        /// Creates <see cref="ProbabilityAssessmentOutput"/> based on the provided reliability.
         /// </summary>
         /// <param name="reliability">The reliability to use for the calculation.</param>
         /// <returns>The calculated <see cref="ProbabilityAssessmentOutput"/>.</returns>

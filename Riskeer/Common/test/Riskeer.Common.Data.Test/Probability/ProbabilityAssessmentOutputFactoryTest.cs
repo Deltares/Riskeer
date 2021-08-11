@@ -29,26 +29,17 @@ namespace Riskeer.Common.Data.Test.Probability
     public class ProbabilityAssessmentOutputFactoryTest
     {
         [Test]
-        [TestCase(1.23456, 1.23456)]
-        [TestCase(789.123, 789.123)]
-        public void Reliability_DifferentInputs_ReturnsExpectedValue(double reliability, double expectedResult)
-        {
-            // Call
-            ProbabilityAssessmentOutput probabilityAssessmentOutput = ProbabilityAssessmentOutputFactory.Create(reliability);
-
-            // Assert
-            Assert.AreEqual(expectedResult, probabilityAssessmentOutput.Reliability, probabilityAssessmentOutput.Reliability.GetAccuracy());
-        }
-
-        [Test]
+        [TestCase(1.23456, 0.10849715177356248)]
+        [TestCase(789.123, 0.0)]
         [TestCase(4, 0.00003167124)]
         [TestCase(5, 0.00000028665)]
-        public void Probability_DifferentInputs_ReturnsExpectedValue(double reliability, double expectedResult)
+        public void Constructor_DifferentInputs_ExpectedValues(double reliability, double expectedResult)
         {
             // Call
             ProbabilityAssessmentOutput probabilityAssessmentOutput = ProbabilityAssessmentOutputFactory.Create(reliability);
 
             // Assert
+            Assert.AreEqual(reliability, probabilityAssessmentOutput.Reliability, probabilityAssessmentOutput.Reliability.GetAccuracy());
             Assert.AreEqual(expectedResult, probabilityAssessmentOutput.Probability, 1e-6);
         }
     }

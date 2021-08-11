@@ -41,8 +41,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         /// <param name="calculationGroup">The data to show in this view.</param>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/>
         /// the <paramref name="calculationGroup"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsScenariosView(CalculationGroup calculationGroup, GrassCoverErosionInwardsFailureMechanism failureMechanism)
             : base(calculationGroup, failureMechanism) {}
 

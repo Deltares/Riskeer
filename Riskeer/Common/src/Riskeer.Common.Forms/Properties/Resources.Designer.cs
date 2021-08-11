@@ -2945,24 +2945,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De veiligheidsfactor voor deze berekening..
-        /// </summary>
-        public static string ProbabilityAssessmentOutput_FactorOfSafety_Description {
-            get {
-                return ResourceManager.GetString("ProbabilityAssessmentOutput_FactorOfSafety_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Veiligheidsfactor [-].
-        /// </summary>
-        public static string ProbabilityAssessmentOutput_FactorOfSafety_Displayname {
-            get {
-                return ResourceManager.GetString("ProbabilityAssessmentOutput_FactorOfSafety_Displayname", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De kans dat het toetsspoor optreedt voor deze berekening..
         /// </summary>
         public static string ProbabilityAssessmentOutput_Probability_Description {
@@ -2995,42 +2977,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string ProbabilityAssessmentOutput_Reliability_Displayname {
             get {
                 return ResourceManager.GetString("ProbabilityAssessmentOutput_Reliability_Displayname", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De maximaal toegestane faalkanseis voor het toetsspoor..
-        /// </summary>
-        public static string ProbabilityAssessmentOutput_RequiredProbability_Description {
-            get {
-                return ResourceManager.GetString("ProbabilityAssessmentOutput_RequiredProbability_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Faalkanseis [1/jaar].
-        /// </summary>
-        public static string ProbabilityAssessmentOutput_RequiredProbability_Displayname {
-            get {
-                return ResourceManager.GetString("ProbabilityAssessmentOutput_RequiredProbability_Displayname", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor..
-        /// </summary>
-        public static string ProbabilityAssessmentOutput_RequiredReliability_Description {
-            get {
-                return ResourceManager.GetString("ProbabilityAssessmentOutput_RequiredReliability_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Betrouwbaarheidsindex faalkanseis [-].
-        /// </summary>
-        public static string ProbabilityAssessmentOutput_RequiredReliability_Displayname {
-            get {
-                return ResourceManager.GetString("ProbabilityAssessmentOutput_RequiredReliability_Displayname", resourceCulture);
             }
         }
         

@@ -1005,9 +1005,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
-                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(
-                                    calculationScenarios),
-                                resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(calculationScenarios), resultRow.DetailedAssessmentProbability);
                 Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
                 mocks.VerifyAll();
             }

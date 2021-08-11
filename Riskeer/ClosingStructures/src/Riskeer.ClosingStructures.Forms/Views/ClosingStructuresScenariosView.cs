@@ -42,8 +42,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// <param name="calculationGroup">The data to show in this view.</param>
         /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/>
         /// the <paramref name="calculationGroup"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClosingStructuresScenariosView(CalculationGroup calculationGroup, ClosingStructuresFailureMechanism failureMechanism)
             : base(calculationGroup, failureMechanism) {}
 

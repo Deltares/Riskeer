@@ -42,8 +42,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         /// <param name="calculationGroup">The data to show in this view.</param>
         /// <param name="failureMechanism">The <see cref="StabilityPointStructuresFailureMechanism"/>
         /// the <paramref name="calculationGroup"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public StabilityPointStructuresScenariosView(CalculationGroup calculationGroup, StabilityPointStructuresFailureMechanism failureMechanism)
             : base(calculationGroup, failureMechanism) {}
 
