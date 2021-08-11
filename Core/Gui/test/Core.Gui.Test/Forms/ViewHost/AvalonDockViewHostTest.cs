@@ -177,7 +177,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
                 const string title = "Random title";
-                
+
                 var testView = new TestView();
 
                 // Call
@@ -187,7 +187,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                 Assert.IsTrue(IsTitleSet(avalonDockViewHost, testView, title));
             }
         }
-        
+
         [Test]
         public void AddDocumentView_DocumentViewWasAlreadyAdded_NoDuplicationNoViewOpenedEventFired()
         {
@@ -592,7 +592,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
                 const string title = "Random title";
-                
+
                 var testView = new TestView();
 
                 // Call
@@ -602,7 +602,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                 Assert.IsTrue(IsTitleSet(avalonDockViewHost, testView, title));
             }
         }
-        
+
         [Test]
         public void AddToolView_InvalidPosition_ThrowsInvalidEnumArgumentException()
         {
@@ -952,7 +952,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                                      .OfType<LayoutContent>()
                                      .First(lc => ((WindowsFormsHost) lc.Content).Child == view).IconSource != null;
         }
-        
+
         private static bool IsTitleSet(AvalonDockViewHost avalonDockViewHost, IView view, string title)
         {
             return avalonDockViewHost.DockingManager
