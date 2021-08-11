@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
-using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.Properties;
 using Riskeer.Revetment.Forms.PropertyClasses;
@@ -40,27 +39,23 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
-        private const int nPropertyIndex = 5;
-        private const int waveRunUpPropertyIndex = 6;
-        private const int waveImpactPropertyIndex = 7;
-        private const int tailorMadeWaveImpactPropertyIndex = 8;
+        private const int waveRunUpPropertyIndex = 5;
+        private const int waveImpactPropertyIndex = 6;
+        private const int tailorMadeWaveImpactPropertyIndex = 7;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsHydraulicLoadsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsHydraulicLoadsProperties(
-            GrassCoverErosionOutwardsFailureMechanism data,
-            IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> handler) : base(data, new ConstructionProperties
+            GrassCoverErosionOutwardsFailureMechanism data) : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
             CodePropertyIndex = codePropertyIndex,
             GroupPropertyIndex = groupPropertyIndex,
-            ContributionPropertyIndex = contributionPropertyIndex,
-            NPropertyIndex = nPropertyIndex
-        }, handler) {}
+            ContributionPropertyIndex = contributionPropertyIndex
+        }) {}
 
         #region Model settings
 

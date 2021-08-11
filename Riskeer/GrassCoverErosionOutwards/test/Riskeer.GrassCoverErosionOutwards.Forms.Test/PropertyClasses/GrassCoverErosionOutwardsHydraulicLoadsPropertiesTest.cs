@@ -23,8 +23,6 @@ using System.ComponentModel;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
 
@@ -37,36 +35,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
-        private const int nPropertyIndex = 4;
-        private const int waveRunUpPropertyIndex = 5;
-        private const int waveImpactPropertyIndex = 6;
-        private const int tailorMadeWaveImpactPropertyIndex = 7;
-        private MockRepository mocks;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
-        }
+        private const int waveRunUpPropertyIndex = 4;
+        private const int waveImpactPropertyIndex = 5;
+        private const int tailorMadeWaveImpactPropertyIndex = 6;
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var changeHandler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
-            mockRepository.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var properties = new GrassCoverErosionOutwardsHydraulicLoadsProperties(failureMechanism, changeHandler);
+            var properties = new GrassCoverErosionOutwardsHydraulicLoadsProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>>(properties);
@@ -84,18 +64,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var changeHandler = mockRepository.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
-            mockRepository.ReplayAll();
-
-            // Call
-            var properties = new GrassCoverErosionOutwardsHydraulicLoadsProperties(new GrassCoverErosionOutwardsFailureMechanism(), changeHandler);
+        { // Call
+            var properties = new GrassCoverErosionOutwardsHydraulicLoadsProperties(new GrassCoverErosionOutwardsFailureMechanism());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(7, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string modelSettingsCategory = "Modelinstellingen";
@@ -127,12 +101,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Faalkansbijdrage [%]",
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
-
-            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
-                                                                            "Lengte-effect parameters",
-                                                                            "N [-]",
-                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
 
             PropertyDescriptor waveRunUpProperty = dynamicProperties[waveRunUpPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(waveRunUpProperty.Converter);

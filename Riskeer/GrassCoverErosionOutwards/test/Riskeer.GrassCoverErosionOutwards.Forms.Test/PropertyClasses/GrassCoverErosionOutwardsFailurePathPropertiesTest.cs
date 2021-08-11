@@ -19,12 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using Core.Common.Base;
+using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
 
@@ -38,24 +43,23 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
         private const int nPropertyIndex = 4;
-        private MockRepository mocks;
 
-        [SetUp]
-        public void SetUp()
+        [Test]
+        public void Constructor_ChangeHandlerNull_ThrowsArgumentNullException()
         {
-            mocks = new MockRepository();
-        }
+            // Call
+            void Call() => new GrassCoverErosionOutwardsFailurePathProperties(new GrassCoverErosionOutwardsFailureMechanism(), null);
 
-        [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("handler", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
             mocks.ReplayAll();
 
@@ -76,12 +80,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.N,
                             properties.N,
                             properties.N.GetAccuracy());
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            var mocks = new MockRepository();
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
             mocks.ReplayAll();
 
@@ -130,6 +137,75 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             lengthEffectCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(0.0)]
+        [TestCase(-1.0)]
+        [TestCase(-20.0)]
+        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observable = mocks.StrictMock<IObservable>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var handler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionOutwardsFailureMechanism, double>(
+                failureMechanism,
+                newN,
+                new[]
+                {
+                    observable
+                });
+
+            var properties = new GrassCoverErosionOutwardsFailurePathProperties(failureMechanism, handler);
+
+            // Call
+            void Call() => properties.N = (RoundedDouble) newN;
+
+            // Assert
+            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+            Assert.IsTrue(handler.Called);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(1.0)]
+        [TestCase(10.0)]
+        [TestCase(20.0)]
+        public void N_SetValidValue_UpdateDataAndNotifyObservers(double newN)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var handler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionOutwardsFailureMechanism, double>(
+                failureMechanism,
+                newN,
+                new[]
+                {
+                    observable
+                });
+
+            var properties = new GrassCoverErosionOutwardsFailurePathProperties(failureMechanism, handler);
+
+            // Call
+            properties.N = (RoundedDouble) newN;
+
+            // Assert
+            Assert.AreEqual(newN, failureMechanism.GeneralInput.N);
+            Assert.IsTrue(handler.Called);
+
+            mocks.VerifyAll();
         }
     }
 }
