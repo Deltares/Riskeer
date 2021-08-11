@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
 
 namespace Riskeer.DuneErosion.Forms.PresentationObjects
@@ -30,18 +29,18 @@ namespace Riskeer.DuneErosion.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all dune location calculations based on a user defined target probability.
     /// </summary>
-    public class DuneLocationsCalculationsForUserDefinedTargetProbabilityContext : ObservableWrappedObjectContextBase<HydraulicBoundaryLocationCalculationsForTargetProbability>
+    public class DuneLocationCalculationsForUserDefinedTargetProbabilityContext : ObservableWrappedObjectContextBase<DuneLocationCalculationsForTargetProbability>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DuneLocationsCalculationsForUserDefinedTargetProbabilityContext"/>.
+        /// Creates a new instance of <see cref="DuneLocationCalculationsForUserDefinedTargetProbabilityContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The calculations wrapped by the <see cref="DuneLocationsCalculationsForUserDefinedTargetProbabilityContext"/>.</param>
+        /// <param name="wrappedData">The calculations wrapped by the <see cref="DuneLocationCalculationsForUserDefinedTargetProbabilityContext"/>.</param>
         /// <param name="failureMechanism">The failure mechanism that the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section that the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DuneLocationsCalculationsForUserDefinedTargetProbabilityContext(HydraulicBoundaryLocationCalculationsForTargetProbability wrappedData,
-                                                                               DuneErosionFailureMechanism failureMechanism,
-                                                                               IAssessmentSection assessmentSection)
+        public DuneLocationCalculationsForUserDefinedTargetProbabilityContext(DuneLocationCalculationsForTargetProbability wrappedData,
+                                                                              DuneErosionFailureMechanism failureMechanism,
+                                                                              IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (failureMechanism == null)
