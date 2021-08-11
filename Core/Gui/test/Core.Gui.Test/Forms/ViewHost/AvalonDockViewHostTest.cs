@@ -31,6 +31,7 @@ using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Core.Gui.Forms.ViewHost;
+using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Xceed.Wpf.AvalonDock.Layout;
@@ -184,7 +185,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddDocumentView(testView, title);
 
                 // Assert
-                Assert.IsTrue(IsTitleSet(avalonDockViewHost, testView, title));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet(avalonDockViewHost, testView, title));
             }
         }
 
@@ -480,13 +481,13 @@ namespace Core.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddDocumentView(testView, string.Empty);
 
                 // Precondition
-                Assert.IsFalse(IsTitleSet(avalonDockViewHost, testView, titleToSet));
+                Assert.IsFalse(AvalonDockViewHostTestHelper.IsTitleSet(avalonDockViewHost, testView, titleToSet));
 
                 // Call
                 avalonDockViewHost.SetTitle(testView, titleToSet);
 
                 // Assert
-                Assert.IsTrue(IsTitleSet(avalonDockViewHost, testView, titleToSet));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet(avalonDockViewHost, testView, titleToSet));
             }
         }
 
@@ -599,7 +600,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddToolView(testView, ToolViewLocation.Left, title, string.Empty);
 
                 // Assert
-                Assert.IsTrue(IsTitleSet(avalonDockViewHost, testView, title));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet(avalonDockViewHost, testView, title));
             }
         }
 
@@ -858,13 +859,13 @@ namespace Core.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.AddToolView(testView, ToolViewLocation.Left, string.Empty, string.Empty);
 
                 // Precondition
-                Assert.IsFalse(IsTitleSet(avalonDockViewHost, testView, titleToSet));
+                Assert.IsFalse(AvalonDockViewHostTestHelper.IsTitleSet(avalonDockViewHost, testView, titleToSet));
 
                 // Call
                 avalonDockViewHost.SetTitle(testView, titleToSet);
 
                 // Assert
-                Assert.IsTrue(IsTitleSet(avalonDockViewHost, testView, titleToSet));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet(avalonDockViewHost, testView, titleToSet));
             }
         }
 
@@ -951,15 +952,6 @@ namespace Core.Gui.Test.Forms.ViewHost
                                      .Descendents()
                                      .OfType<LayoutContent>()
                                      .First(lc => ((WindowsFormsHost) lc.Content).Child == view).IconSource != null;
-        }
-
-        private static bool IsTitleSet(AvalonDockViewHost avalonDockViewHost, IView view, string title)
-        {
-            return avalonDockViewHost.DockingManager
-                                     .Layout
-                                     .Descendents()
-                                     .OfType<LayoutContent>()
-                                     .First(lc => ((WindowsFormsHost) lc.Content).Child == view).Title == title;
         }
 
         private static void SetActiveView(AvalonDockViewHost avalonDockViewHost, IView view)
