@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -157,13 +158,14 @@ namespace Riskeer.DuneErosion.Data
                 throw new ArgumentNullException(nameof(duneLocations));
             }
 
-            ClearDuneLocationData();
-
+            duneLocationCollection.Clear();
             duneLocationCollection.AddRange(duneLocations);
-            foreach (DuneLocation duneLocation in duneLocationCollection)
+
+            DuneLocationCalculationsForUserDefinedTargetProbabilities.ForEach(dlc =>
             {
-                AddCalculationsForDuneLocation(duneLocation);
-            }
+                dlc.DuneLocationCalculations.Clear();
+                dlc.DuneLocationCalculations.AddRange(duneLocations.Select(dl => new DuneLocationCalculation(dl)));
+            });
         }
 
         protected override void AddSectionResult(FailureMechanismSection section)
@@ -176,26 +178,6 @@ namespace Riskeer.DuneErosion.Data
         protected override void ClearSectionResults()
         {
             sectionResults.Clear();
-        }
-
-        private void ClearDuneLocationData()
-        {
-            duneLocationCollection.Clear();
-
-            calculationsForMechanismSpecificFactorizedSignalingNorm.Clear();
-            calculationsForMechanismSpecificSignalingNorm.Clear();
-            calculationsForMechanismSpecificLowerLimitNorm.Clear();
-            calculationsForLowerLimitNorm.Clear();
-            calculationsForFactorizedLowerLimitNorm.Clear();
-        }
-
-        private void AddCalculationsForDuneLocation(DuneLocation duneLocation)
-        {
-            calculationsForMechanismSpecificFactorizedSignalingNorm.Add(new DuneLocationCalculation(duneLocation));
-            calculationsForMechanismSpecificSignalingNorm.Add(new DuneLocationCalculation(duneLocation));
-            calculationsForMechanismSpecificLowerLimitNorm.Add(new DuneLocationCalculation(duneLocation));
-            calculationsForLowerLimitNorm.Add(new DuneLocationCalculation(duneLocation));
-            calculationsForFactorizedLowerLimitNorm.Add(new DuneLocationCalculation(duneLocation));
         }
     }
 }

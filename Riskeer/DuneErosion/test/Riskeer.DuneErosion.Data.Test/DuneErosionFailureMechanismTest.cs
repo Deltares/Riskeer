@@ -109,10 +109,10 @@ namespace Riskeer.DuneErosion.Data.Test
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.SetDuneLocations(null);
+            void Call() => failureMechanism.SetDuneLocations(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("duneLocations", paramName);
         }
 
@@ -120,7 +120,17 @@ namespace Riskeer.DuneErosion.Data.Test
         public void SetDuneLocations_Always_PreviousLocationsAndCalculationsCleared()
         {
             // Setup
-            var failureMechanism = new DuneErosionFailureMechanism();
+            var calculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability();
+            var calculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability();
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                {
+                    calculationsForTargetProbability1,
+                    calculationsForTargetProbability2
+                }
+            };
+
             failureMechanism.SetDuneLocations(new DuneLocation[]
             {
                 new TestDuneLocation()
@@ -128,31 +138,36 @@ namespace Riskeer.DuneErosion.Data.Test
 
             // Precondition
             CollectionAssert.IsNotEmpty(failureMechanism.DuneLocations);
-            CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForLowerLimitNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForFactorizedLowerLimitNorm);
+            CollectionAssert.IsNotEmpty(calculationsForTargetProbability1.DuneLocationCalculations);
+            CollectionAssert.IsNotEmpty(calculationsForTargetProbability2.DuneLocationCalculations);
 
             // Call
             failureMechanism.SetDuneLocations(Enumerable.Empty<DuneLocation>());
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
-            CollectionAssert.IsEmpty(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
-            CollectionAssert.IsEmpty(failureMechanism.CalculationsForLowerLimitNorm);
-            CollectionAssert.IsEmpty(failureMechanism.CalculationsForFactorizedLowerLimitNorm);
+            CollectionAssert.IsEmpty(calculationsForTargetProbability1.DuneLocationCalculations);
+            CollectionAssert.IsEmpty(calculationsForTargetProbability2.DuneLocationCalculations);
         }
 
         [Test]
         public void SetDuneLocations_MultipleDuneLocations_SetsExpectedLocationsAndCalculations()
         {
             // Setup
-            var failureMechanism = new DuneErosionFailureMechanism();
+            var calculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability();
+            var calculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability();
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                {
+                    calculationsForTargetProbability1,
+                    calculationsForTargetProbability2
+                }
+            };
+
             var duneLocation1 = new TestDuneLocation();
             var duneLocation2 = new TestDuneLocation();
+
             TestDuneLocation[] duneLocations =
             {
                 duneLocation1,
@@ -165,33 +180,13 @@ namespace Riskeer.DuneErosion.Data.Test
             // Assert
             CollectionAssert.AreEqual(duneLocations, failureMechanism.DuneLocations);
 
-            AssertNumberOfDuneLocationCalculations(failureMechanism, duneLocations.Length);
-            AssertDuneLocationCalculations(failureMechanism, 0, duneLocation1);
-            AssertDuneLocationCalculations(failureMechanism, 1, duneLocation2);
-        }
+            Assert.AreEqual(2, calculationsForTargetProbability1.DuneLocationCalculations.Count);
+            Assert.AreSame(duneLocation1, calculationsForTargetProbability1.DuneLocationCalculations[0].DuneLocation);
+            Assert.AreSame(duneLocation2, calculationsForTargetProbability1.DuneLocationCalculations[1].DuneLocation);
 
-        private static void AssertNumberOfDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism, int expectedNumberOfCalculations)
-        {
-            Assert.AreEqual(expectedNumberOfCalculations, failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, failureMechanism.CalculationsForLowerLimitNorm.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, failureMechanism.CalculationsForFactorizedLowerLimitNorm.Count());
-        }
-
-        private static void AssertDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism, int index, DuneLocation expectedDuneLocation)
-        {
-            AssertDefaultDuneLocationCalculation(expectedDuneLocation, failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.ElementAt(index));
-            AssertDefaultDuneLocationCalculation(expectedDuneLocation, failureMechanism.CalculationsForMechanismSpecificSignalingNorm.ElementAt(index));
-            AssertDefaultDuneLocationCalculation(expectedDuneLocation, failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.ElementAt(index));
-            AssertDefaultDuneLocationCalculation(expectedDuneLocation, failureMechanism.CalculationsForLowerLimitNorm.ElementAt(index));
-            AssertDefaultDuneLocationCalculation(expectedDuneLocation, failureMechanism.CalculationsForFactorizedLowerLimitNorm.ElementAt(index));
-        }
-
-        private static void AssertDefaultDuneLocationCalculation(DuneLocation expectedDuneLocation, DuneLocationCalculation calculation)
-        {
-            Assert.AreSame(expectedDuneLocation, calculation.DuneLocation);
-            Assert.IsNull(calculation.Output);
+            Assert.AreEqual(2, calculationsForTargetProbability2.DuneLocationCalculations.Count);
+            Assert.AreSame(duneLocation1, calculationsForTargetProbability2.DuneLocationCalculations[0].DuneLocation);
+            Assert.AreSame(duneLocation2, calculationsForTargetProbability2.DuneLocationCalculations[1].DuneLocation);
         }
     }
 }
