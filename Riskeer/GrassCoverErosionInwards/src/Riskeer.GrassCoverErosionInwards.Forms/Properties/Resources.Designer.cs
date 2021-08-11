@@ -208,6 +208,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Doelkans [1/jaar] .
+        /// </summary>
+        public static string DikeHeight_TargetProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeHeight_TargetProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is convergentie bereikt in de HBN berekening?.
         /// </summary>
         public static string DikeHeightOutput_Convergence_Description {
@@ -452,6 +461,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Doelkans [1/jaar]  .
+        /// </summary>
+        public static string OvertoppingRate_TargetProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("OvertoppingRate_TargetProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is convergentie bereikt in de overslagdebiet berekening?.
         /// </summary>
         public static string OvertoppingRateOutput_Convergence_Description {
@@ -520,15 +538,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         public static string ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName {
             get {
                 return ResourceManager.GetString("ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Doelkans [1/jaar].
-        /// </summary>
-        public static string TargetProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("TargetProbability_DisplayName", resourceCulture);
             }
         }
         

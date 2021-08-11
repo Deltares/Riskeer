@@ -242,7 +242,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         [PropertyOrder(dikeHeightTargetProbabilityPropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_DikeHeight), 5, 6)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.TargetProbability_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DikeHeight_TargetProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DikeHeight_TargetProbability_Description))]
         public double DikeHeightTargetProbability
         {
@@ -285,7 +285,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         [PropertyOrder(overtoppingRateTargetProbabilityPropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_OvertoppingRate), 6, 6)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.TargetProbability_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.OvertoppingRate_TargetProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.OvertoppingRate_TargetProbability_Description))]
         public double OvertoppingRateTargetProbability
         {

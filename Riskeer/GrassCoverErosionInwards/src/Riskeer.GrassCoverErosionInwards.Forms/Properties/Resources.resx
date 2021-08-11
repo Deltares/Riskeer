@@ -265,8 +265,11 @@
     <value>kritiek overslagdebiet
 [m³/s/m]</value>
   </data>
-  <data name="TargetProbability_DisplayName" xml:space="preserve">
-    <value>Doelkans [1/jaar]</value>
+  <data name="DikeHeight_TargetProbability_DisplayName" xml:space="preserve">
+    <value>Doelkans [1/jaar] </value>
+  </data>
+  <data name="OvertoppingRate_TargetProbability_DisplayName" xml:space="preserve">
+    <value>Doelkans [1/jaar]  </value>
   </data>
   <data name="DikeHeight_TargetProbability_Description" xml:space="preserve">
     <value>Overschrijdingskans waarvoor de bijbehorende dijkhoogte wordt berekend.</value>
