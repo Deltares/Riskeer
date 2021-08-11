@@ -171,6 +171,24 @@ namespace Core.Gui.Test.Forms.ViewHost
         }
 
         [Test]
+        public void AddDocumentView_WithTitle_ViewAddedWithExpectedTitle()
+        {
+            // Setup
+            using (var avalonDockViewHost = new AvalonDockViewHost())
+            {
+                const string title = "Random title";
+                
+                var testView = new TestView();
+
+                // Call
+                avalonDockViewHost.AddDocumentView(testView, title);
+
+                // Assert
+                Assert.IsTrue(IsTitleSet(avalonDockViewHost, testView, title));
+            }
+        }
+        
+        [Test]
         public void AddDocumentView_DocumentViewWasAlreadyAdded_NoDuplicationNoViewOpenedEventFired()
         {
             // Setup
@@ -545,6 +563,24 @@ namespace Core.Gui.Test.Forms.ViewHost
         }
 
         [Test]
+        public void AddToolView_WithTitle_ViewAddedWithExpectedTitle()
+        {
+            // Setup
+            using (var avalonDockViewHost = new AvalonDockViewHost())
+            {
+                const string title = "Random title";
+                
+                var testView = new TestView();
+
+                // Call
+                avalonDockViewHost.AddToolView(testView, ToolViewLocation.Left, title, string.Empty);
+
+                // Assert
+                Assert.IsTrue(IsTitleSet(avalonDockViewHost, testView, title));
+            }
+        }
+        
+        [Test]
         public void AddToolView_InvalidPosition_ThrowsInvalidEnumArgumentException()
         {
             // Setup
@@ -869,6 +905,15 @@ namespace Core.Gui.Test.Forms.ViewHost
                                      .Descendents()
                                      .OfType<LayoutContent>()
                                      .First(lc => ((WindowsFormsHost) lc.Content).Child == view).IconSource != null;
+        }
+        
+        private static bool IsTitleSet(AvalonDockViewHost avalonDockViewHost, IView view, string title)
+        {
+            return avalonDockViewHost.DockingManager
+                                     .Layout
+                                     .Descendents()
+                                     .OfType<LayoutContent>()
+                                     .First(lc => ((WindowsFormsHost) lc.Content).Child == view).Title == title;
         }
 
         private static void SetActiveView(AvalonDockViewHost avalonDockViewHost, IView view)
