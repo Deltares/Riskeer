@@ -39,6 +39,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Integration.Plugin.Properties;
+using Riskeer.Integration.TestUtil;
 
 namespace Riskeer.Integration.Plugin.Test.ImportInfos
 {
@@ -201,10 +202,8 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
+            IGui gui = StubFactory.CreateGuiStub(mocks);
             gui.Stub(g => g.MainWindow).Return(mainWindow);
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
             var calculationWithoutOutput = mocks.Stub<ICalculation>();
             calculationWithoutOutput.Stub(calc => calc.HasOutput).Return(false);
@@ -246,10 +245,8 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
+            IGui gui = StubFactory.CreateGuiStub(mocks);
             gui.Stub(g => g.MainWindow).Return(mainWindow);
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
             var calculationWithoutOutput = mocks.Stub<ICalculation>();
             calculationWithoutOutput.Stub(calc => calc.HasOutput).Return(true);

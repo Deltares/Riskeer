@@ -32,6 +32,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.IO.ReferenceLines;
+using Riskeer.Integration.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.ImportInfos
@@ -47,10 +48,8 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         public void SetUp()
         {
             mocks = new MockRepository();
-            var gui = mocks.Stub<IGui>();
+            IGui gui = StubFactory.CreateGuiStub(mocks);
             gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
 
             plugin = new RiskeerPlugin
