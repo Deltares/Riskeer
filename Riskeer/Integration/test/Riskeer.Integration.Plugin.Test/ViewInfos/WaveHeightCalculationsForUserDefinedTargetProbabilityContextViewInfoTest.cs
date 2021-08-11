@@ -42,6 +42,7 @@ using Riskeer.Common.Forms.GuiServices;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
+using Riskeer.Integration.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
@@ -274,9 +275,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            IGui gui = StubFactory.CreateGuiStub(mocks);
             gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
             gui.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());

@@ -434,9 +434,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var mockRepository = new MockRepository();
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mockRepository.Stub<IGui>();
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                IGui gui = StubFactory.CreateGuiStub(mockRepository);
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 mockRepository.ReplayAll();
