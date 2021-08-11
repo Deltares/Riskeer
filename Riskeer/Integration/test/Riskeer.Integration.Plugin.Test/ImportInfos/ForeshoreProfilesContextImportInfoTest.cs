@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui;
 using Core.Gui.Forms.Main;
+using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -205,6 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             gui.Stub(g => g.MainWindow).Return(mainWindow);
             gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
 
             var calculationWithoutOutput = mocks.Stub<ICalculation>();
             calculationWithoutOutput.Stub(calc => calc.HasOutput).Return(false);
@@ -250,6 +252,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             gui.Stub(g => g.MainWindow).Return(mainWindow);
             gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
 
             var calculationWithoutOutput = mocks.Stub<ICalculation>();
             calculationWithoutOutput.Stub(calc => calc.HasOutput).Return(true);

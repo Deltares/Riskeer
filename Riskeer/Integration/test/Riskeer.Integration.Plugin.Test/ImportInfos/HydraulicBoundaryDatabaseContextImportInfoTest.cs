@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui;
 using Core.Gui.Commands;
+using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -53,6 +54,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
             gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
             mocks.ReplayAll();
 
             plugin = new RiskeerPlugin
