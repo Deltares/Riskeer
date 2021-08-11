@@ -27,6 +27,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using System.Windows.Forms.Integration;
 using System.Windows.Input;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
@@ -53,6 +54,8 @@ using Core.Gui.TestUtil.Map;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Xceed.Wpf.AvalonDock;
+using Xceed.Wpf.AvalonDock.Layout;
 using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Test.Forms.Main
@@ -469,17 +472,22 @@ namespace Core.Gui.Test.Forms.Main
 
                 // Assert
                 Assert.IsInstanceOf<ProjectExplorer>(mainWindow.ProjectExplorer);
+                AssertViewTitle(viewHost.DockingManager, mainWindow.ProjectExplorer, "Projectverkenner");
                 Assert.IsNull(mainWindow.ProjectExplorer.Data);
 
                 Assert.IsInstanceOf<PropertyGridView>(mainWindow.PropertyGrid);
+                AssertViewTitle(viewHost.DockingManager, mainWindow.PropertyGrid, "Eigenschappen");
                 Assert.AreEqual(selectedObject, mainWindow.PropertyGrid.Data);
 
                 Assert.IsInstanceOf<MessageWindow>(mainWindow.MessageWindow);
+                AssertViewTitle(viewHost.DockingManager, mainWindow.MessageWindow, "Berichten");
 
                 Assert.IsInstanceOf<MapLegendView>(mainWindow.MapLegendView);
+                AssertViewTitle(viewHost.DockingManager, mainWindow.MapLegendView, "Kaart");
                 Assert.IsNull(GetMapControl(mainWindow.MapLegendView));
 
                 Assert.IsInstanceOf<ChartLegendView>(mainWindow.ChartLegendView);
+                AssertViewTitle(viewHost.DockingManager, mainWindow.ChartLegendView, "Grafiek");
                 Assert.IsNull(GetChartControl(mainWindow.ChartLegendView));
 
                 Assert.IsNull(viewHost.ActiveDocumentView);
@@ -1447,6 +1455,15 @@ namespace Core.Gui.Test.Forms.Main
         private static IChartControl GetChartControl(ChartLegendView chartLegendView)
         {
             return TypeUtils.GetProperty<IChartControl>(chartLegendView, "ChartControl");
+        }
+        
+        private static void AssertViewTitle(DockingManager dockingManager, IView view, string expectedTitle)
+        {
+            LayoutContent layoutContent =  dockingManager.Layout.Descendents()
+                                                         .OfType<LayoutContent>()
+                                                         .First(d => ((WindowsFormsHost) d.Content).Child == view);
+            
+            Assert.AreEqual(expectedTitle, layoutContent.Title);
         }
     }
 }
