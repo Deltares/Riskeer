@@ -93,7 +93,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             // Call
-            object viewData = info.GetViewData(new SimpleStructuresOutputContext(structuresCalculation));
+            object viewData = info.GetViewData(new StructuresOutputContext(structuresCalculation));
 
             // Assert
             Assert.AreSame(structuresCalculation, viewData);
@@ -110,17 +110,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             // Call
-            IView view = info.CreateInstance(new SimpleStructuresOutputContext(structuresCalculation));
+            IView view = info.CreateInstance(new StructuresOutputContext(structuresCalculation));
 
             // Assert
             Assert.IsInstanceOf<GeneralResultFaultTreeIllustrationPointView>(view);
             mocks.VerifyAll();
-        }
-
-        private class SimpleStructuresOutputContext : StructuresOutputContext
-        {
-            public SimpleStructuresOutputContext(IStructuresCalculation wrappedData)
-                : base(wrappedData) {}
         }
 
         public abstract class ShouldCloseGeneralResultFaultTreeIllustrationPointViewForStructuresTester : ShouldCloseViewWithCalculationDataTester

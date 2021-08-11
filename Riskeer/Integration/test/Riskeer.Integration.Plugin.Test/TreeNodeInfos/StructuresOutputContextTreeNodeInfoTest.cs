@@ -104,7 +104,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocksRepository.ReplayAll();
 
             // Call
-            Color color = info.ForeColor(new SimpleStructuresOutputContext(structuresCalculation));
+            Color color = info.ForeColor(new StructuresOutputContext(structuresCalculation));
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
@@ -119,7 +119,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocksRepository.ReplayAll();
 
             // Call
-            Color color = info.ForeColor(new SimpleStructuresOutputContext(structuresCalculation));
+            Color color = info.ForeColor(new StructuresOutputContext(structuresCalculation));
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
@@ -165,12 +165,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             // Assert
             // Assert expectancies called in TearDown()
-        }
-
-        private class SimpleStructuresOutputContext : StructuresOutputContext
-        {
-            public SimpleStructuresOutputContext(IStructuresCalculation wrappedData)
-                : base(wrappedData) {}
         }
     }
 }

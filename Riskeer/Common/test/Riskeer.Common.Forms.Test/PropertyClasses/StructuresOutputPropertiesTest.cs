@@ -55,7 +55,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var structuresOutput = new StructuresOutput(0, null);
 
             // Call
-            var properties = new SimpleStructuresOutputProperties(structuresOutput);
+            var properties = new StructuresOutputProperties(structuresOutput);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<StructuresOutput>>(properties);
@@ -66,7 +66,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_StructuresOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new SimpleStructuresOutputProperties(null);
+            void Call() => new StructuresOutputProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -81,7 +81,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var structuresOutput = new TestStructuresOutput(generalResult);
 
             // Call
-            var properties = new SimpleStructuresOutputProperties(structuresOutput);
+            var properties = new StructuresOutputProperties(structuresOutput);
 
             // Assert
             Assert.AreEqual(generalResult.GoverningWindDirection.Name, properties.WindDirection);
@@ -112,7 +112,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var structuresOutput = new StructuresOutput(0, null);
-            var properties = new SimpleStructuresOutputProperties(structuresOutput);
+            var properties = new StructuresOutputProperties(structuresOutput);
 
             // Call
             TopLevelFaultTreeIllustrationPointProperties[] illustrationPoints = properties.IllustrationPoints;
@@ -129,7 +129,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var structuresOutput = new StructuresOutput(0, generalResult);
 
             // Call
-            var properties = new SimpleStructuresOutputProperties(structuresOutput);
+            var properties = new StructuresOutputProperties(structuresOutput);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -185,7 +185,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var structuresOutput = new StructuresOutput(0, null);
 
             // Call
-            var properties = new SimpleStructuresOutputProperties(structuresOutput);
+            var properties = new StructuresOutputProperties(structuresOutput);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -204,12 +204,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                             "Betrouwbaarheidsindex faalkans [-]",
                                                                             "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
                                                                             true);
-        }
-
-        private class SimpleStructuresOutputProperties : StructuresOutputProperties
-        {
-            public SimpleStructuresOutputProperties(StructuresOutput structuresOutput)
-                : base(structuresOutput) {}
         }
     }
 }

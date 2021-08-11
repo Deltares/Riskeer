@@ -39,18 +39,12 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            var structuresOutputContext = new SimpleStructuresOutputContext(structuresCalculation);
+            var structuresOutputContext = new StructuresOutputContext(structuresCalculation);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IStructuresCalculation>>(structuresOutputContext);
             Assert.AreSame(structuresCalculation, structuresOutputContext.WrappedData);
             mocks.VerifyAll();
-        }
-
-        private class SimpleStructuresOutputContext : StructuresOutputContext
-        {
-            public SimpleStructuresOutputContext(IStructuresCalculation wrappedData)
-                : base(wrappedData) {}
         }
     }
 }
