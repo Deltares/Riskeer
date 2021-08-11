@@ -50,6 +50,7 @@ namespace Riskeer.DuneErosion.Data
         {
             sectionResults = new ObservableList<DuneErosionFailureMechanismSectionResult>();
             GeneralInput = new GeneralDuneErosionInput();
+            DuneLocationCalculationsForUserDefinedTargetProbabilities = new ObservableList<DuneLocationCalculationsForTargetProbability>();
         }
 
         /// <summary>
@@ -67,6 +68,11 @@ namespace Riskeer.DuneErosion.Data
                 return duneLocationCollection;
             }
         }
+
+        /// <summary>
+        /// Gets the dune location calculations corresponding to the user defined target probabilities.
+        /// </summary>
+        public ObservableList<DuneLocationCalculationsForTargetProbability> DuneLocationCalculationsForUserDefinedTargetProbabilities { get; }
 
         /// <summary>
         /// Gets the calculations corresponding to the mechanism specific factorized signaling norm.
