@@ -36,6 +36,7 @@ using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
+using Riskeer.Integration.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
@@ -215,10 +216,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
+                IGui gui = StubFactory.CreateGuiStub(mocks);
                 gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocks.ReplayAll();
 
                 using (var plugin = new RiskeerPlugin())
@@ -246,10 +245,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var mocks = new MockRepository();
-                var gui = mocks.Stub<IGui>();
+                IGui gui = StubFactory.CreateGuiStub(mocks);
                 gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocks.ReplayAll();
 
                 using (var plugin = new RiskeerPlugin())

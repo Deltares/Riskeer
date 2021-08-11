@@ -28,6 +28,7 @@ using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Integration.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
@@ -212,9 +213,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                IGui gui = StubFactory.CreateGuiStub(mocks);
                 gui.Stub(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 

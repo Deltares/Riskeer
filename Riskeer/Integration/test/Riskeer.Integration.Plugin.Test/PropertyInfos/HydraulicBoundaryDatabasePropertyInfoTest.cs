@@ -30,6 +30,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PropertyClasses;
+using Riskeer.Integration.TestUtil;
 
 namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {
@@ -65,10 +66,8 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             // Setup
             var mocks = new MockRepository();
             var mainWindow = mocks.Stub<IMainWindow>();
-            var gui = mocks.Stub<IGui>();
+            IGui gui = StubFactory.CreateGuiStub(mocks);
             gui.Stub(g => g.MainWindow).Return(mainWindow);
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
             mocks.ReplayAll();
 
             plugin.Gui = gui;

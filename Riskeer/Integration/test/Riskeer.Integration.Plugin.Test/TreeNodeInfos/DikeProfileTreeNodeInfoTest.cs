@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Integration.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
@@ -109,9 +110,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.Build()).Return(null);
 
-            var gui = mocks.Stub<IGui>();
-            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            IGui gui = StubFactory.CreateGuiStub(mocks);
 
             using (var treeViewControl = new TreeViewControl())
             {

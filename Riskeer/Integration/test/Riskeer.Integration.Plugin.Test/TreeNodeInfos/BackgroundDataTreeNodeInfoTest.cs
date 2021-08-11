@@ -48,6 +48,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Dialogs;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.Properties;
+using Riskeer.Integration.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
@@ -216,10 +217,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mockRepository.Stub<IGui>();
+                IGui gui = StubFactory.CreateGuiStub(mockRepository);
                 gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mockRepository.ReplayAll();
 
                 using (var plugin = new RiskeerPlugin())
@@ -246,10 +245,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSectionStateRootContext = new AssessmentSectionStateRootContext(new AssessmentSection(AssessmentSectionComposition.Dike));
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mockRepository.Stub<IGui>();
+                IGui gui = StubFactory.CreateGuiStub(mockRepository);
                 gui.Stub(g => g.Get(backgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mockRepository.ReplayAll();
 
                 using (var plugin = new RiskeerPlugin())
@@ -306,10 +303,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var viewCommands = mockRepository.Stub<IViewCommands>();
                 var mainWindow = mockRepository.Stub<IMainWindow>();
 
-                var gui = mockRepository.Stub<IGui>();
+                IGui gui = StubFactory.CreateGuiStub(mockRepository);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Stub(cmp => cmp.Get(backgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
@@ -368,10 +363,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var viewCommands = mockRepository.Stub<IViewCommands>();
                 var mainWindow = mockRepository.Stub<IMainWindow>();
 
-                var gui = mockRepository.Stub<IGui>();
+                IGui gui = StubFactory.CreateGuiStub(mockRepository);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Stub(cmp => cmp.Get(backgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
@@ -434,10 +427,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var viewCommands = mockRepository.Stub<IViewCommands>();
                 var mainWindow = mockRepository.Stub<IMainWindow>();
 
-                var gui = mockRepository.Stub<IGui>();
+                IGui gui = StubFactory.CreateGuiStub(mockRepository);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Stub(cmp => cmp.Get(newBackgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
@@ -503,10 +494,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var viewCommands = mockRepository.Stub<IViewCommands>();
                 var mainWindow = mockRepository.Stub<IMainWindow>();
 
-                var gui = mockRepository.Stub<IGui>();
+                IGui gui = StubFactory.CreateGuiStub(mockRepository);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Stub(cmp => cmp.Get(newBackgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
@@ -569,10 +558,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var viewCommands = mockRepository.Stub<IViewCommands>();
                 var mainWindow = mockRepository.Stub<IMainWindow>();
 
-                var gui = mockRepository.Stub<IGui>();
+                IGui gui = StubFactory.CreateGuiStub(mockRepository);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Stub(cmp => cmp.Get(newBackgroundData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();

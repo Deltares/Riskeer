@@ -32,6 +32,7 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Integration.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
@@ -207,10 +208,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     contextMenuBuilder.Expect(b => b.Build()).Return(null);
                 }
 
-                var gui = mocks.Stub<IGui>();
+                IGui gui = StubFactory.CreateGuiStub(mocks);
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(contextMenuBuilder);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
