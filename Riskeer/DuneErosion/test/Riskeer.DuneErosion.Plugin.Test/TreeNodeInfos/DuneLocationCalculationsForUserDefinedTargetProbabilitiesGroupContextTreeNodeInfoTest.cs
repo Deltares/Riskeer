@@ -221,22 +221,25 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_LocationsNotEmpty_ReturnsExpectedChildData()
         {
             // Setup
-            const double signalingNorm = 0.002;
-            const double lowerLimitNorm = 0.005;
-
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.FailureMechanismContribution.LowerLimitNorm = lowerLimitNorm;
-            assessmentSection.FailureMechanismContribution.SignalingNorm = signalingNorm;
+
+            var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability();
+            var duneLocationCalculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability();
 
             var failureMechanism = new DuneErosionFailureMechanism
             {
-                Contribution = 5
+                DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                {
+                    duneLocationCalculationsForTargetProbability1,
+                    duneLocationCalculationsForTargetProbability2
+                }
             };
 
             var locations = new ObservableList<DuneLocation>
             {
                 new TestDuneLocation()
             };
+
             var calculationsGroupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(locations, failureMechanism, assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
@@ -247,33 +250,18 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 object[] childNodeObjects = info.ChildNodeObjects(calculationsGroupContext);
 
                 // Assert
-                Assert.AreEqual(5, childNodeObjects.Length);
+                Assert.AreEqual(2, childNodeObjects.Length);
 
-                DuneLocationCalculationsContext[] calculationsContexts = childNodeObjects.OfType<DuneLocationCalculationsContext>().ToArray();
-                Assert.AreEqual(5, calculationsContexts.Length);
+                DuneLocationCalculationsForUserDefinedTargetProbabilityContext[] calculationsContexts = childNodeObjects.OfType<DuneLocationCalculationsForUserDefinedTargetProbabilityContext>().ToArray();
+                Assert.AreEqual(2, calculationsContexts.Length);
 
-                Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
-                Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(failureMechanism, c.FailureMechanism)));
+                Assert.AreSame(duneLocationCalculationsForTargetProbability1, calculationsContexts[0].WrappedData);
+                Assert.AreSame(failureMechanism, calculationsContexts[0].FailureMechanism);
+                Assert.AreSame(assessmentSection, calculationsContexts[0].AssessmentSection);
 
-                Assert.AreEqual("Iv", calculationsContexts[0].CategoryBoundaryName);
-                Assert.AreSame(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, calculationsContexts[0].WrappedData);
-                Assert.AreEqual(GetExpectedNorm(failureMechanism, signalingNorm / 30), calculationsContexts[0].GetNormFunc(), 1e-6);
-
-                Assert.AreEqual("IIv", calculationsContexts[1].CategoryBoundaryName);
-                Assert.AreSame(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, calculationsContexts[1].WrappedData);
-                Assert.AreEqual(GetExpectedNorm(failureMechanism, signalingNorm), calculationsContexts[1].GetNormFunc(), 1e-6);
-
-                Assert.AreEqual("IIIv", calculationsContexts[2].CategoryBoundaryName);
-                Assert.AreSame(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, calculationsContexts[2].WrappedData);
-                Assert.AreEqual(GetExpectedNorm(failureMechanism, lowerLimitNorm), calculationsContexts[2].GetNormFunc(), 1e-6);
-
-                Assert.AreEqual("IVv", calculationsContexts[3].CategoryBoundaryName);
-                Assert.AreSame(failureMechanism.CalculationsForLowerLimitNorm, calculationsContexts[3].WrappedData);
-                Assert.AreEqual(failureMechanismSpecificNormFactor * lowerLimitNorm, calculationsContexts[3].GetNormFunc(), 1e-6);
-
-                Assert.AreEqual("Vv", calculationsContexts[4].CategoryBoundaryName);
-                Assert.AreSame(failureMechanism.CalculationsForFactorizedLowerLimitNorm, calculationsContexts[4].WrappedData);
-                Assert.AreEqual(failureMechanismSpecificNormFactor * lowerLimitNorm * 30, calculationsContexts[4].GetNormFunc(), 1e-6);
+                Assert.AreSame(duneLocationCalculationsForTargetProbability2, calculationsContexts[1].WrappedData);
+                Assert.AreSame(failureMechanism, calculationsContexts[1].FailureMechanism);
+                Assert.AreSame(assessmentSection, calculationsContexts[1].AssessmentSection);
             }
         }
 
