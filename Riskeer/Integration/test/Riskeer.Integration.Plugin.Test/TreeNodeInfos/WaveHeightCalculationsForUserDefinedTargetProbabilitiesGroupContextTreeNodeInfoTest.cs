@@ -238,7 +238,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddTargetProbabilityIndex,
                                                                       "Doelkans toevoegen",
-                                                                      "Voeg een nieuwe doelkans toe aan deze map met golfhoogten.",
+                                                                      "Voeg een nieuwe doelkans toe aan deze map.",
                                                                       RiskeerCommonFormsResources.GenericInputOutputIcon);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRunWaveHeightCalculationsIndex,

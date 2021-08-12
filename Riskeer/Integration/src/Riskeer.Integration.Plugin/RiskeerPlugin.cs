@@ -2349,7 +2349,7 @@ namespace Riskeer.Integration.Plugin
 
             var addTargetProbabilityItem = new StrictContextMenuItem(
                 Resources.ContextMenuStrip_Add_TargetProbability,
-                Resources.ContextMenuStrip_Add_TargetProbability_WaterLevels_ToolTip,
+                Resources.ContextMenuStrip_Add_TargetProbability_ToolTip,
                 RiskeerCommonFormsResources.GenericInputOutputIcon,
                 (sender, args) =>
                 {
@@ -2451,7 +2451,7 @@ namespace Riskeer.Integration.Plugin
 
             var addTargetProbabilityItem = new StrictContextMenuItem(
                 Resources.ContextMenuStrip_Add_TargetProbability,
-                Resources.ContextMenuStrip_Add_TargetProbability_WaveHeights_ToolTip,
+                Resources.ContextMenuStrip_Add_TargetProbability_ToolTip,
                 RiskeerCommonFormsResources.GenericInputOutputIcon,
                 (sender, args) =>
                 {

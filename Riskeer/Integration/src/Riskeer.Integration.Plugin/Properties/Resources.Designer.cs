@@ -330,20 +330,11 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuwe doelkans toe aan deze map met waterstanden..
+        ///   Looks up a localized string similar to Voeg een nieuwe doelkans toe aan deze map..
         /// </summary>
-        public static string ContextMenuStrip_Add_TargetProbability_WaterLevels_ToolTip {
+        public static string ContextMenuStrip_Add_TargetProbability_ToolTip {
             get {
-                return ResourceManager.GetString("ContextMenuStrip_Add_TargetProbability_WaterLevels_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuwe doelkans toe aan deze map met golfhoogten..
-        /// </summary>
-        public static string ContextMenuStrip_Add_TargetProbability_WaveHeights_ToolTip {
-            get {
-                return ResourceManager.GetString("ContextMenuStrip_Add_TargetProbability_WaveHeights_ToolTip", resourceCulture);
+                return ResourceManager.GetString("ContextMenuStrip_Add_TargetProbability_ToolTip", resourceCulture);
             }
         }
         
