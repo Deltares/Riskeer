@@ -96,7 +96,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNotNull(info.CanRemove);
-            Assert.IsNull(info.OnNodeRemoved);
+            Assert.IsNotNull(info.OnNodeRemoved);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.CheckedState);
             Assert.IsNull(info.OnNodeChecked);
@@ -220,6 +220,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddDeleteItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.Build()).Return(null);

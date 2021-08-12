@@ -469,6 +469,8 @@ namespace Riskeer.DuneErosion.Plugin
                       .AddSeparator()
                       .AddCustomItem(calculateAllItem)
                       .AddSeparator()
+                      .AddDeleteItem()
+                      .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
         }
