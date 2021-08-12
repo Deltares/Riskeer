@@ -43,8 +43,6 @@ namespace Riskeer.Common.Service.Test
     [TestFixture]
     public class DesignWaterLevelCalculationActivityTest
     {
-        private const double validNorm = 0.005;
-
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
@@ -70,15 +68,11 @@ namespace Riskeer.Common.Service.Test
         [Test]
         public void Constructor_CalculationSettingsNull_ThrowsArgumentNullException()
         {
-            // Setup
-            const string locationName = "locationName";
-            const string calculationIdentifier = "1/200";
-
             // Call
-            void Call() => new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
+            void Call() => new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation("locationName")),
                                                                    null,
-                                                                   validNorm,
-                                                                   calculationIdentifier);
+                                                                   0.01,
+                                                                   "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -90,12 +84,12 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string calculationIdentifier = "1/200";
+            const string calculationIdentifier = "1/100";
 
             // Call
             var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                                    CreateCalculationSettings(),
-                                                                   validNorm,
+                                                                   0.01,
                                                                    calculationIdentifier);
 
             // Assert
@@ -111,7 +105,7 @@ namespace Riskeer.Common.Service.Test
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
             const string locationName = "locationName";
-            const string calculationIdentifier = "1/200";
+            const string calculationIdentifier = "1/100";
 
             var settings = new HydraulicBoundaryCalculationSettings(invalidFilePath,
                                                                     validHlcdFilePath,
@@ -119,7 +113,7 @@ namespace Riskeer.Common.Service.Test
                                                                     string.Empty);
             var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                                    settings,
-                                                                   validNorm,
+                                                                   0.01,
                                                                    calculationIdentifier);
 
             // Call
@@ -144,7 +138,7 @@ namespace Riskeer.Common.Service.Test
             // Setup
             const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
             const string locationName = "locationName";
-            const string calculationIdentifier = "1/200";
+            const string calculationIdentifier = "1/100";
 
             var settings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                                     validHlcdFilePath,
@@ -152,7 +146,7 @@ namespace Riskeer.Common.Service.Test
                                                                     invalidPreprocessorDirectory);
             var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                                    settings,
-                                                                   validNorm,
+                                                                   0.01,
                                                                    calculationIdentifier);
 
             // Call
@@ -172,7 +166,7 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Run_InvalidNorm_PerformValidationAndLogStartAndEndAndError()
+        public void Run_InvalidTargetProbability_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup
             const string locationName = "locationName";
@@ -206,8 +200,8 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string calculationIdentifier = "1/30";
-            const double norm = 1.0 / 30;
+            const string calculationIdentifier = "1/100";
+            const double targetProbability = 0.01;
 
             var calculator = new TestDesignWaterLevelCalculator
             {
@@ -235,7 +229,7 @@ namespace Riskeer.Common.Service.Test
 
             var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation),
                                                                    calculationSettings,
-                                                                   norm,
+                                                                   targetProbability,
                                                                    calculationIdentifier);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -246,7 +240,7 @@ namespace Riskeer.Common.Service.Test
                 // Assert
                 AssessmentLevelCalculationInput designWaterLevelCalculationInput = calculator.ReceivedInputs.Single();
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
-                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), designWaterLevelCalculationInput.Beta);
+                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), designWaterLevelCalculationInput.Beta);
             }
 
             Assert.AreEqual(ActivityState.Executed, activity.State);
@@ -258,8 +252,8 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string calculationIdentifier = "1/30";
-            const double norm = 1.0 / 30;
+            const string calculationIdentifier = "1/100";
+            const double targetProbability = 0.01;
 
             var calculator = new TestDesignWaterLevelCalculator
             {
@@ -279,7 +273,7 @@ namespace Riskeer.Common.Service.Test
 
             var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation),
                                                                    calculationSettings,
-                                                                   norm,
+                                                                   targetProbability,
                                                                    calculationIdentifier);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -310,7 +304,7 @@ namespace Riskeer.Common.Service.Test
         public void Run_ValidCalculation_SetsDesignWaterLevelAndConvergence(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
         {
             // Setup
-            const double norm = 1.0 / 30;
+            const double targetProbability = 0.01;
             const double expectedDesignWaterLevel = 3.5;
 
             var calculator = new TestDesignWaterLevelCalculator
@@ -333,8 +327,8 @@ namespace Riskeer.Common.Service.Test
 
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                                    CreateCalculationSettings(),
-                                                                   norm,
-                                                                   "1/30");
+                                                                   targetProbability,
+                                                                   "1/100");
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -359,7 +353,7 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string calculationIdentifier = "1/200";
+            const string calculationIdentifier = "1/100";
 
             var calculator = new TestDesignWaterLevelCalculator
             {
@@ -386,7 +380,7 @@ namespace Riskeer.Common.Service.Test
 
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                                    CreateCalculationSettings(),
-                                                                   validNorm,
+                                                                   0.01,
                                                                    calculationIdentifier);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -426,7 +420,7 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string calculationIdentifier = "1/300";
+            const string calculationIdentifier = "1/100";
 
             var calculator = new TestDesignWaterLevelCalculator
             {
@@ -450,10 +444,9 @@ namespace Riskeer.Common.Service.Test
                 Output = new TestHydraulicBoundaryLocationCalculationOutput(double.NaN, CalculationConvergence.CalculatedConverged)
             };
 
-            const double norm = 1.0 / 300;
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                                    CreateCalculationSettings(),
-                                                                   norm,
+                                                                   0.01,
                                                                    calculationIdentifier);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -482,7 +475,7 @@ namespace Riskeer.Common.Service.Test
         public void Finish_ActivityWithSpecificState_NotifyHydraulicBoundaryLocationCalculation(ActivityState state)
         {
             // Setup
-            const string calculationIdentifier = "1/200";
+            const string calculationIdentifier = "1/100";
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
@@ -494,7 +487,7 @@ namespace Riskeer.Common.Service.Test
 
             var activity = new TestDesignWaterLevelCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                                        CreateCalculationSettings(),
-                                                                       validNorm,
+                                                                       0.01,
                                                                        calculationIdentifier,
                                                                        state);
 
@@ -522,12 +515,12 @@ namespace Riskeer.Common.Service.Test
         {
             public TestDesignWaterLevelCalculationActivity(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                                                            HydraulicBoundaryCalculationSettings calculationSettings,
-                                                           double norm,
+                                                           double targetProbability,
                                                            string calculationIdentifier,
                                                            ActivityState state)
                 : base(hydraulicBoundaryLocationCalculation,
                        calculationSettings,
-                       norm,
+                       targetProbability,
                        calculationIdentifier)
             {
                 State = state;

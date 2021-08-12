@@ -30,7 +30,7 @@ namespace Riskeer.Common.Service
     /// </summary>
     internal class DesignWaterLevelCalculationActivity : CalculatableActivity
     {
-        private readonly double norm;
+        private readonly double targetProbability;
         private readonly ICalculationMessageProvider messageProvider;
         private readonly DesignWaterLevelCalculationService calculationService;
         private readonly HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation;
@@ -42,7 +42,7 @@ namespace Riskeer.Common.Service
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
         /// hydraulic boundary calculation settings.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="targetProbability">The target probability to use during the calculation.</param>
         /// <param name="calculationIdentifier">The calculation identifier to use in all messages.</param>
         /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> or
@@ -50,7 +50,7 @@ namespace Riskeer.Common.Service
         /// <exception cref="ArgumentException">Thrown when <paramref name="calculationIdentifier"/> is <c>null</c> or empty.</exception>
         public DesignWaterLevelCalculationActivity(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                                                    HydraulicBoundaryCalculationSettings calculationSettings,
-                                                   double norm,
+                                                   double targetProbability,
                                                    string calculationIdentifier)
             : base(hydraulicBoundaryLocationCalculation)
         {
@@ -63,7 +63,7 @@ namespace Riskeer.Common.Service
 
             this.hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocationCalculation;
             this.calculationSettings = calculationSettings;
-            this.norm = norm;
+            this.targetProbability = targetProbability;
 
             calculationService = new DesignWaterLevelCalculationService();
 
@@ -72,14 +72,14 @@ namespace Riskeer.Common.Service
 
         protected override bool Validate()
         {
-            return calculationService.Validate(calculationSettings, norm);
+            return calculationService.Validate(calculationSettings, targetProbability);
         }
 
         protected override void PerformCalculation()
         {
             calculationService.Calculate(hydraulicBoundaryLocationCalculation,
                                          calculationSettings,
-                                         norm,
+                                         targetProbability,
                                          messageProvider);
         }
 
