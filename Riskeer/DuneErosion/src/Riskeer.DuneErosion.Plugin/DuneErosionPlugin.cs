@@ -389,6 +389,8 @@ namespace Riskeer.DuneErosion.Plugin
                       .AddSeparator()
                       .AddCustomItem(CreateCalculateAllItem(nodeData.FailureMechanism, nodeData.AssessmentSection))
                       .AddSeparator()
+                      .AddDeleteChildrenItem()
+                      .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
                       .Build();
