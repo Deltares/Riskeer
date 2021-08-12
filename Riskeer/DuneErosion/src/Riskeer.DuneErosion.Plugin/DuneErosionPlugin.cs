@@ -50,8 +50,9 @@ using Riskeer.DuneErosion.IO;
 using Riskeer.DuneErosion.Plugin.FileImporters;
 using Riskeer.DuneErosion.Plugin.Properties;
 using Riskeer.DuneErosion.Service;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerCommonPluginResources = Riskeer.Common.Plugin.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Plugin
 {
@@ -365,6 +366,18 @@ namespace Riskeer.DuneErosion.Plugin
             object parentData,
             TreeViewControl treeViewControl)
         {
+            var addTargetProbabilityItem = new StrictContextMenuItem(
+                RiskeerCommonPluginResources.ContextMenuStrip_Add_TargetProbability,
+                RiskeerCommonPluginResources.ContextMenuStrip_Add_TargetProbability_ToolTip,
+                RiskeerCommonFormsResources.GenericInputOutputIcon,
+                (sender, args) =>
+                {
+                    DuneLocationCalculationsForTargetProbability hydraulicBoundaryLocationCalculationsForTargetProbability = CreateDuneLocationCalculationsForTargetProbability(nodeData.FailureMechanism);
+
+                    nodeData.FailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(hydraulicBoundaryLocationCalculationsForTargetProbability);
+                    nodeData.FailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
+                });
+            
             return Gui.Get(nodeData, treeViewControl)
                       .AddExportItem()
                       .AddSeparator()
@@ -389,6 +402,19 @@ namespace Riskeer.DuneErosion.Plugin
                                                                                                             context.AssessmentSection))
                           .Cast<object>()
                           .ToArray();
+        }
+
+        private static DuneLocationCalculationsForTargetProbability CreateDuneLocationCalculationsForTargetProbability(DuneErosionFailureMechanism failureMechanism)
+        {
+            var hydraulicBoundaryLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
+            {
+                TargetProbability = 0.01
+            };
+
+            hydraulicBoundaryLocationCalculationsForTargetProbability.DuneLocationCalculations.AddRange(
+                failureMechanism.DuneLocations.Select(dl => new DuneLocationCalculation(dl)));
+            
+            return hydraulicBoundaryLocationCalculationsForTargetProbability;
         }
 
         #endregion
