@@ -68,7 +68,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocation>(),
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocationCalculationsForTargetProbability>(),
                                                                                                     new DuneErosionFailureMechanism(),
                                                                                                     assessmentSection);
 
@@ -99,7 +99,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
             {
                 new TestDuneLocation()
             });
-            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocation>(),
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocationCalculationsForTargetProbability>(),
                                                                                                     failureMechanism,
                                                                                                     assessmentSection);
 
@@ -131,7 +131,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
             {
                 new TestDuneLocation()
             });
-            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocation>(),
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocationCalculationsForTargetProbability>(),
                                                                                                     failureMechanism,
                                                                                                     assessmentSection);
             getCalculationsFunc(context.FailureMechanism).Single().Output = new TestDuneLocationCalculationOutput();
