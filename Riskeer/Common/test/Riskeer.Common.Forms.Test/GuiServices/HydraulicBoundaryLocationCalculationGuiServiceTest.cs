@@ -83,7 +83,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, 0.01, "1/10000");
+            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, 0.01, "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -103,7 +103,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.CalculateDesignWaterLevels(null, assessmentSection, 0.01, "1/10000");
+            void Call() => guiService.CalculateDesignWaterLevels(null, assessmentSection, 0.01, "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -126,7 +126,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "1/10000");
+            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "1/100");
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -140,7 +140,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateDesignWaterLevels_InvalidNorm_LogsError()
+        public void CalculateDesignWaterLevels_InvalidTargetProbability_LogsError()
         {
             // Setup
             var mocks = new MockRepository();
@@ -154,7 +154,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 1.0, "1/10000");
+            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 1.0, "1/1");
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, "Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.");
@@ -183,7 +183,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "1/10000");
+                void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "1/100");
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(Call, 0);
@@ -197,7 +197,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         {
             // Setup
             const string hydraulicLocationName = "name";
-            const string calculationIdentifier = "1/10000";
+            const string calculationIdentifier = "1/100";
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
@@ -264,7 +264,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, 0.01, "1/10000");
+            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, 0.01, "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -284,7 +284,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.CalculateWaveHeights(null, assessmentSection, 0.01, "1/10000");
+            void Call() => guiService.CalculateWaveHeights(null, assessmentSection, 0.01, "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -307,7 +307,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "1/10000");
+            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "1/100");
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -320,7 +320,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateWaveHeights_InvalidNorm_LogsError()
+        public void CalculateWaveHeights_InvalidTargetProbability_LogsError()
         {
             // Setup
             var mocks = new MockRepository();
@@ -334,7 +334,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
             var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 1.0, "1/10000");
+            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 1.0, "1/1");
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, "Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.");
@@ -362,7 +362,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "1/10000");
+                void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "1/100");
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(Call, 0);
@@ -376,7 +376,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         {
             // Setup
             const string hydraulicLocationName = "name";
-            const string calculationIdentifier = "1/10000";
+            const string calculationIdentifier = "1/100";
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);

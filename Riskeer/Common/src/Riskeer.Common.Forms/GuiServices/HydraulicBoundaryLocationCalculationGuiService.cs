@@ -57,7 +57,7 @@ namespace Riskeer.Common.Forms.GuiServices
 
         public void CalculateDesignWaterLevels(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                IAssessmentSection assessmentSection,
-                                               double norm,
+                                               double targetProbability,
                                                string calculationIdentifier)
         {
             if (assessmentSection == null)
@@ -70,17 +70,17 @@ namespace Riskeer.Common.Forms.GuiServices
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            RunActivities(assessmentSection.HydraulicBoundaryDatabase, norm,
+            RunActivities(assessmentSection.HydraulicBoundaryDatabase, targetProbability,
                           HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                               calculations,
                               assessmentSection,
-                              norm,
+                              targetProbability,
                               calculationIdentifier));
         }
 
         public void CalculateWaveHeights(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                          IAssessmentSection assessmentSection,
-                                         double norm,
+                                         double targetProbability,
                                          string calculationIdentifier)
         {
             if (assessmentSection == null)
@@ -93,15 +93,15 @@ namespace Riskeer.Common.Forms.GuiServices
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            RunActivities(assessmentSection.HydraulicBoundaryDatabase, norm,
+            RunActivities(assessmentSection.HydraulicBoundaryDatabase, targetProbability,
                           HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                               calculations,
                               assessmentSection,
-                              norm,
+                              targetProbability,
                               calculationIdentifier));
         }
 
-        private void RunActivities(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, double norm, IEnumerable<CalculatableActivity> activities)
+        private void RunActivities(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, double targetProbability, IEnumerable<CalculatableActivity> activities)
         {
             string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
                 hydraulicBoundaryDatabase.FilePath,
@@ -111,7 +111,7 @@ namespace Riskeer.Common.Forms.GuiServices
 
             if (string.IsNullOrEmpty(validationProblem))
             {
-                TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, logMessage => validationProblem = logMessage);
+                TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(targetProbability, logMessage => validationProblem = logMessage);
             }
 
             if (string.IsNullOrEmpty(validationProblem))

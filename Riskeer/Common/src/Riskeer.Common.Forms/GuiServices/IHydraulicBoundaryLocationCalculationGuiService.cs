@@ -36,14 +36,14 @@ namespace Riskeer.Common.Forms.GuiServices
         /// </summary>
         /// <param name="calculations">The calculations to perform.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
-        /// <param name="norm">The norm to use during the calculations.</param>
+        /// <param name="targetProbability">The target probability to use during the calculations.</param>
         /// <param name="calculationIdentifier">The calculation identifier to use in all messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="calculationIdentifier"/> is <c>null</c> or empty.</exception>
         void CalculateDesignWaterLevels(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                         IAssessmentSection assessmentSection,
-                                        double norm,
+                                        double targetProbability,
                                         string calculationIdentifier);
 
         /// <summary>
@@ -51,14 +51,14 @@ namespace Riskeer.Common.Forms.GuiServices
         /// </summary>
         /// <param name="calculations">The calculations to perform.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
-        /// <param name="norm">The norm to use during the calculations.</param>
+        /// <param name="targetProbability">The target probability to use during the calculations.</param>
         /// <param name="calculationIdentifier">The calculation identifier to use in all messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="calculationIdentifier"/> is <c>null</c> or empty.</exception>
         void CalculateWaveHeights(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                   IAssessmentSection assessmentSection,
-                                  double norm,
+                                  double targetProbability,
                                   string calculationIdentifier);
     }
 }
