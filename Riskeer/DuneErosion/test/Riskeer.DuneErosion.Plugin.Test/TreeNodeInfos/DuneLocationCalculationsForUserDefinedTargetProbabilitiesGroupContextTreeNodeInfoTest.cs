@@ -52,6 +52,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextTreeNodeInfoTest
     {
+        private const int contextMenuAddTargetProbabilityIndex = 0;
         private const int contextMenuCalculateAllIndex = 4;
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryDatabase");
@@ -213,6 +214,55 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             // Assert
             orderedMockRepository.VerifyAll();
+            mockRepository.VerifyAll();
+        }
+        
+        [Test]
+        public void ContextMenuStrip_Always_AddCustomItems()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var nodeData = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocation>(),
+                                                                                                     new DuneErosionFailureMechanism(),
+                                                                                                     assessmentSection);
+
+            var mockRepository = new MockRepository();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                IGui gui = StubFactory.CreateGuiStub(mockRepository);
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new DuneErosionPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                    {
+                        // Assert
+                        Assert.AreEqual(8, menu.Items.Count);
+
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddTargetProbabilityIndex,
+                                                                      "Doelkans toevoegen",
+                                                                      "Voeg een nieuwe doelkans toe aan deze map.",
+                                                                      RiskeerCommonFormsResources.GenericInputOutputIcon);
+
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                                      "Alles be&rekenen",
+                                                                      "Er is geen hydraulische belastingendatabase geïmporteerd.",
+                                                                      RiskeerCommonFormsResources.CalculateAllIcon,
+                                                                      false);
+                    }
+                }
+            }
+
+            // Assert
             mockRepository.VerifyAll();
         }
 

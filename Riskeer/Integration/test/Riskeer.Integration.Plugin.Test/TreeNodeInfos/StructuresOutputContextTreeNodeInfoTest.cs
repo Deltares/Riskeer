@@ -30,7 +30,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
-using Riskeer.Integration.TestUtil;
+using Riskeer.Common.Plugin.TestUtil;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {

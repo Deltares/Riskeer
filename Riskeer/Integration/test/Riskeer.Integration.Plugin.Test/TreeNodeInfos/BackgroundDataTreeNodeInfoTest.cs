@@ -43,12 +43,12 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Common.Util.TypeConverters;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Dialogs;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.Properties;
-using Riskeer.Integration.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos

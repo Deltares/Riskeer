@@ -38,8 +38,8 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.IO.FileImporters;
+using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Plugin.Properties;
-using Riskeer.Integration.TestUtil;
 
 namespace Riskeer.Integration.Plugin.Test.UpdateInfos
 {
