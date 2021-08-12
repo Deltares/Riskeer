@@ -77,8 +77,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             yield return new PropertyInfo<GrassCoverErosionOutwardsFailurePathContext, GrassCoverErosionOutwardsFailurePathProperties>
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsFailurePathProperties(
-                    context.WrappedData,
-                    new FailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>())
+                    context.WrappedData)
             };
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsOutputContext, GrassCoverErosionOutwardsWaveConditionsOutputProperties>

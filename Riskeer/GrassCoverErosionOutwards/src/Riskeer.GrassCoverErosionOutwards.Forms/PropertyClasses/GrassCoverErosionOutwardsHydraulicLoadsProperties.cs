@@ -48,14 +48,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsHydraulicLoadsProperties(
-            GrassCoverErosionOutwardsFailureMechanism data) : base(data, new ConstructionProperties
-        {
-            NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex,
-            ContributionPropertyIndex = contributionPropertyIndex
-        }) {}
+        public GrassCoverErosionOutwardsHydraulicLoadsProperties(GrassCoverErosionOutwardsFailureMechanism data)
+            : base(data, new ConstructionProperties
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex,
+                GroupPropertyIndex = groupPropertyIndex,
+                ContributionPropertyIndex = contributionPropertyIndex
+            }) {}
 
         #region Model settings
 

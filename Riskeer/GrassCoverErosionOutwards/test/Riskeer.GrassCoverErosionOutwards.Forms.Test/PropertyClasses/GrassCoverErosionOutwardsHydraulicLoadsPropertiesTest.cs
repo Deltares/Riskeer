@@ -64,7 +64,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
-        { // Call
+        {
+            // Call
             var properties = new GrassCoverErosionOutwardsHydraulicLoadsProperties(new GrassCoverErosionOutwardsFailureMechanism());
 
             // Assert

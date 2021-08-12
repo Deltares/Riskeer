@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
-using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -41,31 +38,20 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
         private const int nPropertyIndex = 5;
-        private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailurePathProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsFailurePathProperties(
-            GrassCoverErosionOutwardsFailureMechanism data,
-            IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism> handler) : base(data, new ConstructionProperties
-        {
-            NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex,
-            ContributionPropertyIndex = contributionPropertyIndex
-        })
-        {
-            if (handler == null)
+        public GrassCoverErosionOutwardsFailurePathProperties(GrassCoverErosionOutwardsFailureMechanism data)
+            : base(data, new ConstructionProperties
             {
-                throw new ArgumentNullException(nameof(handler));
-            }
-            
-            propertyChangeHandler = handler;
-        }
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex,
+                GroupPropertyIndex = groupPropertyIndex,
+                ContributionPropertyIndex = contributionPropertyIndex
+            }) {}
 
         #region Length effect parameters
 
@@ -81,23 +67,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
             set
             {
-                IEnumerable<IObservable> affectedObjects = propertyChangeHandler.SetPropertyValueAfterConfirmation(
-                    data,
-                    value,
-                    (f, v) => f.GeneralInput.N = v);
-
-                NotifyAffectedObjects(affectedObjects);
+                data.GeneralInput.N = value;
+                data.NotifyObservers();
             }
         }
 
         #endregion
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
-        }
     }
 }

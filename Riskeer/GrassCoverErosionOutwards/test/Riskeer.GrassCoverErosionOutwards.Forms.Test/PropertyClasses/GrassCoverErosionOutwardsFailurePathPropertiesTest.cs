@@ -28,8 +28,6 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.Common.Forms.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
 
@@ -45,28 +43,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         private const int nPropertyIndex = 4;
 
         [Test]
-        public void Constructor_ChangeHandlerNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new GrassCoverErosionOutwardsFailurePathProperties(new GrassCoverErosionOutwardsFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("handler", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
-            mocks.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var properties = new GrassCoverErosionOutwardsFailurePathProperties(failureMechanism, handler);
+            var properties = new GrassCoverErosionOutwardsFailurePathProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionOutwardsFailureMechanismProperties>(properties);
@@ -80,22 +63,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.N,
                             properties.N,
                             properties.N.GetAccuracy());
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionOutwardsFailureMechanism>>();
-            mocks.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var properties = new GrassCoverErosionOutwardsFailurePathProperties(failureMechanism, handler);
+            var properties = new GrassCoverErosionOutwardsFailurePathProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -137,8 +114,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             lengthEffectCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -150,19 +125,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
+            var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var handler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionOutwardsFailureMechanism, double>(
-                failureMechanism,
-                newN,
-                new[]
-                {
-                    observable
-                });
+            failureMechanism.Attach(observer);
 
-            var properties = new GrassCoverErosionOutwardsFailurePathProperties(failureMechanism, handler);
+            var properties = new GrassCoverErosionOutwardsFailurePathProperties(failureMechanism);
 
             // Call
             void Call() => properties.N = (RoundedDouble) newN;
@@ -170,7 +139,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Assert
             const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-            Assert.IsTrue(handler.Called);
 
             mocks.VerifyAll();
         }
@@ -183,27 +151,20 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var handler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionOutwardsFailureMechanism, double>(
-                failureMechanism,
-                newN,
-                new[]
-                {
-                    observable
-                });
+            failureMechanism.Attach(observer);
 
-            var properties = new GrassCoverErosionOutwardsFailurePathProperties(failureMechanism, handler);
+            var properties = new GrassCoverErosionOutwardsFailurePathProperties(failureMechanism);
 
             // Call
             properties.N = (RoundedDouble) newN;
 
             // Assert
-            Assert.AreEqual(newN, failureMechanism.GeneralInput.N);
-            Assert.IsTrue(handler.Called);
+            Assert.AreEqual(newN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
 
             mocks.VerifyAll();
         }
