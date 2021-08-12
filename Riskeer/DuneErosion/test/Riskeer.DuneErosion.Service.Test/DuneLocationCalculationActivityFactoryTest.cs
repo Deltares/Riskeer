@@ -29,7 +29,6 @@ using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
@@ -60,7 +59,7 @@ namespace Riskeer.DuneErosion.Service.Test
             // Call
             void Call() => DuneLocationCalculationActivityFactory.CreateCalculationActivities(null,
                                                                                               assessmentSection,
-                                                                                              double.NaN,
+                                                                                              0.01,
                                                                                               "1/100");
 
             // Assert
@@ -75,7 +74,7 @@ namespace Riskeer.DuneErosion.Service.Test
             // Call
             void Call() => DuneLocationCalculationActivityFactory.CreateCalculationActivities(Enumerable.Empty<DuneLocationCalculation>(),
                                                                                               null,
-                                                                                              double.NaN,
+                                                                                              0.01,
                                                                                               "1/100");
 
             // Assert
@@ -155,9 +154,23 @@ namespace Riskeer.DuneErosion.Service.Test
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessor);
 
+            var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability
+            {
+                TargetProbability = 0.1
+            };
+
+            var duneLocationCalculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability
+            {
+                TargetProbability = 0.01
+            };
+
             var failureMechanism = new DuneErosionFailureMechanism
             {
-                Contribution = 5
+                DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                {
+                    duneLocationCalculationsForTargetProbability1,
+                    duneLocationCalculationsForTargetProbability2
+                }
             };
 
             var duneLocation1 = new DuneLocation(1, "locationName1", new Point2D(1, 1), new DuneLocation.ConstructionProperties());
@@ -173,88 +186,53 @@ namespace Riskeer.DuneErosion.Service.Test
             CalculatableActivity[] activities = DuneLocationCalculationActivityFactory.CreateCalculationActivities(failureMechanism, assessmentSection).ToArray();
 
             // Assert
-            Assert.AreEqual(10, activities.Length);
+            Assert.AreEqual(4, activities.Length);
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            double mechanismSpecificFactorizedSignalingNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm);
+
             AssertDuneLocationCalculationActivity(activities[0],
-                                                  "Iv",
+                                                  "1/10",
                                                   duneLocation1.Name,
                                                   duneLocation1.Id,
-                                                  mechanismSpecificFactorizedSignalingNorm,
+                                                  duneLocationCalculationsForTargetProbability1.TargetProbability,
                                                   hydraulicBoundaryDatabase);
             AssertDuneLocationCalculationActivity(activities[1],
-                                                  "Iv",
+                                                  "1/10",
                                                   duneLocation2.Name,
                                                   duneLocation2.Id,
-                                                  mechanismSpecificFactorizedSignalingNorm,
+                                                  duneLocationCalculationsForTargetProbability1.TargetProbability,
                                                   hydraulicBoundaryDatabase);
 
-            double mechanismSpecificSignalingNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm);
             AssertDuneLocationCalculationActivity(activities[2],
-                                                  "IIv",
+                                                  "1/100",
                                                   duneLocation1.Name,
                                                   duneLocation1.Id,
-                                                  mechanismSpecificSignalingNorm,
+                                                  duneLocationCalculationsForTargetProbability2.TargetProbability,
                                                   hydraulicBoundaryDatabase);
             AssertDuneLocationCalculationActivity(activities[3],
-                                                  "IIv",
+                                                  "1/100",
                                                   duneLocation2.Name,
                                                   duneLocation2.Id,
-                                                  mechanismSpecificSignalingNorm,
-                                                  hydraulicBoundaryDatabase);
-
-            double mechanismSpecificLowerLimitNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm);
-            AssertDuneLocationCalculationActivity(activities[4],
-                                                  "IIIv",
-                                                  duneLocation1.Name,
-                                                  duneLocation1.Id,
-                                                  mechanismSpecificLowerLimitNorm,
-                                                  hydraulicBoundaryDatabase);
-            AssertDuneLocationCalculationActivity(activities[5],
-                                                  "IIIv",
-                                                  duneLocation2.Name,
-                                                  duneLocation2.Id,
-                                                  mechanismSpecificLowerLimitNorm,
-                                                  hydraulicBoundaryDatabase);
-
-            double lowerLimitNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm);
-            AssertDuneLocationCalculationActivity(activities[6],
-                                                  "IVv",
-                                                  duneLocation1.Name,
-                                                  duneLocation1.Id,
-                                                  lowerLimitNorm,
-                                                  hydraulicBoundaryDatabase);
-            AssertDuneLocationCalculationActivity(activities[7],
-                                                  "IVv",
-                                                  duneLocation2.Name,
-                                                  duneLocation2.Id,
-                                                  lowerLimitNorm,
-                                                  hydraulicBoundaryDatabase);
-
-            double factorizedLowerLimitNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm);
-            AssertDuneLocationCalculationActivity(activities[8],
-                                                  "Vv",
-                                                  duneLocation1.Name,
-                                                  duneLocation1.Id,
-                                                  factorizedLowerLimitNorm,
-                                                  hydraulicBoundaryDatabase);
-            AssertDuneLocationCalculationActivity(activities[9],
-                                                  "Vv",
-                                                  duneLocation2.Name,
-                                                  duneLocation2.Id,
-                                                  factorizedLowerLimitNorm,
+                                                  duneLocationCalculationsForTargetProbability2.TargetProbability,
                                                   hydraulicBoundaryDatabase);
         }
 
         private static AssessmentSectionStub CreateAssessmentSection(bool usePreprocessor)
         {
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = validFilePath,
+                    HydraulicLocationConfigurationSettings =
+                    {
+                        CanUsePreprocessor = true,
+                        UsePreprocessor = usePreprocessor,
+                        PreprocessorDirectory = validPreprocessorDirectory
+                    }
+                }
+            };
 
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = usePreprocessor;
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = validPreprocessorDirectory;
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             return assessmentSection;
