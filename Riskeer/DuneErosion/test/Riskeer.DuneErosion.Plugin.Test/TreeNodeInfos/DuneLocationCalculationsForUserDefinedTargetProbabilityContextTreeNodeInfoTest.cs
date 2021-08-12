@@ -90,7 +90,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);
-            Assert.IsNull(info.EnsureVisibleOnCreate);
+            Assert.IsNotNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ExpandOnCreate);
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
@@ -140,6 +140,16 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GenericInputOutputIcon, image);
         }
 
+        [Test]
+        public void EnsureVisibleOnCreate_Always_ReturnsTrue()
+        {
+            // Call
+            bool ensureVisibleOnCreate = info.EnsureVisibleOnCreate(null, null);
+
+            // Assert
+            Assert.IsTrue(ensureVisibleOnCreate);
+        }
+        
         [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
