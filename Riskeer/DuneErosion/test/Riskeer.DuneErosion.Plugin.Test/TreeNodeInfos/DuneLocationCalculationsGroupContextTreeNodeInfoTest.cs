@@ -114,7 +114,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var failureMechanism = new DuneErosionFailureMechanism();
             var locations = new ObservableList<DuneLocation>();
 
-            var calculationsGroupContext = new DuneLocationCalculationsGroupContext(locations, failureMechanism, assessmentSection);
+            var calculationsGroupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(locations, failureMechanism, assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -139,7 +139,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 new TestDuneLocation()
             };
 
-            var calculationsGroupContext = new DuneLocationCalculationsGroupContext(locations, failureMechanism, assessmentSection);
+            var calculationsGroupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(locations, failureMechanism, assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -191,9 +191,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             orderedMockRepository.ReplayAll();
 
-            var nodeData = new DuneLocationCalculationsGroupContext(new ObservableList<DuneLocation>(),
-                                                                    new DuneErosionFailureMechanism(),
-                                                                    assessmentSection);
+            var nodeData = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocation>(),
+                                                                                                     new DuneErosionFailureMechanism(),
+                                                                                                     assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -237,7 +237,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 new TestDuneLocation()
             };
-            var calculationsGroupContext = new DuneLocationCalculationsGroupContext(locations, failureMechanism, assessmentSection);
+            var calculationsGroupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(locations, failureMechanism, assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -289,7 +289,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             assessmentSection.FailureMechanismContribution.SignalingNorm = signalingNorm;
 
             var locations = new ObservableList<DuneLocation>();
-            var calculationsGroupContext = new DuneLocationCalculationsGroupContext(locations, new DuneErosionFailureMechanism(), assessmentSection);
+            var calculationsGroupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(locations, new DuneErosionFailureMechanism(), assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -316,9 +316,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 duneLocation
             });
 
-            var groupContext = new DuneLocationCalculationsGroupContext(new ObservableList<DuneLocation>(),
-                                                                        failureMechanism,
-                                                                        assessmentSection);
+            var groupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocation>(),
+                                                                                                         failureMechanism,
+                                                                                                         assessmentSection);
 
             var mocks = new MockRepository();
 
@@ -366,9 +366,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            var groupContext = new DuneLocationCalculationsGroupContext(new ObservableList<DuneLocation>(),
-                                                                        failureMechanism,
-                                                                        assessmentSection);
+            var groupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocation>(),
+                                                                                                         failureMechanism,
+                                                                                                         assessmentSection);
 
             var mocks = new MockRepository();
 
@@ -426,16 +426,16 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 duneLocation
             });
 
-            var groupContext = new DuneLocationCalculationsGroupContext(new ObservableList<DuneLocation>(),
-                                                                        failureMechanism,
-                                                                        assessmentSection);
+            var groupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocation>(),
+                                                                                                         failureMechanism,
+                                                                                                         assessmentSection);
 
             var mocks = new MockRepository();
 
             using (var treeViewControl = new TreeViewControl())
             {
                 IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
-                
+
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
@@ -506,7 +506,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(DuneErosionPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneLocationCalculationsGroupContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext));
         }
     }
 }

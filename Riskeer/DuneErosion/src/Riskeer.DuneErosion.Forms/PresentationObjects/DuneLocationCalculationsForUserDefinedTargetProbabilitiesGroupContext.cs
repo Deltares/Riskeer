@@ -28,21 +28,20 @@ using Riskeer.DuneErosion.Data;
 namespace Riskeer.DuneErosion.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure multiple enumerations of <see cref="DuneLocation"/> 
-    /// with a dune location calculation result.
+    /// Presentation object for all dune location calculations based on user defined target probabilities.
     /// </summary>
-    public class DuneLocationCalculationsGroupContext : ObservableWrappedObjectContextBase<IObservableEnumerable<DuneLocation>>
+    public class DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext : ObservableWrappedObjectContextBase<IObservableEnumerable<DuneLocation>>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DuneLocationCalculationsGroupContext"/>.
+        /// Creates a new instance of <see cref="DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The calculations wrapped by the context.</param>
+        /// <param name="wrappedData">The dune locations wrapped by the context.</param>
         /// <param name="failureMechanism">The failure mechanism the context belongs to.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the context belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DuneLocationCalculationsGroupContext(IObservableEnumerable<DuneLocation> wrappedData,
-                                                    DuneErosionFailureMechanism failureMechanism,
-                                                    IAssessmentSection assessmentSection)
+        public DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(IObservableEnumerable<DuneLocation> wrappedData,
+                                                                                     DuneErosionFailureMechanism failureMechanism,
+                                                                                     IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (failureMechanism == null)

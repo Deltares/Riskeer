@@ -108,7 +108,7 @@ namespace Riskeer.DuneErosion.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<DuneLocationCalculationsGroupContext>
+            yield return new TreeNodeInfo<DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext>
             {
                 Text = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 ForeColor = context => context.WrappedData.Any()
@@ -197,7 +197,7 @@ namespace Riskeer.DuneErosion.Plugin
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetFileFilterGenerator())
             };
 
-            yield return new ExportInfo<DuneLocationCalculationsGroupContext>
+            yield return new ExportInfo<DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext>
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Extension = Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension,
@@ -281,7 +281,7 @@ namespace Riskeer.DuneErosion.Plugin
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetHydraulicLoadsInputs(wrappedData), TreeFolderCategory.Input),
-                new DuneLocationCalculationsGroupContext(context.WrappedData.DuneLocations, context.WrappedData, assessmentSection)
+                new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(context.WrappedData.DuneLocations, context.WrappedData, assessmentSection)
             };
         }
 
@@ -367,7 +367,7 @@ namespace Riskeer.DuneErosion.Plugin
 
         #region DuneLocationCalculationsGroupContext TreeNodeInfo
 
-        private ContextMenuStrip DuneLocationCalculationsGroupContextMenuStrip(DuneLocationCalculationsGroupContext nodeData,
+        private ContextMenuStrip DuneLocationCalculationsGroupContextMenuStrip(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext nodeData,
                                                                                object parentData,
                                                                                TreeViewControl treeViewControl)
         {
@@ -381,7 +381,7 @@ namespace Riskeer.DuneErosion.Plugin
                       .Build();
         }
 
-        private static object[] DuneLocationCalculationsGroupContextChildNodeObjects(DuneLocationCalculationsGroupContext context)
+        private static object[] DuneLocationCalculationsGroupContextChildNodeObjects(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext context)
         {
             return !context.WrappedData.Any()
                        ? new object[0]
@@ -559,7 +559,7 @@ namespace Riskeer.DuneErosion.Plugin
                 Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Description);
         }
 
-        private static bool IsDuneLocationCalculationsGroupContextExportMenuItemEnabled(DuneLocationCalculationsGroupContext context)
+        private static bool IsDuneLocationCalculationsGroupContextExportMenuItemEnabled(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext context)
         {
             return context.FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Any(calculation => calculation.Output != null)
                    || context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm.Any(calculation => calculation.Output != null)
@@ -568,7 +568,7 @@ namespace Riskeer.DuneErosion.Plugin
                    || context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm.Any(calculation => calculation.Output != null);
         }
 
-        private static IFileExporter CreateDuneLocationCalculationsGroupContextFileExporter(DuneLocationCalculationsGroupContext context, string filePath)
+        private static IFileExporter CreateDuneLocationCalculationsGroupContextFileExporter(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext context, string filePath)
         {
             return CreateDuneLocationCalculationsExporter(DuneLocationCalculationsGroupContextChildNodeObjects(context)
                                                           .Cast<DuneLocationCalculationsContext>()

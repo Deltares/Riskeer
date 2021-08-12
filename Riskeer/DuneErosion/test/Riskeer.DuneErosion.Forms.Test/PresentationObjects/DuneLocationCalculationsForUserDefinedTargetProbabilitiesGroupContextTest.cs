@@ -31,7 +31,7 @@ using Riskeer.DuneErosion.Forms.PresentationObjects;
 namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class DuneLocationCalculationsGroupContextTest
+    public class DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -45,7 +45,8 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var context = new DuneLocationCalculationsGroupContext(locations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                locations, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IObservableEnumerable<DuneLocation>>>(context);
@@ -64,10 +65,11 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new DuneLocationCalculationsGroupContext(new ObservableList<DuneLocation>(), null, assessmentSection);
+            void Call() => new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                new ObservableList<DuneLocation>(), null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mockRepository.VerifyAll();
         }
@@ -76,10 +78,11 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DuneLocationCalculationsGroupContext(new ObservableList<DuneLocation>(), new DuneErosionFailureMechanism(), null);
+            void Call() => new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                new ObservableList<DuneLocation>(), new DuneErosionFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
