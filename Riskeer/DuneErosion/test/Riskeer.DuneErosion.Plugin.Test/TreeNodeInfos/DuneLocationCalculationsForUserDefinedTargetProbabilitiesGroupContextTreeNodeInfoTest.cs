@@ -55,8 +55,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
     {
         private const int contextMenuCalculateAllIndex = 2;
 
-        private const double failureMechanismSpecificNormFactor = 2.15;
-
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryDatabase");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
@@ -269,15 +267,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_LocationsEmpty_ReturnsExpectedChildData()
         {
             // Setup
-            const double signalingNorm = 0.002;
-            const double lowerLimitNorm = 0.005;
-
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.FailureMechanismContribution.LowerLimitNorm = lowerLimitNorm;
-            assessmentSection.FailureMechanismContribution.SignalingNorm = signalingNorm;
-
-            var locations = new ObservableList<DuneLocation>();
-            var calculationsGroupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(locations, new DuneErosionFailureMechanism(), assessmentSection);
+            var calculationsGroupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocation>(),
+                                                                                                                     new DuneErosionFailureMechanism(),
+                                                                                                                     new AssessmentSectionStub());
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -485,11 +477,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             }
 
             mocks.VerifyAll();
-        }
-
-        private static double GetExpectedNorm(DuneErosionFailureMechanism failureMechanism, double norm)
-        {
-            return failureMechanismSpecificNormFactor * norm * (failureMechanism.Contribution / 100) / failureMechanism.GeneralInput.N;
         }
 
         private static TreeNodeInfo GetInfo(DuneErosionPlugin plugin)
