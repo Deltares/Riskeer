@@ -70,7 +70,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             var guiService = new DuneLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.Calculate(null, assessmentSection, 1.0 / 30000, "A");
+            void Call() => guiService.Calculate(null, assessmentSection, 0.01, "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -89,7 +89,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             var guiService = new DuneLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(), null, 1.0 / 30000, "A");
+            void Call() => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(), null, 0.01, "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -116,7 +116,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             var guiService = new DuneLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(), assessmentSection, 1.0 / 30000, "A");
+            void Call() => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(), assessmentSection, 0.01, "1/100");
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -149,7 +149,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             var guiService = new DuneLocationCalculationGuiService(viewParent);
 
             // Call
-            void Call() => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(), assessmentSection, 1.0, "A");
+            void Call() => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(), assessmentSection, 1.0, "1/1");
 
             // Assert
             TestHelper.AssertLogMessageIsGenerated(Call, "Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.");
@@ -177,7 +177,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
-                void Call() => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(), assessmentSection, 0.01, "A");
+                void Call() => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(), assessmentSection, 0.01, "1/100");
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(Call, 0);
@@ -202,7 +202,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
-            const string calculationIdentifier = "1/30000";
+            const string calculationIdentifier = "1/100";
             const string duneLocationName = "duneLocationName";
 
             var mocks = new MockRepository();
@@ -230,7 +230,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                     guiService.Calculate(new[]
                     {
                         new DuneLocationCalculation(new TestDuneLocation(duneLocationName))
-                    }, assessmentSection, 1.0 / 30000, calculationIdentifier);
+                    }, assessmentSection, 0.01, calculationIdentifier);
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
