@@ -108,6 +108,7 @@ using RiskeerFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerCommonPluginResources = Riskeer.Common.Plugin.Properties.Resources;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin
@@ -2348,8 +2349,8 @@ namespace Riskeer.Integration.Plugin
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
             var addTargetProbabilityItem = new StrictContextMenuItem(
-                Resources.ContextMenuStrip_Add_TargetProbability,
-                Resources.ContextMenuStrip_Add_TargetProbability_ToolTip,
+                RiskeerCommonPluginResources.ContextMenuStrip_Add_TargetProbability,
+                RiskeerCommonPluginResources.ContextMenuStrip_Add_TargetProbability_ToolTip,
                 RiskeerCommonFormsResources.GenericInputOutputIcon,
                 (sender, args) =>
                 {
@@ -2450,8 +2451,8 @@ namespace Riskeer.Integration.Plugin
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
             var addTargetProbabilityItem = new StrictContextMenuItem(
-                Resources.ContextMenuStrip_Add_TargetProbability,
-                Resources.ContextMenuStrip_Add_TargetProbability_ToolTip,
+                RiskeerCommonPluginResources.ContextMenuStrip_Add_TargetProbability,
+                RiskeerCommonPluginResources.ContextMenuStrip_Add_TargetProbability_ToolTip,
                 RiskeerCommonFormsResources.GenericInputOutputIcon,
                 (sender, args) =>
                 {

@@ -321,24 +321,6 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Doelkans toevoegen.
-        /// </summary>
-        public static string ContextMenuStrip_Add_TargetProbability {
-            get {
-                return ResourceManager.GetString("ContextMenuStrip_Add_TargetProbability", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuwe doelkans toe aan deze map..
-        /// </summary>
-        public static string ContextMenuStrip_Add_TargetProbability_ToolTip {
-            get {
-                return ResourceManager.GetString("ContextMenuStrip_Add_TargetProbability_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische belastingenlocaties en toetssporen verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
