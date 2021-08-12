@@ -33,7 +33,6 @@ using Core.Gui.Forms.ProgressDialog;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.TypeConverters;
@@ -115,8 +114,8 @@ namespace Riskeer.DuneErosion.Plugin
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
-                ContextMenuStrip = DuneLocationCalculationsGroupContextMenuStrip,
-                ChildNodeObjects = DuneLocationCalculationsGroupContextChildNodeObjects
+                ContextMenuStrip = DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip,
+                ChildNodeObjects = DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodeObjects
             };
 
             yield return new TreeNodeInfo<DuneLocationCalculationsContext>
@@ -365,11 +364,12 @@ namespace Riskeer.DuneErosion.Plugin
 
         #endregion
 
-        #region DuneLocationCalculationsGroupContext TreeNodeInfo
+        #region DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext TreeNodeInfo
 
-        private ContextMenuStrip DuneLocationCalculationsGroupContextMenuStrip(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext nodeData,
-                                                                               object parentData,
-                                                                               TreeViewControl treeViewControl)
+        private ContextMenuStrip DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip(
+            DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext nodeData,
+            object parentData,
+            TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddExportItem()
@@ -381,43 +381,20 @@ namespace Riskeer.DuneErosion.Plugin
                       .Build();
         }
 
-        private static object[] DuneLocationCalculationsGroupContextChildNodeObjects(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext context)
+        private static object[] DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodeObjects(
+            DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext context)
         {
-            return !context.WrappedData.Any()
-                       ? new object[0]
-                       : new object[]
-                       {
-                           new DuneLocationCalculationsContext(
-                               context.FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm,
-                               context.FailureMechanism,
-                               context.AssessmentSection,
-                               () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                               RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName),
-                           new DuneLocationCalculationsContext(
-                               context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm,
-                               context.FailureMechanism,
-                               context.AssessmentSection,
-                               () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                               RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName),
-                           new DuneLocationCalculationsContext(
-                               context.FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm,
-                               context.FailureMechanism,
-                               context.AssessmentSection,
-                               () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                               RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName),
-                           new DuneLocationCalculationsContext(
-                               context.FailureMechanism.CalculationsForLowerLimitNorm,
-                               context.FailureMechanism,
-                               context.AssessmentSection,
-                               () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                               RiskeerCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName),
-                           new DuneLocationCalculationsContext(
-                               context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm,
-                               context.FailureMechanism,
-                               context.AssessmentSection,
-                               () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                               RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
-                       };
+            if (!context.WrappedData.Any())
+            {
+                return Array.Empty<object>();
+            }
+
+            return context.FailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                          .Select(dlc => new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(dlc,
+                                                                                                            context.FailureMechanism,
+                                                                                                            context.AssessmentSection))
+                          .Cast<object>()
+                          .ToArray();
         }
 
         #endregion
@@ -570,7 +547,7 @@ namespace Riskeer.DuneErosion.Plugin
 
         private static IFileExporter CreateDuneLocationCalculationsGroupContextFileExporter(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext context, string filePath)
         {
-            return CreateDuneLocationCalculationsExporter(DuneLocationCalculationsGroupContextChildNodeObjects(context)
+            return CreateDuneLocationCalculationsExporter(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodeObjects(context)
                                                           .Cast<DuneLocationCalculationsContext>()
                                                           .SelectMany(c => c.WrappedData.Select(
                                                                           calc => new ExportableDuneLocationCalculation(

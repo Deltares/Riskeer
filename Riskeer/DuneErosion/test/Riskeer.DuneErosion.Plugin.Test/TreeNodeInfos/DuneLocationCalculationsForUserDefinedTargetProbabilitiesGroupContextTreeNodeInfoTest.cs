@@ -51,7 +51,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class DuneLocationCalculationsGroupContextTreeNodeInfoTest
+    public class DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextTreeNodeInfoTest
     {
         private const int contextMenuCalculateAllIndex = 2;
 
