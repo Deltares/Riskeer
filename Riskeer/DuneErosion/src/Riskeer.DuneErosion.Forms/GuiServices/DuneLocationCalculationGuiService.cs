@@ -62,14 +62,14 @@ namespace Riskeer.DuneErosion.Forms.GuiServices
         /// </summary>
         /// <param name="calculations">The collection of <see cref="DuneLocationCalculation"/> to perform.</param>
         /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
-        /// <param name="norm">The norm to use during the calculations.</param>
+        /// <param name="targetProbability">The target probability to use during the calculations.</param>
         /// <param name="calculationIdentifier">The calculation identifier to use in all messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or
         /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="calculationIdentifier"/> is <c>null</c> or empty.</exception>
         public void Calculate(IEnumerable<DuneLocationCalculation> calculations,
                               IAssessmentSection assessmentSection,
-                              double norm,
+                              double targetProbability,
                               string calculationIdentifier)
         {
             if (calculations == null)
@@ -93,7 +93,7 @@ namespace Riskeer.DuneErosion.Forms.GuiServices
 
             if (string.IsNullOrEmpty(validationProblem))
             {
-                TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, logMessage => validationProblem = logMessage);
+                TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(targetProbability, logMessage => validationProblem = logMessage);
             }
 
             if (!string.IsNullOrEmpty(validationProblem))
@@ -106,7 +106,7 @@ namespace Riskeer.DuneErosion.Forms.GuiServices
             ActivityProgressDialogRunner.Run(viewParent,
                                              DuneLocationCalculationActivityFactory.CreateCalculationActivities(calculations,
                                                                                                                 assessmentSection,
-                                                                                                                norm,
+                                                                                                                targetProbability,
                                                                                                                 calculationIdentifier));
         }
     }

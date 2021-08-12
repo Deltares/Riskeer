@@ -130,7 +130,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
         }
 
         [Test]
-        public void Calculate_InvalidNorm_LogsError()
+        public void Calculate_InvalidTargetProbability_LogsError()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
