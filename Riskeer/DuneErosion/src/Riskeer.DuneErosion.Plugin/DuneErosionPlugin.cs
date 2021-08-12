@@ -112,7 +112,7 @@ namespace Riskeer.DuneErosion.Plugin
             yield return new TreeNodeInfo<DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext>
             {
                 Text = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                ForeColor = context => context.WrappedData.Any()
+                ForeColor = context => context.FailureMechanism.DuneLocations.Any()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
@@ -375,10 +375,10 @@ namespace Riskeer.DuneErosion.Plugin
                 {
                     DuneLocationCalculationsForTargetProbability hydraulicBoundaryLocationCalculationsForTargetProbability = CreateDuneLocationCalculationsForTargetProbability(nodeData.FailureMechanism);
 
-                    nodeData.FailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(hydraulicBoundaryLocationCalculationsForTargetProbability);
-                    nodeData.FailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
+                    nodeData.WrappedData.Add(hydraulicBoundaryLocationCalculationsForTargetProbability);
+                    nodeData.WrappedData.NotifyObservers();
                 });
-            
+
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(addTargetProbabilityItem)
                       .AddSeparator()
@@ -394,12 +394,12 @@ namespace Riskeer.DuneErosion.Plugin
         private static object[] DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodeObjects(
             DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext context)
         {
-            if (!context.WrappedData.Any())
+            if (!context.FailureMechanism.DuneLocations.Any())
             {
                 return Array.Empty<object>();
             }
 
-            return context.FailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
+            return context.WrappedData
                           .Select(dlc => new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(dlc,
                                                                                                             context.FailureMechanism,
                                                                                                             context.AssessmentSection))
@@ -416,7 +416,7 @@ namespace Riskeer.DuneErosion.Plugin
 
             hydraulicBoundaryLocationCalculationsForTargetProbability.DuneLocationCalculations.AddRange(
                 failureMechanism.DuneLocations.Select(dl => new DuneLocationCalculation(dl)));
-            
+
             return hydraulicBoundaryLocationCalculationsForTargetProbability;
         }
 
