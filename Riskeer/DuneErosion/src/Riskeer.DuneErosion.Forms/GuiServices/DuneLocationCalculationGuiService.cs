@@ -63,14 +63,14 @@ namespace Riskeer.DuneErosion.Forms.GuiServices
         /// <param name="calculations">The collection of <see cref="DuneLocationCalculation"/> to perform.</param>
         /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
-        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
+        /// <param name="calculationIdentifier">The calculation identifier to use in all messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or
         /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="calculationIdentifier"/> is <c>null</c> or empty.</exception>
         public void Calculate(IEnumerable<DuneLocationCalculation> calculations,
                               IAssessmentSection assessmentSection,
                               double norm,
-                              string categoryBoundaryName)
+                              string calculationIdentifier)
         {
             if (calculations == null)
             {
@@ -107,7 +107,7 @@ namespace Riskeer.DuneErosion.Forms.GuiServices
                                              DuneLocationCalculationActivityFactory.CreateCalculationActivities(calculations,
                                                                                                                 assessmentSection,
                                                                                                                 norm,
-                                                                                                                categoryBoundaryName));
+                                                                                                                calculationIdentifier));
         }
     }
 }

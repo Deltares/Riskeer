@@ -202,7 +202,7 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/30000";
             const string duneLocationName = "duneLocationName";
 
             var mocks = new MockRepository();
@@ -230,21 +230,21 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
                     guiService.Calculate(new[]
                     {
                         new DuneLocationCalculation(new TestDuneLocation(duneLocationName))
-                    }, assessmentSection, 1.0 / 30000, categoryBoundaryName);
+                    }, assessmentSection, 1.0 / 30000, calculationIdentifier);
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
-                    Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{duneLocationName}' ({categoryBoundaryName}) is gestart.", msgs[0]);
+                    Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{duneLocationName}' ({calculationIdentifier}) is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                    Assert.AreEqual($"Hydraulische belastingenberekening voor locatie '{duneLocationName}' ({categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
+                    Assert.AreEqual($"Hydraulische belastingenberekening voor locatie '{duneLocationName}' ({calculationIdentifier}) is niet geconvergeerd.", msgs[4]);
                     StringAssert.StartsWith("Hydraulische belastingenberekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
-                    Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{duneLocationName}' ({categoryBoundaryName}) is gelukt.", msgs[7]);
+                    Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{duneLocationName}' ({calculationIdentifier}) is gelukt.", msgs[7]);
                 });
             }
 
