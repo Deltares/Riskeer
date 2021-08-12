@@ -34,7 +34,7 @@ namespace Riskeer.DuneErosion.Service
     {
         private readonly DuneLocationCalculation duneLocationCalculation;
         private readonly HydraulicBoundaryCalculationSettings calculationSettings;
-        private readonly double norm;
+        private readonly double targetProbability;
         private readonly ICalculationMessageProvider messageProvider;
         private readonly DuneLocationCalculationService calculationService;
 
@@ -44,16 +44,16 @@ namespace Riskeer.DuneErosion.Service
         /// <param name="duneLocationCalculation">The <see cref="DuneLocationCalculation"/> to perform.</param>
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
         /// hydraulic boundary calculation settings.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
+        /// <param name="targetProbability">The target probability to use during the calculation.</param>
+        /// <param name="calculationIdentifier">The calculation identifier to use in all messages.</param>
         /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/>
         /// or <paramref name="calculationSettings"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="calculationIdentifier"/> is <c>null</c> or empty.</exception>
         public DuneLocationCalculationActivity(DuneLocationCalculation duneLocationCalculation,
                                                HydraulicBoundaryCalculationSettings calculationSettings,
-                                               double norm,
-                                               string categoryBoundaryName)
+                                               double targetProbability,
+                                               string calculationIdentifier)
             : base(duneLocationCalculation)
         {
             if (calculationSettings == null)
@@ -61,11 +61,11 @@ namespace Riskeer.DuneErosion.Service
                 throw new ArgumentNullException(nameof(calculationSettings));
             }
 
-            messageProvider = new DuneLocationCalculationMessageProvider(categoryBoundaryName);
+            messageProvider = new DuneLocationCalculationMessageProvider(calculationIdentifier);
 
             this.duneLocationCalculation = duneLocationCalculation;
             this.calculationSettings = calculationSettings;
-            this.norm = norm;
+            this.targetProbability = targetProbability;
 
             DuneLocation duneLocation = duneLocationCalculation.DuneLocation;
             Description = messageProvider.GetActivityDescription(duneLocation.Name);
@@ -75,13 +75,13 @@ namespace Riskeer.DuneErosion.Service
 
         protected override bool Validate()
         {
-            return calculationService.Validate(calculationSettings, norm);
+            return calculationService.Validate(calculationSettings, targetProbability);
         }
 
         protected override void PerformCalculation()
         {
             calculationService.Calculate(duneLocationCalculation,
-                                         norm,
+                                         targetProbability,
                                          calculationSettings,
                                          messageProvider);
         }

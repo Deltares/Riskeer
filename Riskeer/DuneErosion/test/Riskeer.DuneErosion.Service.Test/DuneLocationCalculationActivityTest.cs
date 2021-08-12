@@ -44,8 +44,6 @@ namespace Riskeer.DuneErosion.Service.Test
     [TestFixture]
     public class DuneLocationCalculationActivityTest
     {
-        private const double validNorm = 0.005;
-
         private MockRepository mockRepository;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -61,18 +59,14 @@ namespace Riskeer.DuneErosion.Service.Test
         [Test]
         public void Constructor_CalculationSettingsNull_ThrowsArgumentNullException()
         {
-            // Setup
-            const string locationName = "locationName";
-            const string categoryBoundaryName = "A";
-
             // Call
-            TestDelegate call = () => new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
-                                                                          null,
-                                                                          1,
-                                                                          categoryBoundaryName);
+            void Call() => new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation("locationName")),
+                                                               null,
+                                                               0.01,
+                                                               "1/100");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationSettings", exception.ParamName);
         }
 
@@ -80,18 +74,18 @@ namespace Riskeer.DuneErosion.Service.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/100";
             const string locationName = "locationName";
 
             // Call
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                CreateCalculationSettings(),
-                                                               1.0 / 30000,
-                                                               categoryBoundaryName);
+                                                               0.001,
+                                                               calculationIdentifier);
 
             // Assert
             Assert.IsInstanceOf<CalculatableActivity>(activity);
-            Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({categoryBoundaryName})", activity.Description);
+            Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({calculationIdentifier})", activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
         }
@@ -102,7 +96,7 @@ namespace Riskeer.DuneErosion.Service.Test
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
 
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/100";
             const string locationName = "locationName";
 
             var settings = new HydraulicBoundaryCalculationSettings(invalidFilePath,
@@ -111,18 +105,18 @@ namespace Riskeer.DuneErosion.Service.Test
                                                                     string.Empty);
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                settings,
-                                                               0.5,
-                                                               categoryBoundaryName);
+                                                               0.01,
+                                                               calculationIdentifier);
 
             // Call
-            Action call = () => activity.Run();
+            void Call() => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({categoryBoundaryName}) is gestart.", msgs[0]);
+                Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({calculationIdentifier}) is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
@@ -134,7 +128,7 @@ namespace Riskeer.DuneErosion.Service.Test
         public void Run_InvalidPreprocessorDirectory_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/100";
             const string locationName = "locationName";
 
             var settings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
@@ -143,18 +137,18 @@ namespace Riskeer.DuneErosion.Service.Test
                                                                     "NonExistingPreprocessorDirectory");
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                settings,
-                                                               0.5,
-                                                               categoryBoundaryName);
+                                                               0.01,
+                                                               calculationIdentifier);
 
             // Call
-            Action call = () => activity.Run();
+            void Call() => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({categoryBoundaryName}) is gestart.", msgs[0]);
+                Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({calculationIdentifier}) is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
@@ -163,26 +157,26 @@ namespace Riskeer.DuneErosion.Service.Test
         }
 
         [Test]
-        public void Run_InvalidNorm_PerformValidationAndLogStartAndEndAndError()
+        public void Run_InvalidTargetProbability_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/1";
             const string locationName = "locationName";
 
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                CreateCalculationSettings(),
                                                                1.0,
-                                                               categoryBoundaryName);
+                                                               calculationIdentifier);
 
             // Call
-            Action call = () => activity.Run();
+            void Call() => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({categoryBoundaryName}) is gestart.", msgs[0]);
+                Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({calculationIdentifier}) is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
@@ -196,8 +190,8 @@ namespace Riskeer.DuneErosion.Service.Test
         public void Run_VariousValidInputs_PerformsCalculationWithCorrectInput(bool usePreprocessor)
         {
             // Setup
-            const double norm = 1.0 / 30;
-            const string categoryBoundaryName = "A";
+            const double targetProbability = 0.01;
+            const string calculationIdentifier = "1/100";
             const string locationName = "locationName";
 
             var calculator = new TestDunesBoundaryConditionsCalculator
@@ -225,8 +219,8 @@ namespace Riskeer.DuneErosion.Service.Test
 
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(duneLocation),
                                                                calculationSettings,
-                                                               norm,
-                                                               categoryBoundaryName);
+                                                               targetProbability,
+                                                               calculationIdentifier);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -236,7 +230,7 @@ namespace Riskeer.DuneErosion.Service.Test
                 // Assert
                 DunesBoundaryConditionsCalculationInput calculationInput = calculator.ReceivedInputs.Single();
                 Assert.AreEqual(duneLocation.Id, calculationInput.HydraulicBoundaryLocationId);
-                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), calculationInput.Beta);
+                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), calculationInput.Beta);
             }
 
             mockRepository.VerifyAll();
@@ -246,8 +240,8 @@ namespace Riskeer.DuneErosion.Service.Test
         public void Run_ValidInput_PerformValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
-            const double norm = 1.0 / 30;
-            const string categoryBoundaryName = "A";
+            const double targetProbability = 0.01;
+            const string calculationIdentifier = "1/100";
             const string locationName = "locationName";
 
             var calculator = new TestDunesBoundaryConditionsCalculator
@@ -267,20 +261,20 @@ namespace Riskeer.DuneErosion.Service.Test
 
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(duneLocation),
                                                                calculationSettings,
-                                                               norm,
-                                                               categoryBoundaryName);
+                                                               targetProbability,
+                                                               calculationIdentifier);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => activity.Run();
+                void Call() => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, m =>
+                TestHelper.AssertLogMessages(Call, m =>
                 {
                     string[] messages = m.ToArray();
                     Assert.AreEqual(6, messages.Length);
-                    Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({categoryBoundaryName}) is gestart.", messages[0]);
+                    Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({calculationIdentifier}) is gestart.", messages[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(messages[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
@@ -321,8 +315,8 @@ namespace Riskeer.DuneErosion.Service.Test
 
             var activity = new DuneLocationCalculationActivity(duneLocationCalculation,
                                                                CreateCalculationSettings(),
-                                                               validNorm,
-                                                               "A");
+                                                               0.01,
+                                                               "1/100");
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -349,7 +343,7 @@ namespace Riskeer.DuneErosion.Service.Test
         public void Run_InvalidCalculation_LogsError(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/100";
             const string locationName = "locationName";
 
             var calculator = new TestDunesBoundaryConditionsCalculator
@@ -366,20 +360,20 @@ namespace Riskeer.DuneErosion.Service.Test
 
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                CreateCalculationSettings(),
-                                                               0.5,
-                                                               categoryBoundaryName);
+                                                               0.01,
+                                                               calculationIdentifier);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => activity.Run();
+                void Call() => activity.Run();
 
                 // Assert
                 string expectedFailureMessage = string.IsNullOrEmpty(lastErrorFileContent)
-                                                    ? $"Er is een fout opgetreden tijdens de hydraulische belastingenberekening '{locationName}' ({categoryBoundaryName}). Er is geen foutrapport beschikbaar."
-                                                    : $"Er is een fout opgetreden tijdens de hydraulische belastingenberekening '{locationName}' ({categoryBoundaryName}). Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}";
+                                                    ? $"Er is een fout opgetreden tijdens de hydraulische belastingenberekening '{locationName}' ({calculationIdentifier}). Er is geen foutrapport beschikbaar."
+                                                    : $"Er is een fout opgetreden tijdens de hydraulische belastingenberekening '{locationName}' ({calculationIdentifier}). Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}";
 
-                TestHelper.AssertLogMessageIsGenerated(call, expectedFailureMessage, 7);
+                TestHelper.AssertLogMessageIsGenerated(Call, expectedFailureMessage, 7);
             }
 
             mockRepository.VerifyAll();
@@ -389,7 +383,7 @@ namespace Riskeer.DuneErosion.Service.Test
         public void Run_CalculationResultingInNoConvergence_LogWarningNoConvergence()
         {
             // Setup
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/100";
             const string locationName = "locationName";
 
             var calculator = new TestDunesBoundaryConditionsCalculator
@@ -407,19 +401,19 @@ namespace Riskeer.DuneErosion.Service.Test
 
             var activity = new DuneLocationCalculationActivity(duneLocationCalculation,
                                                                CreateCalculationSettings(),
-                                                               0.5,
-                                                               categoryBoundaryName);
+                                                               0.01,
+                                                               calculationIdentifier);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                Action call = () => activity.Run();
+                void Call() => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    Assert.AreEqual($"Hydraulische belastingenberekening voor locatie '{locationName}' ({categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
+                    Assert.AreEqual($"Hydraulische belastingenberekening voor locatie '{locationName}' ({calculationIdentifier}) is niet geconvergeerd.", msgs[4]);
                 });
                 Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, duneLocationCalculation.Output.CalculationConvergence);
             }
@@ -451,8 +445,8 @@ namespace Riskeer.DuneErosion.Service.Test
 
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                CreateCalculationSettings(),
-                                                               0.5,
-                                                               "A");
+                                                               0.01,
+                                                               "1/100");
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -483,8 +477,8 @@ namespace Riskeer.DuneErosion.Service.Test
 
             var activity = new DuneLocationCalculationActivityWithState(duneLocationCalculation,
                                                                         CreateCalculationSettings(),
-                                                                        1.0,
-                                                                        "A",
+                                                                        0.01,
+                                                                        "1/100",
                                                                         state);
 
             // Call
@@ -506,13 +500,13 @@ namespace Riskeer.DuneErosion.Service.Test
         {
             public DuneLocationCalculationActivityWithState(DuneLocationCalculation duneLocationCalculation,
                                                             HydraulicBoundaryCalculationSettings calculationSettings,
-                                                            double norm,
-                                                            string categoryBoundaryName,
+                                                            double targetProbability,
+                                                            string calculationIdentifier,
                                                             ActivityState state)
                 : base(duneLocationCalculation,
                        calculationSettings,
-                       norm,
-                       categoryBoundaryName)
+                       targetProbability,
+                       calculationIdentifier)
             {
                 State = state;
             }
