@@ -89,7 +89,7 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string calculationIdentifier = "1/30";
-            const double norm = 1.0 / 30;
+            const double targetProbability = 1.0 / 30;
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
@@ -108,7 +108,7 @@ namespace Riskeer.Common.Service.Test
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation2)
                 },
                 assessmentSection,
-                norm,
+                targetProbability,
                 calculationIdentifier);
 
             // Assert
@@ -116,8 +116,8 @@ namespace Riskeer.Common.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveHeightCalculationActivity));
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertWaveHeightCalculationActivity(activities.First(), hydraulicBoundaryLocation1, calculationIdentifier, norm, hydraulicBoundaryDatabase);
-            AssertWaveHeightCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, calculationIdentifier, norm, hydraulicBoundaryDatabase);
+            AssertWaveHeightCalculationActivity(activities.First(), hydraulicBoundaryLocation1, calculationIdentifier, targetProbability, hydraulicBoundaryDatabase);
+            AssertWaveHeightCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, calculationIdentifier, targetProbability, hydraulicBoundaryDatabase);
 
             mocks.VerifyAll();
         }
@@ -165,7 +165,7 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string calculationIdentifier = "1/30";
-            const double norm = 1.0 / 30;
+            const double targetProbability = 1.0 / 30;
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
@@ -184,7 +184,7 @@ namespace Riskeer.Common.Service.Test
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation2)
                 },
                 assessmentSection,
-                norm,
+                targetProbability,
                 calculationIdentifier);
 
             // Assert
@@ -192,8 +192,8 @@ namespace Riskeer.Common.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(DesignWaterLevelCalculationActivity));
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertDesignWaterLevelCalculationActivity(activities.First(), hydraulicBoundaryLocation1, calculationIdentifier, norm, hydraulicBoundaryDatabase);
-            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, calculationIdentifier, norm, hydraulicBoundaryDatabase);
+            AssertDesignWaterLevelCalculationActivity(activities.First(), hydraulicBoundaryLocation1, calculationIdentifier, targetProbability, hydraulicBoundaryDatabase);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, calculationIdentifier, targetProbability, hydraulicBoundaryDatabase);
 
             mocks.VerifyAll();
         }
@@ -201,7 +201,7 @@ namespace Riskeer.Common.Service.Test
         private static void AssertWaveHeightCalculationActivity(Activity activity,
                                                                 HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                 string calculationIdentifier,
-                                                                double norm,
+                                                                double targetProbability,
                                                                 HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             var mocks = new MockRepository();
@@ -226,7 +226,7 @@ namespace Riskeer.Common.Service.Test
                 TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
                 WaveHeightCalculationInput waveHeightCalculationInput = calculator.ReceivedInputs.Single();
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
+                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), waveHeightCalculationInput.Beta);
             }
 
             mocks.VerifyAll();
@@ -235,7 +235,7 @@ namespace Riskeer.Common.Service.Test
         private static void AssertDesignWaterLevelCalculationActivity(Activity activity,
                                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                       string calculationIdentifier,
-                                                                      double norm,
+                                                                      double targetProbability,
                                                                       HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             var mocks = new MockRepository();
@@ -260,7 +260,7 @@ namespace Riskeer.Common.Service.Test
                 TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
                 AssessmentLevelCalculationInput designWaterLevelCalculationInput = calculator.ReceivedInputs.Single();
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
-                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), designWaterLevelCalculationInput.Beta);
+                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), designWaterLevelCalculationInput.Beta);
             }
 
             mocks.VerifyAll();

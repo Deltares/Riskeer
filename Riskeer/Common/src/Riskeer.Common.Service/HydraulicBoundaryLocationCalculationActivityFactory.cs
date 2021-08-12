@@ -40,7 +40,7 @@ namespace Riskeer.Common.Service
         /// <param name="calculations">The collection of <see cref="HydraulicBoundaryLocationCalculation"/> to create
         /// the activities for.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
-        /// <param name="norm">The norm to use during the calculations.</param>
+        /// <param name="targetProbability">The target probability to use during the calculations.</param>
         /// <param name="calculationIdentifier">The calculation identifier to use in all messages.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
@@ -48,7 +48,7 @@ namespace Riskeer.Common.Service
         public static IEnumerable<CalculatableActivity> CreateWaveHeightCalculationActivities(
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
             IAssessmentSection assessmentSection,
-            double norm,
+            double targetProbability,
             string calculationIdentifier)
         {
             if (assessmentSection == null)
@@ -64,7 +64,7 @@ namespace Riskeer.Common.Service
             HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
             return calculations.Select(calculation => new WaveHeightCalculationActivity(calculation,
                                                                                         settings,
-                                                                                        norm,
+                                                                                        targetProbability,
                                                                                         calculationIdentifier)).ToArray();
         }
 
@@ -75,7 +75,7 @@ namespace Riskeer.Common.Service
         /// <param name="calculations">The collection of <see cref="HydraulicBoundaryLocationCalculation"/> to create
         /// the activities for.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
-        /// <param name="norm">The norm to use during the calculations.</param>
+        /// <param name="targetProbability">The target probability to use during the calculations.</param>
         /// <param name="calculationIdentifier">The calculation identifier to use in all messages.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
@@ -83,7 +83,7 @@ namespace Riskeer.Common.Service
         public static IEnumerable<CalculatableActivity> CreateDesignWaterLevelCalculationActivities(
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
             IAssessmentSection assessmentSection,
-            double norm,
+            double targetProbability,
             string calculationIdentifier)
         {
             if (assessmentSection == null)
@@ -99,7 +99,7 @@ namespace Riskeer.Common.Service
             HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
             return calculations.Select(calculation => new DesignWaterLevelCalculationActivity(calculation,
                                                                                               settings,
-                                                                                              norm,
+                                                                                              targetProbability,
                                                                                               calculationIdentifier)).ToArray();
         }
     }
