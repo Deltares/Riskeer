@@ -55,10 +55,10 @@ namespace Riskeer.DuneErosion.Plugin.Test
             using (var plugin = new DuneErosionPlugin())
             {
                 // Call
-                TestDelegate test = () => plugin.Activate();
+                void Call() => plugin.Activate();
 
                 // Assert
-                var exception = Assert.Throws<InvalidOperationException>(test);
+                var exception = Assert.Throws<InvalidOperationException>(Call);
                 Assert.AreEqual("Gui cannot be null", exception.Message);
             }
         }
@@ -104,11 +104,12 @@ namespace Riskeer.DuneErosion.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(5, treeNodeInfos.Length);
+                Assert.AreEqual(6, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneErosionHydraulicLoadsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneErosionFailurePathContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneLocationCalculationsGroupContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneLocationCalculationsForUserDefinedTargetProbabilityContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneLocationCalculationsContext)));
             }
         }
