@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Service;
 using Riskeer.DuneErosion.Data;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
@@ -37,6 +37,8 @@ namespace Riskeer.DuneErosion.Service
     /// </summary>
     public static class DuneLocationCalculationActivityFactory
     {
+        private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
+
         /// <summary>
         /// Creates a collection of <see cref="CalculatableActivity"/> based on <paramref name="calculations"/>.
         /// </summary>
@@ -91,39 +93,11 @@ namespace Riskeer.DuneErosion.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            var activities = new List<CalculatableActivity>();
-
-            activities.AddRange(CreateCalculationActivities(
-                                    failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm,
-                                    assessmentSection,
-                                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName));
-
-            activities.AddRange(CreateCalculationActivities(
-                                    failureMechanism.CalculationsForMechanismSpecificSignalingNorm,
-                                    assessmentSection,
-                                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName));
-
-            activities.AddRange(CreateCalculationActivities(
-                                    failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm,
-                                    assessmentSection,
-                                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName));
-
-            activities.AddRange(CreateCalculationActivities(
-                                    failureMechanism.CalculationsForLowerLimitNorm,
-                                    assessmentSection,
-                                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                                    RiskeerCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName));
-
-            activities.AddRange(CreateCalculationActivities(
-                                    failureMechanism.CalculationsForFactorizedLowerLimitNorm,
-                                    assessmentSection,
-                                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                                    RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName));
-
-            return activities;
+            return failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                                   .SelectMany(dlc => CreateCalculationActivities(dlc.DuneLocationCalculations,
+                                                                                  assessmentSection,
+                                                                                  dlc.TargetProbability,
+                                                                                  noProbabilityValueDoubleConverter.ConvertToString(dlc.TargetProbability)));
         }
     }
 }
