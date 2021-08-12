@@ -42,16 +42,16 @@ namespace Riskeer.DuneErosion.Service
         /// </summary>
         /// <param name="calculations">The calculations to create activities for.</param>
         /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
-        /// <param name="norm">The norm to use during the calculations.</param>
-        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
+        /// <param name="targetProbability">The target probability to use during the calculations.</param>
+        /// <param name="calculationIdentifier">The calculation identifier to use in all messages.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or
         /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="calculationIdentifier"/> is <c>null</c> or empty.</exception>
         public static IEnumerable<CalculatableActivity> CreateCalculationActivities(IEnumerable<DuneLocationCalculation> calculations,
                                                                                     IAssessmentSection assessmentSection,
-                                                                                    double norm,
-                                                                                    string categoryBoundaryName)
+                                                                                    double targetProbability,
+                                                                                    string calculationIdentifier)
         {
             if (calculations == null)
             {
@@ -66,8 +66,8 @@ namespace Riskeer.DuneErosion.Service
             HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
             return calculations.Select(calculation => new DuneLocationCalculationActivity(calculation,
                                                                                           settings,
-                                                                                          norm,
-                                                                                          categoryBoundaryName)).ToArray();
+                                                                                          targetProbability,
+                                                                                          calculationIdentifier)).ToArray();
         }
 
         /// <summary>
