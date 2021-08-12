@@ -119,13 +119,6 @@ namespace Riskeer.DuneErosion.Plugin
                 ChildNodeObjects = DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodeObjects
             };
 
-            yield return new TreeNodeInfo<DuneLocationCalculationsContext>
-            {
-                Text = context => RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
-                Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = DuneLocationCalculationsContextMenuStrip
-            };
-
             yield return new TreeNodeInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext>
             {
                 Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability),
@@ -396,62 +389,6 @@ namespace Riskeer.DuneErosion.Plugin
                                                                                                             context.AssessmentSection))
                           .Cast<object>()
                           .ToArray();
-        }
-
-        #endregion
-
-        #region DuneLocationCalculationsContext TreeNodeInfo
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection,
-                                                                         double norm)
-        {
-            string errorMessage = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
-
-            if (string.IsNullOrEmpty(errorMessage))
-            {
-                TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, logMessage => errorMessage = logMessage);
-            }
-
-            return errorMessage;
-        }
-
-        private ContextMenuStrip DuneLocationCalculationsContextMenuStrip(DuneLocationCalculationsContext context, object parent, TreeViewControl treeViewControl)
-        {
-            var calculateAllItem = new StrictContextMenuItem(
-                RiskeerCommonFormsResources.Calculate_All,
-                RiskeerCommonFormsResources.HydraulicLoads_Calculate_All_ToolTip,
-                RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) =>
-                {
-                    if (duneLocationCalculationGuiService == null)
-                    {
-                        return;
-                    }
-
-                    duneLocationCalculationGuiService.Calculate(context.WrappedData,
-                                                                context.AssessmentSection,
-                                                                context.GetNormFunc(),
-                                                                context.CategoryBoundaryName);
-                });
-
-            string validationText = ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection,
-                                                                               context.GetNormFunc());
-
-            if (!string.IsNullOrEmpty(validationText))
-            {
-                calculateAllItem.Enabled = false;
-                calculateAllItem.ToolTipText = validationText;
-            }
-
-            return Gui.Get(context, treeViewControl)
-                      .AddOpenItem()
-                      .AddSeparator()
-                      .AddExportItem()
-                      .AddSeparator()
-                      .AddCustomItem(calculateAllItem)
-                      .AddSeparator()
-                      .AddPropertiesItem()
-                      .Build();
         }
 
         #endregion
