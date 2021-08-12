@@ -23,7 +23,7 @@ using Core.Gui;
 using Core.Gui.Forms.ViewHost;
 using Rhino.Mocks;
 
-namespace Riskeer.Integration.TestUtil
+namespace Riskeer.Common.Plugin.TestUtil
 {
     /// <summary>
     /// Factory for creating stubs.
