@@ -105,7 +105,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_WithoutDuneLocations_ReturnGrayText()
+        public void ForeColor_NoDuneLocationsPresent_ReturnGrayText()
         {
             // Setup
             var calculationsGroupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
@@ -126,7 +126,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_WithDuneLocations_ReturnControlText()
+        public void ForeColor_DuneLocationsPresent_ReturnControlText()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -193,9 +193,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             orderedMockRepository.ReplayAll();
 
-            var nodeData = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocationCalculationsForTargetProbability>(),
-                                                                                                     new DuneErosionFailureMechanism(),
-                                                                                                     assessmentSection);
+            var nodeData = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                new ObservableList<DuneLocationCalculationsForTargetProbability>(),
+                new DuneErosionFailureMechanism(),
+                assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -224,10 +225,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             // Setup
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
+
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var nodeData = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocationCalculationsForTargetProbability>(),
-                                                                                                     new DuneErosionFailureMechanism(),
-                                                                                                     assessmentSection);
+
+            var nodeData = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                new ObservableList<DuneLocationCalculationsForTargetProbability>(),
+                new DuneErosionFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
 
@@ -269,7 +273,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_WithDuneLocations_ReturnsExpectedChildData()
+        public void ChildNodeObjects_DuneLocationsPresent_ReturnsExpectedChildData()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -316,7 +320,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_WithoutDuneLocations_ReturnsExpectedChildData()
+        public void ChildNodeObjects_NoDuneLocationsPresent_ReturnsExpectedChildData()
         {
             // Setup
             var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability();
@@ -394,7 +398,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithoutDuneLocations_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_NoDuneLocationsPresent_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
