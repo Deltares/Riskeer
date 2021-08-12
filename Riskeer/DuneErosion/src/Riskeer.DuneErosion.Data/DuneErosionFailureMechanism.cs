@@ -161,6 +161,21 @@ namespace Riskeer.DuneErosion.Data
             duneLocationCollection.Clear();
             duneLocationCollection.AddRange(duneLocations);
 
+            calculationsForMechanismSpecificFactorizedSignalingNorm.Clear();
+            calculationsForMechanismSpecificFactorizedSignalingNorm.AddRange(duneLocations.Select(dl => new DuneLocationCalculation(dl)));
+
+            calculationsForMechanismSpecificSignalingNorm.Clear();
+            calculationsForMechanismSpecificSignalingNorm.AddRange(duneLocations.Select(dl => new DuneLocationCalculation(dl)));
+
+            calculationsForMechanismSpecificLowerLimitNorm.Clear();
+            calculationsForMechanismSpecificLowerLimitNorm.AddRange(duneLocations.Select(dl => new DuneLocationCalculation(dl)));
+
+            calculationsForLowerLimitNorm.Clear();
+            calculationsForLowerLimitNorm.AddRange(duneLocations.Select(dl => new DuneLocationCalculation(dl)));
+
+            calculationsForFactorizedLowerLimitNorm.Clear();
+            calculationsForFactorizedLowerLimitNorm.AddRange(duneLocations.Select(dl => new DuneLocationCalculation(dl)));
+
             DuneLocationCalculationsForUserDefinedTargetProbabilities.ForEach(dlc =>
             {
                 dlc.DuneLocationCalculations.Clear();
