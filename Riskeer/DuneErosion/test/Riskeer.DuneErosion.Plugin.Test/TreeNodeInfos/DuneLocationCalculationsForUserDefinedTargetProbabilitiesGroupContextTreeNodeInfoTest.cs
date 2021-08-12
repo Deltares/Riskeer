@@ -52,7 +52,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextTreeNodeInfoTest
     {
-        private const int contextMenuCalculateAllIndex = 2;
+        private const int contextMenuCalculateAllIndex = 4;
 
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Forms, "HydraulicBoundaryDatabase");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -177,6 +177,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var menuBuilder = orderedMockRepository.StrictMock<IContextMenuBuilder>();
             using (orderedMockRepository.Ordered())
             {
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);

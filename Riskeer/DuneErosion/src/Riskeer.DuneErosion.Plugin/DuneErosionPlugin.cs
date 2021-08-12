@@ -379,6 +379,8 @@ namespace Riskeer.DuneErosion.Plugin
                 });
             
             return Gui.Get(nodeData, treeViewControl)
+                      .AddCustomItem(addTargetProbabilityItem)
+                      .AddSeparator()
                       .AddExportItem()
                       .AddSeparator()
                       .AddCustomItem(CreateCalculateAllItem(nodeData.FailureMechanism, nodeData.AssessmentSection))
