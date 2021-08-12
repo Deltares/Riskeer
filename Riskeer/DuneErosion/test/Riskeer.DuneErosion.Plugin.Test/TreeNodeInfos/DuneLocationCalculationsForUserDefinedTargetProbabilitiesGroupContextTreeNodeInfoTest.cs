@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -397,7 +396,17 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new DuneErosionFailureMechanism
             {
-                Contribution = 5
+                DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                {
+                    new DuneLocationCalculationsForTargetProbability
+                    {
+                        TargetProbability = 0.1
+                    },
+                    new DuneLocationCalculationsForTargetProbability
+                    {
+                        TargetProbability = 0.01
+                    }
+                }
             };
 
             var duneLocation = new TestDuneLocation("Test");
@@ -436,7 +445,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                                          HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
-                                 .Return(dunesBoundaryConditionsCalculator).Repeat.Times(5);
+                                 .Return(dunesBoundaryConditionsCalculator).Repeat.Times(2);
                 mocks.ReplayAll();
 
                 using (var plugin = new DuneErosionPlugin())
@@ -450,27 +459,21 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
                     {
                         // When
-                        Action call = () => contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
+                        void Call() => contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
 
                         // Then
-                        TestHelper.AssertLogMessages(call, messages =>
+                        TestHelper.AssertLogMessages(Call, messages =>
                         {
                             string[] msgs = messages.ToArray();
-                            Assert.AreEqual(40, msgs.Length);
+                            Assert.AreEqual(16, msgs.Length);
 
                             const string calculationTypeDisplayName = "Hydraulische belastingen";
                             const string calculationDisplayName = "Hydraulische belastingenberekening";
 
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Iv", msgs, 0);
+                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "1/10", msgs, 0);
                             HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IIv", msgs, 8);
-                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IIIv", msgs, 16);
-                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "IVv", msgs, 24);
-                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
-                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "Vv", msgs, 32);
+                                duneLocation.Name, calculationTypeDisplayName, calculationDisplayName, "1/100", msgs, 8);
                         });
                     }
                 }
