@@ -275,7 +275,8 @@ namespace Riskeer.DuneErosion.Plugin
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetHydraulicLoadsInputs(wrappedData), TreeFolderCategory.Input),
-                new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(context.WrappedData.DuneLocations, context.WrappedData, assessmentSection)
+                new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(context.WrappedData.DuneLocationCalculationsForUserDefinedTargetProbabilities,
+                                                                                          context.WrappedData, assessmentSection)
             };
         }
 
