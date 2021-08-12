@@ -273,6 +273,59 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_ClickOnAddTargetProbabilityItem_CalculationsForTargetProbabilityAddedAndObserversNotified()
+        {
+            // Given
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.SetDuneLocations(new[]
+            {
+                new TestDuneLocation("Location 1"),
+                new TestDuneLocation("Location 2")
+            });
+
+            var calculations = new ObservableList<DuneLocationCalculationsForTargetProbability>();
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculations,
+                                                                                                    failureMechanism,
+                                                                                                    new AssessmentSectionStub());
+
+            var mockRepository = new MockRepository();
+            var calculationsObserver = mockRepository.StrictMock<IObserver>();
+            calculationsObserver.Expect(o => o.UpdateObserver());
+            calculations.Attach(calculationsObserver);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mockRepository);
+
+                IGui gui = StubFactory.CreateGuiStub(mockRepository);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+                mockRepository.ReplayAll();
+
+                using (var plugin = new DuneErosionPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+                    plugin.Activate();
+
+                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
+                    {
+                        // When
+                        contextMenuAdapter.Items[contextMenuAddTargetProbabilityIndex].PerformClick();
+
+                        // Then
+                        Assert.AreEqual(1, calculations.Count);
+                        Assert.AreEqual(0.01, calculations[0].TargetProbability);
+                        Assert.AreEqual(2, calculations[0].DuneLocationCalculations.Count);
+                    }
+                }
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void ChildNodeObjects_DuneLocationsPresent_ReturnsExpectedChildData()
         {
             // Setup
