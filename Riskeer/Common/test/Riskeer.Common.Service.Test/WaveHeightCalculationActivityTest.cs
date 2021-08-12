@@ -43,8 +43,6 @@ namespace Riskeer.Common.Service.Test
     [TestFixture]
     public class WaveHeightCalculationActivityTest
     {
-        private const double validNorm = 0.005;
-
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
@@ -70,15 +68,11 @@ namespace Riskeer.Common.Service.Test
         [Test]
         public void Constructor_CalculationSettingsNull_ThrowsArgumentNullException()
         {
-            // Setup
-            const string locationName = "locationName";
-            const string calculationIdentifier = "1/200";
-
             // Call
-            void Call() => new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
+            void Call() => new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation("locationName")),
                                                              null,
-                                                             validNorm,
-                                                             calculationIdentifier);
+                                                             0.01,
+                                                             "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -90,12 +84,12 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string calculationIdentifier = "1/200";
+            const string calculationIdentifier = "1/100";
 
             // Call
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                              CreateCalculationSettings(),
-                                                             validNorm,
+                                                             0.01,
                                                              calculationIdentifier);
 
             // Assert
@@ -111,7 +105,7 @@ namespace Riskeer.Common.Service.Test
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
             const string locationName = "locationName";
-            const string calculationIdentifier = "1/200";
+            const string calculationIdentifier = "1/100";
 
             var settings = new HydraulicBoundaryCalculationSettings(invalidFilePath,
                                                                     validHlcdFilePath,
@@ -119,7 +113,7 @@ namespace Riskeer.Common.Service.Test
                                                                     string.Empty);
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                              settings,
-                                                             validNorm,
+                                                             0.01,
                                                              calculationIdentifier);
 
             // Call
@@ -144,7 +138,7 @@ namespace Riskeer.Common.Service.Test
             // Setup
             const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
             const string locationName = "locationName";
-            const string calculationIdentifier = "1/200";
+            const string calculationIdentifier = "1/100";
 
             var settings = new HydraulicBoundaryCalculationSettings(validHydraulicBoundaryDatabaseFilePath,
                                                                     validHlcdFilePath,
@@ -152,14 +146,14 @@ namespace Riskeer.Common.Service.Test
                                                                     invalidPreprocessorDirectory);
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                              settings,
-                                                             validNorm,
+                                                             0.01,
                                                              calculationIdentifier);
 
             // Call
-            Action call = () => activity.Run();
+            void Call() => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
@@ -172,7 +166,7 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Run_InvalidNorm_PerformValidationAndLogStartAndEndAndError()
+        public void Run_InvalidTargetProbability_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup
             const string locationName = "locationName";
@@ -206,8 +200,8 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string calculationIdentifier = "1/30";
-            const double norm = 1.0 / 30;
+            const string calculationIdentifier = "1/100";
+            const double targetProbability = 0.01;
 
             var calculator = new TestWaveHeightCalculator
             {
@@ -234,7 +228,7 @@ namespace Riskeer.Common.Service.Test
 
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation),
                                                              calculationSettings,
-                                                             norm,
+                                                             targetProbability,
                                                              calculationIdentifier);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -246,7 +240,7 @@ namespace Riskeer.Common.Service.Test
                 WaveHeightCalculationInput waveHeightCalculationInput = calculator.ReceivedInputs.Single();
 
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
+                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), waveHeightCalculationInput.Beta);
             }
 
             Assert.AreEqual(ActivityState.Executed, activity.State);
@@ -258,8 +252,8 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string calculationIdentifier = "1/30";
-            const double norm = 1.0 / 30;
+            const string calculationIdentifier = "1/100";
+            const double targetProbability = 0.01;
 
             var calculator = new TestWaveHeightCalculator
             {
@@ -277,16 +271,16 @@ namespace Riskeer.Common.Service.Test
 
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation),
                                                              CreateCalculationSettings(),
-                                                             norm,
+                                                             targetProbability,
                                                              calculationIdentifier);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => activity.Run();
+                void Call() => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, m =>
+                TestHelper.AssertLogMessages(Call, m =>
                 {
                     string[] messages = m.ToArray();
                     Assert.AreEqual(6, messages.Length);
@@ -308,7 +302,7 @@ namespace Riskeer.Common.Service.Test
         public void Run_ValidCalculation_SetsWaveHeightAndConvergence(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
         {
             // Setup
-            const double norm = 1.0 / 30;
+            const double targetProbability = 0.01;
             const double expectedWaveHeight = 3.5;
 
             var calculator = new TestWaveHeightCalculator
@@ -331,8 +325,8 @@ namespace Riskeer.Common.Service.Test
 
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                              CreateCalculationSettings(),
-                                                             norm,
-                                                             "1/30");
+                                                             targetProbability,
+                                                             "1/100");
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -357,7 +351,7 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string calculationIdentifier = "1/200";
+            const string calculationIdentifier = "1/100";
 
             var calculator = new TestWaveHeightCalculator
             {
@@ -384,7 +378,7 @@ namespace Riskeer.Common.Service.Test
 
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                              CreateCalculationSettings(),
-                                                             validNorm,
+                                                             0.01,
                                                              calculationIdentifier);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -424,7 +418,7 @@ namespace Riskeer.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string calculationIdentifier = "1/300";
+            const string calculationIdentifier = "1/100";
 
             var calculator = new TestWaveHeightCalculator
             {
@@ -448,10 +442,9 @@ namespace Riskeer.Common.Service.Test
                 Output = new TestHydraulicBoundaryLocationCalculationOutput(double.NaN, CalculationConvergence.CalculatedConverged)
             };
 
-            const double norm = 1.0 / 300;
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                              CreateCalculationSettings(),
-                                                             norm,
+                                                             0.01,
                                                              calculationIdentifier);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -480,7 +473,7 @@ namespace Riskeer.Common.Service.Test
         public void Finish_ActivityWithSpecificState_NotifyHydraulicBoundaryLocationCalculation(ActivityState state)
         {
             // Setup
-            const string calculationIdentifier = "1/200";
+            const string calculationIdentifier = "1/100";
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
@@ -492,7 +485,7 @@ namespace Riskeer.Common.Service.Test
 
             var activity = new TestWaveHeightCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                                  CreateCalculationSettings(),
-                                                                 validNorm,
+                                                                 0.01,
                                                                  calculationIdentifier,
                                                                  state);
 
@@ -520,12 +513,12 @@ namespace Riskeer.Common.Service.Test
         {
             public TestWaveHeightCalculationActivity(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                                                      HydraulicBoundaryCalculationSettings calculationSettings,
-                                                     double norm,
+                                                     double targetProbability,
                                                      string calculationIdentifier,
                                                      ActivityState state)
                 : base(hydraulicBoundaryLocationCalculation,
                        calculationSettings,
-                       norm,
+                       targetProbability,
                        calculationIdentifier)
             {
                 State = state;
