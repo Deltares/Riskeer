@@ -36,6 +36,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
+using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -269,7 +270,7 @@ namespace Riskeer.Integration.Service.Test
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
                                          expectedCalculationSettings, (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
-                                 .Return(new TestDunesBoundaryConditionsCalculator()).Repeat.Times(5);
+                                 .Return(new TestDunesBoundaryConditionsCalculator()).Repeat.Once();
             }
 
             mocks.ReplayAll();
@@ -279,7 +280,7 @@ namespace Riskeer.Integration.Service.Test
                 AssessmentSectionCalculationActivityFactory.CreateHydraulicLoadCalculationActivities(assessmentSection);
 
             // Assert
-            Assert.AreEqual(14, activities.Count());
+            Assert.AreEqual(10, activities.Count());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -452,10 +453,12 @@ namespace Riskeer.Integration.Service.Test
 
         private static void AddDuneLocationCalculation(AssessmentSection assessmentSection)
         {
-            var duneLocation = new TestDuneLocation();
+            assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(
+                new DuneLocationCalculationsForTargetProbability());
+
             assessmentSection.DuneErosion.SetDuneLocations(new[]
             {
-                duneLocation
+                new TestDuneLocation()
             });
         }
     }
