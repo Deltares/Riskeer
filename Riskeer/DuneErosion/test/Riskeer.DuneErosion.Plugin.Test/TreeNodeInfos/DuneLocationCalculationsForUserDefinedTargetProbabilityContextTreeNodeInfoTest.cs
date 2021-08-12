@@ -40,6 +40,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
@@ -240,6 +241,48 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             // Assert
             // Done in tearDown
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_AddCustomItems()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var nodeData = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(
+                new DuneLocationCalculationsForTargetProbability(),
+                new DuneErosionFailureMechanism(),
+                assessmentSection);
+
+            var mockRepository = new MockRepository();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                IGui gui = StubFactory.CreateGuiStub(mockRepository);
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                mockRepository.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
+                {
+                    // Assert
+                    Assert.AreEqual(9, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                                  "Alles be&rekenen",
+                                                                  "Er is geen hydraulische belastingendatabase geïmporteerd.",
+                                                                  RiskeerCommonFormsResources.CalculateAllIcon,
+                                                                  false);
+                }
+            }
+
+            // Assert
+            mockRepository.VerifyAll();
         }
 
         [Test]
