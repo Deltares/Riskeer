@@ -30,49 +30,49 @@ namespace Riskeer.DuneErosion.Service
     /// </summary>
     public class DuneLocationCalculationMessageProvider : ICalculationMessageProvider
     {
-        private readonly string categoryBoundaryName;
+        private readonly string calculationIdentifier;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationCalculationMessageProvider"/>.
         /// </summary>
-        /// <param name="categoryBoundaryName">The category boundary name.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
-        public DuneLocationCalculationMessageProvider(string categoryBoundaryName)
+        /// <param name="calculationIdentifier">The calculation identifier to use in all messages.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="calculationIdentifier"/> is <c>null</c> or empty.</exception>
+        public DuneLocationCalculationMessageProvider(string calculationIdentifier)
         {
-            if (string.IsNullOrEmpty(categoryBoundaryName))
+            if (string.IsNullOrEmpty(calculationIdentifier))
             {
-                throw new ArgumentException($"'{nameof(categoryBoundaryName)}' must have a value.");
+                throw new ArgumentException($"'{nameof(calculationIdentifier)}' must have a value.");
             }
 
-            this.categoryBoundaryName = categoryBoundaryName;
+            this.calculationIdentifier = calculationIdentifier;
         }
 
         public string GetActivityDescription(string calculationSubject)
         {
-            return string.Format(Resources.DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_Category_1,
+            return string.Format(Resources.DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_CalculationIdentifier_1,
                                  calculationSubject,
-                                 categoryBoundaryName);
+                                 calculationIdentifier);
         }
 
         public string GetCalculationFailedMessage(string calculationSubject)
         {
-            return string.Format(Resources.DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Category_1_no_error_report,
+            return string.Format(Resources.DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_CalculationIdentifier_1_no_error_report,
                                  calculationSubject,
-                                 categoryBoundaryName);
+                                 calculationIdentifier);
         }
 
         public string GetCalculatedNotConvergedMessage(string calculationSubject)
         {
-            return string.Format(Resources.DuneLocationCalculationService_CreateDuneLocationCalculationOutput_Calculation_for_DuneLocation_0_Category_1_not_converged,
+            return string.Format(Resources.DuneLocationCalculationService_CreateDuneLocationCalculationOutput_Calculation_for_DuneLocation_0_CalculationIdentifier_1_not_converged,
                                  calculationSubject,
-                                 categoryBoundaryName);
+                                 calculationIdentifier);
         }
 
         public string GetCalculationFailedWithErrorReportMessage(string calculationSubject, string errorReport)
         {
-            return string.Format(Resources.DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Category_1_click_details_for_last_error_report_1,
+            return string.Format(Resources.DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_CalculationIdentifier_1_click_details_for_last_error_report_1,
                                  calculationSubject,
-                                 categoryBoundaryName,
+                                 calculationIdentifier,
                                  errorReport);
         }
     }
