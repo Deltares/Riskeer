@@ -161,6 +161,47 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void OnNodeRemoved_WithContexts_RemovesItemAndNotifiesObservers()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            calculationObserver.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            var calculationForFirstTargetProbability = new DuneLocationCalculationsForTargetProbability();
+            var calculationForSecondTargetProbability = new DuneLocationCalculationsForTargetProbability();
+            var calculations = new ObservableList<DuneLocationCalculationsForTargetProbability>
+            {
+                calculationForFirstTargetProbability,
+                calculationForSecondTargetProbability
+            };
+
+            calculations.Attach(calculationObserver);
+
+            var parentContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculations,
+                                                                                                          failureMechanism,
+                                                                                                          assessmentSection);
+
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(calculationForFirstTargetProbability,
+                                                                                             failureMechanism,
+                                                                                             assessmentSection);
+
+            // Call
+            info.OnNodeRemoved(context, parentContext);
+
+            // Assert
+            Assert.AreEqual(1, calculations.Count);
+            CollectionAssert.DoesNotContain(calculations, calculationForFirstTargetProbability);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup

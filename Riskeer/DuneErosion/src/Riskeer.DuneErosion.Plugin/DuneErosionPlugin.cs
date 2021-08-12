@@ -126,6 +126,7 @@ namespace Riskeer.DuneErosion.Plugin
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 EnsureVisibleOnCreate = (context, o) => true,
                 CanRemove = (context, o) => true,
+                OnNodeRemoved = DuneLocationCalculationsForUserDefinedTargetProbabilityOnNodeRemoved,
                 ContextMenuStrip = DuneLocationCalculationsForUserDefinedTargetProbabilityContextMenuStrip
             };
         }
@@ -425,6 +426,14 @@ namespace Riskeer.DuneErosion.Plugin
         #endregion
 
         #region DuneLocationCalculationsForUserDefinedTargetProbabilityContext TreeNodeInfo
+
+        private static void DuneLocationCalculationsForUserDefinedTargetProbabilityOnNodeRemoved(DuneLocationCalculationsForUserDefinedTargetProbabilityContext context, object o)
+        {
+            ObservableList<DuneLocationCalculationsForTargetProbability> parent = ((DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext) o).WrappedData;
+
+            parent.Remove(context.WrappedData);
+            parent.NotifyObservers();
+        }
 
         private ContextMenuStrip DuneLocationCalculationsForUserDefinedTargetProbabilityContextMenuStrip(DuneLocationCalculationsForUserDefinedTargetProbabilityContext context, object parent, TreeViewControl treeViewControl)
         {
