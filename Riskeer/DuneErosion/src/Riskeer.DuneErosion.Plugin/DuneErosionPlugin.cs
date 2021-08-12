@@ -125,6 +125,7 @@ namespace Riskeer.DuneErosion.Plugin
                 Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 EnsureVisibleOnCreate = (context, o) => true,
+                CanRemove = (context, o) => true,
                 ContextMenuStrip = DuneLocationCalculationsForUserDefinedTargetProbabilityContextMenuStrip
             };
         }

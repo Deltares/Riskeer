@@ -95,7 +95,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNull(info.CanRemove);
+            Assert.IsNotNull(info.CanRemove);
             Assert.IsNull(info.OnNodeRemoved);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.CheckedState);
@@ -149,7 +149,17 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.IsTrue(ensureVisibleOnCreate);
         }
-        
+
+        [Test]
+        public void CanRemove_Always_ReturnsTrue()
+        {
+            // Call
+            bool canRemove = info.CanRemove(null, null);
+
+            // Assert
+            Assert.IsTrue(canRemove);
+        }
+
         [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
