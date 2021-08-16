@@ -32,7 +32,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.DuneErosion.Forms.Views
 {
     /// <summary>
-    /// View for the <see cref="DuneLocationCalculation"/>.
+    /// View for presenting and performing dune location calculations.
     /// </summary>
     public partial class DuneLocationCalculationsView : DuneLocationCalculationsViewBase
     {
@@ -40,7 +40,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         private readonly Observer duneLocationCalculationsObserver;
         private readonly IObservableEnumerable<DuneLocationCalculation> calculations;
         private readonly Func<double> getNormFunc;
-        private readonly string categoryBoundaryName;
+        private readonly Func<string> getCalculationIdentifierFunc;
         private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> duneLocationCalculationObserver;
 
         /// <summary>
@@ -50,14 +50,13 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// <param name="failureMechanism">The failure mechanism which the calculations belong to.</param>
         /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
         /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to use during calculations.</param>
-        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
+        /// <param name="getCalculationIdentifierFunc"><see cref="Func{TResult}"/> for getting the calculation identifier to use in all messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public DuneLocationCalculationsView(IObservableEnumerable<DuneLocationCalculation> calculations,
                                             DuneErosionFailureMechanism failureMechanism,
                                             IAssessmentSection assessmentSection,
                                             Func<double> getNormFunc,
-                                            string categoryBoundaryName)
+                                            Func<string> getCalculationIdentifierFunc)
         {
             if (calculations == null)
             {
@@ -79,16 +78,16 @@ namespace Riskeer.DuneErosion.Forms.Views
                 throw new ArgumentNullException(nameof(getNormFunc));
             }
 
-            if (string.IsNullOrEmpty(categoryBoundaryName))
+            if (getCalculationIdentifierFunc == null)
             {
-                throw new ArgumentException($"'{nameof(categoryBoundaryName)}' must have a value.");
+                throw new ArgumentNullException(nameof(getCalculationIdentifierFunc));
             }
 
             InitializeComponent();
 
             this.calculations = calculations;
             this.getNormFunc = getNormFunc;
-            this.categoryBoundaryName = categoryBoundaryName;
+            this.getCalculationIdentifierFunc = getCalculationIdentifierFunc;
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
@@ -96,10 +95,12 @@ namespace Riskeer.DuneErosion.Forms.Views
             {
                 Observable = calculations
             };
+
             duneLocationCalculationObserver = new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(() => dataGridViewControl.RefreshDataGridView(), list => list)
             {
                 Observable = calculations
             };
+
             failureMechanismObserver = new Observer(UpdateCalculateForSelectedButton)
             {
                 Observable = failureMechanism
@@ -175,7 +176,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             CalculationGuiService?.Calculate(GetSelectedCalculatableObjects(),
                                              AssessmentSection,
                                              getNormFunc(),
-                                             categoryBoundaryName);
+                                             getCalculationIdentifierFunc());
         }
     }
 }
