@@ -1236,8 +1236,7 @@ namespace Riskeer.Integration.Plugin
 
                 getTitleFunc = () => GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesViewName(calculationsForUserSpecifiedTargetProbabilities);
             }
-
-            if (e.View is WaveHeightCalculationsView waveHeightCalculationsView)
+            else if (e.View is WaveHeightCalculationsView waveHeightCalculationsView)
             {
                 calculationsForUserSpecifiedTargetProbabilities =
                     waveHeightCalculationsView.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
