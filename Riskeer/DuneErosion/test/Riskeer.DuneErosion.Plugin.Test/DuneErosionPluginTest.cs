@@ -85,7 +85,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
                     typeof(DuneErosionFailurePathProperties));
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(DuneLocationCalculationsContext),
+                    typeof(DuneLocationCalculationsForUserDefinedTargetProbabilityContext),
                     typeof(DuneLocationCalculationsProperties));
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

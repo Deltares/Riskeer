@@ -79,9 +79,9 @@ namespace Riskeer.DuneErosion.Plugin
                                                                                  new DuneErosionFailureMechanismPropertyChangeHandler())
             };
 
-            yield return new PropertyInfo<DuneLocationCalculationsContext, DuneLocationCalculationsProperties>
+            yield return new PropertyInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext, DuneLocationCalculationsProperties>
             {
-                CreateInstance = context => new DuneLocationCalculationsProperties(context.WrappedData)
+                CreateInstance = context => new DuneLocationCalculationsProperties(context.WrappedData.DuneLocationCalculations)
             };
 
             yield return new PropertyInfo<DuneLocationCalculation, DuneLocationCalculationProperties>
