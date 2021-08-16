@@ -127,7 +127,8 @@ namespace Riskeer.DuneErosion.Plugin
                 EnsureVisibleOnCreate = (context, o) => true,
                 CanRemove = (context, o) => true,
                 OnNodeRemoved = DuneLocationCalculationsForUserDefinedTargetProbabilityOnNodeRemoved,
-                ContextMenuStrip = DuneLocationCalculationsForUserDefinedTargetProbabilityContextMenuStrip
+                ContextMenuStrip = DuneLocationCalculationsForUserDefinedTargetProbabilityContextMenuStrip,
+                CanDrag = (context, o) => true
             };
         }
 
