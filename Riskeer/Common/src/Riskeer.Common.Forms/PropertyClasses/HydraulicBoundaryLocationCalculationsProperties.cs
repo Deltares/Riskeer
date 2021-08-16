@@ -55,16 +55,9 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+            hydraulicBoundaryLocationCalculationsObserver.Dispose();
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                hydraulicBoundaryLocationCalculationsObserver.Dispose();
-            }
+            GC.SuppressFinalize(this);
         }
     }
 }

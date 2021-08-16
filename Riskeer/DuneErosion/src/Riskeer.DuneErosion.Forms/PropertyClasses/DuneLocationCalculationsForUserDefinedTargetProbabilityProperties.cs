@@ -72,16 +72,9 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+            calculationsObserver.Dispose();
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                calculationsObserver.Dispose();
-            }
+            GC.SuppressFinalize(this);
         }
 
         private DuneLocationCalculationProperties[] GetDuneLocationCalculationProperties()
