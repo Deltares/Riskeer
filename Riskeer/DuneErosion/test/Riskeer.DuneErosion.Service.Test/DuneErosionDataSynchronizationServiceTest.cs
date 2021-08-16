@@ -54,12 +54,12 @@ namespace Riskeer.DuneErosion.Service.Test
         public void SetDuneLocations_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => DuneErosionDataSynchronizationService.SetDuneLocations(null,
-                                                                                             new HydraulicBoundaryLocation[0],
-                                                                                             new ReadDuneLocation[0]);
+            void Call() => DuneErosionDataSynchronizationService.SetDuneLocations(null,
+                                                                                  new HydraulicBoundaryLocation[0],
+                                                                                  new ReadDuneLocation[0]);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -70,12 +70,12 @@ namespace Riskeer.DuneErosion.Service.Test
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            TestDelegate test = () => DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism,
-                                                                                             null,
-                                                                                             new ReadDuneLocation[0]);
+            void Call() => DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism,
+                                                                                  null,
+                                                                                  new ReadDuneLocation[0]);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
         }
 
@@ -86,12 +86,12 @@ namespace Riskeer.DuneErosion.Service.Test
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            TestDelegate test = () => DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism,
-                                                                                             new HydraulicBoundaryLocation[0],
-                                                                                             null);
+            void Call() => DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism,
+                                                                                  new HydraulicBoundaryLocation[0],
+                                                                                  null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("duneLocations", exception.ParamName);
         }
 
@@ -176,9 +176,8 @@ namespace Riskeer.DuneErosion.Service.Test
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
 
             // Call
-            Action test = () => DuneErosionDataSynchronizationService.SetDuneLocations(
-                failureMechanism,
-                new[]
+            void Call() =>
+                DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism, new[]
                 {
                     hydraulicBoundaryLocation
                 }, new[]
@@ -189,7 +188,7 @@ namespace Riskeer.DuneErosion.Service.Test
             // Assert
             string expectedMessage = $"Locatie '{locationName}' moet voldoen aan het formaat 'Naam_Vaknummer_Metrering'. " +
                                      "Deze locatie is niet toegevoegd aan de hydraulische belastingen voor het toetsspoor duinen.";
-            TestHelper.AssertLogMessageIsGenerated(test, expectedMessage, 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
         }
 
@@ -221,10 +220,10 @@ namespace Riskeer.DuneErosion.Service.Test
         public void ClearDuneLocationCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionDataSynchronizationService.ClearDuneLocationCalculationOutput(null);
+            void Call() => DuneErosionDataSynchronizationService.ClearDuneLocationCalculationOutput(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
