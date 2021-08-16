@@ -39,6 +39,9 @@
     <ProjectReference Include="..\Riskeer.DuneErosion.Data.TestUtil\Riskeer.DuneErosion.Data.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MahApps.Metro">
+      <Version>2.4.7</Version>
+    </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.8.1</Version>
     </PackageReference>

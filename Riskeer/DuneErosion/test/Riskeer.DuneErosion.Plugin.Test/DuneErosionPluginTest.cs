@@ -21,16 +21,27 @@
 
 using System;
 using System.Linq;
+using System.Threading;
 using Core.Common.Base;
+using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
+using Core.Common.Controls.Views;
+using Core.Gui;
+using Core.Gui.Forms.Main;
+using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
+using Core.Gui.Settings;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
 using Riskeer.DuneErosion.Forms.Views;
+using Riskeer.Integration.Data;
 
 namespace Riskeer.DuneErosion.Plugin.Test
 {
@@ -177,6 +188,72 @@ namespace Riskeer.DuneErosion.Plugin.Test
                 // Assert
                 Assert.AreEqual(1, updateInfos.Length);
                 Assert.IsTrue(updateInfos.Any(ei => ei.DataType == typeof(DuneErosionFailureMechanismSectionsContext)));
+            }
+        }
+        
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenPluginWithGuiSetAndOpenedDuneLocationCalculationsView_WhenChangingCorrespondingUserSpecifiedTargetProbabilityAndObserversNotified_ThenViewTitleUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
+            {
+                gui.Plugins.AddRange(new PluginBase[]
+                {
+                    new DuneErosionPlugin()
+                });
+                
+                gui.Run();
+
+                var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability();
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                {
+                    DuneErosion = 
+                    { 
+                        DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                        {
+                            calculationsForTargetProbability
+                        }
+                    }
+                };
+
+                assessmentSection.DuneErosion.SetDuneLocations(new []
+                {
+                    new TestDuneLocation()
+                });
+                
+                var project = new RiskeerProject
+                {
+                    AssessmentSections =
+                    {
+                        assessmentSection
+                    }
+                };
+
+                gui.SetProject(project, null);
+
+                gui.DocumentViewController.CloseAllViews();
+                gui.DocumentViewController.OpenViewForData(new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
+                                                                                                                              assessmentSection.DuneErosion,
+                                                                                                                              assessmentSection));
+
+                IView view = gui.ViewHost.DocumentViews.First();
+
+                // Precondition
+                Assert.IsInstanceOf<DuneLocationCalculationsView>(view);
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Hydraulische belastingen - 1/10"));
+
+                // When
+                calculationsForTargetProbability.TargetProbability = 0.01;
+                calculationsForTargetProbability.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Hydraulische belastingen - 1/100"));
             }
         }
     }
