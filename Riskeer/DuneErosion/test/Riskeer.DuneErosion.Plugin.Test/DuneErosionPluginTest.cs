@@ -143,7 +143,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(DuneLocationCalculationsContext),
+                    typeof(DuneLocationCalculationsForUserDefinedTargetProbabilityContext),
                     typeof(IObservableEnumerable<DuneLocationCalculation>),
                     typeof(DuneLocationCalculationsView));
             }

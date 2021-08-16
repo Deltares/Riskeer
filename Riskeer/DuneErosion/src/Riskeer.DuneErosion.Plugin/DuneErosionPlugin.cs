@@ -177,7 +177,7 @@ namespace Riskeer.DuneErosion.Plugin
                                                                              () => context.WrappedData.TargetProbability,
                                                                              () => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)),
                 AfterCreate = (view, context) => { view.CalculationGuiService = duneLocationCalculationGuiService; },
-                AdditionalDataCheck = context => context.WrappedData.DuneLocationCalculations.Any()
+                AdditionalDataCheck = context => context.FailureMechanism.DuneLocations.Any()
             };
         }
 
