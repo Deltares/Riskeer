@@ -4083,29 +4083,20 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overschrijdingskans waarvoor de hydraulische belastingen worden berekend..
+        /// </summary>
+        public static string TargetProbability_Description {
+            get {
+                return ResourceManager.GetString("TargetProbability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Doelkans [1/jaar].
         /// </summary>
         public static string TargetProbability_DisplayName {
             get {
                 return ResourceManager.GetString("TargetProbability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overschrijdingskans waarvoor de waterstanden worden berekend..
-        /// </summary>
-        public static string TargetProbability_WaterLevels_Description {
-            get {
-                return ResourceManager.GetString("TargetProbability_WaterLevels_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overschrijdingskans waarvoor de golfhoogten worden berekend..
-        /// </summary>
-        public static string TargetProbability_WaveHeights_Description {
-            get {
-                return ResourceManager.GetString("TargetProbability_WaveHeights_Description", resourceCulture);
             }
         }
         

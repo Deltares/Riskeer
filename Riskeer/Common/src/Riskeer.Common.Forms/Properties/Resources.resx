@@ -1589,10 +1589,7 @@ scenario
   <data name="TargetProbability_DisplayName" xml:space="preserve">
     <value>Doelkans [1/jaar]</value>
   </data>
-  <data name="TargetProbability_WaterLevels_Description" xml:space="preserve">
-    <value>Overschrijdingskans waarvoor de waterstanden worden berekend.</value>
-  </data>
-  <data name="TargetProbability_WaveHeights_Description" xml:space="preserve">
-    <value>Overschrijdingskans waarvoor de golfhoogten worden berekend.</value>
+  <data name="TargetProbability_Description" xml:space="preserve">
+    <value>Overschrijdingskans waarvoor de hydraulische belastingen worden berekend.</value>
   </data>
 </root>

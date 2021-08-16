@@ -74,7 +74,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.TargetProbability_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.TargetProbability_WaterLevels_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.TargetProbability_Description))]
         public double TargetProbability
         {
             get

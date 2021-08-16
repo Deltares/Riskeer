@@ -116,7 +116,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
                                                                             "Algemeen",
                                                                             "Doelkans [1/jaar]",
-                                                                            "Overschrijdingskans waarvoor de waterstanden worden berekend.");
+                                                                            "Overschrijdingskans waarvoor de hydraulische belastingen worden berekend.");
 
             PropertyDescriptor locationsProperty = dynamicProperties[calculationsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,

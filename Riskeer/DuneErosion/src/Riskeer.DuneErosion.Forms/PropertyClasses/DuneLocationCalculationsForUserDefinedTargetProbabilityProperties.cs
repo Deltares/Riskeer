@@ -24,9 +24,13 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Util.Attributes;
+using Core.Gui.Attributes;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
+using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.DuneErosion.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -37,6 +41,9 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
     /// </summary>
     public class DuneLocationCalculationsForUserDefinedTargetProbabilityProperties : ObjectProperties<DuneLocationCalculationsForTargetProbability>, IDisposable
     {
+        private const int targetProbabilityPropertyIndex = 1;
+        private const int calculationsPropertyIndex = 2;
+
         private readonly IObservablePropertyChangeHandler targetProbabilityChangeHandler;
         private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsObserver;
 
@@ -69,6 +76,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
             };
         }
 
+        [PropertyOrder(calculationsPropertyIndex)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryDatabase_Locations_DisplayName))]
@@ -78,6 +86,23 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
             get
             {
                 return GetDuneLocationCalculationProperties();
+            }
+        }
+
+        [PropertyOrder(targetProbabilityPropertyIndex)]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.TargetProbability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.TargetProbability_Description))]
+        public double TargetProbability
+        {
+            get
+            {
+                return data.TargetProbability;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.TargetProbability = value, targetProbabilityChangeHandler);
             }
         }
 
