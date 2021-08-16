@@ -21,11 +21,12 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
@@ -38,37 +39,64 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         private const int calculationsPropertyIndex = 0;
 
         [Test]
-        public void Constructor_CalculationsNull_ThrowsArgumentNullException()
+        public void Constructor_CalculationsForTargetProbabilityNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var targetProbabilityChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
             // Call
-            void Call() => new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(null);
+            void Call() => new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(null, targetProbabilityChangeHandler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("calculations", exception.ParamName);
+            Assert.AreEqual("calculationsForTargetProbability", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_TargetProbabilityChangeHandlerNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(
+                new DuneLocationCalculationsForTargetProbability(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("targetProbabilityChangeHandler", paramName);
         }
 
         [Test]
         public void Constructor_WithData_ReturnExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var targetProbabilityChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
             var calculation = new DuneLocationCalculation(new TestDuneLocation());
-            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
             {
-                calculation
+                DuneLocationCalculations =
+                {
+                    calculation
+                }
             };
 
             // Call
-            using (var properties = new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(duneLocationCalculations))
+            using (var properties = new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(calculationsForTargetProbability, targetProbabilityChangeHandler))
             {
                 // Assert
-                Assert.IsInstanceOf<ObjectProperties<IObservableEnumerable<DuneLocationCalculation>>>(properties);
+                Assert.IsInstanceOf<ObjectProperties<DuneLocationCalculationsForTargetProbability>>(properties);
                 Assert.IsInstanceOf<IDisposable>(properties);
 
-                Assert.AreSame(duneLocationCalculations, properties.Data);
+                Assert.AreSame(calculationsForTargetProbability, properties.Data);
 
                 Assert.AreEqual(1, properties.Calculations.Length);
                 Assert.AreSame(calculation, properties.Calculations[0].Data);
+
+                mocks.VerifyAll();
             }
         }
 
@@ -76,14 +104,13 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var calculation = new DuneLocationCalculation(new TestDuneLocation());
-            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
-            {
-                calculation
-            };
+            var mocks = new MockRepository();
+            var targetProbabilityChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
 
             // Call
-            using (var properties = new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(duneLocationCalculations))
+            using (var properties = new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(
+                new DuneLocationCalculationsForTargetProbability(), targetProbabilityChangeHandler))
             {
                 // Assert
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -96,6 +123,8 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                                                 "Locaties",
                                                                                 "Locaties uit de hydraulische belastingendatabase.",
                                                                                 true);
+
+                mocks.VerifyAll();
             }
         }
 
@@ -103,13 +132,20 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         public void GivenPropertyControlWithData_WhenSingleCalculationUpdated_RefreshRequiredEventRaised()
         {
             // Given
+            var mocks = new MockRepository();
+            var targetProbabilityChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
             var calculation = new DuneLocationCalculation(new TestDuneLocation());
-            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
             {
-                calculation
+                DuneLocationCalculations =
+                {
+                    calculation
+                }
             };
 
-            using (var properties = new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(duneLocationCalculations))
+            using (var properties = new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(calculationsForTargetProbability, targetProbabilityChangeHandler))
             {
                 var refreshRequiredRaised = 0;
                 properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
@@ -119,6 +155,8 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
                 // Then
                 Assert.AreEqual(1, refreshRequiredRaised);
+
+                mocks.VerifyAll();
             }
         }
 
@@ -126,13 +164,20 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         public void GivenDisposedPropertyControlWithData_WhenSingleCalculationUpdated_RefreshRequiredEventNotRaised()
         {
             // Given
+            var mocks = new MockRepository();
+            var targetProbabilityChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
             var calculation = new DuneLocationCalculation(new TestDuneLocation());
-            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
             {
-                calculation
+                DuneLocationCalculations =
+                {
+                    calculation
+                }
             };
 
-            using (var properties = new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(duneLocationCalculations))
+            using (var properties = new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(calculationsForTargetProbability, targetProbabilityChangeHandler))
             {
                 var refreshRequiredRaised = 0;
                 properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
@@ -144,6 +189,8 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
                 // Then
                 Assert.AreEqual(0, refreshRequiredRaised);
+
+                mocks.VerifyAll();
             }
         }
     }

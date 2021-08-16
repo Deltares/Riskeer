@@ -33,39 +33,39 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.DuneErosion.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of a collection of <see cref="DuneLocationCalculation"/> for the properties panel.
+    /// ViewModel of a <see cref="DuneLocationCalculationsForTargetProbability"/> for the properties panel.
     /// </summary>
-    public class DuneLocationCalculationsForUserDefinedTargetProbabilityProperties : ObjectProperties<IObservableEnumerable<DuneLocationCalculation>>, IDisposable
+    public class DuneLocationCalculationsForUserDefinedTargetProbabilityProperties : ObjectProperties<DuneLocationCalculationsForTargetProbability>, IDisposable
     {
         private readonly IObservablePropertyChangeHandler targetProbabilityChangeHandler;
         private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsObserver;
-        
+
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationCalculationsForUserDefinedTargetProbabilityProperties"/>.
         /// </summary>
-        /// <param name="calculations">The collection of dune location calculations to set as data.</param>
+        /// <param name="calculationsForTargetProbability">The <see cref="DuneLocationCalculationsForTargetProbability"/> to show the properties for.</param>
         /// <param name="targetProbabilityChangeHandler">The <see cref="IObservablePropertyChangeHandler"/> for when the target probability changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(IObservableEnumerable<DuneLocationCalculation> calculations,
+        public DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(DuneLocationCalculationsForTargetProbability calculationsForTargetProbability,
                                                                                  IObservablePropertyChangeHandler targetProbabilityChangeHandler)
         {
-            if (calculations == null)
+            if (calculationsForTargetProbability == null)
             {
-                throw new ArgumentNullException(nameof(calculations));
+                throw new ArgumentNullException(nameof(calculationsForTargetProbability));
             }
-            
+
             if (targetProbabilityChangeHandler == null)
             {
                 throw new ArgumentNullException(nameof(targetProbabilityChangeHandler));
             }
 
-            Data = calculations;
-            
+            Data = calculationsForTargetProbability;
+
             this.targetProbabilityChangeHandler = targetProbabilityChangeHandler;
-            
+
             calculationsObserver = new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(OnRefreshRequired, list => list)
             {
-                Observable = calculations
+                Observable = calculationsForTargetProbability.DuneLocationCalculations
             };
         }
 
@@ -90,7 +90,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
 
         private DuneLocationCalculationProperties[] GetDuneLocationCalculationProperties()
         {
-            return data.Select(calculation => new DuneLocationCalculationProperties(calculation)).ToArray();
+            return data.DuneLocationCalculations.Select(calculation => new DuneLocationCalculationProperties(calculation)).ToArray();
         }
     }
 }

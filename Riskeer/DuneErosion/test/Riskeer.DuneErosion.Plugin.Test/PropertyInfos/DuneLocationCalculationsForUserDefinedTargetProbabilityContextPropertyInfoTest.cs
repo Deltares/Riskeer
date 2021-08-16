@@ -49,7 +49,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_WithContext_SetsDuneLocationCalculationsAsData()
+        public void CreateInstance_WithContext_SetsDataCorrectly()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -69,7 +69,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.IsInstanceOf<DuneLocationCalculationsForUserDefinedTargetProbabilityProperties>(objectProperties);
-                Assert.AreSame(context.WrappedData.DuneLocationCalculations, objectProperties.Data);
+                Assert.AreSame(context.WrappedData, objectProperties.Data);
             }
 
             mockRepository.VerifyAll();

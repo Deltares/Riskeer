@@ -80,7 +80,7 @@ namespace Riskeer.DuneErosion.Plugin
             yield return new PropertyInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext, DuneLocationCalculationsForUserDefinedTargetProbabilityProperties>
             {
                 CreateInstance = context => new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(
-                    context.WrappedData.DuneLocationCalculations,
+                    context.WrappedData,
                     new DuneLocationCalculationsForTargetProbabilityChangeHandler(context.WrappedData))
             };
 
