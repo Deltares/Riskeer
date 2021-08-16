@@ -32,7 +32,7 @@ using Riskeer.DuneErosion.Forms.PropertyClasses;
 namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class DuneLocationCalculationsContextPropertyInfoTest
+    public class DuneLocationCalculationsForUserDefinedTargetProbabilityContextPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
