@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Forms.PropertyClasses;
+using Core.Common.Base.Data;
+using Core.Common.Util.Attributes;
+using Core.Gui.Attributes;
 using Riskeer.DuneErosion.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -41,16 +43,34 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
         /// Creates a new instance of <see cref="DuneErosionFailurePathProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public DuneErosionFailurePathProperties(DuneErosionFailureMechanism data,
-                                                IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> handler) : base(data, new ConstructionProperties
+        public DuneErosionFailurePathProperties(DuneErosionFailureMechanism data) : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
             CodePropertyIndex = codePropertyIndex,
             GroupPropertyIndex = groupPropertyIndex,
-            ContributionPropertyIndex = contributionPropertyIndex,
-            NPropertyIndex = nPropertyIndex
-        }, handler) {}
+            ContributionPropertyIndex = contributionPropertyIndex
+        }) {}
+
+        #region Length effect parameters
+
+        [PropertyOrder(nPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
+        public RoundedDouble N
+        {
+            get
+            {
+                return data.GeneralInput.N;
+            }
+            set
+            {
+                data.GeneralInput.N = value;
+                data.NotifyObservers();
+            }
+        }
+
+        #endregion
     }
 }

@@ -22,8 +22,6 @@
 using System.ComponentModel;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
 
@@ -36,32 +34,15 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
-        private const int nPropertyIndex = 4;
-        private MockRepository mocks;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
-        }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
-            mocks.ReplayAll();
-
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var properties = new DuneErosionHydraulicLoadsProperties(failureMechanism, changeHandler);
+            var properties = new DuneErosionHydraulicLoadsProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<DuneErosionFailureMechanismProperties>(properties);
@@ -70,28 +51,22 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-
-            Assert.AreEqual(failureMechanism.GeneralInput.N, properties.N);
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
-            mocks.ReplayAll();
-
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var properties = new DuneErosionHydraulicLoadsProperties(failureMechanism, changeHandler);
+            var properties = new DuneErosionHydraulicLoadsProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(4, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
-            const string lengthEffectParameterCategory = "Lengte-effect parameters";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -120,12 +95,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                                             "Faalkansbijdrage [%]",
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
-
-            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
-                                                                            lengthEffectParameterCategory,
-                                                                            "N [-]",
-                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
         }
     }
 }

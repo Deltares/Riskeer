@@ -21,12 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
-using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.DuneErosion.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -38,18 +35,15 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
     public class DuneErosionFailureMechanismProperties : ObjectProperties<DuneErosionFailureMechanism>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
-        private readonly IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> handler;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="constructionProperties">The property values required to create an instance of <see cref="DuneErosionFailureMechanismProperties"/>.</param>
-        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public DuneErosionFailureMechanismProperties(DuneErosionFailureMechanism data,
-                                                     ConstructionProperties constructionProperties,
-                                                     IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> handler)
+                                                     ConstructionProperties constructionProperties)
         {
             if (data == null)
             {
@@ -61,13 +55,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
 
-            if (handler == null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-
             Data = data;
-            this.handler = handler;
 
             propertyIndexLookup = new Dictionary<string, int>
             {
@@ -82,37 +70,9 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
                 },
                 {
                     nameof(Contribution), constructionProperties.ContributionPropertyIndex
-                },
-                {
-                    nameof(N), constructionProperties.NPropertyIndex
                 }
             };
         }
-
-        #region Length effect parameters
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
-        public RoundedDouble N
-        {
-            get
-            {
-                return data.GeneralInput.N;
-            }
-            set
-            {
-                IEnumerable<IObservable> affectedObjects = handler.SetPropertyValueAfterConfirmation(
-                    data,
-                    value,
-                    (f, v) => f.GeneralInput.N = v);
-
-                NotifyAffectedObjects(affectedObjects);
-            }
-        }
-
-        #endregion
 
         [DynamicPropertyOrderEvaluationMethod]
         public int DynamicPropertyOrderEvaluationMethod(string propertyName)
@@ -122,28 +82,11 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
             return propertyIndex;
         }
 
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
-        }
-
         /// <summary>
         /// Class holding the various construction parameters for <see cref="DuneErosionFailureMechanismProperties"/>.
         /// </summary>
         public class ConstructionProperties
         {
-            #region Length effect parameters
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="DuneErosionFailureMechanismProperties.N"/>.
-            /// </summary>
-            public int NPropertyIndex { get; set; }
-
-            #endregion
-
             #region General
 
             /// <summary>

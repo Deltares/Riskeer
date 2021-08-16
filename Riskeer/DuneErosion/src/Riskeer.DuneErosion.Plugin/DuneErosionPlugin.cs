@@ -41,7 +41,6 @@ using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.DuneErosion.Data;
-using Riskeer.DuneErosion.Forms;
 using Riskeer.DuneErosion.Forms.GuiServices;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
@@ -69,14 +68,12 @@ namespace Riskeer.DuneErosion.Plugin
         {
             yield return new PropertyInfo<DuneErosionHydraulicLoadsContext, DuneErosionHydraulicLoadsProperties>
             {
-                CreateInstance = context => new DuneErosionHydraulicLoadsProperties(context.WrappedData,
-                                                                                    new DuneErosionFailureMechanismPropertyChangeHandler())
+                CreateInstance = context => new DuneErosionHydraulicLoadsProperties(context.WrappedData)
             };
 
             yield return new PropertyInfo<DuneErosionFailurePathContext, DuneErosionFailurePathProperties>
             {
-                CreateInstance = context => new DuneErosionFailurePathProperties(context.WrappedData,
-                                                                                 new DuneErosionFailureMechanismPropertyChangeHandler())
+                CreateInstance = context => new DuneErosionFailurePathProperties(context.WrappedData)
             };
 
             yield return new PropertyInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext, DuneLocationCalculationsForUserDefinedTargetProbabilityProperties>
@@ -177,7 +174,10 @@ namespace Riskeer.DuneErosion.Plugin
                                                                              context.AssessmentSection,
                                                                              context.GetNormFunc,
                                                                              context.CategoryBoundaryName),
-                AfterCreate = (view, context) => { view.CalculationGuiService = duneLocationCalculationGuiService; },
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = duneLocationCalculationGuiService;
+                },
                 AdditionalDataCheck = context => context.WrappedData.Any()
             };
         }

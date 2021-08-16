@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.DuneErosion.Data;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Forms.PropertyClasses
 {
@@ -35,22 +33,18 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
-        private const int nPropertyIndex = 5;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionHydraulicLoadsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public DuneErosionHydraulicLoadsProperties(DuneErosionFailureMechanism data,
-                                                 IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> handler) : base(data, new ConstructionProperties
+        public DuneErosionHydraulicLoadsProperties(DuneErosionFailureMechanism data) : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
             CodePropertyIndex = codePropertyIndex,
             GroupPropertyIndex = groupPropertyIndex,
-            ContributionPropertyIndex = contributionPropertyIndex,
-            NPropertyIndex = nPropertyIndex
-        }, handler) {}
+            ContributionPropertyIndex = contributionPropertyIndex
+        }) {}
     }
 }

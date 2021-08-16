@@ -19,11 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using Core.Common.Base;
+using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
 
@@ -37,31 +41,15 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
         private const int nPropertyIndex = 4;
-        private MockRepository mocks;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
-        }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
-            mocks.ReplayAll();
-
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var properties = new DuneErosionFailurePathProperties(failureMechanism, changeHandler);
+            var properties = new DuneErosionFailurePathProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<DuneErosionFailureMechanismProperties>(properties);
@@ -78,13 +66,10 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var changeHandler = mocks.Stub<IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism>>();
-            mocks.ReplayAll();
-
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var properties = new DuneErosionFailurePathProperties(failureMechanism, changeHandler);
+            var properties = new DuneErosionFailurePathProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -126,6 +111,59 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                                             lengthEffectParameterCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(0.0)]
+        [TestCase(-1.0)]
+        [TestCase(-20.0)]
+        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.Attach(observer);
+
+            var properties = new DuneErosionFailurePathProperties(failureMechanism);
+
+            // Call
+            void Call() => properties.N = (RoundedDouble) newN;
+
+            // Assert
+            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(1.0)]
+        [TestCase(10.0)]
+        [TestCase(20.0)]
+        public void N_SetValidValue_UpdateDataAndNotifyObservers(double newN)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.Attach(observer);
+
+            var properties = new DuneErosionFailurePathProperties(failureMechanism);
+
+            // Call
+            properties.N = (RoundedDouble) newN;
+
+            // Assert
+            Assert.AreEqual(newN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+
+            mocks.VerifyAll();
         }
     }
 }
