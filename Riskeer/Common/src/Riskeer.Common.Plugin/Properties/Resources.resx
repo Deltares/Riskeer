@@ -123,4 +123,12 @@
   <data name="ContextMenuStrip_Add_TargetProbability_ToolTip" xml:space="preserve">
     <value>Voeg een nieuwe doelkans toe aan deze map.</value>
   </data>
+  <data name="TargetProbabilityChangeHandler_Confirm_change_target_probability_and_clear_dependent_data" xml:space="preserve">
+    <value>Als u de doelkans aanpast, dan worden alle bijbehorende hydraulische belastingen verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+  </data>
+  <data name="TargetProbabilityChangeHandler_Hydraulic_load_results_cleared" xml:space="preserve">
+    <value>Alle bijbehorende hydraulische belastingen zijn verwijderd.</value>
+  </data>
 </root>

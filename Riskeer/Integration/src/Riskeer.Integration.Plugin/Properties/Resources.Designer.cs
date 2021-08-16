@@ -392,28 +392,6 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u de doelkans aanpast, dan worden alle bijbehorende hydraulische belastingen verwijderd.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        public static string HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler_Confirm_change_target_probability_and_clear_dependent_data {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler_Confirm_ch" +
-                        "ange_target_probability_and_clear_dependent_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alle bijbehorende hydraulische belastingen zijn verwijderd..
-        /// </summary>
-        public static string HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler_Hydraulic_load_results_cleared {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler_Hydraulic_" +
-                        "load_results_cleared", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Importeren van het HLCD bestand.
         /// </summary>
         public static string HydraulicLocationConfigurationDatabaseImportHandler_ImportHydraulicLocationConfigurationSettings_Description {

@@ -98,5 +98,26 @@ namespace Riskeer.Common.Plugin.Properties {
                 return ResourceManager.GetString("ContextMenuStrip_Add_TargetProbability_ToolTip", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Als u de doelkans aanpast, dan worden alle bijbehorende hydraulische belastingen verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string TargetProbabilityChangeHandler_Confirm_change_target_probability_and_clear_dependent_data {
+            get {
+                return ResourceManager.GetString("TargetProbabilityChangeHandler_Confirm_change_target_probability_and_clear_depend" +
+                        "ent_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alle bijbehorende hydraulische belastingen zijn verwijderd..
+        /// </summary>
+        public static string TargetProbabilityChangeHandler_Hydraulic_load_results_cleared {
+            get {
+                return ResourceManager.GetString("TargetProbabilityChangeHandler_Hydraulic_load_results_cleared", resourceCulture);
+            }
+        }
     }
 }

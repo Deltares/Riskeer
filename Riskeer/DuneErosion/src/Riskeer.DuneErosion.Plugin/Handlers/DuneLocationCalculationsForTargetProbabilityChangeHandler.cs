@@ -25,29 +25,29 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using log4net;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.Integration.Service;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using RiskeerCommonPluginResources = Riskeer.Common.Plugin.Properties.Resources;
 
-namespace Riskeer.Integration.Plugin.Handlers
+namespace Riskeer.DuneErosion.Plugin.Handlers
 {
     /// <summary>
-    /// Class responsible for changing the <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability.TargetProbability"/>
-    /// value of a <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> and clearing all dependent data.
+    /// Class responsible for changing the <see cref="DuneLocationCalculationsForTargetProbability.TargetProbability"/>
+    /// value of a <see cref="DuneLocationCalculationsForTargetProbability"/> and clearing all dependent data.
     /// </summary>
-    public class HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler : IObservablePropertyChangeHandler
+    public class DuneLocationCalculationsForTargetProbabilityChangeHandler : IObservablePropertyChangeHandler
     {
-        private readonly HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability;
-        private readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler));
+        private readonly DuneLocationCalculationsForTargetProbability calculationsForTargetProbability;
+        private readonly ILog log = LogManager.GetLogger(typeof(DuneLocationCalculationsForTargetProbabilityChangeHandler));
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler"/>.
+        /// Creates a new instance of <see cref="DuneLocationCalculationsForTargetProbabilityChangeHandler"/>.
         /// </summary>
         /// <param name="calculationsForTargetProbability">The calculations to change the target probability for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationsForTargetProbability"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
+        public DuneLocationCalculationsForTargetProbabilityChangeHandler(DuneLocationCalculationsForTargetProbability calculationsForTargetProbability)
         {
             if (calculationsForTargetProbability == null)
             {
@@ -70,7 +70,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             {
                 setValue();
 
-                affectedObjects.AddRange(ClearHydraulicBoundaryLocationCalculationOutput());
+                affectedObjects.AddRange(ClearDuneLocationCalculationOutput());
                 affectedObjects.Add(calculationsForTargetProbability);
             }
 
@@ -85,9 +85,9 @@ namespace Riskeer.Integration.Plugin.Handlers
             return result == DialogResult.OK;
         }
 
-        private IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutput()
+        private IEnumerable<IObservable> ClearDuneLocationCalculationOutput()
         {
-            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculationsForTargetProbability);
+            IEnumerable<IObservable> affectedObjects = DuneErosionDataSynchronizationService.ClearDuneLocationCalculationsOutput(calculationsForTargetProbability.DuneLocationCalculations);
 
             if (affectedObjects.Any())
             {
