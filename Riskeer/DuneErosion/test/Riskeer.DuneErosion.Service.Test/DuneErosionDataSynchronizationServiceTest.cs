@@ -264,7 +264,7 @@ namespace Riskeer.DuneErosion.Service.Test
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affected);
             DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(failureMechanism);
         }
-        
+
         [Test]
         public void ClearDuneLocationCalculationsOutput_CalculationsNull_ThrowsArgumentNullException()
         {
@@ -274,6 +274,44 @@ namespace Riskeer.DuneErosion.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearDuneLocationCalculationsOutput_CalculationsWithOutput_OutputClearedAndAffectedItemsReturned()
+        {
+            // Setup
+            var duneLocationCalculationWithOutput1 = new DuneLocationCalculation(new TestDuneLocation())
+            {
+                Output = new TestDuneLocationCalculationOutput()
+            };
+
+            var duneLocationCalculationWithOutput2 = new DuneLocationCalculation(new TestDuneLocation())
+            {
+                Output = new TestDuneLocationCalculationOutput()
+            };
+
+            DuneLocationCalculation[] calculations =
+            {
+                new DuneLocationCalculation(new TestDuneLocation()),
+                duneLocationCalculationWithOutput1,
+                new DuneLocationCalculation(new TestDuneLocation()),
+                duneLocationCalculationWithOutput2,
+                new DuneLocationCalculation(new TestDuneLocation())
+            };
+
+            IEnumerable<IObservable> expectedAffectedCalculations = new[]
+            {
+                duneLocationCalculationWithOutput1,
+                duneLocationCalculationWithOutput2
+            };
+
+            // Call
+            IEnumerable<IObservable> affected = DuneErosionDataSynchronizationService.ClearDuneLocationCalculationsOutput(calculations);
+
+            // Assert
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affected);
+            Assert.IsNull(duneLocationCalculationWithOutput1.Output);
+            Assert.IsNull(duneLocationCalculationWithOutput2.Output);
         }
     }
 }
