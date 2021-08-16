@@ -45,11 +45,9 @@ namespace Riskeer.DuneErosion.Data.TestUtil
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasDuneLocationCalculationOutput)
-                                   .Concat(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Where(HasDuneLocationCalculationOutput))
-                                   .Concat(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Where(HasDuneLocationCalculationOutput))
-                                   .Concat(failureMechanism.CalculationsForLowerLimitNorm.Where(HasDuneLocationCalculationOutput))
-                                   .Concat(failureMechanism.CalculationsForFactorizedLowerLimitNorm.Where(HasDuneLocationCalculationOutput))
+            return failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                                   .SelectMany(dlc => dlc.DuneLocationCalculations)
+                                   .Where(HasDuneLocationCalculationOutput)
                                    .ToArray();
         }
 
@@ -67,11 +65,9 @@ namespace Riskeer.DuneErosion.Data.TestUtil
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => !HasDuneLocationCalculationOutput(calc)));
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => !HasDuneLocationCalculationOutput(calc)));
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => !HasDuneLocationCalculationOutput(calc)));
-            Assert.True(failureMechanism.CalculationsForLowerLimitNorm.All(calc => !HasDuneLocationCalculationOutput(calc)));
-            Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(calc => !HasDuneLocationCalculationOutput(calc)));
+            Assert.True(failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                                        .SelectMany(dlc => dlc.DuneLocationCalculations)
+                                        .All(calc => !HasDuneLocationCalculationOutput(calc)));
         }
 
         /// <summary>
@@ -93,6 +89,9 @@ namespace Riskeer.DuneErosion.Data.TestUtil
             SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, random);
             SetDuneLocationCalculationOutput(failureMechanism.CalculationsForLowerLimitNorm, random);
             SetDuneLocationCalculationOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm, random);
+            
+            SetDuneLocationCalculationOutput(failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                                                             .SelectMany(dlc => dlc.DuneLocationCalculations), random);
         }
 
         private static bool HasDuneLocationCalculationOutput(DuneLocationCalculation calculation)
