@@ -27,9 +27,12 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
+using Core.Common.Controls.Views;
 using Core.Common.Util;
+using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.ProgressDialog;
+using Core.Gui.Forms.ViewHost;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
 using Riskeer.Common.Data.AssessmentSection;
@@ -62,7 +65,30 @@ namespace Riskeer.DuneErosion.Plugin
     {
         private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
 
+        private static readonly IDictionary<IView, Observer> observersForViewTitles = new Dictionary<IView, Observer>();
+
         private DuneLocationCalculationGuiService duneLocationCalculationGuiService;
+
+        public override IGui Gui
+        {
+            get => base.Gui;
+            set
+            {
+                if (base.Gui != null)
+                {
+                    base.Gui.ViewHost.ViewOpened -= OnViewOpened;
+                    base.Gui.ViewHost.ViewClosed -= OnViewClosed;
+                }
+
+                base.Gui = value;
+
+                if (value != null)
+                {
+                    base.Gui.ViewHost.ViewOpened += OnViewOpened;
+                    base.Gui.ViewHost.ViewClosed += OnViewClosed;
+                }
+            }
+        }
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
@@ -166,8 +192,7 @@ namespace Riskeer.DuneErosion.Plugin
 
             yield return new ViewInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>
             {
-                GetViewName = (view, context) => $"{RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName} - " +
-                                                 $"{noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)}",
+                GetViewName = (view, context) => GetDuneLocationCalculationsViewName(context.WrappedData),
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewData = context => context.WrappedData.DuneLocationCalculations,
                 CloseForData = CloseDuneLocationCalculationsViewForData,
@@ -224,6 +249,39 @@ namespace Riskeer.DuneErosion.Plugin
             }
 
             duneLocationCalculationGuiService = new DuneLocationCalculationGuiService(Gui.MainWindow);
+        }
+
+        private void OnViewOpened(object sender, ViewChangeEventArgs e)
+        {
+            if (e.View is DuneLocationCalculationsView duneLocationCalculationsView)
+            {
+                DuneLocationCalculationsForTargetProbability calculationsForUserSpecifiedTargetProbabilities =
+                    duneLocationCalculationsView.FailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                                                .FirstOrDefault(calculations => ReferenceEquals(calculations.DuneLocationCalculations, duneLocationCalculationsView.Data));
+
+                if (calculationsForUserSpecifiedTargetProbabilities != null)
+                {
+                    observersForViewTitles[e.View] = new Observer(() => Gui.ViewHost.SetTitle(e.View, GetDuneLocationCalculationsViewName(calculationsForUserSpecifiedTargetProbabilities)))
+                    {
+                        Observable = calculationsForUserSpecifiedTargetProbabilities
+                    };
+                }
+            }
+        }
+
+        private static void OnViewClosed(object sender, ViewChangeEventArgs e)
+        {
+            if (observersForViewTitles.TryGetValue(e.View, out Observer observerForViewTitle))
+            {
+                observerForViewTitle.Dispose();
+                observersForViewTitles.Remove(e.View);
+            }
+        }
+
+        private static string GetDuneLocationCalculationsViewName(DuneLocationCalculationsForTargetProbability calculationsForTargetProbabilities)
+        {
+            return $"{RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName} - " +
+                   $"{noProbabilityValueDoubleConverter.ConvertToString(calculationsForTargetProbabilities.TargetProbability)}";
         }
 
         #region ViewInfos
