@@ -47,6 +47,7 @@ using Riskeer.DuneErosion.Forms.PropertyClasses;
 using Riskeer.DuneErosion.Forms.Views;
 using Riskeer.DuneErosion.IO;
 using Riskeer.DuneErosion.Plugin.FileImporters;
+using Riskeer.DuneErosion.Plugin.Handlers;
 using Riskeer.DuneErosion.Plugin.Properties;
 using Riskeer.DuneErosion.Service;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
@@ -78,7 +79,9 @@ namespace Riskeer.DuneErosion.Plugin
 
             yield return new PropertyInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext, DuneLocationCalculationsForUserDefinedTargetProbabilityProperties>
             {
-                CreateInstance = context => new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(context.WrappedData.DuneLocationCalculations)
+                CreateInstance = context => new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(
+                    context.WrappedData.DuneLocationCalculations,
+                    new DuneLocationCalculationsForTargetProbabilityChangeHandler(context.WrappedData))
             };
 
             yield return new PropertyInfo<DuneLocationCalculation, DuneLocationCalculationProperties>

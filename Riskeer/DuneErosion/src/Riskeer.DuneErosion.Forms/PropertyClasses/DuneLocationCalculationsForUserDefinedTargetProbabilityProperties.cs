@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Util.Attributes;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
+using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.DuneErosion.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -36,26 +37,36 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
     /// </summary>
     public class DuneLocationCalculationsForUserDefinedTargetProbabilityProperties : ObjectProperties<IObservableEnumerable<DuneLocationCalculation>>, IDisposable
     {
+        private readonly IObservablePropertyChangeHandler targetProbabilityChangeHandler;
         private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsObserver;
-
+        
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationCalculationsForUserDefinedTargetProbabilityProperties"/>.
         /// </summary>
         /// <param name="calculations">The collection of dune location calculations to set as data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
-        public DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(IObservableEnumerable<DuneLocationCalculation> calculations)
+        /// <param name="targetProbabilityChangeHandler">The <see cref="IObservablePropertyChangeHandler"/> for when the target probability changes.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(IObservableEnumerable<DuneLocationCalculation> calculations,
+                                                                                 IObservablePropertyChangeHandler targetProbabilityChangeHandler)
         {
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
+            
+            if (targetProbabilityChangeHandler == null)
+            {
+                throw new ArgumentNullException(nameof(targetProbabilityChangeHandler));
+            }
 
+            Data = calculations;
+            
+            this.targetProbabilityChangeHandler = targetProbabilityChangeHandler;
+            
             calculationsObserver = new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(OnRefreshRequired, list => list)
             {
                 Observable = calculations
             };
-
-            Data = calculations;
         }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]

@@ -45,12 +45,12 @@ namespace Riskeer.Common.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculations));
             }
 
+            Data = hydraulicBoundaryLocationCalculations;
+
             hydraulicBoundaryLocationCalculationsObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(OnRefreshRequired, hblc => hblc)
             {
                 Observable = hydraulicBoundaryLocationCalculations
             };
-
-            Data = hydraulicBoundaryLocationCalculations;
         }
 
         public void Dispose()
