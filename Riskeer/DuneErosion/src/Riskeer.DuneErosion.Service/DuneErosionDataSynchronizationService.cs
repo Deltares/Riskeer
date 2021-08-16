@@ -117,15 +117,26 @@ namespace Riskeer.DuneErosion.Service
 
             foreach (DuneLocationCalculationsForTargetProbability calculationsForTargetProbability in failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities)
             {
-                affectedCalculations.AddRange(ClearDuneLocationCalculationsOutput(calculationsForTargetProbability));
+                affectedCalculations.AddRange(ClearDuneLocationCalculationsOutput(calculationsForTargetProbability.DuneLocationCalculations));
             }
 
             return affectedCalculations;
         }
 
-        private static IEnumerable<IObservable> ClearDuneLocationCalculationsOutput(DuneLocationCalculationsForTargetProbability calculationsForTargetProbability)
+        /// <summary>
+        /// Clears the output of the provided dune location calculations.
+        /// </summary>
+        /// <param name="calculations">The calculations for which the output needs to be cleared.</param>
+        /// <returns>All objects changed during the clear.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearDuneLocationCalculationsOutput(IEnumerable<DuneLocationCalculation> calculations)
         {
-            IEnumerable<DuneLocationCalculation> affectedCalculations = calculationsForTargetProbability.DuneLocationCalculations.Where(c => c.Output != null).ToArray();
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+
+            IEnumerable<DuneLocationCalculation> affectedCalculations = calculations.Where(c => c.Output != null).ToArray();
 
             affectedCalculations.ForEachElementDo(c => c.Output = null);
 
