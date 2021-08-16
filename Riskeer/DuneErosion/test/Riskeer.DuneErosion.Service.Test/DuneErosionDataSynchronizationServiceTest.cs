@@ -264,5 +264,16 @@ namespace Riskeer.DuneErosion.Service.Test
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affected);
             DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(failureMechanism);
         }
+        
+        [Test]
+        public void ClearDuneLocationCalculationsOutput_CalculationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => DuneErosionDataSynchronizationService.ClearDuneLocationCalculationsOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculations", exception.ParamName);
+        }
     }
 }
