@@ -269,6 +269,16 @@ namespace Riskeer.Integration.Service.Test
             };
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
+
+            var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability();
+            var duneLocationCalculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability();
+
+            duneErosionFailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
+            {
+                duneLocationCalculationsForTargetProbability1,
+                duneLocationCalculationsForTargetProbability2
+            });
+
             duneErosionFailureMechanism.SetDuneLocations(new[]
             {
                 duneLocation1,
@@ -307,17 +317,11 @@ namespace Riskeer.Integration.Service.Test
             hydraulicBoundaryLocationCalculation7.Output = new TestHydraulicBoundaryLocationCalculationOutput();
             hydraulicBoundaryLocationCalculation8.Output = new TestHydraulicBoundaryLocationCalculationOutput();
 
-            DuneLocationCalculation duneLocationCalculation1 = duneErosionFailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
-            DuneLocationCalculation duneLocationCalculation2 = duneErosionFailureMechanism.CalculationsForMechanismSpecificSignalingNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
-            DuneLocationCalculation duneLocationCalculation3 = duneErosionFailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
-            DuneLocationCalculation duneLocationCalculation4 = duneErosionFailureMechanism.CalculationsForLowerLimitNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
-            DuneLocationCalculation duneLocationCalculation5 = duneErosionFailureMechanism.CalculationsForFactorizedLowerLimitNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
+            DuneLocationCalculation duneLocationCalculation1 = duneLocationCalculationsForTargetProbability1.DuneLocationCalculations.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
+            DuneLocationCalculation duneLocationCalculation2 = duneLocationCalculationsForTargetProbability2.DuneLocationCalculations.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
 
             duneLocationCalculation1.Output = new TestDuneLocationCalculationOutput();
             duneLocationCalculation2.Output = new TestDuneLocationCalculationOutput();
-            duneLocationCalculation3.Output = new TestDuneLocationCalculationOutput();
-            duneLocationCalculation4.Output = new TestDuneLocationCalculationOutput();
-            duneLocationCalculation5.Output = new TestDuneLocationCalculationOutput();
 
             var expectedAffectedItems = new IObservable[]
             {
@@ -330,10 +334,7 @@ namespace Riskeer.Integration.Service.Test
                 hydraulicBoundaryLocationCalculation7,
                 hydraulicBoundaryLocationCalculation8,
                 duneLocationCalculation1,
-                duneLocationCalculation2,
-                duneLocationCalculation3,
-                duneLocationCalculation4,
-                duneLocationCalculation5
+                duneLocationCalculation2
             };
 
             // Call
@@ -353,9 +354,6 @@ namespace Riskeer.Integration.Service.Test
 
             Assert.IsNull(duneLocationCalculation1.Output);
             Assert.IsNull(duneLocationCalculation2.Output);
-            Assert.IsNull(duneLocationCalculation3.Output);
-            Assert.IsNull(duneLocationCalculation4.Output);
-            Assert.IsNull(duneLocationCalculation5.Output);
         }
 
         [Test]

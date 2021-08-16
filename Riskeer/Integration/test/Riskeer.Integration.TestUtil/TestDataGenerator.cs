@@ -922,10 +922,16 @@ namespace Riskeer.Integration.TestUtil
 
         private static void SetFullyConfiguredFailureMechanism(DuneErosionFailureMechanism failureMechanism)
         {
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability();
+
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(calculationsForTargetProbability);
+
             failureMechanism.SetDuneLocations(new[]
             {
                 new TestDuneLocation()
             });
+
+            calculationsForTargetProbability.DuneLocationCalculations.First().Output = new TestDuneLocationCalculationOutput();
 
             failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();
             failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();

@@ -264,16 +264,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
         private static IEnumerable<DuneLocationCalculation> GetDuneLocationCalculations(AssessmentSection assessmentSection)
         {
-            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
-
-            var calculations = new List<DuneLocationCalculation>();
-            calculations.AddRange(duneErosionFailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
-            calculations.AddRange(duneErosionFailureMechanism.CalculationsForMechanismSpecificSignalingNorm);
-            calculations.AddRange(duneErosionFailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
-            calculations.AddRange(duneErosionFailureMechanism.CalculationsForLowerLimitNorm);
-            calculations.AddRange(duneErosionFailureMechanism.CalculationsForFactorizedLowerLimitNorm);
-
-            return calculations;
+            return assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities.SelectMany(dlc => dlc.DuneLocationCalculations);
         }
     }
 }
