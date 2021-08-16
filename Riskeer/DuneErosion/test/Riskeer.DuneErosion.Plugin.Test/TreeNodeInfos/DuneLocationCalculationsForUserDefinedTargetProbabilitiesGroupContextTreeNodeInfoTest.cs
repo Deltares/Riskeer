@@ -82,9 +82,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.CheckedState);
                 Assert.IsNull(info.OnNodeChecked);
                 Assert.IsNull(info.CanDrag);
-                Assert.IsNull(info.CanDrop);
-                Assert.IsNull(info.CanInsert);
-                Assert.IsNull(info.OnDrop);
+                Assert.IsNotNull(info.CanDrop);
+                Assert.IsNotNull(info.CanInsert);
+                Assert.IsNotNull(info.OnDrop);
             }
         }
 
@@ -601,6 +601,217 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             }
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CanInsert_DraggedDataOfUnsupportedDataType_ReturnsFalse()
+        {
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                var targetData = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                    new ObservableList<DuneLocationCalculationsForTargetProbability>(),
+                    new DuneErosionFailureMechanism(),
+                    new AssessmentSectionStub());
+
+                // Call
+                bool canInsert = info.CanInsert(new object(), targetData);
+
+                // Assert
+                Assert.IsFalse(canInsert);
+            }
+        }
+
+        [Test]
+        public void CanInsert_DraggedDataNotPartOfGroupContext_ReturnsFalse()
+        {
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                var assessmentSectionStub = new AssessmentSectionStub();
+                var failureMechanism = new DuneErosionFailureMechanism();
+
+                var targetData = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                    new ObservableList<DuneLocationCalculationsForTargetProbability>(),
+                    failureMechanism,
+                    assessmentSectionStub);
+
+                var draggedData = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(
+                    new DuneLocationCalculationsForTargetProbability(),
+                    failureMechanism,
+                    assessmentSectionStub);
+
+                // Call
+                bool canInsert = info.CanInsert(draggedData, targetData);
+
+                // Assert
+                Assert.IsFalse(canInsert);
+            }
+        }
+
+        [Test]
+        public void CanInsert_DraggedDataPartOfGroupContext_ReturnsTrue()
+        {
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                var assessmentSectionStub = new AssessmentSectionStub();
+                var failureMechanism = new DuneErosionFailureMechanism();
+                var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability();
+
+                var targetData = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                    new ObservableList<DuneLocationCalculationsForTargetProbability>
+                    {
+                        calculationsForTargetProbability
+                    },
+                    failureMechanism,
+                    assessmentSectionStub);
+
+                var draggedData = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(
+                    calculationsForTargetProbability,
+                    failureMechanism,
+                    assessmentSectionStub);
+
+                // Call
+                bool canInsert = info.CanInsert(draggedData, targetData);
+
+                // Assert
+                Assert.IsTrue(canInsert);
+            }
+        }
+
+        [Test]
+        public void CanDrop_DraggedDataOfUnsupportedDataType_ReturnsFalse()
+        {
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                var targetData = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                    new ObservableList<DuneLocationCalculationsForTargetProbability>(),
+                    new DuneErosionFailureMechanism(),
+                    new AssessmentSectionStub());
+
+                // Call
+                bool canDrop = info.CanDrop(new object(), targetData);
+
+                // Assert
+                Assert.IsFalse(canDrop);
+            }
+        }
+
+        [Test]
+        public void CanDrop_DraggedDataNotPartOfGroupContext_ReturnsFalse()
+        {
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                var assessmentSectionStub = new AssessmentSectionStub();
+                var failureMechanism = new DuneErosionFailureMechanism();
+
+                var targetData = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                    new ObservableList<DuneLocationCalculationsForTargetProbability>(),
+                    failureMechanism,
+                    assessmentSectionStub);
+
+                var draggedData = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(
+                    new DuneLocationCalculationsForTargetProbability(),
+                    failureMechanism,
+                    assessmentSectionStub);
+
+                // Call
+                bool canDrop = info.CanDrop(draggedData, targetData);
+
+                // Assert
+                Assert.IsFalse(canDrop);
+            }
+        }
+
+        [Test]
+        public void CanDrop_DraggedDataPartOfGroupContext_ReturnsTrue()
+        {
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                var assessmentSectionStub = new AssessmentSectionStub();
+                var failureMechanism = new DuneErosionFailureMechanism();
+                var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability();
+
+                var targetData = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                    new ObservableList<DuneLocationCalculationsForTargetProbability>
+                    {
+                        calculationsForTargetProbability
+                    },
+                    failureMechanism,
+                    assessmentSectionStub);
+
+                var draggedData = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(
+                    calculationsForTargetProbability,
+                    failureMechanism,
+                    assessmentSectionStub);
+
+                // Call
+                bool canDrop = info.CanDrop(draggedData, targetData);
+
+                // Assert
+                Assert.IsTrue(canDrop);
+            }
+        }
+
+        [Test]
+        public void OnDrop_DataDroppedToDifferentIndex_DroppedDataCorrectlyMoved()
+        {
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                var assessmentSectionStub = new AssessmentSectionStub();
+                var failureMechanism = new DuneErosionFailureMechanism();
+
+                var calculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability();
+                var calculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability();
+                var calculationsForTargetProbability3 = new DuneLocationCalculationsForTargetProbability();
+
+                var calculationsForTargetProbabilities = new ObservableList<DuneLocationCalculationsForTargetProbability>
+                {
+                    calculationsForTargetProbability1,
+                    calculationsForTargetProbability2,
+                    calculationsForTargetProbability3
+                };
+
+                var parentData = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                    calculationsForTargetProbabilities,
+                    failureMechanism,
+                    assessmentSectionStub);
+
+                var droppedData = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(
+                    calculationsForTargetProbability3,
+                    failureMechanism,
+                    assessmentSectionStub);
+
+                // Call
+                info.OnDrop(droppedData, parentData, parentData, 1, null);
+
+                // Assert
+                CollectionAssert.AreEquivalent(new[]
+                {
+                    calculationsForTargetProbability1,
+                    calculationsForTargetProbability3,
+                    calculationsForTargetProbability2
+                }, calculationsForTargetProbabilities);
+            }
         }
 
         private static TreeNodeInfo GetInfo(DuneErosionPlugin plugin)

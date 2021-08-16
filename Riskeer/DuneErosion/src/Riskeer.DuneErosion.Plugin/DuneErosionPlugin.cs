@@ -117,7 +117,10 @@ namespace Riskeer.DuneErosion.Plugin
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip,
-                ChildNodeObjects = DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodeObjects
+                ChildNodeObjects = DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodeObjects,
+                CanInsert = DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext_CanDropOrInsert,
+                CanDrop = DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext_CanDropOrInsert,
+                OnDrop = DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop
             };
 
             yield return new TreeNodeInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext>
@@ -424,6 +427,25 @@ namespace Riskeer.DuneErosion.Plugin
                 failureMechanism.DuneLocations.Select(dl => new DuneLocationCalculation(dl)));
 
             return hydraulicBoundaryLocationCalculationsForTargetProbability;
+        }
+
+        private static bool DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext_CanDropOrInsert(object draggedData, object targetData)
+        {
+            var duneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext = (DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext) targetData;
+
+            return draggedData is DuneLocationCalculationsForUserDefinedTargetProbabilityContext duneLocationCalculationsForUserDefinedTargetProbabilityContext
+                   && duneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext.WrappedData.Contains(duneLocationCalculationsForUserDefinedTargetProbabilityContext.WrappedData);
+        }
+
+        private static void DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
+        {
+            var duneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext = (DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext) newParentData;
+            var duneLocationCalculationsForUserDefinedTargetProbabilityContext = (DuneLocationCalculationsForUserDefinedTargetProbabilityContext) droppedData;
+
+            duneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext.WrappedData.Remove(
+                duneLocationCalculationsForUserDefinedTargetProbabilityContext.WrappedData);
+            duneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext.WrappedData.Insert(
+                position, duneLocationCalculationsForUserDefinedTargetProbabilityContext.WrappedData);
         }
 
         #endregion
