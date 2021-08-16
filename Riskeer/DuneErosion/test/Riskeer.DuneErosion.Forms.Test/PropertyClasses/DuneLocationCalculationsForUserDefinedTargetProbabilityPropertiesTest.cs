@@ -33,18 +33,18 @@ using Riskeer.DuneErosion.Forms.PropertyClasses;
 namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class DuneLocationCalculationsPropertiesTest
+    public class DuneLocationCalculationsForUserDefinedTargetProbabilityPropertiesTest
     {
-        private const int requiredLocationsPropertyIndex = 0;
+        private const int calculationsPropertyIndex = 0;
 
         [Test]
         public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DuneLocationCalculationsProperties(null);
+            void Call() => new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
         }
 
@@ -59,7 +59,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             };
 
             // Call
-            using (var properties = new DuneLocationCalculationsProperties(duneLocationCalculations))
+            using (var properties = new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(duneLocationCalculations))
             {
                 // Assert
                 Assert.IsInstanceOf<ObjectProperties<IObservableEnumerable<DuneLocationCalculation>>>(properties);
@@ -83,13 +83,13 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             };
 
             // Call
-            using (var properties = new DuneLocationCalculationsProperties(duneLocationCalculations))
+            using (var properties = new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(duneLocationCalculations))
             {
                 // Assert
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
                 Assert.AreEqual(1, dynamicProperties.Count);
 
-                PropertyDescriptor locationsProperty = dynamicProperties[requiredLocationsPropertyIndex];
+                PropertyDescriptor locationsProperty = dynamicProperties[calculationsPropertyIndex];
                 Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
                                                                                 "Algemeen",
@@ -109,7 +109,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                 calculation
             };
 
-            using (var properties = new DuneLocationCalculationsProperties(duneLocationCalculations))
+            using (var properties = new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(duneLocationCalculations))
             {
                 var refreshRequiredRaised = 0;
                 properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
@@ -132,7 +132,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                 calculation
             };
 
-            using (var properties = new DuneLocationCalculationsProperties(duneLocationCalculations))
+            using (var properties = new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(duneLocationCalculations))
             {
                 var refreshRequiredRaised = 0;
                 properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;

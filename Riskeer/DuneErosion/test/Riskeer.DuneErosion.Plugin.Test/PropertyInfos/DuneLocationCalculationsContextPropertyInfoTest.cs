@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
@@ -45,8 +44,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(DuneLocationCalculationsContext), info.DataType);
-                Assert.AreEqual(typeof(DuneLocationCalculationsProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(DuneLocationCalculationsForUserDefinedTargetProbabilityProperties), info.PropertyObjectType);
             }
         }
 
@@ -58,11 +56,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
-                                                              new DuneErosionFailureMechanism(),
-                                                              assessmentSection,
-                                                              () => 0.01,
-                                                              "CategoryBoundary Name");
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(),
+                                                                                             new DuneErosionFailureMechanism(),
+                                                                                             assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -72,8 +68,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<DuneLocationCalculationsProperties>(objectProperties);
-                Assert.AreSame(context.WrappedData, objectProperties.Data);
+                Assert.IsInstanceOf<DuneLocationCalculationsForUserDefinedTargetProbabilityProperties>(objectProperties);
+                Assert.AreSame(context.WrappedData.DuneLocationCalculations, objectProperties.Data);
             }
 
             mockRepository.VerifyAll();
@@ -81,7 +77,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
 
         private static PropertyInfo GetInfo(DuneErosionPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DuneLocationCalculationsContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DuneLocationCalculationsForUserDefinedTargetProbabilityContext));
         }
     }
 }

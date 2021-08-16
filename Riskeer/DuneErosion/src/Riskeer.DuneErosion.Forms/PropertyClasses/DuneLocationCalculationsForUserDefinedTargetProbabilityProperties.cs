@@ -34,16 +34,16 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of a collection of <see cref="DuneLocationCalculation"/> for the properties panel.
     /// </summary>
-    public class DuneLocationCalculationsProperties : ObjectProperties<IObservableEnumerable<DuneLocationCalculation>>, IDisposable
+    public class DuneLocationCalculationsForUserDefinedTargetProbabilityProperties : ObjectProperties<IObservableEnumerable<DuneLocationCalculation>>, IDisposable
     {
         private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="DuneLocationCalculationsProperties"/>.
+        /// Creates a new instance of <see cref="DuneLocationCalculationsForUserDefinedTargetProbabilityProperties"/>.
         /// </summary>
         /// <param name="calculations">The collection of dune location calculations to set as data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
-        public DuneLocationCalculationsProperties(IObservableEnumerable<DuneLocationCalculation> calculations)
+        public DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(IObservableEnumerable<DuneLocationCalculation> calculations)
         {
             if (calculations == null)
             {
