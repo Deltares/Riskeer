@@ -38,7 +38,6 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.UpdateInfos;
-using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.GuiServices;
@@ -165,20 +164,20 @@ namespace Riskeer.DuneErosion.Plugin
                 CreateInstance = context => new DuneErosionFailurePathView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<DuneLocationCalculationsContext, IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>
+            yield return new ViewInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>
             {
                 GetViewName = (view, context) => $"{RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName} - " +
-                                                 $"{RiskeerPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
+                                                 $"{noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)}",
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
-                GetViewData = context => context.WrappedData,
+                GetViewData = context => context.WrappedData.DuneLocationCalculations,
                 CloseForData = CloseDuneLocationCalculationsViewForData,
-                CreateInstance = context => new DuneLocationCalculationsView(context.WrappedData,
+                CreateInstance = context => new DuneLocationCalculationsView(context.WrappedData.DuneLocationCalculations,
                                                                              context.FailureMechanism,
                                                                              context.AssessmentSection,
-                                                                             context.GetNormFunc,
-                                                                             () => context.CategoryBoundaryName),
+                                                                             () => context.WrappedData.TargetProbability,
+                                                                             () => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)),
                 AfterCreate = (view, context) => { view.CalculationGuiService = duneLocationCalculationGuiService; },
-                AdditionalDataCheck = context => context.WrappedData.Any()
+                AdditionalDataCheck = context => context.WrappedData.DuneLocationCalculations.Any()
             };
         }
 
