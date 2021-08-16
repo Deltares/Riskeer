@@ -176,11 +176,8 @@ namespace Riskeer.DuneErosion.Plugin
                                                                              context.FailureMechanism,
                                                                              context.AssessmentSection,
                                                                              context.GetNormFunc,
-                                                                             context.CategoryBoundaryName),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = duneLocationCalculationGuiService;
-                },
+                                                                             () => context.CategoryBoundaryName),
+                AfterCreate = (view, context) => { view.CalculationGuiService = duneLocationCalculationGuiService; },
                 AdditionalDataCheck = context => context.WrappedData.Any()
             };
         }

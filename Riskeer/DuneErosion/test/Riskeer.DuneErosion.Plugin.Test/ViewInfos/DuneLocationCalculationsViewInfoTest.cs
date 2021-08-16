@@ -216,7 +216,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         public void AfterCreate_Always_SetsExpectedProperties()
         {
             // Setup
-            Func<double> getNormFunc = () => 0.01;
+            double GetNormFunc() => 0.01;
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -228,13 +228,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             var failureMechanism = new DuneErosionFailureMechanism();
             var calculations = new ObservableList<DuneLocationCalculation>();
 
-            const string categoryBoundaryName = "A";
+            const string calculationIdentifier = "1/100";
 
             var data = new DuneLocationCalculationsContext(calculations,
                                                            failureMechanism,
                                                            assessmentSection,
-                                                           getNormFunc,
-                                                           categoryBoundaryName);
+                                                           GetNormFunc,
+                                                           calculationIdentifier);
 
             plugin.Gui = gui;
             plugin.Activate();
@@ -242,8 +242,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             using (var view = new DuneLocationCalculationsView(calculations,
                                                                failureMechanism,
                                                                assessmentSection,
-                                                               getNormFunc,
-                                                               categoryBoundaryName))
+                                                               GetNormFunc,
+                                                               () => calculationIdentifier))
             {
                 // Call
                 info.AfterCreate(view, data);
@@ -275,7 +275,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                                                                failureMechanism,
                                                                assessmentSection,
                                                                () => 0.01,
-                                                               "A"))
+                                                               () => "1/100"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -310,7 +310,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                                                                new DuneErosionFailureMechanism(),
                                                                assessmentSectionA,
                                                                () => 0.01,
-                                                               "A"))
+                                                               () => "1/100"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSectionB);
@@ -346,7 +346,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                                                                failureMechanism,
                                                                assessmentSection,
                                                                () => 0.01,
-                                                               "A"))
+                                                               () => "1/100"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -385,7 +385,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                                                                new DuneErosionFailureMechanism(),
                                                                assessmentSectionA,
                                                                () => 0.01,
-                                                               "A"))
+                                                               () => "1/100"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -415,7 +415,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                                                                new DuneErosionFailureMechanism(),
                                                                assessmentSection,
                                                                () => 0.01,
-                                                               "A"))
+                                                               () => "1/100"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new object());
@@ -439,7 +439,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                                                                new DuneErosionFailureMechanism(),
                                                                assessmentSection,
                                                                () => 0.01,
-                                                               "A"))
+                                                               () => "1/100"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, null);
