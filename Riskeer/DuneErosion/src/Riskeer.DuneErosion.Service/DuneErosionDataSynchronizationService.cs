@@ -115,18 +115,17 @@ namespace Riskeer.DuneErosion.Service
 
             var affectedCalculations = new List<IObservable>();
 
-            affectedCalculations.AddRange(ClearDuneLocationCalculationsOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm));
-            affectedCalculations.AddRange(ClearDuneLocationCalculationsOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm));
-            affectedCalculations.AddRange(ClearDuneLocationCalculationsOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm));
-            affectedCalculations.AddRange(ClearDuneLocationCalculationsOutput(failureMechanism.CalculationsForLowerLimitNorm));
-            affectedCalculations.AddRange(ClearDuneLocationCalculationsOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm));
+            foreach (DuneLocationCalculationsForTargetProbability calculationsForTargetProbability in failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities)
+            {
+                affectedCalculations.AddRange(ClearDuneLocationCalculationsOutput(calculationsForTargetProbability));
+            }
 
             return affectedCalculations;
         }
 
-        private static IEnumerable<IObservable> ClearDuneLocationCalculationsOutput(IEnumerable<DuneLocationCalculation> calculations)
+        private static IEnumerable<IObservable> ClearDuneLocationCalculationsOutput(DuneLocationCalculationsForTargetProbability calculationsForTargetProbability)
         {
-            IEnumerable<DuneLocationCalculation> affectedCalculations = calculations.Where(c => c.Output != null).ToArray();
+            IEnumerable<DuneLocationCalculation> affectedCalculations = calculationsForTargetProbability.DuneLocationCalculations.Where(c => c.Output != null).ToArray();
 
             affectedCalculations.ForEachElementDo(c => c.Output = null);
 
