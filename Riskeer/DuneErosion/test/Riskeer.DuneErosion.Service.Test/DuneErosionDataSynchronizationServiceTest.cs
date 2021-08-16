@@ -220,7 +220,7 @@ namespace Riskeer.DuneErosion.Service.Test
         public void ClearDuneLocationCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => DuneErosionDataSynchronizationService.ClearDuneLocationCalculationOutput(null);
+            void Call() => DuneErosionDataSynchronizationService.ClearDuneLocationCalculationsOutput((DuneErosionFailureMechanism) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -258,7 +258,7 @@ namespace Riskeer.DuneErosion.Service.Test
                 DuneLocationsTestHelper.GetAllDuneLocationCalculationsWithOutput(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affected = DuneErosionDataSynchronizationService.ClearDuneLocationCalculationOutput(failureMechanism);
+            IEnumerable<IObservable> affected = DuneErosionDataSynchronizationService.ClearDuneLocationCalculationsOutput(failureMechanism);
 
             // Assert
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affected);
@@ -269,7 +269,7 @@ namespace Riskeer.DuneErosion.Service.Test
         public void ClearDuneLocationCalculationsOutput_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => DuneErosionDataSynchronizationService.ClearDuneLocationCalculationsOutput(null);
+            void Call() => DuneErosionDataSynchronizationService.ClearDuneLocationCalculationsOutput((IEnumerable<DuneLocationCalculation>) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);

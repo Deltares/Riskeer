@@ -106,7 +106,7 @@ namespace Riskeer.DuneErosion.Service
         /// <param name="failureMechanism">The failure mechanism for which the output of the calculations needs to be cleared.</param>
         /// <returns>All objects changed during the clear.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearDuneLocationCalculationOutput(DuneErosionFailureMechanism failureMechanism)
+        public static IEnumerable<IObservable> ClearDuneLocationCalculationsOutput(DuneErosionFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {

@@ -46,7 +46,7 @@ namespace Riskeer.DuneErosion.Forms
 
         protected override IEnumerable<IObservable> PropertyChanged(DuneErosionFailureMechanism failureMechanism)
         {
-            return DuneErosionDataSynchronizationService.ClearDuneLocationCalculationOutput(failureMechanism);
+            return DuneErosionDataSynchronizationService.ClearDuneLocationCalculationsOutput(failureMechanism);
         }
 
         private static bool HasOutput(DuneLocationCalculation calculation)

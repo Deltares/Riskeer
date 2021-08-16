@@ -313,7 +313,7 @@ namespace Riskeer.Integration.Service
                 var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
                 if (duneErosionFailureMechanism != null)
                 {
-                    changedObservables.AddRange(DuneErosionDataSynchronizationService.ClearDuneLocationCalculationOutput(duneErosionFailureMechanism));
+                    changedObservables.AddRange(DuneErosionDataSynchronizationService.ClearDuneLocationCalculationsOutput(duneErosionFailureMechanism));
                 }
             }
 
