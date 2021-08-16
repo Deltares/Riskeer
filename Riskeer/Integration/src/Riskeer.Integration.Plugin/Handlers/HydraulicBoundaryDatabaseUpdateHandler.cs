@@ -204,7 +204,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                 assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
                 assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
                 assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
-                assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities,
+                assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities
             };
         }
 
