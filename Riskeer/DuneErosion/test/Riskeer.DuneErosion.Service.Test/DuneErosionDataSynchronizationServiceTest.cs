@@ -237,14 +237,22 @@ namespace Riskeer.DuneErosion.Service.Test
                 new TestDuneLocation()
             };
 
-            var failureMechanism = new DuneErosionFailureMechanism();
+            var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability();
+            var duneLocationCalculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability();
+
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                {
+                    duneLocationCalculationsForTargetProbability1,
+                    duneLocationCalculationsForTargetProbability2
+                }
+            };
+
             failureMechanism.SetDuneLocations(duneLocations);
 
-            failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();
-            failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();
-            failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
-            failureMechanism.CalculationsForLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
-            failureMechanism.CalculationsForFactorizedLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
+            duneLocationCalculationsForTargetProbability1.DuneLocationCalculations.First().Output = new TestDuneLocationCalculationOutput();
+            duneLocationCalculationsForTargetProbability2.DuneLocationCalculations.First().Output = new TestDuneLocationCalculationOutput();
 
             IEnumerable<IObservable> expectedAffectedCalculations =
                 DuneLocationsTestHelper.GetAllDuneLocationCalculationsWithOutput(failureMechanism);
