@@ -21,12 +21,15 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.TestUtil;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
@@ -36,7 +39,8 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
     [TestFixture]
     public class DuneLocationCalculationsForUserDefinedTargetProbabilityPropertiesTest
     {
-        private const int calculationsPropertyIndex = 0;
+        private const int targetProbabilityPropertyIndex = 0;
+        private const int calculationsPropertyIndex = 1;
 
         [Test]
         public void Constructor_CalculationsForTargetProbabilityNull_ThrowsArgumentNullException()
@@ -93,6 +97,8 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
                 Assert.AreSame(calculationsForTargetProbability, properties.Data);
 
+                Assert.AreEqual(calculationsForTargetProbability.TargetProbability, properties.TargetProbability);
+
                 Assert.AreEqual(1, properties.Calculations.Length);
                 Assert.AreSame(calculation, properties.Calculations[0].Data);
 
@@ -114,7 +120,14 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             {
                 // Assert
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-                Assert.AreEqual(1, dynamicProperties.Count);
+                Assert.AreEqual(2, dynamicProperties.Count);
+
+                PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
+                Assert.IsInstanceOf<NoProbabilityValueDoubleConverter>(targetProbabilityProperty.Converter);
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
+                                                                                "Algemeen",
+                                                                                "Doelkans [1/jaar]",
+                                                                                "Overschrijdingskans waarvoor de hydraulische belastingen worden berekend.");
 
                 PropertyDescriptor locationsProperty = dynamicProperties[calculationsPropertyIndex];
                 Assert.IsInstanceOf<ExpandableArrayConverter>(locationsProperty.Converter);
@@ -126,6 +139,38 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
                 mocks.VerifyAll();
             }
+        }
+
+        [Test]
+        public void TargetProbability_Always_InputChangedAndObservablesNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            mocks.ReplayAll();
+
+            var customHandler = new SetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
+
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
+            {
+                DuneLocationCalculations =
+                {
+                    new DuneLocationCalculation(new TestDuneLocation())
+                }
+            };
+
+            var properties = new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(
+                calculationsForTargetProbability, customHandler);
+
+            // Call
+            properties.TargetProbability = 0.01;
+
+            // Assert
+            mocks.VerifyAll();
         }
 
         [Test]
