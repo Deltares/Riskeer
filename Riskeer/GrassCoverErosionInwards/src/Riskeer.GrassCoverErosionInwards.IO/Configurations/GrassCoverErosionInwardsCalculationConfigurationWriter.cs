@@ -47,7 +47,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
 
         protected override int GetConfigurationVersion()
         {
-            return 1;
+            return 2;
         }
 
         protected override void WriteCalculation(GrassCoverErosionInwardsCalculationConfiguration configuration, XmlWriter writer)
