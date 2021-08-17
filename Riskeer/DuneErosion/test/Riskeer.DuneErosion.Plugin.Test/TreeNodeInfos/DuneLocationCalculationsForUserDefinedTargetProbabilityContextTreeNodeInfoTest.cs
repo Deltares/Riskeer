@@ -33,6 +33,7 @@ using Core.Common.Util.Extensions;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
+using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
@@ -342,6 +343,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 var builder = new CustomItemsOnlyContextMenuBuilder();
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
+                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
 
                 mocks.ReplayAll();
 
