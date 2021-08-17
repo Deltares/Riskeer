@@ -204,6 +204,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 var gui = mockRepository.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.ViewHost).Return(mockRepository.Stub<IViewHost>());
                 mockRepository.ReplayAll();
 
                 using (var plugin = new DuneErosionPlugin())
@@ -425,9 +426,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(groupContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
                 mocks.ReplayAll();
 
                 using (var plugin = new DuneErosionPlugin())
@@ -475,9 +475,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(groupContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
                 mocks.ReplayAll();
 
                 using (var plugin = new DuneErosionPlugin())
@@ -548,10 +547,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(groupContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
+                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
 
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
                 var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator
