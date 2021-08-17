@@ -226,8 +226,8 @@ namespace Riskeer.DuneErosion.Plugin
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Extension = Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension,
-                CreateFileExporter = CreateDuneLocationCalculationsGroupContextFileExporter,
-                IsEnabled = IsDuneLocationCalculationsGroupContextExportMenuItemEnabled,
+                CreateFileExporter = CreateDuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextFileExporter,
+                IsEnabled = IsDuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextExportMenuItemEnabled,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetFileFilterGenerator())
             };
         }
@@ -598,7 +598,7 @@ namespace Riskeer.DuneErosion.Plugin
                 Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Description);
         }
 
-        private static bool IsDuneLocationCalculationsGroupContextExportMenuItemEnabled(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext context)
+        private static bool IsDuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextExportMenuItemEnabled(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext context)
         {
             return context.FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Any(calculation => calculation.Output != null)
                    || context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm.Any(calculation => calculation.Output != null)
@@ -607,7 +607,7 @@ namespace Riskeer.DuneErosion.Plugin
                    || context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm.Any(calculation => calculation.Output != null);
         }
 
-        private static IFileExporter CreateDuneLocationCalculationsGroupContextFileExporter(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext context, string filePath)
+        private static IFileExporter CreateDuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextFileExporter(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext context, string filePath)
         {
             return CreateDuneLocationCalculationsExporter(GetExportableDuneLocationCalculations(context.FailureMechanism, context.AssessmentSection),
                                                           filePath);

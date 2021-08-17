@@ -126,10 +126,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var inputComment = (Comment) inputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
-            var duneLocationCalculationsGroupContext = (DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext) children[1];
-            Assert.AreSame(failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities, duneLocationCalculationsGroupContext.WrappedData);
-            Assert.AreSame(failureMechanism, duneLocationCalculationsGroupContext.FailureMechanism);
-            Assert.AreSame(assessmentSection, duneLocationCalculationsGroupContext.AssessmentSection);
+            var targetProbabilitiesGroupContext = (DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext) children[1];
+            Assert.AreSame(failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities, targetProbabilitiesGroupContext.WrappedData);
+            Assert.AreSame(failureMechanism, targetProbabilitiesGroupContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, targetProbabilitiesGroupContext.AssessmentSection);
         }
 
         [Test]

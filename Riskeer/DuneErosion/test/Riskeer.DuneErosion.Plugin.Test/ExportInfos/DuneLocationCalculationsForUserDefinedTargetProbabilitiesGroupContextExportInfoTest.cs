@@ -38,7 +38,7 @@ using CoreGuiResources = Core.Gui.Properties.Resources;
 namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
 {
     [TestFixture]
-    public class DuneLocationCalculationsGroupContextExportInfoTest
+    public class DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextExportInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
