@@ -444,6 +444,11 @@ namespace Riskeer.DuneErosion.Plugin
                     nodeData.WrappedData.NotifyObservers();
                 });
 
+            if (!nodeData.FailureMechanism.DuneLocations.Any())
+            {
+                addTargetProbabilityItem.Enabled = false;
+            }
+
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(addTargetProbabilityItem)
                       .AddSeparator()

@@ -260,7 +260,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddTargetProbabilityIndex,
                                                                       "Doelkans toevoegen",
                                                                       "Voeg een nieuwe doelkans toe aan deze map.",
-                                                                      RiskeerCommonFormsResources.GenericInputOutputIcon);
+                                                                      RiskeerCommonFormsResources.GenericInputOutputIcon,
+                                                                      false);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                                       "Alles be&rekenen",
@@ -272,59 +273,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ContextMenuStrip_ClickOnAddTargetProbabilityItem_CalculationsForTargetProbabilityAddedAndObserversNotified()
-        {
-            // Given
-            var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new[]
-            {
-                new TestDuneLocation("Location 1"),
-                new TestDuneLocation("Location 2")
-            });
-
-            var calculations = new ObservableList<DuneLocationCalculationsForTargetProbability>();
-            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculations,
-                                                                                                    failureMechanism,
-                                                                                                    new AssessmentSectionStub());
-
-            var mockRepository = new MockRepository();
-            var calculationsObserver = mockRepository.StrictMock<IObserver>();
-            calculationsObserver.Expect(o => o.UpdateObserver());
-            calculations.Attach(calculationsObserver);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mockRepository);
-
-                IGui gui = StubFactory.CreateGuiStub(mockRepository);
-                gui.Stub(g => g.MainWindow).Return(mainWindow);
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-
-                mockRepository.ReplayAll();
-
-                using (var plugin = new DuneErosionPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
-                    plugin.Activate();
-
-                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    {
-                        // When
-                        contextMenuAdapter.Items[contextMenuAddTargetProbabilityIndex].PerformClick();
-
-                        // Then
-                        Assert.AreEqual(1, calculations.Count);
-                        Assert.AreEqual(0.01, calculations[0].TargetProbability);
-                        Assert.AreEqual(2, calculations[0].DuneLocationCalculations.Count);
-                    }
-                }
-            }
-
             mockRepository.VerifyAll();
         }
 
@@ -405,6 +353,103 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_NoDuneLocationsPresent_ContextMenuItemAddTargetProbabilityDisabled()
+        {
+            // Setup
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = validFilePath
+                }
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+
+            var groupContext = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocationCalculationsForTargetProbability>(),
+                                                                                                         failureMechanism,
+                                                                                                         assessmentSection);
+
+            var mocks = new MockRepository();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(groupContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
+                mocks.ReplayAll();
+
+                using (var plugin = new DuneErosionPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(groupContext, null, treeViewControl))
+                    {
+                        // Assert
+                        Assert.IsFalse(contextMenu.Items[contextMenuAddTargetProbabilityIndex].Enabled);
+                    }
+                }
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnAddTargetProbabilityItem_CalculationsForTargetProbabilityAddedAndObserversNotified()
+        {
+            // Given
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.SetDuneLocations(new[]
+            {
+                new TestDuneLocation("Location 1"),
+                new TestDuneLocation("Location 2")
+            });
+
+            var calculations = new ObservableList<DuneLocationCalculationsForTargetProbability>();
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculations,
+                                                                                                    failureMechanism,
+                                                                                                    new AssessmentSectionStub());
+
+            var mockRepository = new MockRepository();
+            var calculationsObserver = mockRepository.StrictMock<IObserver>();
+            calculationsObserver.Expect(o => o.UpdateObserver());
+            calculations.Attach(calculationsObserver);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mockRepository);
+
+                IGui gui = StubFactory.CreateGuiStub(mockRepository);
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+                mockRepository.ReplayAll();
+
+                using (var plugin = new DuneErosionPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+                    plugin.Activate();
+
+                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
+                    {
+                        // When
+                        contextMenuAdapter.Items[contextMenuAddTargetProbabilityIndex].PerformClick();
+
+                        // Then
+                        Assert.AreEqual(1, calculations.Count);
+                        Assert.AreEqual(0.01, calculations[0].TargetProbability);
+                        Assert.AreEqual(2, calculations[0].DuneLocationCalculations.Count);
+                    }
+                }
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
@@ -441,9 +486,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                         // Assert
                         ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
 
-                        Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
                         StringAssert.Contains("Er is geen hydraulische belastingendatabase geïmporteerd.", contextMenuItem.ToolTipText);
-                        TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
                         Assert.IsFalse(contextMenuItem.Enabled);
                     }
                 }
@@ -490,9 +533,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                         // Assert
                         ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
 
-                        Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
                         StringAssert.Contains("Geen van de locaties is geschikt voor een hydraulische belastingenberekening.", contextMenuItem.ToolTipText);
-                        TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
                         Assert.IsFalse(contextMenuItem.Enabled);
                     }
                 }
