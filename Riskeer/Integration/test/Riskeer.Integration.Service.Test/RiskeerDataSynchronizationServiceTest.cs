@@ -28,6 +28,7 @@ using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -234,6 +235,72 @@ namespace Riskeer.Integration.Service.Test
             Assert.IsTrue(assessmentSection.MacroStabilityInwards.Calculations.Cast<MacroStabilityInwardsCalculation>()
                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocationCalculationOutputForNormativeNorm_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputForNormativeNorm(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(NormType.LowerLimit)]
+        [TestCase(NormType.Signaling)]
+        public void ClearHydraulicBoundaryLocationCalculationOutputForNormativeNorm_NormativeNormIsLowerLimitNorm_ClearDataAndReturnAffectedObjects(NormType normType)
+        {
+            // Setup
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
+
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation1,
+                        hydraulicBoundaryLocation2
+                    }
+                },
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = normType
+                }
+            };
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
+            });
+
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculationForLowerLimitNorm = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+                                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculationForSignalingNorm = assessmentSection.WaterLevelCalculationsForSignalingNorm
+                                                                                                                         .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+
+            hydraulicBoundaryLocationCalculationForLowerLimitNorm.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            hydraulicBoundaryLocationCalculationForSignalingNorm.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+
+            var expectedAffectedItems = new List<IObservable>
+            {
+                normType == NormType.LowerLimit
+                    ? hydraulicBoundaryLocationCalculationForLowerLimitNorm
+                    : hydraulicBoundaryLocationCalculationForSignalingNorm
+            };
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputForNormativeNorm(null);
+
+            // Assert
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
+            Assert.AreEqual(normType != NormType.LowerLimit, hydraulicBoundaryLocationCalculationForLowerLimitNorm.HasOutput);
+            Assert.AreEqual(normType != NormType.Signaling, hydraulicBoundaryLocationCalculationForSignalingNorm.HasOutput);
         }
 
         [Test]

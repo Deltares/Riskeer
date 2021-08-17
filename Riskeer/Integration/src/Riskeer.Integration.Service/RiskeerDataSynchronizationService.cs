@@ -27,6 +27,7 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Service;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -226,6 +227,31 @@ namespace Riskeer.Integration.Service
             }
 
             return changedObservables;
+        }
+
+        /// <summary>
+        /// Clears the hydraulic boundary location calculation output belonging to the
+        /// <see cref="FailureMechanismContribution.NormativeNorm"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the hydraulic boundary
+        /// location calculations and <see cref="FailureMechanismContribution"/>.</param>
+        /// <returns></returns>
+        /// <returns>All objects affected by the operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutputForNormativeNorm(
+            IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> locationCalculationsToClear = assessmentSection.FailureMechanismContribution.NormativeNorm == NormType.LowerLimit
+                                                                                                          ? assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+                                                                                                          : assessmentSection.WaterLevelCalculationsForSignalingNorm;
+
+            return RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(locationCalculationsToClear)
+                                                          .ToArray();
         }
 
         /// <summary>
