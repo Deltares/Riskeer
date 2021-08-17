@@ -45,44 +45,34 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class DuneErosionFailurePathContextTreeNodeInfoTest
     {
-        private DuneErosionPlugin plugin;
-        private TreeNodeInfo info;
-
-        [SetUp]
-        public void Setup()
-        {
-            plugin = new DuneErosionPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneErosionFailurePathContext));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Assert
-            Assert.IsNotNull(info.Text);
-            Assert.IsNotNull(info.ForeColor);
-            Assert.IsNotNull(info.Image);
-            Assert.IsNotNull(info.ContextMenuStrip);
-            Assert.IsNull(info.EnsureVisibleOnCreate);
-            Assert.IsNull(info.ExpandOnCreate);
-            Assert.IsNotNull(info.ChildNodeObjects);
-            Assert.IsNull(info.CanRename);
-            Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNull(info.CanRemove);
-            Assert.IsNull(info.OnNodeRemoved);
-            Assert.IsNull(info.CanCheck);
-            Assert.IsNull(info.CheckedState);
-            Assert.IsNull(info.OnNodeChecked);
-            Assert.IsNull(info.CanDrag);
-            Assert.IsNull(info.CanDrop);
-            Assert.IsNull(info.CanInsert);
-            Assert.IsNull(info.OnDrop);
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Assert
+                Assert.IsNotNull(info.Text);
+                Assert.IsNotNull(info.ForeColor);
+                Assert.IsNotNull(info.Image);
+                Assert.IsNotNull(info.ContextMenuStrip);
+                Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNull(info.ExpandOnCreate);
+                Assert.IsNotNull(info.ChildNodeObjects);
+                Assert.IsNull(info.CanRename);
+                Assert.IsNull(info.OnNodeRenamed);
+                Assert.IsNull(info.CanRemove);
+                Assert.IsNull(info.OnNodeRemoved);
+                Assert.IsNull(info.CanCheck);
+                Assert.IsNull(info.CheckedState);
+                Assert.IsNull(info.OnNodeChecked);
+                Assert.IsNull(info.CanDrag);
+                Assert.IsNull(info.CanDrop);
+                Assert.IsNull(info.CanInsert);
+                Assert.IsNull(info.OnDrop);
+            }
         }
 
         [Test]
@@ -95,22 +85,34 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var context = new DuneErosionFailurePathContext(new DuneErosionFailureMechanism(), assessmentSection);
 
-            // Call
-            string text = info.Text(context);
+            using (var plugin = new DuneErosionPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
 
-            // Assert
-            Assert.AreEqual("Duinwaterkering - Duinafslag", text);
+                // Call
+                string text = info.Text(context);
+
+                // Assert
+                Assert.AreEqual("Duinwaterkering - Duinafslag", text);
+            }
+            
             mocks.VerifyAll();
         }
 
         [Test]
         public void Image_Always_ReturnsFailureMechanismIcon()
         {
-            // Call
-            Image image = info.Image(null);
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
 
-            // Assert
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, image);
+                // Call
+                Image image = info.Image(null);
+
+                // Assert
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, image);
+            }
         }
 
         [Test]
@@ -121,48 +123,53 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var failureMechanism = new DuneErosionFailureMechanism();
             var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
 
-            // Call
-            object[] children = info.ChildNodeObjects(context).ToArray();
-
-            // Assert
-            Assert.AreEqual(2, children.Length);
-            var inputsFolder = (CategoryTreeFolder) children[0];
-            Assert.AreEqual("Invoer", inputsFolder.Name);
-            Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
-
-            Assert.AreEqual(2, inputsFolder.Contents.Count());
-            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
-            Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
-
-            var comment = (Comment) inputsFolder.Contents.ElementAt(1);
-            Assert.AreSame(failureMechanism.InputComments, comment);
-
-            var outputsFolder = (CategoryTreeFolder) children[1];
-            Assert.AreEqual("Oordeel", outputsFolder.Name);
-            Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
-
-            Assert.AreEqual(3, outputsFolder.Contents.Count());
-
-            var failureMechanismAssemblyCategoriesContext = (FailureMechanismAssemblyCategoriesContext) outputsFolder.Contents.ElementAt(0);
-            Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (var plugin = new DuneErosionPlugin())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+                TreeNodeInfo info = GetInfo(plugin);
 
-                failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
-                Assert.AreEqual(failureMechanism.GeneralInput.N, calculator.AssemblyCategoriesInput.N);
+                // Call
+                object[] children = info.ChildNodeObjects(context).ToArray();
+
+                // Assert
+                Assert.AreEqual(2, children.Length);
+                var inputsFolder = (CategoryTreeFolder) children[0];
+                Assert.AreEqual("Invoer", inputsFolder.Name);
+                Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
+
+                Assert.AreEqual(2, inputsFolder.Contents.Count());
+                var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
+                Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
+                Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
+
+                var comment = (Comment) inputsFolder.Contents.ElementAt(1);
+                Assert.AreSame(failureMechanism.InputComments, comment);
+
+                var outputsFolder = (CategoryTreeFolder) children[1];
+                Assert.AreEqual("Oordeel", outputsFolder.Name);
+                Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
+
+                Assert.AreEqual(3, outputsFolder.Contents.Count());
+
+                var failureMechanismAssemblyCategoriesContext = (FailureMechanismAssemblyCategoriesContext) outputsFolder.Contents.ElementAt(0);
+                Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
+                Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
+
+                using (new AssemblyToolCalculatorFactoryConfig())
+                {
+                    var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                    AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+
+                    failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
+                    Assert.AreEqual(failureMechanism.GeneralInput.N, calculator.AssemblyCategoriesInput.N);
+                }
+
+                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
+                Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
+                Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+
+                var outputComment = (Comment) outputsFolder.Contents.ElementAt(2);
+                Assert.AreSame(failureMechanism.OutputComments, outputComment);
             }
-
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
-            Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-            Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
-
-            var outputComment = (Comment) outputsFolder.Contents.ElementAt(2);
-            Assert.AreSame(failureMechanism.OutputComments, outputComment);
         }
 
         [Test]
@@ -195,14 +202,24 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
                 mocks.ReplayAll();
 
-                plugin.Gui = gui;
+                using (var plugin = new DuneErosionPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
 
-                // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
+                    plugin.Gui = gui;
+
+                    // Call
+                    info.ContextMenuStrip(context, null, treeViewControl);
+                }
             }
-
+            
             // Assert
             mocks.VerifyAll();
+        }
+
+        private static TreeNodeInfo GetInfo(DuneErosionPlugin plugin)
+        {
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneErosionFailurePathContext));
         }
     }
 }
