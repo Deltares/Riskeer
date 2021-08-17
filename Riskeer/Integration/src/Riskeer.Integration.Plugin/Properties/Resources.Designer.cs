@@ -148,28 +148,6 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u het trajecttype aanpast, dan worden alle rekenresultaten van alle relevante toetssporen verwijderd.
-        ///
-        ///Weet u zeker dat u wilt doorgaan?.
-        /// </summary>
-        public static string AssessmentSectionCompositionChangeHandler_Confirm_change_composition_and_clear_dependent_data {
-            get {
-                return ResourceManager.GetString("AssessmentSectionCompositionChangeHandler_Confirm_change_composition_and_clear_de" +
-                        "pendent_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alle berekende hydraulische belastingen van de relevante toetssporen zijn verwijderd..
-        /// </summary>
-        public static string AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_results_cleared {
-            get {
-                return ResourceManager.GetString("AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_resul" +
-                        "ts_cleared", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het importeren van de referentielijn is mislukt..
         /// </summary>
         public static string AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_Importing_ReferenceLineFailed {

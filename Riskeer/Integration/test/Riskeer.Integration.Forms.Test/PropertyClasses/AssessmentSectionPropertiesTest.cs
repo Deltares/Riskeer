@@ -151,13 +151,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // When
             properties.Name = newName;
 
-            // Thenc 
+            // Then
             Assert.AreEqual(newName, assessmentSection.Name);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenAssessmentSectionProperties_WhenConfirmingCompositionValueChange_ThenCompositionSetAndNotifiesObserver()
+        public void GivenAssessmentSectionProperties_WhenChangingCompositionValue_ThenCompositionSetAndNotifiesObserver()
         {
             // Given
             const AssessmentSectionComposition newComposition = AssessmentSectionComposition.DikeAndDune;
@@ -170,7 +170,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var observable = mocks.StrictMock<IObservable>();
             observable.Expect(o => o.NotifyObservers());
             var assessmentSectionCompositionChangeHandler = mocks.StrictMock<IAssessmentSectionCompositionChangeHandler>();
-            assessmentSectionCompositionChangeHandler.Expect(handler => handler.ConfirmCompositionChange()).Return(true);
             assessmentSectionCompositionChangeHandler.Expect(handler => handler.ChangeComposition(assessmentSection, newComposition))
                                                      .Return(new[]
                                                      {
@@ -184,32 +183,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             properties.Composition = newComposition;
 
             // Then
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenAssessmentSectionProperties_WhenCancelingCompositionValueChange_ThenDataSameAndObserversNotNotified()
-        {
-            // Given
-            const AssessmentSectionComposition originalComposition = AssessmentSectionComposition.Dike;
-            const AssessmentSectionComposition newComposition = AssessmentSectionComposition.DikeAndDune;
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.Composition).Return(originalComposition);
-
-            var assessmentSectionCompositionChangeHandler = mocks.StrictMock<IAssessmentSectionCompositionChangeHandler>();
-            assessmentSectionCompositionChangeHandler.Expect(handler => handler.ConfirmCompositionChange()).Return(false);
-            mocks.ReplayAll();
-
-            var properties = new AssessmentSectionProperties(assessmentSection, assessmentSectionCompositionChangeHandler);
-
-            // When
-            properties.Composition = newComposition;
-
-            // Then
-            Assert.AreEqual(originalComposition, properties.Composition);
-            Assert.AreEqual(originalComposition, assessmentSection.Composition);
             mocks.VerifyAll();
         }
     }

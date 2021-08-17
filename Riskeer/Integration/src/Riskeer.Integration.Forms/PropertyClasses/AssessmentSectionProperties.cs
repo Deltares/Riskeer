@@ -65,7 +65,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
             Data = assessmentSection;
         }
-        
+
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSection_Id_DisplayName))]
@@ -85,7 +85,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
                 data.NotifyObservers();
             }
         }
-        
+
         [PropertyOrder(3)]
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
@@ -96,16 +96,13 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             get => data.Composition;
             set
             {
-                if (compositionChangeHandler.ConfirmCompositionChange())
+                IEnumerable<IObservable> changedObjects = compositionChangeHandler.ChangeComposition(data, value);
+                foreach (IObservable changedObject in changedObjects)
                 {
-                    IEnumerable<IObservable> changedObjects = compositionChangeHandler.ChangeComposition(data, value);
-                    foreach (IObservable changedObject in changedObjects)
-                    {
-                        changedObject.NotifyObservers();
-                    }
-
-                    data.FailureMechanismContribution.NotifyObservers();
+                    changedObject.NotifyObservers();
                 }
+
+                data.FailureMechanismContribution.NotifyObservers();
             }
         }
     }

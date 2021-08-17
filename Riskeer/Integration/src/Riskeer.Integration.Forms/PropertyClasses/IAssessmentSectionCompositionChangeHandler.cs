@@ -33,12 +33,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     public interface IAssessmentSectionCompositionChangeHandler
     {
         /// <summary>
-        /// Checks to see if the replacement of the assessment section composition should occur or not.
-        /// </summary>
-        /// <returns><c>true</c> if the change should occur, <c>false</c> otherwise.</returns>
-        bool ConfirmCompositionChange();
-
-        /// <summary>
         /// Replaces the <see cref="IAssessmentSection.Composition"/> of the <see cref="IAssessmentSection"/>
         /// and propagates the changes to underlying data structure.
         /// </summary>

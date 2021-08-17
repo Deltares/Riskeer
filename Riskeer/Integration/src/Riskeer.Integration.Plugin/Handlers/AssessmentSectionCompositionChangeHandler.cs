@@ -21,48 +21,24 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Util;
-using log4net;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.DuneErosion.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
-using Riskeer.Integration.Plugin.Properties;
-using Riskeer.Integration.Service;
-using Riskeer.StabilityStoneCover.Data;
-using Riskeer.WaveImpactAsphaltCover.Data;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Handlers
 {
     /// <summary>
-    /// Class responsible for changing the <see cref="IAssessmentSection.Composition"/>
-    /// value clearing all data dependent on the original composition value.
+    /// Class responsible for changing the <see cref="IAssessmentSection.Composition"/> value.
     /// </summary>
     public class AssessmentSectionCompositionChangeHandler : IAssessmentSectionCompositionChangeHandler
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionCompositionChangeHandler));
-
-        public bool ConfirmCompositionChange()
-        {
-            DialogResult result = MessageBox.Show(Resources.AssessmentSectionCompositionChangeHandler_Confirm_change_composition_and_clear_dependent_data,
-                                                  CoreCommonBaseResources.Confirm,
-                                                  MessageBoxButtons.OKCancel);
-            return result == DialogResult.OK;
-        }
-
         public IEnumerable<IObservable> ChangeComposition(IAssessmentSection assessmentSection, AssessmentSectionComposition newComposition)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
-
-            Dictionary<IFailureMechanism, double> oldFailureMechanismContributions = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.Contribution, new ReferenceEqualityComparer<IFailureMechanism>());
 
             var affectedObjects = new List<IObservable>();
             if (assessmentSection.Composition != newComposition)
@@ -71,65 +47,9 @@ namespace Riskeer.Integration.Plugin.Handlers
 
                 affectedObjects.Add(assessmentSection);
                 affectedObjects.AddRange(assessmentSection.GetFailureMechanisms());
-
-                IFailureMechanism[] failureMechanismsToClearOutputFor = GetFailureMechanismsToClearOutputFor(assessmentSection, oldFailureMechanismContributions).ToArray();
-
-                IObservable[] affectedCalculations =
-                    RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs(failureMechanismsToClearOutputFor).ToArray();
-
-                if (affectedCalculations.Length > 0)
-                {
-                    affectedObjects.AddRange(affectedCalculations);
-                    log.InfoFormat(Resources.ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared,
-                                   affectedObjects.OfType<ICalculation>().Count());
-                }
-
-                affectedObjects.AddRange(ClearHydraulicBoundaryLocationCalculationOutput(failureMechanismsToClearOutputFor));
             }
 
             return affectedObjects;
-        }
-
-        private static IEnumerable<IFailureMechanism> GetFailureMechanismsToClearOutputFor(IAssessmentSection assessmentSection,
-                                                                                           IDictionary<IFailureMechanism, double> oldFailureMechanismContributions)
-        {
-            var failureMechanismsToClearOutputFor = new List<IFailureMechanism>();
-            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
-            {
-                if (failureMechanism is StabilityStoneCoverFailureMechanism || failureMechanism is WaveImpactAsphaltCoverFailureMechanism)
-                {
-                    continue;
-                }
-
-                if (failureMechanism is DuneErosionFailureMechanism)
-                {
-                    failureMechanismsToClearOutputFor.Add(failureMechanism);
-                }
-
-                if (oldFailureMechanismContributions.ContainsKey(failureMechanism))
-                {
-                    double oldContribution = oldFailureMechanismContributions[failureMechanism];
-                    if (Math.Abs(oldContribution) > 1e-6 && Math.Abs(oldContribution - failureMechanism.Contribution) > 1e-6)
-                    {
-                        failureMechanismsToClearOutputFor.Add(failureMechanism);
-                    }
-                }
-            }
-
-            return failureMechanismsToClearOutputFor;
-        }
-
-        private IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutput(IEnumerable<IFailureMechanism> failureMechanismsToClearOutputFor)
-        {
-            IEnumerable<IObservable> affectedObjects =
-                RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(failureMechanismsToClearOutputFor);
-            if (affectedObjects.Any())
-            {
-                log.Info(Resources.AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_results_cleared);
-                return affectedObjects;
-            }
-
-            return Enumerable.Empty<IObservable>();
         }
     }
 }
