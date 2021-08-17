@@ -208,17 +208,18 @@ namespace Riskeer.DuneErosion.Plugin
 
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
-            yield return new ExportInfo<DuneLocationCalculationsContext>
+            yield return new ExportInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext>
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Extension = Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => CreateDuneLocationCalculationsExporter(context.WrappedData
+                                                                                                          .DuneLocationCalculations
                                                                                                           .Select(calc => new ExportableDuneLocationCalculation(
                                                                                                                       calc,
-                                                                                                                      context.GetNormFunc(),
-                                                                                                                      context.CategoryBoundaryName)).ToArray(),
+                                                                                                                      context.WrappedData.TargetProbability,
+                                                                                                                      noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability))).ToArray(),
                                                                                                    filePath),
-                IsEnabled = context => context.WrappedData.Any(calculation => calculation.Output != null),
+                IsEnabled = context => context.WrappedData.DuneLocationCalculations.Any(calculation => calculation.Output != null),
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetFileFilterGenerator())
             };
 

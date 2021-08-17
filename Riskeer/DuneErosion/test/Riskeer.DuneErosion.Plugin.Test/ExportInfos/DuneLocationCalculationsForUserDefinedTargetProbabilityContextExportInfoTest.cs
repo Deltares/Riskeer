@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Gui.Plugin;
@@ -36,7 +35,7 @@ using CoreGuiResources = Core.Gui.Properties.Resources;
 namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
 {
     [TestFixture]
-    public class DuneLocationCalculationsContextExportInfoTest
+    public class DuneLocationCalculationsForUserDefinedTargetProbabilityContextExportInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -66,11 +65,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
-                                                              new DuneErosionFailureMechanism(),
-                                                              assessmentSection,
-                                                              () => 0.01,
-                                                              "A");
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(),
+                                                                                             new DuneErosionFailureMechanism(),
+                                                                                             assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -94,15 +91,17 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
             {
-                new DuneLocationCalculation(new TestDuneLocation())
+                DuneLocationCalculations =
+                {
+                    new DuneLocationCalculation(new TestDuneLocation())
+                }
             };
-            var context = new DuneLocationCalculationsContext(duneLocationCalculations,
-                                                              new DuneErosionFailureMechanism(),
-                                                              assessmentSection,
-                                                              () => 0.01,
-                                                              "A");
+
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
+                                                                                             new DuneErosionFailureMechanism(),
+                                                                                             assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -126,18 +125,20 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
             {
-                new DuneLocationCalculation(new TestDuneLocation())
+                DuneLocationCalculations =
                 {
-                    Output = new TestDuneLocationCalculationOutput()
+                    new DuneLocationCalculation(new TestDuneLocation())
+                    {
+                        Output = new TestDuneLocationCalculationOutput()
+                    }
                 }
             };
-            var context = new DuneLocationCalculationsContext(duneLocationCalculations,
-                                                              new DuneErosionFailureMechanism(),
-                                                              assessmentSection,
-                                                              () => 0.01,
-                                                              "A");
+
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
+                                                                                             new DuneErosionFailureMechanism(),
+                                                                                             assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -155,7 +156,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
 
         private static ExportInfo GetExportInfo(DuneErosionPlugin plugin)
         {
-            return plugin.GetExportInfos().First(ei => ei.DataType == typeof(DuneLocationCalculationsContext));
+            return plugin.GetExportInfos().First(ei => ei.DataType == typeof(DuneLocationCalculationsForUserDefinedTargetProbabilityContext));
         }
     }
 }

@@ -171,7 +171,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(2, exportInfos.Length);
-                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(DuneLocationCalculationsContext)));
+                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(DuneLocationCalculationsForUserDefinedTargetProbabilityContext)));
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext)));
             }
         }
