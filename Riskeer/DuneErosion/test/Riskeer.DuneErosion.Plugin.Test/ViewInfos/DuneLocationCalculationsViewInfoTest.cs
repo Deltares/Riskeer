@@ -43,22 +43,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
     [TestFixture]
     public class DuneLocationCalculationsViewInfoTest
     {
-        private DuneErosionPlugin plugin;
-        private ViewInfo info;
-
-        [SetUp]
-        public void SetUp()
-        {
-            plugin = new DuneErosionPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(DuneLocationCalculationsView));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
-        }
-
         [Test]
         public void GetViewName_WithContext_ReturnsExpectedViewName()
         {
@@ -74,42 +58,65 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                                                                                              new DuneErosionFailureMechanism(),
                                                                                              assessmentSection);
 
-            // Call
-            string viewName = info.GetViewName(null, context);
+            using (var plugin = new DuneErosionPlugin())
+            {
+                ViewInfo info = GetInfo(plugin);
 
-            // Assert
-            Assert.AreEqual("Hydraulische belastingen - 1/100", viewName);
-            mocks.VerifyAll();
+                // Call
+                string viewName = info.GetViewName(null, context);
+
+                // Assert
+                Assert.AreEqual("Hydraulische belastingen - 1/100", viewName);
+                mocks.VerifyAll();
+            }
         }
 
         [Test]
         public void ViewDataType_Always_ReturnsViewDataType()
         {
-            // Call
-            Type viewDataType = info.ViewDataType;
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                ViewInfo info = GetInfo(plugin);
 
-            // Assert
-            Assert.AreEqual(typeof(IObservableEnumerable<DuneLocationCalculation>), viewDataType);
+                // Call
+                Type viewDataType = info.ViewDataType;
+
+                // Assert
+                Assert.AreEqual(typeof(IObservableEnumerable<DuneLocationCalculation>), viewDataType);
+            }
         }
 
         [Test]
         public void DataType_Always_ReturnsDataType()
         {
-            // Call
-            Type dataType = info.DataType;
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                ViewInfo info = GetInfo(plugin);
 
-            // Assert
-            Assert.AreEqual(typeof(DuneLocationCalculationsForUserDefinedTargetProbabilityContext), dataType);
+                // Call
+                Type dataType = info.DataType;
+
+                // Assert
+                Assert.AreEqual(typeof(DuneLocationCalculationsForUserDefinedTargetProbabilityContext), dataType);
+            }
         }
 
         [Test]
         public void Image_Always_ReturnsGenericInputOutputIcon()
         {
-            // Call
-            Image image = info.Image;
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                ViewInfo info = GetInfo(plugin);
 
-            // Assert
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GenericInputOutputIcon, image);
+                // Call
+                Image image = info.Image;
+
+                // Assert
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GenericInputOutputIcon, image);
+            }
         }
 
         [Test]
@@ -124,12 +131,17 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                                                                                              new DuneErosionFailureMechanism(),
                                                                                              assessmentSection);
 
-            // Call
-            object viewData = info.GetViewData(context);
+            using (var plugin = new DuneErosionPlugin())
+            {
+                ViewInfo info = GetInfo(plugin);
 
-            // Assert
-            Assert.AreSame(context.WrappedData.DuneLocationCalculations, viewData);
-            mocks.VerifyAll();
+                // Call
+                object viewData = info.GetViewData(context);
+
+                // Assert
+                Assert.AreSame(context.WrappedData.DuneLocationCalculations, viewData);
+                mocks.VerifyAll();
+            }
         }
 
         [Test]
@@ -144,11 +156,16 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                                                                                              new DuneErosionFailureMechanism(),
                                                                                              assessmentSection);
 
-            // Call
-            bool additionalDataCheck = info.AdditionalDataCheck(context);
+            using (var plugin = new DuneErosionPlugin())
+            {
+                ViewInfo info = GetInfo(plugin);
 
-            // Assert
-            Assert.IsFalse(additionalDataCheck);
+                // Call
+                bool additionalDataCheck = info.AdditionalDataCheck(context);
+
+                // Assert
+                Assert.IsFalse(additionalDataCheck);
+            }
         }
 
         [Test]
@@ -170,11 +187,16 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                                                                                              duneErosionFailureMechanism,
                                                                                              assessmentSection);
 
-            // Call
-            bool additionalDataCheck = info.AdditionalDataCheck(context);
+            using (var plugin = new DuneErosionPlugin())
+            {
+                ViewInfo info = GetInfo(plugin);
 
-            // Assert
-            Assert.IsTrue(additionalDataCheck);
+                // Call
+                bool additionalDataCheck = info.AdditionalDataCheck(context);
+
+                // Assert
+                Assert.IsTrue(additionalDataCheck);
+            }
         }
 
         [Test]
@@ -194,15 +216,20 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                                                                                              failureMechanism,
                                                                                              assessmentSection);
 
-            plugin.Gui = gui;
-            plugin.Activate();
-
-            // Call
-            using (var view = info.CreateInstance(context) as DuneLocationCalculationsView)
+            using (var plugin = new DuneErosionPlugin())
             {
-                // Assert
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
+                ViewInfo info = GetInfo(plugin);
+
+                plugin.Gui = gui;
+                plugin.Activate();
+
+                // Call
+                using (var view = info.CreateInstance(context) as DuneLocationCalculationsView)
+                {
+                    // Assert
+                    Assert.AreSame(assessmentSection, view.AssessmentSection);
+                    Assert.AreSame(failureMechanism, view.FailureMechanism);
+                }
             }
 
             mocks.VerifyAll();
@@ -225,20 +252,25 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                                                                                           failureMechanism,
                                                                                           assessmentSection);
 
-            plugin.Gui = gui;
-            plugin.Activate();
-
-            using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
-                                                               failureMechanism,
-                                                               assessmentSection,
-                                                               () => 0.01,
-                                                               () => "1/100"))
+            using (var plugin = new DuneErosionPlugin())
             {
-                // Call
-                info.AfterCreate(view, data);
+                ViewInfo info = GetInfo(plugin);
 
-                // Assert
-                Assert.IsInstanceOf<DuneLocationCalculationGuiService>(view.CalculationGuiService);
+                plugin.Gui = gui;
+                plugin.Activate();
+
+                using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
+                                                                   failureMechanism,
+                                                                   assessmentSection,
+                                                                   () => 0.01,
+                                                                   () => "1/100"))
+                {
+                    // Call
+                    info.AfterCreate(view, data);
+
+                    // Assert
+                    Assert.IsInstanceOf<DuneLocationCalculationGuiService>(view.CalculationGuiService);
+                }
             }
 
             mocks.VerifyAll();
@@ -260,12 +292,15 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
+            using (var plugin = new DuneErosionPlugin())
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                failureMechanism,
                                                                assessmentSection,
                                                                () => 0.01,
                                                                () => "1/100"))
             {
+                ViewInfo info = GetInfo(plugin);
+
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 
@@ -295,12 +330,15 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
+            using (var plugin = new DuneErosionPlugin())
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                new DuneErosionFailureMechanism(),
                                                                assessmentSectionA,
                                                                () => 0.01,
                                                                () => "1/100"))
             {
+                ViewInfo info = GetInfo(plugin);
+
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSectionB);
 
@@ -331,12 +369,15 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                 failureMechanism,
                 assessmentSection);
 
+            using (var plugin = new DuneErosionPlugin())
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                failureMechanism,
                                                                assessmentSection,
                                                                () => 0.01,
                                                                () => "1/100"))
             {
+                ViewInfo info = GetInfo(plugin);
+
                 // Call
                 bool closeForData = info.CloseForData(view, context);
 
@@ -370,12 +411,15 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                 new DuneErosionFailureMechanism(),
                 assessmentSectionB);
 
+            using (var plugin = new DuneErosionPlugin())
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                new DuneErosionFailureMechanism(),
                                                                assessmentSectionA,
                                                                () => 0.01,
                                                                () => "1/100"))
             {
+                ViewInfo info = GetInfo(plugin);
+
                 // Call
                 bool closeForData = info.CloseForData(view, context);
 
@@ -400,12 +444,15 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
+            using (var plugin = new DuneErosionPlugin())
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                new DuneErosionFailureMechanism(),
                                                                assessmentSection,
                                                                () => 0.01,
                                                                () => "1/100"))
             {
+                ViewInfo info = GetInfo(plugin);
+
                 // Call
                 bool closeForData = info.CloseForData(view, new object());
 
@@ -424,12 +471,15 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            using (var plugin = new DuneErosionPlugin())
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                new DuneErosionFailureMechanism(),
                                                                assessmentSection,
                                                                () => 0.01,
                                                                () => "1/100"))
             {
+                ViewInfo info = GetInfo(plugin);
+
                 // Call
                 bool closeForData = info.CloseForData(view, null);
 
@@ -438,6 +488,11 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             }
 
             mocks.VerifyAll();
+        }
+
+        private static ViewInfo GetInfo(DuneErosionPlugin plugin)
+        {
+            return plugin.GetViewInfos().First(vi => vi.ViewType == typeof(DuneLocationCalculationsView));
         }
     }
 }
