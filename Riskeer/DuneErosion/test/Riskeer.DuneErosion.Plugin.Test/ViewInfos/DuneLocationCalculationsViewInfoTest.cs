@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Forms.Main;
+using Core.Gui.Forms.ViewHost;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -184,7 +185,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var window = mocks.Stub<IMainWindow>();
             var gui = mocks.Stub<IGui>();
-            gui.Stub(gs => gs.MainWindow).Return(window);
+            gui.Stub(g => g.MainWindow).Return(window);
+            gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -214,7 +216,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var window = mocks.Stub<IMainWindow>();
             var gui = mocks.Stub<IGui>();
-            gui.Stub(gs => gs.MainWindow).Return(window);
+            gui.Stub(g => g.MainWindow).Return(window);
+            gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
