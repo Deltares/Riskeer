@@ -28,7 +28,6 @@ using log4net;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Integration.Plugin.Properties;
 using Riskeer.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
@@ -40,7 +39,7 @@ namespace Riskeer.Integration.Plugin.Handlers
     /// value of the <see cref="FailureMechanismContribution"/> of an <see cref="IAssessmentSection"/>
     /// and clearing all data dependent on the original norm value.
     /// </summary>
-    public class FailureMechanismContributionNormChangeHandler : IObservablePropertyChangeHandler
+    public class FailureMechanismContributionNormChangeHandler : IFailureMechanismContributionNormChangeHandler
     {
         private readonly IAssessmentSection assessmentSection;
         private readonly ILog log = LogManager.GetLogger(typeof(FailureMechanismContributionNormChangeHandler));
@@ -61,33 +60,67 @@ namespace Riskeer.Integration.Plugin.Handlers
             this.assessmentSection = assessmentSection;
         }
 
-        public IEnumerable<IObservable> SetPropertyValueAfterConfirmation(SetObservablePropertyValueDelegate setValue)
+        public void ChangeNormativeNormType(Action action)
         {
-            if (setValue == null)
+            // Clear only Piping and macro without manual assessment level
+            PerformAction(action, "Als u de norm aanpast, dan worden de rekenresultaten van semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd. " +
+                                  Environment.NewLine + Environment.NewLine +
+                                  "Weet u zeker dat u wilt doorgaan?",
+                          () => new IObservable[0]);
+        }
+
+        public void ChangeNormativeNorm(Action action)
+        {
+            // Clear only locations depending on this norm and Piping and macro without manual assessment level
+            PerformAction(action, "Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm en semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd. " +
+                                  Environment.NewLine + Environment.NewLine +
+                                  "Weet u zeker dat u wilt doorgaan?",
+                          () => new IObservable[0]);
+        }
+
+        public void ChangeNorm(Action action)
+        {
+            // Clear only locations depending on this norm
+            PerformAction(action, "Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm verwijderd. " +
+                                  Environment.NewLine + Environment.NewLine +
+                                  "Weet u zeker dat u wilt doorgaan?",
+                          () => new IObservable[0]);
+        }
+
+        private void PerformAction(Action action, string confirmationMessage, Func<IEnumerable<IObservable>> clearDataFunc)
+        {
+            if (action == null)
             {
-                throw new ArgumentNullException(nameof(setValue));
+                throw new ArgumentNullException(nameof(action));
             }
 
             var affectedObjects = new List<IObservable>();
 
-            if (ConfirmPropertyChange())
+            if (ConfirmPropertyChange(confirmationMessage))
             {
-                setValue();
+                action();
 
-                affectedObjects.AddRange(ClearAllNormDependentCalculationOutput());
                 affectedObjects.Add(assessmentSection.FailureMechanismContribution);
-                affectedObjects.AddRange(assessmentSection.GetFailureMechanisms());
-            }
+                affectedObjects.AddRange(clearDataFunc());
 
-            return affectedObjects;
+                DoPostUpdateActions(affectedObjects);
+            }
         }
 
-        private static bool ConfirmPropertyChange()
+        private static bool ConfirmPropertyChange(string confirmationMessage)
         {
-            DialogResult result = MessageBox.Show(Resources.FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_data,
+            DialogResult result = MessageBox.Show(confirmationMessage,
                                                   CoreCommonBaseResources.Confirm,
                                                   MessageBoxButtons.OKCancel);
             return result == DialogResult.OK;
+        }
+
+        private static void DoPostUpdateActions(IEnumerable<IObservable> affectedObjects)
+        {
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
         }
 
         private IEnumerable<IObservable> ClearAllNormDependentCalculationOutput()
@@ -116,5 +149,14 @@ namespace Riskeer.Integration.Plugin.Handlers
 
             return Enumerable.Empty<IObservable>();
         }
+    }
+
+    public interface IFailureMechanismContributionNormChangeHandler
+    {
+        void ChangeNormativeNormType(Action action);
+
+        void ChangeNormativeNorm(Action action);
+
+        void ChangeNorm(Action action);
     }
 }
