@@ -308,18 +308,13 @@ namespace Riskeer.DuneErosion.Plugin
 
         private static bool CloseDuneLocationCalculationsViewForData(DuneLocationCalculationsView view, object dataToCloseFor)
         {
-            DuneErosionFailureMechanism failureMechanism = null;
+            var failureMechanism = dataToCloseFor as DuneErosionFailureMechanism;
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<DuneErosionFailureMechanism>()
                                                     .FirstOrDefault();
-            }
-
-            if (dataToCloseFor is DuneErosionHydraulicLoadsContext hydraulicLoadsContext)
-            {
-                failureMechanism = hydraulicLoadsContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(failureMechanism, view.FailureMechanism);

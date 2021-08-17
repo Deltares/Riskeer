@@ -76,7 +76,7 @@ namespace Riskeer.DuneErosion.Plugin.Handlers
         {
             if (!failureMechanism.DuneLocations.Any())
             {
-                viewCommands.RemoveAllViewsForItem(failureMechanism.DuneLocations);
+                viewCommands.RemoveAllViewsForItem(failureMechanism);
             }
         }
     }
