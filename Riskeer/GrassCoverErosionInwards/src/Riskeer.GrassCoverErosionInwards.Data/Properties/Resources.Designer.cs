@@ -82,34 +82,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HBN bij norm.
-        /// </summary>
-        public static string DikeHeightCalculationType_CalculateByAssessmentSectionNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("DikeHeightCalculationType_CalculateByAssessmentSectionNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HBN bij doorsnede-eis.
-        /// </summary>
-        public static string DikeHeightCalculationType_CalculateByProfileSpecificRequiredProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("DikeHeightCalculationType_CalculateByProfileSpecificRequiredProbability_DisplayNa" +
-                        "me", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Niet.
-        /// </summary>
-        public static string DikeHeightCalculationType_NoCalculation_DisplayName {
-            get {
-                return ResourceManager.GetString("DikeHeightCalculationType_NoCalculation_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to GEKB.
         /// </summary>
         public static string GrassCoverErosionInwardsFailureMechanism_DisplayCode {
@@ -124,34 +96,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Properties {
         public static string GrassCoverErosionInwardsFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overslagdebiet bij norm.
-        /// </summary>
-        public static string OvertoppingRateCalculationType_CalculateByAssessmentSectionNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("OvertoppingRateCalculationType_CalculateByAssessmentSectionNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overslagdebiet bij doorsnede-eis.
-        /// </summary>
-        public static string OvertoppingRateCalculationType_CalculateByProfileSpecificRequiredProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("OvertoppingRateCalculationType_CalculateByProfileSpecificRequiredProbability_Disp" +
-                        "layName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Niet.
-        /// </summary>
-        public static string OvertoppingRateCalculationType_NoCalculation_DisplayName {
-            get {
-                return ResourceManager.GetString("OvertoppingRateCalculationType_NoCalculation_DisplayName", resourceCulture);
             }
         }
     }

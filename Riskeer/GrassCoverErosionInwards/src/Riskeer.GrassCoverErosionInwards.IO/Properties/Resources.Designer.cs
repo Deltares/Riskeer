@@ -255,33 +255,5 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Properties {
                         "_DikeProfile_provided_for_Orientation", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to norm.
-        /// </summary>
-        internal static string ReadHydraulicLoadsCalculationTypeConverter_CalculateByAssessmentSectionNorm {
-            get {
-                return ResourceManager.GetString("ReadHydraulicLoadsCalculationTypeConverter_CalculateByAssessmentSectionNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to doorsnede.
-        /// </summary>
-        internal static string ReadHydraulicLoadsCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability {
-            get {
-                return ResourceManager.GetString("ReadHydraulicLoadsCalculationTypeConverter_CalculateByProfileSpecificRequiredProb" +
-                        "ability", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to niet.
-        /// </summary>
-        internal static string ReadHydraulicLoadsCalculationTypeConverter_NoCalculation {
-            get {
-                return ResourceManager.GetString("ReadHydraulicLoadsCalculationTypeConverter_NoCalculation", resourceCulture);
-            }
-        }
     }
 }

@@ -121,15 +121,6 @@
   <data name="GEKBConfiguratieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GEKBConfiguratieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="ReadHydraulicLoadsCalculationTypeConverter_NoCalculation" xml:space="preserve">
-    <value>niet</value>
-  </data>
-  <data name="ReadHydraulicLoadsCalculationTypeConverter_CalculateByAssessmentSectionNorm" xml:space="preserve">
-    <value>norm</value>
-  </data>
-  <data name="ReadHydraulicLoadsCalculationTypeConverter_CalculateByProfileSpecificRequiredProbability" xml:space="preserve">
-    <value>doorsnede</value>
-  </data>
   <data name="GrassCoverErosionInwardsCalculationConfigurationImporter_ReadDikeProfile_DikeProfile_0_does_not_exist" xml:space="preserve">
     <value>Het dijkprofiel met ID '{0}' bestaat niet.</value>
   </data>
