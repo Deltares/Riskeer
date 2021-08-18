@@ -1404,9 +1404,6 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   <data name="HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_Description" xml:space="preserve">
     <value>De categoriegrens behorende bij het resultaat.</value>
   </data>
-  <data name="HydraulicBoundaryLocationProperties_CategoryBoundaries_Description" xml:space="preserve">
-    <value>De berekeningen per categoriegrens voor deze locatie.</value>
-  </data>
   <data name="FailureMechanismSections_SourcePath_Description" xml:space="preserve">
     <value>De locatie van het bestand waaruit de vakindeling is geïmporteerd.</value>
   </data>

@@ -2436,15 +2436,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekeningen per categoriegrens voor deze locatie..
-        /// </summary>
-        public static string HydraulicBoundaryLocationProperties_CategoryBoundaries_Description {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationProperties_CategoryBoundaries_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Selecteer hydraulische belastingenlocaties.
         /// </summary>
         public static string HydraulicBoundaryLocationSelectionDialog_Select_HydraulicBoundaryLocations {
