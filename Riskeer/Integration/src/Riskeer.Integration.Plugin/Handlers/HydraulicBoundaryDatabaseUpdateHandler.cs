@@ -25,7 +25,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Plugin.Handlers;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
@@ -208,20 +207,9 @@ namespace Riskeer.Integration.Plugin.Handlers
                 assessmentSection.DuneErosion.DuneLocations
             };
 
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)
-            {
-                locationsAndCalculationsObservables.Add(element.HydraulicBoundaryLocationCalculations);
-            }
-
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities)
-            {
-                locationsAndCalculationsObservables.Add(element.HydraulicBoundaryLocationCalculations);
-            }
-
-            foreach (DuneLocationCalculationsForTargetProbability element in assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities)
-            {
-                locationsAndCalculationsObservables.Add(element.DuneLocationCalculations);
-            }
+            locationsAndCalculationsObservables.AddRange(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Select(element => element.HydraulicBoundaryLocationCalculations));
+            locationsAndCalculationsObservables.AddRange(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Select(element => element.HydraulicBoundaryLocationCalculations));
+            locationsAndCalculationsObservables.AddRange(assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities.Select(element => element.DuneLocationCalculations));
 
             return locationsAndCalculationsObservables;
         }

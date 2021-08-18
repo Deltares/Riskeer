@@ -31,7 +31,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Plugin.Handlers;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
@@ -813,20 +812,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 assessmentSection.DuneErosion.DuneLocations
             };
 
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)
-            {
-                observables.Add(element.HydraulicBoundaryLocationCalculations);
-            }
-
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities)
-            {
-                observables.Add(element.HydraulicBoundaryLocationCalculations);
-            }
-
-            foreach (DuneLocationCalculationsForTargetProbability element in assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities)
-            {
-                observables.Add(element.DuneLocationCalculations);
-            }
+            observables.AddRange(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Select(element => element.HydraulicBoundaryLocationCalculations));
+            observables.AddRange(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Select(element => element.HydraulicBoundaryLocationCalculations));
+            observables.AddRange(assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities.Select(element => element.DuneLocationCalculations));
 
             CollectionAssert.AreEqual(observables, changedObjects);
             mocks.VerifyAll();
