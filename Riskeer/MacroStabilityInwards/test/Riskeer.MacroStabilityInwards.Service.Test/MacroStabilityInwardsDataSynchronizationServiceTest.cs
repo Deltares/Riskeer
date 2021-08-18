@@ -41,15 +41,15 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void ClearCalculationOutput_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutput(null);
+            void Call() => MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutput(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
         }
 
         [Test]
-        public void ClearCalculationOutput_WithCalculation_ClearsOutputAndReturnAffectedCaculations()
+        public void ClearCalculationOutput_WithCalculation_ClearsOutputAndReturnAffectedCalculations()
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculation
@@ -88,10 +88,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void ClearAllCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutput(null);
+            void Call() => MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutput(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -116,13 +116,65 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         }
 
         [Test]
+        public void ClearAllCalculationOutputWithoutManualAssessmentLevel_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputWithoutManualAssessmentLevel(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputWithoutManualAssessmentLevel_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedCalculations()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
+            {
+                new MacroStabilityInwardsCalculationScenario(),
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        UseAssessmentLevelManualInput = true
+                    },
+                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+                }
+            });
+
+            MacroStabilityInwardsCalculationScenario[] expectedAffectedCalculations = failureMechanism.Calculations
+                                                                                                      .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                                                                      .Where(c => !c.InputParameters.UseAssessmentLevelManualInput && c.HasOutput)
+                                                                                                      .ToArray();
+
+            // Call
+            IEnumerable<IObservable> affectedItems = MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputWithoutManualAssessmentLevel(failureMechanism);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            Assert.IsTrue(failureMechanism.Calculations
+                                          .OfType<MacroStabilityInwardsCalculationScenario>()
+                                          .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
+                                          .All(c => !c.HasOutput));
+
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
+        }
+
+        [Test]
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
+            void Call() => MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -159,11 +211,11 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void ClearReferenceLineDependentData_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.ClearReferenceLineDependentData(null);
+            void Call() => MacroStabilityInwardsDataSynchronizationService.ClearReferenceLineDependentData(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -209,11 +261,11 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveSurfaceLine(null, surfaceLine);
+            void Call() => MacroStabilityInwardsDataSynchronizationService.RemoveSurfaceLine(null, surfaceLine);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -223,11 +275,11 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveSurfaceLine(failureMechanism, null);
+            void Call() => MacroStabilityInwardsDataSynchronizationService.RemoveSurfaceLine(failureMechanism, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("surfaceLine", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("surfaceLine", exception.ParamName);
         }
 
         [Test]
@@ -282,11 +334,11 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void RemoveAllSurfaceLine_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveAllSurfaceLines(null);
+            void Call() => MacroStabilityInwardsDataSynchronizationService.RemoveAllSurfaceLines(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -343,11 +395,11 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             MacroStabilityInwardsStochasticSoilModel soilModel = MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilModel(null, soilModel);
+            void Call() => MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilModel(null, soilModel);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -357,11 +409,11 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, null);
+            void Call() => MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilModel(failureMechanism, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("soilModel", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("soilModel", exception.ParamName);
         }
 
         [Test]
@@ -416,11 +468,11 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void RemoveAllStochasticSoilModel_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => MacroStabilityInwardsDataSynchronizationService.RemoveAllStochasticSoilModels(null);
+            void Call() => MacroStabilityInwardsDataSynchronizationService.RemoveAllStochasticSoilModels(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -474,12 +526,11 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void RemoveStochasticSoilProfileFromInput_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilProfileFromInput(
-                null,
-                new MacroStabilityInwardsStochasticSoilProfile(0.5, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D()));
+            void Call() => MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilProfileFromInput(
+                null, new MacroStabilityInwardsStochasticSoilProfile(0.5, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D()));
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -487,12 +538,11 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void RemoveStochasticSoilProfileFromInput_WithoutSoilProfile_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilProfileFromInput(
-                new MacroStabilityInwardsFailureMechanism(),
-                null);
+            void Call() => MacroStabilityInwardsDataSynchronizationService.RemoveStochasticSoilProfileFromInput(
+                new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("soilProfile", exception.ParamName);
         }
 
@@ -607,12 +657,11 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void ClearStochasticSoilProfileDependentData_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsDataSynchronizationService.ClearStochasticSoilProfileDependentData(
-                null,
-                new MacroStabilityInwardsStochasticSoilProfile(0.5, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D()));
+            void Call() => MacroStabilityInwardsDataSynchronizationService.ClearStochasticSoilProfileDependentData(
+                null, new MacroStabilityInwardsStochasticSoilProfile(0.5, MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D()));
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -620,12 +669,11 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void ClearStochasticSoilProfileDependentData_WithoutSoilProfile_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsDataSynchronizationService.ClearStochasticSoilProfileDependentData(
-                new MacroStabilityInwardsFailureMechanism(),
-                null);
+            void Call() => MacroStabilityInwardsDataSynchronizationService.ClearStochasticSoilProfileDependentData(
+                new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("soilProfile", exception.ParamName);
         }
 

@@ -58,6 +58,27 @@ namespace Riskeer.MacroStabilityInwards.Service
         }
 
         /// <summary>
+        /// Clears the output for all calculations in the <see cref="MacroStabilityInwardsFailureMechanism"/>,
+        /// except where <see cref="MacroStabilityInwardsInput.UseAssessmentLevelManualInput"/> is <c>true</c>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="MacroStabilityInwardsFailureMechanism"/> which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearAllCalculationOutputWithoutManualAssessmentLevel(MacroStabilityInwardsFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            return failureMechanism.Calculations
+                                   .OfType<MacroStabilityInwardsCalculationScenario>()
+                                   .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
+                                   .SelectMany(ClearCalculationOutput)
+                                   .ToArray();
+        }
+
+        /// <summary>
         /// Clears the output of the given <see cref="MacroStabilityInwardsCalculation"/>.
         /// </summary>
         /// <param name="calculation">The <see cref="MacroStabilityInwardsCalculation"/> to clear the output for.</param>
