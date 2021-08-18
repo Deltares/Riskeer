@@ -28,6 +28,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Service;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Primitives;
@@ -109,6 +110,73 @@ namespace Riskeer.Piping.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(failureMechanism.Calculations.All(c => !c.HasOutput));
+
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputWithoutManualAssessmentLevel_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => PipingDataSynchronizationService.ClearAllCalculationOutputWithoutManualAssessmentLevel(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputWithoutManualAssessmentLevel_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedCalculations()
+        {
+            // Setup
+            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
+            failureMechanism.CalculationsGroup.Children.AddRange(new IPipingCalculationScenario<PipingInput>[]
+            {
+                new SemiProbabilisticPipingCalculationScenario
+                {
+                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
+                },
+                new SemiProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        UseAssessmentLevelManualInput = true
+                    },
+                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
+                },
+                new SemiProbabilisticPipingCalculationScenario(),
+                new ProbabilisticPipingCalculationScenario(),
+                new ProbabilisticPipingCalculationScenario
+                {
+                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+                }
+            });
+
+            SemiProbabilisticPipingCalculationScenario[] exceptCalculations = failureMechanism.Calculations
+                                                                                              .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                                                              .Where(c => c.InputParameters.UseAssessmentLevelManualInput)
+                                                                                              .ToArray();
+
+            IPipingCalculationScenario<PipingInput>[] expectedAffectedCalculations = failureMechanism.Calculations
+                                                                                                     .OfType<IPipingCalculationScenario<PipingInput>>()
+                                                                                                     .Except(exceptCalculations)
+                                                                                                     .Where(c => c.HasOutput)
+                                                                                                     .ToArray();
+
+            // Call
+            IEnumerable<IObservable> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutputWithoutManualAssessmentLevel(failureMechanism);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            Assert.IsTrue(failureMechanism.Calculations
+                                          .OfType<IPipingCalculationScenario<PipingInput>>()
+                                          .Except(exceptCalculations)
+                                          .All(c => !c.HasOutput));
 
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
         }
