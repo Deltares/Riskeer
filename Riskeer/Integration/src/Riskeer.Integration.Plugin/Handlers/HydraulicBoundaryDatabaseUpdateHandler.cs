@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Plugin.Handlers;
 using Riskeer.HydraRing.IO.HydraulicBoundaryDatabase;
 using Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase;
@@ -187,7 +188,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         private IEnumerable<IObservable> GetLocationsAndCalculationsObservables(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
-            return new IObservable[]
+            var locationsAndCalculationsObservables = new List<IObservable>
             {
                 hydraulicBoundaryDatabase.Locations,
                 assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
@@ -204,9 +205,25 @@ namespace Riskeer.Integration.Plugin.Handlers
                 assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
                 assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
                 assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
-                assessmentSection.DuneErosion.DuneLocations,
-                assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                assessmentSection.DuneErosion.DuneLocations
             };
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)
+            {
+                locationsAndCalculationsObservables.Add(element.HydraulicBoundaryLocationCalculations);
+            }
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities)
+            {
+                locationsAndCalculationsObservables.Add(element.HydraulicBoundaryLocationCalculations);
+            }
+
+            foreach (DuneLocationCalculationsForTargetProbability element in assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities)
+            {
+                locationsAndCalculationsObservables.Add(element.DuneLocationCalculations);
+            }
+
+            return locationsAndCalculationsObservables;
         }
 
         private static void SetLocations(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, IEnumerable<ReadHydraulicBoundaryLocation> readLocations,
