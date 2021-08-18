@@ -43,7 +43,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailurePathProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsFailurePathProperties(GrassCoverErosionOutwardsFailureMechanism data)
             : base(data, new ConstructionProperties
             {
