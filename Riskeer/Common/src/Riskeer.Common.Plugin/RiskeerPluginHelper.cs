@@ -19,10 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.Views;
+using Core.Gui.Plugin;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -93,23 +93,6 @@ namespace Riskeer.Common.Plugin
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism, failureMechanism);
-        }
-
-        /// <summary>
-        /// Formats a category boundary name to its full display name.
-        /// </summary>
-        /// <param name="categoryBoundaryName">The name of the category boundary to format.</param>
-        /// <returns>The formatted category boundary name.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categoryBoundaryName"/>
-        /// is <c>null</c>.</exception>
-        public static string FormatCategoryBoundaryName(string categoryBoundaryName)
-        {
-            if (categoryBoundaryName == null)
-            {
-                throw new ArgumentNullException(nameof(categoryBoundaryName));
-            }
-
-            return string.Format(RiskeerCommonDataResources.Hydraulic_category_boundary_0_, categoryBoundaryName);
         }
 
         private static IEnumerable<ICalculation> GetCalculationsFromFailureMechanisms(object o)

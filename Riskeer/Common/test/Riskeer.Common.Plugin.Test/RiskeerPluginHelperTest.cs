@@ -19,45 +19,19 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
-using Riskeer.Common.Plugin;
 using Riskeer.Common.Plugin.TestUtil;
 
-namespace Riskeer.Common.Service.Test
+namespace Riskeer.Common.Plugin.Test
 {
     [TestFixture]
     public class RiskeerPluginHelperTest
     {
-        [Test]
-        public void FormatCategoryBoundaryName_CategoryBoundaryNameNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => RiskeerPluginHelper.FormatCategoryBoundaryName(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("categoryBoundaryName", paramName);
-        }
-
-        [Test]
-        public void FormatCategoryBoundaryName_WithCategoryBoundaryName_ReturnsExpectedValue()
-        {
-            // Setup
-            const string categoryBoundaryName = "A";
-
-            // Call
-            string formattedCategoryBoundaryName = RiskeerPluginHelper.FormatCategoryBoundaryName(categoryBoundaryName);
-
-            // Assert
-            Assert.AreEqual("Categoriegrens " + categoryBoundaryName, formattedCategoryBoundaryName);
-        }
-
         [TestFixture]
         public class ShouldCloseViewWithCalculationDataTest : ShouldCloseViewWithCalculationDataTester
         {
@@ -77,8 +51,6 @@ namespace Riskeer.Common.Service.Test
             private class TestView : IView
             {
                 public object Data { get; set; }
-
-                public string Text { get; set; }
 
                 public void Dispose()
                 {

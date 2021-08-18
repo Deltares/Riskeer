@@ -2416,26 +2416,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De categoriegrens behorende bij het resultaat..
-        /// </summary>
-        public static string HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_Description {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_Descrip" +
-                        "tion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Categoriegrens.
-        /// </summary>
-        public static string HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_Display" +
-                        "Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Selecteer hydraulische belastingenlocaties.
         /// </summary>
         public static string HydraulicBoundaryLocationSelectionDialog_Select_HydraulicBoundaryLocations {

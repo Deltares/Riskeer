@@ -1398,12 +1398,6 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   <data name="WaveHeightCalculation_Result_Description" xml:space="preserve">
     <value>Berekende golfhoogte.</value>
   </data>
-  <data name="HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_DisplayName" xml:space="preserve">
-    <value>Categoriegrens</value>
-  </data>
-  <data name="HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_Description" xml:space="preserve">
-    <value>De categoriegrens behorende bij het resultaat.</value>
-  </data>
   <data name="FailureMechanismSections_SourcePath_Description" xml:space="preserve">
     <value>De locatie van het bestand waaruit de vakindeling is geïmporteerd.</value>
   </data>
