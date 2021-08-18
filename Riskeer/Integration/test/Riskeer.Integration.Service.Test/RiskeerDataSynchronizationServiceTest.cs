@@ -268,6 +268,19 @@ namespace Riskeer.Integration.Service.Test
                 }
             };
 
+            var waterLevelCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+            var waveHeightCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
+            {
+                waterLevelCalculationsForTargetProbability
+            });
+
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
+            {
+                waveHeightCalculationsForTargetProbability
+            });
+
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
 
             var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability();
@@ -307,6 +320,10 @@ namespace Riskeer.Integration.Service.Test
                                                                                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation8 = assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm
                                                                                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation9 = waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations
+                                                                                                                                   .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation10 = waveHeightCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations
+                                                                                                                                    .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
 
             hydraulicBoundaryLocationCalculation1.Output = new TestHydraulicBoundaryLocationCalculationOutput();
             hydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationCalculationOutput();
@@ -316,6 +333,8 @@ namespace Riskeer.Integration.Service.Test
             hydraulicBoundaryLocationCalculation6.Output = new TestHydraulicBoundaryLocationCalculationOutput();
             hydraulicBoundaryLocationCalculation7.Output = new TestHydraulicBoundaryLocationCalculationOutput();
             hydraulicBoundaryLocationCalculation8.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            hydraulicBoundaryLocationCalculation9.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            hydraulicBoundaryLocationCalculation10.Output = new TestHydraulicBoundaryLocationCalculationOutput();
 
             DuneLocationCalculation duneLocationCalculation1 = duneLocationCalculationsForTargetProbability1.DuneLocationCalculations.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
             DuneLocationCalculation duneLocationCalculation2 = duneLocationCalculationsForTargetProbability2.DuneLocationCalculations.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
@@ -333,6 +352,8 @@ namespace Riskeer.Integration.Service.Test
                 hydraulicBoundaryLocationCalculation6,
                 hydraulicBoundaryLocationCalculation7,
                 hydraulicBoundaryLocationCalculation8,
+                hydraulicBoundaryLocationCalculation9,
+                hydraulicBoundaryLocationCalculation10,
                 duneLocationCalculation1,
                 duneLocationCalculation2
             };
@@ -351,6 +372,8 @@ namespace Riskeer.Integration.Service.Test
             Assert.IsFalse(hydraulicBoundaryLocationCalculation6.HasOutput);
             Assert.IsFalse(hydraulicBoundaryLocationCalculation7.HasOutput);
             Assert.IsFalse(hydraulicBoundaryLocationCalculation8.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocationCalculation9.HasOutput);
+            Assert.IsFalse(hydraulicBoundaryLocationCalculation10.HasOutput);
 
             Assert.IsNull(duneLocationCalculation1.Output);
             Assert.IsNull(duneLocationCalculation2.Output);

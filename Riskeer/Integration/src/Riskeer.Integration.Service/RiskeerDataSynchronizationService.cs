@@ -255,6 +255,16 @@ namespace Riskeer.Integration.Service
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForLowerLimitNorm));
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm));
 
+            foreach (ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Select(c => c.HydraulicBoundaryLocationCalculations))
+            {
+                affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(hydraulicBoundaryLocationCalculations));
+            }
+
+            foreach (ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Select(c => c.HydraulicBoundaryLocationCalculations))
+            {
+                affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(hydraulicBoundaryLocationCalculations));
+            }
+
             return affectedObjects.ToArray();
         }
 
