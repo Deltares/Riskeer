@@ -230,6 +230,31 @@ namespace Riskeer.Integration.Service
         }
 
         /// <summary>
+        /// Clears the output of all semi probabilistic calculations in the <see cref="IAssessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearAllSemiProbabilisticCalculationOutput(IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
+            
+            var changedObservables = new List<IObservable>();
+            changedObservables.AddRange(PipingDataSynchronizationService.ClearAllSemiProbabilisticCalculationOutputWithoutManualAssessmentLevel(
+                                            failureMechanisms.OfType<PipingFailureMechanism>()
+                                                             .Single()));
+            changedObservables.AddRange(MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputWithoutManualAssessmentLevel(
+                                            failureMechanisms.OfType<MacroStabilityInwardsFailureMechanism>()
+                                                             .Single()));
+            return changedObservables;
+        }
+
+        /// <summary>
         /// Clears the hydraulic boundary location calculation output belonging to the
         /// <see cref="FailureMechanismContribution.NormativeNorm"/>.
         /// </summary>

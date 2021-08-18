@@ -46,9 +46,13 @@ using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Primitives;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
@@ -127,6 +131,104 @@ namespace Riskeer.Integration.Service.Test
                                      .Where(c => c.HasOutput));
 
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
+        }
+
+        [Test]
+        public void ClearAllSemiProbabilisticCalculationOutput_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => RiskeerDataSynchronizationService.ClearAllSemiProbabilisticCalculationOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearAllSemiProbabilisticCalculationOutput_VariousCalculations_ClearsCalculationsOutputAndReturnsAffectedObjects()
+        {
+            // Setup
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            pipingFailureMechanism.CalculationsGroup.Children.AddRange(new IPipingCalculationScenario<PipingInput>[]
+            {
+                new SemiProbabilisticPipingCalculationScenario
+                {
+                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
+                },
+                new SemiProbabilisticPipingCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        UseAssessmentLevelManualInput = true
+                    },
+                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
+                },
+                new SemiProbabilisticPipingCalculationScenario(),
+                new ProbabilisticPipingCalculationScenario(),
+                new ProbabilisticPipingCalculationScenario
+                {
+                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+                }
+            });
+
+            var macroStabilityInwardsFailureMechanism = new MacroStabilityInwardsFailureMechanism();
+            macroStabilityInwardsFailureMechanism.CalculationsGroup.Children.AddRange(new[]
+            {
+                new MacroStabilityInwardsCalculationScenario(),
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    InputParameters =
+                    {
+                        UseAssessmentLevelManualInput = true
+                    },
+                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+                }
+            });
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[]
+            {
+                pipingFailureMechanism,
+                macroStabilityInwardsFailureMechanism
+            });
+            mocks.ReplayAll();
+
+            MacroStabilityInwardsCalculationScenario[] expectedAffectedMacroStabilityInwardsCalculations = macroStabilityInwardsFailureMechanism.Calculations
+                                                                                                                                                .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                                                                                                                .Where(c => !c.InputParameters.UseAssessmentLevelManualInput && c.HasOutput)
+                                                                                                                                                .ToArray();
+            SemiProbabilisticPipingCalculationScenario[] expectedAffectedPipingCalculations = pipingFailureMechanism.Calculations
+                                                                                                                    .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                                                                                    .Where(c => !c.InputParameters.UseAssessmentLevelManualInput && c.HasOutput)
+                                                                                                                    .ToArray();
+
+            // Call
+            IEnumerable<IObservable> affectedItems = RiskeerDataSynchronizationService.ClearAllSemiProbabilisticCalculationOutput(assessmentSection);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            Assert.IsTrue(macroStabilityInwardsFailureMechanism.Calculations
+                                                               .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                               .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
+                                                               .All(c => !c.HasOutput));
+            Assert.IsTrue(pipingFailureMechanism.Calculations
+                                                .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
+                                                .All(c => !c.HasOutput));
+
+            CollectionAssert.AreEquivalent(expectedAffectedPipingCalculations.Concat<ICalculationScenario>(expectedAffectedMacroStabilityInwardsCalculations),
+                                           affectedItems);
+            mocks.VerifyAll();
         }
 
         [Test]

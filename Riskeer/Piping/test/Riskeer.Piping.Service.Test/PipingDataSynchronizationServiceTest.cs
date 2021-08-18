@@ -168,7 +168,6 @@ namespace Riskeer.Piping.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(failureMechanism.Calculations
-                                          .OfType<IPipingCalculationScenario<PipingInput>>()
                                           .OfType<SemiProbabilisticPipingCalculationScenario>()
                                           .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
                                           .All(c => !c.HasOutput));
