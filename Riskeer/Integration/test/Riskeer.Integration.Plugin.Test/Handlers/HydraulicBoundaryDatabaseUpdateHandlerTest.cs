@@ -803,6 +803,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
                 assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
                 assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
+                assessmentSection.DuneErosion.DuneLocations,
                 assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities
             }, changedObjects);
             mocks.VerifyAll();
