@@ -153,7 +153,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        public void Constructor_GetCalculationIdentifierFuncNull_ThrowsArgumentException(string categoryBoundaryName)
+        public void Constructor_GetCalculationIdentifierFuncNull_ThrowsArgumentException(string calculationIdentifier)
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
