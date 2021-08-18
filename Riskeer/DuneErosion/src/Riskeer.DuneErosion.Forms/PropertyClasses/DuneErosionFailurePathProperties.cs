@@ -43,14 +43,15 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
         /// Creates a new instance of <see cref="DuneErosionFailurePathProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public DuneErosionFailurePathProperties(DuneErosionFailureMechanism data) : base(data, new ConstructionProperties
-        {
-            NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex,
-            ContributionPropertyIndex = contributionPropertyIndex
-        }) {}
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
+        public DuneErosionFailurePathProperties(DuneErosionFailureMechanism data)
+            : base(data, new ConstructionProperties
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex,
+                GroupPropertyIndex = groupPropertyIndex,
+                ContributionPropertyIndex = contributionPropertyIndex
+            }) {}
 
         #region Length effect parameters
 
