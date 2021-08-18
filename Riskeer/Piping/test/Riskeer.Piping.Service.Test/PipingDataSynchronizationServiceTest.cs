@@ -115,10 +115,10 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputWithoutManualAssessmentLevel_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ClearAllSemiProbabilisticCalculationOutputWithoutManualAssessmentLevel_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingDataSynchronizationService.ClearAllCalculationOutputWithoutManualAssessmentLevel(null);
+            void Call() => PipingDataSynchronizationService.ClearAllSemiProbabilisticCalculationOutputWithoutManualAssessmentLevel(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -126,7 +126,7 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputWithoutManualAssessmentLevel_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedCalculations()
+        public void ClearAllSemiProbabilisticCalculationOutputWithoutManualAssessmentLevel_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedCalculations()
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
@@ -156,26 +156,21 @@ namespace Riskeer.Piping.Service.Test
                 }
             });
 
-            SemiProbabilisticPipingCalculationScenario[] exceptCalculations = failureMechanism.Calculations
-                                                                                              .OfType<SemiProbabilisticPipingCalculationScenario>()
-                                                                                              .Where(c => c.InputParameters.UseAssessmentLevelManualInput)
-                                                                                              .ToArray();
-
-            IPipingCalculationScenario<PipingInput>[] expectedAffectedCalculations = failureMechanism.Calculations
-                                                                                                     .OfType<IPipingCalculationScenario<PipingInput>>()
-                                                                                                     .Except(exceptCalculations)
-                                                                                                     .Where(c => c.HasOutput)
-                                                                                                     .ToArray();
+            SemiProbabilisticPipingCalculationScenario[] expectedAffectedCalculations = failureMechanism.Calculations
+                                                                                                        .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                                                                        .Where(c => !c.InputParameters.UseAssessmentLevelManualInput && c.HasOutput)
+                                                                                                        .ToArray();
 
             // Call
-            IEnumerable<IObservable> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutputWithoutManualAssessmentLevel(failureMechanism);
+            IEnumerable<IObservable> affectedItems = PipingDataSynchronizationService.ClearAllSemiProbabilisticCalculationOutputWithoutManualAssessmentLevel(failureMechanism);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(failureMechanism.Calculations
                                           .OfType<IPipingCalculationScenario<PipingInput>>()
-                                          .Except(exceptCalculations)
+                                          .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                          .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
                                           .All(c => !c.HasOutput));
 
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);

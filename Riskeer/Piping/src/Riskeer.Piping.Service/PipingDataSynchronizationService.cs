@@ -87,14 +87,14 @@ namespace Riskeer.Piping.Service
         }
 
         /// <summary>
-        /// Clears the output for all calculations in the <see cref="PipingFailureMechanism"/>,
+        /// Clears the output for all <see cref="SemiProbabilisticPipingCalculationScenario"/> in the <see cref="PipingFailureMechanism"/>,
         /// except for the <see cref="SemiProbabilisticPipingCalculationScenario"/> where
         /// <see cref="SemiProbabilisticPipingInput.UseAssessmentLevelManualInput"/> is <c>true</c>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> which contains the calculations.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearAllCalculationOutputWithoutManualAssessmentLevel(PipingFailureMechanism failureMechanism)
+        public static IEnumerable<IObservable> ClearAllSemiProbabilisticCalculationOutputWithoutManualAssessmentLevel(PipingFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
@@ -102,10 +102,8 @@ namespace Riskeer.Piping.Service
             }
 
             return failureMechanism.Calculations
-                                   .OfType<IPipingCalculationScenario<PipingInput>>()
-                                   .Except(failureMechanism.Calculations
-                                                           .OfType<SemiProbabilisticPipingCalculationScenario>()
-                                                           .Where(c => c.InputParameters.UseAssessmentLevelManualInput))
+                                   .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                   .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
                                    .SelectMany(ClearCalculationOutput)
                                    .ToArray();
         }
