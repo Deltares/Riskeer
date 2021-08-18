@@ -33,7 +33,6 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
-using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.DuneErosion.Forms.GuiServices;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Forms.Views;
@@ -142,61 +141,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                 // Assert
                 Assert.AreSame(context.WrappedData.DuneLocationCalculations, viewData);
                 mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void AdditionalDataCheck_FailureMechanismWithoutCalculations_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(),
-                                                                                             new DuneErosionFailureMechanism(),
-                                                                                             assessmentSection);
-
-            using (var plugin = new DuneErosionPlugin())
-            {
-                ViewInfo info = GetInfo(plugin);
-
-                // Call
-                bool additionalDataCheck = info.AdditionalDataCheck(context);
-
-                // Assert
-                Assert.IsFalse(additionalDataCheck);
-            }
-        }
-
-        [Test]
-        public void AdditionalDataCheck_FailureMechanismWithCalculations_ReturnTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var duneErosionFailureMechanism = new DuneErosionFailureMechanism();
-
-            duneErosionFailureMechanism.SetDuneLocations(new[]
-            {
-                new TestDuneLocation()
-            });
-
-            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(),
-                                                                                             duneErosionFailureMechanism,
-                                                                                             assessmentSection);
-
-            using (var plugin = new DuneErosionPlugin())
-            {
-                ViewInfo info = GetInfo(plugin);
-
-                // Call
-                bool additionalDataCheck = info.AdditionalDataCheck(context);
-
-                // Assert
-                Assert.IsTrue(additionalDataCheck);
             }
         }
 
