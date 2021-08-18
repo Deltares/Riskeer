@@ -190,10 +190,10 @@ namespace Riskeer.DuneErosion.Plugin.Test
                 Assert.IsTrue(updateInfos.Any(ei => ei.DataType == typeof(DuneErosionFailureMechanismSectionsContext)));
             }
         }
-        
+
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSetAndOpenedDuneLocationCalculationsView_WhenChangingCorrespondingUserSpecifiedTargetProbabilityAndObserversNotified_ThenViewTitleUpdated()
+        public void GivenPluginWithGuiSetAndOpenedDuneLocationCalculationsView_WhenChangingCorrespondingUserDefinedTargetProbabilityAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
             var mocks = new MockRepository();
@@ -207,14 +207,14 @@ namespace Riskeer.DuneErosion.Plugin.Test
                 {
                     new DuneErosionPlugin()
                 });
-                
+
                 gui.Run();
 
                 var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability();
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
-                    DuneErosion = 
-                    { 
+                    DuneErosion =
+                    {
                         DuneLocationCalculationsForUserDefinedTargetProbabilities =
                         {
                             calculationsForTargetProbability
@@ -222,11 +222,11 @@ namespace Riskeer.DuneErosion.Plugin.Test
                     }
                 };
 
-                assessmentSection.DuneErosion.SetDuneLocations(new []
+                assessmentSection.DuneErosion.SetDuneLocations(new[]
                 {
                     new TestDuneLocation()
                 });
-                
+
                 var project = new RiskeerProject
                 {
                     AssessmentSections =

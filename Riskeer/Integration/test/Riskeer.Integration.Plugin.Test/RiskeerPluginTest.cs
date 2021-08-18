@@ -764,7 +764,7 @@ namespace Riskeer.Integration.Plugin.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsView_WhenChangingCorrespondingUserSpecifiedTargetProbabilityAndObserversNotified_ThenViewTitleUpdated()
+        public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsView_WhenChangingCorrespondingUserDefinedTargetProbabilityAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
             var mocks = new MockRepository();
@@ -817,7 +817,7 @@ namespace Riskeer.Integration.Plugin.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSetAndOpenedWaveHeightCalculationsView_WhenChangingCorrespondingUserSpecifiedTargetProbabilityAndObserversNotified_ThenViewTitleUpdated()
+        public void GivenPluginWithGuiSetAndOpenedWaveHeightCalculationsView_WhenChangingCorrespondingUserDefinedTargetProbabilityAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
             var mocks = new MockRepository();

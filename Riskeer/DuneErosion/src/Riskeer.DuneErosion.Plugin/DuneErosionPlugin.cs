@@ -256,15 +256,15 @@ namespace Riskeer.DuneErosion.Plugin
         {
             if (e.View is DuneLocationCalculationsView duneLocationCalculationsView)
             {
-                DuneLocationCalculationsForTargetProbability calculationsForUserSpecifiedTargetProbabilities =
+                DuneLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbabilities =
                     duneLocationCalculationsView.FailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
                                                 .FirstOrDefault(calculations => ReferenceEquals(calculations.DuneLocationCalculations, duneLocationCalculationsView.Data));
 
-                if (calculationsForUserSpecifiedTargetProbabilities != null)
+                if (calculationsForUserDefinedTargetProbabilities != null)
                 {
-                    observersForViewTitles[e.View] = new Observer(() => Gui.ViewHost.SetTitle(e.View, GetDuneLocationCalculationsViewName(calculationsForUserSpecifiedTargetProbabilities)))
+                    observersForViewTitles[e.View] = new Observer(() => Gui.ViewHost.SetTitle(e.View, GetDuneLocationCalculationsViewName(calculationsForUserDefinedTargetProbabilities)))
                     {
-                        Observable = calculationsForUserSpecifiedTargetProbabilities
+                        Observable = calculationsForUserDefinedTargetProbabilities
                     };
                 }
             }

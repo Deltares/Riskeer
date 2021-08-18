@@ -1226,33 +1226,33 @@ namespace Riskeer.Integration.Plugin
         private void OnViewOpened(object sender, ViewChangeEventArgs e)
         {
             Func<string> getTitleFunc = null;
-            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserSpecifiedTargetProbabilities = null;
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbabilities = null;
 
             if (e.View is DesignWaterLevelCalculationsView designWaterLevelCalculationsView)
             {
-                calculationsForUserSpecifiedTargetProbabilities =
+                calculationsForUserDefinedTargetProbabilities =
                     designWaterLevelCalculationsView.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
                                                     .FirstOrDefault(calculations => ReferenceEquals(calculations.HydraulicBoundaryLocationCalculations, designWaterLevelCalculationsView.Data));
 
-                getTitleFunc = () => GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesViewName(calculationsForUserSpecifiedTargetProbabilities);
+                getTitleFunc = () => GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesViewName(calculationsForUserDefinedTargetProbabilities);
             }
             else if (e.View is WaveHeightCalculationsView waveHeightCalculationsView)
             {
-                calculationsForUserSpecifiedTargetProbabilities =
+                calculationsForUserDefinedTargetProbabilities =
                     waveHeightCalculationsView.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
                                               .FirstOrDefault(calculations => ReferenceEquals(calculations.HydraulicBoundaryLocationCalculations, waveHeightCalculationsView.Data));
 
-                getTitleFunc = () => GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesViewName(calculationsForUserSpecifiedTargetProbabilities);
+                getTitleFunc = () => GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesViewName(calculationsForUserDefinedTargetProbabilities);
             }
 
-            if (calculationsForUserSpecifiedTargetProbabilities == null)
+            if (calculationsForUserDefinedTargetProbabilities == null)
             {
                 return;
             }
 
             observersForViewTitles[e.View] = new Observer(() => Gui.ViewHost.SetTitle(e.View, getTitleFunc()))
             {
-                Observable = calculationsForUserSpecifiedTargetProbabilities
+                Observable = calculationsForUserDefinedTargetProbabilities
             };
         }
 
@@ -1266,17 +1266,17 @@ namespace Riskeer.Integration.Plugin
         }
 
         private static string GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesViewName(
-            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserSpecifiedTargetProbabilities)
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbabilities)
         {
             return $"{RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName} - " +
-                   $"{noProbabilityValueDoubleConverter.ConvertToString(calculationsForUserSpecifiedTargetProbabilities.TargetProbability)}";
+                   $"{noProbabilityValueDoubleConverter.ConvertToString(calculationsForUserDefinedTargetProbabilities.TargetProbability)}";
         }
 
         private static string GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesViewName(
-            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserSpecifiedTargetProbabilities)
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbabilities)
         {
             return $"{RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName} - " +
-                   $"{noProbabilityValueDoubleConverter.ConvertToString(calculationsForUserSpecifiedTargetProbabilities.TargetProbability)}";
+                   $"{noProbabilityValueDoubleConverter.ConvertToString(calculationsForUserDefinedTargetProbabilities.TargetProbability)}";
         }
 
         private static bool HasGeometry(ReferenceLine referenceLine)
