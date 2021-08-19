@@ -246,14 +246,8 @@ namespace Riskeer.Integration.Service
             var affectedObjects = new List<IObservable>();
 
             affectedObjects.AddRange(ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(assessmentSection));
-            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm));
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForSignalingNorm));
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForLowerLimitNorm));
-            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm));
-            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm));
-            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForSignalingNorm));
-            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForLowerLimitNorm));
-            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm));
 
             foreach (ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Select(c => c.HydraulicBoundaryLocationCalculations))
             {

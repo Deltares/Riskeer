@@ -304,37 +304,19 @@ namespace Riskeer.Integration.Service.Test
                 hydraulicBoundaryLocation2
             });
 
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation1 = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation1 = assessmentSection.WaterLevelCalculationsForSignalingNorm
                                                                                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForSignalingNorm
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
                                                                                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation3 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
-                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation4 = assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm
-                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation5 = assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
-                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation6 = assessmentSection.WaveHeightCalculationsForSignalingNorm
-                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation7 = assessmentSection.WaveHeightCalculationsForLowerLimitNorm
-                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation8 = assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm
-                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation9 = waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation3 = waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations
                                                                                                                                    .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation10 = waveHeightCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations
-                                                                                                                                    .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation4 = waveHeightCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations
+                                                                                                                                   .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
 
             hydraulicBoundaryLocationCalculation1.Output = new TestHydraulicBoundaryLocationCalculationOutput();
             hydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationCalculationOutput();
             hydraulicBoundaryLocationCalculation3.Output = new TestHydraulicBoundaryLocationCalculationOutput();
             hydraulicBoundaryLocationCalculation4.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            hydraulicBoundaryLocationCalculation5.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            hydraulicBoundaryLocationCalculation6.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            hydraulicBoundaryLocationCalculation7.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            hydraulicBoundaryLocationCalculation8.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            hydraulicBoundaryLocationCalculation9.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            hydraulicBoundaryLocationCalculation10.Output = new TestHydraulicBoundaryLocationCalculationOutput();
 
             DuneLocationCalculation duneLocationCalculation1 = duneLocationCalculationsForTargetProbability1.DuneLocationCalculations.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
             DuneLocationCalculation duneLocationCalculation2 = duneLocationCalculationsForTargetProbability2.DuneLocationCalculations.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
@@ -348,12 +330,6 @@ namespace Riskeer.Integration.Service.Test
                 hydraulicBoundaryLocationCalculation2,
                 hydraulicBoundaryLocationCalculation3,
                 hydraulicBoundaryLocationCalculation4,
-                hydraulicBoundaryLocationCalculation5,
-                hydraulicBoundaryLocationCalculation6,
-                hydraulicBoundaryLocationCalculation7,
-                hydraulicBoundaryLocationCalculation8,
-                hydraulicBoundaryLocationCalculation9,
-                hydraulicBoundaryLocationCalculation10,
                 duneLocationCalculation1,
                 duneLocationCalculation2
             };
@@ -368,12 +344,6 @@ namespace Riskeer.Integration.Service.Test
             Assert.IsFalse(hydraulicBoundaryLocationCalculation2.HasOutput);
             Assert.IsFalse(hydraulicBoundaryLocationCalculation3.HasOutput);
             Assert.IsFalse(hydraulicBoundaryLocationCalculation4.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocationCalculation5.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocationCalculation6.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocationCalculation7.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocationCalculation8.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocationCalculation9.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocationCalculation10.HasOutput);
 
             Assert.IsNull(duneLocationCalculation1.Output);
             Assert.IsNull(duneLocationCalculation2.Output);
