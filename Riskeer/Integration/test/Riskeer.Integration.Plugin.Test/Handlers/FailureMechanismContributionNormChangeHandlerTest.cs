@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
@@ -129,17 +130,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                            .Where(c => c.HasOutput)
                                                                            .ToArray();
 
+            IEnumerable<IObservable> userDefinedCalculations = GetUserDefinedCalculations(assessmentSection);
+
             IEnumerable<IObservable> expectedAffectedObjects =
                 expectedAffectedCalculations.Cast<IObservable>()
                                             .Concat(assessmentSection.GetFailureMechanisms())
-                                            .Concat(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm)
                                             .Concat(assessmentSection.WaterLevelCalculationsForSignalingNorm)
                                             .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
-                                            .Concat(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
-                                            .Concat(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm)
-                                            .Concat(assessmentSection.WaveHeightCalculationsForSignalingNorm)
-                                            .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
-                                            .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
+                                            .Concat(userDefinedCalculations)
                                             .Concat(GetAllAffectedDuneLocationCalculations(assessmentSection.DuneErosion))
                                             .Concat(new IObservable[]
                                             {
@@ -182,21 +180,18 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput();
 
-            IEnumerable<IObservable> expectedAffectedObjects =
+            IEnumerable<IObservable> userDefinedCalculations = GetUserDefinedCalculations(assessmentSection);
+
+            List<IObservable> expectedAffectedObjects =
                 assessmentSection.GetFailureMechanisms().Cast<IObservable>()
-                                 .Concat(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm)
                                  .Concat(assessmentSection.WaterLevelCalculationsForSignalingNorm)
                                  .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
-                                 .Concat(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm)
-                                 .Concat(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm)
-                                 .Concat(assessmentSection.WaveHeightCalculationsForSignalingNorm)
-                                 .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
-                                 .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
+                                 .Concat(userDefinedCalculations)
                                  .Concat(GetAllAffectedDuneLocationCalculations(assessmentSection.DuneErosion))
                                  .Concat(new IObservable[]
                                  {
                                      assessmentSection.FailureMechanismContribution
-                                 }).ToArray();
+                                 }).ToList();
 
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
@@ -322,11 +317,28 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var expectedException = new Exception();
 
             // Call
-            void Call() => handler.SetPropertyValueAfterConfirmation(() => { throw expectedException; });
+            void Call() => handler.SetPropertyValueAfterConfirmation(() => throw expectedException);
 
             // Assert
             var exception = Assert.Throws<Exception>(Call);
             Assert.AreSame(expectedException, exception);
+        }
+
+        private static IEnumerable<IObservable> GetUserDefinedCalculations(IAssessmentSection assessmentSection)
+        {
+            var userDefinedCalculations = new List<IObservable>();
+
+            foreach (ObservableList<HydraulicBoundaryLocationCalculation> element in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Select(c => c.HydraulicBoundaryLocationCalculations))
+            {
+                userDefinedCalculations.AddRange(element);
+            }
+
+            foreach (ObservableList<HydraulicBoundaryLocationCalculation> element in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Select(c => c.HydraulicBoundaryLocationCalculations))
+            {
+                userDefinedCalculations.AddRange(element);
+            }
+
+            return userDefinedCalculations;
         }
 
         private static IEnumerable<IObservable> GetAllAffectedDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism)
@@ -336,14 +348,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
         private static void AssertHydraulicBoundaryLocationCalculationOutput(AssessmentSection assessmentSection, bool hasOutput)
         {
-            Assert.IsTrue(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => c.HasOutput == hasOutput));
             Assert.IsTrue(assessmentSection.WaterLevelCalculationsForSignalingNorm.All(c => c.HasOutput == hasOutput));
             Assert.IsTrue(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.All(c => c.HasOutput == hasOutput));
-            Assert.IsTrue(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.All(c => c.HasOutput == hasOutput));
-            Assert.IsTrue(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.All(c => c.HasOutput == hasOutput));
-            Assert.IsTrue(assessmentSection.WaveHeightCalculationsForSignalingNorm.All(c => c.HasOutput == hasOutput));
-            Assert.IsTrue(assessmentSection.WaveHeightCalculationsForLowerLimitNorm.All(c => c.HasOutput == hasOutput));
-            Assert.IsTrue(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.All(c => c.HasOutput == hasOutput));
         }
     }
 }

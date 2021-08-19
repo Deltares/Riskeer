@@ -250,14 +250,18 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             var calculations = new List<HydraulicBoundaryLocationCalculation>();
 
-            calculations.AddRange(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
             calculations.AddRange(assessmentSection.WaterLevelCalculationsForSignalingNorm);
             calculations.AddRange(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
-            calculations.AddRange(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
-            calculations.AddRange(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
-            calculations.AddRange(assessmentSection.WaveHeightCalculationsForSignalingNorm);
-            calculations.AddRange(assessmentSection.WaveHeightCalculationsForLowerLimitNorm);
-            calculations.AddRange(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)
+            {
+                calculations.AddRange(element.HydraulicBoundaryLocationCalculations);
+            }
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities)
+            {
+                calculations.AddRange(element.HydraulicBoundaryLocationCalculations);
+            }
 
             return calculations;
         }

@@ -72,6 +72,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 }
             };
 
+            SetUserDefinedTargetProbabilities(assessmentSection, hydraulicBoundaryLocation1);
+            
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
@@ -162,6 +164,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 }
             };
 
+            SetUserDefinedTargetProbabilities(assessmentSection, hydraulicBoundaryLocation);
+
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -230,6 +234,25 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             mockRepository.VerifyAll();
         }
 
+        private static void SetUserDefinedTargetProbabilities(AssessmentSection assessmentSection, TestHydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability
+            {
+                HydraulicBoundaryLocationCalculations =
+                {
+                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+                }
+            });
+
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability
+            {
+                HydraulicBoundaryLocationCalculations =
+                {
+                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+                }
+            });
+        }
+
         private void SetPropertyAndVerifyNotificationsAndNoOutputSet(Action<NormProperties> setPropertyAction)
         {
             // Setup
@@ -293,52 +316,31 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                              HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                              Random random)
         {
-            assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
-                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                             .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             assessmentSection.WaterLevelCalculationsForSignalingNorm
                              .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
                              .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             assessmentSection.WaterLevelCalculationsForLowerLimitNorm
                              .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
                              .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                             .First().HydraulicBoundaryLocationCalculations
                              .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
                              .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+                             .First().HydraulicBoundaryLocationCalculations
                              .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
                              .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            assessmentSection.WaveHeightCalculationsForSignalingNorm
-                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                             .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            assessmentSection.WaveHeightCalculationsForLowerLimitNorm
-                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                             .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm
-                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                             .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
+
         }
 
         private static void SetOutputToHydraulicBoundaryLocationCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                              HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                              Random random)
         {
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
-                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                            .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm
                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
                             .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
-                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                            .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
-                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                            .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm
-                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                            .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
                             .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
         }
@@ -349,42 +351,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                            bool expectUpdateObserver = true)
         {
             AttachObserver(mockRepository,
-                           assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
-                                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
-                           expectUpdateObserver);
-
-            AttachObserver(mockRepository,
                            assessmentSection.WaterLevelCalculationsForSignalingNorm
                                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
                            expectUpdateObserver);
 
             AttachObserver(mockRepository,
                            assessmentSection.WaterLevelCalculationsForLowerLimitNorm
-                                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
-                           expectUpdateObserver);
-
-            AttachObserver(mockRepository,
-                           assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm
-                                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
-                           expectUpdateObserver);
-
-            AttachObserver(mockRepository,
-                           assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
-                                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
-                           expectUpdateObserver);
-
-            AttachObserver(mockRepository,
-                           assessmentSection.WaveHeightCalculationsForSignalingNorm
-                                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
-                           expectUpdateObserver);
-
-            AttachObserver(mockRepository,
-                           assessmentSection.WaveHeightCalculationsForLowerLimitNorm
-                                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
-                           expectUpdateObserver);
-
-            AttachObserver(mockRepository,
-                           assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm
                                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
                            expectUpdateObserver);
         }
@@ -395,32 +367,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                            bool expectUpdateObserver = true)
         {
             AttachObserver(mockRepository,
-                           failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
-                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
-                           expectUpdateObserver);
-
-            AttachObserver(mockRepository,
                            failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm
                                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
                            expectUpdateObserver);
 
             AttachObserver(mockRepository,
                            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
-                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
-                           expectUpdateObserver);
-
-            AttachObserver(mockRepository,
-                           failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
-                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
-                           expectUpdateObserver);
-
-            AttachObserver(mockRepository,
-                           failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm
-                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
-                           expectUpdateObserver);
-
-            AttachObserver(mockRepository,
-                           failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
                                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
                            expectUpdateObserver);
         }
@@ -443,28 +395,18 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                           HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                           bool expectedHasOutput)
         {
-            Assert.AreEqual(expectedHasOutput, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
-                                                                .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                                                                .HasOutput);
             Assert.AreEqual(expectedHasOutput, assessmentSection.WaterLevelCalculationsForSignalingNorm
                                                                 .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
                                                                 .HasOutput);
             Assert.AreEqual(expectedHasOutput, assessmentSection.WaterLevelCalculationsForLowerLimitNorm
                                                                 .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
                                                                 .HasOutput);
-            Assert.AreEqual(expectedHasOutput, assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm
+            Assert.AreEqual(expectedHasOutput, assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                                                                .First().HydraulicBoundaryLocationCalculations
                                                                 .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
                                                                 .HasOutput);
-            Assert.AreEqual(expectedHasOutput, assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
-                                                                .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                                                                .HasOutput);
-            Assert.AreEqual(expectedHasOutput, assessmentSection.WaveHeightCalculationsForSignalingNorm
-                                                                .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                                                                .HasOutput);
-            Assert.AreEqual(expectedHasOutput, assessmentSection.WaveHeightCalculationsForLowerLimitNorm
-                                                                .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                                                                .HasOutput);
-            Assert.AreEqual(expectedHasOutput, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm
+            Assert.AreEqual(expectedHasOutput, assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+                                                                .First().HydraulicBoundaryLocationCalculations
                                                                 .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
                                                                 .HasOutput);
         }
