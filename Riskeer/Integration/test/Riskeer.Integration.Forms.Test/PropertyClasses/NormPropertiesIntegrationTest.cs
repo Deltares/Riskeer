@@ -268,6 +268,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 }
             };
 
+            SetUserDefinedTargetProbabilities(assessmentSection, hydraulicBoundaryLocation);
+            
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -357,6 +359,16 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             AttachObserver(mockRepository,
                            assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+                                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
+                           expectUpdateObserver);
+            AttachObserver(mockRepository,
+                           assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                                            .First().HydraulicBoundaryLocationCalculations
+                                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
+                           expectUpdateObserver);
+            AttachObserver(mockRepository,
+                           assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+                                            .First().HydraulicBoundaryLocationCalculations
                                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
                            expectUpdateObserver);
         }
