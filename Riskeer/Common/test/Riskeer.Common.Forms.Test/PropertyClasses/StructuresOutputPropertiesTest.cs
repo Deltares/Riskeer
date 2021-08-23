@@ -31,6 +31,7 @@ using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PropertyClasses;
 
 namespace Riskeer.Common.Forms.Test.PropertyClasses
@@ -86,6 +87,9 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(generalResult.GoverningWindDirection.Name, properties.WindDirection);
 
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5), properties.Probability);
+            Assert.AreEqual(0, properties.Reliability, properties.Reliability.GetAccuracy());
+            
             TestHelper.AssertTypeConverter<StructuresOutputProperties, KeyValueExpandableArrayConverter>(
                 nameof(StructuresOutputProperties.AlphaValues));
             TestHelper.AssertTypeConverter<StructuresOutputProperties, KeyValueExpandableArrayConverter>(
