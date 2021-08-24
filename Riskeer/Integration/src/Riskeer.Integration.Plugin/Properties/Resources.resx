@@ -140,12 +140,12 @@
 
 Wilt u doorgaan?</value>
   </data>
-    <data name="ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared" xml:space="preserve">
-    <value>De resultaten van {0} berekeningen zijn verwijderd.</value>
+    <data name="FailureMechanismContributionNormChangeHandler_ClearAllNormDependentSemiProbabilisticCalculationOutput_Results_of_NumberOfCalculations_0_calculations_cleared" xml:space="preserve">
+    <value>De resultaten van {0} semi-probabilistische berekeningen zonder handmatige waterstand zijn verwijderd.</value>
   </data>
-    <data name="FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_results_cleared"
+    <data name="FailureMechanismContributionNormChangeHandler_ClearNormDependingHydraulicBoundaryLocationCalculationOutput_Calculation_results_cleared"
           xml:space="preserve">
-    <value>Alle berekende hydraulische belastingen zijn verwijderd.</value>
+    <value>Alle berekende hydraulische belastingen behorende bij de gewijzigde norm zijn verwijderd.</value>
   </data>
     <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_data"
           xml:space="preserve">

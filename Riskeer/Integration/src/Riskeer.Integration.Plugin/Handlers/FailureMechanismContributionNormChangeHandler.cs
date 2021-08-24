@@ -28,6 +28,7 @@ using log4net;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
+using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Plugin.Properties;
 using Riskeer.Integration.Service;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
@@ -62,29 +63,42 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         public void ChangeNormativeNormType(Action action)
         {
-            // Clear only Piping and macro without manual assessment level
             PerformAction(action, "Als u de norm aanpast, dan worden de rekenresultaten van semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd. " +
                                   Environment.NewLine + Environment.NewLine +
                                   "Weet u zeker dat u wilt doorgaan?",
-                          () => new IObservable[0]);
+                          () =>
+                          {
+                              var affectedObjects = new List<IObservable>();
+                              affectedObjects.AddRange(ClearAllNormDependentSemiProbabilisticCalculationOutput());
+                              return affectedObjects;
+                          });
         }
 
         public void ChangeNormativeNorm(Action action)
         {
-            // Clear only locations depending on this norm and Piping and macro without manual assessment level
             PerformAction(action, "Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm en semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd. " +
                                   Environment.NewLine + Environment.NewLine +
                                   "Weet u zeker dat u wilt doorgaan?",
-                          () => new IObservable[0]);
+                          () =>
+                          {
+                              var affectedObjects = new List<IObservable>();
+                              affectedObjects.AddRange(ClearNormDependingHydraulicBoundaryLocationCalculationOutput());
+                              affectedObjects.AddRange(ClearAllNormDependentSemiProbabilisticCalculationOutput());
+                              return affectedObjects;
+                          });
         }
 
         public void ChangeNorm(Action action)
         {
-            // Clear only locations depending on this norm
             PerformAction(action, "Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm verwijderd. " +
                                   Environment.NewLine + Environment.NewLine +
                                   "Weet u zeker dat u wilt doorgaan?",
-                          () => new IObservable[0]);
+                          () =>
+                          {
+                              var affectedObjects = new List<IObservable>();
+                              affectedObjects.AddRange(ClearNormDependingHydraulicBoundaryLocationCalculationOutput());
+                              return affectedObjects;
+                          });
         }
 
         private void PerformAction(Action action, string confirmationMessage, Func<IEnumerable<IObservable>> clearDataFunc)
@@ -123,40 +137,28 @@ namespace Riskeer.Integration.Plugin.Handlers
             }
         }
 
-        private IEnumerable<IObservable> ClearAllNormDependentCalculationOutput()
+        private IEnumerable<IObservable> ClearAllNormDependentSemiProbabilisticCalculationOutput()
         {
-            List<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection).ToList();
-            if (affectedObjects.Count > 0)
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearAllSemiProbabilisticCalculationOutput(assessmentSection);
+            if (affectedObjects.Any())
             {
-                log.InfoFormat(Resources.ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared,
-                               affectedObjects.OfType<ICalculation>().Count());
+                log.InfoFormat(Resources.FailureMechanismContributionNormChangeHandler_ClearAllNormDependentSemiProbabilisticCalculationOutput_Results_of_NumberOfCalculations_0_calculations_cleared,
+                               affectedObjects.OfType<ICalculationScenario>().Count());
             }
-
-            affectedObjects.AddRange(ClearAllHydraulicBoundaryLocationCalculationOutput());
 
             return affectedObjects;
         }
 
-        private IEnumerable<IObservable> ClearAllHydraulicBoundaryLocationCalculationOutput()
+        private IEnumerable<IObservable> ClearNormDependingHydraulicBoundaryLocationCalculationOutput()
         {
-            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection);
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputForNormativeNorm(assessmentSection);
 
             if (affectedObjects.Any())
             {
-                log.Info(Resources.FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_results_cleared);
-                return affectedObjects;
+                log.Info(Resources.FailureMechanismContributionNormChangeHandler_ClearNormDependingHydraulicBoundaryLocationCalculationOutput_Calculation_results_cleared);
             }
 
-            return Enumerable.Empty<IObservable>();
+            return affectedObjects;
         }
-    }
-
-    public interface IFailureMechanismContributionNormChangeHandler
-    {
-        void ChangeNormativeNormType(Action action);
-
-        void ChangeNormativeNorm(Action action);
-
-        void ChangeNorm(Action action);
     }
 }

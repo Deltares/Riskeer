@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -281,20 +281,31 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De resultaten van {0} berekeningen zijn verwijderd..
-        /// </summary>
-        public static string ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared {
-            get {
-                return ResourceManager.GetString("ChangeHandler_Results_of_NumberOfCalculations_0_calculations_cleared", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Opmerkingen.
         /// </summary>
         public static string Comment_DisplayName {
             get {
                 return ResourceManager.GetString("Comment_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De resultaten van {0} semi-probabilistische berekeningen zonder handmatige waterstand zijn verwijderd..
+        /// </summary>
+        public static string FailureMechanismContributionNormChangeHandler_ClearAllNormDependentSemiProbabilisticCalculationOutput_Results_of_NumberOfCalculations_0_calculations_cleared {
+            get {
+                return ResourceManager.GetString("FailureMechanismContributionNormChangeHandler_ClearAllNormDependentSemiProbabilis" +
+                        "ticCalculationOutput_Results_of_NumberOfCalculations_0_calculations_cleared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alle berekende hydraulische belastingen behorende bij de gewijzigde norm zijn verwijderd..
+        /// </summary>
+        public static string FailureMechanismContributionNormChangeHandler_ClearNormDependingHydraulicBoundaryLocationCalculationOutput_Calculation_results_cleared {
+            get {
+                return ResourceManager.GetString("FailureMechanismContributionNormChangeHandler_ClearNormDependingHydraulicBoundary" +
+                        "LocationCalculationOutput_Calculation_results_cleared", resourceCulture);
             }
         }
         
@@ -307,16 +318,6 @@ namespace Riskeer.Integration.Plugin.Properties {
             get {
                 return ResourceManager.GetString("FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_depen" +
                         "dent_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alle berekende hydraulische belastingen zijn verwijderd..
-        /// </summary>
-        public static string FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_results_cleared {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_r" +
-                        "esults_cleared", resourceCulture);
             }
         }
         

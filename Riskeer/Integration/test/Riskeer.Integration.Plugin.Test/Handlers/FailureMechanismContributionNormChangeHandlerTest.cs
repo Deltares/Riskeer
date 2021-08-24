@@ -24,18 +24,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
+using Core.Common.Util.Extensions;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.DuneErosion.Data;
-using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Plugin.Handlers;
 using Riskeer.Integration.TestUtil;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Integration.Plugin.Test.Handlers
 {
@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<IObservablePropertyChangeHandler>(handler);
+            Assert.IsInstanceOf<IFailureMechanismContributionNormChangeHandler>(handler);
             mocks.VerifyAll();
         }
 
@@ -70,22 +70,26 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_SetValueNull_ThrowArgumentNullException()
+        public void ChangeNormativeNormType_ActionNull_ThrowsArgumentNullException()
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
-            void Call() => handler.SetPropertyValueAfterConfirmation(null);
+            void Call() => handler.ChangeNormativeNormType(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("setValue", exception.ParamName);
+            Assert.AreEqual("action", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_Always_ConfirmationRequired()
+        public void ChangeNormativeNormType_WithAction_ConfirmationRequired()
         {
             // Setup
             var title = "";
@@ -99,25 +103,29 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 tester.ClickCancel();
             };
 
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
-            handler.SetPropertyValueAfterConfirmation(() => {});
+            handler.ChangeNormativeNormType(() => {});
 
             // Assert
             Assert.AreEqual("Bevestigen", title);
-            string expectedMessage = "Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische belastingenlocaties en toetssporen verwijderd."
+            string expectedMessage = "Als u de norm aanpast, dan worden de rekenresultaten van semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd. "
                                      + Environment.NewLine
-                                     + Environment.NewLine +
-                                     "Weet u zeker dat u wilt doorgaan?";
+                                     + Environment.NewLine
+                                     + "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedMessage, message);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_FullyConfiguredAssessmentSectionConfirmationGiven_AllCalculationOutputClearedAndContributionsUpdatedAndReturnsAllAffectedObjects()
+        public void GivenCalculationsWithOutput_WhenChangingNormativeNormType_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified()
         {
-            // Setup
+            // Given
             DialogBoxHandler = (name, wnd) =>
             {
                 var tester = new MessageBoxTester(wnd);
@@ -125,132 +133,52 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            ICalculation[] expectedAffectedCalculations = assessmentSection.GetFailureMechanisms()
-                                                                           .SelectMany(fm => fm.Calculations)
-                                                                           .Where(c => c.HasOutput)
+            ICalculation[] expectedAffectedCalculations = assessmentSection.Piping
+                                                                           .Calculations
+                                                                           .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                                           .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput)
+                                                                           .Concat<ICalculation>(
+                                                                               assessmentSection.MacroStabilityInwards
+                                                                                                .Calculations
+                                                                                                .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                                                                .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput))
                                                                            .ToArray();
-
-            IEnumerable<IObservable> userDefinedCalculations = GetUserDefinedCalculations(assessmentSection);
 
             IEnumerable<IObservable> expectedAffectedObjects =
-                expectedAffectedCalculations.Cast<IObservable>()
-                                            .Concat(assessmentSection.GetFailureMechanisms())
-                                            .Concat(assessmentSection.WaterLevelCalculationsForSignalingNorm)
-                                            .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
-                                            .Concat(userDefinedCalculations)
-                                            .Concat(GetAllAffectedDuneLocationCalculations(assessmentSection.DuneErosion))
-                                            .Concat(new IObservable[]
+                expectedAffectedCalculations.Concat(new IObservable[]
                                             {
                                                 assessmentSection.FailureMechanismContribution
-                                            }).ToArray();
+                                            })
+                                            .ToArray();
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(expectedAffectedObjects.Count());
+            mocks.ReplayAll();
+
+            expectedAffectedObjects.ForEachElementDo(obj => obj.Attach(observer));
 
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
-            IEnumerable<IObservable> affectedObjects = null;
+            // When
+            var actionPerformed = false;
+            void Call() => handler.ChangeNormativeNormType(() => actionPerformed = true);
 
-            // Call
-            void Call() => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => {});
-
-            // Assert
+            // Then
             var expectedMessages = new[]
             {
-                "De resultaten van 36 berekeningen zijn verwijderd.",
-                "Alle berekende hydraulische belastingen zijn verwijderd."
+                $"De resultaten van {expectedAffectedCalculations.Length} semi-probabilistische berekeningen zonder handmatige waterstand zijn verwijderd."
             };
-            TestHelper.AssertLogMessagesAreGenerated(Call, expectedMessages, 2);
-
-            CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput),
-                                     "There should be no calculations with output.");
-
-            AssertHydraulicBoundaryLocationCalculationOutput(assessmentSection, false);
-            DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(assessmentSection.DuneErosion);
-
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
+            TestHelper.AssertLogMessagesAreGenerated(Call, expectedMessages, 1);
+            Assert.IsTrue(actionPerformed);
+            CollectionAssert.IsEmpty(expectedAffectedCalculations.Where(c => c.HasOutput));
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_FullyConfiguredAssessmentSectionWithoutCalculationOutputConfirmationGiven_NormChangedContributionsUpdatedAndReturnsAllAffectedObjects()
+        public void GivenCalculationsWithoutOutput_WhenChangingNormativeNormType_ThenActionPerformedAndContributionNotified()
         {
-            // Setup
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                tester.ClickOk();
-            };
-
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput();
-
-            IEnumerable<IObservable> userDefinedCalculations = GetUserDefinedCalculations(assessmentSection);
-
-            List<IObservable> expectedAffectedObjects =
-                assessmentSection.GetFailureMechanisms().Cast<IObservable>()
-                                 .Concat(assessmentSection.WaterLevelCalculationsForSignalingNorm)
-                                 .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
-                                 .Concat(userDefinedCalculations)
-                                 .Concat(GetAllAffectedDuneLocationCalculations(assessmentSection.DuneErosion))
-                                 .Concat(new IObservable[]
-                                 {
-                                     assessmentSection.FailureMechanismContribution
-                                 }).ToList();
-
-            var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
-
-            IEnumerable<IObservable> affectedObjects = null;
-
-            // Call
-            void Call() => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => {});
-
-            // Assert
-            TestHelper.AssertLogMessageIsGenerated(Call, "Alle berekende hydraulische belastingen zijn verwijderd.", 1);
-
-            AssertHydraulicBoundaryLocationCalculationOutput(assessmentSection, false);
-            DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(assessmentSection.DuneErosion);
-
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        [Test]
-        public void SetPropertyValueAfterConfirmation_FullyConfiguredAssessmentSectionWithoutCalculatedHydraulicBoundaryLocationsConfirmationGiven_AllFailureMechanismCalculationOutputClearedAndContributionsUpdatedAndReturnsAllAffectedObjects()
-        {
-            // Setup
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                tester.ClickOk();
-            };
-
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput();
-
-            ICalculation[] expectedAffectedCalculations = assessmentSection.GetFailureMechanisms()
-                                                                           .SelectMany(fm => fm.Calculations)
-                                                                           .Where(c => c.HasOutput)
-                                                                           .ToArray();
-            var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
-
-            IEnumerable<IObservable> affectedObjects = null;
-
-            // Call
-            void Call() => affectedObjects = handler.SetPropertyValueAfterConfirmation(() => {});
-
-            // Assert
-            TestHelper.AssertLogMessageIsGenerated(Call, "De resultaten van 36 berekeningen zijn verwijderd.", 1);
-
-            CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput),
-                                     "There should be no calculations with output.");
-
-            IEnumerable<IObservable> expectedAffectedObjects = expectedAffectedCalculations.Cast<IObservable>()
-                                                                                           .Concat(assessmentSection.GetFailureMechanisms())
-                                                                                           .Concat(new IObservable[]
-                                                                                           {
-                                                                                               assessmentSection.FailureMechanismContribution
-                                                                                           });
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        [Test]
-        public void SetPropertyValueAfterConfirmation_FullyConfiguredAssessmentSectionConfirmationGiven_HandlerExecuted()
-        {
-            // Setup
+            // Given
             DialogBoxHandler = (name, wnd) =>
             {
                 var tester = new MessageBoxTester(wnd);
@@ -258,54 +186,95 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+            ICalculation[] calculations = assessmentSection.Piping
+                                                           .Calculations
+                                                           .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                           .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput)
+                                                           .Concat<ICalculation>(
+                                                               assessmentSection.MacroStabilityInwards
+                                                                                .Calculations
+                                                                                .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                                                .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput))
+                                                           .ToArray();
+
+            calculations.ForEachElementDo(c => c.ClearOutput());
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Once();
+            mocks.ReplayAll();
+
+            assessmentSection.FailureMechanismContribution.Attach(observer);
 
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
-            var handlerExecuted = false;
+            // When
+            var actionPerformed = false;
+            void Call() => handler.ChangeNormativeNormType(() => actionPerformed = true);
 
-            // Call
-            handler.SetPropertyValueAfterConfirmation(() => handlerExecuted = true);
-
-            // Assert
-            Assert.IsTrue(handlerExecuted);
+            // Then
+            TestHelper.AssertLogMessagesCount(Call, 0);
+            Assert.IsTrue(actionPerformed);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_ConfirmationNotGiven_SetValueNotCalledNoAffectedObjects()
+        public void ChangeNormativeNormActionNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
+
+            // Call
+            void Call() => handler.ChangeNormativeNorm(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("action", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ChangeNormativeNorm_WithAction_ConfirmationRequired()
+        {
+            // Setup
+            var title = "";
+            var message = "";
             DialogBoxHandler = (name, wnd) =>
             {
                 var tester = new MessageBoxTester(wnd);
+                title = tester.Title;
+                message = tester.Text;
+
                 tester.ClickCancel();
             };
 
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
-            var propertySet = 0;
-
             // Call
-            IEnumerable<IObservable> affectedObjects = handler.SetPropertyValueAfterConfirmation(() => propertySet++);
+            handler.ChangeNormativeNorm(() => {});
 
             // Assert
-            Assert.AreEqual(0, propertySet);
-
-            AssertHydraulicBoundaryLocationCalculationOutput(assessmentSection, true);
-
-            Assert.IsNotNull(assessmentSection.DuneErosion.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output);
-            Assert.IsNotNull(assessmentSection.DuneErosion.CalculationsForMechanismSpecificSignalingNorm.First().Output);
-            Assert.IsNotNull(assessmentSection.DuneErosion.CalculationsForMechanismSpecificLowerLimitNorm.First().Output);
-            Assert.IsNotNull(assessmentSection.DuneErosion.CalculationsForLowerLimitNorm.First().Output);
-            Assert.IsNotNull(assessmentSection.DuneErosion.CalculationsForFactorizedLowerLimitNorm.First().Output);
-
-            CollectionAssert.IsEmpty(affectedObjects);
+            Assert.AreEqual("Bevestigen", title);
+            string expectedMessage = "Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm en semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd. "
+                                     + Environment.NewLine
+                                     + Environment.NewLine
+                                     + "Weet u zeker dat u wilt doorgaan?";
+            Assert.AreEqual(expectedMessage, message);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_ConfirmationGivenExceptionInSetValue_ExceptionBubbled()
+        public void GivenCalculationsWithOutput_WhenChangingNormativeNorm_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified()
         {
-            // Setup
+            // Given
             DialogBoxHandler = (name, wnd) =>
             {
                 var tester = new MessageBoxTester(wnd);
@@ -313,43 +282,239 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+            ICalculation[] expectedAffectedCalculations = assessmentSection.Piping
+                                                                           .Calculations
+                                                                           .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                                           .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput)
+                                                                           .Concat<ICalculation>(
+                                                                               assessmentSection.MacroStabilityInwards
+                                                                                                .Calculations
+                                                                                                .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                                                                .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput))
+                                                                           .ToArray();
+
+            IEnumerable<IObservable> expectedAffectedObjects =
+                expectedAffectedCalculations.Concat(new IObservable[]
+                                            {
+                                                assessmentSection.FailureMechanismContribution
+                                            })
+                                            .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
+                                            .ToArray();
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(expectedAffectedObjects.Count());
+            mocks.ReplayAll();
+
+            expectedAffectedObjects.ForEachElementDo(obj => obj.Attach(observer));
+
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
-            var expectedException = new Exception();
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Where(c => c.HasOutput));
+
+            // When
+            var actionPerformed = false;
+            void Call() => handler.ChangeNormativeNorm(() => actionPerformed = true);
+
+            // Then
+            var expectedMessages = new[]
+            {
+                "Alle berekende hydraulische belastingen behorende bij de gewijzigde norm zijn verwijderd.",
+                $"De resultaten van {expectedAffectedCalculations.Length} semi-probabilistische berekeningen zonder handmatige waterstand zijn verwijderd."
+            };
+            TestHelper.AssertLogMessagesAreGenerated(Call, expectedMessages, 2);
+
+            Assert.IsTrue(actionPerformed);
+            CollectionAssert.IsEmpty(expectedAffectedCalculations.Where(c => c.HasOutput));
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Where(c => c.HasOutput));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsWithoutOutput_WhenChangingNormativeNorm_ThenActionPerformedAndContributionNotified()
+        {
+            // Given
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                tester.ClickOk();
+            };
+
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+            ICalculation[] calculations = assessmentSection.Piping
+                                                           .Calculations
+                                                           .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                           .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput)
+                                                           .Concat<ICalculation>(
+                                                               assessmentSection.MacroStabilityInwards
+                                                                                .Calculations
+                                                                                .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                                                .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput))
+                                                           .ToArray();
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Once();
+            mocks.ReplayAll();
+
+            calculations.ForEachElementDo(c =>
+            {
+                c.ClearOutput();
+                c.Attach(observer);
+            });
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ForEachElementDo(c =>
+            {
+                c.Output = null;
+                c.Attach(observer);
+            });
+            assessmentSection.FailureMechanismContribution.Attach(observer);
+
+            var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
+
+            // When
+            var actionPerformed = false;
+            void Call() => handler.ChangeNormativeNorm(() => actionPerformed = true);
+
+            // Then
+            TestHelper.AssertLogMessagesCount(Call, 0);
+            Assert.IsTrue(actionPerformed);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ChangeNormActionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Call
-            void Call() => handler.SetPropertyValueAfterConfirmation(() => throw expectedException);
+            void Call() => handler.ChangeNorm(null);
 
             // Assert
-            var exception = Assert.Throws<Exception>(Call);
-            Assert.AreSame(expectedException, exception);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("action", exception.ParamName);
+            mocks.VerifyAll();
         }
 
-        private static IEnumerable<IObservable> GetUserDefinedCalculations(IAssessmentSection assessmentSection)
+        [Test]
+        public void ChangeNorm_WithAction_ConfirmationRequired()
         {
-            var userDefinedCalculations = new List<IObservable>();
-
-            foreach (ObservableList<HydraulicBoundaryLocationCalculation> element in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Select(c => c.HydraulicBoundaryLocationCalculations))
+            // Setup
+            var title = "";
+            var message = "";
+            DialogBoxHandler = (name, wnd) =>
             {
-                userDefinedCalculations.AddRange(element);
-            }
+                var tester = new MessageBoxTester(wnd);
+                title = tester.Title;
+                message = tester.Text;
 
-            foreach (ObservableList<HydraulicBoundaryLocationCalculation> element in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Select(c => c.HydraulicBoundaryLocationCalculations))
+                tester.ClickCancel();
+            };
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
+
+            // Call
+            handler.ChangeNorm(() => {});
+
+            // Assert
+            Assert.AreEqual("Bevestigen", title);
+            string expectedMessage = "Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm verwijderd. "
+                                     + Environment.NewLine
+                                     + Environment.NewLine
+                                     + "Weet u zeker dat u wilt doorgaan?";
+            Assert.AreEqual(expectedMessage, message);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsWithOutput_WhenChangingNorm_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified()
+        {
+            // Given
+            DialogBoxHandler = (name, wnd) =>
             {
-                userDefinedCalculations.AddRange(element);
-            }
+                var tester = new MessageBoxTester(wnd);
+                tester.ClickOk();
+            };
 
-            return userDefinedCalculations;
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+
+            IEnumerable<IObservable> expectedAffectedObjects = new IObservable[]
+                                                               {
+                                                                   assessmentSection.FailureMechanismContribution
+                                                               }
+                                                               .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
+                                                               .ToArray();
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(expectedAffectedObjects.Count());
+            mocks.ReplayAll();
+
+            expectedAffectedObjects.ForEachElementDo(obj => obj.Attach(observer));
+
+            var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Where(c => c.HasOutput));
+
+            // When
+            var actionPerformed = false;
+            void Call() => handler.ChangeNorm(() => actionPerformed = true);
+
+            // Then
+            var expectedMessages = new[]
+            {
+                "Alle berekende hydraulische belastingen behorende bij de gewijzigde norm zijn verwijderd."
+            };
+            TestHelper.AssertLogMessagesAreGenerated(Call, expectedMessages, 1);
+
+            Assert.IsTrue(actionPerformed);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Where(c => c.HasOutput));
+            mocks.VerifyAll();
         }
 
-        private static IEnumerable<IObservable> GetAllAffectedDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism)
+        [Test]
+        public void GivenCalculationsWithoutOutput_WhenChangingNorm_ThenActionPerformedAndContributionNotified()
         {
-            return DuneLocationsTestHelper.GetAllDuneLocationCalculationsWithOutput(failureMechanism);
-        }
+            // Given
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var tester = new MessageBoxTester(wnd);
+                tester.ClickOk();
+            };
 
-        private static void AssertHydraulicBoundaryLocationCalculationOutput(AssessmentSection assessmentSection, bool hasOutput)
-        {
-            Assert.IsTrue(assessmentSection.WaterLevelCalculationsForSignalingNorm.All(c => c.HasOutput == hasOutput));
-            Assert.IsTrue(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.All(c => c.HasOutput == hasOutput));
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Once();
+            mocks.ReplayAll();
+
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ForEachElementDo(c =>
+            {
+                c.Output = null;
+                c.Attach(observer);
+            });
+            assessmentSection.FailureMechanismContribution.Attach(observer);
+
+            var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
+
+            // When
+            var actionPerformed = false;
+            void Call() => handler.ChangeNorm(() => actionPerformed = true);
+
+            // Then
+            TestHelper.AssertLogMessagesCount(Call, 0);
+            Assert.IsTrue(actionPerformed);
+            mocks.VerifyAll();
         }
     }
 }
