@@ -78,59 +78,35 @@ namespace Riskeer.Integration.Service
 
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
-                var pipingFailureMechanism = failureMechanism as PipingFailureMechanism;
-                var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
-                var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
-                var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
-                var closingStructuresFailureMechanism = failureMechanism as ClosingStructuresFailureMechanism;
-                var stabilityPointStructuresFailureMechanism = failureMechanism as StabilityPointStructuresFailureMechanism;
-                var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
-                var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
-                var macroStabilityInwardsFailureMechanism = failureMechanism as MacroStabilityInwardsFailureMechanism;
-
-                if (pipingFailureMechanism != null)
+                switch (failureMechanism)
                 {
-                    changedObservables.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(pipingFailureMechanism));
-                }
-
-                if (grassCoverErosionInwardsFailureMechanism != null)
-                {
-                    changedObservables.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionInwardsFailureMechanism));
-                }
-
-                if (stabilityStoneCoverFailureMechanism != null)
-                {
-                    changedObservables.AddRange(StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(stabilityStoneCoverFailureMechanism));
-                }
-
-                if (waveImpactAsphaltCoverFailureMechanism != null)
-                {
-                    changedObservables.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(waveImpactAsphaltCoverFailureMechanism));
-                }
-
-                if (grassCoverErosionOutwardsFailureMechanism != null)
-                {
-                    changedObservables.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionOutwardsFailureMechanism));
-                }
-
-                if (heightStructuresFailureMechanism != null)
-                {
-                    changedObservables.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(heightStructuresFailureMechanism));
-                }
-
-                if (closingStructuresFailureMechanism != null)
-                {
-                    changedObservables.AddRange(ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(closingStructuresFailureMechanism));
-                }
-
-                if (stabilityPointStructuresFailureMechanism != null)
-                {
-                    changedObservables.AddRange(StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(stabilityPointStructuresFailureMechanism));
-                }
-
-                if (macroStabilityInwardsFailureMechanism != null)
-                {
-                    changedObservables.AddRange(MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(macroStabilityInwardsFailureMechanism));
+                    case PipingFailureMechanism pipingFailureMechanism:
+                        changedObservables.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(pipingFailureMechanism));
+                        break;
+                    case GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism:
+                        changedObservables.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionInwardsFailureMechanism));
+                        break;
+                    case StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism:
+                        changedObservables.AddRange(StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(stabilityStoneCoverFailureMechanism));
+                        break;
+                    case WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism:
+                        changedObservables.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(waveImpactAsphaltCoverFailureMechanism));
+                        break;
+                    case GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism:
+                        changedObservables.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionOutwardsFailureMechanism));
+                        break;
+                    case HeightStructuresFailureMechanism heightStructuresFailureMechanism:
+                        changedObservables.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(heightStructuresFailureMechanism));
+                        break;
+                    case ClosingStructuresFailureMechanism closingStructuresFailureMechanism:
+                        changedObservables.AddRange(ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(closingStructuresFailureMechanism));
+                        break;
+                    case StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism:
+                        changedObservables.AddRange(StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(stabilityPointStructuresFailureMechanism));
+                        break;
+                    case MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism:
+                        changedObservables.AddRange(MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(macroStabilityInwardsFailureMechanism));
+                        break;
                 }
             }
 
@@ -170,59 +146,35 @@ namespace Riskeer.Integration.Service
 
             foreach (IFailureMechanism failureMechanism in failureMechanisms)
             {
-                var pipingFailureMechanism = failureMechanism as PipingFailureMechanism;
-                var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
-                var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
-                var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
-                var closingStructuresFailureMechanism = failureMechanism as ClosingStructuresFailureMechanism;
-                var stabilityPointStructuresFailureMechanism = failureMechanism as StabilityPointStructuresFailureMechanism;
-                var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
-                var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
-                var macroStabilityInwardsFailureMechanism = failureMechanism as MacroStabilityInwardsFailureMechanism;
-
-                if (pipingFailureMechanism != null)
+                switch (failureMechanism)
                 {
-                    changedObservables.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutput(pipingFailureMechanism));
-                }
-
-                if (grassCoverErosionInwardsFailureMechanism != null)
-                {
-                    changedObservables.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput(grassCoverErosionInwardsFailureMechanism));
-                }
-
-                if (stabilityStoneCoverFailureMechanism != null)
-                {
-                    changedObservables.AddRange(StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(stabilityStoneCoverFailureMechanism));
-                }
-
-                if (waveImpactAsphaltCoverFailureMechanism != null)
-                {
-                    changedObservables.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(waveImpactAsphaltCoverFailureMechanism));
-                }
-
-                if (grassCoverErosionOutwardsFailureMechanism != null)
-                {
-                    changedObservables.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(grassCoverErosionOutwardsFailureMechanism));
-                }
-
-                if (heightStructuresFailureMechanism != null)
-                {
-                    changedObservables.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(heightStructuresFailureMechanism));
-                }
-
-                if (closingStructuresFailureMechanism != null)
-                {
-                    changedObservables.AddRange(ClosingStructuresDataSynchronizationService.ClearAllCalculationOutput(closingStructuresFailureMechanism));
-                }
-
-                if (stabilityPointStructuresFailureMechanism != null)
-                {
-                    changedObservables.AddRange(StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutput(stabilityPointStructuresFailureMechanism));
-                }
-
-                if (macroStabilityInwardsFailureMechanism != null)
-                {
-                    changedObservables.AddRange(MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutput(macroStabilityInwardsFailureMechanism));
+                    case PipingFailureMechanism pipingFailureMechanism:
+                        changedObservables.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutput(pipingFailureMechanism));
+                        break;
+                    case GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism:
+                        changedObservables.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput(grassCoverErosionInwardsFailureMechanism));
+                        break;
+                    case StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism:
+                        changedObservables.AddRange(StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(stabilityStoneCoverFailureMechanism));
+                        break;
+                    case WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism:
+                        changedObservables.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(waveImpactAsphaltCoverFailureMechanism));
+                        break;
+                    case GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism:
+                        changedObservables.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(grassCoverErosionOutwardsFailureMechanism));
+                        break;
+                    case HeightStructuresFailureMechanism heightStructuresFailureMechanism:
+                        changedObservables.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(heightStructuresFailureMechanism));
+                        break;
+                    case ClosingStructuresFailureMechanism closingStructuresFailureMechanism:
+                        changedObservables.AddRange(ClosingStructuresDataSynchronizationService.ClearAllCalculationOutput(closingStructuresFailureMechanism));
+                        break;
+                    case StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism:
+                        changedObservables.AddRange(StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutput(stabilityPointStructuresFailureMechanism));
+                        break;
+                    case MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism:
+                        changedObservables.AddRange(MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutput(macroStabilityInwardsFailureMechanism));
+                        break;
                 }
             }
 
@@ -243,7 +195,7 @@ namespace Riskeer.Integration.Service
             }
 
             IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
-            
+
             var changedObservables = new List<IObservable>();
             changedObservables.AddRange(PipingDataSynchronizationService.ClearAllSemiProbabilisticCalculationOutputWithoutManualAssessmentLevel(
                                             failureMechanisms.OfType<PipingFailureMechanism>()
@@ -296,7 +248,9 @@ namespace Riskeer.Integration.Service
 
             var affectedObjects = new List<IObservable>();
 
-            affectedObjects.AddRange(ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(assessmentSection));
+            affectedObjects.AddRange(DuneErosionDataSynchronizationService.ClearDuneLocationCalculationsOutput(assessmentSection.GetFailureMechanisms()
+                                                                                                                                .OfType<DuneErosionFailureMechanism>()
+                                                                                                                                .Single()));
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForSignalingNorm));
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForLowerLimitNorm));
 
@@ -330,51 +284,6 @@ namespace Riskeer.Integration.Service
 
             return RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
         }
-
-        /// <summary>
-        /// Clears the hydraulic boundary location calculation output that is contained within specific failure mechanisms 
-        /// of the <paramref name="assessmentSection"/>.
-        /// </summary>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the failure mechanisms.</param>
-        /// <returns>All objects affected by the operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(IAssessmentSection assessmentSection)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            return ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(assessmentSection.GetFailureMechanisms());
-        }
-
-        /// <summary>
-        /// Clears the hydraulic boundary location calculation output that is contained within <paramref name="failureMechanisms"/>.
-        /// </summary>
-        /// <param name="failureMechanisms">The failure mechanisms to clear the hydraulic boundary location calculation output for.</param>
-        /// <returns>All objects affected by the operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(IEnumerable<IFailureMechanism> failureMechanisms)
-        {
-            if (failureMechanisms == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanisms));
-            }
-
-            var changedObservables = new List<IObservable>();
-
-            foreach (IFailureMechanism failureMechanism in failureMechanisms)
-            {
-                var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
-                if (duneErosionFailureMechanism != null)
-                {
-                    changedObservables.AddRange(DuneErosionDataSynchronizationService.ClearDuneLocationCalculationsOutput(duneErosionFailureMechanism));
-                }
-            }
-
-            return changedObservables;
-        }
-
         /// <summary>
         /// Clears all illustration point results of the norm target probability based water level calculations.
         /// </summary>
@@ -782,61 +691,29 @@ namespace Riskeer.Integration.Service
 
         private static ClearResults GetClearResultsForFailureMechanism(IFailureMechanism failureMechanism)
         {
-            var pipingFailureMechanism = failureMechanism as PipingFailureMechanism;
-            if (pipingFailureMechanism != null)
+            switch (failureMechanism)
             {
-                return PipingDataSynchronizationService.ClearReferenceLineDependentData(pipingFailureMechanism);
+                case PipingFailureMechanism pipingFailureMechanism:
+                    return PipingDataSynchronizationService.ClearReferenceLineDependentData(pipingFailureMechanism);
+                case MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism:
+                    return MacroStabilityInwardsDataSynchronizationService.ClearReferenceLineDependentData(macroStabilityInwardsFailureMechanism);
+                case GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism:
+                    return GrassCoverErosionInwardsDataSynchronizationService.ClearReferenceLineDependentData(grassCoverErosionInwardsFailureMechanism);
+                case StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism:
+                    return StabilityStoneCoverDataSynchronizationService.ClearReferenceLineDependentData(stabilityStoneCoverFailureMechanism);
+                case WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism:
+                    return WaveImpactAsphaltCoverDataSynchronizationService.ClearReferenceLineDependentData(waveImpactAsphaltCoverFailureMechanism);
+                case GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism:
+                    return GrassCoverErosionOutwardsDataSynchronizationService.ClearReferenceLineDependentData(grassCoverErosionOutwardsFailureMechanism);
+                case HeightStructuresFailureMechanism heightStructuresFailureMechanism:
+                    return HeightStructuresDataSynchronizationService.ClearReferenceLineDependentData(heightStructuresFailureMechanism);
+                case ClosingStructuresFailureMechanism closingStructuresFailureMechanism:
+                    return ClosingStructuresDataSynchronizationService.ClearReferenceLineDependentData(closingStructuresFailureMechanism);
+                case StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism:
+                    return StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(stabilityPointStructuresFailureMechanism);
+                default:
+                    return ClearReferenceLineDependentDataForFailureMechanism(failureMechanism);
             }
-
-            var macroStabilityInwardsFailureMechanism = failureMechanism as MacroStabilityInwardsFailureMechanism;
-            if (macroStabilityInwardsFailureMechanism != null)
-            {
-                return MacroStabilityInwardsDataSynchronizationService.ClearReferenceLineDependentData(macroStabilityInwardsFailureMechanism);
-            }
-
-            var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
-            if (grassCoverErosionInwardsFailureMechanism != null)
-            {
-                return GrassCoverErosionInwardsDataSynchronizationService.ClearReferenceLineDependentData(grassCoverErosionInwardsFailureMechanism);
-            }
-
-            var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
-            if (stabilityStoneCoverFailureMechanism != null)
-            {
-                return StabilityStoneCoverDataSynchronizationService.ClearReferenceLineDependentData(stabilityStoneCoverFailureMechanism);
-            }
-
-            var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
-            if (waveImpactAsphaltCoverFailureMechanism != null)
-            {
-                return WaveImpactAsphaltCoverDataSynchronizationService.ClearReferenceLineDependentData(waveImpactAsphaltCoverFailureMechanism);
-            }
-
-            var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
-            if (grassCoverErosionOutwardsFailureMechanism != null)
-            {
-                return GrassCoverErosionOutwardsDataSynchronizationService.ClearReferenceLineDependentData(grassCoverErosionOutwardsFailureMechanism);
-            }
-
-            var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
-            if (heightStructuresFailureMechanism != null)
-            {
-                return HeightStructuresDataSynchronizationService.ClearReferenceLineDependentData(heightStructuresFailureMechanism);
-            }
-
-            var closingStructuresFailureMechanism = failureMechanism as ClosingStructuresFailureMechanism;
-            if (closingStructuresFailureMechanism != null)
-            {
-                return ClosingStructuresDataSynchronizationService.ClearReferenceLineDependentData(closingStructuresFailureMechanism);
-            }
-
-            var stabilityPointStructuresFailureMechanism = failureMechanism as StabilityPointStructuresFailureMechanism;
-            if (stabilityPointStructuresFailureMechanism != null)
-            {
-                return StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(stabilityPointStructuresFailureMechanism);
-            }
-
-            return ClearReferenceLineDependentDataForFailureMechanism(failureMechanism);
         }
 
         private static ClearResults ClearReferenceLineDependentDataForFailureMechanism(IFailureMechanism failureMechanism)
@@ -847,8 +724,7 @@ namespace Riskeer.Integration.Service
             removedObjects.AddRange(failureMechanism.Sections);
             changedObjects.Add(failureMechanism);
 
-            var failureMechanismWithSectionResults = failureMechanism as IHasSectionResults<FailureMechanismSectionResult>;
-            if (failureMechanismWithSectionResults != null)
+            if (failureMechanism is IHasSectionResults<FailureMechanismSectionResult> failureMechanismWithSectionResults)
             {
                 removedObjects.AddRange(failureMechanismWithSectionResults.SectionResults);
                 changedObjects.Add(failureMechanismWithSectionResults.SectionResults);
