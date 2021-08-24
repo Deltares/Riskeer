@@ -147,12 +147,6 @@ Wilt u doorgaan?</value>
           xml:space="preserve">
     <value>Alle berekende hydraulische belastingen behorende bij de gewijzigde norm zijn verwijderd.</value>
   </data>
-    <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_data"
-          xml:space="preserve">
-    <value>Als u de norm aanpast, dan worden alle rekenresultaten van alle hydraulische belastingenlocaties en toetssporen verwijderd.
-
-Weet u zeker dat u wilt doorgaan?</value>
-  </data>
     <data name="RiskeerPlugin_BackgroundDataContext_Text" xml:space="preserve">
     <value>Achtergrondkaart</value>
   </data>
@@ -283,4 +277,19 @@ Wilt u doorgaan?</value>
           xml:space="preserve">
     <value>Het traject kan niet aangemaakt worden met een ondergrens van {0} en een signaleringswaarde van {1}. De waarde van de ondergrens en signaleringswaarde moet in het bereik {2} liggen en de ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde.</value>
   </data>
+    <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_semi_probabilistic_data" xml:space="preserve">
+        <value>Als u de norm aanpast, dan worden de rekenresultaten van semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+    </data>
+    <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_hydraulic_calculations_data_and_semi_probabilistic_data" xml:space="preserve">
+        <value>Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm en semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+    </data>
+    <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_hydraulic_calculations_data" xml:space="preserve">
+        <value>Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+    </data>
 </root>

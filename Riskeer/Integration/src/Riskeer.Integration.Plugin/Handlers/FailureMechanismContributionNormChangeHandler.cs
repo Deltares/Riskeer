@@ -63,9 +63,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         public void ChangeNormativeNormType(Action action)
         {
-            PerformAction(action, "Als u de norm aanpast, dan worden de rekenresultaten van semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd. " +
-                                  Environment.NewLine + Environment.NewLine +
-                                  "Weet u zeker dat u wilt doorgaan?",
+            PerformAction(action, Resources.FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_semi_probabilistic_data,
                           () =>
                           {
                               var affectedObjects = new List<IObservable>();
@@ -76,9 +74,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         public void ChangeNormativeNorm(Action action)
         {
-            PerformAction(action, "Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm en semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd. " +
-                                  Environment.NewLine + Environment.NewLine +
-                                  "Weet u zeker dat u wilt doorgaan?",
+            PerformAction(action, Resources.FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_hydraulic_calculations_data_and_semi_probabilistic_data,
                           () =>
                           {
                               var affectedObjects = new List<IObservable>();
@@ -90,9 +86,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         public void ChangeNorm(Action action)
         {
-            PerformAction(action, "Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm verwijderd. " +
-                                  Environment.NewLine + Environment.NewLine +
-                                  "Weet u zeker dat u wilt doorgaan?",
+            PerformAction(action, Resources.FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_hydraulic_calculations_data,
                           () =>
                           {
                               var affectedObjects = new List<IObservable>();
