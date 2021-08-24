@@ -397,7 +397,8 @@ namespace Riskeer.Integration.Service.Test
             };
 
             // Call
-            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputForNormativeNorm(null);
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputForNormativeNorm(
+                assessmentSection);
 
             // Assert
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
