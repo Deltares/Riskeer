@@ -26,7 +26,6 @@ using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Integration.Forms.Properties;
@@ -39,7 +38,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// </summary>
     public class NormProperties : ObjectProperties<FailureMechanismContribution>
     {
-        private readonly IObservablePropertyChangeHandler normChangeHandler;
+        private readonly IFailureMechanismContributionNormChangeHandler normChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="NormProperties"/>.
@@ -47,7 +46,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         /// <param name="failureMechanismContribution">The <see cref="FailureMechanismContribution"/> for which the properties are shown.</param>
         /// <param name="normChangeHandler">The <see cref="IObservablePropertyChangeHandler"/> for when the norm changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public NormProperties(FailureMechanismContribution failureMechanismContribution, IObservablePropertyChangeHandler normChangeHandler)
+        public NormProperties(FailureMechanismContribution failureMechanismContribution, IFailureMechanismContributionNormChangeHandler normChangeHandler)
         {
             if (failureMechanismContribution == null)
             {
@@ -62,7 +61,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             Data = failureMechanismContribution;
             this.normChangeHandler = normChangeHandler;
         }
-        
+
         [PropertyOrder(1)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
@@ -70,13 +69,10 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [ResourcesDescription(typeof(Resources), nameof(Resources.LowerLimitNorm_Description))]
         public double LowerLimitNorm
         {
-            get
-            {
-                return data.LowerLimitNorm;
-            }
+            get => data.LowerLimitNorm;
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.LowerLimitNorm = value, normChangeHandler);
+                ChangeNorm(() => data.LowerLimitNorm = value, NormType.LowerLimit);
             }
         }
 
@@ -87,13 +83,10 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [ResourcesDescription(typeof(Resources), nameof(Resources.SignalingNorm_Description))]
         public double SignalingNorm
         {
-            get
-            {
-                return data.SignalingNorm;
-            }
+            get => data.SignalingNorm;
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.SignalingNorm = value, normChangeHandler);
+                ChangeNorm(() => data.SignalingNorm = value, NormType.Signaling);
             }
         }
 
@@ -104,13 +97,22 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [TypeConverter(typeof(EnumTypeConverter))]
         public NormType NormativeNorm
         {
-            get
-            {
-                return data.NormativeNorm;
-            }
+            get => data.NormativeNorm;
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.NormativeNorm = value, normChangeHandler);
+                normChangeHandler.ChangeNormativeNormType(() => data.NormativeNorm = value);
+            }
+        }
+
+        private void ChangeNorm(Action action, NormType normType)
+        {
+            if (data.NormativeNorm == normType)
+            {
+                normChangeHandler.ChangeNormativeNorm(action);
+            }
+            else
+            {
+                normChangeHandler.ChangeNorm(action);
             }
         }
     }

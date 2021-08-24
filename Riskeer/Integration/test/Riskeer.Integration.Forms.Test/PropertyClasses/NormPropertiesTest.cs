@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Gui.PropertyBag;
@@ -31,8 +30,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Integration.Forms.PropertyClasses;
 
@@ -46,15 +43,15 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var normChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var failureMechanismContributionNormChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new NormProperties(null, normChangeHandler);
+            void Call() => new NormProperties(null, failureMechanismContributionNormChangeHandler);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("failureMechanismContribution", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanismContribution", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -65,11 +62,11 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
-            TestDelegate test = () => new NormProperties(failureMechanismContribution, null);
+            void Call() => new NormProperties(failureMechanismContribution, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("normChangeHandler", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("normChangeHandler", exception.ParamName);
         }
 
         [Test]
@@ -77,13 +74,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var normChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var failureMechanismContributionNormChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
             mocks.ReplayAll();
 
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
-            var properties = new NormProperties(failureMechanismContribution, normChangeHandler);
+            var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<FailureMechanismContribution>>(properties);
@@ -103,13 +100,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var normChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var failureMechanismContributionNormChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
             mocks.ReplayAll();
 
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
-            var properties = new NormProperties(failureMechanismContribution, normChangeHandler);
+            var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -129,7 +126,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             expectedCategory,
                                                                             "Signaleringswaarde [1/jaar]",
                                                                             "Overstromingskans van het dijktraject waarvan overschrijding gemeld moet worden aan de Minister van I en M.");
-            
+
             PropertyDescriptor normativeNormProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(normativeNormProperty,
                                                                             expectedCategory,
@@ -144,13 +141,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var normChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
+            var failureMechanismContributionNormChangeHandler = mocks.Stub<IFailureMechanismContributionNormChangeHandler>();
             mocks.ReplayAll();
 
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
-            var properties = new NormProperties(failureMechanismContribution, normChangeHandler);
+            var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
 
             // Assert
             Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, properties.LowerLimitNorm);
@@ -160,45 +157,149 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void LowerLimitNorm_Always_ContributionNotifiedAndPropertyChangedCalled()
+        public void GivenNormativeNormIsLowerLimitNorm_WhenChangingLowerLimitNorm_ThenHandlerCalledAndPropertySet()
         {
-            SetPropertyAndVerifyNotificationsAndOutputForCalculation(properties => properties.LowerLimitNorm = 0.001);
+            // Given
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
+
+            var mocks = new MockRepository();
+            var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
+            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeNormativeNorm(null))
+                                                         .IgnoreArguments()
+                                                         .WhenCalled(invocation =>
+                                                         {
+                                                             var actionToPerform = (Action) invocation.Arguments[0];
+                                                             actionToPerform();
+                                                         });
+            mocks.ReplayAll();
+
+            var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
+
+            const double newValue = 0.001;
+
+            // When
+            properties.LowerLimitNorm = newValue;
+
+            // Then
+            Assert.AreEqual(newValue, failureMechanismContribution.LowerLimitNorm);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void SignalingNorm_Always_ContributionNotifiedAndPropertyChangedCalled()
+        public void GivenNormativeNormIsSignalingNorm_WhenChangingLowerLimitNorm_ThenHandlerCalledAndPropertySet()
         {
-            SetPropertyAndVerifyNotificationsAndOutputForCalculation(properties => properties.SignalingNorm = 0.00001);
+            // Given
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
+            failureMechanismContribution.NormativeNorm = NormType.Signaling;
+
+            var mocks = new MockRepository();
+            var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
+            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeNorm(null))
+                                                         .IgnoreArguments()
+                                                         .WhenCalled(invocation =>
+                                                         {
+                                                             var actionToPerform = (Action) invocation.Arguments[0];
+                                                             actionToPerform();
+                                                         });
+            mocks.ReplayAll();
+
+            var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
+
+            const double newValue = 0.001;
+
+            // When
+            properties.LowerLimitNorm = newValue;
+
+            // Then
+            Assert.AreEqual(newValue, failureMechanismContribution.LowerLimitNorm);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void NormativeNorm_Always_ContributionNotifiedAndPropertyChangedCalled()
+        public void GivenNormativeNormIsSignalingNorm_WhenChangingSignalingNorm_ThenHandlerCalledAndPropertySet()
         {
-            SetPropertyAndVerifyNotificationsAndOutputForCalculation(properties => properties.NormativeNorm = NormType.Signaling);
+            // Given
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
+            failureMechanismContribution.NormativeNorm = NormType.Signaling;
+
+            var mocks = new MockRepository();
+            var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
+            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeNormativeNorm(null))
+                                                         .IgnoreArguments()
+                                                         .WhenCalled(invocation =>
+                                                         {
+                                                             var actionToPerform = (Action) invocation.Arguments[0];
+                                                             actionToPerform();
+                                                         });
+            mocks.ReplayAll();
+
+            var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
+
+            const double newValue = 0.00001;
+
+            // When
+            properties.SignalingNorm = newValue;
+
+            // Then
+            Assert.AreEqual(newValue, failureMechanismContribution.SignalingNorm);
+            mocks.VerifyAll();
         }
 
-        private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(Action<NormProperties> setProperty)
+        [Test]
+        public void GivenNormativeNormIsLowerLimitNorm_WhenChangingSignalingNorm_ThenHandlerCalledAndPropertySet()
+        {
+            // Given
+            FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
+
+            var mocks = new MockRepository();
+            var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
+            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeNorm(null))
+                                                         .IgnoreArguments()
+                                                         .WhenCalled(invocation =>
+                                                         {
+                                                             var actionToPerform = (Action) invocation.Arguments[0];
+                                                             actionToPerform();
+                                                         });
+            mocks.ReplayAll();
+
+            var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
+
+            const double newValue = 0.00001;
+
+            // When
+            properties.SignalingNorm = newValue;
+
+            // Then
+            Assert.AreEqual(newValue, failureMechanismContribution.SignalingNorm);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void NormativeNorm_Always_HandlerCalledAndPropertySet()
         {
             // Setup
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
+            var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
+            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeNormativeNormType(null))
+                                                         .IgnoreArguments()
+                                                         .WhenCalled(invocation =>
+                                                         {
+                                                             var actionToPerform = (Action) invocation.Arguments[0];
+                                                             actionToPerform();
+                                                         });
             mocks.ReplayAll();
 
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
-            {
-                observable
-            });
+            var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
 
-            var properties = new NormProperties(failureMechanismContribution, handler);
+            const NormType newValue = NormType.Signaling;
 
             // Call
-            setProperty(properties);
+            properties.NormativeNorm = newValue;
 
             // Assert
-            Assert.IsTrue(handler.Called);
+            Assert.AreEqual(newValue, failureMechanismContribution.NormativeNorm);
             mocks.VerifyAll();
         }
     }
