@@ -284,7 +284,6 @@ namespace Riskeer.Integration.Plugin.Merge
             if (mergeData.MergeGrassCoverErosionOutwards)
             {
                 targetAssessmentSection.GrassCoverErosionOutwards = sourceAssessmentSection.GrassCoverErosionOutwards;
-                UpdateLocationCalculationHydraulicBoundaryLocationReferences(targetAssessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocations);
                 UpdateCalculationHydraulicBoundaryLocationReferences<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsWaveConditionsCalculation, GrassCoverErosionOutwardsWaveConditionsInput>(
                     targetAssessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocations);
                 LogMergeMessage(targetAssessmentSection.GrassCoverErosionOutwards);
@@ -375,39 +374,6 @@ namespace Riskeer.Integration.Plugin.Merge
         private static HydraulicBoundaryLocation GetHydraulicBoundaryLocation(HydraulicBoundaryLocation location, IEnumerable<HydraulicBoundaryLocation> locations)
         {
             return locations.Single(l => l.Name == location.Name && l.Id == location.Id && l.Location.Equals(location.Location));
-        }
-
-        private static void UpdateLocationCalculationHydraulicBoundaryLocationReferences(GrassCoverErosionOutwardsFailureMechanism targetFailureMechanism,
-                                                                                         IEnumerable<HydraulicBoundaryLocation> locations)
-        {
-            HydraulicBoundaryLocationCalculation[] oldWaterLevelForMechanismSpecificFactorizedSignalingNorm = targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ToArray();
-            HydraulicBoundaryLocationCalculation[] oldWaterLevelForMechanismSpecificSignalingNorm = targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ToArray();
-            HydraulicBoundaryLocationCalculation[] oldWaterLevelForMechanismSpecificLowerLimitNorm = targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ToArray();
-            HydraulicBoundaryLocationCalculation[] oldWaveHeightForMechanismSpecificFactorizedSignalingNorm = targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.ToArray();
-            HydraulicBoundaryLocationCalculation[] oldWaveHeightForMechanismSpecificSignalingNorm = targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.ToArray();
-            HydraulicBoundaryLocationCalculation[] oldWaveHeightForMechanismSpecificLowerLimitNorm = targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.ToArray();
-            targetFailureMechanism.SetHydraulicBoundaryLocationCalculations(locations);
-
-            ReplaceHydraulicBoundaryLocationCalculationData(oldWaterLevelForMechanismSpecificFactorizedSignalingNorm, targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            ReplaceHydraulicBoundaryLocationCalculationData(oldWaterLevelForMechanismSpecificSignalingNorm, targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
-            ReplaceHydraulicBoundaryLocationCalculationData(oldWaterLevelForMechanismSpecificLowerLimitNorm, targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
-
-            ReplaceHydraulicBoundaryLocationCalculationData(oldWaveHeightForMechanismSpecificFactorizedSignalingNorm, targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            ReplaceHydraulicBoundaryLocationCalculationData(oldWaveHeightForMechanismSpecificSignalingNorm, targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
-            ReplaceHydraulicBoundaryLocationCalculationData(oldWaveHeightForMechanismSpecificLowerLimitNorm, targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
-        }
-
-        private static void ReplaceHydraulicBoundaryLocationCalculationData(IEnumerable<HydraulicBoundaryLocationCalculation> oldCalculations,
-                                                                            IEnumerable<HydraulicBoundaryLocationCalculation> newCalculations)
-        {
-            for (var i = 0; i < newCalculations.Count(); i++)
-            {
-                HydraulicBoundaryLocationCalculation newCalculation = newCalculations.ElementAt(i);
-                HydraulicBoundaryLocationCalculation oldCalculation = oldCalculations.ElementAt(i);
-
-                newCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = oldCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
-                newCalculation.Output = oldCalculation.Output;
-            }
         }
 
         #endregion

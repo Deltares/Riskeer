@@ -323,13 +323,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 }
             });
 
-            HydraulicBoundaryLocationCalculation[] sourceWaterLevelForMechanismSpecificFactorizedSignalingNorm = sourceAssessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ToArray();
-            HydraulicBoundaryLocationCalculation[] sourceWaterLevelForMechanismSpecificSignalingNorm = sourceAssessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ToArray();
-            HydraulicBoundaryLocationCalculation[] sourceWaterLevelForMechanismSpecificLowerLimitNorm = sourceAssessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ToArray();
-            HydraulicBoundaryLocationCalculation[] sourceWaveHeightForMechanismSpecificFactorizedSignalingNorm = sourceAssessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.ToArray();
-            HydraulicBoundaryLocationCalculation[] sourceWaveHeightForMechanismSpecificSignalingNorm = sourceAssessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificSignalingNorm.ToArray();
-            HydraulicBoundaryLocationCalculation[] sourceWaveHeightForMechanismSpecificLowerLimitNorm = sourceAssessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.ToArray();
-
             // When
             handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
                                      sourceAssessmentSection,
@@ -373,26 +366,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             var grassOutwardsCalculation = (GrassCoverErosionOutwardsWaveConditionsCalculation) targetAssessmentSection.GrassCoverErosionOutwards.Calculations.Single();
             Assert.AreSame(targetLocations[0], grassOutwardsCalculation.InputParameters.HydraulicBoundaryLocation);
-
-            AssertHydraulicBoundaryCalculations(sourceWaterLevelForMechanismSpecificFactorizedSignalingNorm,
-                                                targetAssessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
-                                                targetLocations);
-            AssertHydraulicBoundaryCalculations(sourceWaterLevelForMechanismSpecificSignalingNorm,
-                                                targetAssessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
-                                                targetLocations);
-            AssertHydraulicBoundaryCalculations(sourceWaterLevelForMechanismSpecificLowerLimitNorm,
-                                                targetAssessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
-                                                targetLocations);
-
-            AssertHydraulicBoundaryCalculations(sourceWaveHeightForMechanismSpecificFactorizedSignalingNorm,
-                                                targetAssessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
-                                                targetLocations);
-            AssertHydraulicBoundaryCalculations(sourceWaveHeightForMechanismSpecificSignalingNorm,
-                                                targetAssessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
-                                                targetLocations);
-            AssertHydraulicBoundaryCalculations(sourceWaveHeightForMechanismSpecificLowerLimitNorm,
-                                                targetAssessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
-                                                targetLocations);
         }
 
         [Test]
