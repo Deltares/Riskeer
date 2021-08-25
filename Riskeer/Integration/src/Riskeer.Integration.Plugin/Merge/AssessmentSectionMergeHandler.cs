@@ -87,22 +87,10 @@ namespace Riskeer.Integration.Plugin.Merge
         {
             var changedObjects = new List<IObservable>();
 
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
-                                                                               sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm));
             changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForSignalingNorm,
                                                                                sourceAssessmentSection.WaterLevelCalculationsForSignalingNorm));
             changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                                                sourceAssessmentSection.WaterLevelCalculationsForLowerLimitNorm));
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
-                                                                               sourceAssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm));
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
-                                                                               sourceAssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm));
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForSignalingNorm,
-                                                                               sourceAssessmentSection.WaveHeightCalculationsForSignalingNorm));
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
-                                                                               sourceAssessmentSection.WaveHeightCalculationsForLowerLimitNorm));
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
-                                                                               sourceAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm));
 
             ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> sourceWaterLevelProbabilities = sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
 

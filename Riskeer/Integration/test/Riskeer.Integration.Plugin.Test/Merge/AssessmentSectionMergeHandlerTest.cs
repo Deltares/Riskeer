@@ -882,22 +882,9 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         private static IEnumerable<TestCaseData> GetHydraulicBoundaryLocationCalculationFuncs()
         {
             yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                                              section => section.WaterLevelCalculationsForFactorizedSignalingNorm));
-            yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                                               section => section.WaterLevelCalculationsForSignalingNorm));
             yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                                               section => section.WaterLevelCalculationsForLowerLimitNorm));
-            yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                                              section => section.WaterLevelCalculationsForFactorizedLowerLimitNorm));
-
-            yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                                              section => section.WaveHeightCalculationsForFactorizedSignalingNorm));
-            yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                                              section => section.WaveHeightCalculationsForSignalingNorm));
-            yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                                              section => section.WaveHeightCalculationsForLowerLimitNorm));
-            yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                                              section => section.WaveHeightCalculationsForFactorizedLowerLimitNorm));
         }
 
         #endregion
