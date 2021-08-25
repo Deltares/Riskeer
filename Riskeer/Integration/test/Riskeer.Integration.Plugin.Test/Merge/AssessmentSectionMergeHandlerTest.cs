@@ -439,6 +439,13 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
                 AssertHydraulicBoundaryCalculations(tp.HydraulicBoundaryLocationCalculations, targetProbability.HydraulicBoundaryLocationCalculations, targetLocations);
             }
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability tp in sourceAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities)
+            {
+                HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability = targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First(c => c.TargetProbability.Equals(tp.TargetProbability));
+
+                AssertHydraulicBoundaryCalculations(tp.HydraulicBoundaryLocationCalculations, targetProbability.HydraulicBoundaryLocationCalculations, targetLocations);
+            }
         }
 
         [Test]
@@ -463,6 +470,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             AssessmentSection sourceAssessmentSection = CreateAssessmentSection(sourceLocations);
 
             sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].TargetProbability = 0.01;
+            sourceAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[0].TargetProbability = 0.01;
 
             // When
             handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
@@ -482,6 +490,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Then
             Assert.AreEqual(targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Count(c => c.TargetProbability.Equals(0.01)), 1);
+            Assert.AreEqual(targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Count(c => c.TargetProbability.Equals(0.01)), 1);
         }
 
         private static void AssertHydraulicBoundaryCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations,
@@ -517,9 +526,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             {
                 HydraulicBoundaryLocationCalculations =
                 {
-                    new HydraulicBoundaryLocationCalculation(locations[1])
+                    new HydraulicBoundaryLocationCalculation(locations[0])
                 }
             });
+
             assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(locations);
             assessmentSection.SetHydraulicBoundaryLocationCalculations(locations);
             return assessmentSection;
