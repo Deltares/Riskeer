@@ -36,59 +36,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
     public class GrassCoverErosionOutwardsDataSynchronizationServiceTest
     {
         [Test]
-        public void ClearWaveConditionsCalculation_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutput(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("calculation", exception.ParamName);
-        }
-
-        [Test]
-        public void ClearWaveConditionsCalculation_WithCalculation_OutputNullAndReturnAffectedCalculation()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
-            };
-
-            // Precondition
-            Assert.IsNotNull(calculation.Output);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation);
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            Assert.IsNull(calculation.Output);
-
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation
-            }, affectedObjects);
-        }
-
-        [Test]
-        public void ClearWaveConditionsCalculation_CalculationWithoutOutput_DoNothing()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Output = null
-            };
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation);
-
-            // Assert
-            CollectionAssert.IsEmpty(affectedObjects);
-        }
-
-        [Test]
         public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call

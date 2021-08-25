@@ -27,12 +27,12 @@ using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Service;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.Views;
-using Riskeer.MacroStabilityInwards.Service;
 
 namespace Riskeer.MacroStabilityInwards.Integration.Test
 {
@@ -173,7 +173,7 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Clear the output of the calculation and make sure the data grid view is updated
-                MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutput(calculation1);
+                RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation1);
                 calculation1.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn.",

@@ -82,7 +82,7 @@ namespace Riskeer.StabilityStoneCover.Service
         {
             calculationService.OnProgressChanged += UpdateProgressText;
 
-            StabilityStoneCoverDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation);
+            RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation);
             calculationService.Calculate(calculation, assessmentSection, failureMechanism.GeneralInput);
         }
 

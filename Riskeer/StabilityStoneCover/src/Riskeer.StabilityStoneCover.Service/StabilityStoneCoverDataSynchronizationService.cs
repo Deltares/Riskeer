@@ -37,33 +37,6 @@ namespace Riskeer.StabilityStoneCover.Service
     public static class StabilityStoneCoverDataSynchronizationService
     {
         /// <summary>
-        /// Clears the output of the given <see cref="StabilityStoneCoverWaveConditionsCalculation"/>.
-        /// </summary>
-        /// <param name="calculation">The <see cref="StabilityStoneCoverWaveConditionsCalculation"/>
-        /// to clear the output for.</param>
-        /// <returns>All objects that have been changed.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
-        /// is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearWaveConditionsCalculationOutput(StabilityStoneCoverWaveConditionsCalculation calculation)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
-            if (calculation.HasOutput)
-            {
-                calculation.ClearOutput();
-                return new[]
-                {
-                    calculation
-                };
-            }
-
-            return Enumerable.Empty<IObservable>();
-        }
-
-        /// <summary>
         /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the wave conditions calculations
         /// in the <see cref="StabilityStoneCoverFailureMechanism"/>.
         /// </summary>
@@ -83,8 +56,8 @@ namespace Riskeer.StabilityStoneCover.Service
             var affectedItems = new List<IObservable>();
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in failureMechanism.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>())
             {
-                affectedItems.AddRange(ClearWaveConditionsCalculationOutput(calculation)
-                                           .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
+                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation)
+                                                                              .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
             }
 
             return affectedItems;
@@ -108,7 +81,7 @@ namespace Riskeer.StabilityStoneCover.Service
 
             return failureMechanism.Calculations
                                    .Cast<StabilityStoneCoverWaveConditionsCalculation>()
-                                   .SelectMany(ClearWaveConditionsCalculationOutput)
+                                   .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
                                    .ToArray();
         }
 

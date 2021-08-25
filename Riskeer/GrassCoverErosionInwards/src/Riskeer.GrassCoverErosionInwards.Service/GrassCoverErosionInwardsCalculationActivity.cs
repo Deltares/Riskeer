@@ -76,7 +76,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
 
         protected override void PerformCalculation()
         {
-            GrassCoverErosionInwardsDataSynchronizationService.ClearCalculationOutput(calculation);
+            RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation);
 
             calculationService.Calculate(
                 calculation,

@@ -82,7 +82,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service
         {
             calculationService.OnProgressChanged += UpdateProgressText;
 
-            WaveImpactAsphaltCoverDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation);
+            RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation);
             calculationService.Calculate(calculation, assessmentSection, failureMechanism.GeneralInput);
         }
 

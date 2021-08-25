@@ -37,33 +37,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
     public static class GrassCoverErosionOutwardsDataSynchronizationService
     {
         /// <summary>
-        /// Clears the output of the given <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.
-        /// </summary>
-        /// <param name="calculation">The <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>
-        /// to clear the output for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
-        /// is <c>null</c>.</exception>
-        /// <returns>All objects that have been changed.</returns>
-        public static IEnumerable<IObservable> ClearWaveConditionsCalculationOutput(GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
-            if (calculation.HasOutput)
-            {
-                calculation.ClearOutput();
-                return new[]
-                {
-                    calculation
-                };
-            }
-
-            return Enumerable.Empty<IObservable>();
-        }
-
-        /// <summary>
         /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the wave conditions calculations
         /// in the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
         /// </summary>
@@ -83,8 +56,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             var affectedItems = new List<IObservable>();
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>())
             {
-                affectedItems.AddRange(ClearWaveConditionsCalculationOutput(calculation)
-                                           .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
+                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation)
+                                                                              .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
             }
 
             return affectedItems;
@@ -109,7 +82,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
             return failureMechanism.Calculations
                                    .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                   .SelectMany(ClearWaveConditionsCalculationOutput)
+                                   .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
                                    .ToArray();
         }
 

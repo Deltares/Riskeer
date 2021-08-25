@@ -55,35 +55,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service
 
             return failureMechanism.Calculations
                                    .Cast<GrassCoverErosionInwardsCalculation>()
-                                   .SelectMany(ClearCalculationOutput)
+                                   .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
                                    .ToArray();
-        }
-
-        /// <summary>
-        /// Clears the output of the given <see cref="GrassCoverErosionInwardsCalculation"/>.
-        /// </summary>
-        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/>
-        /// to clear the output for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
-        /// is <c>null</c>.</exception>
-        /// <returns>All objects that have been changed.</returns>
-        public static IEnumerable<IObservable> ClearCalculationOutput(GrassCoverErosionInwardsCalculation calculation)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
-            if (calculation.HasOutput)
-            {
-                calculation.ClearOutput();
-                return new[]
-                {
-                    calculation
-                };
-            }
-
-            return Enumerable.Empty<IObservable>();
         }
 
         /// <summary>
@@ -105,8 +78,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             var affectedItems = new List<IObservable>();
             foreach (GrassCoverErosionInwardsCalculation calculation in failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>())
             {
-                affectedItems.AddRange(ClearCalculationOutput(calculation)
-                                           .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
+                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation)
+                                                                              .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
             }
 
             return affectedItems;

@@ -43,31 +43,6 @@ namespace Riskeer.Piping.Service
     public static class PipingDataSynchronizationService
     {
         /// <summary>
-        /// Clears the output of the given <see cref="IPipingCalculationScenario{TPipingInput}"/>.
-        /// </summary>
-        /// <param name="calculation">The <see cref="IPipingCalculationScenario{TPipingInput}"/> to clear the output for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        /// <returns>All objects that have been changed.</returns>
-        public static IEnumerable<IObservable> ClearCalculationOutput(IPipingCalculationScenario<PipingInput> calculation)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
-            if (calculation.HasOutput)
-            {
-                calculation.ClearOutput();
-                return new[]
-                {
-                    calculation
-                };
-            }
-
-            return Enumerable.Empty<IObservable>();
-        }
-
-        /// <summary>
         /// Clears the output for all calculations in the <see cref="PipingFailureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> which contains the calculations.</param>
@@ -82,7 +57,7 @@ namespace Riskeer.Piping.Service
 
             return failureMechanism.Calculations
                                    .Cast<IPipingCalculationScenario<PipingInput>>()
-                                   .SelectMany(ClearCalculationOutput)
+                                   .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
                                    .ToArray();
         }
 
@@ -104,7 +79,7 @@ namespace Riskeer.Piping.Service
             return failureMechanism.Calculations
                                    .OfType<SemiProbabilisticPipingCalculationScenario>()
                                    .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
-                                   .SelectMany(ClearCalculationOutput)
+                                   .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
                                    .ToArray();
         }
 
@@ -123,7 +98,7 @@ namespace Riskeer.Piping.Service
 
             return failureMechanism.Calculations
                                    .OfType<ProbabilisticPipingCalculationScenario>()
-                                   .SelectMany(ClearCalculationOutput)
+                                   .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
                                    .ToArray();
         }
 

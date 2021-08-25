@@ -37,33 +37,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Service
     public static class WaveImpactAsphaltCoverDataSynchronizationService
     {
         /// <summary>
-        /// Clears the output of the given <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>.
-        /// </summary>
-        /// <param name="calculation">The <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>
-        /// to clear the output for.</param>
-        /// <returns>All objects that have been changed.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
-        /// is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearWaveConditionsCalculationOutput(WaveImpactAsphaltCoverWaveConditionsCalculation calculation)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
-            if (calculation.HasOutput)
-            {
-                calculation.ClearOutput();
-                return new[]
-                {
-                    calculation
-                };
-            }
-
-            return Enumerable.Empty<IObservable>();
-        }
-
-        /// <summary>
         /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the wave conditions calculations
         /// in the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
         /// </summary>
@@ -83,8 +56,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Service
             var affectedItems = new List<IObservable>();
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>())
             {
-                affectedItems.AddRange(ClearWaveConditionsCalculationOutput(calculation)
-                                           .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
+                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation)
+                                                                              .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
             }
 
             return affectedItems;
@@ -108,7 +81,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service
 
             return failureMechanism.Calculations
                                    .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                   .SelectMany(ClearWaveConditionsCalculationOutput)
+                                   .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
                                    .ToArray();
         }
 

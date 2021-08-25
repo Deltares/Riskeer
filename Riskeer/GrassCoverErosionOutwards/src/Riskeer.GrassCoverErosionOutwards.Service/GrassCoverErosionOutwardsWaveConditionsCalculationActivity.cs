@@ -83,7 +83,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
         {
             calculationService.OnProgressChanged += UpdateProgressText;
 
-            GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation);
+            RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation);
             calculationService.Calculate(calculation, failureMechanism, assessmentSection);
         }
 

@@ -38,53 +38,6 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
     public class MacroStabilityInwardsDataSynchronizationServiceTest
     {
         [Test]
-        public void ClearCalculationOutput_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutput(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("calculation", exception.ParamName);
-        }
-
-        [Test]
-        public void ClearCalculationOutput_WithCalculation_ClearsOutputAndReturnAffectedCalculations()
-        {
-            // Setup
-            var calculation = new MacroStabilityInwardsCalculation
-            {
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
-            };
-
-            // Call
-            IEnumerable<IObservable> changedObjects = MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutput(calculation);
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            Assert.IsNull(calculation.Output);
-
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation
-            }, changedObjects);
-        }
-
-        [Test]
-        public void ClearCalculationOutput_CalculationWithoutOutput_DoNothing()
-        {
-            // Setup
-            var calculation = new MacroStabilityInwardsCalculation();
-
-            // Call
-            IEnumerable<IObservable> changedObjects = MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutput(calculation);
-
-            // Assert
-            CollectionAssert.IsEmpty(changedObjects);
-        }
-
-        [Test]
         public void ClearAllCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call

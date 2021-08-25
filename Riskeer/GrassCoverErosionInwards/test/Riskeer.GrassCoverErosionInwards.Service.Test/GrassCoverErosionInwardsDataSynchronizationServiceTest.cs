@@ -39,56 +39,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
     public class GrassCoverErosionInwardsDataSynchronizationServiceTest
     {
         [Test]
-        public void ClearCalculationOutput_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => GrassCoverErosionInwardsDataSynchronizationService.ClearCalculationOutput(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("calculation", exception.ParamName);
-        }
-
-        [Test]
-        public void ClearCalculationOutput_WithCalculation_ClearsOutput()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                Output = new TestGrassCoverErosionInwardsOutput()
-            };
-
-            // Call
-            IEnumerable<IObservable> changedObjects = GrassCoverErosionInwardsDataSynchronizationService.ClearCalculationOutput(calculation);
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            Assert.IsNull(calculation.Output);
-
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation
-            }, changedObjects);
-        }
-
-        [Test]
-        public void ClearCalculationOutput_CalculationWithoutOutput_DoNothing()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                Output = null
-            };
-
-            // Call
-            IEnumerable<IObservable> changedObjects = GrassCoverErosionInwardsDataSynchronizationService.ClearCalculationOutput(calculation);
-
-            // Assert
-            CollectionAssert.IsEmpty(changedObjects);
-        }
-
-        [Test]
         public void ClearAllCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call

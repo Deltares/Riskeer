@@ -28,12 +28,12 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Service;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.TestUtil;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.Views;
-using Riskeer.Piping.Service;
 
 namespace Riskeer.Piping.Integration.Test
 {
@@ -170,7 +170,7 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Clear the output of the calculation and make sure the data grid view is updated
-                PipingDataSynchronizationService.ClearCalculationOutput(pipingCalculation1);
+                RiskeerCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculation1);
                 pipingCalculation1.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.AreEqual("Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn.",

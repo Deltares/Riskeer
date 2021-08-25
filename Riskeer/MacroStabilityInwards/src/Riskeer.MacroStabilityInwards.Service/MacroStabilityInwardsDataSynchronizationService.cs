@@ -53,7 +53,7 @@ namespace Riskeer.MacroStabilityInwards.Service
 
             return failureMechanism.Calculations
                                    .Cast<MacroStabilityInwardsCalculation>()
-                                   .SelectMany(ClearCalculationOutput)
+                                   .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
                                    .ToArray();
         }
 
@@ -74,33 +74,8 @@ namespace Riskeer.MacroStabilityInwards.Service
             return failureMechanism.Calculations
                                    .Cast<MacroStabilityInwardsCalculationScenario>()
                                    .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
-                                   .SelectMany(ClearCalculationOutput)
+                                   .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
                                    .ToArray();
-        }
-
-        /// <summary>
-        /// Clears the output of the given <see cref="MacroStabilityInwardsCalculation"/>.
-        /// </summary>
-        /// <param name="calculation">The <see cref="MacroStabilityInwardsCalculation"/> to clear the output for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        /// <returns>All objects that have been changed.</returns>
-        public static IEnumerable<IObservable> ClearCalculationOutput(MacroStabilityInwardsCalculation calculation)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
-            if (calculation.HasOutput)
-            {
-                calculation.ClearOutput();
-                return new[]
-                {
-                    calculation
-                };
-            }
-
-            return Enumerable.Empty<IObservable>();
         }
 
         /// <summary>

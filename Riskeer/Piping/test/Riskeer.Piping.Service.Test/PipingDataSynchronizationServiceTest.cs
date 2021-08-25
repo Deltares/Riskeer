@@ -40,50 +40,6 @@ namespace Riskeer.Piping.Service.Test
     public class PipingDataSynchronizationServiceTest
     {
         [Test]
-        public void ClearCalculationOutput_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => PipingDataSynchronizationService.ClearCalculationOutput(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("calculation", exception.ParamName);
-        }
-
-        [Test]
-        public void ClearCalculationOutput_WithCalculation_ClearsOutputAndReturnAffectedCalculations()
-        {
-            // Setup
-            var calculation = new TestPipingCalculationScenario(true);
-
-            // Call
-            IEnumerable<IObservable> changedObjects = PipingDataSynchronizationService.ClearCalculationOutput(calculation);
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            Assert.IsFalse(calculation.HasOutput);
-
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation
-            }, changedObjects);
-        }
-
-        [Test]
-        public void ClearCalculationOutput_CalculationWithoutOutput_DoNothing()
-        {
-            // Setup
-            var calculation = new TestPipingCalculationScenario();
-
-            // Call
-            IEnumerable<IObservable> changedObjects = PipingDataSynchronizationService.ClearCalculationOutput(calculation);
-
-            // Assert
-            CollectionAssert.IsEmpty(changedObjects);
-        }
-
-        [Test]
         public void ClearAllCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
