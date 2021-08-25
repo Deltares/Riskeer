@@ -64,10 +64,10 @@ namespace Riskeer.Integration.Service.Test
     public class RiskeerDataSynchronizationServiceTest
     {
         [Test]
-        public void ClearFailureMechanismCalculationOutputs_WithoutAssessmentSection_ThrowsArgumentNullException()
+        public void ClearFailureMechanismCalculationOutputs_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs((IAssessmentSection) null);
+            void Call() => RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -79,10 +79,38 @@ namespace Riskeer.Integration.Service.Test
         {
             // Setup
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            IEnumerable<ICalculation> expectedAffectedItems = assessmentSection.GetFailureMechanisms()
-                                                                               .SelectMany(f => f.Calculations)
-                                                                               .Where(c => c.HasOutput)
-                                                                               .ToList();
+            var expectedAffectedItems = new List<IObservable>();
+
+            expectedAffectedItems.AddRange(assessmentSection.ClosingStructures.Calculations
+                                                            .Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionInwards.Calculations
+                                                            .Cast<GrassCoverErosionInwardsCalculation>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
+                                                            .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.HeightStructures.Calculations
+                                                            .Cast<StructuresCalculation<HeightStructuresInput>>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
+                                                            .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                            .Where(c => !c.InputParameters.UseAssessmentLevelManualInput && c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
+                                                            .OfType<ProbabilisticPipingCalculationScenario>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.StabilityPointStructures.Calculations
+                                                            .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.StabilityStoneCover.Calculations
+                                                            .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
+                                                            .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                            .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.MacroStabilityInwards.Calculations
+                                                            .Cast<MacroStabilityInwardsCalculation>()
+                                                            .Where(c => c.HasOutput));
 
             // Call
             IEnumerable<IObservable> affectedItems = RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
@@ -90,45 +118,27 @@ namespace Riskeer.Integration.Service.Test
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms()
-                                                      .SelectMany(f => f.Calculations)
-                                                      .Where(c => c.HasOutput));
-
-            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
-        }
-
-        [Test]
-        public void ClearFailureMechanismCalculationOutputs_WithoutFailureMechanisms_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs((IEnumerable<IFailureMechanism>) null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanisms", exception.ParamName);
-        }
-
-        [Test]
-        public void ClearFailureMechanismCalculationOutputs_WithFailureMechanisms_ClearsFailureMechanismCalculationsOutputAndReturnsAffectedCalculations()
-        {
-            // Setup
-            IEnumerable<IFailureMechanism> failureMechanisms = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations()
-                                                                                .GetFailureMechanisms()
-                                                                                .ToList();
-            IEnumerable<ICalculation> expectedAffectedItems = failureMechanisms
-                                                              .SelectMany(f => f.Calculations)
-                                                              .Where(c => c.HasOutput)
-                                                              .ToList();
-
-            // Call
-            IEnumerable<IObservable> affectedItems = RiskeerDataSynchronizationService.ClearFailureMechanismCalculationOutputs(failureMechanisms);
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            CollectionAssert.IsEmpty(failureMechanisms
-                                     .SelectMany(f => f.Calculations)
-                                     .Where(c => c.HasOutput));
+            Assert.IsTrue(assessmentSection.ClosingStructures.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>()
+                                           .All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.GrassCoverErosionInwards.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
+                                           .All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.GrassCoverErosionOutwards.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                           .All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.HeightStructures.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()
+                                           .All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.Piping.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
+                                           .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
+                                           .All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.Piping.Calculations.OfType<ProbabilisticPipingCalculationScenario>()
+                                           .All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.StabilityPointStructures.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
+                                           .All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.StabilityStoneCover.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                           .All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.WaveImpactAsphaltCover.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                           .All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.MacroStabilityInwards.Calculations.Cast<MacroStabilityInwardsCalculation>()
+                                           .All(c => !c.InputParameters.UseAssessmentLevelManualInput && !c.HasOutput));
 
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
@@ -330,7 +340,8 @@ namespace Riskeer.Integration.Service.Test
             Assert.IsTrue(assessmentSection.HeightStructures.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()
                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             Assert.IsTrue(assessmentSection.Piping.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
-                                           .All(c => !c.InputParameters.UseAssessmentLevelManualInput && !c.HasOutput));
+                                           .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
+                                           .All(c => !c.HasOutput));
             Assert.IsTrue(assessmentSection.Piping.Calculations.OfType<ProbabilisticPipingCalculationScenario>()
                                            .All(c => !c.HasOutput));
             Assert.IsTrue(assessmentSection.Piping.Calculations.Cast<IPipingCalculationScenario<PipingInput>>()

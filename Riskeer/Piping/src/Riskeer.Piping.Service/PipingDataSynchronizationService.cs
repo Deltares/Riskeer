@@ -43,25 +43,6 @@ namespace Riskeer.Piping.Service
     public static class PipingDataSynchronizationService
     {
         /// <summary>
-        /// Clears the output for all calculations in the <see cref="PipingFailureMechanism"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearAllCalculationOutput(PipingFailureMechanism failureMechanism)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            return failureMechanism.Calculations
-                                   .Cast<IPipingCalculationScenario<PipingInput>>()
-                                   .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
-                                   .ToArray();
-        }
-
-        /// <summary>
         /// Clears the output for all <see cref="SemiProbabilisticPipingCalculationScenario"/> in the <see cref="PipingFailureMechanism"/>,
         /// except for the <see cref="SemiProbabilisticPipingCalculationScenario"/> where
         /// <see cref="SemiProbabilisticPipingInput.UseAssessmentLevelManualInput"/> is <c>true</c>.

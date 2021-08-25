@@ -40,37 +40,6 @@ namespace Riskeer.Piping.Service.Test
     public class PipingDataSynchronizationServiceTest
     {
         [Test]
-        public void ClearAllCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => PipingDataSynchronizationService.ClearAllCalculationOutput(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
-        public void ClearAllCalculationOutput_WithVariousCalculations_ClearsCalculationsOutputAndReturnsAffectedCalculations()
-        {
-            // Setup
-            PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            ICalculation[] expectedAffectedCalculations = failureMechanism.Calculations
-                                                                          .Where(c => c.HasOutput)
-                                                                          .ToArray();
-
-            // Call
-            IEnumerable<IObservable> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
-
-            // Assert
-            // Note: To make sure the clear is performed regardless of what is done with
-            // the return result, no ToArray() should be called before these assertions:
-            Assert.IsTrue(failureMechanism.Calculations.All(c => !c.HasOutput));
-
-            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affectedItems);
-        }
-
-        [Test]
         public void ClearAllSemiProbabilisticCalculationOutputWithoutManualAssessmentLevel_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call

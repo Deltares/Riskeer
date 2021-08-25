@@ -39,25 +39,6 @@ namespace Riskeer.MacroStabilityInwards.Service
     public static class MacroStabilityInwardsDataSynchronizationService
     {
         /// <summary>
-        /// Clears the output for all calculations in the <see cref="MacroStabilityInwardsFailureMechanism"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The <see cref="MacroStabilityInwardsFailureMechanism"/> which contains the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearAllCalculationOutput(MacroStabilityInwardsFailureMechanism failureMechanism)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            return failureMechanism.Calculations
-                                   .Cast<MacroStabilityInwardsCalculation>()
-                                   .SelectMany(RiskeerCommonDataSynchronizationService.ClearCalculationOutput)
-                                   .ToArray();
-        }
-
-        /// <summary>
         /// Clears the output for all calculations in the <see cref="MacroStabilityInwardsFailureMechanism"/>,
         /// except where <see cref="MacroStabilityInwardsInput.UseAssessmentLevelManualInput"/> is <c>true</c>.
         /// </summary>

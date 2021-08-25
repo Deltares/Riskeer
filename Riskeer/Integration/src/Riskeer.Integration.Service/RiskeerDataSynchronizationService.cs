@@ -126,30 +126,15 @@ namespace Riskeer.Integration.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return ClearFailureMechanismCalculationOutputs(assessmentSection.GetFailureMechanisms());
-        }
-
-        /// <summary>
-        /// Clears the output of all calculations of the given <paramref name="failureMechanisms"/>.
-        /// </summary>
-        /// <param name="failureMechanisms">The failure mechanisms that contain the calculations.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of calculations that are affected by clearing the output.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearFailureMechanismCalculationOutputs(IEnumerable<IFailureMechanism> failureMechanisms)
-        {
-            if (failureMechanisms == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanisms));
-            }
-
             var changedObservables = new List<IObservable>();
 
-            foreach (IFailureMechanism failureMechanism in failureMechanisms)
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 switch (failureMechanism)
                 {
                     case PipingFailureMechanism pipingFailureMechanism:
-                        changedObservables.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutput(pipingFailureMechanism));
+                        changedObservables.AddRange(PipingDataSynchronizationService.ClearAllSemiProbabilisticCalculationOutputWithoutManualAssessmentLevel(pipingFailureMechanism));
+                        changedObservables.AddRange(PipingDataSynchronizationService.ClearAllProbabilisticCalculationOutput(pipingFailureMechanism));
                         break;
                     case GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism:
                         changedObservables.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput(grassCoverErosionInwardsFailureMechanism));
@@ -173,7 +158,7 @@ namespace Riskeer.Integration.Service
                         changedObservables.AddRange(StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutput(stabilityPointStructuresFailureMechanism));
                         break;
                     case MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism:
-                        changedObservables.AddRange(MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutput(macroStabilityInwardsFailureMechanism));
+                        changedObservables.AddRange(MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputWithoutManualAssessmentLevel(macroStabilityInwardsFailureMechanism));
                         break;
                 }
             }
