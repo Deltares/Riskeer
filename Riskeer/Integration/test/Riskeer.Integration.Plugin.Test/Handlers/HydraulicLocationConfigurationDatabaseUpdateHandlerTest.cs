@@ -36,6 +36,9 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Handlers;
 using Riskeer.Integration.Plugin.Handlers;
 using Riskeer.Integration.TestUtil;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Integration.Plugin.Test.Handlers
 {
@@ -220,6 +223,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                      .SelectMany(fm => fm.Calculations)
                                                                      .Where(c => c.HasOutput)
                                                                      .ToArray();
+
+            calculationsWithOutput = calculationsWithOutput.Except(calculationsWithOutput.OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                                                         .Where(c => c.InputParameters.UseAssessmentLevelManualInput))
+                                                           .Except(calculationsWithOutput.OfType<MacroStabilityInwardsCalculationScenario>()
+                                                                                         .Where(c => c.InputParameters.UseAssessmentLevelManualInput))
+                                                           .Except(calculationsWithOutput.OfType<TestPipingCalculationScenario>())
+                                                           .ToArray();
 
             // Precondition
             Assert.IsTrue(locations.All(l => l.HasOutput));
