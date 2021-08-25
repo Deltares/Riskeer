@@ -94,7 +94,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(clickOk, result);
 
             Assert.AreEqual("Bevestigen", dialogTitle);
-            Assert.AreEqual("Als u het gekoppelde HLCD bestand wijzigt, zal de uitvoer van alle berekeningen verwijderd worden." +
+            Assert.AreEqual("Als u het gekoppelde HLCD bestand wijzigt, zal de uitvoer van alle ervan afhankelijke berekeningen verwijderd worden." +
                             Environment.NewLine +
                             Environment.NewLine +
                             "Wilt u doorgaan?",
