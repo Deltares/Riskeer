@@ -183,14 +183,24 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         {
             // Setup
             MacroStabilityInwardsFailureMechanism failureMechanism = MacroStabilityInwardsTestDataGenerator.GetMacroStabilityInwardsFailureMechanismWithAllCalculationConfigurations();
-            MacroStabilityInwardsCalculation[] calculations = failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculation>().ToArray();
-            IObservable[] expectedAffectedCalculations = calculations.Where(c => c.HasOutput)
-                                                                     .Cast<IObservable>()
-                                                                     .ToArray();
-            IObservable[] expectedAffectedCalculationInputs = calculations.Select(c => c.InputParameters)
-                                                                          .Where(i => i.HydraulicBoundaryLocation != null)
-                                                                          .Cast<IObservable>()
-                                                                          .ToArray();
+            failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    UseAssessmentLevelManualInput = true
+                },
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+            });
+
+            MacroStabilityInwardsCalculation[] calculations = failureMechanism.Calculations
+                                                                              .Cast<MacroStabilityInwardsCalculation>()
+                                                                              .ToArray();
+
+            var expectedAffectedItems = new List<IObservable>();
+            expectedAffectedItems.AddRange(calculations.Where(c => !c.InputParameters.UseAssessmentLevelManualInput
+                                                                   && c.HasOutput));
+            expectedAffectedItems.AddRange(calculations.Select(c => c.InputParameters)
+                                                       .Where(i => i.HydraulicBoundaryLocation != null));
 
             // Call
             IEnumerable<IObservable> affectedItems = MacroStabilityInwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
@@ -198,13 +208,11 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            Assert.IsTrue(failureMechanism.Calculations
-                                          .Cast<MacroStabilityInwardsCalculation>()
-                                          .All(c => c.InputParameters.HydraulicBoundaryLocation == null
-                                                    && !c.HasOutput));
+            Assert.IsTrue(calculations.Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
+                                      .All(c => c.InputParameters.HydraulicBoundaryLocation == null
+                                                && !c.HasOutput));
 
-            CollectionAssert.AreEquivalent(expectedAffectedCalculations.Concat(expectedAffectedCalculationInputs),
-                                           affectedItems);
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 
         [Test]

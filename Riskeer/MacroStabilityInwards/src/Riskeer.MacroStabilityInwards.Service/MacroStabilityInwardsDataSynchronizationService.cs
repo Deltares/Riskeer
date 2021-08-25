@@ -72,7 +72,7 @@ namespace Riskeer.MacroStabilityInwards.Service
             }
 
             return failureMechanism.Calculations
-                                   .OfType<MacroStabilityInwardsCalculationScenario>()
+                                   .Cast<MacroStabilityInwardsCalculationScenario>()
                                    .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
                                    .SelectMany(ClearCalculationOutput)
                                    .ToArray();
@@ -104,7 +104,12 @@ namespace Riskeer.MacroStabilityInwards.Service
         }
 
         /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations in the <see cref="MacroStabilityInwardsFailureMechanism"/>.
+        /// Clears:
+        /// <list type="bullet">
+        /// <item>The <see cref="HydraulicBoundaryLocation"/> for all the calculations in the <see cref="MacroStabilityInwardsFailureMechanism"/>;</item>
+        /// <item>The output for all the calculations in the <see cref="MacroStabilityInwardsFailureMechanism"/>,
+        /// except where <see cref="MacroStabilityInwardsInput.UseAssessmentLevelManualInput"/> is <c>true</c>.</item>
+        /// </list>
         /// </summary>
         /// <param name="failureMechanism">The <see cref="MacroStabilityInwardsFailureMechanism"/> which contains the calculations.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removing data.</returns>
@@ -119,7 +124,7 @@ namespace Riskeer.MacroStabilityInwards.Service
             var affectedItems = new List<IObservable>();
             foreach (MacroStabilityInwardsCalculation calculation in failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculation>())
             {
-                affectedItems.AddRange(ClearCalculationOutput(calculation)
+                affectedItems.AddRange(ClearAllCalculationOutputWithoutManualAssessmentLevel(failureMechanism)
                                            .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
             }
 
