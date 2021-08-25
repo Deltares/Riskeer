@@ -112,13 +112,13 @@ namespace Riskeer.Integration.Plugin.Merge
                                                                        ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> sourceCalculationsForUserDefinedTargetProbabilities,
                                                                        List<IObservable> changedObjects, ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
-            HydraulicBoundaryLocationCalculationsForTargetProbability[] ProbabilitiesToMerge() => sourceCalculationsForUserDefinedTargetProbabilities.Where(stp => targetCalculationsForUserDefinedTargetProbabilities
-                                                                                                                                                                   .Select(c => c.TargetProbability)
-                                                                                                                                                                   .Contains(stp.TargetProbability))
-                                                                                                                                                     .ToArray();
+            HydraulicBoundaryLocationCalculationsForTargetProbability[] probabilitiesToMerge = sourceCalculationsForUserDefinedTargetProbabilities.Where(stp => targetCalculationsForUserDefinedTargetProbabilities
+                                                                                                                                                                .Select(c => c.TargetProbability)
+                                                                                                                                                                .Contains(stp.TargetProbability))
+                                                                                                                                                  .ToArray();
 
-            MergeProbabilities(targetCalculationsForUserDefinedTargetProbabilities, changedObjects, ProbabilitiesToMerge());
-            MergeUniqueProbabilities(targetCalculationsForUserDefinedTargetProbabilities, () => sourceCalculationsForUserDefinedTargetProbabilities.Except(ProbabilitiesToMerge()), hydraulicBoundaryLocations);
+            MergeProbabilities(targetCalculationsForUserDefinedTargetProbabilities, changedObjects, probabilitiesToMerge);
+            MergeUniqueProbabilities(targetCalculationsForUserDefinedTargetProbabilities, () => sourceCalculationsForUserDefinedTargetProbabilities.Except(probabilitiesToMerge), hydraulicBoundaryLocations);
         }
 
         private static void MergeProbabilities(ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> userDefinedTargetProbabilities, List<IObservable> changedObjects, HydraulicBoundaryLocationCalculationsForTargetProbability[] probabilitiesToMerge)
