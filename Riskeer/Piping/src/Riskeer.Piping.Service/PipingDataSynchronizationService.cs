@@ -128,7 +128,13 @@ namespace Riskeer.Piping.Service
         }
 
         /// <summary>
-        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations in the <see cref="PipingFailureMechanism"/>.
+        /// Clears:
+        /// <list type="bullet">
+        /// <item>The <see cref="HydraulicBoundaryLocation"/> for all the calculations in the <see cref="PipingFailureMechanism"/>;</item>
+        /// <item>The output for all the calculations in the <see cref="PipingFailureMechanism"/>,
+        /// except for the <see cref="SemiProbabilisticPipingCalculationScenario"/> where
+        /// <see cref="SemiProbabilisticPipingInput.UseAssessmentLevelManualInput"/> is <c>true</c>.</item>
+        /// </list>
         /// </summary>
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> which contains the calculations.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of objects which are affected by removing data.</returns>
@@ -141,13 +147,15 @@ namespace Riskeer.Piping.Service
             }
 
             var affectedItems = new List<IObservable>();
+            affectedItems.AddRange(ClearAllSemiProbabilisticCalculationOutputWithoutManualAssessmentLevel(failureMechanism));
+            affectedItems.AddRange(ClearAllProbabilisticCalculationOutput(failureMechanism));
+
             foreach (IPipingCalculationScenario<PipingInput> calculation in failureMechanism.Calculations.Cast<IPipingCalculationScenario<PipingInput>>())
             {
-                affectedItems.AddRange(ClearCalculationOutput(calculation)
-                                           .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
+                affectedItems.AddRange(ClearHydraulicBoundaryLocation(calculation.InputParameters));
             }
 
-            return affectedItems;
+            return affectedItems.Distinct();
         }
 
         /// <summary>

@@ -277,7 +277,10 @@ namespace Riskeer.Integration.Service.Test
                                                             .Select(c => c.InputParameters)
                                                             .Where(i => i.HydraulicBoundaryLocation != null));
             expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
-                                                            .Cast<IPipingCalculationScenario<PipingInput>>()
+                                                            .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                            .Where(c => !c.InputParameters.UseAssessmentLevelManualInput && c.HasOutput));
+            expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
+                                                            .OfType<ProbabilisticPipingCalculationScenario>()
                                                             .Where(c => c.HasOutput));
             expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
                                                             .Cast<IPipingCalculationScenario<PipingInput>>()
@@ -326,8 +329,12 @@ namespace Riskeer.Integration.Service.Test
                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             Assert.IsTrue(assessmentSection.HeightStructures.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()
                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+            Assert.IsTrue(assessmentSection.Piping.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
+                                           .All(c => !c.InputParameters.UseAssessmentLevelManualInput && !c.HasOutput));
+            Assert.IsTrue(assessmentSection.Piping.Calculations.OfType<ProbabilisticPipingCalculationScenario>()
+                                           .All(c => !c.HasOutput));
             Assert.IsTrue(assessmentSection.Piping.Calculations.Cast<IPipingCalculationScenario<PipingInput>>()
-                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
+                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null));
             Assert.IsTrue(assessmentSection.StabilityPointStructures.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             Assert.IsTrue(assessmentSection.StabilityStoneCover.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()

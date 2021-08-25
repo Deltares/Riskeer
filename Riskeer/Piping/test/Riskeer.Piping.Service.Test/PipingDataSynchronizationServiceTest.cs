@@ -238,14 +238,17 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            IPipingCalculationScenario<PipingInput>[] calculations = failureMechanism.Calculations.Cast<IPipingCalculationScenario<PipingInput>>().ToArray();
-            IObservable[] expectedAffectedCalculations = calculations.Where(c => c.HasOutput)
-                                                                     .Cast<IObservable>()
-                                                                     .ToArray();
-            IObservable[] expectedAffectedCalculationInputs = calculations.Select(c => c.InputParameters)
-                                                                          .Where(i => i.HydraulicBoundaryLocation != null)
-                                                                          .Cast<IObservable>()
-                                                                          .ToArray();
+            IPipingCalculationScenario<PipingInput>[] calculations = failureMechanism.Calculations.Cast<IPipingCalculationScenario<PipingInput>>()
+                                                                                     .ToArray();
+            
+            var expectedAffectedItems = new List<IObservable>();
+            expectedAffectedItems.AddRange(calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                       .Where(c => !c.InputParameters.UseAssessmentLevelManualInput
+                                                                   && c.HasOutput));
+            expectedAffectedItems.AddRange(calculations.OfType<ProbabilisticPipingCalculationScenario>()
+                                                       .Where(c => c.HasOutput));
+            expectedAffectedItems.AddRange(calculations.Select(c => c.InputParameters)
+                                                       .Where(i => i.HydraulicBoundaryLocation != null));
 
             // Call
             IEnumerable<IObservable> affectedItems = PipingDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
@@ -253,13 +256,14 @@ namespace Riskeer.Piping.Service.Test
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            Assert.IsTrue(failureMechanism.Calculations
-                                          .Cast<IPipingCalculationScenario<PipingInput>>()
-                                          .All(c => c.InputParameters.HydraulicBoundaryLocation == null
-                                                    && !c.HasOutput));
+            Assert.IsTrue(calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
+                                      .Where(c => !c.InputParameters.UseAssessmentLevelManualInput)
+                                      .All(c => !c.HasOutput));
+            Assert.IsTrue(calculations.OfType<ProbabilisticPipingCalculationScenario>()
+                                      .All(c => !c.HasOutput));
+            Assert.IsTrue(calculations.All(c => c.InputParameters.HydraulicBoundaryLocation == null));
 
-            CollectionAssert.AreEquivalent(expectedAffectedCalculations.Concat(expectedAffectedCalculationInputs),
-                                           affectedItems);
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 
         [Test]
