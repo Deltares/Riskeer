@@ -27,7 +27,6 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Service;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.Revetment.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.Service
 {
@@ -56,8 +55,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             var affectedItems = new List<IObservable>();
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>())
             {
-                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation)
-                                                                              .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
+                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(calculation.InputParameters));
             }
 
             return affectedItems;
@@ -118,20 +117,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             changedObjects.Add(failureMechanism.ForeshoreProfiles);
 
             return new ClearResults(changedObjects, removedObjects);
-        }
-
-        private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(WaveConditionsInput input)
-        {
-            if (input.HydraulicBoundaryLocation != null)
-            {
-                input.HydraulicBoundaryLocation = null;
-                return new[]
-                {
-                    input
-                };
-            }
-
-            return Enumerable.Empty<IObservable>();
         }
     }
 }

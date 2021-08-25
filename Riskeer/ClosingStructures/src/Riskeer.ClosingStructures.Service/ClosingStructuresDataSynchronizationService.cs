@@ -145,8 +145,8 @@ namespace Riskeer.ClosingStructures.Service
             var affectedItems = new List<IObservable>();
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
-                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation)
-                                                                              .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
+                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
+                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(calculation.InputParameters));
             }
 
             return affectedItems;
@@ -188,20 +188,6 @@ namespace Riskeer.ClosingStructures.Service
             changedObjects.Add(failureMechanism.ClosingStructures);
 
             return new ClearResults(changedObjects, removedObjects);
-        }
-
-        private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(ClosingStructuresInput input)
-        {
-            if (input.HydraulicBoundaryLocation != null)
-            {
-                input.HydraulicBoundaryLocation = null;
-                return new[]
-                {
-                    input
-                };
-            }
-
-            return Enumerable.Empty<IObservable>();
         }
 
         private static List<IObservable> ClearStructureDependentData(IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculationWithRemovedStructure)

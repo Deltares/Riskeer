@@ -127,7 +127,7 @@ namespace Riskeer.Piping.Service
 
             foreach (IPipingCalculationScenario<PipingInput> calculation in failureMechanism.Calculations.Cast<IPipingCalculationScenario<PipingInput>>())
             {
-                affectedItems.AddRange(ClearHydraulicBoundaryLocation(calculation.InputParameters));
+                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(calculation.InputParameters));
             }
 
             return affectedItems.Distinct();
@@ -423,20 +423,6 @@ namespace Riskeer.Piping.Service
             {
                 input
             };
-        }
-
-        private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(PipingInput input)
-        {
-            if (input.HydraulicBoundaryLocation != null)
-            {
-                input.HydraulicBoundaryLocation = null;
-                return new[]
-                {
-                    input
-                };
-            }
-
-            return Enumerable.Empty<IObservable>();
         }
     }
 }

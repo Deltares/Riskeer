@@ -99,8 +99,8 @@ namespace Riskeer.MacroStabilityInwards.Service
             var affectedItems = new List<IObservable>();
             foreach (MacroStabilityInwardsCalculation calculation in failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculation>())
             {
-                affectedItems.AddRange(ClearAllCalculationOutputWithoutManualAssessmentLevel(failureMechanism)
-                                           .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
+                affectedItems.AddRange(ClearAllCalculationOutputWithoutManualAssessmentLevel(failureMechanism));
+                affectedItems.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(calculation.InputParameters));
             }
 
             return affectedItems;
@@ -394,20 +394,6 @@ namespace Riskeer.MacroStabilityInwards.Service
             {
                 input
             };
-        }
-
-        private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(MacroStabilityInwardsInput input)
-        {
-            if (input.HydraulicBoundaryLocation != null)
-            {
-                input.HydraulicBoundaryLocation = null;
-                return new[]
-                {
-                    input
-                };
-            }
-
-            return Enumerable.Empty<IObservable>();
         }
     }
 }

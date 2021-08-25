@@ -38,6 +38,31 @@ namespace Riskeer.Common.Service
     public static class RiskeerCommonDataSynchronizationService
     {
         /// <summary>
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> from a <see cref="ICalculationInputWithHydraulicBoundaryLocation"/>.
+        /// </summary>
+        /// <param name="input">The input to clear the location from.</param>
+        /// <returns>All objects that have been changed.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(ICalculationInputWithHydraulicBoundaryLocation input)
+        {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            if (input.HydraulicBoundaryLocation != null)
+            {
+                input.HydraulicBoundaryLocation = null;
+                return new[]
+                {
+                    input
+                };
+            }
+
+            return Enumerable.Empty<IObservable>();
+        }
+
+        /// <summary>
         /// Clears the output of the provided hydraulic boundary location calculations.
         /// </summary>
         /// <param name="calculations">The calculations for which the output needs to be cleared.</param>
@@ -113,8 +138,8 @@ namespace Riskeer.Common.Service
         /// Clears the output of the given <see cref="StructuresCalculation{T}"/>.
         /// </summary>
         /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> to clear the output for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         /// <returns>All objects that have been changed.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearCalculationOutput(ICalculation calculation)
         {
             if (calculation == null)

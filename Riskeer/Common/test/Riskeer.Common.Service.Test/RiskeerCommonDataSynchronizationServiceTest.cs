@@ -38,13 +38,62 @@ namespace Riskeer.Common.Service.Test
     public class RiskeerCommonDataSynchronizationServiceTest
     {
         [Test]
+        public void ClearHydraulicBoundaryLocation_InputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocation_InputWithoutHydraulicBoundaryLocation_ReturnsNoAffectedObjects()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var input = mocks.Stub<ICalculationInputWithHydraulicBoundaryLocation>();
+            mocks.ReplayAll();
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(input);
+
+            // Assert
+            CollectionAssert.IsEmpty(affectedObjects);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocation_InputWithHydraulicBoundaryLocation_ClearsLocationAndReturnsAffectedInput()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var input = mocks.Stub<ICalculationInputWithHydraulicBoundaryLocation>();
+            mocks.ReplayAll();
+
+            input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocation(input);
+
+            // Assert
+            Assert.IsNull(input.HydraulicBoundaryLocation);
+            CollectionAssert.AreEqual(new[]
+            {
+                input
+            }, affectedObjects);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void ClearHydraulicBoundaryLocationCalculationOutput_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(null);
+            void Call() => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
         }
 
@@ -89,10 +138,10 @@ namespace Riskeer.Common.Service.Test
         public void ClearHydraulicBoundaryLocationCalculationIllustrationPoints_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(null);
+            void Call() => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
         }
 
@@ -170,10 +219,10 @@ namespace Riskeer.Common.Service.Test
         public void ClearStructuresCalculationIllustrationPoints_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RiskeerCommonDataSynchronizationService.ClearStructuresCalculationIllustrationPoints(null);
+            void Call() => RiskeerCommonDataSynchronizationService.ClearStructuresCalculationIllustrationPoints(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
         }
 
@@ -248,10 +297,10 @@ namespace Riskeer.Common.Service.Test
         public void ClearCalculationOutput_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RiskeerCommonDataSynchronizationService.ClearCalculationOutput(null);
+            void Call() => RiskeerCommonDataSynchronizationService.ClearCalculationOutput(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
         }
 
