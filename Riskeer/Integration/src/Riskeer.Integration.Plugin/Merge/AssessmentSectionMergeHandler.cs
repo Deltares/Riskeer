@@ -103,7 +103,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
             IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> uniqueWaterLevelSourceProbabilities = sourceWaterLevelProbabilities.Except(waterLevelProbabilitiesToMerge);
 
-            MergeUniqueWaterLevelProbabilities(targetAssessmentSection, uniqueWaterLevelSourceProbabilities);
+            MergeUniqueProbabilities(targetAssessmentSection, targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities, uniqueWaterLevelSourceProbabilities);
 
             ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> sourceWaveHeightProbabilities = sourceAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
 
@@ -116,7 +116,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
             IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> uniqueWaveHeightSourceProbabilities = sourceWaveHeightProbabilities.Except(waveHeightProbabilitiesToMerge);
 
-            MergeUniqueWaveHeightProbabilities(targetAssessmentSection, uniqueWaveHeightSourceProbabilities);
+            MergeUniqueProbabilities(targetAssessmentSection, targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities, uniqueWaveHeightSourceProbabilities);
 
             log.Info(changedObjects.Any()
                          ? Resources.AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_merged
@@ -135,7 +135,7 @@ namespace Riskeer.Integration.Plugin.Merge
             }
         }
 
-        private static void MergeUniqueWaterLevelProbabilities(IAssessmentSection targetAssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities)
+        private static void MergeUniqueProbabilities(IAssessmentSection targetAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> userDefinedTargetProbabilities, IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities)
         {
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability in targetProbabilities)
             {
@@ -148,24 +148,7 @@ namespace Riskeer.Integration.Plugin.Merge
                                                                                                      .Select(calculation => new HydraulicBoundaryLocationCalculation(GetHydraulicBoundaryLocation(calculation.HydraulicBoundaryLocation, targetAssessmentSection.HydraulicBoundaryDatabase.Locations)))
                                                                                                      .ToArray());
 
-                targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(newTargetProbability);
-            }
-        }
-
-        private static void MergeUniqueWaveHeightProbabilities(IAssessmentSection targetAssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities)
-        {
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability in targetProbabilities)
-            {
-                var newTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability
-                {
-                    TargetProbability = targetProbability.TargetProbability
-                };
-
-                newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(targetProbability.HydraulicBoundaryLocationCalculations
-                                                                                                     .Select(calculation => new HydraulicBoundaryLocationCalculation(GetHydraulicBoundaryLocation(calculation.HydraulicBoundaryLocation, targetAssessmentSection.HydraulicBoundaryDatabase.Locations)))
-                                                                                                     .ToArray());
-
-                targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(newTargetProbability);
+                userDefinedTargetProbabilities.Add(newTargetProbability);
             }
         }
 
