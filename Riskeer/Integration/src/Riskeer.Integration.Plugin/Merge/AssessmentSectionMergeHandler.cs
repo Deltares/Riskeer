@@ -92,37 +92,33 @@ namespace Riskeer.Integration.Plugin.Merge
             changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                                                sourceAssessmentSection.WaterLevelCalculationsForLowerLimitNorm));
 
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> sourceWaterLevelProbabilities = sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
-
-            HydraulicBoundaryLocationCalculationsForTargetProbability[] waterLevelProbabilitiesToMerge = sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
-                                                                                                                                .Where(stp => targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
-                                                                                                                                                                     .Select(c => c.TargetProbability)
-                                                                                                                                                                     .Contains(stp.TargetProbability)).ToArray();
-
-            MergeProbabilities(targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities, changedObjects, waterLevelProbabilitiesToMerge);
-
-            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> uniqueWaterLevelSourceProbabilities = sourceWaterLevelProbabilities.Except(waterLevelProbabilitiesToMerge);
-
-            MergeUniqueProbabilities(targetAssessmentSection, targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities, uniqueWaterLevelSourceProbabilities);
-
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> sourceWaveHeightProbabilities = sourceAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
-
-            HydraulicBoundaryLocationCalculationsForTargetProbability[] waveHeightProbabilitiesToMerge = sourceAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
-                                                                                                                                .Where(stp => targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
-                                                                                                                                                                     .Select(c => c.TargetProbability)
-                                                                                                                                                                     .Contains(stp.TargetProbability)).ToArray();
-
-            MergeProbabilities(targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities, changedObjects, waveHeightProbabilitiesToMerge);
-
-            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> uniqueWaveHeightSourceProbabilities = sourceWaveHeightProbabilities.Except(waveHeightProbabilitiesToMerge);
-
-            MergeUniqueProbabilities(targetAssessmentSection, targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities, uniqueWaveHeightSourceProbabilities);
+            MergeUserDefinedHydraulicBoundaryLocations(targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
+                                                       sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
+                                                       changedObjects,
+                                                       targetAssessmentSection.HydraulicBoundaryDatabase.Locations);
+            MergeUserDefinedHydraulicBoundaryLocations(targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+                                                       sourceAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+                                                       changedObjects,
+                                                       targetAssessmentSection.HydraulicBoundaryDatabase.Locations);
 
             log.Info(changedObjects.Any()
                          ? Resources.AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_merged
                          : Resources.AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_not_merged);
 
             return changedObjects;
+        }
+
+        private static void MergeUserDefinedHydraulicBoundaryLocations(ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetWaterLevelCalculationsForUserDefinedTargetProbabilities,
+                                                                       ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> sourceWaterLevelCalculationsForUserDefinedTargetProbabilities,
+                                                                       List<IObservable> changedObjects, ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        {
+            HydraulicBoundaryLocationCalculationsForTargetProbability[] waterLevelProbabilitiesToMerge = sourceWaterLevelCalculationsForUserDefinedTargetProbabilities.Where(stp => targetWaterLevelCalculationsForUserDefinedTargetProbabilities
+                                                                                                                                                                                    .Select(c => c.TargetProbability)
+                                                                                                                                                                                    .Contains(stp.TargetProbability)).ToArray();
+
+            MergeProbabilities(targetWaterLevelCalculationsForUserDefinedTargetProbabilities, changedObjects, waterLevelProbabilitiesToMerge);
+            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> uniqueWaterLevelSourceProbabilities = sourceWaterLevelCalculationsForUserDefinedTargetProbabilities.Except(waterLevelProbabilitiesToMerge);
+            MergeUniqueProbabilities(targetWaterLevelCalculationsForUserDefinedTargetProbabilities, uniqueWaterLevelSourceProbabilities, hydraulicBoundaryLocations);
         }
 
         private static void MergeProbabilities(IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> userDefinedTargetProbabilities, List<IObservable> changedObjects, HydraulicBoundaryLocationCalculationsForTargetProbability[] probabilitiesToMerge)
@@ -135,7 +131,7 @@ namespace Riskeer.Integration.Plugin.Merge
             }
         }
 
-        private static void MergeUniqueProbabilities(IAssessmentSection targetAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> userDefinedTargetProbabilities, IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities)
+        private static void MergeUniqueProbabilities(ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> userDefinedTargetProbabilities, IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities, ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability in targetProbabilities)
             {
@@ -145,7 +141,7 @@ namespace Riskeer.Integration.Plugin.Merge
                 };
 
                 newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(targetProbability.HydraulicBoundaryLocationCalculations
-                                                                                                     .Select(calculation => new HydraulicBoundaryLocationCalculation(GetHydraulicBoundaryLocation(calculation.HydraulicBoundaryLocation, targetAssessmentSection.HydraulicBoundaryDatabase.Locations)))
+                                                                                                     .Select(calculation => new HydraulicBoundaryLocationCalculation(GetHydraulicBoundaryLocation(calculation.HydraulicBoundaryLocation, hydraulicBoundaryLocations)))
                                                                                                      .ToArray());
 
                 userDefinedTargetProbabilities.Add(newTargetProbability);
