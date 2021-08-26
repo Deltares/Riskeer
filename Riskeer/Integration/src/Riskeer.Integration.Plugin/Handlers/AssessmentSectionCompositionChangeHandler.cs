@@ -46,6 +46,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                 assessmentSection.ChangeComposition(newComposition);
 
                 affectedObjects.Add(assessmentSection);
+                affectedObjects.Add(assessmentSection.FailureMechanismContribution);
                 affectedObjects.AddRange(assessmentSection.GetFailureMechanisms());
             }
 

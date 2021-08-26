@@ -95,7 +95,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             IEnumerable<IObservable> expectedAffectedObjects = new List<IObservable>(assessmentSection.GetFailureMechanisms())
             {
-                assessmentSection
+                assessmentSection,
+                assessmentSection.FailureMechanismContribution
             };
 
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);

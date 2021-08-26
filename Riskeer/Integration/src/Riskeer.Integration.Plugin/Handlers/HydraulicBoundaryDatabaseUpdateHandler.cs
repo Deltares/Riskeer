@@ -207,9 +207,12 @@ namespace Riskeer.Integration.Plugin.Handlers
                 assessmentSection.DuneErosion.DuneLocations
             };
 
-            locationsAndCalculationsObservables.AddRange(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Select(element => element.HydraulicBoundaryLocationCalculations));
-            locationsAndCalculationsObservables.AddRange(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Select(element => element.HydraulicBoundaryLocationCalculations));
-            locationsAndCalculationsObservables.AddRange(assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities.Select(element => element.DuneLocationCalculations));
+            locationsAndCalculationsObservables.AddRange(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                                                                          .Select(element => element.HydraulicBoundaryLocationCalculations));
+            locationsAndCalculationsObservables.AddRange(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+                                                                          .Select(element => element.HydraulicBoundaryLocationCalculations));
+            locationsAndCalculationsObservables.AddRange(assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                                                                          .Select(element => element.DuneLocationCalculations));
 
             return locationsAndCalculationsObservables;
         }

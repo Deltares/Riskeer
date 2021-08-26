@@ -101,8 +101,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses
                 {
                     changedObject.NotifyObservers();
                 }
-
-                data.FailureMechanismContribution.NotifyObservers();
             }
         }
     }

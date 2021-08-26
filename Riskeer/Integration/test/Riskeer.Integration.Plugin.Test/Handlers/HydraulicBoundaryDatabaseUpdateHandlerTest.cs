@@ -815,9 +815,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 assessmentSection.DuneErosion.DuneLocations
             };
 
-            observables.AddRange(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Select(element => element.HydraulicBoundaryLocationCalculations));
-            observables.AddRange(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Select(element => element.HydraulicBoundaryLocationCalculations));
-            observables.AddRange(assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities.Select(element => element.DuneLocationCalculations));
+            observables.AddRange(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                                                  .Select(element => element.HydraulicBoundaryLocationCalculations));
+            observables.AddRange(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+                                                  .Select(element => element.HydraulicBoundaryLocationCalculations));
+            observables.AddRange(assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                                                  .Select(element => element.DuneLocationCalculations));
 
             CollectionAssert.AreEqual(observables, changedObjects);
             mocks.VerifyAll();

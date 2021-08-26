@@ -104,8 +104,10 @@ namespace Riskeer.Integration.TestUtil
             assessmentSection.WaterLevelCalculationsForSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
-            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First()
+                             .HydraulicBoundaryLocationCalculations.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First()
+                             .HydraulicBoundaryLocationCalculations.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
             SetFullyConfiguredFailureMechanism(assessmentSection.ClosingStructures, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocation);
