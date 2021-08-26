@@ -190,20 +190,8 @@ namespace Riskeer.Integration.Plugin.Handlers
             var locationsAndCalculationsObservables = new List<IObservable>
             {
                 hydraulicBoundaryDatabase.Locations,
-                assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
                 assessmentSection.WaterLevelCalculationsForSignalingNorm,
                 assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
-                assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
-                assessmentSection.WaveHeightCalculationsForSignalingNorm,
-                assessmentSection.WaveHeightCalculationsForLowerLimitNorm,
-                assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
-                assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
-                assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
-                assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
-                assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
-                assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
-                assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
                 assessmentSection.DuneErosion.DuneLocations
             };
 
