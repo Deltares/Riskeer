@@ -64,7 +64,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Call
             void Call() => new WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability(), null);
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -79,7 +79,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var targetProbabilityChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
 
             // Call
             var properties = new WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(
@@ -106,7 +106,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Call
             var properties = new WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability(), targetProbabilityChangeHandler);
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1), targetProbabilityChangeHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -136,7 +136,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var targetProbabilityChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
             {
                 HydraulicBoundaryLocationCalculations =
                 {
@@ -169,7 +169,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 observable
             });
 
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
             {
                 HydraulicBoundaryLocationCalculations =
                 {
