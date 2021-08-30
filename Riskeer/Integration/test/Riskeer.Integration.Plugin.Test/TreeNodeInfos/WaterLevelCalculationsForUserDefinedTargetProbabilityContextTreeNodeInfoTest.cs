@@ -549,9 +549,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             const double targetProbability = 0.01;
 
-            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
+            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
                                                                                            {
-                                                                                               TargetProbability = targetProbability,
                                                                                                HydraulicBoundaryLocationCalculations =
                                                                                                {
                                                                                                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
@@ -634,9 +633,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
 
-            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
+            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
                                                                                            {
-                                                                                               TargetProbability = targetProbability,
                                                                                                HydraulicBoundaryLocationCalculations =
                                                                                                {
                                                                                                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
@@ -718,9 +716,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             const double targetProbability = 0.01;
 
-            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
+            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
                                                                                            {
-                                                                                               TargetProbability = targetProbability,
                                                                                                HydraulicBoundaryLocationCalculations =
                                                                                                {
                                                                                                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
@@ -794,9 +791,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation("locationName"));
 
-            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
+            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
                                                                                            {
-                                                                                               TargetProbability = 0.01,
                                                                                                HydraulicBoundaryLocationCalculations =
                                                                                                {
                                                                                                    calculation
