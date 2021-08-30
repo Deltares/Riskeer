@@ -428,6 +428,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
             mocks.ReplayAll();
+
             var handler = new AssessmentSectionMergeHandler();
 
             var targetLocations = new[]
