@@ -80,7 +80,7 @@ namespace Riskeer.Integration.TestUtil
                 }
             };
 
-            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
             {
                 HydraulicBoundaryLocationCalculations =
                 {
@@ -88,7 +88,7 @@ namespace Riskeer.Integration.TestUtil
                 }
             });
 
-            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
             {
                 HydraulicBoundaryLocationCalculations =
                 {

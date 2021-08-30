@@ -456,8 +456,8 @@ namespace Riskeer.Integration.Service.Test
                 }
             };
 
-            var waterLevelCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
-            var waveHeightCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+            var waterLevelCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            var waveHeightCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
 
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
             {
@@ -564,7 +564,7 @@ namespace Riskeer.Integration.Service.Test
                 Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
             };
 
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
             {
                 HydraulicBoundaryLocationCalculations =
                 {
