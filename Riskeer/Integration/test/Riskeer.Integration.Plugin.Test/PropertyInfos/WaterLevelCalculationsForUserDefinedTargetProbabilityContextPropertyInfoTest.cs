@@ -56,7 +56,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
 
             var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
                                                                                            assessmentSection);

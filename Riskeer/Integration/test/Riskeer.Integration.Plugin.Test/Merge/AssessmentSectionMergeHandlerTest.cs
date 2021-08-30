@@ -439,7 +439,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             AssessmentSection targetAssessmentSection = CreateAssessmentSection(targetLocations);
             AssessmentSection sourceAssessmentSection = CreateAssessmentSection(sourceLocations);
-            
+
             sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].TargetProbability = 0.01;
             sourceAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[0].TargetProbability = 0.01;
 
@@ -468,10 +468,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Then
             Assert.AreEqual(2, waterLevelTargetProbabilities.Count);
             Assert.AreEqual(2, waveHeightTargetProbabilities.Count);
-            
+
             Assert.AreEqual(1, waterLevelTargetProbabilities.Count(c => c.TargetProbability.Equals(0.01)));
             Assert.AreEqual(1, waveHeightTargetProbabilities.Count(c => c.TargetProbability.Equals(0.01)));
-            
+
             Assert.AreEqual(1, waterLevelTargetProbabilities.Count(c => c.TargetProbability.Equals(0.1)));
             Assert.AreEqual(1, waveHeightTargetProbabilities.Count(c => c.TargetProbability.Equals(0.1)));
         }
@@ -497,7 +497,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         private static AssessmentSection CreateAssessmentSection(HydraulicBoundaryLocation[] locations)
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
             {
                 HydraulicBoundaryLocationCalculations =
                 {
@@ -505,7 +505,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 }
             });
 
-            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
             {
                 HydraulicBoundaryLocationCalculations =
                 {

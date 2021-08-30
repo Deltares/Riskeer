@@ -52,7 +52,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Call
             var handler = new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability());
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1));
 
             // Assert
             Assert.IsInstanceOf<IObservablePropertyChangeHandler>(handler);
@@ -63,7 +63,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Setup
             var handler = new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability());
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1));
 
             // Call
             void Call() => handler.SetPropertyValueAfterConfirmation(null);
@@ -89,7 +89,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             var handler = new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability());
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1));
 
             // Call
             handler.SetPropertyValueAfterConfirmation(() => {});
@@ -148,7 +148,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 tester.ClickOk();
             };
 
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
             {
                 HydraulicBoundaryLocationCalculations =
                 {
@@ -185,7 +185,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             var handler = new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability());
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1));
 
             var handlerExecuted = false;
 
@@ -232,7 +232,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             var handler = new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability());
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1));
 
             var expectedException = new Exception();
 
@@ -258,7 +258,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
             };
 
-            return new HydraulicBoundaryLocationCalculationsForTargetProbability
+            return new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
             {
                 HydraulicBoundaryLocationCalculations =
                 {

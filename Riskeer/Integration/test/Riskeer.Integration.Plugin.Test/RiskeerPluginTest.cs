@@ -104,10 +104,10 @@ namespace Riskeer.Integration.Plugin.Test
                 };
 
                 // When
-                Action action = () => gui.SetProject(project, null);
+                void Action() => gui.SetProject(project, null);
 
                 // Then
-                TestHelper.AssertLogMessagesCount(action, 0);
+                TestHelper.AssertLogMessagesCount(Action, 0);
             }
 
             mocks.VerifyAll();
@@ -150,10 +150,10 @@ namespace Riskeer.Integration.Plugin.Test
                 };
 
                 // When
-                Action action = () => gui.SetProject(project, null);
+                void Action() => gui.SetProject(project, null);
 
                 // Then
-                TestHelper.AssertLogMessagesCount(action, 0);
+                TestHelper.AssertLogMessagesCount(Action, 0);
             }
 
             mocks.VerifyAll();
@@ -192,14 +192,14 @@ namespace Riskeer.Integration.Plugin.Test
                 };
 
                 // When
-                Action action = () => gui.SetProject(project, null);
+                void Action() => gui.SetProject(project, null);
 
                 // Then
-                string fileMissingMessage = $"Fout bij het lezen van bestand '{nonExistingFile}': het bestand bestaat niet.";
+                var fileMissingMessage = $"Fout bij het lezen van bestand '{nonExistingFile}': het bestand bestaat niet.";
                 string message = string.Format(
                     RiskeerCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
                     fileMissingMessage);
-                TestHelper.AssertLogMessageWithLevelIsGenerated(action, Tuple.Create(message, LogLevelConstant.Warn));
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Action, Tuple.Create(message, LogLevelConstant.Warn));
             }
 
             mocks.VerifyAll();
@@ -755,10 +755,10 @@ namespace Riskeer.Integration.Plugin.Test
             using (var plugin = new RiskeerPlugin())
             {
                 // Call
-                TestDelegate test = () => plugin.Activate();
+                void Call() => plugin.Activate();
 
                 // Assert
-                Assert.Throws<InvalidOperationException>(test);
+                Assert.Throws<InvalidOperationException>(Call);
             }
         }
 
@@ -777,7 +777,7 @@ namespace Riskeer.Integration.Plugin.Test
                 SetPlugins(gui);
                 gui.Run();
 
-                var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+                var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
                     WaterLevelCalculationsForUserDefinedTargetProbabilities =
@@ -830,7 +830,7 @@ namespace Riskeer.Integration.Plugin.Test
                 SetPlugins(gui);
                 gui.Run();
 
-                var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+                var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
                     WaveHeightCalculationsForUserDefinedTargetProbabilities =
