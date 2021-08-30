@@ -130,11 +130,11 @@ namespace Riskeer.Integration.Data.Test
             const int invalidValue = 99;
 
             // Call
-            TestDelegate call = () => new AssessmentSection((AssessmentSectionComposition) invalidValue);
+            void Call() => new AssessmentSection((AssessmentSectionComposition) invalidValue);
 
             // Assert
-            string expectedMessage = $"The value of argument 'newComposition' ({invalidValue}) is invalid for Enum type '{nameof(AssessmentSectionComposition)}'.";
-            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            var expectedMessage = $"The value of argument 'newComposition' ({invalidValue}) is invalid for Enum type '{nameof(AssessmentSectionComposition)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
             Assert.AreEqual("newComposition", parameterName);
         }
 
@@ -152,13 +152,11 @@ namespace Riskeer.Integration.Data.Test
             var composition = random.NextEnumValue<AssessmentSectionComposition>();
 
             // Call
-            TestDelegate test = () => new AssessmentSection(composition,
-                                                            invalidNorm,
-                                                            0.000001);
+            void Call() => new AssessmentSection(composition, invalidNorm, 0.000001);
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
         }
 
@@ -176,13 +174,11 @@ namespace Riskeer.Integration.Data.Test
             var composition = random.NextEnumValue<AssessmentSectionComposition>();
 
             // Call
-            TestDelegate test = () => new AssessmentSection(composition,
-                                                            0.1,
-                                                            invalidNorm);
+            void Call() => new AssessmentSection(composition, 0.1, invalidNorm);
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
         }
 
@@ -194,13 +190,11 @@ namespace Riskeer.Integration.Data.Test
             var composition = random.NextEnumValue<AssessmentSectionComposition>();
 
             // Call
-            TestDelegate test = () => new AssessmentSection(composition,
-                                                            0.01,
-                                                            0.1);
+            void Call() => new AssessmentSection(composition, 0.01, 0.1);
 
             // Assert
             const string expectedMessage = "De signaleringswaarde moet gelijk zijn aan of kleiner zijn dan de ondergrens.";
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
         }
 
@@ -312,11 +306,11 @@ namespace Riskeer.Integration.Data.Test
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             // Call
-            TestDelegate call = () => assessmentSection.ChangeComposition((AssessmentSectionComposition) invalidValue);
+            void Call() => assessmentSection.ChangeComposition((AssessmentSectionComposition) invalidValue);
 
             // Assert
-            string expectedMessage = $"The value of argument 'newComposition' ({invalidValue}) is invalid for Enum type '{nameof(AssessmentSectionComposition)}'.";
-            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage).ParamName;
+            var expectedMessage = $"The value of argument 'newComposition' ({invalidValue}) is invalid for Enum type '{nameof(AssessmentSectionComposition)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
             Assert.AreEqual("newComposition", parameterName);
         }
 
@@ -351,10 +345,10 @@ namespace Riskeer.Integration.Data.Test
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             // Call
-            TestDelegate test = () => assessmentSection.SetHydraulicBoundaryLocationCalculations(null);
+            void Call() => assessmentSection.SetHydraulicBoundaryLocationCalculations(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("hydraulicBoundaryLocations", paramName);
         }
 
@@ -365,10 +359,10 @@ namespace Riskeer.Integration.Data.Test
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
-            var waterLevelCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+            var waterLevelCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(waterLevelCalculationsForTargetProbability);
 
-            var waveHeightCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+            var waveHeightCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(waveHeightCalculationsForTargetProbability);
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[]
@@ -411,8 +405,8 @@ namespace Riskeer.Integration.Data.Test
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
-            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability());
-            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability());
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1));
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01));
 
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
@@ -460,10 +454,10 @@ namespace Riskeer.Integration.Data.Test
             newFailureMechanism.Contribution = random.Next(0, 100);
 
             // When
-            TestDelegate call = () => setNewFailureMechanismAction(assessmentSection, newFailureMechanism);
+            void Call() => setNewFailureMechanismAction(assessmentSection, newFailureMechanism);
 
             // Then
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "De contributie van het nieuwe toetsspoor moet gelijk zijn aan het oude toetsspoor.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, "De contributie van het nieuwe toetsspoor moet gelijk zijn aan het oude toetsspoor.");
         }
 
         private static void AssertFailureProbabilityMarginFactor(AssessmentSectionComposition composition, AssessmentSection assessmentSection)
