@@ -505,7 +505,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 }
             });
 
-            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
             {
                 HydraulicBoundaryLocationCalculations =
                 {
