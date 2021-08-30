@@ -123,13 +123,14 @@ namespace Riskeer.Integration.Plugin.Merge
             return changedObjects;
         }
 
-        private static IEnumerable<IObservable> MergeProbabilities(ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> userDefinedTargetProbabilities, HydraulicBoundaryLocationCalculationsForTargetProbability[] probabilitiesToMerge)
+        private static IEnumerable<IObservable> MergeProbabilities(IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities,
+                                                                   IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> probabilitiesToMerge)
         {
             var changedObjects = new List<IObservable>();
 
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability probabilityToMerge in probabilitiesToMerge)
             {
-                HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability = userDefinedTargetProbabilities.First(
+                HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability = targetProbabilities.First(
                     c => c.TargetProbability.Equals(probabilityToMerge.TargetProbability));
 
                 changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetProbability.HydraulicBoundaryLocationCalculations,
@@ -139,7 +140,9 @@ namespace Riskeer.Integration.Plugin.Merge
             return changedObjects;
         }
 
-        private static void MergeUniqueProbabilities(ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> userDefinedTargetProbabilities, Func<IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilities, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        private static void MergeUniqueProbabilities(ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities,
+                                                     Func<IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilities,
+                                                     IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability in getTargetProbabilities())
             {
@@ -151,7 +154,7 @@ namespace Riskeer.Integration.Plugin.Merge
                                                                                                          calculation.HydraulicBoundaryLocation, hydraulicBoundaryLocations)))
                                      .ToArray());
 
-                userDefinedTargetProbabilities.Add(newTargetProbability);
+                targetProbabilities.Add(newTargetProbability);
             }
         }
 
