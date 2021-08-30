@@ -152,10 +152,7 @@ namespace Riskeer.Integration.Plugin.Merge
         {
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability sourceProbability in uniqueSourceProbabilities)
             {
-                var newTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability
-                {
-                    TargetProbability = sourceProbability.TargetProbability
-                };
+                var newTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(sourceProbability.TargetProbability);
 
                 newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(
                     sourceProbability.HydraulicBoundaryLocationCalculations
