@@ -35,9 +35,12 @@ namespace Riskeer.Common.Data.Hydraulics
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/>.
         /// </summary>
-        public HydraulicBoundaryLocationCalculationsForTargetProbability()
+        /// <param name="targetProbability">The target probability.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/>
+        /// is not in the interval {0.0, 0.1] or is <see cref="double.NaN"/>.</exception>
+        public HydraulicBoundaryLocationCalculationsForTargetProbability(double targetProbability)
         {
-            TargetProbability = 0.1;
+            TargetProbability = targetProbability;
         }
 
         /// <summary>
