@@ -30,14 +30,32 @@ namespace Riskeer.Common.Data.Test.Hydraulics
     public class HydraulicBoundaryLocationCalculationsForTargetProbabilityTest
     {
         [Test]
-        public void Constructor_ExpectedProperties()
+        [TestCase(double.NaN)]
+        [TestCase(0.0)]
+        [TestCase(0.11)]
+        public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Call
-            var hydraulicBoundaryLocationCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+            void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbability(invalidValue);
+
+            // Assert
+            const string expectedMessage = "De waarde van de doelkans moet groter zijn dan 0 en kleiner dan of gelijk aan 0,1.";
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
+            StringAssert.StartsWith(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        [TestCase(1e-100)]
+        [TestCase(0.05)]
+        [TestCase(0.1)]
+        public void Constructor_ValidTargetProbability_ExpectedProperties(double validValue)
+        {
+            // Call
+            var hydraulicBoundaryLocationCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(validValue);
 
             // Assert
             Assert.IsInstanceOf<Observable>(hydraulicBoundaryLocationCalculationsForTargetProbability);
-            Assert.AreEqual(0.1, hydraulicBoundaryLocationCalculationsForTargetProbability.TargetProbability);
+            Assert.AreEqual(validValue, hydraulicBoundaryLocationCalculationsForTargetProbability.TargetProbability);
             Assert.IsEmpty(hydraulicBoundaryLocationCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
         }
 
@@ -48,7 +66,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void TargetProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
 
             // Call
             void Call() => calculationsForTargetProbability.TargetProbability = invalidValue;
@@ -63,16 +81,16 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         [TestCase(1e-100)]
         [TestCase(0.05)]
         [TestCase(0.1)]
-        public void TargetProbability_ValidValue_NewValueSet(double newValue)
+        public void TargetProbability_ValidValue_NewValueSet(double validValue)
         {
             // Setup
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
 
             // Call
-            calculationsForTargetProbability.TargetProbability = newValue;
+            calculationsForTargetProbability.TargetProbability = validValue;
 
             // Assert
-            Assert.AreEqual(newValue, calculationsForTargetProbability.TargetProbability);
+            Assert.AreEqual(validValue, calculationsForTargetProbability.TargetProbability);
         }
     }
 }
