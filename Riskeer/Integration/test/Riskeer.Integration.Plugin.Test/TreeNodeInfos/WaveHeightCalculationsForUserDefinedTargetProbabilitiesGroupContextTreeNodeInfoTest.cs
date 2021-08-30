@@ -132,8 +132,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
             {
-                new HydraulicBoundaryLocationCalculationsForTargetProbability(),
-                new HydraulicBoundaryLocationCalculationsForTargetProbability()
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1),
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
             };
             var calculationsGroupContext = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculations, assessmentSection);
 
@@ -324,7 +324,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
             {
-                new HydraulicBoundaryLocationCalculationsForTargetProbability()
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
             };
 
             var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculations, assessmentSection);
@@ -371,7 +371,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
             {
-                new HydraulicBoundaryLocationCalculationsForTargetProbability()
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
             };
 
             var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculations, assessmentSection);
@@ -419,7 +419,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
             {
-                new HydraulicBoundaryLocationCalculationsForTargetProbability()
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
             };
 
             var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculations, assessmentSection);
@@ -790,7 +790,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     assessmentSectionStub);
 
                 var draggedData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(
-                    new HydraulicBoundaryLocationCalculationsForTargetProbability(),
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1),
                     assessmentSectionStub);
 
                 // Call
@@ -810,7 +810,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
 
                 var assessmentSectionStub = new AssessmentSectionStub();
-                var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+                var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
 
                 var targetData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(
                     new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
@@ -866,7 +866,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     assessmentSectionStub);
 
                 var draggedData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(
-                    new HydraulicBoundaryLocationCalculationsForTargetProbability(),
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1),
                     assessmentSectionStub);
 
                 // Call
@@ -886,7 +886,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
 
                 var assessmentSectionStub = new AssessmentSectionStub();
-                var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+                var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
 
                 var targetData = new WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext(
                     new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
@@ -917,9 +917,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                 var assessmentSectionStub = new AssessmentSectionStub();
 
-                var calculationsForTargetProbability1 = new HydraulicBoundaryLocationCalculationsForTargetProbability();
-                var calculationsForTargetProbability2 = new HydraulicBoundaryLocationCalculationsForTargetProbability();
-                var calculationsForTargetProbability3 = new HydraulicBoundaryLocationCalculationsForTargetProbability();
+                var calculationsForTargetProbability1 = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+                var calculationsForTargetProbability2 = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
+                var calculationsForTargetProbability3 = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.001);
 
                 var calculationsForTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
                 {

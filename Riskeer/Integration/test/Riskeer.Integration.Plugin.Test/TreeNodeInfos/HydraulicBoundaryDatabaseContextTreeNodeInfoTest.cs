@@ -784,15 +784,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(
                 new[]
                 {
-                    new HydraulicBoundaryLocationCalculationsForTargetProbability(),
-                    new HydraulicBoundaryLocationCalculationsForTargetProbability()
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1),
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
                 });
 
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.AddRange(
                 new[]
                 {
-                    new HydraulicBoundaryLocationCalculationsForTargetProbability(),
-                    new HydraulicBoundaryLocationCalculationsForTargetProbability()
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(0.025),
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(0.0025)
                 });
         }
 
