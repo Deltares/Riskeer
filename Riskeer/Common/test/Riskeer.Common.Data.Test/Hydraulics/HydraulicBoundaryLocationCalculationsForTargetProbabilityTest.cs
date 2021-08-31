@@ -66,7 +66,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void TargetProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
 
             // Call
             void Call() => calculationsForTargetProbability.TargetProbability = invalidValue;
@@ -84,7 +84,7 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void TargetProbability_ValidValue_NewValueSet(double validValue)
         {
             // Setup
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
 
             // Call
             calculationsForTargetProbability.TargetProbability = validValue;

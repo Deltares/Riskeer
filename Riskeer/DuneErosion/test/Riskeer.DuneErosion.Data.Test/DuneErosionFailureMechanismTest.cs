@@ -120,8 +120,8 @@ namespace Riskeer.DuneErosion.Data.Test
         public void SetDuneLocations_Always_PreviousLocationsAndCalculationsCleared()
         {
             // Setup
-            var calculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability();
-            var calculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability();
+            var calculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability(0.1);
+            var calculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability(0.01);
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 DuneLocationCalculationsForUserDefinedTargetProbabilities =
@@ -154,8 +154,8 @@ namespace Riskeer.DuneErosion.Data.Test
         public void SetDuneLocations_MultipleDuneLocations_SetsExpectedLocationsAndCalculations()
         {
             // Setup
-            var calculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability();
-            var calculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability();
+            var calculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability(0.1);
+            var calculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability(0.01);
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 DuneLocationCalculationsForUserDefinedTargetProbabilities =

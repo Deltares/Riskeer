@@ -29,14 +29,32 @@ namespace Riskeer.DuneErosion.Data.Test
     public class DuneLocationCalculationsForTargetProbabilityTest
     {
         [Test]
-        public void Constructor_ExpectedProperties()
+        [TestCase(double.NaN)]
+        [TestCase(0.0)]
+        [TestCase(0.11)]
+        public void Constructor_InvalidTargetProbability_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Call
-            var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability();
+            void Call() => new DuneLocationCalculationsForTargetProbability(invalidValue);
+
+            // Assert
+            const string expectedMessage = "De waarde van de doelkans moet groter zijn dan 0 en kleiner dan of gelijk aan 0,1.";
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
+            StringAssert.StartsWith(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        [TestCase(1e-100)]
+        [TestCase(0.05)]
+        [TestCase(0.1)]
+        public void Constructor_ValidTargetProbability_ExpectedProperties(double validValue)
+        {
+            // Call
+            var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(validValue);
 
             // Assert
             Assert.IsInstanceOf<Observable>(duneLocationCalculationsForTargetProbability);
-            Assert.AreEqual(0.1, duneLocationCalculationsForTargetProbability.TargetProbability);
+            Assert.AreEqual(validValue, duneLocationCalculationsForTargetProbability.TargetProbability);
             Assert.IsEmpty(duneLocationCalculationsForTargetProbability.DuneLocationCalculations);
         }
 
@@ -47,7 +65,7 @@ namespace Riskeer.DuneErosion.Data.Test
         public void TargetProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
-            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability();
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.01);
 
             // Call
             void Call() => calculationsForTargetProbability.TargetProbability = invalidValue;
@@ -62,16 +80,16 @@ namespace Riskeer.DuneErosion.Data.Test
         [TestCase(1e-100)]
         [TestCase(0.05)]
         [TestCase(0.1)]
-        public void TargetProbability_ValidValue_NewValueSet(double newValue)
+        public void TargetProbability_ValidValue_NewValueSet(double validValue)
         {
             // Setup
-            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability();
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.01);
 
             // Call
-            calculationsForTargetProbability.TargetProbability = newValue;
+            calculationsForTargetProbability.TargetProbability = validValue;
 
             // Assert
-            Assert.AreEqual(newValue, calculationsForTargetProbability.TargetProbability);
+            Assert.AreEqual(validValue, calculationsForTargetProbability.TargetProbability);
         }
     }
 }
