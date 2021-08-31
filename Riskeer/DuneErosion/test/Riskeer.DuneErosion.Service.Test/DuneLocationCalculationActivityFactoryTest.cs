@@ -154,15 +154,8 @@ namespace Riskeer.DuneErosion.Service.Test
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessor);
 
-            var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability
-            {
-                TargetProbability = 0.1
-            };
-
-            var duneLocationCalculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability
-            {
-                TargetProbability = 0.01
-            };
+            var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability(0.1);
+            var duneLocationCalculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability(0.01);
 
             var failureMechanism = new DuneErosionFailureMechanism
             {
@@ -268,7 +261,7 @@ namespace Riskeer.DuneErosion.Service.Test
                 }
             }
 
-            string expectedLogMessage = $"Hydraulische belastingen berekenen voor locatie '{locationName}' ({calculationIdentifier}) is gestart.";
+            var expectedLogMessage = $"Hydraulische belastingen berekenen voor locatie '{locationName}' ({calculationIdentifier}) is gestart.";
 
             TestHelper.AssertLogMessageIsGenerated(Call, expectedLogMessage);
             DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = calculator.ReceivedInputs.Last();

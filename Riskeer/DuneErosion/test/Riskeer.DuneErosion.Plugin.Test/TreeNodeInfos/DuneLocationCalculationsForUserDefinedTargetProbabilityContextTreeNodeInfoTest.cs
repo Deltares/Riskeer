@@ -115,10 +115,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability
-                                                                                             {
-                                                                                                 TargetProbability = 0.01
-                                                                                             },
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.01),
                                                                                              new DuneErosionFailureMechanism(),
                                                                                              assessmentSection);
 
@@ -175,8 +172,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var calculationForFirstTargetProbability = new DuneLocationCalculationsForTargetProbability();
-            var calculationForSecondTargetProbability = new DuneLocationCalculationsForTargetProbability();
+            var calculationForFirstTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1);
+            var calculationForSecondTargetProbability = new DuneLocationCalculationsForTargetProbability(0.01);
             var calculations = new ObservableList<DuneLocationCalculationsForTargetProbability>
             {
                 calculationForFirstTargetProbability,
@@ -208,7 +205,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-                var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(),
+                var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),
                                                                                                  new DuneErosionFailureMechanism(),
                                                                                                  assessmentSection);
 
@@ -252,7 +249,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var nodeData = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(
-                new DuneLocationCalculationsForTargetProbability(),
+                new DuneLocationCalculationsForTargetProbability(0.1),
                 new DuneErosionFailureMechanism(),
                 assessmentSection);
 
@@ -292,7 +289,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
-                var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(),
+                var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),
                                                                                                  new DuneErosionFailureMechanism(),
                                                                                                  assessmentSection);
 
@@ -333,7 +330,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
-            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(),
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),
                                                                                              new DuneErosionFailureMechanism(),
                                                                                              assessmentSection);
 
@@ -369,9 +366,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
+                var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.01)
                 {
-                    TargetProbability = 0.01,
                     DuneLocationCalculations =
                     {
                         new DuneLocationCalculation(new DuneLocation(1300001, locationName1, new Point2D(0, 0), new DuneLocation.ConstructionProperties
@@ -475,9 +471,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         public void PerformDuneLocationCalculationsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
             // Setup
-            var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
+            var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.01)
             {
-                TargetProbability = 0.01,
                 DuneLocationCalculations =
                 {
                     new DuneLocationCalculation(new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
@@ -559,9 +554,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
 
-            var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
+            var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.01)
             {
-                TargetProbability = 0.01,
                 DuneLocationCalculations =
                 {
                     new DuneLocationCalculation(new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
@@ -648,9 +642,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         public void PerformDuneLocationCalculationsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
             // Setup
-            var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
+            var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.01)
             {
-                TargetProbability = 0.01,
                 DuneLocationCalculations =
                 {
                     new DuneLocationCalculation(new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties

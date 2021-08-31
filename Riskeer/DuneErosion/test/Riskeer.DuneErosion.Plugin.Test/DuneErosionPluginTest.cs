@@ -210,7 +210,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
 
                 gui.Run();
 
-                var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability();
+                var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1);
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
                     DuneErosion =

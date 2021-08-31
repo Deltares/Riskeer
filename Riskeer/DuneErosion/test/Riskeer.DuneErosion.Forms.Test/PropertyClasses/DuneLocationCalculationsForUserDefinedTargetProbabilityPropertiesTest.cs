@@ -64,7 +64,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         {
             // Call
             void Call() => new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(
-                new DuneLocationCalculationsForTargetProbability(), null);
+                new DuneLocationCalculationsForTargetProbability(0.1), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -80,7 +80,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var calculation = new DuneLocationCalculation(new TestDuneLocation());
-            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1)
             {
                 DuneLocationCalculations =
                 {
@@ -116,7 +116,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
             // Call
             using (var properties = new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(
-                new DuneLocationCalculationsForTargetProbability(), targetProbabilityChangeHandler))
+                new DuneLocationCalculationsForTargetProbability(0.1), targetProbabilityChangeHandler))
             {
                 // Assert
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -155,7 +155,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                 observable
             });
 
-            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1)
             {
                 DuneLocationCalculations =
                 {
@@ -182,7 +182,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var calculation = new DuneLocationCalculation(new TestDuneLocation());
-            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1)
             {
                 DuneLocationCalculations =
                 {
@@ -214,7 +214,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var calculation = new DuneLocationCalculation(new TestDuneLocation());
-            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1)
             {
                 DuneLocationCalculations =
                 {

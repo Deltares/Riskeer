@@ -471,8 +471,8 @@ namespace Riskeer.Integration.Service.Test
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
 
-            var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability();
-            var duneLocationCalculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability();
+            var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability(0.1);
+            var duneLocationCalculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability(0.01);
 
             duneErosionFailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
             {
@@ -1861,24 +1861,7 @@ namespace Riskeer.Integration.Service.Test
                 yield return sectionResult;
             }
         }
-
-        private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism, bool hasOutput)
-        {
-            failureMechanism.SetDuneLocations(new[]
-            {
-                new TestDuneLocation()
-            });
-
-            if (hasOutput)
-            {
-                failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();
-                failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();
-                failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
-                failureMechanism.CalculationsForLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
-                failureMechanism.CalculationsForFactorizedLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
-            }
-        }
-
+        
         private static IAssessmentSection GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations()
         {
             var assessmentSection = new AssessmentSectionStub();

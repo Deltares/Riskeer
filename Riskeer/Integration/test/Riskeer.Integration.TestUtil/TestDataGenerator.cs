@@ -937,7 +937,7 @@ namespace Riskeer.Integration.TestUtil
 
         private static void SetFullyConfiguredFailureMechanism(DuneErosionFailureMechanism failureMechanism)
         {
-            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability();
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1);
 
             failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(calculationsForTargetProbability);
 

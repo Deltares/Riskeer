@@ -35,7 +35,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(),
+            void Call() => new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),
                                                                                               null,
                                                                                               new AssessmentSectionStub());
 
@@ -48,7 +48,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(),
+            void Call() => new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),
                                                                                               new DuneErosionFailureMechanism(),
                                                                                               null);
 
@@ -63,7 +63,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new DuneErosionFailureMechanism();
-            var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability();
+            var duneLocationCalculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1);
 
             // Call
             var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(duneLocationCalculationsForTargetProbability,

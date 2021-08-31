@@ -52,7 +52,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
         {
             // Call
             var handler = new DuneLocationCalculationsForTargetProbabilityChangeHandler(
-                new DuneLocationCalculationsForTargetProbability());
+                new DuneLocationCalculationsForTargetProbability(0.1));
 
             // Assert
             Assert.IsInstanceOf<IObservablePropertyChangeHandler>(handler);
@@ -63,7 +63,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
         {
             // Setup
             var handler = new DuneLocationCalculationsForTargetProbabilityChangeHandler(
-                new DuneLocationCalculationsForTargetProbability());
+                new DuneLocationCalculationsForTargetProbability(0.1));
 
             // Call
             void Call() => handler.SetPropertyValueAfterConfirmation(null);
@@ -89,7 +89,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             };
 
             var handler = new DuneLocationCalculationsForTargetProbabilityChangeHandler(
-                new DuneLocationCalculationsForTargetProbability());
+                new DuneLocationCalculationsForTargetProbability(0.1));
 
             // Call
             handler.SetPropertyValueAfterConfirmation(() => {});
@@ -148,7 +148,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
                 tester.ClickOk();
             };
 
-            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1)
             {
                 DuneLocationCalculations =
                 {
@@ -185,7 +185,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             };
 
             var handler = new DuneLocationCalculationsForTargetProbabilityChangeHandler(
-                new DuneLocationCalculationsForTargetProbability());
+                new DuneLocationCalculationsForTargetProbability(0.1));
 
             var handlerExecuted = false;
 
@@ -232,7 +232,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             };
 
             var handler = new DuneLocationCalculationsForTargetProbabilityChangeHandler(
-                new DuneLocationCalculationsForTargetProbability());
+                new DuneLocationCalculationsForTargetProbability(0.1));
 
             var expectedException = new Exception();
 
@@ -256,7 +256,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
                 Output = new TestDuneLocationCalculationOutput()
             };
 
-            return new DuneLocationCalculationsForTargetProbability
+            return new DuneLocationCalculationsForTargetProbability(0.1)
             {
                 DuneLocationCalculations =
                 {

@@ -454,7 +454,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AddDuneLocationCalculation(AssessmentSection assessmentSection)
         {
             assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(
-                new DuneLocationCalculationsForTargetProbability());
+                new DuneLocationCalculationsForTargetProbability(0.1));
 
             assessmentSection.DuneErosion.SetDuneLocations(new[]
             {

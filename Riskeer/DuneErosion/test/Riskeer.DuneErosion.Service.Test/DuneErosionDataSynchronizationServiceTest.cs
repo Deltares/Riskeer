@@ -166,7 +166,7 @@ namespace Riskeer.DuneErosion.Service.Test
         public void SetDuneLocations_DuneLocationsMatchNameNotAccordingFormat_DuneLocationNotAddedLogMessage(double offset)
         {
             // Setup
-            string locationName = $"Location_{offset}";
+            var locationName = $"Location_{offset}";
 
             var failureMechanism = new DuneErosionFailureMechanism();
             var readDuneLocation = new ReadDuneLocation("dune location 1", new Point2D(1.0, 5.3), 8, offset, 2.2, 3.3);
@@ -237,8 +237,8 @@ namespace Riskeer.DuneErosion.Service.Test
                 new TestDuneLocation()
             };
 
-            var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability();
-            var duneLocationCalculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability();
+            var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability(0.1);
+            var duneLocationCalculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability(0.01);
 
             var failureMechanism = new DuneErosionFailureMechanism
             {

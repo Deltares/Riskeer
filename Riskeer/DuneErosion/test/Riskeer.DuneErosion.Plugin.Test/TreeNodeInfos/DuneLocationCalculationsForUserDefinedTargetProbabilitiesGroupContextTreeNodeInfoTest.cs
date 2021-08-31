@@ -288,8 +288,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 new TestDuneLocation()
             });
 
-            var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability();
-            var duneLocationCalculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability();
+            var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability(0.1);
+            var duneLocationCalculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability(0.01);
 
             var calculationsForTargetProbabilities = new ObservableList<DuneLocationCalculationsForTargetProbability>
             {
@@ -327,8 +327,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_NoDuneLocationsPresent_ReturnsExpectedChildData()
         {
             // Setup
-            var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability();
-            var duneLocationCalculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability();
+            var duneLocationCalculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability(0.1);
+            var duneLocationCalculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability(0.01);
 
             var calculationsForTargetProbabilities = new ObservableList<DuneLocationCalculationsForTargetProbability>
             {
@@ -559,14 +559,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 DuneLocationCalculationsForUserDefinedTargetProbabilities =
                 {
-                    new DuneLocationCalculationsForTargetProbability
-                    {
-                        TargetProbability = 0.1
-                    },
-                    new DuneLocationCalculationsForTargetProbability
-                    {
-                        TargetProbability = 0.01
-                    }
+                    new DuneLocationCalculationsForTargetProbability(0.1),
+                    new DuneLocationCalculationsForTargetProbability(0.01)
                 }
             };
 
@@ -680,7 +674,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     assessmentSectionStub);
 
                 var draggedData = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(
-                    new DuneLocationCalculationsForTargetProbability(),
+                    new DuneLocationCalculationsForTargetProbability(0.1),
                     failureMechanism,
                     assessmentSectionStub);
 
@@ -702,7 +696,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var assessmentSectionStub = new AssessmentSectionStub();
                 var failureMechanism = new DuneErosionFailureMechanism();
-                var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability();
+                var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1);
 
                 var targetData = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
                     new ObservableList<DuneLocationCalculationsForTargetProbability>
@@ -763,7 +757,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     assessmentSectionStub);
 
                 var draggedData = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(
-                    new DuneLocationCalculationsForTargetProbability(),
+                    new DuneLocationCalculationsForTargetProbability(0.1),
                     failureMechanism,
                     assessmentSectionStub);
 
@@ -785,7 +779,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var assessmentSectionStub = new AssessmentSectionStub();
                 var failureMechanism = new DuneErosionFailureMechanism();
-                var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability();
+                var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1);
 
                 var targetData = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
                     new ObservableList<DuneLocationCalculationsForTargetProbability>
@@ -819,9 +813,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 var assessmentSectionStub = new AssessmentSectionStub();
                 var failureMechanism = new DuneErosionFailureMechanism();
 
-                var calculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability();
-                var calculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability();
-                var calculationsForTargetProbability3 = new DuneLocationCalculationsForTargetProbability();
+                var calculationsForTargetProbability1 = new DuneLocationCalculationsForTargetProbability(0.1);
+                var calculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability(0.01);
+                var calculationsForTargetProbability3 = new DuneLocationCalculationsForTargetProbability(0.001);
 
                 var calculationsForTargetProbabilities = new ObservableList<DuneLocationCalculationsForTargetProbability>
                 {

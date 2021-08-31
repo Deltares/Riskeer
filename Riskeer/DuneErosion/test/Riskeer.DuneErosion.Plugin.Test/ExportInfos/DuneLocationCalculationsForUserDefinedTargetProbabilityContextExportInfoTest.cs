@@ -65,7 +65,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(),
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.1),
                                                                                              new DuneErosionFailureMechanism(),
                                                                                              assessmentSection);
 
@@ -91,7 +91,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1)
             {
                 DuneLocationCalculations =
                 {
@@ -125,7 +125,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1)
             {
                 DuneLocationCalculations =
                 {

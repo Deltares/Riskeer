@@ -270,14 +270,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 DuneLocationCalculationsForUserDefinedTargetProbabilities =
                 {
-                    new DuneLocationCalculationsForTargetProbability
-                    {
-                        TargetProbability = 0.1
-                    },
-                    new DuneLocationCalculationsForTargetProbability
-                    {
-                        TargetProbability = 0.01
-                    }
+                    new DuneLocationCalculationsForTargetProbability(0.1),
+                    new DuneLocationCalculationsForTargetProbability(0.01)
                 }
             };
 
