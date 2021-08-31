@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -28,8 +30,20 @@ using Riskeer.Common.Forms.PresentationObjects;
 namespace Riskeer.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class WaterLevelCalculationsForUserDefinedTargetProbabilityContextTest
+    public class HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContextTest
     {
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new TestHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext(
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -41,14 +55,22 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var hydraulicBoundaryLocationCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
 
             // Call
-            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(hydraulicBoundaryLocationCalculationsForTargetProbability,
-                                                                                           assessmentSection);
+            var context = new TestHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext(
+                hydraulicBoundaryLocationCalculationsForTargetProbability, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryLocationCalculationsForTargetProbability>>(context);
             Assert.AreSame(hydraulicBoundaryLocationCalculationsForTargetProbability, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mockRepository.VerifyAll();
+        }
+
+        private class TestHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext
+            : HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext
+        {
+            public TestHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext(
+                HydraulicBoundaryLocationCalculationsForTargetProbability wrappedData, IAssessmentSection assessmentSection)
+                : base(wrappedData, assessmentSection) {}
         }
     }
 }
