@@ -22,8 +22,11 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.Util;
+using log4net;
 using Riskeer.Common.Data.Hydraulics;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Integration.IO.Exporters
 {
@@ -32,33 +35,56 @@ namespace Riskeer.Integration.IO.Exporters
     /// </summary>
     public class HydraulicBoundaryLocationCalculationsExporter : IFileExporter
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationsExporter));
+
         private readonly IEnumerable<HydraulicBoundaryLocationCalculation> calculations;
         private readonly string filePath;
+        private readonly string outputMetaDataHeader;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsExporter"/>.
         /// </summary>
         /// <param name="calculations">The calculations to export.</param>
         /// <param name="filePath">The path of the file to export to.</param>
+        /// <param name="outputMetaDataHeader"></param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/>
-        /// is <c>null</c>.</exception>
+        /// or <paramref name="outputMetaDataHeader"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public HydraulicBoundaryLocationCalculationsExporter(IEnumerable<HydraulicBoundaryLocationCalculation> calculations, string filePath)
+        public HydraulicBoundaryLocationCalculationsExporter(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                                             string filePath, string outputMetaDataHeader)
         {
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
 
+            if (outputMetaDataHeader == null)
+            {
+                throw new ArgumentNullException(nameof(outputMetaDataHeader));
+            }
+
             IOUtils.ValidateFilePath(filePath);
-            
+
             this.calculations = calculations;
             this.filePath = filePath;
+            this.outputMetaDataHeader = outputMetaDataHeader;
         }
 
         public bool Export()
         {
-            return false;
+            try
+            {
+                HydraulicBoundaryLocationCalculationsWriter.WriteHydraulicBoundaryLocationCalculations(
+                    calculations, filePath, outputMetaDataHeader);
+            }
+            catch (CriticalFileWriteException e)
+            {
+                log.ErrorFormat(RiskeerCommonIOResources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported,
+                                e.Message);
+                return false;
+            }
+
+            return true;
         }
     }
 }
