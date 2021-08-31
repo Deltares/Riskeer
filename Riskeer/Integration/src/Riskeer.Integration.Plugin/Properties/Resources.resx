@@ -292,4 +292,10 @@ Weet u zeker dat u wilt doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
     </data>
+    <data name="MetaData_WaterLevelCalculation" xml:space="preserve">
+        <value>h</value>
+    </data>
+    <data name="MetaData_WaveHeight" xml:space="preserve">
+        <value>Hs</value>
+    </data>
 </root>

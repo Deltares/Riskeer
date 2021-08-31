@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -748,6 +748,11 @@ namespace Riskeer.Integration.Plugin
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.AssemblyResult_file_filter_Extension,
                                                                                                            RiskeerCommonFormsResources.AssemblyResult_DisplayName))
             };
+
+            yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<
+                WaterLevelCalculationsForUserDefinedTargetProbabilityContext>(Resources.MetaData_WaterLevelCalculation);
+            yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<
+                WaveHeightCalculationsForUserDefinedTargetProbabilityContext>(Resources.MetaData_WaveHeight);
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
@@ -1159,6 +1164,21 @@ namespace Riskeer.Integration.Plugin
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
+            };
+        }
+
+        private ExportInfo<T> CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<T>(string metaDataHeader)
+            where T : HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext
+        {
+            return new ExportInfo<T>
+            {
+                Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Extension = RiskeerCommonIOResources.Shape_file_filter_Extension,
+                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsExporter(
+                    context.WrappedData.HydraulicBoundaryLocationCalculations, filePath, metaDataHeader),
+                IsEnabled = context => true,
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                                                                           RiskeerCommonIOResources.Shape_file_filter_Description))
             };
         }
 

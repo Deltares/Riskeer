@@ -427,6 +427,24 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to h.
+        /// </summary>
+        public static string MetaData_WaterLevelCalculation {
+            get {
+                return ResourceManager.GetString("MetaData_WaterLevelCalculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hs.
+        /// </summary>
+        public static string MetaData_WaveHeight {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist.
         ///
         ///Wilt u doorgaan?.
