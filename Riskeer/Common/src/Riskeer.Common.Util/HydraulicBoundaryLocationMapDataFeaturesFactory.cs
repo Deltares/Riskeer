@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Components.Gis.Features;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Util.Properties;
 
 namespace Riskeer.Common.Util
@@ -56,6 +58,39 @@ namespace Riskeer.Common.Util
             feature.MetaData[Resources.MetaData_WaveHeightCalculationForLowerLimitNorm] = location.WaveHeightCalculationForLowerLimitNorm.ToString();
             feature.MetaData[Resources.MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm] = location.WaveHeightCalculationForFactorizedLowerLimitNorm.ToString();
             return feature;
+        }
+
+        /// <summary>
+        /// Creates a hydraulic boundary location calculation feature based on the given <paramref name="calculation"/>.
+        /// </summary>
+        /// <param name="calculation">The calculation to create the feature for.</param>
+        /// <param name="metaDataHeader">The meta data header to use.</param>
+        /// <returns>A feature based on the given <paramref name="calculation"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static MapFeature CreateHydraulicBoundaryLocationCalculationFeature(HydraulicBoundaryLocationCalculation calculation,
+                                                                                   string metaDataHeader)
+        {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+
+            if (metaDataHeader == null)
+            {
+                throw new ArgumentNullException(nameof(metaDataHeader));
+            }
+
+            HydraulicBoundaryLocation location = calculation.HydraulicBoundaryLocation;
+            MapFeature feature = RiskeerMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
+            feature.MetaData[Resources.MetaData_ID] = location.Id;
+            feature.MetaData[Resources.MetaData_Name] = location.Name;
+            feature.MetaData[metaDataHeader] = GetCalculationResult(calculation.Output).ToString();
+            return feature;
+        }
+
+        private static RoundedDouble GetCalculationResult(HydraulicBoundaryLocationCalculationOutput output)
+        {
+            return output?.Result ?? RoundedDouble.NaN;
         }
     }
 }

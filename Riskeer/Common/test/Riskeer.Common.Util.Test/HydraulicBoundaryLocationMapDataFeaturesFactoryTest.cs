@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Util.TestUtil;
 
 namespace Riskeer.Common.Util.Test
@@ -33,10 +36,10 @@ namespace Riskeer.Common.Util.Test
         public void CreateHydraulicBoundaryLocationFeature_LocationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature(null);
+            void Call() => HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("location", exception.ParamName);
         }
 
@@ -75,6 +78,56 @@ namespace Riskeer.Common.Util.Test
             MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaveHeightCalculationForFactorizedLowerLimitNorm.ToString(),
                 feature, "Hs_C");
+        }
+
+        [Test]
+        public void CreateHydraulicBoundaryLocationCalculationFeature_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
+                null, string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateHydraulicBoundaryLocationCalculationFeature_MetaDataHeaderNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
+                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("metaDataHeader", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateHydraulicBoundaryLocationCalculationFeature_WithData_ReturnFeature(bool calculationHasOutput)
+        {
+            // Setup
+            const string metaDataHeader = "header";
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation("location 1"));
+
+            if (calculationHasOutput)
+            {
+                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            }
+
+            // Call
+            MapFeature feature = HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationCalculationFeature(
+                calculation, metaDataHeader);
+
+            // Assert
+            RoundedDouble expectedMetaDataValue = calculationHasOutput
+                                                      ? calculation.Output.Result
+                                                      : RoundedDouble.NaN;
+            MapFeaturesMetaDataTestHelper.AssertMetaData(expectedMetaDataValue.ToString(),
+                                                         feature, metaDataHeader);
         }
     }
 }
