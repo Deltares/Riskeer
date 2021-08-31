@@ -35,9 +35,12 @@ namespace Riskeer.DuneErosion.Data
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationCalculationsForTargetProbability"/>.
         /// </summary>
-        public DuneLocationCalculationsForTargetProbability()
+        /// <param name="targetProbability">The target probability.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/>
+        /// is not in the interval {0.0, 0.1] or is <see cref="double.NaN"/>.</exception>
+        public DuneLocationCalculationsForTargetProbability(double targetProbability)
         {
-            TargetProbability = 0.1;
+            TargetProbability = targetProbability;
         }
 
         /// <summary>
