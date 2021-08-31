@@ -366,8 +366,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                     {
                         // Assert
-                        const string expectedItemText = @"Alles be&rekenen";
-                        const string expectedItemTooltip = @"Alle waterstanden berekenen.";
+                        const string expectedItemText = "Alles be&rekenen";
+                        const string expectedItemTooltip = "Alle waterstanden berekenen.";
 
                         TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunWaterLevelCalculationsIndex,
                                                                       expectedItemText, expectedItemTooltip, RiskeerCommonFormsResources.CalculateAllIcon);
