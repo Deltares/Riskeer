@@ -2456,6 +2456,8 @@ namespace Riskeer.Integration.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
+                          .AddExportItem()
+                          .AddSeparator()
                           .AddCustomItem(calculationItem)
                           .AddSeparator()
                           .AddClearIllustrationPointsOfCalculationsItem(
