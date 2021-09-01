@@ -240,7 +240,7 @@ namespace Riskeer.Storage.Core.Test.Read
                                                        hydraulicBoundaryLocation,
                                                        calculation);
 
-            calculation = section.WaterLevelCalculationsForSignalingNorm.Single();
+            calculation = section.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations.Single();
             hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity6
                                                        .HydraulicLocationCalculationEntities
                                                        .Single();
@@ -248,7 +248,7 @@ namespace Riskeer.Storage.Core.Test.Read
                                                        hydraulicBoundaryLocation,
                                                        calculation);
 
-            calculation = section.WaterLevelCalculationsForLowerLimitNorm.Single();
+            calculation = section.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.Single();
             hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity5
                                                        .HydraulicLocationCalculationEntities
                                                        .Single();
@@ -316,8 +316,8 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
 
             CollectionAssert.IsEmpty(section.WaterLevelCalculationsForFactorizedSignalingNorm);
-            CollectionAssert.IsEmpty(section.WaterLevelCalculationsForSignalingNorm);
-            CollectionAssert.IsEmpty(section.WaterLevelCalculationsForLowerLimitNorm);
+            CollectionAssert.IsEmpty(section.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations);
+            CollectionAssert.IsEmpty(section.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations);
             CollectionAssert.IsEmpty(section.WaterLevelCalculationsForFactorizedLowerLimitNorm);
             CollectionAssert.IsEmpty(section.WaveHeightCalculationsForFactorizedSignalingNorm);
             CollectionAssert.IsEmpty(section.WaveHeightCalculationsForSignalingNorm);

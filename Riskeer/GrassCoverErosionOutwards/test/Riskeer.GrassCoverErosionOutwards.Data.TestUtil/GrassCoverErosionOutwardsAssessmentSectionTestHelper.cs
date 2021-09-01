@@ -88,7 +88,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
                 failureMechanism,
                 hydraulicBoundaryLocation,
                 FailureMechanismCategoryType.LowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0));
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.ElementAt(0));
 
             yield return new TestCaseData(
                 assessmentSection,

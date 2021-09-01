@@ -76,14 +76,14 @@ namespace Riskeer.Integration.Service
 
             double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                    assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                    assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations,
                                     assessmentSection,
                                     lowerLimitNorm,
                                     noProbabilityValueDoubleConverter.ConvertToString(lowerLimitNorm)));
 
             double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                    assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                    assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations,
                                     assessmentSection,
                                     signalingNorm,
                                     noProbabilityValueDoubleConverter.ConvertToString(signalingNorm)));

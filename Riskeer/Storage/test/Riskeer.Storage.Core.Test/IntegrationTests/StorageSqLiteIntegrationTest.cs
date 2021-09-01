@@ -2141,10 +2141,10 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         {
             AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForFactorizedSignalingNorm,
                                                         actual.WaterLevelCalculationsForFactorizedSignalingNorm);
-            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForSignalingNorm,
-                                                        actual.WaterLevelCalculationsForSignalingNorm);
-            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForLowerLimitNorm,
-                                                        actual.WaterLevelCalculationsForLowerLimitNorm);
+            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations,
+                                                        actual.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations);
+            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations,
+                                                        actual.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations);
             AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForFactorizedLowerLimitNorm,
                                                         actual.WaterLevelCalculationsForFactorizedLowerLimitNorm);
 

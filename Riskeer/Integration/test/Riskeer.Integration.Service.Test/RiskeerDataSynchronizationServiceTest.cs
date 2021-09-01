@@ -399,9 +399,9 @@ namespace Riskeer.Integration.Service.Test
                 hydraulicBoundaryLocation2
             });
 
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculationForLowerLimitNorm = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculationForLowerLimitNorm = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations
                                                                                                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculationForSignalingNorm = assessmentSection.WaterLevelCalculationsForSignalingNorm
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculationForSignalingNorm = assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations
                                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
 
             hydraulicBoundaryLocationCalculationForLowerLimitNorm.Output = new TestHydraulicBoundaryLocationCalculationOutput();
@@ -492,9 +492,9 @@ namespace Riskeer.Integration.Service.Test
                 hydraulicBoundaryLocation2
             });
 
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation1 = assessmentSection.WaterLevelCalculationsForSignalingNorm
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation1 = assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations
                                                                                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations
                                                                                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation3 = waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations
                                                                                                                                    .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
@@ -1517,8 +1517,8 @@ namespace Riskeer.Integration.Service.Test
 
         private static IEnumerable<HydraulicBoundaryLocationCalculation> GetWaterLevelCalculationsForNormTargetProbabilitiesWithOutput(IAssessmentSection assessmentSection)
         {
-            return assessmentSection.WaterLevelCalculationsForSignalingNorm
-                                    .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
+            return assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations
+                                    .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations)
                                     .Where(calc => calc.HasOutput);
         }
 
@@ -1875,8 +1875,8 @@ namespace Riskeer.Integration.Service.Test
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, true);
 
-            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForSignalingNorm);
-            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations);
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations);
 
             SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations);
             SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations);

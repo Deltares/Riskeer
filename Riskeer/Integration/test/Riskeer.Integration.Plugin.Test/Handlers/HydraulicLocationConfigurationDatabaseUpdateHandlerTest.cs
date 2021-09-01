@@ -260,8 +260,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             var calculations = new List<HydraulicBoundaryLocationCalculation>();
 
-            calculations.AddRange(assessmentSection.WaterLevelCalculationsForSignalingNorm);
-            calculations.AddRange(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            calculations.AddRange(assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations);
+            calculations.AddRange(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations);
 
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)
             {

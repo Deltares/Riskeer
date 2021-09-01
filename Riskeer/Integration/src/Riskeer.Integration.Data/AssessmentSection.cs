@@ -53,8 +53,8 @@ namespace Riskeer.Integration.Data
         private const RiskeerWellKnownTileSource defaultWellKnownTileSource = RiskeerWellKnownTileSource.BingAerial;
 
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+        private readonly HydraulicBoundaryLocationCalculationsForTargetProbability waterLevelCalculationsForSignalingNorm = new HydraulicBoundaryLocationCalculationsForTargetProbability(defaultNorm);
+        private readonly HydraulicBoundaryLocationCalculationsForTargetProbability waterLevelCalculationsForLowerLimitNorm = new HydraulicBoundaryLocationCalculationsForTargetProbability(defaultNorm);
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
@@ -495,7 +495,7 @@ namespace Riskeer.Integration.Data
             }
         }
 
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalingNorm
+        public HydraulicBoundaryLocationCalculationsForTargetProbability WaterLevelCalculationsForSignalingNorm
         {
             get
             {
@@ -503,7 +503,7 @@ namespace Riskeer.Integration.Data
             }
         }
 
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForLowerLimitNorm
+        public HydraulicBoundaryLocationCalculationsForTargetProbability WaterLevelCalculationsForLowerLimitNorm
         {
             get
             {
@@ -719,8 +719,8 @@ namespace Riskeer.Integration.Data
         private void ClearHydraulicBoundaryLocationCalculations()
         {
             waterLevelCalculationsForFactorizedSignalingNorm.Clear();
-            waterLevelCalculationsForSignalingNorm.Clear();
-            waterLevelCalculationsForLowerLimitNorm.Clear();
+            waterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations.Clear();
+            waterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.Clear();
             waterLevelCalculationsForFactorizedLowerLimitNorm.Clear();
 
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaterLevelCalculationsForUserDefinedTargetProbabilities)
@@ -742,8 +742,8 @@ namespace Riskeer.Integration.Data
         private void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             waterLevelCalculationsForFactorizedSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waterLevelCalculationsForSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waterLevelCalculationsForLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
+            waterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
             waterLevelCalculationsForFactorizedLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
 
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaterLevelCalculationsForUserDefinedTargetProbabilities)

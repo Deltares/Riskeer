@@ -65,8 +65,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Util
                 failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ToDictionary(c => c.HydraulicBoundaryLocation,
                                                                                                        c => c);
             Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> waterLevelLookupForLowerLimitNorm =
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ToDictionary(c => c.HydraulicBoundaryLocation,
-                                                                                       c => c);
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.ToDictionary(c => c.HydraulicBoundaryLocation,
+                                                                                                                             c => c);
             Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> waterLevelLookupForFactorizedLowerLimitNorm =
                 assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ToDictionary(c => c.HydraulicBoundaryLocation,
                                                                                                  c => c);

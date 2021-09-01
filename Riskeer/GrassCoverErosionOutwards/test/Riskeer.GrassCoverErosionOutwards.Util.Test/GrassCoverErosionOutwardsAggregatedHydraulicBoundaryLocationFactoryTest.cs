@@ -101,7 +101,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Util.Test
                                 aggregatedLocations[i].WaterLevelCalculationForMechanismSpecificSignalingNorm);
                 Assert.AreEqual(GetExpectedResult(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm, expectedLocations[i]),
                                 aggregatedLocations[i].WaterLevelCalculationForMechanismSpecificLowerLimitNorm);
-                Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, expectedLocations[i]),
+                Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations, expectedLocations[i]),
                                 aggregatedLocations[i].WaterLevelCalculationForLowerLimitNorm);
                 Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, expectedLocations[i]),
                                 aggregatedLocations[i].WaterLevelCalculationForFactorizedLowerLimitNorm);

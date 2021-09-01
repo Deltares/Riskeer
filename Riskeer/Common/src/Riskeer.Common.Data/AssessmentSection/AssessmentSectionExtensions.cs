@@ -242,10 +242,10 @@ namespace Riskeer.Common.Data.AssessmentSection
             switch (normType)
             {
                 case NormType.Signaling:
-                    calculations = assessmentSection.WaterLevelCalculationsForSignalingNorm;
+                    calculations = assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations;
                     break;
                 case NormType.LowerLimit:
-                    calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+                    calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations;
                     break;
                 default:
                     throw new NotSupportedException();
@@ -283,10 +283,10 @@ namespace Riskeer.Common.Data.AssessmentSection
                     calculations = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm;
                     break;
                 case AssessmentSectionCategoryType.SignalingNorm:
-                    calculations = assessmentSection.WaterLevelCalculationsForSignalingNorm;
+                    calculations = assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations;
                     break;
                 case AssessmentSectionCategoryType.LowerLimitNorm:
-                    calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+                    calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations;
                     break;
                 case AssessmentSectionCategoryType.FactorizedLowerLimitNorm:
                     calculations = assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm;

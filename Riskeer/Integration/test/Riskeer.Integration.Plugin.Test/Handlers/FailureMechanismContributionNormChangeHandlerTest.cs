@@ -298,7 +298,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                             {
                                                 assessmentSection.FailureMechanismContribution
                                             })
-                                            .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
+                                            .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations)
                                             .ToArray();
 
             var mocks = new MockRepository();
@@ -311,7 +311,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Precondition
-            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Where(c => c.HasOutput));
+            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.Where(c => c.HasOutput));
 
             // When
             var actionPerformed = false;
@@ -327,7 +327,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             Assert.IsTrue(actionPerformed);
             CollectionAssert.IsEmpty(expectedAffectedCalculations.Where(c => c.HasOutput));
-            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Where(c => c.HasOutput));
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.Where(c => c.HasOutput));
             mocks.VerifyAll();
         }
 
@@ -362,7 +362,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 c.ClearOutput();
                 c.Attach(observer);
             });
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ForEachElementDo(c =>
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.ForEachElementDo(c =>
             {
                 c.Output = null;
                 c.Attach(observer);
@@ -450,7 +450,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                {
                                                                    assessmentSection.FailureMechanismContribution
                                                                }
-                                                               .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
+                                                               .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations)
                                                                .ToArray();
 
             var mocks = new MockRepository();
@@ -463,7 +463,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Precondition
-            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Where(c => c.HasOutput));
+            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.Where(c => c.HasOutput));
 
             // When
             var actionPerformed = false;
@@ -477,7 +477,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             TestHelper.AssertLogMessagesAreGenerated(Call, expectedMessages, 1);
 
             Assert.IsTrue(actionPerformed);
-            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Where(c => c.HasOutput));
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.Where(c => c.HasOutput));
             mocks.VerifyAll();
         }
 
@@ -498,7 +498,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             observer.Expect(o => o.UpdateObserver()).Repeat.Once();
             mocks.ReplayAll();
 
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ForEachElementDo(c =>
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.ForEachElementDo(c =>
             {
                 c.Output = null;
                 c.Attach(observer);

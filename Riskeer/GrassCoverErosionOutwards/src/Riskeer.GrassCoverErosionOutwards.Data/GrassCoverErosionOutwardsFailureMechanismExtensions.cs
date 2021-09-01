@@ -186,7 +186,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
                     calculations = failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm;
                     break;
                 case FailureMechanismCategoryType.LowerLimitNorm:
-                    calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+                    calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations;
                     break;
                 case FailureMechanismCategoryType.FactorizedLowerLimitNorm:
                     calculations = assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm;

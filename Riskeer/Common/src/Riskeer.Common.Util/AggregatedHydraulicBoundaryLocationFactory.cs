@@ -51,11 +51,11 @@ namespace Riskeer.Common.Util
                 assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ToDictionary(c => c.HydraulicBoundaryLocation,
                                                                                                 c => c);
             Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> waterLevelLookupForSignalingNorm =
-                assessmentSection.WaterLevelCalculationsForSignalingNorm.ToDictionary(c => c.HydraulicBoundaryLocation,
-                                                                                      c => c);
+                assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations.ToDictionary(c => c.HydraulicBoundaryLocation,
+                                                                                                                            c => c);
             Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> waterLevelLookupForLowerLimitNorm =
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ToDictionary(c => c.HydraulicBoundaryLocation,
-                                                                                       c => c);
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.ToDictionary(c => c.HydraulicBoundaryLocation,
+                                                                                                                             c => c);
             Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> waterLevelLookupForFactorizedLowerLimitNorm =
                 assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ToDictionary(c => c.HydraulicBoundaryLocation,
                                                                                                  c => c);

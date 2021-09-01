@@ -80,7 +80,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.TestUtil
                     GetExpectedResult(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm, hydraulicBoundaryLocation),
                     mapFeature, "h_IIIv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations, hydraulicBoundaryLocation),
                     mapFeature, "h_IVv");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),

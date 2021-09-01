@@ -399,7 +399,7 @@ namespace Riskeer.Storage.Core.TestUtil
                                                                                                 .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
             ConfigureDesignWaterLevelCalculation(designWaterLevelCalculation, hasIllustrationPoints);
 
-            designWaterLevelCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+            designWaterLevelCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations
                                                            .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
             ConfigureDesignWaterLevelCalculation(designWaterLevelCalculation, hasIllustrationPoints);
 
@@ -420,7 +420,7 @@ namespace Riskeer.Storage.Core.TestUtil
                                                                                                 .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
             ConfigureDesignWaterLevelCalculation(designWaterLevelCalculation, hasIllustrationPoints);
 
-            designWaterLevelCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+            designWaterLevelCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations
                                                            .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
             ConfigureDesignWaterLevelCalculation(designWaterLevelCalculation, hasIllustrationPoints);
 

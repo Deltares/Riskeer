@@ -94,7 +94,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
             Assert.IsInstanceOf<MacroStabilityInwardsInputContextProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
 
-            double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0).Output.Result;
+            double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations.ElementAt(0).Output.Result;
             Assert.AreEqual(expectedAssessmentLevel, ((MacroStabilityInwardsInputContextProperties) objectProperties).AssessmentLevel);
         }
 
@@ -140,7 +140,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
             Assert.IsInstanceOf<MacroStabilityInwardsInputContextProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
 
-            double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result;
+            double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.ElementAt(0).Output.Result;
             Assert.AreEqual(expectedAssessmentLevel, ((MacroStabilityInwardsInputContextProperties) objectProperties).AssessmentLevel);
         }
     }

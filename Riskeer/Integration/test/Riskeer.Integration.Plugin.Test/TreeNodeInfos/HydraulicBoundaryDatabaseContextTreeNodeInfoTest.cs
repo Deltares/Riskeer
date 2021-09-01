@@ -809,8 +809,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 new TestHydraulicBoundaryLocation()
             });
 
-            SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForSignalingNorm);
-            SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations);
+            SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations);
 
             SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations);
             SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations);
@@ -838,8 +838,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         private static IEnumerable<HydraulicBoundaryLocationCalculation> GetAllHydraulicLocationCalculationsWithOutput(IAssessmentSection assessmentSection)
         {
             return assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
-                                    .Concat(assessmentSection.WaterLevelCalculationsForSignalingNorm)
-                                    .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
+                                    .Concat(assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations)
+                                    .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations)
                                     .Concat(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations)
                                     .Concat(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations)
                                     .Concat(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations)
@@ -850,9 +850,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         private static IEnumerable<TestCaseData> GetHydraulicBoundaryLocationCalculations()
         {
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                              section => section.WaterLevelCalculationsForSignalingNorm.First()));
+                                              section => section.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations.First()));
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                              section => section.WaterLevelCalculationsForLowerLimitNorm.First()));
+                                              section => section.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.First()));
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
                                               section => section.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations.First()));
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
