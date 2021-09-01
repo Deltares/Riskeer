@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base;
-using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -33,17 +31,6 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
     [TestFixture]
     public class WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContextTest
     {
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -58,7 +45,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var context = new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculations, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>>(context);
+            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext>(context);
             Assert.AreSame(calculations, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mockRepository.VerifyAll();

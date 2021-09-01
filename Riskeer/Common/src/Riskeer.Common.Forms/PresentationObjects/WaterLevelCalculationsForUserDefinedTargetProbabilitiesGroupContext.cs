@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 
@@ -30,7 +29,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all water level calculations based on user defined target probabilities.
     /// </summary>
-    public class WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>
+    public class WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext : HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext"/>.
@@ -40,19 +39,6 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> wrappedData,
                                                                                    IAssessmentSection assessmentSection)
-            : base(wrappedData)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            AssessmentSection = assessmentSection;
-        }
-
-        /// <summary>
-        /// Gets the assessment section that the context belongs to.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
+            : base(wrappedData, assessmentSection) {}
     }
 }
