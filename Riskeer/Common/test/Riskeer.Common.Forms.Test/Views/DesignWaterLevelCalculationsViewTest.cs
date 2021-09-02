@@ -70,6 +70,23 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_CalculationsForTargetProbabilityNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
+            mockRepository.ReplayAll();
+
+            // Call
+            void Call() => new DesignWaterLevelCalculationsView(null,
+                                                                assessmentSection,
+                                                                () => "1/100");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationsForTargetProbability", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_GetCalculationIdentifierFuncNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -309,7 +326,10 @@ namespace Riskeer.Common.Forms.Test.Views
 
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
             guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
-                invocation => { performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[0]).ToArray(); });
+                invocation =>
+                {
+                    performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[0]).ToArray();
+                });
             mockRepository.ReplayAll();
 
             view.CalculationGuiService = guiService;

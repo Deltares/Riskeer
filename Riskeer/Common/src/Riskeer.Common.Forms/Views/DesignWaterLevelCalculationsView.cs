@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.Views
         public DesignWaterLevelCalculationsView(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability,
                                                 IAssessmentSection assessmentSection,
                                                 Func<string> getCalculationIdentifierFunc)
-            : base(calculationsForTargetProbability?.HydraulicBoundaryLocationCalculations, assessmentSection)
+            : base(calculationsForTargetProbability?.HydraulicBoundaryLocationCalculations ?? throw new ArgumentNullException(nameof(calculationsForTargetProbability)), assessmentSection)
         {
             if (getCalculationIdentifierFunc == null)
             {
