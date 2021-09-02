@@ -32,7 +32,6 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
-        private const int contributionPropertyIndex = 4;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionHydraulicLoadsProperties"/>.
@@ -44,8 +43,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
             {
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex,
-                GroupPropertyIndex = groupPropertyIndex,
-                ContributionPropertyIndex = contributionPropertyIndex
+                GroupPropertyIndex = groupPropertyIndex
             }) {}
     }
 }
