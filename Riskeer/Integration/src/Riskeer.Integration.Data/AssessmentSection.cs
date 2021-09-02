@@ -53,8 +53,8 @@ namespace Riskeer.Integration.Data
         private const RiskeerWellKnownTileSource defaultWellKnownTileSource = RiskeerWellKnownTileSource.BingAerial;
 
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
-        private readonly HydraulicBoundaryLocationCalculationsForTargetProbability waterLevelCalculationsForSignalingNorm = new HydraulicBoundaryLocationCalculationsForTargetProbability(defaultNorm);
-        private readonly HydraulicBoundaryLocationCalculationsForTargetProbability waterLevelCalculationsForLowerLimitNorm = new HydraulicBoundaryLocationCalculationsForTargetProbability(defaultNorm);
+        private readonly HydraulicBoundaryLocationCalculationsForTargetProbability waterLevelCalculationsForSignalingNorm;
+        private readonly HydraulicBoundaryLocationCalculationsForTargetProbability waterLevelCalculationsForLowerLimitNorm;
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
@@ -114,6 +114,7 @@ namespace Riskeer.Integration.Data
             ReferenceLine = new ReferenceLine();
 
             HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
             WaterLevelCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
             WaveHeightCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
 
@@ -141,6 +142,9 @@ namespace Riskeer.Integration.Data
 
             FailureMechanismContribution = new FailureMechanismContribution(lowerLimitNorm, signalingNorm);
             ChangeComposition(composition);
+            
+            waterLevelCalculationsForLowerLimitNorm = new HydraulicBoundaryLocationCalculationsForTargetProbability(lowerLimitNorm);
+            waterLevelCalculationsForSignalingNorm = new HydraulicBoundaryLocationCalculationsForTargetProbability(signalingNorm);
         }
 
         /// <summary>

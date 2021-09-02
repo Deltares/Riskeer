@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Riskeer.Common.Data.Hydraulics;
@@ -42,14 +41,12 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="WaterLevelCalculationsForNormTargetProbabilityProperties"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationCalculations">The collection of hydraulic boundary location calculations to set as data.</param>
-        /// <param name="normTargetProbability">The norm target probability.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
-        public WaterLevelCalculationsForNormTargetProbabilityProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations,
-                                                                        double normTargetProbability)
-            : base(hydraulicBoundaryLocationCalculations)
+        /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> to show the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationsForTargetProbability"/> is <c>null</c>.</exception>
+        public WaterLevelCalculationsForNormTargetProbabilityProperties(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
+            : base(calculationsForTargetProbability?.HydraulicBoundaryLocationCalculations ?? throw new ArgumentNullException(nameof(calculationsForTargetProbability)))
         {
-            TargetProbability = normTargetProbability;
+            TargetProbability = calculationsForTargetProbability.TargetProbability;
         }
 
         [PropertyOrder(calculationsPropertyIndex)]

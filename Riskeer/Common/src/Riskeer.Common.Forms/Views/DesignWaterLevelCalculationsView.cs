@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -35,28 +34,21 @@ namespace Riskeer.Common.Forms.Views
     /// </summary>
     public partial class DesignWaterLevelCalculationsView : HydraulicBoundaryCalculationsView
     {
-        private readonly Func<double> getNormFunc;
+        private readonly HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability;
         private readonly Func<string> getCalculationIdentifierFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationsView"/>.
         /// </summary>
-        /// <param name="calculations">The calculations to show in the view.</param>
+        /// <param name="calculationsForTargetProbability">The calculations to show in the view.</param>
         /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
-        /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to use during calculations.</param>
         /// <param name="getCalculationIdentifierFunc"><see cref="Func{TResult}"/> for getting the calculation identifier to use in all messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DesignWaterLevelCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+        public DesignWaterLevelCalculationsView(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability,
                                                 IAssessmentSection assessmentSection,
-                                                Func<double> getNormFunc,
                                                 Func<string> getCalculationIdentifierFunc)
-            : base(calculations, assessmentSection)
+            : base(calculationsForTargetProbability?.HydraulicBoundaryLocationCalculations, assessmentSection)
         {
-            if (getNormFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getNormFunc));
-            }
-
             if (getCalculationIdentifierFunc == null)
             {
                 throw new ArgumentNullException(nameof(getCalculationIdentifierFunc));
@@ -64,7 +56,7 @@ namespace Riskeer.Common.Forms.Views
 
             InitializeComponent();
 
-            this.getNormFunc = getNormFunc;
+            this.calculationsForTargetProbability = calculationsForTargetProbability;
             this.getCalculationIdentifierFunc = getCalculationIdentifierFunc;
         }
 
@@ -84,7 +76,7 @@ namespace Riskeer.Common.Forms.Views
         {
             CalculationGuiService.CalculateDesignWaterLevels(calculations,
                                                              AssessmentSection,
-                                                             getNormFunc(),
+                                                             calculationsForTargetProbability.TargetProbability,
                                                              getCalculationIdentifierFunc());
         }
 

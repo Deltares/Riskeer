@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
@@ -57,13 +56,10 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
-
-            double GetNormFunc() => 0.01;
+            var hydraulicBoundaryLocationCalculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
 
             var context = new WaterLevelCalculationsForNormTargetProbabilityContext(hydraulicBoundaryLocationCalculations,
-                                                                                    assessmentSection,
-                                                                                    GetNormFunc);
+                                                                                    assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -74,8 +70,8 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.IsInstanceOf<WaterLevelCalculationsForNormTargetProbabilityProperties>(objectProperties);
-                Assert.AreSame(hydraulicBoundaryLocationCalculations, objectProperties.Data);
-                Assert.AreEqual(GetNormFunc(), ((WaterLevelCalculationsForNormTargetProbabilityProperties) objectProperties).TargetProbability);
+                Assert.AreSame(hydraulicBoundaryLocationCalculations.HydraulicBoundaryLocationCalculations, objectProperties.Data);
+                Assert.AreEqual(0.01, ((WaterLevelCalculationsForNormTargetProbabilityProperties) objectProperties).TargetProbability);
             }
 
             mockRepository.VerifyAll();

@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Gui.Converters;
 using Core.Gui.TestUtil;
@@ -43,25 +42,32 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_HydraulicBoundaryLocationCalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new WaterLevelCalculationsForNormTargetProbabilityProperties(null, 0.1);
+            void Call() => new WaterLevelCalculationsForNormTargetProbabilityProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("hydraulicBoundaryLocationCalculations", paramName);
+            Assert.AreEqual("calculationsForTargetProbability", paramName);
         }
 
         [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(""));
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
+            {
+                HydraulicBoundaryLocationCalculations =
+                {
+                    calculation
+                }
+            };
 
             // Call
-            var properties = new WaterLevelCalculationsForNormTargetProbabilityProperties(hydraulicBoundaryLocationCalculations, 0.1);
+            var properties = new WaterLevelCalculationsForNormTargetProbabilityProperties(calculationsForTargetProbability);
 
             // Assert
             Assert.IsInstanceOf<DesignWaterLevelCalculationsProperties>(properties);
-            Assert.AreSame(hydraulicBoundaryLocationCalculations, properties.Data);
+            Assert.AreSame(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, properties.Data);
             TestHelper.AssertTypeConverter<WaterLevelCalculationsForNormTargetProbabilityProperties, ExpandableArrayConverter>(
                 nameof(WaterLevelCalculationsForNormTargetProbabilityProperties.Calculations));
             TestHelper.AssertTypeConverter<WaterLevelCalculationsForNormTargetProbabilityProperties, NoProbabilityValueDoubleConverter>(
@@ -72,7 +78,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var properties = new WaterLevelCalculationsForNormTargetProbabilityProperties(new ObservableList<HydraulicBoundaryLocationCalculation>(), 0.1);
+            var properties = new WaterLevelCalculationsForNormTargetProbabilityProperties(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01));
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -98,13 +104,16 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             const double targetProbability = 0.1;
-            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
             {
-                new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                HydraulicBoundaryLocationCalculations = 
+                {
+                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())    
+                }
             };
 
             // Call
-            var properties = new WaterLevelCalculationsForNormTargetProbabilityProperties(hydraulicBoundaryLocationCalculations, targetProbability);
+            var properties = new WaterLevelCalculationsForNormTargetProbabilityProperties(calculationsForTargetProbability);
 
             // Assert
             Assert.AreEqual(targetProbability, properties.TargetProbability);

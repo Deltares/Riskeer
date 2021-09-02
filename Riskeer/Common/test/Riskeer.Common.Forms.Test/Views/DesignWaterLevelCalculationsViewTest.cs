@@ -70,24 +70,6 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_GetNormFuncNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
-            mockRepository.ReplayAll();
-
-            // Call
-            void Call() => new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                assessmentSection,
-                                                                null,
-                                                                () => "1/100");
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("getNormFunc", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_GetCalculationIdentifierFuncNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -95,9 +77,8 @@ namespace Riskeer.Common.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            void Call() => new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+            void Call() => new DesignWaterLevelCalculationsView(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
                                                                 assessmentSection,
-                                                                () => 0.01,
                                                                 null);
 
             // Assert
@@ -113,9 +94,8 @@ namespace Riskeer.Common.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+            using (var view = new DesignWaterLevelCalculationsView(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
                                                                    assessmentSection,
-                                                                   () => 0.01,
                                                                    () => "1/100"))
             {
                 // Assert
@@ -132,7 +112,7 @@ namespace Riskeer.Common.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            ShowDesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+            ShowDesignWaterLevelCalculationsView(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
                                                  assessmentSection,
                                                  0.01,
                                                  "1/100",
@@ -216,9 +196,9 @@ namespace Riskeer.Common.Forms.Test.Views
         public void DesignWaterLevelCalculationsView_CalculationsUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
-            ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
+            HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability = GetTestHydraulicBoundaryLocationCalculations();
 
-            ShowFullyConfiguredDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
+            ShowFullyConfiguredDesignWaterLevelCalculationsView(targetProbability, testForm);
 
             const double designWaterLevel = 10.23;
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0))
@@ -235,11 +215,11 @@ namespace Riskeer.Common.Forms.Test.Views
             DataGridViewRowCollection rows = calculationsDataGridViewControl.Rows;
             Assert.AreEqual(4, rows.Count);
 
-            hydraulicBoundaryLocationCalculations.Clear();
-            hydraulicBoundaryLocationCalculations.Add(hydraulicBoundaryLocationCalculation);
+            targetProbability.HydraulicBoundaryLocationCalculations.Clear();
+            targetProbability.HydraulicBoundaryLocationCalculations.Add(hydraulicBoundaryLocationCalculation);
 
             // Call
-            hydraulicBoundaryLocationCalculations.NotifyObservers();
+            targetProbability.HydraulicBoundaryLocationCalculations.NotifyObservers();
 
             // Assert
             Assert.AreEqual(1, rows.Count);
@@ -257,7 +237,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void DesignWaterLevelCalculationsView_CalculationUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
-            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
+            HydraulicBoundaryLocationCalculationsForTargetProbability hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
             ShowFullyConfiguredDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
 
@@ -268,7 +248,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(6, cells.Count);
             Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
 
-            HydraulicBoundaryLocationCalculation calculation = hydraulicBoundaryLocationCalculations.First();
+            HydraulicBoundaryLocationCalculation calculation = hydraulicBoundaryLocationCalculations.HydraulicBoundaryLocationCalculations.First();
 
             // Call
             calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
@@ -282,7 +262,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void DesignWaterLevelCalculationsView_CalculationUpdated_IllustrationPointsControlCorrectlyUpdated()
         {
             // Setup
-            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
+            HydraulicBoundaryLocationCalculationsForTargetProbability hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
             ShowFullyConfiguredDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
 
@@ -304,7 +284,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var output = new TestHydraulicBoundaryLocationCalculationOutput(generalResult);
 
             // Call
-            HydraulicBoundaryLocationCalculation boundaryLocationCalculation = hydraulicBoundaryLocationCalculations.ElementAt(2);
+            HydraulicBoundaryLocationCalculation boundaryLocationCalculation = hydraulicBoundaryLocationCalculations.HydraulicBoundaryLocationCalculations.ElementAt(2);
             boundaryLocationCalculation.Output = output;
             boundaryLocationCalculation.NotifyObservers();
 
@@ -317,7 +297,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelected_CallsCalculateDesignWaterLevels()
         {
             // Setup
-            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
+            HydraulicBoundaryLocationCalculationsForTargetProbability hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
             DesignWaterLevelCalculationsView view = ShowFullyConfiguredDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
 
@@ -340,7 +320,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(1, performedCalculations.Length);
-            Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
+            Assert.AreSame(hydraulicBoundaryLocationCalculations.HydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
         }
 
         [Test]
@@ -399,7 +379,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
+            HydraulicBoundaryLocationCalculationsForTargetProbability hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
             DesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations,
                                                                                          assessmentSection,
@@ -422,7 +402,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreSame(assessmentSection, assessmentSectionValue);
             Assert.AreEqual(norm, normValue);
             Assert.AreEqual(1, performedCalculations.Length);
-            Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
+            Assert.AreSame(hydraulicBoundaryLocationCalculations.HydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
         }
 
         private DataGridView GetCalculationsDataGridView()
@@ -455,15 +435,14 @@ namespace Riskeer.Common.Forms.Test.Views
                                 });
         }
 
-        private static DesignWaterLevelCalculationsView ShowDesignWaterLevelCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+        private static DesignWaterLevelCalculationsView ShowDesignWaterLevelCalculationsView(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability,
                                                                                              IAssessmentSection assessmentSection,
                                                                                              double norm,
                                                                                              string calculationIdentifier,
                                                                                              Form form)
         {
-            var view = new DesignWaterLevelCalculationsView(calculations,
+            var view = new DesignWaterLevelCalculationsView(calculationsForTargetProbability,
                                                             assessmentSection,
-                                                            () => norm,
                                                             () => calculationIdentifier);
 
             form.Controls.Add(view);
@@ -472,15 +451,15 @@ namespace Riskeer.Common.Forms.Test.Views
             return view;
         }
 
-        private static DesignWaterLevelCalculationsView ShowFullyConfiguredDesignWaterLevelCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+        private static DesignWaterLevelCalculationsView ShowFullyConfiguredDesignWaterLevelCalculationsView(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability,
                                                                                                             Form form)
         {
             var assessmentSection = new AssessmentSectionStub();
 
-            return ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, 0.01, "1/100", form);
+            return ShowDesignWaterLevelCalculationsView(calculationsForTargetProbability, assessmentSection, 0.01, "1/100", form);
         }
 
-        private static ObservableList<HydraulicBoundaryLocationCalculation> GetTestHydraulicBoundaryLocationCalculations()
+        private static HydraulicBoundaryLocationCalculationsForTargetProbability GetTestHydraulicBoundaryLocationCalculations()
         {
             var topLevelIllustrationPoints = new[]
             {
@@ -494,35 +473,39 @@ namespace Riskeer.Common.Forms.Test.Views
 
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
 
-            return new ObservableList<HydraulicBoundaryLocationCalculation>
+            var targetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
             {
-                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0)),
-                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0))
+                HydraulicBoundaryLocationCalculations =
                 {
-                    Output = new TestHydraulicBoundaryLocationCalculationOutput(1.23)
-                },
-                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0))
-                {
-                    InputParameters =
+                    new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0)),
+                    new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0))
                     {
-                        ShouldIllustrationPointsBeCalculated = true
-                    }
-                },
-                new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(4, "4", 4.0, 4.0))
-                {
-                    InputParameters =
-                    {
-                        ShouldIllustrationPointsBeCalculated = true
+                        Output = new TestHydraulicBoundaryLocationCalculationOutput(1.23)
                     },
-                    Output = new TestHydraulicBoundaryLocationCalculationOutput(1.01, generalResult)
+                    new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0))
+                    {
+                        InputParameters =
+                        {
+                            ShouldIllustrationPointsBeCalculated = true
+                        }
+                    },
+                    new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(4, "4", 4.0, 4.0))
+                    {
+                        InputParameters =
+                        {
+                            ShouldIllustrationPointsBeCalculated = true
+                        },
+                        Output = new TestHydraulicBoundaryLocationCalculationOutput(1.01, generalResult)
+                    }
                 }
             };
+            return targetProbability;
         }
 
         [TestFixture]
         private class ViewSynchronizationTest : CalculationsViewSynchronizationTester<HydraulicBoundaryLocationCalculation>
         {
-            private ObservableList<HydraulicBoundaryLocationCalculation> calculations;
+            private HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability;
 
             protected override int OutputColumnIndex
             {
@@ -534,7 +517,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             public override void Setup()
             {
-                calculations = GetTestHydraulicBoundaryLocationCalculations();
+                targetProbability = GetTestHydraulicBoundaryLocationCalculations();
 
                 base.Setup();
             }
@@ -546,12 +529,12 @@ namespace Riskeer.Common.Forms.Test.Views
 
             protected override LocationCalculationsView<HydraulicBoundaryLocationCalculation> ShowFullyConfiguredCalculationsView(Form form)
             {
-                return ShowFullyConfiguredDesignWaterLevelCalculationsView(calculations, form);
+                return ShowFullyConfiguredDesignWaterLevelCalculationsView(targetProbability, form);
             }
 
             protected override ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(LocationCalculationsView<HydraulicBoundaryLocationCalculation> view)
             {
-                return calculations;
+                return targetProbability.HydraulicBoundaryLocationCalculations;
             }
         }
     }
