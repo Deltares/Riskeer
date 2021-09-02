@@ -34,10 +34,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
-        private const int contributionPropertyIndex = 3;
-        private const int waveRunUpPropertyIndex = 4;
-        private const int waveImpactPropertyIndex = 5;
-        private const int tailorMadeWaveImpactPropertyIndex = 6;
+        private const int waveRunUpPropertyIndex = 3;
+        private const int waveImpactPropertyIndex = 4;
+        private const int tailorMadeWaveImpactPropertyIndex = 5;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -54,7 +53,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
-            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
 
             GeneralGrassCoverErosionOutwardsInput generalInput = failureMechanism.GeneralInput;
             Assert.AreSame(generalInput.GeneralWaveRunUpWaveConditionsInput, properties.WaveRunUp.Data);
@@ -70,7 +68,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string modelSettingsCategory = "Modelinstellingen";
@@ -94,13 +92,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Groep",
                                                                             "De groep waar het toetsspoor toe behoort.",
-                                                                            true);
-
-            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
-                                                                            generalCategory,
-                                                                            "Faalkansbijdrage [%]",
-                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
             PropertyDescriptor waveRunUpProperty = dynamicProperties[waveRunUpPropertyIndex];

@@ -32,10 +32,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismPropertiesTest
     {
-        private const int namePropertyIndex = 3;
-        private const int codePropertyIndex = 2;
-        private const int groupPropertyIndex = 1;
-        private const int contributionPropertyIndex = 0;
+        private const int namePropertyIndex = 2;
+        private const int codePropertyIndex = 1;
+        private const int groupPropertyIndex = 0;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -73,7 +72,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
-            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
         }
 
         [Test]
@@ -87,13 +85,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex,
-                GroupPropertyIndex = groupPropertyIndex,
-                ContributionPropertyIndex = contributionPropertyIndex
+                GroupPropertyIndex = groupPropertyIndex
             });
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
 
@@ -116,13 +113,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Groep",
                                                                             "De groep waar het toetsspoor toe behoort.",
-                                                                            true);
-
-            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
-                                                                            generalCategory,
-                                                                            "Faalkansbijdrage [%]",
-                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
         }
     }

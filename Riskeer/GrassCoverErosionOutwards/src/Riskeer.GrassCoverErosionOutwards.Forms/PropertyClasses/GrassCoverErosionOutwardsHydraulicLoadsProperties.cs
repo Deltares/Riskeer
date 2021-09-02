@@ -38,10 +38,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
-        private const int contributionPropertyIndex = 4;
-        private const int waveRunUpPropertyIndex = 5;
-        private const int waveImpactPropertyIndex = 6;
-        private const int tailorMadeWaveImpactPropertyIndex = 7;
+        private const int waveRunUpPropertyIndex = 4;
+        private const int waveImpactPropertyIndex = 5;
+        private const int tailorMadeWaveImpactPropertyIndex = 6;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsHydraulicLoadsProperties"/>.
@@ -53,8 +52,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
             {
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex,
-                GroupPropertyIndex = groupPropertyIndex,
-                ContributionPropertyIndex = contributionPropertyIndex
+                GroupPropertyIndex = groupPropertyIndex
             }) {}
 
         #region Model settings

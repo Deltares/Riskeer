@@ -68,9 +68,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
                 },
                 {
                     nameof(Group), constructionProperties.GroupPropertyIndex
-                },
-                {
-                    nameof(Contribution), constructionProperties.ContributionPropertyIndex
                 }
             };
         }
@@ -104,11 +101,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
             /// Gets or sets the property index for <see cref="GrassCoverErosionOutwardsFailureMechanismProperties.Group"/>.
             /// </summary>
             public int GroupPropertyIndex { get; set; }
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="GrassCoverErosionOutwardsFailureMechanismProperties.Contribution"/>.
-            /// </summary>
-            public int ContributionPropertyIndex { get; set; }
 
             #endregion
         }
@@ -148,18 +140,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
             get
             {
                 return data.Group;
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
-        public double Contribution
-        {
-            get
-            {
-                return data.Contribution;
             }
         }
 
