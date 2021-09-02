@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using Core.Common.Base.IO;
+using Core.Common.Util;
 using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Integration.IO.Exporters
@@ -29,6 +32,38 @@ namespace Riskeer.Integration.IO.Exporters
     /// </summary>
     public class HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter : IFileExporter
     {
+        private readonly IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> locationCalculationsForTargetProbabilities;
+        private readonly string folderPath;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter"/>.
+        /// </summary>
+        /// <param name="locationCalculationsForTargetProbabilities">The collection of
+        /// <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> to export.</param>
+        /// <param name="folderPath">The folder path to export to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locationCalculationsForTargetProbabilities"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="folderPath"/> is invalid.</exception>
+        /// <remarks>A valid path:<list type="bullet">
+        /// <item>is not empty or <c>null</c>,</item>
+        /// <item>does not consist out of only whitespace characters,</item>
+        /// <item>does not contain an invalid character,</item>
+        /// <item>is not too long.</item>
+        /// </list></remarks>
+        public HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
+            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> locationCalculationsForTargetProbabilities,
+            string folderPath)
+        {
+            if (locationCalculationsForTargetProbabilities == null)
+            {
+                throw new ArgumentNullException(nameof(locationCalculationsForTargetProbabilities));
+            }
+
+            IOUtils.ValidateFolderPath(folderPath);
+            
+            this.locationCalculationsForTargetProbabilities = locationCalculationsForTargetProbabilities;
+            this.folderPath = folderPath;
+        }
         public bool Export()
         {
             throw new System.NotImplementedException();

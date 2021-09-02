@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Linq;
 using Core.Common.Base.IO;
 using NUnit.Framework;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.IO.Exporters;
 
 namespace Riskeer.Integration.IO.Test.Exporters
@@ -29,10 +32,37 @@ namespace Riskeer.Integration.IO.Test.Exporters
     public class HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporterTest
     {
         [Test]
+        public void Constructor_LocationCalculationsForTargetProbabilitiesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(null, string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("locationCalculationsForTargetProbabilities", exception.ParamName);
+        }
+        
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("   ")]
+        [TestCase("C:\\Not:Valid")]
+        public void Constructor_InvalidFolderPath_ThrowsArgumentException(string folderPath)
+        {
+            // Call
+            void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
+                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>(), folderPath);
+
+            // Assert
+            Assert.Throws<ArgumentException>(Call);
+        }
+        
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter();
+            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
+                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>(), "test");
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
