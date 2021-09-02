@@ -27,6 +27,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Writers;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Util;
+using Riskeer.Integration.IO.Properties;
 
 namespace Riskeer.Integration.IO.Exporters
 {
@@ -41,13 +42,13 @@ namespace Riskeer.Integration.IO.Exporters
         /// </summary>
         /// <param name="calculations">The hydraulic boundary locations calculations to be written to file.</param>
         /// <param name="filePath">The path to the shapefile.</param>
-        /// <param name="metaDataHeader">The header to use for the meta data.</param>
+        /// <param name="calculationsType">The type of calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or
         /// <paramref name="filePath"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when the shapefile cannot be written.</exception>
         public static void WriteHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
-                                                                      string filePath, string metaDataHeader)
+                                                                      string filePath, HydraulicBoundaryLocationCalculationsType calculationsType)
         {
             if (calculations == null)
             {
@@ -59,14 +60,9 @@ namespace Riskeer.Integration.IO.Exporters
                 throw new ArgumentNullException(nameof(filePath));
             }
 
-            if (metaDataHeader == null)
-            {
-                throw new ArgumentNullException(nameof(metaDataHeader));
-            }
-
             var pointShapeFileWriter = new PointShapeFileWriter();
 
-            foreach (MapPointData mapDataLocation in calculations.Select(c => CreateCalculationData(c, metaDataHeader)))
+            foreach (MapPointData mapDataLocation in calculations.Select(c => CreateCalculationData(c, calculationsType)))
             {
                 pointShapeFileWriter.CopyToFeature(mapDataLocation);
             }
@@ -74,8 +70,13 @@ namespace Riskeer.Integration.IO.Exporters
             pointShapeFileWriter.SaveAs(filePath);
         }
 
-        private static MapPointData CreateCalculationData(HydraulicBoundaryLocationCalculation calculation, string metaDataHeader)
+        private static MapPointData CreateCalculationData(HydraulicBoundaryLocationCalculation calculation,
+                                                          HydraulicBoundaryLocationCalculationsType calculationsType)
         {
+            string metaDataHeader = calculationsType == HydraulicBoundaryLocationCalculationsType.WaterLevel
+                                        ? Resources.HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaterLevel_DisplayName
+                                        : Resources.HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaveHeight_DisplayName;
+            
             return new MapPointData(calculation.HydraulicBoundaryLocation.Name)
             {
                 Features = new[]

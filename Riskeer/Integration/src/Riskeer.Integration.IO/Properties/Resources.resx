@@ -197,4 +197,10 @@ Er is geen HLCD geïmporteerd.</value>
   <data name="HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found" xml:space="preserve">
     <value>Het bijbehorende preprocessor closure bestand is niet gevonden in dezelfde map als het HLCD bestand.</value>
   </data>
+  <data name="HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaterLevel_DisplayName" xml:space="preserve">
+        <value>h</value>
+    </data>
+  <data name="HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaveHeight_DisplayName" xml:space="preserve">
+        <value>Hs</value>
+    </data>
 </root>

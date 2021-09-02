@@ -39,7 +39,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
         public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new HydraulicBoundaryLocationCalculationsExporter(null, string.Empty, string.Empty);
+            void Call() => new HydraulicBoundaryLocationCalculationsExporter(null, string.Empty, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -47,23 +47,11 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
-        public void Constructor_OutputMetaDataHeaderNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new HydraulicBoundaryLocationCalculationsExporter(
-                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), string.Empty, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("outputMetaDataHeader", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_FilePathNull_ThrowsArgumentException()
         {
             // Call
             void Call() => new HydraulicBoundaryLocationCalculationsExporter(
-                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, string.Empty);
+                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
@@ -77,14 +65,17 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             // Call
             var exporter = new HydraulicBoundaryLocationCalculationsExporter(
-                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), filePath, string.Empty);
+                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), filePath, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
         }
 
         [Test]
-        public void Export_ValidData_ReturnsTrueAndWritesCorrectData()
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, "ExpectedWaterLevelExport")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, "ExpectedWaveHeightExport")]
+        public void Export_ValidData_ReturnsTrueAndWritesCorrectData(HydraulicBoundaryLocationCalculationsType calculationsType,
+                                                                     string expectedExportFileName)
         {
             // Setup
             const string fileName = "test";
@@ -96,7 +87,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             var exporter = new HydraulicBoundaryLocationCalculationsExporter(new[]
             {
                 new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2))
-            }, filePath, "Waterlevel");
+            }, filePath, calculationsType);
 
             // Precondition
             FileTestHelper.AssertEssentialShapefilesExist(directoryPath, fileName, false);
@@ -112,7 +103,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                     directoryPath, fileName,
                     Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
                                  nameof(HydraulicBoundaryLocationCalculationsExporter)),
-                    "ExpectedExport", 28, 8, 628);
+                    expectedExportFileName, 28, 8, 628);
                 Assert.IsTrue(isExported);
             }
             finally
@@ -134,7 +125,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             var exporter = new HydraulicBoundaryLocationCalculationsExporter(new[]
             {
                 new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2))
-            }, filePath, "Waterlevel");
+            }, filePath, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             try
             {

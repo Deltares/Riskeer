@@ -196,6 +196,26 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to h.
+        /// </summary>
+        internal static string HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaterLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaterLevel_" +
+                        "DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hs.
+        /// </summary>
+        internal static string HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaveHeight_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaveHeight_" +
+                        "DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}
         ///Er is geen HLCD geïmporteerd..
         /// </summary>

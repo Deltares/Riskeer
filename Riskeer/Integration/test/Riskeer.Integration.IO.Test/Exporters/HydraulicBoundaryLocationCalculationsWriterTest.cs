@@ -39,7 +39,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
         {
             // Call
             void Call() => HydraulicBoundaryLocationCalculationsWriter.WriteHydraulicBoundaryLocationCalculations(
-                null, string.Empty, string.Empty);
+                null, string.Empty, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -51,7 +51,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
         {
             // Call
             void Call() => HydraulicBoundaryLocationCalculationsWriter.WriteHydraulicBoundaryLocationCalculations(
-                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, string.Empty);
+                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -59,24 +59,13 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
-        public void WriteHydraulicBoundaryLocationCalculations_MetaDataHeaderNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => HydraulicBoundaryLocationCalculationsWriter.WriteHydraulicBoundaryLocationCalculations(
-                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), string.Empty, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("metaDataHeader", exception.ParamName);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        public void WriteHydraulicBoundaryLocationCalculations_ValidData_WritesShapeFile()
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, "ExpectedWaterLevelExport")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, "ExpectedWaveHeightExport")]
+        public void WriteHydraulicBoundaryLocationCalculations_ValidData_WritesShapeFile(HydraulicBoundaryLocationCalculationsType calculationsType,
+                                                                                         string expectedExportFileName)
         {
             // Setup
             const string fileName = "test";
-            const string metaDataHeader = "header";
             string directoryPath = TestHelper.GetScratchPadPath(nameof(WriteHydraulicBoundaryLocationCalculations_ValidData_WritesShapeFile));
             string filePath = Path.Combine(directoryPath, $"{fileName}.shp");
 
@@ -94,7 +83,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 HydraulicBoundaryLocationCalculationsWriter.WriteHydraulicBoundaryLocationCalculations(new[]
                 {
                     calculation
-                }, filePath, metaDataHeader);
+                }, filePath, calculationsType);
 
                 // Assert
                 FileTestHelper.AssertEssentialShapefilesExist(directoryPath, fileName, true);
@@ -102,7 +91,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                     directoryPath, fileName,
                     Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
                                  nameof(HydraulicBoundaryLocationCalculationsWriter)),
-                    "ExpectedExport", 28, 8, 628);
+                    expectedExportFileName, 28, 8, 628);
             }
             finally
             {

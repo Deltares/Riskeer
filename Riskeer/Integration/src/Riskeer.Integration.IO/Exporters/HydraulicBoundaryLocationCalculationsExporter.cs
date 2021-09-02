@@ -39,35 +39,29 @@ namespace Riskeer.Integration.IO.Exporters
 
         private readonly IEnumerable<HydraulicBoundaryLocationCalculation> calculations;
         private readonly string filePath;
-        private readonly string outputMetaDataHeader;
+        private readonly HydraulicBoundaryLocationCalculationsType calculationsType;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsExporter"/>.
         /// </summary>
         /// <param name="calculations">The calculations to export.</param>
         /// <param name="filePath">The path of the file to export to.</param>
-        /// <param name="outputMetaDataHeader"></param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/>
-        /// or <paramref name="outputMetaDataHeader"/> is <c>null</c>.</exception>
+        /// <param name="calculationsType">The type of calculations.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public HydraulicBoundaryLocationCalculationsExporter(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
-                                                             string filePath, string outputMetaDataHeader)
+                                                             string filePath, HydraulicBoundaryLocationCalculationsType calculationsType)
         {
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            if (outputMetaDataHeader == null)
-            {
-                throw new ArgumentNullException(nameof(outputMetaDataHeader));
-            }
-
             IOUtils.ValidateFilePath(filePath);
 
             this.calculations = calculations;
             this.filePath = filePath;
-            this.outputMetaDataHeader = outputMetaDataHeader;
+            this.calculationsType = calculationsType;
         }
 
         public bool Export()
@@ -75,7 +69,7 @@ namespace Riskeer.Integration.IO.Exporters
             try
             {
                 HydraulicBoundaryLocationCalculationsWriter.WriteHydraulicBoundaryLocationCalculations(
-                    calculations, filePath, outputMetaDataHeader);
+                    calculations, filePath, calculationsType);
             }
             catch (CriticalFileWriteException e)
             {

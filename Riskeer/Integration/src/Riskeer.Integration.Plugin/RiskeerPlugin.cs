@@ -748,9 +748,9 @@ namespace Riskeer.Integration.Plugin
             };
 
             yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<
-                WaterLevelCalculationsForUserDefinedTargetProbabilityContext>(Resources.MetaData_WaterLevelCalculation);
+                WaterLevelCalculationsForUserDefinedTargetProbabilityContext>(HydraulicBoundaryLocationCalculationsType.WaterLevel);
             yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<
-                WaveHeightCalculationsForUserDefinedTargetProbabilityContext>(Resources.MetaData_WaveHeight);
+                WaveHeightCalculationsForUserDefinedTargetProbabilityContext>(HydraulicBoundaryLocationCalculationsType.WaveHeight);
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
@@ -1165,7 +1165,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ExportInfo<T> CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<T>(string metaDataHeader)
+        private ExportInfo<T> CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<T>(HydraulicBoundaryLocationCalculationsType calculationsType)
             where T : HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext
         {
             return new ExportInfo<T>
@@ -1173,7 +1173,7 @@ namespace Riskeer.Integration.Plugin
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Extension = RiskeerCommonIOResources.Shape_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsExporter(
-                    context.WrappedData.HydraulicBoundaryLocationCalculations, filePath, metaDataHeader),
+                    context.WrappedData.HydraulicBoundaryLocationCalculations, filePath, calculationsType),
                 IsEnabled = context => true,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
                                                                                                            RiskeerCommonIOResources.Shape_file_filter_Description))
