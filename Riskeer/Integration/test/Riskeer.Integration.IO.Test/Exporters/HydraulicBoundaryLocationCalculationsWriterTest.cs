@@ -84,7 +84,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
         {
             // Setup
             const string fileName = "test";
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(WriteHydraulicBoundaryLocationCalculations_ValidData_WritesShapeFile));
+            string directoryPath = TestHelper.GetScratchPadPath($"{nameof(HydraulicBoundaryLocationCalculationsWriterTest)}.{nameof(WriteHydraulicBoundaryLocationCalculations_ValidData_WritesShapeFile)}");
             string filePath = Path.Combine(directoryPath, $"{fileName}.shp");
 
             // Precondition

@@ -99,7 +99,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             // Setup
             const string fileName = "test";
 
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_ValidData_ReturnsTrueAndWritesCorrectData));
+            string directoryPath = TestHelper.GetScratchPadPath($"{nameof(HydraulicBoundaryLocationCalculationsExporterTest)}.{nameof(Export_ValidData_ReturnsTrueAndWritesCorrectData)}");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, $"{fileName}.shp");
 
@@ -137,7 +137,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             // Setup
             const string fileName = "test";
 
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse));
+            string directoryPath = TestHelper.GetScratchPadPath($"{nameof(HydraulicBoundaryLocationCalculationsExporterTest)}.{nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse)}");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, $"{fileName}.shp");
 
