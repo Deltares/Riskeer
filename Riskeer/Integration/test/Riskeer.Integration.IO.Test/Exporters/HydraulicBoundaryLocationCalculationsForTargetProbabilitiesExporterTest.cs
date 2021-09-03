@@ -20,8 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using Core.Common.Base.IO;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.IO.Exporters;
@@ -68,6 +72,92 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
+        }
+
+        [Test]
+        public void Export_HydraulicBoundaryLocationCalculationsExporterReturnsFalse_ReturnsFalse()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporterTest)}.{nameof(Export_HydraulicBoundaryLocationCalculationsExporterReturnsFalse_ReturnsFalse)}");
+            Directory.CreateDirectory(folderPath);
+
+            var targetProbabilities = new[]
+            {
+                new Tuple<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsType>(
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1),
+                    HydraulicBoundaryLocationCalculationsType.WaterLevel)
+            };
+
+            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(targetProbabilities, folderPath);
+
+            string expectedFilePath = Path.Combine(folderPath, "Waterstanden_10.shp");
+            
+            try
+            {
+                using (new DirectoryPermissionsRevoker(folderPath, FileSystemRights.Write))
+                {
+                    // Call
+                    var isExported = true;
+                    void Call() => isExported = exporter.Export();
+
+                    // Assert
+                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{expectedFilePath}'. " +
+                                             "Er zijn geen hydraulische belastingenlocaties geëxporteerd.";
+                    TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);
+                    Assert.IsFalse(isExported);
+                }
+            }
+            finally
+            {
+                Directory.Delete(folderPath, true);
+            }
+        }
+
+        [Test]
+        public void Export_WithHydraulicBoundaryLocationCalculationsForTargetProbabilities_WritesFilesAndReturnsTrue()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporterTest)}.{nameof(Export_WithHydraulicBoundaryLocationCalculationsForTargetProbabilities_WritesFilesAndReturnsTrue)}");
+            Directory.CreateDirectory(folderPath);
+
+            var random = new Random(21);
+            
+            var targetProbabilities = new[]
+            {
+                new Tuple<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsType>(
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
+                    HydraulicBoundaryLocationCalculationsType.WaterLevel),
+                new Tuple<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsType>(
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
+                    HydraulicBoundaryLocationCalculationsType.WaveHeight)
+            };
+
+            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(targetProbabilities, folderPath);
+
+            string[] expectedFilePaths = 
+            {
+                Path.Combine(folderPath, $"Waterstanden_{GetReturnPeriodText(targetProbabilities.First().Item1.TargetProbability)}.shp"),
+                Path.Combine(folderPath, $"Golfhoogten_{GetReturnPeriodText(targetProbabilities.Last().Item1.TargetProbability)}.shp")
+            };
+            
+            try
+            {
+                    // Call
+                    bool isExported = exporter.Export();
+
+                    // Assert
+                    Assert.IsTrue(isExported);
+                    Assert.IsTrue(expectedFilePaths.All(File.Exists));
+            }
+            finally
+            {
+                Directory.Delete(folderPath, true);
+            }
+        }
+
+        private static string GetReturnPeriodText(double targetProbability)
+        {
+            return (1.0 / targetProbability).ToString(CultureInfo.InvariantCulture);
         }
     }
 }

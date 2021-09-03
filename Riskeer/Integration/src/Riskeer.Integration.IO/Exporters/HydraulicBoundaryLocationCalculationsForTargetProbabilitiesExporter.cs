@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,6 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using Riskeer.Common.Data.Hydraulics;
@@ -67,7 +70,29 @@ namespace Riskeer.Integration.IO.Exporters
 
         public bool Export()
         {
-            throw new System.NotImplementedException();
+            return locationCalculationsForTargetProbabilities.All(
+                locationCalculationsForTargetProbability => ExportLocationCalculationsForTargetProbability(
+                    locationCalculationsForTargetProbability.Item1,locationCalculationsForTargetProbability.Item2));
+        }
+
+        private bool ExportLocationCalculationsForTargetProbability(
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability,
+            HydraulicBoundaryLocationCalculationsType calculationsType)
+        {
+            string exportType = calculationsType == HydraulicBoundaryLocationCalculationsType.WaterLevel
+                                    ? "Waterstanden"
+                                    : "Golfhoogten";
+            
+            double returnPeriod = 1.0 / calculationsForTargetProbability.TargetProbability;
+            
+            var fileName = $"{exportType}_{returnPeriod.ToString(CultureInfo.InvariantCulture)}";
+            string filePath = Path.Combine(folderPath, $"{fileName}.shp");
+
+            var exporter = new HydraulicBoundaryLocationCalculationsExporter(
+                calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
+                filePath, calculationsType);
+
+            return exporter.Export();
         }
     }
 }
