@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -32,7 +32,7 @@ namespace Riskeer.Integration.IO.Exporters
     /// </summary>
     public class HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter : IFileExporter
     {
-        private readonly IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> locationCalculationsForTargetProbabilities;
+        private readonly IEnumerable<Tuple<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsType>> locationCalculationsForTargetProbabilities;
         private readonly string folderPath;
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Riskeer.Integration.IO.Exporters
         /// <item>is not too long.</item>
         /// </list></remarks>
         public HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> locationCalculationsForTargetProbabilities,
+            IEnumerable<Tuple<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsType>> locationCalculationsForTargetProbabilities,
             string folderPath)
         {
             if (locationCalculationsForTargetProbabilities == null)
@@ -60,10 +60,11 @@ namespace Riskeer.Integration.IO.Exporters
             }
 
             IOUtils.ValidateFolderPath(folderPath);
-            
+
             this.locationCalculationsForTargetProbabilities = locationCalculationsForTargetProbabilities;
             this.folderPath = folderPath;
         }
+
         public bool Export()
         {
             throw new System.NotImplementedException();

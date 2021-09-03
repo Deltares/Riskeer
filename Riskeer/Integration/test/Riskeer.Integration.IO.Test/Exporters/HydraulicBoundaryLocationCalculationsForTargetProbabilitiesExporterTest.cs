@@ -51,7 +51,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
         {
             // Call
             void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>(), folderPath);
+                Enumerable.Empty<Tuple<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsType>>(),
+                folderPath);
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
@@ -62,7 +63,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
         {
             // Call
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>(), "test");
+                Enumerable.Empty<Tuple<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsType>>(),
+                "test");
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
