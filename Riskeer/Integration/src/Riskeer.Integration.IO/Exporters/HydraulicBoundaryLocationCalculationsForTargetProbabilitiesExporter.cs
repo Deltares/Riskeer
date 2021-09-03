@@ -25,9 +25,12 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Util;
+using log4net;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.IO.Properties;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources ;
 
 namespace Riskeer.Integration.IO.Exporters
@@ -37,6 +40,8 @@ namespace Riskeer.Integration.IO.Exporters
     /// </summary>
     public class HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter : IFileExporter
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter));
+        
         private readonly IEnumerable<Tuple<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsType>> locationCalculationsForTargetProbabilities;
         private readonly string folderPath;
 
@@ -89,8 +94,13 @@ namespace Riskeer.Integration.IO.Exporters
                                     ? Resources.HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaterLevels_DisplayName
                                     : Resources.HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaveHeights_DisplayName;
 
+            double targetProbability = calculationsForTargetProbability.TargetProbability;
+            var exportName = $"{exportType} {ProbabilityFormattingHelper.Format(targetProbability)}";
+            
+            log.InfoFormat(CoreGuiResources.GuiExportHandler_ExportItemUsingDialog_Start_exporting_DataType_0_, exportName);
+
             string uniqueName = NamingHelper.GetUniqueName(
-                exportedCalculations, $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(calculationsForTargetProbability.TargetProbability)}",
+                exportedCalculations, $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(targetProbability)}",
                 c => c.Value);
 
             string filePath = Path.Combine(folderPath, $"{uniqueName}.{RiskeerCommonIOResources.Shape_file_filter_Extension}");
@@ -104,6 +114,7 @@ namespace Riskeer.Integration.IO.Exporters
                 return false;
             }
 
+            log.InfoFormat(CoreGuiResources.GuiExportHandler_ExportItemUsingDialog_Data_from_0_exported_to_file_1, exportName, filePath);
             exportedCalculations.Add(calculationsForTargetProbability, uniqueName);
             return true;
         }

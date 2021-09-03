@@ -134,12 +134,6 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(targetProbabilities, folderPath);
 
-            string[] expectedFilePaths =
-            {
-                Path.Combine(folderPath, $"Waterstanden_{GetReturnPeriodText(targetProbabilities.First().Item1.TargetProbability)}.shp"),
-                Path.Combine(folderPath, $"Golfhoogten_{GetReturnPeriodText(targetProbabilities.Last().Item1.TargetProbability)}.shp")
-            };
-
             try
             {
                 // Call
@@ -147,6 +141,12 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
                 // Assert
                 Assert.IsTrue(isExported);
+
+                string[] expectedFilePaths =
+                {
+                    Path.Combine(folderPath, $"Waterstanden_{GetReturnPeriodText(targetProbabilities.First().Item1.TargetProbability)}.shp"),
+                    Path.Combine(folderPath, $"Golfhoogten_{GetReturnPeriodText(targetProbabilities.Last().Item1.TargetProbability)}.shp")
+                };
                 Assert.IsTrue(expectedFilePaths.All(File.Exists));
             }
             finally
@@ -161,8 +161,6 @@ namespace Riskeer.Integration.IO.Test.Exporters
             // Setup
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporterTest)}.{nameof(Export_WithDoubleHydraulicBoundaryLocationCalculationsForTargetProbabilities_WritesFilesAndReturnsTrue)}");
             Directory.CreateDirectory(folderPath);
-
-            var random = new Random(21);
 
             var targetProbabilities = new[]
             {
@@ -182,20 +180,76 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(targetProbabilities, folderPath);
 
-            string[] expectedFilePaths =
-            {
-                Path.Combine(folderPath, "Waterstanden_10.shp"),
-                Path.Combine(folderPath, "Waterstanden_10 (1).shp"),
-                Path.Combine(folderPath, "Golfhoogten_1.000.shp"),
-                Path.Combine(folderPath, "Golfhoogten_1.000 (1).shp")
-            };
-
             try
             {
                 // Call
                 bool isExported = exporter.Export();
 
                 // Assert
+                Assert.IsTrue(isExported);
+
+                string[] expectedFilePaths =
+                {
+                    Path.Combine(folderPath, "Waterstanden_10.shp"),
+                    Path.Combine(folderPath, "Waterstanden_10 (1).shp"),
+                    Path.Combine(folderPath, "Golfhoogten_1.000.shp"),
+                    Path.Combine(folderPath, "Golfhoogten_1.000 (1).shp")
+                };
+                Assert.IsTrue(expectedFilePaths.All(File.Exists));
+            }
+            finally
+            {
+                Directory.Delete(folderPath, true);
+            }
+        }
+
+        [Test]
+        public void Export_WithHydraulicBoundaryLocationCalculationsForTargetProbabilities_LogsMessages()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporterTest)}.{nameof(Export_WithHydraulicBoundaryLocationCalculationsForTargetProbabilities_LogsMessages)}");
+            Directory.CreateDirectory(folderPath);
+
+            var random = new Random(21);
+
+            var targetProbabilities = new[]
+            {
+                new Tuple<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsType>(
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
+                    HydraulicBoundaryLocationCalculationsType.WaterLevel),
+                new Tuple<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsType>(
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
+                    HydraulicBoundaryLocationCalculationsType.WaveHeight)
+            };
+
+            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(targetProbabilities, folderPath);
+
+            try
+            {
+                // Call
+                var isExported = false;
+                void Call() => isExported = exporter.Export();
+
+                // Assert
+                string[] expectedCalculationNames =
+                {
+                    $"Waterstanden {ProbabilityFormattingHelper.Format(targetProbabilities.First().Item1.TargetProbability)}",
+                    $"Golfhoogten {ProbabilityFormattingHelper.Format(targetProbabilities.Last().Item1.TargetProbability)}"
+                };
+
+                string[] expectedFilePaths =
+                {
+                    Path.Combine(folderPath, $"Waterstanden_{GetReturnPeriodText(targetProbabilities.First().Item1.TargetProbability)}.shp"),
+                    Path.Combine(folderPath, $"Golfhoogten_{GetReturnPeriodText(targetProbabilities.Last().Item1.TargetProbability)}.shp")
+                };
+
+                TestHelper.AssertLogMessagesAreGenerated(Call, new[]
+                {
+                    $"Exporteren van '{expectedCalculationNames[0]}' is gestart.",
+                    $"Gegevens van '{expectedCalculationNames[0]}' zijn geëxporteerd naar bestand '{expectedFilePaths[0]}'.",
+                    $"Exporteren van '{expectedCalculationNames[1]}' is gestart.",
+                    $"Gegevens van '{expectedCalculationNames[1]}' zijn geëxporteerd naar bestand '{expectedFilePaths[1]}'."
+                });
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(expectedFilePaths.All(File.Exists));
             }

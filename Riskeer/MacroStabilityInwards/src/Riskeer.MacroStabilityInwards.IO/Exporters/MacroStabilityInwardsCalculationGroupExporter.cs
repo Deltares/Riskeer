@@ -186,7 +186,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
                 return false;
             }
 
-            log.InfoFormat(Resources.MacroStabilityInwardsCalculationGroupExporter_Export_Data_from_0_exported_to_file_1, calculation.Name, filePath);
+            log.InfoFormat(CoreGuiResources.GuiExportHandler_ExportItemUsingDialog_Data_from_0_exported_to_file_1, calculation.Name, filePath);
             exportedCalculations.Add(calculation, uniqueName);
             return true;
         }
