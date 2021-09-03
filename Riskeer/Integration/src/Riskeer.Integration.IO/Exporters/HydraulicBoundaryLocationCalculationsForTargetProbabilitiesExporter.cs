@@ -28,6 +28,7 @@ using Core.Common.Util;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.IO.Properties;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources ;
 
 namespace Riskeer.Integration.IO.Exporters
 {
@@ -92,7 +93,7 @@ namespace Riskeer.Integration.IO.Exporters
                 exportedCalculations, $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(calculationsForTargetProbability.TargetProbability)}",
                 c => c.Value);
 
-            string filePath = Path.Combine(folderPath, $"{uniqueName}.shp");
+            string filePath = Path.Combine(folderPath, $"{uniqueName}.{RiskeerCommonIOResources.Shape_file_filter_Extension}");
 
             var exporter = new HydraulicBoundaryLocationCalculationsExporter(
                 calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
