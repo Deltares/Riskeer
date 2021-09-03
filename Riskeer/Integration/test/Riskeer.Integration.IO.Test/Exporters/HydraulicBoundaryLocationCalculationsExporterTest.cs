@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
@@ -55,6 +56,24 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
+        }
+
+        [Test]
+        public void Constructor_InvalidHydraulicBoundaryLocationCalculationsType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
+            const HydraulicBoundaryLocationCalculationsType hydraulicBoundaryLocationCalculationsType = (HydraulicBoundaryLocationCalculationsType) 99;
+
+            // Call
+            void Call() => new HydraulicBoundaryLocationCalculationsExporter(
+                    Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), filePath, hydraulicBoundaryLocationCalculationsType);
+            
+            // Assert
+            string expectedMessage = $"The value of argument 'calculationsType' ({hydraulicBoundaryLocationCalculationsType}) " +
+                                     $"is invalid for Enum type '{nameof(HydraulicBoundaryLocationCalculationsType)}'.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+            Assert.AreEqual("calculationsType", exception.ParamName);
         }
 
         [Test]

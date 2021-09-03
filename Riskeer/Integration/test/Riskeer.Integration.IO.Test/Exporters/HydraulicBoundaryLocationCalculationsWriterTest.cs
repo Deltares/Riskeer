@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Core.Common.TestUtil;
@@ -56,6 +57,23 @@ namespace Riskeer.Integration.IO.Test.Exporters
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("filePath", exception.ParamName);
+        }
+
+        [Test]
+        public void WriteHydraulicBoundaryLocationCalculations_InvalidHydraulicBoundaryLocationCalculationsType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            const HydraulicBoundaryLocationCalculationsType hydraulicBoundaryLocationCalculationsType = (HydraulicBoundaryLocationCalculationsType) 99;
+
+            // Call
+            void Call() => HydraulicBoundaryLocationCalculationsWriter.WriteHydraulicBoundaryLocationCalculations(
+                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), string.Empty, hydraulicBoundaryLocationCalculationsType);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'calculationsType' ({hydraulicBoundaryLocationCalculationsType}) " +
+                                     $"is invalid for Enum type '{nameof(HydraulicBoundaryLocationCalculationsType)}'.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+            Assert.AreEqual("calculationsType", exception.ParamName);
         }
 
         [Test]

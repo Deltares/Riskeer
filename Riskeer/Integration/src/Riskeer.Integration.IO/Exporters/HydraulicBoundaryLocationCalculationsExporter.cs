@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Util;
@@ -49,6 +50,8 @@ namespace Riskeer.Integration.IO.Exporters
         /// <param name="calculationsType">The type of calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when the <see cref="calculationsType"/>
+        /// is an invalid value.</exception>
         public HydraulicBoundaryLocationCalculationsExporter(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                              string filePath, HydraulicBoundaryLocationCalculationsType calculationsType)
         {
@@ -58,6 +61,13 @@ namespace Riskeer.Integration.IO.Exporters
             }
 
             IOUtils.ValidateFilePath(filePath);
+
+            if (!Enum.IsDefined(typeof(HydraulicBoundaryLocationCalculationsType), calculationsType))
+            {
+                throw new InvalidEnumArgumentException(nameof(calculationsType),
+                                                       (int) calculationsType,
+                                                       typeof(HydraulicBoundaryLocationCalculationsType));
+            }
 
             this.calculations = calculations;
             this.filePath = filePath;

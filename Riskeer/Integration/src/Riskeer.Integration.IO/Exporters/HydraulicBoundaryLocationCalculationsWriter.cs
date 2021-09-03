@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Core.Common.IO.Exceptions;
 using Core.Components.Gis.Data;
@@ -46,6 +47,8 @@ namespace Riskeer.Integration.IO.Exporters
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or
         /// <paramref name="filePath"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when the <see cref="calculationsType"/>
+        /// is an invalid value.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when the shapefile cannot be written.</exception>
         public static void WriteHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                                       string filePath, HydraulicBoundaryLocationCalculationsType calculationsType)
@@ -58,6 +61,13 @@ namespace Riskeer.Integration.IO.Exporters
             if (filePath == null)
             {
                 throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (!Enum.IsDefined(typeof(HydraulicBoundaryLocationCalculationsType), calculationsType))
+            {
+                throw new InvalidEnumArgumentException(nameof(calculationsType),
+                                                       (int) calculationsType,
+                                                       typeof(HydraulicBoundaryLocationCalculationsType));
             }
 
             var pointShapeFileWriter = new PointShapeFileWriter();
