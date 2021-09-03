@@ -196,6 +196,26 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waterstanden.
+        /// </summary>
+        internal static string HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaterLevels_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaterLevels_D" +
+                        "isplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfhoogten.
+        /// </summary>
+        internal static string HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaveHeights_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaveHeights_D" +
+                        "isplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to h.
         /// </summary>
         internal static string HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaterLevel_DisplayName {

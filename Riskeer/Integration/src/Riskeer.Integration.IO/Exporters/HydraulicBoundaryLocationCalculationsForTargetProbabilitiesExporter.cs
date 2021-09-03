@@ -27,6 +27,7 @@ using Core.Common.Base.IO;
 using Core.Common.Util;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Integration.IO.Properties;
 
 namespace Riskeer.Integration.IO.Exporters
 {
@@ -80,8 +81,8 @@ namespace Riskeer.Integration.IO.Exporters
             HydraulicBoundaryLocationCalculationsType calculationsType)
         {
             string exportType = calculationsType == HydraulicBoundaryLocationCalculationsType.WaterLevel
-                                    ? "Waterstanden"
-                                    : "Golfhoogten";
+                                    ? Resources.HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaterLevels_DisplayName
+                                    : Resources.HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaveHeights_DisplayName;
 
             var fileName = $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(calculationsForTargetProbability.TargetProbability)}";
             string filePath = Path.Combine(folderPath, $"{fileName}.shp");
