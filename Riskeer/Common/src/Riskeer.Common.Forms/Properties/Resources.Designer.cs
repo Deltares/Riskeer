@@ -2998,6 +2998,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0:n0}.
+        /// </summary>
+        public static string ReturnPeriodFormat {
+            get {
+                return ResourceManager.GetString("ReturnPeriodFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Algemeen.
         /// </summary>
         public static string Riskeer_Category {
