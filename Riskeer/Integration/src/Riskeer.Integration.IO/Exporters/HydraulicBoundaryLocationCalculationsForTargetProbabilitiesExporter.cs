@@ -21,12 +21,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.Integration.IO.Exporters
 {
@@ -82,10 +82,8 @@ namespace Riskeer.Integration.IO.Exporters
             string exportType = calculationsType == HydraulicBoundaryLocationCalculationsType.WaterLevel
                                     ? "Waterstanden"
                                     : "Golfhoogten";
-            
-            double returnPeriod = 1.0 / calculationsForTargetProbability.TargetProbability;
-            
-            var fileName = $"{exportType}_{returnPeriod.ToString(CultureInfo.InvariantCulture)}";
+
+            var fileName = $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(calculationsForTargetProbability.TargetProbability)}";
             string filePath = Path.Combine(folderPath, $"{fileName}.shp");
 
             var exporter = new HydraulicBoundaryLocationCalculationsExporter(

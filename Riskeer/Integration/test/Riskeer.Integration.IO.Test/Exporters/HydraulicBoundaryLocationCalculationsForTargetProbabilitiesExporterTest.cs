@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
@@ -28,6 +27,7 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.IO.Exporters;
 
 namespace Riskeer.Integration.IO.Test.Exporters
@@ -157,7 +157,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
         private static string GetReturnPeriodText(double targetProbability)
         {
-            return (1.0 / targetProbability).ToString(CultureInfo.InvariantCulture);
+            return ReturnPeriodFormattingHelper.FormatFromProbability(targetProbability);
         }
     }
 }
