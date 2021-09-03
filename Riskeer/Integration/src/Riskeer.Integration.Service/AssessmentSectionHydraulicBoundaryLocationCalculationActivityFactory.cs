@@ -110,7 +110,8 @@ namespace Riskeer.Integration.Service
                                                     wlc.HydraulicBoundaryLocationCalculations,
                                                     assessmentSection,
                                                     wlc.TargetProbability,
-                                                    noProbabilityValueDoubleConverter.ConvertToString(wlc.TargetProbability)));
+                                                    noProbabilityValueDoubleConverter.ConvertToString(wlc.TargetProbability)))
+                                    .ToList();
         }
 
         /// <summary>
@@ -132,7 +133,8 @@ namespace Riskeer.Integration.Service
                                                     whc.HydraulicBoundaryLocationCalculations,
                                                     assessmentSection,
                                                     whc.TargetProbability,
-                                                    noProbabilityValueDoubleConverter.ConvertToString(whc.TargetProbability)));
+                                                    noProbabilityValueDoubleConverter.ConvertToString(whc.TargetProbability)))
+                                    .ToList();
         }
     }
 }

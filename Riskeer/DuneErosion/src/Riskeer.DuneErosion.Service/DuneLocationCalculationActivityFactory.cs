@@ -97,7 +97,8 @@ namespace Riskeer.DuneErosion.Service
                                    .SelectMany(dlc => CreateCalculationActivities(dlc.DuneLocationCalculations,
                                                                                   assessmentSection,
                                                                                   dlc.TargetProbability,
-                                                                                  noProbabilityValueDoubleConverter.ConvertToString(dlc.TargetProbability)));
+                                                                                  noProbabilityValueDoubleConverter.ConvertToString(dlc.TargetProbability)))
+                                   .ToList();
         }
     }
 }
