@@ -71,27 +71,40 @@ namespace Riskeer.Integration.IO.Exporters
 
         public bool Export()
         {
+            var exportedCalculations = new Dictionary<HydraulicBoundaryLocationCalculationsForTargetProbability, string>();
             return locationCalculationsForTargetProbabilities.All(
                 locationCalculationsForTargetProbability => ExportLocationCalculationsForTargetProbability(
-                    locationCalculationsForTargetProbability.Item1,locationCalculationsForTargetProbability.Item2));
+                    locationCalculationsForTargetProbability.Item1,
+                    locationCalculationsForTargetProbability.Item2,
+                    exportedCalculations));
         }
 
         private bool ExportLocationCalculationsForTargetProbability(
             HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability,
-            HydraulicBoundaryLocationCalculationsType calculationsType)
+            HydraulicBoundaryLocationCalculationsType calculationsType,
+            IDictionary<HydraulicBoundaryLocationCalculationsForTargetProbability, string> exportedCalculations)
         {
             string exportType = calculationsType == HydraulicBoundaryLocationCalculationsType.WaterLevel
                                     ? Resources.HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaterLevels_DisplayName
                                     : Resources.HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaveHeights_DisplayName;
 
-            var fileName = $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(calculationsForTargetProbability.TargetProbability)}";
-            string filePath = Path.Combine(folderPath, $"{fileName}.shp");
+            string uniqueName = NamingHelper.GetUniqueName(
+                exportedCalculations, $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(calculationsForTargetProbability.TargetProbability)}",
+                c => c.Value);
+
+            string filePath = Path.Combine(folderPath, $"{uniqueName}.shp");
 
             var exporter = new HydraulicBoundaryLocationCalculationsExporter(
                 calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
                 filePath, calculationsType);
 
-            return exporter.Export();
+            if (!exporter.Export())
+            {
+                return false;
+            }
+
+            exportedCalculations.Add(calculationsForTargetProbability, uniqueName);
+            return true;
         }
     }
 }
