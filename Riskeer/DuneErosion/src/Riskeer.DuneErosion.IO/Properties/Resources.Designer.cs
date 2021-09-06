@@ -91,16 +91,7 @@ namespace Riskeer.DuneErosion.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} (Pfdsn = {1} jaar).
-        /// </summary>
-        internal static string DuneLocationCalculationsWriter_WBI2017_ID_Format {
-            get {
-                return ResourceManager.GetString("DuneLocationCalculationsWriter_WBI2017_ID_Format", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to *Kustvaknummer	Metrering	Rekenpeil	Significante golfhoogte	Piekperiode	Spectrale periode	Korreldiameter	Scenario	Categoriegrens	Pfdsn.
+        ///   Looks up a localized string similar to *Kustvaknummer	Metrering	Rekenpeil	Significante golfhoogte	Piekperiode	Spectrale periode	Korreldiameter	Pfdsn.
         /// </summary>
         internal static string DuneLocationCalculationsWriter_WriteDuneLocationCalculations_DisplayNameLine {
             get {
@@ -109,7 +100,7 @@ namespace Riskeer.DuneErosion.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kv	Nr	Rp	Hs	Tp	Tm-1,0	D50	_WBI2017_ID	_WBI2017_Categoriegrens	_WBI2017_Waarde.
+        ///   Looks up a localized string similar to Kv	Nr	Rp	Hs	Tp	Tm-1,0	D50	_WBI2023_Waarde.
         /// </summary>
         internal static string DuneLocationCalculationsWriter_WriteDuneLocationCalculations_HeaderLine {
             get {
@@ -118,7 +109,7 @@ namespace Riskeer.DuneErosion.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *[-]	[dam]	[m+NAP]	[m]	[s]	[s]	[m]	[-]	[-]	[1/jaar].
+        ///   Looks up a localized string similar to *[-]	[dam]	[m+NAP]	[m]	[s]	[s]	[m]	[1/jaar].
         /// </summary>
         internal static string DuneLocationCalculationsWriter_WriteDuneLocationCalculations_UnitsLine {
             get {

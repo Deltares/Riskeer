@@ -76,7 +76,7 @@ namespace Riskeer.DuneErosion.IO
             {
                 foreach (ExportableDuneLocationCalculation calculation in exportableDuneLocationCalculations)
                 {
-                    stringBuilder.AppendLine(CreateCsvLine(calculation, probabilityConverter));
+                    stringBuilder.AppendLine(CreateCsvLine(calculation));
                 }
 
                 File.WriteAllText(filePath, stringBuilder.ToString());
@@ -87,7 +87,7 @@ namespace Riskeer.DuneErosion.IO
             }
         }
 
-        private static string CreateCsvLine(ExportableDuneLocationCalculation calculation, TypeConverter probabilityConverter)
+        private static string CreateCsvLine(ExportableDuneLocationCalculation calculation)
         {
             DuneLocation duneLocation = calculation.Calculation.DuneLocation;
             var stringComponents = new List<string>
@@ -96,9 +96,6 @@ namespace Riskeer.DuneErosion.IO
                 duneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture),
                 Resources.DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value,
                 duneLocation.D50.ToString(null, CultureInfo.InvariantCulture),
-                string.Format(Resources.DuneLocationCalculationsWriter_WBI2017_ID_Format, calculation.CategoryBoundaryName,
-                              probabilityConverter.ConvertToInvariantString(calculation.Norm)),
-                calculation.CategoryBoundaryName,
                 calculation.Norm.ToString(CultureInfo.InvariantCulture)
             };
 

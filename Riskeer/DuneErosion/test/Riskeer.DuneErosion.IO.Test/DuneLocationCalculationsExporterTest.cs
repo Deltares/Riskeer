@@ -139,12 +139,12 @@ namespace Riskeer.DuneErosion.IO.Test
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Kv\tNr\tRp\tHs\tTp\tTm-1,0\tD50\t_WBI2017_ID\t_WBI2017_Categoriegrens\t_WBI2017_Waarde{Environment.NewLine}" +
-                                      $"*Kustvaknummer\tMetrering\tRekenpeil\tSignificante golfhoogte\tPiekperiode\tSpectrale periode\tKorreldiameter\tScenario\tCategoriegrens\tPfdsn{Environment.NewLine}" +
-                                      $"*[-]\t[dam]\t[m+NAP]\t[m]\t[s]\t[s]\t[m]\t[-]\t[-]\t[1/jaar]{Environment.NewLine}" +
-                                      $"9\t9740\t*\t*\t*\t*\t0.000196\tA (Pfdsn = Converted 0.5 jaar)\tA\t0.5{Environment.NewLine}" +
-                                      $"10\t9770.1\t*\t*\t*\t*\t0.000196\tB (Pfdsn = Converted 0.25 jaar)\tB\t0.25{Environment.NewLine}" +
-                                      $"11\t9771.3\t5.89\t8.53\t14.11\t*\t0.000134\tC (Pfdsn = Converted 0.1 jaar)\tC\t0.1{Environment.NewLine}";
+                string expectedText = $"Kv\tNr\tRp\tHs\tTp\tTm-1,0\tD50\t_WBI2023_Waarde{Environment.NewLine}" +
+                                      $"*Kustvaknummer\tMetrering\tRekenpeil\tSignificante golfhoogte\tPiekperiode\tSpectrale periode\tKorreldiameter\tPfdsn{Environment.NewLine}" +
+                                      $"*[-]\t[dam]\t[m+NAP]\t[m]\t[s]\t[s]\t[m]\t[1/jaar]{Environment.NewLine}" +
+                                      $"9\t9740\t*\t*\t*\t*\t0.000196\t0.5{Environment.NewLine}" +
+                                      $"10\t9770.1\t*\t*\t*\t*\t0.000196\t0.25{Environment.NewLine}" +
+                                      $"11\t9771.3\t5.89\t8.53\t14.11\t*\t0.000134\t0.1{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
         }
