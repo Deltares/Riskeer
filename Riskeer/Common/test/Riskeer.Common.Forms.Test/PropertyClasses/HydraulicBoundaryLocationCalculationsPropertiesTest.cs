@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
@@ -33,29 +32,29 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
     public class HydraulicBoundaryLocationCalculationsPropertiesTest
     {
         [Test]
-        public void Constructor_HydraulicBoundaryLocationCalculationsNull_ThrowsArgumentNullException()
+        public void Constructor_CalculationsForTargetProbabilityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationCalculationsProperties(null);
+            void Call() => new TestHydraulicBoundaryLocationCalculationsProperties(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryLocationCalculations", paramName);
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("calculationsForTargetProbability", paramName);
         }
 
         [Test]
         public void Constructor_ValidData_ExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
 
             // Call
-            using (var properties = new TestHydraulicBoundaryLocationCalculationsProperties(hydraulicBoundaryLocationCalculations))
+            using (var properties = new TestHydraulicBoundaryLocationCalculationsProperties(calculationsForTargetProbability))
             {
                 // Assert
-                Assert.IsInstanceOf<ObjectProperties<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>>(properties);
+                Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryLocationCalculationsForTargetProbability>>(properties);
                 Assert.IsInstanceOf<IDisposable>(properties);
-                Assert.AreSame(hydraulicBoundaryLocationCalculations, properties.Data);
+                Assert.AreSame(calculationsForTargetProbability, properties.Data);
             }
         }
 
@@ -64,12 +63,15 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Given
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
-            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
             {
-                hydraulicBoundaryLocationCalculation
+                HydraulicBoundaryLocationCalculations =
+                {
+                    hydraulicBoundaryLocationCalculation
+                }
             };
 
-            using (var properties = new TestHydraulicBoundaryLocationCalculationsProperties(hydraulicBoundaryLocationCalculations))
+            using (var properties = new TestHydraulicBoundaryLocationCalculationsProperties(calculationsForTargetProbability))
             {
                 var refreshRequiredRaised = 0;
                 properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
@@ -87,12 +89,15 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Given
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
-            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
             {
-                hydraulicBoundaryLocationCalculation
+                HydraulicBoundaryLocationCalculations =
+                {
+                    hydraulicBoundaryLocationCalculation
+                }
             };
 
-            var properties = new TestHydraulicBoundaryLocationCalculationsProperties(hydraulicBoundaryLocationCalculations);
+            var properties = new TestHydraulicBoundaryLocationCalculationsProperties(calculationsForTargetProbability);
             var refreshRequiredRaised = 0;
             properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
 
@@ -107,7 +112,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
         private class TestHydraulicBoundaryLocationCalculationsProperties : HydraulicBoundaryLocationCalculationsProperties
         {
-            public TestHydraulicBoundaryLocationCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculationsForTargetProbability)
+            public TestHydraulicBoundaryLocationCalculationsProperties(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
                 : base(calculationsForTargetProbability) {}
         }
     }
