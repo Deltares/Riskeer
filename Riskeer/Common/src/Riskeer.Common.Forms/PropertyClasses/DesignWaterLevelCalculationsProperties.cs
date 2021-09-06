@@ -21,7 +21,6 @@
 
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Util.Attributes;
 using Core.Gui.Converters;
 using Riskeer.Common.Data.Hydraulics;
@@ -30,8 +29,7 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of a collection of <see cref="HydraulicBoundaryLocationCalculation"/> with
-    /// a design water level calculation result for properties panel.
+    /// ViewModel of a design water level related <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> for properties panel.
     /// </summary>
     public abstract class DesignWaterLevelCalculationsProperties : HydraulicBoundaryLocationCalculationsProperties
     {
@@ -39,7 +37,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationsProperties"/>.
         /// </summary>
-        protected DesignWaterLevelCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculationsForTargetProbability)
+        protected DesignWaterLevelCalculationsProperties(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
             : base(calculationsForTargetProbability) {}
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
@@ -56,7 +54,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         private DesignWaterLevelCalculationProperties[] GetCalculations()
         {
-            return data.Select(calculation => new DesignWaterLevelCalculationProperties(calculation)).ToArray();
+            return data.HydraulicBoundaryLocationCalculations.Select(calculation => new DesignWaterLevelCalculationProperties(calculation)).ToArray();
         }
     }
 }
