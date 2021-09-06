@@ -41,14 +41,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(""));
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
-            {
-                HydraulicBoundaryLocationCalculations =
-                {
-                    calculation
-                }
-            };
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
 
             // Call
             var properties = new WaterLevelCalculationsForNormTargetProbabilityProperties(calculationsForTargetProbability);
