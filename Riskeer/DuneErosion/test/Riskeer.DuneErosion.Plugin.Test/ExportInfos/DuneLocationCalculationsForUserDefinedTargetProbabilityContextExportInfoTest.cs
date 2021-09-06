@@ -58,7 +58,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void CreateFileExporter_Always_ReturnFileExporter()
+        public void CreateFileExporter_WithData_ReturnFileExporter()
         {
             // Setup
             var mocks = new MockRepository();
