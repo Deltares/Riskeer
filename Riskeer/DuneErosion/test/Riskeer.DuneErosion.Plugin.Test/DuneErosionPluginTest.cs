@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
@@ -37,11 +38,9 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Data;
-using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
 using Riskeer.DuneErosion.Forms.Views;
-using Riskeer.Integration.Data;
 
 namespace Riskeer.DuneErosion.Plugin.Test
 {
@@ -199,9 +198,12 @@ namespace Riskeer.DuneErosion.Plugin.Test
             var mocks = new MockRepository();
             var projectStore = mocks.Stub<IStoreProject>();
             var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            var project = mocks.Stub<IProject>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Plugins.AddRange(new PluginBase[]
                 {
@@ -211,27 +213,11 @@ namespace Riskeer.DuneErosion.Plugin.Test
                 gui.Run();
 
                 var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1);
-                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                var failureMechanism = new DuneErosionFailureMechanism
                 {
-                    DuneErosion =
+                    DuneLocationCalculationsForUserDefinedTargetProbabilities =
                     {
-                        DuneLocationCalculationsForUserDefinedTargetProbabilities =
-                        {
-                            calculationsForTargetProbability
-                        }
-                    }
-                };
-
-                assessmentSection.DuneErosion.SetDuneLocations(new[]
-                {
-                    new TestDuneLocation()
-                });
-
-                var project = new RiskeerProject
-                {
-                    AssessmentSections =
-                    {
-                        assessmentSection
+                        calculationsForTargetProbability
                     }
                 };
 
@@ -239,7 +225,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
 
                 gui.DocumentViewController.CloseAllViews();
                 gui.DocumentViewController.OpenViewForData(new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
-                                                                                                                              assessmentSection.DuneErosion,
+                                                                                                                              failureMechanism,
                                                                                                                               assessmentSection));
 
                 IView view = gui.ViewHost.DocumentViews.First();
@@ -254,6 +240,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Hydraulische belastingen - 1/100"));
+                mocks.VerifyAll();
             }
         }
     }
