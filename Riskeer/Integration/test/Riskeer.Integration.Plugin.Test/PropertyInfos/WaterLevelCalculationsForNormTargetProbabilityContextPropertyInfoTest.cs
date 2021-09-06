@@ -70,8 +70,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.IsInstanceOf<WaterLevelCalculationsForNormTargetProbabilityProperties>(objectProperties);
-                Assert.AreSame(hydraulicBoundaryLocationCalculations.HydraulicBoundaryLocationCalculations, objectProperties.Data);
-                Assert.AreEqual(0.01, ((WaterLevelCalculationsForNormTargetProbabilityProperties) objectProperties).TargetProbability);
+                Assert.AreSame(hydraulicBoundaryLocationCalculations, objectProperties.Data);
             }
 
             mockRepository.VerifyAll();
