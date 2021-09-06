@@ -56,9 +56,9 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocationCalculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
 
-            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(hydraulicBoundaryLocationCalculations,
+            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(calculationsForTargetProbability,
                                                                                     assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
@@ -70,7 +70,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.IsInstanceOf<WaterLevelCalculationsForNormTargetProbabilityProperties>(objectProperties);
-                Assert.AreSame(hydraulicBoundaryLocationCalculations, objectProperties.Data);
+                Assert.AreSame(calculationsForTargetProbability, objectProperties.Data);
             }
 
             mockRepository.VerifyAll();
