@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Util;
@@ -39,43 +38,33 @@ namespace Riskeer.DuneErosion.IO
 
         private readonly IEnumerable<ExportableDuneLocationCalculation> exportableDuneLocationCalculations;
         private readonly string filePath;
-        private readonly TypeConverter probabilityConverter;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationCalculationsExporter"/>.
         /// </summary>
         /// <param name="exportableDuneLocationCalculations">The dune location calculations to export.</param>
         /// <param name="filePath">The path of the file to export to.</param>
-        /// <param name="probabilityConverter">The <see cref="TypeConverter"/> to use when exporting the category boundaries.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="exportableDuneLocationCalculations"/>
-        /// or <paramref name="probabilityConverter"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="exportableDuneLocationCalculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public DuneLocationCalculationsExporter(IEnumerable<ExportableDuneLocationCalculation> exportableDuneLocationCalculations,
-                                                string filePath,
-                                                TypeConverter probabilityConverter)
+                                                string filePath)
         {
             if (exportableDuneLocationCalculations == null)
             {
                 throw new ArgumentNullException(nameof(exportableDuneLocationCalculations));
             }
 
-            if (probabilityConverter == null)
-            {
-                throw new ArgumentNullException(nameof(probabilityConverter));
-            }
-
             IOUtils.ValidateFilePath(filePath);
 
             this.exportableDuneLocationCalculations = exportableDuneLocationCalculations;
             this.filePath = filePath;
-            this.probabilityConverter = probabilityConverter;
         }
 
         public bool Export()
         {
             try
             {
-                DuneLocationCalculationsWriter.WriteDuneLocationCalculations(exportableDuneLocationCalculations, filePath, probabilityConverter);
+                DuneLocationCalculationsWriter.WriteDuneLocationCalculations(exportableDuneLocationCalculations, filePath);
             }
             catch (CriticalFileWriteException e)
             {

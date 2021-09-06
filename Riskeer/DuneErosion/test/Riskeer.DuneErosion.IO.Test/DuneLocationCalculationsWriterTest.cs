@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
@@ -41,36 +39,21 @@ namespace Riskeer.DuneErosion.IO.Test
         public void WriteDuneLocationCalculations_ExportableDuneLocationCalculationsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(null, string.Empty, new TestTypeConverter());
+            void Call() => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(null, string.Empty);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("exportableDuneLocationCalculations", exception.ParamName);
-        }
-
-        [Test]
-        public void WriteDuneLocationCalculations_ProbabilityConverterNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(),
-                                                                                                   string.Empty,
-                                                                                                   null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("probabilityConverter", exception.ParamName);
         }
 
         [Test]
         public void WriteDuneLocationCalculations_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(),
-                                                                                                   null,
-                                                                                                   new TestTypeConverter());
+            void Call() => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("filePath", exception.ParamName);
         }
 
@@ -81,12 +64,10 @@ namespace Riskeer.DuneErosion.IO.Test
         public void WriteDuneLocationCalculations_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
         {
             // Call
-            TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(),
-                                                                                                   filePath,
-                                                                                                   new TestTypeConverter());
+            void Call() => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            var exception = Assert.Throws<CriticalFileWriteException>(Call);
             Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
@@ -99,8 +80,7 @@ namespace Riskeer.DuneErosion.IO.Test
 
             // Call
             TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(),
-                                                                                                   filePath,
-                                                                                                   new TestTypeConverter());
+                                                                                                   filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -120,8 +100,7 @@ namespace Riskeer.DuneErosion.IO.Test
 
                 // Call
                 TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(),
-                                                                                                       filePath,
-                                                                                                       new TestTypeConverter());
+                                                                                                       filePath);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -142,8 +121,7 @@ namespace Riskeer.DuneErosion.IO.Test
 
                 // Call
                 TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(),
-                                                                                                       path,
-                                                                                                       new TestTypeConverter());
+                                                                                                       path);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -192,8 +170,7 @@ namespace Riskeer.DuneErosion.IO.Test
             {
                 // Call
                 DuneLocationCalculationsWriter.WriteDuneLocationCalculations(exportableDuneLocationCalculations,
-                                                                             filePath,
-                                                                             new TestTypeConverter());
+                                                                             filePath);
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
@@ -230,14 +207,6 @@ namespace Riskeer.DuneErosion.IO.Test
                 Offset = offset,
                 D50 = d50
             });
-        }
-
-        private class TestTypeConverter : TypeConverter
-        {
-            public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-            {
-                return "Converted " + ((double) value).ToString(culture);
-            }
         }
     }
 }

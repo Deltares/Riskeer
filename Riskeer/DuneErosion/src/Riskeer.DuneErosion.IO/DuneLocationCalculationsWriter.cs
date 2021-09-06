@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -46,12 +45,10 @@ namespace Riskeer.DuneErosion.IO
         /// </summary>
         /// <param name="exportableDuneLocationCalculations">The dune location calculations to be written to the file.</param>
         /// <param name="filePath">The path to the file.</param>
-        /// <param name="probabilityConverter">The <see cref="TypeConverter"/> to use when exporting the category boundaries.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when unable to write to <paramref name="filePath"/>.</exception>
         public static void WriteDuneLocationCalculations(IEnumerable<ExportableDuneLocationCalculation> exportableDuneLocationCalculations,
-                                                         string filePath,
-                                                         TypeConverter probabilityConverter)
+                                                         string filePath)
         {
             if (exportableDuneLocationCalculations == null)
             {
@@ -61,11 +58,6 @@ namespace Riskeer.DuneErosion.IO
             if (filePath == null)
             {
                 throw new ArgumentNullException(nameof(filePath));
-            }
-
-            if (probabilityConverter == null)
-            {
-                throw new ArgumentNullException(nameof(probabilityConverter));
             }
 
             var stringBuilder = new StringBuilder(Resources.DuneLocationCalculationsWriter_WriteDuneLocationCalculations_HeaderLine + Environment.NewLine);

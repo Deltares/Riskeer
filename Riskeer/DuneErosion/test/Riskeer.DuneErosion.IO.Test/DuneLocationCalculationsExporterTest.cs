@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
@@ -45,8 +43,7 @@ namespace Riskeer.DuneErosion.IO.Test
 
             // Call
             var exporter = new DuneLocationCalculationsExporter(Enumerable.Empty<ExportableDuneLocationCalculation>(),
-                                                                filePath,
-                                                                new TestTypeConverter());
+                                                                filePath);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
@@ -56,24 +53,11 @@ namespace Riskeer.DuneErosion.IO.Test
         public void Constructor_ExportableDuneLocationCalculationsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new DuneLocationCalculationsExporter(null, "IAmValid.bnd", new TestTypeConverter());
+            void Call() => new DuneLocationCalculationsExporter(null, "IAmValid.bnd");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("exportableDuneLocationCalculations", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_ProbabilityConverterNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new DuneLocationCalculationsExporter(Enumerable.Empty<ExportableDuneLocationCalculation>(),
-                                                                           "IAmValid.bnd",
-                                                                           null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("probabilityConverter", exception.ParamName);
         }
 
         [Test]
@@ -83,12 +67,10 @@ namespace Riskeer.DuneErosion.IO.Test
         public void Constructor_FilePathInvalid_ThrowArgumentException(string filePath)
         {
             // Call
-            TestDelegate test = () => new DuneLocationCalculationsExporter(Enumerable.Empty<ExportableDuneLocationCalculation>(),
-                                                                           filePath,
-                                                                           new TestTypeConverter());
+            void Call() => new DuneLocationCalculationsExporter(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);
 
             // Assert
-            Assert.Throws<ArgumentException>(test);
+            Assert.Throws<ArgumentException>(Call);
         }
 
         [Test]
@@ -129,8 +111,7 @@ namespace Riskeer.DuneErosion.IO.Test
                 string filePath = Path.Combine(directoryPath, "test.bnd");
 
                 var exporter = new DuneLocationCalculationsExporter(exportableDuneLocationCalculations,
-                                                                    filePath,
-                                                                    new TestTypeConverter());
+                                                                    filePath);
 
                 // Call
                 bool isExported = exporter.Export();
@@ -158,8 +139,7 @@ namespace Riskeer.DuneErosion.IO.Test
             {
                 string filePath = Path.Combine(directoryPath, "test.bnd");
                 var exporter = new DuneLocationCalculationsExporter(Enumerable.Empty<ExportableDuneLocationCalculation>(),
-                                                                    filePath,
-                                                                    new TestTypeConverter());
+                                                                    filePath);
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
                 var isExported = true;
@@ -193,14 +173,6 @@ namespace Riskeer.DuneErosion.IO.Test
                 Offset = offset,
                 D50 = d50
             });
-        }
-
-        private class TestTypeConverter : TypeConverter
-        {
-            public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-            {
-                return "Converted " + ((double) value).ToString(culture);
-            }
         }
     }
 }

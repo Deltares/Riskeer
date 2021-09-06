@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -656,7 +656,7 @@ namespace Riskeer.DuneErosion.Plugin
         private static DuneLocationCalculationsExporter CreateDuneLocationCalculationsExporter(IEnumerable<ExportableDuneLocationCalculation> exportableCalculations,
                                                                                                string filePath)
         {
-            return new DuneLocationCalculationsExporter(exportableCalculations, filePath, new NoProbabilityValueDoubleConverter());
+            return new DuneLocationCalculationsExporter(exportableCalculations, filePath);
         }
 
         #endregion
