@@ -42,24 +42,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         private const int calculationsPropertyIndex = 1;
 
         [Test]
-        public void Constructor_HydraulicBoundaryLocationCalculationsForTargetProbabilityNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var targetProbabilityChangeHandler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new WaveHeightCalculationsForUserDefinedTargetProbabilityProperties(
-                null, targetProbabilityChangeHandler);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("calculationsForTargetProbability", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_TargetProbabilityChangeHandlerNull_ThrowsArgumentNullException()
         {
             // Call
