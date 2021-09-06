@@ -107,8 +107,8 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
         private class TestHydraulicBoundaryLocationCalculationsProperties : HydraulicBoundaryLocationCalculationsProperties
         {
-            public TestHydraulicBoundaryLocationCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
-                : base(hydraulicBoundaryLocationCalculations) {}
+            public TestHydraulicBoundaryLocationCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculationsForTargetProbability)
+                : base(calculationsForTargetProbability) {}
         }
     }
 }

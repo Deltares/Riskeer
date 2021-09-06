@@ -90,8 +90,8 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
         private class TestWaveHeightCalculationsProperties : WaveHeightCalculationsProperties
         {
-            public TestWaveHeightCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
-                : base(hydraulicBoundaryLocationCalculations) {}
+            public TestWaveHeightCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculationsForTargetProbability)
+                : base(calculationsForTargetProbability) {}
         }
     }
 }
