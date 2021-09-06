@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsProperties"/>.
         /// </summary>
-        /// <param name="calculationsForTargetProbability">The hydraulic boundary location calculations to set as data.</param>
+        /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> to show the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationsForTargetProbability"/> is <c>null</c>.</exception>
         protected HydraulicBoundaryLocationCalculationsProperties(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
         {
