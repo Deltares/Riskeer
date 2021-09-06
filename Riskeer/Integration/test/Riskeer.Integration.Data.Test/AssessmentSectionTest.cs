@@ -28,7 +28,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -54,8 +53,12 @@ namespace Riskeer.Integration.Data.Test
         [TestCase(AssessmentSectionComposition.DikeAndDune)]
         public void Constructor_ExpectedValues(AssessmentSectionComposition composition)
         {
+            // Setup
+            const double lowerLimitNorm = 0.01;
+            const double signalingNorm = 0.001;
+
             // Call
-            var assessmentSection = new AssessmentSection(composition);
+            var assessmentSection = new AssessmentSection(composition, lowerLimitNorm, signalingNorm);
 
             // Assert
             Assert.IsInstanceOf<Observable>(assessmentSection);
@@ -64,7 +67,10 @@ namespace Riskeer.Integration.Data.Test
             Assert.AreEqual("Traject", assessmentSection.Name);
             Assert.IsNull(assessmentSection.Comments.Body);
             Assert.AreEqual(composition, assessmentSection.Composition);
-            Assert.IsInstanceOf<FailureMechanismContribution>(assessmentSection.FailureMechanismContribution);
+
+            Assert.IsNotNull(assessmentSection.FailureMechanismContribution);
+            Assert.AreEqual(lowerLimitNorm, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
+            Assert.AreEqual(signalingNorm, assessmentSection.FailureMechanismContribution.SignalingNorm);
 
             ReferenceLine referenceLine = assessmentSection.ReferenceLine;
             Assert.IsNotNull(referenceLine);
@@ -76,6 +82,14 @@ namespace Riskeer.Integration.Data.Test
             Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
             Assert.IsFalse(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor);
+
+            Assert.IsNotNull(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations);
+            Assert.AreEqual(lowerLimitNorm, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.TargetProbability);
+
+            Assert.IsNotNull(assessmentSection.WaterLevelCalculationsForSignalingNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations);
+            Assert.AreEqual(signalingNorm, assessmentSection.WaterLevelCalculationsForSignalingNorm.TargetProbability);
 
             Assert.IsEmpty(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities);
             Assert.IsEmpty(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities);
@@ -112,8 +126,6 @@ namespace Riskeer.Integration.Data.Test
             Assert.AreEqual(RiskeerWellKnownTileSource.BingAerial, configuration.WellKnownTileSource);
 
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
-            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations);
-            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations);
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForSignalingNorm);
@@ -199,7 +211,7 @@ namespace Riskeer.Integration.Data.Test
         }
 
         [Test]
-        public void Name_SetingNewValue_GetNewValue()
+        public void Name_SettingNewValue_GetNewValue()
         {
             // Setup
             var random = new Random(21);
