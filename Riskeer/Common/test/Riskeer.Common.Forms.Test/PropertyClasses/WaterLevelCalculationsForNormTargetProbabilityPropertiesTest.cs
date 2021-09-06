@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using Core.Gui.Converters;
@@ -37,17 +36,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
     {
         private const int targetProbabilityPropertyIndex = 0;
         private const int calculationsPropertyIndex = 1;
-
-        [Test]
-        public void Constructor_HydraulicBoundaryLocationCalculationsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new WaterLevelCalculationsForNormTargetProbabilityProperties(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("calculationsForTargetProbability", paramName);
-        }
 
         [Test]
         public void Constructor_ValidParameters_ExpectedValues()
@@ -106,9 +94,9 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             const double targetProbability = 0.1;
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
             {
-                HydraulicBoundaryLocationCalculations = 
+                HydraulicBoundaryLocationCalculations =
                 {
-                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())    
+                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
                 }
             };
 

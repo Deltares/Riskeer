@@ -44,10 +44,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> to show the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationsForTargetProbability"/> is <c>null</c>.</exception>
         public WaterLevelCalculationsForNormTargetProbabilityProperties(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
-            : base(calculationsForTargetProbability?.HydraulicBoundaryLocationCalculations ?? throw new ArgumentNullException(nameof(calculationsForTargetProbability)))
-        {
-            TargetProbability = calculationsForTargetProbability.TargetProbability;
-        }
+            : base(calculationsForTargetProbability) {}
 
         [PropertyOrder(calculationsPropertyIndex)]
         public override DesignWaterLevelCalculationProperties[] Calculations
@@ -63,6 +60,6 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.TargetProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.TargetProbability_Description))]
-        public double TargetProbability { get; }
+        public double TargetProbability => data.TargetProbability;
     }
 }
