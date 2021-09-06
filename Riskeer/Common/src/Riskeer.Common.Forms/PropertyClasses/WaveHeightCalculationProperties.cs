@@ -28,7 +28,8 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> with wave height for properties panel.
+    /// ViewModel of a collection of <see cref="HydraulicBoundaryLocationCalculation"/> with a wave height calculation
+    /// result for properties panel.
     /// </summary>
     public class WaveHeightCalculationProperties : HydraulicBoundaryLocationCalculationProperties
     {

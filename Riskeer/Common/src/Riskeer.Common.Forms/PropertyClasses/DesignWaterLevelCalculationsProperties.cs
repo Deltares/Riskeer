@@ -29,7 +29,8 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of a design water level related <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> for properties panel.
+    /// ViewModel of a collection of <see cref="HydraulicBoundaryLocationCalculation"/> with a design water level calculation
+    /// result for properties panel.
     /// </summary>
     public abstract class DesignWaterLevelCalculationsProperties : HydraulicBoundaryLocationCalculationsProperties
     {
