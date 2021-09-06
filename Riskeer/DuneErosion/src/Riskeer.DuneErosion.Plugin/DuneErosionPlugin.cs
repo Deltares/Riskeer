@@ -36,7 +36,6 @@ using Core.Gui.Forms.ViewHost;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.TypeConverters;
@@ -597,54 +596,26 @@ namespace Riskeer.DuneErosion.Plugin
 
         private static bool IsDuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextExportMenuItemEnabled(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext context)
         {
-            return context.FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Any(calculation => calculation.Output != null)
-                   || context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm.Any(calculation => calculation.Output != null)
-                   || context.FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Any(calculation => calculation.Output != null)
-                   || context.FailureMechanism.CalculationsForLowerLimitNorm.Any(calculation => calculation.Output != null)
-                   || context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm.Any(calculation => calculation.Output != null);
+            return context.FailureMechanism
+                          .DuneLocationCalculationsForUserDefinedTargetProbabilities
+                          .Any(calculationsForTargetProbability => calculationsForTargetProbability.DuneLocationCalculations
+                                                                                                   .Any(c => c.Output != null));
         }
 
         private static IFileExporter CreateDuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextFileExporter(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext context, string filePath)
         {
-            return CreateDuneLocationCalculationsExporter(GetExportableDuneLocationCalculations(context.FailureMechanism, context.AssessmentSection),
-                                                          filePath);
+            return CreateDuneLocationCalculationsExporter(GetExportableDuneLocationCalculations(context.FailureMechanism), filePath);
         }
 
-        private static IEnumerable<ExportableDuneLocationCalculation> GetExportableDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<ExportableDuneLocationCalculation> GetExportableDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism)
         {
-            foreach (DuneLocationCalculation calculation in failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm)
+            foreach (DuneLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbability in failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities)
             {
-                yield return new ExportableDuneLocationCalculation(
-                    calculation,
-                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm));
-            }
-
-            foreach (DuneLocationCalculation calculation in failureMechanism.CalculationsForMechanismSpecificSignalingNorm)
-            {
-                yield return new ExportableDuneLocationCalculation(
-                    calculation,
-                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm));
-            }
-
-            foreach (DuneLocationCalculation calculation in failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm)
-            {
-                yield return new ExportableDuneLocationCalculation(
-                    calculation,
-                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm));
-            }
-
-            foreach (DuneLocationCalculation calculation in failureMechanism.CalculationsForLowerLimitNorm)
-            {
-                yield return new ExportableDuneLocationCalculation(
-                    calculation,
-                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm));
-            }
-
-            foreach (DuneLocationCalculation calculation in failureMechanism.CalculationsForFactorizedLowerLimitNorm)
-            {
-                yield return new ExportableDuneLocationCalculation(
-                    calculation,
-                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm));
+                foreach (DuneLocationCalculation calculation in calculationsForUserDefinedTargetProbability.DuneLocationCalculations)
+                {
+                    yield return new ExportableDuneLocationCalculation(
+                        calculation, calculationsForUserDefinedTargetProbability.TargetProbability);
+                }
             }
         }
 

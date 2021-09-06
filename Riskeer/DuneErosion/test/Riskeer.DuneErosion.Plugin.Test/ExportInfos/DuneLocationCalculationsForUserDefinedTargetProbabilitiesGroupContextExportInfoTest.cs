@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.IO;
@@ -118,23 +116,32 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetCalculationListFuncs))]
-        public void IsEnabled_CalculationsWithOutput_ReturnTrue(Func<DuneErosionFailureMechanism, IObservableEnumerable<DuneLocationCalculation>> getCalculationsFunc)
+        public void IsEnabled_CalculationsWithOutput_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism();
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                {
+                    new DuneLocationCalculationsForTargetProbability(0.1)
+                }
+            };
             failureMechanism.SetDuneLocations(new[]
             {
                 new TestDuneLocation()
             });
-            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(new ObservableList<DuneLocationCalculationsForTargetProbability>(),
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
-            getCalculationsFunc(context.FailureMechanism).Single().Output = new TestDuneLocationCalculationOutput();
+
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                            .First().DuneLocationCalculations
+                            .First().Output = new TestDuneLocationCalculationOutput();
+
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities,
+                failureMechanism, assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -153,29 +160,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
         private static ExportInfo GetExportInfo(DuneErosionPlugin plugin)
         {
             return plugin.GetExportInfos().First(ei => ei.DataType == typeof(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext));
-        }
-
-        private static IEnumerable<TestCaseData> GetCalculationListFuncs()
-        {
-            yield return new TestCaseData(new Func<DuneErosionFailureMechanism, IObservableEnumerable<DuneLocationCalculation>>(
-                                              failureMechanism => failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm))
-                .SetName("Failure mechanism specific factorized signaling norm");
-
-            yield return new TestCaseData(new Func<DuneErosionFailureMechanism, IObservableEnumerable<DuneLocationCalculation>>(
-                                              failureMechanism => failureMechanism.CalculationsForMechanismSpecificSignalingNorm))
-                .SetName("Failure mechanism specific signaling norm");
-
-            yield return new TestCaseData(new Func<DuneErosionFailureMechanism, IObservableEnumerable<DuneLocationCalculation>>(
-                                              failureMechanism => failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm))
-                .SetName("Failure mechanism specific lower limit norm");
-
-            yield return new TestCaseData(new Func<DuneErosionFailureMechanism, IObservableEnumerable<DuneLocationCalculation>>(
-                                              failureMechanism => failureMechanism.CalculationsForLowerLimitNorm))
-                .SetName("Lower limit norm");
-
-            yield return new TestCaseData(new Func<DuneErosionFailureMechanism, IObservableEnumerable<DuneLocationCalculation>>(
-                                              failureMechanism => failureMechanism.CalculationsForFactorizedLowerLimitNorm))
-                .SetName("Factorized lower limit norm");
         }
     }
 }
