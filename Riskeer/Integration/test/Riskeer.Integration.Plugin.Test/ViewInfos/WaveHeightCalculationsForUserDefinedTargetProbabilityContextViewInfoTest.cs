@@ -278,15 +278,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             gui.Stub(g => g.ProjectStore).Return(mocks.Stub<IStoreProject>());
             mocks.ReplayAll();
 
-            const double targetProbability = 0.01;
-
-            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability);
-
+            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, new AssessmentSectionStub());
 
-            using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+            using (var view = new WaveHeightCalculationsView(calculations,
                                                              new AssessmentSectionStub(),
-                                                             () => targetProbability,
                                                              () => "1/100"))
 
             using (var plugin = new RiskeerPlugin())
@@ -309,15 +305,13 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseViewForData_ForMatchingContext_ReturnsTrue()
         {
             // Setup
-            const double targetProbability = 0.01;
-
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability),
+                calculationsForTargetProbability,
                 new AssessmentSectionStub());
 
-            using (var view = new WaveHeightCalculationsView(context.WrappedData.HydraulicBoundaryLocationCalculations,
+            using (var view = new WaveHeightCalculationsView(context.WrappedData,
                                                              new AssessmentSectionStub(),
-                                                             () => targetProbability,
                                                              () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
@@ -337,17 +331,14 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseViewForData_ForNonMatchingContext_ReturnsFalse()
         {
             // Setup
-            const double targetProbability = 0.01;
-
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability),
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
                 new AssessmentSectionStub());
 
-            var otherCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            var otherCalculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
 
             using (var view = new WaveHeightCalculationsView(otherCalculations,
                                                              new AssessmentSectionStub(),
-                                                             () => targetProbability,
                                                              () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
@@ -369,9 +360,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
 
-            using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+            using (var view = new WaveHeightCalculationsView(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
                                                              assessmentSection,
-                                                             () => 0.01,
                                                              () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
@@ -392,9 +382,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSectionA = new AssessmentSectionStub();
             var assessmentSectionB = new AssessmentSectionStub();
 
-            using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+            using (var view = new WaveHeightCalculationsView(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
                                                              assessmentSectionA,
-                                                             () => 0.01,
                                                              () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
@@ -414,9 +403,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSectionA = new AssessmentSectionStub();
 
-            using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+            using (var view = new WaveHeightCalculationsView(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
                                                              assessmentSectionA,
-                                                             () => 0.01,
                                                              () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
