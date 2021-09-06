@@ -33,27 +33,18 @@ namespace Riskeer.DuneErosion.IO
         /// Creates a new instance of <see cref="ExportableDuneLocationCalculation"/>.
         /// </summary>
         /// <param name="calculation">The <see cref="DuneLocationCalculation"/> that will be exported.</param>
-        /// <param name="norm">The norm belonging to the calculation.</param>
-        /// <param name="categoryBoundaryName">The display name of the category boundary.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
-        /// or <paramref name="categoryBoundaryName"/> is <c>null</c>.</exception>
+        /// <param name="targetProbability">The target probability belonging to the calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public ExportableDuneLocationCalculation(DuneLocationCalculation calculation,
-                                                 double norm,
-                                                 string categoryBoundaryName)
+                                                 double targetProbability)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
 
-            if (categoryBoundaryName == null)
-            {
-                throw new ArgumentNullException(nameof(categoryBoundaryName));
-            }
-
             Calculation = calculation;
-            Norm = norm;
-            CategoryBoundaryName = categoryBoundaryName;
+            TargetProbability = targetProbability;
         }
 
         /// <summary>
@@ -64,11 +55,6 @@ namespace Riskeer.DuneErosion.IO
         /// <summary>
         /// Gets the norm belonging to the calculation.
         /// </summary>
-        public double Norm { get; }
-
-        /// <summary>
-        /// Gets the display name of the category boundary.
-        /// </summary>
-        public string CategoryBoundaryName { get; }
+        public double TargetProbability { get; }
     }
 }

@@ -33,24 +33,11 @@ namespace Riskeer.DuneErosion.IO.Test
         public void Constructor_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableDuneLocationCalculation(null, new Random(39).NextDouble(), "A");
+            void Call() => new ExportableDuneLocationCalculation(null, new Random(39).NextDouble());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_CategoryBoundaryNameNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new ExportableDuneLocationCalculation(new DuneLocationCalculation(new TestDuneLocation()),
-                                                                            new Random(39).NextDouble(),
-                                                                            null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("categoryBoundaryName", exception.ParamName);
         }
 
         [Test]
@@ -58,16 +45,14 @@ namespace Riskeer.DuneErosion.IO.Test
         {
             // Setup
             var calculation = new DuneLocationCalculation(new TestDuneLocation());
-            double norm = new Random(39).NextDouble();
-            const string categoryBoundaryName = "A";
+            double targetProbability = new Random(39).NextDouble();
 
             // Call
-            var exportableCalculation = new ExportableDuneLocationCalculation(calculation, norm, categoryBoundaryName);
+            var exportableCalculation = new ExportableDuneLocationCalculation(calculation, targetProbability);
 
             // Assert
             Assert.AreSame(calculation, exportableCalculation.Calculation);
-            Assert.AreEqual(norm, exportableCalculation.Norm);
-            Assert.AreEqual(categoryBoundaryName, exportableCalculation.CategoryBoundaryName);
+            Assert.AreEqual(targetProbability, exportableCalculation.TargetProbability);
         }
     }
 }

@@ -79,11 +79,10 @@ namespace Riskeer.DuneErosion.IO.Test
             var filePath = new string('a', 249);
 
             // Call
-            TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(),
-                                                                                                   filePath);
+            void Call() => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            var exception = Assert.Throws<CriticalFileWriteException>(Call);
             Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
             Assert.IsInstanceOf<PathTooLongException>(exception.InnerException);
         }
@@ -99,11 +98,10 @@ namespace Riskeer.DuneErosion.IO.Test
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Call
-                TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(),
-                                                                                                       filePath);
+                void Call() => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileWriteException>(call);
+                var exception = Assert.Throws<CriticalFileWriteException>(Call);
                 Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
                 Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
             }
@@ -120,11 +118,10 @@ namespace Riskeer.DuneErosion.IO.Test
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(),
-                                                                                                       path);
+                void Call() => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(), path);
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileWriteException>(call);
+                var exception = Assert.Throws<CriticalFileWriteException>(Call);
                 Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{path}'.", exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
@@ -136,24 +133,21 @@ namespace Riskeer.DuneErosion.IO.Test
             // Setup
             var calculationWithoutOutput = new ExportableDuneLocationCalculation(
                 new DuneLocationCalculation(CreateDuneLocationForExport(9, 9740, 1.9583e-4)),
-                0.5,
-                "A");
+                0.5);
 
             var calculationWithUncalculatedOutput = new ExportableDuneLocationCalculation(
                 new DuneLocationCalculation(CreateDuneLocationForExport(10, 9770.1, 1.9583e-4))
                 {
                     Output = CreateDuneLocationCalculationOutputForExport(double.NaN, double.NaN, double.NaN)
                 },
-                0.25,
-                "B");
+                0.25);
 
             var calculationWithOutput = new ExportableDuneLocationCalculation(
                 new DuneLocationCalculation(CreateDuneLocationForExport(11, 9771.34, 1.337e-4))
                 {
                     Output = CreateDuneLocationCalculationOutputForExport(5.89, 14.11, 8.53)
                 },
-                0.1,
-                "C");
+                0.1);
 
             ExportableDuneLocationCalculation[] exportableDuneLocationCalculations =
             {

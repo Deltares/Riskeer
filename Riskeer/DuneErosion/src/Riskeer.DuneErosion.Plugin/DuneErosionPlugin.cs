@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -211,13 +211,13 @@ namespace Riskeer.DuneErosion.Plugin
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Extension = Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension,
-                CreateFileExporter = (context, filePath) => CreateDuneLocationCalculationsExporter(context.WrappedData
-                                                                                                          .DuneLocationCalculations
-                                                                                                          .Select(calc => new ExportableDuneLocationCalculation(
-                                                                                                                      calc,
-                                                                                                                      context.WrappedData.TargetProbability,
-                                                                                                                      noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability))).ToArray(),
-                                                                                                   filePath),
+                CreateFileExporter = (context, filePath) => CreateDuneLocationCalculationsExporter(
+                    context.WrappedData
+                           .DuneLocationCalculations
+                           .Select(calc => new ExportableDuneLocationCalculation(
+                                       calc, context.WrappedData.TargetProbability))
+                           .ToArray(),
+                    filePath),
                 IsEnabled = context => context.WrappedData.DuneLocationCalculations.Any(calculation => calculation.Output != null),
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetFileFilterGenerator())
             };
@@ -616,40 +616,35 @@ namespace Riskeer.DuneErosion.Plugin
             {
                 yield return new ExportableDuneLocationCalculation(
                     calculation,
-                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName);
+                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm));
             }
 
             foreach (DuneLocationCalculation calculation in failureMechanism.CalculationsForMechanismSpecificSignalingNorm)
             {
                 yield return new ExportableDuneLocationCalculation(
                     calculation,
-                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName);
+                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm));
             }
 
             foreach (DuneLocationCalculation calculation in failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm)
             {
                 yield return new ExportableDuneLocationCalculation(
                     calculation,
-                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName);
+                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm));
             }
 
             foreach (DuneLocationCalculation calculation in failureMechanism.CalculationsForLowerLimitNorm)
             {
                 yield return new ExportableDuneLocationCalculation(
                     calculation,
-                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                    RiskeerCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName);
+                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm));
             }
 
             foreach (DuneLocationCalculation calculation in failureMechanism.CalculationsForFactorizedLowerLimitNorm)
             {
                 yield return new ExportableDuneLocationCalculation(
                     calculation,
-                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                    RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName);
+                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm));
             }
         }
 

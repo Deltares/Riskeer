@@ -79,24 +79,21 @@ namespace Riskeer.DuneErosion.IO.Test
             // Setup
             var calculationWithoutOutput = new ExportableDuneLocationCalculation(
                 new DuneLocationCalculation(CreateDuneLocationForExport(9, 9740, 1.9583e-4)),
-                0.5,
-                "A");
+                0.5);
 
             var calculationWithUncalculatedOutput = new ExportableDuneLocationCalculation(
                 new DuneLocationCalculation(CreateDuneLocationForExport(10, 9770.1, 1.9583e-4))
                 {
                     Output = CreateDuneLocationCalculationOutputForExport(double.NaN, double.NaN, double.NaN)
                 },
-                0.25,
-                "B");
+                0.25);
 
             var calculationWithOutput = new ExportableDuneLocationCalculation(
                 new DuneLocationCalculation(CreateDuneLocationForExport(11, 9771.34, 1.337e-4))
                 {
                     Output = CreateDuneLocationCalculationOutputForExport(5.89, 14.11, 8.53)
                 },
-                0.1,
-                "C");
+                0.1);
 
             ExportableDuneLocationCalculation[] exportableDuneLocationCalculations =
             {

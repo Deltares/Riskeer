@@ -88,7 +88,7 @@ namespace Riskeer.DuneErosion.IO
                 duneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture),
                 Resources.DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value,
                 duneLocation.D50.ToString(null, CultureInfo.InvariantCulture),
-                calculation.Norm.ToString(CultureInfo.InvariantCulture)
+                calculation.TargetProbability.ToString(CultureInfo.InvariantCulture)
             };
 
             stringComponents.InsertRange(2, GetOutputValues(calculation.Calculation.Output));
