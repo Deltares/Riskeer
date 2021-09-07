@@ -149,11 +149,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 WaterLevelCalculationsForNormTargetProbabilityContext[] calculationsContexts = childNodeObjects.OfType<WaterLevelCalculationsForNormTargetProbabilityContext>().ToArray();
                 Assert.AreEqual(2, calculationsContexts.Length);
 
-                Assert.AreSame(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, calculationsContexts[0].WrappedData);
+                Assert.AreSame(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations, calculationsContexts[0].WrappedData);
                 Assert.AreSame(assessmentSection, calculationsContexts[0].AssessmentSection);
+                Assert.AreEqual(lowerLimitNorm, calculationsContexts[0].GetNormFunc());
 
-                Assert.AreSame(assessmentSection.WaterLevelCalculationsForSignalingNorm, calculationsContexts[1].WrappedData);
+                Assert.AreSame(assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations, calculationsContexts[1].WrappedData);
                 Assert.AreSame(assessmentSection, calculationsContexts[1].AssessmentSection);
+                Assert.AreEqual(signalingNorm, calculationsContexts[1].GetNormFunc());
             }
         }
 

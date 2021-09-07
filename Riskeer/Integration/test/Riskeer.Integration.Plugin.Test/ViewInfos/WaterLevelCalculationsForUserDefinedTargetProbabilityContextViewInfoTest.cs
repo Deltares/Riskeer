@@ -284,8 +284,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculations, new AssessmentSectionStub());
 
-            using (var view = new DesignWaterLevelCalculationsView(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
+            using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                    new AssessmentSectionStub(),
+                                                                   () => targetProbability,
                                                                    () => "1/100"))
 
             using (var plugin = new RiskeerPlugin())
@@ -314,8 +315,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability),
                 new AssessmentSectionStub());
 
-            using (var view = new DesignWaterLevelCalculationsView(context.WrappedData,
+            using (var view = new DesignWaterLevelCalculationsView(context.WrappedData.HydraulicBoundaryLocationCalculations,
                                                                    new AssessmentSectionStub(),
+                                                                   () => targetProbability,
                                                                    () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
@@ -341,13 +343,15 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability),
                 new AssessmentSectionStub());
 
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
-            using (var view = new DesignWaterLevelCalculationsView(calculationsForTargetProbability,
+            var otherCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+
+            using (var view = new DesignWaterLevelCalculationsView(otherCalculations,
                                                                    new AssessmentSectionStub(),
+                                                                   () => targetProbability,
                                                                    () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
-                view.Data = calculationsForTargetProbability.HydraulicBoundaryLocationCalculations;
+                view.Data = otherCalculations;
 
                 ViewInfo info = GetViewInfo(plugin);
 
@@ -365,8 +369,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
 
-            using (var view = new DesignWaterLevelCalculationsView(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
+            using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                    assessmentSection,
+                                                                   () => 0.01,
                                                                    () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
@@ -387,8 +392,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSectionA = new AssessmentSectionStub();
             var assessmentSectionB = new AssessmentSectionStub();
 
-            using (var view = new DesignWaterLevelCalculationsView(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
+            using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                    assessmentSectionA,
+                                                                   () => 0.01,
                                                                    () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
@@ -408,8 +414,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSectionA = new AssessmentSectionStub();
 
-            using (var view = new DesignWaterLevelCalculationsView(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
+            using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                    assessmentSectionA,
+                                                                   () => 0.01,
                                                                    () => "1/100"))
             using (var plugin = new RiskeerPlugin())
             {
