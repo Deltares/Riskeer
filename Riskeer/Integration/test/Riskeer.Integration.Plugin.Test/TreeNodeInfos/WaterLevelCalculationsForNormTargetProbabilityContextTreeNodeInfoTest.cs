@@ -366,7 +366,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
 
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
+            var targetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
             {
                 HydraulicBoundaryLocationCalculations =
                 {
@@ -376,7 +376,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
             
-            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(calculationsForTargetProbability,
+            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(targetProbability,
                                                                                      assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
@@ -422,7 +422,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mockRepository, "invalidFilePath");
 
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
+            var targetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
             {
                 HydraulicBoundaryLocationCalculations =
                 {
@@ -431,7 +431,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 }
             };
             
-            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(calculationsForTargetProbability,
+            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(targetProbability,
                                                                                      assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())

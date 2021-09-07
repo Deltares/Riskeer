@@ -139,11 +139,11 @@ namespace Riskeer.Integration.Plugin.Merge
 
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability probabilityToMerge in probabilitiesToMerge)
             {
-                HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = targetProbabilities.First(
+                HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability = targetProbabilities.First(
                     c => c.TargetProbability.Equals(probabilityToMerge.TargetProbability));
 
                 changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(
-                                            calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
+                                            targetProbability.HydraulicBoundaryLocationCalculations,
                                             probabilityToMerge.HydraulicBoundaryLocationCalculations));
             }
 
