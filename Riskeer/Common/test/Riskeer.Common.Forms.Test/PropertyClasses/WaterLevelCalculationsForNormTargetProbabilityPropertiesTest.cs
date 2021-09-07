@@ -55,7 +55,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsInstanceOf<DesignWaterLevelCalculationsProperties>(properties);
-            Assert.AreSame(calculationsForTargetProbability, properties.Data);
+            Assert.AreSame(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, properties.Data);
             TestHelper.AssertTypeConverter<WaterLevelCalculationsForNormTargetProbabilityProperties, ExpandableArrayConverter>(
                 nameof(WaterLevelCalculationsForNormTargetProbabilityProperties.Calculations));
             TestHelper.AssertTypeConverter<WaterLevelCalculationsForNormTargetProbabilityProperties, NoProbabilityValueDoubleConverter>(

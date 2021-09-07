@@ -69,7 +69,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsInstanceOf<WaveHeightCalculationsProperties>(properties);
-            Assert.AreSame(calculationsForTargetProbability, properties.Data);
+            Assert.AreSame(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, properties.Data);
             TestHelper.AssertTypeConverter<WaveHeightCalculationsForUserDefinedTargetProbabilityProperties, ExpandableArrayConverter>(
                 nameof(WaveHeightCalculationsForUserDefinedTargetProbabilityProperties.Calculations));
             TestHelper.AssertTypeConverter<WaveHeightCalculationsForUserDefinedTargetProbabilityProperties, NoProbabilityValueDoubleConverter>(
