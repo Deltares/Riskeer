@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
+using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Gui.Converters;
 using Core.Gui.TestUtil;
@@ -36,17 +37,17 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         private const int requiredLocationsPropertyIndex = 0;
 
         [Test]
-        public void Constructor_WithCalculationsForTargetProbability_ExpectedValues()
+        public void Constructor_WithHydraulicBoundaryLocationCalculations_ExpectedValues()
         {
             // Setup
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
+            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
-            var properties = new TestWaveHeightCalculationsProperties(calculationsForTargetProbability);
+            var properties = new TestWaveHeightCalculationsProperties(hydraulicBoundaryLocationCalculations);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsProperties>(properties);
-            Assert.AreSame(calculationsForTargetProbability, properties.Data);
+            Assert.AreSame(hydraulicBoundaryLocationCalculations, properties.Data);
 
             TestHelper.AssertTypeConverter<WaveHeightCalculationsProperties, ExpandableArrayConverter>(
                 nameof(WaveHeightCalculationsProperties.Calculations));
@@ -56,7 +57,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var properties = new TestWaveHeightCalculationsProperties(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01));
+            var properties = new TestWaveHeightCalculationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -77,12 +78,9 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var properties = new TestWaveHeightCalculationsProperties(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
+            var properties = new TestWaveHeightCalculationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>
             {
-                HydraulicBoundaryLocationCalculations =
-                {
-                    hydraulicBoundaryLocationCalculation
-                }
+                hydraulicBoundaryLocationCalculation
             });
 
             // Assert
@@ -92,7 +90,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
         private class TestWaveHeightCalculationsProperties : WaveHeightCalculationsProperties
         {
-            public TestWaveHeightCalculationsProperties(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
+            public TestWaveHeightCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculationsForTargetProbability)
                 : base(calculationsForTargetProbability) {}
         }
     }
