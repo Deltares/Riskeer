@@ -21,6 +21,7 @@
 
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Util.Attributes;
 using Core.Gui.Converters;
 using Riskeer.Common.Data.Hydraulics;
@@ -29,7 +30,8 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of a wave height related <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> for properties panel.
+    /// ViewModel of a collection of <see cref="HydraulicBoundaryLocationCalculation"/> with
+    /// a wave height calculation result for properties panel.
     /// </summary>
     public abstract class WaveHeightCalculationsProperties : HydraulicBoundaryLocationCalculationsProperties
     {
@@ -37,7 +39,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightCalculationsProperties"/>.
         /// </summary>
-        protected WaveHeightCalculationsProperties(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
+        protected WaveHeightCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculationsForTargetProbability)
             : base(calculationsForTargetProbability) {}
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
@@ -54,7 +56,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         private WaveHeightCalculationProperties[] GetWaveHeightCalculationProperties()
         {
-            return data.HydraulicBoundaryLocationCalculations.Select(calculation => new WaveHeightCalculationProperties(calculation)).ToArray();
+            return data.Select(calculation => new WaveHeightCalculationProperties(calculation)).ToArray();
         }
     }
 }
