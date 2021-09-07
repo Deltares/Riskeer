@@ -408,7 +408,6 @@ namespace Riskeer.Integration.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(WaterLevelCalculationsForNormTargetProbabilityContext),
-                    typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>),
                     typeof(DesignWaterLevelCalculationsView));
 
                 PluginTestHelper.AssertViewInfoDefined(

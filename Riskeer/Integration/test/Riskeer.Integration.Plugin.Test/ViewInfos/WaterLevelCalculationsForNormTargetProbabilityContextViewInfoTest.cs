@@ -25,7 +25,6 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using Core.Gui;
@@ -52,22 +51,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
     {
         private const int calculateColumnIndex = 0;
         private const int waterLevelColumnIndex = 5;
-
-        [Test]
-        public void ViewDataType_Always_ReturnsViewDataType()
-        {
-            // Setup
-            using (var plugin = new RiskeerPlugin())
-            {
-                ViewInfo info = GetViewInfo(plugin);
-
-                // Call
-                Type viewDataType = info.ViewDataType;
-
-                // Assert
-                Assert.AreEqual(typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>), viewDataType);
-            }
-        }
 
         [Test]
         public void ViewType_Always_ReturnsViewType()
@@ -116,29 +99,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GenericInputOutputIcon, image);
-            }
-        }
-
-        [Test]
-        public void GetViewData_Always_ReturnsHydraulicBoundaryLocationCalculations()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSectionStub();
-
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
-
-            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(calculationsForTargetProbability,
-                                                                                    assessmentSection);
-
-            using (var plugin = new RiskeerPlugin())
-            {
-                ViewInfo info = GetViewInfo(plugin);
-
-                // Call
-                object viewData = info.GetViewData(context);
-
-                // Assert
-                Assert.AreSame(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, viewData);
             }
         }
 

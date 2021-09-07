@@ -346,11 +346,10 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssessmentSectionAssemblyCategoriesView(context.AssessmentSection.FailureMechanismContribution)
             };
 
-            yield return new ViewInfo<WaterLevelCalculationsForNormTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
+            yield return new ViewInfo<WaterLevelCalculationsForNormTargetProbabilityContext, DesignWaterLevelCalculationsView>
             {
                 GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName} - " +
                                                  $"{noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)}",
-                GetViewData = context => context.WrappedData.HydraulicBoundaryLocationCalculations,
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
                 CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData,
