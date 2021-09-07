@@ -35,12 +35,14 @@ namespace Riskeer.Revetment.Data
     /// <summary>
     /// Abstract class that holds all generic wave conditions calculation input parameters.
     /// </summary>
-    public abstract class WaveConditionsInput : CloneableObservable, ICalculationInputWithHydraulicBoundaryLocation, IUseBreakWater, IUseForeshore, IHasForeshoreProfile
+    public abstract class WaveConditionsInput : CloneableObservable, ICalculationInputWithHydraulicBoundaryLocation,
+                                                IUseBreakWater, IUseForeshore, IHasForeshoreProfile
     {
         private const int orientationNumberOfDecimals = 2;
 
-        private static readonly Range<RoundedDouble> orientationValidityRange = new Range<RoundedDouble>(new RoundedDouble(orientationNumberOfDecimals),
-                                                                                                         new RoundedDouble(orientationNumberOfDecimals, 360));
+        private static readonly Range<RoundedDouble> orientationValidityRange = new Range<RoundedDouble>(
+            new RoundedDouble(orientationNumberOfDecimals),
+            new RoundedDouble(orientationNumberOfDecimals, 360));
 
         private ForeshoreProfile foreshoreProfile;
         private RoundedDouble upperBoundaryRevetment;
@@ -73,10 +75,7 @@ namespace Riskeer.Revetment.Data
         /// is not in the interval [0, 360].</exception>
         public RoundedDouble Orientation
         {
-            get
-            {
-                return orientation;
-            }
+            get => orientation;
             set
             {
                 RoundedDouble newOrientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
@@ -97,10 +96,7 @@ namespace Riskeer.Revetment.Data
         /// <remarks>When the value is smaller than -50, it will be set to -50.</remarks>
         public RoundedDouble LowerBoundaryRevetment
         {
-            get
-            {
-                return lowerBoundaryRevetment;
-            }
+            get => lowerBoundaryRevetment;
             set
             {
                 RoundedDouble newLowerBoundaryRevetment = value.ToPrecision(lowerBoundaryRevetment.NumberOfDecimalPlaces);
@@ -120,10 +116,7 @@ namespace Riskeer.Revetment.Data
         /// <remarks>When the value is larger than 1000, it will be set to 1000.</remarks>
         public RoundedDouble UpperBoundaryRevetment
         {
-            get
-            {
-                return upperBoundaryRevetment;
-            }
+            get => upperBoundaryRevetment;
             set
             {
                 RoundedDouble newUpperBoundaryRevetment = value.ToPrecision(upperBoundaryRevetment.NumberOfDecimalPlaces);
@@ -154,10 +147,7 @@ namespace Riskeer.Revetment.Data
         /// </remarks>
         public RoundedDouble LowerBoundaryWaterLevels
         {
-            get
-            {
-                return lowerBoundaryWaterLevels;
-            }
+            get => lowerBoundaryWaterLevels;
             set
             {
                 RoundedDouble newLowerBoundaryWaterLevels = value.ToPrecision(lowerBoundaryWaterLevels.NumberOfDecimalPlaces);
@@ -184,10 +174,7 @@ namespace Riskeer.Revetment.Data
         /// </remarks>
         public RoundedDouble UpperBoundaryWaterLevels
         {
-            get
-            {
-                return upperBoundaryWaterLevels;
-            }
+            get => upperBoundaryWaterLevels;
             set
             {
                 RoundedDouble newUpperBoundaryWaterLevels = value.ToPrecision(upperBoundaryWaterLevels.NumberOfDecimalPlaces);
@@ -207,10 +194,7 @@ namespace Riskeer.Revetment.Data
         /// </summary>
         public ForeshoreProfile ForeshoreProfile
         {
-            get
-            {
-                return foreshoreProfile;
-            }
+            get => foreshoreProfile;
             set
             {
                 foreshoreProfile = value;
