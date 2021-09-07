@@ -39,6 +39,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         private const int targetProbabilityPropertyIndex = 1;
         private const int calculationsPropertyIndex = 2;
 
+        private readonly HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability;
         private readonly IObservablePropertyChangeHandler targetProbabilityChangeHandler;
 
         /// <summary>
@@ -49,13 +50,14 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability,
                                                                                IObservablePropertyChangeHandler targetProbabilityChangeHandler)
-            : base(calculationsForTargetProbability)
+            : base(calculationsForTargetProbability?.HydraulicBoundaryLocationCalculations ?? throw new ArgumentNullException(nameof(calculationsForTargetProbability)))
         {
             if (targetProbabilityChangeHandler == null)
             {
                 throw new ArgumentNullException(nameof(targetProbabilityChangeHandler));
             }
 
+            this.calculationsForTargetProbability = calculationsForTargetProbability;
             this.targetProbabilityChangeHandler = targetProbabilityChangeHandler;
         }
 
@@ -75,10 +77,13 @@ namespace Riskeer.Common.Forms.PropertyClasses
         [ResourcesDescription(typeof(Resources), nameof(Resources.TargetProbability_Description))]
         public double TargetProbability
         {
-            get => data.TargetProbability;
+            get
+            {
+                return calculationsForTargetProbability.TargetProbability;
+            }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.TargetProbability = value, targetProbabilityChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => calculationsForTargetProbability.TargetProbability = value, targetProbabilityChangeHandler);
             }
         }
     }
