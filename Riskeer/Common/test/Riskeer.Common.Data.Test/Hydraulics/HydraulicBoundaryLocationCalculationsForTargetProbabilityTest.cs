@@ -51,12 +51,12 @@ namespace Riskeer.Common.Data.Test.Hydraulics
         public void Constructor_ValidTargetProbability_ExpectedProperties(double validValue)
         {
             // Call
-            var hydraulicBoundaryLocationCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(validValue);
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(validValue);
 
             // Assert
-            Assert.IsInstanceOf<Observable>(hydraulicBoundaryLocationCalculationsForTargetProbability);
-            Assert.AreEqual(validValue, hydraulicBoundaryLocationCalculationsForTargetProbability.TargetProbability);
-            Assert.IsEmpty(hydraulicBoundaryLocationCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
+            Assert.IsInstanceOf<Observable>(calculationsForTargetProbability);
+            Assert.AreEqual(validValue, calculationsForTargetProbability.TargetProbability);
+            Assert.IsEmpty(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
         }
 
         [Test]

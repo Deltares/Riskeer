@@ -81,14 +81,14 @@ namespace Riskeer.Integration.IO.Test.Exporters
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporterTest)}.{nameof(Export_HydraulicBoundaryLocationCalculationsExporterReturnsFalse_ReturnsFalse)}");
             Directory.CreateDirectory(folderPath);
 
-            var targetProbabilities = new[]
+            var calculationsForTargetProbabilities = new[]
             {
                 new Tuple<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsType>(
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1),
                     HydraulicBoundaryLocationCalculationsType.WaterLevel)
             };
 
-            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(targetProbabilities, folderPath);
+            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(calculationsForTargetProbabilities, folderPath);
 
             string expectedFilePath = Path.Combine(folderPath, "Waterstanden_10.shp");
 
@@ -122,7 +122,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             var random = new Random(21);
 
-            var targetProbabilities = new[]
+            var calculationsForTargetProbabilities = new[]
             {
                 new Tuple<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsType>(
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
@@ -132,7 +132,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                     HydraulicBoundaryLocationCalculationsType.WaveHeight)
             };
 
-            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(targetProbabilities, folderPath);
+            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(calculationsForTargetProbabilities, folderPath);
 
             try
             {
@@ -144,8 +144,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
                 string[] expectedFilePaths =
                 {
-                    Path.Combine(folderPath, $"Waterstanden_{GetReturnPeriodText(targetProbabilities.First().Item1.TargetProbability)}.shp"),
-                    Path.Combine(folderPath, $"Golfhoogten_{GetReturnPeriodText(targetProbabilities.Last().Item1.TargetProbability)}.shp")
+                    Path.Combine(folderPath, $"Waterstanden_{GetReturnPeriodText(calculationsForTargetProbabilities.First().Item1.TargetProbability)}.shp"),
+                    Path.Combine(folderPath, $"Golfhoogten_{GetReturnPeriodText(calculationsForTargetProbabilities.Last().Item1.TargetProbability)}.shp")
                 };
                 Assert.IsTrue(expectedFilePaths.All(File.Exists));
             }
@@ -162,7 +162,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporterTest)}.{nameof(Export_WithDoubleHydraulicBoundaryLocationCalculationsForTargetProbabilities_WritesFilesAndReturnsTrue)}");
             Directory.CreateDirectory(folderPath);
 
-            var targetProbabilities = new[]
+            var calculationsForTargetProbabilities = new[]
             {
                 new Tuple<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsType>(
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1),
@@ -178,7 +178,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                     HydraulicBoundaryLocationCalculationsType.WaveHeight)
             };
 
-            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(targetProbabilities, folderPath);
+            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(calculationsForTargetProbabilities, folderPath);
 
             try
             {
@@ -212,7 +212,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             var random = new Random(21);
 
-            var targetProbabilities = new[]
+            var calculationsForTargetProbabilities = new[]
             {
                 new Tuple<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsType>(
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
@@ -222,7 +222,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                     HydraulicBoundaryLocationCalculationsType.WaveHeight)
             };
 
-            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(targetProbabilities, folderPath);
+            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(calculationsForTargetProbabilities, folderPath);
 
             try
             {
@@ -233,14 +233,14 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 // Assert
                 string[] expectedCalculationNames =
                 {
-                    $"Waterstanden {ProbabilityFormattingHelper.Format(targetProbabilities.First().Item1.TargetProbability)}",
-                    $"Golfhoogten {ProbabilityFormattingHelper.Format(targetProbabilities.Last().Item1.TargetProbability)}"
+                    $"Waterstanden {ProbabilityFormattingHelper.Format(calculationsForTargetProbabilities.First().Item1.TargetProbability)}",
+                    $"Golfhoogten {ProbabilityFormattingHelper.Format(calculationsForTargetProbabilities.Last().Item1.TargetProbability)}"
                 };
 
                 string[] expectedFilePaths =
                 {
-                    Path.Combine(folderPath, $"Waterstanden_{GetReturnPeriodText(targetProbabilities.First().Item1.TargetProbability)}.shp"),
-                    Path.Combine(folderPath, $"Golfhoogten_{GetReturnPeriodText(targetProbabilities.Last().Item1.TargetProbability)}.shp")
+                    Path.Combine(folderPath, $"Waterstanden_{GetReturnPeriodText(calculationsForTargetProbabilities.First().Item1.TargetProbability)}.shp"),
+                    Path.Combine(folderPath, $"Golfhoogten_{GetReturnPeriodText(calculationsForTargetProbabilities.Last().Item1.TargetProbability)}.shp")
                 };
 
                 TestHelper.AssertLogMessagesAreGenerated(Call, new[]

@@ -124,9 +124,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
 
-            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
+            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -136,7 +136,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 object viewData = info.GetViewData(context);
 
                 // Assert
-                Assert.AreSame(calculations.HydraulicBoundaryLocationCalculations, viewData);
+                Assert.AreSame(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, viewData);
             }
         }
 
@@ -166,7 +166,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var random = new Random();
 
-            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
             {
                 HydraulicBoundaryLocationCalculations =
                 {
@@ -181,7 +181,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 }
             };
 
-            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculations, new AssessmentSectionStub());
+            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability, new AssessmentSectionStub());
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -199,8 +199,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     DataGridView calculationsDataGridView = ControlTestHelper.GetDataGridView(view, "DataGridView");
                     DataGridViewRowCollection rows = calculationsDataGridView.Rows;
                     Assert.AreEqual(2, rows.Count);
-                    Assert.AreEqual(calculations.HydraulicBoundaryLocationCalculations[0].Output.Result.ToString(), rows[0].Cells[waterLevelColumnIndex].FormattedValue);
-                    Assert.AreEqual(calculations.HydraulicBoundaryLocationCalculations[1].Output.Result.ToString(), rows[1].Cells[waterLevelColumnIndex].FormattedValue);
+                    Assert.AreEqual(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations[0].Output.Result.ToString(), rows[0].Cells[waterLevelColumnIndex].FormattedValue);
+                    Assert.AreEqual(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations[1].Output.Result.ToString(), rows[1].Cells[waterLevelColumnIndex].FormattedValue);
                 }
             }
         }
@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
-            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
             {
                 HydraulicBoundaryLocationCalculations =
                 {
@@ -218,7 +218,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 }
             };
 
-            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculations, new AssessmentSectionStub());
+            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability, new AssessmentSectionStub());
 
             var mockRepository = new MockRepository();
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
@@ -257,7 +257,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     button.Click();
 
                     // Assert
-                    Assert.AreEqual(calculations.TargetProbability, actualNormValue);
+                    Assert.AreEqual(calculationsForTargetProbability.TargetProbability, actualNormValue);
                     Assert.AreSame(hydraulicBoundaryLocationCalculation, performedCalculations.Single());
                 }
             }
@@ -280,9 +280,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             const double targetProbability = 0.01;
 
-            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability);
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability);
 
-            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculations, new AssessmentSectionStub());
+            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability, new AssessmentSectionStub());
 
             using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                    new AssessmentSectionStub(),

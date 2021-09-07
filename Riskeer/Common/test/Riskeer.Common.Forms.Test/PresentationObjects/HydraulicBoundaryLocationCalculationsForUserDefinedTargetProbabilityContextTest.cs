@@ -52,15 +52,15 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocationCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
 
             // Call
             var context = new TestHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext(
-                hydraulicBoundaryLocationCalculationsForTargetProbability, assessmentSection);
+                calculationsForTargetProbability, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryLocationCalculationsForTargetProbability>>(context);
-            Assert.AreSame(hydraulicBoundaryLocationCalculationsForTargetProbability, context.WrappedData);
+            Assert.AreSame(calculationsForTargetProbability, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mockRepository.VerifyAll();
         }

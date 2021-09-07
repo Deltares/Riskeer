@@ -150,22 +150,22 @@ namespace Riskeer.Integration.Plugin.Merge
             return changedObjects;
         }
 
-        private static void MergeUniqueProbabilities(ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities,
+        private static void MergeUniqueProbabilities(ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> calculationsForTargetProbabilities,
                                                      IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> uniqueSourceProbabilities,
                                                      IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability sourceProbability in uniqueSourceProbabilities)
             {
-                var newTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(sourceProbability.TargetProbability);
+                var newCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(sourceProbability.TargetProbability);
 
-                newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(
+                newCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(
                     sourceProbability.HydraulicBoundaryLocationCalculations
                                      .Select(calculation => new HydraulicBoundaryLocationCalculation(
                                                  GetHydraulicBoundaryLocation(
                                                      calculation.HydraulicBoundaryLocation, hydraulicBoundaryLocations)))
                                      .ToArray());
 
-                targetProbabilities.Add(newTargetProbability);
+                calculationsForTargetProbabilities.Add(newCalculationsForTargetProbability);
             }
         }
 

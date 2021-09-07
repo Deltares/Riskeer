@@ -2570,12 +2570,12 @@ namespace Riskeer.Integration.Plugin
 
         private static HydraulicBoundaryLocationCalculationsForTargetProbability CreateHydraulicBoundaryLocationCalculationsForTargetProbability(IAssessmentSection assessmentSection)
         {
-            var hydraulicBoundaryLocationCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
 
-            hydraulicBoundaryLocationCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(
+            calculationsForTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(
                 assessmentSection.HydraulicBoundaryDatabase.Locations.Select(hbl => new HydraulicBoundaryLocationCalculation(hbl)));
 
-            return hydraulicBoundaryLocationCalculationsForTargetProbability;
+            return calculationsForTargetProbability;
         }
 
         #endregion
