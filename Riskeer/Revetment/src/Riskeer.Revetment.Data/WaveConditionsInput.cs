@@ -63,6 +63,7 @@ namespace Riskeer.Revetment.Data
             StepSize = WaveConditionsInputStepSize.Half;
             upperBoundaryWaterLevels = new RoundedDouble(2, double.NaN);
             lowerBoundaryWaterLevels = new RoundedDouble(2, double.NaN);
+            WaterLevelType = WaveConditionsInputWaterLevelType.None;
 
             SynchronizeForeshoreProfileInput();
         }
@@ -186,6 +187,11 @@ namespace Riskeer.Revetment.Data
                 upperBoundaryWaterLevels = newUpperBoundaryWaterLevels;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the water level type.
+        /// </summary>
+        public WaveConditionsInputWaterLevelType WaterLevelType { get; set; }
 
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 

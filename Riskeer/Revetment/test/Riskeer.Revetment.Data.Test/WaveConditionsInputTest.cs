@@ -69,6 +69,7 @@ namespace Riskeer.Revetment.Data.Test
             Assert.IsNaN(input.UpperBoundaryWaterLevels.Value);
             Assert.AreEqual(2, input.UpperBoundaryWaterLevels.NumberOfDecimalPlaces);
             Assert.AreEqual(WaveConditionsInputStepSize.Half, input.StepSize);
+            Assert.AreEqual(WaveConditionsInputWaterLevelType.None, input.WaterLevelType);
         }
 
         [Test]
@@ -327,11 +328,11 @@ namespace Riskeer.Revetment.Data.Test
             var input = new TestWaveConditionsInput();
 
             // Call
-            TestDelegate call = () => input.Orientation = (RoundedDouble) invalidValue;
+            void Call() => input.Orientation = (RoundedDouble) invalidValue;
 
             // Assert
             const string message = "De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
         }
 
         [Test]
@@ -388,11 +389,11 @@ namespace Riskeer.Revetment.Data.Test
             };
 
             // Call
-            TestDelegate test = () => input.LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment;
+            void Call() => input.LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment;
 
             // Assert
             const string expectedMessage = "De bovengrens van de bekleding moet boven de ondergrens liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -464,11 +465,11 @@ namespace Riskeer.Revetment.Data.Test
             };
 
             // Call
-            TestDelegate test = () => input.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment;
+            void Call() => input.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment;
 
             // Assert
             const string expectedMessage = "De bovengrens van de bekleding moet boven de ondergrens liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -540,11 +541,11 @@ namespace Riskeer.Revetment.Data.Test
             };
 
             // Call
-            TestDelegate test = () => input.LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels;
+            void Call() => input.LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels;
 
             // Assert
             const string expectedMessage = "De bovengrens van de waterstanden moet boven de ondergrens liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -616,11 +617,11 @@ namespace Riskeer.Revetment.Data.Test
             };
 
             // Call
-            TestDelegate test = () => input.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryWaterLevels;
+            void Call() => input.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryWaterLevels;
 
             // Assert
             const string expectedMessage = "De bovengrens van de bekleding moet boven de ondergrens liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
