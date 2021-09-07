@@ -209,8 +209,8 @@ namespace Riskeer.Integration.Service
             }
 
             IObservableEnumerable<HydraulicBoundaryLocationCalculation> locationCalculationsToClear = assessmentSection.FailureMechanismContribution.NormativeNorm == NormType.LowerLimit
-                                                                                                          ? assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations
-                                                                                                          : assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations;
+                                                                                                          ? assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+                                                                                                          : assessmentSection.WaterLevelCalculationsForSignalingNorm;
 
             return RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(locationCalculationsToClear)
                                                           .ToArray();
@@ -237,9 +237,9 @@ namespace Riskeer.Integration.Service
                                                                                                                                 .OfType<DuneErosionFailureMechanism>()
                                                                                                                                 .Single()));
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
-                                         assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations));
+                                         assessmentSection.WaterLevelCalculationsForSignalingNorm));
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
-                                         assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations));
+                                         assessmentSection.WaterLevelCalculationsForLowerLimitNorm));
 
             foreach (IEnumerable<HydraulicBoundaryLocationCalculation> calculations in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
                                                                                                         .Select(c => c.HydraulicBoundaryLocationCalculations))
@@ -289,9 +289,9 @@ namespace Riskeer.Integration.Service
 
             var affectedObjects = new List<IObservable>();
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
-                                         assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations));
+                                         assessmentSection.WaterLevelCalculationsForSignalingNorm));
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
-                                         assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations));
+                                         assessmentSection.WaterLevelCalculationsForLowerLimitNorm));
             return affectedObjects;
         }
 

@@ -139,8 +139,8 @@ namespace Riskeer.Storage.Core.Read
                                                                       ReadConversionCollector collector)
         {
             entity.HydraulicLocationCalculationCollectionEntity7.Read(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity6.Read(assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations, collector);
-            entity.HydraulicLocationCalculationCollectionEntity5.Read(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations, collector);
+            entity.HydraulicLocationCalculationCollectionEntity6.Read(assessmentSection.WaterLevelCalculationsForSignalingNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity5.Read(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, collector);
             entity.HydraulicLocationCalculationCollectionEntity4.Read(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, collector);
 
             entity.HydraulicLocationCalculationCollectionEntity3.Read(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, collector);

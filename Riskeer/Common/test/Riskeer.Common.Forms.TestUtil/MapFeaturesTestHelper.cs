@@ -77,10 +77,10 @@ namespace Riskeer.Common.Forms.TestUtil
                     GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation),
                     mapFeature, "h_Aplus");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations, hydraulicBoundaryLocation),
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForSignalingNorm, hydraulicBoundaryLocation),
                     mapFeature, "h_A");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations, hydraulicBoundaryLocation),
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
                     mapFeature, "h_B");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),

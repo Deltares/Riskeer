@@ -515,8 +515,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Assert
             CollectionAssert.IsNotSubsetOf(oldLocations, hydraulicBoundaryDatabase.Locations);
             CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaveHeightCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
@@ -959,8 +959,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         private static void AssertHydraulicBoundaryLocationsAndCalculations(IEnumerable<HydraulicBoundaryLocation> locations, AssessmentSection assessmentSection)
         {
             CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.AreEqual(locations, assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.AreEqual(locations, assessmentSection.WaveHeightCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));

@@ -2316,10 +2316,10 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations,
+                new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                                           context.AssessmentSection,
                                                                           () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm)),
-                new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations,
+                new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
                                                                           context.AssessmentSection,
                                                                           () => context.AssessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm))
             };
@@ -2552,8 +2552,8 @@ namespace Riskeer.Integration.Plugin
 
         private static bool WaterLevelCalculationsForNormTargetProbabilitiesHaveIllustrationPoints(IAssessmentSection assessmentSection)
         {
-            return IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations)
-                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations);
+            return IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForSignalingNorm)
+                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
         }
 
         private static bool WaterLevelCalculationsForUserDefinedTargetProbabilitiesHaveIllustrationPoints(IAssessmentSection assessmentSection)

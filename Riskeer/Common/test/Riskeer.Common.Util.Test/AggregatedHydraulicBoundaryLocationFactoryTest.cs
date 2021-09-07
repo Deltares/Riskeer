@@ -69,9 +69,9 @@ namespace Riskeer.Common.Util.Test
 
                 Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, expectedLocations[i]),
                                 aggregatedLocations[i].WaterLevelCalculationForFactorizedSignalingNorm);
-                Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations, expectedLocations[i]),
+                Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForSignalingNorm, expectedLocations[i]),
                                 aggregatedLocations[i].WaterLevelCalculationForSignalingNorm);
-                Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations, expectedLocations[i]),
+                Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, expectedLocations[i]),
                                 aggregatedLocations[i].WaterLevelCalculationForLowerLimitNorm);
                 Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, expectedLocations[i]),
                                 aggregatedLocations[i].WaterLevelCalculationForFactorizedLowerLimitNorm);

@@ -288,9 +288,9 @@ namespace Riskeer.Storage.Core.Test.Create
 
             AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
                                                                entity.HydraulicLocationCalculationCollectionEntity4);
-            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations,
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                                entity.HydraulicLocationCalculationCollectionEntity5);
-            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations,
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForSignalingNorm,
                                                                entity.HydraulicLocationCalculationCollectionEntity6);
             AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
                                                                entity.HydraulicLocationCalculationCollectionEntity7);
@@ -299,12 +299,12 @@ namespace Riskeer.Storage.Core.Test.Create
         private static void SetHydraulicBoundaryLocationCalculationInputsOfAssessmentSection(AssessmentSection assessmentSection)
         {
             SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, 1);
-            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations, 2);
-            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations, 3);
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForSignalingNorm, 2);
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, 3);
             SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, 4);
 
             SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, 5);
-            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations, 6);
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForSignalingNorm, 6);
             SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, 7);
             SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, 8);
         }

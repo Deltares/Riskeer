@@ -44,9 +44,9 @@ namespace Riskeer.Common.Forms.TestUtil
                 yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
                                                   assessmentSection => assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.First()));
                 yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                                  assessmentSection => assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations.First()));
+                                                  assessmentSection => assessmentSection.WaterLevelCalculationsForSignalingNorm.First()));
                 yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                                  assessmentSection => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.First()));
+                                                  assessmentSection => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First()));
                 yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
                                                   assessmentSection => assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.First()));
                 yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(

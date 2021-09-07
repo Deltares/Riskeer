@@ -88,10 +88,10 @@ namespace Riskeer.Integration.Plugin.Merge
         {
             var changedObjects = new List<IObservable>();
 
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations,
-                                                                               sourceAssessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations));
-            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations,
-                                                                               sourceAssessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                                               sourceAssessmentSection.WaterLevelCalculationsForSignalingNorm));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                                                               sourceAssessmentSection.WaterLevelCalculationsForLowerLimitNorm));
 
             changedObjects.AddRange(MergeUserDefinedHydraulicBoundaryLocations(targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
                                                                                sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,

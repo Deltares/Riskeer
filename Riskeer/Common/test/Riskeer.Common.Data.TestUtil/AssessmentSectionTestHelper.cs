@@ -124,13 +124,13 @@ namespace Riskeer.Common.Data.TestUtil
                 assessmentSection,
                 hydraulicBoundaryLocation,
                 AssessmentSectionCategoryType.SignalingNorm,
-                assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations.ElementAt(0));
+                assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0));
 
             yield return new TestCaseData(
                 assessmentSection,
                 hydraulicBoundaryLocation,
                 AssessmentSectionCategoryType.LowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.ElementAt(0));
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0));
 
             yield return new TestCaseData(
                 assessmentSection,

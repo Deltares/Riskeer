@@ -70,7 +70,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
                 yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
                                                   (assessmentSection, failureMechanism) => failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First()));
                 yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
-                                                  (assessmentSection, failureMechanism) => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations.First()));
+                                                  (assessmentSection, failureMechanism) => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First()));
                 yield return new TestCaseData(new Func<IAssessmentSection, GrassCoverErosionOutwardsFailureMechanism, HydraulicBoundaryLocationCalculation>(
                                                   (assessmentSection, failureMechanism) => assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.First()));
 
