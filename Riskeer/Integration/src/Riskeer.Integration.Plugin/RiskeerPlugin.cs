@@ -377,8 +377,9 @@ namespace Riskeer.Integration.Plugin
                 GetViewData = context => context.WrappedData.HydraulicBoundaryLocationCalculations,
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseForWaveHeightCalculationsForUserDefinedTargetProbabilityContextData,
-                CreateInstance = context => new WaveHeightCalculationsView(context.WrappedData,
+                CreateInstance = context => new WaveHeightCalculationsView(context.WrappedData.HydraulicBoundaryLocationCalculations,
                                                                            context.AssessmentSection,
+                                                                           () => context.WrappedData.TargetProbability,
                                                                            () => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
