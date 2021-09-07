@@ -90,8 +90,8 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
         private class TestDesignWaterLevelCalculationsProperties : DesignWaterLevelCalculationsProperties
         {
-            public TestDesignWaterLevelCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculationsForTargetProbability)
-                : base(calculationsForTargetProbability) {}
+            public TestDesignWaterLevelCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+                : base(hydraulicBoundaryLocationCalculations) {}
         }
     }
 }

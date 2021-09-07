@@ -39,8 +39,8 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightCalculationsProperties"/>.
         /// </summary>
-        protected WaveHeightCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculationsForTargetProbability)
-            : base(calculationsForTargetProbability) {}
+        protected WaveHeightCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+            : base(hydraulicBoundaryLocationCalculations) {}
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]

@@ -27,29 +27,29 @@ using Riskeer.Common.Data.Hydraulics;
 namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of a <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> for properties panel.
+    /// ViewModel of a collection of <see cref="HydraulicBoundaryLocationCalculation"/> for properties panel.
     /// </summary>
-    public abstract class HydraulicBoundaryLocationCalculationsProperties : ObjectProperties<HydraulicBoundaryLocationCalculationsForTargetProbability>, IDisposable
+    public abstract class HydraulicBoundaryLocationCalculationsProperties : ObjectProperties<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>, IDisposable
     {
         private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsProperties"/>.
         /// </summary>
-        /// <param name="calculationsForTargetProbability">The hydraulic boundary location calculations to set as data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationsForTargetProbability"/> is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationCalculationsProperties(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
+        /// <param name="hydraulicBoundaryLocationCalculations">The collection of hydraulic boundary location calculations to set as data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
+        protected HydraulicBoundaryLocationCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
         {
-            if (calculationsForTargetProbability == null)
+            if (hydraulicBoundaryLocationCalculations == null)
             {
-                throw new ArgumentNullException(nameof(calculationsForTargetProbability));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculations));
             }
 
-            Data = calculationsForTargetProbability;
+            Data = hydraulicBoundaryLocationCalculations;
 
             hydraulicBoundaryLocationCalculationsObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>(OnRefreshRequired, hblc => hblc)
             {
-                Observable = calculationsForTargetProbability.HydraulicBoundaryLocationCalculations
+                Observable = hydraulicBoundaryLocationCalculations
             };
         }
 
