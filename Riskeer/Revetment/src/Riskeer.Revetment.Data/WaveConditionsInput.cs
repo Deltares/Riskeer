@@ -193,6 +193,13 @@ namespace Riskeer.Revetment.Data
         /// </summary>
         public WaveConditionsInputWaterLevelType WaterLevelType { get; set; }
 
+        /// <summary>
+        /// Gets or sets the target probability calculations.
+        /// </summary>
+        /// <remarks>This property is only applicable when <see cref="WaterLevelType"/>
+        /// is <see cref="WaveConditionsInputWaterLevelType.UserDefinedTargetProbability"/>.</remarks>
+        public HydraulicBoundaryLocationCalculationsForTargetProbability CalculationsTargetProbability { get; set; }
+
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         /// <summary>

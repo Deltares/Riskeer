@@ -70,6 +70,7 @@ namespace Riskeer.Revetment.Data.Test
             Assert.AreEqual(2, input.UpperBoundaryWaterLevels.NumberOfDecimalPlaces);
             Assert.AreEqual(WaveConditionsInputStepSize.Half, input.StepSize);
             Assert.AreEqual(WaveConditionsInputWaterLevelType.None, input.WaterLevelType);
+            Assert.IsNull(input.CalculationsTargetProbability);
         }
 
         [Test]
