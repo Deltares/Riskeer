@@ -244,24 +244,6 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categoriegrens (kans) waarvoor de berekening moet worden uitgevoerd..
-        /// </summary>
-        public static string WaveConditionsInput_CategoryType_Description {
-            get {
-                return ResourceManager.GetString("WaveConditionsInput_CategoryType_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Categoriegrens.
-        /// </summary>
-        public static string WaveConditionsInput_CategoryType_DisplayName {
-            get {
-                return ResourceManager.GetString("WaveConditionsInput_CategoryType_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ondergrens van de bekleding..
         /// </summary>
         public static string WaveConditionsInput_LowerBoundaryRevetment_Description {

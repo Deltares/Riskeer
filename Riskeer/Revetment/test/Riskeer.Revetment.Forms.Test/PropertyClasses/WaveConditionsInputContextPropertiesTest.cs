@@ -52,23 +52,22 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
     public class WaveConditionsInputContextPropertiesTest
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
-        private const int categoryTypePropertyIndex = 1;
-        private const int assessmentLevelPropertyIndex = 2;
-        private const int upperBoundaryAssessmentLevelPropertyIndex = 3;
-        private const int upperBoundaryRevetmentPropertyIndex = 4;
-        private const int lowerBoundaryRevetmentPropertyIndex = 5;
-        private const int upperBoundaryWaterLevelsPropertyIndex = 6;
-        private const int lowerBoundaryWaterLevelsPropertyIndex = 7;
-        private const int stepSizePropertyIndex = 8;
-        private const int waterLevelsPropertyIndex = 9;
+        private const int assessmentLevelPropertyIndex = 1;
+        private const int upperBoundaryAssessmentLevelPropertyIndex = 2;
+        private const int upperBoundaryRevetmentPropertyIndex = 3;
+        private const int lowerBoundaryRevetmentPropertyIndex = 4;
+        private const int upperBoundaryWaterLevelsPropertyIndex = 5;
+        private const int lowerBoundaryWaterLevelsPropertyIndex = 6;
+        private const int stepSizePropertyIndex = 7;
+        private const int waterLevelsPropertyIndex = 8;
 
-        private const int revetmentTypePropertyIndex = 10;
+        private const int revetmentTypePropertyIndex = 9;
 
-        private const int foreshoreProfilePropertyIndex = 11;
-        private const int worldReferencePointPropertyIndex = 12;
-        private const int orientationPropertyIndex = 13;
-        private const int breakWaterPropertyIndex = 14;
-        private const int foreshoreGeometryPropertyIndex = 15;
+        private const int foreshoreProfilePropertyIndex = 10;
+        private const int worldReferencePointPropertyIndex = 11;
+        private const int orientationPropertyIndex = 12;
+        private const int breakWaterPropertyIndex = 13;
+        private const int foreshoreGeometryPropertyIndex = 14;
 
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
@@ -246,7 +245,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(16, dynamicProperties.Count);
+            Assert.AreEqual(15, dynamicProperties.Count);
 
             const string hydraulicParametersCategory = "Hydraulische gegevens";
             const string modelSettingsCategory = "Modelinstellingen";
@@ -257,12 +256,6 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                                                             hydraulicParametersCategory,
                                                                             "Hydraulische belastingenlocatie",
                                                                             "De hydraulische belastingenlocatie.");
-
-            PropertyDescriptor categoryTypeProperty = dynamicProperties[categoryTypePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(categoryTypeProperty,
-                                                                            hydraulicParametersCategory,
-                                                                            "Categoriegrens",
-                                                                            "Categoriegrens (kans) waarvoor de berekening moet worden uitgevoerd.");
 
             PropertyDescriptor assessmentLevelProperty = dynamicProperties[assessmentLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(assessmentLevelProperty,
@@ -405,15 +398,6 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                 new TestHydraulicBoundaryLocation(), new Point2D(0, 0));
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(
                 properties => properties.SelectedHydraulicBoundaryLocation = propertiesSelectedHydraulicBoundaryLocation);
-        }
-
-        [Test]
-        public void CategoryType_Always_InputChangedAndObservablesNotified()
-        {
-            var categoryType = new Random(21).NextEnumValue<TestCategoryType>();
-
-            SetPropertyAndVerifyNotificationsAndOutputForCalculation(
-                properties => properties.CategoryType = categoryType);
         }
 
         [Test]
@@ -841,7 +825,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
-        private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<TestWaveConditionsInputContext, TestWaveConditionsInput, TestCategoryType, object>
+        private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<TestWaveConditionsInputContext, TestWaveConditionsInput, object>
         {
             public TestWaveConditionsInputContextProperties(TestWaveConditionsInputContext context,
                                                             Func<RoundedDouble> getAssessmentLevelFunc,
@@ -850,28 +834,9 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
             public override object RevetmentType
             {
-                get
-                {
-                    return "Test";
-                }
-                set
-                {
-                    throw new NotImplementedException();
-                }
+                get => "Test";
+                set => throw new NotImplementedException();
             }
-
-            protected override TestCategoryType GetCategoryType()
-            {
-                return 0;
-            }
-
-            protected override void SetCategoryType(TestCategoryType categoryType) {}
-        }
-
-        private enum TestCategoryType
-        {
-            Type1,
-            Type2
         }
     }
 }

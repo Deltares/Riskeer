@@ -34,7 +34,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
     /// ViewModel of <see cref="StabilityStoneCoverWaveConditionsInputContext"/> for properties panel.
     /// </summary>
     public class StabilityStoneCoverWaveConditionsInputContextProperties
-        : AssessmentSectionCategoryWaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext,
+        : WaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext,
             StabilityStoneCoverWaveConditionsInput,
             StabilityStoneCoverWaveConditionsCalculationType>
     {
@@ -54,10 +54,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
         [TypeConverter(typeof(EnumTypeConverter))]
         public override StabilityStoneCoverWaveConditionsCalculationType RevetmentType
         {
-            get
-            {
-                return data.WrappedData.CalculationType;
-            }
+            get => data.WrappedData.CalculationType;
             set
             {
                 HandleChangeProperty(() => data.WrappedData.CalculationType = value);

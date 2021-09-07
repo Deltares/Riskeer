@@ -34,7 +34,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// ViewModel of <see cref="GrassCoverErosionOutwardsWaveConditionsInputContext"/> for properties panel.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsInputContextProperties
-        : FailureMechanismCategoryWaveConditionsInputContextProperties<
+        : WaveConditionsInputContextProperties<
             GrassCoverErosionOutwardsWaveConditionsInputContext,
             GrassCoverErosionOutwardsWaveConditionsInput,
             GrassCoverErosionOutwardsWaveConditionsCalculationType>
@@ -55,10 +55,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         [TypeConverter(typeof(EnumTypeConverter))]
         public override GrassCoverErosionOutwardsWaveConditionsCalculationType RevetmentType
         {
-            get
-            {
-                return data.Calculation.InputParameters.CalculationType;
-            }
+            get => data.Calculation.InputParameters.CalculationType;
             set
             {
                 HandleChangeProperty(() => data.Calculation.InputParameters.CalculationType = value);

@@ -64,7 +64,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             var properties = new StabilityStoneCoverWaveConditionsInputContextProperties(context, () => (RoundedDouble) 1.1, handler);
 
             // Assert
-            Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsInputContextProperties<
+            Assert.IsInstanceOf<WaveConditionsInputContextProperties<
                 StabilityStoneCoverWaveConditionsInputContext, StabilityStoneCoverWaveConditionsInput,
                 StabilityStoneCoverWaveConditionsCalculationType>>(properties);
             Assert.AreSame(context, properties.Data);
@@ -94,9 +94,9 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(16, dynamicProperties.Count);
+            Assert.AreEqual(15, dynamicProperties.Count);
 
-            PropertyDescriptor revetmentTypeProperty = dynamicProperties[10];
+            PropertyDescriptor revetmentTypeProperty = dynamicProperties[9];
             Assert.IsInstanceOf<EnumTypeConverter>(revetmentTypeProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(revetmentTypeProperty,
                                                                             "Modelinstellingen",

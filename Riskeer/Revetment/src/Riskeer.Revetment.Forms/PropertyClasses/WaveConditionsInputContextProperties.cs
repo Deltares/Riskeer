@@ -49,9 +49,8 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
     /// </summary>
     /// <typeparam name="TContext">The type of the wave conditions input context.</typeparam>
     /// <typeparam name="TInput">The type of the contained wave conditions input.</typeparam>
-    /// <typeparam name="TCategory">The category type contained by the wave conditions input.</typeparam>
     /// <typeparam name="TCalculationType">The type of the calculation.</typeparam>
-    public abstract class WaveConditionsInputContextProperties<TContext, TInput, TCategory, TCalculationType>
+    public abstract class WaveConditionsInputContextProperties<TContext, TInput, TCalculationType>
         : ObjectProperties<TContext>,
           IHasHydraulicBoundaryLocationProperty,
           IHasForeshoreProfileProperty
@@ -59,29 +58,28 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         where TInput : WaveConditionsInput
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
-        private const int categoryTypePropertyIndex = 1;
-        private const int assessmentLevelPropertyIndex = 2;
-        private const int upperBoundaryAssessmentLevelPropertyIndex = 3;
-        private const int upperBoundaryRevetmentPropertyIndex = 4;
-        private const int lowerBoundaryRevetmentPropertyIndex = 5;
-        private const int upperBoundaryWaterLevelsPropertyIndex = 6;
-        private const int lowerBoundaryWaterLevelsPropertyIndex = 7;
-        private const int stepSizePropertyIndex = 8;
-        private const int waterLevelsPropertyIndex = 9;
+        private const int assessmentLevelPropertyIndex = 1;
+        private const int upperBoundaryAssessmentLevelPropertyIndex = 2;
+        private const int upperBoundaryRevetmentPropertyIndex = 3;
+        private const int lowerBoundaryRevetmentPropertyIndex = 4;
+        private const int upperBoundaryWaterLevelsPropertyIndex = 5;
+        private const int lowerBoundaryWaterLevelsPropertyIndex = 6;
+        private const int stepSizePropertyIndex = 7;
+        private const int waterLevelsPropertyIndex = 8;
 
-        private const int revetmentTypePropertyIndex = 10;
+        private const int revetmentTypePropertyIndex = 9;
 
-        private const int foreshoreProfilePropertyIndex = 11;
-        private const int worldReferencePointPropertyIndex = 12;
-        private const int orientationPropertyIndex = 13;
-        private const int breakWaterPropertyIndex = 14;
-        private const int foreshoreGeometryPropertyIndex = 15;
+        private const int foreshoreProfilePropertyIndex = 10;
+        private const int worldReferencePointPropertyIndex = 11;
+        private const int orientationPropertyIndex = 12;
+        private const int breakWaterPropertyIndex = 13;
+        private const int foreshoreGeometryPropertyIndex = 14;
 
         private readonly Func<RoundedDouble> getAssessmentLevelFunc;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveConditionsInputContextProperties{TContext,TInput,TCategory, TCalculationType}"/>.
+        /// Creates a new instance of <see cref="WaveConditionsInputContextProperties{TContext,TInput,TCalculationType}"/>.
         /// </summary>
         /// <param name="context">The <see cref="WaveConditionsInputContext{TInput}"/> for which the properties are shown.</param>
         /// <param name="getAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the assessment level.</param>
@@ -110,23 +108,6 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
 
             this.getAssessmentLevelFunc = getAssessmentLevelFunc;
             this.propertyChangeHandler = propertyChangeHandler;
-        }
-
-        [PropertyOrder(categoryTypePropertyIndex)]
-        [TypeConverter(typeof(EnumTypeConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsInput_CategoryType_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsInput_CategoryType_Description))]
-        public TCategory CategoryType
-        {
-            get
-            {
-                return GetCategoryType();
-            }
-            set
-            {
-                HandleChangeProperty(() => SetCategoryType(value));
-            }
         }
 
         [PropertyOrder(assessmentLevelPropertyIndex)]
@@ -373,18 +354,6 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
                 data.HydraulicBoundaryLocations, referenceLocation);
         }
-
-        /// <summary>
-        /// Gets the category type that is set to the wave conditions input.
-        /// </summary>
-        /// <returns>The category type at stake.</returns>
-        protected abstract TCategory GetCategoryType();
-
-        /// <summary>
-        /// Sets the provided category type to the wave conditions input.
-        /// </summary>
-        /// <param name="categoryType">The category type to set.</param>
-        protected abstract void SetCategoryType(TCategory categoryType);
 
         /// <summary>
         /// Handles the property change.

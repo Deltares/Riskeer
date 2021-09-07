@@ -33,7 +33,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
     /// ViewModel of <see cref="WaveImpactAsphaltCoverWaveConditionsInputContext"/> for properties panel.
     /// </summary>
     public class WaveImpactAsphaltCoverWaveConditionsInputContextProperties
-        : AssessmentSectionCategoryWaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext,
+        : WaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext,
             AssessmentSectionCategoryWaveConditionsInput, string>
     {
         /// <summary>
@@ -53,14 +53,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
         /// <exception cref="InvalidOperationException">Thrown when trying to set a new value.</exception>
         public override string RevetmentType
         {
-            get
-            {
-                return Resources.WaveImpactAsphaltCoverWaveConditionsInputContextProperties_RevetmentType;
-            }
-            set
-            {
-                throw new InvalidOperationException();
-            }
+            get => Resources.WaveImpactAsphaltCoverWaveConditionsInputContextProperties_RevetmentType;
+            set => throw new InvalidOperationException();
         }
     }
 }
