@@ -798,8 +798,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var observables = new List<IObservable>
             {
                 hydraulicBoundaryDatabase.Locations,
-                assessmentSection.WaterLevelCalculationsForSignalingNorm.HydraulicBoundaryLocationCalculations,
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.HydraulicBoundaryLocationCalculations,
+                assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                 assessmentSection.DuneErosion.DuneLocations
             };
 
