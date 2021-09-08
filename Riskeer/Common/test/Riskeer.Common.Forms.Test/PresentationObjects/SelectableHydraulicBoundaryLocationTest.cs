@@ -78,7 +78,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         }
 
         [TestFixture]
-        private class SelectableHydraulicBoundaryLocationEqualsTest : EqualsTestFixture<SelectableHydraulicBoundaryLocation, DerivedSelectableHydraulicBOundaryLocation>
+        private class SelectableHydraulicBoundaryLocationEqualsTest : EqualsTestFixture<SelectableHydraulicBoundaryLocation, DerivedSelectableHydraulicBoundaryLocation>
         {
             private readonly HydraulicBoundaryLocation location = new HydraulicBoundaryLocation(1, "Name", 0, 1);
 
@@ -105,9 +105,9 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
                 return new SelectableHydraulicBoundaryLocation(location, CreateReferencePoint());
             }
 
-            protected override DerivedSelectableHydraulicBOundaryLocation CreateDerivedObject()
+            protected override DerivedSelectableHydraulicBoundaryLocation CreateDerivedObject()
             {
-                return new DerivedSelectableHydraulicBOundaryLocation(location,
+                return new DerivedSelectableHydraulicBoundaryLocation(location,
                                                                       CreateReferencePoint());
             }
 
@@ -172,9 +172,9 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
                        : $"{location.Name} ({distance / 1000:f1} km)";
         }
 
-        private class DerivedSelectableHydraulicBOundaryLocation : SelectableHydraulicBoundaryLocation
+        private class DerivedSelectableHydraulicBoundaryLocation : SelectableHydraulicBoundaryLocation
         {
-            public DerivedSelectableHydraulicBOundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation, Point2D referencePoint)
+            public DerivedSelectableHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation, Point2D referencePoint)
                 : base(hydraulicBoundaryLocation, referencePoint) {}
         }
     }
