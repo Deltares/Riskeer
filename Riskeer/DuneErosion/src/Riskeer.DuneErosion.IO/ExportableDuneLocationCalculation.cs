@@ -53,7 +53,7 @@ namespace Riskeer.DuneErosion.IO
         public DuneLocationCalculation Calculation { get; }
 
         /// <summary>
-        /// Gets the norm belonging to the calculation.
+        /// Gets the target probability belonging to the calculation.
         /// </summary>
         public double TargetProbability { get; }
     }
