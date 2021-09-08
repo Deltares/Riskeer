@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
@@ -34,14 +35,14 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
     public class SelectableTargetProbabilityTest
     {
         [Test]
-        public void Constructor_CalculationsForTargetProbabilityNull_ThrowsArgumentNullException()
+        public void Constructor_HydraulicBoundaryLocationCalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new SelectableTargetProbability(null, WaveConditionsInputWaterLevelType.None);
+            void Call() => new SelectableTargetProbability(null, WaveConditionsInputWaterLevelType.None, double.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("calculationsForTargetProbability", exception.ParamName);
+            Assert.AreEqual("hydraulicBoundaryLocationCalculations", exception.ParamName);
         }
 
         [Test]
@@ -49,15 +50,17 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
         {
             // Setup
             var random = new Random(21);
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1));
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculations = Enumerable.Empty<HydraulicBoundaryLocationCalculation>();
             var waveConditionsInputWaterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>();
+            double targetProbability = random.NextDouble(0, 0.1);
 
             // Call
-            var selectableTargetProbability = new SelectableTargetProbability(calculationsForTargetProbability, waveConditionsInputWaterLevelType);
+            var selectableTargetProbability = new SelectableTargetProbability(calculations, waveConditionsInputWaterLevelType, targetProbability);
 
             // Assert
-            Assert.AreSame(calculationsForTargetProbability, selectableTargetProbability.CalculationsForTargetProbability);
+            Assert.AreSame(calculations, selectableTargetProbability.HydraulicBoundaryLocationCalculations);
             Assert.AreEqual(waveConditionsInputWaterLevelType, selectableTargetProbability.WaterLevelType);
+            Assert.AreEqual(targetProbability, selectableTargetProbability.TargetProbability);
         }
 
         [Test]
@@ -66,8 +69,10 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
             // Setup
             var random = new Random(21);
             double targetProbability = random.NextDouble(0, 0.1);
-            var selectableTargetProbability = new SelectableTargetProbability(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability), random.NextEnumValue<WaveConditionsInputWaterLevelType>());
+
+            var selectableTargetProbability = new SelectableTargetProbability(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                                              random.NextEnumValue<WaveConditionsInputWaterLevelType>(),
+                                                                              targetProbability);
 
             // Call
             var actualString = selectableTargetProbability.ToString();
@@ -75,48 +80,50 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
             // Assert
             Assert.AreEqual(ProbabilityFormattingHelper.Format(targetProbability), actualString);
         }
-        
+
         [TestFixture]
         private class SelectableTargetProbabilityEqualsTest : EqualsTestFixture<SelectableTargetProbability>
         {
-            private readonly HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            private static readonly IEnumerable<HydraulicBoundaryLocationCalculation> calculations = Enumerable.Empty<HydraulicBoundaryLocationCalculation>();
 
             [Test]
-            public void Equals_ToOtherWithSameTargetProbabilityAndWaterLevelType_ReturnsTrue()
+            [TestCaseSource(nameof(GetEqualTestCases))]
+            public void Equals_ToOtherWithSameTargetProbabilityAndWaterLevelType_ReturnsTrue(SelectableTargetProbability selectableTargetProbability1,
+                                                                                             SelectableTargetProbability selectableTargetProbability2)
             {
-                // Setup
-                var random = new Random(21);
-                double targetProbability = random.NextDouble(0, 0.1);
-                var waterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>();
-                var selectableTargetProbability1 = new SelectableTargetProbability(
-                    new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability),
-                    waterLevelType);
-                var selectableTargetProbability2 = new SelectableTargetProbability(
-                    new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability),
-                    waterLevelType);
-                
                 // Call
                 bool areEqualObjects12 = selectableTargetProbability1.Equals(selectableTargetProbability2);
                 bool areEqualObjects21 = selectableTargetProbability2.Equals(selectableTargetProbability1);
-                
+
                 // Assert
                 Assert.IsTrue(areEqualObjects12);
                 Assert.IsTrue(areEqualObjects21);
             }
-            
+
             protected override SelectableTargetProbability CreateObject()
             {
-                return new SelectableTargetProbability(calculationsForTargetProbability, WaveConditionsInputWaterLevelType.Signaling);
+                return new SelectableTargetProbability(calculations, WaveConditionsInputWaterLevelType.Signaling, 0.1);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
                 yield return new TestCaseData(new SelectableTargetProbability(
-                                                  new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
-                                                  WaveConditionsInputWaterLevelType.Signaling));
+                                                  Array.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                  WaveConditionsInputWaterLevelType.Signaling,
+                                                  0.01));
                 yield return new TestCaseData(new SelectableTargetProbability(
-                                                  new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1),
-                                                  WaveConditionsInputWaterLevelType.LowerLimit));
+                                                  Array.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                  WaveConditionsInputWaterLevelType.LowerLimit,
+                                                  0.1));
+            }
+            
+            private static IEnumerable<TestCaseData> GetEqualTestCases()
+            {
+                yield return new TestCaseData(new SelectableTargetProbability(calculations, WaveConditionsInputWaterLevelType.None, 0.1),
+                                              new SelectableTargetProbability(calculations, WaveConditionsInputWaterLevelType.Signaling, 0.01));
+                yield return new TestCaseData(new SelectableTargetProbability(calculations, WaveConditionsInputWaterLevelType.LowerLimit, 0.1),
+                                              new SelectableTargetProbability(Array.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                                              WaveConditionsInputWaterLevelType.LowerLimit, 0.1));
             }
         }
     }

@@ -52,8 +52,8 @@ namespace Riskeer.Revetment.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             var selectableTargetProbability = new SelectableTargetProbability(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1),
-                WaveConditionsInputWaterLevelType.None);
+                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                WaveConditionsInputWaterLevelType.None, 0.1);
 
             var properties = new ObjectPropertiesWithSelectableTargetProbability(
                 selectableTargetProbability, Enumerable.Empty<SelectableTargetProbability>());
@@ -81,14 +81,15 @@ namespace Riskeer.Revetment.Forms.Test.UITypeEditors
         [Test]
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculations = Enumerable.Empty<HydraulicBoundaryLocationCalculation>();
             const WaveConditionsInputWaterLevelType waterLevelType = WaveConditionsInputWaterLevelType.LowerLimit;
+            const double targetProbability = 0.1;
 
             var properties = new ObjectPropertiesWithSelectableTargetProbability(
-                new SelectableTargetProbability(calculationsForTargetProbability, waterLevelType),
+                new SelectableTargetProbability(calculations, waterLevelType, targetProbability),
                 new[]
                 {
-                    new SelectableTargetProbability(calculationsForTargetProbability, waterLevelType)
+                    new SelectableTargetProbability(calculations, waterLevelType, targetProbability)
                 });
 
             var propertyBag = new DynamicPropertyBag(properties);
@@ -107,7 +108,7 @@ namespace Riskeer.Revetment.Forms.Test.UITypeEditors
             object result = editor.EditValue(descriptorContext, serviceProvider, someValue);
 
             // Assert
-            Assert.AreEqual(new SelectableTargetProbability(calculationsForTargetProbability, waterLevelType), result);
+            Assert.AreEqual(new SelectableTargetProbability(calculations, waterLevelType, targetProbability), result);
             mocks.VerifyAll();
         }
 

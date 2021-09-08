@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Revetment.Data;
@@ -27,28 +28,28 @@ using Riskeer.Revetment.Data;
 namespace Riskeer.Revetment.Forms.PresentationObjects
 {
     /// <summary>
-    /// Class that represents a <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/>.
+    /// Class that represents a selectable target probability for a collection of <see cref="HydraulicBoundaryLocationCalculation"/>.
     /// </summary>
     public class SelectableTargetProbability
     {
         /// <summary>
         /// Creates a new instance of <see cref="SelectableTargetProbability"/>.
         /// </summary>
-        /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/>.</param>
-        /// <param name="waterLevelType">The <see cref="WaveConditionsInputWaterLevelType"/> belonging to
-        /// the <paramref name="calculationsForTargetProbability"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationsForTargetProbability"/>
-        /// is <c>null</c>.</exception>
-        public SelectableTargetProbability(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability,
-                                           WaveConditionsInputWaterLevelType waterLevelType)
+        /// <param name="hydraulicBoundaryLocationCalculations">The collection of <see cref="HydraulicBoundaryLocationCalculation"/>.</param>
+        /// <param name="waterLevelType">The <see cref="WaveConditionsInputWaterLevelType"/> belonging to the <paramref name="hydraulicBoundaryLocationCalculations"/>.</param>
+        /// <param name="targetProbability">The target probability belonging to the <paramref name="hydraulicBoundaryLocationCalculations"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
+        public SelectableTargetProbability(IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations,
+                                           WaveConditionsInputWaterLevelType waterLevelType, double targetProbability)
         {
-            if (calculationsForTargetProbability == null)
+            if (hydraulicBoundaryLocationCalculations == null)
             {
-                throw new ArgumentNullException(nameof(calculationsForTargetProbability));
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculations));
             }
 
-            CalculationsForTargetProbability = calculationsForTargetProbability;
+            HydraulicBoundaryLocationCalculations = hydraulicBoundaryLocationCalculations;
             WaterLevelType = waterLevelType;
+            TargetProbability = targetProbability;
         }
 
         /// <summary>
@@ -57,9 +58,14 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
         public WaveConditionsInputWaterLevelType WaterLevelType { get; }
 
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/>.
+        /// Gets the target probability.
         /// </summary>
-        public HydraulicBoundaryLocationCalculationsForTargetProbability CalculationsForTargetProbability { get; }
+        public double TargetProbability { get; }
+
+        /// <summary>
+        /// Gets the collection of <see cref="HydraulicBoundaryLocationCalculation"/>.
+        /// </summary>
+        public IEnumerable<HydraulicBoundaryLocationCalculation> HydraulicBoundaryLocationCalculations { get; }
 
         public override bool Equals(object obj)
         {
@@ -86,21 +92,22 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
             unchecked
             {
                 int hashCode = WaterLevelType.GetHashCode();
-                hashCode = (hashCode * 397) ^ CalculationsForTargetProbability.GetHashCode();
+                hashCode = (hashCode * 397) ^ HydraulicBoundaryLocationCalculations.GetHashCode();
+                hashCode = (hashCode * 397) ^ TargetProbability.GetHashCode();
                 return hashCode;
             }
         }
 
         public override string ToString()
         {
-            return ProbabilityFormattingHelper.Format(CalculationsForTargetProbability.TargetProbability);
+            return ProbabilityFormattingHelper.Format(TargetProbability);
         }
 
         private bool Equals(SelectableTargetProbability other)
         {
-            return ReferenceEquals(CalculationsForTargetProbability, other.CalculationsForTargetProbability)
+            return ReferenceEquals(HydraulicBoundaryLocationCalculations, other.HydraulicBoundaryLocationCalculations)
                    || WaterLevelType == other.WaterLevelType
-                   && Math.Abs(CalculationsForTargetProbability.TargetProbability - other.CalculationsForTargetProbability.TargetProbability) < 1e-6;
+                   && Math.Abs(TargetProbability - other.TargetProbability) < 1e-6;
         }
     }
 }
