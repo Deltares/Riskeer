@@ -814,6 +814,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/100"));
+                mocks.VerifyAll();
             }
         }
 
@@ -867,6 +868,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/100"));
+                mocks.VerifyAll();
             }
         }
 
