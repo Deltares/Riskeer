@@ -70,7 +70,8 @@ namespace Riskeer.Integration.Plugin.Merge
                 targetAssessmentSection
             };
 
-            changedObjects.AddRange(MergeHydraulicBoundaryLocations(targetAssessmentSection, mergeData.AssessmentSection));
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection, mergeData.AssessmentSection));
+
             MergeFailureMechanisms(targetAssessmentSection, mergeData);
 
             AfterMerge(changedObjects);
@@ -83,8 +84,8 @@ namespace Riskeer.Integration.Plugin.Merge
 
         #region HydraulicBoundaryLocationCalculations
 
-        private static IEnumerable<IObservable> MergeHydraulicBoundaryLocations(IAssessmentSection targetAssessmentSection,
-                                                                                IAssessmentSection sourceAssessmentSection)
+        private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculations(IAssessmentSection targetAssessmentSection,
+                                                                                           IAssessmentSection sourceAssessmentSection)
         {
             var changedObjects = new List<IObservable>();
 
@@ -93,10 +94,10 @@ namespace Riskeer.Integration.Plugin.Merge
             changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                                                sourceAssessmentSection.WaterLevelCalculationsForLowerLimitNorm));
 
-            changedObjects.AddRange(MergeUserDefinedHydraulicBoundaryLocations(targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
                                                                                sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
                                                                                targetAssessmentSection.HydraulicBoundaryDatabase.Locations));
-            changedObjects.AddRange(MergeUserDefinedHydraulicBoundaryLocations(targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+            changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
                                                                                sourceAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
                                                                                targetAssessmentSection.HydraulicBoundaryDatabase.Locations));
 
@@ -105,68 +106,6 @@ namespace Riskeer.Integration.Plugin.Merge
                          : Resources.AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_not_merged);
 
             return changedObjects;
-        }
-
-        private static IEnumerable<IObservable> MergeUserDefinedHydraulicBoundaryLocations(
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities,
-            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> sourceProbabilities,
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
-        {
-            HydraulicBoundaryLocationCalculationsForTargetProbability[] probabilitiesToMerge = sourceProbabilities.Where(stp => targetProbabilities
-                                                                                                                                .Select(c => c.TargetProbability)
-                                                                                                                                .Contains(stp.TargetProbability))
-                                                                                                                  .ToArray();
-
-            var changedObjects = new List<IObservable>();
-
-            changedObjects.AddRange(MergeProbabilities(targetProbabilities, probabilitiesToMerge));
-            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> uniqueProbabilities = sourceProbabilities.Except(probabilitiesToMerge);
-
-            if (uniqueProbabilities.Any())
-            {
-                MergeUniqueProbabilities(targetProbabilities, uniqueProbabilities, hydraulicBoundaryLocations);
-                changedObjects.Add(targetProbabilities);
-            }
-
-            return changedObjects;
-        }
-
-        private static IEnumerable<IObservable> MergeProbabilities(
-            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities,
-            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> probabilitiesToMerge)
-        {
-            var changedObjects = new List<IObservable>();
-
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability probabilityToMerge in probabilitiesToMerge)
-            {
-                HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability = targetProbabilities.First(
-                    c => c.TargetProbability.Equals(probabilityToMerge.TargetProbability));
-
-                changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(
-                                            targetProbability.HydraulicBoundaryLocationCalculations,
-                                            probabilityToMerge.HydraulicBoundaryLocationCalculations));
-            }
-
-            return changedObjects;
-        }
-
-        private static void MergeUniqueProbabilities(ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> calculationsForTargetProbabilities,
-                                                     IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> uniqueSourceProbabilities,
-                                                     IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
-        {
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability sourceProbability in uniqueSourceProbabilities)
-            {
-                var newCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(sourceProbability.TargetProbability);
-
-                newCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(
-                    sourceProbability.HydraulicBoundaryLocationCalculations
-                                     .Select(calculation => new HydraulicBoundaryLocationCalculation(
-                                                 GetHydraulicBoundaryLocation(
-                                                     calculation.HydraulicBoundaryLocation, hydraulicBoundaryLocations)))
-                                     .ToArray());
-
-                calculationsForTargetProbabilities.Add(newCalculationsForTargetProbability);
-            }
         }
 
         private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations,
@@ -184,6 +123,68 @@ namespace Riskeer.Integration.Plugin.Merge
 
                     yield return targetCalculation;
                 }
+            }
+        }
+
+        private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculations(
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetCalculations,
+            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> sourceCalculations,
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        {
+            HydraulicBoundaryLocationCalculationsForTargetProbability[] calculationsToMerge = sourceCalculations.Where(stp => targetCalculations
+                                                                                                                              .Select(c => c.TargetProbability)
+                                                                                                                              .Contains(stp.TargetProbability))
+                                                                                                                .ToArray();
+
+            var changedObjects = new List<IObservable>();
+
+            changedObjects.AddRange(MergeCalculations(targetCalculations, calculationsToMerge));
+            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> uniqueCalculations = sourceCalculations.Except(calculationsToMerge);
+
+            if (uniqueCalculations.Any())
+            {
+                MergeUniqueCalculations(targetCalculations, uniqueCalculations, hydraulicBoundaryLocations);
+                changedObjects.Add(targetCalculations);
+            }
+
+            return changedObjects;
+        }
+
+        private static IEnumerable<IObservable> MergeCalculations(
+            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> targetCalculations,
+            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> calculationsToMerge)
+        {
+            var changedObjects = new List<IObservable>();
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbabilityToMerge in calculationsToMerge)
+            {
+                HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = targetCalculations.First(
+                    c => c.TargetProbability.Equals(calculationsForTargetProbabilityToMerge.TargetProbability));
+
+                changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(
+                                            calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
+                                            calculationsForTargetProbabilityToMerge.HydraulicBoundaryLocationCalculations));
+            }
+
+            return changedObjects;
+        }
+
+        private static void MergeUniqueCalculations(ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> calculations,
+                                                    IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> uniqueSourceCalculations,
+                                                    IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        {
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability sourceCalculationsForTargetProbability in uniqueSourceCalculations)
+            {
+                var newCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(sourceCalculationsForTargetProbability.TargetProbability);
+
+                newCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(
+                    sourceCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations
+                                                          .Select(calculation => new HydraulicBoundaryLocationCalculation(
+                                                                      GetHydraulicBoundaryLocation(
+                                                                          calculation.HydraulicBoundaryLocation, hydraulicBoundaryLocations)))
+                                                          .ToArray());
+
+                calculations.Add(newCalculationsForTargetProbability);
             }
         }
 
