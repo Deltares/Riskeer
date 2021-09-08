@@ -117,12 +117,17 @@ namespace Riskeer.Integration.Plugin.Merge
 
                 if (ShouldMerge(targetCalculation, sourceCalculation))
                 {
-                    targetCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = sourceCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
-                    targetCalculation.Output = sourceCalculation.Output;
+                    MergeCalculationData(targetCalculation, sourceCalculation);
 
                     yield return targetCalculation;
                 }
             }
+        }
+
+        private static void MergeCalculationData(HydraulicBoundaryLocationCalculation targetCalculation, HydraulicBoundaryLocationCalculation sourceCalculation)
+        {
+            targetCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = sourceCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
+            targetCalculation.Output = sourceCalculation.Output;
         }
 
         private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculations(
@@ -177,11 +182,15 @@ namespace Riskeer.Integration.Plugin.Merge
             {
                 var calculationsForTargetProbabilityToAdd = new HydraulicBoundaryLocationCalculationsForTargetProbability(sourceCalculationsForTargetProbability.TargetProbability);
 
-                calculationsForTargetProbabilityToAdd.HydraulicBoundaryLocationCalculations.AddRange(
-                    hydraulicBoundaryLocations.Select(hbl => new HydraulicBoundaryLocationCalculation(hbl)));
+                calculationsForTargetProbabilityToAdd.HydraulicBoundaryLocationCalculations.AddRange(hydraulicBoundaryLocations
+                                                                                                     .Select(hbl => new HydraulicBoundaryLocationCalculation(hbl))
+                                                                                                     .ToArray());
 
-                MergeHydraulicBoundaryLocationCalculations(calculationsForTargetProbabilityToAdd.HydraulicBoundaryLocationCalculations,
-                                                           sourceCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
+                for (var i = 0; i < calculationsForTargetProbabilityToAdd.HydraulicBoundaryLocationCalculations.Count(); i++)
+                {
+                    MergeCalculationData(calculationsForTargetProbabilityToAdd.HydraulicBoundaryLocationCalculations.ElementAt(i),
+                                         sourceCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.ElementAt(i));
+                }
 
                 targetCalculations.Add(calculationsForTargetProbabilityToAdd);
             }
