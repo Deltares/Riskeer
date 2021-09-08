@@ -93,7 +93,6 @@ namespace Riskeer.Integration.Plugin.Merge
                                                                                sourceAssessmentSection.WaterLevelCalculationsForSignalingNorm));
             changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                                                sourceAssessmentSection.WaterLevelCalculationsForLowerLimitNorm));
-
             changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
                                                                                sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
                                                                                targetAssessmentSection.HydraulicBoundaryDatabase.Locations));
@@ -176,15 +175,15 @@ namespace Riskeer.Integration.Plugin.Merge
         {
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability sourceCalculationsForTargetProbability in sourceCalculations)
             {
-                var newCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(sourceCalculationsForTargetProbability.TargetProbability);
+                var calculationsForTargetProbabilityToAdd = new HydraulicBoundaryLocationCalculationsForTargetProbability(sourceCalculationsForTargetProbability.TargetProbability);
 
-                newCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(
-                    sourceCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations
-                                                          .Select(calculation => new HydraulicBoundaryLocationCalculation(GetHydraulicBoundaryLocation(calculation.HydraulicBoundaryLocation,
-                                                                                                                                                       hydraulicBoundaryLocations)))
-                                                          .ToArray());
+                calculationsForTargetProbabilityToAdd.HydraulicBoundaryLocationCalculations.AddRange(
+                    hydraulicBoundaryLocations.Select(hbl => new HydraulicBoundaryLocationCalculation(hbl)));
 
-                targetCalculations.Add(newCalculationsForTargetProbability);
+                MergeHydraulicBoundaryLocationCalculations(calculationsForTargetProbabilityToAdd.HydraulicBoundaryLocationCalculations,
+                                                           sourceCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
+
+                targetCalculations.Add(calculationsForTargetProbabilityToAdd);
             }
         }
 
