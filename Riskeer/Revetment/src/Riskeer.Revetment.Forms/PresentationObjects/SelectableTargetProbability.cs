@@ -27,8 +27,7 @@ using Riskeer.Revetment.Data;
 namespace Riskeer.Revetment.Forms.PresentationObjects
 {
     /// <summary>
-    /// Class that defines a drop down list edit-control from which the user can select a
-    /// a target probability from a collection.
+    /// Class that represents a <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/>.
     /// </summary>
     public class SelectableTargetProbability
     {

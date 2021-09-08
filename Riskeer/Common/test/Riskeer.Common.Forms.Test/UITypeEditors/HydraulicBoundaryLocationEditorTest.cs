@@ -58,10 +58,10 @@ namespace Riskeer.Common.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            SelectableHydraulicBoundaryLocation selectableHydraulicBoundaryLocationhydraulicBoundaryLocation =
+            SelectableHydraulicBoundaryLocation selectableHydraulicBoundaryLocation =
                 CreateSelectableHydraulicBoundaryLocation();
             var properties = new ObjectPropertiesWithSelectableHydraulicBoundaryLocation(
-                selectableHydraulicBoundaryLocationhydraulicBoundaryLocation, new SelectableHydraulicBoundaryLocation[0]);
+                selectableHydraulicBoundaryLocation, new SelectableHydraulicBoundaryLocation[0]);
             var propertyBag = new DynamicPropertyBag(properties);
             var editor = new HydraulicBoundaryLocationEditor();
             var someValue = new object();
