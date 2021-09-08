@@ -367,7 +367,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void GivenEqualUserDefinedTargetProbabilities_WhenMerging_ThenCalculationsMergedObserversNotNotified()
+        public void GivenEqualUserDefinedTargetProbabilities_WhenMerging_ThenObserversNotNotified()
         {
             // Given
             var mocks = new MockRepository();
@@ -410,13 +410,16 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                      }));
 
             // Then
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waterLevelTargetProbabilities = targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waveHeightTargetProbabilities = targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waterLevelTargetProbabilities =
+                targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
             Assert.AreEqual(1, waterLevelTargetProbabilities.Count);
-            Assert.AreEqual(1, waveHeightTargetProbabilities.Count);
+            Assert.AreEqual(0.1, waterLevelTargetProbabilities.ElementAt(0).TargetProbability);
 
-            Assert.AreEqual(1, waterLevelTargetProbabilities.Count(c => c.TargetProbability.Equals(0.1)));
-            Assert.AreEqual(1, waveHeightTargetProbabilities.Count(c => c.TargetProbability.Equals(0.1)));
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waveHeightTargetProbabilities =
+                targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
+            Assert.AreEqual(1, waveHeightTargetProbabilities.Count);
+            Assert.AreEqual(0.1, waveHeightTargetProbabilities.ElementAt(0).TargetProbability);
+
             mocks.VerifyAll();
         }
 
@@ -466,16 +469,18 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                      }));
 
             // Then
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waterLevelTargetProbabilities = targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waveHeightTargetProbabilities = targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waterLevelTargetProbabilities =
+                targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
             Assert.AreEqual(2, waterLevelTargetProbabilities.Count);
+            Assert.AreEqual(0.1, waterLevelTargetProbabilities.ElementAt(0).TargetProbability);
+            Assert.AreEqual(0.01, waterLevelTargetProbabilities.ElementAt(1).TargetProbability);
+
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waveHeightTargetProbabilities =
+                targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
             Assert.AreEqual(2, waveHeightTargetProbabilities.Count);
+            Assert.AreEqual(0.1, waveHeightTargetProbabilities.ElementAt(0).TargetProbability);
+            Assert.AreEqual(0.01, waveHeightTargetProbabilities.ElementAt(1).TargetProbability);
 
-            Assert.AreEqual(1, waterLevelTargetProbabilities.Count(c => c.TargetProbability.Equals(0.01)));
-            Assert.AreEqual(1, waveHeightTargetProbabilities.Count(c => c.TargetProbability.Equals(0.01)));
-
-            Assert.AreEqual(1, waterLevelTargetProbabilities.Count(c => c.TargetProbability.Equals(0.1)));
-            Assert.AreEqual(1, waveHeightTargetProbabilities.Count(c => c.TargetProbability.Equals(0.1)));
             mocks.VerifyAll();
         }
 
@@ -500,6 +505,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(locations);
             assessmentSection.SetHydraulicBoundaryLocationCalculations(locations);
+
             return assessmentSection;
         }
 
