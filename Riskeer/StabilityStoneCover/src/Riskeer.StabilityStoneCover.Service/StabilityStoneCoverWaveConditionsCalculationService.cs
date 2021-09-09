@@ -97,10 +97,9 @@ namespace Riskeer.StabilityStoneCover.Service
 
             CalculationServiceHelper.LogCalculationBegin();
 
-            double norm = assessmentSection.GetNorm(calculationInput.CategoryType);
+            double targetProbability = WaveConditionsInputHelper.GetTargetProbability(calculationInput, assessmentSection);
 
-            RoundedDouble assessmentLevel = assessmentSection.GetAssessmentLevel(calculationInput.HydraulicBoundaryLocation,
-                                                                                 calculationInput.CategoryType);
+            RoundedDouble assessmentLevel = WaveConditionsInputHelper.GetAssessmentLevel(calculationInput, assessmentSection);
 
             int waterLevelCount = calculationInput.GetWaterLevels(assessmentLevel).Count();
             TotalWaterLevelCalculations = calculationType == StabilityStoneCoverWaveConditionsCalculationType.Both
@@ -115,7 +114,7 @@ namespace Riskeer.StabilityStoneCover.Service
                 {
                     CurrentCalculationType = Resources.StabilityStoneCoverWaveConditions_Blocks_DisplayName;
                     blocksOutputs = CalculateBlocks(calculation, assessmentSection, assessmentLevel,
-                                                    generalWaveConditionsInput.GeneralBlocksWaveConditionsInput, norm);
+                                                    generalWaveConditionsInput.GeneralBlocksWaveConditionsInput, targetProbability);
                 }
 
                 if (Canceled)
@@ -129,7 +128,7 @@ namespace Riskeer.StabilityStoneCover.Service
                 {
                     CurrentCalculationType = Resources.StabilityStoneCoverWaveConditions_Columns_DisplayName;
                     columnsOutputs = CalculateColumns(calculation, assessmentSection, assessmentLevel,
-                                                      generalWaveConditionsInput.GeneralColumnsWaveConditionsInput, norm);
+                                                      generalWaveConditionsInput.GeneralColumnsWaveConditionsInput, targetProbability);
                 }
 
                 if (!Canceled)

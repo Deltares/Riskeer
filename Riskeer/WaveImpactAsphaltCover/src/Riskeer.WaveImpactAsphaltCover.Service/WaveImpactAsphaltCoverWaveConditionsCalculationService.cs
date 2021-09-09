@@ -88,9 +88,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Service
             RoundedDouble b = generalWaveConditionsInput.B;
             RoundedDouble c = generalWaveConditionsInput.C;
 
-            double norm = assessmentSection.GetNorm(calculation.InputParameters.CategoryType);
-            RoundedDouble assessmentLevel = assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                 calculation.InputParameters.CategoryType);
+            double targetProbability = WaveConditionsInputHelper.GetTargetProbability(calculation.InputParameters, assessmentSection);
+
+            RoundedDouble assessmentLevel = WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection);
 
             CurrentCalculationType = Resources.WaveImpactAsphaltCover_DisplayName;
             TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
@@ -99,7 +99,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service
             {
                 IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters,
                                                                                     assessmentLevel,
-                                                                                    a, b, c, norm,
+                                                                                    a, b, c, targetProbability,
                                                                                     assessmentSection.HydraulicBoundaryDatabase);
 
                 if (!Canceled)
