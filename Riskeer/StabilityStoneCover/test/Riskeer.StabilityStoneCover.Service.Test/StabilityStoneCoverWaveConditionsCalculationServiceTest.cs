@@ -71,12 +71,11 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            TestDelegate test = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(null,
-                                                                                                          assessmentSection,
-                                                                                                          failureMechanism.GeneralInput);
+            void Call() => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(null, assessmentSection,
+                                                                                               failureMechanism.GeneralInput);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -89,12 +88,11 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            TestDelegate test = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                          null,
-                                                                                                          failureMechanism.GeneralInput);
+            void Call() => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation, null,
+                                                                                               failureMechanism.GeneralInput);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -109,12 +107,10 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            TestDelegate test = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                          assessmentSection,
-                                                                                                          null);
+            void Call() => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation, assessmentSection, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("generalWaveConditionsInput", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -133,14 +129,13 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                          assessmentSection,
-                                                                                                          failureMechanism.GeneralInput);
+            void Call() => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation, assessmentSection,
+                                                                                               failureMechanism.GeneralInput);
 
             // Assert
             string expectedMessage = $"The value of argument 'calculationType' ({(int) calculation.InputParameters.CalculationType}) " +
                                      $"is invalid for Enum type '{nameof(StabilityStoneCoverWaveConditionsCalculationType)}'.";
-            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage)
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage)
                                          .ParamName;
             Assert.AreEqual("calculationType", paramName);
             mockRepository.VerifyAll();
@@ -176,12 +171,11 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                        assessmentSection,
-                                                                                                        stabilityStoneCoverFailureMechanism.GeneralInput);
+                void Call() => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation, assessmentSection,
+                                                                                                   stabilityStoneCoverFailureMechanism.GeneralInput);
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(18, msgs.Length);
@@ -237,12 +231,11 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                        assessmentSection,
-                                                                                                        stabilityStoneCoverFailureMechanism.GeneralInput);
+                void Call() => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation, assessmentSection,
+                                                                                                   stabilityStoneCoverFailureMechanism.GeneralInput);
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(18, msgs.Length);
@@ -287,11 +280,11 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation, assessmentSection,
-                                                                                                        stabilityStoneCoverFailureMechanism.GeneralInput);
+                void Call() => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation, assessmentSection,
+                                                                                                   stabilityStoneCoverFailureMechanism.GeneralInput);
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(expectedMessageCount, msgs.Length);
@@ -359,7 +352,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                         revetmentType = "zuilen";
                     }
 
-                    string text = $"Waterstand '{waterLevels[(step - 1) % waterLevels.Length]}' [m+NAP] voor {revetmentType} berekenen.";
+                    var text = $"Waterstand '{waterLevels[(step - 1) % waterLevels.Length]}' [m+NAP] voor {revetmentType} berekenen.";
                     Assert.AreEqual(text, description);
                     Assert.AreEqual(currentStep++, step);
                     Assert.AreEqual(totalSteps, steps);
@@ -415,7 +408,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
 
                 WaveConditionsInput input = calculation.InputParameters;
 
-                double expectedNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm * 30;
+                double expectedTargetProbability = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
 
                 var waterLevelIndex = 0;
                 for (var i = 0; i < testWaveConditionsInputs.Length / 2; i++)
@@ -423,7 +416,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,
-                                                                                 expectedNorm,
+                                                                                 expectedTargetProbability,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  waterLevels.ElementAt(waterLevelIndex++),
@@ -440,7 +433,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,
-                                                                                 expectedNorm,
+                                                                                 expectedTargetProbability,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  waterLevels.ElementAt(waterLevelIndex++),
@@ -603,22 +596,20 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 HydraRingCalculationException exception = null;
 
                 // Call
-                Action call = () =>
+                void Call()
                 {
                     try
                     {
-                        new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                            assessmentSection,
-                                                                                            failureMechanism.GeneralInput);
+                        new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation, assessmentSection, failureMechanism.GeneralInput);
                     }
                     catch (HydraRingCalculationException e)
                     {
                         exception = e;
                     }
-                };
+                }
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(16, msgs.Length);
@@ -697,9 +688,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 var service = new StabilityStoneCoverWaveConditionsCalculationService();
 
                 // Call
-                Action call = () => service.Calculate(calculation,
-                                                      assessmentSection,
-                                                      failureMechanism.GeneralInput);
+                void Call() => service.Calculate(calculation, assessmentSection, failureMechanism.GeneralInput);
 
                 // Assert
                 RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
@@ -707,7 +696,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
                 RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
 
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(25, msgs.Length);
@@ -746,9 +735,8 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 WaveConditionsOutput[] blocksWaveConditionsOutputs = calculation.Output.BlocksOutput.ToArray();
                 Assert.AreEqual(3, blocksWaveConditionsOutputs.Length);
 
-                double targetNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm * 30;
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
-                                                                  targetNorm,
+                                                                  assessmentSection.FailureMechanismContribution.LowerLimitNorm,
                                                                   blocksWaveConditionsOutputs[0]);
 
                 WaveConditionsOutput[] columnsWaveConditionsOutputs = calculation.Output.ColumnsOutput.ToArray();
@@ -803,9 +791,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 var service = new StabilityStoneCoverWaveConditionsCalculationService();
 
                 // Call
-                Action call = () => service.Calculate(calculation,
-                                                      assessmentSection,
-                                                      failureMechanism.GeneralInput);
+                void Call() => service.Calculate(calculation, assessmentSection, failureMechanism.GeneralInput);
 
                 // Assert
                 RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
@@ -813,7 +799,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 RoundedDouble waterLevelMiddleRevetment = waterLevels[1];
                 RoundedDouble waterLevelLowerBoundaryRevetment = waterLevels[2];
 
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(25, msgs.Length);
@@ -855,9 +841,8 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 WaveConditionsOutput[] columnsWaveConditionsOutputs = calculation.Output.ColumnsOutput.ToArray();
                 Assert.AreEqual(3, columnsWaveConditionsOutputs.Length);
 
-                double targetNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm * 30;
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
-                                                                  targetNorm,
+                                                                  assessmentSection.FailureMechanismContribution.LowerLimitNorm,
                                                                   columnsWaveConditionsOutputs[0]);
             }
 
@@ -1019,7 +1004,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 hydraulicBoundaryLocation
             });
 
-            assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
 
             return assessmentSection;
         }
@@ -1031,7 +1016,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -1055,9 +1040,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
 
         private static IEnumerable<RoundedDouble> GetWaterLevels(StabilityStoneCoverWaveConditionsCalculation calculation, IAssessmentSection assessmentSection)
         {
-            return calculation.InputParameters.GetWaterLevels(assessmentSection.GetAssessmentLevel(
-                                                                  calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                  calculation.InputParameters.CategoryType));
+            return calculation.InputParameters.GetWaterLevels(WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection));
         }
     }
 }
