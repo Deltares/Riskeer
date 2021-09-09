@@ -357,45 +357,6 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void ClearHydraulicBoundaryLocationCalculationOutput_CalculationsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput((IEnumerable<HydraulicBoundaryLocationCalculation>) null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("calculations", exception.ParamName);
-        }
-
-        [Test]
-        public void ClearHydraulicBoundaryLocationCalculationOutput_WithCalculations_ClearDataAndReturnAffectedObjects()
-        {
-            // Setup
-            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
-
-            var calculations = new[]
-            {
-                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation1)
-                {
-                    Output = new TestHydraulicBoundaryLocationCalculationOutput()
-                },
-                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation2)
-                {
-                    Output = new TestHydraulicBoundaryLocationCalculationOutput()
-                }
-            };
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculations);
-
-            // Assert
-
-            CollectionAssert.AreEquivalent(calculations, affectedObjects);
-            Assert.IsTrue(calculations.All(c => !c.HasOutput));
-        }
-
-        [Test]
         public void ClearHydraulicBoundaryLocationCalculationOutput_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
