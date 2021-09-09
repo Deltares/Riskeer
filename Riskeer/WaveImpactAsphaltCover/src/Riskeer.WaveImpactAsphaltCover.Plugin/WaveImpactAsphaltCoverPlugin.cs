@@ -575,10 +575,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in context.WrappedData.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>())
             {
                 WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
-                                                              context.AssessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                                           calculation.InputParameters.CategoryType),
+                                                              WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, context.AssessmentSection),
                                                               context.AssessmentSection.HydraulicBoundaryDatabase,
-                                                              context.AssessmentSection.GetNorm(calculation.InputParameters.CategoryType));
+                                                              WaveConditionsInputHelper.GetTargetProbability(calculation.InputParameters, context.AssessmentSection));
             }
         }
 
@@ -662,10 +661,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = context.WrappedData;
 
             WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
-                                                          assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                               calculation.InputParameters.CategoryType),
+                                                          WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, context.AssessmentSection),
                                                           assessmentSection.HydraulicBoundaryDatabase,
-                                                          assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
+                                                          WaveConditionsInputHelper.GetTargetProbability(calculation.InputParameters, context.AssessmentSection));
         }
 
         private void Calculate(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
