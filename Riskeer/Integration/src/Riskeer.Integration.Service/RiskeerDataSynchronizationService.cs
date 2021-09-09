@@ -21,12 +21,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Service;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -45,6 +47,7 @@ using Riskeer.MacroStabilityInwards.Service;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Service;
 using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Service;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Service;
 using Riskeer.StabilityStoneCover.Data;
@@ -246,6 +249,54 @@ namespace Riskeer.Integration.Service
             }
 
             return RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
+        }
+
+        /// <summary>
+        /// Clears the wave conditions calculation output that corresponds with the <paramref name="normType"/>
+        /// in the <paramref name="assessmentSection"/>. 
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the calculations.</param>
+        /// <param name="normType">The <see cref="NormType"/> to clear for.</param>
+        /// <returns>All objects affected by the operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is invalid.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is not supported.</exception>
+        public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutput(IAssessmentSection assessmentSection, NormType normType)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (!Enum.IsDefined(typeof(NormType), normType))
+            {
+                throw new InvalidEnumArgumentException(nameof(normType),
+                                                       (int) normType,
+                                                       typeof(NormType));
+            }
+            
+            var changedObservables = new List<IObservable>();
+
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            {
+                switch (failureMechanism)
+                {
+                    case GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism:
+                        changedObservables.AddRange(WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<GrassCoverErosionOutwardsFailureMechanism,
+                                                        GrassCoverErosionOutwardsWaveConditionsCalculation>(grassCoverErosionOutwardsFailureMechanism, normType));
+                        break;
+                    case StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism:
+                        changedObservables.AddRange(WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<StabilityStoneCoverFailureMechanism,
+                                                        StabilityStoneCoverWaveConditionsCalculation>(stabilityStoneCoverFailureMechanism, normType));
+                        break;
+                    case WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism:
+                        changedObservables.AddRange(WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<WaveImpactAsphaltCoverFailureMechanism,
+                                                        WaveImpactAsphaltCoverWaveConditionsCalculation>(waveImpactAsphaltCoverFailureMechanism, normType));
+                        break;
+                }
+            }
+
+            return changedObservables;
         }
 
         /// <summary>

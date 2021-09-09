@@ -21,13 +21,17 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.TestUtil;
+using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -53,6 +57,7 @@ using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Primitives;
+using Riskeer.Revetment.Data;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
@@ -518,6 +523,68 @@ namespace Riskeer.Integration.Service.Test
                 calculationWithOutput1,
                 calculationWithOutput2
             }, affectedCalculations);
+        }
+
+        [Test]
+        public void ClearAllWaveConditionsCalculationOutput_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => RiskeerDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(null, NormType.LowerLimit);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearAllWaveConditionsCalculationOutput_InvalidNormType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            const NormType normType = (NormType) 99;
+
+            // Call
+            void Call() => RiskeerDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(new AssessmentSectionStub(), normType);
+
+            // Assert
+            var expectedMessage = $"The value of argument 'normType' ({normType}) is invalid for Enum type '{nameof(NormType)}'.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+            Assert.AreEqual("normType", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearAllWaveConditionsCalculationOutput_WithData_ClearsOutputAndReturnsAffectedObjects()
+        {
+            // Setup
+            const NormType normType = NormType.LowerLimit;
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+
+            var waveConditionsCalculations = new List<ICalculation<WaveConditionsInput>>();
+            waveConditionsCalculations.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
+                                                                 .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>());
+            waveConditionsCalculations.AddRange(assessmentSection.StabilityStoneCover.Calculations
+                                                                 .Cast<StabilityStoneCoverWaveConditionsCalculation>());
+            waveConditionsCalculations.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
+                                                                 .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>());
+
+            waveConditionsCalculations.ForEachElementDo(c => c.InputParameters.WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit);
+
+            IEnumerable<ICalculation<WaveConditionsInput>> expectedAffectedItems = waveConditionsCalculations.Where(c => c.HasOutput)
+                                                                                                             .ToArray();
+
+            // Call
+            IEnumerable<IObservable> affectedItems = RiskeerDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(assessmentSection, normType);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            Assert.IsTrue(assessmentSection.GrassCoverErosionOutwards.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                           .All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.StabilityStoneCover.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                           .All(c => !c.HasOutput));
+            Assert.IsTrue(assessmentSection.WaveImpactAsphaltCover.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                           .All(c => !c.HasOutput));
+
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
         }
 
         [Test]
