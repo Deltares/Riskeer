@@ -217,7 +217,7 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie..
+        ///   Looks up a localized string similar to Waterstand bij doelkans voor de geselecteerde hydraulische belastingenlocatie..
         /// </summary>
         public static string WaveConditionsInput_AssessmentLevel_Description {
             get {
@@ -226,7 +226,7 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand bij categoriegrens [m+NAP].
+        ///   Looks up a localized string similar to Waterstand bij doelkans [m+NAP].
         /// </summary>
         public static string WaveConditionsInput_AssessmentLevel_DisplayName {
             get {
@@ -235,7 +235,7 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand bij categoriegrens.
+        ///   Looks up a localized string similar to Waterstand bij doelkans.
         /// </summary>
         public static string WaveConditionsInput_AssessmentLevel_DisplayName_without_unit {
             get {
@@ -334,7 +334,7 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bovengrens bepaald aan de hand van de waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie..
+        ///   Looks up a localized string similar to Bovengrens bepaald aan de hand van de waterstand bij doelkans voor de geselecteerde hydraulische belastingenlocatie..
         /// </summary>
         public static string WaveConditionsInput_UpperBoundaryAssessmentLevel_Description {
             get {
@@ -343,7 +343,7 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bovengrens op basis van waterstand bij categoriegrens [m+NAP].
+        ///   Looks up a localized string similar to Bovengrens op basis van waterstand bij doelkans [m+NAP].
         /// </summary>
         public static string WaveConditionsInput_UpperBoundaryAssessmentLevel_DisplayName {
             get {

@@ -166,10 +166,10 @@
     <value>Stapgrootte [m]</value>
   </data>
   <data name="WaveConditionsInput_UpperBoundaryAssessmentLevel_Description" xml:space="preserve">
-    <value>Bovengrens bepaald aan de hand van de waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie.</value>
+    <value>Bovengrens bepaald aan de hand van de waterstand bij doelkans voor de geselecteerde hydraulische belastingenlocatie.</value>
   </data>
   <data name="WaveConditionsInput_UpperBoundaryAssessmentLevel_DisplayName" xml:space="preserve">
-    <value>Bovengrens op basis van waterstand bij categoriegrens [m+NAP]</value>
+    <value>Bovengrens op basis van waterstand bij doelkans [m+NAP]</value>
   </data>
   <data name="WaveConditionsInput_UpperBoundaryRevetment_Description" xml:space="preserve">
     <value>Bovengrens van de bekleding.</value>
@@ -268,13 +268,13 @@
     <value>Hulplijn bekleding</value>
   </data>
   <data name="WaveConditionsInput_AssessmentLevel_DisplayName" xml:space="preserve">
-    <value>Waterstand bij categoriegrens [m+NAP]</value>
+    <value>Waterstand bij doelkans [m+NAP]</value>
   </data>
   <data name="WaveConditionsInput_AssessmentLevel_Description" xml:space="preserve">
-    <value>Waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie.</value>
+    <value>Waterstand bij doelkans voor de geselecteerde hydraulische belastingenlocatie.</value>
   </data>
   <data name="WaveConditionsInput_AssessmentLevel_DisplayName_without_unit" xml:space="preserve">
-    <value>Waterstand bij categoriegrens</value>
+    <value>Waterstand bij doelkans</value>
   </data>
   <data name="WaveConditionsInput_SelectedTargetProbability_DisplayName" xml:space="preserve">
     <value>Doelkans (1/jaar)</value>

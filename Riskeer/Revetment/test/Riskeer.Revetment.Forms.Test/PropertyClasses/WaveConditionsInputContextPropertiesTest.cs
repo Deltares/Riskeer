@@ -276,15 +276,15 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             PropertyDescriptor assessmentLevelProperty = dynamicProperties[assessmentLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(assessmentLevelProperty,
                                                                             hydraulicParametersCategory,
-                                                                            "Waterstand bij categoriegrens [m+NAP]",
-                                                                            "Waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie.",
+                                                                            "Waterstand bij doelkans [m+NAP]",
+                                                                            "Waterstand bij doelkans voor de geselecteerde hydraulische belastingenlocatie.",
                                                                             true);
 
             PropertyDescriptor upperBoundaryAssessmentLevelProperty = dynamicProperties[upperBoundaryAssessmentLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upperBoundaryAssessmentLevelProperty,
                                                                             hydraulicParametersCategory,
-                                                                            "Bovengrens op basis van waterstand bij categoriegrens [m+NAP]",
-                                                                            "Bovengrens bepaald aan de hand van de waterstand bij categoriegrens voor de geselecteerde hydraulische belastingenlocatie.",
+                                                                            "Bovengrens op basis van waterstand bij doelkans [m+NAP]",
+                                                                            "Bovengrens bepaald aan de hand van de waterstand bij doelkans voor de geselecteerde hydraulische belastingenlocatie.",
                                                                             true);
 
             PropertyDescriptor upperBoundaryRevetmentProperty = dynamicProperties[upperBoundaryRevetmentPropertyIndex];
