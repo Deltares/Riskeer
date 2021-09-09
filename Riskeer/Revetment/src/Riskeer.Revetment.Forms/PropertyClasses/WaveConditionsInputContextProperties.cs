@@ -31,7 +31,9 @@ using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -40,6 +42,7 @@ using Riskeer.Common.Forms.UITypeEditors;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.PresentationObjects;
 using Riskeer.Revetment.Forms.Properties;
+using Riskeer.Revetment.Forms.UITypeEditors;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Revetment.Forms.PropertyClasses
@@ -53,27 +56,29 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
     public abstract class WaveConditionsInputContextProperties<TContext, TInput, TCalculationType>
         : ObjectProperties<TContext>,
           IHasHydraulicBoundaryLocationProperty,
-          IHasForeshoreProfileProperty
+          IHasForeshoreProfileProperty,
+          IHasTargetProbabilityProperty
         where TContext : WaveConditionsInputContext<TInput>
         where TInput : WaveConditionsInput
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
-        private const int assessmentLevelPropertyIndex = 1;
-        private const int upperBoundaryAssessmentLevelPropertyIndex = 2;
-        private const int upperBoundaryRevetmentPropertyIndex = 3;
-        private const int lowerBoundaryRevetmentPropertyIndex = 4;
-        private const int upperBoundaryWaterLevelsPropertyIndex = 5;
-        private const int lowerBoundaryWaterLevelsPropertyIndex = 6;
-        private const int stepSizePropertyIndex = 7;
-        private const int waterLevelsPropertyIndex = 8;
+        private const int targetProbabilityPropertyIndex = 1;
+        private const int assessmentLevelPropertyIndex = 2;
+        private const int upperBoundaryAssessmentLevelPropertyIndex = 3;
+        private const int upperBoundaryRevetmentPropertyIndex = 4;
+        private const int lowerBoundaryRevetmentPropertyIndex = 5;
+        private const int upperBoundaryWaterLevelsPropertyIndex = 6;
+        private const int lowerBoundaryWaterLevelsPropertyIndex = 7;
+        private const int stepSizePropertyIndex = 8;
+        private const int waterLevelsPropertyIndex = 9;
 
-        private const int revetmentTypePropertyIndex = 9;
+        private const int revetmentTypePropertyIndex = 10;
 
-        private const int foreshoreProfilePropertyIndex = 10;
-        private const int worldReferencePointPropertyIndex = 11;
-        private const int orientationPropertyIndex = 12;
-        private const int breakWaterPropertyIndex = 13;
-        private const int foreshoreGeometryPropertyIndex = 14;
+        private const int foreshoreProfilePropertyIndex = 11;
+        private const int worldReferencePointPropertyIndex = 12;
+        private const int orientationPropertyIndex = 13;
+        private const int breakWaterPropertyIndex = 14;
+        private const int foreshoreGeometryPropertyIndex = 15;
 
         private readonly Func<RoundedDouble> getAssessmentLevelFunc;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
@@ -332,15 +337,38 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(targetProbabilityPropertyIndex)]
+        [Editor(typeof(WaveConditionsInputContextTargetProbabilitySelectionEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
+        [DisplayName("Doelkans (1/jaar)")]
+        [Description("Overschrijdingskans waarvoor de berekening moet worden uitgevoerd.")]
+        public SelectableTargetProbability SelectedTargetProbability
+        {
+            get
+            {
+                return CreateSelectedSelectableTargetProbability();
+            }
+            set
+            {
+                HandleChangeProperty(() =>
+                {
+                    data.WrappedData.WaterLevelType = value.WaterLevelType;
+
+                    if (value.WaterLevelType == WaveConditionsInputWaterLevelType.UserDefinedTargetProbability)
+                    {
+                        data.WrappedData.CalculationsTargetProbability = data.AssessmentSection
+                                                                             .WaterLevelCalculationsForUserDefinedTargetProbabilities
+                                                                             .Single(tp => tp.HydraulicBoundaryLocationCalculations
+                                                                                             .Equals(value.HydraulicBoundaryLocationCalculations));
+                    }
+                });
+            }
+        }
+
         [DynamicReadOnlyValidationMethod]
         public virtual bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            if (propertyName == nameof(RevetmentType))
-            {
-                return true;
-            }
-
-            return false;
+            return propertyName == nameof(RevetmentType);
         }
 
         public virtual IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
@@ -355,6 +383,27 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
                 data.HydraulicBoundaryLocations, referenceLocation);
         }
 
+        public IEnumerable<SelectableTargetProbability> GetSelectableTargetProbabilities()
+        {
+            var targetProbabilities = new List<SelectableTargetProbability>
+            {
+                CreateSelectableTargetProbability(data.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                                  WaveConditionsInputWaterLevelType.LowerLimit,
+                                                  data.AssessmentSection.FailureMechanismContribution.LowerLimitNorm),
+                CreateSelectableTargetProbability(data.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                  WaveConditionsInputWaterLevelType.Signaling,
+                                                  data.AssessmentSection.FailureMechanismContribution.SignalingNorm)
+            };
+            targetProbabilities.AddRange(data.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                                             .Select(calculationsForTargetProbability => CreateSelectableTargetProbability(
+                                                         calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
+                                                         WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
+                                                         calculationsForTargetProbability.TargetProbability))
+                                             .ToArray());
+
+            return targetProbabilities.OrderByDescending(tp => tp.TargetProbability);
+        }
+
         /// <summary>
         /// Handles the property change.
         /// </summary>
@@ -364,6 +413,46 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         protected void HandleChangeProperty(SetObservablePropertyValueDelegate setPropertyDelegate)
         {
             PropertyChangeHelper.ChangePropertyAndNotify(setPropertyDelegate, propertyChangeHandler);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="SelectableTargetProbability"/>.
+        /// </summary>
+        /// <returns>The created <see cref="SelectableTargetProbability"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="WaveConditionsInputWaterLevelType"/>
+        /// is not supported.</exception>
+        private SelectableTargetProbability CreateSelectedSelectableTargetProbability()
+        {
+            IAssessmentSection assessmentSection = data.AssessmentSection;
+
+            switch (data.WrappedData.WaterLevelType)
+            {
+                case WaveConditionsInputWaterLevelType.LowerLimit:
+                    return CreateSelectableTargetProbability(assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                                             WaveConditionsInputWaterLevelType.LowerLimit,
+                                                             assessmentSection.FailureMechanismContribution.LowerLimitNorm);
+                case WaveConditionsInputWaterLevelType.Signaling:
+                    return CreateSelectableTargetProbability(assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                             WaveConditionsInputWaterLevelType.Signaling,
+                                                             assessmentSection.FailureMechanismContribution.SignalingNorm);
+                case WaveConditionsInputWaterLevelType.UserDefinedTargetProbability:
+                    HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = data.WrappedData.CalculationsTargetProbability;
+                    return CreateSelectableTargetProbability(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
+                                                             WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
+                                                             calculationsForTargetProbability.TargetProbability);
+
+                case WaveConditionsInputWaterLevelType.None:
+                    return null;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        private static SelectableTargetProbability CreateSelectableTargetProbability(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                                                                     WaveConditionsInputWaterLevelType waterLevelType,
+                                                                                     double targetProbability)
+        {
+            return new SelectableTargetProbability(calculations, waterLevelType, targetProbability);
         }
 
         private RoundedDouble[] GetWaterLevels()

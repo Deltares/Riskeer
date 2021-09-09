@@ -43,8 +43,10 @@ using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.UITypeEditors;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
+using Riskeer.Revetment.Forms.PresentationObjects;
 using Riskeer.Revetment.Forms.PropertyClasses;
 using Riskeer.Revetment.Forms.TestUtil;
+using Riskeer.Revetment.Forms.UITypeEditors;
 
 namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 {
@@ -52,22 +54,23 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
     public class WaveConditionsInputContextPropertiesTest
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
-        private const int assessmentLevelPropertyIndex = 1;
-        private const int upperBoundaryAssessmentLevelPropertyIndex = 2;
-        private const int upperBoundaryRevetmentPropertyIndex = 3;
-        private const int lowerBoundaryRevetmentPropertyIndex = 4;
-        private const int upperBoundaryWaterLevelsPropertyIndex = 5;
-        private const int lowerBoundaryWaterLevelsPropertyIndex = 6;
-        private const int stepSizePropertyIndex = 7;
-        private const int waterLevelsPropertyIndex = 8;
+        private const int selectedTargetProbabilityPropertyIndex = 1;
+        private const int assessmentLevelPropertyIndex = 2;
+        private const int upperBoundaryAssessmentLevelPropertyIndex = 3;
+        private const int upperBoundaryRevetmentPropertyIndex = 4;
+        private const int lowerBoundaryRevetmentPropertyIndex = 5;
+        private const int upperBoundaryWaterLevelsPropertyIndex = 6;
+        private const int lowerBoundaryWaterLevelsPropertyIndex = 7;
+        private const int stepSizePropertyIndex = 8;
+        private const int waterLevelsPropertyIndex = 9;
 
-        private const int revetmentTypePropertyIndex = 9;
+        private const int revetmentTypePropertyIndex = 10;
 
-        private const int foreshoreProfilePropertyIndex = 10;
-        private const int worldReferencePointPropertyIndex = 11;
-        private const int orientationPropertyIndex = 12;
-        private const int breakWaterPropertyIndex = 13;
-        private const int foreshoreGeometryPropertyIndex = 14;
+        private const int foreshoreProfilePropertyIndex = 11;
+        private const int worldReferencePointPropertyIndex = 12;
+        private const int orientationPropertyIndex = 13;
+        private const int breakWaterPropertyIndex = 14;
+        private const int foreshoreGeometryPropertyIndex = 15;
 
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
@@ -166,6 +169,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                     X0 = -3
                 });
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First();
             var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = foreshoreProfile,
@@ -174,7 +178,9 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                 LowerBoundaryRevetment = lowerBoundaryRevetment,
                 UpperBoundaryWaterLevels = upperBoundaryWaterLevels,
                 LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
-                StepSize = stepSize
+                StepSize = stepSize,
+                WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
+                CalculationsTargetProbability = calculationsForTargetProbability
             };
             var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], assessmentSection);
 
@@ -185,6 +191,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ObjectProperties<TestWaveConditionsInputContext>>(properties);
             Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
             Assert.IsInstanceOf<IHasForeshoreProfileProperty>(properties);
+            Assert.IsInstanceOf<IHasTargetProbabilityProperty>(properties);
 
             Assert.AreEqual(assessmentLevel - 0.01, properties.UpperBoundaryAssessmentLevel.Value, properties.UpperBoundaryAssessmentLevel.GetAccuracy());
             Assert.AreEqual(2, properties.UpperBoundaryAssessmentLevel.NumberOfDecimalPlaces);
@@ -202,6 +209,9 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual("Test", properties.RevetmentType);
 
             Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
+            Assert.AreSame(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, properties.SelectedTargetProbability.HydraulicBoundaryLocationCalculations);
+            Assert.AreEqual(calculationsForTargetProbability.TargetProbability, properties.SelectedTargetProbability.TargetProbability);
+            Assert.AreEqual(input.WaterLevelType, properties.SelectedTargetProbability.WaterLevelType);
             Assert.AreEqual(assessmentLevel.Value, properties.AssessmentLevel.Value, properties.AssessmentLevel.GetAccuracy());
             Assert.AreSame(foreshoreProfile, properties.ForeshoreProfile);
             Assert.AreEqual(worldX, properties.WorldReferencePoint.X, 0.5);
@@ -245,7 +255,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(15, dynamicProperties.Count);
+            Assert.AreEqual(16, dynamicProperties.Count);
 
             const string hydraulicParametersCategory = "Hydraulische gegevens";
             const string modelSettingsCategory = "Modelinstellingen";
@@ -256,6 +266,12 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                                                             hydraulicParametersCategory,
                                                                             "Hydraulische belastingenlocatie",
                                                                             "De hydraulische belastingenlocatie.");
+
+            PropertyDescriptor selectedTargetProbabilityProperty = dynamicProperties[selectedTargetProbabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(selectedTargetProbabilityProperty,
+                                                                            hydraulicParametersCategory,
+                                                                            "Doelkans (1/jaar)",
+                                                                            "Overschrijdingskans waarvoor de berekening moet worden uitgevoerd.");
 
             PropertyDescriptor assessmentLevelProperty = dynamicProperties[assessmentLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(assessmentLevelProperty,
@@ -401,6 +417,15 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void SelectedTargetProbability_Always_InputChangedAndObservablesNotified()
+        {
+            var selectableTargetProbability = new SelectableTargetProbability(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                                              WaveConditionsInputWaterLevelType.LowerLimit, 0.1);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(
+                properties => properties.SelectedTargetProbability = selectableTargetProbability);
+        }
+
+        [Test]
         public void ForeshoreProfile_Always_InputChangedAndObservablesNotified()
         {
             var foreshoreProfile = new TestForeshoreProfile();
@@ -473,7 +498,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SelectedHydraulicBoundaryLocation_InputNoLocation_ReturnsNull()
+        public void SelectedHydraulicBoundaryLocation_InputWithoutLocation_ReturnsNull()
         {
             // Setup
             var mocks = new MockRepository();
@@ -489,13 +514,10 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                           handler);
 
-            SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
-
             // Call
-            TestDelegate call = () => selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
+            SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
 
             // Assert
-            Assert.DoesNotThrow(call);
             Assert.IsNull(selectedHydraulicBoundaryLocation);
             mocks.VerifyAll();
         }
@@ -788,6 +810,110 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void SelectedTargetProbability_WaterLevelTypeNone_ReturnsNull()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSectionStub();
+
+            var input = new TestWaveConditionsInput();
+            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], assessmentSection);
+
+            var properties = new TestWaveConditionsInputContextProperties(inputContext,
+                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                          handler);
+
+            // Call
+            SelectableTargetProbability selectedTargetProbability = properties.SelectedTargetProbability;
+
+            // Assert
+            Assert.IsNull(selectedTargetProbability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetSelectableTargetProbabilities))]
+        public void SelectedTargetProbability_WaterLevelTypeOtherThanNone_ReturnsCorrespondingSelectableTargetProbability(
+            WaveConditionsInputWaterLevelType waterLevelType,
+            Func<IAssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getHydraulicBoundaryLocationCalculationsFunc,
+            Func<IAssessmentSection, double> getTargetProbabilityFunc)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSectionStub();
+
+            var input = new TestWaveConditionsInput
+            {
+                WaterLevelType = waterLevelType
+            };
+
+            if (waterLevelType == WaveConditionsInputWaterLevelType.UserDefinedTargetProbability)
+            {
+                input.CalculationsTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First();
+            }
+
+            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], assessmentSection);
+
+            var properties = new TestWaveConditionsInputContextProperties(inputContext,
+                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                          handler);
+
+            // Call
+            SelectableTargetProbability selectedTargetProbability = properties.SelectedTargetProbability;
+
+            // Assert
+            Assert.AreEqual(waterLevelType, selectedTargetProbability.WaterLevelType);
+            Assert.AreSame(getHydraulicBoundaryLocationCalculationsFunc(assessmentSection), selectedTargetProbability.HydraulicBoundaryLocationCalculations);
+            Assert.AreEqual(getTargetProbabilityFunc(assessmentSection), selectedTargetProbability.TargetProbability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetSelectableTargetProbabilities_AssessmentSectionWithUserDefinedWaterLevelTargetProbabilities_ReturnsSortedTargetProbabilities()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSectionStub();
+
+            var input = new TestWaveConditionsInput();
+            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], assessmentSection);
+
+            var properties = new TestWaveConditionsInputContextProperties(inputContext,
+                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                          handler);
+
+            // Call 
+            IEnumerable<SelectableTargetProbability> selectableTargetProbabilities = properties.GetSelectableTargetProbabilities();
+
+            // Assert
+            var expectedTargetProbabilities = new[]
+            {
+                new SelectableTargetProbability(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations,
+                                                WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
+                                                assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().TargetProbability),
+                new SelectableTargetProbability(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, WaveConditionsInputWaterLevelType.LowerLimit,
+                                                assessmentSection.FailureMechanismContribution.LowerLimitNorm),
+                new SelectableTargetProbability(assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.Signaling,
+                                                assessmentSection.FailureMechanismContribution.SignalingNorm),
+                new SelectableTargetProbability(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Last().HydraulicBoundaryLocationCalculations,
+                                                WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
+                                                assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Last().TargetProbability)
+            };
+
+            CollectionAssert.AreEqual(expectedTargetProbabilities, selectableTargetProbabilities);
+            mocks.VerifyAll();
+        }
+
         private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(Action<TestWaveConditionsInputContextProperties> setProperty)
         {
             // Setup
@@ -823,6 +949,28 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             // Assert
             Assert.IsTrue(customHandler.Called);
             mocks.VerifyAll();
+        }
+
+        private static IEnumerable<TestCaseData> GetSelectableTargetProbabilities()
+        {
+            yield return new TestCaseData(
+                WaveConditionsInputWaterLevelType.Signaling,
+                new Func<IAssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                    section => section.WaterLevelCalculationsForSignalingNorm),
+                new Func<IAssessmentSection, double>(
+                    section => section.FailureMechanismContribution.SignalingNorm));
+            yield return new TestCaseData(
+                WaveConditionsInputWaterLevelType.LowerLimit,
+                new Func<IAssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                    section => section.WaterLevelCalculationsForLowerLimitNorm),
+                new Func<IAssessmentSection, double>(
+                    section => section.FailureMechanismContribution.LowerLimitNorm));
+            yield return new TestCaseData(
+                WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
+                new Func<IAssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                    section => section.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations),
+                new Func<IAssessmentSection, double>(
+                    section => section.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().TargetProbability));
         }
 
         private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<TestWaveConditionsInputContext, TestWaveConditionsInput, object>
