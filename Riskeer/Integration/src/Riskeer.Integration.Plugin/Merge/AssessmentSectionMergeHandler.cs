@@ -124,12 +124,6 @@ namespace Riskeer.Integration.Plugin.Merge
             }
         }
 
-        private static void MergeCalculationData(HydraulicBoundaryLocationCalculation targetCalculation, HydraulicBoundaryLocationCalculation sourceCalculation)
-        {
-            targetCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = sourceCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
-            targetCalculation.Output = sourceCalculation.Output;
-        }
-
         private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculations(
             ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetCalculations,
             IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> sourceCalculations,
@@ -154,6 +148,12 @@ namespace Riskeer.Integration.Plugin.Merge
             }
 
             return changedObjects;
+        }
+
+        private static void MergeCalculationData(HydraulicBoundaryLocationCalculation targetCalculation, HydraulicBoundaryLocationCalculation sourceCalculation)
+        {
+            targetCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = sourceCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
+            targetCalculation.Output = sourceCalculation.Output;
         }
 
         private static IEnumerable<IObservable> MergeCalculations(
