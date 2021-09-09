@@ -23,6 +23,7 @@ using System;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Service;
 using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Service;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
@@ -72,11 +73,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
         protected override bool Validate()
         {
             return WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
-                                                                 failureMechanism.GetAssessmentLevel(assessmentSection,
-                                                                                                     calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                                     calculation.InputParameters.CategoryType),
+                                                                 WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection),
                                                                  assessmentSection.HydraulicBoundaryDatabase,
-                                                                 failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
+                                                                 WaveConditionsInputHelper.GetTargetProbability(calculation.InputParameters, assessmentSection));
         }
 
         protected override void PerformCalculation()

@@ -584,18 +584,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         private static void ValidateAllInCalculationGroup(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
         {
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = context.FailureMechanism;
             CalculationGroup calculationGroup = context.WrappedData;
 
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculationGroup.GetCalculations().OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>())
             {
                 WaveConditionsCalculationServiceBase.Validate(
                     calculation.InputParameters,
-                    failureMechanism.GetAssessmentLevel(context.AssessmentSection,
-                                                        calculation.InputParameters.HydraulicBoundaryLocation,
-                                                        calculation.InputParameters.CategoryType),
+                    WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, context.AssessmentSection),
                     context.AssessmentSection.HydraulicBoundaryDatabase,
-                    failureMechanism.GetNorm(context.AssessmentSection, calculation.InputParameters.CategoryType));
+                    WaveConditionsInputHelper.GetTargetProbability(calculation.InputParameters, context.AssessmentSection));
             }
         }
 
@@ -682,15 +679,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         private static void Validate(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
             IAssessmentSection assessmentSection = context.AssessmentSection;
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = context.FailureMechanism;
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = context.WrappedData;
 
             WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
-                                                          failureMechanism.GetAssessmentLevel(assessmentSection,
-                                                                                              calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                              calculation.InputParameters.CategoryType),
+                                                          WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection),
                                                           assessmentSection.HydraulicBoundaryDatabase,
-                                                          failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
+                                                          WaveConditionsInputHelper.GetTargetProbability(calculation.InputParameters, assessmentSection));
         }
 
         private void Calculate(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
