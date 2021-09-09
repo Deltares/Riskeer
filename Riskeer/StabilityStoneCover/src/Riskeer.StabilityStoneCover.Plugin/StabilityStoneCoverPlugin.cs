@@ -574,10 +574,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in context.WrappedData.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>())
             {
                 WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
-                                                              context.AssessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                                           calculation.InputParameters.CategoryType),
+                                                              WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, context.AssessmentSection),
                                                               context.AssessmentSection.HydraulicBoundaryDatabase,
-                                                              context.AssessmentSection.GetNorm(calculation.InputParameters.CategoryType));
+                                                              WaveConditionsInputHelper.GetTargetProbability(calculation.InputParameters, context.AssessmentSection));
             }
         }
 
@@ -662,10 +661,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
             StabilityStoneCoverWaveConditionsCalculation calculation = context.WrappedData;
 
             WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
-                                                          assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                               calculation.InputParameters.CategoryType),
+                                                          WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, context.AssessmentSection),
                                                           assessmentSection.HydraulicBoundaryDatabase,
-                                                          assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
+                                                          WaveConditionsInputHelper.GetTargetProbability(calculation.InputParameters, context.AssessmentSection));
         }
 
         private void Calculate(StabilityStoneCoverWaveConditionsCalculationContext context)
