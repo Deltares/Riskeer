@@ -864,10 +864,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    Action test = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(test, m =>
+                    TestHelper.AssertLogMessages(Call, m =>
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(4, messages.Length);
@@ -918,10 +918,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    Action test = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(test, m =>
+                    TestHelper.AssertLogMessages(Call, m =>
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(2, messages.Length);
@@ -974,10 +974,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    Action test = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(test, m =>
+                    TestHelper.AssertLogMessages(Call, m =>
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(2, messages.Length);
@@ -1030,10 +1030,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    Action test = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(test, m =>
+                    TestHelper.AssertLogMessages(Call, m =>
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(2, messages.Length);
@@ -1101,10 +1101,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    Action test = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(test, m =>
+                    TestHelper.AssertLogMessages(Call, m =>
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(3, messages.Length);
@@ -1170,10 +1170,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    Action test = () => contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(test, m =>
+                    TestHelper.AssertLogMessages(Call, m =>
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(56, messages.Length);
@@ -1913,7 +1913,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
