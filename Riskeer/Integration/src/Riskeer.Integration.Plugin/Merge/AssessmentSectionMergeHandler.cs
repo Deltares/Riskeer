@@ -182,9 +182,9 @@ namespace Riskeer.Integration.Plugin.Merge
             {
                 var calculationsForTargetProbabilityToAdd = new HydraulicBoundaryLocationCalculationsForTargetProbability(sourceCalculationsForTargetProbability.TargetProbability);
 
-                calculationsForTargetProbabilityToAdd.HydraulicBoundaryLocationCalculations.AddRange(hydraulicBoundaryLocations
-                                                                                                     .Select(hbl => new HydraulicBoundaryLocationCalculation(hbl))
-                                                                                                     .ToArray());
+                calculationsForTargetProbabilityToAdd.HydraulicBoundaryLocationCalculations.AddRange(
+                    hydraulicBoundaryLocations.Select(hbl => new HydraulicBoundaryLocationCalculation(hbl))
+                                              .ToArray());
 
                 for (var i = 0; i < calculationsForTargetProbabilityToAdd.HydraulicBoundaryLocationCalculations.Count(); i++)
                 {
