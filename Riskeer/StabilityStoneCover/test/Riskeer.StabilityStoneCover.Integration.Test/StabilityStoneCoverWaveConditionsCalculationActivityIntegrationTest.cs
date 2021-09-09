@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -60,8 +59,13 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = invalidFilePath;
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = invalidFilePath
+                }
+            };
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -83,10 +87,10 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => activity.Run();
+                void Call() => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
@@ -125,10 +129,10 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => activity.Run();
+                void Call() => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
@@ -164,10 +168,10 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => activity.Run();
+                void Call() => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
@@ -218,7 +222,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 for (var i = 0; i < totalSteps; i++)
                 {
                     string revetment = i < waterLevels.Length ? "blokken" : "zuilen";
-                    string text = $"Stap {i + 1} van {totalSteps} | Waterstand '{waterLevels[i % waterLevels.Length]}' [m+NAP] voor {revetment} berekenen.";
+                    var text = $"Stap {i + 1} van {totalSteps} | Waterstand '{waterLevels[i % waterLevels.Length]}' [m+NAP] voor {revetment} berekenen.";
                     Assert.AreEqual(text, progessTexts[i]);
                 }
             }
@@ -269,7 +273,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 GeneralStabilityStoneCoverWaveConditionsInput generalInput = stabilityStoneCoverFailureMechanism.GeneralInput;
 
                 WaveConditionsInput input = calculation.InputParameters;
-                double norm = assessmentSection.FailureMechanismContribution.LowerLimitNorm * 30;
+                double targetProbability = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
 
                 var waterLevelIndex = 0;
                 for (var i = 0; i < testWaveConditionsInputs.Length / 2; i++)
@@ -277,7 +281,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,
-                                                                                 norm,
+                                                                                 targetProbability,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  waterLevels[waterLevelIndex++],
@@ -294,7 +298,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,
-                                                                                 norm,
+                                                                                 targetProbability,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  waterLevels[waterLevelIndex++],
@@ -757,7 +761,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -792,16 +796,14 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 hydraulicBoundaryLocation
             });
 
-            assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
 
             return assessmentSection;
         }
 
         private static IEnumerable<RoundedDouble> GetWaterLevels(StabilityStoneCoverWaveConditionsCalculation calculation, IAssessmentSection assessmentSection)
         {
-            return calculation.InputParameters.GetWaterLevels(assessmentSection.GetAssessmentLevel(
-                                                                  calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                  calculation.InputParameters.CategoryType));
+            return calculation.InputParameters.GetWaterLevels(WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection));
         }
     }
 }
