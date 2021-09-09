@@ -40,27 +40,24 @@ namespace Riskeer.Revetment.Data.TestUtil
         /// Creates a new instance of <see cref="TestWaveConditionsCalculation{T}"/>.
         /// </summary>
         /// <param name="input">The wave conditions input to set to the calculation.</param>
-        public TestWaveConditionsCalculation(T input)
+        /// <param name="hasOutput">Indicator whether output is set.</param>
+        /// <remarks><paramref name="hasOutput"/> is default set to <c>false</c>.</remarks>
+        public TestWaveConditionsCalculation(T input, bool hasOutput = false)
         {
             Name = RiskeerCommonDataResources.Calculation_DefaultName;
             InputParameters = input;
+            HasOutput = hasOutput;
         }
 
         public T InputParameters { get; }
 
-        public bool ShouldCalculate
-        {
-            get
-            {
-                return !HasOutput;
-            }
-        }
+        public bool ShouldCalculate => !HasOutput;
 
-        public bool HasOutput { get; }
+        public bool HasOutput { get; private set; }
 
         public void ClearOutput()
         {
-            // Stub doesn't have to clear the output.
+            HasOutput = false;
         }
 
         #region Irrelevant for test
