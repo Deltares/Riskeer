@@ -28,7 +28,6 @@ using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -358,70 +357,42 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
-        public void ClearHydraulicBoundaryLocationCalculationOutputForNormativeNorm_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void ClearHydraulicBoundaryLocationCalculationOutput_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputForNormativeNorm(null);
+            void Call() => RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput((IEnumerable<HydraulicBoundaryLocationCalculation>) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
+            Assert.AreEqual("calculations", exception.ParamName);
         }
 
         [Test]
-        [TestCase(NormType.LowerLimit)]
-        [TestCase(NormType.Signaling)]
-        public void ClearHydraulicBoundaryLocationCalculationOutputForNormativeNorm_NormativeNormIsLowerLimitNorm_ClearDataAndReturnAffectedObjects(NormType normType)
+        public void ClearHydraulicBoundaryLocationCalculationOutput_WithCalculations_ClearDataAndReturnAffectedObjects()
         {
             // Setup
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            var calculations = new[]
             {
-                HydraulicBoundaryDatabase =
+                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation1)
                 {
-                    Locations =
-                    {
-                        hydraulicBoundaryLocation1,
-                        hydraulicBoundaryLocation2
-                    }
+                    Output = new TestHydraulicBoundaryLocationCalculationOutput()
                 },
-                FailureMechanismContribution =
+                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation2)
                 {
-                    NormativeNorm = normType
+                    Output = new TestHydraulicBoundaryLocationCalculationOutput()
                 }
             };
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation1,
-                hydraulicBoundaryLocation2
-            });
-
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculationForLowerLimitNorm = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
-                                                                                                                          .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculationForSignalingNorm = assessmentSection.WaterLevelCalculationsForSignalingNorm
-                                                                                                                         .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-
-            hydraulicBoundaryLocationCalculationForLowerLimitNorm.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            hydraulicBoundaryLocationCalculationForSignalingNorm.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-
-            var expectedAffectedItems = new List<IObservable>
-            {
-                normType == NormType.LowerLimit
-                    ? hydraulicBoundaryLocationCalculationForLowerLimitNorm
-                    : hydraulicBoundaryLocationCalculationForSignalingNorm
-            };
-
             // Call
-            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputForNormativeNorm(
-                assessmentSection);
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculations);
 
             // Assert
-            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
-            Assert.AreEqual(normType != NormType.LowerLimit, hydraulicBoundaryLocationCalculationForLowerLimitNorm.HasOutput);
-            Assert.AreEqual(normType != NormType.Signaling, hydraulicBoundaryLocationCalculationForSignalingNorm.HasOutput);
+
+            CollectionAssert.AreEquivalent(calculations, affectedObjects);
+            Assert.IsTrue(calculations.All(c => !c.HasOutput));
         }
 
         [Test]
@@ -1861,7 +1832,7 @@ namespace Riskeer.Integration.Service.Test
                 yield return sectionResult;
             }
         }
-        
+
         private static IAssessmentSection GetConfiguredAssessmentSectionWithHydraulicBoundaryLocationCalculations()
         {
             var assessmentSection = new AssessmentSectionStub();

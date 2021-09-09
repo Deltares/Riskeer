@@ -30,6 +30,8 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Plugin.Handlers;
@@ -272,7 +274,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void GivenCalculationsWithOutput_WhenChangingNormativeNorm_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified()
+        [TestCaseSource(nameof(GetChangeNormativeNormCases))]
+        public void GivenCalculationsWithOutput_WhenChangingNormativeNorm_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified(
+            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Given
             DialogBoxHandler = (name, wnd) =>
@@ -282,6 +286,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> expectedCalculationsToClear = getCalculationsFunc(assessmentSection);
+
             ICalculation[] expectedAffectedCalculations = assessmentSection.Piping
                                                                            .Calculations
                                                                            .OfType<SemiProbabilisticPipingCalculationScenario>()
@@ -298,7 +306,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                             {
                                                 assessmentSection.FailureMechanismContribution
                                             })
-                                            .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
+                                            .Concat(expectedCalculationsToClear)
                                             .ToArray();
 
             var mocks = new MockRepository();
@@ -311,7 +319,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Precondition
-            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Where(c => c.HasOutput));
+            CollectionAssert.IsNotEmpty(expectedCalculationsToClear.Where(c => c.HasOutput));
 
             // When
             var actionPerformed = false;
@@ -327,12 +335,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             Assert.IsTrue(actionPerformed);
             CollectionAssert.IsEmpty(expectedAffectedCalculations.Where(c => c.HasOutput));
-            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Where(c => c.HasOutput));
+            CollectionAssert.IsEmpty(expectedCalculationsToClear.Where(c => c.HasOutput));
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenCalculationsWithoutOutput_WhenChangingNormativeNorm_ThenActionPerformedAndContributionNotified()
+        [TestCaseSource(nameof(GetChangeNormativeNormCases))]
+        public void GivenCalculationsWithoutOutput_WhenChangingNormativeNorm_ThenActionPerformedAndContributionNotified(
+            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Given
             DialogBoxHandler = (name, wnd) =>
@@ -342,6 +352,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsBelongingToNorm = getCalculationsFunc(assessmentSection);
+
             ICalculation[] calculations = assessmentSection.Piping
                                                            .Calculations
                                                            .OfType<SemiProbabilisticPipingCalculationScenario>()
@@ -362,7 +376,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 c.ClearOutput();
                 c.Attach(observer);
             });
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ForEachElementDo(c =>
+            calculationsBelongingToNorm.ForEachElementDo(c =>
             {
                 c.Output = null;
                 c.Attach(observer);
@@ -435,7 +449,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void GivenCalculationsWithOutput_WhenChangingNorm_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified()
+        [TestCaseSource(nameof(GetChangeNormCases))]
+        public void GivenCalculationsWithOutput_WhenChangingNorm_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified(
+            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Given
             DialogBoxHandler = (name, wnd) =>
@@ -445,12 +461,15 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> expectedCalculationsToClear = getCalculationsFunc(assessmentSection);
 
             IEnumerable<IObservable> expectedAffectedObjects = new IObservable[]
                                                                {
                                                                    assessmentSection.FailureMechanismContribution
                                                                }
-                                                               .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
+                                                               .Concat(expectedCalculationsToClear)
                                                                .ToArray();
 
             var mocks = new MockRepository();
@@ -463,7 +482,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Precondition
-            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Where(c => c.HasOutput));
+            CollectionAssert.IsNotEmpty(expectedCalculationsToClear.Where(c => c.HasOutput));
 
             // When
             var actionPerformed = false;
@@ -477,12 +496,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             TestHelper.AssertLogMessagesAreGenerated(Call, expectedMessages, 1);
 
             Assert.IsTrue(actionPerformed);
-            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Where(c => c.HasOutput));
+            CollectionAssert.IsEmpty(expectedCalculationsToClear.Where(c => c.HasOutput));
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenCalculationsWithoutOutput_WhenChangingNorm_ThenActionPerformedAndContributionNotified()
+        [TestCaseSource(nameof(GetChangeNormCases))]
+        public void GivenCalculationsWithoutOutput_WhenChangingNorm_ThenActionPerformedAndContributionNotified(
+            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Given
             DialogBoxHandler = (name, wnd) =>
@@ -492,13 +513,16 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsBelongingToNorm = getCalculationsFunc(assessmentSection);
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Once();
             mocks.ReplayAll();
 
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ForEachElementDo(c =>
+            calculationsBelongingToNorm.ForEachElementDo(c =>
             {
                 c.Output = null;
                 c.Attach(observer);
@@ -515,6 +539,26 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             TestHelper.AssertLogMessagesCount(Call, 0);
             Assert.IsTrue(actionPerformed);
             mocks.VerifyAll();
+        }
+
+        private static IEnumerable<TestCaseData> GetChangeNormativeNormCases()
+        {
+            yield return new TestCaseData(
+                NormType.LowerLimit, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                    section => section.WaterLevelCalculationsForLowerLimitNorm));
+            yield return new TestCaseData(
+                NormType.Signaling, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                    section => section.WaterLevelCalculationsForSignalingNorm));
+        }
+
+        private static IEnumerable<TestCaseData> GetChangeNormCases()
+        {
+            yield return new TestCaseData(
+                NormType.LowerLimit, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                    section => section.WaterLevelCalculationsForSignalingNorm));
+            yield return new TestCaseData(
+                NormType.Signaling, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                    section => section.WaterLevelCalculationsForLowerLimitNorm));
         }
     }
 }

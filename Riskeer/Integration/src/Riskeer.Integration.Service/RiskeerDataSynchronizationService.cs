@@ -192,27 +192,20 @@ namespace Riskeer.Integration.Service
         }
 
         /// <summary>
-        /// Clears the hydraulic boundary location calculation output belonging to the
-        /// <see cref="FailureMechanismContribution.NormativeNorm"/>.
+        /// Clears the hydraulic boundary location calculation output of the given <paramref name="calculations"/>.
         /// </summary>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the hydraulic boundary
-        /// location calculations and <see cref="FailureMechanismContribution"/>.</param>
-        /// <returns></returns>
+        /// <param name="calculations">The collection  of <see cref="HydraulicBoundaryLocationCalculation"/> to clear.</param>
         /// <returns>All objects affected by the operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutputForNormativeNorm(
-            IAssessmentSection assessmentSection)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutput(
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
-            if (assessmentSection == null)
+            if (calculations == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSection));
+                throw new ArgumentNullException(nameof(calculations));
             }
 
-            IObservableEnumerable<HydraulicBoundaryLocationCalculation> locationCalculationsToClear = assessmentSection.FailureMechanismContribution.NormativeNorm == NormType.LowerLimit
-                                                                                                          ? assessmentSection.WaterLevelCalculationsForLowerLimitNorm
-                                                                                                          : assessmentSection.WaterLevelCalculationsForSignalingNorm;
-
-            return RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(locationCalculationsToClear)
+            return RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculations)
                                                           .ToArray();
         }
 

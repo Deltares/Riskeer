@@ -28,6 +28,7 @@ using log4net;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Plugin.Properties;
 using Riskeer.Integration.Service;
@@ -78,7 +79,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                           () =>
                           {
                               var affectedObjects = new List<IObservable>();
-                              affectedObjects.AddRange(ClearNormDependingHydraulicBoundaryLocationCalculationOutput());
+                              affectedObjects.AddRange(ClearNormDependingHydraulicBoundaryLocationCalculationOutput(true));
                               affectedObjects.AddRange(ClearAllNormDependentSemiProbabilisticCalculationOutput());
                               return affectedObjects;
                           });
@@ -90,7 +91,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                           () =>
                           {
                               var affectedObjects = new List<IObservable>();
-                              affectedObjects.AddRange(ClearNormDependingHydraulicBoundaryLocationCalculationOutput());
+                              affectedObjects.AddRange(ClearNormDependingHydraulicBoundaryLocationCalculationOutput(false));
                               return affectedObjects;
                           });
         }
@@ -143,9 +144,11 @@ namespace Riskeer.Integration.Plugin.Handlers
             return affectedObjects;
         }
 
-        private IEnumerable<IObservable> ClearNormDependingHydraulicBoundaryLocationCalculationOutput()
+        private IEnumerable<IObservable> ClearNormDependingHydraulicBoundaryLocationCalculationOutput(bool normativeNorm)
         {
-            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputForNormativeNorm(assessmentSection);
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsToClear = GetHydraulicBoundaryLocationCalculations(normativeNorm);
+
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculationsToClear);
 
             if (affectedObjects.Any())
             {
@@ -153,6 +156,17 @@ namespace Riskeer.Integration.Plugin.Handlers
             }
 
             return affectedObjects;
+        }
+
+        private IEnumerable<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculations(bool normativeNorm)
+        {
+            return normativeNorm
+                       ? assessmentSection.FailureMechanismContribution.NormativeNorm == NormType.LowerLimit
+                             ? assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+                             : assessmentSection.WaterLevelCalculationsForSignalingNorm
+                       : assessmentSection.FailureMechanismContribution.NormativeNorm == NormType.LowerLimit
+                           ? assessmentSection.WaterLevelCalculationsForSignalingNorm
+                           : assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
         }
     }
 }
