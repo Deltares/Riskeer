@@ -58,10 +58,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
+            void Call() => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -70,10 +70,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         public void CreateCalculationActivitiesForFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(new WaveImpactAsphaltCoverFailureMechanism(), null);
+            void Call() => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(new WaveImpactAsphaltCoverFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -105,7 +105,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveImpactAsphaltCoverWaveConditionsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
-            RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result;
+            RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output.Result;
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(0), calculation1, assessmentLevel, hydraulicBoundaryDatabase);
             AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryDatabase);
@@ -120,12 +120,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(null,
-                                                                                                                               new WaveImpactAsphaltCoverFailureMechanism(),
-                                                                                                                               assessmentSection);
+            void Call() => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(null,
+                                                                                                                    new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                                                                    assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -139,12 +139,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
-                                                                                                                               null,
-                                                                                                                               assessmentSection);
+            void Call() => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
+                                                                                                                    null,
+                                                                                                                    assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -157,10 +157,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(calculation, failureMechanism, null);
+            void Call() => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -185,7 +185,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             Assert.IsInstanceOf<WaveImpactAsphaltCoverWaveConditionsCalculationActivity>(activity);
             AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activity,
                                                                           calculation,
-                                                                          assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result,
+                                                                          assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output.Result,
                                                                           assessmentSection.HydraulicBoundaryDatabase);
         }
 
@@ -198,12 +198,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(null,
-                                                                                                                                 new WaveImpactAsphaltCoverFailureMechanism(),
-                                                                                                                                 assessmentSection);
+            void Call() => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(null,
+                                                                                                                      new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                                                                      assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationGroup", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -217,12 +217,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
-                                                                                                                                 null,
-                                                                                                                                 assessmentSection);
+            void Call() => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
+                                                                                                                      null,
+                                                                                                                      assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -231,12 +231,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         public void CreateCalculationActivitiesForCalculationGroup_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
-                                                                                                                                 new WaveImpactAsphaltCoverFailureMechanism(),
-                                                                                                                                 null);
+            void Call() => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
+                                                                                                                      new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                                                                      null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -269,7 +269,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveImpactAsphaltCoverWaveConditionsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result;
+            RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output.Result;
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel, hydraulicBoundaryDatabase);
             AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryDatabase);
@@ -281,7 +281,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             {
                 hydraulicBoundaryLocation
             });
-            assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
+
+            assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
         }
 
         private static WaveImpactAsphaltCoverFailureMechanism CreateFailureMechanism()
@@ -313,7 +314,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = AssessmentSectionCategoryType.FactorizedSignalingNorm,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.Signaling,
                     ForeshoreProfile = new TestForeshoreProfile(true)
                     {
                         BreakWater =
