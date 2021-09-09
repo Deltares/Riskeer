@@ -1022,10 +1022,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 {
                     // When
                     ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    Action call = () => validateMenuItem.PerformClick();
+                    void Call() => validateMenuItem.PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(call, logMessages =>
+                    TestHelper.AssertLogMessages(Call, logMessages =>
                     {
                         string[] messages = logMessages.ToArray();
                         int expectedMessageCount = validCalculation ? 2 : 3;
@@ -1087,10 +1087,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 {
                     // When
                     ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    Action call = () => validateMenuItem.PerformClick();
+                    void Call() => validateMenuItem.PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(call, logMessages =>
+                    TestHelper.AssertLogMessages(Call, logMessages =>
                     {
                         string[] messages = logMessages.ToArray();
                         Assert.AreEqual(2, messages.Length);
@@ -1149,10 +1149,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 {
                     // When
                     ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    Action call = () => validateMenuItem.PerformClick();
+                    void Call() => validateMenuItem.PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(call, logMessages =>
+                    TestHelper.AssertLogMessages(Call, logMessages =>
                     {
                         string[] messages = logMessages.ToArray();
                         Assert.AreEqual(2, messages.Length);
@@ -1211,10 +1211,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 {
                     // When
                     ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    Action call = () => validateMenuItem.PerformClick();
+                    void Call() => validateMenuItem.PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(call, logMessages =>
+                    TestHelper.AssertLogMessages(Call, logMessages =>
                     {
                         string[] messages = logMessages.ToArray();
                         Assert.AreEqual(2, messages.Length);
@@ -1273,10 +1273,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 {
                     // When
                     ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    Action call = () => validateMenuItem.PerformClick();
+                    void Call() => validateMenuItem.PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(call, logMessages =>
+                    TestHelper.AssertLogMessages(Call, logMessages =>
                     {
                         string[] messages = logMessages.ToArray();
                         Assert.AreEqual(3, messages.Length);
@@ -1518,10 +1518,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 {
                     // When
                     ToolStripItem calculateMenuItem = contextMenu.Items[calculateMenuItemIndex];
-                    Action call = () => calculateMenuItem.PerformClick();
+                    void Call() => calculateMenuItem.PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(call, logMessages =>
+                    TestHelper.AssertLogMessages(Call, logMessages =>
                     {
                         string[] messages = logMessages.ToArray();
                         Assert.AreEqual(15, messages.Length);
@@ -1717,7 +1717,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             base.TearDown();
         }
 
-        private IAssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput()
+        private static IAssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput()
         {
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
 
@@ -1751,7 +1751,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
