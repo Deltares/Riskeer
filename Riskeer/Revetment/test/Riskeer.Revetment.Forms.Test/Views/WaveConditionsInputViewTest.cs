@@ -168,7 +168,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
                                 chartData.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex), "Bovengrens waterstanden");
 
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, assessmentLevel,
-                                chartData.Collection.ElementAt(assessmentLevelChartDataIndex), "Waterstand bij categoriegrens");
+                                chartData.Collection.ElementAt(assessmentLevelChartDataIndex), "Waterstand bij doelkans");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                            calculation.InputParameters.GetWaterLevels(assessmentLevel),
@@ -301,7 +301,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
                                 upperBoundaryWaterLevelsChartData, "Bovengrens waterstanden");
 
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, assessmentLevel,
-                                assessmentLevelChartData, "Waterstand bij categoriegrens");
+                                assessmentLevelChartData, "Waterstand bij doelkans");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                            calculation.InputParameters.GetWaterLevels(assessmentLevel),
@@ -386,7 +386,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
                                 upperBoundaryWaterLevelsChartData, "Bovengrens waterstanden");
 
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, assessmentLevel,
-                                assessmentLevelChartData, "Waterstand bij categoriegrens");
+                                assessmentLevelChartData, "Waterstand bij doelkans");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                            calculation.InputParameters.GetWaterLevels(assessmentLevel),
@@ -467,7 +467,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
                                 upperBoundaryWaterLevelsChartData, "Bovengrens waterstanden");
 
                 CollectionAssert.IsEmpty(assessmentLevelChartData.Points);
-                Assert.AreEqual("Waterstand bij categoriegrens", assessmentLevelChartData.Name);
+                Assert.AreEqual("Waterstand bij doelkans", assessmentLevelChartData.Name);
                 CollectionAssert.IsEmpty(waterLevelsChartData.Lines);
                 Assert.AreEqual("Waterstanden in berekening", waterLevelsChartData.Name);
 
@@ -546,7 +546,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
                                 upperBoundaryWaterLevelsChartData, "Bovengrens waterstanden");
 
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, assessmentLevel,
-                                assessmentLevelChartData, "Waterstand bij categoriegrens");
+                                assessmentLevelChartData, "Waterstand bij doelkans");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                            calculation.InputParameters.GetWaterLevels(assessmentLevel),
@@ -633,7 +633,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
 
                 RoundedDouble expectedAssessmentLevel = newHydraulicBoundaryLocationCalculation.Output.Result;
                 AssertChartData(calculation.InputParameters.ForeshoreGeometry, expectedAssessmentLevel,
-                                assessmentLevelChartData, "Waterstand bij categoriegrens");
+                                assessmentLevelChartData, "Waterstand bij doelkans");
 
                 AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
                                            calculation.InputParameters.GetWaterLevels(expectedAssessmentLevel),

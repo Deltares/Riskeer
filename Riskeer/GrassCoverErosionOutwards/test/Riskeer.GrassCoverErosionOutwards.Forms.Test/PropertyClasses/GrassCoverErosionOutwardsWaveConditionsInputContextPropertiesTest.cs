@@ -93,9 +93,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(15, dynamicProperties.Count);
+            Assert.AreEqual(16, dynamicProperties.Count);
 
-            PropertyDescriptor revetmentTypeProperty = dynamicProperties[9];
+            PropertyDescriptor revetmentTypeProperty = dynamicProperties[10];
             Assert.IsInstanceOf<EnumTypeConverter>(revetmentTypeProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(revetmentTypeProperty,
                                                                             "Modelinstellingen",

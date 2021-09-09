@@ -124,7 +124,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
 
             // Assert
             CollectionAssert.IsEmpty(data.Points);
-            Assert.AreEqual("Waterstand bij categoriegrens", data.Name);
+            Assert.AreEqual("Waterstand bij doelkans", data.Name);
             AssertEqualStyle(data.Style, Color.LightCoral, 3, ChartLineDashStyle.Solid);
         }
 
