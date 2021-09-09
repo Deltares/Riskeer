@@ -298,6 +298,24 @@ namespace Riskeer.Revetment.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overschrijdingskans waarvoor de berekening moet worden uitgevoerd..
+        /// </summary>
+        public static string WaveConditionsInput_SelectedTargetProbability_Description {
+            get {
+                return ResourceManager.GetString("WaveConditionsInput_SelectedTargetProbability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doelkans (1/jaar).
+        /// </summary>
+        public static string WaveConditionsInput_SelectedTargetProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveConditionsInput_SelectedTargetProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grootte van de stappen waarmee de waterstanden in de berekening worden bepaald..
         /// </summary>
         public static string WaveConditionsInput_StepSize_Description {

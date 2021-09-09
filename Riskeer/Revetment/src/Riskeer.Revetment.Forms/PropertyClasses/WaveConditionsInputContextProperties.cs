@@ -340,8 +340,8 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         [PropertyOrder(targetProbabilityPropertyIndex)]
         [Editor(typeof(WaveConditionsInputContextTargetProbabilitySelectionEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
-        [DisplayName("Doelkans (1/jaar)")]
-        [Description("Overschrijdingskans waarvoor de berekening moet worden uitgevoerd.")]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsInput_SelectedTargetProbability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsInput_SelectedTargetProbability_Description))]
         public SelectableTargetProbability SelectedTargetProbability
         {
             get
