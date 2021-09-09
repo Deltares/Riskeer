@@ -24,8 +24,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
-using Riskeer.AssemblyTool.Data;
-using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
 
@@ -162,56 +160,6 @@ namespace Riskeer.Common.Data.AssessmentSection
 
             return GetHydraulicBoundaryLocationCalculationFromCalculations(hydraulicBoundaryLocation,
                                                                            GetHydraulicBoundaryLocationCalculations(assessmentSection, categoryType));
-        }
-
-        /// <summary>
-        /// Gets the norm based on <see cref="AssessmentSectionCategoryType"/>.
-        /// </summary>
-        /// <param name="assessmentSection">The assessment section to get the norm from.</param>
-        /// <param name="categoryType">The category type to use while obtaining the norm.</param>
-        /// <returns>The norm corresponding to the provided category type.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categoryType"/>
-        /// is an invalid <see cref="AssessmentSectionCategoryType"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryType"/>
-        /// is a valid but unsupported <see cref="AssessmentSectionCategoryType"/>.</exception>
-        public static double GetNorm(this IAssessmentSection assessmentSection,
-                                     AssessmentSectionCategoryType categoryType)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            if (!Enum.IsDefined(typeof(AssessmentSectionCategoryType), categoryType))
-            {
-                throw new InvalidEnumArgumentException(nameof(categoryType),
-                                                       (int) categoryType,
-                                                       typeof(AssessmentSectionCategoryType));
-            }
-
-            IEnumerable<AssessmentSectionAssemblyCategory> categories = AssemblyToolCategoriesFactory.CreateAssessmentSectionAssemblyCategories(
-                assessmentSection.FailureMechanismContribution.SignalingNorm,
-                assessmentSection.FailureMechanismContribution.LowerLimitNorm);
-
-            switch (categoryType)
-            {
-                case AssessmentSectionCategoryType.FactorizedSignalingNorm:
-                    return categories.First(c => c.Group == AssessmentSectionAssemblyCategoryGroup.A)
-                                     .LowerBoundary;
-                case AssessmentSectionCategoryType.SignalingNorm:
-                    return categories.First(c => c.Group == AssessmentSectionAssemblyCategoryGroup.B)
-                                     .LowerBoundary;
-                case AssessmentSectionCategoryType.LowerLimitNorm:
-                    return categories.First(c => c.Group == AssessmentSectionAssemblyCategoryGroup.C)
-                                     .LowerBoundary;
-                case AssessmentSectionCategoryType.FactorizedLowerLimitNorm:
-                    return categories.First(c => c.Group == AssessmentSectionAssemblyCategoryGroup.D)
-                                     .LowerBoundary;
-                default:
-                    throw new NotSupportedException();
-            }
         }
 
         /// <summary>

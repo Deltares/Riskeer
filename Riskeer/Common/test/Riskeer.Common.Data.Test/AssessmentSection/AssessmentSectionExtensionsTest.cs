@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -41,10 +40,10 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         public void GetNormativeAssessmentLevel_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => AssessmentSectionExtensions.GetNormativeAssessmentLevel(null, new TestHydraulicBoundaryLocation());
+            void Call() => AssessmentSectionExtensions.GetNormativeAssessmentLevel(null, new TestHydraulicBoundaryLocation());
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
         }
 
@@ -54,16 +53,20 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             // Setup
             const int invalidValue = 9999;
 
-            var assessmentSection = new AssessmentSectionStub();
-
-            assessmentSection.FailureMechanismContribution.NormativeNorm = (NormType) invalidValue;
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = (NormType) invalidValue
+                }
+            };
 
             // Call
-            TestDelegate test = () => assessmentSection.GetNormativeAssessmentLevel(new TestHydraulicBoundaryLocation());
+            void Call() => assessmentSection.GetNormativeAssessmentLevel(new TestHydraulicBoundaryLocation());
 
             // Assert
-            string expectedMessage = $"The value of argument 'normType' ({invalidValue}) is invalid for Enum type '{nameof(NormType)}'.";
-            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage).ParamName;
+            var expectedMessage = $"The value of argument 'normType' ({invalidValue}) is invalid for Enum type '{nameof(NormType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
             Assert.AreEqual("normType", parameterName);
         }
 
@@ -71,9 +74,13 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationNull_ReturnsNaN()
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub();
-
-            assessmentSection.FailureMechanismContribution.NormativeNorm = new Random(32).NextEnumValue<NormType>();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = new Random(32).NextEnumValue<NormType>()
+                }
+            };
 
             // Call
             RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(null);
@@ -86,9 +93,13 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         public void GetNormativeAssessmentLevel_NoCorrespondingCalculation_ReturnsNaN()
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub();
-
-            assessmentSection.FailureMechanismContribution.NormativeNorm = new Random(32).NextEnumValue<NormType>();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = new Random(32).NextEnumValue<NormType>()
+                }
+            };
 
             // Call
             RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(new TestHydraulicBoundaryLocation());
@@ -140,12 +151,11 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         public void GetAssessmentLevel_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => AssessmentSectionExtensions.GetAssessmentLevel(null,
-                                                                                     new TestHydraulicBoundaryLocation(),
-                                                                                     AssessmentSectionCategoryType.FactorizedLowerLimitNorm);
+            void Call() => AssessmentSectionExtensions.GetAssessmentLevel(null, new TestHydraulicBoundaryLocation(),
+                                                                          AssessmentSectionCategoryType.FactorizedLowerLimitNorm);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
         }
 
@@ -158,12 +168,12 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            TestDelegate test = () => assessmentSection.GetAssessmentLevel(new TestHydraulicBoundaryLocation(),
-                                                                           (AssessmentSectionCategoryType) invalidValue);
+            void Call() => assessmentSection.GetAssessmentLevel(new TestHydraulicBoundaryLocation(),
+                                                                (AssessmentSectionCategoryType) invalidValue);
 
             // Assert
-            string expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(AssessmentSectionCategoryType)}'.";
-            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage).ParamName;
+            var expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(AssessmentSectionCategoryType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
             Assert.AreEqual("categoryType", parameterName);
         }
 
@@ -236,13 +246,11 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         public void GetHydraulicBoundaryLocationCalculation_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => AssessmentSectionExtensions.GetHydraulicBoundaryLocationCalculation(
-                null,
-                new TestHydraulicBoundaryLocation(),
-                AssessmentSectionCategoryType.FactorizedLowerLimitNorm);
+            void Call() => AssessmentSectionExtensions.GetHydraulicBoundaryLocationCalculation(null, new TestHydraulicBoundaryLocation(),
+                                                                                               AssessmentSectionCategoryType.FactorizedLowerLimitNorm);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
         }
 
@@ -255,13 +263,12 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            TestDelegate test = () => assessmentSection.GetHydraulicBoundaryLocationCalculation(
-                new TestHydraulicBoundaryLocation(),
-                (AssessmentSectionCategoryType) invalidValue);
+            void Call() => assessmentSection.GetHydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(),
+                                                                                     (AssessmentSectionCategoryType) invalidValue);
 
             // Assert
-            string expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(AssessmentSectionCategoryType)}'.";
-            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage).ParamName;
+            var expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(AssessmentSectionCategoryType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
             Assert.AreEqual("categoryType", parameterName);
         }
 
@@ -317,10 +324,10 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         public void GetNormativeHydraulicBoundaryLocationCalculation_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AssessmentSectionExtensions.GetNormativeHydraulicBoundaryLocationCalculation(null, new TestHydraulicBoundaryLocation());
+            void Call() => AssessmentSectionExtensions.GetNormativeHydraulicBoundaryLocationCalculation(null, new TestHydraulicBoundaryLocation());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -330,16 +337,20 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             // Setup
             const int invalidValue = 9999;
 
-            var assessmentSection = new AssessmentSectionStub();
-
-            assessmentSection.FailureMechanismContribution.NormativeNorm = (NormType) invalidValue;
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = (NormType) invalidValue
+                }
+            };
 
             // Call
-            TestDelegate test = () => assessmentSection.GetNormativeHydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+            void Call() => assessmentSection.GetNormativeHydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Assert
-            string expectedMessage = $"The value of argument 'normType' ({invalidValue}) is invalid for Enum type '{nameof(NormType)}'.";
-            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage).ParamName;
+            var expectedMessage = $"The value of argument 'normType' ({invalidValue}) is invalid for Enum type '{nameof(NormType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
             Assert.AreEqual("normType", parameterName);
         }
 
@@ -348,8 +359,13 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         {
             // Setup
             var random = new Random(21);
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = random.NextEnumValue<NormType>();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = random.NextEnumValue<NormType>()
+                }
+            };
 
             // Call
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = assessmentSection.GetNormativeHydraulicBoundaryLocationCalculation(null);
@@ -363,8 +379,13 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         {
             // Setup
             var random = new Random(21);
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = random.NextEnumValue<NormType>();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = random.NextEnumValue<NormType>()
+                }
+            };
 
             // Call
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation =
@@ -391,84 +412,6 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
 
             // Assert
             Assert.AreSame(calculation, normativeHydraulicBoundaryLocationCalculation);
-        }
-
-        [Test]
-        public void GetNorm_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => AssessmentSectionExtensions.GetNorm(null,
-                                                                          AssessmentSectionCategoryType.FactorizedLowerLimitNorm);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
-        }
-
-        [Test]
-        public void GetNorm_InvalidAssessmentSectionCategoryType_ThrowsInvalidEnumArgumentException()
-        {
-            // Setup
-            const int invalidValue = 9999;
-
-            var assessmentSection = new AssessmentSectionStub();
-
-            // Call
-            TestDelegate test = () => assessmentSection.GetNorm((AssessmentSectionCategoryType) invalidValue);
-
-            // Assert
-            string expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(AssessmentSectionCategoryType)}'.";
-            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage).ParamName;
-            Assert.AreEqual("categoryType", parameterName);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetNormConfigurationPerAssessmentSectionCategoryType))]
-        public void GetNorm_AssessmentSectionWithNormConfiguration_ReturnsCorrespondingNorm(
-            IAssessmentSection assessmentSection,
-            AssessmentSectionCategoryType categoryType,
-            double expectedNorm)
-        {
-            // Call
-            double norm = assessmentSection.GetNorm(categoryType);
-
-            // Assert
-            Assert.AreEqual(expectedNorm, norm);
-        }
-
-        private static IEnumerable GetNormConfigurationPerAssessmentSectionCategoryType()
-        {
-            const double signalingNorm = 0.002;
-            const double lowerLimitNorm = 0.005;
-
-            var assessmentSection = new AssessmentSectionStub
-            {
-                FailureMechanismContribution =
-                {
-                    LowerLimitNorm = lowerLimitNorm,
-                    SignalingNorm = signalingNorm
-                }
-            };
-
-            yield return new TestCaseData(
-                assessmentSection,
-                AssessmentSectionCategoryType.FactorizedSignalingNorm,
-                signalingNorm / 30);
-
-            yield return new TestCaseData(
-                assessmentSection,
-                AssessmentSectionCategoryType.SignalingNorm,
-                signalingNorm);
-
-            yield return new TestCaseData(
-                assessmentSection,
-                AssessmentSectionCategoryType.LowerLimitNorm,
-                lowerLimitNorm);
-
-            yield return new TestCaseData(
-                assessmentSection,
-                AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
-                lowerLimitNorm * 30);
         }
 
         private static IEnumerable<TestCaseData> GetNormativeHydraulicBoundaryLocationCalculationPerNormType()
