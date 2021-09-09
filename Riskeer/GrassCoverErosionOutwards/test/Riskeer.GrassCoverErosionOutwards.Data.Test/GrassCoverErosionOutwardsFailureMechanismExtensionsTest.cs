@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -29,7 +28,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Service.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data.Test
@@ -82,7 +80,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                                                                (FailureMechanismCategoryType) invalidValue);
 
             // Assert
-            string expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(FailureMechanismCategoryType)}'.";
+            var expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(FailureMechanismCategoryType)}'.";
             string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
             Assert.AreEqual("categoryType", parameterName);
         }
@@ -209,7 +207,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                                                                                     (FailureMechanismCategoryType) invalidValue);
 
             // Assert
-            string expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(FailureMechanismCategoryType)}'.";
+            var expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(FailureMechanismCategoryType)}'.";
             string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
             Assert.AreEqual("categoryType", parameterName);
         }
@@ -267,127 +265,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
             // Assert
             Assert.AreSame(expectedHydraulicBoundaryLocationCalculation, hydraulicBoundaryLocationCalculation);
-        }
-
-        [Test]
-        public void GetNorm_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => GrassCoverErosionOutwardsFailureMechanismExtensions.GetNorm(null,
-                                                                                       new AssessmentSectionStub(),
-                                                                                       FailureMechanismCategoryType.FactorizedLowerLimitNorm);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
-        }
-
-        [Test]
-        public void GetNorm_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Call
-            void Call() => failureMechanism.GetNorm(null,
-                                                    FailureMechanismCategoryType.FactorizedLowerLimitNorm);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
-        }
-
-        [Test]
-        public void GetNorm_InvalidFailureMechanismCategoryType_ThrowsInvalidEnumArgumentException()
-        {
-            // Setup
-            const int invalidValue = 9999;
-
-            var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Call
-            void Call() => failureMechanism.GetNorm(assessmentSection,
-                                                    (FailureMechanismCategoryType) invalidValue);
-
-            // Assert
-            string expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(FailureMechanismCategoryType)}'.";
-            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
-            Assert.AreEqual("categoryType", parameterName);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetNormConfigurationPerFailureMechanismCategoryType))]
-        public void GetNorm_AssessmentSectionWithNormConfiguration_ReturnsCorrespondingNorm(
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-            IAssessmentSection assessmentSection,
-            FailureMechanismCategoryType categoryType,
-            double expectedNorm)
-        {
-            // Call
-            double norm = failureMechanism.GetNorm(assessmentSection, categoryType);
-
-            // Assert
-            Assert.AreEqual(expectedNorm, norm);
-        }
-
-        private static IEnumerable<TestCaseData> GetNormConfigurationPerFailureMechanismCategoryType()
-        {
-            const double signalingNorm = 0.002;
-            const double lowerLimitNorm = 0.005;
-
-            var assessmentSection = new AssessmentSectionStub
-            {
-                FailureMechanismContribution =
-                {
-                    LowerLimitNorm = lowerLimitNorm,
-                    SignalingNorm = signalingNorm
-                }
-            };
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                Contribution = 25
-            };
-
-            yield return new TestCaseData(
-                failureMechanism,
-                assessmentSection,
-                FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm,
-                GetMechanismSpecificNorm(failureMechanism, signalingNorm / 30));
-
-            yield return new TestCaseData(
-                failureMechanism,
-                assessmentSection,
-                FailureMechanismCategoryType.MechanismSpecificSignalingNorm,
-                GetMechanismSpecificNorm(failureMechanism, signalingNorm));
-
-            yield return new TestCaseData(
-                failureMechanism,
-                assessmentSection,
-                FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
-                GetMechanismSpecificNorm(failureMechanism, lowerLimitNorm));
-
-            yield return new TestCaseData(
-                failureMechanism,
-                assessmentSection,
-                FailureMechanismCategoryType.LowerLimitNorm,
-                lowerLimitNorm);
-
-            yield return new TestCaseData(
-                failureMechanism,
-                assessmentSection,
-                FailureMechanismCategoryType.FactorizedLowerLimitNorm,
-                lowerLimitNorm * 30);
-        }
-
-        private static double GetMechanismSpecificNorm(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                       double norm)
-        {
-            return CalculationServiceTestHelper.ProfileSpecificRequiredProbability(
-                norm,
-                failureMechanism.Contribution,
-                failureMechanism.GeneralInput.N);
         }
     }
 }

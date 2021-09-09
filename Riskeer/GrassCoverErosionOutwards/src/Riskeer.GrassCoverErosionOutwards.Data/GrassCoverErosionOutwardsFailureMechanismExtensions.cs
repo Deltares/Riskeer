@@ -27,7 +27,6 @@ using Core.Common.Base.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Util;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data
 {
@@ -119,34 +118,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
                                                                            GetHydraulicBoundaryLocationCalculations(failureMechanism,
                                                                                                                     assessmentSection,
                                                                                                                     categoryType));
-        }
-
-        /// <summary>
-        /// Gets the norm based on <see cref="FailureMechanismCategoryType"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to get the norm from.</param>
-        /// <param name="assessmentSection">The assessment section to get the norm from.</param>
-        /// <param name="categoryType">The category type to use while obtaining the norm.</param>
-        /// <returns>The norm corresponding to the provided category type.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
-        /// or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categoryType"/>
-        /// is an invalid <see cref="FailureMechanismCategoryType"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryType"/>
-        /// is a valid but unsupported <see cref="FailureMechanismCategoryType"/>.</exception>
-        public static double GetNorm(this GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                     IAssessmentSection assessmentSection,
-                                     FailureMechanismCategoryType categoryType)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            return FailureMechanismNormHelper.GetNorm(assessmentSection,
-                                                      categoryType,
-                                                      failureMechanism.Contribution,
-                                                      failureMechanism.GeneralInput.N);
         }
 
         /// <summary>
