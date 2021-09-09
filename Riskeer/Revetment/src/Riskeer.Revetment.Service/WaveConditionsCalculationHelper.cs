@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Revetment.Data;
@@ -64,7 +65,7 @@ namespace Riskeer.Revetment.Service
         /// </summary>
         /// <param name="input">The wave conditions input to get the assessment level for.</param>
         /// <param name="assessmentSection">The assessment section the wave conditions input belongs to.</param>
-        /// <returns>An assessment level, or <see cref="double.NaN"/> when:
+        /// <returns>An assessment level, or <see cref="RoundedDouble.NaN"/> when:
         /// <list type="bullet">
         /// <item><see cref="WaveConditionsInput.WaterLevelType"/> equals <see cref="WaveConditionsInputWaterLevelType.None"/>;</item>
         /// <item><see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> equals <c>null</c>;</item>
@@ -76,7 +77,7 @@ namespace Riskeer.Revetment.Service
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="WaveConditionsInput.WaterLevelType"/>
         /// is a valid value, but unsupported.</exception>
-        public static double GetAssessmentLevel(WaveConditionsInput input, IAssessmentSection assessmentSection)
+        public static RoundedDouble GetAssessmentLevel(WaveConditionsInput input, IAssessmentSection assessmentSection)
         {
             if (input == null)
             {
@@ -97,13 +98,13 @@ namespace Riskeer.Revetment.Service
 
             if (input.HydraulicBoundaryLocation == null)
             {
-                return double.NaN;
+                return RoundedDouble.NaN;
             }
 
             switch (input.WaterLevelType)
             {
                 case WaveConditionsInputWaterLevelType.None:
-                    return double.NaN;
+                    return RoundedDouble.NaN;
                 case WaveConditionsInputWaterLevelType.LowerLimit:
                     return GetAssessmentLevelFromHydraulicBoundaryLocationCalculations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, input);
                 case WaveConditionsInputWaterLevelType.Signaling:
@@ -115,9 +116,9 @@ namespace Riskeer.Revetment.Service
             }
         }
 
-        private static double GetAssessmentLevelFromHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations, WaveConditionsInput input)
+        private static RoundedDouble GetAssessmentLevelFromHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations, WaveConditionsInput input)
         {
-            return calculations.First(c => ReferenceEquals(c.HydraulicBoundaryLocation, input.HydraulicBoundaryLocation)).Output?.Result ?? double.NaN;
+            return calculations.First(c => ReferenceEquals(c.HydraulicBoundaryLocation, input.HydraulicBoundaryLocation)).Output?.Result ?? RoundedDouble.NaN;
         }
     }
 }
