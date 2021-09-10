@@ -299,36 +299,6 @@ namespace Riskeer.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kon geen doelkans bepalen voor deze berekening..
-        /// </summary>
-        public static string TargetProbabilityCalculationServiceHelper_ValidateTargetProbability_Target_probability_invalid {
-            get {
-                return ResourceManager.GetString("TargetProbabilityCalculationServiceHelper_ValidateTargetProbability_Target_probab" +
-                        "ility_invalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Doelkans is te groot om een berekening uit te kunnen voeren..
-        /// </summary>
-        public static string TargetProbabilityCalculationServiceHelper_ValidateTargetProbability_Target_probability_too_big {
-            get {
-                return ResourceManager.GetString("TargetProbabilityCalculationServiceHelper_ValidateTargetProbability_Target_probab" +
-                        "ility_too_big", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Doelkans is te klein om een berekening uit te kunnen voeren..
-        /// </summary>
-        public static string TargetProbabilityCalculationServiceHelper_ValidateTargetProbability_Target_probability_too_small {
-            get {
-                return ResourceManager.GetString("TargetProbabilityCalculationServiceHelper_ValidateTargetProbability_Target_probab" +
-                        "ility_too_small", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Validatie is beëindigd..
         /// </summary>
         public static string Validation_ended {
