@@ -112,6 +112,47 @@ namespace Riskeer.Revetment.Service
         }
 
         /// <summary>
+        /// Clears the output for calculations that corresponds with the <paramref name="calculationsForTargetProbability"/> and removes this
+        /// from the input in the given <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism which contains the calculations.</param>
+        /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/>
+        /// to clear for.</param>
+        /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
+        /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<TFailureMechanism, TCalculation>(
+            TFailureMechanism failureMechanism, HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
+            where TFailureMechanism : IFailureMechanism
+            where TCalculation : ICalculation<WaveConditionsInput>
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (calculationsForTargetProbability == null)
+            {
+                throw new ArgumentNullException(nameof(calculationsForTargetProbability));
+            }
+
+            var affectedItems = new List<IObservable>();
+            foreach (TCalculation calculation in failureMechanism.Calculations.Cast<TCalculation>()
+                                                                 .Where(c => c.InputParameters.CalculationsTargetProbability == calculationsForTargetProbability))
+            {
+                calculation.InputParameters.CalculationsTargetProbability = null;
+                if (calculation.InputParameters.WaterLevelType == WaveConditionsInputWaterLevelType.UserDefinedTargetProbability)
+                {
+                    RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation);
+                }
+                affectedItems.Add(calculation);
+            }
+
+            return affectedItems;
+        }
+
+        /// <summary>
         /// Gets the <see cref="WaveConditionsInputWaterLevelType"/> based on the given <paramref name="normType"/>.
         /// </summary>
         /// <param name="normType">The <see cref="NormType"/> to get the <see cref="WaveConditionsInputWaterLevelType"/> from.</param>
