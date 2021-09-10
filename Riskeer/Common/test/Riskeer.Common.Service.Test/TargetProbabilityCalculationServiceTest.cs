@@ -32,7 +32,6 @@ namespace Riskeer.Common.Service.Test
     [TestFixture]
     public class TargetProbabilityCalculationServiceTest
     {
-        private const double validTargetProbability = 0.005;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
         private static readonly string validHydraulicBoundaryDatabaseFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validHlcdFilePath = Path.Combine(testDataPath, "Hlcd.sqlite");
@@ -43,24 +42,24 @@ namespace Riskeer.Common.Service.Test
         public void Validate_CalculationSettingsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => calculationService.Validate(null, validTargetProbability);
+            void Call() => calculationService.Validate(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationSettings", exception.ParamName);
         }
 
         [Test]
-        public void Validate_ValidParameters_ReturnsTrue()
+        public void Validate_WithCalculationSettings_ReturnsTrue()
         {
             // Setup
             var valid = false;
 
             // Call
-            Action call = () => valid = calculationService.Validate(CreateValidCalculationSettings(), validTargetProbability);
+            void Call() => valid = calculationService.Validate(CreateValidCalculationSettings());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
@@ -82,10 +81,10 @@ namespace Riskeer.Common.Service.Test
             var valid = true;
 
             // Call
-            Action call = () => valid = calculationService.Validate(calculationSettings, validTargetProbability);
+            void Call() => valid = calculationService.Validate(calculationSettings);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -108,10 +107,10 @@ namespace Riskeer.Common.Service.Test
                                                                                string.Empty);
 
             // Call
-            Action call = () => valid = calculationService.Validate(calculationSettings, validTargetProbability);
+            void Call() => valid = calculationService.Validate(calculationSettings);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -134,10 +133,10 @@ namespace Riskeer.Common.Service.Test
                                                                                invalidPreprocessorDirectory);
 
             // Call
-            Action call = () => valid = calculationService.Validate(calculationSettings, validTargetProbability);
+            void Call() => valid = calculationService.Validate(calculationSettings);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -159,78 +158,15 @@ namespace Riskeer.Common.Service.Test
                                                                                string.Empty);
 
             // Call
-            Action call = () => valid = calculationService.Validate(calculationSettings, validTargetProbability);
+            void Call() => valid = calculationService.Validate(calculationSettings);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(valid);
-        }
-
-        [Test]
-        public void Validate_TargetProbabilityInvalid_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            var valid = true;
-
-            // Call
-            Action call = () => valid = calculationService.Validate(CreateValidCalculationSettings(), double.NaN);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Kon geen doelkans bepalen voor deze berekening.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(valid);
-        }
-
-        [Test]
-        public void Validate_TargetProbabilityInvalidTooBig_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            var valid = true;
-
-            // Call
-            Action call = () => valid = calculationService.Validate(CreateValidCalculationSettings(), 1.0);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(valid);
-        }
-
-        [Test]
-        public void Validate_TargetProbabilityInvalidTooSmall_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            var valid = true;
-
-            // Call
-            Action call = () => valid = calculationService.Validate(CreateValidCalculationSettings(), 0.0);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Doelkans is te klein om een berekening uit te kunnen voeren.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(valid);

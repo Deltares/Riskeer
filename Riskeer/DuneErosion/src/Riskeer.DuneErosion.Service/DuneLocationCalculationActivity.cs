@@ -75,7 +75,7 @@ namespace Riskeer.DuneErosion.Service
 
         protected override bool Validate()
         {
-            return calculationService.Validate(calculationSettings, targetProbability);
+            return calculationService.Validate(calculationSettings);
         }
 
         protected override void PerformCalculation()
