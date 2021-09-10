@@ -39,20 +39,17 @@ namespace Riskeer.Revetment.Service
         /// <param name="wavePeakPeriod">The calculated wave peak period.</param>
         /// <param name="waveAngle">The calculated wave angle w.r.t the dike normal.</param>
         /// <param name="waveDirection">The calculated wave direction w.r.t. North.</param>
-        /// <param name="targetNorm">The target norm that was calculated for.</param>
+        /// <param name="targetProbability">The target probability that was calculated for.</param>
         /// <param name="calculatedReliability">The calculated reliability.</param>
         /// <param name="calculatedConvergence">The calculated convergence value.</param>
         /// <returns>The created <see cref="WaveConditionsOutput"/>.</returns>
         public static WaveConditionsOutput CreateOutput(double waterLevel, double waveHeight,
                                                         double wavePeakPeriod, double waveAngle,
-                                                        double waveDirection, double targetNorm,
+                                                        double waveDirection, double targetProbability,
                                                         double calculatedReliability, bool? calculatedConvergence)
         {
-            double targetReliability = StatisticsConverter.ProbabilityToReliability(targetNorm);
-            double targetProbability = StatisticsConverter.ReliabilityToProbability(targetReliability);
-
+            double targetReliability = StatisticsConverter.ProbabilityToReliability(targetProbability);
             double calculatedProbability = StatisticsConverter.ReliabilityToProbability(calculatedReliability);
-
             CalculationConvergence convergence = RiskeerCommonDataCalculationService.GetCalculationConvergence(calculatedConvergence);
 
             return new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle, waveDirection, targetProbability,
@@ -64,13 +61,12 @@ namespace Riskeer.Revetment.Service
         /// a failed calculation.
         /// </summary>
         /// <param name="waterLevel">The water level that was calculated for.</param>
-        /// <param name="targetNorm">The target norm that was calculated for.</param>
+        /// <param name="targetProbability">The target probability that was calculated for.</param>
         /// <returns>The created <see cref="WaveConditionsOutput"/>.</returns>
         public static WaveConditionsOutput CreateFailedOutput(double waterLevel,
-                                                              double targetNorm)
+                                                              double targetProbability)
         {
-            double targetReliability = StatisticsConverter.ProbabilityToReliability(targetNorm);
-            double targetProbability = StatisticsConverter.ReliabilityToProbability(targetReliability);
+            double targetReliability = StatisticsConverter.ProbabilityToReliability(targetProbability);
 
             return new WaveConditionsOutput(waterLevel,
                                             double.NaN,

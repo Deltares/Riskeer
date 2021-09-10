@@ -35,16 +35,15 @@ namespace Riskeer.Revetment.Data.TestUtil
         /// Asserts the <see cref="WaveConditionsOutput"/> after a calculation has failed.
         /// </summary>
         /// <param name="waterLevel">The water level for which the calculation was performed for.</param>
-        /// <param name="targetNorm">The norm for which the calculation was calculated for.</param>
+        /// <param name="targetProbability">The target probability for which the calculation was calculated for.</param>
         /// <param name="actualOutput">The actual <see cref="WaveConditionsOutput"/>.</param>
         /// <exception cref="AssertionException">Thrown when differences are found between 
         /// the expected output and the actual output.</exception>
         public static void AssertFailedOutput(double waterLevel,
-                                              double targetNorm,
+                                              double targetProbability,
                                               WaveConditionsOutput actualOutput)
         {
-            double targetReliability = StatisticsConverter.ProbabilityToReliability(targetNorm);
-            double targetProbability = StatisticsConverter.ReliabilityToProbability(targetReliability);
+            double targetReliability = StatisticsConverter.ProbabilityToReliability(targetProbability);
 
             Assert.IsNotNull(actualOutput);
             Assert.AreEqual(waterLevel, actualOutput.WaterLevel, actualOutput.WaterLevel.GetAccuracy());
