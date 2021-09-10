@@ -121,7 +121,7 @@ namespace Riskeer.Revetment.Service
         /// <param name="a">The 'a' factor decided on failure mechanism level.</param>
         /// <param name="b">The 'b' factor decided on failure mechanism level.</param>
         /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
-        /// <param name="norm">The norm to use as the target.</param>
+        /// <param name="targetProbability">The target probability to use.</param>
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to perform the calculations with.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="WaveConditionsOutput"/>.</returns>
         /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
@@ -144,7 +144,7 @@ namespace Riskeer.Revetment.Service
                                                                             RoundedDouble a,
                                                                             RoundedDouble b,
                                                                             RoundedDouble c,
-                                                                            double norm,
+                                                                            double targetProbability,
                                                                             HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             if (waveConditionsInput == null)
@@ -172,7 +172,7 @@ namespace Riskeer.Revetment.Service
                     NotifyProgress(waterLevel, currentStep++, TotalWaterLevelCalculations);
 
                     WaveConditionsOutput output = CalculateWaterLevel(waterLevel,
-                                                                      a, b, c, norm,
+                                                                      a, b, c, targetProbability,
                                                                       waveConditionsInput,
                                                                       HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase));
 
@@ -183,7 +183,7 @@ namespace Riskeer.Revetment.Service
                     else
                     {
                         calculationsFailed++;
-                        outputs.Add(WaveConditionsOutputFactory.CreateFailedOutput(waterLevel, norm));
+                        outputs.Add(WaveConditionsOutputFactory.CreateFailedOutput(waterLevel, targetProbability));
                     }
                 }
                 finally
@@ -222,7 +222,7 @@ namespace Riskeer.Revetment.Service
             {
                 validationResults.Add(preprocessorDirectoryValidationProblem);
             }
-            
+
             if (validationResults.Any())
             {
                 return validationResults.ToArray();
@@ -246,7 +246,7 @@ namespace Riskeer.Revetment.Service
         /// <param name="a">The 'a' factor decided on failure mechanism level.</param>
         /// <param name="b">The 'b' factor decided on failure mechanism level.</param>
         /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
-        /// <param name="norm">The norm to use as the target.</param>
+        /// <param name="targetProbability">The target probability to use.</param>
         /// <param name="input">The input that is different per calculation.</param>
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing all data
         /// to perform a hydraulic boundary calculation.</param>
@@ -266,13 +266,13 @@ namespace Riskeer.Revetment.Service
                                                          RoundedDouble a,
                                                          RoundedDouble b,
                                                          RoundedDouble c,
-                                                         double norm,
+                                                         double targetProbability,
                                                          WaveConditionsInput input,
                                                          HydraulicBoundaryCalculationSettings calculationSettings)
         {
             HydraRingCalculationSettings settings = HydraRingCalculationSettingsFactory.CreateSettings(calculationSettings);
             calculator = HydraRingCalculatorFactory.Instance.CreateWaveConditionsCosineCalculator(settings);
-            WaveConditionsCosineCalculationInput calculationInput = CreateInput(waterLevel, a, b, c, norm, input, calculationSettings);
+            WaveConditionsCosineCalculationInput calculationInput = CreateInput(waterLevel, a, b, c, targetProbability, input, calculationSettings);
 
             WaveConditionsOutput output;
             var exceptionThrown = false;
@@ -285,7 +285,7 @@ namespace Riskeer.Revetment.Service
                                                                   calculator.WavePeakPeriod,
                                                                   calculator.WaveAngle,
                                                                   calculator.WaveDirection,
-                                                                  norm,
+                                                                  targetProbability,
                                                                   calculator.ReliabilityIndex,
                                                                   calculator.Converged);
             }
@@ -345,7 +345,7 @@ namespace Riskeer.Revetment.Service
         /// <param name="a">The 'a' factor decided on failure mechanism level.</param>
         /// <param name="b">The 'b' factor decided on failure mechanism level.</param>
         /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
-        /// <param name="norm">The norm to use as the target.</param>
+        /// <param name="targetProbability">The target probability to use.</param>
         /// <param name="input">The input that is different per calculation.</param>
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> containing all data
         /// to perform a hydraulic boundary calculation.</param>
@@ -364,7 +364,7 @@ namespace Riskeer.Revetment.Service
                                                                         RoundedDouble a,
                                                                         RoundedDouble b,
                                                                         RoundedDouble c,
-                                                                        double norm,
+                                                                        double targetProbability,
                                                                         WaveConditionsInput input,
                                                                         HydraulicBoundaryCalculationSettings calculationSettings)
         {
@@ -372,7 +372,7 @@ namespace Riskeer.Revetment.Service
                 1,
                 input.Orientation,
                 input.HydraulicBoundaryLocation.Id,
-                norm,
+                targetProbability,
                 HydraRingInputParser.ParseForeshore(input),
                 HydraRingInputParser.ParseBreakWater(input),
                 waterLevel,
