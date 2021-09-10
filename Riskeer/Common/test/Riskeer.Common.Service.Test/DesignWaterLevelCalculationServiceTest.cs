@@ -119,7 +119,7 @@ namespace Riskeer.Common.Service.Test
         public void Calculate_ValidData_StartsCalculationWithRightParameters(bool usePreprocessor)
         {
             // Setup
-            const double norm = 1.0 / 30;
+            const double targetProbability = 1.0 / 30;
             string preprocessorDirectory = usePreprocessor
                                                ? validPreprocessorDirectory
                                                : string.Empty;
@@ -155,11 +155,11 @@ namespace Riskeer.Common.Service.Test
                 // Call
                 new DesignWaterLevelCalculationService().Calculate(hydraulicBoundaryLocationCalculation,
                                                                    calculationSettings,
-                                                                   norm,
+                                                                   targetProbability,
                                                                    calculationMessageProvider);
 
                 // Assert
-                AssessmentLevelCalculationInput expectedInput = CreateInput(hydraulicBoundaryLocation.Id, norm);
+                AssessmentLevelCalculationInput expectedInput = CreateInput(hydraulicBoundaryLocation.Id, targetProbability);
                 AssessmentLevelCalculationInput actualInput = calculator.ReceivedInputs.Single();
                 AssertInput(expectedInput, actualInput);
                 Assert.IsFalse(calculator.IsCanceled);
@@ -676,9 +676,9 @@ namespace Riskeer.Common.Service.Test
             Assert.AreEqual(expectedInput.Beta, hydraRingCalculationInput.Beta);
         }
 
-        private static AssessmentLevelCalculationInput CreateInput(long hydraulicBoundaryLocationId, double norm)
+        private static AssessmentLevelCalculationInput CreateInput(long hydraulicBoundaryLocationId, double targetProbability)
         {
-            return new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocationId, norm);
+            return new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocationId, targetProbability);
         }
     }
 }

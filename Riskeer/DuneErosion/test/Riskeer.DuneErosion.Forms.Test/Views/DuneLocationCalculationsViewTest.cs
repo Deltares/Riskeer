@@ -132,7 +132,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_GetNormFuncNull_ThrowsArgumentNullException()
+        public void Constructor_GetTargetProbabilityFunc_ThrowsArgumentNullException()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -147,7 +147,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("getNormFunc", exception.ParamName);
+            Assert.AreEqual("getTargetProbabilityFunc", exception.ParamName);
         }
 
         [Test]
@@ -619,7 +619,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_CreateDunesBoundaryConditionsCalculatorCalledAsExpected()
         {
             // Setup
-            const double norm = 0.01;
+            const double targetProbability = 0.01;
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = hydraulicBoundaryDatabaseFilePath
@@ -650,7 +650,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(),
                                                                failureMechanism,
                                                                assessmentSection,
-                                                               () => norm,
+                                                               () => targetProbability,
                                                                () => "1/100"))
             {
                 testForm.Controls.Add(view);
@@ -674,7 +674,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
                     Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
-                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }
         }
@@ -683,7 +683,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_CreateDunesBoundaryConditionsCalculatorCalledAsExpected()
         {
             // Setup
-            const double norm = 0.01;
+            const double targetProbability = 0.01;
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = hydraulicBoundaryDatabaseFilePath,
@@ -720,7 +720,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(),
                                                                failureMechanism,
                                                                assessmentSection,
-                                                               () => norm,
+                                                               () => targetProbability,
                                                                () => "1/100"))
             {
                 testForm.Controls.Add(view);
@@ -744,7 +744,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
                     Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
-                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }
         }
@@ -753,7 +753,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_CreateDunesBoundaryConditionsCalculatorCalledAsExpected()
         {
             // Setup
-            const double norm = 0.01;
+            const double targetProbability = 0.01;
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = hydraulicBoundaryDatabaseFilePath,
@@ -791,7 +791,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(),
                                                                failureMechanism,
                                                                assessmentSection,
-                                                               () => norm,
+                                                               () => targetProbability,
                                                                () => "1/100"))
             {
                 testForm.Controls.Add(view);
@@ -814,7 +814,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
                     Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
-                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }
         }

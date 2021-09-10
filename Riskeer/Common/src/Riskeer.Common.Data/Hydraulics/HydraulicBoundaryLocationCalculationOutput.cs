@@ -35,7 +35,7 @@ namespace Riskeer.Common.Data.Hydraulics
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationOutput"/>.
         /// </summary>
         /// <param name="result">The calculation result.</param>
-        /// <param name="targetProbability">The norm used during the calculation.</param>
+        /// <param name="targetProbability">The target probability used during the calculation.</param>
         /// <param name="targetReliability">The reliability index used during the calculation.</param>
         /// <param name="calculatedProbability">The calculated probability.</param>
         /// <param name="calculatedReliability">The calculated reliability.</param>

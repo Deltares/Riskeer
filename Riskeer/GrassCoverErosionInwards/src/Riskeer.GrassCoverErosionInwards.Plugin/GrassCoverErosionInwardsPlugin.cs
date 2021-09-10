@@ -814,15 +814,15 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private static void AddCalculation(GrassCoverErosionInwardsCalculationGroupContext context)
         {
-            double norm = context.AssessmentSection.FailureMechanismContribution.Norm;
+            double targetProbability = context.AssessmentSection.FailureMechanismContribution.Norm;
 
             var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name),
                 InputParameters =
                 {
-                    DikeHeightTargetProbability = norm,
-                    OvertoppingRateTargetProbability = norm
+                    DikeHeightTargetProbability = targetProbability,
+                    OvertoppingRateTargetProbability = targetProbability
                 }
             };
             context.WrappedData.Children.Add(calculation);

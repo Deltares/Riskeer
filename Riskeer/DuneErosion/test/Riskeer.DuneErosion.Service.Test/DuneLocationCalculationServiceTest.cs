@@ -122,7 +122,7 @@ namespace Riskeer.DuneErosion.Service.Test
         public void Calculate_ValidData_CalculationStartedWithRightParameters(bool usePreprocessor)
         {
             // Setup
-            const double norm = 1.0 / 30;
+            const double targetProbability = 1.0 / 30;
             string preprocessorDirectory = usePreprocessor
                                                ? validPreprocessorDirectory
                                                : string.Empty;
@@ -161,12 +161,12 @@ namespace Riskeer.DuneErosion.Service.Test
             {
                 // Call
                 new DuneLocationCalculationService().Calculate(new DuneLocationCalculation(duneLocation),
-                                                               norm,
+                                                               targetProbability,
                                                                calculationSettings,
                                                                calculationMessageProvider);
 
                 // Assert
-                DunesBoundaryConditionsCalculationInput expectedInput = CreateInput(duneLocation, norm);
+                DunesBoundaryConditionsCalculationInput expectedInput = CreateInput(duneLocation, targetProbability);
                 DunesBoundaryConditionsCalculationInput actualInput = calculator.ReceivedInputs.Single();
                 AssertInput(expectedInput, actualInput);
                 Assert.AreEqual(usePreprocessor, actualInput.PreprocessorSetting.RunPreprocessor);
@@ -179,7 +179,7 @@ namespace Riskeer.DuneErosion.Service.Test
         public void Calculate_CalculationRan_SetOutput()
         {
             // Setup
-            const double norm = 1.0 / 30;
+            const double targetProbability = 1.0 / 30;
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
                 ReliabilityIndex = 3.27052,
@@ -206,7 +206,7 @@ namespace Riskeer.DuneErosion.Service.Test
             {
                 // Call
                 Action test = () => new DuneLocationCalculationService().Calculate(duneLocationCalculation,
-                                                                                   norm,
+                                                                                   targetProbability,
                                                                                    CreateCalculationSettings(),
                                                                                    calculationMessageProvider);
 
@@ -222,14 +222,14 @@ namespace Riskeer.DuneErosion.Service.Test
                         StringAssert.StartsWith("Hydraulische belastingenberekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                     });
-                double targetReliability = StatisticsConverter.ProbabilityToReliability(norm);
+                double targetReliability = StatisticsConverter.ProbabilityToReliability(targetProbability);
                 double calculatedProbability = StatisticsConverter.ReliabilityToProbability(calculator.ReliabilityIndex);
 
                 DuneLocationCalculationOutput actualCalculationOutput = duneLocationCalculation.Output;
                 Assert.IsNotNull(actualCalculationOutput);
                 Assert.AreEqual(calculator.ReliabilityIndex, actualCalculationOutput.CalculatedReliability.Value);
                 Assert.AreEqual(calculatedProbability, actualCalculationOutput.CalculatedProbability);
-                Assert.AreEqual(norm, actualCalculationOutput.TargetProbability);
+                Assert.AreEqual(targetProbability, actualCalculationOutput.TargetProbability);
                 Assert.AreEqual(targetReliability, actualCalculationOutput.TargetReliability, actualCalculationOutput.TargetReliability.GetAccuracy());
                 Assert.AreEqual(calculator.WaterLevel, actualCalculationOutput.WaterLevel, actualCalculationOutput.WaterLevel.GetAccuracy());
                 Assert.AreEqual(calculator.WaveHeight, actualCalculationOutput.WaveHeight, actualCalculationOutput.WaveHeight.GetAccuracy());
@@ -243,7 +243,7 @@ namespace Riskeer.DuneErosion.Service.Test
         public void Calculate_CalculationRanNotConverged_LogMessage()
         {
             // Setup
-            const double norm = 1.0 / 30;
+            const double targetProbability = 1.0 / 30;
             const string locationName = "locationName";
             const string failedConvergenceMessage = "failedConvergenceMessage";
 
@@ -268,7 +268,7 @@ namespace Riskeer.DuneErosion.Service.Test
             {
                 // Call
                 Action test = () => new DuneLocationCalculationService().Calculate(duneLocationCalculation,
-                                                                                   norm,
+                                                                                   targetProbability,
                                                                                    CreateCalculationSettings(),
                                                                                    calculationMessageProvider);
 
@@ -294,7 +294,7 @@ namespace Riskeer.DuneErosion.Service.Test
         public void Calculate_CancelCalculationWithValidInput_CancelsCalculator()
         {
             // Setup
-            const double norm = 1.0 / 30;
+            const double targetProbability = 1.0 / 30;
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
                 Converged = true
@@ -317,7 +317,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
                 // Call
                 service.Calculate(duneLocationCalculation,
-                                  norm,
+                                  targetProbability,
                                   CreateCalculationSettings(),
                                   calculationMessageProvider);
 
@@ -332,7 +332,7 @@ namespace Riskeer.DuneErosion.Service.Test
         public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
-            const double norm = 1.0 / 30;
+            const double targetProbability = 1.0 / 30;
             const string locationName = "locationName";
             const string errorReport = "errorReport";
             const string errorMessage = "errorMessage";
@@ -365,7 +365,7 @@ namespace Riskeer.DuneErosion.Service.Test
                     try
                     {
                         new DuneLocationCalculationService().Calculate(duneLocationCalculation,
-                                                                       norm,
+                                                                       targetProbability,
                                                                        CreateCalculationSettings(),
                                                                        calculationMessageProvider);
                     }
@@ -399,7 +399,7 @@ namespace Riskeer.DuneErosion.Service.Test
         public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
-            const double norm = 1.0 / 30;
+            const double targetProbability = 1.0 / 30;
             const string locationName = "locationName";
             const string errorMessage = "errorMessage";
 
@@ -430,7 +430,7 @@ namespace Riskeer.DuneErosion.Service.Test
                     try
                     {
                         new DuneLocationCalculationService().Calculate(duneLocationCalculation,
-                                                                       norm,
+                                                                       targetProbability,
                                                                        CreateCalculationSettings(),
                                                                        calculationMessageProvider);
                     }
@@ -464,7 +464,7 @@ namespace Riskeer.DuneErosion.Service.Test
         public void Calculate_CalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
-            const double norm = 1.0 / 30;
+            const double targetProbability = 1.0 / 30;
             const string locationName = "locationName";
             const string errorMessage = "errorMessage";
             const string lastErrorFileContent = "lastErrorFileContent";
@@ -498,7 +498,7 @@ namespace Riskeer.DuneErosion.Service.Test
                     try
                     {
                         new DuneLocationCalculationService().Calculate(duneLocationCalculation,
-                                                                       norm,
+                                                                       targetProbability,
                                                                        CreateCalculationSettings(),
                                                                        calculationMessageProvider);
                     }
@@ -546,9 +546,9 @@ namespace Riskeer.DuneErosion.Service.Test
             Assert.AreEqual(expectedInput.Beta, actualInput.Beta);
         }
 
-        private static DunesBoundaryConditionsCalculationInput CreateInput(DuneLocation duneLocation, double norm)
+        private static DunesBoundaryConditionsCalculationInput CreateInput(DuneLocation duneLocation, double targetProbability)
         {
-            return new DunesBoundaryConditionsCalculationInput(1, duneLocation.Id, norm);
+            return new DunesBoundaryConditionsCalculationInput(1, duneLocation.Id, targetProbability);
         }
     }
 }

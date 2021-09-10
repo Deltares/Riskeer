@@ -49,7 +49,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         /// <param name="xmlFilePath">The path to the XML file to import from.</param>
         /// <param name="importTarget">The calculation group to update.</param>
         /// <param name="failureMechanismContribution">The <see cref="FailureMechanismContribution"/>
-        /// used to get the default norm.</param>
+        /// used to get the default target probability.</param>
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations
         /// used to check if the imported objects contain the right location.</param>
         /// <param name="dikeProfiles">The dike profiles used to check if

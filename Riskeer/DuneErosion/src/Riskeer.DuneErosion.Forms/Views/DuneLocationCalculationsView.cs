@@ -39,7 +39,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         private readonly Observer failureMechanismObserver;
         private readonly Observer duneLocationCalculationsObserver;
         private readonly IObservableEnumerable<DuneLocationCalculation> calculations;
-        private readonly Func<double> getNormFunc;
+        private readonly Func<double> getTargetProbabilityFunc;
         private readonly Func<string> getCalculationIdentifierFunc;
         private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> duneLocationCalculationObserver;
 
@@ -49,13 +49,13 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// <param name="calculations">The calculations to show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism which the calculations belong to.</param>
         /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
-        /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to use during calculations.</param>
+        /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use during calculations.</param>
         /// <param name="getCalculationIdentifierFunc"><see cref="Func{TResult}"/> for getting the calculation identifier to use in all messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public DuneLocationCalculationsView(IObservableEnumerable<DuneLocationCalculation> calculations,
                                             DuneErosionFailureMechanism failureMechanism,
                                             IAssessmentSection assessmentSection,
-                                            Func<double> getNormFunc,
+                                            Func<double> getTargetProbabilityFunc,
                                             Func<string> getCalculationIdentifierFunc)
         {
             if (calculations == null)
@@ -73,9 +73,9 @@ namespace Riskeer.DuneErosion.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (getNormFunc == null)
+            if (getTargetProbabilityFunc == null)
             {
-                throw new ArgumentNullException(nameof(getNormFunc));
+                throw new ArgumentNullException(nameof(getTargetProbabilityFunc));
             }
 
             if (getCalculationIdentifierFunc == null)
@@ -86,7 +86,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             InitializeComponent();
 
             this.calculations = calculations;
-            this.getNormFunc = getNormFunc;
+            this.getTargetProbabilityFunc = getTargetProbabilityFunc;
             this.getCalculationIdentifierFunc = getCalculationIdentifierFunc;
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
@@ -175,7 +175,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         {
             CalculationGuiService?.Calculate(GetSelectedCalculatableObjects(),
                                              AssessmentSection,
-                                             getNormFunc(),
+                                             getTargetProbabilityFunc(),
                                              getCalculationIdentifierFunc());
         }
     }

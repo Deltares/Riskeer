@@ -51,7 +51,7 @@ namespace Riskeer.DuneErosion.Service
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="duneLocationCalculation">The <see cref="DuneLocationCalculation"/> to perform.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="targetProbability">The target probability to use during the calculation.</param>
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
         /// hydraulic boundary calculation settings.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
@@ -75,7 +75,7 @@ namespace Riskeer.DuneErosion.Service
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing 
         /// the calculation.</exception>
         public void Calculate(DuneLocationCalculation duneLocationCalculation,
-                              double norm,
+                              double targetProbability,
                               HydraulicBoundaryCalculationSettings calculationSettings,
                               ICalculationMessageProvider messageProvider)
         {
@@ -107,7 +107,7 @@ namespace Riskeer.DuneErosion.Service
             try
             {
                 DunesBoundaryConditionsCalculationInput calculationInput = CreateInput(duneLocation,
-                                                                                       norm,
+                                                                                       targetProbability,
                                                                                        calculationSettings);
                 calculator.Calculate(calculationInput);
 
@@ -115,7 +115,7 @@ namespace Riskeer.DuneErosion.Service
                 {
                     duneLocationCalculation.Output = CreateDuneLocationCalculationOutput(duneLocationName,
                                                                                          calculationInput.Beta,
-                                                                                         norm,
+                                                                                         targetProbability,
                                                                                          messageProvider);
                 }
             }
@@ -203,7 +203,7 @@ namespace Riskeer.DuneErosion.Service
         /// Creates the input used in the calculation.
         /// </summary>
         /// <param name="duneLocation">The <see cref="DuneLocation"/> to create the input for.</param>
-        /// <param name="norm">The norm of the failure mechanism to use.</param>
+        /// <param name="targetProbability">The target probability to use during the calculation.</param>
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
         /// hydraulic boundary calculation settings.</param>
         /// <returns>A <see cref="DunesBoundaryConditionsCalculationInput"/> with all needed
@@ -219,10 +219,10 @@ namespace Riskeer.DuneErosion.Service
         /// </list>
         /// </exception>
         private static DunesBoundaryConditionsCalculationInput CreateInput(DuneLocation duneLocation,
-                                                                           double norm,
+                                                                           double targetProbability,
                                                                            HydraulicBoundaryCalculationSettings calculationSettings)
         {
-            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, duneLocation.Id, norm);
+            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, duneLocation.Id, targetProbability);
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(dunesBoundaryConditionsCalculationInput,
                                                                        calculationSettings.HydraulicBoundaryDatabaseFilePath,
                                                                        !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory));

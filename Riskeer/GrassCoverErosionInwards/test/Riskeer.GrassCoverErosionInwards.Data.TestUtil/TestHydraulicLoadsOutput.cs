@@ -33,7 +33,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestHydraulicLoadsOutput"/>.
         /// </summary>
-        /// <param name="targetProbability">The norm used during the calculation.</param>
+        /// <param name="targetProbability">The target probability used during the calculation.</param>
         /// <param name="targetReliability">The reliability index used during the calculation.</param>
         /// <param name="calculatedProbability">The calculated probability.</param>
         /// <param name="calculatedReliability">The calculated reliability index.</param>

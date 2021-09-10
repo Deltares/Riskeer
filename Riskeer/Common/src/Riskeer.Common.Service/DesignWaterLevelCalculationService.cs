@@ -53,7 +53,7 @@ namespace Riskeer.Common.Service
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
         /// hydraulic boundary calculation settings.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="targetProbability">The target probability to use during the calculation.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/>,
@@ -73,7 +73,7 @@ namespace Riskeer.Common.Service
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         public void Calculate(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                               HydraulicBoundaryCalculationSettings calculationSettings,
-                              double norm,
+                              double targetProbability,
                               ICalculationMessageProvider messageProvider)
         {
             if (hydraulicBoundaryLocationCalculation == null)
@@ -104,7 +104,7 @@ namespace Riskeer.Common.Service
             {
                 PerformCalculation(hydraulicBoundaryLocationCalculation,
                                    calculationSettings,
-                                   norm,
+                                   targetProbability,
                                    messageProvider);
             }
             catch (HydraRingCalculationException)
@@ -154,7 +154,7 @@ namespace Riskeer.Common.Service
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
         /// hydraulic boundary calculation settings.</param>
-        /// <param name="norm">The norm of the assessment section.</param>
+        /// <param name="targetProbability">The target probability to use during the calculation.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
@@ -166,12 +166,12 @@ namespace Riskeer.Common.Service
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing the calculation.</exception>
         private void PerformCalculation(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                                         HydraulicBoundaryCalculationSettings calculationSettings,
-                                        double norm,
+                                        double targetProbability,
                                         ICalculationMessageProvider messageProvider)
         {
             HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation;
 
-            AssessmentLevelCalculationInput calculationInput = CreateInput(hydraulicBoundaryLocation.Id, norm, calculationSettings);
+            AssessmentLevelCalculationInput calculationInput = CreateInput(hydraulicBoundaryLocation.Id, targetProbability, calculationSettings);
 
             calculator.Calculate(calculationInput);
 
@@ -195,7 +195,7 @@ namespace Riskeer.Common.Service
             }
 
             HydraulicBoundaryLocationCalculationOutput hydraulicBoundaryLocationCalculationOutput = CreateOutput(
-                messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm, calculator.Converged, generalResult);
+                messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, targetProbability, calculator.Converged, generalResult);
 
             hydraulicBoundaryLocationCalculation.Output = hydraulicBoundaryLocationCalculationOutput;
         }
@@ -266,7 +266,7 @@ namespace Riskeer.Common.Service
         /// Creates the input for a design water level calculation.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="targetProbability">The target probability to use during the calculation.</param>
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
         /// hydraulic boundary calculation settings.</param>
         /// <returns>An <see cref="AssessmentLevelCalculationInput"/>.</returns>
@@ -281,10 +281,10 @@ namespace Riskeer.Common.Service
         /// </list>
         /// </exception>
         private static AssessmentLevelCalculationInput CreateInput(long hydraulicBoundaryLocationId,
-                                                                   double norm,
+                                                                   double targetProbability,
                                                                    HydraulicBoundaryCalculationSettings calculationSettings)
         {
-            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocationId, norm);
+            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocationId, targetProbability);
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(assessmentLevelCalculationInput,
                                                                        calculationSettings.HydraulicBoundaryDatabaseFilePath,

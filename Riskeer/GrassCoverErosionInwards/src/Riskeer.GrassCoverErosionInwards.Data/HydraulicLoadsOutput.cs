@@ -35,7 +35,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicLoadsOutput"/>.
         /// </summary>
-        /// <param name="targetProbability">The norm used during the calculation.</param>
+        /// <param name="targetProbability">The target probability used during the calculation.</param>
         /// <param name="targetReliability">The reliability index used during the calculation.</param>
         /// <param name="calculatedProbability">The calculated probability.</param>
         /// <param name="calculatedReliability">The calculated reliability index.</param>
@@ -60,7 +60,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets the norm used during the calculation.
+        /// Gets the target probability used during the calculation.
         /// [1/year]
         /// </summary>
         public double TargetProbability { get; }

@@ -110,7 +110,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         /// information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> that holds all the information required to perform the calculation.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the target probability used in the calculation.</param>
         /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
         /// <exception cref="ArgumentNullException">Thrown when one of the following parameters is <c>null</c>:
         /// <list type="bullet">
