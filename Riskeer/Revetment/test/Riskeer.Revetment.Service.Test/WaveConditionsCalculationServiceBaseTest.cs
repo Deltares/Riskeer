@@ -431,10 +431,10 @@ namespace Riskeer.Revetment.Service.Test
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
-            const double norm = 0.2;
+            const double targetProbability = 0.2;
 
             // Call
-            void Call() => new TestWaveConditionsCalculationService().PublicCalculate(a, b, c, norm, null,
+            void Call() => new TestWaveConditionsCalculationService().PublicCalculate(a, b, c, targetProbability, null,
                                                                                       GetValidAssessmentLevel(),
                                                                                       GetValidHydraulicBoundaryDatabase());
 
@@ -450,10 +450,10 @@ namespace Riskeer.Revetment.Service.Test
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
-            const double norm = 0.2;
+            const double targetProbability = 0.2;
 
             // Call
-            void Call() => new TestWaveConditionsCalculationService().PublicCalculate(a, b, c, norm, GetDefaultValidationInput(),
+            void Call() => new TestWaveConditionsCalculationService().PublicCalculate(a, b, c, targetProbability, GetDefaultValidationInput(),
                                                                                       GetValidAssessmentLevel(), null);
 
             // Assert
@@ -471,7 +471,7 @@ namespace Riskeer.Revetment.Service.Test
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
-            const double norm = 0.2;
+            const double targetProbability = 0.2;
             var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
@@ -503,7 +503,7 @@ namespace Riskeer.Revetment.Service.Test
                 new TestWaveConditionsCalculationService().PublicCalculate(a,
                                                                            b,
                                                                            c,
-                                                                           norm,
+                                                                           targetProbability,
                                                                            input,
                                                                            waterLevel,
                                                                            GetValidHydraulicBoundaryDatabase());
@@ -511,7 +511,7 @@ namespace Riskeer.Revetment.Service.Test
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
                 {
-                    WaveConditionsCosineCalculationInput expectedInput = CreateInput(waterLevels[i], a, b, c, norm, input, useForeshore, false);
+                    WaveConditionsCosineCalculationInput expectedInput = CreateInput(waterLevels[i], a, b, c, targetProbability, input, useForeshore, false);
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, calculator.ReceivedInputs.ElementAt(i));
                 }
             }
@@ -530,7 +530,7 @@ namespace Riskeer.Revetment.Service.Test
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
-            const double norm = 0.2;
+            const double targetProbability = 0.2;
             var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
@@ -567,7 +567,7 @@ namespace Riskeer.Revetment.Service.Test
                 new TestWaveConditionsCalculationService().PublicCalculate(a,
                                                                            b,
                                                                            c,
-                                                                           norm,
+                                                                           targetProbability,
                                                                            input,
                                                                            waterLevel,
                                                                            GetValidHydraulicBoundaryDatabase());
@@ -575,7 +575,7 @@ namespace Riskeer.Revetment.Service.Test
                 // Assert
                 for (var i = 0; i < nrOfCalculators; i++)
                 {
-                    WaveConditionsCosineCalculationInput expectedInput = CreateInput(waterLevels[i], a, b, c, norm, input, true, true);
+                    WaveConditionsCosineCalculationInput expectedInput = CreateInput(waterLevels[i], a, b, c, targetProbability, input, true, true);
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, calculator.ReceivedInputs.ElementAt(i));
                 }
             }
@@ -593,7 +593,7 @@ namespace Riskeer.Revetment.Service.Test
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
-            const double norm = 0.2;
+            const double targetProbability = 0.2;
             var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
@@ -627,7 +627,7 @@ namespace Riskeer.Revetment.Service.Test
                 new TestWaveConditionsCalculationService().PublicCalculate(a,
                                                                            b,
                                                                            c,
-                                                                           norm,
+                                                                           targetProbability,
                                                                            input,
                                                                            waterLevel,
                                                                            hydraulicBoundaryDatabase);
@@ -685,7 +685,7 @@ namespace Riskeer.Revetment.Service.Test
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
-            const double norm = 0.2;
+            const double targetProbability = 0.2;
 
             HydraRingCalculationException exception = null;
 
@@ -696,7 +696,7 @@ namespace Riskeer.Revetment.Service.Test
                 {
                     try
                     {
-                        new TestWaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, waterLevel,
+                        new TestWaveConditionsCalculationService().PublicCalculate(a, b, c, targetProbability, input, waterLevel,
                                                                                    GetValidHydraulicBoundaryDatabase());
                     }
                     catch (HydraRingCalculationException e)
@@ -770,7 +770,7 @@ namespace Riskeer.Revetment.Service.Test
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
-            const double norm = 0.2;
+            const double targetProbability = 0.2;
             var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
@@ -784,7 +784,7 @@ namespace Riskeer.Revetment.Service.Test
                 var service = new TestWaveConditionsCalculationService();
 
                 // Call
-                void Call() => service.PublicCalculate(a, b, c, norm, input, waterLevel, GetValidHydraulicBoundaryDatabase());
+                void Call() => service.PublicCalculate(a, b, c, targetProbability, input, waterLevel, GetValidHydraulicBoundaryDatabase());
 
                 // Assert
                 TestHelper.AssertLogMessages(Call, messages =>
@@ -812,7 +812,7 @@ namespace Riskeer.Revetment.Service.Test
                 Assert.AreEqual(3, waveConditionsOutputs.Length);
 
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundary,
-                                                                  norm,
+                                                                  targetProbability,
                                                                   waveConditionsOutputs[0]);
             }
 
@@ -827,7 +827,7 @@ namespace Riskeer.Revetment.Service.Test
             var a = (RoundedDouble) 1.0;
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
-            const double norm = 0.2;
+            const double targetProbability = 0.2;
             var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
@@ -852,7 +852,7 @@ namespace Riskeer.Revetment.Service.Test
                 service.PublicCalculate(a,
                                         b,
                                         c,
-                                        norm,
+                                        targetProbability,
                                         input,
                                         waterLevel,
                                         GetValidHydraulicBoundaryDatabase());
@@ -898,13 +898,13 @@ namespace Riskeer.Revetment.Service.Test
             return hydraulicBoundaryDatabase;
         }
 
-        private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double norm,
+        private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double targetProbability,
                                                                         WaveConditionsInput input, bool useForeshore, bool useBreakWater)
         {
             return new WaveConditionsCosineCalculationInput(1,
                                                             input.Orientation,
                                                             input.HydraulicBoundaryLocation.Id,
-                                                            norm,
+                                                            targetProbability,
                                                             useForeshore
                                                                 ? input.ForeshoreGeometry.Select(coordinate => new HydraRingForelandPoint(coordinate.X, coordinate.Y))
                                                                 : new HydraRingForelandPoint[0],
@@ -964,7 +964,7 @@ namespace Riskeer.Revetment.Service.Test
             public void PublicCalculate(RoundedDouble a,
                                         RoundedDouble b,
                                         RoundedDouble c,
-                                        double norm,
+                                        double targetProbability,
                                         WaveConditionsInput input,
                                         RoundedDouble assessmentLevel,
                                         HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
@@ -974,7 +974,7 @@ namespace Riskeer.Revetment.Service.Test
                                                   a,
                                                   b,
                                                   c,
-                                                  norm,
+                                                  targetProbability,
                                                   hydraulicBoundaryDatabase);
             }
         }

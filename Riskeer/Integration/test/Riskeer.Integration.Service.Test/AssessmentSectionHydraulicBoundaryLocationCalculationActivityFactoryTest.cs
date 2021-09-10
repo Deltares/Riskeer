@@ -373,7 +373,7 @@ namespace Riskeer.Integration.Service.Test
 
         private static void AssertDesignWaterLevelCalculationActivity(Activity activity,
                                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                                      double norm,
+                                                                      double targetProbability,
                                                                       string calculationIdentifier,
                                                                       HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
@@ -399,7 +399,7 @@ namespace Riskeer.Integration.Service.Test
                 TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
                 AssessmentLevelCalculationInput actualCalculationInput = designWaterLevelCalculator.ReceivedInputs.Single();
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, actualCalculationInput.HydraulicBoundaryLocationId);
-                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), actualCalculationInput.Beta);
+                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), actualCalculationInput.Beta);
             }
 
             mocks.VerifyAll();
@@ -407,7 +407,7 @@ namespace Riskeer.Integration.Service.Test
 
         private static void AssertWaveHeightCalculationActivity(Activity activity,
                                                                 HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                                double norm,
+                                                                double targetProbability,
                                                                 string calculationIdentifier,
                                                                 HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
@@ -432,7 +432,7 @@ namespace Riskeer.Integration.Service.Test
                 TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
                 WaveHeightCalculationInput actualCalculationInput = waveHeightCalculator.ReceivedInputs.Single();
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, actualCalculationInput.HydraulicBoundaryLocationId);
-                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), actualCalculationInput.Beta);
+                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(targetProbability), actualCalculationInput.Beta);
             }
 
             mocks.VerifyAll();

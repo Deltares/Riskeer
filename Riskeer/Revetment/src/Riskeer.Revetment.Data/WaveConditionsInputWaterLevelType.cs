@@ -32,7 +32,7 @@ namespace Riskeer.Revetment.Data
         None = 1,
         
         /// <summary>
-        /// The water level corresponding to the lower limit.
+        /// The water level corresponding to the lower limit norm.
         /// </summary>
         LowerLimit = 2,
         

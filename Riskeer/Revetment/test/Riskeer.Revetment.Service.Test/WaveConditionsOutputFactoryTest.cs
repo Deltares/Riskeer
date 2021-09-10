@@ -78,11 +78,11 @@ namespace Riskeer.Revetment.Service.Test
         public void CreateOutput_DifferentReturnPeriods_ReturnsExpectedTargetReliability(double returnPeriod, double expectedReliability)
         {
             // Setup
-            double norm = 1.0 / returnPeriod;
+            double targetProbability = 1.0 / returnPeriod;
 
             // Call 
             WaveConditionsOutput output = WaveConditionsOutputFactory.CreateOutput(double.NaN, double.NaN, double.NaN, double.NaN,
-                                                                                   double.NaN, norm, double.NaN, null);
+                                                                                   double.NaN, targetProbability, double.NaN, null);
 
             // Assert
             Assert.AreEqual(expectedReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
@@ -96,14 +96,14 @@ namespace Riskeer.Revetment.Service.Test
         [TestCase(600000, 1.666667E-06)]
         [TestCase(1000000, 1.000000E-06)]
         [TestCase(6000000, 1.666667E-07)]
-        public void CreateOutput_DifferentReturnPeriods_ReturnsExpectedargetProbability(double returnPeriod, double expectedProbability)
+        public void CreateOutput_DifferentReturnPeriods_ReturnsExpectedTargetProbability(double returnPeriod, double expectedProbability)
         {
             // Setup
-            double norm = 1.0 / returnPeriod;
+            double targetProbability = 1.0 / returnPeriod;
 
             // Call 
             WaveConditionsOutput output = WaveConditionsOutputFactory.CreateOutput(double.NaN, double.NaN, double.NaN, double.NaN,
-                                                                                   double.NaN, norm, double.NaN, null);
+                                                                                   double.NaN, targetProbability, double.NaN, null);
 
             // Assert
             Assert.AreEqual(expectedProbability, output.TargetProbability, 1e-6);
