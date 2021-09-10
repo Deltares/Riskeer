@@ -987,7 +987,7 @@ namespace Riskeer.Integration.Plugin
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 EnsureVisibleOnCreate = (context, o) => true,
                 CanRemove = (context, o) => true,
-                OnNodeRemoved = HydraulicBoundaryCalculationsForUserDefinedTargetProbabilityOnNodeRemoved,
+                OnNodeRemoved = WaterLevelHydraulicBoundaryCalculationsForUserDefinedTargetProbabilityOnNodeRemoved,
                 ContextMenuStrip = WaterLevelCalculationsForUserDefinedTargetProbabilityContextMenuStrip,
                 CanDrag = (context, o) => true
             };
@@ -2469,9 +2469,18 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
-        private static void HydraulicBoundaryCalculationsForUserDefinedTargetProbabilityOnNodeRemoved(HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext context, object nodeData)
+        private static void WaterLevelHydraulicBoundaryCalculationsForUserDefinedTargetProbabilityOnNodeRemoved(HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext context, object parentNodeData)
         {
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> parent = ((HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext) nodeData).WrappedData;
+            IEnumerable<IObservable> affectedCalculations = RiskeerDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability(
+                context.AssessmentSection, context.WrappedData);
+            affectedCalculations.ForEachElementDo(c => c.NotifyObservers());
+
+            HydraulicBoundaryCalculationsForUserDefinedTargetProbabilityOnNodeRemoved(context, parentNodeData);
+        }
+
+        private static void HydraulicBoundaryCalculationsForUserDefinedTargetProbabilityOnNodeRemoved(HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext context, object parentNodeData)
+        {
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> parent = ((HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext) parentNodeData).WrappedData;
 
             parent.Remove(context.WrappedData);
             parent.NotifyObservers();

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -30,6 +31,7 @@ using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Common.Util;
+using Core.Common.Util.Extensions;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
@@ -39,17 +41,23 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Common.Service.TestUtil;
+using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Hydraulics;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.TestUtil;
+using Riskeer.Revetment.Data;
+using Riskeer.StabilityStoneCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
@@ -171,24 +179,38 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void OnNodeRemoved_WithContexts_RemovesItemAndNotifiesObservers()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
-
-            var calculationObserver = mockRepository.StrictMock<IObserver>();
-            calculationObserver.Expect(o => o.UpdateObserver());
-
-            mockRepository.ReplayAll();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             var calculationForFirstTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
             var calculationForSecondTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
-            var calculations = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
+            var calculationsForTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
             {
                 calculationForFirstTargetProbability,
                 calculationForSecondTargetProbability
             };
 
-            calculations.Attach(calculationObserver);
+            var waveConditionsCalculations = new List<ICalculation<WaveConditionsInput>>();
+            waveConditionsCalculations.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
+                                                                 .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>());
+            waveConditionsCalculations.AddRange(assessmentSection.StabilityStoneCover.Calculations
+                                                                 .Cast<StabilityStoneCoverWaveConditionsCalculation>());
+            waveConditionsCalculations.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
+                                                                 .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>());
 
-            var parentContext = new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculations,
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Times(waveConditionsCalculations.Count + 1);
+            mockRepository.ReplayAll();
+
+            waveConditionsCalculations.ForEachElementDo(c =>
+            {
+                c.InputParameters.WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability;
+                c.InputParameters.CalculationsTargetProbability = calculationForFirstTargetProbability;
+                c.Attach(observer);
+            });
+
+            calculationsForTargetProbabilities.Attach(observer);
+
+            var parentContext = new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(calculationsForTargetProbabilities,
                                                                                                         assessmentSection);
 
             var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculationForFirstTargetProbability,
@@ -202,8 +224,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 info.OnNodeRemoved(context, parentContext);
 
                 // Assert
-                Assert.AreEqual(1, calculations.Count);
-                CollectionAssert.DoesNotContain(calculations, calculationForFirstTargetProbability);
+                Assert.AreEqual(1, calculationsForTargetProbabilities.Count);
+                CollectionAssert.DoesNotContain(calculationsForTargetProbabilities, calculationForFirstTargetProbability);
+                Assert.IsTrue(assessmentSection.GrassCoverErosionOutwards.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                               .All(c => !c.HasOutput && c.InputParameters.CalculationsTargetProbability == null));
+                Assert.IsTrue(assessmentSection.StabilityStoneCover.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                               .All(c => !c.HasOutput && c.InputParameters.CalculationsTargetProbability == null));
+                Assert.IsTrue(assessmentSection.WaveImpactAsphaltCover.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                               .All(c => !c.HasOutput && c.InputParameters.CalculationsTargetProbability == null));
             }
 
             mockRepository.VerifyAll();
