@@ -170,13 +170,16 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         private IEnumerable<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculationsToClear(bool normativeNorm, NormType normativeNormType)
         {
-            return normativeNorm
-                       ? normativeNormType == NormType.LowerLimit
-                             ? assessmentSection.WaterLevelCalculationsForLowerLimitNorm
-                             : assessmentSection.WaterLevelCalculationsForSignalingNorm
-                       : normativeNormType == NormType.LowerLimit
-                           ? assessmentSection.WaterLevelCalculationsForSignalingNorm
-                           : assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+            if (normativeNorm)
+            {
+                return normativeNormType == NormType.LowerLimit
+                           ? assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+                           : assessmentSection.WaterLevelCalculationsForSignalingNorm;
+            }
+
+            return normativeNormType == NormType.LowerLimit
+                       ? assessmentSection.WaterLevelCalculationsForSignalingNorm
+                       : assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
         }
     }
 }
