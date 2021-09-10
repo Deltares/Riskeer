@@ -114,10 +114,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = CreateCalculationsForTargetProbabilityWithAndWithoutOutput();
-            List<object> expectedAffectedObjects = calculationsForTargetProbability.HydraulicBoundaryLocationCalculations
-                                                                                   .Where(hblc => hblc.HasOutput)
-                                                                                   .Cast<object>()
-                                                                                   .ToList();
+            List<IObservable> expectedAffectedObjects = calculationsForTargetProbability.HydraulicBoundaryLocationCalculations
+                                                                                        .Where(hblc => hblc.HasOutput)
+                                                                                        .Cast<IObservable>()
+                                                                                        .ToList();
 
             expectedAffectedObjects.Add(calculationsForTargetProbability);
 
@@ -134,7 +134,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 "Alle bijbehorende hydraulische belastingen zijn verwijderd."
             };
             TestHelper.AssertLogMessagesAreGenerated(Call, expectedMessages, 1);
-            CollectionAssert.IsEmpty(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations.Where(hblc => hblc.HasOutput));
+            CollectionAssert.IsEmpty(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations.Where(c => c.HasOutput));
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
 
@@ -217,7 +217,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Assert
             Assert.AreEqual(0, propertySet);
-            Assert.AreEqual(2, calculationsForTargetProbability.HydraulicBoundaryLocationCalculations.Count(hblc => hblc.HasOutput));
+            Assert.AreEqual(2, calculationsForTargetProbability.HydraulicBoundaryLocationCalculations.Count(c => c.HasOutput));
             CollectionAssert.IsEmpty(affectedObjects);
         }
 

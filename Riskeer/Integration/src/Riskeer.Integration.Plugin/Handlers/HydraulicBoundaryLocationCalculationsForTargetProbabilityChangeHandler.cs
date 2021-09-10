@@ -39,22 +39,22 @@ namespace Riskeer.Integration.Plugin.Handlers
     /// </summary>
     public class HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler : IObservablePropertyChangeHandler
     {
-        private readonly HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability;
-        private readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler));
+        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler));
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler"/>.
         /// </summary>
         /// <param name="calculationsForTargetProbability">The calculations to change the target probability for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationsForTargetProbability"/> is <c>null</c>.</exception>
-        public HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
+        public HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
         {
             if (calculationsForTargetProbability == null)
             {
                 throw new ArgumentNullException(nameof(calculationsForTargetProbability));
             }
 
-            this.calculationsForTargetProbability = calculationsForTargetProbability;
+            CalculationsForTargetProbability = calculationsForTargetProbability;
         }
 
         public IEnumerable<IObservable> SetPropertyValueAfterConfirmation(SetObservablePropertyValueDelegate setValue)
@@ -70,8 +70,29 @@ namespace Riskeer.Integration.Plugin.Handlers
             {
                 setValue();
 
-                affectedObjects.AddRange(ClearHydraulicBoundaryLocationCalculationOutput());
-                affectedObjects.Add(calculationsForTargetProbability);
+                affectedObjects.AddRange(ClearHydraulicBoundaryLocationCalculationDependentOutput());
+                affectedObjects.Add(CalculationsForTargetProbability);
+            }
+
+            return affectedObjects;
+        }
+
+        /// <summary>
+        /// Gets the calculations to change the target probability for.
+        /// </summary>
+        protected HydraulicBoundaryLocationCalculationsForTargetProbability CalculationsForTargetProbability { get; }
+
+        /// <summary>
+        /// Clears the hydraulic boundary location calculation dependent output.
+        /// </summary>
+        /// <returns>The affected objects.</returns>
+        protected virtual IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationDependentOutput()
+        {
+            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(CalculationsForTargetProbability);
+
+            if (affectedObjects.Any())
+            {
+                log.Info(RiskeerCommonPluginResources.TargetProbabilityChangeHandler_Hydraulic_load_results_cleared);
             }
 
             return affectedObjects;
@@ -83,20 +104,6 @@ namespace Riskeer.Integration.Plugin.Handlers
                                                   CoreCommonBaseResources.Confirm,
                                                   MessageBoxButtons.OKCancel);
             return result == DialogResult.OK;
-        }
-
-        private IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutput()
-        {
-            IEnumerable<IObservable> affectedObjects = RiskeerDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculationsForTargetProbability);
-
-            if (affectedObjects.Any())
-            {
-                log.Info(RiskeerCommonPluginResources.TargetProbabilityChangeHandler_Hydraulic_load_results_cleared);
-
-                return affectedObjects;
-            }
-
-            return Enumerable.Empty<IObservable>();
         }
     }
 }
