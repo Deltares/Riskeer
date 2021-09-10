@@ -274,7 +274,7 @@ namespace Riskeer.Integration.Service
                                                        (int) normType,
                                                        typeof(NormType));
             }
-            
+
             var changedObservables = new List<IObservable>();
 
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
@@ -292,6 +292,51 @@ namespace Riskeer.Integration.Service
                     case WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism:
                         changedObservables.AddRange(WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<WaveImpactAsphaltCoverFailureMechanism,
                                                         WaveImpactAsphaltCoverWaveConditionsCalculation>(waveImpactAsphaltCoverFailureMechanism, normType));
+                        break;
+                }
+            }
+
+            return changedObservables;
+        }
+
+        /// <summary>
+        /// Clears the wave conditions calculation output that corresponds with the <paramref name="calculationsForTargetProbability"/>
+        /// in the <paramref name="assessmentSection"/>. 
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the calculations.</param>
+        /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> to clear for.</param>
+        /// <returns>All objects affected by the operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutput(
+            IAssessmentSection assessmentSection, HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (calculationsForTargetProbability == null)
+            {
+                throw new ArgumentNullException(nameof(calculationsForTargetProbability));
+            }
+
+            var changedObservables = new List<IObservable>();
+
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            {
+                switch (failureMechanism)
+                {
+                    case GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism:
+                        changedObservables.AddRange(WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<GrassCoverErosionOutwardsFailureMechanism,
+                                                        GrassCoverErosionOutwardsWaveConditionsCalculation>(grassCoverErosionOutwardsFailureMechanism, calculationsForTargetProbability));
+                        break;
+                    case StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism:
+                        changedObservables.AddRange(WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<StabilityStoneCoverFailureMechanism,
+                                                        StabilityStoneCoverWaveConditionsCalculation>(stabilityStoneCoverFailureMechanism, calculationsForTargetProbability));
+                        break;
+                    case WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism:
+                        changedObservables.AddRange(WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<WaveImpactAsphaltCoverFailureMechanism,
+                                                        WaveImpactAsphaltCoverWaveConditionsCalculation>(waveImpactAsphaltCoverFailureMechanism, calculationsForTargetProbability));
                         break;
                 }
             }
