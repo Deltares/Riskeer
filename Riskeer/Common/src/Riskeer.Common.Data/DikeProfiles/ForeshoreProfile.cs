@@ -104,7 +104,7 @@ namespace Riskeer.Common.Data.DikeProfiles
         public double X0 { get; private set; }
 
         /// <summary>
-        /// Gets the orientation of the foreshore profile geometry with respect to North
+        /// Gets the orientation of the foreshore profile geometry with respect to the North
         /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
         public RoundedDouble Orientation { get; private set; }

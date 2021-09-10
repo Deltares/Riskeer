@@ -78,7 +78,7 @@ namespace Riskeer.Common.Data
         public Point2D Location { get; private set; }
 
         /// <summary>
-        /// Gets the orientation of the structure, relative to north.
+        /// Gets the orientation of the structure, relative to the North.
         /// [degrees]
         /// </summary>
         public RoundedDouble StructureNormalOrientation { get; private set; }
@@ -172,7 +172,7 @@ namespace Riskeer.Common.Data
             public Point2D Location { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the orientation of the structure, relative to north.
+            /// Gets or sets the orientation of the structure, relative to the North.
             /// [degrees]
             /// </summary>
             public RoundedDouble StructureNormalOrientation

@@ -29,7 +29,7 @@ namespace Riskeer.Common.IO.Structures
         #region Height Structure Keywords
 
         /// <summary>
-        /// The orientation of the structure, relative to north.
+        /// The orientation of the structure, relative to the North.
         /// [degrees]
         /// </summary>
         public const string HeightStructureParameterKeyword1 = "KW_HOOGTE1";
@@ -93,7 +93,7 @@ namespace Riskeer.Common.IO.Structures
         public const string ClosingStructureParameterKeyword2 = "KW_BETSLUIT2";
 
         /// <summary>
-        /// The orientation of the structure, relative to north.
+        /// The orientation of the structure, relative to the North.
         /// [degrees]
         /// </summary>
         public const string ClosingStructureParameterKeyword3 = "KW_BETSLUIT3";
@@ -173,7 +173,7 @@ namespace Riskeer.Common.IO.Structures
         #region Stability Point Structure Keywords
 
         /// <summary>
-        /// The orientation of the structure, relative to north.
+        /// The orientation of the structure, relative to the North.
         /// [degrees]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword1 = "KW_STERSTAB1";

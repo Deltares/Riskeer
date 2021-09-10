@@ -123,7 +123,7 @@ namespace Riskeer.Common.Data.DikeProfiles
         }
 
         /// <summary>
-        /// Gets or the orientation of the dike profile geometry with respect to North
+        /// Gets or the orientation of the dike profile geometry with respect to the North
         /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
         public RoundedDouble Orientation

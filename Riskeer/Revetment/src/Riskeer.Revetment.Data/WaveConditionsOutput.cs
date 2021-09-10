@@ -45,7 +45,7 @@ namespace Riskeer.Revetment.Data
         /// <param name="waveHeight">The calculated wave height.</param>
         /// <param name="wavePeakPeriod">The calculated wave peak period.</param>
         /// <param name="waveAngle">The calculated wave angle with respect to the dike normal.</param>
-        /// <param name="waveDirection">The calculated wave direction with respect to North.</param>
+        /// <param name="waveDirection">The calculated wave direction with respect to the North.</param>
         /// <param name="targetProbability">The target probability.</param>
         /// <param name="targetReliability">The target beta (reliability).</param>
         /// <param name="calculatedProbability">The calculated probability.</param>
@@ -102,7 +102,7 @@ namespace Riskeer.Revetment.Data
         public RoundedDouble WaveAngle { get; }
 
         /// <summary>
-        /// Gets the calculated wave direction with respect to North.
+        /// Gets the calculated wave direction with respect to the North.
         /// [deg] 
         /// </summary>
         public RoundedDouble WaveDirection { get; }

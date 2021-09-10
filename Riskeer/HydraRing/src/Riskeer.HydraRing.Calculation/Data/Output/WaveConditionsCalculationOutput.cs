@@ -31,8 +31,8 @@ namespace Riskeer.HydraRing.Calculation.Data.Output
         /// </summary>
         /// <param name="waveHeight">The calculated wave height.</param>
         /// <param name="wavePeakPeriod">The calculated wave peak period.</param>
-        /// <param name="waveAngle">The calculated wave angle with respect to the dike normal..</param>
-        /// <param name="waveDirection">The calculated wave direction with respect to North.</param>
+        /// <param name="waveAngle">The calculated wave angle with respect to the dike normal.</param>
+        /// <param name="waveDirection">The calculated wave direction with respect to the North.</param>
         public WaveConditionsCalculationOutput(double waveHeight, double wavePeakPeriod, double waveAngle, double waveDirection)
         {
             WaveHeight = waveHeight;
@@ -57,7 +57,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Output
         public double WaveAngle { get; }
 
         /// <summary>
-        /// Gets the calculated wave direction with respect to North.
+        /// Gets the calculated wave direction with respect to the North.
         /// </summary>
         public double WaveDirection { get; }
     }

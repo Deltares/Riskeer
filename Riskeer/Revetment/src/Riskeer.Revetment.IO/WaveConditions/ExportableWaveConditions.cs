@@ -103,7 +103,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
         public RoundedDouble WaveAngle { get; }
 
         /// <summary>
-        /// Gets the wave direction with respect to North.
+        /// Gets the wave direction with respect to the North.
         /// </summary>
         public RoundedDouble WaveDirection { get; }
 

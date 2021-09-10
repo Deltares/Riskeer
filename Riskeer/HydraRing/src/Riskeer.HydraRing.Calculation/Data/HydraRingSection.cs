@@ -53,7 +53,7 @@ namespace Riskeer.HydraRing.Calculation.Data
         /// Gets the normal of the cross section.
         /// </summary>
         /// <remarks>
-        /// The normal corresponds to the angle of the straight line perpendicular to the stretch at the location of the cross section (with respect to the north).
+        /// The normal corresponds to the angle of the straight line perpendicular to the stretch at the location of the cross section (with respect to the North).
         /// </remarks>
         public double CrossSectionNormal { get; }
     }

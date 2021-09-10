@@ -69,7 +69,7 @@ namespace Riskeer.Revetment.Data
         }
 
         /// <summary>
-        /// Gets or sets the orientation of the foreshore profile geometry with respect to North
+        /// Gets or sets the orientation of the foreshore profile geometry with respect to the North
         /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
         ///<exception cref="ArgumentOutOfRangeException">Thrown when the value of the orientation

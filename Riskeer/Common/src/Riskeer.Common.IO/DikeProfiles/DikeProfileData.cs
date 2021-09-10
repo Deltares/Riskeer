@@ -46,7 +46,7 @@ namespace Riskeer.Common.IO.DikeProfiles
         public string Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the orientation w.r.t. North of the dike profile.
+        /// Gets or sets the orientation with respect to the North of the dike profile.
         /// </summary>
         public double Orientation { get; set; }
 

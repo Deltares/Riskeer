@@ -83,7 +83,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets the orientation of the dike profile geometry with respect to North
+        /// Gets or sets the orientation of the dike profile geometry with respect to the North
         /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value

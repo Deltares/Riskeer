@@ -37,8 +37,8 @@ namespace Riskeer.Revetment.Service
         /// <param name="waterLevel">The water level that was calculated for.</param>
         /// <param name="waveHeight">The calculated wave height.</param>
         /// <param name="wavePeakPeriod">The calculated wave peak period.</param>
-        /// <param name="waveAngle">The calculated wave angle w.r.t the dike normal.</param>
-        /// <param name="waveDirection">The calculated wave direction w.r.t. North.</param>
+        /// <param name="waveAngle">The calculated wave angle with respect to the dike normal.</param>
+        /// <param name="waveDirection">The calculated wave direction with respect to the North.</param>
         /// <param name="targetProbability">The target probability that was calculated for.</param>
         /// <param name="calculatedReliability">The calculated reliability.</param>
         /// <param name="calculatedConvergence">The calculated convergence value.</param>
