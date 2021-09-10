@@ -1180,8 +1180,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 int nrOfCalculators = failureMechanism.Calculations
                                                       .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                                      .Sum(c => c.InputParameters.GetWaterLevels(assessmentSection.GetAssessmentLevel(c.InputParameters.HydraulicBoundaryLocation,
-                                                                                                                                      c.InputParameters.CategoryType)).Count());
+                                                      .Sum(c => c.InputParameters.GetWaterLevels(WaveConditionsInputHelper.GetAssessmentLevel(c.InputParameters, assessmentSection)).Count());
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
                 calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
                                  .WhenCalled(invocation =>
@@ -1516,13 +1515,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var existingGroup = new CalculationGroup();
-                var existingcalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+                var existingCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
                 var group = new CalculationGroup
                 {
                     Children =
                     {
                         existingGroup,
-                        existingcalculation
+                        existingCalculation
                     }
                 };
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -1578,7 +1577,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 // Then
                 Assert.AreEqual(4, group.Children.Count);
                 Assert.AreSame(existingGroup, group.Children[0]);
-                Assert.AreSame(existingcalculation, group.Children[1]);
+                Assert.AreSame(existingCalculation, group.Children[1]);
                 Assert.NotNull(dialog);
                 Assert.NotNull(grid);
 

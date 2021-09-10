@@ -1776,13 +1776,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var existingGroup = new CalculationGroup();
-                var existingcalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+                var existingCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
                 var group = new CalculationGroup
                 {
                     Children =
                     {
                         existingGroup,
-                        existingcalculation
+                        existingCalculation
                     }
                 };
                 var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
@@ -1840,7 +1840,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 // Then
                 Assert.AreEqual(4, group.Children.Count);
                 Assert.AreSame(existingGroup, group.Children[0]);
-                Assert.AreSame(existingcalculation, group.Children[1]);
+                Assert.AreSame(existingCalculation, group.Children[1]);
                 Assert.NotNull(dialog);
                 Assert.NotNull(grid);
 

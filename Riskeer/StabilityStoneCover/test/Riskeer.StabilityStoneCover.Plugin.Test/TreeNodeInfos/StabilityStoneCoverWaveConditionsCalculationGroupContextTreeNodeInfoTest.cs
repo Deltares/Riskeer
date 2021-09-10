@@ -1489,13 +1489,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var existingGroup = new CalculationGroup();
-                var existingcalculation = new StabilityStoneCoverWaveConditionsCalculation();
+                var existingCalculation = new StabilityStoneCoverWaveConditionsCalculation();
                 var group = new CalculationGroup
                 {
                     Children =
                     {
                         existingGroup,
-                        existingcalculation
+                        existingCalculation
                     }
                 };
 
@@ -1553,7 +1553,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 // Then
                 Assert.AreEqual(4, group.Children.Count);
                 Assert.AreSame(existingGroup, group.Children[0]);
-                Assert.AreSame(existingcalculation, group.Children[1]);
+                Assert.AreSame(existingCalculation, group.Children[1]);
                 Assert.NotNull(dialog);
                 Assert.NotNull(grid);
 
