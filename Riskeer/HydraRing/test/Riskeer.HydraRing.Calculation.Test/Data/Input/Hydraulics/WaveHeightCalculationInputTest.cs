@@ -36,15 +36,15 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const double norm = 1.0 / 10000;
+            const double targetProbability = 1.0 / 10000;
             const int sectionId = 1;
             const long hydraulicBoundaryLocationId = 1234;
 
             // Call
-            var waveHeightCalculationInput = new WaveHeightCalculationInput(sectionId, hydraulicBoundaryLocationId, norm);
+            var waveHeightCalculationInput = new WaveHeightCalculationInput(sectionId, hydraulicBoundaryLocationId, targetProbability);
 
             // Assert
-            double expectedBeta = StatisticsConverter.ProbabilityToReliability(norm);
+            double expectedBeta = StatisticsConverter.ProbabilityToReliability(targetProbability);
             Assert.IsInstanceOf<ReliabilityIndexCalculationInput>(waveHeightCalculationInput);
             Assert.AreEqual(HydraRingFailureMechanismType.WaveHeight, waveHeightCalculationInput.FailureMechanismType);
             Assert.AreEqual(9, waveHeightCalculationInput.CalculationTypeId);

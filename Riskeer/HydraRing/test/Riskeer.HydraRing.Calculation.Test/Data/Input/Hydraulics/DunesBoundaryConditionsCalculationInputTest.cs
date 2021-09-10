@@ -35,15 +35,15 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const double norm = 1.0 / 10000;
+            const double targetProbability = 1.0 / 10000;
             const int sectionId = 1;
             const long hydraulicBoundaryLocationId = 1234;
 
             // Call
-            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(sectionId, hydraulicBoundaryLocationId, norm);
+            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(sectionId, hydraulicBoundaryLocationId, targetProbability);
 
             // Assert
-            double expectedBeta = StatisticsConverter.ProbabilityToReliability(norm);
+            double expectedBeta = StatisticsConverter.ProbabilityToReliability(targetProbability);
             Assert.IsInstanceOf<AssessmentLevelCalculationInput>(dunesBoundaryConditionsCalculationInput);
             Assert.AreEqual(HydraRingFailureMechanismType.DunesBoundaryConditions, dunesBoundaryConditionsCalculationInput.FailureMechanismType);
             Assert.AreEqual(2, dunesBoundaryConditionsCalculationInput.CalculationTypeId);

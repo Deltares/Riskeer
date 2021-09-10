@@ -41,7 +41,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.WaveConditions
             const int sectionId = 111;
             const double sectionNormal = 90;
             const int hydraulicBoundaryLocationId = 222;
-            const double norm = 0.333;
+            const double targetProbability = 0.333;
             IEnumerable<HydraRingForelandPoint> forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
             var breakWater = new HydraRingBreakWater(1, 4.4);
             const double waterLevel = 5.5;
@@ -52,7 +52,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.WaveConditions
             var waveConditionsCalculationInput = new WaveConditionsCalculationInputImplementation(sectionId,
                                                                                                   sectionNormal,
                                                                                                   hydraulicBoundaryLocationId,
-                                                                                                  norm,
+                                                                                                  targetProbability,
                                                                                                   forelandPoints,
                                                                                                   breakWater,
                                                                                                   waterLevel,
@@ -60,7 +60,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.WaveConditions
                                                                                                   b);
 
             // Assert
-            double expectedBeta = StatisticsConverter.ProbabilityToReliability(norm);
+            double expectedBeta = StatisticsConverter.ProbabilityToReliability(targetProbability);
             Assert.IsInstanceOf<HydraRingCalculationInput>(waveConditionsCalculationInput);
             Assert.AreEqual(HydraRingFailureMechanismType.QVariant, waveConditionsCalculationInput.FailureMechanismType);
             Assert.AreEqual(8, waveConditionsCalculationInput.CalculationTypeId);

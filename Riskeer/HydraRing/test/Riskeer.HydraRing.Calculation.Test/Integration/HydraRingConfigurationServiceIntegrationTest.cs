@@ -409,7 +409,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
             const int hydraulicBoundaryLocationId = 700004;
 
             const double sectionNormal = 3.3;
-            const double norm = 1.0 / 1000;
+            const double targetProbability = 1.0 / 1000;
             const double modelFactorCriticalOvertopping = 4.4;
             const double factorFbMean = 5.5;
             const double factorFbStandardDeviation = 6.6;
@@ -443,7 +443,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
             var numericsSetting = new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
-                new DikeHeightCalculationInput(hydraulicBoundaryLocationId, norm, sectionNormal,
+                new DikeHeightCalculationInput(hydraulicBoundaryLocationId, targetProbability, sectionNormal,
                                                profilePoints, forelandPoints, breakWater,
                                                modelFactorCriticalOvertopping,
                                                factorFbMean, factorFbStandardDeviation,
@@ -572,7 +572,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
             const int hydraulicBoundaryLocationId = 700004;
 
             const double sectionNormal = 3.3;
-            const double norm = 1.0 / 1000;
+            const double targetProbability = 1.0 / 1000;
             const double dikeHeight = 4.4;
             const double modelFactorCriticalOvertopping = 5.5;
             const double factorFbMean = 6.6;
@@ -605,7 +605,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Integration
             var numericsSetting = new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
-                new OvertoppingRateCalculationInput(hydraulicBoundaryLocationId, norm, sectionNormal,
+                new OvertoppingRateCalculationInput(hydraulicBoundaryLocationId, targetProbability, sectionNormal,
                                                     profilePoints, forelandPoints, breakWater,
                                                     dikeHeight,
                                                     modelFactorCriticalOvertopping,

@@ -39,7 +39,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Hydraulics
         public void Constructor_Always_ExpectedValues()
         {
             // Setup
-            const double norm = 1.0 / 10000;
+            const double targetProbability = 1.0 / 10000;
             const int hydraulicBoundaryLocationId = 1000;
 
             const double sectionNormal = 19.9;
@@ -73,7 +73,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Hydraulics
             var expectedRingBreakWater = new HydraRingBreakWater(2, 3.3);
 
             // Call
-            var input = new HydraulicLoadsCalculationInputImplementation(hydraulicBoundaryLocationId, norm, sectionNormal,
+            var input = new HydraulicLoadsCalculationInputImplementation(hydraulicBoundaryLocationId, targetProbability, sectionNormal,
                                                                          expectedRingProfilePoints, expectedRingForelandPoints, expectedRingBreakWater,
                                                                          modelFactorCriticalOvertopping,
                                                                          factorFbMean, factorFbStandardDeviation,
@@ -87,7 +87,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Hydraulics
                                                                          exponentModelFactorShallowLowerBoundary, exponentModelFactorShallowUpperBoundary);
 
             // Assert
-            double expectedBeta = StatisticsConverter.ProbabilityToReliability(norm);
+            double expectedBeta = StatisticsConverter.ProbabilityToReliability(targetProbability);
             Assert.IsInstanceOf<ReliabilityIndexCalculationInput>(input);
             Assert.AreEqual(9, input.CalculationTypeId);
             Assert.AreEqual(1017, input.FaultTreeModelId);

@@ -35,14 +35,14 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input
         [TestCase(-50, 1.0 / 1)]
         [TestCase(0, 1.0 / -90)]
         [TestCase(200000, double.NaN)]
-        public void Constructed_UsingDifferentReturnPeriodAndLocationId_ReturnDifferentBetaAndDefaultValues(int locationId, double norm)
+        public void Constructed_UsingDifferentReturnPeriodAndLocationId_ReturnDifferentBetaAndDefaultValues(int locationId, double targetProbability)
         {
             // Call
-            var reliabilityIndexCalculationInput = new ReliabilityIndexCalculationInputImplementation(locationId, norm);
+            var reliabilityIndexCalculationInput = new ReliabilityIndexCalculationInputImplementation(locationId, targetProbability);
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculationInput>(reliabilityIndexCalculationInput);
-            double expectedBeta = StatisticsConverter.ProbabilityToReliability(norm);
+            double expectedBeta = StatisticsConverter.ProbabilityToReliability(targetProbability);
             Assert.AreEqual(locationId, reliabilityIndexCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(9, reliabilityIndexCalculationInput.CalculationTypeId);
             CollectionAssert.IsEmpty(reliabilityIndexCalculationInput.Variables);
