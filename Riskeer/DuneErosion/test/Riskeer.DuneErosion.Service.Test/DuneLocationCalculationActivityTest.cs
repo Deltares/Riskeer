@@ -157,34 +157,6 @@ namespace Riskeer.DuneErosion.Service.Test
         }
 
         [Test]
-        public void Run_InvalidTargetProbability_PerformValidationAndLogStartAndEndAndError()
-        {
-            // Setup
-            const string calculationIdentifier = "1/1";
-            const string locationName = "locationName";
-
-            var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
-                                                               CreateCalculationSettings(),
-                                                               1.0,
-                                                               calculationIdentifier);
-
-            // Call
-            void Call() => activity.Run();
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' ({calculationIdentifier}) is gestart.", msgs[0]);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", msgs[2]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
-            });
-            Assert.AreEqual(ActivityState.Failed, activity.State);
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Run_VariousValidInputs_PerformsCalculationWithCorrectInput(bool usePreprocessor)
