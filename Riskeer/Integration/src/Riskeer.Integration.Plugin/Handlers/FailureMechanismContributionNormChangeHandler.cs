@@ -147,10 +147,18 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         private IEnumerable<IObservable> ClearNormDependingHydraulicBoundaryLocationCalculationOutput(bool normativeNorm)
         {
-            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsToClear = GetHydraulicBoundaryLocationCalculationsToClear(normativeNorm);
+            NormType normativeNormType = assessmentSection.FailureMechanismContribution.NormativeNorm;
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsToClear = GetHydraulicBoundaryLocationCalculationsToClear(normativeNorm, normativeNormType);
 
-            IEnumerable<IObservable> affectedObjects = RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculationsToClear)
-                                                                                              .ToArray();
+            NormType normType = normativeNorm
+                                    ? normativeNormType
+                                    : normativeNormType == NormType.LowerLimit
+                                        ? NormType.Signaling
+                                        : NormType.LowerLimit;
+
+            var affectedObjects = new List<IObservable>();
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculationsToClear));
+            affectedObjects.AddRange(RiskeerDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(assessmentSection, normType));
 
             if (affectedObjects.Any())
             {
@@ -160,13 +168,13 @@ namespace Riskeer.Integration.Plugin.Handlers
             return affectedObjects;
         }
 
-        private IEnumerable<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculationsToClear(bool normativeNorm)
+        private IEnumerable<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculationsToClear(bool normativeNorm, NormType normativeNormType)
         {
             return normativeNorm
-                       ? assessmentSection.FailureMechanismContribution.NormativeNorm == NormType.LowerLimit
+                       ? normativeNormType == NormType.LowerLimit
                              ? assessmentSection.WaterLevelCalculationsForLowerLimitNorm
                              : assessmentSection.WaterLevelCalculationsForSignalingNorm
-                       : assessmentSection.FailureMechanismContribution.NormativeNorm == NormType.LowerLimit
+                       : normativeNormType == NormType.LowerLimit
                            ? assessmentSection.WaterLevelCalculationsForSignalingNorm
                            : assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
         }

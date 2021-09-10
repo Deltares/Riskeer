@@ -32,12 +32,16 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Plugin.Handlers;
 using Riskeer.Integration.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Revetment.Data;
+using Riskeer.StabilityStoneCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.Integration.Plugin.Test.Handlers
 {
@@ -135,16 +139,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            ICalculation[] expectedAffectedCalculations = assessmentSection.Piping
-                                                                           .Calculations
-                                                                           .OfType<SemiProbabilisticPipingCalculationScenario>()
-                                                                           .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput)
-                                                                           .Concat<ICalculation>(
-                                                                               assessmentSection.MacroStabilityInwards
-                                                                                                .Calculations
-                                                                                                .OfType<MacroStabilityInwardsCalculationScenario>()
-                                                                                                .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput))
-                                                                           .ToArray();
+
+            var expectedAffectedCalculations = new List<ICalculation>();
+            expectedAffectedCalculations.AddRange(assessmentSection.Piping.Calculations
+                                                                   .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                                   .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput));
+            expectedAffectedCalculations.AddRange(assessmentSection.MacroStabilityInwards.Calculations
+                                                                   .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                                   .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput));
 
             IEnumerable<IObservable> expectedAffectedObjects =
                 expectedAffectedCalculations.Concat(new IObservable[]
@@ -169,7 +171,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Then
             var expectedMessages = new[]
             {
-                $"De resultaten van {expectedAffectedCalculations.Length} semi-probabilistische berekeningen zonder handmatige waterstand zijn verwijderd."
+                $"De resultaten van {expectedAffectedCalculations.Count} semi-probabilistische berekeningen zonder handmatige waterstand zijn verwijderd."
             };
             TestHelper.AssertLogMessagesAreGenerated(Call, expectedMessages, 1);
             Assert.IsTrue(actionPerformed);
@@ -188,16 +190,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            ICalculation[] calculations = assessmentSection.Piping
-                                                           .Calculations
-                                                           .OfType<SemiProbabilisticPipingCalculationScenario>()
-                                                           .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput)
-                                                           .Concat<ICalculation>(
-                                                               assessmentSection.MacroStabilityInwards
-                                                                                .Calculations
-                                                                                .OfType<MacroStabilityInwardsCalculationScenario>()
-                                                                                .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput))
-                                                           .ToArray();
+
+            var calculations = new List<ICalculation>();
+            calculations.AddRange(assessmentSection.Piping.Calculations
+                                                   .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                   .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput));
+            calculations.AddRange(assessmentSection.MacroStabilityInwards.Calculations
+                                                   .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                   .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput));
 
             calculations.ForEachElementDo(c => c.ClearOutput());
 
@@ -276,7 +276,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         [Test]
         [TestCaseSource(nameof(GetChangeNormativeNormCases))]
         public void GivenCalculationsWithOutput_WhenChangingNormativeNorm_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified(
-            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getLocationCalculationsFunc,
+            WaveConditionsInputWaterLevelType waterLevelType)
         {
             // Given
             DialogBoxHandler = (name, wnd) =>
@@ -288,26 +289,37 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> expectedCalculationsToClear = getCalculationsFunc(assessmentSection);
+            IEnumerable<HydraulicBoundaryLocationCalculation> expectedLocationCalculationsToClear = getLocationCalculationsFunc(assessmentSection);
 
-            ICalculation[] expectedAffectedCalculations = assessmentSection.Piping
-                                                                           .Calculations
-                                                                           .OfType<SemiProbabilisticPipingCalculationScenario>()
-                                                                           .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput)
-                                                                           .Concat<ICalculation>(
-                                                                               assessmentSection.MacroStabilityInwards
-                                                                                                .Calculations
-                                                                                                .OfType<MacroStabilityInwardsCalculationScenario>()
-                                                                                                .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput))
-                                                                           .ToArray();
+            var waveConditionsCalculations = new List<ICalculation<WaveConditionsInput>>();
+            waveConditionsCalculations.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
+                                                                 .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                 .Where(c => c.HasOutput));
+            waveConditionsCalculations.AddRange(assessmentSection.StabilityStoneCover.Calculations
+                                                                 .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                                 .Where(c => c.HasOutput));
+            waveConditionsCalculations.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
+                                                                 .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                                 .Where(c => c.HasOutput));
+
+            waveConditionsCalculations.ForEachElementDo(c => c.InputParameters.WaterLevelType = waterLevelType);
+
+            var expectedAffectedSemiProbabilisticCalculations = new List<ICalculation>();
+            expectedAffectedSemiProbabilisticCalculations.AddRange(assessmentSection.Piping.Calculations
+                                                                                    .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                                                    .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput));
+            expectedAffectedSemiProbabilisticCalculations.AddRange(assessmentSection.MacroStabilityInwards.Calculations
+                                                                                    .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                                                    .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput));
 
             IEnumerable<IObservable> expectedAffectedObjects =
-                expectedAffectedCalculations.Concat(new IObservable[]
-                                            {
-                                                assessmentSection.FailureMechanismContribution
-                                            })
-                                            .Concat(expectedCalculationsToClear)
-                                            .ToArray();
+                expectedAffectedSemiProbabilisticCalculations.Concat(new IObservable[]
+                                                             {
+                                                                 assessmentSection.FailureMechanismContribution
+                                                             })
+                                                             .Concat(expectedLocationCalculationsToClear)
+                                                             .Concat(waveConditionsCalculations)
+                                                             .ToArray();
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -319,7 +331,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
             // Precondition
-            CollectionAssert.IsNotEmpty(expectedCalculationsToClear.Where(c => c.HasOutput));
+            CollectionAssert.IsNotEmpty(expectedAffectedSemiProbabilisticCalculations.Where(c => c.HasOutput));
+            CollectionAssert.IsNotEmpty(expectedLocationCalculationsToClear.Where(c => c.HasOutput));
+            CollectionAssert.IsNotEmpty(waveConditionsCalculations.Where(c => c.HasOutput));
 
             // When
             var actionPerformed = false;
@@ -329,20 +343,22 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var expectedMessages = new[]
             {
                 "Alle berekende hydraulische belastingen behorende bij de gewijzigde norm zijn verwijderd.",
-                $"De resultaten van {expectedAffectedCalculations.Length} semi-probabilistische berekeningen zonder handmatige waterstand zijn verwijderd."
+                $"De resultaten van {expectedAffectedSemiProbabilisticCalculations.Count} semi-probabilistische berekeningen zonder handmatige waterstand zijn verwijderd."
             };
             TestHelper.AssertLogMessagesAreGenerated(Call, expectedMessages, 2);
 
             Assert.IsTrue(actionPerformed);
-            CollectionAssert.IsEmpty(expectedAffectedCalculations.Where(c => c.HasOutput));
-            CollectionAssert.IsEmpty(expectedCalculationsToClear.Where(c => c.HasOutput));
+            CollectionAssert.IsEmpty(expectedAffectedSemiProbabilisticCalculations.Where(c => c.HasOutput));
+            CollectionAssert.IsEmpty(expectedLocationCalculationsToClear.Where(c => c.HasOutput));
+            CollectionAssert.IsEmpty(waveConditionsCalculations.Where(c => c.HasOutput));
             mocks.VerifyAll();
         }
 
         [Test]
         [TestCaseSource(nameof(GetChangeNormativeNormCases))]
         public void GivenCalculationsWithoutOutput_WhenChangingNormativeNorm_ThenActionPerformedAndContributionNotified(
-            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getLocationCalculationsFunc,
+            WaveConditionsInputWaterLevelType waterLevelType)
         {
             // Given
             DialogBoxHandler = (name, wnd) =>
@@ -354,18 +370,27 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsBelongingToNorm = getCalculationsFunc(assessmentSection);
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsBelongingToNorm = getLocationCalculationsFunc(assessmentSection);
 
-            ICalculation[] calculations = assessmentSection.Piping
-                                                           .Calculations
-                                                           .OfType<SemiProbabilisticPipingCalculationScenario>()
-                                                           .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput)
-                                                           .Concat<ICalculation>(
-                                                               assessmentSection.MacroStabilityInwards
-                                                                                .Calculations
-                                                                                .OfType<MacroStabilityInwardsCalculationScenario>()
-                                                                                .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput))
-                                                           .ToArray();
+            var waveConditionsCalculations = new List<ICalculation<WaveConditionsInput>>();
+            waveConditionsCalculations.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
+                                                                 .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>());
+            waveConditionsCalculations.AddRange(assessmentSection.StabilityStoneCover.Calculations
+                                                                 .Cast<StabilityStoneCoverWaveConditionsCalculation>());
+            waveConditionsCalculations.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
+                                                                 .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>());
+
+            waveConditionsCalculations.ForEachElementDo(c => c.InputParameters.WaterLevelType = waterLevelType);
+
+            var calculations = new List<ICalculation>();
+            calculations.AddRange(assessmentSection.Piping.Calculations
+                                                   .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                   .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput));
+            calculations.AddRange(assessmentSection.MacroStabilityInwards.Calculations
+                                                   .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                   .Where(c => c.HasOutput && !c.InputParameters.UseAssessmentLevelManualInput));
+            calculations.AddRange(waveConditionsCalculations);
+
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Once();
@@ -451,7 +476,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         [Test]
         [TestCaseSource(nameof(GetChangeNormCases))]
         public void GivenCalculationsWithOutput_WhenChangingNorm_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified(
-            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc,
+            WaveConditionsInputWaterLevelType waterLevelType)
         {
             // Given
             DialogBoxHandler = (name, wnd) =>
@@ -465,11 +491,25 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             IEnumerable<HydraulicBoundaryLocationCalculation> expectedCalculationsToClear = getCalculationsFunc(assessmentSection);
 
+            var waveConditionsCalculations = new List<ICalculation<WaveConditionsInput>>();
+            waveConditionsCalculations.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
+                                                                 .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                 .Where(c => c.HasOutput));
+            waveConditionsCalculations.AddRange(assessmentSection.StabilityStoneCover.Calculations
+                                                                 .Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                                                 .Where(c => c.HasOutput));
+            waveConditionsCalculations.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
+                                                                 .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                                 .Where(c => c.HasOutput));
+
+            waveConditionsCalculations.ForEachElementDo(c => c.InputParameters.WaterLevelType = waterLevelType);
+
             IEnumerable<IObservable> expectedAffectedObjects = new IObservable[]
                                                                {
                                                                    assessmentSection.FailureMechanismContribution
                                                                }
                                                                .Concat(expectedCalculationsToClear)
+                                                               .Concat(waveConditionsCalculations)
                                                                .ToArray();
 
             var mocks = new MockRepository();
@@ -483,6 +523,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Precondition
             CollectionAssert.IsNotEmpty(expectedCalculationsToClear.Where(c => c.HasOutput));
+            CollectionAssert.IsNotEmpty(waveConditionsCalculations.Where(c => c.HasOutput));
 
             // When
             var actionPerformed = false;
@@ -497,13 +538,15 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             Assert.IsTrue(actionPerformed);
             CollectionAssert.IsEmpty(expectedCalculationsToClear.Where(c => c.HasOutput));
+            CollectionAssert.IsEmpty(waveConditionsCalculations.Where(c => c.HasOutput));
             mocks.VerifyAll();
         }
 
         [Test]
         [TestCaseSource(nameof(GetChangeNormCases))]
         public void GivenCalculationsWithoutOutput_WhenChangingNorm_ThenActionPerformedAndContributionNotified(
-            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getLocationCalculationsFunc,
+            WaveConditionsInputWaterLevelType waterLevelType)
         {
             // Given
             DialogBoxHandler = (name, wnd) =>
@@ -515,7 +558,15 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsBelongingToNorm = getCalculationsFunc(assessmentSection);
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsBelongingToNorm = getLocationCalculationsFunc(assessmentSection);
+
+            var waveConditionsCalculations = new List<ICalculation<WaveConditionsInput>>();
+            waveConditionsCalculations.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
+                                                                 .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>());
+            waveConditionsCalculations.AddRange(assessmentSection.StabilityStoneCover.Calculations
+                                                                 .Cast<StabilityStoneCoverWaveConditionsCalculation>());
+            waveConditionsCalculations.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
+                                                                 .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>());
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -527,6 +578,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 c.Output = null;
                 c.Attach(observer);
             });
+            waveConditionsCalculations.ForEachElementDo(c =>
+            {
+                c.InputParameters.WaterLevelType = waterLevelType;
+                c.ClearOutput();
+                c.Attach(observer);
+            });
+
             assessmentSection.FailureMechanismContribution.Attach(observer);
 
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
@@ -545,20 +603,24 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             yield return new TestCaseData(
                 NormType.LowerLimit, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                    section => section.WaterLevelCalculationsForLowerLimitNorm));
+                    section => section.WaterLevelCalculationsForLowerLimitNorm),
+                WaveConditionsInputWaterLevelType.LowerLimit);
             yield return new TestCaseData(
                 NormType.Signaling, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                    section => section.WaterLevelCalculationsForSignalingNorm));
+                    section => section.WaterLevelCalculationsForSignalingNorm),
+                WaveConditionsInputWaterLevelType.Signaling);
         }
 
         private static IEnumerable<TestCaseData> GetChangeNormCases()
         {
             yield return new TestCaseData(
                 NormType.LowerLimit, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                    section => section.WaterLevelCalculationsForSignalingNorm));
+                    section => section.WaterLevelCalculationsForSignalingNorm),
+                WaveConditionsInputWaterLevelType.Signaling);
             yield return new TestCaseData(
                 NormType.Signaling, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                    section => section.WaterLevelCalculationsForLowerLimitNorm));
+                    section => section.WaterLevelCalculationsForLowerLimitNorm),
+                WaveConditionsInputWaterLevelType.LowerLimit);
         }
     }
 }
