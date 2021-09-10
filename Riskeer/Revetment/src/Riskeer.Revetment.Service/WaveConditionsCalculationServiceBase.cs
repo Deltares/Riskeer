@@ -75,14 +75,12 @@ namespace Riskeer.Revetment.Service
         /// <param name="waveConditionsInput">The input of the calculation.</param>
         /// <param name="assessmentLevel">The assessment level to use for determining water levels.</param>
         /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to validate.</param>
-        /// <param name="norm">The norm to validate.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> or
         /// <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
         public static bool Validate(WaveConditionsInput waveConditionsInput,
                                     RoundedDouble assessmentLevel,
-                                    HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                    double norm)
+                                    HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
             if (waveConditionsInput == null)
             {
