@@ -98,8 +98,7 @@ namespace Riskeer.Revetment.Service
 
             string[] messages = ValidateInput(hydraulicBoundaryDatabase,
                                               waveConditionsInput,
-                                              assessmentLevel,
-                                              norm);
+                                              assessmentLevel);
 
             CalculationServiceHelper.LogMessagesAsError(messages);
 
@@ -210,8 +209,7 @@ namespace Riskeer.Revetment.Service
 
         private static string[] ValidateInput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
                                               WaveConditionsInput input,
-                                              RoundedDouble assessmentLevel,
-                                              double norm)
+                                              RoundedDouble assessmentLevel)
         {
             var validationResults = new List<string>();
 
@@ -226,9 +224,7 @@ namespace Riskeer.Revetment.Service
             {
                 validationResults.Add(preprocessorDirectoryValidationProblem);
             }
-
-            TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, message => validationResults.Add(message));
-
+            
             if (validationResults.Any())
             {
                 return validationResults.ToArray();
