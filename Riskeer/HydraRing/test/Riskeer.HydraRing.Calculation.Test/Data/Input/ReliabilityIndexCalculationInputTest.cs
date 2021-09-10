@@ -54,8 +54,8 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input
 
         private class ReliabilityIndexCalculationInputImplementation : ReliabilityIndexCalculationInput
         {
-            public ReliabilityIndexCalculationInputImplementation(int i, double norm)
-                : base(i, norm) {}
+            public ReliabilityIndexCalculationInputImplementation(int i, double targetProbability)
+                : base(i, targetProbability) {}
 
             public override HydraRingFailureMechanismType FailureMechanismType => throw new NotImplementedException();
 

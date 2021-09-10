@@ -29,8 +29,7 @@ using Riskeer.HydraRing.Calculation.Parsers;
 namespace Riskeer.HydraRing.Calculation.Calculator
 {
     /// <summary>
-    /// Calculator which calculates the wave height associated to the result of iterating towards a
-    /// probability of failure given a norm.
+    /// Calculator which calculates the wave height associated to the result of iterating towards a target probability.
     /// </summary>
     internal class WaveHeightCalculator : HydraRingCalculatorBase, IWaveHeightCalculator
     {

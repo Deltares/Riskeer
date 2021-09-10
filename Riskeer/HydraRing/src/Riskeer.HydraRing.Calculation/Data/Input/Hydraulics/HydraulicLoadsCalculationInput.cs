@@ -53,7 +53,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Hydraulics
         /// Creates a new instance of the <see cref="HydraulicLoadsCalculationInput"/> class.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
-        /// <param name="norm">The norm.</param>
+        /// <param name="targetProbability">The target probability.</param>
         /// <param name="sectionNormal">The normal of the section.</param>
         /// <param name="profilePoints">The profile points.</param>
         /// <param name="forelandPoints">The foreland points.</param>
@@ -76,7 +76,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Hydraulics
         /// <param name="exponentModelFactorShallowStandardDeviation">The standard deviation of the exponent model factor shallow.</param>
         /// <param name="exponentModelFactorShallowLowerBoundary">The lower boundary of the exponent model factor shallow.</param>
         /// <param name="exponentModelFactorShallowUpperBoundary">The upper boundary of the exponent model factor shallow.</param>
-        protected HydraulicLoadsCalculationInput(long hydraulicBoundaryLocationId, double norm,
+        protected HydraulicLoadsCalculationInput(long hydraulicBoundaryLocationId, double targetProbability,
                                                  double sectionNormal,
                                                  IEnumerable<HydraRingRoughnessProfilePoint> profilePoints,
                                                  IEnumerable<HydraRingForelandPoint> forelandPoints,
@@ -91,7 +91,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Hydraulics
                                                  double modelFactorFrunupLowerBoundary, double modelFactorFrunupUpperBoundary,
                                                  double exponentModelFactorShallowMean, double exponentModelFactorShallowStandardDeviation,
                                                  double exponentModelFactorShallowLowerBoundary, double exponentModelFactorShallowUpperBoundary)
-            : base(hydraulicBoundaryLocationId, norm)
+            : base(hydraulicBoundaryLocationId, targetProbability)
         {
             Section = new HydraRingSection(1, double.NaN, sectionNormal);
             ProfilePoints = profilePoints;

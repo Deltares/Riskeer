@@ -34,9 +34,9 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Hydraulics
         /// </summary>
         /// <param name="sectionId">The id of the section.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
-        /// <param name="norm">The norm.</param>
-        public WaveHeightCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double norm)
-            : base(hydraulicBoundaryLocationId, norm)
+        /// <param name="targetProbability">The target probability.</param>
+        public WaveHeightCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double targetProbability)
+            : base(hydraulicBoundaryLocationId, targetProbability)
         {
             Section = new HydraRingSection(sectionId, double.NaN, double.NaN);
         }

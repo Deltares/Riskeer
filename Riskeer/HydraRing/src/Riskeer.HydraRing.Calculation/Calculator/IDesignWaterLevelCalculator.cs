@@ -27,8 +27,7 @@ using Riskeer.HydraRing.Calculation.Exceptions;
 namespace Riskeer.HydraRing.Calculation.Calculator
 {
     /// <summary>
-    /// Interface for a calculator which calculates the water level associated to the result of 
-    /// iterating towards a probability of failure given a norm.
+    /// Interface for a calculator which calculates the water level associated to the result of iterating towards a target probability.
     /// </summary>
     public interface IDesignWaterLevelCalculator
     {

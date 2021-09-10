@@ -40,17 +40,17 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.WaveConditions
         /// <param name="sectionId">The id of the section.</param>
         /// <param name="sectionNormal">The normal of the section.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
-        /// <param name="norm">The norm.</param>
+        /// <param name="targetProbability">The target probability.</param>
         /// <param name="forelandPoints">The foreland points.</param>
         /// <param name="breakWater">The break water.</param>
         /// <param name="waterLevel">The water level to calculate the wave conditions for.</param>
         /// <param name="a">The a-value.</param>
         /// <param name="b">The b-value.</param>
-        /// <remarks>As a part of the constructor, the <paramref name="norm"/> is automatically converted into a reliability index.</remarks>
+        /// <remarks>As a part of the constructor, the <paramref name="targetProbability"/> is automatically converted into a reliability index.</remarks>
         protected WaveConditionsCalculationInput(int sectionId,
                                                  double sectionNormal,
                                                  long hydraulicBoundaryLocationId,
-                                                 double norm,
+                                                 double targetProbability,
                                                  IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                  HydraRingBreakWater breakWater,
                                                  double waterLevel,
@@ -59,7 +59,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.WaveConditions
             : base(hydraulicBoundaryLocationId)
         {
             Section = new HydraRingSection(sectionId, double.NaN, sectionNormal);
-            Beta = StatisticsConverter.ProbabilityToReliability(norm);
+            Beta = StatisticsConverter.ProbabilityToReliability(targetProbability);
             ForelandPoints = forelandPoints;
             BreakWater = breakWater;
 

@@ -136,7 +136,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Hydraulics
 
         private class HydraulicLoadsCalculationInputImplementation : HydraulicLoadsCalculationInput
         {
-            public HydraulicLoadsCalculationInputImplementation(long hydraulicBoundaryLocationId, double norm,
+            public HydraulicLoadsCalculationInputImplementation(long hydraulicBoundaryLocationId, double targetProbability,
                                                                 double sectionNormal,
                                                                 IEnumerable<HydraRingRoughnessProfilePoint> profilePoints,
                                                                 IEnumerable<HydraRingForelandPoint> forelandPoints,
@@ -151,7 +151,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Hydraulics
                                                                 double modelFactorFrunupLowerBoundary, double modelFactorFrunupUpperBoundary,
                                                                 double exponentModelFactorShallowMean, double exponentModelFactorShallowStandardDeviation,
                                                                 double exponentModelFactorShallowLowerBoundary, double exponentModelFactorShallowUpperBoundary)
-                : base(hydraulicBoundaryLocationId, norm,
+                : base(hydraulicBoundaryLocationId, targetProbability,
                        sectionNormal,
                        profilePoints,
                        forelandPoints,

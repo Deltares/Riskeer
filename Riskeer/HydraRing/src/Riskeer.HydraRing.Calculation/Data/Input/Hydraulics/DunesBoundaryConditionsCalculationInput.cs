@@ -31,9 +31,9 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Hydraulics
         /// </summary>
         /// <param name="sectionId">The id of the section.</param>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
-        /// <param name="norm">The norm.</param>
-        public DunesBoundaryConditionsCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double norm)
-            : base(sectionId, hydraulicBoundaryLocationId, norm) {}
+        /// <param name="targetProbability">The target probability.</param>
+        public DunesBoundaryConditionsCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double targetProbability)
+            : base(sectionId, hydraulicBoundaryLocationId, targetProbability) {}
 
         public override HydraRingFailureMechanismType FailureMechanismType => HydraRingFailureMechanismType.DunesBoundaryConditions;
 

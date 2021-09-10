@@ -37,7 +37,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Hydraulics
         /// Creates a new instance of the <see cref="OvertoppingRateCalculationInput"/> class.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
-        /// <param name="norm">The norm.</param>
+        /// <param name="targetProbability">The target probability.</param>
         /// <param name="sectionNormal">The normal of the section.</param>
         /// <param name="profilePoints">The profile points.</param>
         /// <param name="forelandPoints">The foreland points.</param>
@@ -62,7 +62,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Hydraulics
         /// <param name="exponentModelFactorShallowLowerBoundary">The lower boundary of the exponent model factor shallow.</param>
         /// <param name="exponentModelFactorShallowUpperBoundary">The upper boundary of the exponent model factor shallow.</param>
         public OvertoppingRateCalculationInput(long hydraulicBoundaryLocationId,
-                                               double norm,
+                                               double targetProbability,
                                                double sectionNormal,
                                                IEnumerable<HydraRingRoughnessProfilePoint> profilePoints,
                                                IEnumerable<HydraRingForelandPoint> forelandPoints,
@@ -79,7 +79,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Hydraulics
                                                double exponentModelFactorShallowMean, double exponentModelFactorShallowStandardDeviation,
                                                double exponentModelFactorShallowLowerBoundary, double exponentModelFactorShallowUpperBoundary)
             : base(hydraulicBoundaryLocationId,
-                   norm,
+                   targetProbability,
                    sectionNormal,
                    profilePoints,
                    forelandPoints,

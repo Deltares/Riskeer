@@ -29,8 +29,7 @@ using Riskeer.HydraRing.Calculation.Parsers;
 namespace Riskeer.HydraRing.Calculation.Calculator
 {
     /// <summary>
-    /// Calculator which calculates a hydraulic loads value associated to the result of iterating towards a
-    /// probability of failure given a norm.
+    /// Calculator which calculates a hydraulic loads value associated to the result of iterating towards a target probability.
     /// </summary>
     internal class HydraulicLoadsCalculator : HydraRingCalculatorBase, IHydraulicLoadsCalculator
     {
