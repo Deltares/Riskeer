@@ -651,6 +651,72 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
+        public void ClearWaveConditionsCalculationOutputAndRemoveTargetProbability_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => RiskeerDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability(
+                null, new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearWaveConditionsCalculationOutputAndRemoveTargetProbability_CalculationsForTargetProbabilityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => RiskeerDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability(
+                new AssessmentSectionStub(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationsForTargetProbability", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearWaveConditionsCalculationOutputAndRemoveTargetProbability_WithData_ClearsOutputAndReturnsAffectedObjects()
+        {
+            // Setup
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+
+            var waveConditionsCalculations = new List<ICalculation<WaveConditionsInput>>();
+            waveConditionsCalculations.AddRange(assessmentSection.GrassCoverErosionOutwards.Calculations
+                                                                 .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>());
+            waveConditionsCalculations.AddRange(assessmentSection.StabilityStoneCover.Calculations
+                                                                 .Cast<StabilityStoneCoverWaveConditionsCalculation>());
+            waveConditionsCalculations.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
+                                                                 .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>());
+
+            waveConditionsCalculations.ForEachElementDo(c =>
+            {
+                c.InputParameters.WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability;
+                c.InputParameters.CalculationsTargetProbability = calculationsForTargetProbability;
+            });
+
+            IEnumerable<ICalculation<WaveConditionsInput>> expectedAffectedItems = waveConditionsCalculations.Where(c => c.HasOutput
+                                                                                                                         || c.InputParameters.CalculationsTargetProbability == calculationsForTargetProbability)
+                                                                                                             .ToArray();
+
+            // Call
+            IEnumerable<IObservable> affectedItems = RiskeerDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability(assessmentSection, calculationsForTargetProbability);
+
+            // Assert
+            // Note: To make sure the clear is performed regardless of what is done with
+            // the return result, no ToArray() should be called before these assertions:
+            Assert.IsTrue(assessmentSection.GrassCoverErosionOutwards.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                           .All(c => !c.HasOutput && c.InputParameters.CalculationsTargetProbability == null));
+            Assert.IsTrue(assessmentSection.StabilityStoneCover.Calculations.Cast<StabilityStoneCoverWaveConditionsCalculation>()
+                                           .All(c => !c.HasOutput && c.InputParameters.CalculationsTargetProbability == null));
+            Assert.IsTrue(assessmentSection.WaveImpactAsphaltCover.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                           .All(c => !c.HasOutput && c.InputParameters.CalculationsTargetProbability == null));
+
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
+        }
+
+        [Test]
         public void ClearIllustrationPointResultsOfWaterLevelCalculationsForNormTargetProbabilities_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call

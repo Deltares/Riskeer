@@ -345,6 +345,51 @@ namespace Riskeer.Integration.Service
         }
 
         /// <summary>
+        /// Clears the output for calculations that corresponds with the <paramref name="calculationsForTargetProbability"/> and removes this
+        /// from the input in the <paramref name="assessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the calculations.</param>
+        /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> to clear for.</param>
+        /// <returns>All objects affected by the operation.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearWaveConditionsCalculationOutputAndRemoveTargetProbability(
+            IAssessmentSection assessmentSection, HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (calculationsForTargetProbability == null)
+            {
+                throw new ArgumentNullException(nameof(calculationsForTargetProbability));
+            }
+
+            var changedObservables = new List<IObservable>();
+
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            {
+                switch (failureMechanism)
+                {
+                    case GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism:
+                        changedObservables.AddRange(WaveConditionsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<GrassCoverErosionOutwardsFailureMechanism,
+                                                        GrassCoverErosionOutwardsWaveConditionsCalculation>(grassCoverErosionOutwardsFailureMechanism, calculationsForTargetProbability));
+                        break;
+                    case StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism:
+                        changedObservables.AddRange(WaveConditionsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<StabilityStoneCoverFailureMechanism,
+                                                        StabilityStoneCoverWaveConditionsCalculation>(stabilityStoneCoverFailureMechanism, calculationsForTargetProbability));
+                        break;
+                    case WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism:
+                        changedObservables.AddRange(WaveConditionsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<WaveImpactAsphaltCoverFailureMechanism,
+                                                        WaveImpactAsphaltCoverWaveConditionsCalculation>(waveImpactAsphaltCoverFailureMechanism, calculationsForTargetProbability));
+                        break;
+                }
+            }
+
+            return changedObservables;
+        }
+
+        /// <summary>
         /// Clears all illustration point results of the norm target probability based water level calculations.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to clear the illustration point results for.</param>
