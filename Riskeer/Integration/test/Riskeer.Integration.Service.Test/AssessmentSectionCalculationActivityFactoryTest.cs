@@ -56,6 +56,7 @@ using Riskeer.Piping.Data.TestUtil.Probabilistic;
 using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 using Riskeer.Piping.KernelWrapper.SubCalculator;
 using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;
+using Riskeer.Revetment.Data;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
@@ -364,7 +365,7 @@ namespace Riskeer.Integration.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                     UseForeshore = true,
                     UseBreakWater = true,
                     LowerBoundaryRevetment = (RoundedDouble) 1,
@@ -384,7 +385,7 @@ namespace Riskeer.Integration.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                     UseForeshore = true,
                     UseBreakWater = true,
                     LowerBoundaryRevetment = (RoundedDouble) 1,
@@ -404,7 +405,7 @@ namespace Riskeer.Integration.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = FailureMechanismCategoryType.LowerLimitNorm,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                     UseBreakWater = true,
                     LowerBoundaryRevetment = (RoundedDouble) 1,
                     UpperBoundaryRevetment = (RoundedDouble) 3,
