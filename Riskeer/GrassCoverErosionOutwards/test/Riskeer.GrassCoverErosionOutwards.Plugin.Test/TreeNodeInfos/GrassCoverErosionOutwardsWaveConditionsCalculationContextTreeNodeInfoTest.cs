@@ -27,13 +27,13 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
+using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
-using Core.Gui.TestUtil.ContextMenu;
-using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
+using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -998,7 +998,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             var random = new Random(21);
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = validCalculation
@@ -1044,10 +1044,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     // When
                     ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    Action call = () => validateMenuItem.PerformClick();
+                    void Call() => validateMenuItem.PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(call, logMessages =>
+                    TestHelper.AssertLogMessages(Call, logMessages =>
                     {
                         string[] messages = logMessages.ToArray();
                         int expectedMessageCount = validCalculation ? 2 : 3;
@@ -1077,7 +1077,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             var parent = new CalculationGroup();
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
@@ -1112,10 +1112,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     // When
                     ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    Action call = () => validateMenuItem.PerformClick();
+                    void Call() => validateMenuItem.PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(call, logMessages =>
+                    TestHelper.AssertLogMessages(Call, logMessages =>
                     {
                         string[] messages = logMessages.ToArray();
                         Assert.AreEqual(2, messages.Length);
@@ -1138,7 +1138,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = false;
@@ -1177,10 +1177,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     // When
                     ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    Action call = () => validateMenuItem.PerformClick();
+                    void Call() => validateMenuItem.PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(call, logMessages =>
+                    TestHelper.AssertLogMessages(Call, logMessages =>
                     {
                         string[] messages = logMessages.ToArray();
                         Assert.AreEqual(2, messages.Length);
@@ -1203,7 +1203,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
@@ -1242,10 +1242,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     // When
                     ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    Action call = () => validateMenuItem.PerformClick();
+                    void Call() => validateMenuItem.PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(call, logMessages =>
+                    TestHelper.AssertLogMessages(Call, logMessages =>
                     {
                         string[] messages = logMessages.ToArray();
                         Assert.AreEqual(2, messages.Length);
@@ -1268,7 +1268,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
@@ -1308,10 +1308,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     // When
                     ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    Action call = () => validateMenuItem.PerformClick();
+                    void Call() => validateMenuItem.PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(call, logMessages =>
+                    TestHelper.AssertLogMessages(Call, logMessages =>
                     {
                         string[] messages = logMessages.ToArray();
                         Assert.AreEqual(3, messages.Length);
@@ -1501,7 +1501,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             var parent = new CalculationGroup();
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
@@ -1555,10 +1555,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     // When
                     ToolStripItem calculateMenuItem = contextMenu.Items[calculateMenuItemIndex];
-                    Action call = () => calculateMenuItem.PerformClick();
+                    void Call() => calculateMenuItem.PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(call, logMessages =>
+                    TestHelper.AssertLogMessages(Call, logMessages =>
                     {
                         string[] messages = logMessages.ToArray();
                         Assert.AreEqual(28, messages.Length);
@@ -1750,7 +1750,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        private AssessmentSectionStub CreateAssessmentSection()
+        private static AssessmentSectionStub CreateAssessmentSection()
         {
             var assessmentSection = new AssessmentSectionStub
             {
@@ -1764,10 +1764,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             return assessmentSection;
         }
 
-        private static void ConfigureFailureMechanismWithHydraulicBoundaryOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        private static void ConfigureAssessmentSectionWithHydraulicBoundaryOutput(IAssessmentSection assessmentSection)
         {
-            failureMechanism.Contribution = 5;
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(12);
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(12);
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetValidCalculation(HydraulicBoundaryLocation location)
@@ -1777,7 +1776,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = location,
-                    CategoryType = FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,

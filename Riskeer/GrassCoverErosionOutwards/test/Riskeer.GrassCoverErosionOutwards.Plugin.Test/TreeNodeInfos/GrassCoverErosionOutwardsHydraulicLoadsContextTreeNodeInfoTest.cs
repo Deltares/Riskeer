@@ -38,7 +38,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -328,7 +327,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     hydraulicBoundaryLocation
                 });
 
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ElementAt(0).Output =
+            assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0).Output =
                 new TestHydraulicBoundaryLocationCalculationOutput(2.0);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
@@ -387,7 +386,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.ElementAt(3));
 
                         IEnumerable<RoundedDouble> waterLevels = calculation.InputParameters.GetWaterLevels(
-                            failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output.Result);
+                            assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output.Result);
                         Assert.AreEqual(3, waterLevels.Count());
                         AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfoploop", 4);
                         AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfklap", 15);
@@ -419,7 +418,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.Signaling,
                     ForeshoreProfile = new TestForeshoreProfile(true)
                     {
                         BreakWater =
