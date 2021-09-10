@@ -148,45 +148,6 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
         }
 
         [Test]
-        public void Run_InvalidNorm_DoesNotPerformCalculationAndLogsError()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
-            StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-
-            assessmentSection.FailureMechanismContribution.LowerLimitNorm = 0.1;
-
-            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
-                calculation,
-                new StabilityStoneCoverFailureMechanism(),
-                assessmentSection);
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            mockRepository.ReplayAll();
-
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                // Call
-                void Call() => activity.Run();
-
-                // Assert
-                TestHelper.AssertLogMessages(Call, messages =>
-                {
-                    string[] msgs = messages.ToArray();
-                    Assert.AreEqual(4, msgs.Length);
-                    Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                    Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", msgs[2]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
-                });
-                Assert.AreEqual(ActivityState.Failed, activity.State);
-            }
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void Run_Always_SetProgressTexts()
         {
             // Setup
@@ -211,8 +172,8 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                var progessTexts = new List<string>();
-                activity.ProgressChanged += (sender, args) => progessTexts.Add(activity.ProgressText);
+                var progressTexts = new List<string>();
+                activity.ProgressChanged += (sender, args) => progressTexts.Add(activity.ProgressText);
 
                 // Call
                 activity.Run();
@@ -223,7 +184,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 {
                     string revetment = i < waterLevels.Length ? "blokken" : "zuilen";
                     var text = $"Stap {i + 1} van {totalSteps} | Waterstand '{waterLevels[i % waterLevels.Length]}' [m+NAP] voor {revetment} berekenen.";
-                    Assert.AreEqual(text, progessTexts[i]);
+                    Assert.AreEqual(text, progressTexts[i]);
                 }
             }
 

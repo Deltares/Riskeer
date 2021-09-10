@@ -235,8 +235,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                var progessTexts = new List<string>();
-                activity.ProgressChanged += (sender, args) => progessTexts.Add(activity.ProgressText);
+                var progressTexts = new List<string>();
+                activity.ProgressChanged += (sender, args) => progressTexts.Add(activity.ProgressText);
 
                 // Call
                 activity.Run();
@@ -248,7 +248,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 {
                     string calculationType = i < waterLevels.Length ? "golfoploop" : "golfklap";
                     string text = $"Stap {i + 1} van {totalSteps} | Waterstand '{waterLevels[i % waterLevels.Length]}' [m+NAP] voor {calculationType} berekenen.";
-                    Assert.AreEqual(text, progessTexts[i]);
+                    Assert.AreEqual(text, progressTexts[i]);
                 }
             }
 

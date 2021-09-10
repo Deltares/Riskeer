@@ -211,8 +211,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                var progessTexts = new List<string>();
-                activity.ProgressChanged += (sender, args) => progessTexts.Add(activity.ProgressText);
+                var progressTexts = new List<string>();
+                activity.ProgressChanged += (sender, args) => progressTexts.Add(activity.ProgressText);
 
                 // Call
                 activity.Run();
@@ -221,7 +221,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
                 for (var i = 0; i < waterLevels.Length; i++)
                 {
                     var text = $"Stap {i + 1} van {waterLevels.Length} | Waterstand '{waterLevels[i]}' [m+NAP] voor asfalt berekenen.";
-                    Assert.AreEqual(text, progessTexts[i]);
+                    Assert.AreEqual(text, progressTexts[i]);
                 }
             }
 
