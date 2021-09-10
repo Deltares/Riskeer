@@ -168,7 +168,7 @@ namespace Riskeer.Revetment.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan waterstand bij categoriegrens niet afleiden op basis van de invoer..
+        ///   Looks up a localized string similar to Kan waterstand bij doelkans niet afleiden op basis van de invoer..
         /// </summary>
         public static string WaveConditionsCalculationService_ValidateInput_No_AssessmentLevel_calculated {
             get {

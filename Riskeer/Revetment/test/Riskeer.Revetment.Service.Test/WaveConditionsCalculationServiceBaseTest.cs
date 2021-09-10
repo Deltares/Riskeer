@@ -251,7 +251,7 @@ namespace Riskeer.Revetment.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Kan waterstand bij categoriegrens niet afleiden op basis van de invoer", msgs[1]);
+                StringAssert.StartsWith("Kan waterstand bij doelkans niet afleiden op basis van de invoer", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
 

@@ -121,7 +121,7 @@
     <value>Berekening is mislukt voor waterstand '{0}'. Er is geen foutrapport beschikbaar.</value>
   </data>
   <data name="WaveConditionsCalculationService_ValidateInput_No_AssessmentLevel_calculated" xml:space="preserve">
-    <value>Kan waterstand bij categoriegrens niet afleiden op basis van de invoer.</value>
+    <value>Kan waterstand bij doelkans niet afleiden op basis van de invoer.</value>
   </data>
   <data name="WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels" xml:space="preserve">
     <value>Kan geen waterstanden afleiden op basis van de invoer. Controleer de opgegeven boven- en ondergrenzen.</value>
