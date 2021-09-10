@@ -417,12 +417,66 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SelectedTargetProbability_Always_InputChangedAndObservablesNotified()
+        [TestCase(WaveConditionsInputWaterLevelType.None)]
+        [TestCase(WaveConditionsInputWaterLevelType.LowerLimit)]
+        [TestCase(WaveConditionsInputWaterLevelType.Signaling)]
+        public void SelectedTargetProbability_WaterLevelTypeNotUserDefinedTargetProbability_InputChangedAndObservablesNotified(WaveConditionsInputWaterLevelType waterLevelType)
         {
             var selectableTargetProbability = new SelectableTargetProbability(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
-                                                                              WaveConditionsInputWaterLevelType.LowerLimit, 0.1);
+                                                                              waterLevelType, 0.1);
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(
                 properties => properties.SelectedTargetProbability = selectableTargetProbability);
+        }
+
+        [Test]
+        public void SelectedTargetProbability_WaterLevelTypeUserDefinedTargetProbability_InputChangedAndObservablesNotified()
+        {
+            // Setup
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.WaterLevelCalculationsForUserDefinedTargetProbabilities).Return(
+                new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
+                {
+                    calculationsForTargetProbability
+                });
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            mocks.ReplayAll();
+
+            var input = new TestWaveConditionsInput
+            {
+                ForeshoreProfile = new TestForeshoreProfile()
+            };
+            var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(input);
+
+            var context = new TestWaveConditionsInputContext(input,
+                                                             calculation,
+                                                             assessmentSection,
+                                                             new ForeshoreProfile[0]);
+
+            var customHandler = new SetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
+
+            var properties = new TestWaveConditionsInputContextProperties(context,
+                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                          customHandler);
+
+            const WaveConditionsInputWaterLevelType waterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability;
+            var selectableTargetProbability = new SelectableTargetProbability(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
+                                                                              waterLevelType, 0.1);
+
+            // Call
+            properties.SelectedTargetProbability = selectableTargetProbability;
+
+            // Assert
+            Assert.IsTrue(customHandler.Called);
+            Assert.AreSame(calculationsForTargetProbability, input.CalculationsTargetProbability);
+            Assert.AreEqual(waterLevelType, input.WaterLevelType);
+            mocks.VerifyAll();
         }
 
         [Test]
