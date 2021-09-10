@@ -36,11 +36,9 @@ namespace Riskeer.Common.Service
         /// </summary>
         /// <param name="calculationSettings">The <see cref="HydraulicBoundaryCalculationSettings"/> with the
         /// hydraulic boundary calculation settings.</param>
-        /// <param name="targetProbability">The target probability to validate.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/> is <c>null</c>.</exception>
-        public bool Validate(HydraulicBoundaryCalculationSettings calculationSettings,
-                             double targetProbability)
+        public bool Validate(HydraulicBoundaryCalculationSettings calculationSettings)
         {
             if (calculationSettings == null)
             {
@@ -77,15 +75,6 @@ namespace Riskeer.Common.Service
                     preprocessorDirectoryValidationProblem
                 });
 
-                isValid = false;
-            }
-
-            if (!TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(targetProbability,
-                                                                                     message => CalculationServiceHelper.LogMessagesAsError(new[]
-                                                                                     {
-                                                                                         message
-                                                                                     })))
-            {
                 isValid = false;
             }
 
