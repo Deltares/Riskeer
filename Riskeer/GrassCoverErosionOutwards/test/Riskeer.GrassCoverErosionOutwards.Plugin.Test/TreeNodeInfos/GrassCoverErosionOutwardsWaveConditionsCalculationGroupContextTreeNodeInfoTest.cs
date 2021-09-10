@@ -862,7 +862,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             GrassCoverErosionOutwardsWaveConditionsCalculation calculationB = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
@@ -893,10 +893,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    Action test = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(test, m =>
+                    TestHelper.AssertLogMessages(Call, m =>
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(4, messages.Length);
@@ -921,7 +921,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
@@ -950,10 +950,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    Action test = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(test, m =>
+                    TestHelper.AssertLogMessages(Call, m =>
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(2, messages.Length);
@@ -976,7 +976,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
@@ -1009,10 +1009,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    Action test = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(test, m =>
+                    TestHelper.AssertLogMessages(Call, m =>
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(2, messages.Length);
@@ -1035,7 +1035,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
@@ -1068,10 +1068,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    Action test = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(test, m =>
+                    TestHelper.AssertLogMessages(Call, m =>
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(2, messages.Length);
@@ -1094,7 +1094,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             var random = new Random(21);
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -1142,10 +1142,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    Action test = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(test, m =>
+                    TestHelper.AssertLogMessages(Call, m =>
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(3, messages.Length);
@@ -1169,7 +1169,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+            ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             var group = new CalculationGroup();
             GrassCoverErosionOutwardsWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
@@ -1219,10 +1219,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    Action test = () => contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(test, m =>
+                    TestHelper.AssertLogMessages(Call, m =>
                     {
                         string[] messages = m.ToArray();
                         Assert.AreEqual(56, messages.Length);
@@ -1544,10 +1544,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 InputParameters =
                 {
-                    ForeshoreProfile = new TestForeshoreProfile()
+                    ForeshoreProfile = new TestForeshoreProfile(),
+                    UseBreakWater = true
                 }
             };
-            calculation.InputParameters.UseBreakWater = true;
 
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(
                 new CalculationGroup
@@ -1595,10 +1595,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 InputParameters =
                 {
-                    ForeshoreProfile = new TestForeshoreProfile(true)
+                    ForeshoreProfile = new TestForeshoreProfile(true),
+                    UseBreakWater = false
                 }
             };
-            calculation.InputParameters.UseBreakWater = false;
 
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(
                 new CalculationGroup
@@ -1946,10 +1946,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             return assessmentSection;
         }
 
-        private static void ConfigureFailureMechanismWithHydraulicBoundaryOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        private static void ConfigureAssessmentSectionWithHydraulicBoundaryOutput(IAssessmentSection assessmentSection)
         {
-            failureMechanism.Contribution = 5;
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetValidCalculation(HydraulicBoundaryLocation location)
@@ -1959,7 +1958,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = location,
-                    CategoryType = FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
