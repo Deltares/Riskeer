@@ -130,33 +130,6 @@ namespace Riskeer.DuneErosion.Forms.Test.GuiServices
         }
 
         [Test]
-        public void Calculate_InvalidTargetProbability_LogsError()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath
-            };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
-
-            var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IViewParent>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
-                             .Return(hydraulicBoundaryDatabase);
-            mocks.ReplayAll();
-
-            var guiService = new DuneLocationCalculationGuiService(viewParent);
-
-            // Call
-            void Call() => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(), assessmentSection, 1.0, "1/1");
-
-            // Assert
-            TestHelper.AssertLogMessageIsGenerated(Call, "Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.");
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Calculate_ValidPathEmptyCalculationList_NoLog()
         {
             // Setup

@@ -27,7 +27,6 @@ using log4net;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.HydraRing;
-using Riskeer.Common.Service;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Service;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -90,11 +89,6 @@ namespace Riskeer.DuneErosion.Forms.GuiServices
                                                                                                    hydraulicLocationConfigurationSettings.FilePath,
                                                                                                    preprocessorDirectory,
                                                                                                    hydraulicLocationConfigurationSettings.UsePreprocessorClosure);
-
-            if (string.IsNullOrEmpty(validationProblem))
-            {
-                TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(targetProbability, logMessage => validationProblem = logMessage);
-            }
 
             if (!string.IsNullOrEmpty(validationProblem))
             {

@@ -140,29 +140,6 @@ namespace Riskeer.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateDesignWaterLevels_InvalidTargetProbability_LogsError()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IViewParent>();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
-
-            var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-            // Call
-            void Call() => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 1.0, "1/1");
-
-            // Assert
-            TestHelper.AssertLogMessageIsGenerated(Call, "Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.");
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void CalculateDesignWaterLevels_ValidPathEmptyCalculationList_NoLog()
         {
             // Setup
@@ -316,28 +293,6 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                 Assert.AreEqual(1, msgs.Length);
                 StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
             });
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CalculateWaveHeights_InvalidTargetProbability_LogsError()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var viewParent = mocks.Stub<IViewParent>();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
-
-            var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-            // Call
-            void Call() => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), assessmentSection, 1.0, "1/1");
-
-            // Assert
-            TestHelper.AssertLogMessageIsGenerated(Call, "Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.");
             mocks.VerifyAll();
         }
 
