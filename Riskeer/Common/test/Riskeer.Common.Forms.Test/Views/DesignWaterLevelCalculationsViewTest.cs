@@ -70,7 +70,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_GetNormFuncNull_ThrowsArgumentNullException()
+        public void Constructor_GetTargetProbabilityFuncNull_ThrowsArgumentNullException()
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
@@ -84,7 +84,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("getNormFunc", exception.ParamName);
+            Assert.AreEqual("getTargetProbabilityFunc", exception.ParamName);
         }
 
         [Test]
@@ -367,7 +367,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
-            const double norm = 0.01;
+            const double targetProbability = 0.01;
             const string calculationIdentifier = "1/100";
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -386,14 +386,14 @@ namespace Riskeer.Common.Forms.Test.Views
 
             IAssessmentSection assessmentSectionValue = null;
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
-            double normValue = double.NaN;
+            double targetProbabilityValue = double.NaN;
             string calculationIdentifierValue = null;
             guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[0]).ToArray();
                     assessmentSectionValue = (IAssessmentSection) invocation.Arguments[1];
-                    normValue = (double) invocation.Arguments[2];
+                    targetProbabilityValue = (double) invocation.Arguments[2];
                     calculationIdentifierValue = (string) invocation.Arguments[3];
                 });
 
@@ -403,7 +403,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             DesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations,
                                                                                          assessmentSection,
-                                                                                         norm,
+                                                                                         targetProbability,
                                                                                          calculationIdentifier,
                                                                                          testForm);
 
@@ -420,7 +420,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             Assert.AreEqual(calculationIdentifier, calculationIdentifierValue);
             Assert.AreSame(assessmentSection, assessmentSectionValue);
-            Assert.AreEqual(norm, normValue);
+            Assert.AreEqual(targetProbability, targetProbabilityValue);
             Assert.AreEqual(1, performedCalculations.Length);
             Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
         }
@@ -457,13 +457,13 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private static DesignWaterLevelCalculationsView ShowDesignWaterLevelCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                                                              IAssessmentSection assessmentSection,
-                                                                                             double norm,
+                                                                                             double targetProbability,
                                                                                              string calculationIdentifier,
                                                                                              Form form)
         {
             var view = new DesignWaterLevelCalculationsView(calculations,
                                                             assessmentSection,
-                                                            () => norm,
+                                                            () => targetProbability,
                                                             () => calculationIdentifier);
 
             form.Controls.Add(view);

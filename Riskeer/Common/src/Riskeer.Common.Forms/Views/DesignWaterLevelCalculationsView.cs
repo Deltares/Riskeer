@@ -35,7 +35,7 @@ namespace Riskeer.Common.Forms.Views
     /// </summary>
     public partial class DesignWaterLevelCalculationsView : HydraulicBoundaryCalculationsView
     {
-        private readonly Func<double> getNormFunc;
+        private readonly Func<double> getTargetProbabilityFunc;
         private readonly Func<string> getCalculationIdentifierFunc;
 
         /// <summary>
@@ -43,18 +43,18 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         /// <param name="calculations">The calculations to show in the view.</param>
         /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
-        /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to use during calculations.</param>
+        /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use during calculations.</param>
         /// <param name="getCalculationIdentifierFunc"><see cref="Func{TResult}"/> for getting the calculation identifier to use in all messages.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public DesignWaterLevelCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                 IAssessmentSection assessmentSection,
-                                                Func<double> getNormFunc,
+                                                Func<double> getTargetProbabilityFunc,
                                                 Func<string> getCalculationIdentifierFunc)
             : base(calculations, assessmentSection)
         {
-            if (getNormFunc == null)
+            if (getTargetProbabilityFunc == null)
             {
-                throw new ArgumentNullException(nameof(getNormFunc));
+                throw new ArgumentNullException(nameof(getTargetProbabilityFunc));
             }
 
             if (getCalculationIdentifierFunc == null)
@@ -64,7 +64,7 @@ namespace Riskeer.Common.Forms.Views
 
             InitializeComponent();
 
-            this.getNormFunc = getNormFunc;
+            this.getTargetProbabilityFunc = getTargetProbabilityFunc;
             this.getCalculationIdentifierFunc = getCalculationIdentifierFunc;
         }
 
@@ -84,7 +84,7 @@ namespace Riskeer.Common.Forms.Views
         {
             CalculationGuiService.CalculateDesignWaterLevels(calculations,
                                                              AssessmentSection,
-                                                             getNormFunc(),
+                                                             getTargetProbabilityFunc(),
                                                              getCalculationIdentifierFunc());
         }
 
