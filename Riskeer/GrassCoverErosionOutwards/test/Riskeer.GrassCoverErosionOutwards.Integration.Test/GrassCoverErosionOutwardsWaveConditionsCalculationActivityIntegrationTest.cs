@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -87,10 +86,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => activity.Run();
+                void Call() => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
@@ -137,10 +136,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => activity.Run();
+                void Call() => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
@@ -184,10 +183,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action call = () => activity.Run();
+                void Call() => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(4, msgs.Length);
@@ -247,7 +246,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 for (var i = 0; i < totalSteps; i++)
                 {
                     string calculationType = i < waterLevels.Length ? "golfoploop" : "golfklap";
-                    string text = $"Stap {i + 1} van {totalSteps} | Waterstand '{waterLevels[i % waterLevels.Length]}' [m+NAP] voor {calculationType} berekenen.";
+                    var text = $"Stap {i + 1} van {totalSteps} | Waterstand '{waterLevels[i % waterLevels.Length]}' [m+NAP] voor {calculationType} berekenen.";
                     Assert.AreEqual(text, progressTexts[i]);
                 }
             }

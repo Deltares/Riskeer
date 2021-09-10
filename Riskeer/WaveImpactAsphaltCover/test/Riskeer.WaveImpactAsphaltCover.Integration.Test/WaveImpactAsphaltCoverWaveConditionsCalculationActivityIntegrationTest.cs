@@ -148,45 +148,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Integration.Test
         }
 
         [Test]
-        public void Run_InvalidNorm_DoesNotPerformCalculationAndLogsError()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
-            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-
-            assessmentSection.FailureMechanismContribution.LowerLimitNorm = 0.1;
-
-            CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
-                calculation,
-                new WaveImpactAsphaltCoverFailureMechanism(),
-                assessmentSection);
-
-            var mockRepository = new MockRepository();
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            mockRepository.ReplayAll();
-
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                // Call
-                void Call() => activity.Run();
-
-                // Assert
-                TestHelper.AssertLogMessages(Call, messages =>
-                {
-                    string[] msgs = messages.ToArray();
-                    Assert.AreEqual(4, msgs.Length);
-                    Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                    Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", msgs[2]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
-                });
-                Assert.AreEqual(ActivityState.Failed, activity.State);
-            }
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void Run_Always_SetProgressTexts()
         {
             // Setup
