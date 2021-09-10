@@ -166,34 +166,6 @@ namespace Riskeer.Common.Service.Test
         }
 
         [Test]
-        public void Run_InvalidTargetProbability_PerformValidationAndLogStartAndEndAndError()
-        {
-            // Setup
-            const string locationName = "locationName";
-            const string calculationIdentifier = "1/1";
-
-            var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
-                                                             CreateCalculationSettings(),
-                                                             1.0,
-                                                             calculationIdentifier);
-
-            // Call
-            void Call() => activity.Run();
-
-            // Assert
-            TestHelper.AssertLogMessages(Call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"{GetActivityDescription(locationName, calculationIdentifier)} is gestart.", msgs[0]);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", msgs[2]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
-            });
-            Assert.AreEqual(ActivityState.Failed, activity.State);
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Run_ValidInput_PerformCalculationWithCorrectInput(bool usePreprocessor)
