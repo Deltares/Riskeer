@@ -265,7 +265,7 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = context => new WaterLevelCalculationsForUserDefinedTargetProbabilityProperties(
                     context.WrappedData,
-                    new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(context.WrappedData))
+                    new WaterLevelHydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(context.WrappedData, context.AssessmentSection))
             };
             yield return new PropertyInfo<WaveHeightCalculationsForUserDefinedTargetProbabilityContext, WaveHeightCalculationsForUserDefinedTargetProbabilityProperties>
             {
