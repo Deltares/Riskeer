@@ -576,8 +576,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             {
                 WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
                                                               WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, context.AssessmentSection),
-                                                              context.AssessmentSection.HydraulicBoundaryDatabase,
-                                                              WaveConditionsInputHelper.GetTargetProbability(calculation.InputParameters, context.AssessmentSection));
+                                                              context.AssessmentSection.HydraulicBoundaryDatabase);
             }
         }
 
@@ -662,8 +661,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
                                                           WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, context.AssessmentSection),
-                                                          assessmentSection.HydraulicBoundaryDatabase,
-                                                          WaveConditionsInputHelper.GetTargetProbability(calculation.InputParameters, context.AssessmentSection));
+                                                          assessmentSection.HydraulicBoundaryDatabase);
         }
 
         private void Calculate(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)

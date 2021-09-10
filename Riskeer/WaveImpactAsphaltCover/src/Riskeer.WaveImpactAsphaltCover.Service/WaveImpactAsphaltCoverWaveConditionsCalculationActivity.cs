@@ -74,8 +74,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service
         {
             return WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
                                                                  WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection),
-                                                                 assessmentSection.HydraulicBoundaryDatabase,
-                                                                 WaveConditionsInputHelper.GetTargetProbability(calculation.InputParameters, assessmentSection));
+                                                                 assessmentSection.HydraulicBoundaryDatabase);
         }
 
         protected override void PerformCalculation()

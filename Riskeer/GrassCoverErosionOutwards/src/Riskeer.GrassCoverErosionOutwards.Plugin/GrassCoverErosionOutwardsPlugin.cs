@@ -591,8 +591,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 WaveConditionsCalculationServiceBase.Validate(
                     calculation.InputParameters,
                     WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, context.AssessmentSection),
-                    context.AssessmentSection.HydraulicBoundaryDatabase,
-                    WaveConditionsInputHelper.GetTargetProbability(calculation.InputParameters, context.AssessmentSection));
+                    context.AssessmentSection.HydraulicBoundaryDatabase);
             }
         }
 
@@ -683,8 +682,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
                                                           WaveConditionsInputHelper.GetAssessmentLevel(calculation.InputParameters, assessmentSection),
-                                                          assessmentSection.HydraulicBoundaryDatabase,
-                                                          WaveConditionsInputHelper.GetTargetProbability(calculation.InputParameters, assessmentSection));
+                                                          assessmentSection.HydraulicBoundaryDatabase);
         }
 
         private void Calculate(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
