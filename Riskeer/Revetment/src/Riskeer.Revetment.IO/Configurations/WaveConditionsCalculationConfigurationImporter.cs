@@ -98,7 +98,7 @@ namespace Riskeer.Revetment.IO.Configurations
             };
 
             SetStepSize(readCalculation, waveConditionsCalculation);
-            SetCalculationSpecificParameters(readCalculation, waveConditionsCalculation, normType);
+            SetCalculationSpecificParameters(readCalculation, waveConditionsCalculation);
 
             if (TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, waveConditionsCalculation)
                 && TrySetBoundaries(readCalculation, waveConditionsCalculation)
@@ -119,13 +119,8 @@ namespace Riskeer.Revetment.IO.Configurations
         /// </summary>
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="calculation">The calculation to configure.</param>
-        /// <param name="normType">The norm type of the assessment section the calculation is imported to.</param>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-        /// but unsupported.</exception>
-        protected abstract void SetCalculationSpecificParameters(TCalculationConfiguration calculationConfiguration,
-                                                                 TCalculation calculation,
-                                                                 NormType normType);
+        protected virtual void SetCalculationSpecificParameters(TCalculationConfiguration calculationConfiguration,
+                                                                TCalculation calculation) {}
 
         /// <summary>
         /// Assigns the boundaries of the calculation.

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   
-  <xs:include schemaLocation="BekledingenConfiguratieBasisSchema.xsd" />
+  <xs:include schemaLocation="BekledingenConfiguratieBasisSchema_1.xsd" />
   
   <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
     <xs:complexType name="berekeningType">
@@ -9,7 +9,6 @@
         <xs:extension base="berekeningType">
           <xs:all>
             <xs:element ref="hblocatie" minOccurs="0"/>
-            <xs:element ref="doelkans" minOccurs="0"/>
             <xs:element ref="bovengrensbekleding" minOccurs="0"/>
             <xs:element ref="ondergrensbekleding" minOccurs="0"/>
             <xs:element ref="bovengrenswaterstanden" minOccurs="0"/>

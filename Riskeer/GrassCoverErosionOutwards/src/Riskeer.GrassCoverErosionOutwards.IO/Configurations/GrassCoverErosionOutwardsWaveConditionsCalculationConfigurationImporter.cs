@@ -55,8 +55,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
         }
 
         protected override void SetCalculationSpecificParameters(GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration calculationConfiguration,
-                                                                 GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
-                                                                 NormType normType)
+                                                                 GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
         {
             if (calculationConfiguration.CalculationType.HasValue)
             {

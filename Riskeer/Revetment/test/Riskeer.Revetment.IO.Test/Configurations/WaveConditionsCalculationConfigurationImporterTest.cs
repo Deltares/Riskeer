@@ -361,21 +361,17 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                                                                       IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                                       IEnumerable<ForeshoreProfile> foreshoreProfiles,
                                                                       NormType normType)
-                : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles, normType) {}
+                : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles, normType)
+            {
+                NormType = normType;
+            }
 
-            public NormType NormType { get; private set; }
+            public NormType NormType { get; }
 
             protected override TestWaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(
                 string xmlFilePath)
             {
                 return new TestWaveConditionsCalculationConfigurationReader(xmlFilePath);
-            }
-
-            protected override void SetCalculationSpecificParameters(WaveConditionsCalculationConfiguration calculationConfiguration,
-                                                                     TestTargetTestWaveConditionsCalculation calculation,
-                                                                     NormType normType)
-            {
-                NormType = normType;
             }
         }
 
@@ -393,6 +389,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 : base(xmlFilePath, new[]
                 {
                     File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema_0.xsd")),
+                    File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema_1.xsd")),
                     File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"))
                 }) {}
 

@@ -52,9 +52,5 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Configurations
         {
             return new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationReader(xmlFilePath);
         }
-
-        protected override void SetCalculationSpecificParameters(WaveConditionsCalculationConfiguration calculationConfiguration,
-                                                                 WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
-                                                                 NormType normType) {}
     }
 }

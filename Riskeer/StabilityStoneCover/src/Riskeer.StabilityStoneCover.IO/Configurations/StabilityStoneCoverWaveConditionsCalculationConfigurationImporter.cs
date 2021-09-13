@@ -54,7 +54,7 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
         }
 
         protected override void SetCalculationSpecificParameters(StabilityStoneCoverWaveConditionsCalculationConfiguration calculationConfiguration,
-                                                                 StabilityStoneCoverWaveConditionsCalculation calculation, NormType normType)
+                                                                 StabilityStoneCoverWaveConditionsCalculation calculation)
         {
             if (calculationConfiguration.CalculationType.HasValue)
             {
