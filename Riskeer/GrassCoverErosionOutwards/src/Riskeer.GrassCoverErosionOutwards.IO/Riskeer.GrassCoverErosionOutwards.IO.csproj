@@ -10,6 +10,9 @@
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
+    <None Include="Resources\GEBUConfiguratieSchema_1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\GEBUConfiguratieSchema.xsd">
       <SubType>Designer</SubType>
     </None>

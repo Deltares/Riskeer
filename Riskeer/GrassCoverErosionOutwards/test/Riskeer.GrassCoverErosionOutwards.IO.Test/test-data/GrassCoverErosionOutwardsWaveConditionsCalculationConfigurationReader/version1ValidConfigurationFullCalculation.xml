@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie versie="2">
+<configuratie versie="1">
   <berekening naam="Berekening 1">
     <hblocatie>Locatie</hblocatie>
-    <doelkans>0.1</doelkans>
+    <categoriegrens>IIIv</categoriegrens>
     <bovengrensbekleding>1.1</bovengrensbekleding>
     <ondergrensbekleding>2.2</ondergrensbekleding>
     <bovengrenswaterstanden>3.3</bovengrenswaterstanden>

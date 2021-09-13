@@ -94,13 +94,16 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
             var configuration = (GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration) readItems.Single();
 
             AssertConfiguration(configuration);
+            Assert.AreEqual(0.1, configuration.TargetProbability);
         }
 
         [Test]
-        public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadCalculation()
+        [TestCase(0)]
+        [TestCase(1)]
+        public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadCalculation(int versionNumber)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "version0ValidConfigurationFullCalculation.xml");
+            string filePath = Path.Combine(testDirectoryPath, $"version{versionNumber}ValidConfigurationFullCalculation.xml");
             var reader = new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
@@ -110,6 +113,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
             var configuration = (GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration) readConfigurationItems.Single();
 
             AssertConfiguration(configuration);
+            Assert.IsNull(configuration.TargetProbability);
         }
 
         private static void AssertConfiguration(GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration configuration)

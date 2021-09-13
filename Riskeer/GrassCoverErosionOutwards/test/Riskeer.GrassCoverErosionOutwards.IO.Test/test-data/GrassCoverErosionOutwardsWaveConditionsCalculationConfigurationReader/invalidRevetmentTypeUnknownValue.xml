@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie versie="1">
+<configuratie versie="2">
   <berekening naam="Calculation">
     <typebekleding>Gras</typebekleding>
   </berekening>

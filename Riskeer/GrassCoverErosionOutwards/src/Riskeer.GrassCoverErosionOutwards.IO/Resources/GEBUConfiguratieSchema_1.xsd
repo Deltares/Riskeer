@@ -23,11 +23,30 @@ All rights reserved.
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   
   <!--Basis elementen voor een bekledingen configuratie.-->
-  <xs:include schemaLocation="BekledingenConfiguratieBasisSchema.xsd" />
+  <xs:include schemaLocation="BekledingenConfiguratieBasisSchema_1.xsd" />
   <xs:include schemaLocation="ConfiguratieSchema.xsd" />
 
   <!--Herdefinieer categoriegrens, zodat deze de juiste inhoud heeft.-->
-  <xs:redefine schemaLocation="BekledingenConfiguratieBasisSchema.xsd">
+  <xs:redefine schemaLocation="BekledingenConfiguratieBasisSchema_1.xsd">
+    
+    <xs:complexType name="configuratieType">
+      <xs:complexContent>
+        <xs:extension base="configuratieType">
+          <xs:attribute name="versie" type="xs:int" use="required" fixed="1"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+
+    <xs:simpleType name="categoriegrensType">
+      <xs:restriction base="categoriegrensType">
+        <xs:enumeration value="Iv"/>
+        <xs:enumeration value="IIv"/>
+        <xs:enumeration value="IIIv"/>
+        <xs:enumeration value="IVv"/>
+        <xs:enumeration value="Vv"/>
+      </xs:restriction>
+    </xs:simpleType>
+
     <xs:simpleType name="bekledingType">
       <xs:restriction base="bekledingType">
         <xs:enumeration value="Gras (golfoploop)"/>

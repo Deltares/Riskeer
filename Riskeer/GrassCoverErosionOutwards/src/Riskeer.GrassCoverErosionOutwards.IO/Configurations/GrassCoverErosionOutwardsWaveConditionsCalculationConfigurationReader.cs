@@ -37,7 +37,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
     public class GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader : WaveConditionsCalculationConfigurationReader<GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader"/>.
         /// </summary>
         /// <param name="xmlFilePath">The file path to the XML file.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="xmlFilePath"/> is invalid.</exception>
@@ -53,6 +53,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
             : base(xmlFilePath, new[]
             {
                 Resources.GEBUConfiguratieSchema_0,
+                Resources.GEBUConfiguratieSchema_1,
                 Resources.GEBUConfiguratieSchema
             }) {}
 
