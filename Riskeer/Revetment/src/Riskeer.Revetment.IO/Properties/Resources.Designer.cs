@@ -43,7 +43,7 @@ namespace Riskeer.Revetment.IO.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -57,7 +57,7 @@ namespace Riskeer.Revetment.IO.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Riskeer.Revetment.IO.Properties.Resources", typeof(Resources).Assembly);
@@ -72,7 +72,7 @@ namespace Riskeer.Revetment.IO.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -96,7 +96,7 @@ namespace Riskeer.Revetment.IO.Properties {
         ///but WITHOUT ANY WARRANTY; without even the implied warranty of
         ///ME [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string BekledingenConfiguratieBasisSchema {
+        public static string BekledingenConfiguratieBasisSchema {
             get {
                 return ResourceManager.GetString("BekledingenConfiguratieBasisSchema", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Riskeer.Revetment.IO.Properties {
         ///but WITHOUT ANY WARRANTY; without even the implied warranty of
         ///ME [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string BekledingenConfiguratieBasisSchema_0 {
+        public static string BekledingenConfiguratieBasisSchema_0 {
             get {
                 return ResourceManager.GetString("BekledingenConfiguratieBasisSchema_0", resourceCulture);
             }
@@ -138,7 +138,7 @@ namespace Riskeer.Revetment.IO.Properties {
         ///but WITHOUT ANY WARRANTY; without even the implied warranty of
         ///ME [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string BekledingenConfiguratieSchema {
+        public static string BekledingenConfiguratieSchema {
             get {
                 return ResourceManager.GetString("BekledingenConfiguratieSchema", resourceCulture);
             }
@@ -159,7 +159,7 @@ namespace Riskeer.Revetment.IO.Properties {
         ///but WITHOUT ANY WARRANTY; without even the implied warranty of
         ///ME [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string BekledingenConfiguratieSchema_0 {
+        public static string BekledingenConfiguratieSchema_0 {
             get {
                 return ResourceManager.GetString("BekledingenConfiguratieSchema_0", resourceCulture);
             }
@@ -181,7 +181,7 @@ namespace Riskeer.Revetment.IO.Properties {
         ///but WITHOUT ANY WARRANTY; without even the implied warranty of
         /// [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string BekledingenConfiguratieSchema0To1 {
+        public static string BekledingenConfiguratieSchema0To1 {
             get {
                 return ResourceManager.GetString("BekledingenConfiguratieSchema0To1", resourceCulture);
             }
@@ -190,7 +190,7 @@ namespace Riskeer.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Asfalt.
         /// </summary>
-        internal static string CoverType_Asphalt {
+        public static string CoverType_Asphalt {
             get {
                 return ResourceManager.GetString("CoverType_Asphalt", resourceCulture);
             }
@@ -199,7 +199,7 @@ namespace Riskeer.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Steen (blokken).
         /// </summary>
-        internal static string CoverType_Blocks {
+        public static string CoverType_Blocks {
             get {
                 return ResourceManager.GetString("CoverType_Blocks", resourceCulture);
             }
@@ -208,7 +208,7 @@ namespace Riskeer.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Steen (zuilen).
         /// </summary>
-        internal static string CoverType_Columns {
+        public static string CoverType_Columns {
             get {
                 return ResourceManager.GetString("CoverType_Columns", resourceCulture);
             }
@@ -217,7 +217,7 @@ namespace Riskeer.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gras (golfklap voor toets op maat).
         /// </summary>
-        internal static string CoverType_GrassTailorMadeWaveImpact {
+        public static string CoverType_GrassTailorMadeWaveImpact {
             get {
                 return ResourceManager.GetString("CoverType_GrassTailorMadeWaveImpact", resourceCulture);
             }
@@ -226,7 +226,7 @@ namespace Riskeer.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gras (golfklap).
         /// </summary>
-        internal static string CoverType_GrassWaveImpact {
+        public static string CoverType_GrassWaveImpact {
             get {
                 return ResourceManager.GetString("CoverType_GrassWaveImpact", resourceCulture);
             }
@@ -235,7 +235,7 @@ namespace Riskeer.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gras (golfoploop).
         /// </summary>
-        internal static string CoverType_GrassWaveRunUp {
+        public static string CoverType_GrassWaveRunUp {
             get {
                 return ResourceManager.GetString("CoverType_GrassWaveRunUp", resourceCulture);
             }
@@ -244,7 +244,7 @@ namespace Riskeer.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to nee.
         /// </summary>
-        internal static string No {
+        public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
             }
@@ -253,7 +253,7 @@ namespace Riskeer.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ondergrens bekledingen.
         /// </summary>
-        internal static string WaveConditionsCalculationConfigurationImporter_LowerBoundaryRevetment_DisplayName {
+        public static string WaveConditionsCalculationConfigurationImporter_LowerBoundaryRevetment_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_LowerBoundaryRevetment_DisplayName" +
                         "", resourceCulture);
@@ -263,7 +263,7 @@ namespace Riskeer.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ondergrens van de waterstanden.
         /// </summary>
-        internal static string WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterLevels_DisplayName {
+        public static string WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterLevels_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterLevels_DisplayNa" +
                         "me", resourceCulture);
@@ -273,7 +273,7 @@ namespace Riskeer.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to bovengrens bekledingen.
         /// </summary>
-        internal static string WaveConditionsCalculationConfigurationImporter_UpperBoundaryRevetment_DisplayName {
+        public static string WaveConditionsCalculationConfigurationImporter_UpperBoundaryRevetment_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_UpperBoundaryRevetment_DisplayName" +
                         "", resourceCulture);
@@ -283,7 +283,7 @@ namespace Riskeer.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to bovengrens van de waterstanden.
         /// </summary>
-        internal static string WaveConditionsCalculationConfigurationImporter_UpperBoundaryWaterLevels_DisplayName {
+        public static string WaveConditionsCalculationConfigurationImporter_UpperBoundaryWaterLevels_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_UpperBoundaryWaterLevels_DisplayNa" +
                         "me", resourceCulture);
@@ -293,7 +293,7 @@ namespace Riskeer.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} Er zijn geen golfcondities geëxporteerd..
         /// </summary>
-        internal static string WaveConditionsExporter_Error_Exception_0_no_WaveConditions_exported {
+        public static string WaveConditionsExporter_Error_Exception_0_no_WaveConditions_exported {
             get {
                 return ResourceManager.GetString("WaveConditionsExporter_Error_Exception_0_no_WaveConditions_exported", resourceCulture);
             }
@@ -302,7 +302,7 @@ namespace Riskeer.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°].
         /// </summary>
-        internal static string WaveConditionsWriter_HeaderLine {
+        public static string WaveConditionsWriter_HeaderLine {
             get {
                 return ResourceManager.GetString("WaveConditionsWriter_HeaderLine", resourceCulture);
             }
@@ -311,7 +311,7 @@ namespace Riskeer.Revetment.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ja.
         /// </summary>
-        internal static string Yes {
+        public static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
             }
