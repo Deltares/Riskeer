@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -194,13 +195,13 @@ namespace Riskeer.Revetment.Data.Test
                                                                          Func<WaveConditionsInput, IAssessmentSection, double> getExpectedTargetProbability)
         {
             // Setup
+            var assessmentSection = new AssessmentSectionStub();
+
             var input = new TestWaveConditionsInput
             {
                 WaterLevelType = waterLevelType,
                 CalculationsTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
             };
-
-            var assessmentSection = new AssessmentSectionStub();
 
             // Call
             double targetProbability = WaveConditionsInputHelper.GetTargetProbability(input, assessmentSection);
@@ -250,6 +251,34 @@ namespace Riskeer.Revetment.Data.Test
             Assert.AreEqual("WaterLevelType", exception.ParamName);
         }
 
+        [Test]
+        [TestCaseSource(nameof(GetAssessmentLevelConfigurations))]
+        public void GetAssessmentLevel_ValidInput_ReturnsExpectedValue(WaveConditionsInputWaterLevelType waterLevelType,
+                                                                       Func<WaveConditionsInput, IAssessmentSection, double> getExpectedAssessmentLevel)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            }, true);
+
+            var input = new TestWaveConditionsInput
+            {
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                WaterLevelType = waterLevelType,
+                CalculationsTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First()
+            };
+
+            // Call
+            double assessmentLevel = WaveConditionsInputHelper.GetAssessmentLevel(input, assessmentSection);
+
+            // Assert
+            Assert.AreEqual(getExpectedAssessmentLevel(input, assessmentSection), assessmentLevel);
+        }
+
         private static IEnumerable<TestCaseData> GetTargetProbabilityConfigurations()
         {
             yield return new TestCaseData(
@@ -264,6 +293,22 @@ namespace Riskeer.Revetment.Data.Test
             yield return new TestCaseData(
                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                 (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => input.CalculationsTargetProbability.TargetProbability));
+        }
+
+        private static IEnumerable<TestCaseData> GetAssessmentLevelConfigurations()
+        {
+            yield return new TestCaseData(
+                WaveConditionsInputWaterLevelType.None,
+                (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => double.NaN));
+            yield return new TestCaseData(
+                WaveConditionsInputWaterLevelType.LowerLimit,
+                (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output.Result));
+            yield return new TestCaseData(
+                WaveConditionsInputWaterLevelType.Signaling,
+                (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => assessmentSection.WaterLevelCalculationsForSignalingNorm.First().Output.Result));
+            yield return new TestCaseData(
+                WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
+                (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => input.CalculationsTargetProbability.HydraulicBoundaryLocationCalculations.First().Output.Result));
         }
     }
 }
