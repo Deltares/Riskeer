@@ -53,6 +53,7 @@ using Riskeer.WaveImpactAsphaltCover.Forms;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Riskeer.WaveImpactAsphaltCover.Forms.Views;
+using Riskeer.WaveImpactAsphaltCover.IO.Configurations;
 using Riskeer.WaveImpactAsphaltCover.IO.Exporters;
 using Riskeer.WaveImpactAsphaltCover.Plugin.FileImporters;
 using Riskeer.WaveImpactAsphaltCover.Service;
@@ -232,12 +233,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             };
 
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
-                (context, filePath) => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
+                (context, filePath) => new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 context => context.WrappedData.Children.Any(),
                 GetInquiryHelper());
 
             yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
-                (context, filePath) => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(new[]
+                (context, filePath) => new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
                 }, filePath),

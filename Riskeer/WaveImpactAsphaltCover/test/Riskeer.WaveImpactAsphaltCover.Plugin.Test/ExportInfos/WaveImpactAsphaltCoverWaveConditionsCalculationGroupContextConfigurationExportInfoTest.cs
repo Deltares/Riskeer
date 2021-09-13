@@ -29,9 +29,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Revetment.IO.Configurations;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Riskeer.WaveImpactAsphaltCover.IO.Configurations;
 using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
@@ -98,7 +98,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             IFileExporter fileExporter = info.CreateFileExporter(context, "test");
 
             // Assert
-            Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter>(fileExporter);
+            Assert.IsInstanceOf<WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter>(fileExporter);
         }
 
         [Test]
