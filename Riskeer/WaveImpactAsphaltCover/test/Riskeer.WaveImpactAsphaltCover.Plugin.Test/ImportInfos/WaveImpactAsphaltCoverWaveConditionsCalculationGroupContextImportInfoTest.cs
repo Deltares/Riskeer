@@ -31,9 +31,9 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Properties;
-using Riskeer.Revetment.IO.Configurations;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Riskeer.WaveImpactAsphaltCover.IO.Configurations;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ImportInfos
 {
@@ -125,7 +125,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ImportInfos
             IFileImporter importer = importInfo.CreateFileImporter(context, "");
 
             // Assert
-            Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter<WaveImpactAsphaltCoverWaveConditionsCalculation>>(importer);
+            Assert.IsInstanceOf<WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationImporter>(importer);
             mocks.VerifyAll();
         }
     }

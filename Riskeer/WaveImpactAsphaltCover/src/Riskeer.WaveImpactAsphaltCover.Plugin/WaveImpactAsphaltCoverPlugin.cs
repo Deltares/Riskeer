@@ -46,7 +46,6 @@ using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.Views;
-using Riskeer.Revetment.IO.Configurations;
 using Riskeer.Revetment.Service;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms;
@@ -136,7 +135,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         {
             yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
                 (context, filePath) =>
-                    new AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter<WaveImpactAsphaltCoverWaveConditionsCalculation>(
+                    new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationImporter(
                         filePath,
                         context.WrappedData,
                         context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
