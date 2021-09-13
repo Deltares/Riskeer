@@ -106,7 +106,7 @@ namespace Riskeer.Revetment.IO.Configurations
                         {
                             waveReductionSchemaName, RiskeerCommonIOResources.GolfReductieSchema
                         }
-                    }, Resources.BekledingenConfiguratieSchema0To1),
+                    }, Resources.BekledingenConfiguratieBasisSchema0To1),
                 new CalculationConfigurationSchemaDefinition(
                     2, mainSchemaDefinitions[2],
                     new Dictionary<string, string>
@@ -126,7 +126,7 @@ namespace Riskeer.Revetment.IO.Configurations
                         {
                             waveReductionSchemaName, RiskeerCommonIOResources.GolfReductieSchema
                         }
-                    }, Resources.BekledingenConfiguratieSchema0To1)
+                    }, Resources.BekledingenConfiguratieBasisSchema0To1)
             }) {}
 
         protected abstract override T ParseCalculationElement(XElement calculationElement);
