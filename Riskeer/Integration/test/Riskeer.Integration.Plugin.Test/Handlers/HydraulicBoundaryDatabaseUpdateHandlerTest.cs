@@ -683,15 +683,15 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(1, readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings.Count());
 
             // Call
-            Action call = () => handler.Update(hydraulicBoundaryDatabase,
-                                               ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                               readHydraulicLocationConfigurationDatabase,
-                                               Enumerable.Empty<long>(),
-                                               hydraulicBoundaryDatabaseFilePath,
-                                               hlcdFilePath);
+            void Call() => handler.Update(hydraulicBoundaryDatabase,
+                                          ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+                                          readHydraulicLocationConfigurationDatabase,
+                                          Enumerable.Empty<long>(),
+                                          hydraulicBoundaryDatabaseFilePath,
+                                          hlcdFilePath);
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 0);
+            TestHelper.AssertLogMessagesCount(Call, 0);
 
             ReadHydraulicLocationConfigurationDatabaseSettings expectedSettings = readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings
                                                                                                                             .Single();
@@ -732,17 +732,17 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.IsNull(readHydraulicLocationConfigurationDatabase.ReadHydraulicLocationConfigurationDatabaseSettings);
 
             // Call
-            Action call = () => handler.Update(hydraulicBoundaryDatabase,
-                                               ReadHydraulicBoundaryDatabaseTestFactory.Create(),
-                                               readHydraulicLocationConfigurationDatabase,
-                                               Enumerable.Empty<long>(),
-                                               hydraulicBoundaryDatabaseFilePath,
-                                               hlcdFilePath);
+            void Call() => handler.Update(hydraulicBoundaryDatabase,
+                                          ReadHydraulicBoundaryDatabaseTestFactory.Create(),
+                                          readHydraulicLocationConfigurationDatabase,
+                                          Enumerable.Empty<long>(),
+                                          hydraulicBoundaryDatabaseFilePath,
+                                          hlcdFilePath);
 
             // Assert
             const string expectedMessage = "De tabel 'ScenarioInformation' in het HLCD bestand is niet aanwezig. Er worden standaardwaarden " +
                                            "conform WBI2017 gebruikt voor de HLCD bestandsinformatie.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Warn), 1);
 
             HydraulicLocationConfigurationSettings actualSettings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
             Assert.AreEqual(hlcdFilePath, actualSettings.FilePath);
@@ -800,7 +800,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 hydraulicBoundaryDatabase.Locations,
                 assessmentSection.WaterLevelCalculationsForSignalingNorm,
                 assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
-                assessmentSection.DuneErosion.DuneLocations
+                assessmentSection.DuneErosion.DuneLocations,
+                assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities
             };
 
             observables.AddRange(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities

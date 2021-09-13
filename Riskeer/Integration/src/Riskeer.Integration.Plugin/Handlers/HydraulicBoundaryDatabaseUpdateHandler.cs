@@ -192,7 +192,8 @@ namespace Riskeer.Integration.Plugin.Handlers
                 hydraulicBoundaryDatabase.Locations,
                 assessmentSection.WaterLevelCalculationsForSignalingNorm,
                 assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
-                assessmentSection.DuneErosion.DuneLocations
+                assessmentSection.DuneErosion.DuneLocations,
+                assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities
             };
 
             locationsAndCalculationsObservables.AddRange(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
