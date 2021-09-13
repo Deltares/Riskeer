@@ -79,6 +79,10 @@
       <Component Id="CalculationConfigurationStabilityStoneCoverFile" Guid="955D9A10-51F8-4FB1-AAE2-98C8FD1F39D4">
         <File Source="..\..\..\..\Riskeer\StabilityStoneCover\src\Riskeer.StabilityStoneCover.IO\Resources\StabiliteitSteenzettingConfiguratieSchema.xsd" KeyPath="yes"/>
       </Component>
+      <!-- Wave Impact Asphalt Cover-->
+      <Component Id="CalculationConfigurationWaveImpactAsphaltCoverFile" Guid="9C5DBB0F-661F-4862-937E-990B8176E983">
+        <File Source="..\..\..\..\Riskeer\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.IO\Resources\GolfklappenOpAsfaltBekledingConfiguratieSchema.xsd" KeyPath="yes"/>
+      </Component>
     </DirectoryRef>
 	</Fragment>
   <Fragment>
@@ -106,6 +110,7 @@
       <ComponentRef Id="CalculationConfigurationRevetmentBaseFile" />
       <ComponentRef Id="CalculationConfigurationGrassCoverErosionOutwardsFile" />
       <ComponentRef Id="CalculationConfigurationStabilityStoneCoverFile" />
+      <ComponentRef Id="CalculationConfigurationWaveImpactAsphaltCoverFile" />
     </ComponentGroup>
   </Fragment>
 </Wix>
