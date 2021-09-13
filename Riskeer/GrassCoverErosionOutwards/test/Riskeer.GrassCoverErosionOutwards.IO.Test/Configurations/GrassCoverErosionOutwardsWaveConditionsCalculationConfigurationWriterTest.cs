@@ -126,28 +126,6 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
         }
 
         [Test]
-        public void Write_InvalidCategoryType_ThrowsCriticalFileWriteException()
-        {
-            // Setup
-            var configuration = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration("fail")
-            {
-                CategoryType = (ConfigurationGrassCoverErosionOutwardsCategoryType?) 99
-            };
-
-            var writer = new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter("valid");
-
-            // Call
-            TestDelegate call = () => writer.Write(new[]
-            {
-                configuration
-            });
-
-            // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
-            Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
-        }
-
-        [Test]
         public void Write_InvalidCalculationType_ThrowsCriticalFileWriteException()
         {
             // Setup
