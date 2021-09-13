@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Revetment.Data;
-using Riskeer.Revetment.IO.Configurations.Converters;
 
 namespace Riskeer.Revetment.IO.Configurations
 {
@@ -57,17 +55,6 @@ namespace Riskeer.Revetment.IO.Configurations
 
         protected override void SetCalculationSpecificParameters(AssessmentSectionCategoryWaveConditionsCalculationConfiguration calculationConfiguration,
                                                                  T calculation,
-                                                                 NormType normType)
-        {
-            if (calculationConfiguration.CategoryType.HasValue)
-            {
-                calculation.InputParameters.CategoryType = (AssessmentSectionCategoryType) new ConfigurationAssessmentSectionCategoryTypeConverter()
-                    .ConvertTo(calculationConfiguration.CategoryType.Value, typeof(AssessmentSectionCategoryType));
-            }
-            else
-            {
-                WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters, normType);
-            }
-        }
+                                                                 NormType normType) {}
     }
 }

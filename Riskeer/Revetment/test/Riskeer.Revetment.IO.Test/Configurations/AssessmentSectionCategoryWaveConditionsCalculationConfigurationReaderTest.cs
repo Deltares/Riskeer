@@ -22,8 +22,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml.Schema;
-using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.IO.Configurations;
@@ -37,19 +35,6 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Revetment.IO,
                                                                                nameof(AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader));
 
-        private static IEnumerable<TestCaseData> InvalidConfigurations
-        {
-            get
-            {
-                yield return new TestCaseData("invalidCalculationMultipleCategoryType.xml",
-                                              "Element 'categoriegrens' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleCategoryType");
-                yield return new TestCaseData("invalidCategoryTypeUnknownValue.xml",
-                                              "The 'categoriegrens' element is invalid - The value 'F' is invalid according to its datatype 'categoriegrensType' - The Enumeration constraint failed.")
-                    .SetName("invalidCategoryTypeUnknownValue");
-            }
-        }
-
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -61,22 +46,6 @@ namespace Riskeer.Revetment.IO.Test.Configurations
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsCalculationConfigurationReader<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>>(reader);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(InvalidConfigurations))]
-        public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException(string fileName, string expectedParsingMessage)
-        {
-            // Setup
-            string filePath = Path.Combine(testDirectoryPath, fileName);
-
-            // Call
-            void Call() => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(filePath);
-
-            // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(Call);
-            Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
-            StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
         }
 
         [Test]
@@ -126,7 +95,6 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             Assert.AreEqual(ConfigurationBreakWaterType.Caisson, configuration.WaveReduction.BreakWaterType);
             Assert.AreEqual(6.6, configuration.WaveReduction.BreakWaterHeight);
             Assert.IsFalse(configuration.WaveReduction.UseForeshoreProfile);
-            Assert.AreEqual(ConfigurationAssessmentSectionCategoryType.SignalingNorm, configuration.CategoryType);
         }
     }
 }

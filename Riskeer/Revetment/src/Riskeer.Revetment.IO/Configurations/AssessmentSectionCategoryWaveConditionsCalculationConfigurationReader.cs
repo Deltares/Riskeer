@@ -23,8 +23,6 @@ using System;
 using System.Xml.Linq;
 using Core.Common.Base.IO;
 using Riskeer.Common.IO.Configurations;
-using Riskeer.Common.IO.Configurations.Helpers;
-using Riskeer.Revetment.IO.Configurations.Converters;
 using Riskeer.Revetment.IO.Properties;
 
 namespace Riskeer.Revetment.IO.Configurations
@@ -59,9 +57,6 @@ namespace Riskeer.Revetment.IO.Configurations
         {
             var configuration = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value);
             ParseCalculationElementData(calculationElement, configuration);
-            configuration.CategoryType = (ConfigurationAssessmentSectionCategoryType?)
-                calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationAssessmentSectionCategoryTypeConverter>(
-                    WaveConditionsCalculationConfigurationSchemaIdentifiers.CategoryType);
             return configuration;
         }
     }
