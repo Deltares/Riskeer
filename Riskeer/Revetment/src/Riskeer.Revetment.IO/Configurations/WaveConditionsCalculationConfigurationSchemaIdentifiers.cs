@@ -27,6 +27,11 @@ namespace Riskeer.Revetment.IO.Configurations
     public static class WaveConditionsCalculationConfigurationSchemaIdentifiers
     {
         /// <summary>
+        /// The tag of elements containing the target probability.
+        /// </summary>
+        public const string TargetProbability = "doelkans";
+
+        /// <summary>
         /// The tag of elements containing the upper boundary of revetment.
         /// </summary>
         public const string UpperBoundaryRevetment = "bovengrensbekleding";

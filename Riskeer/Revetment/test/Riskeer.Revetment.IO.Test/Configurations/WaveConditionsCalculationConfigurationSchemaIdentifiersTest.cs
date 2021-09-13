@@ -31,6 +31,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         public void WaveConditionsCalculationConfigurationSchemaIdentifiers_ExpectedValues()
         {
             // Call & Assert
+            Assert.AreEqual("doelkans", WaveConditionsCalculationConfigurationSchemaIdentifiers.TargetProbability);
             Assert.AreEqual("bovengrensbekleding", WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryRevetment);
             Assert.AreEqual("ondergrensbekleding", WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryRevetment);
             Assert.AreEqual("bovengrenswaterstanden", WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryWaterLevels);
