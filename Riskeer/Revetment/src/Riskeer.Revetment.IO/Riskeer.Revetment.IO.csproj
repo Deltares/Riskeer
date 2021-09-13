@@ -13,7 +13,7 @@
     <None Include="Resources\BekledingenConfiguratieBasisSchema.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Resources\BekledingenConfiguratieSchema.xsd">
+    <None Include="Resources\BekledingenConfiguratieSchema_1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Resources\BekledingenConfiguratieBasisSchema_1.xsd">

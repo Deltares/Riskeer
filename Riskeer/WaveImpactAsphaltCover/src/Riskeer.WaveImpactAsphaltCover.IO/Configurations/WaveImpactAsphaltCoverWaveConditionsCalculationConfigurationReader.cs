@@ -51,7 +51,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Configurations
             : base(xmlFilePath, new[]
             {
                 Resources.BekledingenConfiguratieSchema_0,
-                Resources.BekledingenConfiguratieSchema
+                Resources.BekledingenConfiguratieSchema_1
             }) {}
 
         protected override WaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)

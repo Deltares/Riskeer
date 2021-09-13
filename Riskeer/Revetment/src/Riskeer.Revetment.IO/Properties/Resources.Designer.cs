@@ -159,9 +159,9 @@ namespace Riskeer.Revetment.IO.Properties {
         ///but WITHOUT ANY WARRANTY; without even the implied warranty of
         ///ME [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string BekledingenConfiguratieSchema {
+        public static string BekledingenConfiguratieSchema_0 {
             get {
-                return ResourceManager.GetString("BekledingenConfiguratieSchema", resourceCulture);
+                return ResourceManager.GetString("BekledingenConfiguratieSchema_0", resourceCulture);
             }
         }
         
@@ -180,9 +180,9 @@ namespace Riskeer.Revetment.IO.Properties {
         ///but WITHOUT ANY WARRANTY; without even the implied warranty of
         ///ME [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string BekledingenConfiguratieSchema_0 {
+        public static string BekledingenConfiguratieSchema_1 {
             get {
-                return ResourceManager.GetString("BekledingenConfiguratieSchema_0", resourceCulture);
+                return ResourceManager.GetString("BekledingenConfiguratieSchema_1", resourceCulture);
             }
         }
         
