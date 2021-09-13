@@ -36,10 +36,5 @@ namespace Riskeer.Revetment.IO.Configurations
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public AssessmentSectionCategoryWaveConditionsCalculationConfiguration(string name)
             : base(name) {}
-
-        /// <summary>
-        /// Gets or sets the category type.
-        /// </summary>
-        public ConfigurationAssessmentSectionCategoryType? CategoryType { get; set; }
     }
 }

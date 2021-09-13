@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Revetment.IO.Configurations;
 
@@ -41,24 +39,6 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             // Assert
             Assert.IsInstanceOf<WaveConditionsCalculationConfiguration>(configuration);
             Assert.AreEqual(name, configuration.Name);
-            Assert.IsNull(configuration.CategoryType);
-        }
-
-        [Test]
-        public void SimpleProperties_SetNewValues_NewValuesSet()
-        {
-            // Setup
-            const string calculationName = "Name of the calculation";
-            var categoryType = new Random(21).NextEnumValue<ConfigurationAssessmentSectionCategoryType>();
-
-            // Call
-            var configuration = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration(calculationName)
-            {
-                CategoryType = categoryType
-            };
-
-            // Assert
-            Assert.AreEqual(categoryType, configuration.CategoryType);
         }
     }
 }
