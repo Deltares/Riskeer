@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.IO.Configurations;
@@ -120,77 +119,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                         Height = (RoundedDouble) 6.6,
                         Type = BreakWaterType.Caisson
                     },
-                    CategoryType = FailureMechanismCategoryType.FactorizedLowerLimitNorm,
                     CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp
-                }
-            };
-
-            Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertWaveConditionsCalculation(expectedCalculation, (GrassCoverErosionOutwardsWaveConditionsCalculation) calculationGroup.Children[0]);
-        }
-
-        [Test]
-        [TestCase(NormType.LowerLimit, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
-        [TestCase(NormType.Signaling, FailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
-        public void Import_ValidConfigurationWithoutCategoryBoundary_DataAddedToModel(NormType normType, FailureMechanismCategoryType expectedCategory)
-        {
-            // Setup
-            string filePath = Path.Combine(path, "validConfigurationWithoutCategoryBoundary.xml");
-
-            var calculationGroup = new CalculationGroup();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Locatie", 10, 20);
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1),
-                new Point2D(2, 2)
-            }, new BreakWater(BreakWaterType.Caisson, 0), new ForeshoreProfile.ConstructionProperties
-            {
-                Id = "Voorlandprofiel",
-                Name = "VoorlandProfielName"
-            });
-
-            var importer = new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationImporter(
-                filePath,
-                calculationGroup,
-                new[]
-                {
-                    hydraulicBoundaryLocation
-                },
-                new[]
-                {
-                    foreshoreProfile
-                },
-                normType);
-
-            // Call
-            bool successful = importer.Import();
-
-            // Assert
-            Assert.IsTrue(successful);
-
-            var expectedCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Name = "Berekening 1",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    UpperBoundaryRevetment = (RoundedDouble) 10,
-                    LowerBoundaryRevetment = (RoundedDouble) 2,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 9,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 4,
-                    StepSize = WaveConditionsInputStepSize.Half,
-                    ForeshoreProfile = foreshoreProfile,
-                    Orientation = (RoundedDouble) 5.5,
-                    UseForeshore = false,
-                    UseBreakWater = true,
-                    BreakWater =
-                    {
-                        Height = (RoundedDouble) 6.6,
-                        Type = BreakWaterType.Caisson
-                    },
-                    CategoryType = expectedCategory,
-                    CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
                 }
             };
 
@@ -214,7 +143,6 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
             Assert.AreEqual(expectedCalculation.InputParameters.UseBreakWater, actualCalculation.InputParameters.UseBreakWater);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Height, actualCalculation.InputParameters.BreakWater.Height);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Type, actualCalculation.InputParameters.BreakWater.Type);
-            Assert.AreEqual(expectedCalculation.InputParameters.CategoryType, actualCalculation.InputParameters.CategoryType);
             Assert.AreEqual(expectedCalculation.InputParameters.CalculationType, actualCalculation.InputParameters.CalculationType);
         }
     }
