@@ -140,6 +140,11 @@ namespace Core.Common.TestUtil
             {
                 public static readonly TestDataPath Core = "Riskeer.Storage.Core.Test";
             }
+
+            public static class WaveImpactAsphaltCover
+            {
+                public static readonly TestDataPath IO = "Riskeer.WaveImpactAsphaltCover.IO.Test";
+            }
         }
     }
 }
