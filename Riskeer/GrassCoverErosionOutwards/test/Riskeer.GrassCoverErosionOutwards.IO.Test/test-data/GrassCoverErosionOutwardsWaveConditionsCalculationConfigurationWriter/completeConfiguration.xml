@@ -2,7 +2,6 @@
 <configuratie versie="1">
   <berekening naam="Berekening 1">
     <hblocatie>Locatie1</hblocatie>
-    <categoriegrens>IVv</categoriegrens>
     <typebekleding>Gras (golfklap)</typebekleding>
     <bovengrensbekleding>1.5</bovengrensbekleding>
     <ondergrensbekleding>0.5</ondergrensbekleding>

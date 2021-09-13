@@ -86,7 +86,6 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration("Berekening 1")
             {
                 HydraulicBoundaryLocationName = "Locatie1",
-                CategoryType = ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm,
                 UpperBoundaryRevetment = (RoundedDouble) 1.5,
                 LowerBoundaryRevetment = (RoundedDouble) 0.5,
                 UpperBoundaryWaterLevels = (RoundedDouble) 1.4,

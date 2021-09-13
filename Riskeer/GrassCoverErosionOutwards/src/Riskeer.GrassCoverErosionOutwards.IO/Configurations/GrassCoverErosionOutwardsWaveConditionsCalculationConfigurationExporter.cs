@@ -48,8 +48,6 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
         {
             var configuration = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration(calculation.Name);
             SetConfigurationProperties(configuration, calculation);
-            configuration.CategoryType = (ConfigurationGrassCoverErosionOutwardsCategoryType?) new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter()
-                .ConvertFrom(calculation.InputParameters.CategoryType);
             configuration.CalculationType = (ConfigurationGrassCoverErosionOutwardsCalculationType?) new ConfigurationGrassCoverErosionOutwardsCalculationTypeConverter()
                 .ConvertFrom(calculation.InputParameters.CalculationType);
             return configuration;

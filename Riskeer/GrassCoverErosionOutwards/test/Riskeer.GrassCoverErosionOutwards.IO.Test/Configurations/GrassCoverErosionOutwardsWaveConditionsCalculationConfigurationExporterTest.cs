@@ -63,7 +63,6 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HydraulicLocationA", 0, 0),
                     UseBreakWater = true,
-                    CategoryType = FailureMechanismCategoryType.MechanismSpecificSignalingNorm,
                     CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp
                 }
             };
