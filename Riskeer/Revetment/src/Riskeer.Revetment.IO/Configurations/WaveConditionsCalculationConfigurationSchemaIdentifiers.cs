@@ -27,11 +27,6 @@ namespace Riskeer.Revetment.IO.Configurations
     public static class WaveConditionsCalculationConfigurationSchemaIdentifiers
     {
         /// <summary>
-        /// The tag of elements containing the category type of revetment.
-        /// </summary>
-        public const string CategoryType = "categoriegrens";
-
-        /// <summary>
         /// The tag of elements containing the upper boundary of revetment.
         /// </summary>
         public const string UpperBoundaryRevetment = "bovengrensbekleding";
