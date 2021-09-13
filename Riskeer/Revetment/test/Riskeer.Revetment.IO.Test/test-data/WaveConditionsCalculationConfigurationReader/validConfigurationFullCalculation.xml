@@ -2,6 +2,7 @@
 <configuratie versie="2">
   <berekening naam="Berekening 1">
     <hblocatie>Locatie</hblocatie>
+    <doelkans>0.1</doelkans>
     <bovengrensbekleding>1.1</bovengrensbekleding>
     <ondergrensbekleding>2.2</ondergrensbekleding>
     <bovengrenswaterstanden>3.3</bovengrenswaterstanden>

@@ -153,6 +153,16 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 yield return new TestCaseData("invalidForeshoreUsageNoBoolean.xml",
                                               "The 'voorlandgebruiken' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidForeshoreUsageNoBoolean");
+
+                yield return new TestCaseData("invalidTargetProbabilityEmpty.xml",
+                                              "The 'doelkans' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidTargetProbabilityEmpty");
+                yield return new TestCaseData("invalidTargetProbabilityNoDouble.xml",
+                                              "The 'doelkans' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
+                    .SetName("invalidTargetProbabilityNoDouble");
+                yield return new TestCaseData("invalidCalculationMultipleTargetProbabilities.xml",
+                                              "Element 'doelkans' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleTargetProbabilities");
             }
         }
 
@@ -200,6 +210,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
 
             Assert.IsNotNull(configuration);
             Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.IsNull(configuration.TargetProbability);
             Assert.IsNull(configuration.UpperBoundaryRevetment);
             Assert.IsNull(configuration.LowerBoundaryRevetment);
             Assert.IsNull(configuration.UpperBoundaryWaterLevels);
@@ -244,6 +255,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             var configuration = (WaveConditionsCalculationConfiguration) readItems.Single();
 
             Assert.IsNotNull(configuration);
+            Assert.IsNaN(configuration.TargetProbability);
             Assert.IsNaN(configuration.UpperBoundaryRevetment);
             Assert.IsNaN(configuration.LowerBoundaryRevetment);
             Assert.IsNaN(configuration.UpperBoundaryWaterLevels);
@@ -267,13 +279,15 @@ namespace Riskeer.Revetment.IO.Test.Configurations
 
             Assert.IsNotNull(configuration);
 
-            Assert.NotNull(configuration.UpperBoundaryRevetment);
-            Assert.NotNull(configuration.LowerBoundaryRevetment);
-            Assert.NotNull(configuration.UpperBoundaryWaterLevels);
-            Assert.NotNull(configuration.LowerBoundaryWaterLevels);
-            Assert.NotNull(configuration.Orientation);
-            Assert.NotNull(configuration.WaveReduction.BreakWaterHeight);
+            Assert.IsNotNull(configuration.TargetProbability);
+            Assert.IsNotNull(configuration.UpperBoundaryRevetment);
+            Assert.IsNotNull(configuration.LowerBoundaryRevetment);
+            Assert.IsNotNull(configuration.UpperBoundaryWaterLevels);
+            Assert.IsNotNull(configuration.LowerBoundaryWaterLevels);
+            Assert.IsNotNull(configuration.Orientation);
+            Assert.IsNotNull(configuration.WaveReduction.BreakWaterHeight);
 
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.TargetProbability.Value));
             Assert.IsTrue(double.IsPositiveInfinity(configuration.UpperBoundaryRevetment.Value));
             Assert.IsTrue(double.IsNegativeInfinity(configuration.LowerBoundaryRevetment.Value));
             Assert.IsTrue(double.IsPositiveInfinity(configuration.UpperBoundaryWaterLevels.Value));
@@ -298,6 +312,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             var configuration = (WaveConditionsCalculationConfiguration) readItems.Single();
 
             AssertConfiguration(configuration);
+            Assert.AreEqual(0.1, configuration.TargetProbability);
         }
 
         [Test]
@@ -316,6 +331,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             var configuration = (WaveConditionsCalculationConfiguration) readConfigurationItems.Single();
 
             AssertConfiguration(configuration);
+            Assert.IsNull(configuration.TargetProbability);
         }
 
         [Test]
@@ -333,6 +349,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
 
             Assert.IsNotNull(configuration);
             Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.IsNull(configuration.TargetProbability);
             Assert.AreEqual(1.1, configuration.UpperBoundaryRevetment);
             Assert.AreEqual(2.2, configuration.LowerBoundaryRevetment);
             Assert.IsNull(configuration.UpperBoundaryWaterLevels);
