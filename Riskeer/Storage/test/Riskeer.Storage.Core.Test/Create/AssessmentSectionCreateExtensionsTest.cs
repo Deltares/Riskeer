@@ -304,7 +304,7 @@ namespace Riskeer.Storage.Core.Test.Create
             SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, 4);
 
             SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, 5);
-            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForSignalingNorm, 6);
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaveHeightCalculationsForSignalingNorm, 6);
             SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, 7);
             SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, 8);
         }
