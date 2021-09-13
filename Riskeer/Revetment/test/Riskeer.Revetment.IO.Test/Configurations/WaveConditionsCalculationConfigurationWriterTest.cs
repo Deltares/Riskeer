@@ -87,6 +87,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             var calculation = new WaveConditionsCalculationConfiguration("Berekening 1")
             {
                 HydraulicBoundaryLocationName = "Locatie1",
+                TargetProbability = 0.01,
                 UpperBoundaryRevetment = (RoundedDouble) 1.5,
                 LowerBoundaryRevetment = (RoundedDouble) 0.5,
                 UpperBoundaryWaterLevels = (RoundedDouble) 1.4,

@@ -2,6 +2,7 @@
 <configuratie versie="1">
   <berekening naam="Berekening 1">
     <hblocatie>Locatie1</hblocatie>
+    <doelkans>0.01</doelkans>
     <typebekleding>Gras (golfklap)</typebekleding>
     <bovengrensbekleding>1.5</bovengrensbekleding>
     <ondergrensbekleding>0.5</ondergrensbekleding>

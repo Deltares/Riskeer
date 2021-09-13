@@ -61,6 +61,11 @@ namespace Riskeer.Revetment.IO.Configurations
                 ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
                 configuration.HydraulicBoundaryLocationName);
 
+            WriteElementWhenContentAvailable(
+                writer,
+                WaveConditionsCalculationConfigurationSchemaIdentifiers.TargetProbability,
+                configuration.TargetProbability);
+
             WriteWaveConditionsSpecificParameters(writer, configuration);
 
             WriteElementWhenContentAvailable(
