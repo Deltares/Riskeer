@@ -28,10 +28,6 @@ All rights reserved.
       </xsl:copy>
   </xsl:template>
 
-  <!--Rename 'hrlocatie' to 'hblocatie'.-->
-  <xsl:template match="berekening/hrlocatie">
-    <xsl:element name="hblocatie">
-      <xsl:apply-templates/>
-    </xsl:element>
-  </xsl:template>
+  <!-- Remove 'categoriegrens'. -->
+  <xsl:template match="berekening/categoriegrens" />
 </xsl:stylesheet>

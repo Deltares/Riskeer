@@ -126,7 +126,7 @@ namespace Riskeer.Revetment.IO.Configurations
                         {
                             waveReductionSchemaName, RiskeerCommonIOResources.GolfReductieSchema
                         }
-                    }, Resources.BekledingenConfiguratieBasisSchema0To1)
+                    }, Resources.BekledingenConfiguratieBasisSchema1To2)
             }) {}
 
         protected abstract override T ParseCalculationElement(XElement calculationElement);
@@ -134,6 +134,7 @@ namespace Riskeer.Revetment.IO.Configurations
         protected void ParseCalculationElementData(XElement calculationElement, T configuration)
         {
             configuration.HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement);
+            configuration.TargetProbability = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.TargetProbability);
             configuration.UpperBoundaryRevetment = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryRevetment);
             configuration.LowerBoundaryRevetment = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryRevetment);
             configuration.UpperBoundaryWaterLevels = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryWaterLevels);
