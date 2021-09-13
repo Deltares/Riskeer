@@ -30,7 +30,7 @@ All rights reserved.
     <xs:complexType name="configuratieType">
       <xs:complexContent>
         <xs:extension base="configuratieType">
-          <xs:attribute name="versie" type="xs:int" use="required" fixed="1"/>
+          <xs:attribute name="versie" type="xs:int" use="required" fixed="2"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -40,6 +40,7 @@ All rights reserved.
         <xs:extension base="berekeningType">
           <xs:all>
             <xs:element ref="hblocatie" minOccurs="0"/>
+            <xs:element ref="doelkans" minOccurs="0"/>
             <xs:element ref="bovengrensbekleding" minOccurs="0"/>
             <xs:element ref="ondergrensbekleding" minOccurs="0"/>
             <xs:element ref="bovengrenswaterstanden" minOccurs="0"/>
@@ -48,7 +49,6 @@ All rights reserved.
             <xs:element ref="voorlandprofiel" minOccurs="0"/>
             <xs:element ref="orientatie" minOccurs="0"/>
             <xs:element ref="golfreductie" minOccurs="0"/>
-            <xs:element ref="categoriegrens" minOccurs="0"/>
             <xs:element ref="typebekleding" minOccurs="0"/>
           </xs:all>
         </xs:extension>
@@ -69,6 +69,13 @@ All rights reserved.
   <xs:include schemaLocation="GolfReductieSchema.xsd"/>
 
   <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->
+
+  <!--Specificeert de doelkans waarmee de berekening uitgevoerd moet worden.-->
+  <xs:element name="doelkans">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
   
   <!--Specificeert de bovengrens van de bekleding (of maximale berekeningsrange 
   voor het toetsen van de bekleding voor het specifieke toetsspoor).-->
@@ -110,13 +117,6 @@ All rights reserved.
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-
-  <!--Specificeert de categoriegrens waarmee de berekening uitgevoerd moet worden.-->
-  <xs:element name="categoriegrens" type="categoriegrensType"/>
-
-  <xs:simpleType name="categoriegrensType">
-    <xs:restriction base="xs:string"/>
-  </xs:simpleType>
 
   <!--Specificeert de typebekleding waarvoor de berekening uitgevoerd moet worden.-->
   <xs:element name="typebekleding" type="bekledingType"/>

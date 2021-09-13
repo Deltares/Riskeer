@@ -301,10 +301,12 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         }
 
         [Test]
-        public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadCalculation()
+        [TestCase(0)]
+        [TestCase(1)]
+        public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadCalculation(int versionNumber)
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "version0ValidConfigurationFullCalculation.xml");
+            string filePath = Path.Combine(testDirectoryPath, $"version{versionNumber}ValidConfigurationFullCalculation.xml");
             var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Call
@@ -367,6 +369,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             validMainSchemaDefinitions = new[]
             {
                 File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema_0.xsd")),
+                File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema_1.xsd")),
                 File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"))
             };
         }

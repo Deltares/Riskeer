@@ -47,6 +47,7 @@ namespace Riskeer.Revetment.IO.Configurations
         private const string waveReductionSchemaName = "GolfReductieSchema.xsd";
         private const string revetmentBaseVersion0SchemaName = "BekledingenConfiguratieBasisSchema_0.xsd";
         private const string revetmentBaseVersion1SchemaName = "BekledingenConfiguratieBasisSchema_1.xsd";
+        private const string revetmentBaseVersion2SchemaName = "BekledingenConfiguratieBasisSchema.xsd";
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationReader{T}"/>.
@@ -92,6 +93,26 @@ namespace Riskeer.Revetment.IO.Configurations
                     {
                         {
                             revetmentBaseVersion1SchemaName, Resources.BekledingenConfiguratieBasisSchema_1
+                        },
+                        {
+                            hbLocationVersion1SchemaName, RiskeerCommonIOResources.HbLocatieSchema
+                        },
+                        {
+                            orientationSchemaName, RiskeerCommonIOResources.OrientatieSchema
+                        },
+                        {
+                            foreshoreProfileSchemaName, RiskeerCommonIOResources.VoorlandProfielSchema
+                        },
+                        {
+                            waveReductionSchemaName, RiskeerCommonIOResources.GolfReductieSchema
+                        }
+                    }, Resources.BekledingenConfiguratieSchema0To1),
+                new CalculationConfigurationSchemaDefinition(
+                    2, mainSchemaDefinitions[2],
+                    new Dictionary<string, string>
+                    {
+                        {
+                            revetmentBaseVersion2SchemaName, Resources.BekledingenConfiguratieBasisSchema
                         },
                         {
                             hbLocationVersion1SchemaName, RiskeerCommonIOResources.HbLocatieSchema
