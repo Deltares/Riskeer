@@ -42,7 +42,6 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
             // Assert
             Assert.IsInstanceOf<WaveConditionsCalculationConfiguration>(configuration);
             Assert.AreEqual(name, configuration.Name);
-            Assert.IsNull(configuration.CategoryType);
             Assert.IsNull(configuration.CalculationType);
         }
 
@@ -52,18 +51,15 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
             // Setup
             const string calculationName = "Name of the calculation";
             var random = new Random(21);
-            var categoryType = random.NextEnumValue<ConfigurationGrassCoverErosionOutwardsCategoryType>();
             var calculationType = random.NextEnumValue<ConfigurationGrassCoverErosionOutwardsCalculationType>();
 
             // Call
             var configuration = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration(calculationName)
             {
-                CategoryType = categoryType,
                 CalculationType = calculationType
             };
 
             // Assert
-            Assert.AreEqual(categoryType, configuration.CategoryType);
             Assert.AreEqual(calculationType, configuration.CalculationType);
         }
     }

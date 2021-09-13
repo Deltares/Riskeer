@@ -26,7 +26,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
 {
     /// <summary>
     /// Class that represents a wave conditions calculation configuration
-    /// containing <see cref="ConfigurationGrassCoverErosionOutwardsCategoryType"/>.
+    /// containing <see cref="ConfigurationGrassCoverErosionOutwardsCalculationType"/>.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration : WaveConditionsCalculationConfiguration
     {
@@ -37,11 +37,6 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration(string name)
             : base(name) {}
-
-        /// <summary>
-        /// Gets or sets the category type.
-        /// </summary>
-        public ConfigurationGrassCoverErosionOutwardsCategoryType? CategoryType { get; set; }
 
         /// <summary>
         /// Gets or sets the calculation type.
