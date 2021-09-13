@@ -150,11 +150,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             NormType normativeNormType = assessmentSection.FailureMechanismContribution.NormativeNorm;
             IEnumerable<HydraulicBoundaryLocationCalculation> calculationsToClear = GetHydraulicBoundaryLocationCalculationsToClear(normativeNorm, normativeNormType);
 
-            NormType normType = normativeNorm
-                                    ? normativeNormType
-                                    : normativeNormType == NormType.LowerLimit
-                                        ? NormType.Signaling
-                                        : NormType.LowerLimit;
+            NormType normType = GetNormType(normativeNorm, normativeNormType);
 
             var affectedObjects = new List<IObservable>();
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculationsToClear));
@@ -166,6 +162,18 @@ namespace Riskeer.Integration.Plugin.Handlers
             }
 
             return affectedObjects;
+        }
+
+        private static NormType GetNormType(bool normativeNorm, NormType normativeNormType)
+        {
+            if (normativeNorm)
+            {
+                return normativeNormType;
+            }
+
+            return normativeNormType == NormType.LowerLimit
+                       ? NormType.Signaling
+                       : NormType.LowerLimit;
         }
 
         private IEnumerable<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculationsToClear(bool normativeNorm, NormType normativeNormType)
