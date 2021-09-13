@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
@@ -99,11 +98,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
 
         protected override ICalculation<AssessmentSectionCategoryWaveConditionsInput> CreateCalculation()
         {
-            var random = new Random(21);
-            return new TestWaveConditionsCalculation<AssessmentSectionCategoryWaveConditionsInput>(new AssessmentSectionCategoryWaveConditionsInput
-            {
-                CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
-            });
+            return new TestWaveConditionsCalculation<AssessmentSectionCategoryWaveConditionsInput>(new AssessmentSectionCategoryWaveConditionsInput());
         }
 
         protected override AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)

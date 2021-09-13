@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Revetment.Data;
-using Riskeer.Revetment.IO.Configurations.Converters;
 
 namespace Riskeer.Revetment.IO.Configurations
 {
@@ -48,8 +47,6 @@ namespace Riskeer.Revetment.IO.Configurations
         {
             var configuration = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration(calculation.Name);
             SetConfigurationProperties(configuration, calculation);
-            configuration.CategoryType = (ConfigurationAssessmentSectionCategoryType?) new ConfigurationAssessmentSectionCategoryTypeConverter()
-                .ConvertFrom(calculation.InputParameters.CategoryType);
             return configuration;
         }
     }

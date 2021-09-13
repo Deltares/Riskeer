@@ -21,7 +21,6 @@
 
 using System.Xml;
 using Riskeer.Revetment.Data;
-using Riskeer.Revetment.IO.Configurations.Converters;
 
 namespace Riskeer.Revetment.IO.Configurations
 {
@@ -42,17 +41,7 @@ namespace Riskeer.Revetment.IO.Configurations
             : base(filePath) {}
 
         protected override void WriteWaveConditionsSpecificParameters(
-            XmlWriter writer, TConfiguration configuration)
-        {
-            if (!configuration.CategoryType.HasValue)
-            {
-                return;
-            }
-
-            var converter = new ConfigurationAssessmentSectionCategoryTypeConverter();
-            writer.WriteElementString(WaveConditionsCalculationConfigurationSchemaIdentifiers.CategoryType,
-                                      converter.ConvertToInvariantString(configuration.CategoryType.Value));
-        }
+            XmlWriter writer, TConfiguration configuration) {}
 
         protected override int GetConfigurationVersion()
         {

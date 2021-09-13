@@ -19,10 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.ComponentModel;
 using System.IO;
 using Core.Common.Base.Data;
-using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.IO.Configurations;
@@ -85,7 +83,6 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             var calculation = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration("Berekening 1")
             {
                 HydraulicBoundaryLocationName = "Locatie1",
-                CategoryType = ConfigurationAssessmentSectionCategoryType.LowerLimitNorm,
                 UpperBoundaryRevetment = (RoundedDouble) 1.5,
                 LowerBoundaryRevetment = (RoundedDouble) 0.5,
                 UpperBoundaryWaterLevels = (RoundedDouble) 1.4,
@@ -122,28 +119,6 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             {
                 File.Delete(filePath);
             }
-        }
-
-        [Test]
-        public void Write_InvalidCategoryType_ThrowsCriticalFileWriteException()
-        {
-            // Setup
-            var configuration = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration("fail")
-            {
-                CategoryType = (ConfigurationAssessmentSectionCategoryType?) 99
-            };
-
-            var writer = new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>("valid");
-
-            // Call
-            TestDelegate call = () => writer.Write(new[]
-            {
-                configuration
-            });
-
-            // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
-            Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
         protected override AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration> CreateWriterInstance(string filePath)
