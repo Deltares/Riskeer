@@ -252,9 +252,37 @@ namespace Riskeer.Revetment.Data.Test
         }
 
         [Test]
+        [TestCase(WaveConditionsInputWaterLevelType.None)]
+        [TestCase(WaveConditionsInputWaterLevelType.LowerLimit)]
+        [TestCase(WaveConditionsInputWaterLevelType.Signaling)]
+        [TestCase(WaveConditionsInputWaterLevelType.UserDefinedTargetProbability)]
+        public void GetAssessmentLevel_ValidInputWithoutHydraulicBoundaryLocation_ReturnsNaN(WaveConditionsInputWaterLevelType waterLevelType)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new TestHydraulicBoundaryLocation()
+            }, true);
+
+            var input = new TestWaveConditionsInput
+            {
+                WaterLevelType = waterLevelType,
+                CalculationsTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First()
+            };
+
+            // Call
+            double assessmentLevel = WaveConditionsInputHelper.GetAssessmentLevel(input, assessmentSection);
+
+            // Assert
+            Assert.IsNaN(assessmentLevel);
+        }
+
+        [Test]
         [TestCaseSource(nameof(GetAssessmentLevelConfigurations))]
-        public void GetAssessmentLevel_ValidInput_ReturnsExpectedValue(WaveConditionsInputWaterLevelType waterLevelType,
-                                                                       Func<WaveConditionsInput, IAssessmentSection, double> getExpectedAssessmentLevel)
+        public void GetAssessmentLevel_ValidInputWithHydraulicBoundaryLocation_ReturnsExpectedValue(WaveConditionsInputWaterLevelType waterLevelType,
+                                                                                                    Func<WaveConditionsInput, IAssessmentSection, double> getExpectedAssessmentLevel)
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
