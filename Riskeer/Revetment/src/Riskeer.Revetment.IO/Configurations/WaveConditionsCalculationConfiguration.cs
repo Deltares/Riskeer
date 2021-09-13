@@ -50,6 +50,11 @@ namespace Riskeer.Revetment.IO.Configurations
         public string HydraulicBoundaryLocationName { get; set; }
 
         /// <summary>
+        /// Gets or sets the target probability of the calculation.
+        /// </summary>
+        public double? TargetProbability { get; set; }
+
+        /// <summary>
         /// Gets or sets the upper boundary of the revetment of the calculation.
         /// </summary>
         public double? UpperBoundaryRevetment { get; set; }

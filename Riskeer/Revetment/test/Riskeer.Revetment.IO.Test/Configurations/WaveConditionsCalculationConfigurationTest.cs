@@ -53,6 +53,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             Assert.IsInstanceOf<IConfigurationItem>(readCalculation);
             Assert.AreEqual(name, readCalculation.Name);
             Assert.IsNull(readCalculation.HydraulicBoundaryLocationName);
+            Assert.IsNull(readCalculation.TargetProbability);
             Assert.IsNull(readCalculation.UpperBoundaryRevetment);
             Assert.IsNull(readCalculation.LowerBoundaryRevetment);
             Assert.IsNull(readCalculation.UpperBoundaryWaterLevels);
@@ -69,10 +70,11 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             // Setup
             const string calculationName = "Name of the calculation";
             const string hydraulicBoundaryLocation = "Name of the hydraulic boundary location";
-            const double upperBoundaryRevetment = 1.1;
-            const double lowerBoundaryRevetment = 2.2;
-            const double upperBoundaryWaterLevels = 3.3;
-            const double lowerBoundaryWaterLevels = 4.4;
+            const double targetProbability = 1.1;
+            const double upperBoundaryRevetment = 2.2;
+            const double lowerBoundaryRevetment = 3.3;
+            const double upperBoundaryWaterLevels = 4.4;
+            const double lowerBoundaryWaterLevels = 5.5;
             const ConfigurationWaveConditionsInputStepSize stepSize = ConfigurationWaveConditionsInputStepSize.Half;
             const string foreshoreProfileName = "Name of the foreshore profile";
             const double orientation = 6.6;
@@ -85,6 +87,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             var readWaveConditionsCalculation = new WaveConditionsCalculationConfiguration(calculationName)
             {
                 HydraulicBoundaryLocationName = hydraulicBoundaryLocation,
+                TargetProbability = targetProbability,
                 UpperBoundaryRevetment = upperBoundaryRevetment,
                 LowerBoundaryRevetment = lowerBoundaryRevetment,
                 UpperBoundaryWaterLevels = upperBoundaryWaterLevels,
@@ -104,6 +107,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             // Assert
             Assert.AreEqual(calculationName, readWaveConditionsCalculation.Name);
             Assert.AreEqual(hydraulicBoundaryLocation, readWaveConditionsCalculation.HydraulicBoundaryLocationName);
+            Assert.AreEqual(targetProbability, readWaveConditionsCalculation.TargetProbability);
             Assert.AreEqual(upperBoundaryRevetment, readWaveConditionsCalculation.UpperBoundaryRevetment);
             Assert.AreEqual(lowerBoundaryRevetment, readWaveConditionsCalculation.LowerBoundaryRevetment);
             Assert.AreEqual(upperBoundaryWaterLevels, readWaveConditionsCalculation.UpperBoundaryWaterLevels);
