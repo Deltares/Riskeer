@@ -27,6 +27,8 @@ using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Revetment.Data.TestUtil;
 
 namespace Riskeer.Revetment.Data.Test
 {
@@ -56,11 +58,11 @@ namespace Riskeer.Revetment.Data.Test
             var random = new Random(21);
 
             // Call
-            TestDelegate call = () => WaveConditionsInputHelper.SetCategoryType((AssessmentSectionCategoryWaveConditionsInput) null,
-                                                                                random.NextEnumValue<NormType>());
+            void Call() => WaveConditionsInputHelper.SetCategoryType((AssessmentSectionCategoryWaveConditionsInput) null,
+                                                                     random.NextEnumValue<NormType>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("waveConditionsInput", exception.ParamName);
         }
 
@@ -71,11 +73,11 @@ namespace Riskeer.Revetment.Data.Test
             const NormType normType = (NormType) 99;
 
             // Call
-            TestDelegate call = () => WaveConditionsInputHelper.SetCategoryType(new AssessmentSectionCategoryWaveConditionsInput(),
-                                                                                normType);
+            void Call() => WaveConditionsInputHelper.SetCategoryType(new AssessmentSectionCategoryWaveConditionsInput(), normType);
+
             // Assert
-            string expectedMessage = $"The value of argument 'normType' ({(int) normType}) is invalid for Enum type '{nameof(NormType)}'.";
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage);
+            var expectedMessage = $"The value of argument 'normType' ({(int) normType}) is invalid for Enum type '{nameof(NormType)}'.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
             Assert.AreEqual("normType", exception.ParamName);
         }
 
@@ -103,11 +105,11 @@ namespace Riskeer.Revetment.Data.Test
             var random = new Random(21);
 
             // Call
-            TestDelegate call = () => WaveConditionsInputHelper.SetCategoryType((FailureMechanismCategoryWaveConditionsInput) null,
-                                                                                random.NextEnumValue<NormType>());
+            void Call() => WaveConditionsInputHelper.SetCategoryType((FailureMechanismCategoryWaveConditionsInput) null,
+                                                                     random.NextEnumValue<NormType>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("waveConditionsInput", exception.ParamName);
         }
 
@@ -118,11 +120,11 @@ namespace Riskeer.Revetment.Data.Test
             const NormType normType = (NormType) 99;
 
             // Call
-            TestDelegate call = () => WaveConditionsInputHelper.SetCategoryType(new FailureMechanismCategoryWaveConditionsInput(),
-                                                                                normType);
+            void Call() => WaveConditionsInputHelper.SetCategoryType(new FailureMechanismCategoryWaveConditionsInput(), normType);
+
             // Assert
-            string expectedMessage = $"The value of argument 'normType' ({(int) normType}) is invalid for Enum type '{nameof(NormType)}'.";
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage);
+            var expectedMessage = $"The value of argument 'normType' ({(int) normType}) is invalid for Enum type '{nameof(NormType)}'.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
             Assert.AreEqual("normType", exception.ParamName);
         }
 
@@ -141,6 +143,50 @@ namespace Riskeer.Revetment.Data.Test
 
             // Assert
             Assert.AreEqual(expectedFailureMechanismCategoryType, waveConditionsInput.CategoryType);
+        }
+
+        [Test]
+        public void GetTargetProbability_InputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => WaveConditionsInputHelper.GetTargetProbability(null, new AssessmentSectionStub());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
+        }
+
+        [Test]
+        public void GetTargetProbability_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => WaveConditionsInputHelper.GetTargetProbability(new TestWaveConditionsInput(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void GetAssessmentLevel_InputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => WaveConditionsInputHelper.GetAssessmentLevel(null, new AssessmentSectionStub());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
+        }
+
+        [Test]
+        public void GetAssessmentLevel_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => WaveConditionsInputHelper.GetAssessmentLevel(new TestWaveConditionsInput(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
 }
