@@ -28,7 +28,7 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
     /// Class that represents a wave conditions calculation configuration
     /// containing <see cref="ConfigurationStabilityStoneCoverCalculationType"/>.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsCalculationConfiguration : AssessmentSectionCategoryWaveConditionsCalculationConfiguration
+    public class StabilityStoneCoverWaveConditionsCalculationConfiguration : WaveConditionsCalculationConfiguration
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsCalculationConfiguration"/>.

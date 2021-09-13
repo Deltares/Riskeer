@@ -46,7 +46,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Configurations
         protected override WaveConditionsCalculationConfiguration ToConfiguration(
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation)
         {
-            var configuration = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration(calculation.Name);
+            var configuration = new WaveConditionsCalculationConfiguration(calculation.Name);
             SetConfigurationProperties(configuration, calculation);
             return configuration;
         }

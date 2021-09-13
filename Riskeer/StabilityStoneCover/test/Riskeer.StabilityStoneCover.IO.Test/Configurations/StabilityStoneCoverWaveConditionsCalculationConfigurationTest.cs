@@ -40,7 +40,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
             var configuration = new StabilityStoneCoverWaveConditionsCalculationConfiguration(name);
 
             // Assert
-            Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>(configuration);
+            Assert.IsInstanceOf<WaveConditionsCalculationConfiguration>(configuration);
             Assert.AreEqual(name, configuration.Name);
             Assert.IsNull(configuration.CalculationType);
         }
