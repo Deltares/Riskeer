@@ -31,7 +31,7 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
     /// to XML format.
     /// </summary>
     public class StabilityStoneCoverWaveConditionsCalculationConfigurationWriter
-        : AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<StabilityStoneCoverWaveConditionsCalculationConfiguration>
+        : WaveConditionsCalculationConfigurationWriter<StabilityStoneCoverWaveConditionsCalculationConfiguration>
     {
         /// <inheritdoc />
         /// <summary>
@@ -42,8 +42,6 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
 
         protected override void WriteWaveConditionsSpecificParameters(XmlWriter writer, StabilityStoneCoverWaveConditionsCalculationConfiguration configuration)
         {
-            base.WriteWaveConditionsSpecificParameters(writer, configuration);
-
             if (!configuration.CalculationType.HasValue)
             {
                 return;
@@ -52,6 +50,11 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
             var converter = new ConfigurationStabilityStoneCoverCalculationTypeConverter();
             writer.WriteElementString(WaveConditionsCalculationConfigurationSchemaIdentifiers.CalculationType,
                                       converter.ConvertToInvariantString(configuration.CalculationType.Value));
+        }
+
+        protected override int GetConfigurationVersion()
+        {
+            return 1;
         }
     }
 }
