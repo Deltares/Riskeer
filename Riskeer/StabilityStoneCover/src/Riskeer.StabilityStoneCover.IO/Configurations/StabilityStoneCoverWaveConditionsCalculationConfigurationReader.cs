@@ -53,6 +53,7 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
             : base(xmlFilePath, new[]
             {
                 Resources.StabiliteitSteenzettingConfiguratieSchema_0,
+                Resources.StabiliteitSteenzettingConfiguratieSchema_1,
                 Resources.StabiliteitSteenzettingConfiguratieSchema
             }) {}
 

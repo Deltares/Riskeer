@@ -10,6 +10,9 @@
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
+    <None Include="Resources\StabiliteitSteenzettingConfiguratieSchema_1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\StabiliteitSteenzettingConfiguratieSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -32,7 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
