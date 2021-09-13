@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -27,6 +28,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data.TestUtil;
 
@@ -187,6 +189,27 @@ namespace Riskeer.Revetment.Data.Test
         }
 
         [Test]
+        [TestCaseSource(nameof(GetTargetProbabilityConfigurations))]
+        public void GetTargetProbability_ValidInput_ReturnsExpectedValue(WaveConditionsInputWaterLevelType waterLevelType,
+                                                                         Func<WaveConditionsInput, IAssessmentSection, double> getExpectedTargetProbability)
+        {
+            // Setup
+            var input = new TestWaveConditionsInput
+            {
+                WaterLevelType = waterLevelType,
+                CalculationsTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
+            };
+
+            var assessmentSection = new AssessmentSectionStub();
+
+            // Call
+            double targetProbability = WaveConditionsInputHelper.GetTargetProbability(input, assessmentSection);
+
+            // Assert
+            Assert.AreEqual(getExpectedTargetProbability(input, assessmentSection), targetProbability);
+        }
+
+        [Test]
         public void GetAssessmentLevel_InputNull_ThrowsArgumentNullException()
         {
             // Call
@@ -225,6 +248,22 @@ namespace Riskeer.Revetment.Data.Test
             var expectedMessage = $"The value of argument 'WaterLevelType' ({(int) waterLevelType}) is invalid for Enum type '{nameof(WaveConditionsInputWaterLevelType)}'.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
             Assert.AreEqual("WaterLevelType", exception.ParamName);
+        }
+
+        private static IEnumerable<TestCaseData> GetTargetProbabilityConfigurations()
+        {
+            yield return new TestCaseData(
+                WaveConditionsInputWaterLevelType.None,
+                (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => double.NaN));
+            yield return new TestCaseData(
+                WaveConditionsInputWaterLevelType.LowerLimit,
+                (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => assessmentSection.FailureMechanismContribution.LowerLimitNorm));
+            yield return new TestCaseData(
+                WaveConditionsInputWaterLevelType.Signaling,
+                (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => assessmentSection.FailureMechanismContribution.SignalingNorm));
+            yield return new TestCaseData(
+                WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
+                (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => input.CalculationsTargetProbability.TargetProbability));
         }
     }
 }
