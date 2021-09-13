@@ -24,7 +24,8 @@ using System.Xml.Linq;
 using Core.Common.Base.IO;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Revetment.IO.Configurations;
-using Riskeer.Revetment.IO.Properties;
+using Riskeer.WaveImpactAsphaltCover.IO.Properties;
+using RevetmentResources = Riskeer.Revetment.IO.Properties.Resources;
 
 namespace Riskeer.WaveImpactAsphaltCover.IO.Configurations
 {
@@ -50,8 +51,9 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Configurations
         public WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationReader(string xmlFilePath)
             : base(xmlFilePath, new[]
             {
-                Resources.BekledingenConfiguratieSchema_0,
-                Resources.BekledingenConfiguratieSchema_1
+                RevetmentResources.BekledingenConfiguratieSchema_0,
+                RevetmentResources.BekledingenConfiguratieSchema_1,
+                Resources.GolfklappenOpAsfaltBekledingConfiguratieSchema
             }) {}
 
         protected override WaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
