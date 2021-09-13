@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Revetment.Data;
 using Riskeer.Revetment.IO.Configurations;
-using Riskeer.Revetment.IO.Configurations.Converters;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.IO.Configurations.Converters;
 
@@ -59,16 +56,6 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
         protected override void SetCalculationSpecificParameters(StabilityStoneCoverWaveConditionsCalculationConfiguration calculationConfiguration,
                                                                  StabilityStoneCoverWaveConditionsCalculation calculation, NormType normType)
         {
-            if (calculationConfiguration.CategoryType.HasValue)
-            {
-                calculation.InputParameters.CategoryType = (AssessmentSectionCategoryType) new ConfigurationAssessmentSectionCategoryTypeConverter()
-                    .ConvertTo(calculationConfiguration.CategoryType.Value, typeof(AssessmentSectionCategoryType));
-            }
-            else
-            {
-                WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters, normType);
-            }
-
             if (calculationConfiguration.CalculationType.HasValue)
             {
                 calculation.InputParameters.CalculationType = (StabilityStoneCoverWaveConditionsCalculationType) new ConfigurationStabilityStoneCoverCalculationTypeConverter()

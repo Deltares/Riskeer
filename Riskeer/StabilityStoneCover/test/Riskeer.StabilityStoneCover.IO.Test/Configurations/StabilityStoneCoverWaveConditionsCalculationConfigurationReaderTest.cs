@@ -42,13 +42,6 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
         {
             get
             {
-                yield return new TestCaseData("invalidCalculationMultipleCategoryType.xml",
-                                              "Element 'categoriegrens' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleCategoryType");
-                yield return new TestCaseData("invalidCategoryTypeUnknownValue.xml",
-                                              "The 'categoriegrens' element is invalid - The value 'F' is invalid according to its datatype 'categoriegrensType' - The Enumeration constraint failed.")
-                    .SetName("invalidCategoryTypeUnknownValue");
-
                 yield return new TestCaseData("invalidCalculationMultipleRevetmentType.xml",
                                               "Element 'typebekleding' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleRevetmentType");
@@ -134,7 +127,6 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
             Assert.AreEqual(ConfigurationBreakWaterType.Caisson, configuration.WaveReduction.BreakWaterType);
             Assert.AreEqual(6.6, configuration.WaveReduction.BreakWaterHeight);
             Assert.IsFalse(configuration.WaveReduction.UseForeshoreProfile);
-            Assert.AreEqual(ConfigurationAssessmentSectionCategoryType.SignalingNorm, configuration.CategoryType);
             Assert.AreEqual(ConfigurationStabilityStoneCoverCalculationType.Columns, configuration.CalculationType);
         }
     }
