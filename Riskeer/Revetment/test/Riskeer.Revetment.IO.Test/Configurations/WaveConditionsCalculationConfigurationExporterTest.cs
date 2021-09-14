@@ -136,7 +136,14 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         protected override WaveConditionsCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration, ICalculation<WaveConditionsInput>> CallConfigurationFilePathConstructor(
             IEnumerable<ICalculationBase> calculations, string filePath)
         {
-            return new TestWaveConditionsCalculationConfigurationExporter(calculations, filePath, new AssessmentSectionStub());
+            return new TestWaveConditionsCalculationConfigurationExporter(calculations, filePath, new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    LowerLimitNorm = 0.1,
+                    SignalingNorm = 0.05
+                }
+            });
         }
 
         private class TestWaveConditionsCalculationConfigurationExporter : WaveConditionsCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration, ICalculation<WaveConditionsInput>>
