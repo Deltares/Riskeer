@@ -147,14 +147,12 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         private IEnumerable<IObservable> ClearNormDependingHydraulicBoundaryLocationCalculationOutput(bool normativeNorm)
         {
-            NormType normativeNormType = assessmentSection.FailureMechanismContribution.NormativeNorm;
-            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsToClear = GetHydraulicBoundaryLocationCalculationsToClear(normativeNorm, normativeNormType);
-
-            NormType normType = GetNormType(normativeNorm, normativeNormType);
+            NormType normToClearFor = GetNormToClearFor(normativeNorm, assessmentSection.FailureMechanismContribution.NormativeNorm);
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsToClear = GetHydraulicBoundaryLocationCalculationsToClear(normToClearFor);
 
             var affectedObjects = new List<IObservable>();
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculationsToClear));
-            affectedObjects.AddRange(RiskeerDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(assessmentSection, normType));
+            affectedObjects.AddRange(RiskeerDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(assessmentSection, normToClearFor));
 
             if (affectedObjects.Any())
             {
@@ -164,7 +162,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             return affectedObjects;
         }
 
-        private static NormType GetNormType(bool normativeNorm, NormType normativeNormType)
+        private static NormType GetNormToClearFor(bool normativeNorm, NormType normativeNormType)
         {
             if (normativeNorm)
             {
@@ -176,18 +174,11 @@ namespace Riskeer.Integration.Plugin.Handlers
                        : NormType.LowerLimit;
         }
 
-        private IEnumerable<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculationsToClear(bool normativeNorm, NormType normativeNormType)
+        private IEnumerable<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculationsToClear(NormType normToClearFor)
         {
-            if (normativeNorm)
-            {
-                return normativeNormType == NormType.LowerLimit
-                           ? assessmentSection.WaterLevelCalculationsForLowerLimitNorm
-                           : assessmentSection.WaterLevelCalculationsForSignalingNorm;
-            }
-
-            return normativeNormType == NormType.LowerLimit
-                       ? assessmentSection.WaterLevelCalculationsForSignalingNorm
-                       : assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+            return normToClearFor == NormType.LowerLimit
+                       ? assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+                       : assessmentSection.WaterLevelCalculationsForSignalingNorm;
         }
     }
 }

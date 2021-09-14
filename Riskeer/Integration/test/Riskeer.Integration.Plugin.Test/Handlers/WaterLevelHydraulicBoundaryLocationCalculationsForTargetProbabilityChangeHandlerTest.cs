@@ -128,7 +128,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_CalculationsForTargetProbabilityWithoutOutput_ReturnsNoAffectedObjects()
+        public void SetPropertyValueAfterConfirmation_CalculationsForTargetProbabilityWithoutOutput_ReturnsOnlyCalculationsForTargetProbability()
         {
             // Setup
             DialogBoxHandler = (name, wnd) =>

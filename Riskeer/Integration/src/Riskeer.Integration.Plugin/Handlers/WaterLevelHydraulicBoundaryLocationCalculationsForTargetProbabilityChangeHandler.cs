@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// Creates a new instance of <see cref="WaterLevelHydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler"/>.
         /// </summary>
         /// <param name="calculationsForTargetProbability">The calculations to change the target probability for.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the that contains the <paramref name="calculationsForTargetProbability"/>.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that contains the <paramref name="calculationsForTargetProbability"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public WaterLevelHydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
             HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability, IAssessmentSection assessmentSection)
