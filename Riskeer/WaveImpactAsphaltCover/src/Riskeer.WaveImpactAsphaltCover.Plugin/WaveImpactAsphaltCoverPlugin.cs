@@ -81,8 +81,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             {
                 CreateInstance = context => new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(
                     context,
-                    () => context.AssessmentSection.GetAssessmentLevel(context.Calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                       context.Calculation.InputParameters.CategoryType),
+                    () => WaveConditionsInputHelper.GetAssessmentLevel(context.Calculation.InputParameters, context.AssessmentSection),
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
         }
