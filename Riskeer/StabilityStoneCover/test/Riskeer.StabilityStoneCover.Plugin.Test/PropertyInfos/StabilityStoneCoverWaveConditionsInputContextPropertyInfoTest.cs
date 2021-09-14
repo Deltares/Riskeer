@@ -19,14 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Data.TestUtil;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
@@ -52,29 +54,22 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        [TestCaseSource(
-            typeof(AssessmentSectionTestHelper),
-            nameof(AssessmentSectionTestHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerAssessmentSectionCategoryType))]
-        public void CreateInstance_WithContextThatHasInputWithSpecificCategoryType_ExpectedProperties(
+        [TestCaseSource(typeof(WaveConditionsInputTestHelper),
+                        nameof(WaveConditionsInputTestHelper.GetAssessmentLevelConfigurationPerWaterLevelType))]
+        public void CreateInstance_WithContextThatHasInputWithSpecificWaterLevelType_ExpectedProperties(
             IAssessmentSection assessmentSection,
-            HydraulicBoundaryLocation hydraulicBoundaryLocation,
-            AssessmentSectionCategoryType categoryType,
-            HydraulicBoundaryLocationCalculation expectedHydraulicBoundaryLocationCalculation)
+            Action<WaveConditionsInput> configureInputAction,
+            RoundedDouble expectedAssessmentLevel)
         {
             // Setup
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = categoryType
-                }
-            };
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+
+            configureInputAction(calculation.InputParameters);
 
             var context = new StabilityStoneCoverWaveConditionsInputContext(calculation.InputParameters,
                                                                             calculation,
                                                                             assessmentSection,
-                                                                            new ForeshoreProfile[0]);
+                                                                            Array.Empty<ForeshoreProfile>());
 
             using (var plugin = new StabilityStoneCoverPlugin())
             {
@@ -87,8 +82,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsInputContextProperties>(objectProperties);
                 Assert.AreSame(context, objectProperties.Data);
 
-                Assert.AreEqual(expectedHydraulicBoundaryLocationCalculation.Output.Result,
-                                ((StabilityStoneCoverWaveConditionsInputContextProperties) objectProperties).AssessmentLevel);
+                Assert.AreEqual(expectedAssessmentLevel, ((StabilityStoneCoverWaveConditionsInputContextProperties) objectProperties).AssessmentLevel);
             }
         }
 
