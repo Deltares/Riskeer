@@ -2,6 +2,7 @@
 <configuratie versie="2">
   <map naam="PK001_0001">
     <berekening naam="Calculation A">
+      <doelkans>0.1</doelkans>
       <typebekleding>Steen (blokken en zuilen)</typebekleding>
       <bovengrensbekleding>NaN</bovengrensbekleding>
       <ondergrensbekleding>NaN</ondergrensbekleding>

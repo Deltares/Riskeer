@@ -30,6 +30,7 @@ using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.TestUtil;
+using Riskeer.Revetment.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.IO.Configurations;
 
@@ -50,7 +51,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
                 InputParameters =
                 {
                     ForeshoreProfile = new TestForeshoreProfile("ForeshoreA"),
-                    CategoryType = AssessmentSectionCategoryType.FactorizedSignalingNorm
+                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
                 }
             };
 
@@ -61,7 +62,6 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HydraulicLocationA", 0, 0),
                     UseBreakWater = true,
-                    CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
                     CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Blocks
                 }
             };
@@ -112,7 +112,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
         protected override StabilityStoneCoverWaveConditionsCalculationConfigurationExporter CallConfigurationFilePathConstructor(
             IEnumerable<ICalculationBase> calculations, string filePath)
         {
-            return new StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(calculations, filePath, new FailureMechanismContribution(0.1, 0.1));
+            return new StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(calculations, filePath, new FailureMechanismContribution(0.1, 0.0065));
         }
     }
 }
