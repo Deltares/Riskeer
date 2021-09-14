@@ -34,21 +34,9 @@ namespace Riskeer.Storage.Core.DbContext
     {
         public long GrassCoverErosionOutwardsFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
-        public long HydraulicLocationCalculationCollectionEntity1Id { get; set; }
-        public long HydraulicLocationCalculationCollectionEntity2Id { get; set; }
-        public long HydraulicLocationCalculationCollectionEntity3Id { get; set; }
-        public long HydraulicLocationCalculationCollectionEntity4Id { get; set; }
-        public long HydraulicLocationCalculationCollectionEntity5Id { get; set; }
-        public long HydraulicLocationCalculationCollectionEntity6Id { get; set; }
         public double N { get; set; }
         public string ForeshoreProfileCollectionSourcePath { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
-        public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity { get; set; }
-        public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity1 { get; set; }
-        public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity2 { get; set; }
-        public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity3 { get; set; }
-        public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity4 { get; set; }
-        public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity5 { get; set; }
     }
 }

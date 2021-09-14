@@ -75,6 +75,7 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual DbSet<HeightStructuresOutputEntity> HeightStructuresOutputEntities { get; set; }
         public virtual DbSet<HeightStructuresSectionResultEntity> HeightStructuresSectionResultEntities { get; set; }
         public virtual DbSet<HydraulicBoundaryDatabaseEntity> HydraulicBoundaryDatabaseEntities { get; set; }
+        public virtual DbSet<HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity> HydraulicBoundaryLocationCalculationsForTargetProbabilityEntities { get; set; }
         public virtual DbSet<HydraulicLocationCalculationCollectionEntity> HydraulicLocationCalculationCollectionEntities { get; set; }
         public virtual DbSet<HydraulicLocationCalculationEntity> HydraulicLocationCalculationEntities { get; set; }
         public virtual DbSet<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
@@ -137,7 +138,7 @@ namespace Riskeer.Storage.Core.DbContext
         /// but before the model has been locked down and used to initialize the <see cref="DbContext"/>.
         /// </summary>
         /// <param name="modelBuilder">The <see cref="DbModelBuilder"/> that defines the model for the context being created.</param>
-        /// <exception cref="UnintentionalCodeFirstException">Thrown because the <see cref="DbContext"/> is created in a 'code first' approach.</exception>
+        /// <exception cref="DbContext">Thrown because the <see cref="UnintentionalCodeFirstException"/> is created in a 'code first' approach.</exception>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

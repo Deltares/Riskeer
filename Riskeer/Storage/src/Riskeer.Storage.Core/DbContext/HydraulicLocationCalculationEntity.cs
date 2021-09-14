@@ -39,6 +39,8 @@ namespace Riskeer.Storage.Core.DbContext
         public HydraulicLocationCalculationEntity()
         {
             HydraulicLocationOutputEntities = new HashSet<HydraulicLocationOutputEntity>();
+            HydraulicBoundaryLocationCalculationsForTargetProbabilityEntities = new HashSet<HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity>();
+            HydraulicLocationCalculationCollectionEntities = new HashSet<HydraulicLocationCalculationCollectionEntity>();
         }
 
         public long HydraulicLocationCalculationEntityId { get; set; }
@@ -46,10 +48,15 @@ namespace Riskeer.Storage.Core.DbContext
         public long HydraulicLocationCalculationCollectionEntityId { get; set; }
         public byte ShouldIllustrationPointsBeCalculated { get; set; }
 
-        public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationOutputEntity> HydraulicLocationOutputEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity> HydraulicBoundaryLocationCalculationsForTargetProbabilityEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HydraulicLocationCalculationCollectionEntity> HydraulicLocationCalculationCollectionEntities { get; set; }
     }
 }

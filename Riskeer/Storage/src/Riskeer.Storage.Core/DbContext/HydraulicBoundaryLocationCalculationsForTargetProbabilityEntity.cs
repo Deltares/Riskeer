@@ -28,16 +28,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
 namespace Riskeer.Storage.Core.DbContext
 {
-    public partial class ClosingStructuresOutputEntity
+    public class HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity
     {
-        public long ClosingStructuresOutputEntityId { get; set; }
-        public long ClosingStructuresCalculationEntityId { get; set; }
-        public long? GeneralResultFaultTreeIllustrationPointEntityId { get; set; }
-        public double? Reliability { get; set; }
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity()
+        {
+            HydraulicLocationCalculationEntities = new HashSet<HydraulicLocationCalculationEntity>();
+        }
 
-        public virtual ClosingStructuresCalculationEntity ClosingStructuresCalculationEntity { get; set; }
-        public virtual GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity { get; set; }
+        public long HydraulicBoundaryLocationCalculationsForTargetProbabilityEntityId { get; set; }
+        public long AssessmentSectionEntityId { get; set; }
+        public byte HydraulicBoundaryLocationCalculationType { get; set; }
+        public double TargetProbability { get; set; }
+
+        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HydraulicLocationCalculationEntity> HydraulicLocationCalculationEntities { get; set; }
     }
 }

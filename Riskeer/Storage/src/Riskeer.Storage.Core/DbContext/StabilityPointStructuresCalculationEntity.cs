@@ -49,10 +49,25 @@ namespace Riskeer.Storage.Core.DbContext
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
+        public byte UseBreakWater { get; set; }
+        public byte BreakWaterType { get; set; }
+        public double? BreakWaterHeight { get; set; }
+        public byte UseForeshore { get; set; }
+        public double? StructureNormalOrientation { get; set; }
+        public double? StorageStructureAreaMean { get; set; }
+        public double? StorageStructureAreaCoefficientOfVariation { get; set; }
+        public double? AllowedLevelIncreaseStorageMean { get; set; }
+        public double? AllowedLevelIncreaseStorageStandardDeviation { get; set; }
+        public double? WidthFlowAperturesMean { get; set; }
+        public double? WidthFlowAperturesStandardDeviation { get; set; }
         public double? InsideWaterLevelMean { get; set; }
         public double? InsideWaterLevelStandardDeviation { get; set; }
         public double? ThresholdHeightOpenWeirMean { get; set; }
         public double? ThresholdHeightOpenWeirStandardDeviation { get; set; }
+        public double? CriticalOvertoppingDischargeMean { get; set; }
+        public double? CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
+        public double? FlowWidthAtBottomProtectionMean { get; set; }
+        public double? FlowWidthAtBottomProtectionStandardDeviation { get; set; }
         public double? ConstructiveStrengthLinearLoadModelMean { get; set; }
         public double? ConstructiveStrengthLinearLoadModelCoefficientOfVariation { get; set; }
         public double? ConstructiveStrengthQuadraticLoadModelMean { get; set; }
@@ -84,37 +99,21 @@ namespace Riskeer.Storage.Core.DbContext
         public byte InflowModelType { get; set; }
         public byte LoadSchematizationType { get; set; }
         public double? VolumicWeightWater { get; set; }
+        public double? StormDurationMean { get; set; }
         public double? FactorStormDurationOpenStructure { get; set; }
         public double? DrainCoefficientMean { get; set; }
         public double? DrainCoefficientStandardDeviation { get; set; }
+        public double FailureProbabilityStructureWithErosion { get; set; }
+        public byte ShouldIllustrationPointsBeCalculated { get; set; }
         public byte RelevantForScenario { get; set; }
         public double ScenarioContribution { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
+        public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
+        public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
         public virtual StabilityPointStructureEntity StabilityPointStructureEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StabilityPointStructuresOutputEntity> StabilityPointStructuresOutputEntities { get; set; }
-
-        public byte UseBreakWater { get; set; }
-        public byte BreakWaterType { get; set; }
-        public double? BreakWaterHeight { get; set; }
-        public byte UseForeshore { get; set; }
-        public double? StructureNormalOrientation { get; set; }
-        public double? StorageStructureAreaMean { get; set; }
-        public double? StorageStructureAreaCoefficientOfVariation { get; set; }
-        public double? AllowedLevelIncreaseStorageMean { get; set; }
-        public double? AllowedLevelIncreaseStorageStandardDeviation { get; set; }
-        public double? WidthFlowAperturesMean { get; set; }
-        public double? WidthFlowAperturesStandardDeviation { get; set; }
-        public double? CriticalOvertoppingDischargeMean { get; set; }
-        public double? CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
-        public double? FlowWidthAtBottomProtectionMean { get; set; }
-        public double? FlowWidthAtBottomProtectionStandardDeviation { get; set; }
-        public double? StormDurationMean { get; set; }
-        public double FailureProbabilityStructureWithErosion { get; set; }
-        public byte ShouldIllustrationPointsBeCalculated { get; set; }
-        public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
-        public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
     }
 }
