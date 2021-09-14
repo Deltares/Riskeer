@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie versie="2">
+  <map naam="group 1">
+    <berekening naam="Calculation 1 (lower limit)">
+      <doelkans>0.1</doelkans>
+      <bovengrensbekleding>NaN</bovengrensbekleding>
+      <ondergrensbekleding>NaN</ondergrensbekleding>
+      <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+      <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+      <stapgrootte>0.5</stapgrootte>
+      <orientatie>NaN</orientatie>
+    </berekening>
+    <berekening naam="Calculation 3 (user defined)">
+      <doelkans>0.003</doelkans>
+      <bovengrensbekleding>NaN</bovengrensbekleding>
+      <ondergrensbekleding>NaN</ondergrensbekleding>
+      <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+      <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+      <stapgrootte>0.5</stapgrootte>
+      <orientatie>NaN</orientatie>
+    </berekening>
+    <map naam="group 2">
+      <berekening naam="Calculation 2 (signaling)">
+        <doelkans>0.05</doelkans>
+        <bovengrensbekleding>NaN</bovengrensbekleding>
+        <ondergrensbekleding>NaN</ondergrensbekleding>
+        <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+        <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+        <stapgrootte>0.5</stapgrootte>
+        <orientatie>NaN</orientatie>
+      </berekening>
+      <berekening naam="Calculation 4 (none)">
+        <bovengrensbekleding>NaN</bovengrensbekleding>
+        <ondergrensbekleding>NaN</ondergrensbekleding>
+        <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+        <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+        <stapgrootte>0.5</stapgrootte>
+        <orientatie>NaN</orientatie>
+      </berekening>
+    </map>
+  </map>
+</configuratie>

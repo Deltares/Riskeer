@@ -83,6 +83,7 @@ namespace Riskeer.Revetment.IO.Configurations
             calculationConfiguration.StepSize = (ConfigurationWaveConditionsInputStepSize?) new ConfigurationWaveConditionsInputStepSizeConverter().ConvertFrom(input.StepSize);
 
             SetConfigurationForeshoreProfileDependentProperties(calculationConfiguration, input);
+            SetConfigurationTargetProbabilityProperty(calculationConfiguration, input);
         }
 
         private static void SetConfigurationForeshoreProfileDependentProperties(WaveConditionsCalculationConfiguration configuration,
@@ -105,6 +106,26 @@ namespace Riskeer.Revetment.IO.Configurations
             {
                 configuration.WaveReduction.BreakWaterType = (ConfigurationBreakWaterType?)
                     new ConfigurationBreakWaterTypeConverter().ConvertFrom(input.BreakWater.Type);
+            }
+        }
+
+        private void SetConfigurationTargetProbabilityProperty(WaveConditionsCalculationConfiguration configuration, WaveConditionsInput input)
+        {
+            switch (input.WaterLevelType)
+            {
+                case WaveConditionsInputWaterLevelType.None:
+                    return;
+                case WaveConditionsInputWaterLevelType.LowerLimit:
+                    configuration.TargetProbability = failureMechanismContribution.LowerLimitNorm;
+                    break;
+                case WaveConditionsInputWaterLevelType.Signaling:
+                    configuration.TargetProbability = failureMechanismContribution.SignalingNorm;
+                    break;
+                case WaveConditionsInputWaterLevelType.UserDefinedTargetProbability:
+                    configuration.TargetProbability = input.CalculationsTargetProbability.TargetProbability;
+                    break;
+                default:
+                    throw new NotSupportedException();
             }
         }
     }

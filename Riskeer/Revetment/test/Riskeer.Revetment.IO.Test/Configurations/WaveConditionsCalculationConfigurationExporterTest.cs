@@ -21,10 +21,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.IO.Configurations.Export;
 using Riskeer.Common.IO.TestUtil;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
@@ -49,6 +53,79 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismContribution", exception.ParamName);
         }
+
+        [Test]
+        public void Export_VariousTargetProbabilities_ReturnTrueAndWritesFile()
+        {
+            // Setup
+            var calculation1 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput())
+            {
+                Name = "Calculation 1 (lower limit)",
+                InputParameters =
+                {
+                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
+                }
+            };
+
+            var calculation2 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput())
+            {
+                Name = "Calculation 2 (signaling)",
+                InputParameters =
+                {
+                    WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
+                }
+            };
+
+            var calculation3 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput())
+            {
+                Name = "Calculation 3 (user defined)",
+                InputParameters =
+                {
+                    WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
+                    CalculationsTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.003)
+                }
+            };
+
+            var calculation4 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput())
+            {
+                Name = "Calculation 4 (none)",
+                InputParameters =
+                {
+                    WaterLevelType = WaveConditionsInputWaterLevelType.None
+                }
+            };
+
+            var calculationGroup2 = new CalculationGroup
+            {
+                Name = "group 2",
+                Children =
+                {
+                    calculation2,
+                    calculation4
+                }
+            };
+
+            var calculationGroup = new CalculationGroup
+            {
+                Name = "group 1",
+                Children =
+                {
+                    calculation1,
+                    calculation3,
+                    calculationGroup2
+                }
+            };
+            
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Revetment.IO,
+                                                                    Path.Combine(
+                                                                        nameof(WaveConditionsCalculationConfigurationExporter<CalculationConfigurationWriter<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration, ICalculation<WaveConditionsInput>>),
+                                                                               "targetProbabilityConfiguration.xml"));
+            // Call & Assert
+            WriteAndValidate(new[]
+            {
+                calculationGroup
+            }, expectedXmlFilePath);
+        }
         
         protected override ICalculation<WaveConditionsInput> CreateCalculation()
         {
@@ -58,7 +135,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         protected override WaveConditionsCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration, ICalculation<WaveConditionsInput>> CallConfigurationFilePathConstructor(
             IEnumerable<ICalculationBase> calculations, string filePath)
         {
-            return new TestWaveConditionsCalculationConfigurationExporter(calculations, filePath, new FailureMechanismContribution(0.1, 0.1));
+            return new TestWaveConditionsCalculationConfigurationExporter(calculations, filePath, new FailureMechanismContribution(0.1, 0.05));
         }
 
         private class TestWaveConditionsCalculationConfigurationExporter : WaveConditionsCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration, ICalculation<WaveConditionsInput>>
@@ -69,7 +146,9 @@ namespace Riskeer.Revetment.IO.Test.Configurations
 
             protected override WaveConditionsCalculationConfiguration ToConfiguration(ICalculation<WaveConditionsInput> calculation)
             {
-                return new WaveConditionsCalculationConfiguration("test");
+                var configuration = new WaveConditionsCalculationConfiguration(calculation.Name);
+                SetConfigurationProperties(configuration, calculation);
+                return configuration;
             }
         }
 
