@@ -314,6 +314,16 @@ namespace Riskeer.Revetment.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De doelkans &apos;{0}&apos; kan niet worden gevonden en kan daarom niet gebruikt worden..
+        /// </summary>
+        public static string WaveConditionsCalculationConfigurationImporter_TryMatchTargetProbability_TargetProbability_0_cannot_be_found {
+            get {
+                return ResourceManager.GetString("WaveConditionsCalculationConfigurationImporter_TryMatchTargetProbability_TargetPr" +
+                        "obability_0_cannot_be_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to bovengrens bekledingen.
         /// </summary>
         public static string WaveConditionsCalculationConfigurationImporter_UpperBoundaryRevetment_DisplayName {

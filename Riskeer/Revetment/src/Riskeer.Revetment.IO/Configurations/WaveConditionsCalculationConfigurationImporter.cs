@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.Calculation;
@@ -102,10 +102,6 @@ namespace Riskeer.Revetment.IO.Configurations
             this.calculationsForTargetProbabilities = calculationsForTargetProbabilities;
         }
 
-        /// <inheritdoc/>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="normType"/> is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="normType"/> is a valid value,
-        /// but unsupported.</exception>
         protected override ICalculation ParseReadCalculation(TCalculationConfiguration readCalculation)
         {
             var waveConditionsCalculation = new TCalculation
@@ -209,31 +205,53 @@ namespace Riskeer.Revetment.IO.Configurations
 
             return false;
         }
-        
+
         private bool TrySetTargetProbability(TCalculationConfiguration readCalculation, ICalculation<WaveConditionsInput> waveConditionsCalculation)
         {
             if (readCalculation.TargetProbability.HasValue)
             {
-                double targetProbability = readCalculation.TargetProbability.Value;
+                if (!TryMatchTargetProbability(readCalculation.TargetProbability.Value, readCalculation.Name,
+                                               out Tuple<double, WaveConditionsInputWaterLevelType, HydraulicBoundaryLocationCalculationsForTargetProbability> matchedTargetProbability))
+                {
+                    return false;
+                }
 
-                if (Math.Abs(failureMechanismContribution.LowerLimitNorm - targetProbability) < 1e-6)
-                {
-                    waveConditionsCalculation.InputParameters.WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit;
-                }
-                else if (Math.Abs(failureMechanismContribution.SignalingNorm - targetProbability) < 1e-6)
-                {
-                    waveConditionsCalculation.InputParameters.WaterLevelType = WaveConditionsInputWaterLevelType.Signaling;
-                }
-                else
-                {
-                    HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = calculationsForTargetProbabilities.FirstOrDefault(
-                        c => Math.Abs(c.TargetProbability - targetProbability) < 1e-6);
-
-                    waveConditionsCalculation.InputParameters.WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability;
-                    waveConditionsCalculation.InputParameters.CalculationsTargetProbability = calculationsForTargetProbability;
-                }
+                waveConditionsCalculation.InputParameters.WaterLevelType = matchedTargetProbability.Item2;
+                waveConditionsCalculation.InputParameters.CalculationsTargetProbability = matchedTargetProbability.Item3;
             }
 
+            return true;
+        }
+
+        private bool TryMatchTargetProbability(
+            double targetProbability, string calculationName,
+            out Tuple<double, WaveConditionsInputWaterLevelType, HydraulicBoundaryLocationCalculationsForTargetProbability> matchedTargetProbability)
+        {
+            var availableTargetProbabilities = new List<Tuple<double, WaveConditionsInputWaterLevelType, HydraulicBoundaryLocationCalculationsForTargetProbability>>(
+                calculationsForTargetProbabilities.Select(c => new Tuple<double, WaveConditionsInputWaterLevelType, HydraulicBoundaryLocationCalculationsForTargetProbability>(
+                                                              c.TargetProbability, WaveConditionsInputWaterLevelType.UserDefinedTargetProbability, c)))
+            {
+                new Tuple<double, WaveConditionsInputWaterLevelType, HydraulicBoundaryLocationCalculationsForTargetProbability>(
+                    failureMechanismContribution.LowerLimitNorm, WaveConditionsInputWaterLevelType.LowerLimit, null),
+                new Tuple<double, WaveConditionsInputWaterLevelType, HydraulicBoundaryLocationCalculationsForTargetProbability>(
+                    failureMechanismContribution.SignalingNorm, WaveConditionsInputWaterLevelType.Signaling, null)
+            };
+
+            Tuple<double, WaveConditionsInputWaterLevelType, HydraulicBoundaryLocationCalculationsForTargetProbability>[] matchedTargetProbabilities = availableTargetProbabilities.Where(
+                tp => Math.Abs(tp.Item1 - targetProbability) < 1e-6).ToArray();
+
+            if (matchedTargetProbabilities.Length != 1)
+            {
+                matchedTargetProbability = null;
+                Log.LogCalculationConversionError(
+                    string.Format(
+                        Resources.WaveConditionsCalculationConfigurationImporter_TryMatchTargetProbability_TargetProbability_0_cannot_be_found,
+                        targetProbability.ToString(CultureInfo.InvariantCulture)),
+                    calculationName);
+                return false;
+            }
+
+            matchedTargetProbability = matchedTargetProbabilities.Single();
             return true;
         }
 

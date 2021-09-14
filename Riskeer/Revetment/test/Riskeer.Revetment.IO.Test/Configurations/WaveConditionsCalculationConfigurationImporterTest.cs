@@ -298,7 +298,54 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         }
 
         [Test]
-        [TestCaseSource(nameof(GetTargetProbabilityData))]
+        [TestCaseSource(nameof(GetInvalidTargetProbabilityData))]
+        public void GivenDataModelWithUnmatchableTargetProbabilities_WhenImporting_ThenLogMessageAndContinueImport(
+            FailureMechanismContribution failureMechanismContribution,
+            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> calculationsForTargetProbabilities)
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationFullCalculation.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Locatie", 10, 20);
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            }, new BreakWater(BreakWaterType.Caisson, 0), new ForeshoreProfile.ConstructionProperties
+            {
+                Id = "Voorlandprofiel",
+                Name = "VoorlandProfielName"
+            });
+
+            var importer = new TestWaveConditionsCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                new[]
+                {
+                    hydraulicBoundaryLocation
+                },
+                new[]
+                {
+                    foreshoreProfile
+                },
+                failureMechanismContribution,
+                calculationsForTargetProbabilities);
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "De doelkans '0.01' kan niet worden gevonden en kan daarom niet gebruikt worden. Berekening 'Berekening 1' is overgeslagen.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetValidTargetProbabilityData))]
         public void Import_ValidConfigurationWithValidData_DataAddedToModel(FailureMechanismContribution failureMechanismContribution,
                                                                             HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability,
                                                                             WaveConditionsInputWaterLevelType expectedWaterLevelType)
@@ -375,7 +422,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             AssertWaveConditionsCalculation(expectedCalculation, (ICalculation<WaveConditionsInput>) calculationGroup.Children[0]);
         }
 
-        private static IEnumerable<TestCaseData> GetTargetProbabilityData()
+        private static IEnumerable<TestCaseData> GetValidTargetProbabilityData()
         {
             yield return new TestCaseData(
                 new FailureMechanismContribution(0.01, 0.005),
@@ -389,6 +436,31 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 new FailureMechanismContribution(0.02, 0.005),
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability);
+        }
+
+        private static IEnumerable<TestCaseData> GetInvalidTargetProbabilityData()
+        {
+            yield return new TestCaseData(new FailureMechanismContribution(0.02, 0.005), new[]
+            {
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.05)
+            });
+            yield return new TestCaseData(new FailureMechanismContribution(0.01, 0.01), new[]
+            {
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.05)
+            });
+            yield return new TestCaseData(new FailureMechanismContribution(0.01, 0.005), new[]
+            {
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
+            });
+            yield return new TestCaseData(new FailureMechanismContribution(0.02, 0.01), new[]
+            {
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
+            });
+            yield return new TestCaseData(new FailureMechanismContribution(0.02, 0.005), new[]
+            {
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
+            });
         }
 
         private static void AssertWaveConditionsCalculation(ICalculation<WaveConditionsInput> expectedCalculation, ICalculation<WaveConditionsInput> actualCalculation)
