@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -52,7 +51,8 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Configurations
                 new CalculationGroup(),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                 Enumerable.Empty<ForeshoreProfile>(),
-                new Random(39).NextEnumValue<NormType>());
+                new FailureMechanismContribution(0.1, 0.1),
+                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsCalculationConfigurationImporter<WaveImpactAsphaltCoverWaveConditionsCalculation,
@@ -89,7 +89,8 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Configurations
                 {
                     foreshoreProfile
                 },
-                new Random(39).NextEnumValue<NormType>());
+                new FailureMechanismContribution(0.1, 0.1),
+                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
 
             // Call
             bool successful = importer.Import();

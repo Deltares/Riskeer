@@ -45,8 +45,9 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Configurations
                                                                                     CalculationGroup importTarget,
                                                                                     IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                                                     IEnumerable<ForeshoreProfile> foreshoreProfiles,
-                                                                                    NormType normType)
-            : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles, normType) {}
+                                                                                    FailureMechanismContribution failureMechanismContribution,
+                                                                                    IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> calculationsForTargetProbabilities)
+            : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles, failureMechanismContribution, calculationsForTargetProbabilities) {}
 
         protected override WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
         {
