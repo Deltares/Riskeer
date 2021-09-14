@@ -63,7 +63,7 @@ namespace Riskeer.Common.Data.AssessmentSection
             HydraulicBoundaryLocationCalculation calculation = GetNormativeHydraulicBoundaryLocationCalculation(assessmentSection,
                                                                                                                 hydraulicBoundaryLocation);
 
-            return GetAssessmentLevelFromCalculation(calculation);
+            return calculation?.Output?.Result ?? RoundedDouble.NaN;
         }
 
         /// <summary>
@@ -94,41 +94,6 @@ namespace Riskeer.Common.Data.AssessmentSection
 
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations = GetHydraulicBoundaryLocationCalculations(assessmentSection);
             return GetHydraulicBoundaryLocationCalculationFromCalculations(hydraulicBoundaryLocation, calculations);
-        }
-
-        /// <summary>
-        /// Gets the assessment level for a <see cref="HydraulicBoundaryLocation"/> based on <see cref="AssessmentSectionCategoryType"/>.
-        /// </summary>
-        /// <param name="assessmentSection">The assessment section to get the assessment level from.</param>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to get the assessment level for.</param>
-        /// <param name="categoryType">The category type to use while obtaining the assessment level.</param>
-        /// <returns>The assessment level or <see cref="RoundedDouble.NaN"/> when:
-        /// <list type="bullet">
-        /// <item><paramref name="hydraulicBoundaryLocation"/> is <c>null</c>;</item>
-        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="assessmentSection"/>;</item>
-        /// <item><paramref name="hydraulicBoundaryLocation"/> contains no corresponding calculation output.</item>
-        /// </list>
-        /// </returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categoryType"/>
-        /// is an invalid <see cref="AssessmentSectionCategoryType"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryType"/>
-        /// is a valid but unsupported <see cref="AssessmentSectionCategoryType"/>.</exception>
-        public static RoundedDouble GetAssessmentLevel(this IAssessmentSection assessmentSection,
-                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                       AssessmentSectionCategoryType categoryType)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            HydraulicBoundaryLocationCalculation calculation = GetHydraulicBoundaryLocationCalculation(assessmentSection,
-                                                                                                       hydraulicBoundaryLocation,
-                                                                                                       categoryType);
-
-            return GetAssessmentLevelFromCalculation(calculation);
         }
 
         /// <summary>
@@ -250,11 +215,6 @@ namespace Riskeer.Common.Data.AssessmentSection
                                                                                                                     IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
             return calculations.FirstOrDefault(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-        }
-
-        private static RoundedDouble GetAssessmentLevelFromCalculation(HydraulicBoundaryLocationCalculation calculation)
-        {
-            return calculation?.Output?.Result ?? RoundedDouble.NaN;
         }
     }
 }
