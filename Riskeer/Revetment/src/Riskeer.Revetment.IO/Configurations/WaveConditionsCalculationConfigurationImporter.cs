@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -50,7 +50,6 @@ namespace Riskeer.Revetment.IO.Configurations
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
         private readonly IEnumerable<ForeshoreProfile> availableForeshoreProfiles;
-        private readonly NormType normType;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationImporter{TCalculation, TCalculationConfigurationReader, TCalculationConfiguration}"/>.
@@ -61,14 +60,17 @@ namespace Riskeer.Revetment.IO.Configurations
         /// used to check if the imported objects contain the right location.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles used to check if
         /// the imported objects contain the right profile.</param>
-        /// <param name="normType">The normative norm type of the assessment section the calculation is imported to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter but <paramref name="normType"/> is
-        /// <c>null</c>.</exception>
+        /// <param name="failureMechanismContribution">The <see cref="FailureMechanismContribution"/>
+        /// to get the norms from.</param>
+        /// <param name="calculationsForTargetProbabilities">The  hydraulic boundary location calculations for target probabilities
+        /// used to check if the imported objects contain the right target probability.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter <c>null</c>.</exception>
         protected WaveConditionsCalculationConfigurationImporter(string xmlFilePath,
                                                                  CalculationGroup importTarget,
                                                                  IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                                  IEnumerable<ForeshoreProfile> foreshoreProfiles,
-                                                                 NormType normType)
+                                                                 FailureMechanismContribution failureMechanismContribution,
+                                                                 IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> calculationsForTargetProbabilities)
             : base(xmlFilePath, importTarget)
         {
             if (hydraulicBoundaryLocations == null)
@@ -81,9 +83,18 @@ namespace Riskeer.Revetment.IO.Configurations
                 throw new ArgumentNullException(nameof(foreshoreProfiles));
             }
 
+            if (failureMechanismContribution == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismContribution));
+            }
+
+            if (calculationsForTargetProbabilities == null)
+            {
+                throw new ArgumentNullException(nameof(calculationsForTargetProbabilities));
+            }
+
             availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
             availableForeshoreProfiles = foreshoreProfiles;
-            this.normType = normType;
         }
 
         /// <inheritdoc/>

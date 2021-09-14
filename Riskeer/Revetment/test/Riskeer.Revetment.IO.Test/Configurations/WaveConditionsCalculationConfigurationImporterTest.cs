@@ -54,7 +54,8 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 new CalculationGroup(),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                 Enumerable.Empty<ForeshoreProfile>(),
-                new Random(39).NextEnumValue<NormType>());
+                new FailureMechanismContribution(0.1, 0.1),
+                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
 
             // Assert
             Assert.IsInstanceOf<CalculationConfigurationImporter<TestWaveConditionsCalculationConfigurationReader, WaveConditionsCalculationConfiguration>>(importer);
@@ -64,15 +65,13 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         public void Constructor_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestWaveConditionsCalculationConfigurationImporter(
-                "",
-                new CalculationGroup(),
-                null,
-                Enumerable.Empty<ForeshoreProfile>(),
-                new Random(39).NextEnumValue<NormType>());
+            void Call() => new TestWaveConditionsCalculationConfigurationImporter(
+                "", new CalculationGroup(), null, Enumerable.Empty<ForeshoreProfile>(),
+                new FailureMechanismContribution(0.1, 0.1),
+                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
         }
 
@@ -80,16 +79,41 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         public void Constructor_ForeshoreProfilesNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestWaveConditionsCalculationConfigurationImporter(
-                "",
-                new CalculationGroup(),
-                Enumerable.Empty<HydraulicBoundaryLocation>(),
-                null,
-                new Random(39).NextEnumValue<NormType>());
+            void Call() => new TestWaveConditionsCalculationConfigurationImporter(
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), null,
+                new FailureMechanismContribution(0.1, 0.1),
+                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("foreshoreProfiles", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismContributionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new TestWaveConditionsCalculationConfigurationImporter(
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>(), null,
+                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanismContribution", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_CalculationsForTargetProbabilitiesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new TestWaveConditionsCalculationConfigurationImporter(
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>(), new FailureMechanismContribution(0.1, 0.1), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationsForTargetProbabilities", exception.ParamName);
         }
 
         [Test]
@@ -111,7 +135,8 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                 Enumerable.Empty<ForeshoreProfile>(),
-                new Random(39).NextEnumValue<NormType>());
+                new FailureMechanismContribution(0.1, 0.1),
+                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
 
             // Call
             var successful = false;
@@ -136,7 +161,8 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                 Enumerable.Empty<ForeshoreProfile>(),
-                new Random(39).NextEnumValue<NormType>());
+                new FailureMechanismContribution(0.1, 0.1),
+                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
 
             // Call
             var successful = false;
@@ -161,7 +187,8 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                 Enumerable.Empty<ForeshoreProfile>(),
-                new Random(39).NextEnumValue<NormType>());
+                new FailureMechanismContribution(0.1, 0.1),
+                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
 
             // Call
             var successful = false;
@@ -186,7 +213,8 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                 Enumerable.Empty<ForeshoreProfile>(),
-                new Random(39).NextEnumValue<NormType>());
+                new FailureMechanismContribution(0.1, 0.1),
+                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
 
             // Call
             var successful = false;
@@ -215,7 +243,8 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 {
                     foreshoreProfile
                 },
-                new Random(39).NextEnumValue<NormType>());
+                new FailureMechanismContribution(0.1, 0.1),
+                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
 
             // Call
             var successful = false;
@@ -244,7 +273,8 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 {
                     foreshoreProfile
                 },
-                new Random(39).NextEnumValue<NormType>());
+                new FailureMechanismContribution(0.1, 0.1),
+                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
 
             // Call
             bool successful = importer.Import();
@@ -298,7 +328,8 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 {
                     foreshoreProfile
                 },
-                normType);
+                new FailureMechanismContribution(0.1, 0.1),
+                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
 
             // Call
             var successful = false;
@@ -333,7 +364,6 @@ namespace Riskeer.Revetment.IO.Test.Configurations
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
             AssertWaveConditionsCalculation(expectedCalculation, (ICalculation<WaveConditionsInput>) calculationGroup.Children[0]);
-            Assert.AreEqual(normType, importer.NormType);
         }
 
         private static void AssertWaveConditionsCalculation(ICalculation<WaveConditionsInput> expectedCalculation, ICalculation<WaveConditionsInput> actualCalculation)
@@ -360,13 +390,9 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                                                                       CalculationGroup importTarget,
                                                                       IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                                       IEnumerable<ForeshoreProfile> foreshoreProfiles,
-                                                                      NormType normType)
-                : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles, normType)
-            {
-                NormType = normType;
-            }
-
-            public NormType NormType { get; }
+                                                                      FailureMechanismContribution failureMechanismContribution,
+                                                                      IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> calculationsForTargetProbabilities)
+                : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles, failureMechanismContribution, calculationsForTargetProbabilities) {}
 
             protected override TestWaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(
                 string xmlFilePath)
