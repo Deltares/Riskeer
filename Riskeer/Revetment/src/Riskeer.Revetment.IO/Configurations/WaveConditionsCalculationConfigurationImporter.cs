@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
@@ -50,6 +51,8 @@ namespace Riskeer.Revetment.IO.Configurations
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
         private readonly IEnumerable<ForeshoreProfile> availableForeshoreProfiles;
+        private readonly FailureMechanismContribution failureMechanismContribution;
+        private readonly IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> calculationsForTargetProbabilities;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationImporter{TCalculation, TCalculationConfigurationReader, TCalculationConfiguration}"/>.
@@ -95,6 +98,8 @@ namespace Riskeer.Revetment.IO.Configurations
 
             availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
             availableForeshoreProfiles = foreshoreProfiles;
+            this.failureMechanismContribution = failureMechanismContribution;
+            this.calculationsForTargetProbabilities = calculationsForTargetProbabilities;
         }
 
         /// <inheritdoc/>
@@ -112,6 +117,7 @@ namespace Riskeer.Revetment.IO.Configurations
             SetCalculationSpecificParameters(readCalculation, waveConditionsCalculation);
 
             if (TrySetHydraulicBoundaryLocation(readCalculation.HydraulicBoundaryLocationName, waveConditionsCalculation)
+                && TrySetTargetProbability(readCalculation, waveConditionsCalculation)
                 && TrySetBoundaries(readCalculation, waveConditionsCalculation)
                 && TrySetForeshoreProfile(readCalculation.ForeshoreProfileId, waveConditionsCalculation)
                 && TrySetOrientation(readCalculation, waveConditionsCalculation)
@@ -195,9 +201,7 @@ namespace Riskeer.Revetment.IO.Configurations
 
         private bool TrySetHydraulicBoundaryLocation(string locationName, ICalculation<WaveConditionsInput> calculation)
         {
-            HydraulicBoundaryLocation location;
-
-            if (TryReadHydraulicBoundaryLocation(locationName, calculation.Name, availableHydraulicBoundaryLocations, out location))
+            if (TryReadHydraulicBoundaryLocation(locationName, calculation.Name, availableHydraulicBoundaryLocations, out HydraulicBoundaryLocation location))
             {
                 calculation.InputParameters.HydraulicBoundaryLocation = location;
                 return true;
@@ -205,12 +209,37 @@ namespace Riskeer.Revetment.IO.Configurations
 
             return false;
         }
+        
+        private bool TrySetTargetProbability(TCalculationConfiguration readCalculation, ICalculation<WaveConditionsInput> waveConditionsCalculation)
+        {
+            if (readCalculation.TargetProbability.HasValue)
+            {
+                double targetProbability = readCalculation.TargetProbability.Value;
+
+                if (Math.Abs(failureMechanismContribution.LowerLimitNorm - targetProbability) < 1e-6)
+                {
+                    waveConditionsCalculation.InputParameters.WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit;
+                }
+                else if (Math.Abs(failureMechanismContribution.SignalingNorm - targetProbability) < 1e-6)
+                {
+                    waveConditionsCalculation.InputParameters.WaterLevelType = WaveConditionsInputWaterLevelType.Signaling;
+                }
+                else
+                {
+                    HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = calculationsForTargetProbabilities.FirstOrDefault(
+                        c => Math.Abs(c.TargetProbability - targetProbability) < 1e-6);
+
+                    waveConditionsCalculation.InputParameters.WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability;
+                    waveConditionsCalculation.InputParameters.CalculationsTargetProbability = calculationsForTargetProbability;
+                }
+            }
+
+            return true;
+        }
 
         private bool TrySetForeshoreProfile(string foreshoreProfileName, ICalculation<WaveConditionsInput> calculation)
         {
-            ForeshoreProfile foreshoreProfile;
-
-            if (TryReadForeshoreProfile(foreshoreProfileName, calculation.Name, availableForeshoreProfiles, out foreshoreProfile))
+            if (TryReadForeshoreProfile(foreshoreProfileName, calculation.Name, availableForeshoreProfiles, out ForeshoreProfile foreshoreProfile))
             {
                 calculation.InputParameters.ForeshoreProfile = foreshoreProfile;
                 return true;

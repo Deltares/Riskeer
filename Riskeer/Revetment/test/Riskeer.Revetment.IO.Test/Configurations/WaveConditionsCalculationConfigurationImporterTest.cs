@@ -298,7 +298,10 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         }
 
         [Test]
-        public void Import_ValidConfigurationWithValidData_DataAddedToModel()
+        [TestCaseSource(nameof(GetTargetProbabilityData))]
+        public void Import_ValidConfigurationWithValidData_DataAddedToModel(FailureMechanismContribution failureMechanismContribution,
+                                                                            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability,
+                                                                            WaveConditionsInputWaterLevelType expectedWaterLevelType)
         {
             // Setup
             string filePath = Path.Combine(path, "validConfigurationFullCalculation.xml");
@@ -316,7 +319,6 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 Name = "VoorlandProfielName"
             });
 
-            var normType = new Random(39).NextEnumValue<NormType>();
             var importer = new TestWaveConditionsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -328,8 +330,11 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 {
                     foreshoreProfile
                 },
-                new FailureMechanismContribution(0.1, 0.1),
-                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
+                failureMechanismContribution,
+                new[]
+                {
+                    calculationsForTargetProbability
+                });
 
             // Call
             var successful = false;
@@ -345,6 +350,10 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    CalculationsTargetProbability = expectedWaterLevelType == WaveConditionsInputWaterLevelType.UserDefinedTargetProbability
+                                                        ? calculationsForTargetProbability
+                                                        : null,
+                    WaterLevelType = expectedWaterLevelType,
                     UpperBoundaryRevetment = (RoundedDouble) 10,
                     LowerBoundaryRevetment = (RoundedDouble) 2,
                     UpperBoundaryWaterLevels = (RoundedDouble) 9,
@@ -366,10 +375,28 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             AssertWaveConditionsCalculation(expectedCalculation, (ICalculation<WaveConditionsInput>) calculationGroup.Children[0]);
         }
 
+        private static IEnumerable<TestCaseData> GetTargetProbabilityData()
+        {
+            yield return new TestCaseData(
+                new FailureMechanismContribution(0.01, 0.005),
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.05),
+                WaveConditionsInputWaterLevelType.LowerLimit);
+            yield return new TestCaseData(
+                new FailureMechanismContribution(0.02, 0.01),
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.05),
+                WaveConditionsInputWaterLevelType.Signaling);
+            yield return new TestCaseData(
+                new FailureMechanismContribution(0.02, 0.005),
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
+                WaveConditionsInputWaterLevelType.UserDefinedTargetProbability);
+        }
+
         private static void AssertWaveConditionsCalculation(ICalculation<WaveConditionsInput> expectedCalculation, ICalculation<WaveConditionsInput> actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.AreSame(expectedCalculation.InputParameters.CalculationsTargetProbability, actualCalculation.InputParameters.CalculationsTargetProbability);
+            Assert.AreEqual(expectedCalculation.InputParameters.WaterLevelType, actualCalculation.InputParameters.WaterLevelType);
             Assert.AreEqual(expectedCalculation.InputParameters.UpperBoundaryRevetment, actualCalculation.InputParameters.UpperBoundaryRevetment);
             Assert.AreEqual(expectedCalculation.InputParameters.LowerBoundaryRevetment, actualCalculation.InputParameters.LowerBoundaryRevetment);
             Assert.AreEqual(expectedCalculation.InputParameters.UpperBoundaryWaterLevels, actualCalculation.InputParameters.UpperBoundaryWaterLevels);

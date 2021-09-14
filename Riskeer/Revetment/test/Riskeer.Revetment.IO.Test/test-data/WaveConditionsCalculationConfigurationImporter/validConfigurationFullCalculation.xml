@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie versie="1">
+<configuratie versie="2">
   <berekening naam="Berekening 1">
     <hblocatie>Locatie</hblocatie>
+    <doelkans>0.01</doelkans>
     <bovengrensbekleding>10</bovengrensbekleding>
     <ondergrensbekleding>2</ondergrensbekleding>
     <bovengrenswaterstanden>9</bovengrenswaterstanden>
