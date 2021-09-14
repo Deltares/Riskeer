@@ -19,19 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.IO.Configurations;
+using Riskeer.Revetment.Data;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
 {
@@ -53,7 +52,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                 InputParameters =
                 {
                     ForeshoreProfile = new TestForeshoreProfile("ForeshoreA"),
-                    CategoryType = FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm
+                    WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
                 }
             };
 
@@ -100,19 +99,12 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
 
         protected override GrassCoverErosionOutwardsWaveConditionsCalculation CreateCalculation()
         {
-            var random = new Random(21);
-            return new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    CategoryType = random.NextEnumValue<FailureMechanismCategoryType>()
-                }
-            };
+            return new GrassCoverErosionOutwardsWaveConditionsCalculation();
         }
 
         protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
         {
-            return new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(calculations, filePath, new FailureMechanismContribution(0.1, 0.1));
+            return new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(calculations, filePath, new FailureMechanismContribution(0.1, 0.002));
         }
     }
 }
