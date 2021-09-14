@@ -24,6 +24,7 @@ using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.TestUtil;
@@ -100,7 +101,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Configurations
 
         protected override WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
         {
-            return new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter(calculations, filePath);
+            return new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter(calculations, filePath, new FailureMechanismContribution(0.1, 0.1));
         }
     }
 }

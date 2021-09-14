@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Revetment.IO.Configurations;
 using Riskeer.WaveImpactAsphaltCover.Data;
 
@@ -40,8 +41,9 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Configurations
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter"/>.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
-            : base(calculations, new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationWriter(filePath)) {}
+        public WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter(
+            IEnumerable<ICalculationBase> calculations, string filePath, FailureMechanismContribution failureMechanismContribution)
+            : base(calculations, new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationWriter(filePath), failureMechanismContribution) {}
 
         protected override WaveConditionsCalculationConfiguration ToConfiguration(
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation)

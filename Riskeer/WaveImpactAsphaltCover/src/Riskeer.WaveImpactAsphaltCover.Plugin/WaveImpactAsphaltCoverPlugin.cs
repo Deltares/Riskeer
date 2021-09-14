@@ -233,15 +233,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             };
 
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
-                (context, filePath) => new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
+                (context, filePath) => new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter(
+                    context.WrappedData.Children, filePath, context.AssessmentSection.FailureMechanismContribution),
                 context => context.WrappedData.Children.Any(),
                 GetInquiryHelper());
 
             yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
-                (context, filePath) => new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter(new[]
-                {
-                    context.WrappedData
-                }, filePath),
+                (context, filePath) => new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter(
+                    new[]
+                    {
+                        context.WrappedData
+                    }, filePath, context.AssessmentSection.FailureMechanismContribution),
                 GetInquiryHelper());
         }
 

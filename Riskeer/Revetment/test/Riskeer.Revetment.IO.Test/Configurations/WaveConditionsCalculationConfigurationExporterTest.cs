@@ -19,10 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Xml;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.IO.TestUtil;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
@@ -37,20 +39,33 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         ICalculation<WaveConditionsInput>,
         WaveConditionsCalculationConfiguration>
     {
+        [Test]
+        public void Constructor_FailureMechanismContributionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new TestWaveConditionsCalculationConfigurationExporter(Array.Empty<ICalculationBase>(), "filePath", null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanismContribution", exception.ParamName);
+        }
+        
         protected override ICalculation<WaveConditionsInput> CreateCalculation()
         {
             return new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput());
         }
 
-        protected override WaveConditionsCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration, ICalculation<WaveConditionsInput>> CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
+        protected override WaveConditionsCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration, ICalculation<WaveConditionsInput>> CallConfigurationFilePathConstructor(
+            IEnumerable<ICalculationBase> calculations, string filePath)
         {
-            return new TestWaveConditionsCalculationConfigurationExporter(calculations, filePath);
+            return new TestWaveConditionsCalculationConfigurationExporter(calculations, filePath, new FailureMechanismContribution(0.1, 0.1));
         }
 
         private class TestWaveConditionsCalculationConfigurationExporter : WaveConditionsCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration, ICalculation<WaveConditionsInput>>
         {
-            public TestWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
-                : base(calculations, new TestWaveConditionsCalculationConfigurationWriter(filePath)) {}
+            public TestWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath,
+                                                                      FailureMechanismContribution failureMechanismContribution)
+                : base(calculations, new TestWaveConditionsCalculationConfigurationWriter(filePath), failureMechanismContribution) {}
 
             protected override WaveConditionsCalculationConfiguration ToConfiguration(ICalculation<WaveConditionsInput> calculation)
             {
@@ -66,7 +81,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
 
             protected override int GetConfigurationVersion()
             {
-                return 1;
+                return 2;
             }
         }
     }

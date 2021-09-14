@@ -247,15 +247,17 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             };
 
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
-                (context, filePath) => new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
+                (context, filePath) => new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(
+                    context.WrappedData.Children, filePath, context.AssessmentSection.FailureMechanismContribution),
                 context => context.WrappedData.Children.Any(),
                 GetInquiryHelper());
 
             yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>(
-                (context, filePath) => new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(new[]
-                {
-                    context.WrappedData
-                }, filePath),
+                (context, filePath) => new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(
+                    new[]
+                    {
+                        context.WrappedData
+                    }, filePath, context.AssessmentSection.FailureMechanismContribution),
                 GetInquiryHelper());
         }
 

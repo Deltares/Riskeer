@@ -25,6 +25,7 @@ using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -111,7 +112,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
 
         protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
         {
-            return new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(calculations, filePath);
+            return new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(calculations, filePath, new FailureMechanismContribution(0.1, 0.1));
         }
     }
 }

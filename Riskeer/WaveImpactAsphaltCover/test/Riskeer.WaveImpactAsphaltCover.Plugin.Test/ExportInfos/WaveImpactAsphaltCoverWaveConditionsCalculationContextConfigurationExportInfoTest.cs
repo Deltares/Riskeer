@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.IO.Configurations;
@@ -88,6 +89,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.1, 0.1));
             mocks.ReplayAll();
 
             var random = new Random(21);

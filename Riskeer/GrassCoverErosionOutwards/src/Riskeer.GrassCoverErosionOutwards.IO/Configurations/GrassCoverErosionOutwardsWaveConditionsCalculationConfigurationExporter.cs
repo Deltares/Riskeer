@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters;
 using Riskeer.Revetment.IO.Configurations;
@@ -41,8 +42,9 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter"/>.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
-            : base(calculations, new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter(filePath)) {}
+        public GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(
+            IEnumerable<ICalculationBase> calculations, string filePath, FailureMechanismContribution failureMechanismContribution)
+            : base(calculations, new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter(filePath), failureMechanismContribution) {}
 
         protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration ToConfiguration(GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
         {

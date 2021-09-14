@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Export;
@@ -43,14 +44,27 @@ namespace Riskeer.Revetment.IO.Configurations
         where TWaveConditionsCalculationConfiguration : WaveConditionsCalculationConfiguration
         where TCalculation : class, ICalculation<WaveConditionsInput>
     {
+        private readonly FailureMechanismContribution failureMechanismContribution;
+
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationExporter{TWaveConditionsCalculationConfigurationWriter,TWaveConditionsCalculationConfiguration,TCalculation}"/>.
         /// </summary>
         /// <param name="calculations">The hierarchy of calculations to export.</param>
         /// <param name="writer">The writer to use.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
-        protected WaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, TWaveConditionsCalculationConfigurationWriter writer)
-            : base(calculations, writer) {}
+        /// <param name="failureMechanismContribution">The <see cref="FailureMechanismContribution"/> to use.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        protected WaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations,
+                                                                 TWaveConditionsCalculationConfigurationWriter writer,
+                                                                 FailureMechanismContribution failureMechanismContribution)
+            : base(calculations, writer)
+        {
+            if (failureMechanismContribution == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismContribution));
+            }
+
+            this.failureMechanismContribution = failureMechanismContribution;
+        }
 
         /// <summary>
         /// Sets the properties of a <see cref="TCalculation"/> to a <see cref="TWaveConditionsCalculationConfiguration"/>.

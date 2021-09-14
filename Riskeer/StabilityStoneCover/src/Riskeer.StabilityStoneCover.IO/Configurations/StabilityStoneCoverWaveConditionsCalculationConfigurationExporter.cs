@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Revetment.IO.Configurations;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.IO.Configurations.Converters;
@@ -39,8 +40,9 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsCalculationConfigurationExporter"/>.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
-            : base(calculations, new StabilityStoneCoverWaveConditionsCalculationConfigurationWriter(filePath)) {}
+        public StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(
+            IEnumerable<ICalculationBase> calculations, string filePath, FailureMechanismContribution failureMechanismContribution)
+            : base(calculations, new StabilityStoneCoverWaveConditionsCalculationConfigurationWriter(filePath), failureMechanismContribution) {}
 
         protected override StabilityStoneCoverWaveConditionsCalculationConfiguration ToConfiguration(
             ICalculation<StabilityStoneCoverWaveConditionsInput> calculation)
