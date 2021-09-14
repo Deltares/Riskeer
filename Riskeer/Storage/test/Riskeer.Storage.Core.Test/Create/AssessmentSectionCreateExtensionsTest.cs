@@ -278,9 +278,9 @@ namespace Riskeer.Storage.Core.Test.Create
         private static void AssertHydraulicLocationCalculationCollectionEntities(AssessmentSection assessmentSection, AssessmentSectionEntity entity)
         {
             AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForSignalingNorm,
-                                                               entity.HydraulicLocationCalculationCollectionEntity);
-            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                                entity.HydraulicLocationCalculationCollectionEntity1);
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                                               entity.HydraulicLocationCalculationCollectionEntity);
         }
 
         private static void SetHydraulicBoundaryLocationCalculationInputsOfAssessmentSection(AssessmentSection assessmentSection)

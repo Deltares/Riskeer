@@ -226,7 +226,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             HydraulicBoundaryLocation hydraulicBoundaryLocation = section.HydraulicBoundaryDatabase.Locations.Single();
 
-            HydraulicBoundaryLocationCalculation calculation = section.WaterLevelCalculationsForFactorizedSignalingNorm.Single();
+            HydraulicBoundaryLocationCalculation calculation = section.WaterLevelCalculationsForSignalingNorm.Single();
             calculation = section.WaterLevelCalculationsForSignalingNorm.Single();
             HydraulicLocationCalculationEntity hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity1
                                                                                           .HydraulicLocationCalculationEntities
@@ -1022,22 +1022,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(Convert.ToBoolean(expectedEntity.ShouldIllustrationPointsBeCalculated),
                             actualCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
             Assert.IsNull(actualCalculation.Output);
-        }
-
-        private static void AssertGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                                                 IEnumerable<HydraulicBoundaryLocationCalculation> actualCalculations)
-        {
-            Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> dictionary =
-                actualCalculations.ToDictionary(calc => calc.HydraulicBoundaryLocation, calc => calc);
-
-            Assert.AreEqual(hydraulicBoundaryLocations.Count(), dictionary.Count);
-            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
-            {
-                HydraulicBoundaryLocationCalculation calculation = dictionary[hydraulicBoundaryLocation];
-                Assert.IsNotNull(calculation);
-                Assert.IsNull(calculation.Output);
-                Assert.IsFalse(calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            }
         }
 
         private static HydraulicLocationCalculationCollectionEntity CreateHydraulicLocationCollectionCalculationEntity(HydraulicLocationEntity hydraulicLocationEntity,

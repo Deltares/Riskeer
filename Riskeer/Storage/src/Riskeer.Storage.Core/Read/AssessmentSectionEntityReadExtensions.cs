@@ -139,7 +139,7 @@ namespace Riskeer.Storage.Core.Read
                                                                       ReadConversionCollector collector)
         {
             entity.HydraulicLocationCalculationCollectionEntity1.Read(assessmentSection.WaterLevelCalculationsForSignalingNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity.Read(assessmentSection.WaterLevelCalculationsForSignalingNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity.Read(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, collector);
         }
 
         private static void ReadPipingFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
