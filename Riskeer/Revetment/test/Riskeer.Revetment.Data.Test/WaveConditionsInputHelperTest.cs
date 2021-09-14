@@ -85,8 +85,8 @@ namespace Riskeer.Revetment.Data.Test
         }
 
         [Test]
-        [TestCase(NormType.Signaling, AssessmentSectionCategoryType.SignalingNorm)]
         [TestCase(NormType.LowerLimit, AssessmentSectionCategoryType.LowerLimitNorm)]
+        [TestCase(NormType.Signaling, AssessmentSectionCategoryType.SignalingNorm)]
         public void SetCategoryType_WithAssessmentSectionCategoryWaveConditionsInputAndVariousNormTypes_SetsCategoryType(
             NormType normType,
             AssessmentSectionCategoryType expectedAssessmentSectionCategoryType)
@@ -99,6 +99,23 @@ namespace Riskeer.Revetment.Data.Test
 
             // Assert
             Assert.AreEqual(expectedAssessmentSectionCategoryType, waveConditionsInput.CategoryType);
+        }
+        
+        [Test]
+        [TestCase(NormType.LowerLimit, WaveConditionsInputWaterLevelType.LowerLimit)]
+        [TestCase(NormType.Signaling, WaveConditionsInputWaterLevelType.Signaling)]
+        public void SetCategoryType_WithAssessmentSectionCategoryWaveConditionsInputAndVariousNormTypes_SetsWaterLevelType(
+            NormType normType,
+            WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
+        {
+            // Setup
+            var waveConditionsInput = new AssessmentSectionCategoryWaveConditionsInput();
+
+            // Call
+            WaveConditionsInputHelper.SetCategoryType(waveConditionsInput, normType);
+
+            // Assert
+            Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, waveConditionsInput.WaterLevelType);
         }
 
         [Test]

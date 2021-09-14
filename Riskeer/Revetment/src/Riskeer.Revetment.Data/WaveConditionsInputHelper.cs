@@ -79,9 +79,11 @@ namespace Riskeer.Revetment.Data
             {
                 case NormType.LowerLimit:
                     waveConditionsInput.CategoryType = AssessmentSectionCategoryType.LowerLimitNorm;
+                    waveConditionsInput.WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit;
                     break;
                 case NormType.Signaling:
                     waveConditionsInput.CategoryType = AssessmentSectionCategoryType.SignalingNorm;
+                    waveConditionsInput.WaterLevelType = WaveConditionsInputWaterLevelType.Signaling;
                     break;
                 default:
                     throw new NotSupportedException();
