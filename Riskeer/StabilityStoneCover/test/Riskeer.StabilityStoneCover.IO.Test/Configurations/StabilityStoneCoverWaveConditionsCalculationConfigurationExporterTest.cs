@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -102,7 +101,6 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
             {
                 InputParameters =
                 {
-                    CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>(),
                     CalculationType = random.NextEnumValue<StabilityStoneCoverWaveConditionsCalculationType>()
                 }
             };
