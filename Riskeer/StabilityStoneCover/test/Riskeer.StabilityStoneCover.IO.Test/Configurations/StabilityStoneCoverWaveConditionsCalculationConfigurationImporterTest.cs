@@ -80,6 +80,8 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
                 Name = "VoorlandProfielName"
             });
 
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.02);
+            
             var importer = new StabilityStoneCoverWaveConditionsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
@@ -91,8 +93,11 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
                 {
                     foreshoreProfile
                 },
-                new FailureMechanismContribution(0.1, 0.1),
-                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
+                new FailureMechanismContribution(0.1, 0.05),
+                new[]
+                {
+                    calculationsForTargetProbability
+                });
 
             // Call
             bool successful = importer.Import();
@@ -106,6 +111,8 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    CalculationsTargetProbability = calculationsForTargetProbability,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                     UpperBoundaryRevetment = (RoundedDouble) 10,
                     LowerBoundaryRevetment = (RoundedDouble) 2,
                     UpperBoundaryWaterLevels = (RoundedDouble) 9,
@@ -133,6 +140,8 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.AreSame(expectedCalculation.InputParameters.CalculationsTargetProbability, actualCalculation.InputParameters.CalculationsTargetProbability);
+            Assert.AreEqual(expectedCalculation.InputParameters.WaterLevelType, actualCalculation.InputParameters.WaterLevelType);
             Assert.AreEqual(expectedCalculation.InputParameters.UpperBoundaryRevetment, actualCalculation.InputParameters.UpperBoundaryRevetment);
             Assert.AreEqual(expectedCalculation.InputParameters.LowerBoundaryRevetment, actualCalculation.InputParameters.LowerBoundaryRevetment);
             Assert.AreEqual(expectedCalculation.InputParameters.UpperBoundaryWaterLevels, actualCalculation.InputParameters.UpperBoundaryWaterLevels);

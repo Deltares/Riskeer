@@ -89,7 +89,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Configurations
                 {
                     foreshoreProfile
                 },
-                new FailureMechanismContribution(0.1, 0.1),
+                new FailureMechanismContribution(0.1, 0.05),
                 Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
 
             // Call
@@ -104,6 +104,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Configurations
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                     UpperBoundaryRevetment = (RoundedDouble) 10,
                     LowerBoundaryRevetment = (RoundedDouble) 2,
                     UpperBoundaryWaterLevels = (RoundedDouble) 9,
@@ -130,6 +131,8 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Configurations
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.AreSame(expectedCalculation.InputParameters.CalculationsTargetProbability, actualCalculation.InputParameters.CalculationsTargetProbability);
+            Assert.AreEqual(expectedCalculation.InputParameters.WaterLevelType, actualCalculation.InputParameters.WaterLevelType);
             Assert.AreEqual(expectedCalculation.InputParameters.UpperBoundaryRevetment, actualCalculation.InputParameters.UpperBoundaryRevetment);
             Assert.AreEqual(expectedCalculation.InputParameters.LowerBoundaryRevetment, actualCalculation.InputParameters.LowerBoundaryRevetment);
             Assert.AreEqual(expectedCalculation.InputParameters.UpperBoundaryWaterLevels, actualCalculation.InputParameters.UpperBoundaryWaterLevels);
