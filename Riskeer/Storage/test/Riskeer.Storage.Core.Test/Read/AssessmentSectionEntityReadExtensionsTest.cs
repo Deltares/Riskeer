@@ -217,12 +217,6 @@ namespace Riskeer.Storage.Core.Test.Read
 
             entity.HydraulicLocationCalculationCollectionEntity = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 1);
             entity.HydraulicLocationCalculationCollectionEntity1 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 2);
-            entity.HydraulicLocationCalculationCollectionEntity2 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 3);
-            entity.HydraulicLocationCalculationCollectionEntity3 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 4);
-            entity.HydraulicLocationCalculationCollectionEntity4 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 5);
-            entity.HydraulicLocationCalculationCollectionEntity5 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 6);
-            entity.HydraulicLocationCalculationCollectionEntity6 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 7);
-            entity.HydraulicLocationCalculationCollectionEntity7 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 8);
 
             var collector = new ReadConversionCollector();
 
@@ -233,62 +227,15 @@ namespace Riskeer.Storage.Core.Test.Read
             HydraulicBoundaryLocation hydraulicBoundaryLocation = section.HydraulicBoundaryDatabase.Locations.Single();
 
             HydraulicBoundaryLocationCalculation calculation = section.WaterLevelCalculationsForFactorizedSignalingNorm.Single();
-            HydraulicLocationCalculationEntity hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity7
+            calculation = section.WaterLevelCalculationsForSignalingNorm.Single();
+            HydraulicLocationCalculationEntity hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity1
                                                                                           .HydraulicLocationCalculationEntities
                                                                                           .Single();
             AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
                                                        hydraulicBoundaryLocation,
                                                        calculation);
 
-            calculation = section.WaterLevelCalculationsForSignalingNorm.Single();
-            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity6
-                                                       .HydraulicLocationCalculationEntities
-                                                       .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
-                                                       hydraulicBoundaryLocation,
-                                                       calculation);
-
             calculation = section.WaterLevelCalculationsForLowerLimitNorm.Single();
-            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity5
-                                                       .HydraulicLocationCalculationEntities
-                                                       .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
-                                                       hydraulicBoundaryLocation,
-                                                       calculation);
-
-            calculation = section.WaterLevelCalculationsForFactorizedLowerLimitNorm.Single();
-            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity4
-                                                       .HydraulicLocationCalculationEntities
-                                                       .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
-                                                       hydraulicBoundaryLocation,
-                                                       calculation);
-
-            calculation = section.WaveHeightCalculationsForFactorizedSignalingNorm.Single();
-            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity3
-                                                       .HydraulicLocationCalculationEntities
-                                                       .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
-                                                       hydraulicBoundaryLocation,
-                                                       calculation);
-
-            calculation = section.WaveHeightCalculationsForSignalingNorm.Single();
-            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity2
-                                                       .HydraulicLocationCalculationEntities
-                                                       .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
-                                                       hydraulicBoundaryLocation,
-                                                       calculation);
-
-            calculation = section.WaveHeightCalculationsForLowerLimitNorm.Single();
-            hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity1
-                                                       .HydraulicLocationCalculationEntities
-                                                       .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
-                                                       hydraulicBoundaryLocation,
-                                                       calculation);
-
-            calculation = section.WaveHeightCalculationsForFactorizedLowerLimitNorm.Single();
             hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity
                                                        .HydraulicLocationCalculationEntities
                                                        .Single();
@@ -352,12 +299,6 @@ namespace Riskeer.Storage.Core.Test.Read
 
             entity.HydraulicLocationCalculationCollectionEntity = new HydraulicLocationCalculationCollectionEntity();
             entity.HydraulicLocationCalculationCollectionEntity1 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity2 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity3 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity4 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity5 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity6 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity7 = new HydraulicLocationCalculationCollectionEntity();
 
             var collector = new ReadConversionCollector();
 
@@ -372,15 +313,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 "B",
                 "A"
             }, hydraulicBoundaryLocations.Select(l => l.Name));
-
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = section.GrassCoverErosionOutwards;
-            AssertGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            AssertGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
-            AssertGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
-
-            AssertGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            AssertGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
-            AssertGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
         }
 
         [Test]
@@ -409,12 +341,6 @@ namespace Riskeer.Storage.Core.Test.Read
             entity.HydraulicBoundaryDatabaseEntities.Add(hydraulicBoundaryDatabaseEntity);
             entity.HydraulicLocationCalculationCollectionEntity = new HydraulicLocationCalculationCollectionEntity();
             entity.HydraulicLocationCalculationCollectionEntity1 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity2 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity3 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity4 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity5 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity6 = new HydraulicLocationCalculationCollectionEntity();
-            entity.HydraulicLocationCalculationCollectionEntity7 = new HydraulicLocationCalculationCollectionEntity();
 
             var collector = new ReadConversionCollector();
 
@@ -655,13 +581,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
                     {
-                        N = n,
-                        HydraulicLocationCalculationCollectionEntity = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity1 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity2 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity3 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity4 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity5 = new HydraulicLocationCalculationCollectionEntity()
+                        N = n
                     }
                 }
             };

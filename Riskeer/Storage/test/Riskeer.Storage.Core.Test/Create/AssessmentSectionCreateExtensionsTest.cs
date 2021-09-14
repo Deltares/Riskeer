@@ -277,36 +277,16 @@ namespace Riskeer.Storage.Core.Test.Create
 
         private static void AssertHydraulicLocationCalculationCollectionEntities(AssessmentSection assessmentSection, AssessmentSectionEntity entity)
         {
-            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
-                                                               entity.HydraulicLocationCalculationCollectionEntity);
-            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaveHeightCalculationsForLowerLimitNorm,
-                                                               entity.HydraulicLocationCalculationCollectionEntity1);
-            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaveHeightCalculationsForSignalingNorm,
-                                                               entity.HydraulicLocationCalculationCollectionEntity2);
-            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
-                                                               entity.HydraulicLocationCalculationCollectionEntity3);
-
-            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
-                                                               entity.HydraulicLocationCalculationCollectionEntity4);
-            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
-                                                               entity.HydraulicLocationCalculationCollectionEntity5);
             AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForSignalingNorm,
-                                                               entity.HydraulicLocationCalculationCollectionEntity6);
-            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
-                                                               entity.HydraulicLocationCalculationCollectionEntity7);
+                                                               entity.HydraulicLocationCalculationCollectionEntity);
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                                               entity.HydraulicLocationCalculationCollectionEntity1);
         }
 
         private static void SetHydraulicBoundaryLocationCalculationInputsOfAssessmentSection(AssessmentSection assessmentSection)
         {
-            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, 1);
-            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForSignalingNorm, 2);
-            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, 3);
-            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, 4);
-
-            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, 5);
-            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaveHeightCalculationsForSignalingNorm, 6);
-            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, 7);
-            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, 8);
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForSignalingNorm, 1);
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, 2);
         }
 
         private static void SetHydraulicBoundaryLocationCalculationInputs(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,

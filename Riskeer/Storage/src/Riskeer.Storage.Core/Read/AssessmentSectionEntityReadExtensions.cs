@@ -138,15 +138,8 @@ namespace Riskeer.Storage.Core.Read
                                                                       IAssessmentSection assessmentSection,
                                                                       ReadConversionCollector collector)
         {
-            entity.HydraulicLocationCalculationCollectionEntity7.Read(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity6.Read(assessmentSection.WaterLevelCalculationsForSignalingNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity5.Read(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity4.Read(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, collector);
-
-            entity.HydraulicLocationCalculationCollectionEntity3.Read(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity2.Read(assessmentSection.WaveHeightCalculationsForSignalingNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity1.Read(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity.Read(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity1.Read(assessmentSection.WaterLevelCalculationsForSignalingNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity.Read(assessmentSection.WaterLevelCalculationsForSignalingNorm, collector);
         }
 
         private static void ReadPipingFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
