@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util;
@@ -29,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
@@ -114,6 +116,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ImportInfos
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            assessmentSection.Stub(section => section.WaterLevelCalculationsForUserDefinedTargetProbabilities)
+                             .Return(new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>());
             mocks.ReplayAll();
 
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),

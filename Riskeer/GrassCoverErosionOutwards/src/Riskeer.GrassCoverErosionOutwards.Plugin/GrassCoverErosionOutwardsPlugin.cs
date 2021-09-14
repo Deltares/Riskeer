@@ -105,7 +105,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                         context.WrappedData,
                         context.HydraulicBoundaryLocations,
                         context.ForeshoreProfiles,
-                        context.AssessmentSection.FailureMechanismContribution.NormativeNorm));
+                        context.AssessmentSection.FailureMechanismContribution,
+                        context.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities));
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
