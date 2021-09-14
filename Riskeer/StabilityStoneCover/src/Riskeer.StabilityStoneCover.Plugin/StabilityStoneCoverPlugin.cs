@@ -204,7 +204,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
                         context.WrappedData,
                         context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
                         context.ForeshoreProfiles,
-                        context.AssessmentSection.FailureMechanismContribution.NormativeNorm));
+                        context.AssessmentSection.FailureMechanismContribution,
+                        context.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities));
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()

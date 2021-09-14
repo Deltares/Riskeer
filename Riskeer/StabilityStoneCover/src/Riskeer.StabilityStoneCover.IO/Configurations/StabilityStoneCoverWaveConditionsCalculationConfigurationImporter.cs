@@ -45,8 +45,10 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
         /// </summary>
         public StabilityStoneCoverWaveConditionsCalculationConfigurationImporter(string xmlFilePath, CalculationGroup importTarget,
                                                                                  IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                                 IEnumerable<ForeshoreProfile> foreshoreProfiles, NormType normType)
-            : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles, normType) {}
+                                                                                 IEnumerable<ForeshoreProfile> foreshoreProfiles,
+                                                                                 FailureMechanismContribution failureMechanismContribution,
+                                                                                 IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> calculationsForTargetProbabilities)
+            : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles, failureMechanismContribution, calculationsForTargetProbabilities) {}
 
         protected override StabilityStoneCoverWaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
         {
