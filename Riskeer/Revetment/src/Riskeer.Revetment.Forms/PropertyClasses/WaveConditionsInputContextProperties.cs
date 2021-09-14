@@ -416,7 +416,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Creates a <see cref="SelectableTargetProbability"/>.
+        /// Creates a <see cref="SelectableTargetProbability"/> that is shown as selected in the drop-down menu.
         /// </summary>
         /// <returns>The created <see cref="SelectableTargetProbability"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <see cref="WaveConditionsInputWaterLevelType"/>
@@ -440,7 +440,6 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
                     return CreateSelectableTargetProbability(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
                                                              WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                                                              calculationsForTargetProbability.TargetProbability);
-
                 case WaveConditionsInputWaterLevelType.None:
                     return null;
                 default:

@@ -51,6 +51,7 @@ namespace Riskeer.Revetment.Forms.Test.UITypeEditors
         [Test]
         public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
+            // Setup
             var selectableTargetProbability = new SelectableTargetProbability(
                 Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                 WaveConditionsInputWaterLevelType.None, 0.1);
@@ -81,6 +82,7 @@ namespace Riskeer.Revetment.Forms.Test.UITypeEditors
         [Test]
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
+            // Setup
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations = Enumerable.Empty<HydraulicBoundaryLocationCalculation>();
             const WaveConditionsInputWaterLevelType waterLevelType = WaveConditionsInputWaterLevelType.LowerLimit;
             const double targetProbability = 0.1;
