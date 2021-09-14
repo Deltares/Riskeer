@@ -210,17 +210,34 @@ namespace Riskeer.Revetment.IO.Configurations
         {
             if (readCalculation.TargetProbability.HasValue)
             {
-                if (!TryMatchTargetProbability(readCalculation.TargetProbability.Value, readCalculation.Name,
-                                               out Tuple<double, WaveConditionsInputWaterLevelType, HydraulicBoundaryLocationCalculationsForTargetProbability> matchedTargetProbability))
+                if (TryMatchTargetProbability(readCalculation.TargetProbability.Value, readCalculation.Name,
+                                              out Tuple<double, WaveConditionsInputWaterLevelType, HydraulicBoundaryLocationCalculationsForTargetProbability> matchedTargetProbability))
                 {
-                    return false;
+                    waveConditionsCalculation.InputParameters.WaterLevelType = matchedTargetProbability.Item2;
+                    waveConditionsCalculation.InputParameters.CalculationsTargetProbability = matchedTargetProbability.Item3;
+                    return true;
                 }
-
-                waveConditionsCalculation.InputParameters.WaterLevelType = matchedTargetProbability.Item2;
-                waveConditionsCalculation.InputParameters.CalculationsTargetProbability = matchedTargetProbability.Item3;
+            }
+            else
+            {
+                waveConditionsCalculation.InputParameters.WaterLevelType = ConvertNormType();
+                return true;
             }
 
-            return true;
+            return false;
+        }
+
+        private WaveConditionsInputWaterLevelType ConvertNormType()
+        {
+            switch (failureMechanismContribution.NormativeNorm)
+            {
+                case NormType.LowerLimit:
+                    return WaveConditionsInputWaterLevelType.LowerLimit;
+                case NormType.Signaling:
+                    return WaveConditionsInputWaterLevelType.Signaling;
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         private bool TryMatchTargetProbability(

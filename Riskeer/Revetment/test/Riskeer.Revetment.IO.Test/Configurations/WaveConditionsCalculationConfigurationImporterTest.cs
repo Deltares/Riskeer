@@ -289,7 +289,83 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 {
                     UseForeshore = false,
                     Orientation = (RoundedDouble) 0,
-                    ForeshoreProfile = foreshoreProfile
+                    ForeshoreProfile = foreshoreProfile,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
+                }
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertWaveConditionsCalculation(expectedCalculation, (ICalculation<WaveConditionsInput>) calculationGroup.Children[0]);
+        }
+
+        [Test]
+        [TestCase(NormType.LowerLimit, WaveConditionsInputWaterLevelType.LowerLimit)]
+        [TestCase(NormType.Signaling, WaveConditionsInputWaterLevelType.Signaling)]
+        public void Import_TargetProbabilityNull_DataAddedToModel(NormType normType, WaveConditionsInputWaterLevelType expectedWaterLevelType)
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationWithoutTargetProbability.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Locatie", 10, 20);
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            }, new BreakWater(BreakWaterType.Caisson, 0), new ForeshoreProfile.ConstructionProperties
+            {
+                Id = "Voorlandprofiel",
+                Name = "VoorlandProfielName"
+            });
+            var failureMechanismContribution = new FailureMechanismContribution(0.1, 0.1)
+            {
+                NormativeNorm = normType
+            };
+
+            var importer = new TestWaveConditionsCalculationConfigurationImporter(
+                filePath,
+                calculationGroup,
+                new[]
+                {
+                    hydraulicBoundaryLocation
+                },
+                new[]
+                {
+                    foreshoreProfile
+                },
+                failureMechanismContribution,
+                Enumerable.Empty<HydraulicBoundaryLocationCalculationsForTargetProbability>());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new TestTargetTestWaveConditionsCalculation
+            {
+                Name = "Berekening 1",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    WaterLevelType = expectedWaterLevelType,
+                    UpperBoundaryRevetment = (RoundedDouble) 10,
+                    LowerBoundaryRevetment = (RoundedDouble) 2,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 9,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 4,
+                    StepSize = WaveConditionsInputStepSize.Half,
+                    ForeshoreProfile = foreshoreProfile,
+                    Orientation = (RoundedDouble) 5.5,
+                    UseForeshore = false,
+                    UseBreakWater = true,
+                    BreakWater =
+                    {
+                        Height = (RoundedDouble) 6.6,
+                        Type = BreakWaterType.Caisson
+                    }
                 }
             };
 
