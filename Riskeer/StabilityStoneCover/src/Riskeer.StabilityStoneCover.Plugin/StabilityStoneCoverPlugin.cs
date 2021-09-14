@@ -233,7 +233,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
                 (context, filePath) => new StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(
-                    context.WrappedData.Children, filePath, context.AssessmentSection.FailureMechanismContribution),
+                    context.WrappedData.Children, filePath, context.AssessmentSection),
                 context => context.WrappedData.Children.Any(),
                 GetInquiryHelper());
 
@@ -242,7 +242,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                     new[]
                     {
                         context.WrappedData
-                    }, filePath, context.AssessmentSection.FailureMechanismContribution),
+                    }, filePath, context.AssessmentSection),
                 GetInquiryHelper());
         }
 

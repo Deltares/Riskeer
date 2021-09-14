@@ -234,7 +234,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
                 (context, filePath) => new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter(
-                    context.WrappedData.Children, filePath, context.AssessmentSection.FailureMechanismContribution),
+                    context.WrappedData.Children, filePath, context.AssessmentSection),
                 context => context.WrappedData.Children.Any(),
                 GetInquiryHelper());
 
@@ -243,7 +243,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                     new[]
                     {
                         context.WrappedData
-                    }, filePath, context.AssessmentSection.FailureMechanismContribution),
+                    }, filePath, context.AssessmentSection),
                 GetInquiryHelper());
         }
 

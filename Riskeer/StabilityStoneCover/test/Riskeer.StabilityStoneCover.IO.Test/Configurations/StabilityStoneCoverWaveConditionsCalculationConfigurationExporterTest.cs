@@ -26,7 +26,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.TestUtil;
@@ -112,7 +111,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
         protected override StabilityStoneCoverWaveConditionsCalculationConfigurationExporter CallConfigurationFilePathConstructor(
             IEnumerable<ICalculationBase> calculations, string filePath)
         {
-            return new StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(calculations, filePath, new FailureMechanismContribution(0.1, 0.0065));
+            return new StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(calculations, filePath, new AssessmentSectionStub());
         }
     }
 }

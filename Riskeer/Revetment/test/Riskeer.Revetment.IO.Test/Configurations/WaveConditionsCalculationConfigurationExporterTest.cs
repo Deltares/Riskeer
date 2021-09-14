@@ -25,9 +25,10 @@ using System.IO;
 using System.Xml;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.Configurations.Export;
 using Riskeer.Common.IO.TestUtil;
 using Riskeer.Revetment.Data;
@@ -44,14 +45,14 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         WaveConditionsCalculationConfiguration>
     {
         [Test]
-        public void Constructor_FailureMechanismContributionNull_ThrowsArgumentNullException()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => new TestWaveConditionsCalculationConfigurationExporter(Array.Empty<ICalculationBase>(), "filePath", null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanismContribution", exception.ParamName);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -115,18 +116,18 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                     calculationGroup2
                 }
             };
-            
+
             string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Revetment.IO,
                                                                     Path.Combine(
                                                                         nameof(WaveConditionsCalculationConfigurationExporter<CalculationConfigurationWriter<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration, ICalculation<WaveConditionsInput>>),
-                                                                               "targetProbabilityConfiguration.xml"));
+                                                                        "targetProbabilityConfiguration.xml"));
             // Call & Assert
             WriteAndValidate(new[]
             {
                 calculationGroup
             }, expectedXmlFilePath);
         }
-        
+
         protected override ICalculation<WaveConditionsInput> CreateCalculation()
         {
             return new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput());
@@ -135,14 +136,13 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         protected override WaveConditionsCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration, ICalculation<WaveConditionsInput>> CallConfigurationFilePathConstructor(
             IEnumerable<ICalculationBase> calculations, string filePath)
         {
-            return new TestWaveConditionsCalculationConfigurationExporter(calculations, filePath, new FailureMechanismContribution(0.1, 0.05));
+            return new TestWaveConditionsCalculationConfigurationExporter(calculations, filePath, new AssessmentSectionStub());
         }
 
         private class TestWaveConditionsCalculationConfigurationExporter : WaveConditionsCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration, ICalculation<WaveConditionsInput>>
         {
-            public TestWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath,
-                                                                      FailureMechanismContribution failureMechanismContribution)
-                : base(calculations, new TestWaveConditionsCalculationConfigurationWriter(filePath), failureMechanismContribution) {}
+            public TestWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath, IAssessmentSection assessmentSection)
+                : base(calculations, new TestWaveConditionsCalculationConfigurationWriter(filePath), assessmentSection) {}
 
             protected override WaveConditionsCalculationConfiguration ToConfiguration(ICalculation<WaveConditionsInput> calculation)
             {

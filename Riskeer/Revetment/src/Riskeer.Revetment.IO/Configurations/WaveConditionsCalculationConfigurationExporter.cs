@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Export;
@@ -44,26 +44,26 @@ namespace Riskeer.Revetment.IO.Configurations
         where TWaveConditionsCalculationConfiguration : WaveConditionsCalculationConfiguration
         where TCalculation : class, ICalculation<WaveConditionsInput>
     {
-        private readonly FailureMechanismContribution failureMechanismContribution;
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationExporter{TWaveConditionsCalculationConfigurationWriter,TWaveConditionsCalculationConfiguration,TCalculation}"/>.
         /// </summary>
         /// <param name="calculations">The hierarchy of calculations to export.</param>
         /// <param name="writer">The writer to use.</param>
-        /// <param name="failureMechanismContribution">The <see cref="FailureMechanismContribution"/> to use.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to use.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         protected WaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations,
                                                                  TWaveConditionsCalculationConfigurationWriter writer,
-                                                                 FailureMechanismContribution failureMechanismContribution)
+                                                                 IAssessmentSection assessmentSection)
             : base(calculations, writer)
         {
-            if (failureMechanismContribution == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanismContribution));
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            this.failureMechanismContribution = failureMechanismContribution;
+            this.assessmentSection = assessmentSection;
         }
 
         /// <summary>
@@ -111,22 +111,12 @@ namespace Riskeer.Revetment.IO.Configurations
 
         private void SetConfigurationTargetProbabilityProperty(WaveConditionsCalculationConfiguration configuration, WaveConditionsInput input)
         {
-            switch (input.WaterLevelType)
+            if (input.WaterLevelType == WaveConditionsInputWaterLevelType.None)
             {
-                case WaveConditionsInputWaterLevelType.None:
-                    return;
-                case WaveConditionsInputWaterLevelType.LowerLimit:
-                    configuration.TargetProbability = failureMechanismContribution.LowerLimitNorm;
-                    break;
-                case WaveConditionsInputWaterLevelType.Signaling:
-                    configuration.TargetProbability = failureMechanismContribution.SignalingNorm;
-                    break;
-                case WaveConditionsInputWaterLevelType.UserDefinedTargetProbability:
-                    configuration.TargetProbability = input.CalculationsTargetProbability.TargetProbability;
-                    break;
-                default:
-                    throw new NotSupportedException();
+                return;
             }
+
+            configuration.TargetProbability = WaveConditionsInputHelper.GetTargetProbability(input, assessmentSection);
         }
     }
 }
