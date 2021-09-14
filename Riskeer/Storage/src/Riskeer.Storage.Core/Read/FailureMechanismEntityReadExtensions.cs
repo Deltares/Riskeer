@@ -709,8 +709,6 @@ namespace Riskeer.Storage.Core.Read
                                   metaEntity.ForeshoreProfileCollectionSourcePath,
                                   collector);
 
-            entity.ReadHydraulicBoundaryLocationCalculations(failureMechanism, collector);
-
             ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
         }
 
@@ -732,28 +730,7 @@ namespace Riskeer.Storage.Core.Read
                 sectionResultEntity.Read(result);
             }
         }
-
-        private static void ReadHydraulicBoundaryLocationCalculations(this FailureMechanismEntity entity,
-                                                                      GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                      ReadConversionCollector collector)
-        {
-            GrassCoverErosionOutwardsFailureMechanismMetaEntity metaEntity = GetGrassCoverErosionOutwardsFailureMechanismMetaEntity(entity);
-
-            metaEntity.HydraulicLocationCalculationCollectionEntity5.Read(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
-                                                                          collector);
-            metaEntity.HydraulicLocationCalculationCollectionEntity4.Read(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
-                                                                          collector);
-            metaEntity.HydraulicLocationCalculationCollectionEntity3.Read(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
-                                                                          collector);
-
-            metaEntity.HydraulicLocationCalculationCollectionEntity2.Read(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
-                                                                          collector);
-            metaEntity.HydraulicLocationCalculationCollectionEntity1.Read(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
-                                                                          collector);
-            metaEntity.HydraulicLocationCalculationCollectionEntity.Read(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
-                                                                         collector);
-        }
-
+        
         private static void ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
                                                                                             CalculationGroup targetRootCalculationGroup, ReadConversionCollector collector)
         {
