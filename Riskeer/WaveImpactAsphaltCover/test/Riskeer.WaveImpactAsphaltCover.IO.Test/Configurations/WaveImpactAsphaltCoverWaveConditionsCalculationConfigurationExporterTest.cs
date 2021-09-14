@@ -28,6 +28,7 @@ using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.TestUtil;
+using Riskeer.Revetment.Data;
 using Riskeer.Revetment.IO.Configurations;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.IO.Configurations;
@@ -50,7 +51,8 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Configurations
                 Name = "Calculation A",
                 InputParameters =
                 {
-                    ForeshoreProfile = new TestForeshoreProfile("ForeshoreA")
+                    ForeshoreProfile = new TestForeshoreProfile("ForeshoreA"),
+                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
                 }
             };
 
@@ -101,7 +103,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Configurations
 
         protected override WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
         {
-            return new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter(calculations, filePath, new FailureMechanismContribution(0.1, 0.1));
+            return new WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationExporter(calculations, filePath, new FailureMechanismContribution(0.1, 0.08));
         }
     }
 }
