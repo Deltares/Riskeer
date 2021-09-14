@@ -19,17 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
+using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Data.TestUtil;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 {
@@ -52,30 +53,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        [TestCaseSource(
-            typeof(GrassCoverErosionOutwardsAssessmentSectionTestHelper),
-            nameof(GrassCoverErosionOutwardsAssessmentSectionTestHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType))]
-        public void CreateInstance_WithContextThatHasInputWithSpecificCategoryType_ExpectedProperties(
+        [TestCaseSource(typeof(WaveConditionsInputTestHelper),
+                        nameof(WaveConditionsInputTestHelper.GetAssessmentLevelConfigurationPerWaterLevelType))]
+        public void CreateInstance_WithContextThatHasInputWithSpecificWaterLevelType_ExpectedProperties(
             IAssessmentSection assessmentSection,
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-            HydraulicBoundaryLocation hydraulicBoundaryLocation,
-            FailureMechanismCategoryType categoryType,
-            HydraulicBoundaryLocationCalculation expectedHydraulicBoundaryLocationCalculation)
+            Action<WaveConditionsInput> configureInputAction,
+            RoundedDouble expectedAssessmentLevel)
         {
             // Setup
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = categoryType
-                }
-            };
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+
+            configureInputAction(calculation.InputParameters);
 
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(calculation.InputParameters,
                                                                                   calculation,
                                                                                   assessmentSection,
-                                                                                  failureMechanism);
+                                                                                  new GrassCoverErosionOutwardsFailureMechanism());
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -88,8 +81,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveConditionsInputContextProperties>(objectProperties);
                 Assert.AreSame(context, objectProperties.Data);
 
-                Assert.AreEqual(expectedHydraulicBoundaryLocationCalculation.Output.Result,
-                                ((GrassCoverErosionOutwardsWaveConditionsInputContextProperties) objectProperties).AssessmentLevel);
+                Assert.AreEqual(expectedAssessmentLevel, ((GrassCoverErosionOutwardsWaveConditionsInputContextProperties) objectProperties).AssessmentLevel);
             }
         }
 

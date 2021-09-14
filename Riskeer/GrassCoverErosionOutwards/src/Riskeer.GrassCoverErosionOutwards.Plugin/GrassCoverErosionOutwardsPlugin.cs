@@ -89,9 +89,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             {
                 CreateInstance = context => new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(
                     context,
-                    () => context.FailureMechanism.GetAssessmentLevel(context.AssessmentSection,
-                                                                      context.Calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                      context.Calculation.InputParameters.CategoryType),
+                    () => WaveConditionsInputHelper.GetAssessmentLevel(context.WrappedData, context.AssessmentSection),
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
         }

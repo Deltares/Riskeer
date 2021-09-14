@@ -84,7 +84,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             {
                 CreateInstance = context => new StabilityStoneCoverWaveConditionsInputContextProperties(
                     context,
-                    () => WaveConditionsInputHelper.GetAssessmentLevel(context.Calculation.InputParameters, context.AssessmentSection),
+                    () => WaveConditionsInputHelper.GetAssessmentLevel(context.WrappedData, context.AssessmentSection),
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
         }
