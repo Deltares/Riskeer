@@ -97,37 +97,6 @@ namespace Riskeer.Common.Data.AssessmentSection
         }
 
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocationCalculation"/> for a <see cref="HydraulicBoundaryLocation"/>
-        /// based on <see cref="AssessmentSectionCategoryType"/>.</summary>
-        /// <param name="assessmentSection">The assessment section to get the <see cref="HydraulicBoundaryLocationCalculation"/> from.</param>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to get the <see cref="HydraulicBoundaryLocationCalculation"/> for.</param>
-        /// <param name="categoryType">The category type to use while obtaining the <see cref="HydraulicBoundaryLocationCalculation"/>.</param>
-        /// <returns>The <see cref="HydraulicBoundaryLocationCalculation"/>, or <c>null</c> when:
-        /// <list type="bullet">
-        /// <item><paramref name="hydraulicBoundaryLocation"/> is <c>null</c>;</item>
-        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="assessmentSection"/>.</item>
-        /// </list>
-        /// </returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categoryType"/>
-        /// is an invalid <see cref="AssessmentSectionCategoryType"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryType"/>
-        /// is a valid but unsupported <see cref="AssessmentSectionCategoryType"/>.</exception>
-        public static HydraulicBoundaryLocationCalculation GetHydraulicBoundaryLocationCalculation(this IAssessmentSection assessmentSection,
-                                                                                                   HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                                                                   AssessmentSectionCategoryType categoryType)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            return GetHydraulicBoundaryLocationCalculationFromCalculations(hydraulicBoundaryLocation,
-                                                                           GetHydraulicBoundaryLocationCalculations(assessmentSection, categoryType));
-        }
-
-        /// <summary>
         /// Gets the relevant collection of <see cref="HydraulicBoundaryLocationCalculation"/> based on the <see cref="NormType"/> of the
         /// assessment section.
         /// </summary>
@@ -159,50 +128,6 @@ namespace Riskeer.Common.Data.AssessmentSection
                     break;
                 case NormType.LowerLimit:
                     calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
-                    break;
-                default:
-                    throw new NotSupportedException();
-            }
-
-            return calculations;
-        }
-
-        /// <summary>
-        /// Gets the collection of <see cref="HydraulicBoundaryLocationCalculation"/> that belongs to
-        /// the given <paramref name="categoryType"/>.
-        /// </summary>
-        /// <param name="assessmentSection">The assessment section to get the calculations from.</param>
-        /// <param name="categoryType">The <see cref="AssessmentSectionCategoryType"/> used to determine which calculations to return.</param>
-        /// <returns>A collection of <see cref="HydraulicBoundaryLocationCalculation"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categoryType"/>
-        /// is an invalid <see cref="AssessmentSectionCategoryType"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryType"/>
-        /// is a valid but unsupported <see cref="AssessmentSectionCategoryType"/>.</exception>
-        private static IEnumerable<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculations(IAssessmentSection assessmentSection,
-                                                                                                                  AssessmentSectionCategoryType categoryType)
-        {
-            if (!Enum.IsDefined(typeof(AssessmentSectionCategoryType), categoryType))
-            {
-                throw new InvalidEnumArgumentException(nameof(categoryType),
-                                                       (int) categoryType,
-                                                       typeof(AssessmentSectionCategoryType));
-            }
-
-            IEnumerable<HydraulicBoundaryLocationCalculation> calculations;
-
-            switch (categoryType)
-            {
-                case AssessmentSectionCategoryType.FactorizedSignalingNorm:
-                    calculations = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm;
-                    break;
-                case AssessmentSectionCategoryType.SignalingNorm:
-                    calculations = assessmentSection.WaterLevelCalculationsForSignalingNorm;
-                    break;
-                case AssessmentSectionCategoryType.LowerLimitNorm:
-                    calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
-                    break;
-                case AssessmentSectionCategoryType.FactorizedLowerLimitNorm:
-                    calculations = assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm;
                     break;
                 default:
                     throw new NotSupportedException();
