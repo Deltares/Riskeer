@@ -1500,7 +1500,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     Assert.IsNotNull(newCalculationItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-                    Assert.AreEqual(GetCategoryTypeFromNormType(normType), newCalculationItem.InputParameters.CategoryType);
+                    Assert.AreEqual(GetWaterLevelTypeFromNormType(normType), newCalculationItem.InputParameters.WaterLevelType);
                 }
             }
         }
@@ -1581,18 +1581,18 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 Assert.NotNull(dialog);
                 Assert.NotNull(grid);
 
-                AssessmentSectionCategoryType expectedAssessmentSectionCategoryType = GetCategoryTypeFromNormType(normType);
+                WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType = GetWaterLevelTypeFromNormType(normType);
                 var firstCalculation = group.Children[2] as WaveImpactAsphaltCoverWaveConditionsCalculation;
                 Assert.IsNotNull(firstCalculation);
                 AssessmentSectionCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
                 Assert.AreSame(hydraulicBoundaryLocation1, firstCalculationInput.HydraulicBoundaryLocation);
-                Assert.AreEqual(expectedAssessmentSectionCategoryType, firstCalculationInput.CategoryType);
+                Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, firstCalculationInput.WaterLevelType);
 
                 var secondCalculation = group.Children[3] as WaveImpactAsphaltCoverWaveConditionsCalculation;
                 Assert.IsNotNull(secondCalculation);
                 AssessmentSectionCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
                 Assert.AreSame(hydraulicBoundaryLocation2, secondCalculationInput.HydraulicBoundaryLocation);
-                Assert.AreEqual(expectedAssessmentSectionCategoryType, secondCalculationInput.CategoryType);
+                Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, secondCalculationInput.WaterLevelType);
             }
         }
 
@@ -1949,14 +1949,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             };
         }
 
-        private static AssessmentSectionCategoryType GetCategoryTypeFromNormType(NormType normType)
+        private static WaveConditionsInputWaterLevelType GetWaterLevelTypeFromNormType(NormType normType)
         {
             switch (normType)
             {
                 case NormType.LowerLimit:
-                    return AssessmentSectionCategoryType.LowerLimitNorm;
+                    return WaveConditionsInputWaterLevelType.LowerLimit;
                 case NormType.Signaling:
-                    return AssessmentSectionCategoryType.SignalingNorm;
+                    return WaveConditionsInputWaterLevelType.Signaling;
                 default:
                     throw new NotSupportedException();
             }
