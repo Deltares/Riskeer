@@ -40,10 +40,10 @@ namespace Riskeer.Integration.IO.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -57,7 +57,7 @@ namespace Riskeer.Integration.IO.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Riskeer.Integration.IO.Properties.Resources", typeof(Resources).Assembly);
@@ -72,7 +72,7 @@ namespace Riskeer.Integration.IO.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -84,7 +84,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Veiligheidsoordeel is (deels) gebaseerd op handmatig ingevoerde toetsoordelen. Tijdens het exporteren worden handmatig ingevoerde toetsoordelen genegeerd..
         /// </summary>
-        internal static string AssemblyExporter_CheckManualAssembly_Assembly_result_contains_manual_results_exporter_will_ignore_manual_results {
+        public static string AssemblyExporter_CheckManualAssembly_Assembly_result_contains_manual_results_exporter_will_ignore_manual_results {
             get {
                 return ResourceManager.GetString("AssemblyExporter_CheckManualAssembly_Assembly_result_contains_manual_results_expo" +
                         "rter_will_ignore_manual_results", resourceCulture);
@@ -94,7 +94,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0} Er is geen toetsoordeel geëxporteerd..
         /// </summary>
-        internal static string AssemblyExporter_Error_Exception_0_no_AssemblyResult_exported {
+        public static string AssemblyExporter_Error_Exception_0_no_AssemblyResult_exported {
             get {
                 return ResourceManager.GetString("AssemblyExporter_Error_Exception_0_no_AssemblyResult_exported", resourceCulture);
             }
@@ -103,7 +103,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Om een toetsoordeel te kunnen exporteren moet voor alle vakken een resultaat zijn gespecificeerd..
         /// </summary>
-        internal static string AssemblyExporter_LogErrorMessage_Only_possible_to_export_a_complete_AssemblyResult {
+        public static string AssemblyExporter_LogErrorMessage_Only_possible_to_export_a_complete_AssemblyResult {
             get {
                 return ResourceManager.GetString("AssemblyExporter_LogErrorMessage_Only_possible_to_export_a_complete_AssemblyResul" +
                         "t", resourceCulture);
@@ -113,7 +113,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kon het rekeninstellingen bestand niet openen. {0}.
         /// </summary>
-        internal static string HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_ {
+        public static string HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file_0_ {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Cannot_open_hydraulic_calculation_settings_file" +
                         "_0_", resourceCulture);
@@ -124,7 +124,7 @@ namespace Riskeer.Integration.IO.Properties {
         ///   Looks up a localized string similar to {0}
         ///Er is geen hydraulische belastingen database gekoppeld..
         /// </summary>
-        internal static string HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported {
+        public static string HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicBoundaryDatabase_imported {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_HandleCriticalFileReadError_Error_0_No_Hydrauli" +
                         "cBoundaryDatabase_imported", resourceCulture);
@@ -134,7 +134,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De tabel &apos;ScenarioInformation&apos; in het HLCD bestand moet exact 1 rij bevatten..
         /// </summary>
-        internal static string HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entries {
+        public static string HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entries {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_HLCD_Invalid_number_of_ScenarioInformation_entr" +
                         "ies", resourceCulture);
@@ -144,7 +144,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand..
         /// </summary>
-        internal static string HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found {
+        public static string HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het bijbehorende preprocessor closure bestand is niet gevonden in dezelfde map als het HLCD bestand..
         /// </summary>
-        internal static string HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found {
+        public static string HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_PreprocessorClosure_sqlite_Not_Found", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Hydraulische belastingen database koppelen afgebroken. Geen gegevens gewijzigd..
         /// </summary>
-        internal static string HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed {
+        public static string HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Import_canceled_No_data_changed", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Inlezen van het hydraulische locatie configuratie bestand..
         /// </summary>
-        internal static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file {
+        public static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HLCD_file", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Inlezen van het hydraulische belastingen bestand..
         /// </summary>
-        internal static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file {
+        public static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file", resourceCulture);
             }
@@ -189,36 +189,16 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Inlezen van het rekeninstellingen bestand..
         /// </summary>
-        internal static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_settings_file {
+        public static string HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_settings_file {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_settings_file", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstanden.
-        /// </summary>
-        internal static string HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaterLevels_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaterLevels_D" +
-                        "isplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Golfhoogten.
-        /// </summary>
-        internal static string HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaveHeights_DisplayName {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaveHeights_D" +
-                        "isplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to h.
         /// </summary>
-        internal static string HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaterLevel_DisplayName {
+        public static string HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaterLevel_DisplayName {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaterLevel_" +
                         "DisplayName", resourceCulture);
@@ -228,7 +208,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Hs.
         /// </summary>
-        internal static string HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaveHeight_DisplayName {
+        public static string HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaveHeight_DisplayName {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaveHeight_" +
                         "DisplayName", resourceCulture);
@@ -239,7 +219,7 @@ namespace Riskeer.Integration.IO.Properties {
         ///   Looks up a localized string similar to {0}
         ///Er is geen HLCD geïmporteerd..
         /// </summary>
-        internal static string HydraulicLocationConfigurationDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicLocationConfigurationDatabase_imported {
+        public static string HydraulicLocationConfigurationDatabaseImporter_HandleCriticalFileReadError_Error_0_No_HydraulicLocationConfigurationDatabase_imported {
             get {
                 return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_HandleCriticalFileReadError_Error_" +
                         "0_No_HydraulicLocationConfigurationDatabase_imported", resourceCulture);
@@ -249,7 +229,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het HLCD bestand is niet gevonden in dezelfde map als het HRD bestand..
         /// </summary>
-        internal static string HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD {
+        public static string HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD {
             get {
                 return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_HLCD_not_in_same_folder_as_HRD", resourceCulture);
             }
@@ -258,7 +238,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to 1 of meerdere locaties komen niet voor in de HLCD..
         /// </summary>
-        internal static string HydraulicLocationConfigurationDatabaseImporter_Invalid_locationIds {
+        public static string HydraulicLocationConfigurationDatabaseImporter_Invalid_locationIds {
             get {
                 return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_Invalid_locationIds", resourceCulture);
             }
@@ -267,7 +247,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De tabel &apos;ScenarioInformation&apos; moet exact 1 rij bevatten..
         /// </summary>
-        internal static string HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries {
+        public static string HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformation_entries {
             get {
                 return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_Invalid_number_of_ScenarioInformat" +
                         "ion_entries", resourceCulture);
@@ -277,7 +257,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to HLCD bestand importeren afgebroken. Geen gegevens gewijzigd..
         /// </summary>
-        internal static string HydraulicLocationConfigurationDatabaseImporter_ProgressText_Import_canceled_No_data_changed {
+        public static string HydraulicLocationConfigurationDatabaseImporter_ProgressText_Import_canceled_No_data_changed {
             get {
                 return ResourceManager.GetString("HydraulicLocationConfigurationDatabaseImporter_ProgressText_Import_canceled_No_da" +
                         "ta_changed", resourceCulture);
@@ -287,7 +267,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Assemblage.
         /// </summary>
-        internal static string SerializableAssembly_IdPrefix {
+        public static string SerializableAssembly_IdPrefix {
             get {
                 return ResourceManager.GetString("SerializableAssembly_IdPrefix", resourceCulture);
             }
@@ -296,7 +276,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Bp.
         /// </summary>
-        internal static string SerializableAssessmentProcess_IdPrefix {
+        public static string SerializableAssessmentProcess_IdPrefix {
             get {
                 return ResourceManager.GetString("SerializableAssessmentProcess_IdPrefix", resourceCulture);
             }
@@ -305,7 +285,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Wks.
         /// </summary>
-        internal static string SerializableAssessmentSection_IdPrefix {
+        public static string SerializableAssessmentSection_IdPrefix {
             get {
                 return ResourceManager.GetString("SerializableAssessmentSection_IdPrefix", resourceCulture);
             }
@@ -314,7 +294,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gto.
         /// </summary>
-        internal static string SerializableCombinedFailureMechanismSectionAssembly_IdPrefix {
+        public static string SerializableCombinedFailureMechanismSectionAssembly_IdPrefix {
             get {
                 return ResourceManager.GetString("SerializableCombinedFailureMechanismSectionAssembly_IdPrefix", resourceCulture);
             }
@@ -323,7 +303,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Ts.
         /// </summary>
-        internal static string SerializableFailureMechanismCreator_IdPrefix {
+        public static string SerializableFailureMechanismCreator_IdPrefix {
             get {
                 return ResourceManager.GetString("SerializableFailureMechanismCreator_IdPrefix", resourceCulture);
             }
@@ -332,7 +312,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Tv.
         /// </summary>
-        internal static string SerializableFailureMechanismSection_IdPrefix {
+        public static string SerializableFailureMechanismSection_IdPrefix {
             get {
                 return ResourceManager.GetString("SerializableFailureMechanismSection_IdPrefix", resourceCulture);
             }
@@ -341,7 +321,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to T.
         /// </summary>
-        internal static string SerializableFailureMechanismSectionAssembly_IdPrefix {
+        public static string SerializableFailureMechanismSectionAssembly_IdPrefix {
             get {
                 return ResourceManager.GetString("SerializableFailureMechanismSectionAssembly_IdPrefix", resourceCulture);
             }
@@ -350,7 +330,7 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Vi.
         /// </summary>
-        internal static string SerializableFailureMechanismSectionCollection_IdPrefix {
+        public static string SerializableFailureMechanismSectionCollection_IdPrefix {
             get {
                 return ResourceManager.GetString("SerializableFailureMechanismSectionCollection_IdPrefix", resourceCulture);
             }
@@ -359,9 +339,27 @@ namespace Riskeer.Integration.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Vo.
         /// </summary>
-        internal static string SerializableTotalAssemblyResult_IdPrefix {
+        public static string SerializableTotalAssemblyResult_IdPrefix {
             get {
                 return ResourceManager.GetString("SerializableTotalAssemblyResult_IdPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstanden.
+        /// </summary>
+        public static string WaterLevels_DisplayName {
+            get {
+                return ResourceManager.GetString("WaterLevels_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfhoogten.
+        /// </summary>
+        public static string WaveHeights_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveHeights_DisplayName", resourceCulture);
             }
         }
     }

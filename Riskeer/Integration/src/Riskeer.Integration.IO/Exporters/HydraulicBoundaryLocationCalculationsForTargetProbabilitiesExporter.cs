@@ -91,8 +91,8 @@ namespace Riskeer.Integration.IO.Exporters
             IDictionary<HydraulicBoundaryLocationCalculationsForTargetProbability, string> exportedCalculations)
         {
             string exportType = calculationsType == HydraulicBoundaryLocationCalculationsType.WaterLevel
-                                    ? Resources.HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaterLevels_DisplayName
-                                    : Resources.HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaveHeights_DisplayName;
+                                    ? Resources.WaterLevels_DisplayName
+                                    : Resources.WaveHeights_DisplayName;
 
             double targetProbability = calculationsForTargetProbability.TargetProbability;
             var exportName = $"{exportType} {ProbabilityFormattingHelper.Format(targetProbability)}";

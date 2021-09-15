@@ -55,6 +55,7 @@ using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.GuiServices;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TreeNodeInfos;
@@ -103,13 +104,14 @@ using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using CoreGuiResources = Core.Gui.Properties.Resources;
 using FontFamily = System.Windows.Media.FontFamily;
-using RiskeerDataResources = Riskeer.Integration.Data.Properties.Resources;
-using RiskeerFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonPluginResources = Riskeer.Common.Plugin.Properties.Resources;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
+using RiskeerDataResources = Riskeer.Integration.Data.Properties.Resources;
+using RiskeerFormsResources = Riskeer.Integration.Forms.Properties.Resources;
+using RiskeerIOResources = Riskeer.Integration.IO.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin
 {
@@ -750,9 +752,11 @@ namespace Riskeer.Integration.Plugin
             };
 
             yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<
-                WaterLevelCalculationsForUserDefinedTargetProbabilityContext>(HydraulicBoundaryLocationCalculationsType.WaterLevel);
+                WaterLevelCalculationsForUserDefinedTargetProbabilityContext>(HydraulicBoundaryLocationCalculationsType.WaterLevel,
+                                                                              RiskeerIOResources.WaterLevels_DisplayName);
             yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<
-                WaveHeightCalculationsForUserDefinedTargetProbabilityContext>(HydraulicBoundaryLocationCalculationsType.WaveHeight);
+                WaveHeightCalculationsForUserDefinedTargetProbabilityContext>(HydraulicBoundaryLocationCalculationsType.WaveHeight,
+                                                                              RiskeerIOResources.WaveHeights_DisplayName);
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
@@ -1167,12 +1171,13 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ExportInfo<T> CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<T>(HydraulicBoundaryLocationCalculationsType calculationsType)
+        private ExportInfo<T> CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<T>(
+        HydraulicBoundaryLocationCalculationsType calculationsType, string displayName)
             where T : HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext
         {
             return new ExportInfo<T>
             {
-                Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Name = context => $"{displayName} ({ ProbabilityFormattingHelper.Format(context.WrappedData.TargetProbability)})",
                 Extension = RiskeerCommonIOResources.Shape_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsExporter(
                     context.WrappedData.HydraulicBoundaryLocationCalculations, filePath, calculationsType),

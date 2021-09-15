@@ -203,10 +203,10 @@ Er is geen HLCD geïmporteerd.</value>
   <data name="HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaveHeight_DisplayName" xml:space="preserve">
         <value>Hs</value>
     </data>
-  <data name="HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaterLevels_DisplayName" xml:space="preserve">
+  <data name="WaterLevels_DisplayName" xml:space="preserve">
     <value>Waterstanden</value>
   </data>
-  <data name="HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter_WaveHeights_DisplayName" xml:space="preserve">
+  <data name="WaveHeights_DisplayName" xml:space="preserve">
     <value>Golfhoogten</value>
   </data>
 </root>

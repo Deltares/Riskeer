@@ -19,16 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Exporters;
 using CoreGuiResources = Core.Gui.Properties.Resources;
 
@@ -47,7 +46,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 ExportInfo info = GetExportInfo(plugin);
 
                 // Assert
-                Assert.AreEqual("Hydraulische belastingen", info.Name);
+                Assert.IsNotNull(info.Name);
                 Assert.AreEqual("shp", info.Extension);
                 Assert.IsNotNull(info.CreateFileExporter);
                 Assert.IsNotNull(info.IsEnabled);
@@ -58,11 +57,38 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
+        public void Name_WithContext_ReturnsName()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1), assessmentSection);
+
+            using (var plugin = new RiskeerPlugin())
+            {
+                ExportInfo info = GetExportInfo(plugin);
+
+                // Call
+                string name = info.Name(context);
+
+                // Assert
+                Assert.AreEqual("Golfhoogten (1/10)", name);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void CreateFileExporter_WithContext_ReturnFileExporter()
         {
             // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1), assessmentSection);
 
@@ -78,6 +104,8 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsExporter>(fileExporter);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
