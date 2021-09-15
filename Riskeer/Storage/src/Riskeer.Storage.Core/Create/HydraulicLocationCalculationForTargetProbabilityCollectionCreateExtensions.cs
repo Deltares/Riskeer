@@ -38,11 +38,13 @@ namespace Riskeer.Storage.Core.Create
         /// <param name="calculations">The collection of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/>
         /// to create a database entity for.</param>
         /// <param name="calculationType">The type of calculation the entity should be created for.</param>
+        /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="HydraulicLocationCalculationForTargetProbabilityCollectionEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static HydraulicLocationCalculationForTargetProbabilityCollectionEntity Create(this HydraulicBoundaryLocationCalculationsForTargetProbability calculations,
                                                                                                 HydraulicBoundaryLocationCalculationType calculationType,
+                                                                                                int order,
                                                                                                 PersistenceRegistry registry)
         {
             if (calculations == null)
@@ -58,7 +60,8 @@ namespace Riskeer.Storage.Core.Create
             var collectionEntity = new HydraulicLocationCalculationForTargetProbabilityCollectionEntity
             {
                 HydraulicBoundaryLocationCalculationType = Convert.ToByte(calculationType),
-                TargetProbability = calculations.TargetProbability
+                TargetProbability = calculations.TargetProbability,
+                Order = order
             };
             foreach (HydraulicBoundaryLocationCalculation calculation in calculations.HydraulicBoundaryLocationCalculations)
             {

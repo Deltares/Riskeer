@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.Contribution;
@@ -144,14 +145,27 @@ namespace Riskeer.Storage.Core.Create
                                                                                                   AssessmentSectionEntity entity,
                                                                                                   PersistenceRegistry registry)
         {
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability calculationCollection in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)
-            {
-                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Add(calculationCollection.Create(HydraulicBoundaryLocationCalculationType.WaterLevel, registry));
-            }
+            AddHydraulicLocationCalculationForTargetProbabilityCollectionEntities(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
+                                                                                  HydraulicBoundaryLocationCalculationType.WaterLevel,
+                                                                                  entity,
+                                                                                  registry);
 
-            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability calculationCollection in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities)
+            AddHydraulicLocationCalculationForTargetProbabilityCollectionEntities(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+                                                                                  HydraulicBoundaryLocationCalculationType.Waveheight,
+                                                                                  entity,
+                                                                                  registry);
+        }
+
+        private static void AddHydraulicLocationCalculationForTargetProbabilityCollectionEntities(
+            List<HydraulicBoundaryLocationCalculationsForTargetProbability> hydraulicBoundaryLocationCalculationsForTargetProbabilities,
+            HydraulicBoundaryLocationCalculationType calculationType,
+            AssessmentSectionEntity entity,
+            PersistenceRegistry registry)
+        {
+            for (int i = 0; i < hydraulicBoundaryLocationCalculationsForTargetProbabilities.Count; i++)
             {
-                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Add(calculationCollection.Create(HydraulicBoundaryLocationCalculationType.Waveheight, registry));
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Add(
+                    hydraulicBoundaryLocationCalculationsForTargetProbabilities[i].Create(calculationType, i, registry));
             }
         }
     }

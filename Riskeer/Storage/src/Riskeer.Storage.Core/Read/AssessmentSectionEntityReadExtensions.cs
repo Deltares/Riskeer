@@ -141,13 +141,17 @@ namespace Riskeer.Storage.Core.Read
                                                                                     ReadConversionCollector collector)
         {
             IEnumerable<HydraulicLocationCalculationForTargetProbabilityCollectionEntity> waveHeightHydraulicLocationCalculationForTargetProbabilityCollectionEntities =
-                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.Waveheight);
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities
+                      .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.Waveheight)
+                      .OrderBy(e => e.Order);
 
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.AddRange(waveHeightHydraulicLocationCalculationForTargetProbabilityCollectionEntities.Select(e => e.Read(collector))
                                                                                                                                                                            .ToArray());
 
             IEnumerable<HydraulicLocationCalculationForTargetProbabilityCollectionEntity> waterLevelHydraulicLocationCalculationForTargetProbabilityCollectionEntities =
-                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.WaterLevel);
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities
+                      .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.WaterLevel)
+                      .OrderBy(e => e.Order);
 
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(waterLevelHydraulicLocationCalculationForTargetProbabilityCollectionEntities.Select(e => e.Read(collector))
                                                                                                                                                                            .ToArray());

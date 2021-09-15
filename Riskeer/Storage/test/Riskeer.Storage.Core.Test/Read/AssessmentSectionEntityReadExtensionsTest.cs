@@ -31,7 +31,6 @@ using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone.Input;
 using Riskeer.MacroStabilityInwards.Data;
@@ -245,11 +244,13 @@ namespace Riskeer.Storage.Core.Test.Read
                                                        calculation);
 
             AssertHydraulicLocationCalculationsForTargetProbability(entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities
-                                                                          .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.WaterLevel),
+                                                                          .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.WaterLevel)
+                                                                          .OrderBy(e => e.Order),
                                                                     hydraulicBoundaryLocation,
                                                                     section.WaterLevelCalculationsForUserDefinedTargetProbabilities);
             AssertHydraulicLocationCalculationsForTargetProbability(entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities
-                                                                          .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.Waveheight),
+                                                                          .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.Waveheight)
+                                                                          .OrderBy(e => e.Order),
                                                                     hydraulicBoundaryLocation,
                                                                     section.WaveHeightCalculationsForUserDefinedTargetProbabilities);
         }
@@ -272,22 +273,11 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
 
-            CollectionAssert.IsEmpty(section.WaterLevelCalculationsForFactorizedSignalingNorm);
             CollectionAssert.IsEmpty(section.WaterLevelCalculationsForSignalingNorm);
             CollectionAssert.IsEmpty(section.WaterLevelCalculationsForLowerLimitNorm);
-            CollectionAssert.IsEmpty(section.WaterLevelCalculationsForFactorizedLowerLimitNorm);
-            CollectionAssert.IsEmpty(section.WaveHeightCalculationsForFactorizedSignalingNorm);
-            CollectionAssert.IsEmpty(section.WaveHeightCalculationsForSignalingNorm);
-            CollectionAssert.IsEmpty(section.WaveHeightCalculationsForLowerLimitNorm);
-            CollectionAssert.IsEmpty(section.WaveHeightCalculationsForFactorizedLowerLimitNorm);
 
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = section.GrassCoverErosionOutwards;
-            CollectionAssert.IsEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
+            CollectionAssert.IsEmpty(section.WaveHeightCalculationsForUserDefinedTargetProbabilities);
+            CollectionAssert.IsEmpty(section.WaterLevelCalculationsForUserDefinedTargetProbabilities);
         }
 
         [Test]
@@ -1103,6 +1093,7 @@ namespace Riskeer.Storage.Core.Test.Read
             return new HydraulicLocationCalculationForTargetProbabilityCollectionEntity
             {
                 TargetProbability = random.NextDouble(0, 0.1),
+                Order = seed,
                 HydraulicBoundaryLocationCalculationType = Convert.ToByte(random.NextEnumValue<HydraulicBoundaryLocationCalculationType>()),
                 HydraulicLocationCalculationEntities =
                 {

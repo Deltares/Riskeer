@@ -43,6 +43,7 @@ namespace Riskeer.Storage.Core.Test.Create
             // Call
             TestDelegate call = () =>
                 ((HydraulicBoundaryLocationCalculationsForTargetProbability) null).Create(calculationType,
+                                                                                          random.Next(),
                                                                                           new PersistenceRegistry());
 
             // Assert
@@ -59,7 +60,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1));
 
             // Call
-            TestDelegate call = () => calculations.Create(calculationType, null);
+            TestDelegate call = () => calculations.Create(calculationType, random.Next(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -71,6 +72,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var random = new Random(21);
+            int order = random.Next();
             var calculationType = random.NextEnumValue<HydraulicBoundaryLocationCalculationType>();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -95,11 +97,11 @@ namespace Riskeer.Storage.Core.Test.Create
             registry.Register(hydraulicLocationEntity, hydraulicBoundaryLocation);
 
             // Call
-            HydraulicLocationCalculationForTargetProbabilityCollectionEntity entity = calculations.Create(calculationType,
-                                                                                                          registry);
+            HydraulicLocationCalculationForTargetProbabilityCollectionEntity entity = calculations.Create(calculationType, order, registry);
 
             // Assert
             Assert.IsNotNull(entity);
+            Assert.AreEqual(order, entity.Order);
             Assert.AreEqual(calculations.TargetProbability, entity.TargetProbability);
             Assert.AreEqual(Convert.ToByte(calculationType), entity.HydraulicBoundaryLocationCalculationType);
 
