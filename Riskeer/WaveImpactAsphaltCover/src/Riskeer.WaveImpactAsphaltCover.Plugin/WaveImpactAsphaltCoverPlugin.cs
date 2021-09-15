@@ -124,8 +124,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new WaveConditionsInputView(
                     context.Calculation,
-                    () => context.AssessmentSection.GetHydraulicBoundaryLocationCalculation(context.Calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                            context.Calculation.InputParameters.CategoryType),
+                    () => WaveConditionsInputHelper.GetHydraulicBoundaryLocationCalculation(context.WrappedData, context.AssessmentSection),
                     new WaveImpactAsphaltCoverWaveConditionsInputViewStyle())
             };
         }

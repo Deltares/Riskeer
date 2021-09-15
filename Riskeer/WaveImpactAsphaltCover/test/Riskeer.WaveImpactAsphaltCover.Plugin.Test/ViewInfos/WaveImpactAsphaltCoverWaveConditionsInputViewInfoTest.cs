@@ -22,6 +22,7 @@
 using System;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
@@ -36,6 +37,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.Views;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -104,7 +106,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 new AssessmentSectionCategoryWaveConditionsInput(),
                 calculation,
                 new AssessmentSectionStub(),
-                new ForeshoreProfile[0]);
+                Array.Empty<ForeshoreProfile>());
 
             // Call 
             var view = (WaveConditionsInputView) info.CreateInstance(context);
@@ -126,29 +128,23 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
         [Test]
         [TestCaseSource(
-            typeof(AssessmentSectionTestHelper),
-            nameof(AssessmentSectionTestHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerAssessmentSectionCategoryType))]
-        public void CreateInstance_WithContextThatHasInputWithSpecificCategoryType_ReturnViewWithCorrespondingAssessmentLevel(
+            typeof(WaveConditionsInputTestHelper),
+            nameof(WaveConditionsInputTestHelper.GetAssessmentLevelConfigurationPerWaterLevelType))]
+        public void CreateInstance_WithContextThatHasInputWithSpecificWaterLevelType_ReturnViewWithCorrespondingAssessmentLevel(
             IAssessmentSection assessmentSection,
-            HydraulicBoundaryLocation hydraulicBoundaryLocation,
-            AssessmentSectionCategoryType categoryType,
-            HydraulicBoundaryLocationCalculation expectedHydraulicBoundaryLocationCalculation)
+            Action<WaveConditionsInput> configureInputAction,
+            RoundedDouble expectedAssessmentLevel)
         {
             // Setup
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = categoryType
-                }
-            };
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+
+            configureInputAction(calculation.InputParameters);
 
             var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
                 calculation.InputParameters,
                 calculation,
                 assessmentSection,
-                new ForeshoreProfile[0]);
+                Array.Empty<ForeshoreProfile>());
 
             // Call
             var view = (WaveConditionsInputView) info.CreateInstance(context);
@@ -156,7 +152,15 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             // Assert
             ChartDataCollection chartData = view.Chart.Data;
             var designWaterLevelChartData = (ChartLineData) chartData.Collection.ElementAt(designWaterLevelChartDataIndex);
-            Assert.AreEqual(expectedHydraulicBoundaryLocationCalculation.Output.Result, designWaterLevelChartData.Points.First().Y);
+
+            if (expectedAssessmentLevel != RoundedDouble.NaN)
+            {
+                Assert.AreEqual(expectedAssessmentLevel, designWaterLevelChartData.Points.First().Y);
+            }
+            else
+            {
+                Assert.IsEmpty(designWaterLevelChartData.Points);
+            }
         }
 
         #region ShouldCloseViewWithCalculationDataTester
