@@ -33,15 +33,15 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity
+    public class HydraulicLocationCalculationForTargetProbabilityCollectionEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity()
+        public HydraulicLocationCalculationForTargetProbabilityCollectionEntity()
         {
             HydraulicLocationCalculationEntities = new HashSet<HydraulicLocationCalculationEntity>();
         }
 
-        public long HydraulicBoundaryLocationCalculationsForTargetProbabilityEntityId { get; set; }
+        public long HydraulicLocationCalculationForTargetProbabilityCollectionEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
         public byte HydraulicBoundaryLocationCalculationType { get; set; }
         public double TargetProbability { get; set; }

@@ -662,23 +662,6 @@
           <Property Name="HydraulicLocationConfigurationSettingsWindSpeed" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="HydraulicLocationConfigurationSettingsComment" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
-        <EntityType Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity">
-          <Key>
-            <PropertyRef Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntityId" />
-          </Key>
-          <Property Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="HydraulicBoundaryLocationCalculationType" Type="tinyint" Nullable="false" />
-          <Property Name="TargetProbability" Type="real" Nullable="false" />
-        </EntityType>
-        <EntityType Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity">
-          <Key>
-            <PropertyRef Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntityId" />
-            <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-          </Key>
-          <Property Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntityId" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationEntityId" Type="integer" Nullable="false" />
-        </EntityType>
         <EntityType Name="HydraulicLocationCalculationCollectionEntity">
           <Key>
             <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
@@ -701,6 +684,23 @@
           <Property Name="HydraulicLocationEntityId" Type="integer" Nullable="false" />
           <Property Name="HydraulicLocationCalculationCollectionEntityId" Type="integer" Nullable="false" />
           <Property Name="ShouldIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntity">
+          <Key>
+            <PropertyRef Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntityId" />
+          </Key>
+          <Property Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicBoundaryLocationCalculationType" Type="tinyint" Nullable="false" />
+          <Property Name="TargetProbability" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity">
+          <Key>
+            <PropertyRef Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntityId" />
+            <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+          </Key>
+          <Property Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationCalculationEntityId" Type="integer" Nullable="false" />
         </EntityType>
         <EntityType Name="HydraulicLocationEntity">
           <Key>
@@ -2441,42 +2441,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity_0_0">
-          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
-          <End Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" Type="Self.HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AssessmentSectionEntity">
-              <PropertyRef Name="AssessmentSectionEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity">
-              <PropertyRef Name="AssessmentSectionEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity_0_0">
-          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
-          <End Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity" Type="Self.HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity_1_0">
-          <End Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" Type="Self.HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" Multiplicity="1" />
-          <End Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity" Type="Self.HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity">
-              <PropertyRef Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntityId" />
-            </Principal>
-            <Dependent Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity">
-              <PropertyRef Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity_0_0">
           <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
           <End Role="HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity" Multiplicity="*" />
@@ -2510,6 +2474,42 @@
             </Principal>
             <Dependent Role="HydraulicLocationCalculationEntity">
               <PropertyRef Name="HydraulicLocationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationCalculationForTargetProbabilityCollectionEntity_0_0">
+          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" Type="Self.HydraulicLocationCalculationForTargetProbabilityCollectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentSectionEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationCalculationForTargetProbabilityCollectionEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity_0_0">
+          <End Role="HydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity_1_0">
+          <End Role="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" Type="Self.HydraulicLocationCalculationForTargetProbabilityCollectionEntity" Multiplicity="1" />
+          <End Role="HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity" Type="Self.HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationCalculationForTargetProbabilityCollectionEntity">
+              <PropertyRef Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntityId" />
+            </Principal>
+            <Dependent Role="HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity">
+              <PropertyRef Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3470,11 +3470,11 @@
           <EntitySet Name="HeightStructuresOutputEntity" EntityType="Self.HeightStructuresOutputEntity" store:Type="Tables" />
           <EntitySet Name="HeightStructuresSectionResultEntity" EntityType="Self.HeightStructuresSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicBoundaryDatabaseEntity" EntityType="Self.HydraulicBoundaryDatabaseEntity" store:Type="Tables" />
-          <EntitySet Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" EntityType="Self.HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" store:Type="Tables" />
-          <EntitySet Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity" EntityType="Self.HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationCalculationCollectionEntity" EntityType="Self.HydraulicLocationCalculationCollectionEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity" EntityType="Self.HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationCalculationEntity" EntityType="Self.HydraulicLocationCalculationEntity" store:Type="Tables" />
+          <EntitySet Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" EntityType="Self.HydraulicLocationCalculationForTargetProbabilityCollectionEntity" store:Type="Tables" />
+          <EntitySet Name="HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity" EntityType="Self.HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationOutputEntity" EntityType="Self.HydraulicLocationOutputEntity" store:Type="Tables" />
           <EntitySet Name="IllustrationPointResultEntity" EntityType="Self.IllustrationPointResultEntity" store:Type="Tables" />
@@ -3806,18 +3806,6 @@
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
             <End Role="HydraulicBoundaryDatabaseEntity" EntitySet="HydraulicBoundaryDatabaseEntity" />
           </AssociationSet>
-          <AssociationSet Name="FK_HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity_0_0" Association="Self.FK_HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity_0_0">
-            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
-            <End Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" EntitySet="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity_0_0" Association="Self.FK_HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity_0_0">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
-            <End Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity" EntitySet="HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity_1_0" Association="Self.FK_HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity_1_0">
-            <End Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" EntitySet="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" />
-            <End Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity" EntitySet="HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity" />
-          </AssociationSet>
           <AssociationSet Name="FK_HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity_0_0" Association="Self.FK_HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity_0_0">
             <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
             <End Role="HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity" />
@@ -3829,6 +3817,18 @@
           <AssociationSet Name="FK_HydraulicLocationCalculationEntity_0_0" Association="Self.FK_HydraulicLocationCalculationEntity_0_0">
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
             <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationCalculationForTargetProbabilityCollectionEntity_0_0" Association="Self.FK_HydraulicLocationCalculationForTargetProbabilityCollectionEntity_0_0">
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
+            <End Role="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" EntitySet="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity_0_0" Association="Self.FK_HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity_0_0">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntity" />
+            <End Role="HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity_1_0" Association="Self.FK_HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity_1_0">
+            <End Role="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" EntitySet="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" />
+            <End Role="HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="Self.FK_HydraulicLocationEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
@@ -4180,9 +4180,9 @@
           <EntitySet Name="HeightStructuresOutputEntities" EntityType="RiskeerEntitiesModel.HeightStructuresOutputEntity" />
           <EntitySet Name="HeightStructuresSectionResultEntities" EntityType="RiskeerEntitiesModel.HeightStructuresSectionResultEntity" />
           <EntitySet Name="HydraulicBoundaryDatabaseEntities" EntityType="RiskeerEntitiesModel.HydraulicBoundaryDatabaseEntity" />
-          <EntitySet Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntities" EntityType="RiskeerEntitiesModel.HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" />
           <EntitySet Name="HydraulicLocationCalculationCollectionEntities" EntityType="RiskeerEntitiesModel.HydraulicLocationCalculationCollectionEntity" />
           <EntitySet Name="HydraulicLocationCalculationEntities" EntityType="RiskeerEntitiesModel.HydraulicLocationCalculationEntity" />
+          <EntitySet Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntities" EntityType="RiskeerEntitiesModel.HydraulicLocationCalculationForTargetProbabilityCollectionEntity" />
           <EntitySet Name="HydraulicLocationEntities" EntityType="RiskeerEntitiesModel.HydraulicLocationEntity" />
           <EntitySet Name="HydraulicLocationOutputEntities" EntityType="RiskeerEntitiesModel.HydraulicLocationOutputEntity" />
           <EntitySet Name="IllustrationPointResultEntities" EntityType="RiskeerEntitiesModel.IllustrationPointResultEntity" />
@@ -4261,9 +4261,9 @@
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="HydraulicBoundaryDatabaseEntity" EntitySet="HydraulicBoundaryDatabaseEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity_0_0" Association="RiskeerEntitiesModel.FK_HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity_0_0">
+          <AssociationSet Name="FK_HydraulicLocationCalculationForTargetProbabilityCollectionEntity_0_0" Association="RiskeerEntitiesModel.FK_HydraulicLocationCalculationForTargetProbabilityCollectionEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
-            <End Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" EntitySet="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntities" />
+            <End Role="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" EntitySet="HydraulicLocationCalculationForTargetProbabilityCollectionEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="RiskeerEntitiesModel.FK_HydraulicLocationEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
@@ -4801,13 +4801,13 @@
             <End Role="StochastEntity" EntitySet="StochastEntities" />
             <End Role="GeneralResultSubMechanismIllustrationPointEntity" EntitySet="GeneralResultSubMechanismIllustrationPointEntities" />
           </AssociationSet>
-          <AssociationSet Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity" Association="RiskeerEntitiesModel.HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity">
-            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
-            <End Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" EntitySet="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntities" />
-          </AssociationSet>
           <AssociationSet Name="HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity" Association="RiskeerEntitiesModel.HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity">
             <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
             <End Role="HydraulicLocationCalculationCollectionEntity" EntitySet="HydraulicLocationCalculationCollectionEntities" />
+          </AssociationSet>
+          <AssociationSet Name="HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity" Association="RiskeerEntitiesModel.HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity">
+            <End Role="HydraulicLocationCalculationEntity" EntitySet="HydraulicLocationCalculationEntities" />
+            <End Role="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" EntitySet="HydraulicLocationCalculationForTargetProbabilityCollectionEntities" />
           </AssociationSet>
           <AssociationSet Name="MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity" Association="RiskeerEntitiesModel.MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity">
             <End Role="MacroStabilityInwardsSoilProfileTwoDEntity" EntitySet="MacroStabilityInwardsSoilProfileTwoDEntities" />
@@ -4837,7 +4837,7 @@
           <NavigationProperty Name="BackgroundDataEntities" Relationship="RiskeerEntitiesModel.FK_BackgroundDataEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="BackgroundDataEntity" />
           <NavigationProperty Name="FailureMechanismEntities" Relationship="RiskeerEntitiesModel.FK_FailureMechanismEntity_1_0" FromRole="AssessmentSectionEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="HydraulicBoundaryDatabaseEntities" Relationship="RiskeerEntitiesModel.FK_HydraulicBoundaryDatabaseEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicBoundaryDatabaseEntity" />
-          <NavigationProperty Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntities" Relationship="RiskeerEntitiesModel.FK_HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntities" Relationship="RiskeerEntitiesModel.FK_HydraulicLocationCalculationForTargetProbabilityCollectionEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" />
           <NavigationProperty Name="HydraulicLocationEntities" Relationship="RiskeerEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
         </EntityType>
         <EntityType Name="BackgroundDataEntity">
@@ -5599,17 +5599,6 @@
           <Property Name="HydraulicLocationConfigurationSettingsComment" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RiskeerEntitiesModel.FK_HydraulicBoundaryDatabaseEntity_0_0" FromRole="HydraulicBoundaryDatabaseEntity" ToRole="AssessmentSectionEntity" />
         </EntityType>
-        <EntityType Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity">
-          <Key>
-            <PropertyRef Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntityId" />
-          </Key>
-          <Property Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicBoundaryLocationCalculationType" Type="Byte" Nullable="false" />
-          <Property Name="TargetProbability" Type="Double" Nullable="false" />
-          <NavigationProperty Name="AssessmentSectionEntity" Relationship="RiskeerEntitiesModel.FK_HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity_0_0" FromRole="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" ToRole="AssessmentSectionEntity" />
-          <NavigationProperty Name="HydraulicLocationCalculationEntities" Relationship="RiskeerEntitiesModel.HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity" FromRole="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" ToRole="HydraulicLocationCalculationEntity" />
-        </EntityType>
         <EntityType Name="HydraulicLocationCalculationCollectionEntity">
           <Key>
             <PropertyRef Name="HydraulicLocationCalculationCollectionEntityId" />
@@ -5629,8 +5618,19 @@
           <Property Name="ShouldIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RiskeerEntitiesModel.FK_HydraulicLocationCalculationEntity_0_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
           <NavigationProperty Name="HydraulicLocationOutputEntities" Relationship="RiskeerEntitiesModel.FK_HydraulicLocationOutputEntity_0_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationOutputEntity" />
-          <NavigationProperty Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntities" Relationship="RiskeerEntitiesModel.HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" />
           <NavigationProperty Name="HydraulicLocationCalculationCollectionEntities" Relationship="RiskeerEntitiesModel.HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationCalculationCollectionEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntities" Relationship="RiskeerEntitiesModel.HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" />
+        </EntityType>
+        <EntityType Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntity">
+          <Key>
+            <PropertyRef Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntityId" />
+          </Key>
+          <Property Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicBoundaryLocationCalculationType" Type="Byte" Nullable="false" />
+          <Property Name="TargetProbability" Type="Double" Nullable="false" />
+          <NavigationProperty Name="AssessmentSectionEntity" Relationship="RiskeerEntitiesModel.FK_HydraulicLocationCalculationForTargetProbabilityCollectionEntity_0_0" FromRole="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="HydraulicLocationCalculationEntities" Relationship="RiskeerEntitiesModel.HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity" FromRole="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" ToRole="HydraulicLocationCalculationEntity" />
         </EntityType>
         <EntityType Name="HydraulicLocationEntity">
           <Key>
@@ -6726,14 +6726,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity_0_0">
+        <Association Name="FK_HydraulicLocationCalculationForTargetProbabilityCollectionEntity_0_0">
           <End Type="RiskeerEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="1" />
-          <End Type="RiskeerEntitiesModel.HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" Multiplicity="*" />
+          <End Type="RiskeerEntitiesModel.HydraulicLocationCalculationForTargetProbabilityCollectionEntity" Role="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AssessmentSectionEntity">
               <PropertyRef Name="AssessmentSectionEntityId" />
             </Principal>
-            <Dependent Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity">
+            <Dependent Role="HydraulicLocationCalculationForTargetProbabilityCollectionEntity">
               <PropertyRef Name="AssessmentSectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -8314,13 +8314,13 @@
           <End Type="RiskeerEntitiesModel.StochastEntity" Role="StochastEntity" Multiplicity="*" />
           <End Type="RiskeerEntitiesModel.GeneralResultSubMechanismIllustrationPointEntity" Role="GeneralResultSubMechanismIllustrationPointEntity" Multiplicity="*" />
         </Association>
-        <Association Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity">
-          <End Type="RiskeerEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="*" />
-          <End Type="RiskeerEntitiesModel.HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" Role="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity" Multiplicity="*" />
-        </Association>
         <Association Name="HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity">
           <End Type="RiskeerEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="*" />
           <End Type="RiskeerEntitiesModel.HydraulicLocationCalculationCollectionEntity" Role="HydraulicLocationCalculationCollectionEntity" Multiplicity="*" />
+        </Association>
+        <Association Name="HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity">
+          <End Type="RiskeerEntitiesModel.HydraulicLocationCalculationEntity" Role="HydraulicLocationCalculationEntity" Multiplicity="*" />
+          <End Type="RiskeerEntitiesModel.HydraulicLocationCalculationForTargetProbabilityCollectionEntity" Role="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" Multiplicity="*" />
         </Association>
         <Association Name="MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity">
           <End Type="RiskeerEntitiesModel.MacroStabilityInwardsSoilProfileTwoDEntity" Role="MacroStabilityInwardsSoilProfileTwoDEntity" Multiplicity="*" />
@@ -8997,16 +8997,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntities">
-            <EntityTypeMapping TypeName="RiskeerEntitiesModel.HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity">
-              <MappingFragment StoreEntitySet="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity">
-                <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
-                <ScalarProperty Name="HydraulicBoundaryLocationCalculationType" ColumnName="HydraulicBoundaryLocationCalculationType" />
-                <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
-                <ScalarProperty Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntityId" ColumnName="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="HydraulicLocationCalculationCollectionEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.HydraulicLocationCalculationCollectionEntity">
               <MappingFragment StoreEntitySet="HydraulicLocationCalculationCollectionEntity">
@@ -9021,6 +9011,16 @@
                 <ScalarProperty Name="HydraulicLocationCalculationCollectionEntityId" ColumnName="HydraulicLocationCalculationCollectionEntityId" />
                 <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
                 <ScalarProperty Name="HydraulicLocationCalculationEntityId" ColumnName="HydraulicLocationCalculationEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntities">
+            <EntityTypeMapping TypeName="RiskeerEntitiesModel.HydraulicLocationCalculationForTargetProbabilityCollectionEntity">
+              <MappingFragment StoreEntitySet="HydraulicLocationCalculationForTargetProbabilityCollectionEntity">
+                <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
+                <ScalarProperty Name="HydraulicBoundaryLocationCalculationType" ColumnName="HydraulicBoundaryLocationCalculationType" />
+                <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
+                <ScalarProperty Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntityId" ColumnName="HydraulicLocationCalculationForTargetProbabilityCollectionEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -10013,17 +10013,17 @@
               <ScalarProperty Name="StochastEntityId" ColumnName="StochastEntityId" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity" TypeName="RiskeerEntitiesModel.HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity" StoreEntitySet="HydraulicBoundaryLocationCalculationsForTargetProbabilityHydraulicLocationCalculationEntity">
-            <EndProperty Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntity">
-              <ScalarProperty Name="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntityId" ColumnName="HydraulicBoundaryLocationCalculationsForTargetProbabilityEntityId" />
+          <AssociationSetMapping Name="HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity" TypeName="RiskeerEntitiesModel.HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity" StoreEntitySet="HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity">
+            <EndProperty Name="HydraulicLocationCalculationCollectionEntity">
+              <ScalarProperty Name="HydraulicLocationCalculationCollectionEntityId" ColumnName="HydraulicLocationCalculationCollectionEntityId" />
             </EndProperty>
             <EndProperty Name="HydraulicLocationCalculationEntity">
               <ScalarProperty Name="HydraulicLocationCalculationEntityId" ColumnName="HydraulicLocationCalculationEntityId" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity" TypeName="RiskeerEntitiesModel.HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity" StoreEntitySet="HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity">
-            <EndProperty Name="HydraulicLocationCalculationCollectionEntity">
-              <ScalarProperty Name="HydraulicLocationCalculationCollectionEntityId" ColumnName="HydraulicLocationCalculationCollectionEntityId" />
+          <AssociationSetMapping Name="HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity" TypeName="RiskeerEntitiesModel.HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity" StoreEntitySet="HydraulicLocationCalculationForTargetProbabilityCollectionHydraulicLocationCalculationEntity">
+            <EndProperty Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntity">
+              <ScalarProperty Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntityId" ColumnName="HydraulicLocationCalculationForTargetProbabilityCollectionEntityId" />
             </EndProperty>
             <EndProperty Name="HydraulicLocationCalculationEntity">
               <ScalarProperty Name="HydraulicLocationCalculationEntityId" ColumnName="HydraulicLocationCalculationEntityId" />
