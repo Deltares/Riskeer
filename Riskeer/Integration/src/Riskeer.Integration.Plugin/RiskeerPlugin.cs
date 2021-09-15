@@ -757,6 +757,17 @@ namespace Riskeer.Integration.Plugin
             yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<
                 WaveHeightCalculationsForUserDefinedTargetProbabilityContext>(HydraulicBoundaryLocationCalculationsType.WaveHeight,
                                                                               RiskeerIOResources.WaveHeights_DisplayName);
+
+            yield return new ExportInfo<WaterLevelCalculationsForNormTargetProbabilityContext>
+            {
+                Name = context => $"{RiskeerIOResources.WaterLevels_DisplayName} ({ProbabilityFormattingHelper.Format(context.GetNormFunc())})",
+                Extension = RiskeerCommonIOResources.Shape_file_filter_Extension,
+                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsExporter(
+                    context.WrappedData, filePath, HydraulicBoundaryLocationCalculationsType.WaterLevel),
+                IsEnabled = context => true,
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                                                                           RiskeerCommonIOResources.Shape_file_filter_Description))
+            };
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
