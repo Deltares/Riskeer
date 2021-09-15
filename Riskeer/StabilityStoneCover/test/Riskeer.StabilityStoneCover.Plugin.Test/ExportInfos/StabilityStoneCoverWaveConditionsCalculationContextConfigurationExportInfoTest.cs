@@ -62,7 +62,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
 
             info = plugin.GetExportInfos()
                          .Single(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)
-                                       && ei.Name.Equals("Riskeer berekeningenconfiguratie"));
+                                       && ei.Name(null).Equals("Riskeer berekeningenconfiguratie"));
         }
 
         [TearDown]

@@ -61,7 +61,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
 
             info = plugin.GetExportInfos()
                          .Single(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)
-                                       && ei.Name.Equals("Riskeer berekeningenconfiguratie"));
+                                       && ei.Name(null).Equals("Riskeer berekeningenconfiguratie"));
         }
 
         [TearDown]
