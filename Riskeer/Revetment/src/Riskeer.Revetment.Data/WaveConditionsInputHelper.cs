@@ -50,7 +50,7 @@ namespace Riskeer.Revetment.Data
         }
 
         /// <summary>
-        /// Sets the <see cref="AssessmentSectionCategoryType"/> of the <paramref name="waveConditionsInput"/>
+        /// Sets the <see cref="WaveConditionsInputWaterLevelType"/> of the <paramref name="waveConditionsInput"/>
         /// based on the <see cref="NormType"/>.
         /// </summary>
         /// <param name="waveConditionsInput">The <see cref="AssessmentSectionCategoryWaveConditionsInput"/>
@@ -60,8 +60,8 @@ namespace Riskeer.Revetment.Data
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
         /// but unsupported.</exception>
-        public static void SetCategoryType(AssessmentSectionCategoryWaveConditionsInput waveConditionsInput,
-                                           NormType normType)
+        public static void SetWaterLevelType(AssessmentSectionCategoryWaveConditionsInput waveConditionsInput,
+                                             NormType normType)
         {
             if (waveConditionsInput == null)
             {
@@ -78,11 +78,9 @@ namespace Riskeer.Revetment.Data
             switch (normType)
             {
                 case NormType.LowerLimit:
-                    waveConditionsInput.CategoryType = AssessmentSectionCategoryType.LowerLimitNorm;
                     waveConditionsInput.WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit;
                     break;
                 case NormType.Signaling:
-                    waveConditionsInput.CategoryType = AssessmentSectionCategoryType.SignalingNorm;
                     waveConditionsInput.WaterLevelType = WaveConditionsInputWaterLevelType.Signaling;
                     break;
                 default:

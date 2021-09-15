@@ -550,8 +550,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                   RiskeerCommonDataResources.Calculation_DefaultName,
                                                   c => c.Name)
             };
-            WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters,
-                                                      nodeData.AssessmentSection.FailureMechanismContribution.NormativeNorm);
+            WaveConditionsInputHelper.SetWaterLevelType(calculation.InputParameters,
+                                                        nodeData.AssessmentSection.FailureMechanismContribution.NormativeNorm);
 
             nodeData.WrappedData.Children.Add(calculation);
             nodeData.WrappedData.NotifyObservers();

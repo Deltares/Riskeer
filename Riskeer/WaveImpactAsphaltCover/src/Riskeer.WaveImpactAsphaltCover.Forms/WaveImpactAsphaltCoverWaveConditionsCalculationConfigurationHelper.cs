@@ -94,7 +94,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
-            WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters, normType);
+            WaveConditionsInputHelper.SetWaterLevelType(calculation.InputParameters, normType);
             return calculation;
         }
     }
