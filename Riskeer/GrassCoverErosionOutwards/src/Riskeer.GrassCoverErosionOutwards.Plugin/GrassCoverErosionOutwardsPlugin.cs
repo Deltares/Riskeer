@@ -146,10 +146,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new WaveConditionsInputView(
                     context.Calculation,
-                    () => context.FailureMechanism.GetHydraulicBoundaryLocationCalculation(
-                        context.AssessmentSection,
-                        context.Calculation.InputParameters.HydraulicBoundaryLocation,
-                        context.Calculation.InputParameters.CategoryType),
+                    () => WaveConditionsInputHelper.GetHydraulicBoundaryLocationCalculation(context.WrappedData, context.AssessmentSection),
                     new GrassCoverErosionOutwardsWaveConditionsInputViewStyle())
             };
         }

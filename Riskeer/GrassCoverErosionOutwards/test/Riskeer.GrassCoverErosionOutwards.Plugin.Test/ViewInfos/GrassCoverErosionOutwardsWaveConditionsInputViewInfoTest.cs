@@ -22,11 +22,13 @@
 using System;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
 using Core.Gui.Plugin;
 using NUnit.Framework;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -34,10 +36,10 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.Views;
 using Riskeer.Revetment.Data;
+using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.Views;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -125,29 +127,23 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
         [Test]
         [TestCaseSource(
-            typeof(GrassCoverErosionOutwardsAssessmentSectionTestHelper),
-            nameof(GrassCoverErosionOutwardsAssessmentSectionTestHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType))]
-        public void CreateInstance_GrassCoverErosionOutwardsWaveConditionsInputContext_ReturnViewWithCorrespondingAssessmentLevel(
-            AssessmentSectionStub assessmentSection,
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-            HydraulicBoundaryLocation hydraulicBoundaryLocation,
-            FailureMechanismCategoryType categoryType,
-            HydraulicBoundaryLocationCalculation expectedHydraulicBoundaryLocationCalculation)
+            typeof(WaveConditionsInputTestHelper),
+            nameof(WaveConditionsInputTestHelper.GetAssessmentLevelConfigurationPerWaterLevelType))]
+        public void CreateInstance_WithContextThatHasInputWithSpecificWaterLevelType_ReturnViewWithCorrespondingAssessmentLevel(
+            IAssessmentSection assessmentSection,
+            Action<WaveConditionsInput> configureInputAction,
+            RoundedDouble expectedAssessmentLevel)
         {
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = categoryType
-                }
-            };
+            // Setup
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+
+            configureInputAction(calculation.InputParameters);
 
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
                 calculation.InputParameters,
                 calculation,
                 assessmentSection,
-                failureMechanism);
+                new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call
             var view = (WaveConditionsInputView) info.CreateInstance(context);
@@ -156,7 +152,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             ChartDataCollection chartData = view.Chart.Data;
             var designWaterLevelChartData = (ChartLineData) chartData.Collection.ElementAt(designWaterLevelChartDataIndex);
 
-            Assert.AreEqual(expectedHydraulicBoundaryLocationCalculation.Output.Result, designWaterLevelChartData.Points.First().Y);
+            if (expectedAssessmentLevel != RoundedDouble.NaN)
+            {
+                Assert.AreEqual(expectedAssessmentLevel, designWaterLevelChartData.Points.First().Y);
+            }
+            else
+            {
+                Assert.IsEmpty(designWaterLevelChartData.Points);
+            }
         }
 
         #region ShouldCloseViewWithCalculationDataTester
