@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
@@ -89,54 +87,6 @@ namespace Riskeer.Common.Data.TestUtil
         public static RoundedDouble GetTestAssessmentLevel()
         {
             return testAssessmentLevel;
-        }
-
-        /// <summary>
-        /// Gets a collection of <see cref="TestCaseData"/> containing a hydraulic boundary location calculation
-        /// configuration for all types of <see cref="AssessmentSectionCategoryType"/>.
-        /// </summary>
-        /// <returns>A collection of <see cref="TestCaseData"/>, in which each item contains:
-        /// <list type="bullet">
-        /// <item>the configured assessment section;</item>
-        /// <item>the hydraulic boundary location for which the hydraulic boundary location calculation output has been set;</item>
-        /// <item>the category type at stake;</item>
-        /// <item>the expected hydraulic boundary location calculation given the combination
-        /// of the before-mentioned assessment section, hydraulic boundary location and category type.</item>
-        /// </list>
-        /// </returns>
-        public static IEnumerable<TestCaseData> GetHydraulicBoundaryLocationCalculationConfigurationPerAssessmentSectionCategoryType()
-        {
-            var assessmentSection = new AssessmentSectionStub();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            }, true);
-
-            yield return new TestCaseData(
-                assessmentSection,
-                hydraulicBoundaryLocation,
-                AssessmentSectionCategoryType.FactorizedSignalingNorm,
-                assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(0));
-
-            yield return new TestCaseData(
-                assessmentSection,
-                hydraulicBoundaryLocation,
-                AssessmentSectionCategoryType.SignalingNorm,
-                assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0));
-
-            yield return new TestCaseData(
-                assessmentSection,
-                hydraulicBoundaryLocation,
-                AssessmentSectionCategoryType.LowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0));
-
-            yield return new TestCaseData(
-                assessmentSection,
-                hydraulicBoundaryLocation,
-                AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(0));
         }
 
         private static IFailureMechanism[] GetFailureMechanisms(IFailureMechanism failureMechanism)
