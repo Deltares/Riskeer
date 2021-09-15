@@ -57,8 +57,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuRunWaterLevelCalculationsIndex = 2;
-        private const int contextMenuClearIllustrationPointsIndex = 4;
+        private const int contextMenuRunWaterLevelCalculationsIndex = 4;
+        private const int contextMenuClearIllustrationPointsIndex = 6;
 
         private MockRepository mockRepository;
 
@@ -147,6 +147,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
@@ -208,7 +210,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                     {
                         // Assert
-                        Assert.AreEqual(7, menu.Items.Count);
+                        Assert.AreEqual(9, menu.Items.Count);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRunWaterLevelCalculationsIndex,
                                                                       "Alles be&rekenen",

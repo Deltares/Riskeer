@@ -2360,6 +2360,8 @@ namespace Riskeer.Integration.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
+                          .AddExportItem()
+                          .AddSeparator()
                           .AddCustomItem(waterLevelCalculationItem)
                           .AddSeparator()
                           .AddClearIllustrationPointsOfCalculationsItem(() => IllustrationPointsHelper.HasIllustrationPoints(nodeData.WrappedData), changeHandler)
