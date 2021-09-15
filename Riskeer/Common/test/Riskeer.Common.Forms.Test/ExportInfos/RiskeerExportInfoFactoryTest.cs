@@ -54,7 +54,7 @@ namespace Riskeer.Common.Forms.Test.ExportInfos
 
             // Assert
             Assert.AreSame(createFileExporter, exportInfo.CreateFileExporter);
-            Assert.AreEqual("Riskeer berekeningenconfiguratie", exportInfo.Name);
+            Assert.AreEqual("Riskeer berekeningenconfiguratie", exportInfo.Name(null));
             Assert.AreEqual("xml", exportInfo.Extension);
             Assert.AreEqual("Algemeen", exportInfo.Category);
 
@@ -85,7 +85,7 @@ namespace Riskeer.Common.Forms.Test.ExportInfos
             // Assert
             Assert.AreSame(isEnabled, exportInfo.IsEnabled);
             Assert.AreSame(createFileExporter, exportInfo.CreateFileExporter);
-            Assert.AreEqual("Riskeer berekeningenconfiguratie", exportInfo.Name);
+            Assert.AreEqual("Riskeer berekeningenconfiguratie", exportInfo.Name(null));
             Assert.AreEqual("xml", exportInfo.Extension);
             Assert.AreEqual("Algemeen", exportInfo.Category);
 

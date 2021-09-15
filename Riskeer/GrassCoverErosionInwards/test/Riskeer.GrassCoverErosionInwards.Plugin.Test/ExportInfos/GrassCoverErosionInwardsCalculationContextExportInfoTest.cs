@@ -74,11 +74,21 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ExportInfos
             // Assert
             Assert.IsNotNull(info.CreateFileExporter);
             Assert.IsNotNull(info.IsEnabled);
-            Assert.AreEqual("Riskeer berekeningenconfiguratie", info.Name);
+            Assert.IsNotNull(info.Name);
             Assert.AreEqual("xml", info.Extension);
             Assert.AreEqual("Algemeen", info.Category);
             TestHelper.AssertImagesAreEqual(CoreGuiResources.ExportIcon, info.Image);
             Assert.IsNotNull(info.GetExportPath);
+        }
+
+        [Test]
+        public void Name_Always_ReturnsName()
+        {
+            // Call
+            string name = info.Name(null);
+
+            // Assert
+            Assert.AreEqual("Riskeer berekeningenconfiguratie", name);
         }
 
         [Test]

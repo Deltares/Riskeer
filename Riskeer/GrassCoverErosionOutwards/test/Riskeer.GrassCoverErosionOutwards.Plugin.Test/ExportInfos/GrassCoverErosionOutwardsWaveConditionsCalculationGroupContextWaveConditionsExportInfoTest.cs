@@ -61,7 +61,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
 
             info = plugin.GetExportInfos()
                          .Single(ei => ei.DataType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext)
-                                       && ei.Name.Equals("Berekende belastingen bij verschillende waterstanden"));
+                                       && ei.Name(null).Equals("Berekende belastingen bij verschillende waterstanden"));
         }
 
         [TearDown]

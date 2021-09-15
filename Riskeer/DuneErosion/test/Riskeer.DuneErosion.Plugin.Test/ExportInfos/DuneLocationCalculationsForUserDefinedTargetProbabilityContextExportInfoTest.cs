@@ -49,11 +49,27 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsNotNull(info.CreateFileExporter);
                 Assert.IsNotNull(info.IsEnabled);
-                Assert.AreEqual("Hydraulische belastingen", info.Name);
+                Assert.IsNotNull(info.Name);
                 Assert.AreEqual("bnd", info.Extension);
                 Assert.AreEqual("Algemeen", info.Category);
                 TestHelper.AssertImagesAreEqual(CoreGuiResources.ExportIcon, info.Image);
                 Assert.IsNotNull(info.GetExportPath);
+            }
+        }
+
+        [Test]
+        public void Name_Always_ReturnsName()
+        {
+            // Setup
+            using (var plugin = new DuneErosionPlugin())
+            {
+                ExportInfo info = GetExportInfo(plugin);
+
+                // Call
+                string name = info.Name(null);
+
+                // Assert
+                Assert.AreEqual("Hydraulische belastingen", name);
             }
         }
 
