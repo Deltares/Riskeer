@@ -1857,7 +1857,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
         }
-        
+
         private static void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> expectedSectionResults,
                                                                  IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> actualSectionResults)
         {
@@ -2124,6 +2124,27 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                                         actual.WaterLevelCalculationsForSignalingNorm);
             AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForLowerLimitNorm,
                                                         actual.WaterLevelCalculationsForLowerLimitNorm);
+
+            AssertHydraulicBoundaryLocationCalculationsForTargetProbabilities(expected.WaterLevelCalculationsForUserDefinedTargetProbabilities,
+                                                                              actual.WaterLevelCalculationsForUserDefinedTargetProbabilities);
+
+            AssertHydraulicBoundaryLocationCalculationsForTargetProbabilities(expected.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+                                                                              actual.WaveHeightCalculationsForUserDefinedTargetProbabilities);
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculationsForTargetProbabilities(IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> expected,
+                                                                                              IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> actual)
+        {
+            AssertCollectionAndItems(expected, actual,
+                                     AssertHydraulicBoundaryLocationCalculationsForTargetProbability);
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculationsForTargetProbability(HydraulicBoundaryLocationCalculationsForTargetProbability expected,
+                                                                                            HydraulicBoundaryLocationCalculationsForTargetProbability actual)
+        {
+            Assert.AreEqual(expected.TargetProbability, actual.TargetProbability);
+            AssertHydraulicBoundaryLocationCalculations(expected.HydraulicBoundaryLocationCalculations,
+                                                        actual.HydraulicBoundaryLocationCalculations);
         }
 
         private static void AssertHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> expected,

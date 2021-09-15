@@ -109,8 +109,21 @@ namespace Riskeer.Storage.Core.TestUtil
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             hydraulicBoundaryLocations.AddRange(GetHydraulicBoundaryLocations());
 
+            var random = new Random(21);
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
+            {
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
+            });
+            
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
+            {
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1))
+            });
+            
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
             ConfigureHydraulicBoundaryLocationCalculations(assessmentSection);
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
@@ -379,58 +392,42 @@ namespace Riskeer.Storage.Core.TestUtil
         {
             yield return new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5);
             yield return new HydraulicBoundaryLocation(13002, "test2", 135.2, 5293.8);
+            yield return new HydraulicBoundaryLocation(13003, "test3", 132.5, 5293.8);
         }
 
         private static void ConfigureHydraulicBoundaryLocationCalculations(AssessmentSection assessmentSection)
         {
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             HydraulicBoundaryLocation hydraulicLocationWithoutIllustrationPoints = hydraulicBoundaryLocations.ElementAt(0);
-            ConfigureCalculationsWithoutIllustrationPointOutput(assessmentSection, hydraulicLocationWithoutIllustrationPoints);
+            ConfigureCalculationsWithOutput(assessmentSection, hydraulicLocationWithoutIllustrationPoints);
 
             HydraulicBoundaryLocation hydraulicLocationWithIllustrationPoints = hydraulicBoundaryLocations.ElementAt(1);
-            ConfigureCalculationsWithIllustrationPointOutput(assessmentSection, hydraulicLocationWithIllustrationPoints);
+            ConfigureCalculationsWithOutput(assessmentSection, hydraulicLocationWithIllustrationPoints);
         }
 
-        private static void ConfigureCalculationsWithoutIllustrationPointOutput(AssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private static void ConfigureCalculationsWithOutput(AssessmentSection assessmentSection,
+                                                            HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            const bool hasIllustrationPoints = false;
+            var random = new Random(21);
+            HydraulicBoundaryLocationCalculation signalingNormCalculation = assessmentSection.WaterLevelCalculationsForSignalingNorm
+                                                                                             .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
+            ConfigureDesignWaterLevelCalculation(signalingNormCalculation, random.NextBoolean());
 
-            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
-                                                                                                .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-            ConfigureDesignWaterLevelCalculation(designWaterLevelCalculation, hasIllustrationPoints);
+            HydraulicBoundaryLocationCalculation lowerLimitNormCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+                                                                                              .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
+            ConfigureDesignWaterLevelCalculation(lowerLimitNormCalculation, random.NextBoolean());
 
-            designWaterLevelCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
-                                                           .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-            ConfigureDesignWaterLevelCalculation(designWaterLevelCalculation, hasIllustrationPoints);
-
-            HydraulicBoundaryLocationCalculation waveHeightCalculation = assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
-                                                                                          .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-            ConfigureWaveHeightCalculation(waveHeightCalculation, hasIllustrationPoints);
-
-            waveHeightCalculation = assessmentSection.WaveHeightCalculationsForLowerLimitNorm
-                                                     .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-            ConfigureWaveHeightCalculation(waveHeightCalculation, hasIllustrationPoints);
-        }
-
-        private static void ConfigureCalculationsWithIllustrationPointOutput(AssessmentSection assessmentSection, HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            const bool hasIllustrationPoints = true;
-
-            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
-                                                                                                .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-            ConfigureDesignWaterLevelCalculation(designWaterLevelCalculation, hasIllustrationPoints);
-
-            designWaterLevelCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
-                                                           .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-            ConfigureDesignWaterLevelCalculation(designWaterLevelCalculation, hasIllustrationPoints);
-
-            HydraulicBoundaryLocationCalculation waveHeightCalculation = assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
-                                                                                          .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-            ConfigureWaveHeightCalculation(waveHeightCalculation, hasIllustrationPoints);
-
-            waveHeightCalculation = assessmentSection.WaveHeightCalculationsForLowerLimitNorm
-                                                     .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-            ConfigureWaveHeightCalculation(waveHeightCalculation, hasIllustrationPoints);
+            foreach (HydraulicBoundaryLocationCalculation calculation in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                                                                                          .Select(c => c.HydraulicBoundaryLocationCalculations.Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation))))
+            {
+                ConfigureDesignWaterLevelCalculation(calculation, random.NextBoolean());
+            }
+            
+            foreach (HydraulicBoundaryLocationCalculation calculation in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+                                                                                          .Select(c => c.HydraulicBoundaryLocationCalculations.Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation))))
+            {
+                ConfigureWaveHeightCalculation(calculation, random.NextBoolean());
+            }
         }
 
         private static void ConfigureDesignWaterLevelCalculation(HydraulicBoundaryLocationCalculation designWaterLevelCalculation,
@@ -1194,11 +1191,11 @@ namespace Riskeer.Storage.Core.TestUtil
                 new Point3D(5.8, 6.0, -2.3), // Dike toe at river
                 new Point3D(5.6, 6.0, 3.4),
                 new Point3D(4.2, 6.0, 3.5),
-                new Point3D(4.0, 6.0, 0.5), // Dike toe at polder
-                new Point3D(3.8, 6.0, 0.5), // Ditch dike side
-                new Point3D(3.6, 6.0, 0.2), // Bottom ditch dike side
+                new Point3D(4.0, 6.0, 0.5),  // Dike toe at polder
+                new Point3D(3.8, 6.0, 0.5),  // Ditch dike side
+                new Point3D(3.6, 6.0, 0.2),  // Bottom ditch dike side
                 new Point3D(3.4, 6.0, 0.25), // Bottom ditch polder side
-                new Point3D(3.2, 6.0, 0.5), // Ditch polder side
+                new Point3D(3.2, 6.0, 0.5),  // Ditch polder side
                 new Point3D(3.0, 6.0, 0.5)
             };
             surfaceLine.SetGeometry(geometryPoints);
@@ -1911,8 +1908,6 @@ namespace Riskeer.Storage.Core.TestUtil
                                                                                IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
-            ConfigureHydraulicBoundaryLocationCalculations(failureMechanism, hydraulicBoundaryLocations);
-
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
@@ -1998,43 +1993,6 @@ namespace Riskeer.Storage.Core.TestUtil
                             new WaveConditionsOutput(0, 10, 20, 30, 40, 0.7, 0.6, 0.5, 0.4, CalculationConvergence.NotCalculated)
                         })
                 });
-        }
-
-        private static void ConfigureHydraulicBoundaryLocationCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                           IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
-        {
-            HydraulicBoundaryLocation hydraulicLocationWithoutIllustrationPoints = hydraulicBoundaryLocations.ElementAt(0);
-            ConfigureCalculationsWithoutIllustrationPointOutput(failureMechanism, hydraulicLocationWithoutIllustrationPoints);
-
-            HydraulicBoundaryLocation hydraulicLocationWithIllustrationPoints = hydraulicBoundaryLocations.ElementAt(1);
-            ConfigureCalculationsWithIllustrationPointOutput(failureMechanism, hydraulicLocationWithIllustrationPoints);
-        }
-
-        private static void ConfigureCalculationsWithoutIllustrationPointOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            const bool hasIllustrationPoints = false;
-            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
-                                                                                               .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-            ConfigureDesignWaterLevelCalculation(designWaterLevelCalculation, hasIllustrationPoints);
-
-            HydraulicBoundaryLocationCalculation waveHeightCalculation = failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
-                                                                                         .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-            ConfigureWaveHeightCalculation(waveHeightCalculation, hasIllustrationPoints);
-        }
-
-        private static void ConfigureCalculationsWithIllustrationPointOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                             HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            const bool hasIllustrationPoints = true;
-
-            HydraulicBoundaryLocationCalculation designWaterLevelCalculation = failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
-                                                                                               .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-            ConfigureDesignWaterLevelCalculation(designWaterLevelCalculation, hasIllustrationPoints);
-
-            HydraulicBoundaryLocationCalculation waveHeightCalculation = failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
-                                                                                         .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-            ConfigureWaveHeightCalculation(waveHeightCalculation, hasIllustrationPoints);
         }
 
         private static void SetSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults)

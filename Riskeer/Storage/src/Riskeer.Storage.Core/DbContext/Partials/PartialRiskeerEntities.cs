@@ -84,6 +84,8 @@ namespace Riskeer.Storage.Core.DbContext
             HydraulicLocationEntities.Load();
             HydraulicLocationCalculationCollectionEntities.Include(e => e.HydraulicLocationCalculationEntities)
                                                           .Load();
+            HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Include(e => e.HydraulicLocationCalculationEntities)
+                                                                              .Load();
             HydraulicLocationCalculationEntities.Load();
             HydraulicLocationOutputEntities.Load();
             MacroStabilityInwardsCharacteristicPointEntities.Load();
