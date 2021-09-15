@@ -46,7 +46,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("entity", exception.ParamName);
         }
-        
+
         [Test]
         public void Read_CollectorNull_ThrowsArgumentNullException()
         {

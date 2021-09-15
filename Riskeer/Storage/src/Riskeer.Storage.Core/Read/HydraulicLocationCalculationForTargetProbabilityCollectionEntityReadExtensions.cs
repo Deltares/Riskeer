@@ -56,16 +56,16 @@ namespace Riskeer.Storage.Core.Read
             }
 
             var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(entity.TargetProbability);
-            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = 
+            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations =
                 entity.HydraulicLocationCalculationEntities
                       .Select(hlce => CreateHydraulicBoundaryLocationCalculation(hlce, collector))
                       .ToArray();
             calculations.HydraulicBoundaryLocationCalculations.AddRange(hydraulicBoundaryLocationCalculations);
-            
+
             return calculations;
         }
 
-        private static HydraulicBoundaryLocationCalculation CreateHydraulicBoundaryLocationCalculation(HydraulicLocationCalculationEntity calculationEntity, 
+        private static HydraulicBoundaryLocationCalculation CreateHydraulicBoundaryLocationCalculation(HydraulicLocationCalculationEntity calculationEntity,
                                                                                                        ReadConversionCollector collector)
         {
             var calculation = new HydraulicBoundaryLocationCalculation(collector.Get(calculationEntity.HydraulicLocationEntity));

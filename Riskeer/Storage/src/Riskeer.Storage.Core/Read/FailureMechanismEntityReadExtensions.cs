@@ -730,7 +730,7 @@ namespace Riskeer.Storage.Core.Read
                 sectionResultEntity.Read(result);
             }
         }
-        
+
         private static void ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
                                                                                             CalculationGroup targetRootCalculationGroup, ReadConversionCollector collector)
         {

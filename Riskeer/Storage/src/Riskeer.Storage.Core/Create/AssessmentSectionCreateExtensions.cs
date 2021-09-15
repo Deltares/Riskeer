@@ -132,8 +132,8 @@ namespace Riskeer.Storage.Core.Create
             }
         }
 
-        private static void AddHydraulicLocationCalculationEntities(AssessmentSection assessmentSection, 
-                                                                    AssessmentSectionEntity entity, 
+        private static void AddHydraulicLocationCalculationEntities(AssessmentSection assessmentSection,
+                                                                    AssessmentSectionEntity entity,
                                                                     PersistenceRegistry registry)
         {
             entity.HydraulicLocationCalculationCollectionEntity1 = assessmentSection.WaterLevelCalculationsForSignalingNorm.Create(registry);
@@ -148,7 +148,7 @@ namespace Riskeer.Storage.Core.Create
             {
                 entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Add(calculationCollection.Create(HydraulicBoundaryLocationCalculationType.WaterLevel, registry));
             }
-            
+
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability calculationCollection in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities)
             {
                 entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Add(calculationCollection.Create(HydraulicBoundaryLocationCalculationType.Waveheight, registry));

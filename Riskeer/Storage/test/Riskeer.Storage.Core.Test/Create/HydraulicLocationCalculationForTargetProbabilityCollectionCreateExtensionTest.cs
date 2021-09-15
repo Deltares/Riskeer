@@ -40,10 +40,9 @@ namespace Riskeer.Storage.Core.Test.Create
             var random = new Random(21);
             var calculationType = random.NextEnumValue<HydraulicBoundaryLocationCalculationType>();
 
-            
             // Call
             TestDelegate call = () =>
-                ((HydraulicBoundaryLocationCalculationsForTargetProbability) null).Create(calculationType, 
+                ((HydraulicBoundaryLocationCalculationsForTargetProbability) null).Create(calculationType,
                                                                                           new PersistenceRegistry());
 
             // Assert

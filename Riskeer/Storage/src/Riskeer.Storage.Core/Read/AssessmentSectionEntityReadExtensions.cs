@@ -137,8 +137,8 @@ namespace Riskeer.Storage.Core.Read
         }
 
         private static void ReadHydraulicLocationCalculationsForTargetProbabilities(this AssessmentSectionEntity entity,
-                                                                                            IAssessmentSection assessmentSection,
-                                                                                            ReadConversionCollector collector)
+                                                                                    IAssessmentSection assessmentSection,
+                                                                                    ReadConversionCollector collector)
         {
             IEnumerable<HydraulicLocationCalculationForTargetProbabilityCollectionEntity> waveHeightHydraulicLocationCalculationForTargetProbabilityCollectionEntities =
                 entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.Waveheight);

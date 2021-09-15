@@ -126,12 +126,12 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
 
             Assert.AreEqual(Convert.ToByte(input.ShouldOvertoppingOutputIllustrationPointsBeCalculated),
                             entity.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
-            
+
             Assert.AreEqual(Convert.ToByte(input.ShouldDikeHeightBeCalculated), entity.ShouldDikeHeightBeCalculated);
             Assert.AreEqual(input.DikeHeightTargetProbability, entity.DikeHeightTargetProbability);
             Assert.AreEqual(Convert.ToByte(input.ShouldDikeHeightIllustrationPointsBeCalculated),
                             entity.ShouldDikeHeightIllustrationPointsBeCalculated);
-            
+
             Assert.AreEqual(Convert.ToByte(input.ShouldOvertoppingRateBeCalculated), entity.ShouldOvertoppingRateBeCalculated);
             Assert.AreEqual(input.OvertoppingRateTargetProbability, entity.OvertoppingRateTargetProbability);
             Assert.AreEqual(Convert.ToByte(input.ShouldOvertoppingRateIllustrationPointsBeCalculated),

@@ -30,7 +30,6 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
@@ -49,7 +48,6 @@ using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Serializers;
 using Riskeer.Storage.Core.TestUtil;
-using Riskeer.Storage.Core.TestUtil.Hydraulics;
 using Riskeer.Storage.Core.TestUtil.MacroStabilityInwards;
 using Riskeer.WaveImpactAsphaltCover.Data;
 
@@ -1460,7 +1458,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
             CollectionAssert.IsEmpty(foreshoreProfiles);
         }
-        
+
         [Test]
         public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithForeshoreProfilesAndSourcePath_ReturnsFailureMechanismWithForeshoreProfilesAndSourcePathSet()
         {

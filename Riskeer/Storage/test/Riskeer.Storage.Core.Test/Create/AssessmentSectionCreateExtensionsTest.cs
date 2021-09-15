@@ -311,7 +311,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
             SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
                                                                            .SelectMany(calc => calc.HydraulicBoundaryLocationCalculations), random.Next());
-            
+
             SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
                                                                            .SelectMany(calc => calc.HydraulicBoundaryLocationCalculations), random.Next());
         }

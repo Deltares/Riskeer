@@ -1049,7 +1049,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 i++;
             }
         }
-        
+
         private static void AssertHydraulicLocationCalculationsForTargetProbability(HydraulicLocationCalculationForTargetProbabilityCollectionEntity expectedCalculationCollectionEntity,
                                                                                     HydraulicBoundaryLocation expectedHydraulicBoundaryLocation,
                                                                                     HydraulicBoundaryLocationCalculationsForTargetProbability actualCalculations)
@@ -1094,7 +1094,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Add(CreateHydraulicLocationCalculationForTargetProbabilityCollectionEntity(hydraulicLocationEntity, random.Next()));
             }
         }
-        
+
         private static HydraulicLocationCalculationForTargetProbabilityCollectionEntity CreateHydraulicLocationCalculationForTargetProbabilityCollectionEntity(
             HydraulicLocationEntity hydraulicLocationEntity,
             int seed)

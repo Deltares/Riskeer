@@ -105,7 +105,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             Assert.AreEqual(entity.BreakWaterHeight, input.BreakWater.Height.Value);
             AssertBoolean(entity.ShouldOvertoppingOutputIllustrationPointsBeCalculated,
                           input.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
-            
+
             AssertBoolean(entity.ShouldDikeHeightBeCalculated, input.ShouldDikeHeightBeCalculated);
             Assert.AreEqual(entity.DikeHeightTargetProbability, input.DikeHeightTargetProbability);
             AssertBoolean(entity.ShouldDikeHeightIllustrationPointsBeCalculated,
