@@ -128,6 +128,61 @@ namespace Riskeer.Revetment.Data
         }
 
         /// <summary>
+        /// Gets the hydraulic boundary location calculation that relates to the provided <paramref name="input"/>.
+        /// </summary>
+        /// <param name="input">The wave conditions input to get the hydraulic boundary location calculation for.</param>
+        /// <param name="assessmentSection">The assessment section the wave conditions input belongs to.</param>
+        /// <returns>A hydraulic boundary location calculation, or <c>null</c> when:
+        /// <list type="bullet">
+        /// <item><see cref="WaveConditionsInput.WaterLevelType"/> equals <see cref="WaveConditionsInputWaterLevelType.None"/>;</item>
+        /// <item><see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> equals <c>null</c>.</item>
+        /// </list>
+        /// </returns>
+        /// <exception cref="NullReferenceException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="WaveConditionsInput.WaterLevelType"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="WaveConditionsInput.WaterLevelType"/>
+        /// is a valid value, but unsupported.</exception>
+        public static HydraulicBoundaryLocationCalculation GetHydraulicBoundaryLocationCalculation(WaveConditionsInput input, IAssessmentSection assessmentSection)
+        {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (!Enum.IsDefined(typeof(WaveConditionsInputWaterLevelType), input.WaterLevelType))
+            {
+                throw new InvalidEnumArgumentException(nameof(input.WaterLevelType),
+                                                       (int) input.WaterLevelType,
+                                                       typeof(WaveConditionsInputWaterLevelType));
+            }
+
+            if (input.HydraulicBoundaryLocation == null)
+            {
+                return null;
+            }
+
+            switch (input.WaterLevelType)
+            {
+                case WaveConditionsInputWaterLevelType.None:
+                    return null;
+                case WaveConditionsInputWaterLevelType.LowerLimit:
+                    return GetRelatedHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, input);
+                case WaveConditionsInputWaterLevelType.Signaling:
+                    return GetRelatedHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForSignalingNorm, input);
+                case WaveConditionsInputWaterLevelType.UserDefinedTargetProbability:
+                    return GetRelatedHydraulicBoundaryLocationCalculation(input.CalculationsTargetProbability.HydraulicBoundaryLocationCalculations, input);
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
         /// Gets the target probability to use during wave conditions calculations based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The wave conditions input to get the target probability for.</param>
@@ -229,9 +284,14 @@ namespace Riskeer.Revetment.Data
             }
         }
 
+        private static HydraulicBoundaryLocationCalculation GetRelatedHydraulicBoundaryLocationCalculation(IEnumerable<HydraulicBoundaryLocationCalculation> calculations, WaveConditionsInput input)
+        {
+            return calculations.First(c => ReferenceEquals(c.HydraulicBoundaryLocation, input.HydraulicBoundaryLocation));
+        }
+
         private static RoundedDouble GetAssessmentLevelFromHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations, WaveConditionsInput input)
         {
-            return calculations.First(c => ReferenceEquals(c.HydraulicBoundaryLocation, input.HydraulicBoundaryLocation)).Output?.Result ?? RoundedDouble.NaN;
+            return GetRelatedHydraulicBoundaryLocationCalculation(calculations, input).Output?.Result ?? RoundedDouble.NaN;
         }
     }
 }
