@@ -46,13 +46,29 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 ExportInfo info = GetExportInfo(plugin);
 
                 // Assert
-                Assert.AreEqual("Hydraulische belastingen", info.Name);
+                Assert.IsNotNull(info.Name);
                 Assert.AreEqual("shp", info.Extension);
                 Assert.IsNotNull(info.CreateFileExporter);
                 Assert.IsNotNull(info.IsEnabled);
                 Assert.AreEqual("Algemeen", info.Category);
                 TestHelper.AssertImagesAreEqual(CoreGuiResources.ExportIcon, info.Image);
                 Assert.IsNotNull(info.GetExportPath);
+            }
+        }
+
+        [Test]
+        public void Name_Always_ReturnsName()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                ExportInfo info = GetExportInfo(plugin);
+
+                // Call
+                string name = info.Name(null);
+
+                // Assert
+                Assert.AreEqual("Hydraulische belastingen", name);
             }
         }
 

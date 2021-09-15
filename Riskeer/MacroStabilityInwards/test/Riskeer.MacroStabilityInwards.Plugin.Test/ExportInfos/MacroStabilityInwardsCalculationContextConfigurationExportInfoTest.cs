@@ -61,7 +61,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
             };
 
             info = plugin.GetExportInfos().First(ei => ei.DataType == typeof(MacroStabilityInwardsCalculationScenarioContext)
-                                                       && ei.Name.Equals("Riskeer berekeningenconfiguratie"));
+                                                       && ei.Name(null).Equals("Riskeer berekeningenconfiguratie"));
         }
 
         [TearDown]
@@ -77,7 +77,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
             // Assert
             Assert.IsNotNull(info.CreateFileExporter);
             Assert.IsNotNull(info.IsEnabled);
-            Assert.AreEqual("Riskeer berekeningenconfiguratie", info.Name);
             Assert.AreEqual("xml", info.Extension);
             Assert.AreEqual("Algemeen", info.Category);
             TestHelper.AssertImagesAreEqual(CoreGuiResources.ExportIcon, info.Image);

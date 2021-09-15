@@ -62,7 +62,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
             };
 
             info = plugin.GetExportInfos().First(ei => ei.DataType == typeof(MacroStabilityInwardsCalculationScenarioContext)
-                                                       && ei.Name.Equals("D-GEO Suite Stability Project"));
+                                                       && ei.Name(null).Equals("D-GEO Suite Stability Project"));
         }
 
         [TearDown]
@@ -76,7 +76,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ExportInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual("D-GEO Suite Stability Project", info.Name);
             Assert.AreEqual("stix", info.Extension);
             Assert.IsNotNull(info.CreateFileExporter);
             Assert.IsNotNull(info.IsEnabled);
