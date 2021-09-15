@@ -54,7 +54,7 @@ namespace Riskeer.Common.Forms.ExportInfos
         {
             return new ExportInfo<TCalculationGroupContext>
             {
-                Name = Resources.CalculationConfigurationExporter_DisplayName,
+                Name = context => Resources.CalculationConfigurationExporter_DisplayName,
                 Extension = Resources.DataTypeDisplayName_xml_file_filter_Extension,
                 IsEnabled = isEnabled,
                 CreateFileExporter = createFileExporter,
@@ -80,7 +80,7 @@ namespace Riskeer.Common.Forms.ExportInfos
         {
             return new ExportInfo<TCalculationContext>
             {
-                Name = Resources.CalculationConfigurationExporter_DisplayName,
+                Name = context => Resources.CalculationConfigurationExporter_DisplayName,
                 Extension = Resources.DataTypeDisplayName_xml_file_filter_Extension,
                 CreateFileExporter = createFileExporter,
                 IsEnabled = context => true,

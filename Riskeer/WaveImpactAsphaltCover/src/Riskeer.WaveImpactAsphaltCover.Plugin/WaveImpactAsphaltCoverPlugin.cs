@@ -207,7 +207,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         {
             yield return new ExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>
             {
-                Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Name = context => RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) =>
                 {
@@ -220,7 +220,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             yield return new ExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>
             {
-                Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Name = context => RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new WaveImpactAsphaltCoverWaveConditionsExporter(new[]
                 {

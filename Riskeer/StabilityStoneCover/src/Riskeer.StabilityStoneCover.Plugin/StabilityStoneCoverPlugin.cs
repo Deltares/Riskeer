@@ -210,7 +210,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
         {
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>
             {
-                Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Name = context => RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath),
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
@@ -219,7 +219,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
             yield return new ExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>
             {
-                Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Name = context => RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(new[]
                 {

@@ -216,7 +216,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         {
             yield return new ExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>
             {
-                Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Name = context => RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) =>
                 {
@@ -230,7 +230,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             yield return new ExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>
             {
-                Name = RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
+                Name = context => RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new GrassCoverErosionOutwardsWaveConditionsExporter(new[]
                 {

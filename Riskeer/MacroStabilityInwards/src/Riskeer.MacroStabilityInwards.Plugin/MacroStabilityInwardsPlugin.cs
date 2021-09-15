@@ -174,7 +174,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             yield return new ExportInfo<MacroStabilityInwardsCalculationScenarioContext>
             {
-                Name = Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
+                Name = context => Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
                 Extension = Resources.Stix_file_filter_extension,
                 CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationExporter(
                     context.WrappedData, context.FailureMechanism.GeneralInput, new PersistenceFactory(), filePath,
@@ -186,7 +186,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             yield return new ExportInfo<MacroStabilityInwardsCalculationGroupContext>
             {
-                Name = Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
+                Name = context => Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
                 Extension = Resources.Stix_file_filter_extension,
                 CreateFileExporter = (context, folderPath) => new MacroStabilityInwardsCalculationGroupExporter(context.WrappedData, context.FailureMechanism.GeneralInput,
                                                                                                                 new PersistenceFactory(), folderPath, Resources.Stix_file_filter_extension,

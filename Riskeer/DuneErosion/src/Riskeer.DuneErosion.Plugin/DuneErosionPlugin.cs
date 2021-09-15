@@ -208,7 +208,7 @@ namespace Riskeer.DuneErosion.Plugin
         {
             yield return new ExportInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext>
             {
-                Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Name = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Extension = Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => CreateDuneLocationCalculationsExporter(
                     context.WrappedData
@@ -223,7 +223,7 @@ namespace Riskeer.DuneErosion.Plugin
 
             yield return new ExportInfo<DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext>
             {
-                Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Name = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Extension = Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension,
                 CreateFileExporter = CreateDuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextFileExporter,
                 IsEnabled = IsDuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContextExportMenuItemEnabled,

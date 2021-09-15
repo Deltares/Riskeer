@@ -721,7 +721,7 @@ namespace Riskeer.Integration.Plugin
         {
             yield return new ExportInfo<ReferenceLineContext>
             {
-                Name = RiskeerCommonDataResources.ReferenceLine_DisplayName,
+                Name = context => RiskeerCommonDataResources.ReferenceLine_DisplayName,
                 Extension = RiskeerCommonIOResources.Shape_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new ReferenceLineExporter(context.WrappedData, context.AssessmentSection.Id, filePath),
                 IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
@@ -731,7 +731,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ExportInfo<HydraulicBoundaryDatabaseContext>
             {
-                Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Name = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Extension = RiskeerCommonIOResources.Shape_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(context.AssessmentSection, filePath),
                 IsEnabled = context => context.WrappedData.IsLinked(),
@@ -741,7 +741,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ExportInfo<AssemblyResultsContext>
             {
-                Name = RiskeerCommonFormsResources.AssemblyResult_DisplayName,
+                Name = context => RiskeerCommonFormsResources.AssemblyResult_DisplayName,
                 Extension = Resources.AssemblyResult_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
                 IsEnabled = context => HasGeometry(context.WrappedData.ReferenceLine),
