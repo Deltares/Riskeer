@@ -691,6 +691,7 @@
           </Key>
           <Property Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
           <Property Name="HydraulicBoundaryLocationCalculationType" Type="tinyint" Nullable="false" />
           <Property Name="TargetProbability" Type="real" Nullable="false" />
         </EntityType>
@@ -5627,6 +5628,7 @@
           </Key>
           <Property Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="HydraulicBoundaryLocationCalculationType" Type="Byte" Nullable="false" />
           <Property Name="TargetProbability" Type="Double" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RiskeerEntitiesModel.FK_HydraulicLocationCalculationForTargetProbabilityCollectionEntity_0_0" FromRole="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" ToRole="AssessmentSectionEntity" />
@@ -9019,6 +9021,7 @@
               <MappingFragment StoreEntitySet="HydraulicLocationCalculationForTargetProbabilityCollectionEntity">
                 <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
                 <ScalarProperty Name="HydraulicBoundaryLocationCalculationType" ColumnName="HydraulicBoundaryLocationCalculationType" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
                 <ScalarProperty Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntityId" ColumnName="HydraulicLocationCalculationForTargetProbabilityCollectionEntityId" />
               </MappingFragment>

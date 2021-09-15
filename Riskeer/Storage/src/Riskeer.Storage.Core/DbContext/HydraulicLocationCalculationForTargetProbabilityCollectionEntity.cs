@@ -43,6 +43,7 @@ namespace Riskeer.Storage.Core.DbContext
 
         public long HydraulicLocationCalculationForTargetProbabilityCollectionEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
+        public int Order { get; set; }
         public byte HydraulicBoundaryLocationCalculationType { get; set; }
         public double TargetProbability { get; set; }
 
