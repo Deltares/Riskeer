@@ -83,6 +83,7 @@ namespace Riskeer.Storage.Core.Create
 
             AddEntityForHydraulicDatabase(section.HydraulicBoundaryDatabase, entity, registry);
             AddHydraulicLocationCalculationEntities(section, entity, registry);
+            AddHydraulicLocationCalculationForTargetProbabilityCollectionEntities(section, entity, registry);
             AddEntityForReferenceLine(section, entity);
 
             entity.BackgroundDataEntities.Add(section.BackgroundData.Create());
@@ -137,6 +138,21 @@ namespace Riskeer.Storage.Core.Create
         {
             entity.HydraulicLocationCalculationCollectionEntity1 = assessmentSection.WaterLevelCalculationsForSignalingNorm.Create(registry);
             entity.HydraulicLocationCalculationCollectionEntity = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Create(registry);
+        }
+
+        private static void AddHydraulicLocationCalculationForTargetProbabilityCollectionEntities(AssessmentSection assessmentSection,
+                                                                                                  AssessmentSectionEntity entity,
+                                                                                                  PersistenceRegistry registry)
+        {
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability calculationCollection in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)
+            {
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Add(calculationCollection.Create(HydraulicBoundaryLocationCalculationType.WaterLevel, registry));
+            }
+            
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability calculationCollection in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities)
+            {
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Add(calculationCollection.Create(HydraulicBoundaryLocationCalculationType.Waveheight, registry));
+            }
         }
     }
 }
