@@ -162,7 +162,7 @@ namespace Core.Gui.Test.Commands
             {
                 new ExportInfo<int>
                 {
-                    Name = exportInfoName,
+                    Name = i => exportInfoName,
                     CreateFileExporter = (data, filePath) =>
                     {
                         Assert.AreEqual(expectedData, data);
@@ -204,7 +204,7 @@ namespace Core.Gui.Test.Commands
             {
                 new ExportInfo<int>
                 {
-                    Name = exportInfoName,
+                    Name = i => exportInfoName,
                     CreateFileExporter = (data, filePath) => exporter,
                     GetExportPath = () => targetExportFileName
                 }
@@ -368,7 +368,7 @@ namespace Core.Gui.Test.Commands
 
             var exportInfo1 = new ExportInfo<int>
             {
-                Name = "Name 1",
+                Name = i => "Name 1",
                 Category = "Category 1",
                 Image = Resources.Busy_indicator,
                 Extension = hasFileExtension ? "extension 1" : null
@@ -376,7 +376,7 @@ namespace Core.Gui.Test.Commands
 
             var exportInfo2 = new ExportInfo<int>
             {
-                Name = "Name 2",
+                Name = i => "Name 2",
                 Category = "Category 2",
                 Image = Resources.DeleteIcon,
                 Extension = hasFileExtension ? "extension 2" : null
@@ -395,14 +395,16 @@ namespace Core.Gui.Test.Commands
             Assert.AreEqual("Kies wat u wilt exporteren", dialogText);
 
             Assert.AreEqual(2, listViewItems.Length);
+            string exportInfo1Name = exportInfo1.Name(1234);
             string expectedItemName1 = hasFileExtension
-                                           ? $"{exportInfo1.Name} (*.{exportInfo1.Extension})"
-                                           : exportInfo1.Name;
+                                           ? $"{exportInfo1Name} (*.{exportInfo1.Extension})"
+                                           : exportInfo1Name;
             Assert.AreEqual(expectedItemName1, listViewItems[0].Name);
             Assert.AreEqual(exportInfo1.Category, listViewItems[0].Group);
+            string exportInfo2Name = exportInfo2.Name(1234);
             string expectedItemName2 = hasFileExtension
-                                           ? $"{exportInfo2.Name} (*.{exportInfo2.Extension})"
-                                           : exportInfo2.Name;
+                                           ? $"{exportInfo2Name} (*.{exportInfo2.Extension})"
+                                           : exportInfo2Name;
             Assert.AreEqual(expectedItemName2, listViewItems[1].Name);
             Assert.AreEqual(exportInfo2.Category, listViewItems[1].Group);
 

@@ -106,7 +106,7 @@ namespace Core.Gui.Commands
             {
                 foreach (ExportInfo exportInfo in supportedExportInfos)
                 {
-                    selectExportInfoDialog.AddItemType(GetItemName(exportInfo),
+                    selectExportInfoDialog.AddItemType(GetItemName(exportInfo, source),
                                                        exportInfo.Category,
                                                        exportInfo.Image,
                                                        exportInfo);
@@ -121,21 +121,23 @@ namespace Core.Gui.Commands
             return null;
         }
 
-        private static string GetItemName(ExportInfo exportInfo)
+        private static string GetItemName(ExportInfo exportInfo, object source)
         {
+            string exportInfoName = exportInfo.Name(source);
             return exportInfo.Extension != null
-                       ? string.Format(Resources.GetItemName_Name_0_FileExtension_1, exportInfo.Name, exportInfo.Extension)
-                       : exportInfo.Name;
+                       ? string.Format(Resources.GetItemName_Name_0_FileExtension_1, exportInfoName, exportInfo.Extension)
+                       : exportInfoName;
         }
 
         private static void ExportItem(ExportInfo exportInfo, object source)
         {
             string exportFilePath = exportInfo.GetExportPath();
+            string exportInfoName = exportInfo.Name(source);
 
             if (exportFilePath != null)
             {
                 log.InfoFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Start_exporting_DataType_0_,
-                               exportInfo.Name);
+                               exportInfoName);
 
                 IFileExporter exporter = exportInfo.CreateFileExporter(source, exportFilePath);
 
@@ -143,12 +145,12 @@ namespace Core.Gui.Commands
                 {
                     log.InfoFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Data_exported_to_File_0, exportFilePath);
                     log.InfoFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_successful,
-                                   exportInfo.Name);
+                                   exportInfoName);
                 }
                 else
                 {
                     log.ErrorFormat(Resources.GuiExportHandler_ExportItemUsingDialog_Export_of_DataType_0_failed,
-                                    exportInfo.Name);
+                                    exportInfoName);
                 }
             }
         }

@@ -84,7 +84,7 @@ namespace Core.Gui.Test.Plugin
             {
                 CreateFileExporter = (data, filePath) => fileExporter,
                 IsEnabled = data => false,
-                Name = name,
+                Name = data => name,
                 Extension = extension,
                 Category = category,
                 Image = image,
@@ -104,7 +104,7 @@ namespace Core.Gui.Test.Plugin
             Assert.AreSame(fileExporter, convertedInfo.CreateFileExporter(12, string.Empty));
             Assert.IsNotNull(convertedInfo.IsEnabled);
             Assert.IsFalse(convertedInfo.IsEnabled(12));
-            Assert.AreEqual(name, info.Name);
+            Assert.AreEqual(name, info.Name(12));
             Assert.AreEqual(extension, info.Extension);
             Assert.AreEqual(category, info.Category);
             Assert.AreSame(image, info.Image);

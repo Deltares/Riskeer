@@ -56,9 +56,13 @@ namespace Core.Gui.Plugin
         public Func<object, bool> IsEnabled { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the export information.
+        /// Gets or sets the name of the export information. Function arguments:
+        /// <list type="number">
+        ///     <item>The data to export.</item>
+        ///     <item>out - The name of the export information.</item>
+        /// </list>
         /// </summary>
-        public string Name { get; set; }
+        public Func<object, string> Name { get; set; }
 
         /// <summary>
         /// Gets or sets the file extension of the export information.
@@ -117,9 +121,13 @@ namespace Core.Gui.Plugin
         public Func<TData, bool> IsEnabled { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the export information.
+        /// Gets or sets the name of the export information. Function arguments:
+        /// <list type="number">
+        ///     <item>The data to export.</item>
+        ///     <item>out - The name of the export information.</item>
+        /// </list>
         /// </summary>
-        public string Name { get; set; }
+        public Func<TData, string> Name { get; set; }
 
         /// <summary>
         /// Gets or sets the file extension of the export information.
@@ -158,7 +166,7 @@ namespace Core.Gui.Plugin
                 DataType = exportInfo.DataType,
                 CreateFileExporter = (data, filePath) => exportInfo.CreateFileExporter?.Invoke((TData) data, filePath),
                 IsEnabled = data => exportInfo.IsEnabled == null || exportInfo.IsEnabled((TData) data),
-                Name = exportInfo.Name,
+                Name = data => exportInfo.Name?.Invoke((TData) data),
                 Category = exportInfo.Category,
                 Image = exportInfo.Image,
                 Extension = exportInfo.Extension,
