@@ -88,7 +88,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
         [Test]
         [TestCase(NormType.LowerLimit, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
         [TestCase(NormType.Signaling, FailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
-        public void AddCalculationsFromLocations_MultipleLocationsEmptyCalculationBase_ReturnsUniquelyNamedCalculations(
+        public void AddCalculationsFromLocations_MultipleLocationsEmptyCalculationBase_ReturnsUniquelyNamedCalculationsAndCorrectInputSet(
             NormType normType,
             FailureMechanismCategoryType expectedFailureMechanismCategoryType)
         {
@@ -122,7 +122,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
         [Test]
         [TestCase(NormType.LowerLimit, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
         [TestCase(NormType.Signaling, FailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
-        public void AddCalculationsFromLocations_MultipleLocationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculations(
+        public void AddCalculationsFromLocations_MultipleLocationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculationsAndCorrectInputSet(
             NormType normType,
             FailureMechanismCategoryType expectedFailureMechanismCategoryType)
         {

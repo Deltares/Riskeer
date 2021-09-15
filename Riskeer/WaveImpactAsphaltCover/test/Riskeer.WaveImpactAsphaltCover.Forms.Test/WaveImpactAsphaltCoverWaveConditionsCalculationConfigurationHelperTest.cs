@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
@@ -88,11 +87,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test
         }
 
         [Test]
-        [TestCase(NormType.LowerLimit, AssessmentSectionCategoryType.LowerLimitNorm)]
-        [TestCase(NormType.Signaling, AssessmentSectionCategoryType.SignalingNorm)]
-        public void AddCalculationsFromLocations_MultipleCalculationsEmptyCalculationBase_ReturnsUniquelyNamedCalculations(
+        [TestCase(NormType.LowerLimit, WaveConditionsInputWaterLevelType.LowerLimit)]
+        [TestCase(NormType.Signaling, WaveConditionsInputWaterLevelType.Signaling)]
+        public void AddCalculationsFromLocations_MultipleCalculationsEmptyCalculationBase_ReturnsUniquelyNamedCalculationsAndCorrectInputSet(
             NormType normType,
-            AssessmentSectionCategoryType expectedAssessmentSectionCategoryType)
+            WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
         {
             // Setup
             const string name = "name";
@@ -114,21 +113,21 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test
             Assert.AreEqual(name, firstCalculation.Name);
             AssessmentSectionCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
             Assert.AreEqual(locations[0], firstCalculationInput.HydraulicBoundaryLocation);
-            Assert.AreEqual(expectedAssessmentSectionCategoryType, firstCalculationInput.CategoryType);
+            Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, firstCalculationInput.WaterLevelType);
 
             var secondCalculation = (WaveImpactAsphaltCoverWaveConditionsCalculation) calculationBases.ElementAt(1);
             Assert.AreEqual($"{name} (1)", secondCalculation.Name);
             AssessmentSectionCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
             Assert.AreSame(locations[1], secondCalculationInput.HydraulicBoundaryLocation);
-            Assert.AreEqual(expectedAssessmentSectionCategoryType, secondCalculationInput.CategoryType);
+            Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, secondCalculationInput.WaterLevelType);
         }
 
         [Test]
-        [TestCase(NormType.LowerLimit, AssessmentSectionCategoryType.LowerLimitNorm)]
-        [TestCase(NormType.Signaling, AssessmentSectionCategoryType.SignalingNorm)]
-        public void AddCalculationsFromLocations_MultipleCalculationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculations(
+        [TestCase(NormType.LowerLimit, WaveConditionsInputWaterLevelType.LowerLimit)]
+        [TestCase(NormType.Signaling, WaveConditionsInputWaterLevelType.Signaling)]
+        public void AddCalculationsFromLocations_MultipleCalculationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculationsAndCorrectInputSet(
             NormType normType,
-            AssessmentSectionCategoryType expectedAssessmentSectionCategoryType)
+            WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
         {
             // Setup
             const string name = "name";
@@ -154,13 +153,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test
             Assert.AreEqual($"{name} (1)", firstCalculation.Name);
             AssessmentSectionCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
             Assert.AreEqual(locations[0], firstCalculationInput.HydraulicBoundaryLocation);
-            Assert.AreEqual(expectedAssessmentSectionCategoryType, firstCalculationInput.CategoryType);
+            Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, firstCalculationInput.WaterLevelType);
 
             var secondCalculation = (WaveImpactAsphaltCoverWaveConditionsCalculation) calculationBases.ElementAt(2);
             Assert.AreEqual($"{name} (2)", secondCalculation.Name);
             AssessmentSectionCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
             Assert.AreSame(locations[1], secondCalculationInput.HydraulicBoundaryLocation);
-            Assert.AreEqual(expectedAssessmentSectionCategoryType, secondCalculationInput.CategoryType);
+            Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, secondCalculationInput.WaterLevelType);
         }
     }
 }
