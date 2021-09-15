@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.AssessmentSection;
@@ -70,6 +71,7 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadBackgroundData(assessmentSection);
 
             entity.ReadHydraulicDatabase(assessmentSection, collector);
+            entity.ReadHydraulicLocationCalculationsForTargetProbabilities(assessmentSection, collector);
             entity.ReadReferenceLine(assessmentSection);
 
             entity.ReadPipingFailureMechanism(assessmentSection, collector);
@@ -132,6 +134,23 @@ namespace Riskeer.Storage.Core.Read
 
                 entity.ReadHydraulicBoundaryLocationCalculations(assessmentSection, collector);
             }
+        }
+
+        private static void ReadHydraulicLocationCalculationsForTargetProbabilities(this AssessmentSectionEntity entity,
+                                                                                            IAssessmentSection assessmentSection,
+                                                                                            ReadConversionCollector collector)
+        {
+            IEnumerable<HydraulicLocationCalculationForTargetProbabilityCollectionEntity> waveHeightHydraulicLocationCalculationForTargetProbabilityCollectionEntities =
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.Waveheight);
+
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.AddRange(waveHeightHydraulicLocationCalculationForTargetProbabilityCollectionEntities.Select(e => e.Read(collector))
+                                                                                                                                                                           .ToArray());
+
+            IEnumerable<HydraulicLocationCalculationForTargetProbabilityCollectionEntity> waterLevelHydraulicLocationCalculationForTargetProbabilityCollectionEntities =
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.WaterLevel);
+
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(waterLevelHydraulicLocationCalculationForTargetProbabilityCollectionEntities.Select(e => e.Read(collector))
+                                                                                                                                                                           .ToArray());
         }
 
         private static void ReadHydraulicBoundaryLocationCalculations(this AssessmentSectionEntity entity,

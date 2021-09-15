@@ -217,6 +217,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             entity.HydraulicLocationCalculationCollectionEntity = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 1);
             entity.HydraulicLocationCalculationCollectionEntity1 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 2);
+            SetHydraulicLocationCalculationForTargetProbabilityCollectionEntities(entity, hydraulicLocationEntity);
 
             var collector = new ReadConversionCollector();
 
@@ -242,6 +243,15 @@ namespace Riskeer.Storage.Core.Test.Read
             AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity,
                                                        hydraulicBoundaryLocation,
                                                        calculation);
+
+            AssertHydraulicLocationCalculationsForTargetProbability(entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities
+                                                                          .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.WaterLevel),
+                                                                    hydraulicBoundaryLocation,
+                                                                    section.WaterLevelCalculationsForUserDefinedTargetProbabilities);
+            AssertHydraulicLocationCalculationsForTargetProbability(entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities
+                                                                          .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.Waveheight),
+                                                                    hydraulicBoundaryLocation,
+                                                                    section.WaveHeightCalculationsForUserDefinedTargetProbabilities);
         }
 
         [Test]
@@ -1024,12 +1034,76 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.IsNull(actualCalculation.Output);
         }
 
+        private static void AssertHydraulicLocationCalculationsForTargetProbability(
+            IEnumerable<HydraulicLocationCalculationForTargetProbabilityCollectionEntity> expectedCalculationCollectionEntities,
+            HydraulicBoundaryLocation expectedHydraulicBoundaryLocation,
+            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> actualCalculationCollections)
+        {
+            Assert.AreEqual(expectedCalculationCollectionEntities.Count(), actualCalculationCollections.Count());
+
+            var i = 0;
+            foreach (HydraulicLocationCalculationForTargetProbabilityCollectionEntity expectedCalculationCollectionEntity in expectedCalculationCollectionEntities)
+            {
+                HydraulicBoundaryLocationCalculationsForTargetProbability actualCalculationCollectionEntity = actualCalculationCollections.ElementAt(i);
+                AssertHydraulicLocationCalculationsForTargetProbability(expectedCalculationCollectionEntity, expectedHydraulicBoundaryLocation, actualCalculationCollectionEntity);
+                i++;
+            }
+        }
+        
+        private static void AssertHydraulicLocationCalculationsForTargetProbability(HydraulicLocationCalculationForTargetProbabilityCollectionEntity expectedCalculationCollectionEntity,
+                                                                                    HydraulicBoundaryLocation expectedHydraulicBoundaryLocation,
+                                                                                    HydraulicBoundaryLocationCalculationsForTargetProbability actualCalculations)
+        {
+            Assert.AreEqual(expectedCalculationCollectionEntity.TargetProbability, actualCalculations.TargetProbability);
+            ICollection<HydraulicLocationCalculationEntity> expectedCalculations = expectedCalculationCollectionEntity.HydraulicLocationCalculationEntities;
+            Assert.AreEqual(expectedCalculations.Count, actualCalculations.HydraulicBoundaryLocationCalculations.Count);
+
+            var i = 0;
+            foreach (HydraulicLocationCalculationEntity expectedCalculationEntity in expectedCalculations)
+            {
+                HydraulicBoundaryLocationCalculation actualCalculation = actualCalculations.HydraulicBoundaryLocationCalculations[i];
+                AssertHydraulicBoundaryLocationCalculation(expectedCalculationEntity, expectedHydraulicBoundaryLocation, actualCalculation);
+                i++;
+            }
+        }
+
         private static HydraulicLocationCalculationCollectionEntity CreateHydraulicLocationCollectionCalculationEntity(HydraulicLocationEntity hydraulicLocationEntity,
                                                                                                                        int seed)
         {
             var random = new Random(seed);
             return new HydraulicLocationCalculationCollectionEntity
             {
+                HydraulicLocationCalculationEntities =
+                {
+                    new HydraulicLocationCalculationEntity
+                    {
+                        HydraulicLocationEntity = hydraulicLocationEntity,
+                        ShouldIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean())
+                    }
+                }
+            };
+        }
+
+        private static void SetHydraulicLocationCalculationForTargetProbabilityCollectionEntities(AssessmentSectionEntity entity,
+                                                                                                  HydraulicLocationEntity hydraulicLocationEntity)
+        {
+            var random = new Random(21);
+            int nrOfCollections = random.Next(1, 10);
+            for (int i = 0; i < nrOfCollections; i++)
+            {
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Add(CreateHydraulicLocationCalculationForTargetProbabilityCollectionEntity(hydraulicLocationEntity, random.Next()));
+            }
+        }
+        
+        private static HydraulicLocationCalculationForTargetProbabilityCollectionEntity CreateHydraulicLocationCalculationForTargetProbabilityCollectionEntity(
+            HydraulicLocationEntity hydraulicLocationEntity,
+            int seed)
+        {
+            var random = new Random(seed);
+            return new HydraulicLocationCalculationForTargetProbabilityCollectionEntity
+            {
+                TargetProbability = random.NextDouble(0, 0.1),
+                HydraulicBoundaryLocationCalculationType = Convert.ToByte(random.NextEnumValue<HydraulicBoundaryLocationCalculationType>()),
                 HydraulicLocationCalculationEntities =
                 {
                     new HydraulicLocationCalculationEntity
