@@ -43,7 +43,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             string filePath = TestHelper.GetScratchPadPath($"{nameof(Constructor_ValidParameters_ExpectedValues)}.csv");
 
             // Call
-            var waveConditionsExporter = new TestWaveConditionsExporter(new ExportableWaveConditions[0], filePath);
+            var waveConditionsExporter = new TestWaveConditionsExporter(Array.Empty<ExportableWaveConditions>(), filePath);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(waveConditionsExporter);
@@ -56,10 +56,10 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             string filePath = TestHelper.GetScratchPadPath($"{nameof(Constructor_ExportableWaveConditionsCollectionNull_ThrowArgumentNullException)}.csv");
 
             // Call
-            TestDelegate call = () => new TestWaveConditionsExporter(null, filePath);
+            void Call() => new TestWaveConditionsExporter(null, filePath);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("exportableWaveConditionsCollection", exception.ParamName);
         }
 
@@ -67,10 +67,10 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void Constructor_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestWaveConditionsExporter(new ExportableWaveConditions[0], null);
+            void Call() => new TestWaveConditionsExporter(Array.Empty<ExportableWaveConditions>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("filePath", exception.ParamName);
         }
 
@@ -80,16 +80,16 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test_.csv");
             string invalidFilePath = filePath.Replace("_", ">");
-            var waveConditionsExporter = new TestWaveConditionsExporter(new ExportableWaveConditions[0], invalidFilePath);
+            var waveConditionsExporter = new TestWaveConditionsExporter(Array.Empty<ExportableWaveConditions>(), invalidFilePath);
 
             // Call
             var isExported = true;
-            Action call = () => isExported = waveConditionsExporter.Export();
+            void Call() => isExported = waveConditionsExporter.Export();
 
             // Assert
             string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{invalidFilePath}'. " +
                                      "Er zijn geen golfcondities geëxporteerd.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);
             Assert.IsFalse(isExported);
         }
 
@@ -103,7 +103,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             {
                 string filePath = Path.Combine(directoryPath, "test.csv");
 
-                var waveConditionsExporter = new TestWaveConditionsExporter(new ExportableWaveConditions[0], filePath);
+                var waveConditionsExporter = new TestWaveConditionsExporter(Array.Empty<ExportableWaveConditions>(), filePath);
 
                 // Call
                 bool isExported = waveConditionsExporter.Export();
@@ -127,7 +127,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
                     StepSize = WaveConditionsInputStepSize.One,
                     LowerBoundaryWaterLevels = (RoundedDouble) 2.689,
                     UpperBoundaryWaterLevels = (RoundedDouble) 77.8249863247
-                }, CreateWaveConditionsOutputForExport(1.11111, 2.22222, 3.33333, 4.4, 5.5555555), CoverType.StoneCoverBlocks, "A->B"),
+                }, CreateWaveConditionsOutputForExport(1.11111, 2.22222, 3.33333, 4.4, 5.5555555), CoverType.StoneCoverBlocks, i => "1/100"),
                 new ExportableWaveConditions("columnsName", new TestWaveConditionsInput
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456),
@@ -136,7 +136,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
                     StepSize = WaveConditionsInputStepSize.Half,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                     UpperBoundaryWaterLevels = (RoundedDouble) 84.26548
-                }, CreateWaveConditionsOutputForExport(3.33333, 1.11111, 4.44444, 2.2, 6.66666), CoverType.StoneCoverColumns, "B->C")
+                }, CreateWaveConditionsOutputForExport(3.33333, 1.11111, 4.44444, 2.2, 6.66666), CoverType.StoneCoverColumns, i => "1/100")
             };
 
             string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_ValidData_ValidFile));
@@ -150,9 +150,9 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
-                                      $"blocksName, , 0.000, 0.000, , nee, nee, Steen (blokken), A->B, 1.11, 2.22, 3.33, 4.40, 5.56{Environment.NewLine}" +
-                                      $"columnsName, aLocation, 44.000, 123.456, , nee, nee, Steen (zuilen), B->C, 3.33, 1.11, 4.44, 2.20, 6.67{Environment.NewLine}";
+                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Doelkans, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
+                                      $"blocksName, , 0.000, 0.000, , nee, nee, Steen (blokken), 1/100, 1.11, 2.22, 3.33, 4.40, 5.56{Environment.NewLine}" +
+                                      $"columnsName, aLocation, 44.000, 123.456, , nee, nee, Steen (zuilen), 1/100, 3.33, 1.11, 4.44, 2.20, 6.67{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
         }

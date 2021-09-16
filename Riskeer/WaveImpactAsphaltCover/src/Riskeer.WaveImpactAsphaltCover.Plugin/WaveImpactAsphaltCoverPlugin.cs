@@ -41,6 +41,7 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
@@ -66,6 +67,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
     /// </summary>
     public class WaveImpactAsphaltCoverPlugin : PluginBase
     {
+        private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
+
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<WaveImpactAsphaltCoverHydraulicLoadsContext, WaveImpactAsphaltCoverHydraulicLoadsProperties>
@@ -212,7 +215,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 CreateFileExporter = (context, filePath) =>
                 {
                     IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations = context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>();
-                    return new WaveImpactAsphaltCoverWaveConditionsExporter(calculations, filePath);
+                    return new WaveImpactAsphaltCoverWaveConditionsExporter(calculations, filePath, input => noProbabilityValueDoubleConverter.ConvertToString(
+                                                                                WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection)));
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
@@ -223,9 +227,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 Name = context => RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new WaveImpactAsphaltCoverWaveConditionsExporter(new[]
-                {
-                    context.WrappedData
-                }, filePath),
+                                                                                                             {
+                                                                                                                 context.WrappedData
+                                                                                                             }, filePath,
+                                                                                                             input =>
+                                                                                                                 noProbabilityValueDoubleConverter.ConvertToString(
+                                                                                                                     WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection))),
                 IsEnabled = context => context.WrappedData.HasOutput,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };

@@ -70,7 +70,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
                 string name = info.Name(null);
 
                 // Assert
-                Assert.AreEqual("Riskeer berekeningenconfiguratie", name);
+                Assert.AreEqual("Hydraulische belastingen", name);
             }
         }
 

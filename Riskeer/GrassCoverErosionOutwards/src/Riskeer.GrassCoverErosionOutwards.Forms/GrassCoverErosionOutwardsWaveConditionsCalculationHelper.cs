@@ -95,7 +95,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
-            WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters, normType);
+            WaveConditionsInputHelper.SetWaterLevelType(calculation.InputParameters, normType);
             return calculation;
         }
     }

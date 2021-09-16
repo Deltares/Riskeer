@@ -57,9 +57,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuAddTargetProbabilityIndex = 0;
-        private const int contextMenuRunWaveHeightCalculationsIndex = 2;
-        private const int contextMenuClearIllustrationPointsIndex = 4;
+        private const int contextMenuAddTargetProbabilityIndex = 2;
+        private const int contextMenuRunWaveHeightCalculationsIndex = 4;
+        private const int contextMenuClearIllustrationPointsIndex = 6;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.Service, "HydraRingCalculation");
 
         [Test]
@@ -168,6 +168,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
             using (mockRepository.Ordered())
             {
+                menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
@@ -233,7 +235,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSection, treeViewControl))
                     {
                         // Assert
-                        Assert.AreEqual(9, menu.Items.Count);
+                        Assert.AreEqual(11, menu.Items.Count);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddTargetProbabilityIndex,
                                                                       "Doelkans toevoegen",

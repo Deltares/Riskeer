@@ -41,6 +41,7 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
@@ -67,6 +68,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
     /// </summary>
     public class GrassCoverErosionOutwardsPlugin : PluginBase
     {
+        private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
+
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<GrassCoverErosionOutwardsHydraulicLoadsContext, GrassCoverErosionOutwardsHydraulicLoadsProperties>
@@ -221,7 +224,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 CreateFileExporter = (context, filePath) =>
                 {
                     IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations = context.WrappedData.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
-                    return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
+                    return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath, input => noProbabilityValueDoubleConverter.ConvertToString(
+                                                                                   WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection)));
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Any(c => c.HasOutput),
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
@@ -233,9 +237,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 Name = context => RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new GrassCoverErosionOutwardsWaveConditionsExporter(new[]
-                {
-                    context.WrappedData
-                }, filePath),
+                                                                                                                {
+                                                                                                                    context.WrappedData
+                                                                                                                }, filePath,
+                                                                                                                input =>
+                                                                                                                    noProbabilityValueDoubleConverter.ConvertToString(
+                                                                                                                        WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection))),
                 IsEnabled = context => context.WrappedData.HasOutput,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                                                                                                            RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description))
@@ -559,8 +566,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                   RiskeerCommonDataResources.Calculation_DefaultName,
                                                   c => c.Name)
             };
-            WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters,
-                                                      nodeData.AssessmentSection.FailureMechanismContribution.NormativeNorm);
+            WaveConditionsInputHelper.SetWaterLevelType(calculation.InputParameters,
+                                                        nodeData.AssessmentSection.FailureMechanismContribution.NormativeNorm);
             nodeData.WrappedData.Children.Add(calculation);
             nodeData.WrappedData.NotifyObservers();
         }

@@ -38,10 +38,10 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableWaveConditions(null, CreateValidWaveConditionsInput(), waveConditionsOutput, CoverType.StoneCoverColumns, string.Empty);
+            void Call() => new ExportableWaveConditions(null, CreateValidWaveConditionsInput(), waveConditionsOutput, CoverType.StoneCoverColumns, i => "1/100");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("name", exception.ParamName);
         }
 
@@ -49,10 +49,10 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void Constructor_WaveConditionsInputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableWaveConditions("aName", null, waveConditionsOutput, CoverType.StoneCoverColumns, string.Empty);
+            void Call() => new ExportableWaveConditions("aName", null, waveConditionsOutput, CoverType.StoneCoverColumns, i => "1/100");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("waveConditionsInput", exception.ParamName);
         }
 
@@ -60,10 +60,10 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void Constructor_WaveConditionsOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), null, CoverType.StoneCoverColumns, string.Empty);
+            void Call() => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), null, CoverType.StoneCoverColumns, i => "1/100");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("waveConditionsOutput", exception.ParamName);
         }
 
@@ -71,34 +71,34 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void Constructor_CoverTypeNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), waveConditionsOutput, null, string.Empty);
+            void Call() => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), waveConditionsOutput, null, i => "1/100");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("coverType", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_CategoryBoundaryNameNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), waveConditionsOutput, CoverType.Asphalt, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("categoryBoundaryName", exception.ParamName);
         }
 
         [Test]
         public void Constructor_WaveConditionsInputHydraulicBoundaryLocationNull_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new ExportableWaveConditions("aName", new TestWaveConditionsInput(), waveConditionsOutput, CoverType.StoneCoverColumns, string.Empty);
+            void Call() => new ExportableWaveConditions("aName", new TestWaveConditionsInput(), waveConditionsOutput, CoverType.StoneCoverColumns, i => "1/100");
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
+            var exception = Assert.Throws<ArgumentException>(Call);
             StringAssert.StartsWith("HydraulicBoundaryLocation is null.", exception.Message);
             Assert.AreEqual("waveConditionsInput", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_GetTargetProbabilityFuncNull_ThrowsArgumentException()
+        {
+            // Call
+            void Call() => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), waveConditionsOutput, CoverType.Asphalt, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("getTargetProbabilityFunc", exception.ParamName);
         }
 
         [Test]
@@ -108,7 +108,6 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             [Values(true, false)] bool useForeshore)
         {
             // Setup
-            const string categoryBoundaryName = "category";
             WaveConditionsInput waveConditionsInput = CreateValidWaveConditionsInput();
             waveConditionsInput.UseBreakWater = useBreakWater;
             waveConditionsInput.UseForeshore = useForeshore;
@@ -119,7 +118,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
                                              waveConditionsInput,
                                              waveConditionsOutput,
                                              CoverType.StoneCoverColumns,
-                                             categoryBoundaryName);
+                                             i => "1/100");
 
             // Assert
             Assert.AreEqual("ewcName", exportableWaveConditions.CalculationName);
@@ -130,7 +129,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             Assert.AreEqual(useBreakWater, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(useForeshore, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.StoneCoverColumns, exportableWaveConditions.CoverType);
-            Assert.AreEqual(categoryBoundaryName, exportableWaveConditions.CategoryBoundaryName);
+            Assert.AreEqual("1/100", exportableWaveConditions.TargetProbability);
             Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);
@@ -149,7 +148,6 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             [Values(true, false)] bool useForeshore)
         {
             // Setup
-            const string categoryBoundaryName = "category";
             WaveConditionsInput waveConditionsInput = CreateValidWaveConditionsInput();
             waveConditionsInput.ForeshoreProfile = new TestForeshoreProfile("profile");
             waveConditionsInput.UseBreakWater = useBreakWater;
@@ -161,7 +159,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
                                              waveConditionsInput,
                                              waveConditionsOutput,
                                              CoverType.StoneCoverColumns,
-                                             categoryBoundaryName);
+                                             i => "1/100");
 
             // Assert
             Assert.AreEqual("ewcName", exportableWaveConditions.CalculationName);
@@ -172,7 +170,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             Assert.AreEqual(useBreakWater, exportableWaveConditions.UseBreakWater);
             Assert.AreEqual(useForeshore, exportableWaveConditions.UseForeshore);
             Assert.AreEqual(CoverType.StoneCoverColumns, exportableWaveConditions.CoverType);
-            Assert.AreEqual(categoryBoundaryName, exportableWaveConditions.CategoryBoundaryName);
+            Assert.AreEqual("1/100", exportableWaveConditions.TargetProbability);
             Assert.AreEqual(2, exportableWaveConditions.WaterLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WaveHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(2, exportableWaveConditions.WavePeriod.NumberOfDecimalPlaces);

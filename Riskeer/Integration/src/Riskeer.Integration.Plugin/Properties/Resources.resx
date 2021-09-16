@@ -292,4 +292,10 @@ Weet u zeker dat u wilt doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
     </data>
+    <data name="Zip_file_filter_Extension" xml:space="preserve">
+        <value>zip</value>
+    </data>
+    <data name="Zip_file_filter_Description" xml:space="preserve">
+        <value>zip archief</value>
+    </data>
 </root>
