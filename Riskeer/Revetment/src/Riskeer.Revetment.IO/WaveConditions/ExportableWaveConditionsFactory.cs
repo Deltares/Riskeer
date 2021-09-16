@@ -61,6 +61,11 @@ namespace Riskeer.Revetment.IO.WaveConditions
                 throw new ArgumentNullException(nameof(coverType));
             }
 
+            if (getTargetProbabilityFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getTargetProbabilityFunc));
+            }
+
             return CreateExportableWaveConditionsCollection(name, waveConditionsInput, output, coverType,
                                                             GetCategoryBoundaryName(waveConditionsInput.CategoryType), getTargetProbabilityFunc);
         }
@@ -91,6 +96,11 @@ namespace Riskeer.Revetment.IO.WaveConditions
             if (coverType == null)
             {
                 throw new ArgumentNullException(nameof(coverType));
+            }
+
+            if (getTargetProbabilityFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getTargetProbabilityFunc));
             }
 
             return CreateExportableWaveConditionsCollection(name, waveConditionsInput, output, coverType,

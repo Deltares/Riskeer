@@ -40,41 +40,44 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Exporters
     public class WaveImpactAsphaltCoverWaveConditionsExporterTest
     {
         [Test]
-        public void Constructor_ValidParameters_ExpectedValues()
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath("test.csv");
-
-            // Call
-            var waveConditionsExporter = new WaveImpactAsphaltCoverWaveConditionsExporter(new WaveImpactAsphaltCoverWaveConditionsCalculation[0], filePath);
-
-            // Assert
-            Assert.IsInstanceOf<WaveConditionsExporterBase>(waveConditionsExporter);
-        }
-
-        [Test]
         public void Constructor_CalculationNull_ThrowArgumentNullException()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test.csv");
 
             // Call
-            TestDelegate call = () => new WaveImpactAsphaltCoverWaveConditionsExporter(null, filePath);
+            void Call() => new WaveImpactAsphaltCoverWaveConditionsExporter(null, filePath, i => "1/100");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
         }
 
         [Test]
-        public void Constructor_FilePathNull_ThrowArgumentNullException()
+        public void Constructor_GetTargetProbabilityFuncNull_ThrowArgumentNullException()
         {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath("test.csv");
+
             // Call
-            TestDelegate call = () => new WaveImpactAsphaltCoverWaveConditionsExporter(new WaveImpactAsphaltCoverWaveConditionsCalculation[0], null);
+            void Call() => new WaveImpactAsphaltCoverWaveConditionsExporter(Array.Empty<WaveImpactAsphaltCoverWaveConditionsCalculation>(), filePath, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("filePath", exception.ParamName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("getTargetProbabilityFunc", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ValidParameters_ExpectedValues()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath("test.csv");
+
+            // Call
+            var waveConditionsExporter = new WaveImpactAsphaltCoverWaveConditionsExporter(Array.Empty<WaveImpactAsphaltCoverWaveConditionsCalculation>(), filePath, i => "1/100");
+
+            // Assert
+            Assert.IsInstanceOf<WaveConditionsExporterBase>(waveConditionsExporter);
         }
 
         [Test]
@@ -92,7 +95,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Exporters
                     new WaveImpactAsphaltCoverWaveConditionsCalculation()
                 };
 
-                var exporter = new WaveImpactAsphaltCoverWaveConditionsExporter(calculationsWithoutOutput, filePath);
+                var exporter = new WaveImpactAsphaltCoverWaveConditionsExporter(calculationsWithoutOutput, filePath, i => "1/100");
 
                 // Call
                 bool isExported = exporter.Export();
@@ -101,7 +104,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Exporters
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}";
+                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Doelkans, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
         }
@@ -124,7 +127,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Exporters
                     }
                 };
 
-                var exporter = new WaveImpactAsphaltCoverWaveConditionsExporter(calculations, filePath);
+                var exporter = new WaveImpactAsphaltCoverWaveConditionsExporter(calculations, filePath, i => "1/100");
 
                 // Call
                 bool isExported = exporter.Export();
@@ -133,7 +136,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Exporters
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}";
+                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Doelkans, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
         }
@@ -171,7 +174,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Exporters
                     }
                 };
 
-                var exporter = new WaveImpactAsphaltCoverWaveConditionsExporter(calculations, filePath);
+                var exporter = new WaveImpactAsphaltCoverWaveConditionsExporter(calculations, filePath, i => "1/100");
 
                 // Call
                 bool isExported = exporter.Export();
@@ -180,8 +183,8 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Exporters
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
-                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Asfalt, C, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
+                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Doelkans, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
+                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Asfalt, 1/100, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
         }

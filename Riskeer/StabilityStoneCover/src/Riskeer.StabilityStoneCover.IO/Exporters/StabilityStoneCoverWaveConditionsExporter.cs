@@ -55,6 +55,11 @@ namespace Riskeer.StabilityStoneCover.IO.Exporters
                 throw new ArgumentNullException(nameof(calculations));
             }
 
+            if (getTargetProbabilityFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getTargetProbabilityFunc));
+            }
+
             IEnumerable<StabilityStoneCoverWaveConditionsCalculation> exportableCalculations =
                 calculations.Where(c => c.HasOutput && c.InputParameters.HydraulicBoundaryLocation != null);
 

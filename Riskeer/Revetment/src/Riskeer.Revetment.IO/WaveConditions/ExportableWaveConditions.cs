@@ -74,6 +74,11 @@ namespace Riskeer.Revetment.IO.WaveConditions
                 throw new ArgumentNullException(nameof(categoryBoundaryName));
             }
 
+            if (getTargetProbabilityFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getTargetProbabilityFunc));
+            }
+
             if (waveConditionsInput.HydraulicBoundaryLocation == null)
             {
                 throw new ArgumentException(@"HydraulicBoundaryLocation is null.", nameof(waveConditionsInput));

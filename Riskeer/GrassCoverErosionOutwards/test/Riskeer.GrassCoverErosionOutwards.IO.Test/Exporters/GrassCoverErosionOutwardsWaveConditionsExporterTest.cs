@@ -42,35 +42,35 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
         private readonly string testFilePath = TestHelper.GetScratchPadPath($"{nameof(GrassCoverErosionOutwardsWaveConditionsExporterTest)}.csv");
 
         [Test]
-        public void Constructor_ValidParameters_ExpectedValues()
-        {
-            // Call
-            var waveConditionsExporter = new GrassCoverErosionOutwardsWaveConditionsExporter(new GrassCoverErosionOutwardsWaveConditionsCalculation[0], testFilePath);
-
-            // Assert
-            Assert.IsInstanceOf<WaveConditionsExporterBase>(waveConditionsExporter);
-        }
-
-        [Test]
         public void Constructor_CalculationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsExporter(null, testFilePath);
+            void Call() => new GrassCoverErosionOutwardsWaveConditionsExporter(null, testFilePath, i => "1/100");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
         }
 
         [Test]
-        public void Constructor_FilePathNull_ThrowArgumentNullException()
+        public void Constructor_GetTargetProbabilityFuncNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsExporter(new GrassCoverErosionOutwardsWaveConditionsCalculation[0], null);
+            void Call() => new GrassCoverErosionOutwardsWaveConditionsExporter(Array.Empty<GrassCoverErosionOutwardsWaveConditionsCalculation>(), testFilePath, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("filePath", exception.ParamName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("getTargetProbabilityFunc", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ValidParameters_ExpectedValues()
+        {
+            // Call
+            var waveConditionsExporter = new GrassCoverErosionOutwardsWaveConditionsExporter(Array.Empty<GrassCoverErosionOutwardsWaveConditionsCalculation>(), testFilePath, i => "1/100");
+
+            // Assert
+            Assert.IsInstanceOf<WaveConditionsExporterBase>(waveConditionsExporter);
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                     new GrassCoverErosionOutwardsWaveConditionsCalculation()
                 };
 
-                var exporter = new GrassCoverErosionOutwardsWaveConditionsExporter(calculationsWithoutOutput, filePath);
+                var exporter = new GrassCoverErosionOutwardsWaveConditionsExporter(calculationsWithoutOutput, filePath, i => "1/100");
 
                 // Call
                 bool isExported = exporter.Export();
@@ -97,7 +97,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}";
+                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Doelkans, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
         }
@@ -120,7 +120,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                     }
                 };
 
-                var exporter = new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
+                var exporter = new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath, i => "1/100");
 
                 // Call
                 bool isExported = exporter.Export();
@@ -129,7 +129,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}";
+                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Doelkans, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
         }
@@ -174,7 +174,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                     }
                 };
 
-                var exporter = new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
+                var exporter = new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath, i => "1/100");
 
                 // Call
                 bool isExported = exporter.Export();
@@ -183,9 +183,9 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
-                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfoploop), IVv, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}" +
-                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfklap), IVv, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
+                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Doelkans, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
+                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfoploop), 1/100, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}" +
+                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfklap), 1/100, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
         }
@@ -231,7 +231,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                     }
                 };
 
-                var exporter = new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
+                var exporter = new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath, i => "1/100");
 
                 // Call
                 bool isExported = exporter.Export();
@@ -240,8 +240,8 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
-                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfoploop), IVv, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
+                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Doelkans, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
+                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfoploop), 1/100, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
         }
@@ -287,7 +287,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                     }
                 };
 
-                var exporter = new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
+                var exporter = new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath, i => "1/100");
 
                 // Call
                 bool isExported = exporter.Export();
@@ -296,8 +296,8 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
-                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfklap), IVv, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
+                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Doelkans, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
+                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfklap), 1/100, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
         }
@@ -343,7 +343,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                     }
                 };
 
-                var exporter = new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
+                var exporter = new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath, i => "1/100");
 
                 // Call
                 bool isExported = exporter.Export();
@@ -352,8 +352,8 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
-                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfklap voor toets op maat), IVv, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
+                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Doelkans, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
+                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfklap voor toets op maat), 1/100, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
         }
@@ -399,7 +399,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                     }
                 };
 
-                var exporter = new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
+                var exporter = new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath, i => "1/100");
 
                 // Call
                 bool isExported = exporter.Export();
@@ -408,9 +408,9 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
-                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfoploop), IVv, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}" +
-                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfklap voor toets op maat), IVv, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
+                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Doelkans, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
+                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfoploop), 1/100, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}" +
+                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfklap voor toets op maat), 1/100, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
         }
@@ -456,7 +456,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                     }
                 };
 
-                var exporter = new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
+                var exporter = new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath, i => "1/100");
 
                 // Call
                 bool isExported = exporter.Export();
@@ -465,10 +465,10 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Categoriegrens, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
-                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfoploop), IVv, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}" +
-                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfklap), IVv, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}" +
-                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfklap voor toets op maat), IVv, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
+                string expectedText = $"Naam berekening, Naam HB locatie, X HB locatie (RD) [m], Y HB locatie (RD) [m], Naam voorlandprofiel, Dam gebruikt, Voorlandgeometrie gebruikt, Type bekleding, Doelkans, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting t.o.v. dijknormaal [°], Golfrichting t.o.v. Noord [°]{Environment.NewLine}" +
+                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfoploop), 1/100, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}" +
+                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfklap), 1/100, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}" +
+                                      $"aCalculation, aLocation, 44.000, 123.456, foreshoreA, nee, nee, Gras (golfklap voor toets op maat), 1/100, 1.10, 2.20, 3.30, 4.40, 5.50{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
         }

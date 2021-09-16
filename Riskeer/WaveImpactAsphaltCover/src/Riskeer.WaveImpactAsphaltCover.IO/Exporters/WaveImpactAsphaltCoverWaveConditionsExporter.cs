@@ -52,6 +52,11 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Exporters
                 throw new ArgumentNullException(nameof(calculations));
             }
 
+            if (getTargetProbabilityFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getTargetProbabilityFunc));
+            }
+
             var exportableWaveConditions = new List<ExportableWaveConditions>();
 
             IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> exportableCalculations =
