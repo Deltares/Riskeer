@@ -26,7 +26,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Revetment.Data
@@ -54,7 +53,7 @@ namespace Riskeer.Revetment.Data
         /// based on the <see cref="NormType"/>.
         /// </summary>
         /// <param name="waveConditionsInput">The <see cref="AssessmentSectionCategoryWaveConditionsInput"/>
-        /// to set the category type for.</param>
+        /// to set the water level type for.</param>
         /// <param name="normType">The <see cref="NormType"/> to set the <paramref name="waveConditionsInput"/> for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
@@ -89,18 +88,18 @@ namespace Riskeer.Revetment.Data
         }
 
         /// <summary>
-        /// Sets the <see cref="FailureMechanismCategoryType"/> of the <paramref name="waveConditionsInput"/>
+        /// Sets the <see cref="WaveConditionsInputWaterLevelType"/> of the <paramref name="waveConditionsInput"/>
         /// based on the <see cref="NormType"/>.
         /// </summary>
         /// <param name="waveConditionsInput">The <see cref="FailureMechanismCategoryWaveConditionsInput"/>
-        /// to set the category type for.</param>
+        /// to set the water level type for.</param>
         /// <param name="normType">The <see cref="NormType"/> to set the <paramref name="waveConditionsInput"/> for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
         /// but unsupported.</exception>
-        public static void SetCategoryType(FailureMechanismCategoryWaveConditionsInput waveConditionsInput,
-                                           NormType normType)
+        public static void SetWaterLevelType(FailureMechanismCategoryWaveConditionsInput waveConditionsInput,
+                                             NormType normType)
         {
             if (waveConditionsInput == null)
             {
@@ -117,10 +116,10 @@ namespace Riskeer.Revetment.Data
             switch (normType)
             {
                 case NormType.LowerLimit:
-                    waveConditionsInput.CategoryType = FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm;
+                    waveConditionsInput.WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit;
                     break;
                 case NormType.Signaling:
-                    waveConditionsInput.CategoryType = FailureMechanismCategoryType.MechanismSpecificSignalingNorm;
+                    waveConditionsInput.WaterLevelType = WaveConditionsInputWaterLevelType.Signaling;
                     break;
                 default:
                     throw new NotSupportedException();

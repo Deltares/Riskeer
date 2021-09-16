@@ -61,8 +61,7 @@ namespace Riskeer.Revetment.Data.Test
             var random = new Random(21);
 
             // Call
-            void Call() => WaveConditionsInputHelper.SetWaterLevelType(null,
-                                                                       random.NextEnumValue<NormType>());
+            void Call() => WaveConditionsInputHelper.SetWaterLevelType((AssessmentSectionCategoryWaveConditionsInput) null, random.NextEnumValue<NormType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -108,8 +107,8 @@ namespace Riskeer.Revetment.Data.Test
             var random = new Random(21);
 
             // Call
-            void Call() => WaveConditionsInputHelper.SetCategoryType(null,
-                                                                     random.NextEnumValue<NormType>());
+            void Call() => WaveConditionsInputHelper.SetWaterLevelType((FailureMechanismCategoryWaveConditionsInput) null,
+                                                                       random.NextEnumValue<NormType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -117,13 +116,13 @@ namespace Riskeer.Revetment.Data.Test
         }
 
         [Test]
-        public void SetCategoryType_WithFailureMechanismCategoryWaveConditionsInputAndInvalidNormType_ThrowsInvalidEnumArgumentException()
+        public void SetWaterLevelType_WithFailureMechanismCategoryWaveConditionsInputAndInvalidNormType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             const NormType normType = (NormType) 99;
 
             // Call
-            void Call() => WaveConditionsInputHelper.SetCategoryType(new FailureMechanismCategoryWaveConditionsInput(), normType);
+            void Call() => WaveConditionsInputHelper.SetWaterLevelType(new FailureMechanismCategoryWaveConditionsInput(), normType);
 
             // Assert
             var expectedMessage = $"The value of argument 'normType' ({(int) normType}) is invalid for Enum type '{nameof(NormType)}'.";
@@ -134,7 +133,7 @@ namespace Riskeer.Revetment.Data.Test
         [Test]
         [TestCase(NormType.Signaling, FailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
         [TestCase(NormType.LowerLimit, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
-        public void SetCategoryType_WithFailureMechanismCategoryWaveConditionsInputAndVariousNormTypes_SetsCategoryType(
+        public void SetWaterLevelType_WithFailureMechanismCategoryWaveConditionsInputAndVariousNormTypes_SetsCategoryType(
             NormType normType,
             FailureMechanismCategoryType expectedFailureMechanismCategoryType)
         {
@@ -142,7 +141,7 @@ namespace Riskeer.Revetment.Data.Test
             var waveConditionsInput = new FailureMechanismCategoryWaveConditionsInput();
 
             // Call
-            WaveConditionsInputHelper.SetCategoryType(waveConditionsInput, normType);
+            WaveConditionsInputHelper.SetWaterLevelType(waveConditionsInput, normType);
 
             // Assert
             Assert.AreEqual(expectedFailureMechanismCategoryType, waveConditionsInput.CategoryType);
