@@ -48,7 +48,8 @@ namespace Riskeer.StabilityStoneCover.IO.Exporters
                                                          Func<WaveConditionsInput, string> getTargetProbabilityFunc)
             : base(CreateExportableWaveConditionsCollection(calculations, getTargetProbabilityFunc), filePath) {}
 
-        private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations, Func<WaveConditionsInput, string> getTargetProbabilityFunc)
+        private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations,
+                                                                                                      Func<WaveConditionsInput, string> getTargetProbabilityFunc)
         {
             if (calculations == null)
             {
@@ -66,7 +67,8 @@ namespace Riskeer.StabilityStoneCover.IO.Exporters
             return CreateExportableWaveConditions(exportableCalculations, getTargetProbabilityFunc);
         }
 
-        private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditions(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> exportableCalculations, Func<WaveConditionsInput, string> getTargetProbabilityFunc)
+        private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditions(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> exportableCalculations,
+                                                                                            Func<WaveConditionsInput, string> getTargetProbabilityFunc)
         {
             var exportableWaveConditions = new List<ExportableWaveConditions>();
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in exportableCalculations)

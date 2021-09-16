@@ -43,10 +43,12 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when the file could not be written.</exception>
-        public GrassCoverErosionOutwardsWaveConditionsExporter(IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations, string filePath, Func<WaveConditionsInput, string> getTargetProbabilityFunc)
+        public GrassCoverErosionOutwardsWaveConditionsExporter(IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations, string filePath,
+                                                               Func<WaveConditionsInput, string> getTargetProbabilityFunc)
             : base(CreateExportableWaveConditionsCollection(calculations, getTargetProbabilityFunc), filePath) {}
 
-        private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations, Func<WaveConditionsInput, string> getTargetProbabilityFunc)
+        private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations,
+                                                                                                      Func<WaveConditionsInput, string> getTargetProbabilityFunc)
         {
             if (calculations == null)
             {

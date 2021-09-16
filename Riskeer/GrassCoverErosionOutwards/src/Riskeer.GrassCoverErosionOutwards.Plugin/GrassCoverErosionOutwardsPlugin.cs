@@ -224,7 +224,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 CreateFileExporter = (context, filePath) =>
                 {
                     IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations = context.WrappedData.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
-                    return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath, input => noProbabilityValueDoubleConverter.ConvertToString(WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection)));
+                    return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath, input => noProbabilityValueDoubleConverter.ConvertToString(
+                                                                                   WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection)));
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Any(c => c.HasOutput),
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
@@ -240,7 +241,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                                                                     context.WrappedData
                                                                                                                 }, filePath,
                                                                                                                 input =>
-                                                                                                                    noProbabilityValueDoubleConverter.ConvertToString(WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection))),
+                                                                                                                    noProbabilityValueDoubleConverter.ConvertToString(
+                                                                                                                        WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection))),
                 IsEnabled = context => context.WrappedData.HasOutput,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                                                                                                            RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description))

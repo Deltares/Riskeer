@@ -217,7 +217,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) =>
                     new StabilityStoneCoverWaveConditionsExporter(context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath,
-                                                                  input => noProbabilityValueDoubleConverter.ConvertToString(WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection))),
+                                                                  input => noProbabilityValueDoubleConverter.ConvertToString(
+                                                                      WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection))),
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };
@@ -230,7 +231,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                                                                           {
                                                                                                               context.WrappedData
                                                                                                           }, filePath,
-                                                                                                          input => noProbabilityValueDoubleConverter.ConvertToString(WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection))),
+                                                                                                          input => noProbabilityValueDoubleConverter.ConvertToString(
+                                                                                                              WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection))),
                 IsEnabled = context => context.WrappedData.HasOutput,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };

@@ -42,10 +42,12 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Exporters
         /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when the file could not be written.</exception>
-        public WaveImpactAsphaltCoverWaveConditionsExporter(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, string filePath, Func<WaveConditionsInput, string> getTargetProbabilityFunc)
+        public WaveImpactAsphaltCoverWaveConditionsExporter(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, string filePath,
+                                                            Func<WaveConditionsInput, string> getTargetProbabilityFunc)
             : base(CreateExportableWaveConditionsCollection(calculations, getTargetProbabilityFunc), filePath) {}
 
-        private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, Func<WaveConditionsInput, string> getTargetProbabilityFunc)
+        private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations,
+                                                                                                      Func<WaveConditionsInput, string> getTargetProbabilityFunc)
         {
             if (calculations == null)
             {

@@ -215,7 +215,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 CreateFileExporter = (context, filePath) =>
                 {
                     IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations = context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>();
-                    return new WaveImpactAsphaltCoverWaveConditionsExporter(calculations, filePath, input => noProbabilityValueDoubleConverter.ConvertToString(WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection)));
+                    return new WaveImpactAsphaltCoverWaveConditionsExporter(calculations, filePath, input => noProbabilityValueDoubleConverter.ConvertToString(
+                                                                                WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection)));
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
@@ -230,7 +231,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                                                                                  context.WrappedData
                                                                                                              }, filePath,
                                                                                                              input =>
-                                                                                                                 noProbabilityValueDoubleConverter.ConvertToString(WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection))),
+                                                                                                                 noProbabilityValueDoubleConverter.ConvertToString(
+                                                                                                                     WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection))),
                 IsEnabled = context => context.WrappedData.HasOutput,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };

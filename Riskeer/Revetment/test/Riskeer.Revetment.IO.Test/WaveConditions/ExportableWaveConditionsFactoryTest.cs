@@ -47,7 +47,8 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void CreateExportableWaveConditionsCollectionWithFailureMechanismCategoryWaveConditionsInput_NameNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(null, new FailureMechanismCategoryWaveConditionsInput(), waveConditionsOutputCollection, CoverType.GrassWaveRunUp, i => "1/100");
+            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(null, new FailureMechanismCategoryWaveConditionsInput(),
+                                                                                                    waveConditionsOutputCollection, CoverType.GrassWaveRunUp, i => "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -58,7 +59,8 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void CreateExportableWaveConditionsCollectionWithFailureMechanismCategoryWaveConditionsInput_WaveConditionsInputNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", (FailureMechanismCategoryWaveConditionsInput) null, waveConditionsOutputCollection, CoverType.GrassWaveRunUp, i => "1/100");
+            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", (FailureMechanismCategoryWaveConditionsInput) null, waveConditionsOutputCollection,
+                                                                                                    CoverType.GrassWaveRunUp, i => "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -69,7 +71,8 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void CreateExportableWaveConditionsCollectionWithFailureMechanismCategoryWaveConditionsInput_OutputNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new FailureMechanismCategoryWaveConditionsInput(), null, CoverType.GrassWaveRunUp, i => "1/100");
+            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new FailureMechanismCategoryWaveConditionsInput(),
+                                                                                                    null, CoverType.GrassWaveRunUp, i => "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -80,7 +83,8 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void CreateExportableWaveConditionsCollectionWithFailureMechanismCategoryWaveConditionsInput_CoverTypeNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new FailureMechanismCategoryWaveConditionsInput(), waveConditionsOutputCollection, null, i => "1/100");
+            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new FailureMechanismCategoryWaveConditionsInput(),
+                                                                                                    waveConditionsOutputCollection, null, i => "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -91,7 +95,8 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void CreateExportableWaveConditionsCollectionWithFailureMechanismCategoryWaveConditionsInput_GetTargetProbabilityFuncNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new FailureMechanismCategoryWaveConditionsInput(), waveConditionsOutputCollection, CoverType.GrassWaveRunUp, null);
+            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new FailureMechanismCategoryWaveConditionsInput(),
+                                                                                                    waveConditionsOutputCollection, CoverType.GrassWaveRunUp, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -146,7 +151,8 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInput_NameNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(null, new AssessmentSectionCategoryWaveConditionsInput(), waveConditionsOutputCollection, CoverType.Asphalt, i => "1/100");
+            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(null, new AssessmentSectionCategoryWaveConditionsInput(),
+                                                                                                    waveConditionsOutputCollection, CoverType.Asphalt, i => "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -157,7 +163,8 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInput_WaveConditionsInputNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", (AssessmentSectionCategoryWaveConditionsInput) null, waveConditionsOutputCollection, CoverType.Asphalt, i => "1/100");
+            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", (AssessmentSectionCategoryWaveConditionsInput) null,
+                                                                                                    waveConditionsOutputCollection, CoverType.Asphalt, i => "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -168,7 +175,8 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInput_OutputNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new AssessmentSectionCategoryWaveConditionsInput(), null, CoverType.Asphalt, i => "1/100");
+            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new AssessmentSectionCategoryWaveConditionsInput(),
+                                                                                                    null, CoverType.Asphalt, i => "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -179,7 +187,8 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInput_CoverTypeNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new AssessmentSectionCategoryWaveConditionsInput(), waveConditionsOutputCollection, null, i => "1/100");
+            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new AssessmentSectionCategoryWaveConditionsInput(),
+                                                                                                    waveConditionsOutputCollection, null, i => "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -190,7 +199,8 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInput_GetTargetProbabilityFuncNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new AssessmentSectionCategoryWaveConditionsInput(), waveConditionsOutputCollection, CoverType.Asphalt, null);
+            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new AssessmentSectionCategoryWaveConditionsInput(),
+                                                                                                    waveConditionsOutputCollection, CoverType.Asphalt, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
