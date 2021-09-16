@@ -2370,7 +2370,9 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForNormTargetProbabilities(nodeData.AssessmentSection));
 
-            return builder.AddCustomItem(waterLevelCalculationItem)
+            return builder.AddExportItem()
+                          .AddSeparator()
+                          .AddCustomItem(waterLevelCalculationItem)
                           .AddSeparator()
                           .AddClearIllustrationPointsOfCalculationsItem(() => WaterLevelCalculationsForNormTargetProbabilitiesHaveIllustrationPoints(assessmentSection), changeHandler)
                           .AddSeparator()
@@ -2468,7 +2470,9 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedTargetProbabilities(nodeData.AssessmentSection));
 
-            return builder.AddCustomItem(addTargetProbabilityItem)
+            return builder.AddExportItem()
+                          .AddSeparator()
+                          .AddCustomItem(addTargetProbabilityItem)
                           .AddSeparator()
                           .AddCustomItem(waterLevelCalculationItem)
                           .AddSeparator()
@@ -2591,7 +2595,9 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedTargetProbabilities(nodeData.AssessmentSection));
 
-            return builder.AddCustomItem(addTargetProbabilityItem)
+            return builder.AddExportItem()
+                          .AddSeparator()
+                          .AddCustomItem(addTargetProbabilityItem)
                           .AddSeparator()
                           .AddCustomItem(waveHeightCalculationItem)
                           .AddSeparator()
