@@ -41,10 +41,10 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void WriteWaveConditions_ExportableWaveConditionsCollectionNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(null, "afilePath");
+            void Call() => WaveConditionsWriter.WriteWaveConditions(null, "afilePath");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("exportableWaveConditionsCollection", exception.ParamName);
         }
 
@@ -52,10 +52,10 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void WriteWaveConditions_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), null);
+            void Call() => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("filePath", exception.ParamName);
         }
 
@@ -66,10 +66,10 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void WriteWaveConditions_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
         {
             // Call
-            TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), filePath);
+            void Call() => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), filePath);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            var exception = Assert.Throws<CriticalFileWriteException>(Call);
             Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
@@ -81,10 +81,10 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             var filePath = new string('a', 249);
 
             // Call
-            TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), filePath);
+            void Call() => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), filePath);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            var exception = Assert.Throws<CriticalFileWriteException>(Call);
             Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
             Assert.IsInstanceOf<PathTooLongException>(exception.InnerException);
         }
@@ -98,14 +98,14 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             string filePath = Path.Combine(directoryPath, "test.csv");
 
             // Call
-            TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), filePath);
+            void Call() => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), filePath);
 
             try
             {
                 using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
                 {
                     // Assert
-                    var exception = Assert.Throws<CriticalFileWriteException>(call);
+                    var exception = Assert.Throws<CriticalFileWriteException>(Call);
                     Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
                     Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
                 }
@@ -127,10 +127,10 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), path);
+                void Call() => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), path);
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileWriteException>(call);
+                var exception = Assert.Throws<CriticalFileWriteException>(Call);
                 Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{path}'.", exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
@@ -151,7 +151,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
                     LowerBoundaryWaterLevels = (RoundedDouble) 2.689,
                     UpperBoundaryWaterLevels = (RoundedDouble) 77.8249863247,
                     UseBreakWater = true
-                }, CreateWaveConditionsOutputForExport(1.11111, 2.22222, 3.33333, 4.4, 5.5555555), CoverType.StoneCoverBlocks, "Iv->IIv", i => "1/100"),
+                }, CreateWaveConditionsOutputForExport(1.11111, 2.22222, 3.33333, 4.4, 5.5555555), CoverType.StoneCoverBlocks, i => "1/100"),
                 new ExportableWaveConditions("columnsName", new TestWaveConditionsInput
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456),
@@ -160,7 +160,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
                     StepSize = WaveConditionsInputStepSize.One,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                     UpperBoundaryWaterLevels = (RoundedDouble) 84.26548
-                }, CreateWaveConditionsOutputForExport(3.33333, 1.11111, 4.44444, 2.2, 6.66666), CoverType.StoneCoverColumns, "A->B", i => "1/100")
+                }, CreateWaveConditionsOutputForExport(3.33333, 1.11111, 4.44444, 2.2, 6.66666), CoverType.StoneCoverColumns, i => "1/100")
             };
 
             string directoryPath = TestHelper.GetScratchPadPath(nameof(WriteWaveConditions_ValidData_ValidFile));

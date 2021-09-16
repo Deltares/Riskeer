@@ -37,7 +37,6 @@ namespace Riskeer.Revetment.IO.WaveConditions
         /// <param name="waveConditionsInput">The input parameters of the parent calculation.</param>
         /// <param name="waveConditionsOutput">The output parameters of the parent calculation.</param>
         /// <param name="coverType">The type of dike cover.</param>
-        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
         /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
@@ -46,7 +45,6 @@ namespace Riskeer.Revetment.IO.WaveConditions
                                         WaveConditionsInput waveConditionsInput,
                                         WaveConditionsOutput waveConditionsOutput,
                                         CoverType coverType,
-                                        string categoryBoundaryName,
                                         Func<WaveConditionsInput, string> getTargetProbabilityFunc)
         {
             if (name == null)
@@ -67,11 +65,6 @@ namespace Riskeer.Revetment.IO.WaveConditions
             if (coverType == null)
             {
                 throw new ArgumentNullException(nameof(coverType));
-            }
-
-            if (categoryBoundaryName == null)
-            {
-                throw new ArgumentNullException(nameof(categoryBoundaryName));
             }
 
             if (getTargetProbabilityFunc == null)
@@ -133,11 +126,6 @@ namespace Riskeer.Revetment.IO.WaveConditions
         /// Gets the type of dike cover.
         /// </summary>
         public CoverType CoverType { get; }
-
-        /// <summary>
-        /// Gets the name of the category boundary.
-        /// </summary>
-        public string CategoryBoundaryName { get; }
 
         /// <summary>
         /// Gets the target probability.
