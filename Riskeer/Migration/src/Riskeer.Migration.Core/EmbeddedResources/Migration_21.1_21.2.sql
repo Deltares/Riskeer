@@ -8,7 +8,36 @@ PRAGMA foreign_keys = OFF;
 
 ATTACH DATABASE "{0}" AS SOURCEPROJECT;
 
-INSERT INTO AssessmentSectionEntity SELECT * FROM [SOURCEPROJECT].AssessmentSectionEntity;
+INSERT INTO AssessmentSectionEntity (
+    [AssessmentSectionEntityId],
+    [ProjectEntityId],
+    [HydraulicLocationCalculationCollectionEntity1Id],	-- Represents the design water level signaling norm
+    [HydraulicLocationCalculationCollectionEntity2Id],	-- Represents the design water level lower limit norm
+    [Id],
+    [Name],
+    [Comments],
+    [LowerLimitNorm],
+    [SignalingNorm],
+    [NormativeNormType],
+    [Composition],
+    [ReferenceLinePointXml],
+    [Order]
+) 
+SELECT
+    [AssessmentSectionEntityId],
+    [ProjectEntityId],
+    [HydraulicLocationCalculationCollectionEntity2Id],
+    [HydraulicLocationCalculationCollectionEntity3Id],
+    [Id],
+    [Name],
+    [Comments],
+    [LowerLimitNorm],
+    [SignalingNorm],
+    [NormativeNormType],
+    [Composition],
+    [ReferenceLinePointXml],
+    [Order]
+FROM [SOURCEPROJECT].AssessmentSectionEntity;
 INSERT INTO BackgroundDataEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataEntity;
 INSERT INTO BackgroundDataMetaEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataMetaEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
@@ -37,7 +66,18 @@ INSERT INTO GeneralResultSubMechanismIllustrationPointStochastEntity SELECT * FR
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionInwardsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
 INSERT INTO GrassCoverErosionInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
-INSERT INTO GrassCoverErosionOutwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity;
+INSERT INTO GrassCoverErosionOutwardsFailureMechanismMetaEntity (
+    [GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
+    [FailureMechanismEntityId],
+    [N],
+    [ForeshoreProfileCollectionSourcePath]
+)
+SELECT
+    [GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
+    [FailureMechanismEntityId],
+    [N],
+    [ForeshoreProfileCollectionSourcePath]
+FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
@@ -49,8 +89,32 @@ INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJ
 INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
 INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
 INSERT INTO HydraulicBoundaryDatabaseEntity SELECT * FROM [SOURCEPROJECT].HydraulicBoundaryDatabaseEntity;
-INSERT INTO HydraulicLocationCalculationCollectionEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationCollectionEntity;
-INSERT INTO HydraulicLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationEntity;
+
+INSERT INTO HydraulicLocationCalculationCollectionEntity (
+    [HydraulicLocationCalculationCollectionEntityId]                                            
+)
+SELECT 
+    [HydraulicLocationCalculationCollectionEntityId]
+FROM [SOURCEPROJECT].AssessmentSectionEntity ase
+JOIN [SOURCEPROJECT].HydraulicLocationCalculationCollectionEntity ON ase.HydraulicLocationCalculationCollectionEntity2Id = HydraulicLocationCalculationCollectionEntityId
+                                                                  OR ase.HydraulicLocationCalculationCollectionEntity3Id = HydraulicLocationCalculationCollectionEntityId;
+
+INSERT INTO HydraulicLocationCalculationEntity(
+    [HydraulicLocationCalculationEntityId],
+    [HydraulicLocationEntityId],
+    [HydraulicLocationCalculationCollectionEntityId],
+    [ShouldIllustrationPointsBeCalculated]
+) 
+SELECT
+    [HydraulicLocationCalculationEntityId],
+    [HydraulicLocationEntityId],
+    [HydraulicLocationCalculationCollectionEntityId],
+    [ShouldIllustrationPointsBeCalculated]
+FROM [SOURCEPROJECT].AssessmentSectionEntity ase
+JOIN [SOURCEPROJECT].HydraulicLocationCalculationCollectionEntity ON ase.HydraulicLocationCalculationCollectionEntity2Id = HydraulicLocationCalculationCollectionEntityId
+                                                                  OR ase.HydraulicLocationCalculationCollectionEntity3Id = HydraulicLocationCalculationCollectionEntityId
+JOIN [SOURCEPROJECT].HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId);
+
 INSERT INTO HydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationEntity;
 INSERT INTO HydraulicLocationOutputEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
 INSERT INTO IllustrationPointResultEntity SELECT * FROM [SOURCEPROJECT].IllustrationPointResultEntity;
