@@ -43,12 +43,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test
             var calculations = new List<ICalculationBase>();
 
             // Call
-            TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(null,
-                                                                                                                                      calculations,
-                                                                                                                                      random.NextEnumValue<NormType>());
+            void Call() => WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(null, calculations, random.NextEnumValue<NormType>());
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("locations", paramName);
         }
 
@@ -60,12 +58,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test
             IEnumerable<HydraulicBoundaryLocation> locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             // Call
-            TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(locations,
-                                                                                                                                      null,
-                                                                                                                                      random.NextEnumValue<NormType>());
+            void Call() => WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(locations, null, random.NextEnumValue<NormType>());
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("calculations", paramName);
         }
 
