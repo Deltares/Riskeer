@@ -1529,7 +1529,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     Assert.IsNotNull(newCalculationItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-                    Assert.AreEqual(GetCategoryTypeFromNormType(normType), newCalculationItem.InputParameters.CategoryType);
+                    Assert.AreEqual(GetWaterLevelTypeFromNormType(normType), newCalculationItem.InputParameters.WaterLevelType);
                 }
             }
         }
@@ -1844,18 +1844,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Assert.NotNull(dialog);
                 Assert.NotNull(grid);
 
-                FailureMechanismCategoryType expectedFailureMechanismCategoryType = GetCategoryTypeFromNormType(normType);
+                WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType = GetWaterLevelTypeFromNormType(normType);
                 var firstCalculation = group.Children[2] as GrassCoverErosionOutwardsWaveConditionsCalculation;
                 Assert.IsNotNull(firstCalculation);
                 FailureMechanismCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
                 Assert.AreSame(hydraulicBoundaryLocation1, firstCalculationInput.HydraulicBoundaryLocation);
-                Assert.AreEqual(expectedFailureMechanismCategoryType, firstCalculationInput.CategoryType);
+                Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, firstCalculationInput.WaterLevelType);
 
                 var secondCalculation = group.Children[3] as GrassCoverErosionOutwardsWaveConditionsCalculation;
                 Assert.IsNotNull(secondCalculation);
                 FailureMechanismCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
                 Assert.AreSame(hydraulicBoundaryLocation2, secondCalculationInput.HydraulicBoundaryLocation);
-                Assert.AreEqual(expectedFailureMechanismCategoryType, secondCalculationInput.CategoryType);
+                Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, secondCalculationInput.WaterLevelType);
             }
         }
 
@@ -1971,14 +1971,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             };
         }
 
-        private static FailureMechanismCategoryType GetCategoryTypeFromNormType(NormType normType)
+        private static WaveConditionsInputWaterLevelType GetWaterLevelTypeFromNormType(NormType normType)
         {
             switch (normType)
             {
                 case NormType.LowerLimit:
-                    return FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm;
+                    return WaveConditionsInputWaterLevelType.LowerLimit;
                 case NormType.Signaling:
-                    return FailureMechanismCategoryType.MechanismSpecificSignalingNorm;
+                    return WaveConditionsInputWaterLevelType.Signaling;
                 default:
                     throw new NotSupportedException();
             }

@@ -28,7 +28,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data.TestUtil;
@@ -131,11 +130,11 @@ namespace Riskeer.Revetment.Data.Test
         }
 
         [Test]
-        [TestCase(NormType.Signaling, FailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
-        [TestCase(NormType.LowerLimit, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
+        [TestCase(NormType.LowerLimit, WaveConditionsInputWaterLevelType.LowerLimit)]
+        [TestCase(NormType.Signaling, WaveConditionsInputWaterLevelType.Signaling)]
         public void SetWaterLevelType_WithFailureMechanismCategoryWaveConditionsInputAndVariousNormTypes_SetsCategoryType(
             NormType normType,
-            FailureMechanismCategoryType expectedFailureMechanismCategoryType)
+            WaveConditionsInputWaterLevelType expectedFailureMechanismCategoryType)
         {
             // Setup
             var waveConditionsInput = new FailureMechanismCategoryWaveConditionsInput();
@@ -144,7 +143,7 @@ namespace Riskeer.Revetment.Data.Test
             WaveConditionsInputHelper.SetWaterLevelType(waveConditionsInput, normType);
 
             // Assert
-            Assert.AreEqual(expectedFailureMechanismCategoryType, waveConditionsInput.CategoryType);
+            Assert.AreEqual(expectedFailureMechanismCategoryType, waveConditionsInput.WaterLevelType);
         }
 
         [Test]

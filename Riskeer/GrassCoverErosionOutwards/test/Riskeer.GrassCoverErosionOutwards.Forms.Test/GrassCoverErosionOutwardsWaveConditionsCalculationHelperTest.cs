@@ -26,7 +26,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.Revetment.Data;
@@ -44,12 +43,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
             var calculations = new List<ICalculationBase>();
 
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(null,
-                                                                                                                            calculations,
-                                                                                                                            random.NextEnumValue<NormType>());
+            void Call() => GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(null, calculations, random.NextEnumValue<NormType>());
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("locations", paramName);
         }
 
@@ -61,12 +58,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
             IEnumerable<HydraulicBoundaryLocation> locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(locations,
-                                                                                                                            null,
-                                                                                                                            random.NextEnumValue<NormType>());
+            void Call() => GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(locations, null, random.NextEnumValue<NormType>());
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("calculations", paramName);
         }
 
@@ -86,11 +81,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
         }
 
         [Test]
-        [TestCase(NormType.LowerLimit, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
-        [TestCase(NormType.Signaling, FailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
-        public void AddCalculationsFromLocations_MultipleLocationsEmptyCalculationBase_ReturnsUniquelyNamedCalculationsAndCorrectInputSet(
+        [TestCase(NormType.LowerLimit, WaveConditionsInputWaterLevelType.LowerLimit)]
+        [TestCase(NormType.Signaling, WaveConditionsInputWaterLevelType.Signaling)]
+        public void AddCalculationsFromLocations_MultipleLocationsEmptyCalculationBase_ReturnsUniquelyNamedCalculationsWithCorrectInputSet(
             NormType normType,
-            FailureMechanismCategoryType expectedFailureMechanismCategoryType)
+            WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
         {
             // Setup
             const string name = "name";
@@ -110,21 +105,21 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
             Assert.AreEqual(name, firstCalculation.Name);
             FailureMechanismCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
             Assert.AreEqual(locations[0], firstCalculationInput.HydraulicBoundaryLocation);
-            Assert.AreEqual(expectedFailureMechanismCategoryType, firstCalculationInput.CategoryType);
+            Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, firstCalculationInput.WaterLevelType);
 
             var secondCalculation = (GrassCoverErosionOutwardsWaveConditionsCalculation) calculationBases.ElementAt(1);
             Assert.AreEqual($"{name} (1)", secondCalculation.Name);
             FailureMechanismCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
             Assert.AreSame(locations[1], secondCalculationInput.HydraulicBoundaryLocation);
-            Assert.AreEqual(expectedFailureMechanismCategoryType, secondCalculationInput.CategoryType);
+            Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, secondCalculationInput.WaterLevelType);
         }
 
         [Test]
-        [TestCase(NormType.LowerLimit, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
-        [TestCase(NormType.Signaling, FailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
-        public void AddCalculationsFromLocations_MultipleLocationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculationsAndCorrectInputSet(
+        [TestCase(NormType.LowerLimit, WaveConditionsInputWaterLevelType.LowerLimit)]
+        [TestCase(NormType.Signaling, WaveConditionsInputWaterLevelType.Signaling)]
+        public void AddCalculationsFromLocations_MultipleLocationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculationsWithCorrectInputSet(
             NormType normType,
-            FailureMechanismCategoryType expectedFailureMechanismCategoryType)
+            WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
         {
             // Setup
             const string name = "name";
@@ -150,13 +145,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
             Assert.AreEqual($"{name} (1)", firstCalculation.Name);
             FailureMechanismCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
             Assert.AreEqual(locations[0], firstCalculationInput.HydraulicBoundaryLocation);
-            Assert.AreEqual(expectedFailureMechanismCategoryType, firstCalculationInput.CategoryType);
+            Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, firstCalculationInput.WaterLevelType);
 
             var secondCalculation = (GrassCoverErosionOutwardsWaveConditionsCalculation) calculationBases.ElementAt(2);
             Assert.AreEqual($"{name} (2)", secondCalculation.Name);
             FailureMechanismCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
             Assert.AreSame(locations[1], secondCalculationInput.HydraulicBoundaryLocation);
-            Assert.AreEqual(expectedFailureMechanismCategoryType, secondCalculationInput.CategoryType);
+            Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, secondCalculationInput.WaterLevelType);
         }
     }
 }
