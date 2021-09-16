@@ -1242,7 +1242,7 @@ namespace Riskeer.Integration.Plugin
                 Extension = Resources.Zip_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
                     locationCalculationsForTargetProbabilities(context), calculationsType, filePath),
-                IsEnabled = context => true,
+                IsEnabled = context => locationCalculationsForTargetProbabilities(context).Any(),
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.Zip_file_filter_Extension,
                                                                                                            Resources.Zip_file_filter_Description))
             };

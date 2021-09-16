@@ -101,19 +101,56 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_Always_ReturnsTrue()
+        public void IsEnabled_ContextWithTargetProbabilities_ReturnsTrue()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
+                {
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
+                }, assessmentSection);
+
             using (var plugin = new RiskeerPlugin())
             {
                 ExportInfo info = GetExportInfo(plugin);
 
                 // Call
-                bool isEnabled = info.IsEnabled(null);
+                bool isEnabled = info.IsEnabled(context);
 
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void IsEnabled_ContextWithEmptyTargetProbabilities_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext(
+                new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>(), assessmentSection);
+
+            using (var plugin = new RiskeerPlugin())
+            {
+                ExportInfo info = GetExportInfo(plugin);
+
+                // Call
+                bool isEnabled = info.IsEnabled(context);
+
+                // Assert
+                Assert.IsFalse(isEnabled);
+            }
+
+            mocks.VerifyAll();
         }
 
         private static ExportInfo GetExportInfo(RiskeerPlugin plugin)
