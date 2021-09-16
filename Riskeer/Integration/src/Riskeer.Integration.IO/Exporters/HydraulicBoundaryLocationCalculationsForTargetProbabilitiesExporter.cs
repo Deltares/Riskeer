@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Util;
@@ -31,7 +32,7 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 using CoreGuiResources = Core.Gui.Properties.Resources;
-using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources ;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Integration.IO.Exporters
 {
@@ -41,81 +42,96 @@ namespace Riskeer.Integration.IO.Exporters
     public class HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter : IFileExporter
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter));
-        
-        private readonly IEnumerable<Tuple<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsType>> locationCalculationsForTargetProbabilities;
-        private readonly string folderPath;
+
+        private readonly IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double, HydraulicBoundaryLocationCalculationsType>> locationCalculationsForTargetProbabilities;
+        private readonly string filePath;
+        private readonly string tempFolderPath;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter"/>.
         /// </summary>
         /// <param name="locationCalculationsForTargetProbabilities">The collection of
         /// <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> to export.</param>
-        /// <param name="folderPath">The folder path to export to.</param>
+        /// <param name="filePath">The path of the file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="locationCalculationsForTargetProbabilities"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="folderPath"/> is invalid.</exception>
-        /// <remarks>A valid path:<list type="bullet">
-        /// <item>is not empty or <c>null</c>,</item>
-        /// <item>does not consist out of only whitespace characters,</item>
-        /// <item>does not contain an invalid character,</item>
-        /// <item>is not too long.</item>
-        /// </list></remarks>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-            IEnumerable<Tuple<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsType>> locationCalculationsForTargetProbabilities,
-            string folderPath)
+            IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double, HydraulicBoundaryLocationCalculationsType>> locationCalculationsForTargetProbabilities,
+            string filePath)
         {
             if (locationCalculationsForTargetProbabilities == null)
             {
                 throw new ArgumentNullException(nameof(locationCalculationsForTargetProbabilities));
             }
 
-            IOUtils.ValidateFolderPath(folderPath);
+            IOUtils.ValidateFilePath(filePath);
 
             this.locationCalculationsForTargetProbabilities = locationCalculationsForTargetProbabilities;
-            this.folderPath = folderPath;
+            this.filePath = filePath;
+            string folderPath = Path.GetDirectoryName(filePath);
+            tempFolderPath = Path.Combine(folderPath, "~temp");
         }
 
         public bool Export()
         {
-            var exportedCalculations = new Dictionary<HydraulicBoundaryLocationCalculationsForTargetProbability, string>();
-            return locationCalculationsForTargetProbabilities.All(
-                locationCalculationsForTargetProbability => ExportLocationCalculationsForTargetProbability(
-                    locationCalculationsForTargetProbability.Item1,
-                    locationCalculationsForTargetProbability.Item2,
-                    exportedCalculations));
+            try
+            {
+                var exportedCalculations = new Dictionary<IEnumerable<HydraulicBoundaryLocationCalculation>, string>();
+                if (locationCalculationsForTargetProbabilities.Any(
+                    locationCalculationsForTargetProbability => !ExportLocationCalculationsForTargetProbability(
+                                                                    locationCalculationsForTargetProbability,
+                                                                    exportedCalculations)))
+                {
+                    return false;
+                }
+
+                ZipFile.CreateFromDirectory(tempFolderPath, filePath);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                log.ErrorFormat(RiskeerCommonIOResources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported,
+                                e.Message);
+                return false;
+            }
+            finally
+            {
+                if (Directory.Exists(tempFolderPath))
+                {
+                    Directory.Delete(tempFolderPath, true);
+                }
+            }
         }
 
         private bool ExportLocationCalculationsForTargetProbability(
-            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability,
-            HydraulicBoundaryLocationCalculationsType calculationsType,
-            IDictionary<HydraulicBoundaryLocationCalculationsForTargetProbability, string> exportedCalculations)
+            Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double, HydraulicBoundaryLocationCalculationsType> calculationsForTargetProbability,
+            IDictionary<IEnumerable<HydraulicBoundaryLocationCalculation>, string> exportedCalculations)
         {
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculations = calculationsForTargetProbability.Item1;
+            double targetProbability = calculationsForTargetProbability.Item2;
+            HydraulicBoundaryLocationCalculationsType calculationsType = calculationsForTargetProbability.Item3;
+
             string exportType = calculationsType == HydraulicBoundaryLocationCalculationsType.WaterLevel
                                     ? Resources.WaterLevels_DisplayName
                                     : Resources.WaveHeights_DisplayName;
-
-            double targetProbability = calculationsForTargetProbability.TargetProbability;
-            var exportName = $"{exportType} {ProbabilityFormattingHelper.Format(targetProbability)}";
-            
-            log.InfoFormat(CoreGuiResources.GuiExportHandler_ExportItemUsingDialog_Start_exporting_DataType_0_, exportName);
 
             string uniqueName = NamingHelper.GetUniqueName(
                 exportedCalculations, $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(targetProbability)}",
                 c => c.Value);
 
-            string filePath = Path.Combine(folderPath, $"{uniqueName}.{RiskeerCommonIOResources.Shape_file_filter_Extension}");
+            string tempFilePath = Path.Combine(tempFolderPath, $"{uniqueName}.{RiskeerCommonIOResources.Shape_file_filter_Extension}");
 
             var exporter = new HydraulicBoundaryLocationCalculationsExporter(
-                calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
-                filePath, calculationsType);
+                calculations, tempFilePath, calculationsType);
 
             if (!exporter.Export())
             {
                 return false;
             }
 
-            log.InfoFormat(CoreGuiResources.GuiExportHandler_ExportItemUsingDialog_Data_from_0_exported_to_file_1, exportName, filePath);
-            exportedCalculations.Add(calculationsForTargetProbability, uniqueName);
+            exportedCalculations.Add(calculations, uniqueName);
             return true;
         }
     }
