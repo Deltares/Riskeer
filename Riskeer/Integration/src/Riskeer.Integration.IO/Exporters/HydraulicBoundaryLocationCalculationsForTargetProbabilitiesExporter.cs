@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -43,7 +44,8 @@ namespace Riskeer.Integration.IO.Exporters
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter));
 
-        private readonly IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double, HydraulicBoundaryLocationCalculationsType>> locationCalculationsForTargetProbabilities;
+        private readonly IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>> locationCalculationsForTargetProbabilities;
+        private readonly HydraulicBoundaryLocationCalculationsType calculationsType;
         private readonly string filePath;
         private readonly string tempFolderPath;
 
@@ -52,22 +54,33 @@ namespace Riskeer.Integration.IO.Exporters
         /// </summary>
         /// <param name="locationCalculationsForTargetProbabilities">The collection of
         /// <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> to export.</param>
+        /// <param name="calculationsType">The type of the calculations to export.</param>
         /// <param name="filePath">The path of the file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="locationCalculationsForTargetProbabilities"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="calculationsType"/>
+        /// is invalid.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-            IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double, HydraulicBoundaryLocationCalculationsType>> locationCalculationsForTargetProbabilities,
-            string filePath)
+            IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>> locationCalculationsForTargetProbabilities,
+            HydraulicBoundaryLocationCalculationsType calculationsType, string filePath)
         {
             if (locationCalculationsForTargetProbabilities == null)
             {
                 throw new ArgumentNullException(nameof(locationCalculationsForTargetProbabilities));
             }
 
+            if (!Enum.IsDefined(typeof(HydraulicBoundaryLocationCalculationsType), calculationsType))
+            {
+                throw new InvalidEnumArgumentException(nameof(calculationsType),
+                                                       (int) calculationsType,
+                                                       typeof(HydraulicBoundaryLocationCalculationsType));
+            }
+
             IOUtils.ValidateFilePath(filePath);
 
             this.locationCalculationsForTargetProbabilities = locationCalculationsForTargetProbabilities;
+            this.calculationsType = calculationsType;
             this.filePath = filePath;
             string folderPath = Path.GetDirectoryName(filePath);
             tempFolderPath = Path.Combine(folderPath, "~temp");
@@ -106,12 +119,11 @@ namespace Riskeer.Integration.IO.Exporters
         }
 
         private bool ExportLocationCalculationsForTargetProbability(
-            Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double, HydraulicBoundaryLocationCalculationsType> calculationsForTargetProbability,
+            Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double> calculationsForTargetProbability,
             IDictionary<IEnumerable<HydraulicBoundaryLocationCalculation>, string> exportedCalculations)
         {
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations = calculationsForTargetProbability.Item1;
             double targetProbability = calculationsForTargetProbability.Item2;
-            HydraulicBoundaryLocationCalculationsType calculationsType = calculationsForTargetProbability.Item3;
 
             string exportType = calculationsType == HydraulicBoundaryLocationCalculationsType.WaterLevel
                                     ? Resources.WaterLevels_DisplayName

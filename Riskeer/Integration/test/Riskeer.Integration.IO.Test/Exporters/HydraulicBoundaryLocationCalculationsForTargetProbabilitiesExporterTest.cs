@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -41,7 +42,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
         public void Constructor_LocationCalculationsForTargetProbabilitiesNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(null, string.Empty);
+            void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
+                null, HydraulicBoundaryLocationCalculationsType.WaterLevel, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -49,11 +51,28 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
+        public void Constructor_InvalidHydraulicBoundaryLocationCalculationsType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            const HydraulicBoundaryLocationCalculationsType calculationsType = (HydraulicBoundaryLocationCalculationsType) 99;
+
+            // Call
+            void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
+                Enumerable.Empty<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>>(), calculationsType, string.Empty);
+
+            // Assert
+            var expectedMessage = $"The value of argument 'calculationsType' ({calculationsType}) is invalid for Enum type '{nameof(HydraulicBoundaryLocationCalculationsType)}'.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+            Assert.AreEqual("calculationsType", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_FilePathNull_ThrowsArgumentException()
         {
             // Call
             void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-                Enumerable.Empty<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double, HydraulicBoundaryLocationCalculationsType>>(), null);
+                Enumerable.Empty<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>>(),
+                HydraulicBoundaryLocationCalculationsType.WaterLevel, null);
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
@@ -67,8 +86,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             // Call
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-                Enumerable.Empty<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double, HydraulicBoundaryLocationCalculationsType>>(),
-                filePath);
+                Enumerable.Empty<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>>(),
+                HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
@@ -84,11 +103,12 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             var calculationsForTargetProbabilities = new[]
             {
-                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double, HydraulicBoundaryLocationCalculationsType>(
-                    Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), 0.1, HydraulicBoundaryLocationCalculationsType.WaterLevel)
+                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
+                    Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), 0.1)
             };
 
-            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(calculationsForTargetProbabilities, filePath);
+            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
+                calculationsForTargetProbabilities, HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath);
 
             string expectedFilePath = Path.Combine(directoryPath, "~temp", "Waterstanden_10.shp");
 
@@ -114,7 +134,10 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_WithHydraulicBoundaryLocationCalculationsForTargetProbabilities_WritesFilesAndReturnsTrue()
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, "Waterstanden")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, "Golfhoogten")]
+        public void Export_WithHydraulicBoundaryLocationCalculationsForTargetProbabilities_WritesFilesAndReturnsTrue(
+            HydraulicBoundaryLocationCalculationsType calculationsType, string expectedCalculationsTypeName)
         {
             // Setup
             string directoryPath = TestHelper.GetScratchPadPath($"{nameof(Export_WithHydraulicBoundaryLocationCalculationsForTargetProbabilities_WritesFilesAndReturnsTrue)}");
@@ -125,15 +148,14 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             var calculationsForTargetProbabilities = new[]
             {
-                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double, HydraulicBoundaryLocationCalculationsType>(
-                    new List<HydraulicBoundaryLocationCalculation>(), random.NextDouble(0, 0.1),
-                    HydraulicBoundaryLocationCalculationsType.WaterLevel),
-                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double, HydraulicBoundaryLocationCalculationsType>(
-                    new List<HydraulicBoundaryLocationCalculation>(), random.NextDouble(0, 0.1),
-                    HydraulicBoundaryLocationCalculationsType.WaveHeight)
+                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
+                    new List<HydraulicBoundaryLocationCalculation>(), random.NextDouble(0, 0.1)),
+                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
+                    new List<HydraulicBoundaryLocationCalculation>(), random.NextDouble(0, 0.01))
             };
 
-            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(calculationsForTargetProbabilities, filePath);
+            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
+                calculationsForTargetProbabilities, calculationsType, filePath);
 
             try
             {
@@ -145,8 +167,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
                 string[] expectedFiles =
                 {
-                    $"Waterstanden_{GetReturnPeriodText(calculationsForTargetProbabilities.First().Item2)}.shp",
-                    $"Golfhoogten_{GetReturnPeriodText(calculationsForTargetProbabilities.Last().Item2)}.shp"
+                    $"{expectedCalculationsTypeName}_{GetReturnPeriodText(calculationsForTargetProbabilities.First().Item2)}.shp",
+                    $"{expectedCalculationsTypeName}_{GetReturnPeriodText(calculationsForTargetProbabilities.Last().Item2)}.shp"
                 };
 
                 using (ZipArchive zipArchive = ZipFile.OpenRead(filePath))
@@ -161,7 +183,10 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_WithDoubleHydraulicBoundaryLocationCalculationsForTargetProbabilities_WritesFilesAndReturnsTrue()
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, "Waterstanden")]
+        [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, "Golfhoogten")]
+        public void Export_WithDoubleHydraulicBoundaryLocationCalculationsForTargetProbabilities_WritesFilesAndReturnsTrue(
+            HydraulicBoundaryLocationCalculationsType calculationsType, string expectedCalculationsTypeName)
         {
             // Setup
             string directoryPath = TestHelper.GetScratchPadPath($"{nameof(Export_WithDoubleHydraulicBoundaryLocationCalculationsForTargetProbabilities_WritesFilesAndReturnsTrue)}");
@@ -170,17 +195,12 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             var calculationsForTargetProbabilities = new[]
             {
-                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double, HydraulicBoundaryLocationCalculationsType>(
-                    new List<HydraulicBoundaryLocationCalculation>(), 0.1, HydraulicBoundaryLocationCalculationsType.WaterLevel),
-                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double, HydraulicBoundaryLocationCalculationsType>(
-                    new List<HydraulicBoundaryLocationCalculation>(), 0.1, HydraulicBoundaryLocationCalculationsType.WaterLevel),
-                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double, HydraulicBoundaryLocationCalculationsType>(
-                    new List<HydraulicBoundaryLocationCalculation>(), 0.001, HydraulicBoundaryLocationCalculationsType.WaveHeight),
-                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double, HydraulicBoundaryLocationCalculationsType>(
-                    new List<HydraulicBoundaryLocationCalculation>(), 0.001, HydraulicBoundaryLocationCalculationsType.WaveHeight)
+                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(new List<HydraulicBoundaryLocationCalculation>(), 0.1),
+                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(new List<HydraulicBoundaryLocationCalculation>(), 0.1)
             };
 
-            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(calculationsForTargetProbabilities, filePath);
+            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
+                calculationsForTargetProbabilities, calculationsType, filePath);
 
             try
             {
@@ -192,10 +212,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
                 string[] expectedFiles =
                 {
-                    "Waterstanden_10.shp",
-                    "Waterstanden_10 (1).shp",
-                    "Golfhoogten_1.000.shp",
-                    "Golfhoogten_1.000 (1).shp"
+                    $"{expectedCalculationsTypeName}_10.shp",
+                    $"{expectedCalculationsTypeName}_10 (1).shp"
                 };
 
                 using (ZipArchive zipArchive = ZipFile.OpenRead(filePath))
