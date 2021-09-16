@@ -41,6 +41,7 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
@@ -66,6 +67,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
     /// </summary>
     public class StabilityStoneCoverPlugin : PluginBase
     {
+        private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
+
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<StabilityStoneCoverHydraulicLoadsContext, StabilityStoneCoverHydraulicLoadsProperties>
@@ -212,7 +215,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
             {
                 Name = context => RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath),
+                CreateFileExporter = (context, filePath) =>
+                    new StabilityStoneCoverWaveConditionsExporter(context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>(), filePath,
+                                                                  input => noProbabilityValueDoubleConverter.ConvertToString(WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection))),
                 IsEnabled = context => context.WrappedData.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>().Any(c => c.HasOutput),
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };
@@ -222,9 +227,10 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 Name = context => RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new StabilityStoneCoverWaveConditionsExporter(new[]
-                {
-                    context.WrappedData
-                }, filePath),
+                                                                                                          {
+                                                                                                              context.WrappedData
+                                                                                                          }, filePath,
+                                                                                                          input => noProbabilityValueDoubleConverter.ConvertToString(WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection))),
                 IsEnabled = context => context.WrappedData.HasOutput,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), GetWaveConditionsFileFilterGenerator())
             };

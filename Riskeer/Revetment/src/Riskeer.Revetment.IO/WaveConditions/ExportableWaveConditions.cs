@@ -38,6 +38,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
         /// <param name="waveConditionsOutput">The output parameters of the parent calculation.</param>
         /// <param name="coverType">The type of dike cover.</param>
         /// <param name="categoryBoundaryName">The name of the category boundary.</param>
+        /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
         /// is <c>null</c> in <paramref name="waveConditionsInput"/>.</exception>
@@ -45,7 +46,8 @@ namespace Riskeer.Revetment.IO.WaveConditions
                                         WaveConditionsInput waveConditionsInput,
                                         WaveConditionsOutput waveConditionsOutput,
                                         CoverType coverType,
-                                        string categoryBoundaryName)
+                                        string categoryBoundaryName,
+                                        Func<WaveConditionsInput, string> getTargetProbabilityFunc)
         {
             if (name == null)
             {
@@ -89,7 +91,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
             UseForeshore = waveConditionsInput.UseForeshore;
             UseBreakWater = waveConditionsInput.UseBreakWater;
             CoverType = coverType;
-            CategoryBoundaryName = categoryBoundaryName;
+            TargetProbability = getTargetProbabilityFunc(waveConditionsInput);
             WaterLevel = waveConditionsOutput.WaterLevel;
             WaveHeight = waveConditionsOutput.WaveHeight;
             WavePeriod = waveConditionsOutput.WavePeakPeriod;
@@ -131,6 +133,11 @@ namespace Riskeer.Revetment.IO.WaveConditions
         /// Gets the name of the category boundary.
         /// </summary>
         public string CategoryBoundaryName { get; }
+
+        /// <summary>
+        /// Gets the target probability.
+        /// </summary>
+        public string TargetProbability { get; }
 
         /// <summary>
         /// Gets the id of the foreshore.

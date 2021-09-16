@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.IO.Exceptions;
+using Riskeer.Revetment.Data;
 using Riskeer.Revetment.IO.WaveConditions;
 using Riskeer.WaveImpactAsphaltCover.Data;
 
@@ -38,12 +39,13 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Exporters
         /// </summary>
         /// <param name="calculations">The <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> objects to export.</param>
         /// <param name="filePath">The file path to export to.</param>
+        /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when the file could not be written.</exception>
-        public WaveImpactAsphaltCoverWaveConditionsExporter(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, string filePath)
-            : base(CreateExportableWaveConditionsCollection(calculations), filePath) {}
+        public WaveImpactAsphaltCoverWaveConditionsExporter(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, string filePath, Func<WaveConditionsInput, string> getTargetProbabilityFunc)
+            : base(CreateExportableWaveConditionsCollection(calculations, getTargetProbabilityFunc), filePath) {}
 
-        private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations)
+        private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, Func<WaveConditionsInput, string> getTargetProbabilityFunc)
         {
             if (calculations == null)
             {
@@ -59,7 +61,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Exporters
             {
                 exportableWaveConditions.AddRange(
                     ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
-                        calculation.Name, calculation.InputParameters, calculation.Output.Items, CoverType.Asphalt));
+                        calculation.Name, calculation.InputParameters, calculation.Output.Items, CoverType.Asphalt, getTargetProbabilityFunc));
             }
 
             return exportableWaveConditions;

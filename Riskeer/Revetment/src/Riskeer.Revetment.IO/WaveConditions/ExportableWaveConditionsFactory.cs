@@ -39,6 +39,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
         /// <param name="waveConditionsInput">The <see cref="FailureMechanismCategoryWaveConditionsInput"/> used in the calculations.</param>
         /// <param name="output">The <see cref="WaveConditionsOutput"/> resulting from the calculations.</param>
         /// <param name="coverType">The <see cref="CoverType"/> that the <paramref name="output"/> represents.</param>
+        /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use.</param>
         /// <returns>A collection of <see cref="ExportableWaveConditions"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="FailureMechanismCategoryWaveConditionsInput.HydraulicBoundaryLocation"/> 
@@ -47,7 +48,8 @@ namespace Riskeer.Revetment.IO.WaveConditions
             string name,
             FailureMechanismCategoryWaveConditionsInput waveConditionsInput,
             IEnumerable<WaveConditionsOutput> output,
-            CoverType coverType)
+            CoverType coverType,
+            Func<WaveConditionsInput, string> getTargetProbabilityFunc)
         {
             if (waveConditionsInput == null)
             {
@@ -60,7 +62,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
             }
 
             return CreateExportableWaveConditionsCollection(name, waveConditionsInput, output, coverType,
-                                                            GetCategoryBoundaryName(waveConditionsInput.CategoryType));
+                                                            GetCategoryBoundaryName(waveConditionsInput.CategoryType), getTargetProbabilityFunc);
         }
 
         /// <summary>
@@ -70,15 +72,16 @@ namespace Riskeer.Revetment.IO.WaveConditions
         /// <param name="waveConditionsInput">The <see cref="AssessmentSectionCategoryWaveConditionsInput"/> used in the calculations.</param>
         /// <param name="output">The <see cref="WaveConditionsOutput"/> resulting from the calculations.</param>
         /// <param name="coverType">The <see cref="CoverType"/> that the <paramref name="output"/> represents.</param>
+        /// <param name="getTargetProbabilityFunc"></param>
         /// <returns>A collection of <see cref="ExportableWaveConditions"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="AssessmentSectionCategoryWaveConditionsInput.HydraulicBoundaryLocation"/> 
         /// is <c>null</c> in <paramref name="waveConditionsInput"/>.</exception>
-        public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
-            string name,
-            AssessmentSectionCategoryWaveConditionsInput waveConditionsInput,
-            IEnumerable<WaveConditionsOutput> output,
-            CoverType coverType)
+        public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(string name,
+                                                                                                     AssessmentSectionCategoryWaveConditionsInput waveConditionsInput,
+                                                                                                     IEnumerable<WaveConditionsOutput> output,
+                                                                                                     CoverType coverType,
+                                                                                                     Func<WaveConditionsInput, string> getTargetProbabilityFunc)
         {
             if (waveConditionsInput == null)
             {
@@ -91,7 +94,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
             }
 
             return CreateExportableWaveConditionsCollection(name, waveConditionsInput, output, coverType,
-                                                            GetCategoryBoundaryName(waveConditionsInput.CategoryType));
+                                                            GetCategoryBoundaryName(waveConditionsInput.CategoryType), getTargetProbabilityFunc);
         }
 
         /// <summary>
@@ -102,6 +105,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
         /// <param name="output">The <see cref="WaveConditionsOutput"/> resulting from the calculations.</param>
         /// <param name="coverType">The type of cover.</param>
         /// <param name="categoryBoundaryName">The name of the category boundary.</param>
+        /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use.</param>
         /// <returns>A collection of <see cref="ExportableWaveConditions"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
@@ -111,7 +115,8 @@ namespace Riskeer.Revetment.IO.WaveConditions
             WaveConditionsInput waveConditionsInput,
             IEnumerable<WaveConditionsOutput> output,
             CoverType coverType,
-            string categoryBoundaryName)
+            string categoryBoundaryName,
+            Func<WaveConditionsInput, string> getTargetProbabilityFunc)
         {
             if (name == null)
             {
@@ -124,7 +129,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
             }
 
             return output.Select(waveConditionsOutput => new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput,
-                                                                                      coverType, categoryBoundaryName)).ToArray();
+                                                                                      coverType, categoryBoundaryName, getTargetProbabilityFunc)).ToArray();
         }
 
         private static string GetCategoryBoundaryName<T>(T enumValue)
