@@ -115,6 +115,16 @@ JOIN [SOURCEPROJECT].HydraulicLocationCalculationCollectionEntity ON ase.Hydraul
                                                                   OR ase.HydraulicLocationCalculationCollectionEntity3Id = HydraulicLocationCalculationCollectionEntityId
 JOIN [SOURCEPROJECT].HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId);
 
+INSERT INTO HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity (
+    [HydraulicLocationCalculationCollectionEntityId],
+    [HydraulicLocationCalculationEntityId]                                                                               
+)
+SELECT
+    [HydraulicLocationCalculationCollectionEntityId],
+    [HydraulicLocationCalculationEntityId]
+FROM HydraulicLocationCalculationCollectionEntity 
+JOIN [SOURCEPROJECT].HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId);
+
 INSERT INTO HydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationEntity;
 INSERT INTO HydraulicLocationOutputEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
 INSERT INTO IllustrationPointResultEntity SELECT * FROM [SOURCEPROJECT].IllustrationPointResultEntity;
