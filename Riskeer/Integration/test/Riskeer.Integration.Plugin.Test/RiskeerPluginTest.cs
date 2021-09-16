@@ -378,13 +378,16 @@ namespace Riskeer.Integration.Plugin.Test
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(6, exportInfos.Length);
+                Assert.AreEqual(9, exportInfos.Length);
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(HydraulicBoundaryDatabaseContext)));
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(AssemblyResultsContext)));
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(WaterLevelCalculationsForUserDefinedTargetProbabilityContext)));
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(WaveHeightCalculationsForUserDefinedTargetProbabilityContext)));
                 Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(WaterLevelCalculationsForNormTargetProbabilityContext)));
+                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(WaterLevelCalculationsForNormTargetProbabilitiesGroupContext)));
+                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext)));
+                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext)));
             }
         }
 

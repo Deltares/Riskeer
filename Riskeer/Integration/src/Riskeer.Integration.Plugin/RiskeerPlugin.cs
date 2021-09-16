@@ -768,6 +768,39 @@ namespace Riskeer.Integration.Plugin
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
                                                                                                            RiskeerCommonIOResources.Shape_file_filter_Description))
             };
+
+            yield return new ExportInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
+            {
+                Name = context => RiskeerCommonFormsResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName,
+                Extension = Resources.Zip_file_filter_Extension,
+                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
+                    new[]
+                    {
+                        new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
+                            context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                            context.AssessmentSection.FailureMechanismContribution.LowerLimitNorm),
+                        new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
+                            context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
+                            context.AssessmentSection.FailureMechanismContribution.SignalingNorm)
+                    }, HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath),
+                IsEnabled = context => true,
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.Zip_file_filter_Extension,
+                                                                                                           Resources.Zip_file_filter_Description))
+            };
+
+            yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityGroupExportInfo
+                <WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext>(
+                    RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName,
+                    HydraulicBoundaryLocationCalculationsType.WaterLevel,
+                    context => context.WrappedData.Select(tp => new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
+                                                              tp.HydraulicBoundaryLocationCalculations, tp.TargetProbability)));
+
+            yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityGroupExportInfo
+                <WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext>(
+                    RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName,
+                    HydraulicBoundaryLocationCalculationsType.WaveHeight,
+                    context => context.WrappedData.Select(tp => new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
+                                                              tp.HydraulicBoundaryLocationCalculations, tp.TargetProbability)));
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
@@ -1197,6 +1230,24 @@ namespace Riskeer.Integration.Plugin
                                                                                                            RiskeerCommonIOResources.Shape_file_filter_Description))
             };
         }
+
+        private ExportInfo<T> CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityGroupExportInfo<T>(
+            string displayName, HydraulicBoundaryLocationCalculationsType calculationsType,
+            Func<T, IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>>> locationCalculationsForTargetProbabilities)
+            where T : HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext
+        {
+            return new ExportInfo<T>
+            {
+                Name = context => displayName,
+                Extension = Resources.Zip_file_filter_Extension,
+                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
+                    locationCalculationsForTargetProbabilities(context), calculationsType, filePath),
+                IsEnabled = context => true,
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.Zip_file_filter_Extension,
+                                                                                                           Resources.Zip_file_filter_Description))
+            };
+        }
+        
 
         private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IObservableEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<
             TFailureMechanism, TResult, TView, TResultRow, TAssemblyResultControl>(
