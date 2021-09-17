@@ -38,7 +38,7 @@ using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 namespace Riskeer.Integration.IO.Exporters
 {
     /// <summary>
-    /// Exports <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> and stores them as a shapefile.
+    /// Exports hydraulic boundary locations calculations and stores them as shape files in a zip file.
     /// </summary>
     public class HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter : IFileExporter
     {
