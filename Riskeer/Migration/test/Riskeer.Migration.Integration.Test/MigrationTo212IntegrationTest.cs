@@ -59,6 +59,10 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
+                    
+                    AssertAssessmentSection(reader, sourceFilePath);
+                    AssertHydraulicBoundaryLocationCalculation(reader, sourceFilePath);
+                    AssertHydraulicLocationOutput(reader);
 
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsOutput(reader);
@@ -68,6 +72,93 @@ namespace Riskeer.Migration.Integration.Test
             }
         }
 
+        private static void AssertAssessmentSection(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateAssessmentSection =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.AssessmentSectionEntity " +
+                ") " +
+                "FROM AssessmentSectionEntity NEW " +
+                "JOIN SOURCEPROJECT.AssessmentSectionEntity OLD USING(AssessmentSectionEntityId) " +
+                "WHERE NEW.[ProjectEntityId] = OLD.[ProjectEntityId] " +
+                "AND NEW.[HydraulicLocationCalculationCollectionEntity1Id] = OLD.[HydraulicLocationCalculationCollectionEntity2Id] " +
+                "AND NEW.[HydraulicLocationCalculationCollectionEntity2Id] = OLD.[HydraulicLocationCalculationCollectionEntity3Id] " +
+                "AND NEW.[Id] IS OLD.[Id] " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[LowerLimitNorm] = OLD.[LowerLimitNorm] " +
+                "AND NEW.[SignalingNorm] = OLD.[SignalingNorm] " +
+                "AND NEW.[NormativeNormType] = OLD.[NormativeNormType] " +
+                "AND NEW.[Composition] = OLD.[Composition] " +
+                "AND NEW.[ReferenceLinePointXml] = OLD.[ReferenceLinePointXml] " +
+                "AND NEW.\"Order\" = OLD.\"Order\";" +
+                "DETACH SOURCEPROJECT;";
+            
+            reader.AssertReturnedDataIsValid(validateAssessmentSection);
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculation(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            const string getRelevantCalculationCollectionsQuery =
+                "FROM SOURCEPROJECT.AssessmentSectionEntity ase " +
+                "JOIN SOURCEPROJECT.HydraulicLocationCalculationCollectionEntity " +
+                "ON ase.HydraulicLocationCalculationCollectionEntity2Id = HydraulicLocationCalculationCollectionEntityId " +
+                "OR ase.HydraulicLocationCalculationCollectionEntity3Id = HydraulicLocationCalculationCollectionEntityId ";
+            
+            string validateHydraulicLocationCalculationCollection =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                $"{getRelevantCalculationCollectionsQuery} " +
+                ") " +
+                "FROM HydraulicLocationCalculationCollectionEntity " +
+                "JOIN SOURCEPROJECT.HydraulicLocationCalculationCollectionEntity USING(HydraulicLocationCalculationCollectionEntityId);" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateHydraulicLocationCalculationCollection);
+            
+            string validateHydraulicLocationCalculations = 
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                $"{getRelevantCalculationCollectionsQuery} " +
+                "JOIN SOURCEPROJECT.HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
+                ") " +
+                "FROM HydraulicLocationCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.HydraulicLocationCalculationEntity OLD USING(HydraulicLocationCalculationEntityId) " +
+                "WHERE NEW.[HydraulicLocationEntityId] = OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[ShouldIllustrationPointsBeCalculated] = OLD.[ShouldIllustrationPointsBeCalculated];" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateHydraulicLocationCalculations);
+            
+            string validateHydraulicLocationCalculationMapping = 
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                $"{getRelevantCalculationCollectionsQuery} " +
+                "JOIN SOURCEPROJECT.HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId) " +
+                ") " +
+                "FROM HydraulicLocationCalculationCollectionHydraulicLocationCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.HydraulicLocationCalculationEntity OLD USING(HydraulicLocationCalculationEntityId) " +
+                "WHERE NEW.[HydraulicLocationCalculationCollectionEntityId] = OLD.[HydraulicLocationCalculationCollectionEntityId];" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateHydraulicLocationCalculationMapping);
+        }
+        
+        private static void AssertHydraulicLocationOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [HydraulicLocationOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+        
+        
         private static void AssertGrassCoverErosionInwardsCalculation(MigratedDatabaseReader reader, string sourceFilePath)
         {
             const string getNormQuery =
@@ -261,10 +352,7 @@ namespace Riskeer.Migration.Integration.Test
                 "HeightStructuresOutputEntity",
                 "HeightStructuresSectionResultEntity",
                 "HydraulicBoundaryDatabaseEntity",
-                "HydraulicLocationCalculationCollectionEntity",
-                "HydraulicLocationCalculationEntity",
                 "HydraulicLocationEntity",
-                "HydraulicLocationOutputEntity",
                 "IllustrationPointResultEntity",
                 "MacroStabilityInwardsCalculationEntity",
                 "MacroStabilityInwardsCalculationOutputEntity",
