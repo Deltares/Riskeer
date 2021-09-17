@@ -222,12 +222,12 @@ namespace Riskeer.Storage.Core.Test.Create
                 {
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
-                    new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1))
                 },
                 WaterLevelCalculationsForUserDefinedTargetProbabilities =
                 {
                     new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
-                    new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1))
                 }
             };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryDatabase.Locations);
