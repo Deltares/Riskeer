@@ -97,7 +97,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
         public void Export_HydraulicBoundaryLocationCalculationsExporterReturnsFalse_ReturnsFalse()
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath($"{nameof(Export_HydraulicBoundaryLocationCalculationsExporterReturnsFalse_ReturnsFalse)}");
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_HydraulicBoundaryLocationCalculationsExporterReturnsFalse_ReturnsFalse));
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "export.zip");
 
@@ -139,7 +139,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             HydraulicBoundaryLocationCalculationsType calculationsType, string expectedCalculationsTypeName)
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath($"{nameof(Export_WithHydraulicBoundaryLocationCalculationsForTargetProbabilities_WritesFilesAndReturnsTrue)}");
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_WithHydraulicBoundaryLocationCalculationsForTargetProbabilities_WritesFilesAndReturnsTrue));
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "export.zip");
 
@@ -188,7 +188,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             HydraulicBoundaryLocationCalculationsType calculationsType, string expectedCalculationsTypeName)
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath($"{nameof(Export_WithDoubleHydraulicBoundaryLocationCalculationsForTargetProbabilities_WritesFilesAndReturnsTrue)}");
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_WithDoubleHydraulicBoundaryLocationCalculationsForTargetProbabilities_WritesFilesAndReturnsTrue));
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "export.zip");
 
