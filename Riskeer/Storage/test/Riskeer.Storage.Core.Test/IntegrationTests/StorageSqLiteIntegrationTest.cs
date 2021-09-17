@@ -1855,26 +1855,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         {
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
-            AssertHydraulicBoundaryLocationCalculations(expectedFailureMechanism, actualFailureMechanism);
             AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
-        }
-
-        private static void AssertHydraulicBoundaryLocationCalculations(GrassCoverErosionOutwardsFailureMechanism expected,
-                                                                        GrassCoverErosionOutwardsFailureMechanism actual)
-        {
-            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
-                                                        actual.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
-                                                        actual.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
-            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
-                                                        actual.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
-
-            AssertHydraulicBoundaryLocationCalculations(expected.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
-                                                        actual.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            AssertHydraulicBoundaryLocationCalculations(expected.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
-                                                        actual.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
-            AssertHydraulicBoundaryLocationCalculations(expected.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
-                                                        actual.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
         }
 
         private static void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> expectedSectionResults,
@@ -2139,23 +2120,31 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         private static void AssertHydraulicBoundaryLocationCalculations(AssessmentSection expected,
                                                                         AssessmentSection actual)
         {
-            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForFactorizedSignalingNorm,
-                                                        actual.WaterLevelCalculationsForFactorizedSignalingNorm);
             AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForSignalingNorm,
                                                         actual.WaterLevelCalculationsForSignalingNorm);
             AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForLowerLimitNorm,
                                                         actual.WaterLevelCalculationsForLowerLimitNorm);
-            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForFactorizedLowerLimitNorm,
-                                                        actual.WaterLevelCalculationsForFactorizedLowerLimitNorm);
 
-            AssertHydraulicBoundaryLocationCalculations(expected.WaveHeightCalculationsForFactorizedSignalingNorm,
-                                                        actual.WaveHeightCalculationsForFactorizedSignalingNorm);
-            AssertHydraulicBoundaryLocationCalculations(expected.WaveHeightCalculationsForSignalingNorm,
-                                                        actual.WaveHeightCalculationsForSignalingNorm);
-            AssertHydraulicBoundaryLocationCalculations(expected.WaveHeightCalculationsForLowerLimitNorm,
-                                                        actual.WaveHeightCalculationsForLowerLimitNorm);
-            AssertHydraulicBoundaryLocationCalculations(expected.WaveHeightCalculationsForFactorizedLowerLimitNorm,
-                                                        actual.WaveHeightCalculationsForFactorizedLowerLimitNorm);
+            AssertHydraulicBoundaryLocationCalculationsForTargetProbabilities(expected.WaterLevelCalculationsForUserDefinedTargetProbabilities,
+                                                                              actual.WaterLevelCalculationsForUserDefinedTargetProbabilities);
+
+            AssertHydraulicBoundaryLocationCalculationsForTargetProbabilities(expected.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+                                                                              actual.WaveHeightCalculationsForUserDefinedTargetProbabilities);
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculationsForTargetProbabilities(IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> expected,
+                                                                                              IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> actual)
+        {
+            AssertCollectionAndItems(expected, actual,
+                                     AssertHydraulicBoundaryLocationCalculationsForTargetProbability);
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculationsForTargetProbability(HydraulicBoundaryLocationCalculationsForTargetProbability expected,
+                                                                                            HydraulicBoundaryLocationCalculationsForTargetProbability actual)
+        {
+            Assert.AreEqual(expected.TargetProbability, actual.TargetProbability);
+            AssertHydraulicBoundaryLocationCalculations(expected.HydraulicBoundaryLocationCalculations,
+                                                        actual.HydraulicBoundaryLocationCalculations);
         }
 
         private static void AssertHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> expected,

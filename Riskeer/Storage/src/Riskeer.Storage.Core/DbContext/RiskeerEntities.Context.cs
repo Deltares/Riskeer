@@ -77,6 +77,7 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual DbSet<HydraulicBoundaryDatabaseEntity> HydraulicBoundaryDatabaseEntities { get; set; }
         public virtual DbSet<HydraulicLocationCalculationCollectionEntity> HydraulicLocationCalculationCollectionEntities { get; set; }
         public virtual DbSet<HydraulicLocationCalculationEntity> HydraulicLocationCalculationEntities { get; set; }
+        public virtual DbSet<HydraulicLocationCalculationForTargetProbabilityCollectionEntity> HydraulicLocationCalculationForTargetProbabilityCollectionEntities { get; set; }
         public virtual DbSet<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
         public virtual DbSet<HydraulicLocationOutputEntity> HydraulicLocationOutputEntities { get; set; }
         public virtual DbSet<IllustrationPointResultEntity> IllustrationPointResultEntities { get; set; }

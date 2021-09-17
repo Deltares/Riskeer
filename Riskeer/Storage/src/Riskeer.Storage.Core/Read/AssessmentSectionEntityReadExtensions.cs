@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.AssessmentSection;
@@ -70,6 +71,7 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadBackgroundData(assessmentSection);
 
             entity.ReadHydraulicDatabase(assessmentSection, collector);
+            entity.ReadHydraulicLocationCalculationsForTargetProbabilities(assessmentSection, collector);
             entity.ReadReferenceLine(assessmentSection);
 
             entity.ReadPipingFailureMechanism(assessmentSection, collector);
@@ -134,19 +136,33 @@ namespace Riskeer.Storage.Core.Read
             }
         }
 
+        private static void ReadHydraulicLocationCalculationsForTargetProbabilities(this AssessmentSectionEntity entity,
+                                                                                    IAssessmentSection assessmentSection,
+                                                                                    ReadConversionCollector collector)
+        {
+            IEnumerable<HydraulicLocationCalculationForTargetProbabilityCollectionEntity> waveHeightHydraulicLocationCalculationForTargetProbabilityCollectionEntities =
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities
+                      .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.Waveheight)
+                      .OrderBy(e => e.Order);
+
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.AddRange(waveHeightHydraulicLocationCalculationForTargetProbabilityCollectionEntities.Select(e => e.Read(collector))
+                                                                                                                                                                           .ToArray());
+
+            IEnumerable<HydraulicLocationCalculationForTargetProbabilityCollectionEntity> waterLevelHydraulicLocationCalculationForTargetProbabilityCollectionEntities =
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities
+                      .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.WaterLevel)
+                      .OrderBy(e => e.Order);
+
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(waterLevelHydraulicLocationCalculationForTargetProbabilityCollectionEntities.Select(e => e.Read(collector))
+                                                                                                                                                                           .ToArray());
+        }
+
         private static void ReadHydraulicBoundaryLocationCalculations(this AssessmentSectionEntity entity,
                                                                       IAssessmentSection assessmentSection,
                                                                       ReadConversionCollector collector)
         {
-            entity.HydraulicLocationCalculationCollectionEntity7.Read(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity6.Read(assessmentSection.WaterLevelCalculationsForSignalingNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity5.Read(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity4.Read(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, collector);
-
-            entity.HydraulicLocationCalculationCollectionEntity3.Read(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity2.Read(assessmentSection.WaveHeightCalculationsForSignalingNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity1.Read(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, collector);
-            entity.HydraulicLocationCalculationCollectionEntity.Read(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity1.Read(assessmentSection.WaterLevelCalculationsForSignalingNorm, collector);
+            entity.HydraulicLocationCalculationCollectionEntity.Read(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, collector);
         }
 
         private static void ReadPipingFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)

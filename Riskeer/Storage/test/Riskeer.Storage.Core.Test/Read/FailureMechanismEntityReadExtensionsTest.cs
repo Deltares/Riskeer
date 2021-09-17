@@ -30,7 +30,6 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
@@ -49,7 +48,6 @@ using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Serializers;
 using Riskeer.Storage.Core.TestUtil;
-using Riskeer.Storage.Core.TestUtil.Hydraulics;
 using Riskeer.Storage.Core.TestUtil.MacroStabilityInwards;
 using Riskeer.WaveImpactAsphaltCover.Data;
 
@@ -1407,13 +1405,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
                     {
-                        N = new Random(39).NextRoundedDouble(1.0, 20.0),
-                        HydraulicLocationCalculationCollectionEntity = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity1 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity2 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity3 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity4 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity5 = new HydraulicLocationCalculationCollectionEntity()
+                        N = new Random(39).NextRoundedDouble(1.0, 20.0)
                     }
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
@@ -1451,13 +1443,7 @@ namespace Riskeer.Storage.Core.Test.Read
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
                     {
                         ForeshoreProfileCollectionSourcePath = fileLocation,
-                        N = 1,
-                        HydraulicLocationCalculationCollectionEntity = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity1 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity2 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity3 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity4 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity5 = new HydraulicLocationCalculationCollectionEntity()
+                        N = 1
                     }
                 }
             };
@@ -1471,88 +1457,6 @@ namespace Riskeer.Storage.Core.Test.Read
             ForeshoreProfileCollection foreshoreProfiles = failureMechanism.ForeshoreProfiles;
             Assert.AreEqual(fileLocation, foreshoreProfiles.SourcePath);
             CollectionAssert.IsEmpty(foreshoreProfiles);
-        }
-
-        [Test]
-        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithHydraulicBoundaryLocationCalculations_ReturnsFailureMechanismWithHydraulicBoundaryLocationCalculations()
-        {
-            // Setup
-            HydraulicLocationEntity hydraulicLocationEntity = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
-            var metaEntity = new GrassCoverErosionOutwardsFailureMechanismMetaEntity
-            {
-                N = 1,
-                HydraulicLocationCalculationCollectionEntity = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 1),
-                HydraulicLocationCalculationCollectionEntity1 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 2),
-                HydraulicLocationCalculationCollectionEntity2 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 3),
-                HydraulicLocationCalculationCollectionEntity3 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 4),
-                HydraulicLocationCalculationCollectionEntity4 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 5),
-                HydraulicLocationCalculationCollectionEntity5 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 6)
-            };
-
-            var entity = new FailureMechanismEntity
-            {
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                GrassCoverErosionOutwardsFailureMechanismMetaEntities =
-                {
-                    metaEntity
-                }
-            };
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var collector = new ReadConversionCollector();
-            collector.Read(hydraulicLocationEntity, hydraulicBoundaryLocation);
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            });
-
-            // Call
-            entity.ReadAsGrassCoverErosionOutwardsFailureMechanism(failureMechanism, collector);
-
-            // Assert
-            HydraulicBoundaryLocationCalculation calculation = failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
-                                                                               .Single();
-            HydraulicLocationCalculationEntity hydraulicLocationCalculationEntity = metaEntity.HydraulicLocationCalculationCollectionEntity5
-                                                                                              .HydraulicLocationCalculationEntities
-                                                                                              .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity, hydraulicBoundaryLocation, calculation);
-
-            calculation = failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm
-                                          .Single();
-            hydraulicLocationCalculationEntity = metaEntity.HydraulicLocationCalculationCollectionEntity4
-                                                           .HydraulicLocationCalculationEntities
-                                                           .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity, hydraulicBoundaryLocation, calculation);
-
-            calculation = failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
-                                          .Single();
-            hydraulicLocationCalculationEntity = metaEntity.HydraulicLocationCalculationCollectionEntity3
-                                                           .HydraulicLocationCalculationEntities
-                                                           .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity, hydraulicBoundaryLocation, calculation);
-
-            calculation = failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
-                                          .Single();
-            hydraulicLocationCalculationEntity = metaEntity.HydraulicLocationCalculationCollectionEntity2
-                                                           .HydraulicLocationCalculationEntities
-                                                           .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity, hydraulicBoundaryLocation, calculation);
-
-            calculation = failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm
-                                          .Single();
-            hydraulicLocationCalculationEntity = metaEntity.HydraulicLocationCalculationCollectionEntity1
-                                                           .HydraulicLocationCalculationEntities
-                                                           .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity, hydraulicBoundaryLocation, calculation);
-
-            calculation = failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
-                                          .Single();
-            hydraulicLocationCalculationEntity = metaEntity.HydraulicLocationCalculationCollectionEntity
-                                                           .HydraulicLocationCalculationEntities
-                                                           .Single();
-            AssertHydraulicBoundaryLocationCalculation(hydraulicLocationCalculationEntity, hydraulicBoundaryLocation, calculation);
         }
 
         [Test]
@@ -1584,13 +1488,7 @@ namespace Riskeer.Storage.Core.Test.Read
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
                     {
                         ForeshoreProfileCollectionSourcePath = fileLocation,
-                        N = 1,
-                        HydraulicLocationCalculationCollectionEntity = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity1 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity2 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity3 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity4 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity5 = new HydraulicLocationCalculationCollectionEntity()
+                        N = 1
                     }
                 }
             };
@@ -1635,13 +1533,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
                     {
-                        N = 1,
-                        HydraulicLocationCalculationCollectionEntity = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity1 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity2 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity3 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity4 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity5 = new HydraulicLocationCalculationCollectionEntity()
+                        N = 1
                     }
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
@@ -1685,13 +1577,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
                     {
-                        N = 1,
-                        HydraulicLocationCalculationCollectionEntity = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity1 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity2 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity3 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity4 = new HydraulicLocationCalculationCollectionEntity(),
-                        HydraulicLocationCalculationCollectionEntity5 = new HydraulicLocationCalculationCollectionEntity()
+                        N = 1
                     }
                 }
             };
@@ -1726,16 +1612,6 @@ namespace Riskeer.Storage.Core.Test.Read
                     }
                 }
             };
-        }
-
-        private static void AssertHydraulicBoundaryLocationCalculation(HydraulicLocationCalculationEntity expectedEntity,
-                                                                       HydraulicBoundaryLocation expectedHydraulicBoundaryLocation,
-                                                                       HydraulicBoundaryLocationCalculation actualCalculation)
-        {
-            Assert.AreSame(expectedHydraulicBoundaryLocation, actualCalculation.HydraulicBoundaryLocation);
-            Assert.AreEqual(Convert.ToBoolean(expectedEntity.ShouldIllustrationPointsBeCalculated),
-                            actualCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-            Assert.IsNull(actualCalculation.Output);
         }
 
         #endregion

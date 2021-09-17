@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.Contribution;
@@ -83,6 +84,7 @@ namespace Riskeer.Storage.Core.Create
 
             AddEntityForHydraulicDatabase(section.HydraulicBoundaryDatabase, entity, registry);
             AddHydraulicLocationCalculationEntities(section, entity, registry);
+            AddHydraulicLocationCalculationForTargetProbabilityCollectionEntities(section, entity, registry);
             AddEntityForReferenceLine(section, entity);
 
             entity.BackgroundDataEntities.Add(section.BackgroundData.Create());
@@ -131,17 +133,40 @@ namespace Riskeer.Storage.Core.Create
             }
         }
 
-        private static void AddHydraulicLocationCalculationEntities(AssessmentSection assessmentSection, AssessmentSectionEntity entity, PersistenceRegistry registry)
+        private static void AddHydraulicLocationCalculationEntities(AssessmentSection assessmentSection,
+                                                                    AssessmentSectionEntity entity,
+                                                                    PersistenceRegistry registry)
         {
-            entity.HydraulicLocationCalculationCollectionEntity7 = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Create(registry);
-            entity.HydraulicLocationCalculationCollectionEntity6 = assessmentSection.WaterLevelCalculationsForSignalingNorm.Create(registry);
-            entity.HydraulicLocationCalculationCollectionEntity5 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Create(registry);
-            entity.HydraulicLocationCalculationCollectionEntity4 = assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity1 = assessmentSection.WaterLevelCalculationsForSignalingNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Create(registry);
+        }
 
-            entity.HydraulicLocationCalculationCollectionEntity3 = assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Create(registry);
-            entity.HydraulicLocationCalculationCollectionEntity2 = assessmentSection.WaveHeightCalculationsForSignalingNorm.Create(registry);
-            entity.HydraulicLocationCalculationCollectionEntity1 = assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Create(registry);
-            entity.HydraulicLocationCalculationCollectionEntity = assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Create(registry);
+        private static void AddHydraulicLocationCalculationForTargetProbabilityCollectionEntities(AssessmentSection assessmentSection,
+                                                                                                  AssessmentSectionEntity entity,
+                                                                                                  PersistenceRegistry registry)
+        {
+            AddHydraulicLocationCalculationForTargetProbabilityCollectionEntities(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
+                                                                                  HydraulicBoundaryLocationCalculationType.WaterLevel,
+                                                                                  entity,
+                                                                                  registry);
+
+            AddHydraulicLocationCalculationForTargetProbabilityCollectionEntities(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+                                                                                  HydraulicBoundaryLocationCalculationType.Waveheight,
+                                                                                  entity,
+                                                                                  registry);
+        }
+
+        private static void AddHydraulicLocationCalculationForTargetProbabilityCollectionEntities(
+            List<HydraulicBoundaryLocationCalculationsForTargetProbability> hydraulicBoundaryLocationCalculationsForTargetProbabilities,
+            HydraulicBoundaryLocationCalculationType calculationType,
+            AssessmentSectionEntity entity,
+            PersistenceRegistry registry)
+        {
+            for (int i = 0; i < hydraulicBoundaryLocationCalculationsForTargetProbabilities.Count; i++)
+            {
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Add(
+                    hydraulicBoundaryLocationCalculationsForTargetProbabilities[i].Create(calculationType, i, registry));
+            }
         }
     }
 }

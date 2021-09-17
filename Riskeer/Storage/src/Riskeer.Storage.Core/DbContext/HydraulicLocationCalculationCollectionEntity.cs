@@ -40,18 +40,6 @@ namespace Riskeer.Storage.Core.DbContext
         {
             AssessmentSectionEntities = new HashSet<AssessmentSectionEntity>();
             AssessmentSectionEntities1 = new HashSet<AssessmentSectionEntity>();
-            AssessmentSectionEntities2 = new HashSet<AssessmentSectionEntity>();
-            AssessmentSectionEntities3 = new HashSet<AssessmentSectionEntity>();
-            AssessmentSectionEntities4 = new HashSet<AssessmentSectionEntity>();
-            AssessmentSectionEntities5 = new HashSet<AssessmentSectionEntity>();
-            AssessmentSectionEntities6 = new HashSet<AssessmentSectionEntity>();
-            AssessmentSectionEntities7 = new HashSet<AssessmentSectionEntity>();
-            GrassCoverErosionOutwardsFailureMechanismMetaEntities = new HashSet<GrassCoverErosionOutwardsFailureMechanismMetaEntity>();
-            GrassCoverErosionOutwardsFailureMechanismMetaEntities1 = new HashSet<GrassCoverErosionOutwardsFailureMechanismMetaEntity>();
-            GrassCoverErosionOutwardsFailureMechanismMetaEntities2 = new HashSet<GrassCoverErosionOutwardsFailureMechanismMetaEntity>();
-            GrassCoverErosionOutwardsFailureMechanismMetaEntities3 = new HashSet<GrassCoverErosionOutwardsFailureMechanismMetaEntity>();
-            GrassCoverErosionOutwardsFailureMechanismMetaEntities4 = new HashSet<GrassCoverErosionOutwardsFailureMechanismMetaEntity>();
-            GrassCoverErosionOutwardsFailureMechanismMetaEntities5 = new HashSet<GrassCoverErosionOutwardsFailureMechanismMetaEntity>();
             HydraulicLocationCalculationEntities = new HashSet<HydraulicLocationCalculationEntity>();
         }
 
@@ -62,42 +50,6 @@ namespace Riskeer.Storage.Core.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssessmentSectionEntity> AssessmentSectionEntities1 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AssessmentSectionEntity> AssessmentSectionEntities2 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AssessmentSectionEntity> AssessmentSectionEntities3 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AssessmentSectionEntity> AssessmentSectionEntities4 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AssessmentSectionEntity> AssessmentSectionEntities5 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AssessmentSectionEntity> AssessmentSectionEntities6 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AssessmentSectionEntity> AssessmentSectionEntities7 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionOutwardsFailureMechanismMetaEntity> GrassCoverErosionOutwardsFailureMechanismMetaEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionOutwardsFailureMechanismMetaEntity> GrassCoverErosionOutwardsFailureMechanismMetaEntities1 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionOutwardsFailureMechanismMetaEntity> GrassCoverErosionOutwardsFailureMechanismMetaEntities2 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionOutwardsFailureMechanismMetaEntity> GrassCoverErosionOutwardsFailureMechanismMetaEntities3 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionOutwardsFailureMechanismMetaEntity> GrassCoverErosionOutwardsFailureMechanismMetaEntities4 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionOutwardsFailureMechanismMetaEntity> GrassCoverErosionOutwardsFailureMechanismMetaEntities5 { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationCalculationEntity> HydraulicLocationCalculationEntities { get; set; }
