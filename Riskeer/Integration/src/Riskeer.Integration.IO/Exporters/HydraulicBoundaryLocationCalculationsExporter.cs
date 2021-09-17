@@ -37,24 +37,24 @@ using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 namespace Riskeer.Integration.IO.Exporters
 {
     /// <summary>
-    /// Exports hydraulic boundary locations and stores them as a shapefile.
+    /// Exports hydraulic boundary locations calculations and stores them as shape files in a zip file.
     /// </summary>
-    public class HydraulicBoundaryLocationsExporter : IFileExporter
+    public class HydraulicBoundaryLocationCalculationsExporter : IFileExporter
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationsExporter));
+        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationsExporter));
         private readonly IAssessmentSection assessmentSection;
         private readonly string filePath;
         private readonly string tempFolderPath;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationsExporter"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsExporter"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to get locations and calculations from.</param>
         /// <param name="filePath">The path of the file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public HydraulicBoundaryLocationsExporter(IAssessmentSection assessmentSection, string filePath)
+        public HydraulicBoundaryLocationCalculationsExporter(IAssessmentSection assessmentSection, string filePath)
         {
             if (assessmentSection == null)
             {
@@ -79,7 +79,7 @@ namespace Riskeer.Integration.IO.Exporters
                 {
                     return false;
                 }
-                
+
                 ZipFile.CreateFromDirectory(tempFolderPath, filePath);
                 return true;
             }
@@ -140,8 +140,8 @@ namespace Riskeer.Integration.IO.Exporters
             return calculationsForTargetProbabilities.All(
                 calculationsForTargetProbability => ExportLocationCalculationsForTargetProbability(
                     calculationsForTargetProbability, exportedCalculations, calculationsType, folderPath));
-        } 
-        
+        }
+
         private static bool ExportLocationCalculationsForTargetProbability(
             Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double> calculationsForTargetProbability,
             IDictionary<IEnumerable<HydraulicBoundaryLocationCalculation>, string> exportedCalculations,

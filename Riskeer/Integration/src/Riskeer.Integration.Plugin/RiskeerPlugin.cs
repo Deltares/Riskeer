@@ -735,7 +735,7 @@ namespace Riskeer.Integration.Plugin
             {
                 Name = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Extension = Resources.Zip_file_filter_Extension,
-                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(context.AssessmentSection, filePath),
+                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsExporter(context.AssessmentSection, filePath),
                 IsEnabled = context => context.WrappedData.IsLinked(),
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.Zip_file_filter_Extension,
                                                                                                            Resources.Zip_file_filter_Description))

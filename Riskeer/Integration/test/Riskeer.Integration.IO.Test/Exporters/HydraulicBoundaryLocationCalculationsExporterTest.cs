@@ -36,7 +36,7 @@ using Riskeer.Integration.IO.Exporters;
 namespace Riskeer.Integration.IO.Test.Exporters
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationsExporterTest
+    public class HydraulicBoundaryLocationCalculationsExporterTest
     {
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -45,7 +45,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
 
             // Call
-            void Call() => new HydraulicBoundaryLocationsExporter(null, filePath);
+            void Call() => new HydraulicBoundaryLocationCalculationsExporter(null, filePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -61,7 +61,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             mocks.ReplayAll();
 
             // Call
-            void Call() => new HydraulicBoundaryLocationsExporter(assessmentSection, null);
+            void Call() => new HydraulicBoundaryLocationCalculationsExporter(assessmentSection, null);
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
@@ -79,7 +79,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
 
             // Call
-            var exporter = new HydraulicBoundaryLocationsExporter(assessmentSection, filePath);
+            var exporter = new HydraulicBoundaryLocationCalculationsExporter(assessmentSection, filePath);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
@@ -100,7 +100,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.zip");
 
-            var exporter = new HydraulicBoundaryLocationsExporter(assessmentSection, filePath);
+            var exporter = new HydraulicBoundaryLocationCalculationsExporter(assessmentSection, filePath);
 
             try
             {
@@ -146,7 +146,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.zip");
 
-            var exporter = new HydraulicBoundaryLocationsExporter(assessmentSection, filePath);
+            var exporter = new HydraulicBoundaryLocationCalculationsExporter(assessmentSection, filePath);
 
             try
             {
@@ -186,7 +186,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.zip");
 
-            var exporter = new HydraulicBoundaryLocationsExporter(assessmentSection, filePath);
+            var exporter = new HydraulicBoundaryLocationCalculationsExporter(assessmentSection, filePath);
 
             try
             {
