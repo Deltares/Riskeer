@@ -102,7 +102,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 IFileExporter fileExporter = info.CreateFileExporter(context, filePath);
 
                 // Assert
-                Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsExporter>(fileExporter);
+                Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter>(fileExporter);
             }
 
             mocks.VerifyAll();

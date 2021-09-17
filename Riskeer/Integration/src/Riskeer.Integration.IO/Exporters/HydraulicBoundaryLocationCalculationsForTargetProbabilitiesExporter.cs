@@ -135,7 +135,7 @@ namespace Riskeer.Integration.IO.Exporters
 
             string tempFilePath = Path.Combine(tempFolderPath, $"{uniqueName}.{RiskeerCommonIOResources.Shape_file_filter_Extension}");
 
-            var exporter = new HydraulicBoundaryLocationCalculationsExporter(
+            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
                 calculations, tempFilePath, calculationsType);
 
             if (!exporter.Export())

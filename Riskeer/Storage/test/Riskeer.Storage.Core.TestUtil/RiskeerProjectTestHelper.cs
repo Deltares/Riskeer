@@ -114,7 +114,7 @@ namespace Riskeer.Storage.Core.TestUtil
             {
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
-                new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1))
             });
             
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.AddRange(new[]

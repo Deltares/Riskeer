@@ -762,7 +762,7 @@ namespace Riskeer.Integration.Plugin
             {
                 Name = context => $"{RiskeerIOResources.WaterLevels_DisplayName} ({ProbabilityFormattingHelper.Format(context.GetNormFunc())})",
                 Extension = RiskeerCommonIOResources.Shape_file_filter_Extension,
-                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsExporter(
+                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
                     context.WrappedData, filePath, HydraulicBoundaryLocationCalculationsType.WaterLevel),
                 IsEnabled = context => true,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
@@ -1223,7 +1223,7 @@ namespace Riskeer.Integration.Plugin
             {
                 Name = context => $"{displayName} ({ ProbabilityFormattingHelper.Format(context.WrappedData.TargetProbability)})",
                 Extension = RiskeerCommonIOResources.Shape_file_filter_Extension,
-                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsExporter(
+                CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
                     context.WrappedData.HydraulicBoundaryLocationCalculations, filePath, calculationsType),
                 IsEnabled = context => true,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,

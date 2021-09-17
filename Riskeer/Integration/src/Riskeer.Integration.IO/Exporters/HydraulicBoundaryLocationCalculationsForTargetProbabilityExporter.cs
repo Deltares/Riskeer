@@ -32,18 +32,18 @@ using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 namespace Riskeer.Integration.IO.Exporters
 {
     /// <summary>
-    /// Exports hydraulic boundary location calculations and stores them as a shapefile.
+    /// Exports hydraulic boundary location calculations for a single target probability and stores them as a shapefile.
     /// </summary>
-    public class HydraulicBoundaryLocationCalculationsExporter : IFileExporter
+    public class HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter : IFileExporter
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationsExporter));
+        private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter));
 
         private readonly IEnumerable<HydraulicBoundaryLocationCalculation> calculations;
         private readonly string filePath;
         private readonly HydraulicBoundaryLocationCalculationsType calculationsType;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsExporter"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter"/>.
         /// </summary>
         /// <param name="calculations">The calculations to export.</param>
         /// <param name="filePath">The path of the file to export to.</param>
@@ -52,8 +52,8 @@ namespace Riskeer.Integration.IO.Exporters
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when the <see cref="calculationsType"/>
         /// is an invalid value.</exception>
-        public HydraulicBoundaryLocationCalculationsExporter(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
-                                                             string filePath, HydraulicBoundaryLocationCalculationsType calculationsType)
+        public HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                                                                 string filePath, HydraulicBoundaryLocationCalculationsType calculationsType)
         {
             if (calculations == null)
             {

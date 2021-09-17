@@ -34,13 +34,13 @@ using Riskeer.Integration.IO.Exporters;
 namespace Riskeer.Integration.IO.Test.Exporters
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationCalculationsExporterTest
+    public class HydraulicBoundaryLocationCalculationsForTargetProbabilityExporterTest
     {
         [Test]
         public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new HydraulicBoundaryLocationCalculationsExporter(null, string.Empty, HydraulicBoundaryLocationCalculationsType.WaterLevel);
+            void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(null, string.Empty, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -51,7 +51,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
         public void Constructor_FilePathNull_ThrowsArgumentException()
         {
             // Call
-            void Call() => new HydraulicBoundaryLocationCalculationsExporter(
+            void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
                 Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             // Assert
@@ -66,7 +66,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             const HydraulicBoundaryLocationCalculationsType hydraulicBoundaryLocationCalculationsType = (HydraulicBoundaryLocationCalculationsType) 99;
 
             // Call
-            void Call() => new HydraulicBoundaryLocationCalculationsExporter(
+            void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
                     Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), filePath, hydraulicBoundaryLocationCalculationsType);
             
             // Assert
@@ -83,7 +83,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
 
             // Call
-            var exporter = new HydraulicBoundaryLocationCalculationsExporter(
+            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
                 Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), filePath, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             // Assert
@@ -99,11 +99,11 @@ namespace Riskeer.Integration.IO.Test.Exporters
             // Setup
             const string fileName = "test";
 
-            string directoryPath = TestHelper.GetScratchPadPath($"{nameof(HydraulicBoundaryLocationCalculationsExporterTest)}.{nameof(Export_ValidData_ReturnsTrueAndWritesCorrectData)}");
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_ValidData_ReturnsTrueAndWritesCorrectData));
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, $"{fileName}.shp");
 
-            var exporter = new HydraulicBoundaryLocationCalculationsExporter(new[]
+            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(new[]
             {
                 new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2))
             }, filePath, calculationsType);
@@ -121,7 +121,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 FileTestHelper.AssertEssentialShapefileMd5Hashes(
                     directoryPath, fileName,
                     Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
-                                 nameof(HydraulicBoundaryLocationCalculationsExporter)),
+                                 nameof(HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter)),
                     expectedExportFileName, 28, 8, 628);
                 Assert.IsTrue(isExported);
             }
@@ -137,11 +137,11 @@ namespace Riskeer.Integration.IO.Test.Exporters
             // Setup
             const string fileName = "test";
 
-            string directoryPath = TestHelper.GetScratchPadPath($"{nameof(HydraulicBoundaryLocationCalculationsExporterTest)}.{nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse)}");
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse));
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, $"{fileName}.shp");
 
-            var exporter = new HydraulicBoundaryLocationCalculationsExporter(new[]
+            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(new[]
             {
                 new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2))
             }, filePath, HydraulicBoundaryLocationCalculationsType.WaterLevel);
