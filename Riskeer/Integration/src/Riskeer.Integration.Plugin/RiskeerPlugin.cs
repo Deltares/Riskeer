@@ -734,11 +734,11 @@ namespace Riskeer.Integration.Plugin
             yield return new ExportInfo<HydraulicBoundaryDatabaseContext>
             {
                 Name = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                Extension = RiskeerCommonIOResources.Shape_file_filter_Extension,
+                Extension = Resources.Zip_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationsExporter(context.AssessmentSection, filePath),
                 IsEnabled = context => context.WrappedData.IsLinked(),
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                                                                                           RiskeerCommonIOResources.Shape_file_filter_Description))
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.Zip_file_filter_Extension,
+                                                                                                           Resources.Zip_file_filter_Description))
             };
 
             yield return new ExportInfo<AssemblyResultsContext>

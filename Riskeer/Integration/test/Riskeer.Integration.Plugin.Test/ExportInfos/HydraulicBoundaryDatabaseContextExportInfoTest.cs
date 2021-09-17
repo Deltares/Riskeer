@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
 
                 // Assert
                 Assert.IsNotNull(info.Name);
-                Assert.AreEqual("shp", info.Extension);
+                Assert.AreEqual("zip", info.Extension);
                 Assert.IsNotNull(info.CreateFileExporter);
                 Assert.IsNotNull(info.IsEnabled);
                 Assert.AreEqual("Algemeen", info.Category);
