@@ -78,7 +78,7 @@ namespace Riskeer.Integration.IO.Exporters
         {
             try
             {
-                HydraulicBoundaryLocationCalculationsWriter.WriteHydraulicBoundaryLocationCalculations(
+                HydraulicBoundaryLocationCalculationsForTargetProbabilityWriter.WriteHydraulicBoundaryLocationCalculations(
                     calculations, filePath, calculationsType);
             }
             catch (CriticalFileWriteException e)

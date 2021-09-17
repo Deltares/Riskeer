@@ -33,13 +33,13 @@ using Riskeer.Integration.IO.Exporters;
 namespace Riskeer.Integration.IO.Test.Exporters
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationCalculationsWriterTest
+    public class HydraulicBoundaryLocationCalculationsForTargetProbabilityWriterTest
     {
         [Test]
         public void WriteHydraulicBoundaryLocationCalculations_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => HydraulicBoundaryLocationCalculationsWriter.WriteHydraulicBoundaryLocationCalculations(
+            void Call() => HydraulicBoundaryLocationCalculationsForTargetProbabilityWriter.WriteHydraulicBoundaryLocationCalculations(
                 null, string.Empty, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             // Assert
@@ -51,7 +51,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
         public void WriteHydraulicBoundaryLocationCalculations_FilePathNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => HydraulicBoundaryLocationCalculationsWriter.WriteHydraulicBoundaryLocationCalculations(
+            void Call() => HydraulicBoundaryLocationCalculationsForTargetProbabilityWriter.WriteHydraulicBoundaryLocationCalculations(
                 Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null, HydraulicBoundaryLocationCalculationsType.WaterLevel);
 
             // Assert
@@ -66,7 +66,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             const HydraulicBoundaryLocationCalculationsType hydraulicBoundaryLocationCalculationsType = (HydraulicBoundaryLocationCalculationsType) 99;
 
             // Call
-            void Call() => HydraulicBoundaryLocationCalculationsWriter.WriteHydraulicBoundaryLocationCalculations(
+            void Call() => HydraulicBoundaryLocationCalculationsForTargetProbabilityWriter.WriteHydraulicBoundaryLocationCalculations(
                 Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), string.Empty, hydraulicBoundaryLocationCalculationsType);
 
             // Assert
@@ -84,7 +84,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
         {
             // Setup
             const string fileName = "test";
-            string directoryPath = TestHelper.GetScratchPadPath($"{nameof(HydraulicBoundaryLocationCalculationsWriterTest)}.{nameof(WriteHydraulicBoundaryLocationCalculations_ValidData_WritesShapeFile)}");
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(WriteHydraulicBoundaryLocationCalculations_ValidData_WritesShapeFile));
             string filePath = Path.Combine(directoryPath, $"{fileName}.shp");
 
             // Precondition
@@ -98,7 +98,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             try
             {
                 // Call
-                HydraulicBoundaryLocationCalculationsWriter.WriteHydraulicBoundaryLocationCalculations(new[]
+                HydraulicBoundaryLocationCalculationsForTargetProbabilityWriter.WriteHydraulicBoundaryLocationCalculations(new[]
                 {
                     calculation
                 }, filePath, calculationsType);
@@ -108,7 +108,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 FileTestHelper.AssertEssentialShapefileMd5Hashes(
                     directoryPath, fileName,
                     Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
-                                 nameof(HydraulicBoundaryLocationCalculationsWriter)),
+                                 nameof(HydraulicBoundaryLocationCalculationsForTargetProbabilityWriter)),
                     expectedExportFileName, 28, 8, 628);
             }
             finally

@@ -36,7 +36,7 @@ namespace Riskeer.Integration.IO.Exporters
     /// Shapefile writer that writes a collection of
     /// <see cref="HydraulicBoundaryLocationCalculation"/> as point features.
     /// </summary>
-    internal static class HydraulicBoundaryLocationCalculationsWriter
+    internal static class HydraulicBoundaryLocationCalculationsForTargetProbabilityWriter
     {
         /// <summary>
         /// Writes the collection of <see cref="HydraulicBoundaryLocationCalculation"/> as point features in a shapefile.
