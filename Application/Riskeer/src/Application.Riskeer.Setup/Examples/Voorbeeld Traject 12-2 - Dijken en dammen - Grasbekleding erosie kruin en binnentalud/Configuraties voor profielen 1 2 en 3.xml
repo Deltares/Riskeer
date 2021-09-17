@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie versie="1">
+<configuratie versie="2">
   <berekening naam="Profiel 1">
     <hblocatie>YM_2_12-2_dk_00012</hblocatie>
     <dijkprofiel>01200</dijkprofiel>
@@ -8,8 +8,8 @@
     <illustratiepunteninlezen>false</illustratiepunteninlezen>
     <hbnillustratiepunteninlezen>false</hbnillustratiepunteninlezen>
     <overslagdebietillustratiepunteninlezen>false</overslagdebietillustratiepunteninlezen>
-    <hbnberekenen>niet</hbnberekenen>
-    <overslagdebietberekenen>niet</overslagdebietberekenen>
+    <hbnberekenen>false</hbnberekenen>
+    <overslagdebietberekenen>false</overslagdebietberekenen>
     <golfreductie>
       <damgebruiken>false</damgebruiken>
       <damtype>havendam</damtype>
@@ -35,8 +35,8 @@
     <illustratiepunteninlezen>true</illustratiepunteninlezen>
     <hbnillustratiepunteninlezen>false</hbnillustratiepunteninlezen>
     <overslagdebietillustratiepunteninlezen>false</overslagdebietillustratiepunteninlezen>
-    <hbnberekenen>niet</hbnberekenen>
-    <overslagdebietberekenen>niet</overslagdebietberekenen>
+    <hbnberekenen>false</hbnberekenen>
+    <overslagdebietberekenen>false</overslagdebietberekenen>
     <golfreductie>
       <damgebruiken>false</damgebruiken>
       <damtype>havendam</damtype>
@@ -63,8 +63,8 @@
       <illustratiepunteninlezen>false</illustratiepunteninlezen>
       <hbnillustratiepunteninlezen>false</hbnillustratiepunteninlezen>
       <overslagdebietillustratiepunteninlezen>false</overslagdebietillustratiepunteninlezen>
-      <hbnberekenen>niet</hbnberekenen>
-      <overslagdebietberekenen>niet</overslagdebietberekenen>
+      <hbnberekenen>false</hbnberekenen>
+      <overslagdebietberekenen>false</overslagdebietberekenen>
       <golfreductie>
         <damgebruiken>false</damgebruiken>
         <damtype>havendam</damtype>
@@ -90,8 +90,10 @@
       <illustratiepunteninlezen>true</illustratiepunteninlezen>
       <hbnillustratiepunteninlezen>true</hbnillustratiepunteninlezen>
       <overslagdebietillustratiepunteninlezen>true</overslagdebietillustratiepunteninlezen>
-      <hbnberekenen>norm</hbnberekenen>
-      <overslagdebietberekenen>norm</overslagdebietberekenen>
+      <hbnberekenen>true</hbnberekenen>
+      <hbndoelkans>0.01</hbndoelkans>
+      <overslagdebietberekenen>true</overslagdebietberekenen>
+      <overslagdebietdoelkans>0.002</overslagdebietdoelkans>
       <golfreductie>
         <damgebruiken>false</damgebruiken>
         <damtype>havendam</damtype>

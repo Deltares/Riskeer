@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie versie="1">
+<configuratie versie="2">
   <berekening naam="Gras (golfoploop)">
     <hblocatie>WZ_1_6-3_dk_00043</hblocatie>
-    <categoriegrens>IIv</categoriegrens>
+    <doelkans>0.0001</doelkans>
     <typebekleding>Gras (golfoploop)</typebekleding>
     <bovengrensbekleding>6.3</bovengrensbekleding>
     <ondergrensbekleding>4.21</ondergrensbekleding>
@@ -20,7 +20,7 @@
   </berekening>
   <berekening naam="Gras (golfklap)">
     <hblocatie>WZ_1_6-3_dk_00043</hblocatie>
-    <categoriegrens>IIv</categoriegrens>
+    <doelkans>0.0001</doelkans>
     <typebekleding>Gras (golfklap)</typebekleding>
     <bovengrensbekleding>6.3</bovengrensbekleding>
     <ondergrensbekleding>4.21</ondergrensbekleding>
@@ -38,7 +38,7 @@
   </berekening>
   <berekening naam="Gras (golfoploop en golfklap)">
     <hblocatie>WZ_1_6-3_dk_00043</hblocatie>
-    <categoriegrens>IIv</categoriegrens>
+    <doelkans>0.0001</doelkans>
     <typebekleding>Gras (golfoploop en golfklap)</typebekleding>
     <bovengrensbekleding>6.3</bovengrensbekleding>
     <ondergrensbekleding>4.21</ondergrensbekleding>
@@ -56,7 +56,7 @@
   </berekening>
   <berekening naam="Gras (golfklap voor toets op maat)">
     <hblocatie>WZ_1_6-3_dk_00002</hblocatie>
-    <categoriegrens>IIv</categoriegrens>
+    <doelkans>0.0001</doelkans>
     <typebekleding>Gras (golfklap voor toets op maat)</typebekleding>
     <bovengrensbekleding>6.3</bovengrensbekleding>
     <ondergrensbekleding>4.21</ondergrensbekleding>
@@ -74,7 +74,7 @@
   </berekening>
   <berekening naam="Gras (golfoploop en golfklap voor toets op maat)">
     <hblocatie>WZ_1_6-3_dk_00012</hblocatie>
-    <categoriegrens>IIv</categoriegrens>
+    <doelkans>0.0001</doelkans>
     <typebekleding>Gras (golfoploop en golfklap voor toets op maat)</typebekleding>
     <bovengrensbekleding>6.3</bovengrensbekleding>
     <ondergrensbekleding>4.21</ondergrensbekleding>
@@ -92,7 +92,7 @@
   </berekening>
   <berekening naam="Gras (alle types)">
     <hblocatie>WZ_1_6-3_dk_00012</hblocatie>
-    <categoriegrens>IIv</categoriegrens>
+    <doelkans>0.0001</doelkans>
     <typebekleding>Gras (alle types)</typebekleding>
     <bovengrensbekleding>6.3</bovengrensbekleding>
     <ondergrensbekleding>4.21</ondergrensbekleding>

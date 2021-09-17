@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie versie="1">
+<configuratie versie="2">
   <berekening naam="WZ_1_6-3_dk_00043">
     <hblocatie>WZ_1_6-3_dk_00043</hblocatie>
-    <categoriegrens>B</categoriegrens>
+    <doelkans>0.0001</doelkans>
     <bovengrensbekleding>6.3</bovengrensbekleding>
     <ondergrensbekleding>4.21</ondergrensbekleding>
     <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
@@ -21,7 +21,7 @@
   <map naam="Gevoeligheid">
     <berekening naam="Stapgrootte 1.0">
       <hblocatie>WZ_1_6-3_dk_00043</hblocatie>
-      <categoriegrens>B</categoriegrens>
+      <doelkans>0.0001</doelkans>
       <bovengrensbekleding>6.3</bovengrensbekleding>
       <ondergrensbekleding>4.21</ondergrensbekleding>
       <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
@@ -39,7 +39,7 @@
     </berekening>
     <berekening naam="Zonder voorland">
       <hblocatie>WZ_1_6-3_dk_00043</hblocatie>
-      <categoriegrens>B</categoriegrens>
+      <doelkans>0.0001</doelkans>
       <bovengrensbekleding>6.3</bovengrensbekleding>
       <ondergrensbekleding>4.21</ondergrensbekleding>
       <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
