@@ -29,8 +29,7 @@ using Core.Common.Util;
 using log4net;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Forms.Helpers;
-using Riskeer.Integration.IO.Properties;
+using Riskeer.Integration.IO.Helpers;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
@@ -138,39 +137,8 @@ namespace Riskeer.Integration.IO.Exporters
         {
             var exportedCalculations = new Dictionary<IEnumerable<HydraulicBoundaryLocationCalculation>, string>();
             return calculationsForTargetProbabilities.All(
-                calculationsForTargetProbability => ExportLocationCalculationsForTargetProbability(
+                calculationsForTargetProbability => HydraulicBoundaryLocationCalculationsExportHelper.ExportLocationCalculationsForTargetProbability(
                     calculationsForTargetProbability, exportedCalculations, calculationsType, folderPath));
-        }
-
-        private static bool ExportLocationCalculationsForTargetProbability(
-            Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double> calculationsForTargetProbability,
-            IDictionary<IEnumerable<HydraulicBoundaryLocationCalculation>, string> exportedCalculations,
-            HydraulicBoundaryLocationCalculationsType calculationsType,
-            string folderPath)
-        {
-            IEnumerable<HydraulicBoundaryLocationCalculation> calculations = calculationsForTargetProbability.Item1;
-            double targetProbability = calculationsForTargetProbability.Item2;
-
-            string exportType = calculationsType == HydraulicBoundaryLocationCalculationsType.WaterLevel
-                                    ? Resources.WaterLevels_DisplayName
-                                    : Resources.WaveHeights_DisplayName;
-
-            string uniqueName = NamingHelper.GetUniqueName(
-                exportedCalculations, $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(targetProbability)}",
-                c => c.Value);
-
-            string tempFilePath = Path.Combine(folderPath, $"{uniqueName}.{RiskeerCommonIOResources.Shape_file_filter_Extension}");
-
-            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
-                calculations, tempFilePath, calculationsType);
-
-            if (!exporter.Export())
-            {
-                return false;
-            }
-
-            exportedCalculations.Add(calculations, uniqueName);
-            return true;
         }
     }
 }
