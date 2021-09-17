@@ -20,12 +20,18 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
 using Core.Common.Base.IO;
-using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using log4net;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Util;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Integration.IO.Properties;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Integration.IO.Exporters
@@ -38,6 +44,7 @@ namespace Riskeer.Integration.IO.Exporters
         private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationsExporter));
         private readonly IAssessmentSection assessmentSection;
         private readonly string filePath;
+        private readonly string tempFolderPath;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsExporter"/>.
@@ -58,22 +65,111 @@ namespace Riskeer.Integration.IO.Exporters
 
             this.assessmentSection = assessmentSection;
             this.filePath = filePath;
+            string folderPath = Path.GetDirectoryName(filePath);
+            tempFolderPath = Path.Combine(folderPath, "~temp");
         }
 
         public bool Export()
         {
             try
             {
-                HydraulicBoundaryLocationsWriter.WriteHydraulicBoundaryLocations(
-                    AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection),
-                    filePath);
+                if (!ExportWaterLevelsForNormProbabilities()
+                    || !ExportWaterLevelCalculationsForUserDefinedTargetProbabilities()
+                    || !ExportWaveHeightCalculationsForUserDefinedTargetProbabilities())
+                {
+                    return false;
+                }
+                
+                ZipFile.CreateFromDirectory(tempFolderPath, filePath);
+                return true;
             }
-            catch (CriticalFileWriteException e)
+            catch (Exception e)
             {
-                log.ErrorFormat(RiskeerCommonIOResources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported, e.Message);
+                log.ErrorFormat(RiskeerCommonIOResources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported,
+                                e.Message);
+                return false;
+            }
+            finally
+            {
+                if (Directory.Exists(tempFolderPath))
+                {
+                    Directory.Delete(tempFolderPath, true);
+                }
+            }
+        }
+
+        private bool ExportWaterLevelsForNormProbabilities()
+        {
+            return ExportLocationCalculationsForTargetProbabilities(
+                new[]
+                {
+                    new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
+                        assessmentSection.WaterLevelCalculationsForLowerLimitNorm, assessmentSection.FailureMechanismContribution.LowerLimitNorm),
+                    new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
+                        assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection.FailureMechanismContribution.SignalingNorm)
+                },
+                HydraulicBoundaryLocationCalculationsType.WaterLevel,
+                Path.Combine(tempFolderPath, RiskeerCommonFormsResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName));
+        }
+
+        private bool ExportWaterLevelCalculationsForUserDefinedTargetProbabilities()
+        {
+            return ExportLocationCalculationsForTargetProbabilities(
+                assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                                 .Select(tp => new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
+                                             tp.HydraulicBoundaryLocationCalculations, tp.TargetProbability)),
+                HydraulicBoundaryLocationCalculationsType.WaterLevel,
+                Path.Combine(tempFolderPath, RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName));
+        }
+
+        private bool ExportWaveHeightCalculationsForUserDefinedTargetProbabilities()
+        {
+            return ExportLocationCalculationsForTargetProbabilities(
+                assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+                                 .Select(tp => new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
+                                             tp.HydraulicBoundaryLocationCalculations, tp.TargetProbability)),
+                HydraulicBoundaryLocationCalculationsType.WaveHeight,
+                Path.Combine(tempFolderPath, RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName));
+        }
+
+        private static bool ExportLocationCalculationsForTargetProbabilities(
+            IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>> calculationsForTargetProbabilities,
+            HydraulicBoundaryLocationCalculationsType calculationsType, string folderPath)
+        {
+            var exportedCalculations = new Dictionary<IEnumerable<HydraulicBoundaryLocationCalculation>, string>();
+            return calculationsForTargetProbabilities.All(
+                calculationsForTargetProbability => ExportLocationCalculationsForTargetProbability(
+                    calculationsForTargetProbability, exportedCalculations, calculationsType, folderPath));
+        } 
+        
+        private static bool ExportLocationCalculationsForTargetProbability(
+            Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double> calculationsForTargetProbability,
+            IDictionary<IEnumerable<HydraulicBoundaryLocationCalculation>, string> exportedCalculations,
+            HydraulicBoundaryLocationCalculationsType calculationsType,
+            string folderPath)
+        {
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculations = calculationsForTargetProbability.Item1;
+            double targetProbability = calculationsForTargetProbability.Item2;
+
+            string exportType = calculationsType == HydraulicBoundaryLocationCalculationsType.WaterLevel
+                                    ? Resources.WaterLevels_DisplayName
+                                    : Resources.WaveHeights_DisplayName;
+
+            string uniqueName = NamingHelper.GetUniqueName(
+                exportedCalculations, $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(targetProbability)}",
+                c => c.Value);
+
+            string tempFilePath = Path.Combine(folderPath, $"{uniqueName}.{RiskeerCommonIOResources.Shape_file_filter_Extension}");
+
+            var exporter = new HydraulicBoundaryLocationCalculationsExporter(
+                calculations, tempFilePath, calculationsType);
+
+            if (!exporter.Export())
+            {
                 return false;
             }
 
+            exportedCalculations.Add(calculations, uniqueName);
             return true;
         }
     }

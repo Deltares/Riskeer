@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -110,8 +110,6 @@ namespace Riskeer.Integration.IO.Test.Exporters
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
                 calculationsForTargetProbabilities, HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath);
 
-            string expectedFilePath = Path.Combine(directoryPath, "~temp", "Waterstanden_10.shp");
-
             try
             {
                 using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.CreateDirectories))
@@ -121,6 +119,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                     void Call() => isExported = exporter.Export();
 
                     // Assert
+                    string expectedFilePath = Path.Combine(directoryPath, "~temp", "Waterstanden_10.shp");
                     string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{expectedFilePath}'. " +
                                              "Er zijn geen hydraulische belastingenlocaties geëxporteerd.";
                     TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);

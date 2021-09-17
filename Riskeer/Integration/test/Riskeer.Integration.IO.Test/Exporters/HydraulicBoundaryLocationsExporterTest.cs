@@ -21,6 +21,8 @@
 
 using System;
 using System.IO;
+using System.IO.Compression;
+using System.Linq;
 using System.Security.AccessControl;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
@@ -29,7 +31,6 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.IO.TestUtil;
 using Riskeer.Integration.IO.Exporters;
 
 namespace Riskeer.Integration.IO.Test.Exporters
@@ -44,10 +45,10 @@ namespace Riskeer.Integration.IO.Test.Exporters
             string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.shp"));
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationsExporter(null, filePath);
+            void Call() => new HydraulicBoundaryLocationsExporter(null, filePath);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -60,10 +61,10 @@ namespace Riskeer.Integration.IO.Test.Exporters
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationsExporter(assessmentSection, null);
+            void Call() => new HydraulicBoundaryLocationsExporter(assessmentSection, null);
 
             // Assert
-            Assert.Throws<ArgumentException>(call);
+            Assert.Throws<ArgumentException>(Call);
             mocks.VerifyAll();
         }
 
@@ -95,15 +96,11 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             });
 
-            string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnsTrueAndWritesCorrectData");
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_ValidData_ReturnsTrueAndWritesCorrectData));
             Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.shp");
-            const string baseName = "test";
+            string filePath = Path.Combine(directoryPath, "test.zip");
 
             var exporter = new HydraulicBoundaryLocationsExporter(assessmentSection, filePath);
-
-            // Precondition
-            FileTestHelper.AssertEssentialShapefilesExist(directoryPath, baseName, false);
 
             try
             {
@@ -111,16 +108,63 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 bool isExported = exporter.Export();
 
                 // Assert
-                FileTestHelper.AssertEssentialShapefilesExist(directoryPath, baseName, true);
-                FileTestHelper.AssertEssentialShapefileMd5Hashes(directoryPath,
-                                                                 baseName,
-                                                                 Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
-                                                                              nameof(HydraulicBoundaryLocationsExporter)),
-                                                                 "ExpectedExport",
-                                                                 28,
-                                                                 8,
-                                                                 2637);
                 Assert.IsTrue(isExported);
+                string[] expectedFiles =
+                {
+                    "Waterstanden bij norm/Waterstanden_30.000.shp",
+                    "Waterstanden bij norm/Waterstanden_30.000 (1).shp",
+                    "Waterstanden bij doelkans/Waterstanden_10.000.shp",
+                    "Waterstanden bij doelkans/Waterstanden_100.000.shp",
+                    "Golfhoogten bij doelkans/Golfhoogten_4.000.shp",
+                    "Golfhoogten bij doelkans/Golfhoogten_40.000.shp"
+                };
+
+                using (ZipArchive zipArchive = ZipFile.OpenRead(filePath))
+                {
+                    CollectionAssert.IsSubsetOf(expectedFiles, zipArchive.Entries.Select(e => e.FullName));
+                }
+            }
+            finally
+            {
+                Directory.Delete(directoryPath, true);
+            }
+        }
+
+        [Test]
+        public void Export_AssessmentSectionWithoutUserDefinedTargetProbabilities_ReturnsTrueAndWritesCorrectData()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
+            });
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Clear();
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Clear();
+
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_AssessmentSectionWithoutUserDefinedTargetProbabilities_ReturnsTrueAndWritesCorrectData));
+            Directory.CreateDirectory(directoryPath);
+            string filePath = Path.Combine(directoryPath, "test.zip");
+
+            var exporter = new HydraulicBoundaryLocationsExporter(assessmentSection, filePath);
+
+            try
+            {
+                // Call
+                bool isExported = exporter.Export();
+
+                // Assert
+                Assert.IsTrue(isExported);
+                string[] expectedFiles =
+                {
+                    "Waterstanden bij norm/Waterstanden_30.000.shp",
+                    "Waterstanden bij norm/Waterstanden_30.000 (1).shp"
+                };
+
+                using (ZipArchive zipArchive = ZipFile.OpenRead(filePath))
+                {
+                    CollectionAssert.IsSubsetOf(expectedFiles, zipArchive.Entries.Select(e => e.FullName));
+                }
             }
             finally
             {
@@ -138,9 +182,9 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             });
 
-            string directoryPath = TestHelper.GetScratchPadPath("Export_InvalidDirectoryRights_LogErrorAndReturnFalse");
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse));
             Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.shp");
+            string filePath = Path.Combine(directoryPath, "test.zip");
 
             var exporter = new HydraulicBoundaryLocationsExporter(assessmentSection, filePath);
 
@@ -150,12 +194,13 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 {
                     // Call
                     var isExported = true;
-                    Action call = () => isExported = exporter.Export();
+                    void Call() => isExported = exporter.Export();
 
                     // Assert
-                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. " +
+                    string expectedFilePath = Path.Combine(directoryPath, "~temp", "Waterstanden bij norm", "Waterstanden_30.000.shp");
+                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{expectedFilePath}'. " +
                                              "Er zijn geen hydraulische belastingenlocaties geëxporteerd.";
-                    TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+                    TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);
                     Assert.IsFalse(isExported);
                 }
             }
