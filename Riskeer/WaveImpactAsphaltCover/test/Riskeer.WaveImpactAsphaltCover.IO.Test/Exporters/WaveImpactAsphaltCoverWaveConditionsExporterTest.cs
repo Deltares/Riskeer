@@ -40,7 +40,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Exporters
     public class WaveImpactAsphaltCoverWaveConditionsExporterTest
     {
         [Test]
-        public void Constructor_CalculationNull_ThrowArgumentNullException()
+        public void Constructor_CalculationsNull_ThrowArgumentNullException()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath("test.csv");

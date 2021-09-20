@@ -42,7 +42,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
         private readonly string testFilePath = TestHelper.GetScratchPadPath($"{nameof(GrassCoverErosionOutwardsWaveConditionsExporterTest)}.csv");
 
         [Test]
-        public void Constructor_CalculationNull_ThrowArgumentNullException()
+        public void Constructor_CalculationsNull_ThrowArgumentNullException()
         {
             // Call
             void Call() => new GrassCoverErosionOutwardsWaveConditionsExporter(null, testFilePath, i => "1/100");

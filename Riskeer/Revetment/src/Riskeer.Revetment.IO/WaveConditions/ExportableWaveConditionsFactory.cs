@@ -75,7 +75,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
         /// <param name="waveConditionsInput">The <see cref="AssessmentSectionCategoryWaveConditionsInput"/> used in the calculations.</param>
         /// <param name="output">The <see cref="WaveConditionsOutput"/> resulting from the calculations.</param>
         /// <param name="coverType">The <see cref="CoverType"/> that the <paramref name="output"/> represents.</param>
-        /// <param name="getTargetProbabilityFunc"></param>
+        /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use.</param>
         /// <returns>A collection of <see cref="ExportableWaveConditions"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="AssessmentSectionCategoryWaveConditionsInput.HydraulicBoundaryLocation"/> 
