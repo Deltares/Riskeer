@@ -22,7 +22,7 @@
 namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
-    /// The type of hydraulic boundary location calculations available within the application.
+    /// The hydraulic boundary location calculation type that are available within the application.
     /// </summary>
     public enum HydraulicBoundaryLocationCalculationType
     {
@@ -34,6 +34,6 @@ namespace Riskeer.Storage.Core.DbContext
         /// <summary>
         /// Corresponds with a wave height calculation.
         /// </summary>
-        Waveheight = 2
+        WaveHeight = 2
     }
 }

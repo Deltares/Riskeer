@@ -41,13 +41,12 @@ namespace Riskeer.Storage.Core.Test.Create
             var calculationType = random.NextEnumValue<HydraulicBoundaryLocationCalculationType>();
 
             // Call
-            TestDelegate call = () =>
-                ((HydraulicBoundaryLocationCalculationsForTargetProbability) null).Create(calculationType,
-                                                                                          random.Next(),
-                                                                                          new PersistenceRegistry());
+            void Call() => ((HydraulicBoundaryLocationCalculationsForTargetProbability) null).Create(calculationType, 
+                                                                                                     random.Next(),
+                                                                                                     new PersistenceRegistry());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
         }
 
@@ -60,10 +59,10 @@ namespace Riskeer.Storage.Core.Test.Create
             var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1));
 
             // Call
-            TestDelegate call = () => calculations.Create(calculationType, random.Next(), null);
+            void Call() => calculations.Create(calculationType, random.Next(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("registry", exception.ParamName);
         }
 

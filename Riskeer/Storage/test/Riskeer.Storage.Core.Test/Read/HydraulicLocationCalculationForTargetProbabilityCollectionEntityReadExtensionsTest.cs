@@ -39,11 +39,10 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
-                ((HydraulicLocationCalculationForTargetProbabilityCollectionEntity) null).Read(new ReadConversionCollector());
+            void Call() => ((HydraulicLocationCalculationForTargetProbabilityCollectionEntity) null).Read(new ReadConversionCollector());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 
@@ -54,10 +53,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new HydraulicLocationCalculationForTargetProbabilityCollectionEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            void Call() => entity.Read(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("collector", exception.ParamName);
         }
 

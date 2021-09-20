@@ -296,7 +296,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
             AssertHydraulicLocationCalculationForTargetProbabilityCollectionEntity(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
                                                                                    entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities
-                                                                                         .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.Waveheight));
+                                                                                         .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.WaveHeight));
 
             AssertHydraulicLocationCalculationForTargetProbabilityCollectionEntity(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities,
                                                                                    entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities

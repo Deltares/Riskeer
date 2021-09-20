@@ -227,7 +227,6 @@ namespace Riskeer.Storage.Core.Test.Read
             HydraulicBoundaryLocation hydraulicBoundaryLocation = section.HydraulicBoundaryDatabase.Locations.Single();
 
             HydraulicBoundaryLocationCalculation calculation = section.WaterLevelCalculationsForSignalingNorm.Single();
-            calculation = section.WaterLevelCalculationsForSignalingNorm.Single();
             HydraulicLocationCalculationEntity hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity1
                                                                                           .HydraulicLocationCalculationEntities
                                                                                           .Single();
@@ -249,14 +248,14 @@ namespace Riskeer.Storage.Core.Test.Read
                                                                     hydraulicBoundaryLocation,
                                                                     section.WaterLevelCalculationsForUserDefinedTargetProbabilities);
             AssertHydraulicLocationCalculationsForTargetProbability(entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities
-                                                                          .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.Waveheight)
+                                                                          .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.WaveHeight)
                                                                           .OrderBy(e => e.Order),
                                                                     hydraulicBoundaryLocation,
                                                                     section.WaveHeightCalculationsForUserDefinedTargetProbabilities);
         }
 
         [Test]
-        public void Read_WithoutHydraulicBoundaryLocationDatabase_ReturnsNewAssessementSectionWithoutHydraulicBoundaryLocationAndCalculations()
+        public void Read_WithoutHydraulicBoundaryLocationDatabase_ReturnsNewAssessmentSectionWithoutHydraulicBoundaryLocationAndCalculations()
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
@@ -276,8 +275,8 @@ namespace Riskeer.Storage.Core.Test.Read
             CollectionAssert.IsEmpty(section.WaterLevelCalculationsForSignalingNorm);
             CollectionAssert.IsEmpty(section.WaterLevelCalculationsForLowerLimitNorm);
 
-            CollectionAssert.IsEmpty(section.WaveHeightCalculationsForUserDefinedTargetProbabilities);
             CollectionAssert.IsEmpty(section.WaterLevelCalculationsForUserDefinedTargetProbabilities);
+            CollectionAssert.IsEmpty(section.WaveHeightCalculationsForUserDefinedTargetProbabilities);
         }
 
         [Test]
@@ -1029,20 +1028,14 @@ namespace Riskeer.Storage.Core.Test.Read
             HydraulicBoundaryLocation expectedHydraulicBoundaryLocation,
             IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> actualCalculationCollections)
         {
-            Assert.AreEqual(expectedCalculationCollectionEntities.Count(), actualCalculationCollections.Count());
+            int expectedNrOfEntities = expectedCalculationCollectionEntities.Count();
+            Assert.AreEqual(expectedNrOfEntities, actualCalculationCollections.Count());
 
-            var i = 0;
-            for (int j = 0; j < expectedCalculationCollectionEntities.Count(); j++)
+            for (var j = 0; j < expectedNrOfEntities; j++)
             {
-                HydraulicBoundaryLocationCalculationsForTargetProbability actualCalculationCollectionEntity = actualCalculationCollections.ElementAt(j);
-                AssertHydraulicLocationCalculationsForTargetProbability(expectedCalculationCollectionEntities.ElementAt(j), expectedHydraulicBoundaryLocation, actualCalculationCollectionEntity);
-            }
-
-            foreach (HydraulicLocationCalculationForTargetProbabilityCollectionEntity expectedCalculationCollectionEntity in expectedCalculationCollectionEntities)
-            {
-                HydraulicBoundaryLocationCalculationsForTargetProbability actualCalculationCollectionEntity = actualCalculationCollections.ElementAt(i);
-                AssertHydraulicLocationCalculationsForTargetProbability(expectedCalculationCollectionEntity, expectedHydraulicBoundaryLocation, actualCalculationCollectionEntity);
-                i++;
+                AssertHydraulicLocationCalculationsForTargetProbability(expectedCalculationCollectionEntities.ElementAt(j), 
+                                                                        expectedHydraulicBoundaryLocation, 
+                                                                        actualCalculationCollections.ElementAt(j));
             }
         }
 
@@ -1052,14 +1045,15 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             Assert.AreEqual(expectedCalculationCollectionEntity.TargetProbability, actualCalculations.TargetProbability);
             ICollection<HydraulicLocationCalculationEntity> expectedCalculations = expectedCalculationCollectionEntity.HydraulicLocationCalculationEntities;
-            Assert.AreEqual(expectedCalculations.Count, actualCalculations.HydraulicBoundaryLocationCalculations.Count);
+            int expectedNrOfCalculations = expectedCalculations.Count;
+            Assert.AreEqual(expectedNrOfCalculations, actualCalculations.HydraulicBoundaryLocationCalculations.Count);
 
-            var i = 0;
-            foreach (HydraulicLocationCalculationEntity expectedCalculationEntity in expectedCalculations)
+            for (var i = 0; i < expectedNrOfCalculations; i++)
             {
                 HydraulicBoundaryLocationCalculation actualCalculation = actualCalculations.HydraulicBoundaryLocationCalculations[i];
-                AssertHydraulicBoundaryLocationCalculation(expectedCalculationEntity, expectedHydraulicBoundaryLocation, actualCalculation);
-                i++;
+                AssertHydraulicBoundaryLocationCalculation(expectedCalculations.ElementAt(i),
+                                                           expectedHydraulicBoundaryLocation,
+                                                           actualCalculation);
             }
         }
 

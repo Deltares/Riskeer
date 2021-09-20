@@ -41,7 +41,7 @@ namespace Riskeer.Storage.Core.Create
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="HydraulicLocationCalculationForTargetProbabilityCollectionEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="calculations"/> or <paramref name="registry"/> is <c>null</c>.</exception>
         internal static HydraulicLocationCalculationForTargetProbabilityCollectionEntity Create(this HydraulicBoundaryLocationCalculationsForTargetProbability calculations,
                                                                                                 HydraulicBoundaryLocationCalculationType calculationType,
                                                                                                 int order,
@@ -63,6 +63,7 @@ namespace Riskeer.Storage.Core.Create
                 TargetProbability = calculations.TargetProbability,
                 Order = order
             };
+
             foreach (HydraulicBoundaryLocationCalculation calculation in calculations.HydraulicBoundaryLocationCalculations)
             {
                 collectionEntity.HydraulicLocationCalculationEntities.Add(calculation.Create(registry));

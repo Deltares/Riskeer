@@ -140,20 +140,20 @@ namespace Riskeer.Storage.Core.Read
                                                                                     IAssessmentSection assessmentSection,
                                                                                     ReadConversionCollector collector)
         {
-            IEnumerable<HydraulicLocationCalculationForTargetProbabilityCollectionEntity> waveHeightHydraulicLocationCalculationForTargetProbabilityCollectionEntities =
-                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities
-                      .Where(e => e.HydraulicBoundaryLocationCalculationType == (int) HydraulicBoundaryLocationCalculationType.Waveheight)
-                      .OrderBy(e => e.Order);
-
-            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.AddRange(waveHeightHydraulicLocationCalculationForTargetProbabilityCollectionEntities.Select(e => e.Read(collector))
-                                                                                                                                                                           .ToArray());
-
             IEnumerable<HydraulicLocationCalculationForTargetProbabilityCollectionEntity> waterLevelHydraulicLocationCalculationForTargetProbabilityCollectionEntities =
                 entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities
                       .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.WaterLevel)
                       .OrderBy(e => e.Order);
 
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(waterLevelHydraulicLocationCalculationForTargetProbabilityCollectionEntities.Select(e => e.Read(collector))
+                                                                                                                                                                           .ToArray());
+            
+            IEnumerable<HydraulicLocationCalculationForTargetProbabilityCollectionEntity> waveHeightHydraulicLocationCalculationForTargetProbabilityCollectionEntities =
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities
+                      .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.WaveHeight)
+                      .OrderBy(e => e.Order);
+
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.AddRange(waveHeightHydraulicLocationCalculationForTargetProbabilityCollectionEntities.Select(e => e.Read(collector))
                                                                                                                                                                            .ToArray());
         }
 

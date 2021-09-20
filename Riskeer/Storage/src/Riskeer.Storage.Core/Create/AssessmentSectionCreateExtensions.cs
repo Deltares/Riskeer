@@ -151,7 +151,7 @@ namespace Riskeer.Storage.Core.Create
                                                                                   registry);
 
             AddHydraulicLocationCalculationForTargetProbabilityCollectionEntities(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
-                                                                                  HydraulicBoundaryLocationCalculationType.Waveheight,
+                                                                                  HydraulicBoundaryLocationCalculationType.WaveHeight,
                                                                                   entity,
                                                                                   registry);
         }

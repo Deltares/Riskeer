@@ -1597,23 +1597,6 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual("Child2", child2.Name);
         }
 
-        private static HydraulicLocationCalculationCollectionEntity CreateHydraulicLocationCollectionCalculationEntity(HydraulicLocationEntity hydraulicLocationEntity,
-                                                                                                                       int seed)
-        {
-            var random = new Random(seed);
-            return new HydraulicLocationCalculationCollectionEntity
-            {
-                HydraulicLocationCalculationEntities =
-                {
-                    new HydraulicLocationCalculationEntity
-                    {
-                        HydraulicLocationEntity = hydraulicLocationEntity,
-                        ShouldIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean())
-                    }
-                }
-            };
-        }
-
         #endregion
 
         #region Stability Stone Cover
