@@ -44,7 +44,7 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.GrassRevetmentErosionOutwards, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
-            AddEntitiesForFailureMechanismMeta(mechanism, entity, registry);
+            AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
 
@@ -52,7 +52,7 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
         }
 
         private static void AddEntitiesForFailureMechanismMeta(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                               FailureMechanismEntity entity, PersistenceRegistry registry)
+                                                               FailureMechanismEntity entity)
         {
             var metaEntity = new GrassCoverErosionOutwardsFailureMechanismMetaEntity
             {
