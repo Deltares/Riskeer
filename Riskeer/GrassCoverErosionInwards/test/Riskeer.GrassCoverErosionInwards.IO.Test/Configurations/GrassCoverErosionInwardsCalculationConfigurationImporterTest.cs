@@ -764,7 +764,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             GrassCoverErosionInwardsInput actualInput = actualCalculation.InputParameters;
             Assert.AreSame(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
             Assert.AreEqual(expectedInput.Orientation, actualInput.Orientation);
-            Assert.AreEqual(expectedInput.DikeProfile, actualInput.DikeProfile);
+            Assert.AreSame(expectedInput.DikeProfile, actualInput.DikeProfile);
             Assert.AreEqual(expectedInput.DikeHeight, actualInput.DikeHeight);
             Assert.AreEqual(expectedInput.UseForeshore, actualInput.UseForeshore);
             Assert.AreEqual(expectedInput.UseBreakWater, actualInput.UseBreakWater);
