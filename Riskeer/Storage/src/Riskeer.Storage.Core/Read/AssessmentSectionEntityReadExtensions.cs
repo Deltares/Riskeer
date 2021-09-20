@@ -142,7 +142,7 @@ namespace Riskeer.Storage.Core.Read
         {
             IEnumerable<HydraulicLocationCalculationForTargetProbabilityCollectionEntity> waveHeightHydraulicLocationCalculationForTargetProbabilityCollectionEntities =
                 entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities
-                      .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.Waveheight)
+                      .Where(e => e.HydraulicBoundaryLocationCalculationType == (int) HydraulicBoundaryLocationCalculationType.Waveheight)
                       .OrderBy(e => e.Order);
 
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.AddRange(waveHeightHydraulicLocationCalculationForTargetProbabilityCollectionEntities.Select(e => e.Read(collector))

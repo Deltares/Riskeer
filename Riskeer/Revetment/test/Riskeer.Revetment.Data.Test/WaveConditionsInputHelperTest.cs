@@ -60,7 +60,7 @@ namespace Riskeer.Revetment.Data.Test
             var random = new Random(21);
 
             // Call
-            void Call() => WaveConditionsInputHelper.SetWaterLevelType((AssessmentSectionCategoryWaveConditionsInput) null, random.NextEnumValue<NormType>());
+            void Call() => WaveConditionsInputHelper.SetWaterLevelType(null, random.NextEnumValue<NormType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -106,7 +106,7 @@ namespace Riskeer.Revetment.Data.Test
             var random = new Random(21);
 
             // Call
-            void Call() => WaveConditionsInputHelper.SetWaterLevelType((FailureMechanismCategoryWaveConditionsInput) null,
+            void Call() => WaveConditionsInputHelper.SetWaterLevelType(null,
                                                                        random.NextEnumValue<NormType>());
 
             // Assert
@@ -132,9 +132,9 @@ namespace Riskeer.Revetment.Data.Test
         [Test]
         [TestCase(NormType.LowerLimit, WaveConditionsInputWaterLevelType.LowerLimit)]
         [TestCase(NormType.Signaling, WaveConditionsInputWaterLevelType.Signaling)]
-        public void SetWaterLevelType_WithFailureMechanismCategoryWaveConditionsInputAndVariousNormTypes_SetsCategoryType(
+        public void SetWaterLevelType_WithFailureMechanismCategoryWaveConditionsInputAndVariousNormTypes_SetsWaterLevelType(
             NormType normType,
-            WaveConditionsInputWaterLevelType expectedFailureMechanismCategoryType)
+            WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
         {
             // Setup
             var waveConditionsInput = new FailureMechanismCategoryWaveConditionsInput();
@@ -143,7 +143,7 @@ namespace Riskeer.Revetment.Data.Test
             WaveConditionsInputHelper.SetWaterLevelType(waveConditionsInput, normType);
 
             // Assert
-            Assert.AreEqual(expectedFailureMechanismCategoryType, waveConditionsInput.WaterLevelType);
+            Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, waveConditionsInput.WaterLevelType);
         }
 
         [Test]

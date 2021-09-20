@@ -52,14 +52,14 @@ namespace Riskeer.Revetment.Data
         /// Sets the <see cref="WaveConditionsInputWaterLevelType"/> of the <paramref name="waveConditionsInput"/>
         /// based on the <see cref="NormType"/>.
         /// </summary>
-        /// <param name="waveConditionsInput">The <see cref="AssessmentSectionCategoryWaveConditionsInput"/>
+        /// <param name="waveConditionsInput">The <see cref="WaveConditionsInput"/>
         /// to set the water level type for.</param>
         /// <param name="normType">The <see cref="NormType"/> to set the <paramref name="waveConditionsInput"/> for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
         /// but unsupported.</exception>
-        public static void SetWaterLevelType(AssessmentSectionCategoryWaveConditionsInput waveConditionsInput,
+        public static void SetWaterLevelType(WaveConditionsInput waveConditionsInput,
                                              NormType normType)
         {
             if (waveConditionsInput == null)

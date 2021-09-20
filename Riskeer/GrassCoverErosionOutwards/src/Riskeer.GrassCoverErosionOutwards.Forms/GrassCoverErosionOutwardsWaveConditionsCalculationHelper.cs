@@ -72,11 +72,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms
 
         /// <summary>
         /// Creates a calculation and sets the <paramref name="hydraulicBoundaryLocation"/>
-        /// and the category type on its input.
+        /// and the water level type on its input.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to set.</param>
         /// <param name="calculations">The list of calculations to base the calculation name from.</param>
-        /// <param name="normType">The <see cref="NormType"/> to base the category type input on.</param>
+        /// <param name="normType">The <see cref="NormType"/> to base the water level type input on.</param>
         /// <returns>An <see cref="ICalculationBase"/> representing a grass cover erosion outwards calculation.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,

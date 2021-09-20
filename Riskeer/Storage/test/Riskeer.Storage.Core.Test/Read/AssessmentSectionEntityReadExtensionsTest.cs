@@ -1032,6 +1032,12 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(expectedCalculationCollectionEntities.Count(), actualCalculationCollections.Count());
 
             var i = 0;
+            for (int j = 0; j < expectedCalculationCollectionEntities.Count(); j++)
+            {
+                HydraulicBoundaryLocationCalculationsForTargetProbability actualCalculationCollectionEntity = actualCalculationCollections.ElementAt(j);
+                AssertHydraulicLocationCalculationsForTargetProbability(expectedCalculationCollectionEntities.ElementAt(j), expectedHydraulicBoundaryLocation, actualCalculationCollectionEntity);
+            }
+
             foreach (HydraulicLocationCalculationForTargetProbabilityCollectionEntity expectedCalculationCollectionEntity in expectedCalculationCollectionEntities)
             {
                 HydraulicBoundaryLocationCalculationsForTargetProbability actualCalculationCollectionEntity = actualCalculationCollections.ElementAt(i);
