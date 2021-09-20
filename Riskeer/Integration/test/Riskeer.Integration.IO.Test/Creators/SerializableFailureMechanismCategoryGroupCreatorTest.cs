@@ -42,7 +42,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             TestDelegate call = () => SerializableFailureMechanismCategoryGroupCreator.Create(groupInput);
 
             // Assert
-            string message = $"The value of argument 'categoryGroup' ({(int) groupInput}) is invalid for Enum type '{nameof(FailureMechanismAssemblyCategoryGroup)}'.";
+            string message = $"The value of argument 'categoryGroup' ({groupInput}) is invalid for Enum type '{nameof(FailureMechanismAssemblyCategoryGroup)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, message);
         }
 

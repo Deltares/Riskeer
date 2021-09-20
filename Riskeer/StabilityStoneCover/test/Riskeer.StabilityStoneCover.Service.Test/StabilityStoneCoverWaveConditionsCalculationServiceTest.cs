@@ -133,7 +133,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                                                                                                failureMechanism.GeneralInput);
 
             // Assert
-            string expectedMessage = $"The value of argument 'calculationType' ({(int) calculation.InputParameters.CalculationType}) " +
+            string expectedMessage = $"The value of argument 'calculationType' ({calculation.InputParameters.CalculationType}) " +
                                      $"is invalid for Enum type '{nameof(StabilityStoneCoverWaveConditionsCalculationType)}'.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage)
                                          .ParamName;

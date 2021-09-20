@@ -77,7 +77,7 @@ namespace Riskeer.Revetment.Data.Test
             void Call() => WaveConditionsInputHelper.SetWaterLevelType(new AssessmentSectionCategoryWaveConditionsInput(), normType);
 
             // Assert
-            var expectedMessage = $"The value of argument 'normType' ({(int) normType}) is invalid for Enum type '{nameof(NormType)}'.";
+            var expectedMessage = $"The value of argument 'normType' ({normType}) is invalid for Enum type '{nameof(NormType)}'.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
             Assert.AreEqual("normType", exception.ParamName);
         }
@@ -124,7 +124,7 @@ namespace Riskeer.Revetment.Data.Test
             void Call() => WaveConditionsInputHelper.SetWaterLevelType(new FailureMechanismCategoryWaveConditionsInput(), normType);
 
             // Assert
-            var expectedMessage = $"The value of argument 'normType' ({(int) normType}) is invalid for Enum type '{nameof(NormType)}'.";
+            var expectedMessage = $"The value of argument 'normType' ({normType}) is invalid for Enum type '{nameof(NormType)}'.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
             Assert.AreEqual("normType", exception.ParamName);
         }
@@ -182,7 +182,7 @@ namespace Riskeer.Revetment.Data.Test
             void Call() => WaveConditionsInputHelper.GetHydraulicBoundaryLocationCalculation(waveConditionsInput, new AssessmentSectionStub());
 
             // Assert
-            var expectedMessage = $"The value of argument 'WaterLevelType' ({(int) waterLevelType}) is invalid for Enum type '{nameof(WaveConditionsInputWaterLevelType)}'.";
+            var expectedMessage = $"The value of argument 'WaterLevelType' ({waterLevelType}) is invalid for Enum type '{nameof(WaveConditionsInputWaterLevelType)}'.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
             Assert.AreEqual("WaterLevelType", exception.ParamName);
         }
@@ -252,7 +252,7 @@ namespace Riskeer.Revetment.Data.Test
             void Call() => WaveConditionsInputHelper.GetTargetProbability(waveConditionsInput, new AssessmentSectionStub());
 
             // Assert
-            var expectedMessage = $"The value of argument 'WaterLevelType' ({(int) waterLevelType}) is invalid for Enum type '{nameof(WaveConditionsInputWaterLevelType)}'.";
+            var expectedMessage = $"The value of argument 'WaterLevelType' ({waterLevelType}) is invalid for Enum type '{nameof(WaveConditionsInputWaterLevelType)}'.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
             Assert.AreEqual("WaterLevelType", exception.ParamName);
         }
@@ -315,7 +315,7 @@ namespace Riskeer.Revetment.Data.Test
             void Call() => WaveConditionsInputHelper.GetAssessmentLevel(waveConditionsInput, new AssessmentSectionStub());
 
             // Assert
-            var expectedMessage = $"The value of argument 'WaterLevelType' ({(int) waterLevelType}) is invalid for Enum type '{nameof(WaveConditionsInputWaterLevelType)}'.";
+            var expectedMessage = $"The value of argument 'WaterLevelType' ({waterLevelType}) is invalid for Enum type '{nameof(WaveConditionsInputWaterLevelType)}'.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
             Assert.AreEqual("WaterLevelType", exception.ParamName);
         }

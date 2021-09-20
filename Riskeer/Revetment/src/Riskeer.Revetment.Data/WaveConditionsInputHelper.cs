@@ -137,7 +137,7 @@ namespace Riskeer.Revetment.Data
         /// <item><see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> equals <c>null</c>.</item>
         /// </list>
         /// </returns>
-        /// <exception cref="NullReferenceException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="WaveConditionsInput.WaterLevelType"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="WaveConditionsInput.WaterLevelType"/>
@@ -188,7 +188,7 @@ namespace Riskeer.Revetment.Data
         /// <param name="assessmentSection">The assessment section the wave conditions input belongs to.</param>
         /// <returns>A target probability, or <see cref="double.NaN"/> when <see cref="WaveConditionsInput.WaterLevelType"/>
         /// equals <see cref="WaveConditionsInputWaterLevelType.None"/>.</returns>
-        /// <exception cref="NullReferenceException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="WaveConditionsInput.WaterLevelType"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="WaveConditionsInput.WaterLevelType"/>
@@ -239,7 +239,7 @@ namespace Riskeer.Revetment.Data
         /// <item>no assessment level is calculated door the selected <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/>.</item>
         /// </list>
         /// </returns>
-        /// <exception cref="NullReferenceException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="WaveConditionsInput.WaterLevelType"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="WaveConditionsInput.WaterLevelType"/>

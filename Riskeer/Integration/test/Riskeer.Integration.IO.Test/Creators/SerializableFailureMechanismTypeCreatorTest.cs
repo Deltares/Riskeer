@@ -41,7 +41,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             TestDelegate call = () => SerializableFailureMechanismTypeCreator.Create(failureMechanismType);
 
             // Assert
-            string message = $"The value of argument 'failureMechanismType' ({(int) failureMechanismType}) is invalid for Enum type '{nameof(ExportableFailureMechanismType)}'.";
+            string message = $"The value of argument 'failureMechanismType' ({failureMechanismType}) is invalid for Enum type '{nameof(ExportableFailureMechanismType)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, message);
         }
 

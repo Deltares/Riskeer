@@ -41,7 +41,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             TestDelegate call = () => SerializableAssemblyMethodCreator.Create(assemblyMethod);
 
             // Assert
-            string message = $"The value of argument 'assemblyMethod' ({(int) assemblyMethod}) is invalid for Enum type '{nameof(ExportableAssemblyMethod)}'.";
+            string message = $"The value of argument 'assemblyMethod' ({assemblyMethod}) is invalid for Enum type '{nameof(ExportableAssemblyMethod)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, message);
         }
 
