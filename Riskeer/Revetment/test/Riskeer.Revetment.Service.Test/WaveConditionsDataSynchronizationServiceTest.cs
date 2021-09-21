@@ -293,7 +293,8 @@ namespace Riskeer.Revetment.Service.Test
 
             // Assert
             CollectionAssert.AreEqual(expectedAffectedCalculations, affectedCalculations);
-            Assert.IsTrue(expectedAffectedCalculationsOutputCleared.All(c => !c.HasOutput));
+            Assert.IsTrue(expectedAffectedCalculationsOutputCleared.All(
+                              c => !c.HasOutput && c.InputParameters.WaterLevelType == WaveConditionsInputWaterLevelType.None));
             Assert.IsTrue(failureMechanism.Calculations.Except(expectedAffectedCalculationsOutputCleared).All(c => c.HasOutput));
             Assert.IsTrue(expectedAffectedCalculations.All(c => c.InputParameters.CalculationsTargetProbability == null));
             mocks.VerifyAll();
