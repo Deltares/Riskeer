@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
@@ -61,7 +64,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.IsInstanceOf<IDisposable>(mapLayer);
             MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
         }
-        
+
         [Test]
         public void GivenMapLayerWithHydraulicBoundaryLocations_WhenChangingHydraulicBoundaryLocationsDataAndObserversNotified_ThenMapDataUpdated()
         {
@@ -71,14 +74,14 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
             });
-            
+
             var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
-            
+
             mapLayer.MapData.Attach(observer);
 
             // Precondition
@@ -94,6 +97,49 @@ namespace Riskeer.Common.Forms.Test.Views
             // Then
             MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetCalculationFuncs))]
+        public void GivenMapLayerWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
+            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
+        {
+            // Given
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            mapLayer.MapData.Attach(observer);
+
+            // Precondition
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+
+            // When
+            HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
+            calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
+            calculation.NotifyObservers();
+
+            // Then
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+            mocks.VerifyAll();
+        }
+
+        private static IEnumerable<TestCaseData> GetCalculationFuncs()
+        {
+            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
+                                              assessmentSection => assessmentSection.WaterLevelCalculationsForSignalingNorm.First()));
+            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
+                                              assessmentSection => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First()));
         }
     }
 }

@@ -23,7 +23,9 @@ using System;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.Common.Forms.Views
 {
@@ -35,7 +37,9 @@ namespace Riskeer.Common.Forms.Views
         private readonly IAssessmentSection assessmentSection;
 
         private Observer hydraulicBoundaryLocationsObserver;
-        
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
+
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsMapLayer"/>.
         /// </summary>
@@ -51,11 +55,8 @@ namespace Riskeer.Common.Forms.Views
 
             this.assessmentSection = assessmentSection;
 
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateFeatures)
-            {
-                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
-            };
-            
+            CreateObservers();
+
             MapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             SetFeatures();
         }
@@ -76,14 +77,29 @@ namespace Riskeer.Common.Forms.Views
             if (disposing)
             {
                 hydraulicBoundaryLocationsObserver.Dispose();
+                waterLevelCalculationsForSignalingNormObserver.Dispose();
+                waterLevelCalculationsForLowerLimitNormObserver.Dispose();
             }
+        }
+
+        private void CreateObservers()
+        {
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateFeatures)
+            {
+                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
+            };
+
+            waterLevelCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                assessmentSection.WaterLevelCalculationsForSignalingNorm, UpdateFeatures);
+            waterLevelCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm, UpdateFeatures);
         }
 
         private void SetFeatures()
         {
             MapData.Features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(assessmentSection);
         }
-        
+
         private void UpdateFeatures()
         {
             SetFeatures();
