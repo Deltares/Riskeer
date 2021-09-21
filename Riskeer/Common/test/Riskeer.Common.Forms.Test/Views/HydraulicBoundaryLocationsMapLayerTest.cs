@@ -21,8 +21,9 @@
 
 using System;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Common.Forms.Test.Views
@@ -45,16 +46,18 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-            
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+            });
+
             // Call
             var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<IDisposable>(mapLayer);
-            mocks.VerifyAll();
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
         }
     }
 }

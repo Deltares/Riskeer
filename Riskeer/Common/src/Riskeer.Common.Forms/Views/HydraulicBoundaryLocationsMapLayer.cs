@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using Core.Components.Gis.Data;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Forms.Factories;
 
 namespace Riskeer.Common.Forms.Views
 {
@@ -45,7 +47,15 @@ namespace Riskeer.Common.Forms.Views
             }
 
             this.assessmentSection = assessmentSection;
+
+            MapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
+            SetFeatures();
         }
+
+        /// <summary>
+        /// Gets the hydraulic boundary locations map data.
+        /// </summary>
+        public MapPointData MapData { get; }
 
         public void Dispose()
         {
@@ -56,6 +66,11 @@ namespace Riskeer.Common.Forms.Views
         protected virtual void Dispose(bool disposing)
         {
             if (disposing) {}
+        }
+
+        private void SetFeatures()
+        {
+            MapData.Features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(assessmentSection);
         }
     }
 }
