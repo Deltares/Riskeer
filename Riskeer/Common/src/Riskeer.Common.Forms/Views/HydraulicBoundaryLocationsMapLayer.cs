@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Factories;
@@ -33,6 +34,8 @@ namespace Riskeer.Common.Forms.Views
     {
         private readonly IAssessmentSection assessmentSection;
 
+        private Observer hydraulicBoundaryLocationsObserver;
+        
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsMapLayer"/>.
         /// </summary>
@@ -48,6 +51,11 @@ namespace Riskeer.Common.Forms.Views
 
             this.assessmentSection = assessmentSection;
 
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateFeatures)
+            {
+                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
+            };
+            
             MapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             SetFeatures();
         }
@@ -65,12 +73,21 @@ namespace Riskeer.Common.Forms.Views
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing) {}
+            if (disposing)
+            {
+                hydraulicBoundaryLocationsObserver.Dispose();
+            }
         }
 
         private void SetFeatures()
         {
             MapData.Features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(assessmentSection);
+        }
+        
+        private void UpdateFeatures()
+        {
+            SetFeatures();
+            MapData.NotifyObservers();
         }
     }
 }

@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
@@ -58,6 +60,40 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<IDisposable>(mapLayer);
             MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+        }
+        
+        [Test]
+        public void GivenMapLayerWithHydraulicBoundaryLocations_WhenChangingHydraulicBoundaryLocationsDataAndObserversNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+            });
+            
+            var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+            
+            mapLayer.MapData.Attach(observer);
+
+            // Precondition
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+
+            // When
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
+            });
+            assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
+
+            // Then
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+            mocks.VerifyAll();
         }
     }
 }
