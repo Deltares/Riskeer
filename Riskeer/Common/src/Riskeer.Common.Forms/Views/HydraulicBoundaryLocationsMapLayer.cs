@@ -40,6 +40,9 @@ namespace Riskeer.Common.Forms.Views
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
 
+        private Observer waterLevelForUserDefinedTargetProbabilitiesObserver;
+        private Observer waveHeightForUserDefinedTargetProbabilitiesObserver;
+
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsMapLayer"/>.
         /// </summary>
@@ -79,6 +82,8 @@ namespace Riskeer.Common.Forms.Views
                 hydraulicBoundaryLocationsObserver.Dispose();
                 waterLevelCalculationsForSignalingNormObserver.Dispose();
                 waterLevelCalculationsForLowerLimitNormObserver.Dispose();
+                waterLevelForUserDefinedTargetProbabilitiesObserver.Dispose();
+                waveHeightForUserDefinedTargetProbabilitiesObserver.Dispose();
             }
         }
 
@@ -93,6 +98,15 @@ namespace Riskeer.Common.Forms.Views
                 assessmentSection.WaterLevelCalculationsForSignalingNorm, UpdateFeatures);
             waterLevelCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
                 assessmentSection.WaterLevelCalculationsForLowerLimitNorm, UpdateFeatures);
+
+            waterLevelForUserDefinedTargetProbabilitiesObserver = new Observer(UpdateFeatures)
+            {
+                Observable = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+            };
+            waveHeightForUserDefinedTargetProbabilitiesObserver = new Observer(UpdateFeatures)
+            {
+                Observable = assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+            };
         }
 
         private void SetFeatures()

@@ -134,12 +134,55 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
+        [TestCaseSource(nameof(GetTargetProbabilitiesFuncs))]
+        public void GivenMapLayerWithHydraulicBoundaryLocationsData_WhenWaterLevelCalculationsForUserDefinedTargetProbabilitiesUpdatedAndNotified_ThenMapDataUpdated(
+            Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc)
+        {
+            // Given
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            mapLayer.MapData.Attach(observer);
+
+            // Precondition
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+
+            // When
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
+            targetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1));
+            targetProbabilities.NotifyObservers();
+
+            // Then
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+            mocks.VerifyAll();
+        }
+
         private static IEnumerable<TestCaseData> GetCalculationFuncs()
         {
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
                                               assessmentSection => assessmentSection.WaterLevelCalculationsForSignalingNorm.First()));
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
                                               assessmentSection => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First()));
+        }
+
+        private static IEnumerable<TestCaseData> GetTargetProbabilitiesFuncs()
+        {
+            yield return new TestCaseData(new Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(
+                                              assessmentSection => assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities));
+            yield return new TestCaseData(new Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(
+                                              assessmentSection => assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities));
         }
     }
 }
