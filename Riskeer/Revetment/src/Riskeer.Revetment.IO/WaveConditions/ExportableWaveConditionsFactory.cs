@@ -134,7 +134,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
             }
 
             return output.Select(waveConditionsOutput => new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput,
-                                                                                      coverType, getTargetProbabilityFunc)).ToArray();
+                                                                                      coverType, getTargetProbabilityFunc(waveConditionsInput))).ToArray();
         }
     }
 }

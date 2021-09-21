@@ -37,7 +37,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
         /// <param name="waveConditionsInput">The input parameters of the parent calculation.</param>
         /// <param name="waveConditionsOutput">The output parameters of the parent calculation.</param>
         /// <param name="coverType">The type of dike cover.</param>
-        /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use.</param>
+        /// <param name="targetProbability">The target probability to use.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
         /// is <c>null</c> in <paramref name="waveConditionsInput"/>.</exception>
@@ -45,7 +45,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
                                         WaveConditionsInput waveConditionsInput,
                                         WaveConditionsOutput waveConditionsOutput,
                                         CoverType coverType,
-                                        Func<WaveConditionsInput, string> getTargetProbabilityFunc)
+                                        string targetProbability)
         {
             if (name == null)
             {
@@ -67,11 +67,6 @@ namespace Riskeer.Revetment.IO.WaveConditions
                 throw new ArgumentNullException(nameof(coverType));
             }
 
-            if (getTargetProbabilityFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getTargetProbabilityFunc));
-            }
-
             if (waveConditionsInput.HydraulicBoundaryLocation == null)
             {
                 throw new ArgumentException(@"HydraulicBoundaryLocation is null.", nameof(waveConditionsInput));
@@ -89,7 +84,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
             UseForeshore = waveConditionsInput.UseForeshore;
             UseBreakWater = waveConditionsInput.UseBreakWater;
             CoverType = coverType;
-            TargetProbability = getTargetProbabilityFunc(waveConditionsInput);
+            TargetProbability = targetProbability;
             WaterLevel = waveConditionsOutput.WaterLevel;
             WaveHeight = waveConditionsOutput.WaveHeight;
             WavePeriod = waveConditionsOutput.WavePeakPeriod;

@@ -38,7 +38,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new ExportableWaveConditions(null, CreateValidWaveConditionsInput(), waveConditionsOutput, CoverType.StoneCoverColumns, i => "1/100");
+            void Call() => new ExportableWaveConditions(null, CreateValidWaveConditionsInput(), waveConditionsOutput, CoverType.StoneCoverColumns, "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -49,7 +49,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void Constructor_WaveConditionsInputNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new ExportableWaveConditions("aName", null, waveConditionsOutput, CoverType.StoneCoverColumns, i => "1/100");
+            void Call() => new ExportableWaveConditions("aName", null, waveConditionsOutput, CoverType.StoneCoverColumns, "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -60,7 +60,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void Constructor_WaveConditionsOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), null, CoverType.StoneCoverColumns, i => "1/100");
+            void Call() => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), null, CoverType.StoneCoverColumns, "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -71,7 +71,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void Constructor_CoverTypeNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), waveConditionsOutput, null, i => "1/100");
+            void Call() => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), waveConditionsOutput, null, "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -82,23 +82,12 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void Constructor_WaveConditionsInputHydraulicBoundaryLocationNull_ThrowsArgumentException()
         {
             // Call
-            void Call() => new ExportableWaveConditions("aName", new TestWaveConditionsInput(), waveConditionsOutput, CoverType.StoneCoverColumns, i => "1/100");
+            void Call() => new ExportableWaveConditions("aName", new TestWaveConditionsInput(), waveConditionsOutput, CoverType.StoneCoverColumns, "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(Call);
             StringAssert.StartsWith("HydraulicBoundaryLocation is null.", exception.Message);
             Assert.AreEqual("waveConditionsInput", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_GetTargetProbabilityFuncNull_ThrowsArgumentException()
-        {
-            // Call
-            void Call() => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), waveConditionsOutput, CoverType.Asphalt, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("getTargetProbabilityFunc", exception.ParamName);
         }
 
         [Test]
@@ -118,7 +107,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
                                              waveConditionsInput,
                                              waveConditionsOutput,
                                              CoverType.StoneCoverColumns,
-                                             i => "1/100");
+                                             "1/100");
 
             // Assert
             Assert.AreEqual("ewcName", exportableWaveConditions.CalculationName);
@@ -159,7 +148,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
                                              waveConditionsInput,
                                              waveConditionsOutput,
                                              CoverType.StoneCoverColumns,
-                                             i => "1/100");
+                                             "1/100");
 
             // Assert
             Assert.AreEqual("ewcName", exportableWaveConditions.CalculationName);
