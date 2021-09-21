@@ -85,29 +85,12 @@ namespace Riskeer.Revetment.Data.Test
         [Test]
         [TestCase(NormType.LowerLimit, WaveConditionsInputWaterLevelType.LowerLimit)]
         [TestCase(NormType.Signaling, WaveConditionsInputWaterLevelType.Signaling)]
-        public void SetWaterLevelType_WithAssessmentSectionCategoryWaveConditionsInputAndVariousNormTypes_SetsWaterLevelType(
-            NormType normType,
-            WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
-        {
-            // Setup
-            var waveConditionsInput = new AssessmentSectionCategoryWaveConditionsInput();
-
-            // Call
-            WaveConditionsInputHelper.SetWaterLevelType(waveConditionsInput, normType);
-
-            // Assert
-            Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, waveConditionsInput.WaterLevelType);
-        }
-
-        [Test]
-        [TestCase(NormType.LowerLimit, WaveConditionsInputWaterLevelType.LowerLimit)]
-        [TestCase(NormType.Signaling, WaveConditionsInputWaterLevelType.Signaling)]
         public void SetWaterLevelType_WithFailureMechanismCategoryWaveConditionsInputAndVariousNormTypes_SetsWaterLevelType(
             NormType normType,
             WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
         {
             // Setup
-            var waveConditionsInput = new FailureMechanismCategoryWaveConditionsInput();
+            var waveConditionsInput = new TestWaveConditionsInput();
 
             // Call
             WaveConditionsInputHelper.SetWaterLevelType(waveConditionsInput, normType);
