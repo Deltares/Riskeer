@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
@@ -52,8 +53,13 @@ namespace Riskeer.Common.Util
         /// calculation for the lower limit norm.</param>
         /// <param name="waveHeightCalculationForFactorizedLowerLimitNorm">The result of the
         /// wave height calculation for the factorized lower limit norm.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or 
-        /// <paramref name="location"/> is <c>null</c>.</exception>
+        /// <param name="waterLevelCalculationForTargetProbabilities">The results of the
+        /// water level calculations for different target probabilities.</param>
+        /// <param name="waveHeightCalculationForTargetProbabilities">The results of the
+        /// wave height calculations for different target probabilities.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>, 
+        /// <paramref name="location"/>, <paramref name="waterLevelCalculationForTargetProbabilities"/>
+        /// or <paramref name="waveHeightCalculationForTargetProbabilities"/> is <c>null</c>.</exception>
         public AggregatedHydraulicBoundaryLocation(
             long id, string name, Point2D location,
             RoundedDouble waterLevelCalculationForFactorizedSignalingNorm,
@@ -63,7 +69,9 @@ namespace Riskeer.Common.Util
             RoundedDouble waveHeightCalculationForFactorizedSignalingNorm,
             RoundedDouble waveHeightCalculationForSignalingNorm,
             RoundedDouble waveHeightCalculationForLowerLimitNorm,
-            RoundedDouble waveHeightCalculationForFactorizedLowerLimitNorm)
+            RoundedDouble waveHeightCalculationForFactorizedLowerLimitNorm,
+            IEnumerable<Tuple<double, RoundedDouble>> waterLevelCalculationForTargetProbabilities,
+            IEnumerable<Tuple<double, RoundedDouble>> waveHeightCalculationForTargetProbabilities)
         {
             if (name == null)
             {
@@ -73,6 +81,16 @@ namespace Riskeer.Common.Util
             if (location == null)
             {
                 throw new ArgumentNullException(nameof(location));
+            }
+
+            if (waterLevelCalculationForTargetProbabilities == null)
+            {
+                throw new ArgumentNullException(nameof(waterLevelCalculationForTargetProbabilities));
+            }
+
+            if (waveHeightCalculationForTargetProbabilities == null)
+            {
+                throw new ArgumentNullException(nameof(waveHeightCalculationForTargetProbabilities));
             }
 
             Id = id;
@@ -86,6 +104,8 @@ namespace Riskeer.Common.Util
             WaveHeightCalculationForSignalingNorm = waveHeightCalculationForSignalingNorm;
             WaveHeightCalculationForLowerLimitNorm = waveHeightCalculationForLowerLimitNorm;
             WaveHeightCalculationForFactorizedLowerLimitNorm = waveHeightCalculationForFactorizedLowerLimitNorm;
+            WaterLevelCalculationForTargetProbabilities = waterLevelCalculationForTargetProbabilities;
+            WaveHeightCalculationForTargetProbabilities = waveHeightCalculationForTargetProbabilities;
         }
 
         /// <summary>
@@ -142,5 +162,15 @@ namespace Riskeer.Common.Util
         /// Gets the result of the wave height calculation for the factorized lower limit norm.
         /// </summary>
         public RoundedDouble WaveHeightCalculationForFactorizedLowerLimitNorm { get; }
+        
+        /// <summary>
+        /// Gets the results of the water level calculations for different target probabilities.
+        /// </summary>
+        public IEnumerable<Tuple<double, RoundedDouble>> WaterLevelCalculationForTargetProbabilities { get; }
+        
+        /// <summary>
+        /// Gets the results of the wave height calculations for different target probabilities.
+        /// </summary>
+        public IEnumerable<Tuple<double, RoundedDouble>> WaveHeightCalculationForTargetProbabilities { get; }
     }
 }

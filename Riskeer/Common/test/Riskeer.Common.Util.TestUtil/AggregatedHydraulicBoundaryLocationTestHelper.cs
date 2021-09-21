@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -42,22 +43,18 @@ namespace Riskeer.Common.Util.TestUtil
             return Create(random.NextRoundedDouble(), random.NextRoundedDouble(),
                           random.NextRoundedDouble(), random.NextRoundedDouble(),
                           random.NextRoundedDouble(), random.NextRoundedDouble(),
-                          random.NextRoundedDouble(), random.NextRoundedDouble());
+                          random.NextRoundedDouble(), random.NextRoundedDouble(),
+                          new[]
+                          {
+                              new Tuple<double, RoundedDouble>(random.NextDouble(), random.NextRoundedDouble())
+                          },
+                          new[]
+                          {
+                              new Tuple<double, RoundedDouble>(random.NextDouble(), random.NextRoundedDouble())
+                          });
         }
 
-        /// <summary>
-        /// Creates a new <see cref="AggregatedHydraulicBoundaryLocation"/> with given output.
-        /// </summary>
-        /// <param name="waterLevelCalculationForFactorizedSignalingNorm">The water level calculation for factorized signaling norm.</param>
-        /// <param name="waterLevelCalculationForSignalingNorm">The water level calculation for signaling norm.</param>
-        /// <param name="waterLevelCalculationForLowerLimitNorm">The water level calculation for lower limit norm.</param>
-        /// <param name="waterLevelCalculationForFactorizedLowerLimitNorm">The water level calculation for factorized lower limit norm.</param>
-        /// <param name="waveHeightCalculationForFactorizedSignalingNorm">The wave height calculation for factorized signaling norm.</param>
-        /// <param name="waveHeightCalculationForSignalingNorm">The wave height calculation for signaling norm.</param>
-        /// <param name="waveHeightCalculationForLowerLimitNorm">The wave height calculation for lower limit norm.</param>
-        /// <param name="waveHeightCalculationForFactorizedLowerLimitNorm">The wave height calculation for factorized lower limit norm.</param>
-        /// <returns>The created <see cref="AggregatedHydraulicBoundaryLocation"/>.</returns>
-        public static AggregatedHydraulicBoundaryLocation Create(
+        private static AggregatedHydraulicBoundaryLocation Create(
             RoundedDouble waterLevelCalculationForFactorizedSignalingNorm,
             RoundedDouble waterLevelCalculationForSignalingNorm,
             RoundedDouble waterLevelCalculationForLowerLimitNorm,
@@ -65,7 +62,9 @@ namespace Riskeer.Common.Util.TestUtil
             RoundedDouble waveHeightCalculationForFactorizedSignalingNorm,
             RoundedDouble waveHeightCalculationForSignalingNorm,
             RoundedDouble waveHeightCalculationForLowerLimitNorm,
-            RoundedDouble waveHeightCalculationForFactorizedLowerLimitNorm)
+            RoundedDouble waveHeightCalculationForFactorizedLowerLimitNorm,
+            IEnumerable<Tuple<double, RoundedDouble>> waterLevelCalculationForTargetProbabilities,
+            IEnumerable<Tuple<double, RoundedDouble>> waveHeightCalculationForTargetProbabilities)
         {
             return new AggregatedHydraulicBoundaryLocation(
                 1, "test", new Point2D(0, 0),
@@ -76,7 +75,9 @@ namespace Riskeer.Common.Util.TestUtil
                 waveHeightCalculationForFactorizedSignalingNorm,
                 waveHeightCalculationForSignalingNorm,
                 waveHeightCalculationForLowerLimitNorm,
-                waveHeightCalculationForFactorizedLowerLimitNorm);
+                waveHeightCalculationForFactorizedLowerLimitNorm,
+                waterLevelCalculationForTargetProbabilities,
+                waveHeightCalculationForTargetProbabilities);
         }
     }
 }

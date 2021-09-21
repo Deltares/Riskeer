@@ -83,7 +83,10 @@ namespace Riskeer.Common.Util
                                                 GetCalculationResult(waveHeightLookupForFactorizedSignalingNorm[location].Output),
                                                 GetCalculationResult(waveHeightLookupForSignalingNorm[location].Output),
                                                 GetCalculationResult(waveHeightLookupForLowerLimitNorm[location].Output),
-                                                GetCalculationResult(waveHeightLookupForFactorizedLowerLimitNorm[location].Output))).ToArray();
+                                                GetCalculationResult(waveHeightLookupForFactorizedLowerLimitNorm[location].Output),
+                                                Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                Array.Empty<Tuple<double, RoundedDouble>>()))
+                                    .ToArray();
         }
 
         private static RoundedDouble GetCalculationResult(HydraulicBoundaryLocationCalculationOutput output)

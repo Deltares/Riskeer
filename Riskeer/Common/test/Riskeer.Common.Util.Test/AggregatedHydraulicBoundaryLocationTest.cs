@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -34,14 +35,17 @@ namespace Riskeer.Common.Util.Test
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AggregatedHydraulicBoundaryLocation(0, null, new Point2D(0, 0),
-                                                                              new RoundedDouble(), new RoundedDouble(),
-                                                                              new RoundedDouble(), new RoundedDouble(),
-                                                                              new RoundedDouble(), new RoundedDouble(),
-                                                                              new RoundedDouble(), new RoundedDouble());
+            void Call() => new AggregatedHydraulicBoundaryLocation(
+                0, null, new Point2D(0, 0),
+                new RoundedDouble(), new RoundedDouble(),
+                new RoundedDouble(), new RoundedDouble(),
+                new RoundedDouble(), new RoundedDouble(),
+                new RoundedDouble(), new RoundedDouble(),
+                Enumerable.Empty<Tuple<double, RoundedDouble>>(),
+                Enumerable.Empty<Tuple<double, RoundedDouble>>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("name", exception.ParamName);
         }
 
@@ -49,15 +53,54 @@ namespace Riskeer.Common.Util.Test
         public void Constructor_LocationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AggregatedHydraulicBoundaryLocation(0, string.Empty, null,
-                                                                              new RoundedDouble(), new RoundedDouble(),
-                                                                              new RoundedDouble(), new RoundedDouble(),
-                                                                              new RoundedDouble(), new RoundedDouble(),
-                                                                              new RoundedDouble(), new RoundedDouble());
+            void Call() => new AggregatedHydraulicBoundaryLocation(
+                0, string.Empty, null,
+                new RoundedDouble(), new RoundedDouble(),
+                new RoundedDouble(), new RoundedDouble(),
+                new RoundedDouble(), new RoundedDouble(),
+                new RoundedDouble(), new RoundedDouble(),
+                Enumerable.Empty<Tuple<double, RoundedDouble>>(),
+                Enumerable.Empty<Tuple<double, RoundedDouble>>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("location", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WaterLevelCalculationForTargetProbabilitiesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new AggregatedHydraulicBoundaryLocation(
+                0, string.Empty, new Point2D(0, 0),
+                new RoundedDouble(), new RoundedDouble(),
+                new RoundedDouble(), new RoundedDouble(),
+                new RoundedDouble(), new RoundedDouble(),
+                new RoundedDouble(), new RoundedDouble(),
+                null,
+                Enumerable.Empty<Tuple<double, RoundedDouble>>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("waterLevelCalculationForTargetProbabilities", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WaveHeightCalculationForTargetProbabilitiesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new AggregatedHydraulicBoundaryLocation(
+                0, string.Empty, new Point2D(0, 0),
+                new RoundedDouble(), new RoundedDouble(),
+                new RoundedDouble(), new RoundedDouble(),
+                new RoundedDouble(), new RoundedDouble(),
+                new RoundedDouble(), new RoundedDouble(),
+                Enumerable.Empty<Tuple<double, RoundedDouble>>(),
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("waveHeightCalculationForTargetProbabilities", exception.ParamName);
         }
 
         [Test]
@@ -77,12 +120,15 @@ namespace Riskeer.Common.Util.Test
             RoundedDouble waveHeightCalculationForSignalingNorm = random.NextRoundedDouble();
             RoundedDouble waveHeightCalculationForLowerLimitNorm = random.NextRoundedDouble();
             RoundedDouble waveHeightCalculationForFactorizedLowerLimitNorm = random.NextRoundedDouble();
+            Tuple<double, RoundedDouble>[] waterLevelCalculationForTargetProbabilities = Array.Empty<Tuple<double, RoundedDouble>>();
+            Tuple<double, RoundedDouble>[] waveHeightCalculationForTargetProbabilities = Array.Empty<Tuple<double, RoundedDouble>>();
 
             // Call
             var aggregatedLocation = new AggregatedHydraulicBoundaryLocation(
                 id, name, location, waterLevelCalculationForFactorizedSignalingNorm, waterLevelCalculationForSignalingNorm,
                 waterLevelCalculationForLowerLimitNorm, waterLevelCalculationForFactorizedLowerLimitNorm, waveHeightCalculationForFactorizedSignalingNorm,
-                waveHeightCalculationForSignalingNorm, waveHeightCalculationForLowerLimitNorm, waveHeightCalculationForFactorizedLowerLimitNorm);
+                waveHeightCalculationForSignalingNorm, waveHeightCalculationForLowerLimitNorm, waveHeightCalculationForFactorizedLowerLimitNorm,
+                waterLevelCalculationForTargetProbabilities, waveHeightCalculationForTargetProbabilities);
 
             // Assert
             Assert.AreEqual(id, aggregatedLocation.Id);
@@ -96,6 +142,8 @@ namespace Riskeer.Common.Util.Test
             Assert.AreEqual(waveHeightCalculationForSignalingNorm, aggregatedLocation.WaveHeightCalculationForSignalingNorm);
             Assert.AreEqual(waveHeightCalculationForLowerLimitNorm, aggregatedLocation.WaveHeightCalculationForLowerLimitNorm);
             Assert.AreEqual(waveHeightCalculationForFactorizedLowerLimitNorm, aggregatedLocation.WaveHeightCalculationForFactorizedLowerLimitNorm);
+            Assert.AreSame(waterLevelCalculationForTargetProbabilities, aggregatedLocation.WaterLevelCalculationForTargetProbabilities);
+            Assert.AreSame(waveHeightCalculationForTargetProbabilities, aggregatedLocation.WaveHeightCalculationForTargetProbabilities);
         }
     }
 }
