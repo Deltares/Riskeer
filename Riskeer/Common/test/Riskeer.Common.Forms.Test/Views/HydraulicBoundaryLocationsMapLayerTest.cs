@@ -175,6 +175,12 @@ namespace Riskeer.Common.Forms.Test.Views
                                               assessmentSection => assessmentSection.WaterLevelCalculationsForSignalingNorm.First()));
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
                                               assessmentSection => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First()));
+            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
+                                              assessmentSection => assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First()
+                                                                                    .HydraulicBoundaryLocationCalculations.First()));
+            yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
+                                              assessmentSection => assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First()
+                                                                                    .HydraulicBoundaryLocationCalculations.First()));
         }
 
         private static IEnumerable<TestCaseData> GetTargetProbabilitiesFuncs()

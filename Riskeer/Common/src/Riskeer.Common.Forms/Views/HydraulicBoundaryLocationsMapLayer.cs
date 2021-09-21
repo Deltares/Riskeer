@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Riskeer.Common.Data.AssessmentSection;
@@ -42,6 +43,9 @@ namespace Riskeer.Common.Forms.Views
 
         private Observer waterLevelForUserDefinedTargetProbabilitiesObserver;
         private Observer waveHeightForUserDefinedTargetProbabilitiesObserver;
+
+        private List<RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>> waterLevelCalculationsForTargetProbabilityObservers;
+        private List<RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>> waveHeightCalculationsForTargetProbabilityObservers;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsMapLayer"/>.
@@ -84,6 +88,16 @@ namespace Riskeer.Common.Forms.Views
                 waterLevelCalculationsForLowerLimitNormObserver.Dispose();
                 waterLevelForUserDefinedTargetProbabilitiesObserver.Dispose();
                 waveHeightForUserDefinedTargetProbabilitiesObserver.Dispose();
+
+                foreach (RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> calculationsForTargetProbabilityObserver in waterLevelCalculationsForTargetProbabilityObservers)
+                {
+                    calculationsForTargetProbabilityObserver.Dispose();
+                }
+
+                foreach (RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> calculationsForTargetProbabilityObserver in waveHeightCalculationsForTargetProbabilityObservers)
+                {
+                    calculationsForTargetProbabilityObserver.Dispose();
+                }
             }
         }
 
@@ -107,6 +121,24 @@ namespace Riskeer.Common.Forms.Views
             {
                 Observable = assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
             };
+
+            waterLevelCalculationsForTargetProbabilityObservers = new List<RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>>();
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)
+            {
+                waterLevelCalculationsForTargetProbabilityObservers.Add(
+                    ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                        calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, UpdateFeatures));
+            }
+
+            waveHeightCalculationsForTargetProbabilityObservers = new List<RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>>();
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities)
+            {
+                waveHeightCalculationsForTargetProbabilityObservers.Add(
+                    ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+                        calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, UpdateFeatures));
+            }
         }
 
         private void SetFeatures()
