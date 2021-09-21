@@ -101,10 +101,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new PipingFailureMechanism
-            {
-                IsRelevant = true
-            };
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
             var properties = new PipingFailurePathProperties(failureMechanism, assessmentSection);
