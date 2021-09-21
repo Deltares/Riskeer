@@ -79,6 +79,17 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         }
 
         [Test]
+        public void Constructor_TargetProbabilityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new ExportableWaveConditions("aName", CreateValidWaveConditionsInput(), waveConditionsOutput, CoverType.Asphalt, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("targetProbability", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_WaveConditionsInputHydraulicBoundaryLocationNull_ThrowsArgumentException()
         {
             // Call
