@@ -792,15 +792,19 @@ namespace Riskeer.Integration.Plugin
                 <WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext>(
                     RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName,
                     HydraulicBoundaryLocationCalculationsType.WaterLevel,
-                    context => context.WrappedData.Select(tp => new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
-                                                              tp.HydraulicBoundaryLocationCalculations, tp.TargetProbability)));
+                    context => context.WrappedData
+                                      .Select(tp => new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
+                                                  tp.HydraulicBoundaryLocationCalculations, tp.TargetProbability))
+                                      .ToArray());
 
             yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityGroupExportInfo
                 <WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext>(
                     RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName,
                     HydraulicBoundaryLocationCalculationsType.WaveHeight,
-                    context => context.WrappedData.Select(tp => new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
-                                                              tp.HydraulicBoundaryLocationCalculations, tp.TargetProbability)));
+                    context => context.WrappedData
+                                      .Select(tp => new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
+                                                  tp.HydraulicBoundaryLocationCalculations, tp.TargetProbability))
+                                      .ToArray());
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
@@ -1233,7 +1237,7 @@ namespace Riskeer.Integration.Plugin
 
         private ExportInfo<T> CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityGroupExportInfo<T>(
             string displayName, HydraulicBoundaryLocationCalculationsType calculationsType,
-            Func<T, IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>>> locationCalculationsForTargetProbabilities)
+            Func<T, IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>>> locationCalculationsForTargetProbabilitiesFunc)
             where T : HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext
         {
             return new ExportInfo<T>
@@ -1241,8 +1245,8 @@ namespace Riskeer.Integration.Plugin
                 Name = context => displayName,
                 Extension = Resources.Zip_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
-                    locationCalculationsForTargetProbabilities(context), calculationsType, filePath),
-                IsEnabled = context => locationCalculationsForTargetProbabilities(context).Any(),
+                    locationCalculationsForTargetProbabilitiesFunc(context), calculationsType, filePath),
+                IsEnabled = context => locationCalculationsForTargetProbabilitiesFunc(context).Any(),
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.Zip_file_filter_Extension,
                                                                                                            Resources.Zip_file_filter_Description))
             };

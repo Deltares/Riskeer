@@ -21,7 +21,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// <see cref="HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         protected HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext(ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> wrappedData,
-                                                                                                         IAssessmentSection assessmentSection)
+                                                                                                     IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (assessmentSection == null)

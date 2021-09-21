@@ -132,12 +132,12 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
+        public void Export_WriterThrowsCriticalFileWriteException_LogErrorAndReturnFalse()
         {
             // Setup
             const string fileName = "test";
 
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse));
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_WriterThrowsCriticalFileWriteException_LogErrorAndReturnFalse));
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, $"{fileName}.shp");
 
