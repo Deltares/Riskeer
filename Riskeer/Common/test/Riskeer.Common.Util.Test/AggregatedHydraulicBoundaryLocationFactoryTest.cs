@@ -36,10 +36,10 @@ namespace Riskeer.Common.Util.Test
         public void CreateAggregatedHydraulicBoundaryLocations_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(null);
+            void Call() => AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -47,7 +47,13 @@ namespace Riskeer.Common.Util.Test
         public void CreateAggregatedHydraulicBoundaryLocations_AssessmentSectionWithLocationsWithOutput_ReturnAggregatedHydraulicBoundaryLocations()
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    LowerLimitNorm = 0.001
+                }
+            };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "location1", 1, 1),
@@ -55,35 +61,75 @@ namespace Riskeer.Common.Util.Test
             }, true);
 
             // Call
-            AggregatedHydraulicBoundaryLocation[] aggregatedLocations = AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection).ToArray();
+            IEnumerable<AggregatedHydraulicBoundaryLocation> aggregatedLocations = AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection);
 
             // Assert
+            Tuple<double, IEnumerable<HydraulicBoundaryLocationCalculation>>[] expectedWaterLevelTargetProbabilities = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                                                                                                                                        .Select(tp => new Tuple<double, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                                                                                                                                                    tp.TargetProbability, tp.HydraulicBoundaryLocationCalculations))
+                                                                                                                                        .Concat(new[]
+                                                                                                                                        {
+                                                                                                                                            new Tuple<double, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                                                                                                                                                assessmentSection.FailureMechanismContribution.SignalingNorm,
+                                                                                                                                                assessmentSection.WaterLevelCalculationsForSignalingNorm),
+                                                                                                                                            new Tuple<double, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                                                                                                                                                assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                                                                                                                                                assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
+                                                                                                                                        })
+                                                                                                                                        .OrderByDescending(tp => tp.Item1)
+                                                                                                                                        .ToArray();
+
+            Tuple<double, IEnumerable<HydraulicBoundaryLocationCalculation>>[] expectedWaveHeightTargetProbabilities = assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+                                                                                                                                        .Select(tp => new Tuple<double, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                                                                                                                                                    tp.TargetProbability, tp.HydraulicBoundaryLocationCalculations))
+                                                                                                                                        .OrderByDescending(tp => tp.Item1)
+                                                                                                                                        .ToArray();
+
             HydraulicBoundaryLocation[] expectedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
-            Assert.AreEqual(expectedLocations.Length, aggregatedLocations.Length);
+            Assert.AreEqual(expectedLocations.Length, aggregatedLocations.Count());
 
             for (var i = 0; i < expectedLocations.Length; i++)
             {
-                Assert.AreEqual(expectedLocations[i].Id, aggregatedLocations[i].Id);
-                Assert.AreEqual(expectedLocations[i].Name, aggregatedLocations[i].Name);
-                Assert.AreEqual(expectedLocations[i].Location, aggregatedLocations[i].Location);
+                AggregatedHydraulicBoundaryLocation aggregatedLocation = aggregatedLocations.ElementAt(i);
+
+                Assert.AreEqual(expectedLocations[i].Id, aggregatedLocation.Id);
+                Assert.AreEqual(expectedLocations[i].Name, aggregatedLocation.Name);
+                Assert.AreEqual(expectedLocations[i].Location, aggregatedLocation.Location);
 
                 Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, expectedLocations[i]),
-                                aggregatedLocations[i].WaterLevelCalculationForFactorizedSignalingNorm);
+                                aggregatedLocation.WaterLevelCalculationForFactorizedSignalingNorm);
                 Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForSignalingNorm, expectedLocations[i]),
-                                aggregatedLocations[i].WaterLevelCalculationForSignalingNorm);
+                                aggregatedLocation.WaterLevelCalculationForSignalingNorm);
                 Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, expectedLocations[i]),
-                                aggregatedLocations[i].WaterLevelCalculationForLowerLimitNorm);
+                                aggregatedLocation.WaterLevelCalculationForLowerLimitNorm);
                 Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, expectedLocations[i]),
-                                aggregatedLocations[i].WaterLevelCalculationForFactorizedLowerLimitNorm);
+                                aggregatedLocation.WaterLevelCalculationForFactorizedLowerLimitNorm);
 
                 Assert.AreEqual(GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, expectedLocations[i]),
-                                aggregatedLocations[i].WaveHeightCalculationForFactorizedSignalingNorm);
+                                aggregatedLocation.WaveHeightCalculationForFactorizedSignalingNorm);
                 Assert.AreEqual(GetExpectedResult(assessmentSection.WaveHeightCalculationsForSignalingNorm, expectedLocations[i]),
-                                aggregatedLocations[i].WaveHeightCalculationForSignalingNorm);
+                                aggregatedLocation.WaveHeightCalculationForSignalingNorm);
                 Assert.AreEqual(GetExpectedResult(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, expectedLocations[i]),
-                                aggregatedLocations[i].WaveHeightCalculationForLowerLimitNorm);
+                                aggregatedLocation.WaveHeightCalculationForLowerLimitNorm);
                 Assert.AreEqual(GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, expectedLocations[i]),
-                                aggregatedLocations[i].WaveHeightCalculationForFactorizedLowerLimitNorm);
+                                aggregatedLocation.WaveHeightCalculationForFactorizedLowerLimitNorm);
+
+                Assert.AreEqual(expectedWaterLevelTargetProbabilities.Length, aggregatedLocation.WaterLevelCalculationForTargetProbabilities.Count());
+                Assert.AreEqual(expectedWaveHeightTargetProbabilities.Length, aggregatedLocation.WaveHeightCalculationForTargetProbabilities.Count());
+
+                for (var j = 0; j < expectedWaterLevelTargetProbabilities.Length; j++)
+                {
+                    Assert.AreEqual(expectedWaterLevelTargetProbabilities[j].Item1, aggregatedLocation.WaterLevelCalculationForTargetProbabilities.ElementAt(j).Item1);
+                    Assert.AreEqual(GetExpectedResult(expectedWaterLevelTargetProbabilities[j].Item2, expectedLocations[i]),
+                                    aggregatedLocation.WaterLevelCalculationForTargetProbabilities.ElementAt(j).Item2);
+                }
+
+                for (var j = 0; j < expectedWaveHeightTargetProbabilities.Length; j++)
+                {
+                    Assert.AreEqual(expectedWaveHeightTargetProbabilities[j].Item1, aggregatedLocation.WaveHeightCalculationForTargetProbabilities.ElementAt(j).Item1);
+                    Assert.AreEqual(GetExpectedResult(expectedWaveHeightTargetProbabilities[j].Item2, expectedLocations[i]),
+                                    aggregatedLocation.WaveHeightCalculationForTargetProbabilities.ElementAt(j).Item2);
+                }
             }
         }
 
@@ -99,27 +145,32 @@ namespace Riskeer.Common.Util.Test
             });
 
             // Call
-            AggregatedHydraulicBoundaryLocation[] aggregatedLocations = AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection).ToArray();
+            IEnumerable<AggregatedHydraulicBoundaryLocation> aggregatedLocations = AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection);
 
             // Assert
             HydraulicBoundaryLocation[] expectedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
-            Assert.AreEqual(expectedLocations.Length, aggregatedLocations.Length);
+            Assert.AreEqual(expectedLocations.Length, aggregatedLocations.Count());
 
             for (var i = 0; i < expectedLocations.Length; i++)
             {
-                Assert.AreEqual(expectedLocations[i].Id, aggregatedLocations[i].Id);
-                Assert.AreEqual(expectedLocations[i].Name, aggregatedLocations[i].Name);
-                Assert.AreEqual(expectedLocations[i].Location, aggregatedLocations[i].Location);
+                AggregatedHydraulicBoundaryLocation aggregatedLocation = aggregatedLocations.ElementAt(i);
 
-                Assert.IsNaN(aggregatedLocations[i].WaterLevelCalculationForFactorizedSignalingNorm);
-                Assert.IsNaN(aggregatedLocations[i].WaterLevelCalculationForSignalingNorm);
-                Assert.IsNaN(aggregatedLocations[i].WaterLevelCalculationForLowerLimitNorm);
-                Assert.IsNaN(aggregatedLocations[i].WaterLevelCalculationForFactorizedLowerLimitNorm);
+                Assert.AreEqual(expectedLocations[i].Id, aggregatedLocation.Id);
+                Assert.AreEqual(expectedLocations[i].Name, aggregatedLocation.Name);
+                Assert.AreEqual(expectedLocations[i].Location, aggregatedLocation.Location);
 
-                Assert.IsNaN(aggregatedLocations[i].WaveHeightCalculationForFactorizedSignalingNorm);
-                Assert.IsNaN(aggregatedLocations[i].WaveHeightCalculationForSignalingNorm);
-                Assert.IsNaN(aggregatedLocations[i].WaveHeightCalculationForLowerLimitNorm);
-                Assert.IsNaN(aggregatedLocations[i].WaveHeightCalculationForFactorizedLowerLimitNorm);
+                Assert.IsNaN(aggregatedLocation.WaterLevelCalculationForFactorizedSignalingNorm);
+                Assert.IsNaN(aggregatedLocation.WaterLevelCalculationForSignalingNorm);
+                Assert.IsNaN(aggregatedLocation.WaterLevelCalculationForLowerLimitNorm);
+                Assert.IsNaN(aggregatedLocation.WaterLevelCalculationForFactorizedLowerLimitNorm);
+
+                Assert.IsNaN(aggregatedLocation.WaveHeightCalculationForFactorizedSignalingNorm);
+                Assert.IsNaN(aggregatedLocation.WaveHeightCalculationForSignalingNorm);
+                Assert.IsNaN(aggregatedLocation.WaveHeightCalculationForLowerLimitNorm);
+                Assert.IsNaN(aggregatedLocation.WaveHeightCalculationForFactorizedLowerLimitNorm);
+
+                Assert.IsTrue(aggregatedLocation.WaterLevelCalculationForTargetProbabilities.All(tp => double.IsNaN(tp.Item2)));
+                Assert.IsTrue(aggregatedLocation.WaveHeightCalculationForTargetProbabilities.All(tp => double.IsNaN(tp.Item2)));
             }
         }
 

@@ -73,6 +73,30 @@ namespace Riskeer.Common.Util
                 assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.ToDictionary(c => c.HydraulicBoundaryLocation,
                                                                                                  c => c);
 
+            IEnumerable<Tuple<double, Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>>> lookupForWaterLevelTargetProbabilities =
+                assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                                 .Select(tp => new Tuple<double, Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>>(
+                                             tp.TargetProbability, tp.HydraulicBoundaryLocationCalculations.ToDictionary(c => c.HydraulicBoundaryLocation, c => c)))
+                                 .Concat(new[]
+                                 {
+                                     new Tuple<double, Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>>(
+                                         assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                                         assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ToDictionary(c => c.HydraulicBoundaryLocation, c => c)),
+                                     new Tuple<double, Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>>(
+                                         assessmentSection.FailureMechanismContribution.SignalingNorm,
+                                         assessmentSection.WaterLevelCalculationsForSignalingNorm.ToDictionary(c => c.HydraulicBoundaryLocation, c => c))
+                                 })
+                                 .OrderByDescending(tp => tp.Item1)
+                                 .ToArray();
+
+            IEnumerable<Tuple<double, Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>>> lookupForWaveHeightTargetProbabilities =
+                assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+                                 .Select(tp => new Tuple<double, Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>>(
+                                             tp.TargetProbability, tp.HydraulicBoundaryLocationCalculations
+                                                                     .ToDictionary(c => c.HydraulicBoundaryLocation, c => c)))
+                                 .OrderByDescending(tp => tp.Item1)
+                                 .ToArray();
+
             return assessmentSection.HydraulicBoundaryDatabase.Locations
                                     .Select(location => new AggregatedHydraulicBoundaryLocation(
                                                 location.Id, location.Name, location.Location,
@@ -84,8 +108,12 @@ namespace Riskeer.Common.Util
                                                 GetCalculationResult(waveHeightLookupForSignalingNorm[location].Output),
                                                 GetCalculationResult(waveHeightLookupForLowerLimitNorm[location].Output),
                                                 GetCalculationResult(waveHeightLookupForFactorizedLowerLimitNorm[location].Output),
-                                                Array.Empty<Tuple<double, RoundedDouble>>(),
-                                                Array.Empty<Tuple<double, RoundedDouble>>()))
+                                                lookupForWaterLevelTargetProbabilities.Select(tuple => new Tuple<double, RoundedDouble>(
+                                                                                                  tuple.Item1, GetCalculationResult(tuple.Item2[location].Output)))
+                                                                                      .ToArray(),
+                                                lookupForWaveHeightTargetProbabilities.Select(tuple => new Tuple<double, RoundedDouble>(
+                                                                                                  tuple.Item1, GetCalculationResult(tuple.Item2[location].Output)))
+                                                                                      .ToArray()))
                                     .ToArray();
         }
 
