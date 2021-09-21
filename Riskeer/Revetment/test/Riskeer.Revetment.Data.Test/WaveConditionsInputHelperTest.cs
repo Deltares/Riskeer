@@ -54,7 +54,7 @@ namespace Riskeer.Revetment.Data.Test
         }
 
         [Test]
-        public void SetWaterLevelType_AssessmentSectionCategoryWaveConditionsInputNull_ThrowsArgumentNullException()
+        public void SetWaterLevelType_WaveConditionsInputNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
@@ -68,7 +68,7 @@ namespace Riskeer.Revetment.Data.Test
         }
 
         [Test]
-        public void SetWaterLevelType_WithAssessmentSectionCategoryWaveConditionsInputAndInvalidNormType_ThrowsInvalidEnumArgumentException()
+        public void SetWaterLevelType_InvalidNormType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             const NormType normType = (NormType) 99;
@@ -97,36 +97,6 @@ namespace Riskeer.Revetment.Data.Test
 
             // Assert
             Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, waveConditionsInput.WaterLevelType);
-        }
-
-        [Test]
-        public void SetWaterLevelType_FailureMechanismCategoryWaveConditionsInputNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var random = new Random(21);
-
-            // Call
-            void Call() => WaveConditionsInputHelper.SetWaterLevelType(null,
-                                                                       random.NextEnumValue<NormType>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("waveConditionsInput", exception.ParamName);
-        }
-
-        [Test]
-        public void SetWaterLevelType_WithFailureMechanismCategoryWaveConditionsInputAndInvalidNormType_ThrowsInvalidEnumArgumentException()
-        {
-            // Setup
-            const NormType normType = (NormType) 99;
-
-            // Call
-            void Call() => WaveConditionsInputHelper.SetWaterLevelType(new FailureMechanismCategoryWaveConditionsInput(), normType);
-
-            // Assert
-            var expectedMessage = $"The value of argument 'normType' ({normType}) is invalid for Enum type '{nameof(NormType)}'.";
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
-            Assert.AreEqual("normType", exception.ParamName);
         }
 
         [Test]
