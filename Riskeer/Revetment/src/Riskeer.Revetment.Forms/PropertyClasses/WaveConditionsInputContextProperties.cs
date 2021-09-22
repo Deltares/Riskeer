@@ -361,6 +361,10 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
                                                                              .Single(tp => tp.HydraulicBoundaryLocationCalculations
                                                                                              .Equals(value.HydraulicBoundaryLocationCalculations));
                     }
+                    else
+                    {
+                        data.WrappedData.CalculationsTargetProbability = null;
+                    }
                 });
             }
         }

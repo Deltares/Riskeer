@@ -238,18 +238,15 @@ namespace Riskeer.Revetment.Service.Test
 
             var calculation1 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
             {
-                WaterLevelType = WaveConditionsInputWaterLevelType.Signaling,
-                CalculationsTargetProbability = calculationsForTargetProbabilityToClear
+                WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
             }, true);
             var calculation2 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
             {
-                WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
-                CalculationsTargetProbability = calculationsForTargetProbabilityToClear
+                WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
             }, true);
             var calculation3 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
             {
-                WaterLevelType = WaveConditionsInputWaterLevelType.None,
-                CalculationsTargetProbability = calculationsForTargetProbabilityToClear
+                WaterLevelType = WaveConditionsInputWaterLevelType.None
             }, true);
             var calculation4 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
             {
@@ -274,29 +271,24 @@ namespace Riskeer.Revetment.Service.Test
             });
             mocks.ReplayAll();
 
-            TestWaveConditionsCalculation<WaveConditionsInput>[] expectedAffectedCalculationsOutputCleared =
-            {
-                calculation4
-            };
-
             TestWaveConditionsCalculation<WaveConditionsInput>[] expectedAffectedCalculations =
             {
-                calculation1,
-                calculation2,
-                calculation3,
                 calculation4
             };
-
+            
             // Call
             IEnumerable<IObservable> affectedCalculations = WaveConditionsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<IFailureMechanism, TestWaveConditionsCalculation<WaveConditionsInput>>(
                 failureMechanism, calculationsForTargetProbabilityToClear);
 
             // Assert
             CollectionAssert.AreEqual(expectedAffectedCalculations, affectedCalculations);
-            Assert.IsTrue(expectedAffectedCalculationsOutputCleared.All(
-                              c => !c.HasOutput && c.InputParameters.WaterLevelType == WaveConditionsInputWaterLevelType.None));
-            Assert.IsTrue(failureMechanism.Calculations.Except(expectedAffectedCalculationsOutputCleared).All(c => c.HasOutput));
+            Assert.IsTrue(expectedAffectedCalculations.All(
+                              c => !c.HasOutput
+                                   && c.InputParameters.WaterLevelType == WaveConditionsInputWaterLevelType.None));
             Assert.IsTrue(expectedAffectedCalculations.All(c => c.InputParameters.CalculationsTargetProbability == null));
+            
+            Assert.IsTrue(failureMechanism.Calculations.Except(expectedAffectedCalculations).All(c => c.HasOutput));
+            Assert.IsNotNull(calculation5.InputParameters.CalculationsTargetProbability);
             mocks.VerifyAll();
         }
     }
