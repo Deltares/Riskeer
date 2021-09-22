@@ -30,6 +30,7 @@ using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Util.TestUtil;
 
@@ -69,35 +70,31 @@ namespace Riskeer.Common.Forms.TestUtil
                 HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocationsArray[i];
                 MapFeature mapFeature = features.ElementAt(i);
 
-                Assert.AreEqual(hydraulicBoundaryLocation.Id, mapFeature.MetaData["ID"]);
-                Assert.AreEqual(hydraulicBoundaryLocation.Name, mapFeature.MetaData["Naam"]);
                 Assert.AreEqual(hydraulicBoundaryLocation.Location, mapFeature.MapGeometries.First().PointCollections.First().First());
 
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation),
-                    mapFeature, "h_Aplus");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForSignalingNorm, hydraulicBoundaryLocation),
-                    mapFeature, "h_A");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
-                    mapFeature, "h_B");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
-                    mapFeature, "h_C");
+                MapFeaturesMetaDataTestHelper.AssertMetaData(hydraulicBoundaryLocation.Id, mapFeature, "ID");
+                MapFeaturesMetaDataTestHelper.AssertMetaData(hydraulicBoundaryLocation.Name, mapFeature, "Naam");
 
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, hydraulicBoundaryLocation),
-                    mapFeature, "Hs_Aplus");
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
+                    mapFeature, $"h - {ProbabilityFormattingHelper.Format(assessmentSection.FailureMechanismContribution.LowerLimitNorm)}");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedResult(assessmentSection.WaveHeightCalculationsForSignalingNorm, hydraulicBoundaryLocation),
-                    mapFeature, "Hs_A");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedResult(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
-                    mapFeature, "Hs_B");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
-                    mapFeature, "Hs_C");
+                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForSignalingNorm, hydraulicBoundaryLocation),
+                    mapFeature, $"h - {ProbabilityFormattingHelper.Format(assessmentSection.FailureMechanismContribution.SignalingNorm)}");
+
+                foreach (HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)
+                {
+                    MapFeaturesMetaDataTestHelper.AssertMetaData(
+                        GetExpectedResult(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, hydraulicBoundaryLocation),
+                        mapFeature, $"h - {ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability)}");
+                }
+                
+                foreach (HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities)
+                {
+                    MapFeaturesMetaDataTestHelper.AssertMetaData(
+                        GetExpectedResult(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, hydraulicBoundaryLocation),
+                        mapFeature, $"Hs - {ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability)}");
+                }
             }
         }
 
