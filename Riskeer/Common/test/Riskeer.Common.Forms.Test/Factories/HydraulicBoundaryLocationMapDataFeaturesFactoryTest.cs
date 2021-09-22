@@ -22,9 +22,11 @@
 using System;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
+using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Util;
 using Riskeer.Common.Util.TestUtil;
 
-namespace Riskeer.Common.Util.Test
+namespace Riskeer.Common.Forms.Test.Factories
 {
     [TestFixture]
     public class HydraulicBoundaryLocationMapDataFeaturesFactoryTest
