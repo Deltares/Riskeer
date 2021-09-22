@@ -33,35 +33,20 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class DuneLocationCalculationCollectionEntity
+    public class DuneLocationCalculationForTargetProbabilityCollectionEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DuneLocationCalculationCollectionEntity()
+        public DuneLocationCalculationForTargetProbabilityCollectionEntity()
         {
-            DuneErosionFailureMechanismMetaEntities = new HashSet<DuneErosionFailureMechanismMetaEntity>();
-            DuneErosionFailureMechanismMetaEntities1 = new HashSet<DuneErosionFailureMechanismMetaEntity>();
-            DuneErosionFailureMechanismMetaEntities2 = new HashSet<DuneErosionFailureMechanismMetaEntity>();
-            DuneErosionFailureMechanismMetaEntities3 = new HashSet<DuneErosionFailureMechanismMetaEntity>();
-            DuneErosionFailureMechanismMetaEntities4 = new HashSet<DuneErosionFailureMechanismMetaEntity>();
             DuneLocationCalculationEntities = new HashSet<DuneLocationCalculationEntity>();
         }
 
         public long DuneLocationCalculationCollectionEntityId { get; set; }
+        public long DuneErosionFailureMechanismMetaEntityId { get; set; }
+        public int Order { get; set; }
+        public double TargetProbability { get; set; }
 
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DuneErosionFailureMechanismMetaEntity> DuneErosionFailureMechanismMetaEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DuneErosionFailureMechanismMetaEntity> DuneErosionFailureMechanismMetaEntities1 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DuneErosionFailureMechanismMetaEntity> DuneErosionFailureMechanismMetaEntities2 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DuneErosionFailureMechanismMetaEntity> DuneErosionFailureMechanismMetaEntities3 { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DuneErosionFailureMechanismMetaEntity> DuneErosionFailureMechanismMetaEntities4 { get; set; }
+        public virtual DuneErosionFailureMechanismMetaEntity DuneErosionFailureMechanismMetaEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DuneLocationCalculationEntity> DuneLocationCalculationEntities { get; set; }

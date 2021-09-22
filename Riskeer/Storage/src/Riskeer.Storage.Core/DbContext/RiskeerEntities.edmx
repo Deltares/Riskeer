@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Repos\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Checkouts\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -197,11 +197,6 @@
           </Key>
           <Property Name="DuneErosionFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
-          <Property Name="DuneLocationCalculationCollectionEntity1Id" Type="integer" Nullable="false" />
-          <Property Name="DuneLocationCalculationCollectionEntity2Id" Type="integer" Nullable="false" />
-          <Property Name="DuneLocationCalculationCollectionEntity3Id" Type="integer" Nullable="false" />
-          <Property Name="DuneLocationCalculationCollectionEntity4Id" Type="integer" Nullable="false" />
-          <Property Name="DuneLocationCalculationCollectionEntity5Id" Type="integer" Nullable="false" />
           <Property Name="N" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="DuneErosionSectionResultEntity">
@@ -220,19 +215,22 @@
           <Property Name="UseManualAssembly" Type="tinyint" Nullable="false" />
           <Property Name="ManualAssemblyCategoryGroup" Type="tinyint" Nullable="false" />
         </EntityType>
-        <EntityType Name="DuneLocationCalculationCollectionEntity">
-          <Key>
-            <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
-          </Key>
-          <Property Name="DuneLocationCalculationCollectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
         <EntityType Name="DuneLocationCalculationEntity">
           <Key>
             <PropertyRef Name="DuneLocationCalculationEntityId" />
           </Key>
           <Property Name="DuneLocationCalculationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DuneLocationEntityId" Type="integer" />
-          <Property Name="DuneLocationCalculationCollectionEntityId" Type="integer" />
+          <Property Name="DuneLocationEntityId" Type="integer" Nullable="false" />
+          <Property Name="DuneLocationCalculationForTargetProbabilityCollectionEntityId" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DuneLocationCalculationForTargetProbabilityCollectionEntity">
+          <Key>
+            <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
+          </Key>
+          <Property Name="DuneLocationCalculationCollectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DuneErosionFailureMechanismMetaEntityId" Type="integer" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="TargetProbability" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="DuneLocationCalculationOutputEntity">
           <Key>
@@ -1818,66 +1816,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DuneErosionFailureMechanismMetaEntity_1_0">
-          <End Role="DuneLocationCalculationCollectionEntity" Type="Self.DuneLocationCalculationCollectionEntity" Multiplicity="1" />
-          <End Role="DuneErosionFailureMechanismMetaEntity" Type="Self.DuneErosionFailureMechanismMetaEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DuneLocationCalculationCollectionEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
-            </Principal>
-            <Dependent Role="DuneErosionFailureMechanismMetaEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntity5Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DuneErosionFailureMechanismMetaEntity_2_0">
-          <End Role="DuneLocationCalculationCollectionEntity" Type="Self.DuneLocationCalculationCollectionEntity" Multiplicity="1" />
-          <End Role="DuneErosionFailureMechanismMetaEntity" Type="Self.DuneErosionFailureMechanismMetaEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DuneLocationCalculationCollectionEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
-            </Principal>
-            <Dependent Role="DuneErosionFailureMechanismMetaEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntity4Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DuneErosionFailureMechanismMetaEntity_3_0">
-          <End Role="DuneLocationCalculationCollectionEntity" Type="Self.DuneLocationCalculationCollectionEntity" Multiplicity="1" />
-          <End Role="DuneErosionFailureMechanismMetaEntity" Type="Self.DuneErosionFailureMechanismMetaEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DuneLocationCalculationCollectionEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
-            </Principal>
-            <Dependent Role="DuneErosionFailureMechanismMetaEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntity3Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DuneErosionFailureMechanismMetaEntity_4_0">
-          <End Role="DuneLocationCalculationCollectionEntity" Type="Self.DuneLocationCalculationCollectionEntity" Multiplicity="1" />
-          <End Role="DuneErosionFailureMechanismMetaEntity" Type="Self.DuneErosionFailureMechanismMetaEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DuneLocationCalculationCollectionEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
-            </Principal>
-            <Dependent Role="DuneErosionFailureMechanismMetaEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntity2Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DuneErosionFailureMechanismMetaEntity_5_0">
-          <End Role="DuneLocationCalculationCollectionEntity" Type="Self.DuneLocationCalculationCollectionEntity" Multiplicity="1" />
-          <End Role="DuneErosionFailureMechanismMetaEntity" Type="Self.DuneErosionFailureMechanismMetaEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DuneLocationCalculationCollectionEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
-            </Principal>
-            <Dependent Role="DuneErosionFailureMechanismMetaEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntity1Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DuneErosionSectionResultEntity_0_0">
           <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="1" />
           <End Role="DuneErosionSectionResultEntity" Type="Self.DuneErosionSectionResultEntity" Multiplicity="*" />
@@ -1891,7 +1829,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DuneLocationCalculationEntity_0_0">
-          <End Role="DuneLocationEntity" Type="Self.DuneLocationEntity" Multiplicity="0..1" />
+          <End Role="DuneLocationEntity" Type="Self.DuneLocationEntity" Multiplicity="1" />
           <End Role="DuneLocationCalculationEntity" Type="Self.DuneLocationCalculationEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DuneLocationEntity">
@@ -1903,14 +1841,26 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DuneLocationCalculationEntity_1_0">
-          <End Role="DuneLocationCalculationCollectionEntity" Type="Self.DuneLocationCalculationCollectionEntity" Multiplicity="0..1" />
+          <End Role="DuneLocationCalculationForTargetProbabilityCollectionEntity" Type="Self.DuneLocationCalculationForTargetProbabilityCollectionEntity" Multiplicity="1" />
           <End Role="DuneLocationCalculationEntity" Type="Self.DuneLocationCalculationEntity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DuneLocationCalculationCollectionEntity">
+            <Principal Role="DuneLocationCalculationForTargetProbabilityCollectionEntity">
               <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
             </Principal>
             <Dependent Role="DuneLocationCalculationEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
+              <PropertyRef Name="DuneLocationCalculationForTargetProbabilityCollectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DuneLocationCalculationForTargetProbabilityCollectionEntity_0_0">
+          <End Role="DuneErosionFailureMechanismMetaEntity" Type="Self.DuneErosionFailureMechanismMetaEntity" Multiplicity="1" />
+          <End Role="DuneLocationCalculationForTargetProbabilityCollectionEntity" Type="Self.DuneLocationCalculationForTargetProbabilityCollectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DuneErosionFailureMechanismMetaEntity">
+              <PropertyRef Name="DuneErosionFailureMechanismMetaEntityId" />
+            </Principal>
+            <Dependent Role="DuneLocationCalculationForTargetProbabilityCollectionEntity">
+              <PropertyRef Name="DuneErosionFailureMechanismMetaEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3439,8 +3389,8 @@
           <EntitySet Name="DikeProfileEntity" EntityType="Self.DikeProfileEntity" store:Type="Tables" />
           <EntitySet Name="DuneErosionFailureMechanismMetaEntity" EntityType="Self.DuneErosionFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="DuneErosionSectionResultEntity" EntityType="Self.DuneErosionSectionResultEntity" store:Type="Tables" />
-          <EntitySet Name="DuneLocationCalculationCollectionEntity" EntityType="Self.DuneLocationCalculationCollectionEntity" store:Type="Tables" />
           <EntitySet Name="DuneLocationCalculationEntity" EntityType="Self.DuneLocationCalculationEntity" store:Type="Tables" />
+          <EntitySet Name="DuneLocationCalculationForTargetProbabilityCollectionEntity" EntityType="Self.DuneLocationCalculationForTargetProbabilityCollectionEntity" store:Type="Tables" />
           <EntitySet Name="DuneLocationCalculationOutputEntity" EntityType="Self.DuneLocationCalculationOutputEntity" store:Type="Tables" />
           <EntitySet Name="DuneLocationEntity" EntityType="Self.DuneLocationEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismEntity" EntityType="Self.FailureMechanismEntity" store:Type="Tables" />
@@ -3599,26 +3549,6 @@
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
             <End Role="DuneErosionFailureMechanismMetaEntity" EntitySet="DuneErosionFailureMechanismMetaEntity" />
           </AssociationSet>
-          <AssociationSet Name="FK_DuneErosionFailureMechanismMetaEntity_1_0" Association="Self.FK_DuneErosionFailureMechanismMetaEntity_1_0">
-            <End Role="DuneLocationCalculationCollectionEntity" EntitySet="DuneLocationCalculationCollectionEntity" />
-            <End Role="DuneErosionFailureMechanismMetaEntity" EntitySet="DuneErosionFailureMechanismMetaEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DuneErosionFailureMechanismMetaEntity_2_0" Association="Self.FK_DuneErosionFailureMechanismMetaEntity_2_0">
-            <End Role="DuneLocationCalculationCollectionEntity" EntitySet="DuneLocationCalculationCollectionEntity" />
-            <End Role="DuneErosionFailureMechanismMetaEntity" EntitySet="DuneErosionFailureMechanismMetaEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DuneErosionFailureMechanismMetaEntity_3_0" Association="Self.FK_DuneErosionFailureMechanismMetaEntity_3_0">
-            <End Role="DuneLocationCalculationCollectionEntity" EntitySet="DuneLocationCalculationCollectionEntity" />
-            <End Role="DuneErosionFailureMechanismMetaEntity" EntitySet="DuneErosionFailureMechanismMetaEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DuneErosionFailureMechanismMetaEntity_4_0" Association="Self.FK_DuneErosionFailureMechanismMetaEntity_4_0">
-            <End Role="DuneLocationCalculationCollectionEntity" EntitySet="DuneLocationCalculationCollectionEntity" />
-            <End Role="DuneErosionFailureMechanismMetaEntity" EntitySet="DuneErosionFailureMechanismMetaEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DuneErosionFailureMechanismMetaEntity_5_0" Association="Self.FK_DuneErosionFailureMechanismMetaEntity_5_0">
-            <End Role="DuneLocationCalculationCollectionEntity" EntitySet="DuneLocationCalculationCollectionEntity" />
-            <End Role="DuneErosionFailureMechanismMetaEntity" EntitySet="DuneErosionFailureMechanismMetaEntity" />
-          </AssociationSet>
           <AssociationSet Name="FK_DuneErosionSectionResultEntity_0_0" Association="Self.FK_DuneErosionSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="DuneErosionSectionResultEntity" EntitySet="DuneErosionSectionResultEntity" />
@@ -3628,8 +3558,12 @@
             <End Role="DuneLocationCalculationEntity" EntitySet="DuneLocationCalculationEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_DuneLocationCalculationEntity_1_0" Association="Self.FK_DuneLocationCalculationEntity_1_0">
-            <End Role="DuneLocationCalculationCollectionEntity" EntitySet="DuneLocationCalculationCollectionEntity" />
+            <End Role="DuneLocationCalculationForTargetProbabilityCollectionEntity" EntitySet="DuneLocationCalculationForTargetProbabilityCollectionEntity" />
             <End Role="DuneLocationCalculationEntity" EntitySet="DuneLocationCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DuneLocationCalculationForTargetProbabilityCollectionEntity_0_0" Association="Self.FK_DuneLocationCalculationForTargetProbabilityCollectionEntity_0_0">
+            <End Role="DuneErosionFailureMechanismMetaEntity" EntitySet="DuneErosionFailureMechanismMetaEntity" />
+            <End Role="DuneLocationCalculationForTargetProbabilityCollectionEntity" EntitySet="DuneLocationCalculationForTargetProbabilityCollectionEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_DuneLocationCalculationOutputEntity_0_0" Association="Self.FK_DuneLocationCalculationOutputEntity_0_0">
             <End Role="DuneLocationCalculationEntity" EntitySet="DuneLocationCalculationEntity" />
@@ -4153,8 +4087,8 @@
           <EntitySet Name="DikeProfileEntities" EntityType="RiskeerEntitiesModel.DikeProfileEntity" />
           <EntitySet Name="DuneErosionFailureMechanismMetaEntities" EntityType="RiskeerEntitiesModel.DuneErosionFailureMechanismMetaEntity" />
           <EntitySet Name="DuneErosionSectionResultEntities" EntityType="RiskeerEntitiesModel.DuneErosionSectionResultEntity" />
-          <EntitySet Name="DuneLocationCalculationCollectionEntities" EntityType="RiskeerEntitiesModel.DuneLocationCalculationCollectionEntity" />
           <EntitySet Name="DuneLocationCalculationEntities" EntityType="RiskeerEntitiesModel.DuneLocationCalculationEntity" />
+          <EntitySet Name="DuneLocationCalculationForTargetProbabilityCollectionEntities" EntityType="RiskeerEntitiesModel.DuneLocationCalculationForTargetProbabilityCollectionEntity" />
           <EntitySet Name="DuneLocationCalculationOutputEntities" EntityType="RiskeerEntitiesModel.DuneLocationCalculationOutputEntity" />
           <EntitySet Name="DuneLocationEntities" EntityType="RiskeerEntitiesModel.DuneLocationEntity" />
           <EntitySet Name="FailureMechanismEntities" EntityType="RiskeerEntitiesModel.FailureMechanismEntity" />
@@ -4366,36 +4300,20 @@
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="DuneErosionFailureMechanismMetaEntity" EntitySet="DuneErosionFailureMechanismMetaEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_DuneErosionFailureMechanismMetaEntity_1_0" Association="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_1_0">
-            <End Role="DuneLocationCalculationCollectionEntity" EntitySet="DuneLocationCalculationCollectionEntities" />
+          <AssociationSet Name="FK_DuneLocationCalculationForTargetProbabilityCollectionEntity_0_0" Association="RiskeerEntitiesModel.FK_DuneLocationCalculationForTargetProbabilityCollectionEntity_0_0">
             <End Role="DuneErosionFailureMechanismMetaEntity" EntitySet="DuneErosionFailureMechanismMetaEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DuneErosionFailureMechanismMetaEntity_2_0" Association="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_2_0">
-            <End Role="DuneLocationCalculationCollectionEntity" EntitySet="DuneLocationCalculationCollectionEntities" />
-            <End Role="DuneErosionFailureMechanismMetaEntity" EntitySet="DuneErosionFailureMechanismMetaEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DuneErosionFailureMechanismMetaEntity_3_0" Association="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_3_0">
-            <End Role="DuneLocationCalculationCollectionEntity" EntitySet="DuneLocationCalculationCollectionEntities" />
-            <End Role="DuneErosionFailureMechanismMetaEntity" EntitySet="DuneErosionFailureMechanismMetaEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DuneErosionFailureMechanismMetaEntity_4_0" Association="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_4_0">
-            <End Role="DuneLocationCalculationCollectionEntity" EntitySet="DuneLocationCalculationCollectionEntities" />
-            <End Role="DuneErosionFailureMechanismMetaEntity" EntitySet="DuneErosionFailureMechanismMetaEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DuneErosionFailureMechanismMetaEntity_5_0" Association="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_5_0">
-            <End Role="DuneLocationCalculationCollectionEntity" EntitySet="DuneLocationCalculationCollectionEntities" />
-            <End Role="DuneErosionFailureMechanismMetaEntity" EntitySet="DuneErosionFailureMechanismMetaEntities" />
+            <End Role="DuneLocationCalculationForTargetProbabilityCollectionEntity" EntitySet="DuneLocationCalculationForTargetProbabilityCollectionEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_DuneErosionSectionResultEntity_0_0" Association="RiskeerEntitiesModel.FK_DuneErosionSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
             <End Role="DuneErosionSectionResultEntity" EntitySet="DuneErosionSectionResultEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_DuneLocationCalculationEntity_1_0" Association="RiskeerEntitiesModel.FK_DuneLocationCalculationEntity_1_0">
-            <End Role="DuneLocationCalculationCollectionEntity" EntitySet="DuneLocationCalculationCollectionEntities" />
-            <End Role="DuneLocationCalculationEntity" EntitySet="DuneLocationCalculationEntities" />
-          </AssociationSet>
           <AssociationSet Name="FK_DuneLocationCalculationEntity_0_0" Association="RiskeerEntitiesModel.FK_DuneLocationCalculationEntity_0_0">
             <End Role="DuneLocationEntity" EntitySet="DuneLocationEntities" />
+            <End Role="DuneLocationCalculationEntity" EntitySet="DuneLocationCalculationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DuneLocationCalculationEntity_1_0" Association="RiskeerEntitiesModel.FK_DuneLocationCalculationEntity_1_0">
+            <End Role="DuneLocationCalculationForTargetProbabilityCollectionEntity" EntitySet="DuneLocationCalculationForTargetProbabilityCollectionEntities" />
             <End Role="DuneLocationCalculationEntity" EntitySet="DuneLocationCalculationEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_DuneLocationCalculationOutputEntity_0_0" Association="RiskeerEntitiesModel.FK_DuneLocationCalculationOutputEntity_0_0">
@@ -5044,18 +4962,9 @@
           </Key>
           <Property Name="DuneErosionFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
-          <Property Name="DuneLocationCalculationCollectionEntity1Id" Type="Int64" Nullable="false" />
-          <Property Name="DuneLocationCalculationCollectionEntity2Id" Type="Int64" Nullable="false" />
-          <Property Name="DuneLocationCalculationCollectionEntity3Id" Type="Int64" Nullable="false" />
-          <Property Name="DuneLocationCalculationCollectionEntity4Id" Type="Int64" Nullable="false" />
-          <Property Name="DuneLocationCalculationCollectionEntity5Id" Type="Int64" Nullable="false" />
           <Property Name="N" Type="Double" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_0_0" FromRole="DuneErosionFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
-          <NavigationProperty Name="DuneLocationCalculationCollectionEntity" Relationship="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_1_0" FromRole="DuneErosionFailureMechanismMetaEntity" ToRole="DuneLocationCalculationCollectionEntity" />
-          <NavigationProperty Name="DuneLocationCalculationCollectionEntity1" Relationship="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_2_0" FromRole="DuneErosionFailureMechanismMetaEntity" ToRole="DuneLocationCalculationCollectionEntity" />
-          <NavigationProperty Name="DuneLocationCalculationCollectionEntity2" Relationship="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_3_0" FromRole="DuneErosionFailureMechanismMetaEntity" ToRole="DuneLocationCalculationCollectionEntity" />
-          <NavigationProperty Name="DuneLocationCalculationCollectionEntity3" Relationship="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_4_0" FromRole="DuneErosionFailureMechanismMetaEntity" ToRole="DuneLocationCalculationCollectionEntity" />
-          <NavigationProperty Name="DuneLocationCalculationCollectionEntity4" Relationship="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_5_0" FromRole="DuneErosionFailureMechanismMetaEntity" ToRole="DuneLocationCalculationCollectionEntity" />
+          <NavigationProperty Name="DuneLocationCalculationForTargetProbabilityCollectionEntities" Relationship="RiskeerEntitiesModel.FK_DuneLocationCalculationForTargetProbabilityCollectionEntity_0_0" FromRole="DuneErosionFailureMechanismMetaEntity" ToRole="DuneLocationCalculationForTargetProbabilityCollectionEntity" />
         </EntityType>
         <EntityType Name="DuneErosionSectionResultEntity">
           <Key>
@@ -5074,28 +4983,27 @@
           <Property Name="ManualAssemblyCategoryGroup" Type="Byte" Nullable="false" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RiskeerEntitiesModel.FK_DuneErosionSectionResultEntity_0_0" FromRole="DuneErosionSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
-        <EntityType Name="DuneLocationCalculationCollectionEntity">
-          <Key>
-            <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
-          </Key>
-          <Property Name="DuneLocationCalculationCollectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="DuneErosionFailureMechanismMetaEntities" Relationship="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_1_0" FromRole="DuneLocationCalculationCollectionEntity" ToRole="DuneErosionFailureMechanismMetaEntity" />
-          <NavigationProperty Name="DuneErosionFailureMechanismMetaEntities1" Relationship="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_2_0" FromRole="DuneLocationCalculationCollectionEntity" ToRole="DuneErosionFailureMechanismMetaEntity" />
-          <NavigationProperty Name="DuneErosionFailureMechanismMetaEntities2" Relationship="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_3_0" FromRole="DuneLocationCalculationCollectionEntity" ToRole="DuneErosionFailureMechanismMetaEntity" />
-          <NavigationProperty Name="DuneErosionFailureMechanismMetaEntities3" Relationship="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_4_0" FromRole="DuneLocationCalculationCollectionEntity" ToRole="DuneErosionFailureMechanismMetaEntity" />
-          <NavigationProperty Name="DuneErosionFailureMechanismMetaEntities4" Relationship="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_5_0" FromRole="DuneLocationCalculationCollectionEntity" ToRole="DuneErosionFailureMechanismMetaEntity" />
-          <NavigationProperty Name="DuneLocationCalculationEntities" Relationship="RiskeerEntitiesModel.FK_DuneLocationCalculationEntity_1_0" FromRole="DuneLocationCalculationCollectionEntity" ToRole="DuneLocationCalculationEntity" />
-        </EntityType>
         <EntityType Name="DuneLocationCalculationEntity">
           <Key>
             <PropertyRef Name="DuneLocationCalculationEntityId" />
           </Key>
           <Property Name="DuneLocationCalculationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DuneLocationEntityId" Type="Int64" />
-          <Property Name="DuneLocationCalculationCollectionEntityId" Type="Int64" />
-          <NavigationProperty Name="DuneLocationCalculationCollectionEntity" Relationship="RiskeerEntitiesModel.FK_DuneLocationCalculationEntity_1_0" FromRole="DuneLocationCalculationEntity" ToRole="DuneLocationCalculationCollectionEntity" />
+          <Property Name="DuneLocationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="DuneLocationCalculationForTargetProbabilityCollectionEntityId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="DuneLocationEntity" Relationship="RiskeerEntitiesModel.FK_DuneLocationCalculationEntity_0_0" FromRole="DuneLocationCalculationEntity" ToRole="DuneLocationEntity" />
+          <NavigationProperty Name="DuneLocationCalculationForTargetProbabilityCollectionEntity" Relationship="RiskeerEntitiesModel.FK_DuneLocationCalculationEntity_1_0" FromRole="DuneLocationCalculationEntity" ToRole="DuneLocationCalculationForTargetProbabilityCollectionEntity" />
           <NavigationProperty Name="DuneLocationCalculationOutputEntities" Relationship="RiskeerEntitiesModel.FK_DuneLocationCalculationOutputEntity_0_0" FromRole="DuneLocationCalculationEntity" ToRole="DuneLocationCalculationOutputEntity" />
+        </EntityType>
+        <EntityType Name="DuneLocationCalculationForTargetProbabilityCollectionEntity">
+          <Key>
+            <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
+          </Key>
+          <Property Name="DuneLocationCalculationCollectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DuneErosionFailureMechanismMetaEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="TargetProbability" Type="Double" Nullable="false" />
+          <NavigationProperty Name="DuneErosionFailureMechanismMetaEntity" Relationship="RiskeerEntitiesModel.FK_DuneLocationCalculationForTargetProbabilityCollectionEntity_0_0" FromRole="DuneLocationCalculationForTargetProbabilityCollectionEntity" ToRole="DuneErosionFailureMechanismMetaEntity" />
+          <NavigationProperty Name="DuneLocationCalculationEntities" Relationship="RiskeerEntitiesModel.FK_DuneLocationCalculationEntity_1_0" FromRole="DuneLocationCalculationForTargetProbabilityCollectionEntity" ToRole="DuneLocationCalculationEntity" />
         </EntityType>
         <EntityType Name="DuneLocationCalculationOutputEntity">
           <Key>
@@ -7040,63 +6948,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DuneErosionFailureMechanismMetaEntity_1_0">
-          <End Type="RiskeerEntitiesModel.DuneLocationCalculationCollectionEntity" Role="DuneLocationCalculationCollectionEntity" Multiplicity="1" />
-          <End Type="RiskeerEntitiesModel.DuneErosionFailureMechanismMetaEntity" Role="DuneErosionFailureMechanismMetaEntity" Multiplicity="*" />
+        <Association Name="FK_DuneLocationCalculationForTargetProbabilityCollectionEntity_0_0">
+          <End Type="RiskeerEntitiesModel.DuneErosionFailureMechanismMetaEntity" Role="DuneErosionFailureMechanismMetaEntity" Multiplicity="1" />
+          <End Type="RiskeerEntitiesModel.DuneLocationCalculationForTargetProbabilityCollectionEntity" Role="DuneLocationCalculationForTargetProbabilityCollectionEntity" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DuneLocationCalculationCollectionEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
+            <Principal Role="DuneErosionFailureMechanismMetaEntity">
+              <PropertyRef Name="DuneErosionFailureMechanismMetaEntityId" />
             </Principal>
-            <Dependent Role="DuneErosionFailureMechanismMetaEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntity5Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DuneErosionFailureMechanismMetaEntity_2_0">
-          <End Type="RiskeerEntitiesModel.DuneLocationCalculationCollectionEntity" Role="DuneLocationCalculationCollectionEntity" Multiplicity="1" />
-          <End Type="RiskeerEntitiesModel.DuneErosionFailureMechanismMetaEntity" Role="DuneErosionFailureMechanismMetaEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DuneLocationCalculationCollectionEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
-            </Principal>
-            <Dependent Role="DuneErosionFailureMechanismMetaEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntity4Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DuneErosionFailureMechanismMetaEntity_3_0">
-          <End Type="RiskeerEntitiesModel.DuneLocationCalculationCollectionEntity" Role="DuneLocationCalculationCollectionEntity" Multiplicity="1" />
-          <End Type="RiskeerEntitiesModel.DuneErosionFailureMechanismMetaEntity" Role="DuneErosionFailureMechanismMetaEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DuneLocationCalculationCollectionEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
-            </Principal>
-            <Dependent Role="DuneErosionFailureMechanismMetaEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntity3Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DuneErosionFailureMechanismMetaEntity_4_0">
-          <End Type="RiskeerEntitiesModel.DuneLocationCalculationCollectionEntity" Role="DuneLocationCalculationCollectionEntity" Multiplicity="1" />
-          <End Type="RiskeerEntitiesModel.DuneErosionFailureMechanismMetaEntity" Role="DuneErosionFailureMechanismMetaEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DuneLocationCalculationCollectionEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
-            </Principal>
-            <Dependent Role="DuneErosionFailureMechanismMetaEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntity2Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DuneErosionFailureMechanismMetaEntity_5_0">
-          <End Type="RiskeerEntitiesModel.DuneLocationCalculationCollectionEntity" Role="DuneLocationCalculationCollectionEntity" Multiplicity="1" />
-          <End Type="RiskeerEntitiesModel.DuneErosionFailureMechanismMetaEntity" Role="DuneErosionFailureMechanismMetaEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DuneLocationCalculationCollectionEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
-            </Principal>
-            <Dependent Role="DuneErosionFailureMechanismMetaEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntity1Id" />
+            <Dependent Role="DuneLocationCalculationForTargetProbabilityCollectionEntity">
+              <PropertyRef Name="DuneErosionFailureMechanismMetaEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7112,20 +6972,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DuneLocationCalculationEntity_1_0">
-          <End Type="RiskeerEntitiesModel.DuneLocationCalculationCollectionEntity" Role="DuneLocationCalculationCollectionEntity" Multiplicity="0..1" />
-          <End Type="RiskeerEntitiesModel.DuneLocationCalculationEntity" Role="DuneLocationCalculationEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DuneLocationCalculationCollectionEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
-            </Principal>
-            <Dependent Role="DuneLocationCalculationEntity">
-              <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DuneLocationCalculationEntity_0_0">
-          <End Type="RiskeerEntitiesModel.DuneLocationEntity" Role="DuneLocationEntity" Multiplicity="0..1" />
+          <End Type="RiskeerEntitiesModel.DuneLocationEntity" Role="DuneLocationEntity" Multiplicity="1" />
           <End Type="RiskeerEntitiesModel.DuneLocationCalculationEntity" Role="DuneLocationCalculationEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DuneLocationEntity">
@@ -7133,6 +6981,18 @@
             </Principal>
             <Dependent Role="DuneLocationCalculationEntity">
               <PropertyRef Name="DuneLocationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DuneLocationCalculationEntity_1_0">
+          <End Type="RiskeerEntitiesModel.DuneLocationCalculationForTargetProbabilityCollectionEntity" Role="DuneLocationCalculationForTargetProbabilityCollectionEntity" Multiplicity="1" />
+          <End Type="RiskeerEntitiesModel.DuneLocationCalculationEntity" Role="DuneLocationCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DuneLocationCalculationForTargetProbabilityCollectionEntity">
+              <PropertyRef Name="DuneLocationCalculationCollectionEntityId" />
+            </Principal>
+            <Dependent Role="DuneLocationCalculationEntity">
+              <PropertyRef Name="DuneLocationCalculationForTargetProbabilityCollectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8534,11 +8394,6 @@
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.DuneErosionFailureMechanismMetaEntity">
               <MappingFragment StoreEntitySet="DuneErosionFailureMechanismMetaEntity">
                 <ScalarProperty Name="N" ColumnName="N" />
-                <ScalarProperty Name="DuneLocationCalculationCollectionEntity5Id" ColumnName="DuneLocationCalculationCollectionEntity5Id" />
-                <ScalarProperty Name="DuneLocationCalculationCollectionEntity4Id" ColumnName="DuneLocationCalculationCollectionEntity4Id" />
-                <ScalarProperty Name="DuneLocationCalculationCollectionEntity3Id" ColumnName="DuneLocationCalculationCollectionEntity3Id" />
-                <ScalarProperty Name="DuneLocationCalculationCollectionEntity2Id" ColumnName="DuneLocationCalculationCollectionEntity2Id" />
-                <ScalarProperty Name="DuneLocationCalculationCollectionEntity1Id" ColumnName="DuneLocationCalculationCollectionEntity1Id" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="DuneErosionFailureMechanismMetaEntityId" ColumnName="DuneErosionFailureMechanismMetaEntityId" />
               </MappingFragment>
@@ -8561,19 +8416,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="DuneLocationCalculationCollectionEntities">
-            <EntityTypeMapping TypeName="RiskeerEntitiesModel.DuneLocationCalculationCollectionEntity">
-              <MappingFragment StoreEntitySet="DuneLocationCalculationCollectionEntity">
-                <ScalarProperty Name="DuneLocationCalculationCollectionEntityId" ColumnName="DuneLocationCalculationCollectionEntityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DuneLocationCalculationEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.DuneLocationCalculationEntity">
               <MappingFragment StoreEntitySet="DuneLocationCalculationEntity">
-                <ScalarProperty Name="DuneLocationCalculationCollectionEntityId" ColumnName="DuneLocationCalculationCollectionEntityId" />
+                <ScalarProperty Name="DuneLocationCalculationForTargetProbabilityCollectionEntityId" ColumnName="DuneLocationCalculationForTargetProbabilityCollectionEntityId" />
                 <ScalarProperty Name="DuneLocationEntityId" ColumnName="DuneLocationEntityId" />
                 <ScalarProperty Name="DuneLocationCalculationEntityId" ColumnName="DuneLocationCalculationEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DuneLocationCalculationForTargetProbabilityCollectionEntities">
+            <EntityTypeMapping TypeName="RiskeerEntitiesModel.DuneLocationCalculationForTargetProbabilityCollectionEntity">
+              <MappingFragment StoreEntitySet="DuneLocationCalculationForTargetProbabilityCollectionEntity">
+                <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="DuneErosionFailureMechanismMetaEntityId" ColumnName="DuneErosionFailureMechanismMetaEntityId" />
+                <ScalarProperty Name="DuneLocationCalculationCollectionEntityId" ColumnName="DuneLocationCalculationCollectionEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

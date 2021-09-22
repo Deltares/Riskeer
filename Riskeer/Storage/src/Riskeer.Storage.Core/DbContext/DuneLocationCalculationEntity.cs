@@ -42,11 +42,11 @@ namespace Riskeer.Storage.Core.DbContext
         }
 
         public long DuneLocationCalculationEntityId { get; set; }
-        public long? DuneLocationEntityId { get; set; }
-        public long? DuneLocationCalculationCollectionEntityId { get; set; }
+        public long DuneLocationEntityId { get; set; }
+        public long DuneLocationCalculationForTargetProbabilityCollectionEntityId { get; set; }
 
-        public virtual DuneLocationCalculationCollectionEntity DuneLocationCalculationCollectionEntity { get; set; }
         public virtual DuneLocationEntity DuneLocationEntity { get; set; }
+        public virtual DuneLocationCalculationForTargetProbabilityCollectionEntity DuneLocationCalculationForTargetProbabilityCollectionEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DuneLocationCalculationOutputEntity> DuneLocationCalculationOutputEntities { get; set; }

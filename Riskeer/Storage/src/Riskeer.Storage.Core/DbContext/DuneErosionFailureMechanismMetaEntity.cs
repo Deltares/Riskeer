@@ -28,24 +28,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
 namespace Riskeer.Storage.Core.DbContext
 {
     public class DuneErosionFailureMechanismMetaEntity
     {
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DuneErosionFailureMechanismMetaEntity()
+        {
+            DuneLocationCalculationForTargetProbabilityCollectionEntities = new HashSet<DuneLocationCalculationForTargetProbabilityCollectionEntity>();
+        }
+
         public long DuneErosionFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
-        public long DuneLocationCalculationCollectionEntity1Id { get; set; }
-        public long DuneLocationCalculationCollectionEntity2Id { get; set; }
-        public long DuneLocationCalculationCollectionEntity3Id { get; set; }
-        public long DuneLocationCalculationCollectionEntity4Id { get; set; }
-        public long DuneLocationCalculationCollectionEntity5Id { get; set; }
         public double N { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
-        public virtual DuneLocationCalculationCollectionEntity DuneLocationCalculationCollectionEntity { get; set; }
-        public virtual DuneLocationCalculationCollectionEntity DuneLocationCalculationCollectionEntity1 { get; set; }
-        public virtual DuneLocationCalculationCollectionEntity DuneLocationCalculationCollectionEntity2 { get; set; }
-        public virtual DuneLocationCalculationCollectionEntity DuneLocationCalculationCollectionEntity3 { get; set; }
-        public virtual DuneLocationCalculationCollectionEntity DuneLocationCalculationCollectionEntity4 { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DuneLocationCalculationForTargetProbabilityCollectionEntity> DuneLocationCalculationForTargetProbabilityCollectionEntities { get; set; }
     }
 }

@@ -47,8 +47,8 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual DbSet<DikeProfileEntity> DikeProfileEntities { get; set; }
         public virtual DbSet<DuneErosionFailureMechanismMetaEntity> DuneErosionFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<DuneErosionSectionResultEntity> DuneErosionSectionResultEntities { get; set; }
-        public virtual DbSet<DuneLocationCalculationCollectionEntity> DuneLocationCalculationCollectionEntities { get; set; }
         public virtual DbSet<DuneLocationCalculationEntity> DuneLocationCalculationEntities { get; set; }
+        public virtual DbSet<DuneLocationCalculationForTargetProbabilityCollectionEntity> DuneLocationCalculationForTargetProbabilityCollectionEntities { get; set; }
         public virtual DbSet<DuneLocationCalculationOutputEntity> DuneLocationCalculationOutputEntities { get; set; }
         public virtual DbSet<DuneLocationEntity> DuneLocationEntities { get; set; }
         public virtual DbSet<FailureMechanismEntity> FailureMechanismEntities { get; set; }
