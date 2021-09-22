@@ -27,7 +27,7 @@ using Core.Common.IO.Exceptions;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.IO.Writers;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Util;
+using Riskeer.Integration.IO.Factories;
 using Riskeer.Integration.IO.Properties;
 
 namespace Riskeer.Integration.IO.Exporters
