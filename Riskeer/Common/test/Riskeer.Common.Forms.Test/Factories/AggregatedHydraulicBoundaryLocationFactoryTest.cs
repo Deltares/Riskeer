@@ -98,24 +98,6 @@ namespace Riskeer.Common.Forms.Test.Factories
                 Assert.AreEqual(expectedLocations[i].Name, aggregatedLocation.Name);
                 Assert.AreEqual(expectedLocations[i].Location, aggregatedLocation.Location);
 
-                Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, expectedLocations[i]),
-                                aggregatedLocation.WaterLevelCalculationForFactorizedSignalingNorm);
-                Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForSignalingNorm, expectedLocations[i]),
-                                aggregatedLocation.WaterLevelCalculationForSignalingNorm);
-                Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, expectedLocations[i]),
-                                aggregatedLocation.WaterLevelCalculationForLowerLimitNorm);
-                Assert.AreEqual(GetExpectedResult(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, expectedLocations[i]),
-                                aggregatedLocation.WaterLevelCalculationForFactorizedLowerLimitNorm);
-
-                Assert.AreEqual(GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, expectedLocations[i]),
-                                aggregatedLocation.WaveHeightCalculationForFactorizedSignalingNorm);
-                Assert.AreEqual(GetExpectedResult(assessmentSection.WaveHeightCalculationsForSignalingNorm, expectedLocations[i]),
-                                aggregatedLocation.WaveHeightCalculationForSignalingNorm);
-                Assert.AreEqual(GetExpectedResult(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, expectedLocations[i]),
-                                aggregatedLocation.WaveHeightCalculationForLowerLimitNorm);
-                Assert.AreEqual(GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, expectedLocations[i]),
-                                aggregatedLocation.WaveHeightCalculationForFactorizedLowerLimitNorm);
-
                 Assert.AreEqual(expectedWaterLevelTargetProbabilities.Length, aggregatedLocation.WaterLevelCalculationForTargetProbabilities.Count());
                 Assert.AreEqual(expectedWaveHeightTargetProbabilities.Length, aggregatedLocation.WaveHeightCalculationForTargetProbabilities.Count());
 
@@ -160,16 +142,6 @@ namespace Riskeer.Common.Forms.Test.Factories
                 Assert.AreEqual(expectedLocations[i].Id, aggregatedLocation.Id);
                 Assert.AreEqual(expectedLocations[i].Name, aggregatedLocation.Name);
                 Assert.AreEqual(expectedLocations[i].Location, aggregatedLocation.Location);
-
-                Assert.IsNaN(aggregatedLocation.WaterLevelCalculationForFactorizedSignalingNorm);
-                Assert.IsNaN(aggregatedLocation.WaterLevelCalculationForSignalingNorm);
-                Assert.IsNaN(aggregatedLocation.WaterLevelCalculationForLowerLimitNorm);
-                Assert.IsNaN(aggregatedLocation.WaterLevelCalculationForFactorizedLowerLimitNorm);
-
-                Assert.IsNaN(aggregatedLocation.WaveHeightCalculationForFactorizedSignalingNorm);
-                Assert.IsNaN(aggregatedLocation.WaveHeightCalculationForSignalingNorm);
-                Assert.IsNaN(aggregatedLocation.WaveHeightCalculationForLowerLimitNorm);
-                Assert.IsNaN(aggregatedLocation.WaveHeightCalculationForFactorizedLowerLimitNorm);
 
                 Assert.IsTrue(aggregatedLocation.WaterLevelCalculationForTargetProbabilities.All(tp => double.IsNaN(tp.Item2)));
                 Assert.IsTrue(aggregatedLocation.WaveHeightCalculationForTargetProbabilities.All(tp => double.IsNaN(tp.Item2)));

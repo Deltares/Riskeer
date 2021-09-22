@@ -48,32 +48,6 @@ namespace Riskeer.Common.Forms.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> waterLevelLookupForFactorizedSignalingNorm =
-                assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ToDictionary(c => c.HydraulicBoundaryLocation,
-                                                                                                c => c);
-            Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> waterLevelLookupForSignalingNorm =
-                assessmentSection.WaterLevelCalculationsForSignalingNorm.ToDictionary(c => c.HydraulicBoundaryLocation,
-                                                                                      c => c);
-            Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> waterLevelLookupForLowerLimitNorm =
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ToDictionary(c => c.HydraulicBoundaryLocation,
-                                                                                       c => c);
-            Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> waterLevelLookupForFactorizedLowerLimitNorm =
-                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ToDictionary(c => c.HydraulicBoundaryLocation,
-                                                                                                 c => c);
-
-            Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> waveHeightLookupForFactorizedSignalingNorm =
-                assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.ToDictionary(c => c.HydraulicBoundaryLocation,
-                                                                                                c => c);
-            Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> waveHeightLookupForSignalingNorm =
-                assessmentSection.WaveHeightCalculationsForSignalingNorm.ToDictionary(c => c.HydraulicBoundaryLocation,
-                                                                                      c => c);
-            Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> waveHeightLookupForLowerLimitNorm =
-                assessmentSection.WaveHeightCalculationsForLowerLimitNorm.ToDictionary(c => c.HydraulicBoundaryLocation,
-                                                                                       c => c);
-            Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation> waveHeightLookupForFactorizedLowerLimitNorm =
-                assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.ToDictionary(c => c.HydraulicBoundaryLocation,
-                                                                                                 c => c);
-
             IEnumerable<Tuple<double, Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>>> lookupForWaterLevelTargetProbabilities =
                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
                                  .Select(tp => new Tuple<double, Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>>(
@@ -101,14 +75,6 @@ namespace Riskeer.Common.Forms.Factories
             return assessmentSection.HydraulicBoundaryDatabase.Locations
                                     .Select(location => new AggregatedHydraulicBoundaryLocation(
                                                 location.Id, location.Name, location.Location,
-                                                GetCalculationResult(waterLevelLookupForFactorizedSignalingNorm[location].Output),
-                                                GetCalculationResult(waterLevelLookupForSignalingNorm[location].Output),
-                                                GetCalculationResult(waterLevelLookupForLowerLimitNorm[location].Output),
-                                                GetCalculationResult(waterLevelLookupForFactorizedLowerLimitNorm[location].Output),
-                                                GetCalculationResult(waveHeightLookupForFactorizedSignalingNorm[location].Output),
-                                                GetCalculationResult(waveHeightLookupForSignalingNorm[location].Output),
-                                                GetCalculationResult(waveHeightLookupForLowerLimitNorm[location].Output),
-                                                GetCalculationResult(waveHeightLookupForFactorizedLowerLimitNorm[location].Output),
                                                 lookupForWaterLevelTargetProbabilities.Select(tuple => new Tuple<double, RoundedDouble>(
                                                                                                   tuple.Item1, GetCalculationResult(tuple.Item2[location].Output)))
                                                                                       .ToArray(),

@@ -41,42 +41,17 @@ namespace Riskeer.Common.Forms.TestUtil
         public static AggregatedHydraulicBoundaryLocation Create()
         {
             var random = new Random(39);
-            return Create(random.NextRoundedDouble(), random.NextRoundedDouble(),
-                          random.NextRoundedDouble(), random.NextRoundedDouble(),
-                          random.NextRoundedDouble(), random.NextRoundedDouble(),
-                          random.NextRoundedDouble(), random.NextRoundedDouble(),
-                          new[]
-                          {
-                              new Tuple<double, RoundedDouble>(random.NextDouble(), random.NextRoundedDouble())
-                          },
-                          new[]
-                          {
-                              new Tuple<double, RoundedDouble>(random.NextDouble(), random.NextRoundedDouble())
-                          });
-        }
-
-        private static AggregatedHydraulicBoundaryLocation Create(
-            RoundedDouble waterLevelCalculationForFactorizedSignalingNorm,
-            RoundedDouble waterLevelCalculationForSignalingNorm,
-            RoundedDouble waterLevelCalculationForLowerLimitNorm,
-            RoundedDouble waterLevelCalculationForFactorizedLowerLimitNorm,
-            RoundedDouble waveHeightCalculationForFactorizedSignalingNorm,
-            RoundedDouble waveHeightCalculationForSignalingNorm,
-            RoundedDouble waveHeightCalculationForLowerLimitNorm,
-            RoundedDouble waveHeightCalculationForFactorizedLowerLimitNorm,
-            IEnumerable<Tuple<double, RoundedDouble>> waterLevelCalculationForTargetProbabilities,
-            IEnumerable<Tuple<double, RoundedDouble>> waveHeightCalculationForTargetProbabilities)
-        {
+            IEnumerable<Tuple<double, RoundedDouble>> waterLevelCalculationForTargetProbabilities = new[]
+            {
+                new Tuple<double, RoundedDouble>(random.NextDouble(), random.NextRoundedDouble())
+            };
+            IEnumerable<Tuple<double, RoundedDouble>> waveHeightCalculationForTargetProbabilities = new[]
+            {
+                new Tuple<double, RoundedDouble>(random.NextDouble(), random.NextRoundedDouble())
+            };
+            
             return new AggregatedHydraulicBoundaryLocation(
                 1, "test", new Point2D(0, 0),
-                waterLevelCalculationForFactorizedSignalingNorm,
-                waterLevelCalculationForSignalingNorm,
-                waterLevelCalculationForLowerLimitNorm,
-                waterLevelCalculationForFactorizedLowerLimitNorm,
-                waveHeightCalculationForFactorizedSignalingNorm,
-                waveHeightCalculationForSignalingNorm,
-                waveHeightCalculationForLowerLimitNorm,
-                waveHeightCalculationForFactorizedLowerLimitNorm,
                 waterLevelCalculationForTargetProbabilities,
                 waveHeightCalculationForTargetProbabilities);
         }

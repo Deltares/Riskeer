@@ -37,22 +37,6 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// <param name="id">The id of the hydraulic boundary location.</param>
         /// <param name="name">The name of the hydraulic boundary location.</param>
         /// <param name="location">The location of the hydraulic boundary location.</param>
-        /// <param name="waterLevelCalculationForFactorizedSignalingNorm">The result of the
-        /// water level calculation for the factorized signaling norm.</param>
-        /// <param name="waterLevelCalculationForSignalingNorm">The result of the water level
-        /// calculation for the signaling norm.</param>
-        /// <param name="waterLevelCalculationForLowerLimitNorm">The result of the water level
-        /// calculation for the lower limit norm.</param>
-        /// <param name="waterLevelCalculationForFactorizedLowerLimitNorm">The result of the
-        /// water level calculation for the factorized lower limit norm.</param>
-        /// <param name="waveHeightCalculationForFactorizedSignalingNorm">The result of the
-        /// wave height calculation for the factorized signaling norm.</param>
-        /// <param name="waveHeightCalculationForSignalingNorm">The result of the wave height
-        /// calculation for the signaling norm.</param>
-        /// <param name="waveHeightCalculationForLowerLimitNorm">The result of the wave height
-        /// calculation for the lower limit norm.</param>
-        /// <param name="waveHeightCalculationForFactorizedLowerLimitNorm">The result of the
-        /// wave height calculation for the factorized lower limit norm.</param>
         /// <param name="waterLevelCalculationForTargetProbabilities">The results of the
         /// water level calculations for different target probabilities.</param>
         /// <param name="waveHeightCalculationForTargetProbabilities">The results of the
@@ -62,14 +46,6 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// or <paramref name="waveHeightCalculationForTargetProbabilities"/> is <c>null</c>.</exception>
         public AggregatedHydraulicBoundaryLocation(
             long id, string name, Point2D location,
-            RoundedDouble waterLevelCalculationForFactorizedSignalingNorm,
-            RoundedDouble waterLevelCalculationForSignalingNorm,
-            RoundedDouble waterLevelCalculationForLowerLimitNorm,
-            RoundedDouble waterLevelCalculationForFactorizedLowerLimitNorm,
-            RoundedDouble waveHeightCalculationForFactorizedSignalingNorm,
-            RoundedDouble waveHeightCalculationForSignalingNorm,
-            RoundedDouble waveHeightCalculationForLowerLimitNorm,
-            RoundedDouble waveHeightCalculationForFactorizedLowerLimitNorm,
             IEnumerable<Tuple<double, RoundedDouble>> waterLevelCalculationForTargetProbabilities,
             IEnumerable<Tuple<double, RoundedDouble>> waveHeightCalculationForTargetProbabilities)
         {
@@ -96,14 +72,6 @@ namespace Riskeer.Common.Forms.PresentationObjects
             Id = id;
             Name = name;
             Location = location;
-            WaterLevelCalculationForFactorizedSignalingNorm = waterLevelCalculationForFactorizedSignalingNorm;
-            WaterLevelCalculationForSignalingNorm = waterLevelCalculationForSignalingNorm;
-            WaterLevelCalculationForLowerLimitNorm = waterLevelCalculationForLowerLimitNorm;
-            WaterLevelCalculationForFactorizedLowerLimitNorm = waterLevelCalculationForFactorizedLowerLimitNorm;
-            WaveHeightCalculationForFactorizedSignalingNorm = waveHeightCalculationForFactorizedSignalingNorm;
-            WaveHeightCalculationForSignalingNorm = waveHeightCalculationForSignalingNorm;
-            WaveHeightCalculationForLowerLimitNorm = waveHeightCalculationForLowerLimitNorm;
-            WaveHeightCalculationForFactorizedLowerLimitNorm = waveHeightCalculationForFactorizedLowerLimitNorm;
             WaterLevelCalculationForTargetProbabilities = waterLevelCalculationForTargetProbabilities;
             WaveHeightCalculationForTargetProbabilities = waveHeightCalculationForTargetProbabilities;
         }
@@ -124,50 +92,10 @@ namespace Riskeer.Common.Forms.PresentationObjects
         public Point2D Location { get; }
 
         /// <summary>
-        /// Gets the result of the water level calculation for the factorized signaling norm.
-        /// </summary>
-        public RoundedDouble WaterLevelCalculationForFactorizedSignalingNorm { get; }
-
-        /// <summary>
-        /// Gets the result of the water level calculation for the signaling norm.
-        /// </summary>
-        public RoundedDouble WaterLevelCalculationForSignalingNorm { get; }
-
-        /// <summary>
-        /// Gets the result of the water level calculation for the lower limit norm.
-        /// </summary>
-        public RoundedDouble WaterLevelCalculationForLowerLimitNorm { get; }
-
-        /// <summary>
-        /// Gets the result of the water level calculation for the factorized lower limit norm.
-        /// </summary>
-        public RoundedDouble WaterLevelCalculationForFactorizedLowerLimitNorm { get; }
-
-        /// <summary>
-        /// Gets the result of the wave height calculation for the factorized signaling norm.
-        /// </summary>
-        public RoundedDouble WaveHeightCalculationForFactorizedSignalingNorm { get; }
-
-        /// <summary>
-        /// Gets the result of the wave height calculation for the signaling norm.
-        /// </summary>
-        public RoundedDouble WaveHeightCalculationForSignalingNorm { get; }
-
-        /// <summary>
-        /// Gets the result of the wave height calculation for the lower limit norm.
-        /// </summary>
-        public RoundedDouble WaveHeightCalculationForLowerLimitNorm { get; }
-
-        /// <summary>
-        /// Gets the result of the wave height calculation for the factorized lower limit norm.
-        /// </summary>
-        public RoundedDouble WaveHeightCalculationForFactorizedLowerLimitNorm { get; }
-        
-        /// <summary>
         /// Gets the results of the water level calculations for different target probabilities.
         /// </summary>
         public IEnumerable<Tuple<double, RoundedDouble>> WaterLevelCalculationForTargetProbabilities { get; }
-        
+
         /// <summary>
         /// Gets the results of the wave height calculations for different target probabilities.
         /// </summary>
