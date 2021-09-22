@@ -25,8 +25,9 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Forms.PresentationObjects;
 
-namespace Riskeer.Common.Util.Test
+namespace Riskeer.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class AggregatedHydraulicBoundaryLocationTest

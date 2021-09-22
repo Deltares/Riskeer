@@ -23,7 +23,8 @@ using System;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
 using Riskeer.Common.Forms.Factories;
-using Riskeer.Common.Util;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Util.TestUtil;
 
 namespace Riskeer.Common.Forms.Test.Factories

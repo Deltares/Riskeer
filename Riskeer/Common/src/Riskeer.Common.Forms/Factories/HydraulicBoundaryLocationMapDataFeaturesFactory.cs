@@ -21,6 +21,7 @@
 
 using System;
 using Core.Components.Gis.Features;
+using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Util;
 using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
 

@@ -24,8 +24,9 @@ using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using Riskeer.Common.Forms.PresentationObjects;
 
-namespace Riskeer.Common.Util.TestUtil
+namespace Riskeer.Common.Forms.TestUtil
 {
     /// <summary>
     /// Helper for creating <see cref="AggregatedHydraulicBoundaryLocation"/>

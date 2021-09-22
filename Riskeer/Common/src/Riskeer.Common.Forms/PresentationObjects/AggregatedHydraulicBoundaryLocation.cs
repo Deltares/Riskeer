@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
-namespace Riskeer.Common.Util
+namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// Class that holds all the information of a hydraulic boundary location and calculations.

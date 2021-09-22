@@ -25,8 +25,9 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.PresentationObjects;
 
-namespace Riskeer.Common.Util
+namespace Riskeer.Common.Forms.Factories
 {
     /// <summary>
     /// Factory for creating <see cref="AggregatedHydraulicBoundaryLocation"/> instances.
