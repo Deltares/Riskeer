@@ -1586,4 +1586,10 @@ scenario
   <data name="TargetProbability_Description" xml:space="preserve">
     <value>Overschrijdingskans waarvoor de hydraulische belastingen worden berekend.</value>
   </data>
+  <data name="MetaData_WaterLevel_TargetProbability_0" xml:space="preserve">
+    <value>h - {0}</value>
+  </data>
+  <data name="MetaData_WaveHeight_TargetProbability_0" xml:space="preserve">
+    <value>Hs - {0}</value>
+  </data>
 </root>

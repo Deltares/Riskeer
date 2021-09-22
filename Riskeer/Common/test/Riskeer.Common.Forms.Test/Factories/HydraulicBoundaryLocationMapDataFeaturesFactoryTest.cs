@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
 using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Util.TestUtil;
@@ -53,31 +55,20 @@ namespace Riskeer.Common.Forms.Test.Factories
             MapFeature feature = HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature(location);
 
             // Assert
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                location.WaterLevelCalculationForFactorizedSignalingNorm.ToString(),
-                feature, "h_Aplus");
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                location.WaterLevelCalculationForSignalingNorm.ToString(),
-                feature, "h_A");
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                location.WaterLevelCalculationForLowerLimitNorm.ToString(),
-                feature, "h_B");
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                location.WaterLevelCalculationForFactorizedLowerLimitNorm.ToString(),
-                feature, "h_C");
+            MapFeaturesMetaDataTestHelper.AssertMetaData(location.Id, feature, "ID");
+            MapFeaturesMetaDataTestHelper.AssertMetaData(location.Name, feature, "Naam");
 
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                location.WaveHeightCalculationForFactorizedSignalingNorm.ToString(),
-                feature, "Hs_Aplus");
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                location.WaveHeightCalculationForSignalingNorm.ToString(),
-                feature, "Hs_A");
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                location.WaveHeightCalculationForLowerLimitNorm.ToString(),
-                feature, "Hs_B");
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                location.WaveHeightCalculationForFactorizedLowerLimitNorm.ToString(),
-                feature, "Hs_C");
+            foreach (Tuple<double,RoundedDouble> waterLevelCalculationForTargetProbability in location.WaterLevelCalculationForTargetProbabilities)
+            {
+                MapFeaturesMetaDataTestHelper.AssertMetaData(waterLevelCalculationForTargetProbability.Item2.ToString(), feature,
+                                                             $"h - {ProbabilityFormattingHelper.Format(waterLevelCalculationForTargetProbability.Item1)}");
+            }
+
+            foreach (Tuple<double,RoundedDouble> waveHeightCalculationForTargetProbability in location.WaveHeightCalculationForTargetProbabilities)
+            {
+                MapFeaturesMetaDataTestHelper.AssertMetaData(waveHeightCalculationForTargetProbability.Item2.ToString(), feature,
+                                                             $"Hs - {ProbabilityFormattingHelper.Format(waveHeightCalculationForTargetProbability.Item1)}");
+            }
         }
     }
 }

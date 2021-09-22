@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Components.Gis.Features;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Util;
 using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
 
@@ -49,14 +52,17 @@ namespace Riskeer.Common.Forms.Factories
             MapFeature feature = RiskeerMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
             feature.MetaData[RiskeerCommonUtilResources.MetaData_ID] = location.Id;
             feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = location.Name;
-            feature.MetaData[RiskeerCommonUtilResources.MetaData_WaterLevelCalculationForFactorizedSignalingNorm] = location.WaterLevelCalculationForFactorizedSignalingNorm.ToString();
-            feature.MetaData[RiskeerCommonUtilResources.MetaData_WaterLevelCalculationForSignalingNorm] = location.WaterLevelCalculationForSignalingNorm.ToString();
-            feature.MetaData[RiskeerCommonUtilResources.MetaData_WaterLevelCalculationForLowerLimitNorm] = location.WaterLevelCalculationForLowerLimitNorm.ToString();
-            feature.MetaData[RiskeerCommonUtilResources.MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm] = location.WaterLevelCalculationForFactorizedLowerLimitNorm.ToString();
-            feature.MetaData[RiskeerCommonUtilResources.MetaData_WaveHeightCalculationForFactorizedSignalingNorm] = location.WaveHeightCalculationForFactorizedSignalingNorm.ToString();
-            feature.MetaData[RiskeerCommonUtilResources.MetaData_WaveHeightCalculationForSignalingNorm] = location.WaveHeightCalculationForSignalingNorm.ToString();
-            feature.MetaData[RiskeerCommonUtilResources.MetaData_WaveHeightCalculationForLowerLimitNorm] = location.WaveHeightCalculationForLowerLimitNorm.ToString();
-            feature.MetaData[RiskeerCommonUtilResources.MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm] = location.WaveHeightCalculationForFactorizedLowerLimitNorm.ToString();
+            
+            foreach (Tuple<double,RoundedDouble> waterLevelCalculationForTargetProbability in location.WaterLevelCalculationForTargetProbabilities)
+            {
+                feature.MetaData[string.Format(Resources.MetaData_WaterLevel_TargetProbability_0, ProbabilityFormattingHelper.Format(waterLevelCalculationForTargetProbability.Item1))] = waterLevelCalculationForTargetProbability.Item2.ToString();
+            }
+            
+            foreach (Tuple<double,RoundedDouble> waveHeightCalculationForTargetProbability in location.WaveHeightCalculationForTargetProbabilities)
+            {
+                feature.MetaData[string.Format(Resources.MetaData_WaveHeight_TargetProbability_0, ProbabilityFormattingHelper.Format(waveHeightCalculationForTargetProbability.Item1))] = waveHeightCalculationForTargetProbability.Item2.ToString();
+            }
+            
             return feature;
         }
     }

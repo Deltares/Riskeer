@@ -2738,6 +2738,24 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to h - {0}.
+        /// </summary>
+        public static string MetaData_WaterLevel_TargetProbability_0 {
+            get {
+                return ResourceManager.GetString("MetaData_WaterLevel_TargetProbability_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hs - {0}.
+        /// </summary>
+        public static string MetaData_WaveHeight_TargetProbability_0 {
+            get {
+                return ResourceManager.GetString("MetaData_WaveHeight_TargetProbability_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er zijn geen kunstwerken beschikbaar om berekeningen voor te genereren..
         /// </summary>
         public static string No_Structures_to_generate_Calculations_for {
