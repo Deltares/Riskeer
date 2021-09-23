@@ -28,9 +28,7 @@
     <ProjectReference Include="..\..\..\Revetment\test\Riskeer.Revetment.Data.TestUtil\Riskeer.Revetment.Data.TestUtil.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionOutwards.IO\Riskeer.GrassCoverErosionOutwards.IO.csproj" />
-    <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionOutwards.Util\Riskeer.GrassCoverErosionOutwards.Util.csproj" />
     <ProjectReference Include="..\Riskeer.GrassCoverErosionOutwards.Data.TestUtil\Riskeer.GrassCoverErosionOutwards.Data.TestUtil.csproj" />
-    <ProjectReference Include="..\Riskeer.GrassCoverErosionOutwards.Util.TestUtil\Riskeer.GrassCoverErosionOutwards.Util.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">

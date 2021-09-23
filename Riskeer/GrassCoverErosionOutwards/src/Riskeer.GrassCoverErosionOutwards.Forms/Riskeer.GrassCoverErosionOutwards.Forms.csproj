@@ -27,7 +27,6 @@
     <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Forms\Riskeer.Revetment.Forms.csproj" />
     <ProjectReference Include="..\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj" />
     <ProjectReference Include="..\Riskeer.GrassCoverErosionOutwards.Service\Riskeer.GrassCoverErosionOutwards.Service.csproj" />
-    <ProjectReference Include="..\Riskeer.GrassCoverErosionOutwards.Util\Riskeer.GrassCoverErosionOutwards.Util.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

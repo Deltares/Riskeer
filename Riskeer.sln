@@ -1553,21 +1553,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.AssemblyTool.Forms.
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.GrassCoverErosionOutwards.Util", "Riskeer\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Util\Riskeer.GrassCoverErosionOutwards.Util.csproj", "{033ED27D-E806-42B4-9689-8150CFAE1906}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.GrassCoverErosionOutwards.Util.Test", "Riskeer\GrassCoverErosionOutwards\test\Riskeer.GrassCoverErosionOutwards.Util.Test\Riskeer.GrassCoverErosionOutwards.Util.Test.csproj", "{17CEA530-0A9A-4186-A0F4-CFDBDC898EC4}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.GrassCoverErosionOutwards.Util.TestUtil", "Riskeer\GrassCoverErosionOutwards\test\Riskeer.GrassCoverErosionOutwards.Util.TestUtil\Riskeer.GrassCoverErosionOutwards.Util.TestUtil.csproj", "{C700ED66-8565-48B2-9A4E-B0D33FB2B26D}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Integration.IO", "Riskeer\Integration\src\Riskeer.Integration.IO\Riskeer.Integration.IO.csproj", "{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
@@ -3315,24 +3300,6 @@ Global
 		{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38}.Release|x86.Build.0 = Release|x86
 		{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{033ED27D-E806-42B4-9689-8150CFAE1906}.Debug|x86.ActiveCfg = Debug|x86
-		{033ED27D-E806-42B4-9689-8150CFAE1906}.Debug|x86.Build.0 = Debug|x86
-		{033ED27D-E806-42B4-9689-8150CFAE1906}.Release|x86.ActiveCfg = Release|x86
-		{033ED27D-E806-42B4-9689-8150CFAE1906}.Release|x86.Build.0 = Release|x86
-		{033ED27D-E806-42B4-9689-8150CFAE1906}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{033ED27D-E806-42B4-9689-8150CFAE1906}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{17CEA530-0A9A-4186-A0F4-CFDBDC898EC4}.Debug|x86.ActiveCfg = Debug|x86
-		{17CEA530-0A9A-4186-A0F4-CFDBDC898EC4}.Debug|x86.Build.0 = Debug|x86
-		{17CEA530-0A9A-4186-A0F4-CFDBDC898EC4}.Release|x86.ActiveCfg = Release|x86
-		{17CEA530-0A9A-4186-A0F4-CFDBDC898EC4}.Release|x86.Build.0 = Release|x86
-		{17CEA530-0A9A-4186-A0F4-CFDBDC898EC4}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{17CEA530-0A9A-4186-A0F4-CFDBDC898EC4}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{C700ED66-8565-48B2-9A4E-B0D33FB2B26D}.Debug|x86.ActiveCfg = Debug|x86
-		{C700ED66-8565-48B2-9A4E-B0D33FB2B26D}.Debug|x86.Build.0 = Debug|x86
-		{C700ED66-8565-48B2-9A4E-B0D33FB2B26D}.Release|x86.ActiveCfg = Release|x86
-		{C700ED66-8565-48B2-9A4E-B0D33FB2B26D}.Release|x86.Build.0 = Release|x86
-		{C700ED66-8565-48B2-9A4E-B0D33FB2B26D}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{C700ED66-8565-48B2-9A4E-B0D33FB2B26D}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}.Debug|x86.ActiveCfg = Debug|x86
 		{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}.Debug|x86.Build.0 = Debug|x86
 		{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}.Release|x86.ActiveCfg = Release|x86
@@ -3828,9 +3795,6 @@ Global
 		{C6EE9E6A-6578-49DF-914F-CDB531E61891} = {614D79BC-9919-4AC8-A2B1-9DD89BCB0653}
 		{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1} = {22080BD7-677C-48FA-AD1A-8CCF7457B984}
 		{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38} = {614D79BC-9919-4AC8-A2B1-9DD89BCB0653}
-		{033ED27D-E806-42B4-9689-8150CFAE1906} = {FFF821BA-DC30-475C-B1A1-943E814C2CB1}
-		{17CEA530-0A9A-4186-A0F4-CFDBDC898EC4} = {2B6156FD-080B-4869-B148-E4A2995F0EFB}
-		{C700ED66-8565-48B2-9A4E-B0D33FB2B26D} = {2B6156FD-080B-4869-B148-E4A2995F0EFB}
 		{D693D18E-C257-4FDE-96BC-F6E6FB043ECF} = {14E296C8-B6B9-458A-A402-68E8A0F9B97C}
 		{06C448C6-CBDE-4579-B5B6-1B8074E022ED} = {88E04195-C43E-40D3-B5F2-3A25E1E79E03}
 		{54DF6303-BF9A-4AE9-BE09-4AF50EF27412} = {B5F4F5A5-FD36-405D-ABA1-56C270207C8F}
