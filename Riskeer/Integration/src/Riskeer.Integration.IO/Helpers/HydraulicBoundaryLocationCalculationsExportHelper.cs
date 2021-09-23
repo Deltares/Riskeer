@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using Core.Common.Util;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.IO.Exporters;
@@ -46,6 +47,7 @@ namespace Riskeer.Integration.IO.Helpers
         /// <returns><c>true</c> when the export was successful; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationsForTargetProbability"/>
         /// or <paramref name="exportedCalculations"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="folderPath"/> is invalid.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="calculationsType"/>
         /// is invalid.</exception>
         public static bool ExportLocationCalculationsForTargetProbability(
@@ -70,6 +72,8 @@ namespace Riskeer.Integration.IO.Helpers
                                                        (int) calculationsType,
                                                        typeof(HydraulicBoundaryLocationCalculationsType));
             }
+
+            IOUtils.ValidateFolderPath(folderPath);
 
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations = calculationsForTargetProbability.Item1;
             double targetProbability = calculationsForTargetProbability.Item2;

@@ -116,7 +116,8 @@ namespace Riskeer.Integration.IO.Exporters
             return ExportLocationCalculationsForTargetProbabilities(
                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
                                  .Select(tp => new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
-                                             tp.HydraulicBoundaryLocationCalculations, tp.TargetProbability)),
+                                             tp.HydraulicBoundaryLocationCalculations, tp.TargetProbability))
+                                 .ToArray(),
                 HydraulicBoundaryLocationCalculationsType.WaterLevel,
                 Path.Combine(tempFolderPath, RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName));
         }
@@ -126,7 +127,8 @@ namespace Riskeer.Integration.IO.Exporters
             return ExportLocationCalculationsForTargetProbabilities(
                 assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
                                  .Select(tp => new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
-                                             tp.HydraulicBoundaryLocationCalculations, tp.TargetProbability)),
+                                             tp.HydraulicBoundaryLocationCalculations, tp.TargetProbability))
+                                 .ToArray(),
                 HydraulicBoundaryLocationCalculationsType.WaveHeight,
                 Path.Combine(tempFolderPath, RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName));
         }
