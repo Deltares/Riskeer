@@ -696,9 +696,11 @@ namespace Riskeer.Integration.Service.Test
                 c.InputParameters.CalculationsTargetProbability = calculationsForTargetProbability;
             });
 
-            IEnumerable<ICalculation<WaveConditionsInput>> expectedAffectedItems = waveConditionsCalculations.Where(c => c.HasOutput
-                                                                                                                         || c.InputParameters.CalculationsTargetProbability == calculationsForTargetProbability)
-                                                                                                             .ToArray();
+            IEnumerable<ICalculation<WaveConditionsInput>> affectedCalculations = waveConditionsCalculations.Where(c => c.HasOutput
+                                                                                                                        || c.InputParameters.CalculationsTargetProbability == calculationsForTargetProbability);
+            IEnumerable<IObservable> expectedAffectedItems = affectedCalculations.Cast<IObservable>()
+                                                                                 .Concat(affectedCalculations.Select(calc => calc.InputParameters))
+                                                                                 .ToArray();
 
             // Call
             IEnumerable<IObservable> affectedItems = RiskeerDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability(assessmentSection, calculationsForTargetProbability);

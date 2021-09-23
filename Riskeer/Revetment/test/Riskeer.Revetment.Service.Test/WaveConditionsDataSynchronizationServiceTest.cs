@@ -275,13 +275,19 @@ namespace Riskeer.Revetment.Service.Test
             {
                 calculation4
             };
+
+            var expectedAffectedObjects = new IObservable[]
+            {
+                calculation4,
+                calculation4.InputParameters
+            };
             
             // Call
-            IEnumerable<IObservable> affectedCalculations = WaveConditionsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<IFailureMechanism, TestWaveConditionsCalculation<WaveConditionsInput>>(
+            IEnumerable<IObservable> affectedObjects = WaveConditionsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<IFailureMechanism, TestWaveConditionsCalculation<WaveConditionsInput>>(
                 failureMechanism, calculationsForTargetProbabilityToClear);
 
             // Assert
-            CollectionAssert.AreEqual(expectedAffectedCalculations, affectedCalculations);
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
             Assert.IsTrue(expectedAffectedCalculations.All(
                               c => !c.HasOutput
                                    && c.InputParameters.WaterLevelType == WaveConditionsInputWaterLevelType.None));

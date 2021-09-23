@@ -145,6 +145,7 @@ namespace Riskeer.Revetment.Service
                 calculation.InputParameters.WaterLevelType = WaveConditionsInputWaterLevelType.None;
                 RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation);
 
+                affectedItems.Add(calculation.InputParameters);
                 affectedItems.Add(calculation);
             }
 
