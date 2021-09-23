@@ -63,6 +63,10 @@ namespace Riskeer.Migration.Integration.Test
                     AssertAssessmentSection(reader, sourceFilePath);
                     AssertHydraulicBoundaryLocationCalculation(reader, sourceFilePath);
                     AssertHydraulicLocationOutput(reader);
+                    
+                    AssertDuneLocationCalculationCollection(reader);
+                    AssertDuneLocationCalculation(reader);
+                    AssertDuneLocationCalculationOutput(reader);
 
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsOutput(reader);
@@ -158,7 +162,30 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateOutput);
         }
         
+        private static void AssertDuneLocationCalculationCollection(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [DuneLocationCalculationCollectionEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
         
+        private static void AssertDuneLocationCalculation(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [DuneLocationCalculationEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+        
+        private static void AssertDuneLocationCalculationOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [DuneLocationCalculationOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
+
         private static void AssertGrassCoverErosionInwardsCalculation(MigratedDatabaseReader reader, string sourceFilePath)
         {
             const string getNormQuery =
@@ -323,9 +350,6 @@ namespace Riskeer.Migration.Integration.Test
                 "DikeProfileEntity",
                 "DuneErosionFailureMechanismMetaEntity",
                 "DuneErosionSectionResultEntity",
-                "DuneLocationCalculationCollectionEntity",
-                "DuneLocationCalculationEntity",
-                "DuneLocationCalculationOutputEntity",
                 "DuneLocationEntity",
                 "FailureMechanismEntity",
                 "FailureMechanismSectionEntity",
