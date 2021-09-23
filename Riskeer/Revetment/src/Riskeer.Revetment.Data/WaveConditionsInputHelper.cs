@@ -52,53 +52,13 @@ namespace Riskeer.Revetment.Data
         /// Sets the <see cref="WaveConditionsInputWaterLevelType"/> of the <paramref name="waveConditionsInput"/>
         /// based on the <see cref="NormType"/>.
         /// </summary>
-        /// <param name="waveConditionsInput">The <see cref="WaveConditionsInput"/>
-        /// to set the water level type for.</param>
+        /// <param name="waveConditionsInput">The <see cref="WaveConditionsInput"/> to set the water level type for.</param>
         /// <param name="normType">The <see cref="NormType"/> to set the <paramref name="waveConditionsInput"/> for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
         /// but unsupported.</exception>
         public static void SetWaterLevelType(WaveConditionsInput waveConditionsInput,
-                                             NormType normType)
-        {
-            if (waveConditionsInput == null)
-            {
-                throw new ArgumentNullException(nameof(waveConditionsInput));
-            }
-
-            if (!Enum.IsDefined(typeof(NormType), normType))
-            {
-                throw new InvalidEnumArgumentException(nameof(normType),
-                                                       (int) normType,
-                                                       typeof(NormType));
-            }
-
-            switch (normType)
-            {
-                case NormType.LowerLimit:
-                    waveConditionsInput.WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit;
-                    break;
-                case NormType.Signaling:
-                    waveConditionsInput.WaterLevelType = WaveConditionsInputWaterLevelType.Signaling;
-                    break;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        /// <summary>
-        /// Sets the <see cref="WaveConditionsInputWaterLevelType"/> of the <paramref name="waveConditionsInput"/>
-        /// based on the <see cref="NormType"/>.
-        /// </summary>
-        /// <param name="waveConditionsInput">The <see cref="FailureMechanismCategoryWaveConditionsInput"/>
-        /// to set the water level type for.</param>
-        /// <param name="normType">The <see cref="NormType"/> to set the <paramref name="waveConditionsInput"/> for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-        /// but unsupported.</exception>
-        public static void SetWaterLevelType(FailureMechanismCategoryWaveConditionsInput waveConditionsInput,
                                              NormType normType)
         {
             if (waveConditionsInput == null)
