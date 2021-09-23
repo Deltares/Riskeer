@@ -218,9 +218,9 @@ namespace Riskeer.Integration.Plugin.Test
                 // Assert
                 Assert.AreEqual(4, stateInfos.Length);
                 Assert.IsTrue(stateInfos.Any(si => si.Name == "Traject"));
-                Assert.IsTrue(stateInfos.Any(si => si.Name == "Hydraulische\r\n belastingen"));
-                Assert.IsTrue(stateInfos.Any(si => si.Name == "Berekeningen"));
-                Assert.IsTrue(stateInfos.Any(si => si.Name == "Faalpaden"));
+                Assert.IsTrue(stateInfos.Any(si => si.Name == "Hydraulische\r\nbelastingen"));
+                Assert.IsTrue(stateInfos.Any(si => si.Name == "Sterkte-\r\nberekeningen"));
+                Assert.IsTrue(stateInfos.Any(si => si.Name == "Faalpaden /\r\nassemblage"));
             }
         }
 

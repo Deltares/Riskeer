@@ -456,7 +456,8 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekeningen.
+        ///   Looks up a localized string similar to Sterkte-
+        ///berekeningen.
         /// </summary>
         public static string RiskeerPlugin_GetStateInfos_Calculations {
             get {
@@ -465,7 +466,8 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalpaden.
+        ///   Looks up a localized string similar to Faalpaden /
+        ///assemblage.
         /// </summary>
         public static string RiskeerPlugin_GetStateInfos_FailurePaths {
             get {
@@ -475,7 +477,7 @@ namespace Riskeer.Integration.Plugin.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Hydraulische
-        /// belastingen.
+        ///belastingen.
         /// </summary>
         public static string RiskeerPlugin_GetStateInfos_HydraulicLoads {
             get {

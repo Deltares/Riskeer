@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetStateInfos().First(si => si.Name == "Hydraulische\r\n belastingen");
+            info = plugin.GetStateInfos().First(si => si.Name == "Hydraulische\r\nbelastingen");
         }
 
         [TearDown]
