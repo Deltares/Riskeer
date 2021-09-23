@@ -38,7 +38,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.ExportInfos;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;

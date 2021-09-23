@@ -44,7 +44,6 @@ using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;

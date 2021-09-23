@@ -25,7 +25,6 @@ using System.ComponentModel;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.Revetment.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;

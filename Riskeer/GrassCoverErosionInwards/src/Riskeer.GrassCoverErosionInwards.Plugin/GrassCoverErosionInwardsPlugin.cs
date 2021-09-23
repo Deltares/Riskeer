@@ -35,7 +35,6 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.ExportInfos;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;

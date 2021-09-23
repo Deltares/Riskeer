@@ -46,7 +46,6 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.GrassCoverErosionInwards.Data;

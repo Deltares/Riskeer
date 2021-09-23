@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.GrassCoverErosionInwards.Data;
 
