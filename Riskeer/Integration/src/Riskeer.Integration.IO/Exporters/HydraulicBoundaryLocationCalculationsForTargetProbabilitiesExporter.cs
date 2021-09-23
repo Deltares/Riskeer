@@ -49,8 +49,7 @@ namespace Riskeer.Integration.IO.Exporters
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter"/>.
         /// </summary>
-        /// <param name="locationCalculationsForTargetProbabilities">The collection of
-        /// <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> to export.</param>
+        /// <param name="locationCalculationsForTargetProbabilities">The collection of calculations to export.</param>
         /// <param name="calculationsType">The type of the calculations to export.</param>
         /// <param name="filePath">The path of the file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="locationCalculationsForTargetProbabilities"/>
@@ -87,10 +86,8 @@ namespace Riskeer.Integration.IO.Exporters
         {
             try
             {
-                var exportedCalculations = new Dictionary<IEnumerable<HydraulicBoundaryLocationCalculation>, string>();
-                if (locationCalculationsForTargetProbabilities.Any(
-                    locationCalculationsForTargetProbability => !HydraulicBoundaryLocationCalculationsExportHelper.ExportLocationCalculationsForTargetProbability(
-                                                                    locationCalculationsForTargetProbability, exportedCalculations, calculationsType, tempFolderPath)))
+                if (!HydraulicBoundaryLocationCalculationsExportHelper.ExportLocationCalculationsForTargetProbabilities(
+                        locationCalculationsForTargetProbabilities, calculationsType, tempFolderPath)) 
                 {
                     return false;
                 }

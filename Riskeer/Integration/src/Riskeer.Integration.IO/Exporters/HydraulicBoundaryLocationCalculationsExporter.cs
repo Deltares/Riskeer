@@ -137,10 +137,8 @@ namespace Riskeer.Integration.IO.Exporters
             IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>> calculationsForTargetProbabilities,
             HydraulicBoundaryLocationCalculationsType calculationsType, string folderPath)
         {
-            var exportedCalculations = new Dictionary<IEnumerable<HydraulicBoundaryLocationCalculation>, string>();
-            return calculationsForTargetProbabilities.All(
-                calculationsForTargetProbability => HydraulicBoundaryLocationCalculationsExportHelper.ExportLocationCalculationsForTargetProbability(
-                    calculationsForTargetProbability, exportedCalculations, calculationsType, folderPath));
+            return HydraulicBoundaryLocationCalculationsExportHelper.ExportLocationCalculationsForTargetProbabilities(
+                    calculationsForTargetProbabilities, calculationsType, folderPath);
         }
     }
 }
