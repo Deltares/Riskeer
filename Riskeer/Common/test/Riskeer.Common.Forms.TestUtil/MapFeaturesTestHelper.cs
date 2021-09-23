@@ -75,27 +75,38 @@ namespace Riskeer.Common.Forms.TestUtil
                 MapFeaturesMetaDataTestHelper.AssertMetaData(hydraulicBoundaryLocation.Id, mapFeature, "ID");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(hydraulicBoundaryLocation.Name, mapFeature, "Naam");
 
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
-                    mapFeature, $"h - {ProbabilityFormattingHelper.Format(assessmentSection.FailureMechanismContribution.LowerLimitNorm)}");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedResult(assessmentSection.WaterLevelCalculationsForSignalingNorm, hydraulicBoundaryLocation),
-                    mapFeature, $"h - {ProbabilityFormattingHelper.Format(assessmentSection.FailureMechanismContribution.SignalingNorm)}");
+                var presentedMetaDataItems = new List<string>();
+                AssertMetaData(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation, mapFeature,
+                               assessmentSection.FailureMechanismContribution.LowerLimitNorm, "h - {0}", presentedMetaDataItems);
+                AssertMetaData(assessmentSection.WaterLevelCalculationsForSignalingNorm, hydraulicBoundaryLocation, mapFeature,
+                               assessmentSection.FailureMechanismContribution.SignalingNorm, "h - {0}", presentedMetaDataItems);
 
                 foreach (HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)
                 {
-                    MapFeaturesMetaDataTestHelper.AssertMetaData(
-                        GetExpectedResult(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, hydraulicBoundaryLocation),
-                        mapFeature, $"h - {ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability)}");
+                    AssertMetaData(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, hydraulicBoundaryLocation, mapFeature,
+                                   calculationsForTargetProbability.TargetProbability, "h - {0}", presentedMetaDataItems);
                 }
                 
                 foreach (HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities)
                 {
-                    MapFeaturesMetaDataTestHelper.AssertMetaData(
-                        GetExpectedResult(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, hydraulicBoundaryLocation),
-                        mapFeature, $"Hs - {ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability)}");
+                    AssertMetaData(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, hydraulicBoundaryLocation, mapFeature,
+                        calculationsForTargetProbability.TargetProbability, "Hs - {0}", presentedMetaDataItems);
                 }
             }
+        }
+
+        private static void AssertMetaData(IEnumerable<HydraulicBoundaryLocationCalculation> calculations, HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                           MapFeature mapFeature, double targetProbability, string displayName, List<string> presentedMetaDataItems)
+        {
+            string uniqueName = NamingHelper.GetUniqueName(
+                presentedMetaDataItems, string.Format(displayName, ProbabilityFormattingHelper.Format(targetProbability)),
+                v => v);
+            
+            MapFeaturesMetaDataTestHelper.AssertMetaData(
+                GetExpectedResult(calculations, hydraulicBoundaryLocation),
+                mapFeature, uniqueName);
+
+            presentedMetaDataItems.Add(uniqueName);
         }
 
         /// <summary>

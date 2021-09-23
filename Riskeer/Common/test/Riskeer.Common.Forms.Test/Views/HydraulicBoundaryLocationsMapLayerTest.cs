@@ -161,7 +161,10 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // When
             ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
-            targetProbabilities.Add(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1));
+            var newTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(assessmentSection.HydraulicBoundaryDatabase.Locations
+                                                                                                 .Select(l => new HydraulicBoundaryLocationCalculation(l)));
+            targetProbabilities.Add(newTargetProbability);
             targetProbabilities.NotifyObservers();
 
             // Then

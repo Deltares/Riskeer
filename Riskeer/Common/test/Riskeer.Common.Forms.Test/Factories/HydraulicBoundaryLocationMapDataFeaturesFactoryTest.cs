@@ -20,13 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
 using Riskeer.Common.Forms.Factories;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Util.TestUtil;
 
 namespace Riskeer.Common.Forms.Test.Factories
@@ -49,7 +51,19 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateHydraulicBoundaryLocationFeature_WithLocation_ReturnFeature()
         {
             // Setup
-            AggregatedHydraulicBoundaryLocation location = AggregatedHydraulicBoundaryLocationTestHelper.Create();
+            var random = new Random(39);
+            IEnumerable<Tuple<double, RoundedDouble>> waterLevelCalculationForTargetProbabilities = new[]
+            {
+                new Tuple<double, RoundedDouble>(0.1, random.NextRoundedDouble()),
+                new Tuple<double, RoundedDouble>(0.1, random.NextRoundedDouble())
+            };
+            IEnumerable<Tuple<double, RoundedDouble>> waveHeightCalculationForTargetProbabilities = new[]
+            {
+                new Tuple<double, RoundedDouble>(0.001, random.NextRoundedDouble())
+            };
+            var location = new AggregatedHydraulicBoundaryLocation(1, "test", new Point2D(0, 0),
+                                                                   waterLevelCalculationForTargetProbabilities,
+                                                                   waveHeightCalculationForTargetProbabilities);
 
             // Call
             MapFeature feature = HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature(location);
@@ -57,18 +71,10 @@ namespace Riskeer.Common.Forms.Test.Factories
             // Assert
             MapFeaturesMetaDataTestHelper.AssertMetaData(location.Id, feature, "ID");
             MapFeaturesMetaDataTestHelper.AssertMetaData(location.Name, feature, "Naam");
-
-            foreach (Tuple<double,RoundedDouble> waterLevelCalculationForTargetProbability in location.WaterLevelCalculationForTargetProbabilities)
-            {
-                MapFeaturesMetaDataTestHelper.AssertMetaData(waterLevelCalculationForTargetProbability.Item2.ToString(), feature,
-                                                             $"h - {ProbabilityFormattingHelper.Format(waterLevelCalculationForTargetProbability.Item1)}");
-            }
-
-            foreach (Tuple<double,RoundedDouble> waveHeightCalculationForTargetProbability in location.WaveHeightCalculationForTargetProbabilities)
-            {
-                MapFeaturesMetaDataTestHelper.AssertMetaData(waveHeightCalculationForTargetProbability.Item2.ToString(), feature,
-                                                             $"Hs - {ProbabilityFormattingHelper.Format(waveHeightCalculationForTargetProbability.Item1)}");
-            }
+            
+            MapFeaturesMetaDataTestHelper.AssertMetaData(location.WaterLevelCalculationForTargetProbabilities.First().Item2.ToString(), feature, "h - 1/10");
+            MapFeaturesMetaDataTestHelper.AssertMetaData(location.WaterLevelCalculationForTargetProbabilities.Last().Item2.ToString(), feature, "h - 1/10 (1)");
+            MapFeaturesMetaDataTestHelper.AssertMetaData(location.WaveHeightCalculationForTargetProbabilities.First().Item2.ToString(), feature, "Hs - 1/1.000");
         }
     }
 }

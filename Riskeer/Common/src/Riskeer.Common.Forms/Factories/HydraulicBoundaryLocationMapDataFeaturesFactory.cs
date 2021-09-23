@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Components.Gis.Features;
 using Riskeer.Common.Forms.Helpers;
@@ -53,17 +54,28 @@ namespace Riskeer.Common.Forms.Factories
             feature.MetaData[RiskeerCommonUtilResources.MetaData_ID] = location.Id;
             feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = location.Name;
             
-            foreach (Tuple<double,RoundedDouble> waterLevelCalculationForTargetProbability in location.WaterLevelCalculationForTargetProbabilities)
-            {
-                feature.MetaData[string.Format(Resources.MetaData_WaterLevel_TargetProbability_0, ProbabilityFormattingHelper.Format(waterLevelCalculationForTargetProbability.Item1))] = waterLevelCalculationForTargetProbability.Item2.ToString();
-            }
-            
-            foreach (Tuple<double,RoundedDouble> waveHeightCalculationForTargetProbability in location.WaveHeightCalculationForTargetProbabilities)
-            {
-                feature.MetaData[string.Format(Resources.MetaData_WaveHeight_TargetProbability_0, ProbabilityFormattingHelper.Format(waveHeightCalculationForTargetProbability.Item1))] = waveHeightCalculationForTargetProbability.Item2.ToString();
-            }
-            
+            AddTargetProbabilityMetData(feature, location.WaterLevelCalculationForTargetProbabilities,
+                                        Resources.MetaData_WaterLevel_TargetProbability_0);
+
+            AddTargetProbabilityMetData(feature, location.WaveHeightCalculationForTargetProbabilities,
+                                        Resources.MetaData_WaveHeight_TargetProbability_0);
+
             return feature;
+        }
+
+        private static void AddTargetProbabilityMetData(MapFeature feature, IEnumerable<Tuple<double, RoundedDouble>> targetProbabilities, string displayName)
+        {
+            var addedMetaDataItems = new List<string>();
+            
+            foreach (Tuple<double, RoundedDouble> calculationOutputForTargetProbability in targetProbabilities)
+            {
+                string uniqueName = NamingHelper.GetUniqueName(
+                    addedMetaDataItems, string.Format(displayName, ProbabilityFormattingHelper.Format(calculationOutputForTargetProbability.Item1)),
+                    v => v);
+
+                feature.MetaData[uniqueName] = calculationOutputForTargetProbability.Item2.ToString();
+                addedMetaDataItems.Add(uniqueName);
+            }
         }
     }
 }
