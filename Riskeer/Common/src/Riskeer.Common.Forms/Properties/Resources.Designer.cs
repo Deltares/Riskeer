@@ -4359,24 +4359,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstanden bij norm.
-        /// </summary>
-        public static string WaterLevelCalculationsForNormTargetProbabilities_DisplayName {
-            get {
-                return ResourceManager.GetString("WaterLevelCalculationsForNormTargetProbabilities_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waterstanden bij doelkans.
-        /// </summary>
-        public static string WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName {
-            get {
-                return ResourceManager.GetString("WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Volumiek gewicht van water..
         /// </summary>
         public static string WaterVolumetricWeight_Description {
@@ -4436,15 +4418,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string WaveHeightCalculation_Result_DisplayName {
             get {
                 return ResourceManager.GetString("WaveHeightCalculation_Result_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Golfhoogten bij doelkans.
-        /// </summary>
-        public static string WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName {
-            get {
-                return ResourceManager.GetString("WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName", resourceCulture);
             }
         }
         

@@ -40,7 +40,7 @@ namespace Riskeer.Common.Util.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -105,6 +105,33 @@ namespace Riskeer.Common.Util.Properties {
         public static string RiskeerVersionHelper_Version_0_Not_Valid {
             get {
                 return ResourceManager.GetString("RiskeerVersionHelper_Version_0_Not_Valid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstanden bij norm.
+        /// </summary>
+        public static string WaterLevelCalculationsForNormTargetProbabilities_DisplayName {
+            get {
+                return ResourceManager.GetString("WaterLevelCalculationsForNormTargetProbabilities_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstanden bij doelkans.
+        /// </summary>
+        public static string WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName {
+            get {
+                return ResourceManager.GetString("WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfhoogten bij doelkans.
+        /// </summary>
+        public static string WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName", resourceCulture);
             }
         }
     }

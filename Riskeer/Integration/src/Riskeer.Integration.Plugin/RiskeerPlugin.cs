@@ -106,6 +106,7 @@ using CoreGuiResources = Core.Gui.Properties.Resources;
 using FontFamily = System.Windows.Media.FontFamily;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
+using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonPluginResources = Riskeer.Common.Plugin.Properties.Resources;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
@@ -350,7 +351,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ViewInfo<WaterLevelCalculationsForNormTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
             {
-                GetViewName = (view, context) => $"{RiskeerCommonFormsResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName} - " +
+                GetViewName = (view, context) => $"{RiskeerCommonUtilResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName} - " +
                                                  $"{noProbabilityValueDoubleConverter.ConvertToString(context.GetNormFunc())}",
                 GetViewData = context => context.WrappedData,
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
@@ -771,7 +772,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ExportInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
             {
-                Name = context => RiskeerCommonFormsResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName,
+                Name = context => RiskeerCommonUtilResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName,
                 Extension = Resources.Zip_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
                     new[]
@@ -790,7 +791,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityGroupExportInfo
                 <WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext>(
-                    RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName,
+                    RiskeerCommonUtilResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName,
                     HydraulicBoundaryLocationCalculationsType.WaterLevel,
                     context => context.WrappedData
                                       .Select(tp => new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
@@ -799,7 +800,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityGroupExportInfo
                 <WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext>(
-                    RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName,
+                    RiskeerCommonUtilResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName,
                     HydraulicBoundaryLocationCalculationsType.WaveHeight,
                     context => context.WrappedData
                                       .Select(tp => new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
@@ -1009,7 +1010,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
             {
-                Text = context => RiskeerCommonFormsResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName,
+                Text = context => RiskeerCommonUtilResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = WaterLevelCalculationsForNormTargetProbabilitiesGroupContextMenuStrip,
                 ChildNodeObjects = WaterLevelCalculationsForNormTargetProbabilitiesGroupContextChildNodes
@@ -1024,7 +1025,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext>
             {
-                Text = context => RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName,
+                Text = context => RiskeerCommonUtilResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip,
                 ChildNodeObjects = WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodes,
@@ -1046,7 +1047,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext>
             {
-                Text = context => RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName,
+                Text = context => RiskeerCommonUtilResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContextMenuStrip,
                 ChildNodeObjects = WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodes,
@@ -1359,14 +1360,14 @@ namespace Riskeer.Integration.Plugin
         private static string GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesViewName(
             HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbabilities)
         {
-            return $"{RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName} - " +
+            return $"{RiskeerCommonUtilResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName} - " +
                    $"{noProbabilityValueDoubleConverter.ConvertToString(calculationsForUserDefinedTargetProbabilities.TargetProbability)}";
         }
 
         private static string GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesViewName(
             HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbabilities)
         {
-            return $"{RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName} - " +
+            return $"{RiskeerCommonUtilResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName} - " +
                    $"{noProbabilityValueDoubleConverter.ConvertToString(calculationsForUserDefinedTargetProbabilities.TargetProbability)}";
         }
 
@@ -2371,7 +2372,7 @@ namespace Riskeer.Integration.Plugin
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 GetInquiryHelper(),
-                RiskeerCommonFormsResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName,
+                RiskeerCommonUtilResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForNormTargetProbabilities(nodeData.AssessmentSection));
 
             return builder.AddExportItem()
@@ -2471,7 +2472,7 @@ namespace Riskeer.Integration.Plugin
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 GetInquiryHelper(),
-                RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName,
+                RiskeerCommonUtilResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaterLevelCalculationsForUserDefinedTargetProbabilities(nodeData.AssessmentSection));
 
             return builder.AddExportItem()
@@ -2596,7 +2597,7 @@ namespace Riskeer.Integration.Plugin
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 GetInquiryHelper(),
-                RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName,
+                RiskeerCommonUtilResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName,
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsOfWaveHeightCalculationsForUserDefinedTargetProbabilities(nodeData.AssessmentSection));
 
             return builder.AddExportItem()
