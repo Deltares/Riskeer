@@ -263,6 +263,9 @@ berekeningen</value>
     <value>Hydraulische
 belastingen</value>
   </data>
+    <data name="FailurePathsCategoryTreeFolder_DisplayName" xml:space="preserve">
+    <value>Faalpaden</value>
+  </data>
     <data name="AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection"
           xml:space="preserve">
     <value>Er zijn geen instellingen gevonden voor het geselecteerde traject. Standaardinstellingen zullen gebruikt worden.</value>

@@ -346,6 +346,15 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Faalpaden.
+        /// </summary>
+        public static string FailurePathsCategoryTreeFolder_DisplayName {
+            get {
+                return ResourceManager.GetString("FailurePathsCategoryTreeFolder_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Foreshore {
