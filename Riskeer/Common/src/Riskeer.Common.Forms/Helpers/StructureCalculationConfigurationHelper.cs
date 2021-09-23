@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Util.Helpers;
 
 namespace Riskeer.Common.Forms.Helpers
 {

@@ -100,6 +100,15 @@ namespace Riskeer.Common.Util.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0:n0}.
+        /// </summary>
+        public static string ReturnPeriodFormat {
+            get {
+                return ResourceManager.GetString("ReturnPeriodFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; is geen geldige Riskeer of Ringtoets projectbestand versie..
         /// </summary>
         public static string RiskeerVersionHelper_Version_0_Not_Valid {

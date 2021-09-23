@@ -135,4 +135,7 @@
   <data name="WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName" xml:space="preserve">
     <value>Golfhoogten bij doelkans</value>
   </data>
+  <data name="ReturnPeriodFormat" xml:space="preserve">
+    <value>{0:n0}</value>
+  </data>
 </root>

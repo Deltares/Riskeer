@@ -49,6 +49,7 @@ using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SurfaceLines;
 using Riskeer.Common.Plugin;
+using Riskeer.Common.Util.Helpers;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms;

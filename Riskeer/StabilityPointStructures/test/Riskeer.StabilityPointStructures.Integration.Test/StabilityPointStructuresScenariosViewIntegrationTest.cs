@@ -34,6 +34,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.Util.Helpers;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.TestUtil;
 using Riskeer.StabilityPointStructures.Data;

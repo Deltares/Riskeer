@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.Util.Properties;
 
-namespace Riskeer.Common.Forms.Helpers
+namespace Riskeer.Common.Util.Helpers
 {
     /// <summary>
     /// This class helps in consistently writing the return period.

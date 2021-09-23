@@ -425,9 +425,6 @@ handmatig</value>
   <data name="ProbabilityPerYearFormat" xml:space="preserve">
     <value>1/{0:n0}</value>
   </data>
-  <data name="ReturnPeriodFormat" xml:space="preserve">
-    <value>{0:n0}</value>
-  </data>  
   <data name="ScenariosIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\cards.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

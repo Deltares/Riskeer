@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.IO.TestUtil;
+using Riskeer.Common.Util.Helpers;
 using Riskeer.Integration.IO.Exporters;
 using Riskeer.Integration.IO.Helpers;
 

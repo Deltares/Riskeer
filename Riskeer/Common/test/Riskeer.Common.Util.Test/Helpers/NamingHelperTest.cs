@@ -22,9 +22,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Util.Helpers;
 
-namespace Riskeer.Common.Forms.Test.Helpers
+namespace Riskeer.Common.Util.Test.Helpers
 {
     [TestFixture]
     public class NamingHelperTest

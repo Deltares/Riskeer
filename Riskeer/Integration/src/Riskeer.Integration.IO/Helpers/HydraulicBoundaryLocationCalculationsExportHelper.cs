@@ -25,7 +25,7 @@ using System.ComponentModel;
 using System.IO;
 using Core.Common.Util;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Util.Helpers;
 using Riskeer.Integration.IO.Exporters;
 using Riskeer.Integration.IO.Properties;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;

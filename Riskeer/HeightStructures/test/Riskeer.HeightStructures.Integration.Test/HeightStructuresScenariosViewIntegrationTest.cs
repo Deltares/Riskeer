@@ -34,6 +34,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.Util.Helpers;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.Views;
 using Riskeer.HeightStructures.IO;

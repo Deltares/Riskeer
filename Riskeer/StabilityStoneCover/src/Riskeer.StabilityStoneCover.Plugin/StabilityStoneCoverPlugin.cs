@@ -45,6 +45,7 @@ using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
+using Riskeer.Common.Util.Helpers;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.Views;
 using Riskeer.Revetment.Service;

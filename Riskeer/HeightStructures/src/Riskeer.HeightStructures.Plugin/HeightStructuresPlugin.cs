@@ -49,6 +49,7 @@ using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Structures;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util;
+using Riskeer.Common.Util.Helpers;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Forms.PropertyClasses;

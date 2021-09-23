@@ -22,9 +22,9 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Util.Helpers;
 
-namespace Riskeer.Common.Forms.Test.Helpers
+namespace Riskeer.Common.Util.Test.Helpers
 {
     [TestFixture]
     public class ReturnPeriodFormattingHelperTest

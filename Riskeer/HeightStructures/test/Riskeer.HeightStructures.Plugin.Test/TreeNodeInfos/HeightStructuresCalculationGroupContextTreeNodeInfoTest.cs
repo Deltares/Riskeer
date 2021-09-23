@@ -46,6 +46,7 @@ using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Service.TestUtil;
+using Riskeer.Common.Util.Helpers;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
