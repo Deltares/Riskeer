@@ -87,27 +87,13 @@ namespace Riskeer.Common.Forms.TestUtil
                     AssertMetaData(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, hydraulicBoundaryLocation, mapFeature,
                                    calculationsForTargetProbability.TargetProbability, "h - {0}", presentedMetaDataItems);
                 }
-                
+
                 foreach (HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities)
                 {
                     AssertMetaData(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations, hydraulicBoundaryLocation, mapFeature,
-                        calculationsForTargetProbability.TargetProbability, "Hs - {0}", presentedMetaDataItems);
+                                   calculationsForTargetProbability.TargetProbability, "Hs - {0}", presentedMetaDataItems);
                 }
             }
-        }
-
-        private static void AssertMetaData(IEnumerable<HydraulicBoundaryLocationCalculation> calculations, HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                           MapFeature mapFeature, double targetProbability, string displayName, List<string> presentedMetaDataItems)
-        {
-            string uniqueName = NamingHelper.GetUniqueName(
-                presentedMetaDataItems, string.Format(displayName, ProbabilityFormattingHelper.Format(targetProbability)),
-                v => v);
-            
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                GetExpectedResult(calculations, hydraulicBoundaryLocation),
-                mapFeature, uniqueName);
-
-            presentedMetaDataItems.Add(uniqueName);
         }
 
         /// <summary>
@@ -191,6 +177,20 @@ namespace Riskeer.Common.Forms.TestUtil
             Assert.AreEqual(assessmentSection.Id, feature.MetaData["ID"]);
             Assert.AreEqual(assessmentSection.Name, feature.MetaData["Naam"]);
             Assert.AreEqual(new RoundedDouble(2, referenceLine.Length), feature.MetaData["Lengte*"]);
+        }
+
+        private static void AssertMetaData(IEnumerable<HydraulicBoundaryLocationCalculation> calculations, HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                           MapFeature mapFeature, double targetProbability, string displayName, List<string> presentedMetaDataItems)
+        {
+            string uniqueName = NamingHelper.GetUniqueName(
+                presentedMetaDataItems, string.Format(displayName, ProbabilityFormattingHelper.Format(targetProbability)),
+                v => v);
+
+            MapFeaturesMetaDataTestHelper.AssertMetaData(
+                GetExpectedResult(calculations, hydraulicBoundaryLocation),
+                mapFeature, uniqueName);
+
+            presentedMetaDataItems.Add(uniqueName);
         }
 
         private static string GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,

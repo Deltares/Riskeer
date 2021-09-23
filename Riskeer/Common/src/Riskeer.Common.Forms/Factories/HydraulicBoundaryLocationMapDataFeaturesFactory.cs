@@ -55,16 +55,16 @@ namespace Riskeer.Common.Forms.Factories
             feature.MetaData[RiskeerCommonUtilResources.MetaData_ID] = location.Id;
             feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = location.Name;
 
-            AddTargetProbabilityMetData(feature, location.WaterLevelCalculationForTargetProbabilities,
-                                        Resources.MetaData_WaterLevel_TargetProbability_0);
+            AddTargetProbabilityMetaData(feature, location.WaterLevelCalculationForTargetProbabilities,
+                                         Resources.MetaData_WaterLevel_TargetProbability_0);
 
-            AddTargetProbabilityMetData(feature, location.WaveHeightCalculationForTargetProbabilities,
-                                        Resources.MetaData_WaveHeight_TargetProbability_0);
+            AddTargetProbabilityMetaData(feature, location.WaveHeightCalculationForTargetProbabilities,
+                                         Resources.MetaData_WaveHeight_TargetProbability_0);
 
             return feature;
         }
 
-        private static void AddTargetProbabilityMetData(MapFeature feature, IEnumerable<Tuple<double, RoundedDouble>> targetProbabilities, string displayName)
+        private static void AddTargetProbabilityMetaData(MapFeature feature, IEnumerable<Tuple<double, RoundedDouble>> targetProbabilities, string displayName)
         {
             var addedMetaDataItems = new List<string>();
 
