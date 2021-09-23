@@ -56,7 +56,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         private const int hydraulicBoundaryLocationsIndex = 3;
         private const int calculationsIndex = 4;
 
-        private const int hydraulicBoundaryLocationsObserverIndex = 3;
         private const int calculationObserverIndex = 4;
 
         private Form testForm;
@@ -249,80 +248,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
             AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, mapDataList[stochasticSoilModelsIndex]);
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(), mapDataList[calculationsIndex]);
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationsUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
-            });
-
-            MacroStabilityInwardsFailureMechanismView view = CreateView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[hydraulicBoundaryLocationsObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-
-            // When
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
-            });
-            assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        [TestCaseSource(typeof(MapViewTestHelper), nameof(MapViewTestHelper.GetCalculationFuncs))]
-        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
-            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
-        {
-            // Given
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            });
-
-            MacroStabilityInwardsFailureMechanismView view = CreateView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[hydraulicBoundaryLocationsObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-
-            // When
-            HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
-            calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
-            calculation.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-            mocks.VerifyAll();
         }
 
         [Test]

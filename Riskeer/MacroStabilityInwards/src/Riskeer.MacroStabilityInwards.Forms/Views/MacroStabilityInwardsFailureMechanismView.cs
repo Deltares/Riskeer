@@ -28,9 +28,8 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Factories;
-using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.Factories;
@@ -44,26 +43,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     /// </summary>
     public partial class MacroStabilityInwardsFailureMechanismView : UserControl, IMapView
     {
+        private HydraulicBoundaryLocationsMapLayer hydraulicBoundaryLocationsMapLayer;
+
         private MapLineData referenceLineMapData;
         private MapLineData stochasticSoilModelsMapData;
         private MapLineData surfaceLinesMapData;
-        private MapPointData hydraulicBoundaryLocationsMapData;
         private MapLineData calculationsMapData;
 
-        private Observer hydraulicBoundaryLocationsObserver;
         private Observer assessmentSectionObserver;
         private Observer referenceLineObserver;
         private Observer surfaceLinesObserver;
         private Observer stochasticSoilModelsObserver;
 
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNormObserver;
         private RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput> calculationInputObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario> calculationObserver;
@@ -133,17 +124,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
+            hydraulicBoundaryLocationsMapLayer.Dispose();
+
             assessmentSectionObserver.Dispose();
             referenceLineObserver.Dispose();
-            waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
-            waterLevelCalculationsForSignalingNormObserver.Dispose();
-            waterLevelCalculationsForLowerLimitNormObserver.Dispose();
-            waterLevelCalculationsForFactorizedLowerLimitNormObserver.Dispose();
-            waveHeightCalculationsForFactorizedSignalingNormObserver.Dispose();
-            waveHeightCalculationsForSignalingNormObserver.Dispose();
-            waveHeightCalculationsForLowerLimitNormObserver.Dispose();
-            waveHeightCalculationsForFactorizedLowerLimitNormObserver.Dispose();
-            hydraulicBoundaryLocationsObserver.Dispose();
             stochasticSoilModelsObserver.Dispose();
             calculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();
@@ -164,9 +148,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// </summary>
         protected virtual void CreateMapData()
         {
+            hydraulicBoundaryLocationsMapLayer = new HydraulicBoundaryLocationsMapLayer(AssessmentSection);
             MapDataCollection = new MapDataCollection(MacroStabilityInwardsDataResources.MacroStabilityInwardsFailureMechanism_DisplayName);
             referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             stochasticSoilModelsMapData = RiskeerMapDataFactory.CreateStochasticSoilModelsMapData();
             surfaceLinesMapData = RiskeerMapDataFactory.CreateSurfaceLinesMapData();
             calculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData();
@@ -174,8 +158,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             MapDataCollection.Add(referenceLineMapData);
             MapDataCollection.Add(stochasticSoilModelsMapData);
             MapDataCollection.Add(surfaceLinesMapData);
-
-            MapDataCollection.Add(hydraulicBoundaryLocationsMapData);
+            MapDataCollection.Add(hydraulicBoundaryLocationsMapLayer.MapData);
             MapDataCollection.Add(calculationsMapData);
         }
 
@@ -192,10 +175,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             {
                 Observable = AssessmentSection.ReferenceLine
             };
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData)
-            {
-                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
-            };
             surfaceLinesObserver = new Observer(UpdateSurfaceLinesMapData)
             {
                 Observable = FailureMechanism.SurfaceLines
@@ -204,23 +183,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             {
                 Observable = FailureMechanism.StochasticSoilModels
             };
-
-            waterLevelCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
 
             calculationInputObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput>(
                 UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<MacroStabilityInwardsCalculationScenario>().Select(pc => pc.InputParameters)))
@@ -248,7 +210,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         protected virtual void SetAllMapDataFeatures()
         {
             SetCalculationsMapData();
-            SetHydraulicBoundaryLocationsMapData();
             SetReferenceLineMapData();
 
             SetSurfaceLinesMapData();
@@ -271,21 +232,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             IEnumerable<MacroStabilityInwardsCalculationScenario> calculations =
                 FailureMechanism.CalculationsGroup.GetCalculations().Cast<MacroStabilityInwardsCalculationScenario>();
             calculationsMapData.Features = MacroStabilityInwardsMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
-        }
-
-        #endregion
-
-        #region HydraulicBoundaryLocations MapData
-
-        private void UpdateHydraulicBoundaryLocationsMapData()
-        {
-            SetHydraulicBoundaryLocationsMapData();
-            hydraulicBoundaryLocationsMapData.NotifyObservers();
-        }
-
-        private void SetHydraulicBoundaryLocationsMapData()
-        {
-            hydraulicBoundaryLocationsMapData.Features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(AssessmentSection);
         }
 
         #endregion
