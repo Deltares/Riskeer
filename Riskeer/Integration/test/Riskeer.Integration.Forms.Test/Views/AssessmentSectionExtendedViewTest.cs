@@ -19,23 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Forms;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
-using Riskeer.Common.Forms.Views;
 using Riskeer.Integration.Forms.Views;
 
 namespace Riskeer.Integration.Forms.Test.Views
@@ -99,78 +93,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(typeof(MapViewTestHelper), nameof(MapViewTestHelper.GetCalculationFuncs))]
-        public void GivenViewWithHydraulicBoundaryLocationsData_WhenHydraulicBoundaryLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
-            Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
-        {
-            // Given
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            });
-
-            AssessmentSectionExtendedView extendedView = ShowCalculationsView(assessmentSection);
-
-            IMapControl map = ((RiskeerMapControl) extendedView.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-
-            // When
-            HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
-            calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
-            calculation.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenViewWithHydraulicBoundaryLocationsDatabase_WhenChangingHydraulicBoundaryLocationsDataAndObserversNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
-            });
-
-            AssessmentSectionExtendedView extendedView = ShowCalculationsView(assessmentSection);
-            IMapControl map = ((RiskeerMapControl) extendedView.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[hydraulicBoundaryLocationsIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
-
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-
-            // When
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
-            });
-            assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void UpdateObserver_DataUpdated_MapLayersSameOrder()
         {
             // Setup
@@ -231,23 +153,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             base.TearDown();
 
             testForm.Dispose();
-        }
-
-        private static IObserver[] AttachMapDataObservers(MockRepository mocks, IEnumerable<MapData> mapData)
-        {
-            MapData[] mapDataArray = mapData.ToArray();
-
-            var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
-
-            var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
-
-            return new[]
-            {
-                referenceLineMapDataObserver,
-                hydraulicBoundaryLocationsMapDataObserver
-            };
         }
 
         private AssessmentSectionExtendedView ShowCalculationsView(IAssessmentSection assessmentSection)
