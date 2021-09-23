@@ -29,31 +29,24 @@ namespace Riskeer.Storage.Core.Read.DuneErosion
 {
     /// <summary>
     /// This class defines extension methods for read operations for a collection of 
-    /// <see cref="DuneLocationCalculation"/> based on the <see cref="DuneLocationCalculationCollectionEntity"/>.
+    /// <see cref="DuneLocationCalculation"/> based on the <see cref="DuneLocationCalculationForTargetProbabilityCollectionEntity"/>.
     /// </summary>
-    internal static class DuneLocationCalculationCollectionEntityReadExtensions
+    internal static class DuneLocationCalculationForTargetProbabilityCollectionEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="DuneLocationCalculationCollectionEntity"/> and uses the information 
+        /// Reads the <see cref="DuneLocationCalculationForTargetProbabilityCollectionEntity"/> and uses the information 
         /// to update a collection of <see cref="DuneLocationCalculation"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="HydraulicLocationCalculationEntity"/> to update the 
-        /// <see cref="DuneLocationCalculation"/>.</param>
-        /// <param name="calculations">The target of the read operation.</param>
+        /// <param name="entity">The <see cref="DuneLocationCalculationForTargetProbabilityCollectionEntity"/> to create the 
+        /// <see cref="DuneLocationCalculationsForTargetProbability"/>.</param>
         /// <param name="collector">The object keeping track of the read operations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this DuneLocationCalculationCollectionEntity entity,
-                                  IEnumerable<DuneLocationCalculation> calculations,
-                                  ReadConversionCollector collector)
+        internal static DuneLocationCalculationsForTargetProbability Read(this DuneLocationCalculationForTargetProbabilityCollectionEntity entity,
+                                                                          ReadConversionCollector collector)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
-            }
-
-            if (calculations == null)
-            {
-                throw new ArgumentNullException(nameof(calculations));
             }
 
             if (collector == null)
@@ -61,16 +54,22 @@ namespace Riskeer.Storage.Core.Read.DuneErosion
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            Dictionary<DuneLocation, DuneLocationCalculation> calculationsLookup =
-                calculations.ToDictionary(calc => calc.DuneLocation, calc => calc);
+            var calculations = new DuneLocationCalculationsForTargetProbability(entity.TargetProbability);
+            IEnumerable<DuneLocationCalculation> duneLocationCalculations =
+                entity.DuneLocationCalculationEntities
+                      .Select(dlce => CreateHydraulicBoundaryLocationCalculation(dlce, collector))
+                      .ToArray();
+            calculations.DuneLocationCalculations.AddRange(duneLocationCalculations);
 
-            foreach (DuneLocationCalculationEntity calculationEntity in entity.DuneLocationCalculationEntities)
-            {
-                DuneLocation duneLocation = collector.Get(calculationEntity.DuneLocationEntity);
-                DuneLocationCalculation calculation = calculationsLookup[duneLocation];
+            return calculations;
+        }
 
-                calculationEntity.Read(calculation);
-            }
+        private static DuneLocationCalculation CreateHydraulicBoundaryLocationCalculation(DuneLocationCalculationEntity calculationEntity,
+                                                                                          ReadConversionCollector collector)
+        {
+            var calculation = new DuneLocationCalculation(collector.Get(calculationEntity.DuneLocationEntity));
+            calculationEntity.Read(calculation);
+            return calculation;
         }
     }
 }

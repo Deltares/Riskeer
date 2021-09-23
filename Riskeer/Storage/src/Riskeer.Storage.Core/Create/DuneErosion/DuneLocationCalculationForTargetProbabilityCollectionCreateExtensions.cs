@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Riskeer.DuneErosion.Data;
 using Riskeer.Storage.Core.DbContext;
 
@@ -28,21 +27,23 @@ namespace Riskeer.Storage.Core.Create.DuneErosion
 {
     /// <summary>
     /// Extension methods for collections of <see cref="DuneLocationCalculation"/> related to creating a 
-    /// <see cref="DuneLocationCalculationCollectionEntity"/>.
+    /// <see cref="DuneLocationCalculationForTargetProbabilityCollectionEntity"/>.
     /// </summary>
-    internal static class DuneLocationCalculationCollectionCreateExtensions
+    internal static class DuneLocationCalculationForTargetProbabilityCollectionCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="DuneLocationCalculationCollectionEntity"/> based on the information
+        /// Creates a <see cref="DuneLocationCalculationForTargetProbabilityCollectionEntity"/> based on the information
         /// of the <paramref name="calculations"/>.
         /// </summary>
         /// <param name="calculations">The collection of <see cref="DuneLocationCalculation"/>
         /// to create a database entity for.</param>
+        /// <param name="order">Index at which this instance resides inside its parent container.</param> 
         /// <param name="registry">The object keeping track of create operations.</param>
-        /// <returns>A new <see cref="DuneLocationCalculationCollectionEntity"/>.</returns>
+        /// <returns>A new <see cref="DuneLocationCalculationForTargetProbabilityCollectionEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static DuneLocationCalculationCollectionEntity Create(this IEnumerable<DuneLocationCalculation> calculations,
-                                                                       PersistenceRegistry registry)
+        internal static DuneLocationCalculationForTargetProbabilityCollectionEntity Create(this DuneLocationCalculationsForTargetProbability calculations,
+                                                                                           int order,
+                                                                                           PersistenceRegistry registry)
         {
             if (calculations == null)
             {
@@ -54,8 +55,13 @@ namespace Riskeer.Storage.Core.Create.DuneErosion
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            var collectionEntity = new DuneLocationCalculationCollectionEntity();
-            foreach (DuneLocationCalculation calculation in calculations)
+            var collectionEntity = new DuneLocationCalculationForTargetProbabilityCollectionEntity
+            {
+                TargetProbability = calculations.TargetProbability,
+                Order = order
+            };
+
+            foreach (DuneLocationCalculation calculation in calculations.DuneLocationCalculations)
             {
                 collectionEntity.DuneLocationCalculationEntities.Add(calculation.Create(registry));
             }

@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
@@ -31,47 +33,30 @@ using Riskeer.Storage.Core.Read.DuneErosion;
 namespace Riskeer.Storage.Core.Test.Read.DuneErosion
 {
     [TestFixture]
-    public class DuneLocationCalculationCollectionEntityReadExtensionsTest
+    public class DuneLocationCalculationForTargetProbabilityCollectionEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
-                ((DuneLocationCalculationCollectionEntity) null).Read(Enumerable.Empty<DuneLocationCalculation>(),
-                                                                      new ReadConversionCollector());
+            void Call() => ((DuneLocationCalculationForTargetProbabilityCollectionEntity) null).Read(new ReadConversionCollector());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
-        }
-
-        [Test]
-        public void Read_CalculationsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var entity = new DuneLocationCalculationCollectionEntity();
-
-            // Call
-            TestDelegate call = () => entity.Read(null, new ReadConversionCollector());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("calculations", exception.ParamName);
         }
 
         [Test]
         public void Read_CollectorNull_ThrowsArgumentNullException()
         {
             // Setup
-            var entity = new DuneLocationCalculationCollectionEntity();
+            var entity = new DuneLocationCalculationForTargetProbabilityCollectionEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(Enumerable.Empty<DuneLocationCalculation>(),
-                                                  null);
+            void Call() => entity.Read(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("collector", exception.ParamName);
         }
 
@@ -79,13 +64,15 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
         public void Read_EntityWithValidValues_SetsCalculationsWithExpectedValues()
         {
             // Setup
-            DuneLocationEntity duneLocationEntityOne = CreateDuneLocationEntity();
+            var random = new Random(21);
+
+            var duneLocationEntityOne = new DuneLocationEntity();
             var calculationEntityWithoutOutput = new DuneLocationCalculationEntity
             {
                 DuneLocationEntity = duneLocationEntityOne
             };
 
-            DuneLocationEntity duneLocationEntityTwo = CreateDuneLocationEntity();
+            var duneLocationEntityTwo = new DuneLocationEntity();
             var calculationEntityWithOutput = new DuneLocationCalculationEntity
             {
                 DuneLocationEntity = duneLocationEntityTwo,
@@ -95,8 +82,9 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
                 }
             };
 
-            var collectionEntity = new DuneLocationCalculationCollectionEntity
+            var collectionEntity = new DuneLocationCalculationForTargetProbabilityCollectionEntity
             {
+                TargetProbability = random.NextDouble(0, 0.1),
                 DuneLocationCalculationEntities =
                 {
                     calculationEntityWithoutOutput,
@@ -110,30 +98,20 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
             collector.Read(duneLocationEntityOne, duneLocationOne);
             collector.Read(duneLocationEntityTwo, duneLocationTwo);
 
-            var calculationOne = new DuneLocationCalculation(duneLocationOne);
-            var calculationTwo = new DuneLocationCalculation(duneLocationTwo);
-
             // Call
-            collectionEntity.Read(new[]
-            {
-                calculationOne,
-                calculationTwo
-            }, collector);
+            DuneLocationCalculationsForTargetProbability calculations = collectionEntity.Read(collector);
 
             // Assert
-            Assert.IsNull(calculationOne.Output);
-            Assert.IsNotNull(calculationTwo.Output);
-        }
+            Assert.AreEqual(collectionEntity.TargetProbability, calculations.TargetProbability);
 
-        private static DuneLocationEntity CreateDuneLocationEntity()
-        {
-            return new DuneLocationEntity
-            {
-                LocationId = 1,
-                Name = "Dune Location",
-                LocationX = 1,
-                LocationY = 2
-            };
+            IEnumerable<DuneLocationCalculation> duneLocationCalculations = calculations.DuneLocationCalculations;
+            Assert.AreEqual(collectionEntity.DuneLocationCalculationEntities.Count, duneLocationCalculations.Count());
+
+            DuneLocationCalculation calculationOne = duneLocationCalculations.ElementAt(0);
+            Assert.IsNull(calculationOne.Output);
+
+            DuneLocationCalculation calculationTwo = duneLocationCalculations.ElementAt(1);
+            Assert.IsNotNull(calculationTwo.Output);
         }
     }
 }

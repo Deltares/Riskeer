@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -139,12 +140,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new DuneErosionFailureMechanismMetaEntity
                     {
-                        N = generalInputN,
-                        DuneLocationCalculationCollectionEntity = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity1 = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity2 = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity3 = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity4 = new DuneLocationCalculationCollectionEntity()
+                        N = generalInputN
                     }
                 }
             };
@@ -181,12 +177,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new DuneErosionFailureMechanismMetaEntity
                     {
-                        N = 1,
-                        DuneLocationCalculationCollectionEntity = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity1 = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity2 = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity3 = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity4 = new DuneLocationCalculationCollectionEntity()
+                        N = 1
                     }
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()
@@ -216,12 +207,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new DuneErosionFailureMechanismMetaEntity
                     {
-                        N = 1,
-                        DuneLocationCalculationCollectionEntity = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity1 = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity2 = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity3 = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity4 = new DuneLocationCalculationCollectionEntity()
+                        N = 1
                     }
                 },
                 DuneLocationEntities =
@@ -261,15 +247,12 @@ namespace Riskeer.Storage.Core.Test.Read
                 Order = 1,
                 Name = "Dune"
             };
+
             var duneErosionFailureMechanismMetaEntity = new DuneErosionFailureMechanismMetaEntity
             {
-                N = 1,
-                DuneLocationCalculationCollectionEntity = CreateDuneLocationCollectionCalculationEntity(duneLocationEntity, 1),
-                DuneLocationCalculationCollectionEntity1 = CreateDuneLocationCollectionCalculationEntity(duneLocationEntity, 2),
-                DuneLocationCalculationCollectionEntity2 = CreateDuneLocationCollectionCalculationEntity(duneLocationEntity, 3),
-                DuneLocationCalculationCollectionEntity3 = CreateDuneLocationCollectionCalculationEntity(duneLocationEntity, 4),
-                DuneLocationCalculationCollectionEntity4 = CreateDuneLocationCollectionCalculationEntity(duneLocationEntity, 5)
+                N = 1
             };
+
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -283,6 +266,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 }
             };
 
+            SetHydraulicLocationCalculationForTargetProbabilityCollectionEntities(duneErosionFailureMechanismMetaEntity, duneLocationEntity);
+
             var duneLocation = new TestDuneLocation();
             var collector = new ReadConversionCollector();
             collector.Read(duneLocationEntity, duneLocation);
@@ -293,58 +278,11 @@ namespace Riskeer.Storage.Core.Test.Read
             entity.ReadAsDuneErosionFailureMechanism(failureMechanism, collector);
 
             // Assert
-            AssertDuneLocationCalculation(duneErosionFailureMechanismMetaEntity.DuneLocationCalculationCollectionEntity
+            AssertDuneLocationCalculation(duneErosionFailureMechanismMetaEntity.DuneLocationCalculationForTargetProbabilityCollectionEntities.First()
                                                                                .DuneLocationCalculationEntities
                                                                                .Single(),
                                           duneLocation,
-                                          failureMechanism.CalculationsForFactorizedLowerLimitNorm.Single());
-
-            AssertDuneLocationCalculation(duneErosionFailureMechanismMetaEntity.DuneLocationCalculationCollectionEntity1
-                                                                               .DuneLocationCalculationEntities
-                                                                               .Single(),
-                                          duneLocation,
-                                          failureMechanism.CalculationsForLowerLimitNorm.Single());
-
-            AssertDuneLocationCalculation(duneErosionFailureMechanismMetaEntity.DuneLocationCalculationCollectionEntity2
-                                                                               .DuneLocationCalculationEntities
-                                                                               .Single(),
-                                          duneLocation,
-                                          failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Single());
-
-            AssertDuneLocationCalculation(duneErosionFailureMechanismMetaEntity.DuneLocationCalculationCollectionEntity3
-                                                                               .DuneLocationCalculationEntities
-                                                                               .Single(),
-                                          duneLocation,
-                                          failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Single());
-
-            AssertDuneLocationCalculation(duneErosionFailureMechanismMetaEntity.DuneLocationCalculationCollectionEntity4
-                                                                               .DuneLocationCalculationEntities
-                                                                               .Single(),
-                                          duneLocation,
-                                          failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Single());
-        }
-
-        private static DuneLocationCalculationCollectionEntity CreateDuneLocationCollectionCalculationEntity(DuneLocationEntity duneLocationEntity,
-                                                                                                             int seed)
-        {
-            var random = new Random(seed);
-            var duneLocationCalculationEntity = new DuneLocationCalculationEntity
-            {
-                DuneLocationEntity = duneLocationEntity
-            };
-
-            if (random.NextBoolean())
-            {
-                duneLocationCalculationEntity.DuneLocationCalculationOutputEntities.Add(new DuneLocationCalculationOutputEntity());
-            }
-
-            return new DuneLocationCalculationCollectionEntity
-            {
-                DuneLocationCalculationEntities =
-                {
-                    duneLocationCalculationEntity
-                }
-            };
+                                          failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.First().DuneLocationCalculations.Single());
         }
 
         private static void AssertDuneLocationCalculation(DuneLocationCalculationEntity expectedCalculationEntity,
@@ -364,6 +302,38 @@ namespace Riskeer.Storage.Core.Test.Read
             }
         }
 
+        private static void SetHydraulicLocationCalculationForTargetProbabilityCollectionEntities(DuneErosionFailureMechanismMetaEntity entity,
+                                                                                                  DuneLocationEntity duneLocationEntity)
+        {
+            entity.DuneLocationCalculationForTargetProbabilityCollectionEntities = new List<DuneLocationCalculationForTargetProbabilityCollectionEntity>();
+
+            var random = new Random(21);
+            int nrOfCollections = random.Next(1, 10);
+            for (int i = 0; i < nrOfCollections; i++)
+            {
+                entity.DuneLocationCalculationForTargetProbabilityCollectionEntities.Add(CreateDuneLocationCalculationForTargetProbabilityCollectionEntity(duneLocationEntity, random.Next()));
+            }
+        }
+
+        private static DuneLocationCalculationForTargetProbabilityCollectionEntity CreateDuneLocationCalculationForTargetProbabilityCollectionEntity(
+            DuneLocationEntity duneLocationEntity,
+            int seed)
+        {
+            var random = new Random(seed);
+            return new DuneLocationCalculationForTargetProbabilityCollectionEntity
+            {
+                TargetProbability = random.NextDouble(0, 0.1),
+                Order = seed,
+                DuneLocationCalculationEntities =
+                {
+                    new DuneLocationCalculationEntity
+                    {
+                        DuneLocationEntity = duneLocationEntity
+                    }
+                }
+            };
+        }
+
         #endregion
 
         #region Piping
@@ -376,11 +346,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => ((FailureMechanismEntity) null).ReadAsPipingFailureMechanism(failureMechanism,
-                                                                                                   collector);
+            void Call() => ((FailureMechanismEntity) null).ReadAsPipingFailureMechanism(failureMechanism, collector);
 
             // Assert 
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("entity", parameter);
         }
 
@@ -391,10 +360,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity();
 
             // Call
-            TestDelegate test = () => entity.ReadAsPipingFailureMechanism(null, new ReadConversionCollector());
+            void Call() => entity.ReadAsPipingFailureMechanism(null, new ReadConversionCollector());
 
             // Assert 
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", parameter);
         }
 
@@ -405,10 +374,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity();
 
             // Call
-            TestDelegate test = () => entity.ReadAsPipingFailureMechanism(new PipingFailureMechanism(), null);
+            void Call() => entity.ReadAsPipingFailureMechanism(new PipingFailureMechanism(), null);
 
             // Assert 
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("collector", parameter);
         }
 
@@ -720,12 +689,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => ((FailureMechanismEntity) null).ReadAsMacroStabilityInwardsFailureMechanism(
-                failureMechanism,
-                collector);
+            void Call() => ((FailureMechanismEntity) null).ReadAsMacroStabilityInwardsFailureMechanism(failureMechanism, collector);
 
             // Assert 
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("entity", parameter);
         }
 
@@ -736,11 +703,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity();
 
             // Call
-            TestDelegate test = () => entity.ReadAsMacroStabilityInwardsFailureMechanism(
-                null, new ReadConversionCollector());
+            void Call() => entity.ReadAsMacroStabilityInwardsFailureMechanism(null, new ReadConversionCollector());
 
             // Assert 
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", parameter);
         }
 
@@ -751,11 +717,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity();
 
             // Call
-            TestDelegate test = () => entity.ReadAsMacroStabilityInwardsFailureMechanism(
-                new MacroStabilityInwardsFailureMechanism(), null);
+            void Call() => entity.ReadAsMacroStabilityInwardsFailureMechanism(new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert 
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("collector", parameter);
         }
 
@@ -1095,12 +1060,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => ((FailureMechanismEntity) null).ReadAsMacroStabilityOutwardsFailureMechanism(
-                failureMechanism,
-                collector);
+            void Call() => ((FailureMechanismEntity) null).ReadAsMacroStabilityOutwardsFailureMechanism(failureMechanism, collector);
 
             // Assert 
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("entity", parameter);
         }
 
@@ -1111,11 +1074,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity();
 
             // Call
-            TestDelegate test = () => entity.ReadAsMacroStabilityOutwardsFailureMechanism(
-                null, new ReadConversionCollector());
+            void Call() => entity.ReadAsMacroStabilityOutwardsFailureMechanism(null, new ReadConversionCollector());
 
             // Assert 
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", parameter);
         }
 
@@ -1126,11 +1088,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity();
 
             // Call
-            TestDelegate test = () => entity.ReadAsMacroStabilityOutwardsFailureMechanism(
-                new MacroStabilityOutwardsFailureMechanism(), null);
+            void Call() => entity.ReadAsMacroStabilityOutwardsFailureMechanism(new MacroStabilityOutwardsFailureMechanism(), null);
 
             // Assert 
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("collector", parameter);
         }
 
@@ -2903,12 +2864,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => ((FailureMechanismEntity) null).ReadAsPipingStructureFailureMechanism(
-                failureMechanism,
-                collector);
+            void Call() => ((FailureMechanismEntity) null).ReadAsPipingStructureFailureMechanism(failureMechanism, collector);
 
             // Assert 
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("entity", parameter);
         }
 
@@ -2919,11 +2878,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity();
 
             // Call
-            TestDelegate test = () => entity.ReadAsPipingStructureFailureMechanism(
-                null, new ReadConversionCollector());
+            void Call() => entity.ReadAsPipingStructureFailureMechanism(null, new ReadConversionCollector());
 
             // Assert 
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", parameter);
         }
 
@@ -2934,11 +2892,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity();
 
             // Call
-            TestDelegate test = () => entity.ReadAsPipingStructureFailureMechanism(
-                new PipingStructureFailureMechanism(), null);
+            void Call() => entity.ReadAsPipingStructureFailureMechanism(new PipingStructureFailureMechanism(), null);
 
             // Assert 
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameter = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("collector", parameter);
         }
 

@@ -943,11 +943,8 @@ namespace Riskeer.Storage.Core.Read
         {
             DuneErosionFailureMechanismMetaEntity metaEntity = GetDuneErosionFailureMechanismMetaEntity(entity);
 
-            metaEntity.DuneLocationCalculationCollectionEntity4.Read(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, collector);
-            metaEntity.DuneLocationCalculationCollectionEntity3.Read(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, collector);
-            metaEntity.DuneLocationCalculationCollectionEntity2.Read(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, collector);
-            metaEntity.DuneLocationCalculationCollectionEntity1.Read(failureMechanism.CalculationsForLowerLimitNorm, collector);
-            metaEntity.DuneLocationCalculationCollectionEntity.Read(failureMechanism.CalculationsForFactorizedLowerLimitNorm, collector);
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.AddRange(metaEntity.DuneLocationCalculationForTargetProbabilityCollectionEntities.Select(e => e.Read(collector))
+                                                                                                          .ToArray());
         }
 
         private static DuneErosionFailureMechanismMetaEntity GetDuneErosionFailureMechanismMetaEntity(FailureMechanismEntity entity)

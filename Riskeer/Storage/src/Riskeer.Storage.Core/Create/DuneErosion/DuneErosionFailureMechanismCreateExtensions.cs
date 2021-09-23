@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base;
 using Riskeer.DuneErosion.Data;
 using Riskeer.Storage.Core.DbContext;
 
@@ -65,13 +66,15 @@ namespace Riskeer.Storage.Core.Create.DuneErosion
         {
             var metaEntity = new DuneErosionFailureMechanismMetaEntity
             {
-                N = failureMechanism.GeneralInput.N,
-                DuneLocationCalculationCollectionEntity4 = failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Create(registry),
-                DuneLocationCalculationCollectionEntity3 = failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Create(registry),
-                DuneLocationCalculationCollectionEntity2 = failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Create(registry),
-                DuneLocationCalculationCollectionEntity1 = failureMechanism.CalculationsForLowerLimitNorm.Create(registry),
-                DuneLocationCalculationCollectionEntity = failureMechanism.CalculationsForFactorizedLowerLimitNorm.Create(registry)
+                N = failureMechanism.GeneralInput.N
             };
+
+            ObservableList<DuneLocationCalculationsForTargetProbability> userDefinedTargetProbabilities = failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities;
+            for (var i = 0; i < userDefinedTargetProbabilities.Count; i++)
+            {
+                metaEntity.DuneLocationCalculationForTargetProbabilityCollectionEntities.Add(
+                    userDefinedTargetProbabilities[i].Create(i, registry));
+            }
 
             entity.DuneErosionFailureMechanismMetaEntities.Add(metaEntity);
         }

@@ -25,6 +25,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
@@ -1021,20 +1022,21 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         private static void AssertDuneLocationCalculations(DuneErosionFailureMechanism expectedFailureMechanism,
                                                            DuneErosionFailureMechanism actualFailureMechanism)
         {
-            AssertDuneLocationCalculations(expectedFailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm,
-                                           actualFailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
+            AssertDuneLocationCalculationsForTargetProbabilities(expectedFailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities,
+                                                                 actualFailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities);
+        }
 
-            AssertDuneLocationCalculations(expectedFailureMechanism.CalculationsForMechanismSpecificSignalingNorm,
-                                           actualFailureMechanism.CalculationsForMechanismSpecificSignalingNorm);
+        private static void AssertDuneLocationCalculationsForTargetProbabilities(ObservableList<DuneLocationCalculationsForTargetProbability> expected,
+                                                                                 ObservableList<DuneLocationCalculationsForTargetProbability> actual)
+        {
+            AssertCollectionAndItems(expected, actual, AssertDuneLocationCalculationsForTargetProbability);
+        }
 
-            AssertDuneLocationCalculations(expectedFailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm,
-                                           actualFailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
-
-            AssertDuneLocationCalculations(expectedFailureMechanism.CalculationsForLowerLimitNorm,
-                                           actualFailureMechanism.CalculationsForLowerLimitNorm);
-
-            AssertDuneLocationCalculations(expectedFailureMechanism.CalculationsForFactorizedLowerLimitNorm,
-                                           actualFailureMechanism.CalculationsForFactorizedLowerLimitNorm);
+        private static void AssertDuneLocationCalculationsForTargetProbability(DuneLocationCalculationsForTargetProbability expected, DuneLocationCalculationsForTargetProbability actual)
+        {
+            Assert.AreEqual(expected.TargetProbability, actual.TargetProbability);
+            AssertDuneLocationCalculations(expected.DuneLocationCalculations,
+                                           actual.DuneLocationCalculations);
         }
 
         private static void AssertDuneLocationCalculations(IEnumerable<DuneLocationCalculation> expectedDuneLocationCalculations,

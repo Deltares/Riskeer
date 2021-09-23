@@ -56,8 +56,8 @@ namespace Riskeer.Storage.Core.DbContext
             DuneErosionFailureMechanismMetaEntities.Load();
             DuneErosionSectionResultEntities.Load();
             DuneLocationEntities.Load();
-            DuneLocationCalculationCollectionEntities.Include(e => e.DuneLocationCalculationEntities)
-                                                     .Load();
+            DuneLocationCalculationForTargetProbabilityCollectionEntities.Include(e => e.DuneLocationCalculationEntities)
+                                                                         .Load();
             DuneLocationCalculationEntities.Load();
             DuneLocationCalculationOutputEntities.Load();
             FailureMechanismEntities.Load();

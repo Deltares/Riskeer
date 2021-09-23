@@ -865,12 +865,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 {
                     new DuneErosionFailureMechanismMetaEntity
                     {
-                        N = n,
-                        DuneLocationCalculationCollectionEntity = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity1 = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity2 = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity3 = new DuneLocationCalculationCollectionEntity(),
-                        DuneLocationCalculationCollectionEntity4 = new DuneLocationCalculationCollectionEntity()
+                        N = n
                     }
                 }
             };
@@ -1033,8 +1028,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             for (var j = 0; j < expectedNrOfEntities; j++)
             {
-                AssertHydraulicLocationCalculationsForTargetProbability(expectedCalculationCollectionEntities.ElementAt(j), 
-                                                                        expectedHydraulicBoundaryLocation, 
+                AssertHydraulicLocationCalculationsForTargetProbability(expectedCalculationCollectionEntities.ElementAt(j),
+                                                                        expectedHydraulicBoundaryLocation,
                                                                         actualCalculationCollections.ElementAt(j));
             }
         }

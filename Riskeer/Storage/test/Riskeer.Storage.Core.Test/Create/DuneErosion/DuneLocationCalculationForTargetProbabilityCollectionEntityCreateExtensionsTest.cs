@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
@@ -32,44 +32,54 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Test.Create.DuneErosion
 {
     [TestFixture]
-    public class DuneLocationCalculationCollectionCreateExtensionsTest
+    public class DuneLocationCalculationForTargetProbabilityCollectionEntityCreateExtensionsTest
     {
         [Test]
         public void Create_CalculationsNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var random = new Random(21);
+
             // Call
-            TestDelegate call = () =>
-                ((IEnumerable<DuneLocationCalculation>) null).Create(new PersistenceRegistry());
+            void Call() => ((DuneLocationCalculationsForTargetProbability) null).Create(random.Next(),
+                                                                                        new PersistenceRegistry());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
         }
 
         [Test]
-        public void Create_RegistryNull_ThrowsArgumentNullException()
+        public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
-            IEnumerable<DuneLocationCalculation> calculations =
-                Enumerable.Empty<DuneLocationCalculation>();
+            var random = new Random(21);
+            var calculations = new DuneLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1));
 
             // Call
-            TestDelegate call = () => calculations.Create(null);
+            void Call() => calculations.Create(random.Next(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]
-        public void Create_WithValidCollectionAndArguments_ReturnsEntity()
+        public void Create_WithValidCollection_ReturnsEntityWithExpectedResults()
         {
             // Setup
+            var random = new Random(21);
+            int order = random.Next();
+
             var duneLocation = new TestDuneLocation();
             var calculation = new DuneLocationCalculation(duneLocation);
-            DuneLocationCalculation[] calculations =
+
+            var calculations = new DuneLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1))
             {
-                calculation
+                DuneLocationCalculations =
+                {
+                    calculation
+                }
             };
 
             var duneLocationEntity = new DuneLocationEntity();
@@ -77,14 +87,16 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             registry.Register(duneLocationEntity, duneLocation);
 
             // Call
-            DuneLocationCalculationCollectionEntity entity = calculations.Create(registry);
+            DuneLocationCalculationForTargetProbabilityCollectionEntity entity = calculations.Create(order, registry);
 
             // Assert
             Assert.IsNotNull(entity);
+            Assert.AreEqual(order, entity.Order);
+            Assert.AreEqual(calculations.TargetProbability, entity.TargetProbability);
 
-            DuneLocationCalculationEntity calculationEntity = entity.DuneLocationCalculationEntities.Single();
-            Assert.AreSame(duneLocationEntity, calculationEntity.DuneLocationEntity);
-            CollectionAssert.IsEmpty(calculationEntity.DuneLocationCalculationOutputEntities);
+            DuneLocationCalculationEntity duneLocationCalculationEntity = entity.DuneLocationCalculationEntities.Single();
+            Assert.AreSame(duneLocationEntity, duneLocationCalculationEntity.DuneLocationEntity);
+            CollectionAssert.IsEmpty(duneLocationCalculationEntity.DuneLocationCalculationOutputEntities);
         }
     }
 }
