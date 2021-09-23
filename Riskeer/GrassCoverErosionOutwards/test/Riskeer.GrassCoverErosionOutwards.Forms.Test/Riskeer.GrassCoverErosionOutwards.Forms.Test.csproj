@@ -39,7 +39,6 @@
     <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionOutwards.Forms\Riskeer.GrassCoverErosionOutwards.Forms.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionOutwards.Util\Riskeer.GrassCoverErosionOutwards.Util.csproj" />
     <ProjectReference Include="..\Riskeer.GrassCoverErosionOutwards.Data.TestUtil\Riskeer.GrassCoverErosionOutwards.Data.TestUtil.csproj" />
-    <ProjectReference Include="..\Riskeer.GrassCoverErosionOutwards.Forms.TestUtil\Riskeer.GrassCoverErosionOutwards.Forms.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">
