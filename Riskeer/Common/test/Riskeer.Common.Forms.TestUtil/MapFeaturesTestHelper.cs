@@ -32,6 +32,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.Common.Util.Helpers;
 using Riskeer.Common.Util.TestUtil;
 
 namespace Riskeer.Common.Forms.TestUtil
