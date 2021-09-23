@@ -59,11 +59,12 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
-                    
+
                     AssertAssessmentSection(reader, sourceFilePath);
                     AssertHydraulicBoundaryLocationCalculation(reader, sourceFilePath);
                     AssertHydraulicLocationOutput(reader);
-                    
+
+                    AssertDuneErosionFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertDuneLocationCalculationCollection(reader);
                     AssertDuneLocationCalculation(reader);
                     AssertDuneLocationCalculationOutput(reader);
@@ -100,7 +101,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[ReferenceLinePointXml] = OLD.[ReferenceLinePointXml] " +
                 "AND NEW.\"Order\" = OLD.\"Order\";" +
                 "DETACH SOURCEPROJECT;";
-            
+
             reader.AssertReturnedDataIsValid(validateAssessmentSection);
         }
 
@@ -111,7 +112,7 @@ namespace Riskeer.Migration.Integration.Test
                 "JOIN SOURCEPROJECT.HydraulicLocationCalculationCollectionEntity " +
                 "ON ase.HydraulicLocationCalculationCollectionEntity2Id = HydraulicLocationCalculationCollectionEntityId " +
                 "OR ase.HydraulicLocationCalculationCollectionEntity3Id = HydraulicLocationCalculationCollectionEntityId ";
-            
+
             string validateHydraulicLocationCalculationCollection =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
@@ -123,8 +124,8 @@ namespace Riskeer.Migration.Integration.Test
                 "JOIN SOURCEPROJECT.HydraulicLocationCalculationCollectionEntity USING(HydraulicLocationCalculationCollectionEntityId);" +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateHydraulicLocationCalculationCollection);
-            
-            string validateHydraulicLocationCalculations = 
+
+            string validateHydraulicLocationCalculations =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
                 "(" +
@@ -138,8 +139,8 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[ShouldIllustrationPointsBeCalculated] = OLD.[ShouldIllustrationPointsBeCalculated];" +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateHydraulicLocationCalculations);
-            
-            string validateHydraulicLocationCalculationMapping = 
+
+            string validateHydraulicLocationCalculationMapping =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
                 "(" +
@@ -153,7 +154,7 @@ namespace Riskeer.Migration.Integration.Test
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateHydraulicLocationCalculationMapping);
         }
-        
+
         private static void AssertHydraulicLocationOutput(MigratedDatabaseReader reader)
         {
             const string validateOutput =
@@ -161,7 +162,25 @@ namespace Riskeer.Migration.Integration.Test
                 "FROM [HydraulicLocationOutputEntity]; ";
             reader.AssertReturnedDataIsValid(validateOutput);
         }
-        
+
+        private static void AssertDuneErosionFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateFailureMechanismEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.DuneErosionFailureMechanismMetaEntity " +
+                ") " +
+                "FROM DuneErosionFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.DuneErosionFailureMechanismMetaEntity OLD USING(DuneErosionFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[N] = OLD.[N];" +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateFailureMechanismEntity);
+        }
+
         private static void AssertDuneLocationCalculationCollection(MigratedDatabaseReader reader)
         {
             const string validateOutput =
@@ -169,7 +188,7 @@ namespace Riskeer.Migration.Integration.Test
                 "FROM [DuneLocationCalculationForTargetProbabilityCollectionEntity]; ";
             reader.AssertReturnedDataIsValid(validateOutput);
         }
-        
+
         private static void AssertDuneLocationCalculation(MigratedDatabaseReader reader)
         {
             const string validateOutput =
@@ -177,7 +196,7 @@ namespace Riskeer.Migration.Integration.Test
                 "FROM [DuneLocationCalculationEntity]; ";
             reader.AssertReturnedDataIsValid(validateOutput);
         }
-        
+
         private static void AssertDuneLocationCalculationOutput(MigratedDatabaseReader reader)
         {
             const string validateOutput =
@@ -333,7 +352,7 @@ namespace Riskeer.Migration.Integration.Test
                 "FROM [GrassCoverErosionInwardsOvertoppingRateOutputEntity]; ";
             reader.AssertReturnedDataIsValid(validateOvertoppingRateOutput);
         }
-        
+
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string[] tables =
