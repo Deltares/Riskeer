@@ -28,6 +28,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.Helpers;
+using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Views
 {
@@ -153,6 +154,11 @@ namespace Riskeer.Common.Forms.Views
         private void SetFeatures()
         {
             MapData.Features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(assessmentSection);
+
+            if (!MapData.MetaData.Contains(MapData.SelectedMetaDataAttribute))
+            {
+                MapData.SelectedMetaDataAttribute = RiskeerCommonUtilResources.MetaData_Name;
+            }
         }
 
         private void UpdateFeatures()

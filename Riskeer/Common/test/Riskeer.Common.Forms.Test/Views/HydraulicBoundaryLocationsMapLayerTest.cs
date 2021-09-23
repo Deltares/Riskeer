@@ -28,6 +28,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 
@@ -251,6 +252,42 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Then
             MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenMapLayerWithHydraulicBoundaryLocationsData_WhenSelectedTargetProbabilityRemovedAndNotified_ThenMapDataUpdated()
+        {
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First();
+            mapLayer.MapData.SelectedMetaDataAttribute = $"h - {ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability)}";
+            mapLayer.MapData.NotifyObservers();
+
+            mapLayer.MapData.Attach(observer);
+
+            // Precondition
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+
+            // When
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Remove(calculationsForTargetProbability);
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
+
+            // Then
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+            Assert.AreEqual("Naam", mapLayer.MapData.SelectedMetaDataAttribute);
             mocks.VerifyAll();
         }
 
