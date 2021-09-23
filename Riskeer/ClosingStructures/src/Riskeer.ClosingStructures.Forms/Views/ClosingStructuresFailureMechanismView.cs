@@ -31,10 +31,9 @@ using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Factories;
-using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Views;
 using ClosingStructuresDataResources = Riskeer.ClosingStructures.Data.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Forms.Views
@@ -44,26 +43,18 @@ namespace Riskeer.ClosingStructures.Forms.Views
     /// </summary>
     public partial class ClosingStructuresFailureMechanismView : UserControl, IMapView
     {
+        private HydraulicBoundaryLocationsMapLayer hydraulicBoundaryLocationsMapLayer;
+        
         private MapLineData referenceLineMapData;
-        private MapPointData hydraulicBoundaryLocationsMapData;
         private MapLineData foreshoreProfilesMapData;
         private MapPointData structuresMapData;
         private MapLineData calculationsMapData;
 
         private Observer assessmentSectionObserver;
         private Observer referenceLineObserver;
-        private Observer hydraulicBoundaryLocationsObserver;
         private Observer foreshoreProfilesObserver;
         private Observer structuresObserver;
 
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNormObserver;
         private RecursiveObserver<CalculationGroup, ClosingStructuresInput> calculationInputObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private RecursiveObserver<CalculationGroup, StructuresCalculation<ClosingStructuresInput>> calculationObserver;
@@ -107,13 +98,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
         public object Data { get; set; }
 
-        public IMapControl Map
-        {
-            get
-            {
-                return riskeerMapControl.MapControl;
-            }
-        }
+        public IMapControl Map => riskeerMapControl.MapControl;
 
         /// <summary>
         /// Gets the <see cref="MapDataCollection"/>.
@@ -135,17 +120,10 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
+            hydraulicBoundaryLocationsMapLayer.Dispose();
+
             assessmentSectionObserver.Dispose();
             referenceLineObserver.Dispose();
-            waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
-            waterLevelCalculationsForSignalingNormObserver.Dispose();
-            waterLevelCalculationsForLowerLimitNormObserver.Dispose();
-            waterLevelCalculationsForFactorizedLowerLimitNormObserver.Dispose();
-            waveHeightCalculationsForFactorizedSignalingNormObserver.Dispose();
-            waveHeightCalculationsForSignalingNormObserver.Dispose();
-            waveHeightCalculationsForLowerLimitNormObserver.Dispose();
-            waveHeightCalculationsForFactorizedLowerLimitNormObserver.Dispose();
-            hydraulicBoundaryLocationsObserver.Dispose();
             foreshoreProfilesObserver.Dispose();
             foreshoreProfileObserver.Dispose();
             calculationInputObserver.Dispose();
@@ -164,16 +142,16 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
         protected virtual void CreateMapData()
         {
+            hydraulicBoundaryLocationsMapLayer = new HydraulicBoundaryLocationsMapLayer(AssessmentSection);
+
             MapDataCollection = new MapDataCollection(ClosingStructuresDataResources.ClosingStructuresFailureMechanism_DisplayName);
             referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             foreshoreProfilesMapData = RiskeerMapDataFactory.CreateForeshoreProfileMapData();
             calculationsMapData = RiskeerMapDataFactory.CreateCalculationsMapData();
             structuresMapData = RiskeerMapDataFactory.CreateStructuresMapData();
 
             MapDataCollection.Add(referenceLineMapData);
-
-            MapDataCollection.Add(hydraulicBoundaryLocationsMapData);
+            MapDataCollection.Add(hydraulicBoundaryLocationsMapLayer.MapData);
             MapDataCollection.Add(foreshoreProfilesMapData);
             MapDataCollection.Add(structuresMapData);
             MapDataCollection.Add(calculationsMapData);
@@ -189,10 +167,6 @@ namespace Riskeer.ClosingStructures.Forms.Views
             {
                 Observable = AssessmentSection.ReferenceLine
             };
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData)
-            {
-                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
-            };
             foreshoreProfilesObserver = new Observer(UpdateForeshoreProfilesMapData)
             {
                 Observable = FailureMechanism.ForeshoreProfiles
@@ -201,23 +175,6 @@ namespace Riskeer.ClosingStructures.Forms.Views
             {
                 Observable = FailureMechanism.ClosingStructures
             };
-
-            waterLevelCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
 
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ClosingStructuresInput>(
                 UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculation<ClosingStructuresInput>>()
@@ -246,7 +203,6 @@ namespace Riskeer.ClosingStructures.Forms.Views
         protected virtual void SetAllMapDataFeatures()
         {
             SetReferenceLineMapData();
-            SetHydraulicBoundaryLocationsMapData();
             SetForeshoreProfilesMapData();
             SetStructuresMapData();
             SetCalculationsMapData();
@@ -265,21 +221,6 @@ namespace Riskeer.ClosingStructures.Forms.Views
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations =
                 FailureMechanism.CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
             calculationsMapData.Features = RiskeerMapDataFeaturesFactory.CreateStructureCalculationsFeatures<ClosingStructuresInput, ClosingStructure>(calculations);
-        }
-
-        #endregion
-
-        #region HydraulicBoundaryLocations MapData
-
-        private void UpdateHydraulicBoundaryLocationsMapData()
-        {
-            SetHydraulicBoundaryLocationsMapData();
-            hydraulicBoundaryLocationsMapData.NotifyObservers();
-        }
-
-        private void SetHydraulicBoundaryLocationsMapData()
-        {
-            hydraulicBoundaryLocationsMapData.Features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(AssessmentSection);
         }
 
         #endregion
