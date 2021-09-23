@@ -223,6 +223,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             List<MapData> mapDataList = mapData.Collection.ToList();
             Assert.AreEqual(4, mapDataList.Count);
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
+            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
             MapDataTestHelper.AssertForeshoreProfilesMapData(failureMechanism.ForeshoreProfiles, mapDataList[foreshoreProfilesIndex]);
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(),
                                       mapDataList[calculationsIndex]);
