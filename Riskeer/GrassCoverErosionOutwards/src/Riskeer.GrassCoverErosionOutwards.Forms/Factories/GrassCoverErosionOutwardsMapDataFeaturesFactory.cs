@@ -19,16 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Util;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Factories
 {
@@ -64,35 +61,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Factories
                         calculation.InputParameters.HydraulicBoundaryLocation)).ToArray();
 
             return RiskeerMapDataFeaturesFactory.CreateCalculationFeatures(calculationData);
-        }
-
-        /// <summary>
-        /// Create hydraulic boundary location features based on the provided <paramref name="assessmentSection"/>
-        /// and <paramref name="failureMechanism"/>.
-        /// </summary>
-        /// <param name="assessmentSection">The assessment section to create the location features for.</param>
-        /// <param name="failureMechanism">The failure mechanism to create the location features for.</param>
-        /// <returns>A collection of features.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<MapFeature> CreateHydraulicBoundaryLocationsFeatures(IAssessmentSection assessmentSection,
-                                                                                       GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            var metaDataAttributeNameProvider = new GrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider();
-
-            return GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection, failureMechanism)
-                                                                                      .Select(location => GrassCoverErosionOutwardsHydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature(
-                                                                                                  location, metaDataAttributeNameProvider))
-                                                                                      .ToArray();
         }
     }
 }

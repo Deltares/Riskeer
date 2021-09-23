@@ -19,21 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Forms.Factories;
-using Riskeer.GrassCoverErosionOutwards.Forms.TestUtil;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Factories
 {
@@ -95,60 +90,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Factories
                 new Point2D(1.0, 4.0),
                 new Point2D(2.2, 3.8)
             }, features.ElementAt(1).MapGeometries.ElementAt(0));
-        }
-
-        [Test]
-        public void CreateHydraulicBoundaryLocationsFeatures_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(
-                null, new GrassCoverErosionOutwardsFailureMechanism());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void CreateHydraulicBoundaryLocationsFeatures_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(
-                assessmentSection, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CreateHydraulicBoundaryLocationsFeatures_GivenLocations_ReturnsLocationFeaturesCollection(bool withOutput)
-        {
-            // Setup
-            var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var locations = new[]
-            {
-                new HydraulicBoundaryLocation(1, "test", 1, 1),
-                new HydraulicBoundaryLocation(2, "test", 2, 2)
-            };
-
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism, assessmentSection, locations, withOutput);
-
-            // Call
-            MapFeature[] features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateHydraulicBoundaryLocationsFeatures(assessmentSection, failureMechanism).ToArray();
-
-            // Assert
-            GrassCoverErosionOutwardsMapFeaturesTestHelper.AssertHydraulicBoundaryFeaturesData(failureMechanism, assessmentSection, features);
         }
 
         private static void AssertEqualPointCollections(IEnumerable<Point2D> points, MapGeometry geometry)
