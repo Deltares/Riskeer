@@ -166,7 +166,7 @@ namespace Riskeer.Migration.Integration.Test
         {
             const string validateOutput =
                 "SELECT COUNT() = 0 " +
-                "FROM [DuneLocationCalculationCollectionEntity]; ";
+                "FROM [DuneLocationCalculationForTargetProbabilityCollectionEntity]; ";
             reader.AssertReturnedDataIsValid(validateOutput);
         }
         
