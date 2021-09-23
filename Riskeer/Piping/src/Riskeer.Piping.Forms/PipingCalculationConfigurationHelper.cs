@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using log4net;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Util.Helpers;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;

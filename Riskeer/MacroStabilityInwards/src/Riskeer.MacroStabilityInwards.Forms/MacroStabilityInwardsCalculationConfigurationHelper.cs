@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using log4net;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Util.Helpers;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.Properties;

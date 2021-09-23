@@ -35,6 +35,7 @@ using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.Util.Helpers;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 

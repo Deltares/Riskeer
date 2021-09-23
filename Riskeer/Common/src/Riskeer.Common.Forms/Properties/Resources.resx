@@ -425,9 +425,6 @@ handmatig</value>
   <data name="ProbabilityPerYearFormat" xml:space="preserve">
     <value>1/{0:n0}</value>
   </data>
-  <data name="ReturnPeriodFormat" xml:space="preserve">
-    <value>{0:n0}</value>
-  </data>  
   <data name="ScenariosIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\cards.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -1404,15 +1401,6 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   <data name="FailureMechanismSections_SourcePath_Description" xml:space="preserve">
     <value>De locatie van het bestand waaruit de vakindeling is geïmporteerd.</value>
   </data>
-  <data name="WaterLevelCalculationsForNormTargetProbabilities_DisplayName" xml:space="preserve">
-    <value>Waterstanden bij norm</value>
-  </data>
-  <data name="WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName" xml:space="preserve">
-    <value>Waterstanden bij doelkans</value>
-  </data>
-  <data name="WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName" xml:space="preserve">
-    <value>Golfhoogten bij doelkans</value>
-  </data>
   <data name="HydraulicLoads_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle hydraulische belastingen berekenen.</value>
   </data>
@@ -1585,5 +1573,11 @@ scenario
   </data>
   <data name="TargetProbability_Description" xml:space="preserve">
     <value>Overschrijdingskans waarvoor de hydraulische belastingen worden berekend.</value>
+  </data>
+  <data name="MetaData_WaterLevel_TargetProbability_0" xml:space="preserve">
+    <value>h - {0}</value>
+  </data>
+  <data name="MetaData_WaveHeight_TargetProbability_0" xml:space="preserve">
+    <value>Hs - {0}</value>
   </data>
 </root>

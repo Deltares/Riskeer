@@ -252,14 +252,19 @@ Wilt u doorgaan?</value>
     <value>Traject</value>
   </data>
     <data name="RiskeerPlugin_GetStateInfos_FailurePaths" xml:space="preserve">
-    <value>Faalpaden</value>
+    <value>Faalpaden /
+assemblage</value>
   </data>
     <data name="RiskeerPlugin_GetStateInfos_Calculations" xml:space="preserve">
-    <value>Berekeningen</value>
+    <value>Sterkte-
+berekeningen</value>
   </data>
     <data name="RiskeerPlugin_GetStateInfos_HydraulicLoads" xml:space="preserve">
     <value>Hydraulische
- belastingen</value>
+belastingen</value>
+  </data>
+    <data name="FailurePathsCategoryTreeFolder_DisplayName" xml:space="preserve">
+    <value>Faalpaden</value>
   </data>
     <data name="AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection"
           xml:space="preserve">

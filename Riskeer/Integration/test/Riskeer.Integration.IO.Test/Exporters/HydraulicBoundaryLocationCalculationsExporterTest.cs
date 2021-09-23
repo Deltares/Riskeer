@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -87,16 +88,12 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_ValidData_ReturnsTrueAndWritesCorrectData()
+        [TestCaseSource(nameof(GetAssessmentSectionConfigurations))]
+        public void Export_WithVariousAssessmentSectionConfigurations_ReturnsTrueAndWritesCorrectData(
+            AssessmentSectionStub assessmentSection, IEnumerable<string> expectedFiles)
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
-            });
-
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_ValidData_ReturnsTrueAndWritesCorrectData));
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_WithVariousAssessmentSectionConfigurations_ReturnsTrueAndWritesCorrectData));
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.zip");
 
@@ -109,16 +106,6 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
                 // Assert
                 Assert.IsTrue(isExported);
-                string[] expectedFiles =
-                {
-                    "Waterstanden bij norm/Waterstanden_30.000.shp",
-                    "Waterstanden bij norm/Waterstanden_30.000 (1).shp",
-                    "Waterstanden bij doelkans/Waterstanden_10.000.shp",
-                    "Waterstanden bij doelkans/Waterstanden_100.000.shp",
-                    "Golfhoogten bij doelkans/Golfhoogten_4.000.shp",
-                    "Golfhoogten bij doelkans/Golfhoogten_40.000.shp"
-                };
-
                 using (ZipArchive zipArchive = ZipFile.OpenRead(filePath))
                 {
                     CollectionAssert.IsSubsetOf(expectedFiles, zipArchive.Entries.Select(e => e.FullName));
@@ -129,51 +116,9 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 Directory.Delete(directoryPath, true);
             }
         }
-
+        
         [Test]
-        public void Export_AssessmentSectionWithoutUserDefinedTargetProbabilities_ReturnsTrueAndWritesCorrectData()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
-            });
-            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Clear();
-            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Clear();
-
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_AssessmentSectionWithoutUserDefinedTargetProbabilities_ReturnsTrueAndWritesCorrectData));
-            Directory.CreateDirectory(directoryPath);
-            string filePath = Path.Combine(directoryPath, "test.zip");
-
-            var exporter = new HydraulicBoundaryLocationCalculationsExporter(assessmentSection, filePath);
-
-            try
-            {
-                // Call
-                bool isExported = exporter.Export();
-
-                // Assert
-                Assert.IsTrue(isExported);
-                string[] expectedFiles =
-                {
-                    "Waterstanden bij norm/Waterstanden_30.000.shp",
-                    "Waterstanden bij norm/Waterstanden_30.000 (1).shp"
-                };
-
-                using (ZipArchive zipArchive = ZipFile.OpenRead(filePath))
-                {
-                    CollectionAssert.IsSubsetOf(expectedFiles, zipArchive.Entries.Select(e => e.FullName));
-                }
-            }
-            finally
-            {
-                Directory.Delete(directoryPath, true);
-            }
-        }
-
-        [Test]
-        public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
+        public void Export_HydraulicBoundaryLocationCalculationsExporterReturnsFalse_LogErrorAndReturnFalse()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -182,7 +127,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             });
 
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse));
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_HydraulicBoundaryLocationCalculationsExporterReturnsFalse_LogErrorAndReturnFalse));
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.zip");
 
@@ -208,6 +153,37 @@ namespace Riskeer.Integration.IO.Test.Exporters
             {
                 Directory.Delete(directoryPath, true);
             }
+        }
+
+        private static IEnumerable<TestCaseData> GetAssessmentSectionConfigurations()
+        {
+            var assessmentSectionWithTargetProbabilities = new AssessmentSectionStub();
+            assessmentSectionWithTargetProbabilities.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
+            });
+            yield return new TestCaseData(assessmentSectionWithTargetProbabilities,new[]
+            {
+                "Waterstanden bij norm/Waterstanden_30.000.shp",
+                "Waterstanden bij norm/Waterstanden_30.000 (1).shp",
+                "Waterstanden bij doelkans/Waterstanden_10.000.shp",
+                "Waterstanden bij doelkans/Waterstanden_100.000.shp",
+                "Golfhoogten bij doelkans/Golfhoogten_4.000.shp",
+                "Golfhoogten bij doelkans/Golfhoogten_40.000.shp"
+            }).SetName("With UserDefinedTargetProbabilities");
+            
+            var assessmentSectionWithoutTargetProbabilities = new AssessmentSectionStub();
+            assessmentSectionWithoutTargetProbabilities.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
+            });
+            assessmentSectionWithoutTargetProbabilities.WaterLevelCalculationsForUserDefinedTargetProbabilities.Clear();
+            assessmentSectionWithoutTargetProbabilities.WaveHeightCalculationsForUserDefinedTargetProbabilities.Clear();
+            yield return new TestCaseData(assessmentSectionWithoutTargetProbabilities, new[]
+            {
+                "Waterstanden bij norm/Waterstanden_30.000.shp",
+                "Waterstanden bij norm/Waterstanden_30.000 (1).shp"
+            }).SetName("Without UserDefinedTargetProbabilities");
         }
     }
 }

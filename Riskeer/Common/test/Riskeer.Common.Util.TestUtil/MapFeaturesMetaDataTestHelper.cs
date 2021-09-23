@@ -42,7 +42,7 @@ namespace Riskeer.Common.Util.TestUtil
         /// <exception cref="AssertionException">Thrown when the value and the respective meta data value associated
         /// with <paramref name="key"/> are not equal.
         /// </exception>
-        public static void AssertMetaData(string expectedValue,
+        public static void AssertMetaData(object expectedValue,
                                           MapFeature feature,
                                           string key)
         {

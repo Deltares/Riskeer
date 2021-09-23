@@ -23,8 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
+using Core.Common.Util;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Util.Helpers;
 using Riskeer.Integration.IO.Exporters;
 using Riskeer.Integration.IO.Properties;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
@@ -37,31 +39,24 @@ namespace Riskeer.Integration.IO.Helpers
     public static class HydraulicBoundaryLocationCalculationsExportHelper
     {
         /// <summary>
-        /// Exports the location calculations for the target probability.
+        /// Exports the location calculations for a collection of target probabilities.
         /// </summary>
-        /// <param name="calculationsForTargetProbability">The calculations to export.</param>
-        /// <param name="exportedCalculations">The already exported calculations.</param>
+        /// <param name="calculationsForTargetProbabilities">The collection of calculations to export.</param>
         /// <param name="calculationsType">The type of the calculations.</param>
         /// <param name="folderPath">The path of the folder to export to.</param>
         /// <returns><c>true</c> when the export was successful; <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationsForTargetProbability"/>
-        /// or <paramref name="exportedCalculations"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationsForTargetProbabilities"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="folderPath"/> is invalid.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="calculationsType"/>
         /// is invalid.</exception>
-        public static bool ExportLocationCalculationsForTargetProbability(
-            Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double> calculationsForTargetProbability,
-            IDictionary<IEnumerable<HydraulicBoundaryLocationCalculation>, string> exportedCalculations,
+        public static bool ExportLocationCalculationsForTargetProbabilities(
+            IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>> calculationsForTargetProbabilities,
             HydraulicBoundaryLocationCalculationsType calculationsType,
             string folderPath)
         {
-            if (calculationsForTargetProbability == null)
+            if (calculationsForTargetProbabilities == null)
             {
-                throw new ArgumentNullException(nameof(calculationsForTargetProbability));
-            }
-
-            if (exportedCalculations == null)
-            {
-                throw new ArgumentNullException(nameof(exportedCalculations));
+                throw new ArgumentNullException(nameof(calculationsForTargetProbabilities));
             }
 
             if (!Enum.IsDefined(typeof(HydraulicBoundaryLocationCalculationsType), calculationsType))
@@ -71,6 +66,20 @@ namespace Riskeer.Integration.IO.Helpers
                                                        typeof(HydraulicBoundaryLocationCalculationsType));
             }
 
+            IOUtils.ValidateFolderPath(folderPath);
+
+            var exportedCalculationFileNames = new List<string>();
+            return calculationsForTargetProbabilities.All(calculations => ExportCalculationsForTargetProbability(calculations, 
+                                                                                                                  calculationsType, 
+                                                                                                                  exportedCalculationFileNames,
+                                                                                                                  folderPath));
+        }
+
+        private static bool ExportCalculationsForTargetProbability(Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double> calculationsForTargetProbability,
+                                                                   HydraulicBoundaryLocationCalculationsType calculationsType,
+                                                                   ICollection<string> exportedCalculationFileNames,
+                                                                   string folderPath)
+        {
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations = calculationsForTargetProbability.Item1;
             double targetProbability = calculationsForTargetProbability.Item2;
 
@@ -79,21 +88,15 @@ namespace Riskeer.Integration.IO.Helpers
                                     : Resources.WaveHeights_DisplayName;
 
             string uniqueName = NamingHelper.GetUniqueName(
-                exportedCalculations, $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(targetProbability)}",
-                c => c.Value);
-
+                exportedCalculationFileNames, $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(targetProbability)}",
+                c => c);
+            exportedCalculationFileNames.Add(uniqueName);
+            
             string tempFilePath = Path.Combine(folderPath, $"{uniqueName}.{RiskeerCommonIOResources.Shape_file_filter_Extension}");
 
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
                 calculations, tempFilePath, calculationsType);
-
-            if (!exporter.Export())
-            {
-                return false;
-            }
-
-            exportedCalculations.Add(calculations, uniqueName);
-            return true;
+            return exporter.Export();
         }
     }
 }

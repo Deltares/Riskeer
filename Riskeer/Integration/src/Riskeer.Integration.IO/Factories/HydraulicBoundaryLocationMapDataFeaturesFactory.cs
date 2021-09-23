@@ -23,43 +23,13 @@ using System;
 using Core.Common.Base.Data;
 using Core.Components.Gis.Features;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Util.Properties;
+using Riskeer.Common.Util;
+using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
 
-namespace Riskeer.Common.Util
+namespace Riskeer.Integration.IO.Factories
 {
-    /// <summary>
-    /// Factory for creating collections of <see cref="MapFeature"/> for
-    /// <see cref="AggregatedHydraulicBoundaryLocation"/>.
-    /// </summary>
     public static class HydraulicBoundaryLocationMapDataFeaturesFactory
     {
-        /// <summary>
-        /// Creates a hydraulic boundary location feature based on the given <paramref name="location"/>.
-        /// </summary>
-        /// <param name="location">The location to create the feature for.</param>
-        /// <returns>A feature based on the given <paramref name="location"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
-        public static MapFeature CreateHydraulicBoundaryLocationFeature(AggregatedHydraulicBoundaryLocation location)
-        {
-            if (location == null)
-            {
-                throw new ArgumentNullException(nameof(location));
-            }
-
-            MapFeature feature = RiskeerMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
-            feature.MetaData[Resources.MetaData_ID] = location.Id;
-            feature.MetaData[Resources.MetaData_Name] = location.Name;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForFactorizedSignalingNorm] = location.WaterLevelCalculationForFactorizedSignalingNorm.ToString();
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForSignalingNorm] = location.WaterLevelCalculationForSignalingNorm.ToString();
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForLowerLimitNorm] = location.WaterLevelCalculationForLowerLimitNorm.ToString();
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm] = location.WaterLevelCalculationForFactorizedLowerLimitNorm.ToString();
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForFactorizedSignalingNorm] = location.WaveHeightCalculationForFactorizedSignalingNorm.ToString();
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForSignalingNorm] = location.WaveHeightCalculationForSignalingNorm.ToString();
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForLowerLimitNorm] = location.WaveHeightCalculationForLowerLimitNorm.ToString();
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm] = location.WaveHeightCalculationForFactorizedLowerLimitNorm.ToString();
-            return feature;
-        }
-
         /// <summary>
         /// Creates a hydraulic boundary location calculation feature based on the given <paramref name="calculation"/>.
         /// </summary>
@@ -82,8 +52,8 @@ namespace Riskeer.Common.Util
 
             HydraulicBoundaryLocation location = calculation.HydraulicBoundaryLocation;
             MapFeature feature = RiskeerMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
-            feature.MetaData[Resources.MetaData_ID] = location.Id;
-            feature.MetaData[Resources.MetaData_Name] = location.Name;
+            feature.MetaData[RiskeerCommonUtilResources.MetaData_ID] = location.Id;
+            feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = location.Name;
             feature.MetaData[metaDataHeader] = GetCalculationResult(calculation.Output).ToString();
             return feature;
         }

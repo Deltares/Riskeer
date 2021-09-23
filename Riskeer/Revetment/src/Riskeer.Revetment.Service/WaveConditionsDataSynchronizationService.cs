@@ -122,9 +122,6 @@ namespace Riskeer.Revetment.Service
         /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <remarks>The output is only cleared when <see cref="WaveConditionsInput.WaterLevelType"/> is
-        /// <see cref="WaveConditionsInputWaterLevelType.UserDefinedTargetProbability"/>. This <see cref="WaveConditionsInput.WaterLevelType"/>
-        /// is then also set to <see cref="WaveConditionsInputWaterLevelType.None"/>.</remarks>
         public static IEnumerable<IObservable> ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<TFailureMechanism, TCalculation>(
             TFailureMechanism failureMechanism, HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
             where TFailureMechanism : IFailureMechanism
@@ -145,11 +142,9 @@ namespace Riskeer.Revetment.Service
                                                                  .Where(c => c.InputParameters.CalculationsTargetProbability == calculationsForTargetProbability))
             {
                 calculation.InputParameters.CalculationsTargetProbability = null;
-                if (calculation.InputParameters.WaterLevelType == WaveConditionsInputWaterLevelType.UserDefinedTargetProbability)
-                {
-                    calculation.InputParameters.WaterLevelType = WaveConditionsInputWaterLevelType.None;
-                    RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation);
-                }
+                calculation.InputParameters.WaterLevelType = WaveConditionsInputWaterLevelType.None;
+                RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation);
+
                 affectedItems.Add(calculation);
             }
 

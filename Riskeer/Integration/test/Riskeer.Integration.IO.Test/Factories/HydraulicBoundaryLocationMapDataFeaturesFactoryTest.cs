@@ -26,60 +26,13 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Util.TestUtil;
+using Riskeer.Integration.IO.Factories;
 
-namespace Riskeer.Common.Util.Test
+namespace Riskeer.Integration.IO.Test.Factories
 {
     [TestFixture]
     public class HydraulicBoundaryLocationMapDataFeaturesFactoryTest
     {
-        [Test]
-        public void CreateHydraulicBoundaryLocationFeature_LocationNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("location", exception.ParamName);
-        }
-
-        [Test]
-        public void CreateHydraulicBoundaryLocationFeature_WithLocation_ReturnFeature()
-        {
-            // Setup
-            AggregatedHydraulicBoundaryLocation location = AggregatedHydraulicBoundaryLocationTestHelper.Create();
-
-            // Call
-            MapFeature feature = HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature(location);
-
-            // Assert
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                location.WaterLevelCalculationForFactorizedSignalingNorm.ToString(),
-                feature, "h_Aplus");
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                location.WaterLevelCalculationForSignalingNorm.ToString(),
-                feature, "h_A");
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                location.WaterLevelCalculationForLowerLimitNorm.ToString(),
-                feature, "h_B");
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                location.WaterLevelCalculationForFactorizedLowerLimitNorm.ToString(),
-                feature, "h_C");
-
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                location.WaveHeightCalculationForFactorizedSignalingNorm.ToString(),
-                feature, "Hs_Aplus");
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                location.WaveHeightCalculationForSignalingNorm.ToString(),
-                feature, "Hs_A");
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                location.WaveHeightCalculationForLowerLimitNorm.ToString(),
-                feature, "Hs_B");
-            MapFeaturesMetaDataTestHelper.AssertMetaData(
-                location.WaveHeightCalculationForFactorizedLowerLimitNorm.ToString(),
-                feature, "Hs_C");
-        }
-
         [Test]
         public void CreateHydraulicBoundaryLocationCalculationFeature_CalculationNull_ThrowsArgumentNullException()
         {

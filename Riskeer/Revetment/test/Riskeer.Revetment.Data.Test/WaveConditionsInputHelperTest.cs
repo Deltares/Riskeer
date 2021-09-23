@@ -74,7 +74,7 @@ namespace Riskeer.Revetment.Data.Test
             const NormType normType = (NormType) 99;
 
             // Call
-            void Call() => WaveConditionsInputHelper.SetWaterLevelType(new AssessmentSectionCategoryWaveConditionsInput(), normType);
+            void Call() => WaveConditionsInputHelper.SetWaterLevelType(new TestWaveConditionsInput(), normType);
 
             // Assert
             var expectedMessage = $"The value of argument 'normType' ({normType}) is invalid for Enum type '{nameof(NormType)}'.";
@@ -85,7 +85,7 @@ namespace Riskeer.Revetment.Data.Test
         [Test]
         [TestCase(NormType.LowerLimit, WaveConditionsInputWaterLevelType.LowerLimit)]
         [TestCase(NormType.Signaling, WaveConditionsInputWaterLevelType.Signaling)]
-        public void SetWaterLevelType_WithFailureMechanismCategoryWaveConditionsInputAndVariousNormTypes_SetsWaterLevelType(
+        public void SetWaterLevelType_WithWaveConditionsInputAndVariousNormTypes_SetsWaterLevelType(
             NormType normType,
             WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
         {

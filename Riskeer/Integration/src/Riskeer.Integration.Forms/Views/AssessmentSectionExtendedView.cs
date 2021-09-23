@@ -20,12 +20,8 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
-using Core.Components.Gis.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Forms.Factories;
-using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Integration.Forms.Views
 {
@@ -34,17 +30,7 @@ namespace Riskeer.Integration.Forms.Views
     /// </summary>
     public class AssessmentSectionExtendedView : AssessmentSectionReferenceLineView
     {
-        private readonly MapPointData hydraulicBoundaryLocationsMapData;
-
-        private Observer hydraulicBoundaryLocationsObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNormObserver;
+        private readonly HydraulicBoundaryLocationsMapLayer mapLayer;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionExtendedView"/>.
@@ -54,72 +40,16 @@ namespace Riskeer.Integration.Forms.Views
         /// is <c>null</c>.</exception>
         public AssessmentSectionExtendedView(IAssessmentSection assessmentSection) : base(assessmentSection)
         {
-            hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
+            mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
 
-            MapDataCollection.Add(hydraulicBoundaryLocationsMapData);
+            MapDataCollection.Add(mapLayer.MapData);
         }
 
         protected override void Dispose(bool disposing)
         {
-            waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
-            waterLevelCalculationsForSignalingNormObserver.Dispose();
-            waterLevelCalculationsForLowerLimitNormObserver.Dispose();
-            waterLevelCalculationsForFactorizedLowerLimitNormObserver.Dispose();
-            waveHeightCalculationsForFactorizedSignalingNormObserver.Dispose();
-            waveHeightCalculationsForSignalingNormObserver.Dispose();
-            waveHeightCalculationsForLowerLimitNormObserver.Dispose();
-            waveHeightCalculationsForFactorizedLowerLimitNormObserver.Dispose();
-            hydraulicBoundaryLocationsObserver.Dispose();
+            mapLayer.Dispose();
 
             base.Dispose(disposing);
         }
-
-        protected override void CreateObservers()
-        {
-            base.CreateObservers();
-
-            waterLevelCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData)
-            {
-                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
-            };
-        }
-
-        protected override void SetAllMapDataFeatures()
-        {
-            base.SetAllMapDataFeatures();
-            SetHydraulicBoundaryLocationsMapData();
-        }
-
-        #region HydraulicBoundaryLocations MapData
-
-        private void UpdateHydraulicBoundaryLocationsMapData()
-        {
-            SetHydraulicBoundaryLocationsMapData();
-            hydraulicBoundaryLocationsMapData.NotifyObservers();
-        }
-
-        private void SetHydraulicBoundaryLocationsMapData()
-        {
-            hydraulicBoundaryLocationsMapData.Features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(AssessmentSection);
-        }
-
-        #endregion
     }
 }

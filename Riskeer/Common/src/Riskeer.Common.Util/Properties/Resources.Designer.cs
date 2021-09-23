@@ -40,7 +40,7 @@ namespace Riskeer.Common.Util.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -100,74 +100,11 @@ namespace Riskeer.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to h_C.
+        ///   Looks up a localized string similar to {0:n0}.
         /// </summary>
-        public static string MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm {
+        public static string ReturnPeriodFormat {
             get {
-                return ResourceManager.GetString("MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to h_Aplus.
-        /// </summary>
-        public static string MetaData_WaterLevelCalculationForFactorizedSignalingNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WaterLevelCalculationForFactorizedSignalingNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to h_B.
-        /// </summary>
-        public static string MetaData_WaterLevelCalculationForLowerLimitNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WaterLevelCalculationForLowerLimitNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to h_A.
-        /// </summary>
-        public static string MetaData_WaterLevelCalculationForSignalingNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WaterLevelCalculationForSignalingNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hs_C.
-        /// </summary>
-        public static string MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hs_Aplus.
-        /// </summary>
-        public static string MetaData_WaveHeightCalculationForFactorizedSignalingNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WaveHeightCalculationForFactorizedSignalingNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hs_B.
-        /// </summary>
-        public static string MetaData_WaveHeightCalculationForLowerLimitNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WaveHeightCalculationForLowerLimitNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hs_A.
-        /// </summary>
-        public static string MetaData_WaveHeightCalculationForSignalingNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WaveHeightCalculationForSignalingNorm", resourceCulture);
+                return ResourceManager.GetString("ReturnPeriodFormat", resourceCulture);
             }
         }
         
@@ -177,6 +114,33 @@ namespace Riskeer.Common.Util.Properties {
         public static string RiskeerVersionHelper_Version_0_Not_Valid {
             get {
                 return ResourceManager.GetString("RiskeerVersionHelper_Version_0_Not_Valid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstanden bij norm.
+        /// </summary>
+        public static string WaterLevelCalculationsForNormTargetProbabilities_DisplayName {
+            get {
+                return ResourceManager.GetString("WaterLevelCalculationsForNormTargetProbabilities_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waterstanden bij doelkans.
+        /// </summary>
+        public static string WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName {
+            get {
+                return ResourceManager.GetString("WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfhoogten bij doelkans.
+        /// </summary>
+        public static string WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName", resourceCulture);
             }
         }
     }

@@ -30,7 +30,7 @@ using log4net;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.IO.Helpers;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.Integration.IO.Exporters
@@ -108,7 +108,7 @@ namespace Riskeer.Integration.IO.Exporters
                         assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection.FailureMechanismContribution.SignalingNorm)
                 },
                 HydraulicBoundaryLocationCalculationsType.WaterLevel,
-                Path.Combine(tempFolderPath, RiskeerCommonFormsResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName));
+                Path.Combine(tempFolderPath, RiskeerCommonUtilResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName));
         }
 
         private bool ExportWaterLevelCalculationsForUserDefinedTargetProbabilities()
@@ -116,9 +116,10 @@ namespace Riskeer.Integration.IO.Exporters
             return ExportLocationCalculationsForTargetProbabilities(
                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
                                  .Select(tp => new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
-                                             tp.HydraulicBoundaryLocationCalculations, tp.TargetProbability)),
+                                             tp.HydraulicBoundaryLocationCalculations, tp.TargetProbability))
+                                 .ToArray(),
                 HydraulicBoundaryLocationCalculationsType.WaterLevel,
-                Path.Combine(tempFolderPath, RiskeerCommonFormsResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName));
+                Path.Combine(tempFolderPath, RiskeerCommonUtilResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName));
         }
 
         private bool ExportWaveHeightCalculationsForUserDefinedTargetProbabilities()
@@ -126,19 +127,18 @@ namespace Riskeer.Integration.IO.Exporters
             return ExportLocationCalculationsForTargetProbabilities(
                 assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
                                  .Select(tp => new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
-                                             tp.HydraulicBoundaryLocationCalculations, tp.TargetProbability)),
+                                             tp.HydraulicBoundaryLocationCalculations, tp.TargetProbability))
+                                 .ToArray(),
                 HydraulicBoundaryLocationCalculationsType.WaveHeight,
-                Path.Combine(tempFolderPath, RiskeerCommonFormsResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName));
+                Path.Combine(tempFolderPath, RiskeerCommonUtilResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName));
         }
 
         private static bool ExportLocationCalculationsForTargetProbabilities(
             IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>> calculationsForTargetProbabilities,
             HydraulicBoundaryLocationCalculationsType calculationsType, string folderPath)
         {
-            var exportedCalculations = new Dictionary<IEnumerable<HydraulicBoundaryLocationCalculation>, string>();
-            return calculationsForTargetProbabilities.All(
-                calculationsForTargetProbability => HydraulicBoundaryLocationCalculationsExportHelper.ExportLocationCalculationsForTargetProbability(
-                    calculationsForTargetProbability, exportedCalculations, calculationsType, folderPath));
+            return HydraulicBoundaryLocationCalculationsExportHelper.ExportLocationCalculationsForTargetProbabilities(
+                    calculationsForTargetProbabilities, calculationsType, folderPath);
         }
     }
 }
