@@ -53,7 +53,7 @@ namespace Riskeer.Common.Forms.Factories
             MapFeature feature = RiskeerMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
             feature.MetaData[RiskeerCommonUtilResources.MetaData_ID] = location.Id;
             feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = location.Name;
-            
+
             AddTargetProbabilityMetData(feature, location.WaterLevelCalculationForTargetProbabilities,
                                         Resources.MetaData_WaterLevel_TargetProbability_0);
 
@@ -66,7 +66,7 @@ namespace Riskeer.Common.Forms.Factories
         private static void AddTargetProbabilityMetData(MapFeature feature, IEnumerable<Tuple<double, RoundedDouble>> targetProbabilities, string displayName)
         {
             var addedMetaDataItems = new List<string>();
-            
+
             foreach (Tuple<double, RoundedDouble> calculationOutputForTargetProbability in targetProbabilities)
             {
                 string uniqueName = NamingHelper.GetUniqueName(
