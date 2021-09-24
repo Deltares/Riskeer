@@ -43,8 +43,11 @@ namespace Riskeer.Common.Forms.Views
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
 
-        private Observer waterLevelForUserDefinedTargetProbabilitiesObserver;
-        private Observer waveHeightForUserDefinedTargetProbabilitiesObserver;
+        private Observer waterLevelForUserDefinedTargetProbabilitiesListObserver;
+        private Observer waveHeightForUserDefinedTargetProbabilitiesListObserver;
+
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability>, HydraulicBoundaryLocationCalculationsForTargetProbability> waterLevelForUserDefinedTargetProbabilitiesObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability>, HydraulicBoundaryLocationCalculationsForTargetProbability> waveHeightForUserDefinedTargetProbabilitiesObserver;
 
         private List<RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>> waterLevelCalculationsForTargetProbabilityObservers;
         private List<RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>> waveHeightCalculationsForTargetProbabilityObservers;
@@ -88,6 +91,8 @@ namespace Riskeer.Common.Forms.Views
                 hydraulicBoundaryLocationsObserver.Dispose();
                 waterLevelCalculationsForSignalingNormObserver.Dispose();
                 waterLevelCalculationsForLowerLimitNormObserver.Dispose();
+                waterLevelForUserDefinedTargetProbabilitiesListObserver.Dispose();
+                waveHeightForUserDefinedTargetProbabilitiesListObserver.Dispose();
                 waterLevelForUserDefinedTargetProbabilitiesObserver.Dispose();
                 waveHeightForUserDefinedTargetProbabilitiesObserver.Dispose();
 
@@ -108,7 +113,7 @@ namespace Riskeer.Common.Forms.Views
             waterLevelCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
                 assessmentSection.WaterLevelCalculationsForLowerLimitNorm, UpdateFeatures);
 
-            waterLevelForUserDefinedTargetProbabilitiesObserver = new Observer(() =>
+            waterLevelForUserDefinedTargetProbabilitiesListObserver = new Observer(() =>
             {
                 DeleteTargetProbabilitiesObservers(waterLevelCalculationsForTargetProbabilityObservers);
                 CreateTargetProbabilitiesObservers(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities, waterLevelCalculationsForTargetProbabilityObservers);
@@ -117,12 +122,24 @@ namespace Riskeer.Common.Forms.Views
             {
                 Observable = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
             };
-            waveHeightForUserDefinedTargetProbabilitiesObserver = new Observer(() =>
+            waveHeightForUserDefinedTargetProbabilitiesListObserver = new Observer(() =>
             {
                 DeleteTargetProbabilitiesObservers(waveHeightCalculationsForTargetProbabilityObservers);
                 CreateTargetProbabilitiesObservers(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities, waveHeightCalculationsForTargetProbabilityObservers);
                 UpdateFeatures();
             })
+            {
+                Observable = assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+            };
+
+            waterLevelForUserDefinedTargetProbabilitiesObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability>, HydraulicBoundaryLocationCalculationsForTargetProbability>(
+                UpdateFeatures, tp => tp)
+            {
+                Observable = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+            };
+
+            waveHeightForUserDefinedTargetProbabilitiesObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability>, HydraulicBoundaryLocationCalculationsForTargetProbability>(
+                UpdateFeatures, tp => tp)
             {
                 Observable = assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
             };
