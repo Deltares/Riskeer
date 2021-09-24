@@ -72,6 +72,10 @@ namespace Riskeer.Storage.Core.Read
 
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicBoundaryLocations =
             CreateDictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
+        
+        private readonly Dictionary<HydraulicLocationCalculationForTargetProbabilityCollectionEntity, HydraulicBoundaryLocationCalculationsForTargetProbability>
+            hydraulicLocationCalculationsForTargetProbabilities =
+            CreateDictionary<HydraulicLocationCalculationForTargetProbabilityCollectionEntity, HydraulicBoundaryLocationCalculationsForTargetProbability>();
 
         private readonly Dictionary<DuneLocationEntity, DuneLocation> duneLocations =
             CreateDictionary<DuneLocationEntity, DuneLocation>();
@@ -790,6 +794,78 @@ namespace Riskeer.Storage.Core.Read
             try
             {
                 return hydraulicBoundaryLocations[entity];
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw new InvalidOperationException(e.Message, e);
+            }
+        }
+
+        #endregion
+        
+        #region HydraulicLocationCalculationForTargetProbabilityCollectionEntity: Read, Contains, Get
+
+        /// <summary>
+        /// Registers a read operation for <see cref="HydraulicLocationCalculationForTargetProbabilityCollectionEntity"/> and the
+        /// <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="HydraulicLocationEntity"/> that was read.</param>
+        /// <param name="model">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> that was constructed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        internal void Read(HydraulicLocationCalculationForTargetProbabilityCollectionEntity entity, 
+                           HydraulicBoundaryLocationCalculationsForTargetProbability model)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            hydraulicLocationCalculationsForTargetProbabilities[entity] = model;
+        }
+
+        /// <summary>
+        /// Checks whether a read operation has been registered for a given <see cref="HydraulicLocationCalculationForTargetProbabilityCollectionEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="HydraulicLocationCalculationForTargetProbabilityCollectionEntity"/> to check for.</param>
+        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        internal bool Contains(HydraulicLocationCalculationForTargetProbabilityCollectionEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            return hydraulicLocationCalculationsForTargetProbabilities.ContainsKey(entity);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> which was read for the
+        /// given <see cref="HydraulicLocationCalculationForTargetProbabilityCollectionEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="HydraulicLocationEntity"/> for which a read
+        /// operation has been registered.</param>
+        /// <returns>The constructed <see cref="HydraulicLocationCalculationForTargetProbabilityCollectionEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no read operation has
+        /// been registered for <paramref name="entity"/>.</exception>
+        /// <remarks>Use <see cref="Contains(HydraulicLocationCalculationForTargetProbabilityCollectionEntity)"/> to find out whether a
+        /// read operation has been registered for <paramref name="entity"/>.</remarks>
+        internal HydraulicBoundaryLocationCalculationsForTargetProbability Get(HydraulicLocationCalculationForTargetProbabilityCollectionEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            try
+            {
+                return hydraulicLocationCalculationsForTargetProbabilities[entity];
             }
             catch (KeyNotFoundException e)
             {
