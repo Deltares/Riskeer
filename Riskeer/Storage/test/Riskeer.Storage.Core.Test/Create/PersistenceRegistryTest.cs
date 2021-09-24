@@ -273,6 +273,20 @@ namespace Riskeer.Storage.Core.Test.Create
         }
 
         [TestFixture]
+        private class HydraulicBoundaryLocationCalculationsForTargetProbabilityRegistryTest : RegistryTest<
+            HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicLocationCalculationForTargetProbabilityCollectionEntity>
+        {
+            public HydraulicBoundaryLocationCalculationsForTargetProbabilityRegistryTest() : base(
+                (r, e, m) => r.Register(e, m), 
+                (r, m) => r.Contains(m),
+                (r, m) => r.Get(m)) {}
+            protected override HydraulicBoundaryLocationCalculationsForTargetProbability CreateDataModel()
+            {
+                return new HydraulicBoundaryLocationCalculationsForTargetProbability(0.05);
+            }
+        }
+        
+        [TestFixture]
         private class FailureMechanismSectionRegistryTest : RegistryTest<FailureMechanismSection,
             FailureMechanismSectionEntity>
         {
