@@ -57,6 +57,11 @@ namespace Riskeer.Storage.Core.Create
                 throw new ArgumentNullException(nameof(registry));
             }
 
+            if (registry.Contains(calculations))
+            {
+                return registry.Get(calculations);
+            }
+            
             var collectionEntity = new HydraulicLocationCalculationForTargetProbabilityCollectionEntity
             {
                 HydraulicBoundaryLocationCalculationType = Convert.ToByte(calculationType),
@@ -68,7 +73,8 @@ namespace Riskeer.Storage.Core.Create
             {
                 collectionEntity.HydraulicLocationCalculationEntities.Add(calculation.Create(registry));
             }
-
+            
+            registry.Register(collectionEntity, calculations);
             return collectionEntity;
         }
     }

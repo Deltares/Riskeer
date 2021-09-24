@@ -112,12 +112,34 @@ namespace Riskeer.Storage.Core.Test.Read
             HydraulicBoundaryLocationCalculation calculationOne = hydraulicBoundaryLocationCalculations.ElementAt(0);
             Assert.AreEqual(Convert.ToBoolean(calculationEntityWithoutOutput.ShouldIllustrationPointsBeCalculated),
                             calculationOne.InputParameters.ShouldIllustrationPointsBeCalculated);
+            Assert.AreSame(hydraulicBoundaryLocationOne, calculationOne.HydraulicBoundaryLocation);
             Assert.IsNull(calculationOne.Output);
 
             HydraulicBoundaryLocationCalculation calculationTwo = hydraulicBoundaryLocationCalculations.ElementAt(1);
             Assert.AreEqual(Convert.ToBoolean(calculationEntityWithOutput.ShouldIllustrationPointsBeCalculated),
                             calculationTwo.InputParameters.ShouldIllustrationPointsBeCalculated);
+            Assert.AreSame(hydraulicBoundaryLocationTwo, calculationTwo.HydraulicBoundaryLocation);
             Assert.IsNotNull(calculationTwo.Output);
+        }
+
+        [Test]
+        public void Read_SameHydraulicLocationCalculationForTargetProbabilityCollectionEntityTwice_ReturnsSameHydraulicBoundaryLocationCalculationsForTargetProbability()
+        {
+            // Setup
+            var random = new Random(21);
+            var collectionEntity = new HydraulicLocationCalculationForTargetProbabilityCollectionEntity
+            {
+                TargetProbability = random.NextDouble(0, 0.1)
+            };
+
+            var collector = new ReadConversionCollector();
+            
+            // Call
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsOne = collectionEntity.Read(collector);
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsTwo = collectionEntity.Read(collector);
+
+            // Assert
+            Assert.AreSame(calculationsOne, calculationsTwo);
         }
     }
 }

@@ -55,6 +55,11 @@ namespace Riskeer.Storage.Core.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
+            if (collector.Contains(entity))
+            {
+                return collector.Get(entity);
+            }
+
             var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(entity.TargetProbability);
             IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations =
                 entity.HydraulicLocationCalculationEntities
@@ -62,6 +67,7 @@ namespace Riskeer.Storage.Core.Read
                       .ToArray();
             calculations.HydraulicBoundaryLocationCalculations.AddRange(hydraulicBoundaryLocationCalculations);
 
+            collector.Read(entity, calculations);
             return calculations;
         }
 
