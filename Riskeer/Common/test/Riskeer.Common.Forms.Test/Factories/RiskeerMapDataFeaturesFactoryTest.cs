@@ -48,10 +48,10 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateSingleLineMapFeature_PointsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(null);
+            void Call() => RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("points", paramName);
         }
 
@@ -80,10 +80,10 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateReferenceLineFeatures_ReferenceLineNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(null, string.Empty, string.Empty);
+            void Call() => RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(null, string.Empty, string.Empty);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("referenceLine", exception.ParamName);
         }
 
@@ -130,11 +130,22 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateHydraulicBoundaryLocationFeatures_LocationsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures((IEnumerable<AggregatedHydraulicBoundaryLocation>) null);
+            void Call() => RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("locations", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateHydraulicBoundaryLocationFeatures_NoLocations_ReturnsEmptyFeaturesCollection()
+        {
+            // Call
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(
+                Enumerable.Empty<AggregatedHydraulicBoundaryLocation>());
+
+            // Assert
+            CollectionAssert.IsEmpty(features);
         }
 
         [Test]
@@ -166,7 +177,7 @@ namespace Riskeer.Common.Forms.Test.Factories
                     tp => tp.TargetProbability));
 
             // Call
-            MapFeature[] features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(locations).ToArray();
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(locations);
 
             // Assert
             MapFeaturesTestHelper.AssertHydraulicBoundaryFeaturesData(assessmentSection, features);
@@ -249,7 +260,8 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateFailureMechanismSectionStartPointFeatures_NoSections_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(Enumerable.Empty<FailureMechanismSection>());
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(
+                Enumerable.Empty<FailureMechanismSection>());
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -302,7 +314,8 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateFailureMechanismSectionEndPointFeatures_NoSections_ReturnsEmptyFeaturesCollection()
         {
             // Call
-            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(Enumerable.Empty<FailureMechanismSection>());
+            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(
+                Enumerable.Empty<FailureMechanismSection>());
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -486,7 +499,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         {
             // Call
             IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateCalculationFeatures(
-                new MapCalculationData[0]);
+                Array.Empty<MapCalculationData>());
 
             // Assert
             CollectionAssert.IsEmpty(features);
@@ -738,13 +751,7 @@ namespace Riskeer.Common.Forms.Test.Factories
 
         private class SimpleStructuresInput : StructuresInputBase<StructureBase>
         {
-            public override bool IsStructureInputSynchronized
-            {
-                get
-                {
-                    return false;
-                }
-            }
+            public override bool IsStructureInputSynchronized => false;
 
             public override void SynchronizeStructureInput() {}
         }
