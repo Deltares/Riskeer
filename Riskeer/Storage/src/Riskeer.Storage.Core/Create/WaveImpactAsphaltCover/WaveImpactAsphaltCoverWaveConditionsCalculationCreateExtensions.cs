@@ -84,6 +84,12 @@ namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
                 entity.ForeshoreProfileEntity = calculationInput.ForeshoreProfile.Create(registry, 0);
             }
 
+            if (calculationInput.CalculationsTargetProbability != null)
+            {
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntity =
+                    calculationInput.CalculationsTargetProbability.Create(HydraulicBoundaryLocationCalculationType.WaterLevel, 0, registry);
+            }
+
             entity.Orientation = calculationInput.Orientation.ToNaNAsNull();
             entity.UseBreakWater = Convert.ToByte(calculationInput.UseBreakWater);
             entity.BreakWaterType = Convert.ToByte(calculationInput.BreakWater.Type);
@@ -95,6 +101,7 @@ namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
             entity.LowerBoundaryWaterLevels = calculationInput.LowerBoundaryWaterLevels.ToNaNAsNull();
             entity.StepSize = Convert.ToByte(calculationInput.StepSize);
             entity.CategoryType = Convert.ToByte(calculationInput.CategoryType);
+            entity.WaveConditionsInputWaterLevelType = Convert.ToByte(calculationInput.WaterLevelType);
         }
 
         private static void AddEntityForWaveImpactAsphaltCoverWaveConditionsOutput(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,

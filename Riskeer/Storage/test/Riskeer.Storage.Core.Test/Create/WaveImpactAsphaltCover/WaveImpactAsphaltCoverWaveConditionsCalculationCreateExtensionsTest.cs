@@ -33,6 +33,7 @@ using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.WaveImpactAsphaltCover;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.WaveImpactAsphaltCover.Data;
+using WaveConditionsInputWaterLevelType = Riskeer.Revetment.Data.WaveConditionsInputWaterLevelType;
 
 namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
 {
@@ -78,6 +79,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
                     Orientation = random.NextRoundedDouble(0, 360),
                     UseBreakWater = random.NextBoolean(),
                     UseForeshore = random.NextBoolean(),
+                    WaterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>(),
                     UpperBoundaryRevetment = (RoundedDouble) 6.10,
                     LowerBoundaryRevetment = (RoundedDouble) 3.58,
                     UpperBoundaryWaterLevels = (RoundedDouble) 5.88,
@@ -103,12 +105,14 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             Assert.AreEqual(input.LowerBoundaryWaterLevels, entity.LowerBoundaryWaterLevels, input.LowerBoundaryWaterLevels.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(input.StepSize), entity.StepSize);
             Assert.AreEqual(Convert.ToByte(input.CategoryType), entity.CategoryType);
+            Assert.AreEqual(Convert.ToByte(input.WaterLevelType), entity.WaveConditionsInputWaterLevelType);
 
             Assert.AreEqual(order, entity.Order);
             Assert.IsNull(entity.CalculationGroupEntity);
             CollectionAssert.IsEmpty(entity.WaveImpactAsphaltCoverWaveConditionsOutputEntities);
             Assert.IsNull(entity.ForeshoreProfileEntity);
             Assert.IsNull(entity.HydraulicLocationEntity);
+            Assert.IsNull(entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntity);
         }
 
         [Test]
@@ -171,7 +175,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
         }
 
         [Test]
-        public void Create_WaveImpactAsphaltCoverHydraulicLocationEntity_EntityHasWaveImpactAsphaltCoverHydraulicLocationEntity()
+        public void Create_WaveImpactAsphaltCoverWithHydraulicLocationEntity_EntityHasHydraulicLocationEntity()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2.3, 4.5);
@@ -192,6 +196,32 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
 
             // Assert
             Assert.AreSame(hydraulicLocationEntity, entity.HydraulicLocationEntity);
+        }
+
+        [Test]
+        public void Create_WaveImpactAsphaltCoverWithHydraulicLocationCalculationsForTargetProbability_EntityHasHydraulicLocationCalculationForTargetProbabilityCollectionEntity()
+        {
+            // Setup
+            var random = new Random(21);
+            var hydraulicCalculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1));
+            var hydraulicCalculationsEntity = new HydraulicLocationCalculationForTargetProbabilityCollectionEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(hydraulicCalculationsEntity, hydraulicCalculations);
+
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    CalculationsTargetProbability = hydraulicCalculations
+                }
+            };
+
+            // Call
+            WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            Assert.AreSame(hydraulicCalculationsEntity, entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntity);
         }
 
         [Test]

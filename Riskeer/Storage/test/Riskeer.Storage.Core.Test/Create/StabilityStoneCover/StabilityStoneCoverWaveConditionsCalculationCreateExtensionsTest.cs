@@ -106,12 +106,14 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
             Assert.AreEqual(Convert.ToByte(input.StepSize), entity.StepSize);
             Assert.AreEqual(Convert.ToByte(input.CategoryType), entity.CategoryType);
             Assert.AreEqual(Convert.ToByte(input.CalculationType), entity.CalculationType);
+            Assert.AreEqual(Convert.ToByte(input.WaterLevelType), entity.WaveConditionsInputWaterLevelType);
 
             Assert.AreEqual(order, entity.Order);
             Assert.IsNull(entity.CalculationGroupEntity);
             CollectionAssert.IsEmpty(entity.StabilityStoneCoverWaveConditionsOutputEntities);
             Assert.IsNull(entity.ForeshoreProfileEntity);
             Assert.IsNull(entity.HydraulicLocationEntity);
+            Assert.IsNull(entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntity);
         }
 
         [Test]
@@ -174,7 +176,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
         }
 
         [Test]
-        public void Create_HydraulicBoundaryLocation_EntityHasHydraulicLocationEntity()
+        public void Create_StabilityStoneCoverWithHydraulicBoundaryLocation_EntityHasHydraulicLocationEntity()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2.3, 4.5);
@@ -195,6 +197,32 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
 
             // Assert
             Assert.AreSame(hydraulicLocationEntity, entity.HydraulicLocationEntity);
+        }
+
+        [Test]
+        public void Create_StabilityStoneCoverWithHydraulicLocationCalculationsForTargetProbability_EntityHasHydraulicLocationCalculationForTargetProbabilityCollectionEntity()
+        {
+            // Setup
+            var random = new Random(21);
+            var hydraulicCalculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1));
+            var hydraulicCalculationsEntity = new HydraulicLocationCalculationForTargetProbabilityCollectionEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(hydraulicCalculationsEntity, hydraulicCalculations);
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    CalculationsTargetProbability = hydraulicCalculations
+                }
+            };
+
+            // Call
+            StabilityStoneCoverWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            Assert.AreSame(hydraulicCalculationsEntity, entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntity);
         }
 
         [Test]
