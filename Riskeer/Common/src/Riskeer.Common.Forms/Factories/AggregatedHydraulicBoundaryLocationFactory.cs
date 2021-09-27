@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
@@ -82,6 +83,49 @@ namespace Riskeer.Common.Forms.Factories
                                                                                                   tuple.Item1, GetCalculationResult(tuple.Item2[location].Output)))
                                                                                       .ToArray()))
                                     .ToArray();
+        }
+
+        /// <summary>
+        /// Creates the aggregated hydraulic boundary locations based on the locations and calculations.
+        /// </summary>
+        /// <param name="locations">The locations.</param>
+        /// <param name="waterLevelCalculations">The water level calculations.</param>
+        /// <param name="waveHeightCalculations">The wave height calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="AggregatedHydraulicBoundaryLocation"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<AggregatedHydraulicBoundaryLocation> CreateAggregatedHydraulicBoundaryLocations(
+            IEnumerable<HydraulicBoundaryLocation> locations,
+            IDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waterLevelCalculations,
+            IDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waveHeightCalculations)
+        {
+            if (locations == null)
+            {
+                throw new ArgumentNullException(nameof(locations));
+            }
+
+            if (waterLevelCalculations == null)
+            {
+                throw new ArgumentNullException(nameof(waterLevelCalculations));
+            }
+
+            if (waveHeightCalculations == null)
+            {
+                throw new ArgumentNullException(nameof(waveHeightCalculations));
+            }
+
+            return locations.Select(location => new AggregatedHydraulicBoundaryLocation(
+                                        location.Id, location.Name, location.Location,
+                                        waterLevelCalculations.Select(c => new Tuple<double, RoundedDouble>(
+                                                                          c.Value, GetCalculationResult(
+                                                                              c.Key.ToDictionary(x => x.HydraulicBoundaryLocation,
+                                                                                                 x => x)[location].Output)))
+                                                              .ToArray(),
+                                        waveHeightCalculations.Select(c => new Tuple<double, RoundedDouble>(
+                                                                          c.Value, GetCalculationResult(
+                                                                              c.Key.ToDictionary(x => x.HydraulicBoundaryLocation,
+                                                                                                 x => x)[location].Output)))
+                                                              .ToArray()))
+                            .ToArray();
         }
 
         private static RoundedDouble GetCalculationResult(HydraulicBoundaryLocationCalculationOutput output)
