@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Riskeer.Common.Forms.Factories;
@@ -37,6 +39,8 @@ namespace Riskeer.DuneErosion.Forms.Views
 
         private Observer duneLocationsObserver;
         private Observer userDefinedTargetProbabilitiesListObserver;
+
+        private List<RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>> calculationsForTargetProbabilityObservers;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionLocationsMapLayer"/>.
@@ -77,7 +81,19 @@ namespace Riskeer.DuneErosion.Forms.Views
             {
                 duneLocationsObserver.Dispose();
                 userDefinedTargetProbabilitiesListObserver.Dispose();
+
+                DeleteTargetProbabilitiesObservers();
             }
+        }
+
+        private void DeleteTargetProbabilitiesObservers()
+        {
+            foreach (RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> observer in calculationsForTargetProbabilityObservers)
+            {
+                observer.Dispose();
+            }
+
+            calculationsForTargetProbabilityObservers.Clear();
         }
 
         private void CreateObservers()
@@ -86,9 +102,34 @@ namespace Riskeer.DuneErosion.Forms.Views
             {
                 Observable = failureMechanism.DuneLocations
             };
-            userDefinedTargetProbabilitiesListObserver = new Observer(UpdateFeatures)
+            userDefinedTargetProbabilitiesListObserver = new Observer(() =>
+            {
+                DeleteTargetProbabilitiesObservers();
+                CreateTargetProbabilitiesObservers();
+                UpdateFeatures();
+            })
             {
                 Observable = failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
+            };
+
+            calculationsForTargetProbabilityObservers = new List<RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>>();
+            CreateTargetProbabilitiesObservers();
+        }
+
+        private void CreateTargetProbabilitiesObservers()
+        {
+            calculationsForTargetProbabilityObservers.AddRange(failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                                                                               .Select(calculationsForTargetProbability => CreateDuneLocationCalculationsObserver(
+                                                                                           calculationsForTargetProbability.DuneLocationCalculations)));
+        }
+
+        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> CreateDuneLocationCalculationsObserver(
+            IObservableEnumerable<DuneLocationCalculation> calculations)
+        {
+            return new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(
+                UpdateFeatures, calc => calc)
+            {
+                Observable = calculations
             };
         }
 
