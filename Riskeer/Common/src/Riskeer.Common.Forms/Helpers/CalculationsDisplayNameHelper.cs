@@ -46,7 +46,7 @@ namespace Riskeer.Common.Forms.Helpers
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="calculations"/> is not part of the water level
         /// calculations within <paramref name="assessmentSection"/>.</exception>
-        public string GetUniqueDisplayNameForWaterLevelCalculations(IAssessmentSection assessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        public static string GetUniqueDisplayNameForWaterLevelCalculations(IAssessmentSection assessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
             if (assessmentSection == null)
             {
@@ -93,7 +93,7 @@ namespace Riskeer.Common.Forms.Helpers
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="calculations"/> is not part of the wave height
         /// calculations within <paramref name="assessmentSection"/>.</exception>
-        public string GetUniqueDisplayNameForWaveHeightCalculations(IAssessmentSection assessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        public static string GetUniqueDisplayNameForWaveHeightCalculations(IAssessmentSection assessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
             if (assessmentSection == null)
             {
@@ -127,7 +127,7 @@ namespace Riskeer.Common.Forms.Helpers
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="calculations"/> is not part of the dune location
         /// calculations within <paramref name="assessmentSection"/>.</exception>
-        public string GetUniqueDisplayNameForDuneLocationCalculations(IAssessmentSection assessmentSection, IEnumerable<DuneLocationCalculation> calculations)
+        public static string GetUniqueDisplayNameForDuneLocationCalculations(IAssessmentSection assessmentSection, IEnumerable<DuneLocationCalculation> calculations)
         {
             if (assessmentSection == null)
             {
