@@ -502,7 +502,7 @@
           <Property Name="StepSize" Type="tinyint" Nullable="false" />
           <Property Name="CategoryType" Type="tinyint" Nullable="false" />
           <Property Name="CalculationType" Type="tinyint" Nullable="false" />
-          <Property Name="WaveConditionsInputWaterLevelType" Type="tinyint" Nullable="false" />
+          <Property Name="WaterLevelType" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsWaveConditionsOutputEntity">
           <Key>
@@ -1409,7 +1409,7 @@
           <Property Name="StepSize" Type="tinyint" Nullable="false" />
           <Property Name="CategoryType" Type="tinyint" Nullable="false" />
           <Property Name="CalculationType" Type="tinyint" Nullable="false" />
-          <Property Name="WaveConditionsInputWaterLevelType" Type="tinyint" Nullable="false" />
+          <Property Name="WaterLevelType" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="StabilityStoneCoverWaveConditionsOutputEntity">
           <Key>
@@ -1598,7 +1598,7 @@
           <Property Name="LowerBoundaryWaterLevels" Type="real" />
           <Property Name="StepSize" Type="tinyint" Nullable="false" />
           <Property Name="CategoryType" Type="tinyint" Nullable="false" />
-          <Property Name="WaveConditionsInputWaterLevelType" Type="tinyint" Nullable="false" />
+          <Property Name="WaterLevelType" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="WaveImpactAsphaltCoverWaveConditionsOutputEntity">
           <Key>
@@ -5397,7 +5397,7 @@
           <Property Name="StepSize" Type="Byte" Nullable="false" />
           <Property Name="CategoryType" Type="Byte" Nullable="false" />
           <Property Name="CalculationType" Type="Byte" Nullable="false" />
-          <Property Name="WaveConditionsInputWaterLevelType" Type="Byte" Nullable="false" />
+          <Property Name="WaterLevelType" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_3_0" FromRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_2_0" FromRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_0_0" FromRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" ToRole="HydraulicLocationEntity" />
@@ -6395,7 +6395,7 @@
           <Property Name="StepSize" Type="Byte" Nullable="false" />
           <Property Name="CategoryType" Type="Byte" Nullable="false" />
           <Property Name="CalculationType" Type="Byte" Nullable="false" />
-          <Property Name="WaveConditionsInputWaterLevelType" Type="Byte" Nullable="false" />
+          <Property Name="WaterLevelType" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_3_0" FromRole="StabilityStoneCoverWaveConditionsCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RiskeerEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_2_0" FromRole="StabilityStoneCoverWaveConditionsCalculationEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" Relationship="RiskeerEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_1_0" FromRole="StabilityStoneCoverWaveConditionsCalculationEntity" ToRole="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" />
@@ -6616,7 +6616,7 @@
           <Property Name="LowerBoundaryWaterLevels" Type="Double" />
           <Property Name="StepSize" Type="Byte" Nullable="false" />
           <Property Name="CategoryType" Type="Byte" Nullable="false" />
-          <Property Name="WaveConditionsInputWaterLevelType" Type="Byte" Nullable="false" />
+          <Property Name="WaterLevelType" Type="Byte" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_3_0" FromRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RiskeerEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_2_0" FromRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" Relationship="RiskeerEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_1_0" FromRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" ToRole="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" />
@@ -8782,7 +8782,7 @@
           <EntitySetMapping Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.GrassCoverErosionOutwardsWaveConditionsCalculationEntity">
               <MappingFragment StoreEntitySet="GrassCoverErosionOutwardsWaveConditionsCalculationEntity">
-                <ScalarProperty Name="WaveConditionsInputWaterLevelType" ColumnName="WaveConditionsInputWaterLevelType" />
+                <ScalarProperty Name="WaterLevelType" ColumnName="WaterLevelType" />
                 <ScalarProperty Name="CalculationType" ColumnName="CalculationType" />
                 <ScalarProperty Name="CategoryType" ColumnName="CategoryType" />
                 <ScalarProperty Name="StepSize" ColumnName="StepSize" />
@@ -9715,7 +9715,7 @@
           <EntitySetMapping Name="StabilityStoneCoverWaveConditionsCalculationEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.StabilityStoneCoverWaveConditionsCalculationEntity">
               <MappingFragment StoreEntitySet="StabilityStoneCoverWaveConditionsCalculationEntity">
-                <ScalarProperty Name="WaveConditionsInputWaterLevelType" ColumnName="WaveConditionsInputWaterLevelType" />
+                <ScalarProperty Name="WaterLevelType" ColumnName="WaterLevelType" />
                 <ScalarProperty Name="CalculationType" ColumnName="CalculationType" />
                 <ScalarProperty Name="CategoryType" ColumnName="CategoryType" />
                 <ScalarProperty Name="StepSize" ColumnName="StepSize" />
@@ -9920,7 +9920,7 @@
           <EntitySetMapping Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
               <MappingFragment StoreEntitySet="WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
-                <ScalarProperty Name="WaveConditionsInputWaterLevelType" ColumnName="WaveConditionsInputWaterLevelType" />
+                <ScalarProperty Name="WaterLevelType" ColumnName="WaterLevelType" />
                 <ScalarProperty Name="CategoryType" ColumnName="CategoryType" />
                 <ScalarProperty Name="StepSize" ColumnName="StepSize" />
                 <ScalarProperty Name="LowerBoundaryWaterLevels" ColumnName="LowerBoundaryWaterLevels" />

@@ -60,7 +60,7 @@ namespace Riskeer.Storage.Core.DbContext
         public double? LowerBoundaryWaterLevels { get; set; }
         public byte StepSize { get; set; }
         public byte CategoryType { get; set; }
-        public byte WaveConditionsInputWaterLevelType { get; set; }
+        public byte WaterLevelType { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
