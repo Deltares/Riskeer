@@ -83,6 +83,40 @@ namespace Riskeer.Common.Forms.Helpers
             return GetUniqueDisplayNameLookup(nonUniqueWaterLevelCalculationsDisplayNameLookup)[calculations];
         }
 
+        /// <summary>
+        /// Gets a unique wave height calculations display name for the provided <paramref name="calculations"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
+        /// <param name="calculations">The wave height calculations to get the unique display name for.</param>
+        /// <returns>A unique wave height calculations display name.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when <paramref name="calculations"/> is not part of the wave height
+        /// calculations within <paramref name="assessmentSection"/>.</exception>
+        public string GetUniqueDisplayNameForWaveHeightCalculations(IAssessmentSection assessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+
+            Dictionary<object, string> nonUniqueWaveHeightCalculationsDisplayNameLookup =
+                assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+                                 .ToDictionary(whc => (object) whc.HydraulicBoundaryLocationCalculations,
+                                               whc => noProbabilityValueDoubleConverter.ConvertToString(whc.TargetProbability));
+
+            if (!nonUniqueWaveHeightCalculationsDisplayNameLookup.ContainsKey(calculations))
+            {
+                throw new InvalidOperationException("The provided calculations object is not part of the wave height calculations within the assessment section.");
+            }
+
+            return GetUniqueDisplayNameLookup(nonUniqueWaveHeightCalculationsDisplayNameLookup)[calculations];
+        }
+
         private static Dictionary<object, string> GetUniqueDisplayNameLookup(IDictionary<object, string> nonUniqueDisplayNameLookup)
         {
             var uniqueDisplayNameLookup = new Dictionary<object, string>();
