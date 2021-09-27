@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using NUnit.Framework;
@@ -69,6 +70,40 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 new TestDuneLocation("test2")
             });
             failureMechanism.DuneLocations.NotifyObservers();
+
+            // Then
+            AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenMapLayerWithDuneLocations_WhenUserDefinedTargetProbabilitiesCollectionUpdatedAndNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.SetDuneLocations(new[]
+            {
+                new TestDuneLocation("test1")
+            });
+
+            var mapLayer = new DuneErosionLocationsMapLayer(failureMechanism);
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            mapLayer.MapData.Attach(observer);
+
+            // Precondition
+            AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
+
+            // When
+            var newTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1);
+            newTargetProbability.DuneLocationCalculations.AddRange(failureMechanism.DuneLocations
+                                                                                   .Select(l => new DuneLocationCalculation(l)));
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(newTargetProbability);
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
 
             // Then
             AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);

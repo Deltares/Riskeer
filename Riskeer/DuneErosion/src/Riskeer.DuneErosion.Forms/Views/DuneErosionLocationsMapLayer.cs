@@ -36,6 +36,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         private readonly DuneErosionFailureMechanism failureMechanism;
 
         private Observer duneLocationsObserver;
+        private Observer userDefinedTargetProbabilitiesListObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionLocationsMapLayer"/>.
@@ -75,6 +76,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             if (disposing)
             {
                 duneLocationsObserver.Dispose();
+                userDefinedTargetProbabilitiesListObserver.Dispose();
             }
         }
 
@@ -83,6 +85,10 @@ namespace Riskeer.DuneErosion.Forms.Views
             duneLocationsObserver = new Observer(UpdateFeatures)
             {
                 Observable = failureMechanism.DuneLocations
+            };
+            userDefinedTargetProbabilitiesListObserver = new Observer(UpdateFeatures)
+            {
+                Observable = failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
             };
         }
 
