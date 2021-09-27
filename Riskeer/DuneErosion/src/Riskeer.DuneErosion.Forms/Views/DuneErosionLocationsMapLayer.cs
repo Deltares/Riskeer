@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.DuneErosion.Data;
@@ -33,6 +34,8 @@ namespace Riskeer.DuneErosion.Forms.Views
     public class DuneErosionLocationsMapLayer : IDisposable
     {
         private readonly DuneErosionFailureMechanism failureMechanism;
+
+        private Observer duneLocationsObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionLocationsMapLayer"/>.
@@ -49,6 +52,8 @@ namespace Riskeer.DuneErosion.Forms.Views
             }
 
             this.failureMechanism = failureMechanism;
+
+            CreateObservers();
 
             MapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             SetFeatures();
@@ -67,7 +72,24 @@ namespace Riskeer.DuneErosion.Forms.Views
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing) {}
+            if (disposing)
+            {
+                duneLocationsObserver.Dispose();
+            }
+        }
+
+        private void CreateObservers()
+        {
+            duneLocationsObserver = new Observer(UpdateFeatures)
+            {
+                Observable = failureMechanism.DuneLocations
+            };
+        }
+
+        private void UpdateFeatures()
+        {
+            SetFeatures();
+            MapData.NotifyObservers();
         }
 
         private void SetFeatures()
