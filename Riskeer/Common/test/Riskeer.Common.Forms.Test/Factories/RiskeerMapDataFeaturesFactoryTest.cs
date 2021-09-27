@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Features;
@@ -129,7 +130,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         public void CreateHydraulicBoundaryLocationFeatures_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(null);
+            TestDelegate call = () => RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures((IAssessmentSection) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -162,6 +163,52 @@ namespace Riskeer.Common.Forms.Test.Factories
 
             // Call
             MapFeature[] features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(assessmentSection).ToArray();
+
+            // Assert
+            MapFeaturesTestHelper.AssertHydraulicBoundaryFeaturesData(assessmentSection, features);
+        }
+
+        [Test]
+        public void CreateHydraulicBoundaryLocationFeatures_LocationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures((IEnumerable<AggregatedHydraulicBoundaryLocation>) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("locations", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateHydraulicBoundaryLocationFeatures_WithLocations_ReturnsLocationFeaturesCollection(bool setOutput)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "location1", 1, 1),
+                new HydraulicBoundaryLocation(2, "location2", 2, 2)
+            }, setOutput);
+
+            Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waterLevels =
+                assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.ToDictionary(
+                    tp => (IObservableEnumerable<HydraulicBoundaryLocationCalculation>) tp.HydraulicBoundaryLocationCalculations,
+                    tp => tp.TargetProbability);
+
+            waterLevels.Add(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
+            waterLevels.Add(assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection.FailureMechanismContribution.SignalingNorm);
+
+            IEnumerable<AggregatedHydraulicBoundaryLocation> locations = AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(
+                assessmentSection.HydraulicBoundaryDatabase.Locations,
+                waterLevels,
+                assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.ToDictionary(
+                    tp => (IObservableEnumerable<HydraulicBoundaryLocationCalculation>) tp.HydraulicBoundaryLocationCalculations,
+                    tp => tp.TargetProbability));
+
+            // Call
+            MapFeature[] features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(locations).ToArray();
 
             // Assert
             MapFeaturesTestHelper.AssertHydraulicBoundaryFeaturesData(assessmentSection, features);

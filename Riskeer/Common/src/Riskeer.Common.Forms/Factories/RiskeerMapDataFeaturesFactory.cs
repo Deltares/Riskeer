@@ -122,6 +122,23 @@ namespace Riskeer.Common.Forms.Factories
         }
 
         /// <summary>
+        /// Create hydraulic boundary location features based on the provided <paramref name="locations"/>.
+        /// </summary>
+        /// <param name="locations">The collection of <see cref="AggregatedHydraulicBoundaryLocation"/> to create the location features for.</param>
+        /// <returns>A collection of features.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
+        public static IEnumerable<MapFeature> CreateHydraulicBoundaryLocationFeatures(IEnumerable<AggregatedHydraulicBoundaryLocation> locations)
+        {
+            if (locations == null)
+            {
+                throw new ArgumentNullException(nameof(locations));
+            }
+
+            return locations.Select(HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature)
+                            .ToArray();
+        }
+
+        /// <summary>
         /// Create section features based on the provided <paramref name="sections"/>.
         /// </summary>
         /// <param name="sections">The collection of <see cref="FailureMechanismSection"/> to create 
