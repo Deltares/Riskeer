@@ -24,9 +24,8 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Factories;
-using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Forms.Factories;
@@ -41,20 +40,12 @@ namespace Riskeer.Integration.Forms.Views
     /// </summary>
     public partial class AssemblyResultPerSectionMapView : UserControl, IMapView
     {
+        private readonly HydraulicBoundaryLocationsMapLayer hydraulicBoundaryLocationsMapLayer;
+
         private readonly MapLineData assemblyResultsMapData;
         private readonly MapLineData referenceLineMapData;
-        private readonly MapPointData hydraulicBoundaryLocationsMapData;
 
         private Observer assessmentSectionResultObserver;
-        private Observer hydraulicBoundaryLocationsObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNormObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultPerSectionMapView"/>.
@@ -78,10 +69,10 @@ namespace Riskeer.Integration.Forms.Views
             var mapDataCollection = new MapDataCollection(Resources.AssemblyResultPerSectionMapView_DisplayName);
             assemblyResultsMapData = CombinedSectionAssemblyMapDataFactory.CreateCombinedSectionAssemblyResultMapData();
             referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
-            hydraulicBoundaryLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
+            hydraulicBoundaryLocationsMapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
 
             mapDataCollection.Add(referenceLineMapData);
-            mapDataCollection.Add(hydraulicBoundaryLocationsMapData);
+            mapDataCollection.Add(hydraulicBoundaryLocationsMapLayer.MapData);
             mapDataCollection.Add(assemblyResultsMapData);
 
             SetAllMapDataFeatures();
@@ -110,15 +101,7 @@ namespace Riskeer.Integration.Forms.Views
             if (disposing)
             {
                 assessmentSectionResultObserver.Dispose();
-                waterLevelCalculationsForFactorizedSignalingNormObserver.Dispose();
-                waterLevelCalculationsForSignalingNormObserver.Dispose();
-                waterLevelCalculationsForLowerLimitNormObserver.Dispose();
-                waterLevelCalculationsForFactorizedLowerLimitNormObserver.Dispose();
-                waveHeightCalculationsForFactorizedSignalingNormObserver.Dispose();
-                waveHeightCalculationsForSignalingNormObserver.Dispose();
-                waveHeightCalculationsForLowerLimitNormObserver.Dispose();
-                waveHeightCalculationsForFactorizedLowerLimitNormObserver.Dispose();
-                hydraulicBoundaryLocationsObserver.Dispose();
+                hydraulicBoundaryLocationsMapLayer.Dispose();
 
                 components?.Dispose();
             }
@@ -136,34 +119,11 @@ namespace Riskeer.Integration.Forms.Views
             {
                 Observable = new AssessmentSectionResultObserver(AssessmentSection)
             };
-
-            waterLevelCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waterLevelCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForFactorizedSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForSignalingNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-            waveHeightCalculationsForFactorizedLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
-
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateHydraulicBoundaryLocationsMapData)
-            {
-                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
-            };
         }
 
         private void SetAllMapDataFeatures()
         {
             SetReferenceLineMapData();
-            SetHydraulicBoundaryLocationsMapData();
             SetAssemblyResultsMapData();
         }
 
@@ -206,21 +166,6 @@ namespace Riskeer.Integration.Forms.Views
             referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(AssessmentSection.ReferenceLine,
                                                                                                       AssessmentSection.Id,
                                                                                                       AssessmentSection.Name);
-        }
-
-        #endregion
-
-        #region HydraulicBoundaryLocations MapData
-
-        private void UpdateHydraulicBoundaryLocationsMapData()
-        {
-            SetHydraulicBoundaryLocationsMapData();
-            hydraulicBoundaryLocationsMapData.NotifyObservers();
-        }
-
-        private void SetHydraulicBoundaryLocationsMapData()
-        {
-            hydraulicBoundaryLocationsMapData.Features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(AssessmentSection);
         }
 
         #endregion
