@@ -25,6 +25,7 @@ using System.Linq;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.DuneErosion.Data;
 
 namespace Riskeer.Common.Forms.Helpers
 {
@@ -115,6 +116,43 @@ namespace Riskeer.Common.Forms.Helpers
             }
 
             return GetUniqueDisplayNameLookup(nonUniqueWaveHeightCalculationsDisplayNameLookup)[calculations];
+        }
+
+        /// <summary>
+        /// Gets a unique dune location calculations display name for the provided <paramref name="calculations"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
+        /// <param name="calculations">The dune location calculations to get the unique display name for.</param>
+        /// <returns>A unique dune location calculations display name.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when <paramref name="calculations"/> is not part of the dune location
+        /// calculations within <paramref name="assessmentSection"/>.</exception>
+        public string GetUniqueDisplayNameForDuneLocationCalculations(IAssessmentSection assessmentSection, IEnumerable<DuneLocationCalculation> calculations)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+
+            Dictionary<object, string> nonUniqueDuneLocationCalculationsDisplayNameLookup =
+                assessmentSection.GetFailureMechanisms()
+                                 .OfType<DuneErosionFailureMechanism>()
+                                 .First()
+                                 .DuneLocationCalculationsForUserDefinedTargetProbabilities
+                                 .ToDictionary(whc => (object) whc.DuneLocationCalculations,
+                                               whc => noProbabilityValueDoubleConverter.ConvertToString(whc.TargetProbability));
+
+            if (!nonUniqueDuneLocationCalculationsDisplayNameLookup.ContainsKey(calculations))
+            {
+                throw new InvalidOperationException("The provided calculations object is not part of the dune location calculations within the assessment section.");
+            }
+
+            return GetUniqueDisplayNameLookup(nonUniqueDuneLocationCalculationsDisplayNameLookup)[calculations];
         }
 
         private static Dictionary<object, string> GetUniqueDisplayNameLookup(IDictionary<object, string> nonUniqueDisplayNameLookup)
