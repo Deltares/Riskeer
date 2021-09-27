@@ -242,10 +242,10 @@ namespace Riskeer.Storage.Core.Test.Read
         public void ReadAsDuneErosionFailureMechanism_WithDuneLocationCalculations_ReturnsNewDuneErosionFailureMechanismWithLocationsAndCalculationsSet()
         {
             // Setup
-            var duneLocationEntity = new DuneLocationEntity
+            var duneLocationEntityA = new DuneLocationEntity
             {
                 Order = 1,
-                Name = "Dune"
+                Name = "DuneLocation A"
             };
 
             var duneErosionFailureMechanismMetaEntity = new DuneErosionFailureMechanismMetaEntity
@@ -262,15 +262,15 @@ namespace Riskeer.Storage.Core.Test.Read
                 },
                 DuneLocationEntities =
                 {
-                    duneLocationEntity
+                    duneLocationEntityA
                 }
             };
 
-            SetHydraulicLocationCalculationForTargetProbabilityCollectionEntities(duneErosionFailureMechanismMetaEntity, duneLocationEntity);
+            SetDuneLocationCalculationForTargetProbabilityCollectionEntities(duneErosionFailureMechanismMetaEntity, duneLocationEntityA);
 
             var duneLocation = new TestDuneLocation();
             var collector = new ReadConversionCollector();
-            collector.Read(duneLocationEntity, duneLocation);
+            collector.Read(duneLocationEntityA, duneLocation);
 
             var failureMechanism = new DuneErosionFailureMechanism();
 
@@ -278,11 +278,43 @@ namespace Riskeer.Storage.Core.Test.Read
             entity.ReadAsDuneErosionFailureMechanism(failureMechanism, collector);
 
             // Assert
-            AssertDuneLocationCalculation(duneErosionFailureMechanismMetaEntity.DuneLocationCalculationForTargetProbabilityCollectionEntities.First()
-                                                                               .DuneLocationCalculationEntities
-                                                                               .Single(),
-                                          duneLocation,
-                                          failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.First().DuneLocationCalculations.Single());
+            AssertDuneLocationCalculationsForTargetProbability(entity.DuneErosionFailureMechanismMetaEntities.Single().DuneLocationCalculationForTargetProbabilityCollectionEntities.OrderBy(e => e.Order),
+                                                               duneLocation,
+                                                               failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities);
+        }
+
+        private static void AssertDuneLocationCalculationsForTargetProbability(
+            IEnumerable<DuneLocationCalculationForTargetProbabilityCollectionEntity> expectedCalculationCollectionEntities,
+            DuneLocation expectedHydraulicBoundaryLocation,
+            IEnumerable<DuneLocationCalculationsForTargetProbability> actualCalculationCollections)
+        {
+            int expectedNrOfEntities = expectedCalculationCollectionEntities.Count();
+            Assert.AreEqual(expectedNrOfEntities, actualCalculationCollections.Count());
+
+            for (var j = 0; j < expectedNrOfEntities; j++)
+            {
+                AssertDuneLocationCalculationsForTargetProbability(expectedCalculationCollectionEntities.ElementAt(j),
+                                                                   expectedHydraulicBoundaryLocation,
+                                                                   actualCalculationCollections.ElementAt(j));
+            }
+        }
+
+        private static void AssertDuneLocationCalculationsForTargetProbability(DuneLocationCalculationForTargetProbabilityCollectionEntity expectedCalculationCollectionEntity,
+                                                                               DuneLocation expectedHydraulicBoundaryLocation,
+                                                                               DuneLocationCalculationsForTargetProbability actualCalculations)
+        {
+            Assert.AreEqual(expectedCalculationCollectionEntity.TargetProbability, actualCalculations.TargetProbability);
+            ICollection<DuneLocationCalculationEntity> expectedCalculations = expectedCalculationCollectionEntity.DuneLocationCalculationEntities;
+            int expectedNrOfCalculations = expectedCalculations.Count;
+            Assert.AreEqual(expectedNrOfCalculations, actualCalculations.DuneLocationCalculations.Count);
+
+            for (var i = 0; i < expectedNrOfCalculations; i++)
+            {
+                DuneLocationCalculation actualCalculation = actualCalculations.DuneLocationCalculations[i];
+                AssertDuneLocationCalculation(expectedCalculations.ElementAt(i),
+                                              expectedHydraulicBoundaryLocation,
+                                              actualCalculation);
+            }
         }
 
         private static void AssertDuneLocationCalculation(DuneLocationCalculationEntity expectedCalculationEntity,
@@ -302,16 +334,16 @@ namespace Riskeer.Storage.Core.Test.Read
             }
         }
 
-        private static void SetHydraulicLocationCalculationForTargetProbabilityCollectionEntities(DuneErosionFailureMechanismMetaEntity entity,
-                                                                                                  DuneLocationEntity duneLocationEntity)
+        private static void SetDuneLocationCalculationForTargetProbabilityCollectionEntities(DuneErosionFailureMechanismMetaEntity entity,
+                                                                                             DuneLocationEntity duneLocationEntity)
         {
             entity.DuneLocationCalculationForTargetProbabilityCollectionEntities = new List<DuneLocationCalculationForTargetProbabilityCollectionEntity>();
 
             var random = new Random(21);
             int nrOfCollections = random.Next(1, 10);
-            for (int i = 0; i < nrOfCollections; i++)
+            for (var i = nrOfCollections; i >= 0; i--)
             {
-                entity.DuneLocationCalculationForTargetProbabilityCollectionEntities.Add(CreateDuneLocationCalculationForTargetProbabilityCollectionEntity(duneLocationEntity, random.Next()));
+                entity.DuneLocationCalculationForTargetProbabilityCollectionEntities.Add(CreateDuneLocationCalculationForTargetProbabilityCollectionEntity(duneLocationEntity, i));
             }
         }
 

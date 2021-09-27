@@ -1074,9 +1074,9 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             var random = new Random(21);
             int nrOfCollections = random.Next(1, 10);
-            for (int i = 0; i < nrOfCollections; i++)
+            for (int i = nrOfCollections; i >= 0; i--)
             {
-                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Add(CreateHydraulicLocationCalculationForTargetProbabilityCollectionEntity(hydraulicLocationEntity, random.Next()));
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities.Add(CreateHydraulicLocationCalculationForTargetProbabilityCollectionEntity(hydraulicLocationEntity, i));
             }
         }
 

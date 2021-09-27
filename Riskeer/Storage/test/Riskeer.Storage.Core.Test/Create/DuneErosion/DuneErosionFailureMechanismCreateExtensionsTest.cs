@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
@@ -187,32 +186,14 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             {
                 DuneLocationCalculationsForUserDefinedTargetProbabilities =
                 {
-                    new DuneLocationCalculationsForTargetProbability(0.1)
-                    {
-                        DuneLocationCalculations =
-                        {
-                            new DuneLocationCalculation(new TestDuneLocation()),
-                            new DuneLocationCalculation(new TestDuneLocation()),
-                            new DuneLocationCalculation(new TestDuneLocation())
-                        }
-                    },
+                    new DuneLocationCalculationsForTargetProbability(0.1),
                     new DuneLocationCalculationsForTargetProbability(0.01)
-                    {
-                        DuneLocationCalculations =
-                        {
-                            new DuneLocationCalculation(new TestDuneLocation()),
-                            new DuneLocationCalculation(new TestDuneLocation()),
-                            new DuneLocationCalculation(new TestDuneLocation())
-                        }
-                    }
                 }
             };
             failureMechanism.SetDuneLocations(new[]
             {
                 duneLocation
             });
-
-            SetDuneLocationCalculationOutput(failureMechanism);
 
             var duneLocationEntity = new DuneLocationEntity();
             var registry = new PersistenceRegistry();
@@ -234,28 +215,6 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
         {
             AssertDuneLocationCalculationCollectionEntity(failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities,
                                                           metaEntity.DuneLocationCalculationForTargetProbabilityCollectionEntities);
-        }
-
-        private static void SetDuneLocationCalculationOutput(DuneErosionFailureMechanism failureMechanism)
-        {
-            ObservableList<DuneLocationCalculationsForTargetProbability> targetProbabilities = failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities;
-            for (var i = 0; i < targetProbabilities.Count; i++)
-            {
-                DuneLocationCalculationsForTargetProbability targetProbability = targetProbabilities[i];
-                SetDuneLocationCalculationOutput(targetProbability.DuneLocationCalculations, new Random(i).Next());
-            }
-        }
-
-        private static void SetDuneLocationCalculationOutput(IEnumerable<DuneLocationCalculation> calculations,
-                                                             int seed)
-        {
-            var random = new Random(seed);
-            foreach (DuneLocationCalculation calculation in calculations)
-            {
-                calculation.Output = random.NextBoolean()
-                                         ? new TestDuneLocationCalculationOutput()
-                                         : null;
-            }
         }
 
         private static void AssertDuneLocationCalculationCollectionEntity(
