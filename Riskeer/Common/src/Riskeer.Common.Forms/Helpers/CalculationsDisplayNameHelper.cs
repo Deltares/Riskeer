@@ -172,7 +172,7 @@ namespace Riskeer.Common.Forms.Helpers
                     {
                         KeyValuePair<object, string> elementWithNonUniqueDisplayName = elementsWithSameDisplayNameAsFirstElement.ElementAt(i);
 
-                        uniqueDisplayNameLookup.Add(elementWithNonUniqueDisplayName.Key, elementWithNonUniqueDisplayName.Value + $"({i + 1})");
+                        uniqueDisplayNameLookup.Add(elementWithNonUniqueDisplayName.Key, elementWithNonUniqueDisplayName.Value + $" ({i + 1})");
                         nonUniqueDisplayNameLookup.Remove(elementWithNonUniqueDisplayName.Key);
                     }
                 }
