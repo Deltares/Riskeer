@@ -65,7 +65,7 @@ namespace Riskeer.Storage.Core.Read.DuneErosion
         }
 
         private static DuneLocationCalculation CreateDuneLocationCalculation(DuneLocationCalculationEntity calculationEntity,
-                                                                                          ReadConversionCollector collector)
+                                                                             ReadConversionCollector collector)
         {
             var calculation = new DuneLocationCalculation(collector.Get(calculationEntity.DuneLocationEntity));
             calculationEntity.Read(calculation);

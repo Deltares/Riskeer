@@ -106,7 +106,7 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
 
             IEnumerable<DuneLocationCalculation> duneLocationCalculations = calculations.DuneLocationCalculations;
             Assert.AreEqual(collectionEntity.DuneLocationCalculationEntities.Count, duneLocationCalculations.Count());
-         
+
             DuneLocationCalculation calculationOne = duneLocationCalculations.ElementAt(0);
             Assert.AreSame(collector.Get(duneLocationEntityOne), calculationOne.DuneLocation);
             Assert.IsNull(calculationOne.Output);
