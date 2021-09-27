@@ -235,6 +235,7 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             DuneLocationCalculationForTargetProbabilityCollectionEntity entity)
         {
             Assert.AreEqual(expectedCalculations.TargetProbability, entity.TargetProbability);
+            Assert.AreEqual(expectedCalculations.DuneLocationCalculations.Count, entity.DuneLocationCalculationEntities.Count);
         }
     }
 }

@@ -278,7 +278,11 @@ namespace Riskeer.Storage.Core.Test.Read
             entity.ReadAsDuneErosionFailureMechanism(failureMechanism, collector);
 
             // Assert
-            AssertDuneLocationCalculationsForTargetProbability(entity.DuneErosionFailureMechanismMetaEntities.Single().DuneLocationCalculationForTargetProbabilityCollectionEntities.OrderBy(e => e.Order),
+            IEnumerable<DuneLocationCalculationForTargetProbabilityCollectionEntity> sortedCollectionEntities =
+                entity.DuneErosionFailureMechanismMetaEntities.Single()
+                      .DuneLocationCalculationForTargetProbabilityCollectionEntities
+                      .OrderBy(e => e.Order);
+            AssertDuneLocationCalculationsForTargetProbability(sortedCollectionEntities,
                                                                duneLocation,
                                                                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities);
         }
@@ -341,7 +345,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             var random = new Random(21);
             int nrOfCollections = random.Next(1, 10);
-            for (var i = nrOfCollections; i >= 0; i--)
+            for (int i = nrOfCollections; i >= 0; i--)
             {
                 entity.DuneLocationCalculationForTargetProbabilityCollectionEntities.Add(CreateDuneLocationCalculationForTargetProbabilityCollectionEntity(duneLocationEntity, i));
             }

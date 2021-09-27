@@ -70,7 +70,8 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 namespace Riskeer.Storage.Core.TestUtil
 {
     /// <summary>
-    /// This class can be used to create <see cref="RiskeerProject"/> instances which have their properties set and can be used in tests.
+    /// This class can be used to create <see cref="RiskeerProject"/> instances which have their properties set and can be used
+    /// in tests.
     /// </summary>
     public static class RiskeerProjectTestHelper
     {
@@ -815,20 +816,31 @@ namespace Riskeer.Storage.Core.TestUtil
 
         private static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism)
         {
-            var location = new DuneLocation(12, "DuneLocation", new Point2D(790, 456),
-                                            new DuneLocation.ConstructionProperties());
-
+            var locationOne = new DuneLocation(12, "DuneLocation", new Point2D(790, 456),
+                                               new DuneLocation.ConstructionProperties());
+            var locationTwo = new DuneLocation(13, "DuneLocation", new Point2D(791, 457),
+                                               new DuneLocation.ConstructionProperties());
             failureMechanism.SetDuneLocations(new[]
             {
-                location
+                locationOne,
+                locationTwo
             });
+
             ConfigureDuneLocationCalculations(failureMechanism);
         }
 
         private static void ConfigureDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism)
         {
-            SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Single());
-            SetCalculationOutput(failureMechanism.CalculationsForLowerLimitNorm.Single());
+            var random = new Random(21);
+            IEnumerable<DuneLocationCalculation> calculations = failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                                                                                .SelectMany(targetProbability => targetProbability.DuneLocationCalculations);
+            foreach (DuneLocationCalculation calculation in calculations)
+            {
+                if (random.NextBoolean())
+                {
+                    SetCalculationOutput(calculation);
+                }
+            }
         }
 
         private static void SetCalculationOutput(DuneLocationCalculation calculation)
@@ -1200,11 +1212,11 @@ namespace Riskeer.Storage.Core.TestUtil
                 new Point3D(5.8, 6.0, -2.3), // Dike toe at river
                 new Point3D(5.6, 6.0, 3.4),
                 new Point3D(4.2, 6.0, 3.5),
-                new Point3D(4.0, 6.0, 0.5), // Dike toe at polder
-                new Point3D(3.8, 6.0, 0.5), // Ditch dike side
-                new Point3D(3.6, 6.0, 0.2), // Bottom ditch dike side
+                new Point3D(4.0, 6.0, 0.5),  // Dike toe at polder
+                new Point3D(3.8, 6.0, 0.5),  // Ditch dike side
+                new Point3D(3.6, 6.0, 0.2),  // Bottom ditch dike side
                 new Point3D(3.4, 6.0, 0.25), // Bottom ditch polder side
-                new Point3D(3.2, 6.0, 0.5), // Ditch polder side
+                new Point3D(3.2, 6.0, 0.5),  // Ditch polder side
                 new Point3D(3.0, 6.0, 0.5)
             };
             surfaceLine.SetGeometry(geometryPoints);
@@ -2015,7 +2027,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One,
                         CategoryType = FailureMechanismCategoryType.LowerLimitNorm,
-                        CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, 
+                        CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact,
                         WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
                     },
                     Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
@@ -2058,7 +2070,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
         #region StabilityStoneCover FailureMechanism
 
-        private static void ConfigureStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism, 
+        private static void ConfigureStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism,
                                                                          IAssessmentSection assessmentSection)
         {
             failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
@@ -2196,7 +2208,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
         #region WaveImpactAsphaltCover FailureMechanism
 
-        private static void ConfigureWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism, 
+        private static void ConfigureWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
                                                                             IAssessmentSection assessmentSection)
         {
             failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL = (RoundedDouble) 1337.0;
