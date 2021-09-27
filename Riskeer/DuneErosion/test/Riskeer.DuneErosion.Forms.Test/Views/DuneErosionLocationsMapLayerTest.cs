@@ -165,7 +165,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             targetProbability.DuneLocationCalculations.AddRange(failureMechanism.DuneLocations.Select(l => new DuneLocationCalculation(l)));
             failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(targetProbability);
             failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
-            
+
             mapLayer.MapData.Attach(observer);
 
             // Precondition
@@ -211,6 +211,40 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             DuneLocationCalculation duneLocationCalculation = targetProbability.DuneLocationCalculations.First();
             duneLocationCalculation.Output = new TestDuneLocationCalculationOutput();
             duneLocationCalculation.NotifyObservers();
+
+            // Then
+            AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenMapLayerWithDuneLocations_WhenUserDefinedTargetProbabilityUpdatedAndNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(
+                new DuneLocationCalculationsForTargetProbability(0.1));
+            failureMechanism.SetDuneLocations(new[]
+            {
+                new TestDuneLocation("test1")
+            });
+
+            var mapLayer = new DuneErosionLocationsMapLayer(failureMechanism);
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            mapLayer.MapData.Attach(observer);
+
+            // Precondition
+            AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
+
+            // When
+            DuneLocationCalculationsForTargetProbability targetProbability = failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.First();
+            targetProbability.TargetProbability = 0.003;
+            targetProbability.NotifyObservers();
 
             // Then
             AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
