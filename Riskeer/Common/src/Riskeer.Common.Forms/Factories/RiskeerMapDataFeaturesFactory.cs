@@ -104,24 +104,6 @@ namespace Riskeer.Common.Forms.Factories
         }
 
         /// <summary>
-        /// Create hydraulic boundary location features based on the provided <paramref name="assessmentSection"/>.
-        /// </summary>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to create the location features for.</param>
-        /// <returns>A collection of features.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static IEnumerable<MapFeature> CreateHydraulicBoundaryLocationFeatures(IAssessmentSection assessmentSection)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            return AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(assessmentSection)
-                                                             .Select(HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature)
-                                                             .ToArray();
-        }
-
-        /// <summary>
         /// Create hydraulic boundary location features based on the provided <paramref name="locations"/>.
         /// </summary>
         /// <param name="locations">The collection of <see cref="AggregatedHydraulicBoundaryLocation"/> to create the location features for.</param>

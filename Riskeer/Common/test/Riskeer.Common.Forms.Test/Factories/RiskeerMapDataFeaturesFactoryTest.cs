@@ -127,48 +127,6 @@ namespace Riskeer.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateHydraulicBoundaryLocationFeatures_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures((IAssessmentSection) null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void CreateHydraulicBoundaryLocationFeatures_NoLocations_ReturnsEmptyFeaturesCollection()
-        {
-            // Call
-            IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(
-                new AssessmentSectionStub());
-
-            // Assert
-            CollectionAssert.IsEmpty(features);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CreateHydraulicBoundaryLocationFeatures_GivenLocations_ReturnsLocationFeaturesCollection(bool setOutput)
-        {
-            // Setup
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                new HydraulicBoundaryLocation(1, "location1", 1, 1),
-                new HydraulicBoundaryLocation(2, "location2", 2, 2)
-            }, setOutput);
-
-            // Call
-            MapFeature[] features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(assessmentSection).ToArray();
-
-            // Assert
-            MapFeaturesTestHelper.AssertHydraulicBoundaryFeaturesData(assessmentSection, features);
-        }
-
-        [Test]
         public void CreateHydraulicBoundaryLocationFeatures_LocationsNull_ThrowsArgumentNullException()
         {
             // Call

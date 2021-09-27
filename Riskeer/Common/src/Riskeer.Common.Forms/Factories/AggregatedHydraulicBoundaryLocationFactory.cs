@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.PresentationObjects;
 
@@ -35,56 +34,6 @@ namespace Riskeer.Common.Forms.Factories
     /// </summary>
     public static class AggregatedHydraulicBoundaryLocationFactory
     {
-        /// <summary>
-        /// Creates the aggregated hydraulic boundary locations based on the locations and calculations
-        /// from an assessment section.
-        /// </summary>
-        /// <param name="assessmentSection">The assessment section to get the locations and calculations from.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="AggregatedHydraulicBoundaryLocation"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static IEnumerable<AggregatedHydraulicBoundaryLocation> CreateAggregatedHydraulicBoundaryLocations(IAssessmentSection assessmentSection)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            IEnumerable<Tuple<double, Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>>> lookupForWaterLevelTargetProbabilities =
-                assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
-                                 .Select(tp => new Tuple<double, Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>>(
-                                             tp.TargetProbability, tp.HydraulicBoundaryLocationCalculations.ToDictionary(c => c.HydraulicBoundaryLocation, c => c)))
-                                 .Concat(new[]
-                                 {
-                                     new Tuple<double, Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>>(
-                                         assessmentSection.FailureMechanismContribution.LowerLimitNorm,
-                                         assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ToDictionary(c => c.HydraulicBoundaryLocation, c => c)),
-                                     new Tuple<double, Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>>(
-                                         assessmentSection.FailureMechanismContribution.SignalingNorm,
-                                         assessmentSection.WaterLevelCalculationsForSignalingNorm.ToDictionary(c => c.HydraulicBoundaryLocation, c => c))
-                                 })
-                                 .OrderByDescending(tp => tp.Item1)
-                                 .ToArray();
-
-            IEnumerable<Tuple<double, Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>>> lookupForWaveHeightTargetProbabilities =
-                assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
-                                 .Select(tp => new Tuple<double, Dictionary<HydraulicBoundaryLocation, HydraulicBoundaryLocationCalculation>>(
-                                             tp.TargetProbability, tp.HydraulicBoundaryLocationCalculations
-                                                                     .ToDictionary(c => c.HydraulicBoundaryLocation, c => c)))
-                                 .OrderByDescending(tp => tp.Item1)
-                                 .ToArray();
-
-            return assessmentSection.HydraulicBoundaryDatabase.Locations
-                                    .Select(location => new AggregatedHydraulicBoundaryLocation(
-                                                location.Id, location.Name, location.Location,
-                                                lookupForWaterLevelTargetProbabilities.Select(tuple => new Tuple<double, RoundedDouble>(
-                                                                                                  tuple.Item1, GetCalculationResult(tuple.Item2[location].Output)))
-                                                                                      .ToArray(),
-                                                lookupForWaveHeightTargetProbabilities.Select(tuple => new Tuple<double, RoundedDouble>(
-                                                                                                  tuple.Item1, GetCalculationResult(tuple.Item2[location].Output)))
-                                                                                      .ToArray()))
-                                    .ToArray();
-        }
-
         /// <summary>
         /// Creates the aggregated hydraulic boundary locations based on the locations and calculations.
         /// </summary>
