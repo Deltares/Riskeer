@@ -48,7 +48,7 @@ namespace Riskeer.Common.Forms.Helpers
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            var waterLevelCalculationsNameLookup = new Dictionary<object, string>
+            var nonUniqueWaterLevelCalculationsNameLookup = new Dictionary<object, string>
             {
                 {
                     assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
@@ -62,49 +62,47 @@ namespace Riskeer.Common.Forms.Helpers
 
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)
             {
-                waterLevelCalculationsNameLookup.Add(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
-                                                     noProbabilityValueDoubleConverter.ConvertToString(calculationsForTargetProbability.TargetProbability));
+                nonUniqueWaterLevelCalculationsNameLookup.Add(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
+                                                              noProbabilityValueDoubleConverter.ConvertToString(calculationsForTargetProbability.TargetProbability));
             }
 
-            if (!waterLevelCalculationsNameLookup.ContainsKey(calculations))
+            if (!nonUniqueWaterLevelCalculationsNameLookup.ContainsKey(calculations))
             {
                 throw new InvalidOperationException("The provided calculations object is not part of the water level calculations within the assessment section.");
             }
 
-            return GetUniqueNameLookup(waterLevelCalculationsNameLookup)[calculations];
+            return GetUniqueNameLookup(nonUniqueWaterLevelCalculationsNameLookup)[calculations];
         }
 
-        private static Dictionary<object, string> GetUniqueNameLookup(Dictionary<object, string> waterLevelCalculationsNameLookup)
+        private static Dictionary<object, string> GetUniqueNameLookup(IDictionary<object, string> nonUniqueNameLookup)
         {
-            var waterLevelCalculationsUniqueNameLookup = new Dictionary<object, string>();
+            var uniqueNameLookup = new Dictionary<object, string>();
 
-            while (waterLevelCalculationsNameLookup.Any())
+            while (nonUniqueNameLookup.Any())
             {
-                KeyValuePair<object, string> firstElement = waterLevelCalculationsNameLookup.First();
+                KeyValuePair<object, string> firstElement = nonUniqueNameLookup.First();
 
-                IEnumerable<KeyValuePair<object, string>> elementsWithNameOfFirstElement =
-                    waterLevelCalculationsNameLookup.Where(e => e.Value.Equals(firstElement.Value));
+                IList<KeyValuePair<object, string>> elementsWithNonUniqueName = nonUniqueNameLookup.Where(e => e.Value.Equals(firstElement.Value))
+                                                                                                   .ToList();
 
-                int count = elementsWithNameOfFirstElement.Count();
-
-                if (count == 1)
+                if (elementsWithNonUniqueName.Count > 1)
                 {
-                    waterLevelCalculationsUniqueNameLookup.Add(firstElement.Key, firstElement.Value);
-                    waterLevelCalculationsNameLookup.Remove(firstElement.Key);
+                    for (var i = 0; i < elementsWithNonUniqueName.Count; i++)
+                    {
+                        KeyValuePair<object, string> elementWithNonUniqueName = elementsWithNonUniqueName.ElementAt(i);
+
+                        uniqueNameLookup.Add(elementWithNonUniqueName.Key, elementWithNonUniqueName.Value + $"({i + 1})");
+                        nonUniqueNameLookup.Remove(elementWithNonUniqueName.Key);
+                    }
                 }
                 else
                 {
-                    for (var i = 0; i < count; i++)
-                    {
-                        KeyValuePair<object, string> element = elementsWithNameOfFirstElement.ElementAt(i);
-
-                        waterLevelCalculationsUniqueNameLookup.Add(element.Key, element.Value + $"({i + 1})");
-                        waterLevelCalculationsNameLookup.Remove(element.Key);
-                    }
+                    uniqueNameLookup.Add(firstElement.Key, firstElement.Value);
+                    nonUniqueNameLookup.Remove(firstElement.Key);
                 }
             }
 
-            return waterLevelCalculationsUniqueNameLookup;
+            return uniqueNameLookup;
         }
     }
 }
