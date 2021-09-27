@@ -25,7 +25,7 @@ namespace Riskeer.Storage.Core.TestUtil.Hydraulics
 {
     /// <summary>
     /// Factory for creating <see cref="HydraulicLocationEntity"/>
-    /// which cam be used for testing.
+    /// which can be used for testing.
     /// </summary>
     public static class HydraulicLocationEntityTestFactory
     {

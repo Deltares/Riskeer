@@ -110,5 +110,24 @@ namespace Riskeer.Storage.Core.Test.Create
                             hydraulicLocationCalculationEntity.ShouldIllustrationPointsBeCalculated);
             CollectionAssert.IsEmpty(hydraulicLocationCalculationEntity.HydraulicLocationOutputEntities);
         }
+
+        [Test]
+        public void Create_HydraulicLocationCalculationForTargetProbabilitySavedMultipleTimes_ReturnsSameEntity()
+        {
+            // Setup
+            var random = new Random(21);
+            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1));
+
+            var registry = new PersistenceRegistry();
+            
+            // Call
+            HydraulicLocationCalculationForTargetProbabilityCollectionEntity entityOne = 
+                calculations.Create(random.NextEnumValue<HydraulicBoundaryLocationCalculationType>(), random.Next(), registry);
+            HydraulicLocationCalculationForTargetProbabilityCollectionEntity entityTwo = 
+                calculations.Create(random.NextEnumValue<HydraulicBoundaryLocationCalculationType>(), random.Next(), registry);
+
+            // Assert
+            Assert.AreSame(entityOne, entityTwo);
+        }
     }
 }

@@ -107,12 +107,14 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
             Assert.AreEqual(Convert.ToByte(input.StepSize), entity.StepSize);
             Assert.AreEqual(Convert.ToByte(input.CategoryType), entity.CategoryType);
             Assert.AreEqual(Convert.ToByte(input.CalculationType), entity.CalculationType);
+            Assert.AreEqual(Convert.ToByte(input.WaterLevelType), entity.WaterLevelType);
 
             Assert.AreEqual(order, entity.Order);
             Assert.IsNull(entity.CalculationGroupEntity);
             CollectionAssert.IsEmpty(entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities);
             Assert.IsNull(entity.ForeshoreProfileEntity);
             Assert.IsNull(entity.HydraulicLocationEntity);
+            Assert.IsNull(entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntity);
         }
 
         [Test]
@@ -175,7 +177,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
         }
 
         [Test]
-        public void Create_GrassCoverErosionOutwardsHydraulicLocationEntity_EntityHasGrassCoverErosionOutwardsHydraulicLocationEntity()
+        public void Create_GrassCoverErosionOutwardsWithHydraulicLocationEntity_EntityHasHydraulicLocationEntity()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2.3, 4.5);
@@ -197,6 +199,32 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
 
             // Assert
             Assert.AreSame(hydraulicLocationEntity, entity.HydraulicLocationEntity);
+        }
+
+        [Test]
+        public void Create_GrassCoverErosionOutwardsWithHydraulicLocationCalculationsForTargetProbability_EntityHasHydraulicLocationCalculationForTargetProbabilityCollectionEntity()
+        {
+            // Setup
+            var random = new Random(21);
+            var hydraulicCalculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1));
+            var hydraulicCalculationsEntity = new HydraulicLocationCalculationForTargetProbabilityCollectionEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(hydraulicCalculationsEntity, hydraulicCalculations);
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    CalculationsTargetProbability = hydraulicCalculations
+                }
+            };
+
+            // Call
+            GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            Assert.AreSame(hydraulicCalculationsEntity, entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntity);
         }
 
         [Test]

@@ -84,6 +84,10 @@ namespace Riskeer.Storage.Core.Create
 
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations =
             CreateDictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
+        
+        private readonly Dictionary<HydraulicLocationCalculationForTargetProbabilityCollectionEntity, HydraulicBoundaryLocationCalculationsForTargetProbability> 
+            hydraulicLocationCalculationsForTargetProbabilities = 
+                CreateDictionary<HydraulicLocationCalculationForTargetProbabilityCollectionEntity, HydraulicBoundaryLocationCalculationsForTargetProbability>();
 
         private readonly Dictionary<DuneLocationEntity, DuneLocation> duneLocations =
             CreateDictionary<DuneLocationEntity, DuneLocation>();
@@ -187,6 +191,18 @@ namespace Riskeer.Storage.Core.Create
             Register(hydraulicLocations, entity, model);
         }
 
+        /// <summary>
+        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
+        /// that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="HydraulicLocationCalculationForTargetProbabilityCollectionEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        internal void Register(HydraulicLocationCalculationForTargetProbabilityCollectionEntity entity, HydraulicBoundaryLocationCalculationsForTargetProbability model)
+        {
+            Register(hydraulicLocationCalculationsForTargetProbabilities, entity, model);
+        }
+        
         /// <summary>
         /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
         /// that was constructed with the information.
@@ -456,6 +472,17 @@ namespace Riskeer.Storage.Core.Create
         {
             return ContainsValue(hydraulicLocations, model);
         }
+        
+        /// <summary>
+        /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(HydraulicBoundaryLocationCalculationsForTargetProbability model)
+        {
+            return ContainsValue(hydraulicLocationCalculationsForTargetProbabilities, model);
+        }
 
         /// <summary>
         /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
@@ -723,6 +750,23 @@ namespace Riskeer.Storage.Core.Create
         internal HydraulicLocationEntity Get(HydraulicBoundaryLocation model)
         {
             return Get(hydraulicLocations, model);
+        }
+        
+        /// <summary>
+        /// Obtains the <see cref="HydraulicLocationCalculationForTargetProbabilityCollectionEntity"/> which was registered for the
+        /// given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> for which a
+        /// read operation has been registered.</param>
+        /// <returns>The constructed <see cref="HydraulicLocationCalculationForTargetProbabilityCollectionEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(HydraulicBoundaryLocationCalculationsForTargetProbability)"/> to find out
+        /// whether a create operation has been registered for <paramref name="model"/>.</remarks>
+        internal HydraulicLocationCalculationForTargetProbabilityCollectionEntity Get(HydraulicBoundaryLocationCalculationsForTargetProbability model)
+        {
+            return Get(hydraulicLocationCalculationsForTargetProbabilities, model);
         }
 
         /// <summary>

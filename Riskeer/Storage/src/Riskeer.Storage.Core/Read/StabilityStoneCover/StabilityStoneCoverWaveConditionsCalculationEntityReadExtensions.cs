@@ -29,11 +29,13 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Revetment.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.Storage.Core.DbContext;
+using WaveConditionsInputWaterLevelType = Riskeer.Revetment.Data.WaveConditionsInputWaterLevelType;
 
 namespace Riskeer.Storage.Core.Read.StabilityStoneCover
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="StabilityStoneCoverWaveConditionsCalculation"/>
+    /// This class defines extension methods for read operations for a
+    /// <see cref="StabilityStoneCoverWaveConditionsCalculation"/>
     /// based on the <see cref="StabilityStoneCoverWaveConditionsCalculationEntity"/>.
     /// </summary>
     internal static class StabilityStoneCoverWaveConditionsCalculationEntityReadExtensions
@@ -42,8 +44,10 @@ namespace Riskeer.Storage.Core.Read.StabilityStoneCover
         /// Reads the <see cref="StabilityStoneCoverWaveConditionsCalculationEntity"/> and use the
         /// information to update a <see cref="StabilityStoneCoverWaveConditionsCalculation"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="StabilityStoneCoverWaveConditionsCalculationEntity"/>
-        /// to create <see cref="StabilityStoneCoverWaveConditionsCalculation"/> for.</param>
+        /// <param name="entity">
+        /// The <see cref="StabilityStoneCoverWaveConditionsCalculationEntity"/>
+        /// to create <see cref="StabilityStoneCoverWaveConditionsCalculation"/> for.
+        /// </param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="StabilityStoneCoverWaveConditionsCalculation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
@@ -79,6 +83,9 @@ namespace Riskeer.Storage.Core.Read.StabilityStoneCover
         {
             inputParameters.ForeshoreProfile = GetDikeProfileValue(entity.ForeshoreProfileEntity, collector);
             inputParameters.HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.HydraulicLocationEntity, collector);
+            inputParameters.CalculationsTargetProbability = GetHydraulicBoundaryLocationCalculationsForTargetProbabilityValue(
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntity, collector);
+
             inputParameters.Orientation = (RoundedDouble) entity.Orientation.ToNullAsNaN();
             inputParameters.UseForeshore = Convert.ToBoolean(entity.UseForeshore);
             inputParameters.UseBreakWater = Convert.ToBoolean(entity.UseBreakWater);
@@ -91,6 +98,7 @@ namespace Riskeer.Storage.Core.Read.StabilityStoneCover
             inputParameters.StepSize = (WaveConditionsInputStepSize) entity.StepSize;
             inputParameters.CategoryType = (AssessmentSectionCategoryType) entity.CategoryType;
             inputParameters.CalculationType = (StabilityStoneCoverWaveConditionsCalculationType) entity.CalculationType;
+            inputParameters.WaterLevelType = (WaveConditionsInputWaterLevelType) entity.WaterLevelType;
         }
 
         private static void ReadCalculationOutputs(StabilityStoneCoverWaveConditionsCalculationEntity entity, StabilityStoneCoverWaveConditionsCalculation calculation)
@@ -143,6 +151,13 @@ namespace Riskeer.Storage.Core.Read.StabilityStoneCover
         private static HydraulicBoundaryLocation GetHydraulicBoundaryLocationValue(HydraulicLocationEntity hydraulicLocationEntity, ReadConversionCollector collector)
         {
             return hydraulicLocationEntity?.Read(collector);
+        }
+
+        private static HydraulicBoundaryLocationCalculationsForTargetProbability GetHydraulicBoundaryLocationCalculationsForTargetProbabilityValue(
+            HydraulicLocationCalculationForTargetProbabilityCollectionEntity hydraulicLocationCalculationForTargetProbabilityCollectionEntity,
+            ReadConversionCollector collector)
+        {
+            return hydraulicLocationCalculationForTargetProbabilityCollectionEntity?.Read(collector);
         }
     }
 }

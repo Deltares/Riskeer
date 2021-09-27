@@ -552,6 +552,9 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertReferencedObject(() => expectedInput.HydraulicBoundaryLocation,
                                    () => actualInput.HydraulicBoundaryLocation,
                                    AssertHydraulicBoundaryLocation);
+            AssertReferencedObject(() => expectedInput.CalculationsTargetProbability,
+                                   () => actualInput.CalculationsTargetProbability,
+                                   AssertHydraulicBoundaryLocationCalculationsForTargetProbability);
 
             AssertBreakWater(expectedInput.BreakWater, actualInput.BreakWater);
             Assert.AreEqual(expectedInput.Orientation, actualInput.Orientation);
@@ -562,6 +565,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedInput.UpperBoundaryWaterLevels, actualInput.UpperBoundaryWaterLevels);
             Assert.AreEqual(expectedInput.LowerBoundaryWaterLevels, actualInput.LowerBoundaryWaterLevels);
             Assert.AreEqual(expectedInput.StepSize, actualInput.StepSize);
+            Assert.AreEqual(expectedInput.WaterLevelType, actualInput.WaterLevelType);
         }
 
         private static void AssertWaveConditionsOutputs(IEnumerable<WaveConditionsOutput> expectedOutputs,

@@ -385,8 +385,6 @@ namespace Riskeer.Migration.Integration.Test
                 "GrassCoverErosionInwardsSectionResultEntity",
                 "GrassCoverErosionOutwardsFailureMechanismMetaEntity",
                 "GrassCoverErosionOutwardsSectionResultEntity",
-                "GrassCoverErosionOutwardsWaveConditionsCalculationEntity",
-                "GrassCoverErosionOutwardsWaveConditionsOutputEntity",
                 "GrassCoverSlipOffInwardsSectionResultEntity",
                 "GrassCoverSlipOffOutwardsSectionResultEntity",
                 "HeightStructureEntity",
@@ -432,8 +430,6 @@ namespace Riskeer.Migration.Integration.Test
                 "StabilityPointStructuresSectionResultEntity",
                 "StabilityStoneCoverFailureMechanismMetaEntity",
                 "StabilityStoneCoverSectionResultEntity",
-                "StabilityStoneCoverWaveConditionsCalculationEntity",
-                "StabilityStoneCoverWaveConditionsOutputEntity",
                 "StochastEntity",
                 "StochasticSoilModelEntity",
                 "StrengthStabilityLengthwiseConstructionSectionResultEntity",
@@ -446,9 +442,7 @@ namespace Riskeer.Migration.Integration.Test
                 "VersionEntity",
                 "WaterPressureAsphaltCoverSectionResultEntity",
                 "WaveImpactAsphaltCoverFailureMechanismMetaEntity",
-                "WaveImpactAsphaltCoverSectionResultEntity",
-                "WaveImpactAsphaltCoverWaveConditionsCalculationEntity",
-                "WaveImpactAsphaltCoverWaveConditionsOutputEntity"
+                "WaveImpactAsphaltCoverSectionResultEntity"
             };
 
             foreach (string table in tables)

@@ -143,7 +143,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             AddForeshoreProfiles(grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
-            ConfigureGrassCoverErosionOutwardsFailureMechanism(grassCoverErosionOutwardsFailureMechanism, hydraulicBoundaryLocations);
+            ConfigureGrassCoverErosionOutwardsFailureMechanism(grassCoverErosionOutwardsFailureMechanism, assessmentSection);
             SetSections(grassCoverErosionOutwardsFailureMechanism);
             SetSectionResults(grassCoverErosionOutwardsFailureMechanism.SectionResults);
 
@@ -1914,10 +1914,11 @@ namespace Riskeer.Storage.Core.TestUtil
         #region GrassCoverErosionOutwards FailureMechanism
 
         private static void ConfigureGrassCoverErosionOutwardsFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                               IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+                                                                               IAssessmentSection assessmentSection)
         {
             failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
                 Name = "GCEO A",
@@ -1933,7 +1934,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         InputParameters =
                         {
                             ForeshoreProfile = foreshoreProfile,
-                            HydraulicBoundaryLocation = hydraulicBoundaryLocations.ElementAt(0),
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                             BreakWater =
                             {
                                 Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
@@ -1948,7 +1949,38 @@ namespace Riskeer.Storage.Core.TestUtil
                             LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
                             StepSize = WaveConditionsInputStepSize.Two,
                             CategoryType = FailureMechanismCategoryType.FactorizedLowerLimitNorm,
-                            CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact
+                            CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.None
+                        }
+                    },
+                    new GrassCoverErosionOutwardsWaveConditionsCalculation
+                    {
+                        Name = "Calculation 2",
+                        Comments =
+                        {
+                            Body = "Comments for Calculation 2"
+                        },
+                        InputParameters =
+                        {
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                            BreakWater =
+                            {
+                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
+                                Type = BreakWaterType.Wall
+                            },
+                            CalculationsTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First(),
+                            Orientation = foreshoreProfile.Orientation,
+                            UseForeshore = true,
+                            UseBreakWater = true,
+                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
+                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
+                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
+                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
+                            StepSize = WaveConditionsInputStepSize.Two,
+                            CategoryType = FailureMechanismCategoryType.FactorizedLowerLimitNorm,
+                            CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability
                         }
                     }
                 }
@@ -1960,15 +1992,15 @@ namespace Riskeer.Storage.Core.TestUtil
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(
                 new GrassCoverErosionOutwardsWaveConditionsCalculation
                 {
-                    Name = "Calculation 2",
+                    Name = "Calculation 3",
                     Comments =
                     {
-                        Body = "Comments for Calculation 2"
+                        Body = "Comments for Calculation 3"
                     },
                     InputParameters =
                     {
                         ForeshoreProfile = null,
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocations.ElementAt(1),
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                         BreakWater =
                         {
                             Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.1),
@@ -1983,7 +2015,8 @@ namespace Riskeer.Storage.Core.TestUtil
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One,
                         CategoryType = FailureMechanismCategoryType.LowerLimitNorm,
-                        CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
+                        CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, 
+                        WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
                     },
                     Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
                         new[]
@@ -2025,11 +2058,13 @@ namespace Riskeer.Storage.Core.TestUtil
 
         #region StabilityStoneCover FailureMechanism
 
-        private static void ConfigureStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static void ConfigureStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism, 
+                                                                         IAssessmentSection assessmentSection)
         {
             failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
 
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
                 Name = "SSC A",
@@ -2045,7 +2080,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         InputParameters =
                         {
                             ForeshoreProfile = foreshoreProfile,
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                             BreakWater =
                             {
                                 Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
@@ -2060,7 +2095,38 @@ namespace Riskeer.Storage.Core.TestUtil
                             LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
                             StepSize = WaveConditionsInputStepSize.Two,
                             CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
-                            CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Columns
+                            CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Columns,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.None
+                        }
+                    },
+                    new StabilityStoneCoverWaveConditionsCalculation
+                    {
+                        Name = "Calculation 2",
+                        Comments =
+                        {
+                            Body = "Comments for Calculation 2"
+                        },
+                        InputParameters =
+                        {
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                            BreakWater =
+                            {
+                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
+                                Type = BreakWaterType.Wall
+                            },
+                            CalculationsTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First(),
+                            Orientation = foreshoreProfile.Orientation,
+                            UseForeshore = true,
+                            UseBreakWater = true,
+                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
+                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
+                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
+                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
+                            StepSize = WaveConditionsInputStepSize.Two,
+                            CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
+                            CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Columns,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability
                         }
                     }
                 }
@@ -2072,15 +2138,15 @@ namespace Riskeer.Storage.Core.TestUtil
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(
                 new StabilityStoneCoverWaveConditionsCalculation
                 {
-                    Name = "Calculation 2",
+                    Name = "Calculation 3",
                     Comments =
                     {
-                        Body = "Comments for Calculation 2"
+                        Body = "Comments for Calculation 3"
                     },
                     InputParameters =
                     {
                         ForeshoreProfile = null,
-                        HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                         BreakWater =
                         {
                             Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.1),
@@ -2094,7 +2160,8 @@ namespace Riskeer.Storage.Core.TestUtil
                         UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One,
-                        CategoryType = AssessmentSectionCategoryType.SignalingNorm
+                        CategoryType = AssessmentSectionCategoryType.SignalingNorm,
+                        WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
                     },
                     Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
                     {
@@ -2129,11 +2196,13 @@ namespace Riskeer.Storage.Core.TestUtil
 
         #region WaveImpactAsphaltCover FailureMechanism
 
-        private static void ConfigureWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static void ConfigureWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism, 
+                                                                            IAssessmentSection assessmentSection)
         {
             failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL = (RoundedDouble) 1337.0;
 
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
                 Name = "WIAC A",
@@ -2149,7 +2218,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         InputParameters =
                         {
                             ForeshoreProfile = foreshoreProfile,
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                             BreakWater =
                             {
                                 Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
@@ -2163,7 +2232,37 @@ namespace Riskeer.Storage.Core.TestUtil
                             UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
                             LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
                             StepSize = WaveConditionsInputStepSize.Two,
-                            CategoryType = AssessmentSectionCategoryType.SignalingNorm
+                            CategoryType = AssessmentSectionCategoryType.SignalingNorm,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.None
+                        }
+                    },
+                    new WaveImpactAsphaltCoverWaveConditionsCalculation
+                    {
+                        Name = "Calculation 2",
+                        Comments =
+                        {
+                            Body = "Comments for Calculation 2"
+                        },
+                        InputParameters =
+                        {
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                            BreakWater =
+                            {
+                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
+                                Type = BreakWaterType.Wall
+                            },
+                            CalculationsTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Last(),
+                            Orientation = foreshoreProfile.Orientation,
+                            UseForeshore = true,
+                            UseBreakWater = true,
+                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
+                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
+                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
+                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
+                            StepSize = WaveConditionsInputStepSize.Two,
+                            CategoryType = AssessmentSectionCategoryType.SignalingNorm,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability
                         }
                     }
                 }
@@ -2175,15 +2274,15 @@ namespace Riskeer.Storage.Core.TestUtil
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(
                 new WaveImpactAsphaltCoverWaveConditionsCalculation
                 {
-                    Name = "Calculation 2",
+                    Name = "Calculation 3",
                     Comments =
                     {
-                        Body = "Comments for Calculation 2"
+                        Body = "Comments for Calculation 3"
                     },
                     InputParameters =
                     {
                         ForeshoreProfile = null,
-                        HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                         BreakWater =
                         {
                             Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.1),
@@ -2197,7 +2296,8 @@ namespace Riskeer.Storage.Core.TestUtil
                         UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One,
-                        CategoryType = AssessmentSectionCategoryType.LowerLimitNorm
+                        CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
+                        WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
                     },
                     Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
                     {

@@ -271,24 +271,20 @@ namespace Riskeer.Storage.Core.Test.Read
             }
         }
 
-        #region DuneErosion
-
         [TestFixture]
-        private class DuneLocationCollectorTest : CollectorTest<DuneLocation,
-            DuneLocationEntity>
+        private class HydraulicBoundaryLocationCalculationsForTargetProbabilityCollectorTest : CollectorTest<HydraulicBoundaryLocationCalculationsForTargetProbability,
+            HydraulicLocationCalculationForTargetProbabilityCollectionEntity>
         {
-            public DuneLocationCollectorTest() : base(
+            public HydraulicBoundaryLocationCalculationsForTargetProbabilityCollectorTest() : base(
                 (c, e, m) => c.Read(e, m),
                 (c, e) => c.Contains(e),
                 (c, e) => c.Get(e)) {}
 
-            protected override DuneLocation CreateDataModel()
+            protected override HydraulicBoundaryLocationCalculationsForTargetProbability CreateDataModel()
             {
-                return new TestDuneLocation();
+                return new HydraulicBoundaryLocationCalculationsForTargetProbability(0.05);
             }
         }
-
-        #endregion
 
         [TestFixture]
         private class FailureMechanismSectionCollectorTest : CollectorTest<FailureMechanismSection,
@@ -334,6 +330,25 @@ namespace Riskeer.Storage.Core.Test.Read
                 return new TestForeshoreProfile();
             }
         }
+
+        #region DuneErosion
+
+        [TestFixture]
+        private class DuneLocationCollectorTest : CollectorTest<DuneLocation,
+            DuneLocationEntity>
+        {
+            public DuneLocationCollectorTest() : base(
+                (c, e, m) => c.Read(e, m),
+                (c, e) => c.Contains(e),
+                (c, e) => c.Get(e)) {}
+
+            protected override DuneLocation CreateDataModel()
+            {
+                return new TestDuneLocation();
+            }
+        }
+
+        #endregion
 
         #region HeightStructure
 
