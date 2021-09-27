@@ -69,16 +69,15 @@ namespace Riskeer.Integration.IO.Helpers
             IOUtils.ValidateFolderPath(folderPath);
 
             var exportedCalculationFileNames = new List<string>();
-            return calculationsForTargetProbabilities.All(calculations => ExportCalculationsForTargetProbability(calculations, 
-                                                                                                                  calculationsType, 
-                                                                                                                  exportedCalculationFileNames,
-                                                                                                                  folderPath));
+            return calculationsForTargetProbabilities.All(calculations => ExportCalculationsForTargetProbability(
+                                                              calculations, calculationsType, exportedCalculationFileNames, folderPath));
         }
 
-        private static bool ExportCalculationsForTargetProbability(Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double> calculationsForTargetProbability,
-                                                                   HydraulicBoundaryLocationCalculationsType calculationsType,
-                                                                   ICollection<string> exportedCalculationFileNames,
-                                                                   string folderPath)
+        private static bool ExportCalculationsForTargetProbability(
+            Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double> calculationsForTargetProbability,
+            HydraulicBoundaryLocationCalculationsType calculationsType,
+            ICollection<string> exportedCalculationFileNames,
+            string folderPath)
         {
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations = calculationsForTargetProbability.Item1;
             double targetProbability = calculationsForTargetProbability.Item2;
@@ -91,7 +90,7 @@ namespace Riskeer.Integration.IO.Helpers
                 exportedCalculationFileNames, $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(targetProbability)}",
                 c => c);
             exportedCalculationFileNames.Add(uniqueName);
-            
+
             string tempFilePath = Path.Combine(folderPath, $"{uniqueName}.{RiskeerCommonIOResources.Shape_file_filter_Extension}");
 
             var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(

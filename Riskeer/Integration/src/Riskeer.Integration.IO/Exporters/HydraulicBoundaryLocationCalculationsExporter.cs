@@ -138,7 +138,7 @@ namespace Riskeer.Integration.IO.Exporters
             HydraulicBoundaryLocationCalculationsType calculationsType, string folderPath)
         {
             return HydraulicBoundaryLocationCalculationsExportHelper.ExportLocationCalculationsForTargetProbabilities(
-                    calculationsForTargetProbabilities, calculationsType, folderPath);
+                calculationsForTargetProbabilities, calculationsType, folderPath);
         }
     }
 }

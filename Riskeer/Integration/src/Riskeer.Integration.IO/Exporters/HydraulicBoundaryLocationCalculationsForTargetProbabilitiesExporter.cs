@@ -86,7 +86,7 @@ namespace Riskeer.Integration.IO.Exporters
             try
             {
                 if (!HydraulicBoundaryLocationCalculationsExportHelper.ExportLocationCalculationsForTargetProbabilities(
-                        locationCalculationsForTargetProbabilities, calculationsType, tempFolderPath)) 
+                        locationCalculationsForTargetProbabilities, calculationsType, tempFolderPath))
                 {
                     return false;
                 }
