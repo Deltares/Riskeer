@@ -35,6 +35,7 @@ using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Read.GrassCoverErosionOutwards;
 using Riskeer.Storage.Core.Serializers;
 using Riskeer.Storage.Core.TestUtil.Hydraulics;
+using WaveConditionsInputWaterLevelType = Riskeer.Revetment.Data.WaveConditionsInputWaterLevelType;
 
 namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
 {
@@ -86,6 +87,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
             var stepSize = random.NextEnumValue<WaveConditionsInputStepSize>();
             var categoryType = random.NextEnumValue<FailureMechanismCategoryType>();
             var calculationType = random.NextEnumValue<GrassCoverErosionOutwardsWaveConditionsCalculationType>();
+            var waterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>();
 
             var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
             {
@@ -102,7 +104,8 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
                 LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
                 StepSize = Convert.ToByte(stepSize),
                 CategoryType = Convert.ToByte(categoryType),
-                CalculationType = Convert.ToByte(calculationType)
+                CalculationType = Convert.ToByte(calculationType),
+                WaveConditionsInputWaterLevelType = Convert.ToByte(waterLevelType)
             };
 
             var collector = new ReadConversionCollector();
@@ -127,9 +130,11 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
             Assert.AreEqual(stepSize, calculationInput.StepSize);
             Assert.AreEqual(categoryType, calculationInput.CategoryType);
             Assert.AreEqual(calculationType, calculationInput.CalculationType);
+            Assert.AreEqual(waterLevelType, calculationInput.WaterLevelType);
 
             Assert.IsNull(calculationInput.HydraulicBoundaryLocation);
             Assert.IsNull(calculationInput.ForeshoreProfile);
+            Assert.IsNull(calculationInput.CalculationsTargetProbability);
             Assert.IsNull(calculation.Output);
         }
 
@@ -229,6 +234,67 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
+        }
+
+        [Test]
+        public void Read_EntityWithHydraulicBoundaryLocationNotYetInCollector_CalculationWithCreatedHydraulicBoundaryLocationAndRegisteredNewEntities()
+        {
+            // Setup
+            HydraulicLocationEntity hydraulicLocationEntity = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
+            var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
+            {
+                HydraulicLocationEntity = hydraulicLocationEntity
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(collector.Contains(hydraulicLocationEntity));
+        }
+
+        [Test]
+        public void Read_EntityWithHydraulicBoundaryLocationCalculationsForTargetProbabilityInCollector_CalculationHasAlreadyReadHydraulicBoundaryLocationCalculationsForTargetProbability()
+        {
+            // Setup
+            var hydraulicBoundaryLocationCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.05);
+            HydraulicLocationCalculationForTargetProbabilityCollectionEntity calculationForTargetProbabilityCollectionEntity =
+                HydraulicLocationCalculationForTargetProbabilityCollectionEntityTestFactory.CreateHydraulicLocationCalculationForTargetProbabilityCollectionEntity();
+            var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
+            {
+                HydraulicLocationCalculationForTargetProbabilityCollectionEntity = calculationForTargetProbabilityCollectionEntity
+            };
+
+            var collector = new ReadConversionCollector();
+            collector.Read(calculationForTargetProbabilityCollectionEntity, hydraulicBoundaryLocationCalculationsForTargetProbability);
+
+            // Call
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = entity.Read(collector);
+
+            // Assert
+            Assert.AreSame(hydraulicBoundaryLocationCalculationsForTargetProbability, calculation.InputParameters.CalculationsTargetProbability);
+        }
+
+        [Test]
+        public void Read_EntityWithHydraulicBoundaryLocationCalculationsForTargetProbabilityNotYetInCollector_CalculationWithCreatedHydraulicBoundaryLocationCalculationsForTargetProbabilityAndRegisteredNewEntities()
+        {
+            // Setup
+            HydraulicLocationCalculationForTargetProbabilityCollectionEntity calculationForTargetProbabilityCollectionEntity =
+                HydraulicLocationCalculationForTargetProbabilityCollectionEntityTestFactory.CreateHydraulicLocationCalculationForTargetProbabilityCollectionEntity();
+            var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
+            {
+                HydraulicLocationCalculationForTargetProbabilityCollectionEntity = calculationForTargetProbabilityCollectionEntity
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(collector.Contains(calculationForTargetProbabilityCollectionEntity));
         }
 
         [Test]

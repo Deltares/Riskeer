@@ -28,11 +28,13 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Revetment.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.WaveImpactAsphaltCover.Data;
+using WaveConditionsInputWaterLevelType = Riskeer.Revetment.Data.WaveConditionsInputWaterLevelType;
 
 namespace Riskeer.Storage.Core.Read.WaveImpactAsphaltCover
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>
+    /// This class defines extension methods for read operations for a
+    /// <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>
     /// based on the <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationEntity"/>.
     /// </summary>
     internal static class WaveImpactAsphaltCoverWaveConditionsCalculationEntityReadExtensions
@@ -41,8 +43,10 @@ namespace Riskeer.Storage.Core.Read.WaveImpactAsphaltCover
         /// Reads the <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationEntity"/> and use the
         /// information to update a <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationEntity"/>
-        /// to create <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> for.</param>
+        /// <param name="entity">
+        /// The <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationEntity"/>
+        /// to create <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> for.
+        /// </param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
@@ -79,6 +83,9 @@ namespace Riskeer.Storage.Core.Read.WaveImpactAsphaltCover
         {
             inputParameters.ForeshoreProfile = GetDikeProfileValue(entity.ForeshoreProfileEntity, collector);
             inputParameters.HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.HydraulicLocationEntity, collector);
+            inputParameters.CalculationsTargetProbability = GetHydraulicBoundaryLocationCalculationsForTargetProbabilityValue(
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntity, collector);
+
             inputParameters.Orientation = (RoundedDouble) entity.Orientation.ToNullAsNaN();
             inputParameters.UseForeshore = Convert.ToBoolean(entity.UseForeshore);
             inputParameters.UseBreakWater = Convert.ToBoolean(entity.UseBreakWater);
@@ -90,6 +97,7 @@ namespace Riskeer.Storage.Core.Read.WaveImpactAsphaltCover
             inputParameters.LowerBoundaryWaterLevels = (RoundedDouble) entity.LowerBoundaryWaterLevels.ToNullAsNaN();
             inputParameters.StepSize = (WaveConditionsInputStepSize) entity.StepSize;
             inputParameters.CategoryType = (AssessmentSectionCategoryType) entity.CategoryType;
+            inputParameters.WaterLevelType = (WaveConditionsInputWaterLevelType) entity.WaveConditionsInputWaterLevelType;
         }
 
         private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity, ReadConversionCollector collector)
@@ -102,6 +110,13 @@ namespace Riskeer.Storage.Core.Read.WaveImpactAsphaltCover
             ReadConversionCollector collector)
         {
             return hydraulicLocationEntity?.Read(collector);
+        }
+
+        private static HydraulicBoundaryLocationCalculationsForTargetProbability GetHydraulicBoundaryLocationCalculationsForTargetProbabilityValue(
+            HydraulicLocationCalculationForTargetProbabilityCollectionEntity hydraulicLocationCalculationForTargetProbabilityCollectionEntity,
+            ReadConversionCollector collector)
+        {
+            return hydraulicLocationCalculationForTargetProbabilityCollectionEntity?.Read(collector);
         }
 
         private static void ReadOutput(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity)

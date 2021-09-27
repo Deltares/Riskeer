@@ -29,11 +29,13 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.Revetment.Data;
 using Riskeer.Storage.Core.DbContext;
+using WaveConditionsInputWaterLevelType = Riskeer.Revetment.Data.WaveConditionsInputWaterLevelType;
 
 namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>
+    /// This class defines extension methods for read operations for a
+    /// <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>
     /// based on the <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationEntity"/>.
     /// </summary>
     internal static class GrassCoverErosionOutwardsWaveConditionsCalculationEntityReadExtensions
@@ -42,8 +44,10 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
         /// Reads the <see cref="GrassCoverErosionInwardsCalculationEntity"/> and use the
         /// information to update a <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/>
-        /// to create <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> for.</param>
+        /// <param name="entity">
+        /// The <see cref="GrassCoverErosionInwardsCalculationEntity"/>
+        /// to create <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> for.
+        /// </param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
@@ -80,6 +84,9 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
         {
             inputParameters.ForeshoreProfile = GetDikeProfileValue(entity.ForeshoreProfileEntity, collector);
             inputParameters.HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.HydraulicLocationEntity, collector);
+            inputParameters.CalculationsTargetProbability = GetHydraulicBoundaryLocationCalculationsForTargetProbabilityValue(
+                entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntity, collector);
+
             inputParameters.Orientation = (RoundedDouble) entity.Orientation.ToNullAsNaN();
             inputParameters.UseForeshore = Convert.ToBoolean(entity.UseForeshore);
             inputParameters.UseBreakWater = Convert.ToBoolean(entity.UseBreakWater);
@@ -92,6 +99,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
             inputParameters.StepSize = (WaveConditionsInputStepSize) entity.StepSize;
             inputParameters.CategoryType = (FailureMechanismCategoryType) entity.CategoryType;
             inputParameters.CalculationType = (GrassCoverErosionOutwardsWaveConditionsCalculationType) entity.CalculationType;
+            inputParameters.WaterLevelType = (WaveConditionsInputWaterLevelType) entity.WaveConditionsInputWaterLevelType;
         }
 
         private static void ReadCalculationOutputs(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
@@ -160,13 +168,17 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
             return foreshoreProfileEntity?.Read(collector);
         }
 
-        private static HydraulicBoundaryLocation GetHydraulicBoundaryLocationValue(
-            HydraulicLocationEntity hydraulicLocationEntity,
+        private static HydraulicBoundaryLocation GetHydraulicBoundaryLocationValue(HydraulicLocationEntity hydraulicLocationEntity,
+                                                                                   ReadConversionCollector collector)
+        {
+            return hydraulicLocationEntity?.Read(collector);
+        }
+
+        private static HydraulicBoundaryLocationCalculationsForTargetProbability GetHydraulicBoundaryLocationCalculationsForTargetProbabilityValue(
+            HydraulicLocationCalculationForTargetProbabilityCollectionEntity hydraulicLocationCalculationForTargetProbabilityCollectionEntity,
             ReadConversionCollector collector)
         {
-            return hydraulicLocationEntity != null
-                       ? collector.Get(hydraulicLocationEntity)
-                       : null;
+            return hydraulicLocationCalculationForTargetProbabilityCollectionEntity?.Read(collector);
         }
     }
 }

@@ -35,6 +35,7 @@ using Riskeer.Storage.Core.Read.WaveImpactAsphaltCover;
 using Riskeer.Storage.Core.Serializers;
 using Riskeer.Storage.Core.TestUtil.Hydraulics;
 using Riskeer.WaveImpactAsphaltCover.Data;
+using WaveConditionsInputWaterLevelType = Riskeer.Revetment.Data.WaveConditionsInputWaterLevelType;
 
 namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
 {
@@ -85,6 +86,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
             const double upperBoundaryWaterLevels = 5.88;
             var stepSize = random.NextEnumValue<WaveConditionsInputStepSize>();
             var categoryType = random.NextEnumValue<AssessmentSectionCategoryType>();
+            var waterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>();
 
             var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
             {
@@ -100,7 +102,8 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
                 UpperBoundaryWaterLevels = upperBoundaryWaterLevels,
                 LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
                 StepSize = Convert.ToByte(stepSize),
-                CategoryType = Convert.ToByte(categoryType)
+                CategoryType = Convert.ToByte(categoryType),
+                WaveConditionsInputWaterLevelType = Convert.ToByte(waterLevelType)
             };
 
             var collector = new ReadConversionCollector();
@@ -124,9 +127,11 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
             RoundedDoubleTestHelper.AssertRoundedDouble(lowerBoundaryWaterLevels, calculationInput.LowerBoundaryWaterLevels);
             Assert.AreEqual(stepSize, calculationInput.StepSize);
             Assert.AreEqual(categoryType, calculationInput.CategoryType);
+            Assert.AreEqual(waterLevelType, calculationInput.WaterLevelType);
 
             Assert.IsNull(calculationInput.HydraulicBoundaryLocation);
             Assert.IsNull(calculationInput.ForeshoreProfile);
+            Assert.IsNull(calculationInput.CalculationsTargetProbability);
             Assert.IsNull(calculation.Output);
         }
 
@@ -245,6 +250,48 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
 
             // Assert
             Assert.IsTrue(collector.Contains(hydraulicLocationEntity));
+        }
+
+        [Test]
+        public void Read_EntityWithHydraulicBoundaryLocationCalculationsForTargetProbabilityInCollector_CalculationHasAlreadyReadHydraulicBoundaryLocationCalculationsForTargetProbability()
+        {
+            // Setup
+            var hydraulicBoundaryLocationCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.05);
+            HydraulicLocationCalculationForTargetProbabilityCollectionEntity calculationForTargetProbabilityCollectionEntity =
+                HydraulicLocationCalculationForTargetProbabilityCollectionEntityTestFactory.CreateHydraulicLocationCalculationForTargetProbabilityCollectionEntity();
+            var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
+            {
+                HydraulicLocationCalculationForTargetProbabilityCollectionEntity = calculationForTargetProbabilityCollectionEntity
+            };
+
+            var collector = new ReadConversionCollector();
+            collector.Read(calculationForTargetProbabilityCollectionEntity, hydraulicBoundaryLocationCalculationsForTargetProbability);
+
+            // Call
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = entity.Read(collector);
+
+            // Assert
+            Assert.AreSame(hydraulicBoundaryLocationCalculationsForTargetProbability, calculation.InputParameters.CalculationsTargetProbability);
+        }
+
+        [Test]
+        public void Read_EntityWithHydraulicBoundaryLocationCalculationsForTargetProbabilityNotYetInCollector_CalculationWithCreatedHydraulicBoundaryLocationCalculationsForTargetProbabilityAndRegisteredNewEntities()
+        {
+            // Setup
+            HydraulicLocationCalculationForTargetProbabilityCollectionEntity calculationForTargetProbabilityCollectionEntity =
+                HydraulicLocationCalculationForTargetProbabilityCollectionEntityTestFactory.CreateHydraulicLocationCalculationForTargetProbabilityCollectionEntity();
+            var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
+            {
+                HydraulicLocationCalculationForTargetProbabilityCollectionEntity = calculationForTargetProbabilityCollectionEntity
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(collector.Contains(calculationForTargetProbabilityCollectionEntity));
         }
 
         [Test]
