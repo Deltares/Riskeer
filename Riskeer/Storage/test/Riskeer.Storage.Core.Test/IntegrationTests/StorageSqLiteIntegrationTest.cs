@@ -25,7 +25,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
@@ -1026,8 +1025,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                                                  actualFailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities);
         }
 
-        private static void AssertDuneLocationCalculationsForTargetProbabilities(ObservableList<DuneLocationCalculationsForTargetProbability> expected,
-                                                                                 ObservableList<DuneLocationCalculationsForTargetProbability> actual)
+        private static void AssertDuneLocationCalculationsForTargetProbabilities(IEnumerable<DuneLocationCalculationsForTargetProbability> expected,
+                                                                                 IEnumerable<DuneLocationCalculationsForTargetProbability> actual)
         {
             AssertCollectionAndItems(expected, actual, AssertDuneLocationCalculationsForTargetProbability);
         }

@@ -29,13 +29,13 @@ namespace Riskeer.Storage.Core.Read.DuneErosion
 {
     /// <summary>
     /// This class defines extension methods for read operations for a collection of 
-    /// <see cref="DuneLocationCalculation"/> based on the <see cref="DuneLocationCalculationForTargetProbabilityCollectionEntity"/>.
+    /// <see cref="DuneLocationCalculationsForTargetProbability"/> based on the <see cref="DuneLocationCalculationForTargetProbabilityCollectionEntity"/>.
     /// </summary>
     internal static class DuneLocationCalculationForTargetProbabilityCollectionEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="DuneLocationCalculationForTargetProbabilityCollectionEntity"/> and uses the information 
-        /// to update a collection of <see cref="DuneLocationCalculation"/>.
+        /// to update a collection of <see cref="DuneLocationCalculationsForTargetProbability"/>.
         /// </summary>
         /// <param name="entity">The <see cref="DuneLocationCalculationForTargetProbabilityCollectionEntity"/> to create the 
         /// <see cref="DuneLocationCalculationsForTargetProbability"/>.</param>
@@ -57,14 +57,14 @@ namespace Riskeer.Storage.Core.Read.DuneErosion
             var calculations = new DuneLocationCalculationsForTargetProbability(entity.TargetProbability);
             IEnumerable<DuneLocationCalculation> duneLocationCalculations =
                 entity.DuneLocationCalculationEntities
-                      .Select(dlce => CreateHydraulicBoundaryLocationCalculation(dlce, collector))
+                      .Select(dlce => CreateDuneLocationCalculation(dlce, collector))
                       .ToArray();
             calculations.DuneLocationCalculations.AddRange(duneLocationCalculations);
 
             return calculations;
         }
 
-        private static DuneLocationCalculation CreateHydraulicBoundaryLocationCalculation(DuneLocationCalculationEntity calculationEntity,
+        private static DuneLocationCalculation CreateDuneLocationCalculation(DuneLocationCalculationEntity calculationEntity,
                                                                                           ReadConversionCollector collector)
         {
             var calculation = new DuneLocationCalculation(collector.Get(calculationEntity.DuneLocationEntity));

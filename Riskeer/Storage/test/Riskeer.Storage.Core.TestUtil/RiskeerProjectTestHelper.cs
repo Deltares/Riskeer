@@ -784,6 +784,15 @@ namespace Riskeer.Storage.Core.TestUtil
         private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism)
         {
             failureMechanism.GeneralInput.N = (RoundedDouble) 5.5;
+            
+            var random = new Random(21);
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
+            {
+                new DuneLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
+                new DuneLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1)),
+                new DuneLocationCalculationsForTargetProbability(random.NextDouble(0, 0.1))
+            });
+            
             SetDuneLocations(failureMechanism);
         }
 

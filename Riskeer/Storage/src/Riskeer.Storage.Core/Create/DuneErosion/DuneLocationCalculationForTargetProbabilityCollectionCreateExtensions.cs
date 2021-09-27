@@ -35,12 +35,12 @@ namespace Riskeer.Storage.Core.Create.DuneErosion
         /// Creates a <see cref="DuneLocationCalculationForTargetProbabilityCollectionEntity"/> based on the information
         /// of the <paramref name="calculations"/>.
         /// </summary>
-        /// <param name="calculations">The collection of <see cref="DuneLocationCalculation"/>
+        /// <param name="calculations">The collection of <see cref="DuneLocationCalculationsForTargetProbability"/>
         /// to create a database entity for.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param> 
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="DuneLocationCalculationForTargetProbabilityCollectionEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or <paramref name="registry"/> is <c>null</c>.</exception>
         internal static DuneLocationCalculationForTargetProbabilityCollectionEntity Create(this DuneLocationCalculationsForTargetProbability calculations,
                                                                                            int order,
                                                                                            PersistenceRegistry registry)
