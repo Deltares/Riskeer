@@ -99,7 +99,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
             inputParameters.StepSize = (WaveConditionsInputStepSize) entity.StepSize;
             inputParameters.CategoryType = (FailureMechanismCategoryType) entity.CategoryType;
             inputParameters.CalculationType = (GrassCoverErosionOutwardsWaveConditionsCalculationType) entity.CalculationType;
-            inputParameters.WaterLevelType = (WaveConditionsInputWaterLevelType) entity.WaveConditionsInputWaterLevelType;
+            inputParameters.WaterLevelType = (WaveConditionsInputWaterLevelType) entity.WaterLevelType;
         }
 
         private static void ReadCalculationOutputs(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,

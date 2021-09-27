@@ -97,7 +97,7 @@ namespace Riskeer.Storage.Core.Read.WaveImpactAsphaltCover
             inputParameters.LowerBoundaryWaterLevels = (RoundedDouble) entity.LowerBoundaryWaterLevels.ToNullAsNaN();
             inputParameters.StepSize = (WaveConditionsInputStepSize) entity.StepSize;
             inputParameters.CategoryType = (AssessmentSectionCategoryType) entity.CategoryType;
-            inputParameters.WaterLevelType = (WaveConditionsInputWaterLevelType) entity.WaveConditionsInputWaterLevelType;
+            inputParameters.WaterLevelType = (WaveConditionsInputWaterLevelType) entity.WaterLevelType;
         }
 
         private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity, ReadConversionCollector collector)

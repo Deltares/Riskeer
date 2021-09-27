@@ -103,7 +103,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
                 LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
                 StepSize = Convert.ToByte(stepSize),
                 CategoryType = Convert.ToByte(categoryType),
-                WaveConditionsInputWaterLevelType = Convert.ToByte(waterLevelType)
+                WaterLevelType = Convert.ToByte(waterLevelType)
             };
 
             var collector = new ReadConversionCollector();

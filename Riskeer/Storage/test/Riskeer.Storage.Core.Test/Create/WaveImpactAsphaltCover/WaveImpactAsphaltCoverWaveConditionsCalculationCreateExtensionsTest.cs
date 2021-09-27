@@ -105,7 +105,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             Assert.AreEqual(input.LowerBoundaryWaterLevels, entity.LowerBoundaryWaterLevels, input.LowerBoundaryWaterLevels.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(input.StepSize), entity.StepSize);
             Assert.AreEqual(Convert.ToByte(input.CategoryType), entity.CategoryType);
-            Assert.AreEqual(Convert.ToByte(input.WaterLevelType), entity.WaveConditionsInputWaterLevelType);
+            Assert.AreEqual(Convert.ToByte(input.WaterLevelType), entity.WaterLevelType);
 
             Assert.AreEqual(order, entity.Order);
             Assert.IsNull(entity.CalculationGroupEntity);

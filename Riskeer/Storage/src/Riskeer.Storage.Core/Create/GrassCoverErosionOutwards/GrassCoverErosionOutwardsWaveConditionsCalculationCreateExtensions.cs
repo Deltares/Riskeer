@@ -103,7 +103,7 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
             entity.StepSize = Convert.ToByte(calculationInput.StepSize);
             entity.CategoryType = Convert.ToByte(calculationInput.CategoryType);
             entity.CalculationType = Convert.ToByte(calculationInput.CalculationType);
-            entity.WaveConditionsInputWaterLevelType = Convert.ToByte(calculationInput.WaterLevelType);
+            entity.WaterLevelType = Convert.ToByte(calculationInput.WaterLevelType);
         }
 
         private static void SetOutputEntities(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity,

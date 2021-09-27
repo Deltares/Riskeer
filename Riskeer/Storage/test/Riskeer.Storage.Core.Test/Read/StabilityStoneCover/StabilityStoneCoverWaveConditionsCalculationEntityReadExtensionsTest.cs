@@ -105,7 +105,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
                 StepSize = Convert.ToByte(stepSize),
                 CategoryType = Convert.ToByte(categoryType),
                 CalculationType = Convert.ToByte(calculationType),
-                WaveConditionsInputWaterLevelType = Convert.ToByte(waterLevelType)
+                WaterLevelType = Convert.ToByte(waterLevelType)
             };
 
             var collector = new ReadConversionCollector();
