@@ -61,6 +61,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertDatabase(reader);
 
                     AssertAssessmentSection(reader, sourceFilePath);
+                    AssertGrassCoverErosionFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertHydraulicBoundaryLocationCalculation(reader, sourceFilePath);
                     AssertHydraulicLocationOutput(reader);
 
@@ -68,6 +69,11 @@ namespace Riskeer.Migration.Integration.Test
                     AssertDuneLocationCalculationCollection(reader);
                     AssertDuneLocationCalculation(reader);
                     AssertDuneLocationCalculationOutput(reader);
+
+                    AssertGrassCoverErosionOutwardsCalculations(reader, sourceFilePath);
+                    AssertStabilityStoneCoverCalculations(reader, sourceFilePath);
+                    AssertWaveImpactAsphaltCoverCalculations(reader, sourceFilePath);
+                    AssertWaveConditionCalculationOutputs(reader);
 
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsOutput(reader);
@@ -153,6 +159,25 @@ namespace Riskeer.Migration.Integration.Test
                 "WHERE NEW.[HydraulicLocationCalculationCollectionEntityId] = OLD.[HydraulicLocationCalculationCollectionEntityId];" +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateHydraulicLocationCalculationMapping);
+        }
+
+        private static void AssertGrassCoverErosionFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateFailureMechanismEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.GrassCoverErosionOutwardsFailureMechanismMetaEntity " +
+                ") " +
+                "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.GrassCoverErosionOutwardsFailureMechanismMetaEntity OLD USING(GrassCoverErosionOutwardsFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[ForeshoreProfileCollectionSourcePath] IS OLD.[ForeshoreProfileCollectionSourcePath] " +
+                "AND NEW.[N] = OLD.[N];" +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateFailureMechanismEntity);
         }
 
         private static void AssertHydraulicLocationOutput(MigratedDatabaseReader reader)
@@ -351,6 +376,222 @@ namespace Riskeer.Migration.Integration.Test
                 "SELECT COUNT() = 0 " +
                 "FROM [GrassCoverErosionInwardsOvertoppingRateOutputEntity]; ";
             reader.AssertReturnedDataIsValid(validateOvertoppingRateOutput);
+        }
+
+        private static void AssertGrassCoverErosionOutwardsCalculations(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateLowerLimitCalculations =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.GrassCoverErosionOutwardsWaveConditionsCalculationEntity " +
+                "WHERE [CategoryType] = 4 " +
+                ") " +
+                "FROM GrassCoverErosionOutwardsWaveConditionsCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.GrassCoverErosionOutwardsWaveConditionsCalculationEntity OLD USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId) " +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[ForeshoreProfileEntityId] IS OLD.[ForeshoreProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[HydraulicLocationCalculationForTargetProbabilityCollectionEntityId] IS NULL " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] = OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
+                "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
+                "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
+                "AND NEW.[LowerBoundaryWaterLevels] IS OLD.[LowerBoundaryWaterLevels] " +
+                "AND NEW.[StepSize] = OLD.[StepSize] " +
+                "AND NEW.[CalculationType] = OLD.[CalculationType] " +
+                "AND NEW.[WaterLevelType] = 2;" +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateLowerLimitCalculations);
+
+            string validateOtherCalculations =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.GrassCoverErosionOutwardsWaveConditionsCalculationEntity " +
+                "WHERE [CategoryType] != 4 " +
+                ") " +
+                "FROM GrassCoverErosionOutwardsWaveConditionsCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.GrassCoverErosionOutwardsWaveConditionsCalculationEntity OLD USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId) " +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[ForeshoreProfileEntityId] IS OLD.[ForeshoreProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[HydraulicLocationCalculationForTargetProbabilityCollectionEntityId] IS NULL " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] = OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
+                "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
+                "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
+                "AND NEW.[LowerBoundaryWaterLevels] IS OLD.[LowerBoundaryWaterLevels] " +
+                "AND NEW.[StepSize] = OLD.[StepSize] " +
+                "AND NEW.[CalculationType] = OLD.[CalculationType] " +
+                "AND NEW.[WaterLevelType] = 1;" +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateOtherCalculations);
+        }
+
+        private static void AssertStabilityStoneCoverCalculations(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+             string validateNormBaseQueryFormat =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.StabilityStoneCoverWaveConditionsCalculationEntity " +
+                "WHERE [CategoryType] = {0} " +
+                ") " +
+                "FROM StabilityStoneCoverWaveConditionsCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.StabilityStoneCoverWaveConditionsCalculationEntity OLD USING(StabilityStoneCoverWaveConditionsCalculationEntityId) " +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[ForeshoreProfileEntityId] IS OLD.[ForeshoreProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[HydraulicLocationCalculationForTargetProbabilityCollectionEntityId] IS NULL " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] = OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
+                "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
+                "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
+                "AND NEW.[LowerBoundaryWaterLevels] IS OLD.[LowerBoundaryWaterLevels] " +
+                "AND NEW.[StepSize] = OLD.[StepSize] " +
+                "AND NEW.[CalculationType] = OLD.[CalculationType] " +
+                "AND NEW.[WaterLevelType] = {1};" +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(string.Format(validateNormBaseQueryFormat, 2, 3));
+            reader.AssertReturnedDataIsValid(string.Format(validateNormBaseQueryFormat, 3, 2));
+
+            string validateOtherCalculations =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.StabilityStoneCoverWaveConditionsCalculationEntity " +
+                "WHERE [CategoryType] != 2 AND [CategoryType] != 3" +
+                ") " +
+                "FROM StabilityStoneCoverWaveConditionsCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.StabilityStoneCoverWaveConditionsCalculationEntity OLD USING(StabilityStoneCoverWaveConditionsCalculationEntityId) " +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[ForeshoreProfileEntityId] IS OLD.[ForeshoreProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[HydraulicLocationCalculationForTargetProbabilityCollectionEntityId] IS NULL " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] = OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
+                "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
+                "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
+                "AND NEW.[LowerBoundaryWaterLevels] IS OLD.[LowerBoundaryWaterLevels] " +
+                "AND NEW.[StepSize] = OLD.[StepSize] " +
+                "AND NEW.[CalculationType] = OLD.[CalculationType] " +
+                "AND NEW.[WaterLevelType] = 1;" +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateOtherCalculations);
+        }
+        private static void AssertWaveImpactAsphaltCoverCalculations(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+             string validateNormBaseQueryFormat =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.WaveImpactAsphaltCoverWaveConditionsCalculationEntity " +
+                "WHERE [CategoryType] = {0} " +
+                ") " +
+                "FROM WaveImpactAsphaltCoverWaveConditionsCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.WaveImpactAsphaltCoverWaveConditionsCalculationEntity OLD USING(WaveImpactAsphaltCoverWaveConditionsCalculationEntityId) " +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[ForeshoreProfileEntityId] IS OLD.[ForeshoreProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[HydraulicLocationCalculationForTargetProbabilityCollectionEntityId] IS NULL " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] = OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
+                "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
+                "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
+                "AND NEW.[LowerBoundaryWaterLevels] IS OLD.[LowerBoundaryWaterLevels] " +
+                "AND NEW.[StepSize] = OLD.[StepSize] " +
+                "AND NEW.[WaterLevelType] = {1};" +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(string.Format(validateNormBaseQueryFormat, 2, 3));
+            reader.AssertReturnedDataIsValid(string.Format(validateNormBaseQueryFormat, 3, 2));
+
+            string validateOtherCalculations =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.WaveImpactAsphaltCoverWaveConditionsCalculationEntity " +
+                "WHERE [CategoryType] != 2 AND [CategoryType] != 3" +
+                ") " +
+                "FROM WaveImpactAsphaltCoverWaveConditionsCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.WaveImpactAsphaltCoverWaveConditionsCalculationEntity OLD USING(WaveImpactAsphaltCoverWaveConditionsCalculationEntityId) " +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[ForeshoreProfileEntityId] IS OLD.[ForeshoreProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[HydraulicLocationCalculationForTargetProbabilityCollectionEntityId] IS NULL " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] = OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[UpperBoundaryRevetment] IS OLD.[UpperBoundaryRevetment] " +
+                "AND NEW.[LowerBoundaryRevetment] IS OLD.[LowerBoundaryRevetment] " +
+                "AND NEW.[UpperBoundaryWaterLevels] IS OLD.[UpperBoundaryWaterLevels] " +
+                "AND NEW.[LowerBoundaryWaterLevels] IS OLD.[LowerBoundaryWaterLevels] " +
+                "AND NEW.[StepSize] = OLD.[StepSize] " +
+                "AND NEW.[WaterLevelType] = 1;" +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateOtherCalculations);
+        }
+
+        private static void AssertWaveConditionCalculationOutputs(MigratedDatabaseReader reader)
+        {
+            const string validateOutputQueryFormat =
+                "SELECT COUNT() = 0 " +
+                "FROM [{0}]; ";
+            reader.AssertReturnedDataIsValid(string.Format(validateOutputQueryFormat, "GrassCoverErosionOutwardsWaveConditionsOutputEntity"));
+            reader.AssertReturnedDataIsValid(string.Format(validateOutputQueryFormat, "StabilityStoneCoverWaveConditionsOutputEntity"));
+            reader.AssertReturnedDataIsValid(string.Format(validateOutputQueryFormat, "WaveImpactAsphaltCoverWaveConditionsOutputEntity"));
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
