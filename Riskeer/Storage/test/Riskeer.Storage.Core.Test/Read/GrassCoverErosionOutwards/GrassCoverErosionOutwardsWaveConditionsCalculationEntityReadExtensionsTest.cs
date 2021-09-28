@@ -25,7 +25,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -85,7 +84,6 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
             const double lowerBoundaryWaterLevels = 3.40;
             const double upperBoundaryWaterLevels = 5.88;
             var stepSize = random.NextEnumValue<WaveConditionsInputStepSize>();
-            var categoryType = random.NextEnumValue<FailureMechanismCategoryType>();
             var calculationType = random.NextEnumValue<GrassCoverErosionOutwardsWaveConditionsCalculationType>();
             var waterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>();
 
@@ -127,7 +125,6 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
             RoundedDoubleTestHelper.AssertRoundedDouble(upperBoundaryWaterLevels, calculationInput.UpperBoundaryWaterLevels);
             RoundedDoubleTestHelper.AssertRoundedDouble(lowerBoundaryWaterLevels, calculationInput.LowerBoundaryWaterLevels);
             Assert.AreEqual(stepSize, calculationInput.StepSize);
-            Assert.AreEqual(categoryType, calculationInput.CategoryType);
             Assert.AreEqual(calculationType, calculationInput.CalculationType);
             Assert.AreEqual(waterLevelType, calculationInput.WaterLevelType);
 

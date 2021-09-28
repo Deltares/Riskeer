@@ -24,7 +24,6 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -85,7 +84,6 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
             const double lowerBoundaryWaterLevels = 3.40;
             const double upperBoundaryWaterLevels = 5.88;
             var stepSize = random.NextEnumValue<WaveConditionsInputStepSize>();
-            var categoryType = random.NextEnumValue<AssessmentSectionCategoryType>();
             var waterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>();
 
             var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
@@ -125,7 +123,6 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
             RoundedDoubleTestHelper.AssertRoundedDouble(upperBoundaryWaterLevels, calculationInput.UpperBoundaryWaterLevels);
             RoundedDoubleTestHelper.AssertRoundedDouble(lowerBoundaryWaterLevels, calculationInput.LowerBoundaryWaterLevels);
             Assert.AreEqual(stepSize, calculationInput.StepSize);
-            Assert.AreEqual(categoryType, calculationInput.CategoryType);
             Assert.AreEqual(waterLevelType, calculationInput.WaterLevelType);
 
             Assert.IsNull(calculationInput.HydraulicBoundaryLocation);
