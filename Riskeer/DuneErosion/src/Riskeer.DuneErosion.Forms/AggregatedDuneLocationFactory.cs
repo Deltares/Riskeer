@@ -78,61 +78,6 @@ namespace Riskeer.DuneErosion.Forms
                                 .ToArray();
         }
 
-        /// <summary>
-        /// Creates the aggregated dune locations based on the locations and calculations
-        /// from the failure mechanism.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to get the locations and calculations from.</param>
-        /// <returns>A collection of <see cref="AggregatedDuneLocation"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<AggregatedDuneLocation> CreateAggregatedDuneLocations(DuneErosionFailureMechanism failureMechanism)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            Dictionary<DuneLocation, DuneLocationCalculation> duneLocationCalculationsForMechanismSpecificFactorizedSignalingNormLookup =
-                failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.ToDictionary(calc => calc.DuneLocation,
-                                                                                                      calc => calc);
-
-            Dictionary<DuneLocation, DuneLocationCalculation> duneLocationCalculationsForMechanismSpecificSignalingNormLookup =
-                failureMechanism.CalculationsForMechanismSpecificSignalingNorm.ToDictionary(calc => calc.DuneLocation,
-                                                                                            calc => calc);
-
-            Dictionary<DuneLocation, DuneLocationCalculation> duneLocationCalculationsForMechanismSpecificLowerLimitNormLookup =
-                failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.ToDictionary(calc => calc.DuneLocation,
-                                                                                             calc => calc);
-
-            Dictionary<DuneLocation, DuneLocationCalculation> duneLocationCalculationsForLowerLimitNormLookup =
-                failureMechanism.CalculationsForLowerLimitNorm.ToDictionary(calc => calc.DuneLocation,
-                                                                            calc => calc);
-
-            Dictionary<DuneLocation, DuneLocationCalculation> duneLocationCalculationsForFactorizedLowerLimitNormLookup =
-                failureMechanism.CalculationsForFactorizedLowerLimitNorm.ToDictionary(calc => calc.DuneLocation,
-                                                                                      calc => calc);
-
-            return failureMechanism.DuneLocations
-                                   .Select(location => new AggregatedDuneLocation(
-                                               location.Id, location.Name, location.Location, location.CoastalAreaId, location.Offset, location.D50,
-                                               GetWaterLevel(duneLocationCalculationsForMechanismSpecificFactorizedSignalingNormLookup[location]),
-                                               GetWaterLevel(duneLocationCalculationsForMechanismSpecificSignalingNormLookup[location]),
-                                               GetWaterLevel(duneLocationCalculationsForMechanismSpecificLowerLimitNormLookup[location]),
-                                               GetWaterLevel(duneLocationCalculationsForLowerLimitNormLookup[location]),
-                                               GetWaterLevel(duneLocationCalculationsForFactorizedLowerLimitNormLookup[location]),
-                                               GetWaveHeight(duneLocationCalculationsForMechanismSpecificFactorizedSignalingNormLookup[location]),
-                                               GetWaveHeight(duneLocationCalculationsForMechanismSpecificSignalingNormLookup[location]),
-                                               GetWaveHeight(duneLocationCalculationsForMechanismSpecificLowerLimitNormLookup[location]),
-                                               GetWaveHeight(duneLocationCalculationsForLowerLimitNormLookup[location]),
-                                               GetWaveHeight(duneLocationCalculationsForFactorizedLowerLimitNormLookup[location]),
-                                               GetWavePeriod(duneLocationCalculationsForMechanismSpecificFactorizedSignalingNormLookup[location]),
-                                               GetWavePeriod(duneLocationCalculationsForMechanismSpecificSignalingNormLookup[location]),
-                                               GetWavePeriod(duneLocationCalculationsForMechanismSpecificLowerLimitNormLookup[location]),
-                                               GetWavePeriod(duneLocationCalculationsForLowerLimitNormLookup[location]),
-                                               GetWavePeriod(duneLocationCalculationsForFactorizedLowerLimitNormLookup[location])))
-                                   .ToArray();
-        }
-
         private static RoundedDouble GetWaterLevel(DuneLocationCalculation calculation)
         {
             return calculation.Output?.WaterLevel ?? RoundedDouble.NaN;
