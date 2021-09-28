@@ -19,12 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Util.Helpers;
 using Riskeer.Common.Util.TestUtil;
 using Riskeer.DuneErosion.Data;
 
@@ -62,63 +65,45 @@ namespace Riskeer.DuneErosion.Forms.TestUtil
                 DuneLocation expectedDuneLocation = expectedDuneLocations.ElementAt(i);
                 MapFeature mapFeature = features.ElementAt(i);
 
-                Assert.AreEqual(expectedDuneLocation.Id, mapFeature.MetaData["ID"]);
-                Assert.AreEqual(expectedDuneLocation.Name, mapFeature.MetaData["Naam"]);
-                Assert.AreEqual(expectedDuneLocation.CoastalAreaId, mapFeature.MetaData["Kustvaknummer"]);
-                Assert.AreEqual(expectedDuneLocation.Offset.ToString("0.#", CultureInfo.CurrentCulture), mapFeature.MetaData["Metrering"]);
-                Assert.AreEqual(expectedDuneLocation.Location, mapFeature.MapGeometries.First().PointCollections.First().Single());
+                MapFeaturesMetaDataTestHelper.AssertMetaData(expectedDuneLocation.Id, mapFeature, "ID");
+                MapFeaturesMetaDataTestHelper.AssertMetaData(expectedDuneLocation.Name, mapFeature, "Naam");
+                MapFeaturesMetaDataTestHelper.AssertMetaData(expectedDuneLocation.CoastalAreaId, mapFeature, "Kustvaknummer");
+                MapFeaturesMetaDataTestHelper.AssertMetaData(expectedDuneLocation.Offset.ToString("0.#", CultureInfo.CurrentCulture), mapFeature, "Metrering");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(expectedDuneLocation.D50.ToString(), mapFeature, "Rekenwaarde d50");
 
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaterLevel(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde h gr.Iv");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaterLevel(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde h gr.IIv");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaterLevel(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde h gr.IIIv");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaterLevel(failureMechanism.CalculationsForLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde h gr.IVv");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaterLevel(failureMechanism.CalculationsForFactorizedLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde h gr.Vv");
+                Assert.AreEqual(expectedDuneLocation.Location, mapFeature.MapGeometries.First().PointCollections.First().Single());
 
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaveHeight(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Hs gr.Iv");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaveHeight(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Hs gr.IIv");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaveHeight(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Hs gr.IIIv");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaveHeight(failureMechanism.CalculationsForLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Hs gr.IVv");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaveHeight(failureMechanism.CalculationsForFactorizedLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Hs gr.Vv");
+                var presentedMetaDataItems = new List<string>();
+                foreach (DuneLocationCalculationsForTargetProbability calculationsForTargetProbability in failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities)
+                {
+                    AssertMetaData(calculationsForTargetProbability.DuneLocationCalculations, expectedDuneLocation, GetExpectedWaterLevel,
+                                   mapFeature, calculationsForTargetProbability.TargetProbability, "Rekenwaarde h - {0}", presentedMetaDataItems);
 
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWavePeriod(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Tp gr.Iv");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWavePeriod(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Tp gr.IIv");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWavePeriod(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Tp gr.IIIv");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWavePeriod(failureMechanism.CalculationsForLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Tp gr.IVv");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWavePeriod(failureMechanism.CalculationsForFactorizedLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Tp gr.Vv");
+                    AssertMetaData(calculationsForTargetProbability.DuneLocationCalculations, expectedDuneLocation, GetExpectedWaveHeight,
+                                   mapFeature, calculationsForTargetProbability.TargetProbability, "Rekenwaarde Hs - {0}", presentedMetaDataItems);
 
-                Assert.AreEqual(20, mapFeature.MetaData.Keys.Count);
+                    AssertMetaData(calculationsForTargetProbability.DuneLocationCalculations, expectedDuneLocation, GetExpectedWavePeriod,
+                                   mapFeature, calculationsForTargetProbability.TargetProbability, "Rekenwaarde Tp - {0}", presentedMetaDataItems);
+                }
+
+                int expectedMetaDataCount = 5 + (3 * failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Count);
+                Assert.AreEqual(expectedMetaDataCount, mapFeature.MetaData.Keys.Count);
             }
+        }
+
+        private static void AssertMetaData(IEnumerable<DuneLocationCalculation> calculations, DuneLocation hydraulicBoundaryLocation,
+                                           Func<IEnumerable<DuneLocationCalculation>, DuneLocation, string> getExpectedResultFunc,
+                                           MapFeature mapFeature, double targetProbability, string displayName, List<string> presentedMetaDataItems)
+        {
+            string uniqueName = NamingHelper.GetUniqueName(
+                presentedMetaDataItems, string.Format(displayName, ProbabilityFormattingHelper.Format(targetProbability)),
+                v => v);
+
+            MapFeaturesMetaDataTestHelper.AssertMetaData(
+                getExpectedResultFunc(calculations, hydraulicBoundaryLocation),
+                mapFeature, uniqueName);
+
+            presentedMetaDataItems.Add(uniqueName);
         }
 
         private static string GetExpectedWaterLevel(IEnumerable<DuneLocationCalculation> calculations,

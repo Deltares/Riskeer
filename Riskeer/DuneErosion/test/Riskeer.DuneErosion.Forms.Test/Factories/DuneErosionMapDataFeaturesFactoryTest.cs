@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
@@ -28,6 +30,7 @@ using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.DuneErosion.Forms.Factories;
 using Riskeer.DuneErosion.Forms.TestUtil;
+using Riskeer.DuneErosion.Forms.Views;
 
 namespace Riskeer.DuneErosion.Forms.Test.Factories
 {
@@ -38,7 +41,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
         public void CreateDuneLocationsFeatures_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(null);
+            TestDelegate call = () => DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures((DuneErosionFailureMechanism) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -78,6 +81,65 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
             // Call
             IEnumerable<MapFeature> features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(failureMechanism);
 
+            // Assert
+            DuneErosionMapFeaturesTestHelper.AssertDuneLocationFeaturesData(failureMechanism, features);
+        }
+
+        [Test]
+        public void CreateDuneLocationFeatures_LocationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures((IEnumerable<AggregatedDuneLocation>) null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("locations", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateDuneLocationFeatures_NoLocation_ReturnsEmptyFeaturesCollection()
+        {
+            // Call
+            IEnumerable<MapFeature> features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(Enumerable.Empty<AggregatedDuneLocation>());
+
+            // Assert
+            CollectionAssert.IsEmpty(features);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateDuneLocationFeatures_WithLocations_ReturnsLocationFeaturesCollection(bool withOutput)
+        {
+            // Setup
+            DuneLocation[] duneLocations =
+            {
+                CreateDuneLocation(1),
+                CreateDuneLocation(2)
+            };
+
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
+            {
+                new DuneLocationCalculationsForTargetProbability(0.1),
+                new DuneLocationCalculationsForTargetProbability(0.001)
+            });
+            failureMechanism.SetDuneLocations(duneLocations);
+
+            if (withOutput)
+            {
+                DuneLocationsTestHelper.SetDuneLocationCalculationOutput(failureMechanism);
+            }
+
+            IEnumerable<AggregatedDuneLocation> aggregatedLocations = AggregatedDuneLocationFactory.CreateAggregatedDuneLocations(
+                failureMechanism.DuneLocations,
+                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.ToDictionary(
+                    tp => (IObservableEnumerable<DuneLocationCalculation>) tp.DuneLocationCalculations,
+                    tp => tp.TargetProbability));
+
+            // Call
+            IEnumerable<MapFeature> features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(aggregatedLocations);
+            
             // Assert
             DuneErosionMapFeaturesTestHelper.AssertDuneLocationFeaturesData(failureMechanism, features);
         }

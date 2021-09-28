@@ -60,6 +60,22 @@ namespace Riskeer.DuneErosion.Forms.Factories
                                                 .ToArray();
         }
 
+        /// <summary>
+        /// Create dune location features based on the provided <paramref name="locations"/>.
+        /// </summary>
+        /// <param name="locations">The collection of <see cref="AggregatedDuneLocation"/> to create the location features for.</param>
+        /// <returns>A collection of features.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
+        public static IEnumerable<MapFeature> CreateDuneLocationFeatures(IEnumerable<AggregatedDuneLocation> locations)
+        {
+            if (locations == null)
+            {
+                throw new ArgumentNullException(nameof(locations));
+            }
+
+            return locations.Select(CreateDuneLocationFeature).ToArray();
+        }
+
         private static MapFeature CreateDuneLocationFeature(AggregatedDuneLocation location)
         {
             MapFeature feature = RiskeerMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
@@ -70,23 +86,12 @@ namespace Riskeer.DuneErosion.Forms.Factories
                                                                                    CultureInfo.CurrentCulture);
             feature.MetaData[Resources.MetaData_D50] = location.D50.ToString();
 
-            feature.MetaData[Resources.MetaData_WaterLevelForMechanismSpecificFactorizedSignalingNorm] = location.WaterLevelForMechanismSpecificFactorizedSignalingNorm.ToString();
-            feature.MetaData[Resources.MetaData_WaterLevelForMechanismSpecificSignalingNorm] = location.WaterLevelForMechanismSpecificSignalingNorm.ToString();
-            feature.MetaData[Resources.MetaData_WaterLevelForMechanismSpecificLowerLimitNorm] = location.WaterLevelForMechanismSpecificLowerLimitNorm.ToString();
-            feature.MetaData[Resources.MetaData_WaterLevelForLowerLimitNorm] = location.WaterLevelForLowerLimitNorm.ToString();
-            feature.MetaData[Resources.MetaData_WaterLevelForFactorizedLowerLimitNorm] = location.WaterLevelForFactorizedLowerLimitNorm.ToString();
-
-            feature.MetaData[Resources.MetaData_WaveHeightForMechanismSpecificFactorizedSignalingNorm] = location.WaveHeightForMechanismSpecificFactorizedSignalingNorm.ToString();
-            feature.MetaData[Resources.MetaData_WaveHeightForMechanismSpecificSignalingNorm] = location.WaveHeightForMechanismSpecificSignalingNorm.ToString();
-            feature.MetaData[Resources.MetaData_WaveHeightForMechanismSpecificLowerLimitNorm] = location.WaveHeightForMechanismSpecificLowerLimitNorm.ToString();
-            feature.MetaData[Resources.MetaData_WaveHeightForLowerLimitNorm] = location.WaveHeightForLowerLimitNorm.ToString();
-            feature.MetaData[Resources.MetaData_WaveHeightForFactorizedLowerLimitNorm] = location.WaveHeightForFactorizedLowerLimitNorm.ToString();
-
-            feature.MetaData[Resources.MetaData_WavePeriodForMechanismSpecificFactorizedSignalingNorm] = location.WavePeriodForMechanismSpecificFactorizedSignalingNorm.ToString();
-            feature.MetaData[Resources.MetaData_WavePeriodForMechanismSpecificSignalingNorm] = location.WavePeriodForMechanismSpecificSignalingNorm.ToString();
-            feature.MetaData[Resources.MetaData_WavePeriodForMechanismSpecificLowerLimitNorm] = location.WavePeriodForMechanismSpecificLowerLimitNorm.ToString();
-            feature.MetaData[Resources.MetaData_WavePeriodForLowerLimitNorm] = location.WavePeriodForLowerLimitNorm.ToString();
-            feature.MetaData[Resources.MetaData_WavePeriodForFactorizedLowerLimitNorm] = location.WavePeriodForFactorizedLowerLimitNorm.ToString();
+            HydraulicBoundaryLocationMapDataFeaturesFactory.AddTargetProbabilityMetaData(feature, location.WaterLevelCalculationsForTargetProbabilities,
+                                                                                         Resources.MetaData_WaterLevel_TargetProbability_0);
+            HydraulicBoundaryLocationMapDataFeaturesFactory.AddTargetProbabilityMetaData(feature, location.WaveHeightCalculationsForTargetProbabilities,
+                                                                                         Resources.MetaData_WaveHeight_TargetProbability_0);
+            HydraulicBoundaryLocationMapDataFeaturesFactory.AddTargetProbabilityMetaData(feature, location.WavePeriodCalculationsForTargetProbabilities,
+                                                                                         Resources.MetaData_WavePeriod_TargetProbability_0);
 
             return feature;
         }

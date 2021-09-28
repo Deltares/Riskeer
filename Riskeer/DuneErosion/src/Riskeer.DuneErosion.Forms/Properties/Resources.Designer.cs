@@ -226,137 +226,29 @@ namespace Riskeer.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde h gr.Vv.
+        ///   Looks up a localized string similar to Rekenwaarde h - {0}.
         /// </summary>
-        internal static string MetaData_WaterLevelForFactorizedLowerLimitNorm {
+        internal static string MetaData_WaterLevel_TargetProbability_0 {
             get {
-                return ResourceManager.GetString("MetaData_WaterLevelForFactorizedLowerLimitNorm", resourceCulture);
+                return ResourceManager.GetString("MetaData_WaterLevel_TargetProbability_0", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde h gr.IVv.
+        ///   Looks up a localized string similar to Rekenwaarde Hs - {0}.
         /// </summary>
-        internal static string MetaData_WaterLevelForLowerLimitNorm {
+        internal static string MetaData_WaveHeight_TargetProbability_0 {
             get {
-                return ResourceManager.GetString("MetaData_WaterLevelForLowerLimitNorm", resourceCulture);
+                return ResourceManager.GetString("MetaData_WaveHeight_TargetProbability_0", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde h gr.Iv.
+        ///   Looks up a localized string similar to Rekenwaarde Tp - {0}.
         /// </summary>
-        internal static string MetaData_WaterLevelForMechanismSpecificFactorizedSignalingNorm {
+        internal static string MetaData_WavePeriod_TargetProbability_0 {
             get {
-                return ResourceManager.GetString("MetaData_WaterLevelForMechanismSpecificFactorizedSignalingNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde h gr.IIIv.
-        /// </summary>
-        internal static string MetaData_WaterLevelForMechanismSpecificLowerLimitNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WaterLevelForMechanismSpecificLowerLimitNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde h gr.IIv.
-        /// </summary>
-        internal static string MetaData_WaterLevelForMechanismSpecificSignalingNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WaterLevelForMechanismSpecificSignalingNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Hs gr.Vv.
-        /// </summary>
-        internal static string MetaData_WaveHeightForFactorizedLowerLimitNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WaveHeightForFactorizedLowerLimitNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Hs gr.IVv.
-        /// </summary>
-        internal static string MetaData_WaveHeightForLowerLimitNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WaveHeightForLowerLimitNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Hs gr.Iv.
-        /// </summary>
-        internal static string MetaData_WaveHeightForMechanismSpecificFactorizedSignalingNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WaveHeightForMechanismSpecificFactorizedSignalingNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Hs gr.IIIv.
-        /// </summary>
-        internal static string MetaData_WaveHeightForMechanismSpecificLowerLimitNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WaveHeightForMechanismSpecificLowerLimitNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Hs gr.IIv.
-        /// </summary>
-        internal static string MetaData_WaveHeightForMechanismSpecificSignalingNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WaveHeightForMechanismSpecificSignalingNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Tp gr.Vv.
-        /// </summary>
-        internal static string MetaData_WavePeriodForFactorizedLowerLimitNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WavePeriodForFactorizedLowerLimitNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Tp gr.IVv.
-        /// </summary>
-        internal static string MetaData_WavePeriodForLowerLimitNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WavePeriodForLowerLimitNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Tp gr.Iv.
-        /// </summary>
-        internal static string MetaData_WavePeriodForMechanismSpecificFactorizedSignalingNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WavePeriodForMechanismSpecificFactorizedSignalingNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Tp gr.IIIv.
-        /// </summary>
-        internal static string MetaData_WavePeriodForMechanismSpecificLowerLimitNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WavePeriodForMechanismSpecificLowerLimitNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Tp gr.IIv.
-        /// </summary>
-        internal static string MetaData_WavePeriodForMechanismSpecificSignalingNorm {
-            get {
-                return ResourceManager.GetString("MetaData_WavePeriodForMechanismSpecificSignalingNorm", resourceCulture);
+                return ResourceManager.GetString("MetaData_WavePeriod_TargetProbability_0", resourceCulture);
             }
         }
     }
