@@ -38,58 +38,10 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
     public class DuneErosionMapDataFeaturesFactoryTest
     {
         [Test]
-        public void CreateDuneLocationsFeatures_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures((DuneErosionFailureMechanism) null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
-        public void CreateDuneLocationFeatures_FailureMechanismWithoutDuneLocations_ReturnsEmptyFeaturesArray()
-        {
-            // Call
-            IEnumerable<MapFeature> features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(new DuneErosionFailureMechanism());
-
-            // Assert
-            CollectionAssert.IsEmpty(features);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CreateDuneLocationsFeatures_WithFailureMechanism_ReturnFeatures(bool withOutput)
-        {
-            // Setup
-            DuneLocation[] duneLocations =
-            {
-                CreateDuneLocation(1),
-                CreateDuneLocation(2)
-            };
-
-            var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(duneLocations);
-
-            if (withOutput)
-            {
-                DuneLocationsTestHelper.SetDuneLocationCalculationOutput(failureMechanism);
-            }
-
-            // Call
-            IEnumerable<MapFeature> features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(failureMechanism);
-
-            // Assert
-            DuneErosionMapFeaturesTestHelper.AssertDuneLocationFeaturesData(failureMechanism, features);
-        }
-
-        [Test]
         public void CreateDuneLocationFeatures_LocationsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures((IEnumerable<AggregatedDuneLocation>) null);
+            void Call() => DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);

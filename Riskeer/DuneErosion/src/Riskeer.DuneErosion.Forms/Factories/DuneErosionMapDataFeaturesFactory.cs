@@ -42,25 +42,6 @@ namespace Riskeer.DuneErosion.Forms.Factories
     internal static class DuneErosionMapDataFeaturesFactory
     {
         /// <summary>
-        /// Create dune location features based on the provided <paramref name="failureMechanism"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> to create the location features for.</param>
-        /// <returns>A collection of features or an empty collection when <see cref="DuneErosionFailureMechanism"/> does not contain
-        /// any dune locations.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<MapFeature> CreateDuneLocationFeatures(DuneErosionFailureMechanism failureMechanism)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            return AggregatedDuneLocationFactory.CreateAggregatedDuneLocations(failureMechanism)
-                                                .Select(CreateDuneLocationFeature)
-                                                .ToArray();
-        }
-
-        /// <summary>
         /// Create dune location features based on the provided <paramref name="locations"/>.
         /// </summary>
         /// <param name="locations">The collection of <see cref="AggregatedDuneLocation"/> to create the location features for.</param>
