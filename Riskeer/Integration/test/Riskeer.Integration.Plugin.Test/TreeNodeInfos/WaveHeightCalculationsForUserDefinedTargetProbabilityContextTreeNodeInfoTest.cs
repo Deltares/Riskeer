@@ -97,13 +97,27 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_WithContext_ReturnsFormattedTargetProbability()
+        [TestCase(0.025, 0.0025, "1/400")]
+        [TestCase(0.0025, 0.0025, "1/400 (2)")]
+        public void Text_WithContext_ReturnsUniquelyFormattedTargetProbability(double userDefinedTargetProbability1,
+                                                                               double userDefinedTargetProbability2,
+                                                                               string expectedText)
         {
             // Setup
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability2);
+
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
+
+            assessmentSection.Stub(a => a.WaveHeightCalculationsForUserDefinedTargetProbabilities).Return(
+                new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
+                {
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability1),
+                    calculationsForTargetProbability
+                });
+
             mockRepository.ReplayAll();
 
-            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
+            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
                                                                                            assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
@@ -114,7 +128,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 string text = info.Text(context);
 
                 // Assert
-                Assert.AreEqual("1/100", text);
+                Assert.AreEqual(expectedText, text);
             }
 
             mockRepository.VerifyAll();
