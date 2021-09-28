@@ -35,7 +35,7 @@ namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
     internal static class WaveImpactAsphaltCoverWaveConditionsCalculationCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationEntity"/> based on the information of the 
+        /// Creates a <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationEntity"/> based on the information of the
         /// <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>.
         /// </summary>
         /// <param name="calculation">The calculation to create a database entity for.</param>
@@ -100,7 +100,6 @@ namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
             entity.UpperBoundaryWaterLevels = calculationInput.UpperBoundaryWaterLevels.ToNaNAsNull();
             entity.LowerBoundaryWaterLevels = calculationInput.LowerBoundaryWaterLevels.ToNaNAsNull();
             entity.StepSize = Convert.ToByte(calculationInput.StepSize);
-            entity.CategoryType = Convert.ToByte(calculationInput.CategoryType);
             entity.WaterLevelType = Convert.ToByte(calculationInput.WaterLevelType);
         }
 

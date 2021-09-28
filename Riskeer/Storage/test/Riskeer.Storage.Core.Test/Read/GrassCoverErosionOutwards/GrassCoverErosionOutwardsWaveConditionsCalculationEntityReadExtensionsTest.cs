@@ -103,7 +103,6 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
                 UpperBoundaryWaterLevels = upperBoundaryWaterLevels,
                 LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
                 StepSize = Convert.ToByte(stepSize),
-                CategoryType = Convert.ToByte(categoryType),
                 CalculationType = Convert.ToByte(calculationType),
                 WaterLevelType = Convert.ToByte(waterLevelType)
             };

@@ -102,7 +102,6 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
                 UpperBoundaryWaterLevels = upperBoundaryWaterLevels,
                 LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
                 StepSize = Convert.ToByte(stepSize),
-                CategoryType = Convert.ToByte(categoryType),
                 WaterLevelType = Convert.ToByte(waterLevelType)
             };
 

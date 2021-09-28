@@ -34,7 +34,7 @@ namespace Riskeer.Storage.Core.Create.StabilityStoneCover
     internal static class StabilityStoneCoverWaveConditionsCalculationCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="StabilityStoneCoverWaveConditionsCalculationEntity"/> based on the information of the 
+        /// Creates a <see cref="StabilityStoneCoverWaveConditionsCalculationEntity"/> based on the information of the
         /// <see cref="StabilityStoneCoverWaveConditionsCalculation"/>.
         /// </summary>
         /// <param name="calculation">The calculation to create a database entity for.</param>
@@ -98,7 +98,6 @@ namespace Riskeer.Storage.Core.Create.StabilityStoneCover
             entity.UpperBoundaryWaterLevels = calculationInput.UpperBoundaryWaterLevels.ToNaNAsNull();
             entity.LowerBoundaryWaterLevels = calculationInput.LowerBoundaryWaterLevels.ToNaNAsNull();
             entity.StepSize = Convert.ToByte(calculationInput.StepSize);
-            entity.CategoryType = Convert.ToByte(calculationInput.CategoryType);
             entity.CalculationType = Convert.ToByte(calculationInput.CalculationType);
             entity.WaterLevelType = Convert.ToByte(calculationInput.WaterLevelType);
         }

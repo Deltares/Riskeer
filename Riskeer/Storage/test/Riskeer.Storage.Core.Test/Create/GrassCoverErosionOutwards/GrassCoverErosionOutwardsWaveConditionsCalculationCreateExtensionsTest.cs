@@ -105,7 +105,6 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
             Assert.AreEqual(input.UpperBoundaryWaterLevels, entity.UpperBoundaryWaterLevels, input.UpperBoundaryWaterLevels.GetAccuracy());
             Assert.AreEqual(input.LowerBoundaryWaterLevels, entity.LowerBoundaryWaterLevels, input.LowerBoundaryWaterLevels.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(input.StepSize), entity.StepSize);
-            Assert.AreEqual(Convert.ToByte(input.CategoryType), entity.CategoryType);
             Assert.AreEqual(Convert.ToByte(input.CalculationType), entity.CalculationType);
             Assert.AreEqual(Convert.ToByte(input.WaterLevelType), entity.WaterLevelType);
 
