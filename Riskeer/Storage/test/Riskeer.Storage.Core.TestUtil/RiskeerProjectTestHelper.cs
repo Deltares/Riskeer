@@ -1960,7 +1960,6 @@ namespace Riskeer.Storage.Core.TestUtil
                             UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
                             LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
                             StepSize = WaveConditionsInputStepSize.Two,
-                            CategoryType = FailureMechanismCategoryType.FactorizedLowerLimitNorm,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact,
                             WaterLevelType = WaveConditionsInputWaterLevelType.None
                         }
@@ -1990,7 +1989,6 @@ namespace Riskeer.Storage.Core.TestUtil
                             UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
                             LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
                             StepSize = WaveConditionsInputStepSize.Two,
-                            CategoryType = FailureMechanismCategoryType.FactorizedLowerLimitNorm,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact,
                             WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability
                         }
@@ -2026,7 +2024,6 @@ namespace Riskeer.Storage.Core.TestUtil
                         UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One,
-                        CategoryType = FailureMechanismCategoryType.LowerLimitNorm,
                         CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact,
                         WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
                     },
@@ -2106,7 +2103,6 @@ namespace Riskeer.Storage.Core.TestUtil
                             UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
                             LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
                             StepSize = WaveConditionsInputStepSize.Two,
-                            CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
                             CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Columns,
                             WaterLevelType = WaveConditionsInputWaterLevelType.None
                         }
@@ -2136,7 +2132,6 @@ namespace Riskeer.Storage.Core.TestUtil
                             UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
                             LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
                             StepSize = WaveConditionsInputStepSize.Two,
-                            CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
                             CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Columns,
                             WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability
                         }
@@ -2172,7 +2167,6 @@ namespace Riskeer.Storage.Core.TestUtil
                         UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One,
-                        CategoryType = AssessmentSectionCategoryType.SignalingNorm,
                         WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
                     },
                     Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
@@ -2244,7 +2238,6 @@ namespace Riskeer.Storage.Core.TestUtil
                             UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
                             LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
                             StepSize = WaveConditionsInputStepSize.Two,
-                            CategoryType = AssessmentSectionCategoryType.SignalingNorm,
                             WaterLevelType = WaveConditionsInputWaterLevelType.None
                         }
                     },
@@ -2273,7 +2266,6 @@ namespace Riskeer.Storage.Core.TestUtil
                             UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
                             LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
                             StepSize = WaveConditionsInputStepSize.Two,
-                            CategoryType = AssessmentSectionCategoryType.SignalingNorm,
                             WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability
                         }
                     }
@@ -2308,7 +2300,6 @@ namespace Riskeer.Storage.Core.TestUtil
                         UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One,
-                        CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
                         WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
                     },
                     Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
