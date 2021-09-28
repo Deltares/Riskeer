@@ -127,10 +127,11 @@ SELECT
     [LowerBoundaryWaterLevels],
     [StepSize],
     [CalculationType],
-    CASE WHEN [CategoryType] = 4
-        THEN 2
-    ELSE 
-        1
+    CASE 
+        WHEN [CategoryType] = 4
+            THEN 2
+        ELSE 
+            1
     END
 FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
 INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity;
@@ -256,12 +257,13 @@ SELECT
     [LowerBoundaryWaterLevels],
     [StepSize],
     [CalculationType],
-    CASE WHEN [CategoryType] = 2
-             THEN 3
+    CASE
+        WHEN [CategoryType] = 2
+            THEN 3
         WHEN [CategoryType] = 3
             THEN 2
-         ELSE
-             1
+        ELSE
+            1
     END
 FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;
 INSERT INTO StochastEntity SELECT * FROM [SOURCEPROJECT].StochastEntity;
@@ -327,12 +329,13 @@ SELECT
     [UpperBoundaryWaterLevels],
     [LowerBoundaryWaterLevels],
     [StepSize],
-    CASE WHEN [CategoryType] = 2
-             THEN 3
+    CASE 
+        WHEN [CategoryType] = 2
+            THEN 3
          WHEN [CategoryType] = 3
-             THEN 2
+            THEN 2
          ELSE
-             1
+            1
     END
 FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
 
