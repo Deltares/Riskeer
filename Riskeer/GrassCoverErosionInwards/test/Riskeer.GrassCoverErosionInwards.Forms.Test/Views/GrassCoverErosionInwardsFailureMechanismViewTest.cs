@@ -53,9 +53,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         private const int foreshoreProfilesIndex = 3;
         private const int calculationsIndex = 4;
 
-        private const int dikeProfilesObserverIndex = 2;
-        private const int foreshoreProfileObserverIndex = 3;
-        private const int calculationObserverIndex = 4;
+        private const int dikeProfilesObserverIndex = 1;
+        private const int foreshoreProfileObserverIndex = 2;
+        private const int calculationObserverIndex = 3;
 
         private Form testForm;
 
@@ -715,9 +715,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
-            var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
-
             var dikeProfilesObserver = mocks.StrictMock<IObserver>();
             mapDataArray[dikeProfilesIndex].Attach(dikeProfilesObserver);
 
@@ -730,7 +727,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             return new[]
             {
                 referenceLineMapDataObserver,
-                hydraulicBoundaryLocationsMapDataObserver,
                 dikeProfilesObserver,
                 foreshoreProfilesObserver,
                 calculationsMapDataObserver

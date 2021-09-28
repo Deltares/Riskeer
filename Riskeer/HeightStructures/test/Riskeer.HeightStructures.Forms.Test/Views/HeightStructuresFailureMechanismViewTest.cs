@@ -54,9 +54,9 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         private const int structuresIndex = 3;
         private const int calculationsIndex = 4;
 
-        private const int foreshoreProfilesObserverIndex = 2;
-        private const int structuresObserverIndex = 3;
-        private const int calculationObserverIndex = 4;
+        private const int foreshoreProfilesObserverIndex = 1;
+        private const int structuresObserverIndex = 2;
+        private const int calculationObserverIndex = 3;
 
         private Form testForm;
 
@@ -713,9 +713,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
-            var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
-
             var foreshoreProfilesMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[foreshoreProfilesIndex].Attach(foreshoreProfilesMapDataObserver);
 
@@ -728,7 +725,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             return new[]
             {
                 referenceLineMapDataObserver,
-                hydraulicBoundaryLocationsMapDataObserver,
                 foreshoreProfilesMapDataObserver,
                 structuresMapDataObserver,
                 calculationsMapDataObserver

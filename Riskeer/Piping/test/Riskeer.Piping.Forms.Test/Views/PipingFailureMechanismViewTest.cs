@@ -66,11 +66,11 @@ namespace Riskeer.Piping.Forms.Test.Views
         private const int sectionsStartPointIndex = 1;
         private const int sectionsEndPointIndex = 2;
 
-        private const int semiProbabilisticCalculationObserverIndex = 4;
-        private const int probabilisticCalculationObserverIndex = 5;
-        private const int sectionsObserverIndex = 6;
-        private const int sectionsStartPointObserverIndex = 7;
-        private const int sectionsEndPointObserverIndex = 8;
+        private const int semiProbabilisticCalculationObserverIndex = 3;
+        private const int probabilisticCalculationObserverIndex = 4;
+        private const int sectionsObserverIndex = 5;
+        private const int sectionsStartPointObserverIndex = 6;
+        private const int sectionsEndPointObserverIndex = 7;
 
         private Form testForm;
 
@@ -994,9 +994,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             var surfaceLinesMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[surfaceLinesIndex].Attach(surfaceLinesMapDataObserver);
 
-            var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
-
             var probabilisticCalculationsMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[probabilisticCalculationsIndex].Attach(probabilisticCalculationsMapDataObserver);
 
@@ -1018,7 +1015,6 @@ namespace Riskeer.Piping.Forms.Test.Views
                 referenceLineMapDataObserver,
                 stochasticSoilModelsMapDataObserver,
                 surfaceLinesMapDataObserver,
-                hydraulicBoundaryLocationsMapDataObserver,
                 semiProbabilisticCalculationsMapDataObserver,
                 probabilisticCalculationsMapDataObserver,
                 sectionsMapDataObserver,

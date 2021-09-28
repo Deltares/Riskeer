@@ -51,8 +51,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
         private const int foreshoreProfilesIndex = 2;
         private const int calculationsIndex = 3;
 
-        private const int foreshoreProfileObserverIndex = 2;
-        private const int calculationObserverIndex = 3;
+        private const int foreshoreProfileObserverIndex = 1;
+        private const int calculationObserverIndex = 2;
 
         private Form testForm;
 
@@ -664,9 +664,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
-            var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
-
             var foreshoreProfilesMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[foreshoreProfilesIndex].Attach(foreshoreProfilesMapDataObserver);
 
@@ -676,7 +673,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             return new[]
             {
                 referenceLineMapDataObserver,
-                hydraulicBoundaryLocationsMapDataObserver,
                 foreshoreProfilesMapDataObserver,
                 calculationsMapDataObserver
             };

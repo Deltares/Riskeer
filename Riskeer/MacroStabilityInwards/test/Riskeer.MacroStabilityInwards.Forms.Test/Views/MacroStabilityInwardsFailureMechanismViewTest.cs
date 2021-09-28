@@ -56,7 +56,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         private const int hydraulicBoundaryLocationsIndex = 3;
         private const int calculationsIndex = 4;
 
-        private const int calculationObserverIndex = 4;
+        private const int calculationObserverIndex = 3;
 
         private Form testForm;
 
@@ -762,9 +762,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var surfaceLinesMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[surfaceLinesIndex].Attach(surfaceLinesMapDataObserver);
 
-            var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
-
             var calculationsMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[calculationsIndex].Attach(calculationsMapDataObserver);
 
@@ -773,7 +770,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 referenceLineMapDataObserver,
                 stochasticSoilModelsMapDataObserver,
                 surfaceLinesMapDataObserver,
-                hydraulicBoundaryLocationsMapDataObserver,
                 calculationsMapDataObserver
             };
         }
