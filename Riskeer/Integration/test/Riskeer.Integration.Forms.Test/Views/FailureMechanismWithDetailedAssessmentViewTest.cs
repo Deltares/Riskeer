@@ -58,13 +58,13 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int simpleAssemblyIndex = 2;
         private const int combinedAssemblyIndex = 3;
 
-        private const int sectionsObserverIndex = 2;
-        private const int sectionsStartPointObserverIndex = 3;
-        private const int sectionsEndPointObserverIndex = 4;
-        private const int simpleAssemblyObserverIndex = 5;
-        private const int detailedAssemblyObserverIndex = 6;
-        private const int tailorMadeAssemblyObserverIndex = 7;
-        private const int combinedAssemblyObserverIndex = 8;
+        private const int sectionsObserverIndex = 1;
+        private const int sectionsStartPointObserverIndex = 2;
+        private const int sectionsEndPointObserverIndex = 3;
+        private const int simpleAssemblyObserverIndex = 4;
+        private const int detailedAssemblyObserverIndex = 5;
+        private const int tailorMadeAssemblyObserverIndex = 6;
+        private const int combinedAssemblyObserverIndex = 7;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -783,9 +783,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
-            var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
-
             MapData[] sectionsCollection = ((MapDataCollection) mapDataArray[sectionsCollectionIndex]).Collection.ToArray();
             var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
             sectionsCollection[sectionsIndex].Attach(sectionsMapDataObserver);
@@ -812,7 +809,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             return new[]
             {
                 referenceLineMapDataObserver,
-                hydraulicBoundaryLocationsMapDataObserver,
                 sectionsMapDataObserver,
                 sectionsStartPointMapDataObserver,
                 sectionsEndPointMapDataObserver,

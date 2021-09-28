@@ -61,6 +61,8 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int hydraulicBoundaryLocationsIndex = 1;
         private const int assemblyResultsIndex = 2;
 
+        private const int assemblyResultsObserverIndex = 1;
+
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
@@ -196,7 +198,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
                 observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-                observers[assemblyResultsIndex].Expect(obs => obs.UpdateObserver());
+                observers[assemblyResultsObserverIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 var referenceLineMapData = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
@@ -228,7 +230,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 var mocks = new MockRepository();
                 IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[assemblyResultsIndex].Expect(obs => obs.UpdateObserver());
+                observers[assemblyResultsObserverIndex].Expect(obs => obs.UpdateObserver());
                 observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
@@ -276,7 +278,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     var mocks = new MockRepository();
                     IObserver[] observers = AttachMapDataObservers(mocks, mapData.Collection);
                     observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
-                    observers[assemblyResultsIndex].Expect(obs => obs.UpdateObserver());
+                    observers[assemblyResultsObserverIndex].Expect(obs => obs.UpdateObserver());
                     mocks.ReplayAll();
 
                     IEnumerable<CombinedFailureMechanismSectionAssemblyResult> expectedResults =
@@ -327,7 +329,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                     var mocks = new MockRepository();
                     IObserver[] observers = AttachMapDataObservers(mocks, mapData.Collection);
-                    observers[assemblyResultsIndex].Expect(obs => obs.UpdateObserver());
+                    observers[assemblyResultsObserverIndex].Expect(obs => obs.UpdateObserver());
                     observers[referenceLineIndex].Expect(obs => obs.UpdateObserver());
                     mocks.ReplayAll();
 
@@ -546,16 +548,12 @@ namespace Riskeer.Integration.Forms.Test.Views
             var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
-            var hydraulicBoundaryLocationsMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[hydraulicBoundaryLocationsIndex].Attach(hydraulicBoundaryLocationsMapDataObserver);
-
             var assemblyResultsObserver = mocks.StrictMock<IObserver>();
             mapDataArray[assemblyResultsIndex].Attach(assemblyResultsObserver);
 
             return new[]
             {
                 referenceLineMapDataObserver,
-                hydraulicBoundaryLocationsMapDataObserver,
                 assemblyResultsObserver
             };
         }
