@@ -59,44 +59,47 @@ namespace Riskeer.Common.Forms.Test.Views
             });
 
             // Call
-            var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
-
-            // Assert
-            Assert.IsInstanceOf<IDisposable>(mapLayer);
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+            using (var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection))
+            {
+                // Assert
+                Assert.IsInstanceOf<IDisposable>(mapLayer);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+            }
         }
 
         [Test]
         public void GivenMapLayerWithHydraulicBoundaryLocations_WhenChangingHydraulicBoundaryLocationsDataAndObserversNotified_ThenMapDataUpdated()
         {
             // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
             });
 
-            var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
-
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            mapLayer.MapData.Attach(observer);
-
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
-
-            // When
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            using (var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection))
             {
-                new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
-            });
-            assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
+                mapLayer.MapData.Attach(observer);
 
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+
+                // When
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
+                });
+                assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
+
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+            }
+
             mocks.VerifyAll();
         }
 
@@ -106,6 +109,11 @@ namespace Riskeer.Common.Forms.Test.Views
             Func<IAssessmentSection, HydraulicBoundaryLocationCalculation> getCalculationFunc)
         {
             // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -113,25 +121,22 @@ namespace Riskeer.Common.Forms.Test.Views
                 hydraulicBoundaryLocation
             });
 
-            var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
+            using (var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection))
+            {
+                mapLayer.MapData.Attach(observer);
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
 
-            mapLayer.MapData.Attach(observer);
+                // When
+                HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
+                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
+                calculation.NotifyObservers();
 
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+            }
 
-            // When
-            HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
-            calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
-            calculation.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             mocks.VerifyAll();
         }
 
@@ -141,6 +146,11 @@ namespace Riskeer.Common.Forms.Test.Views
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc)
         {
             // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -148,28 +158,25 @@ namespace Riskeer.Common.Forms.Test.Views
                 hydraulicBoundaryLocation
             });
 
-            var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
+            using (var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection))
+            {
+                mapLayer.MapData.Attach(observer);
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
 
-            mapLayer.MapData.Attach(observer);
+                // When
+                ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
+                var newTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+                newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(assessmentSection.HydraulicBoundaryDatabase.Locations
+                                                                                                     .Select(l => new HydraulicBoundaryLocationCalculation(l)));
+                targetProbabilities.Add(newTargetProbability);
+                targetProbabilities.NotifyObservers();
 
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+            }
 
-            // When
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
-            var newTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
-            newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(assessmentSection.HydraulicBoundaryDatabase.Locations
-                                                                                                 .Select(l => new HydraulicBoundaryLocationCalculation(l)));
-            targetProbabilities.Add(newTargetProbability);
-            targetProbabilities.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             mocks.VerifyAll();
         }
 
@@ -179,6 +186,11 @@ namespace Riskeer.Common.Forms.Test.Views
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc)
         {
             // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -186,25 +198,22 @@ namespace Riskeer.Common.Forms.Test.Views
                 hydraulicBoundaryLocation
             });
 
-            var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
+            using (var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection))
+            {
+                mapLayer.MapData.Attach(observer);
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
 
-            mapLayer.MapData.Attach(observer);
+                // When
+                ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
+                targetProbabilities.First().TargetProbability = 0.01;
+                targetProbabilities.First().NotifyObservers();
 
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+            }
 
-            // When
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
-            targetProbabilities.First().TargetProbability = 0.01;
-            targetProbabilities.First().NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             mocks.VerifyAll();
         }
 
@@ -214,6 +223,11 @@ namespace Riskeer.Common.Forms.Test.Views
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc)
         {
             // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -221,33 +235,30 @@ namespace Riskeer.Common.Forms.Test.Views
                 hydraulicBoundaryLocation
             });
 
-            var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
+            using (var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection))
+            {
+                ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
+                var newTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+                newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(assessmentSection.HydraulicBoundaryDatabase.Locations
+                                                                                                     .Select(l => new HydraulicBoundaryLocationCalculation(l))
+                                                                                                     .ToArray());
+                targetProbabilities.Add(newTargetProbability);
+                targetProbabilities.NotifyObservers();
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+                mapLayer.MapData.Attach(observer);
 
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
-            var newTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
-            newTargetProbability.HydraulicBoundaryLocationCalculations.AddRange(assessmentSection.HydraulicBoundaryDatabase.Locations
-                                                                                                 .Select(l => new HydraulicBoundaryLocationCalculation(l))
-                                                                                                 .ToArray());
-            targetProbabilities.Add(newTargetProbability);
-            targetProbabilities.NotifyObservers();
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
 
-            mapLayer.MapData.Attach(observer);
+                // When
+                HydraulicBoundaryLocationCalculation calculation = newTargetProbability.HydraulicBoundaryLocationCalculations.First();
+                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
+                calculation.NotifyObservers();
 
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+            }
 
-            // When
-            HydraulicBoundaryLocationCalculation calculation = newTargetProbability.HydraulicBoundaryLocationCalculations.First();
-            calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
-            calculation.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             mocks.VerifyAll();
         }
 
@@ -257,6 +268,10 @@ namespace Riskeer.Common.Forms.Test.Views
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc)
         {
             // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -264,29 +279,27 @@ namespace Riskeer.Common.Forms.Test.Views
                 hydraulicBoundaryLocation
             });
 
-            var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
+            using (var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection))
+            {
+                ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
+                HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability = targetProbabilities.First();
+                targetProbabilities.Remove(targetProbability);
+                targetProbabilities.NotifyObservers();
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
+                mapLayer.MapData.Attach(observer);
 
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
-            HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability = targetProbabilities.First();
-            targetProbabilities.Remove(targetProbability);
-            targetProbabilities.NotifyObservers();
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
 
-            mapLayer.MapData.Attach(observer);
+                // When
+                HydraulicBoundaryLocationCalculation calculation = targetProbability.HydraulicBoundaryLocationCalculations.First();
+                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
+                calculation.NotifyObservers();
 
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+            }
 
-            // When
-            HydraulicBoundaryLocationCalculation calculation = targetProbability.HydraulicBoundaryLocationCalculations.First();
-            calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
-            calculation.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
             mocks.VerifyAll();
         }
 
@@ -295,6 +308,11 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenMapLayerWithHydraulicBoundaryLocationsData_WhenSelectedTargetProbabilityRemovedAndNotified_ThenMapDataUpdatedSelectedMetaDataAttributeResetToDefault(
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc, string displayName)
         {
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -302,30 +320,27 @@ namespace Riskeer.Common.Forms.Test.Views
                 hydraulicBoundaryLocation
             });
 
-            var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
+            using (var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection))
+            {
+                ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
+                HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = targetProbabilities.First();
+                mapLayer.MapData.SelectedMetaDataAttribute = string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability));
+                mapLayer.MapData.NotifyObservers();
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+                mapLayer.MapData.Attach(observer);
 
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
-            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = targetProbabilities.First();
-            mapLayer.MapData.SelectedMetaDataAttribute = string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability));
-            mapLayer.MapData.NotifyObservers();
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
 
-            mapLayer.MapData.Attach(observer);
+                // When
+                targetProbabilities.Remove(calculationsForTargetProbability);
+                targetProbabilities.NotifyObservers();
 
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+                Assert.AreEqual("Naam", mapLayer.MapData.SelectedMetaDataAttribute);
+            }
 
-            // When
-            targetProbabilities.Remove(calculationsForTargetProbability);
-            targetProbabilities.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
-            Assert.AreEqual("Naam", mapLayer.MapData.SelectedMetaDataAttribute);
             mocks.VerifyAll();
         }
 
@@ -334,6 +349,11 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenMapLayerWithHydraulicBoundaryLocationsData_WhenNotSelectedTargetProbabilityRemovedAndNotified_ThenMapDataUpdated(
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc, string displayName)
         {
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -341,32 +361,29 @@ namespace Riskeer.Common.Forms.Test.Views
                 hydraulicBoundaryLocation
             });
 
-            var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
+            using (var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection))
+            {
+                ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
+                HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbabilityToRemove = targetProbabilities.First();
+                HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = targetProbabilities.Last();
+                mapLayer.MapData.SelectedMetaDataAttribute = string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability));
+                mapLayer.MapData.NotifyObservers();
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+                mapLayer.MapData.Attach(observer);
 
-            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities = getTargetProbabilitiesFunc(assessmentSection);
-            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbabilityToRemove = targetProbabilities.First();
-            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = targetProbabilities.Last();
-            mapLayer.MapData.SelectedMetaDataAttribute = string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability));
-            mapLayer.MapData.NotifyObservers();
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
 
-            mapLayer.MapData.Attach(observer);
+                // When
+                targetProbabilities.Remove(calculationsForTargetProbabilityToRemove);
+                targetProbabilities.NotifyObservers();
 
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+                Assert.AreEqual(string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability)),
+                                mapLayer.MapData.SelectedMetaDataAttribute);
+            }
 
-            // When
-            targetProbabilities.Remove(calculationsForTargetProbabilityToRemove);
-            targetProbabilities.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
-            Assert.AreEqual(string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability)),
-                            mapLayer.MapData.SelectedMetaDataAttribute);
             mocks.VerifyAll();
         }
 
@@ -375,6 +392,11 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenMapLayerWithHydraulicBoundaryLocationsData_WhenSelectedTargetProbabilityChangedAndNotified_ThenMapDataAndSelectedMetaDataAttributeUpdated(
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc, string displayName)
         {
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -382,29 +404,26 @@ namespace Riskeer.Common.Forms.Test.Views
                 hydraulicBoundaryLocation
             });
 
-            var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
+            using (var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection))
+            {
+                HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = getTargetProbabilitiesFunc(assessmentSection).First();
+                mapLayer.MapData.SelectedMetaDataAttribute = string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability));
+                mapLayer.MapData.NotifyObservers();
 
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+                mapLayer.MapData.Attach(observer);
 
-            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = getTargetProbabilitiesFunc(assessmentSection).First();
-            mapLayer.MapData.SelectedMetaDataAttribute = string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability));
-            mapLayer.MapData.NotifyObservers();
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
 
-            mapLayer.MapData.Attach(observer);
+                // When
+                calculationsForTargetProbability.TargetProbability = 0.0004;
+                calculationsForTargetProbability.NotifyObservers();
 
-            // Precondition
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+                Assert.AreEqual(string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability)), mapLayer.MapData.SelectedMetaDataAttribute);
+            }
 
-            // When
-            calculationsForTargetProbability.TargetProbability = 0.0004;
-            calculationsForTargetProbability.NotifyObservers();
-
-            // Then
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
-            Assert.AreEqual(string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability)), mapLayer.MapData.SelectedMetaDataAttribute);
             mocks.VerifyAll();
         }
 
