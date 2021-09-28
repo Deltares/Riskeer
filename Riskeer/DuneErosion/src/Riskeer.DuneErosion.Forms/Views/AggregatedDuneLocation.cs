@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
@@ -119,6 +120,66 @@ namespace Riskeer.DuneErosion.Forms.Views
             WavePeriodForMechanismSpecificLowerLimitNorm = wavePeriodForMechanismSpecificLowerLimitNorm;
             WavePeriodForLowerLimitNorm = wavePeriodForLowerLimitNorm;
             WavePeriodForFactorizedLowerLimitNorm = wavePeriodForFactorizedLowerLimitNorm;
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AggregatedDuneLocation"/>.
+        /// </summary>
+        /// <param name="id">The id of the dune location.</param>
+        /// <param name="name">The name of the dune location.</param>
+        /// <param name="location">The location of the dune location</param>
+        /// <param name="coastalAreaId">The coastal area id of the dune location.</param>
+        /// <param name="offset">The offset of the dune location.</param>
+        /// <param name="d50">The d50 of the dune location.</param>
+        /// <param name="waterLevelCalculationsForTargetProbabilities">The results of the
+        /// water level calculations for different target probabilities.</param>
+        /// <param name="waveHeightCalculationsForTargetProbabilities">The results of the
+        /// wave height calculations for different target probabilities.</param>
+        /// <param name="wavePeriodCalculationsForTargetProbabilities">The results of the
+        /// wave period calculations for different target probabilities.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>,
+        /// <paramref name="location"/>, <paramref name="waterLevelCalculationsForTargetProbabilities"/>,
+        /// <paramref name="waveHeightCalculationsForTargetProbabilities"/> or
+        /// <paramref name="wavePeriodCalculationsForTargetProbabilities"/> is <c>null</c>.</exception>
+        public AggregatedDuneLocation(long id, string name, Point2D location, int coastalAreaId, RoundedDouble offset, RoundedDouble d50,
+                                      IEnumerable<Tuple<double, RoundedDouble>> waterLevelCalculationsForTargetProbabilities,
+                                      IEnumerable<Tuple<double, RoundedDouble>> waveHeightCalculationsForTargetProbabilities,
+                                      IEnumerable<Tuple<double, RoundedDouble>> wavePeriodCalculationsForTargetProbabilities)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (location == null)
+            {
+                throw new ArgumentNullException(nameof(location));
+            }
+
+            if (waterLevelCalculationsForTargetProbabilities == null)
+            {
+                throw new ArgumentNullException(nameof(waterLevelCalculationsForTargetProbabilities));
+            }
+
+            if (waveHeightCalculationsForTargetProbabilities == null)
+            {
+                throw new ArgumentNullException(nameof(waveHeightCalculationsForTargetProbabilities));
+            }
+
+            if (wavePeriodCalculationsForTargetProbabilities == null)
+            {
+                throw new ArgumentNullException(nameof(wavePeriodCalculationsForTargetProbabilities));
+            }
+
+            Id = id;
+            Name = name;
+            Location = location;
+            CoastalAreaId = coastalAreaId;
+            Offset = offset;
+            D50 = d50;
+            WaterLevelCalculationsForTargetProbabilities = waterLevelCalculationsForTargetProbabilities;
+            WaveHeightCalculationsForTargetProbabilities = waveHeightCalculationsForTargetProbabilities;
+            WavePeriodCalculationsForTargetProbabilities = wavePeriodCalculationsForTargetProbabilities;
         }
 
         /// <summary>
@@ -225,5 +286,20 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// Gets the result of the wave period for the factorized lower limit norm.
         /// </summary>
         public RoundedDouble WavePeriodForFactorizedLowerLimitNorm { get; }
+
+        /// <summary>
+        /// Gets the results of the water level calculations for different target probabilities.
+        /// </summary>
+        public IEnumerable<Tuple<double, RoundedDouble>> WaterLevelCalculationsForTargetProbabilities { get; }
+
+        /// <summary>
+        /// Gets the results of the wave height calculations for different target probabilities.
+        /// </summary>
+        public IEnumerable<Tuple<double, RoundedDouble>> WaveHeightCalculationsForTargetProbabilities { get; }
+
+        /// <summary>
+        /// Gets the results of the wave period calculations for different target probabilities.
+        /// </summary>
+        public IEnumerable<Tuple<double, RoundedDouble>> WavePeriodCalculationsForTargetProbabilities { get; }
     }
 }
