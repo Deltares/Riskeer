@@ -291,8 +291,8 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(nameof(GetTargetProbabilitiesFuncsWithDisplayNames))]
-        public void GivenMapLayerWithHydraulicBoundaryLocationsData_WhenSelectedTargetProbabilityRemovedAndNotified_ThenMapDataUpdated(
+        [TestCaseSource(nameof(GetTargetProbabilitiesFuncsWithDisplayNameFormat))]
+        public void GivenMapLayerWithHydraulicBoundaryLocationsData_WhenSelectedTargetProbabilityRemovedAndNotified_ThenMapDataUpdatedSelectedMetaDataAttributeResetToDefault(
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc, string displayName)
         {
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
@@ -330,7 +330,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(nameof(GetTargetProbabilitiesFuncsWithDisplayNames))]
+        [TestCaseSource(nameof(GetTargetProbabilitiesFuncsWithDisplayNameFormat))]
         public void GivenMapLayerWithHydraulicBoundaryLocationsData_WhenNotSelectedTargetProbabilityRemovedAndNotified_ThenMapDataUpdated(
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc, string displayName)
         {
@@ -371,8 +371,8 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(nameof(GetTargetProbabilitiesFuncsWithDisplayNames))]
-        public void GivenMapLayerWithHydraulicBoundaryLocationsData_WhenSelectedTargetProbabilityChangedAndNotified_ThenMapDataUpdated(
+        [TestCaseSource(nameof(GetTargetProbabilitiesFuncsWithDisplayNameFormat))]
+        public void GivenMapLayerWithHydraulicBoundaryLocationsData_WhenSelectedTargetProbabilityChangedAndNotified_ThenMapDataAndSelectedMetaDataAttributeUpdated(
             Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> getTargetProbabilitiesFunc, string displayName)
         {
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
@@ -430,7 +430,7 @@ namespace Riskeer.Common.Forms.Test.Views
                                               assessmentSection => assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities));
         }
 
-        private static IEnumerable<TestCaseData> GetTargetProbabilitiesFuncsWithDisplayNames()
+        private static IEnumerable<TestCaseData> GetTargetProbabilitiesFuncsWithDisplayNameFormat()
         {
             yield return new TestCaseData(new Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(
                                               assessmentSection => assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities),

@@ -45,8 +45,8 @@ namespace Riskeer.Common.Forms.Views
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
 
-        private Observer waterLevelForUserDefinedTargetProbabilitiesListObserver;
-        private Observer waveHeightForUserDefinedTargetProbabilitiesListObserver;
+        private Observer waterLevelForUserDefinedTargetProbabilitiesCollectionObserver;
+        private Observer waveHeightForUserDefinedTargetProbabilitiesCollectionObserver;
 
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability>, HydraulicBoundaryLocationCalculationsForTargetProbability> waterLevelForUserDefinedTargetProbabilitiesObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability>, HydraulicBoundaryLocationCalculationsForTargetProbability> waveHeightForUserDefinedTargetProbabilitiesObserver;
@@ -54,7 +54,7 @@ namespace Riskeer.Common.Forms.Views
         private List<RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>> waterLevelCalculationsForTargetProbabilityObservers;
         private List<RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation>> waveHeightCalculationsForTargetProbabilityObservers;
 
-        private IDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string> currentMetaDataItems;
+        private IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string> currentMetaDataItems;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsMapLayer"/>.
@@ -96,8 +96,8 @@ namespace Riskeer.Common.Forms.Views
                 hydraulicBoundaryLocationsObserver.Dispose();
                 waterLevelCalculationsForSignalingNormObserver.Dispose();
                 waterLevelCalculationsForLowerLimitNormObserver.Dispose();
-                waterLevelForUserDefinedTargetProbabilitiesListObserver.Dispose();
-                waveHeightForUserDefinedTargetProbabilitiesListObserver.Dispose();
+                waterLevelForUserDefinedTargetProbabilitiesCollectionObserver.Dispose();
+                waveHeightForUserDefinedTargetProbabilitiesCollectionObserver.Dispose();
                 waterLevelForUserDefinedTargetProbabilitiesObserver.Dispose();
                 waveHeightForUserDefinedTargetProbabilitiesObserver.Dispose();
 
@@ -118,7 +118,7 @@ namespace Riskeer.Common.Forms.Views
             waterLevelCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
                 assessmentSection.WaterLevelCalculationsForLowerLimitNorm, UpdateFeatures);
 
-            waterLevelForUserDefinedTargetProbabilitiesListObserver = new Observer(() =>
+            waterLevelForUserDefinedTargetProbabilitiesCollectionObserver = new Observer(() =>
             {
                 DeleteTargetProbabilitiesObservers(waterLevelCalculationsForTargetProbabilityObservers);
                 CreateTargetProbabilitiesObservers(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities, waterLevelCalculationsForTargetProbabilityObservers);
@@ -127,7 +127,7 @@ namespace Riskeer.Common.Forms.Views
             {
                 Observable = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
             };
-            waveHeightForUserDefinedTargetProbabilitiesListObserver = new Observer(() =>
+            waveHeightForUserDefinedTargetProbabilitiesCollectionObserver = new Observer(() =>
             {
                 DeleteTargetProbabilitiesObservers(waveHeightCalculationsForTargetProbabilityObservers);
                 CreateTargetProbabilitiesObservers(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities, waveHeightCalculationsForTargetProbabilityObservers);
@@ -181,8 +181,8 @@ namespace Riskeer.Common.Forms.Views
 
         private void SetFeatures()
         {
-            IDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waterLevelCalculations = GetWaterLevelCalculations();
-            IDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waveHeightsCalculations = GetWaveHeightCalculations();
+            IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waterLevelCalculations = GetWaterLevelCalculations();
+            IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waveHeightsCalculations = GetWaveHeightCalculations();
 
             IEnumerable<AggregatedHydraulicBoundaryLocation> newLocations = AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(
                 assessmentSection.HydraulicBoundaryDatabase.Locations, waterLevelCalculations, waveHeightsCalculations);
@@ -195,8 +195,8 @@ namespace Riskeer.Common.Forms.Views
             }
         }
 
-        private void UpdateMetaData(IDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waterLevelCalculations,
-                                    IDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waveHeightsCalculations)
+        private void UpdateMetaData(IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waterLevelCalculations,
+                                    IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waveHeightsCalculations)
         {
             var newMetaDataItems = new Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string>();
 
@@ -237,7 +237,7 @@ namespace Riskeer.Common.Forms.Views
             currentMetaDataItems = newMetaDataItems;
         }
 
-        private IDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> GetWaterLevelCalculations()
+        private IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> GetWaterLevelCalculations()
         {
             Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waterLevelCalculations =
                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.ToDictionary(
@@ -251,7 +251,7 @@ namespace Riskeer.Common.Forms.Views
                                          .ToDictionary(x => x.Key, x => x.Value);
         }
 
-        private IDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> GetWaveHeightCalculations()
+        private IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> GetWaveHeightCalculations()
         {
             return assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
                                     .OrderByDescending(tp => tp.TargetProbability)

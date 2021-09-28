@@ -44,8 +44,8 @@ namespace Riskeer.Common.Forms.Factories
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<AggregatedHydraulicBoundaryLocation> CreateAggregatedHydraulicBoundaryLocations(
             IEnumerable<HydraulicBoundaryLocation> locations,
-            IDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waterLevelCalculations,
-            IDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waveHeightCalculations)
+            IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waterLevelCalculations,
+            IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waveHeightCalculations)
         {
             if (locations == null)
             {
