@@ -43,7 +43,7 @@ namespace Riskeer.DuneErosion.Forms
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<AggregatedDuneLocation> CreateAggregatedDuneLocations(
             IEnumerable<DuneLocation> duneLocations,
-            IDictionary<IObservableEnumerable<DuneLocationCalculation>, double> calculationsForTargetProbabilities)
+            IReadOnlyDictionary<IObservableEnumerable<DuneLocationCalculation>, double> calculationsForTargetProbabilities)
         {
             if (duneLocations == null)
             {

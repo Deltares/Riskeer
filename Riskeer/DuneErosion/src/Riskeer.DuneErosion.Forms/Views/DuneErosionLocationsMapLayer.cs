@@ -38,7 +38,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         private readonly DuneErosionFailureMechanism failureMechanism;
 
         private Observer duneLocationsObserver;
-        private Observer userDefinedTargetProbabilitiesListObserver;
+        private Observer userDefinedTargetProbabilitiesCollectionObserver;
         private RecursiveObserver<IObservableEnumerable<DuneLocationCalculationsForTargetProbability>, DuneLocationCalculationsForTargetProbability> userDefinedTargetProbabilitiesObserver;
 
         private List<RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>> calculationsForTargetProbabilityObservers;
@@ -81,7 +81,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             if (disposing)
             {
                 duneLocationsObserver.Dispose();
-                userDefinedTargetProbabilitiesListObserver.Dispose();
+                userDefinedTargetProbabilitiesCollectionObserver.Dispose();
                 userDefinedTargetProbabilitiesObserver.Dispose();
 
                 DeleteTargetProbabilitiesObservers();
@@ -104,7 +104,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             {
                 Observable = failureMechanism.DuneLocations
             };
-            userDefinedTargetProbabilitiesListObserver = new Observer(() =>
+            userDefinedTargetProbabilitiesCollectionObserver = new Observer(() =>
             {
                 DeleteTargetProbabilitiesObservers();
                 CreateTargetProbabilitiesObservers();
