@@ -150,7 +150,12 @@ namespace Riskeer.DuneErosion.Forms.Views
 
         private void SetFeatures()
         {
-            MapData.Features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(failureMechanism);
+            IEnumerable<AggregatedDuneLocation> locations = AggregatedDuneLocationFactory.CreateAggregatedDuneLocations(
+                failureMechanism.DuneLocations, failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                                                                .OrderByDescending(tp => tp.TargetProbability)
+                                                                .ToDictionary(tp => (IObservableEnumerable<DuneLocationCalculation>) tp.DuneLocationCalculations,
+                                                                              tp => tp.TargetProbability));
+            MapData.Features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(locations);
         }
     }
 }
