@@ -37,17 +37,17 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// <param name="id">The id of the hydraulic boundary location.</param>
         /// <param name="name">The name of the hydraulic boundary location.</param>
         /// <param name="location">The location of the hydraulic boundary location.</param>
-        /// <param name="waterLevelCalculationForTargetProbabilities">The results of the
+        /// <param name="waterLevelCalculationsForTargetProbabilities">The results of the
         /// water level calculations for different target probabilities.</param>
-        /// <param name="waveHeightCalculationForTargetProbabilities">The results of the
+        /// <param name="waveHeightCalculationsForTargetProbabilities">The results of the
         /// wave height calculations for different target probabilities.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>, 
-        /// <paramref name="location"/>, <paramref name="waterLevelCalculationForTargetProbabilities"/>
-        /// or <paramref name="waveHeightCalculationForTargetProbabilities"/> is <c>null</c>.</exception>
+        /// <paramref name="location"/>, <paramref name="waterLevelCalculationsForTargetProbabilities"/>
+        /// or <paramref name="waveHeightCalculationsForTargetProbabilities"/> is <c>null</c>.</exception>
         public AggregatedHydraulicBoundaryLocation(
             long id, string name, Point2D location,
-            IEnumerable<Tuple<double, RoundedDouble>> waterLevelCalculationForTargetProbabilities,
-            IEnumerable<Tuple<double, RoundedDouble>> waveHeightCalculationForTargetProbabilities)
+            IEnumerable<Tuple<double, RoundedDouble>> waterLevelCalculationsForTargetProbabilities,
+            IEnumerable<Tuple<double, RoundedDouble>> waveHeightCalculationsForTargetProbabilities)
         {
             if (name == null)
             {
@@ -59,21 +59,21 @@ namespace Riskeer.Common.Forms.PresentationObjects
                 throw new ArgumentNullException(nameof(location));
             }
 
-            if (waterLevelCalculationForTargetProbabilities == null)
+            if (waterLevelCalculationsForTargetProbabilities == null)
             {
-                throw new ArgumentNullException(nameof(waterLevelCalculationForTargetProbabilities));
+                throw new ArgumentNullException(nameof(waterLevelCalculationsForTargetProbabilities));
             }
 
-            if (waveHeightCalculationForTargetProbabilities == null)
+            if (waveHeightCalculationsForTargetProbabilities == null)
             {
-                throw new ArgumentNullException(nameof(waveHeightCalculationForTargetProbabilities));
+                throw new ArgumentNullException(nameof(waveHeightCalculationsForTargetProbabilities));
             }
 
             Id = id;
             Name = name;
             Location = location;
-            WaterLevelCalculationForTargetProbabilities = waterLevelCalculationForTargetProbabilities;
-            WaveHeightCalculationForTargetProbabilities = waveHeightCalculationForTargetProbabilities;
+            WaterLevelCalculationsForTargetProbabilities = waterLevelCalculationsForTargetProbabilities;
+            WaveHeightCalculationsForTargetProbabilities = waveHeightCalculationsForTargetProbabilities;
         }
 
         /// <summary>
@@ -94,11 +94,11 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the results of the water level calculations for different target probabilities.
         /// </summary>
-        public IEnumerable<Tuple<double, RoundedDouble>> WaterLevelCalculationForTargetProbabilities { get; }
+        public IEnumerable<Tuple<double, RoundedDouble>> WaterLevelCalculationsForTargetProbabilities { get; }
 
         /// <summary>
         /// Gets the results of the wave height calculations for different target probabilities.
         /// </summary>
-        public IEnumerable<Tuple<double, RoundedDouble>> WaveHeightCalculationForTargetProbabilities { get; }
+        public IEnumerable<Tuple<double, RoundedDouble>> WaveHeightCalculationsForTargetProbabilities { get; }
     }
 }

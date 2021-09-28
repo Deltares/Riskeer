@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -60,7 +61,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_WaterLevelCalculationForTargetProbabilitiesNull_ThrowsArgumentNullException()
+        public void Constructor_WaterLevelCalculationsForTargetProbabilitiesNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => new AggregatedHydraulicBoundaryLocation(
@@ -69,11 +70,11 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("waterLevelCalculationForTargetProbabilities", exception.ParamName);
+            Assert.AreEqual("waterLevelCalculationsForTargetProbabilities", exception.ParamName);
         }
 
         [Test]
-        public void Constructor_WaveHeightCalculationForTargetProbabilitiesNull_ThrowsArgumentNullException()
+        public void Constructor_WaveHeightCalculationsForTargetProbabilitiesNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => new AggregatedHydraulicBoundaryLocation(
@@ -82,7 +83,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("waveHeightCalculationForTargetProbabilities", exception.ParamName);
+            Assert.AreEqual("waveHeightCalculationsForTargetProbabilities", exception.ParamName);
         }
 
         [Test]
@@ -94,19 +95,19 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var random = new Random(39);
             long id = random.Next();
             var location = new Point2D(random.NextDouble(), random.NextDouble());
-            Tuple<double, RoundedDouble>[] waterLevelCalculationForTargetProbabilities = Array.Empty<Tuple<double, RoundedDouble>>();
-            Tuple<double, RoundedDouble>[] waveHeightCalculationForTargetProbabilities = Array.Empty<Tuple<double, RoundedDouble>>();
+            var waterLevelCalculationsForTargetProbabilities = new List<Tuple<double, RoundedDouble>>();
+            var waveHeightCalculationsForTargetProbabilities = new List<Tuple<double, RoundedDouble>>();
 
             // Call
             var aggregatedLocation = new AggregatedHydraulicBoundaryLocation(
-                id, name, location, waterLevelCalculationForTargetProbabilities, waveHeightCalculationForTargetProbabilities);
+                id, name, location, waterLevelCalculationsForTargetProbabilities, waveHeightCalculationsForTargetProbabilities);
 
             // Assert
             Assert.AreEqual(id, aggregatedLocation.Id);
             Assert.AreEqual(name, aggregatedLocation.Name);
             Assert.AreSame(location, aggregatedLocation.Location);
-            Assert.AreSame(waterLevelCalculationForTargetProbabilities, aggregatedLocation.WaterLevelCalculationForTargetProbabilities);
-            Assert.AreSame(waveHeightCalculationForTargetProbabilities, aggregatedLocation.WaveHeightCalculationForTargetProbabilities);
+            Assert.AreSame(waterLevelCalculationsForTargetProbabilities, aggregatedLocation.WaterLevelCalculationsForTargetProbabilities);
+            Assert.AreSame(waveHeightCalculationsForTargetProbabilities, aggregatedLocation.WaveHeightCalculationsForTargetProbabilities);
         }
     }
 }

@@ -144,21 +144,21 @@ namespace Riskeer.Common.Forms.Test.Factories
                 Assert.AreEqual(locations[i].Name, aggregatedLocation.Name);
                 Assert.AreEqual(locations[i].Location, aggregatedLocation.Location);
 
-                Assert.AreEqual(waterLevelCalculations.Count, aggregatedLocation.WaterLevelCalculationForTargetProbabilities.Count());
-                Assert.AreEqual(waveHeightCalculations.Count, aggregatedLocation.WaveHeightCalculationForTargetProbabilities.Count());
+                Assert.AreEqual(waterLevelCalculations.Count, aggregatedLocation.WaterLevelCalculationsForTargetProbabilities.Count());
+                Assert.AreEqual(waveHeightCalculations.Count, aggregatedLocation.WaveHeightCalculationsForTargetProbabilities.Count());
 
                 for (var j = 0; j < waterLevelCalculations.Count; j++)
                 {
-                    Assert.AreEqual(waterLevelCalculations.ElementAt(j).Value, aggregatedLocation.WaterLevelCalculationForTargetProbabilities.ElementAt(j).Item1);
+                    Assert.AreEqual(waterLevelCalculations.ElementAt(j).Value, aggregatedLocation.WaterLevelCalculationsForTargetProbabilities.ElementAt(j).Item1);
                     Assert.AreEqual(GetExpectedResult(waterLevelCalculations.ElementAt(j).Key, locations[i]),
-                                    aggregatedLocation.WaterLevelCalculationForTargetProbabilities.ElementAt(j).Item2);
+                                    aggregatedLocation.WaterLevelCalculationsForTargetProbabilities.ElementAt(j).Item2);
                 }
 
                 for (var j = 0; j < waveHeightCalculations.Count; j++)
                 {
-                    Assert.AreEqual(waveHeightCalculations.ElementAt(j).Value, aggregatedLocation.WaveHeightCalculationForTargetProbabilities.ElementAt(j).Item1);
+                    Assert.AreEqual(waveHeightCalculations.ElementAt(j).Value, aggregatedLocation.WaveHeightCalculationsForTargetProbabilities.ElementAt(j).Item1);
                     Assert.AreEqual(GetExpectedResult(waveHeightCalculations.ElementAt(j).Key, locations[i]),
-                                    aggregatedLocation.WaveHeightCalculationForTargetProbabilities.ElementAt(j).Item2);
+                                    aggregatedLocation.WaveHeightCalculationsForTargetProbabilities.ElementAt(j).Item2);
                 }
             }
         }

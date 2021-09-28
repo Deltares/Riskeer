@@ -72,9 +72,9 @@ namespace Riskeer.Common.Forms.Test.Factories
             MapFeaturesMetaDataTestHelper.AssertMetaData(location.Id, feature, "ID");
             MapFeaturesMetaDataTestHelper.AssertMetaData(location.Name, feature, "Naam");
             
-            MapFeaturesMetaDataTestHelper.AssertMetaData(location.WaterLevelCalculationForTargetProbabilities.First().Item2.ToString(), feature, "h - 1/10");
-            MapFeaturesMetaDataTestHelper.AssertMetaData(location.WaterLevelCalculationForTargetProbabilities.Last().Item2.ToString(), feature, "h - 1/10 (1)");
-            MapFeaturesMetaDataTestHelper.AssertMetaData(location.WaveHeightCalculationForTargetProbabilities.First().Item2.ToString(), feature, "Hs - 1/1.000");
+            MapFeaturesMetaDataTestHelper.AssertMetaData(location.WaterLevelCalculationsForTargetProbabilities.First().Item2.ToString(), feature, "h - 1/10");
+            MapFeaturesMetaDataTestHelper.AssertMetaData(location.WaterLevelCalculationsForTargetProbabilities.Last().Item2.ToString(), feature, "h - 1/10 (1)");
+            MapFeaturesMetaDataTestHelper.AssertMetaData(location.WaveHeightCalculationsForTargetProbabilities.First().Item2.ToString(), feature, "Hs - 1/1.000");
         }
     }
 }
